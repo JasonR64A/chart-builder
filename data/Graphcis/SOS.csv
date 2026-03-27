@@ -1,0 +1,1911 @@
+﻿rank,SOS,teamName,sosRating,sport,team_id,Division
+1,1,Columbia,180,baseball,173,D1
+2,0.9968,Virginia Tech,239,baseball,858,D1
+3,0.9935,UC San Diego,208,baseball,810,D1
+4,0.9903,Bowling Green,203,baseball,89,D1
+5,0.987,UCF,225,baseball,813,D1
+6,0.9838,Southern Miss.,266,baseball,722,D1
+7,0.9805,Auburn,248,baseball,43,D1
+8,0.9773,The Citadel,228,baseball,788,D1
+9,0.974,Wright St.,208,baseball,936,D1
+10,0.9708,Florida St.,240,baseball,267,D1
+11,0.9675,Baylor,235,baseball,62,D1
+12,0.9643,Princeton,196,baseball,623,D1
+13,0.961,Troy,239,baseball,799,D1
+14,0.9578,Penn,151,baseball,599,D1
+15,0.9545,Michigan St.,220,baseball,472,D1
+16,0.9513,Missouri St.,223,baseball,492,D1
+17,0.9481,Ole Miss,262,baseball,584,D1
+18,0.9448,Louisiana,236,baseball,419,D1
+19,0.9416,Coastal Carolina,224,baseball,163,D1
+20,0.9383,UT Arlington,237,baseball,838,D1
+21,0.9351,Santa Clara,215,baseball,689,D1
+22,0.9318,UAB,249,baseball,805,D1
+23,0.9286,Youngstown St.,178,baseball,942,D1
+24,0.9253,UC Davis,187,baseball,807,D1
+25,0.9221,Northwestern,190,baseball,559,D1
+26,0.9188,Illinois,217,baseball,345,D1
+27,0.9156,Maine,211,baseball,429,D1
+28,0.9123,North Dakota St.,225,baseball,546,D1
+29,0.9091,Queens (NC),213,baseball,630,D1
+30,0.9058,Cincinnati,238,baseball,152,D1
+31,0.9026,Indiana,218,baseball,349,D1
+32,0.8994,Louisiana Tech,241,baseball,420,D1
+33,0.8961,Ga. Southern,211,baseball,282,D1
+34,0.8929,BYU,222,baseball,101,D1
+35,0.8896,San Diego,197,baseball,684,D1
+36,0.8864,UC Santa Barbara,181,baseball,811,D1
+37,0.8831,Purdue,182,baseball,627,D1
+38,0.8799,CSU Bakersfield,213,baseball,188,D1
+39,0.8766,Tennessee,227,baseball,776,D1
+40,0.8734,Gardner-Webb,199,baseball,286,D1
+41,0.8701,South Carolina,234,baseball,710,D1
+42,0.8669,Southeastern La.,227,baseball,714,D1
+43,0.8636,LMU (CA),246,baseball,414,D1
+44,0.8604,Dartmouth,116,baseball,196,D1
+45,0.8571,Eastern Ky.,226,baseball,228,D1
+46,0.8539,Stetson,240,baseball,756,D1
+47,0.8506,South Dakota St.,227,baseball,711,D1
+48,0.8474,TCU,206,baseball,775,D1
+49,0.8442,Harvard,140,baseball,318,D1
+50,0.8409,Arkansas St.,221,baseball,37,D1
+50,0.8409,Florida,234,baseball,265,D1
+52,0.8344,Texas,214,baseball,781,D1
+53,0.8312,Oakland,181,baseball,569,D1
+54,0.8279,Stanford,189,baseball,753,D1
+55,0.8247,Oklahoma,220,baseball,580,D1
+56,0.8214,Virginia,226,baseball,856,D1
+57,0.8182,Kennesaw St.,178,baseball,370,D1
+58,0.8149,Boston College,209,baseball,87,D1
+59,0.8117,Houston,218,baseball,337,D1
+60,0.8084,Maryland,201,baseball,446,D1
+61,0.8052,North Carolina,226,baseball,543,D1
+62,0.8019,Gonzaga,174,baseball,299,D1
+63,0.7987,DBU,213,baseball,201,D1
+64,0.7955,USC Upstate,231,baseball,837,D1
+65,0.7922,Sacred Heart,154,baseball,664,D1
+66,0.789,Mississippi St.,212,baseball,488,D1
+67,0.7857,Memphis,188,baseball,461,D1
+68,0.7825,Alabama,225,baseball,8,D1
+69,0.7792,Ohio St.,199,baseball,576,D1
+70,0.776,UNCW,213,baseball,829,D1
+71,0.7727,UCLA,198,baseball,815,D1
+72,0.7695,Nicholls,228,baseball,537,D1
+73,0.7662,VCU,196,baseball,854,D1
+74,0.763,North Ala.,215,baseball,542,D1
+75,0.7597,UTRGV,220,baseball,845,D1
+76,0.7565,Washington St.,183,baseball,872,D1
+77,0.7532,Western Ill.,182,baseball,892,D1
+78,0.75,Houston Christian,204,baseball,338,D1
+79,0.7468,Florida A&M,162,baseball,266,D1
+80,0.7435,Xavier,214,baseball,937,D1
+81,0.7403,Texas A&M,194,baseball,782,D1
+82,0.737,Rice,209,baseball,643,D1
+83,0.7338,Evansville,197,baseball,250,D1
+84,0.7305,UConn,199,baseball,816,D1
+85,0.7273,South Alabama,221,baseball,709,D1
+86,0.724,Clemson,212,baseball,160,D1
+87,0.7208,Notre Dame,180,baseball,565,D1
+88,0.7175,Kansas,191,baseball,366,D1
+89,0.7143,Cal Poly,180,baseball,105,D1
+90,0.711,Cornell,122,baseball,182,D1
+91,0.7078,Fla. Atlantic,191,baseball,262,D1
+92,0.7045,Southeast Mo. St.,203,baseball,713,D1
+93,0.7013,George Mason,165,baseball,289,D1
+94,0.6981,Miami (FL),197,baseball,469,D1
+95,0.6948,St. John's (NY),176,baseball,740,D1
+96,0.6916,West Ga.,203,baseball,884,D1
+97,0.6883,Tarleton St.,187,baseball,773,D1
+98,0.6851,UC Irvine,206,baseball,808,D1
+99,0.6818,Milwaukee,191,baseball,479,D1
+100,0.6786,Liberty,169,baseball,405,D1
+101,0.6753,Portland,154,baseball,619,D1
+102,0.6721,Stony Brook,161,baseball,761,D1
+103,0.6688,Iowa,171,baseball,353,D1
+104,0.6656,Georgia St.,215,baseball,294,D1
+105,0.6623,Arizona St.,199,baseball,32,D1
+106,0.6591,Grand Canyon,207,baseball,302,D1
+107,0.6558,Michigan,182,baseball,471,D1
+108,0.6526,Indiana St.,187,baseball,351,D1
+109,0.6494,St. Bonaventure,163,baseball,736,D1
+110,0.6461,Ark.-Pine Bluff,204,baseball,35,D1
+111,0.6429,Kansas St.,197,baseball,367,D1
+112,0.6396,Pepperdine,166,baseball,607,D1
+113,0.6364,East Carolina,209,baseball,220,D1
+114,0.6331,Oklahoma St.,207,baseball,581,D1
+115,0.6299,FIU,202,baseball,261,D1
+116,0.6266,Samford,183,baseball,683,D1
+117,0.6234,Air Force,180,baseball,6,D1
+118,0.6201,San Jose St.,171,baseball,688,D1
+119,0.6169,Hofstra,127,baseball,331,D1
+120,0.6136,Texas St.,178,baseball,785,D1
+121,0.6104,Northern Colo.,214,baseball,553,D1
+122,0.6071,Wake Forest,197,baseball,864,D1
+123,0.6039,Austin Peay,204,baseball,51,D1
+124,0.6006,Radford,146,baseball,634,D1
+125,0.5974,Bradley,185,baseball,90,D1
+126,0.5942,Oregon St.,182,baseball,589,D1
+127,0.5909,Creighton,159,baseball,186,D1
+128,0.5877,Bryant,147,baseball,97,D1
+129,0.5844,Western Caro.,202,baseball,891,D1
+130,0.5812,Omaha,168,baseball,586,D1
+131,0.5779,Lipscomb,159,baseball,411,D1
+132,0.5747,Western Ky.,195,baseball,893,D1
+133,0.5714,Winthrop,197,baseball,919,D1
+134,0.5682,Toledo,140,baseball,792,D1
+135,0.5649,Delaware,174,baseball,204,D1
+136,0.5617,Southern California,195,baseball,717,D1
+137,0.5584,Arizona,185,baseball,31,D1
+138,0.5552,Stonehill,137,baseball,760,D1
+139,0.5519,Nevada,164,baseball,527,D1
+140,0.5487,Louisville,178,baseball,421,D1
+141,0.5455,Elon,181,baseball,239,D1
+142,0.5422,Valparaiso,151,baseball,851,D1
+143,0.539,Lafayette,129,baseball,384,D1
+144,0.5357,Penn St.,166,baseball,601,D1
+145,0.5325,Ohio,179,baseball,573,D1
+146,0.5292,Oral Roberts,196,baseball,587,D1
+147,0.526,Kentucky,195,baseball,372,D1
+148,0.5227,New Mexico St.,158,baseball,532,D1
+149,0.5195,Southern U.,154,baseball,725,D1
+150,0.5162,Georgia Tech,173,baseball,295,D1
+151,0.513,High Point,173,baseball,326,D1
+152,0.5097,Charlotte,189,baseball,145,D1
+153,0.5065,California,183,baseball,114,D1
+154,0.5032,Lamar University,193,baseball,388,D1
+155,0.5,Nebraska,194,baseball,525,D1
+156,0.4968,Siena,119,baseball,702,D1
+157,0.4935,UNC Greensboro,175,baseball,827,D1
+158,0.4903,Central Ark.,196,baseball,135,D1
+159,0.487,LSU,204,baseball,422,D1
+160,0.4838,Saint Joseph's,158,baseball,668,D1
+161,0.4805,Sam Houston,175,baseball,682,D1
+162,0.4773,Coppin St.,122,baseball,181,D1
+163,0.474,McNeese,177,baseball,457,D1
+164,0.4708,UIC,165,baseball,817,D1
+165,0.4675,Hawaii,161,baseball,320,D1
+166,0.4643,Charleston So.,163,baseball,144,D1
+167,0.461,Butler,187,baseball,100,D1
+168,0.4578,Long Beach St.,177,baseball,416,D1
+169,0.4545,Northern Ky.,174,baseball,554,D1
+170,0.4513,Col. of Charleston,169,baseball,167,D1
+171,0.4481,Arkansas,208,baseball,36,D1
+172,0.4448,UMBC,120,baseball,824,D1
+173,0.4416,Lehigh,134,baseball,397,D1
+174,0.4383,Bucknell,126,baseball,98,D1
+175,0.4351,Jacksonville,169,baseball,356,D1
+176,0.4318,Northwestern St.,192,baseball,561,D1
+177,0.4286,Niagara,111,baseball,536,D1
+177,0.4286,Morehead St.,181,baseball,505,D1
+179,0.4221,Saint Mary's (CA),170,baseball,672,D1
+180,0.4188,William & Mary,155,baseball,910,D1
+181,0.4156,Belmont,183,baseball,65,D1
+182,0.4123,San Diego St.,174,baseball,685,D1
+183,0.4091,Jacksonville St.,187,baseball,357,D1
+184,0.4058,Delaware St.,134,baseball,205,D1
+185,0.4026,Kent St.,153,baseball,371,D1
+186,0.3994,Pacific,169,baseball,595,D1
+187,0.3961,Sacramento St.,182,baseball,663,D1
+188,0.3929,Cal St. Fullerton,174,baseball,109,D1
+189,0.3896,Western Mich.,149,baseball,894,D1
+190,0.3864,James Madison,152,baseball,358,D1
+191,0.3831,Northeastern,144,baseball,551,D1
+192,0.3799,Texas Tech,162,baseball,786,D1
+193,0.3766,Presbyterian,187,baseball,622,D1
+194,0.3734,UC Riverside,160,baseball,809,D1
+195,0.3701,Wagner,132,baseball,863,D1
+196,0.3669,Eastern Mich.,168,baseball,229,D1
+197,0.3636,Oregon,157,baseball,588,D1
+198,0.3604,Minnesota,176,baseball,483,D1
+199,0.3571,Brown,109,baseball,96,D1
+200,0.3539,Georgetown,166,baseball,291,D1
+201,0.3506,Central Mich.,137,baseball,137,D1
+202,0.3474,Marist,143,baseball,438,D1
+203,0.3442,Fordham,146,baseball,270,D1
+204,0.3409,UTSA,180,baseball,846,D1
+205,0.3377,Bellarmine,163,baseball,64,D1
+206,0.3344,Tennessee Tech,179,baseball,777,D1
+207,0.3312,Alcorn,161,baseball,16,D1
+208,0.3279,Davidson,145,baseball,198,D1
+209,0.3247,Seton Hall,118,baseball,694,D1
+210,0.3214,Binghamton,127,baseball,78,D1
+211,0.3182,Middle Tenn.,171,baseball,473,D1
+212,0.3149,A&M-Corpus Christi,158,baseball,1,D1
+213,0.3117,Missouri,152,baseball,490,D1
+213,0.3117,Villanova,132,baseball,855,D1
+215,0.3052,West Virginia,132,baseball,888,D1
+216,0.3019,Monmouth,123,baseball,499,D1
+217,0.2987,Abilene Christian,177,baseball,2,D1
+218,0.2955,Seattle U,128,baseball,693,D1
+219,0.2922,Campbell,155,baseball,120,D1
+220,0.289,Rutgers,153,baseball,660,D1
+221,0.2857,Southern Ill.,154,baseball,719,D1
+222,0.2825,N.C. A&T,148,baseball,519,D1
+223,0.2792,Illinois St.,172,baseball,347,D1
+224,0.276,Grambling,145,baseball,301,D1
+225,0.2727,St. Thomas (MN),150,baseball,750,D1
+226,0.2695,Tulane,174,baseball,802,D1
+227,0.2662,App State,151,baseball,29,D1
+228,0.263,FGCU,166,baseball,258,D1
+229,0.2597,Longwood,147,baseball,417,D1
+230,0.2565,Iona,92,baseball,352,D1
+231,0.2532,New Orleans,195,baseball,533,D1
+232,0.25,Miami (OH),144,baseball,470,D1
+233,0.2468,Rhode Island,127,baseball,640,D1
+234,0.2435,SFA,169,baseball,697,D1
+235,0.2403,Quinnipiac,126,baseball,633,D1
+236,0.237,Mississippi Val.,152,baseball,489,D1
+237,0.2338,Massachusetts,81,baseball,452,D1
+237,0.2338,Alabama St.,144,baseball,11,D1
+239,0.2273,Utah,141,baseball,841,D1
+240,0.224,Lindenwood,147,baseball,409,D1
+241,0.2208,North Florida,172,baseball,547,D1
+242,0.2175,NC State,154,baseball,523,D1
+243,0.2143,Marshall,150,baseball,440,D1
+244,0.211,UAlbany,96,baseball,806,D1
+244,0.211,Vanderbilt,180,baseball,852,D1
+246,0.2045,New Haven,85,baseball,529,D1
+247,0.2013,Merrimack,101,baseball,466,D1
+248,0.1981,Le Moyne,99,baseball,394,D1
+248,0.1981,Army West Point,134,baseball,39,D1
+250,0.1916,Prairie View,137,baseball,621,D1
+251,0.1883,South Fla.,150,baseball,712,D1
+252,0.1851,Ball St.,138,baseball,56,D1
+253,0.1818,Richmond,137,baseball,644,D1
+254,0.1786,CSUN,141,baseball,190,D1
+255,0.1753,Old Dominion,135,baseball,582,D1
+256,0.1721,Duke,157,baseball,217,D1
+257,0.1688,Bethune-Cookman,152,baseball,77,D1
+258,0.1656,San Francisco,134,baseball,687,D1
+259,0.1623,Georgia,156,baseball,292,D1
+260,0.1591,Washington,156,baseball,870,D1
+261,0.1558,UIW,158,baseball,819,D1
+262,0.1526,Pittsburgh,134,baseball,614,D1
+263,0.1494,ULM,172,baseball,820,D1
+264,0.1461,SIUE,154,baseball,705,D1
+265,0.1429,Alabama A&M,176,baseball,9,D1
+266,0.1396,UMass Lowell,118,baseball,823,D1
+267,0.1364,Fresno St.,142,baseball,280,D1
+268,0.1331,Mercer,140,baseball,462,D1
+269,0.1299,George Washington,124,baseball,290,D1
+270,0.1266,Fairfield,106,baseball,251,D1
+271,0.1234,Norfolk St.,108,baseball,541,D1
+272,0.1201,Canisius,102,baseball,121,D1
+273,0.1169,California Baptist,132,baseball,116,D1
+274,0.1136,Little Rock,151,baseball,412,D1
+275,0.1104,Wofford,140,baseball,932,D1
+276,0.1071,Saint Louis,143,baseball,670,D1
+277,0.1039,Utah Valley,133,baseball,843,D1
+278,0.1006,UNLV,151,baseball,832,D1
+279,0.0974,ETSU,120,baseball,248,D1
+280,0.0942,Eastern Ill.,120,baseball,227,D1
+281,0.0909,Texas Southern,104,baseball,784,D1
+282,0.0877,Rider,86,baseball,645,D1
+283,0.0844,UMES,92,baseball,825,D1
+284,0.0812,Murray St.,135,baseball,516,D1
+285,0.0779,NIU,112,baseball,539,D1
+286,0.0747,Jackson St.,130,baseball,355,D1
+287,0.0714,Mount St. Mary's,92,baseball,509,D1
+288,0.0682,New Mexico,130,baseball,531,D1
+289,0.0649,NJIT,90,baseball,540,D1
+290,0.0617,La Salle,116,baseball,949,D1
+291,0.0584,Wichita St.,143,baseball,906,D1
+292,0.0552,Utah Tech,141,baseball,842,D1
+293,0.0519,Holy Cross,106,baseball,332,D1
+294,0.0487,FDU,94,baseball,254,D1
+295,0.0455,Mercyhurst,78,baseball,465,D1
+296,0.0422,UNC Asheville,124,baseball,826,D1
+297,0.039,Southern Ind.,118,baseball,720,D1
+298,0.0357,Saint Peter's,83,baseball,675,D1
+299,0.0325,Akron,101,baseball,7,D1
+300,0.0292,Yale,74,baseball,938,D1
+301,0.026,LIU,78,baseball,413,D1
+302,0.0227,UT Martin,115,baseball,839,D1
+303,0.0195,Dayton,109,baseball,200,D1
+304,0.0162,Towson,82,baseball,793,D1
+305,0.013,Manhattan,74,baseball,432,D1
+306,0.0097,Navy,73,baseball,522,D1
+307,0.0065,Central Conn. St.,36,baseball,136,D1
+308,0.0032,VMI,58,baseball,859,D1
+1,1,Mary,196,baseball,442,D2
+2,0.996,CSU Pueblo,295,baseball,189,D2
+3,0.9921,Davenport,272,baseball,197,D2
+4,0.9881,Fla. Southern,332,baseball,263,D2
+5,0.9842,Minn. Duluth,214,baseball,480,D2
+6,0.9802,Chico St.,343,baseball,148,D2
+7,0.9763,Lenoir-Rhyne,349,baseball,400,D2
+8,0.9723,Jefferson,129,baseball,359,D2
+9,0.9684,Colorado Mesa,293,baseball,172,D2
+10,0.9644,Montevallo,385,baseball,503,D2
+11,0.9605,Cal St. Monterey Bay,310,baseball,110,D2
+12,0.9565,Findlay,191,baseball,259,D2
+13,0.9526,Missouri S&T,196,baseball,491,D2
+14,0.9486,Rollins,269,baseball,655,D2
+15,0.9447,Arkansas Tech,393,baseball,38,D2
+16,0.9407,Fresno Pacific,327,baseball,279,D2
+17,0.9368,Lynn,283,baseball,427,D2
+18,0.9328,D'Youville,159,baseball,218,D2
+19,0.9289,Embry-Riddle (FL),277,baseball,240,D2
+20,0.9249,Mars Hill,375,baseball,439,D2
+21,0.9209,Missouri Western,295,baseball,493,D2
+22,0.917,Indiana (PA),120,baseball,350,D2
+23,0.913,Jamestown,228,baseball,962,D2
+24,0.9091,Maryville (MO),223,baseball,448,D2
+25,0.9051,Frostburg St.,154,baseball,281,D2
+26,0.9012,North Greenville,413,baseball,549,D2
+27,0.8972,Belmont Abbey,355,baseball,66,D2
+28,0.8933,Millersville,193,baseball,476,D2
+29,0.8893,Cal Poly Pomona,231,baseball,106,D2
+30,0.8854,West Chester,121,baseball,882,D2
+31,0.8814,Assumption,119,baseball,42,D2
+32,0.8775,Nova Southeastern,269,baseball,567,D2
+33,0.8735,Mo.-St. Louis,223,baseball,497,D2
+34,0.8696,Ga. Southwestern,387,baseball,283,D2
+35,0.8656,Okla. Christian,340,baseball,579,D2
+36,0.8617,Bloomsburg,89,baseball,83,D2
+37,0.8577,UT Tyler,338,baseball,840,D2
+38,0.8538,AUM,369,baseball,48,D2
+39,0.8498,Valdosta St.,335,baseball,849,D2
+40,0.8458,Middle Georgia,338,baseball,2258,D2
+41,0.8419,Coker,340,baseball,166,D2
+42,0.8379,CSUSB,198,baseball,191,D2
+43,0.834,Slippery Rock,116,baseball,707,D2
+44,0.83,Gannon,124,baseball,285,D2
+45,0.8261,Concord,187,baseball,175,D2
+46,0.8221,Lock Haven,141,baseball,415,D2
+47,0.8182,Tusculum,336,baseball,803,D2
+48,0.8142,Flagler,309,baseball,264,D2
+49,0.8103,Mount Olive,322,baseball,508,D2
+50,0.8063,East Central,304,baseball,221,D2
+51,0.8024,Minn.-Crookston,214,baseball,481,D2
+52,0.7984,Emporia St.,272,baseball,245,D2
+53,0.7945,Roosevelt,159,baseball,955,D2
+54,0.7905,Cal State LA,263,baseball,112,D2
+55,0.7866,Carson-Newman,309,baseball,125,D2
+56,0.7826,Mississippi Col.,338,baseball,487,D2
+57,0.7787,Barton,271,baseball,59,D2
+58,0.7747,Columbus St.,269,baseball,174,D2
+59,0.7708,Northwest Mo. St.,274,baseball,557,D2
+60,0.7668,Spring Hill,306,baseball,733,D2
+61,0.7628,Pittsburg St.,294,baseball,613,D2
+62,0.7589,Lander,359,baseball,390,D2
+63,0.7549,California (PA),126,baseball,115,D2
+64,0.751,West Florida,320,baseball,883,D2
+65,0.747,Cedarville,200,baseball,131,D2
+66,0.7431,Hawaii Pacific,308,baseball,322,D2
+67,0.7391,Eastern N.M.,316,baseball,230,D2
+68,0.7352,Southern Ark.,307,baseball,716,D2
+69,0.7312,Chowan,219,baseball,149,D2
+70,0.7273,Vanguard,267,baseball,1010,D2
+71,0.7233,Sul Ross St.,316,baseball,763,D2
+72,0.7194,Cal St. Dom. Hills,236,baseball,107,D2
+73,0.7154,Central Mo.,297,baseball,138,D2
+74,0.7115,McKendree,224,baseball,454,D2
+75,0.7075,Northwood,179,baseball,563,D2
+76,0.7036,Texas-Dallas,315,baseball,787,D2
+77,0.6996,Francis Marion,298,baseball,273,D2
+78,0.6957,Hillsdale,165,baseball,328,D2
+79,0.6917,Tiffin,146,baseball,791,D2
+80,0.6877,Saint Leo,220,baseball,669,D2
+81,0.6838,Mansfield,146,baseball,434,D2
+81,0.6838,Drury,219,baseball,215,D2
+83,0.6759,Mo. Southern St.,264,baseball,496,D2
+84,0.6719,Christian Brothers,289,baseball,151,D2
+85,0.668,Delta St.,300,baseball,207,D2
+86,0.664,Trevecca Nazarene,351,baseball,795,D2
+87,0.6601,Franklin Pierce,102,baseball,277,D2
+88,0.6561,Holy Family,161,baseball,954,D2
+89,0.6522,Azusa Pacific,297,baseball,53,D2
+90,0.6482,Southern Conn. St.,108,baseball,718,D2
+91,0.6443,Lewis,144,baseball,403,D2
+91,0.6443,Pace,96,baseball,594,D2
+93,0.6364,USC Beaufort,310,baseball,836,D2
+94,0.6324,USC Aiken,326,baseball,835,D2
+95,0.6285,Fort Hays St.,265,baseball,271,D2
+96,0.6245,Shorter,274,baseball,701,D2
+97,0.6206,Young Harris,307,baseball,941,D2
+98,0.6166,Regis (CO),283,baseball,638,D2
+99,0.6126,Augustana (SD),182,baseball,47,D2
+100,0.6087,Wilmington (DE),141,baseball,914,D2
+101,0.6047,Wingate,304,baseball,917,D2
+102,0.6008,Seton Hill,141,baseball,695,D2
+103,0.5968,Queens (NY),90,baseball,631,D2
+104,0.5929,Lubbock Christian,301,baseball,423,D2
+105,0.5889,Ark.-Monticello,289,baseball,34,D2
+106,0.585,Davis & Elkins,164,baseball,199,D2
+107,0.581,Virginia St.,30,baseball,857,D2
+108,0.5771,Claflin,203,baseball,153,D2
+109,0.5731,Bluefield St.,120,baseball,84,D2
+110,0.5692,Lee,300,baseball,396,D2
+111,0.5652,Catawba,281,baseball,127,D2
+112,0.5613,Florida Tech,230,baseball,268,D2
+113,0.5573,Molloy,102,baseball,498,D2
+114,0.5534,Truman St.,185,baseball,800,D2
+115,0.5494,Northwest Nazarene,276,baseball,558,D2
+116,0.5455,Saint Michael's,94,baseball,674,D2
+117,0.5415,Union (TN),300,baseball,831,D2
+118,0.5375,UNC Pembroke,274,baseball,828,D2
+119,0.5336,Saint Anselm,80,baseball,735,D2
+120,0.5296,Henderson St.,271,baseball,324,D2
+121,0.5257,Southwestern Okla.,291,baseball,731,D2
+122,0.5217,Chaminade,315,baseball,952,D2
+123,0.5178,Georgia College,304,baseball,293,D2
+124,0.5138,Bemidji St.,138,baseball,68,D2
+124,0.5138,West Liberty,115,baseball,885,D2
+126,0.5059,Palm Beach Atl.,179,baseball,598,D2
+127,0.502,St. Mary's (TX),295,baseball,746,D2
+128,0.498,Southeastern Okla.,296,baseball,715,D2
+129,0.4941,Kentucky St.,208,baseball,373,D2
+130,0.4901,Pitt.-Johnstown,135,baseball,612,D2
+131,0.4862,Eckerd,213,baseball,232,D2
+132,0.4822,Southern Wesleyan,330,baseball,727,D2
+133,0.4783,Felician,121,baseball,256,D2
+134,0.4743,Southwest Baptist,166,baseball,728,D2
+135,0.4704,Minot St.,148,baseball,485,D2
+136,0.4664,UT Permian Basin,285,baseball,2242,D2
+136,0.4664,Lincoln (PA),106,baseball,407,D2
+138,0.4585,North Georgia,325,baseball,548,D2
+139,0.4545,Okla. Baptist,258,baseball,578,D2
+140,0.4506,Sioux Falls,150,baseball,704,D2
+141,0.4466,Cameron,277,baseball,119,D2
+142,0.4427,Biola,298,baseball,79,D2
+143,0.4387,Bentley,126,baseball,71,D2
+144,0.4348,UAH,256,baseball,10,D2
+145,0.4308,Cal St. San Marcos,155,baseball,111,D2
+146,0.4269,Purdue Northwest,106,baseball,629,D2
+147,0.4229,Newman,253,baseball,535,D2
+148,0.419,Savannah St.,189,baseball,690,D2
+149,0.415,Angelo St.,285,baseball,27,D2
+150,0.4111,Grand Valley St.,150,baseball,303,D2
+151,0.4071,Ouachita Baptist,262,baseball,592,D2
+152,0.4032,Northeastern St.,244,baseball,552,D2
+153,0.3992,Anderson (SC),291,baseball,26,D2
+154,0.3953,Minnesota St.,168,baseball,484,D2
+155,0.3913,Barry,221,baseball,58,D2
+156,0.3874,Albany St. (GA),264,baseball,12,D2
+157,0.3834,Quincy,204,baseball,632,D2
+158,0.3794,Tampa,238,baseball,772,D2
+159,0.3755,Bridgeport,107,baseball,93,D2
+160,0.3715,Central Okla.,239,baseball,139,D2
+161,0.3676,American Int'l,112,baseball,23,D2
+162,0.3636,Harding,262,baseball,315,D2
+163,0.3597,East Stroudsburg,109,baseball,222,D2
+164,0.3557,Charleston (WV),164,baseball,143,D2
+165,0.3518,Erskine,324,baseball,247,D2
+166,0.3478,Walsh,108,baseball,865,D2
+167,0.3439,Menlo,276,baseball,953,D2
+168,0.3399,Lake Erie,126,baseball,386,D2
+169,0.336,Wayne St. (MI),138,baseball,874,D2
+170,0.332,UIndy,211,baseball,818,D2
+171,0.3281,UVA Wise,232,baseball,847,D2
+172,0.3241,St. Cloud St.,166,baseball,737,D2
+173,0.3202,Emory & Henry,259,baseball,244,D2
+174,0.3162,Chestnut Hill,100,baseball,147,D2
+175,0.3123,Point Loma,269,baseball,617,D2
+176,0.3083,Emmanuel (GA),269,baseball,242,D2
+177,0.3043,Goldey-Beacom,116,baseball,298,D2
+178,0.3004,Edward Waters,188,baseball,234,D2
+179,0.2964,Western Ore.,199,baseball,896,D2
+180,0.2925,Southern Nazarene,230,baseball,724,D2
+181,0.2885,Clarion,92,baseball,155,D2
+182,0.2846,CUI,284,baseball,192,D2
+183,0.2806,Lincoln Memorial,262,baseball,408,D2
+184,0.2767,West Va. Wesleyan,118,baseball,887,D2
+185,0.2727,Ark.-Fort Smith,211,baseball,33,D2
+186,0.2688,West Virginia St.,107,baseball,889,D2
+187,0.2648,West Ala.,253,baseball,881,D2
+188,0.2609,Fairmont St.,111,baseball,252,D2
+189,0.2569,Ashland,146,baseball,41,D2
+190,0.253,Ill. Springfield,174,baseball,343,D2
+191,0.249,Colo. Christian,220,baseball,170,D2
+192,0.2451,Post,155,baseball,620,D2
+193,0.2411,Augusta,272,baseball,45,D2
+194,0.2372,Washburn,226,baseball,869,D2
+195,0.2332,West Tex. A&M,257,baseball,886,D2
+196,0.2292,Ky. Wesleyan,141,baseball,381,D2
+197,0.2253,MSU Denver,191,baseball,512,D2
+198,0.2213,Mont. St. Billings,199,baseball,501,D2
+199,0.2174,Southwest Minn. St.,114,baseball,729,D2
+200,0.2134,LeMoyne-Owen,132,baseball,399,D2
+200,0.2134,Lincoln (MO),80,baseball,1083,D2
+202,0.2055,Winona St.,119,baseball,918,D2
+203,0.2016,UCCS,224,baseball,812,D2
+204,0.1976,Dominican (NY),121,baseball,213,D2
+205,0.1937,Wis.-Parkside,124,baseball,924,D2
+206,0.1897,Saginaw Valley,127,baseball,665,D2
+207,0.1858,Malone,108,baseball,430,D2
+208,0.1818,Benedict,141,baseball,69,D2
+209,0.1779,Ohio Dominican,87,baseball,574,D2
+210,0.1739,Central Wash.,151,baseball,140,D2
+211,0.17,Glenville St.,122,baseball,297,D2
+212,0.166,Hawaii Hilo,208,baseball,321,D2
+213,0.1621,Saint Martin's,203,baseball,671,D2
+214,0.1581,Westmont,190,baseball,951,D2
+215,0.1542,Adelphi,65,baseball,4,D2
+216,0.1502,Point Park,96,baseball,965,D2
+217,0.1462,Salem (WV),135,baseball,678,D2
+218,0.1423,Stanislaus St.,171,baseball,754,D2
+219,0.1383,Concordia-St. Paul,156,baseball,180,D2
+220,0.1344,Staten Island,68,baseball,755,D2
+221,0.1304,Mercy,107,baseball,464,D2
+222,0.1265,Northwestern Okla.,255,baseball,560,D2
+223,0.1225,Rogers St.,179,baseball,654,D2
+224,0.1186,Shippensburg,81,baseball,700,D2
+225,0.1146,Georgian Court,95,baseball,1477,D2
+226,0.1107,Morehouse,133,baseball,506,D2
+227,0.1067,N.M. Highlands,169,baseball,521,D2
+228,0.1028,Jessup,233,baseball,963,D2
+229,0.0988,Wayne St. (NE),143,baseball,875,D2
+230,0.0949,King (TN),238,baseball,377,D2
+231,0.0909,Tex. A&M Int'l,230,baseball,778,D2
+232,0.087,Newberry,246,baseball,534,D2
+233,0.083,Ferrum,180,baseball,257,D2
+234,0.0791,St. Thomas Aquinas,93,baseball,752,D2
+235,0.0751,St. Edward's,220,baseball,738,D2
+236,0.0711,Rockhurst,142,baseball,652,D2
+237,0.0672,Cal St. East Bay,181,baseball,108,D2
+238,0.0632,Tex. A&M-Kingsville,225,baseball,779,D2
+239,0.0593,Tuskegee,138,baseball,804,D2
+240,0.0553,William Jewell,118,baseball,911,D2
+241,0.0514,Kutztown,68,baseball,380,D2
+242,0.0474,Lane,148,baseball,391,D2
+243,0.0435,Adams St.,164,baseball,3,D2
+244,0.0395,Clark Atlanta,147,baseball,157,D2
+245,0.0356,Miles,105,baseball,475,D2
+246,0.0316,Northern St.,80,baseball,555,D2
+247,0.0277,Southern N.H.,62,baseball,723,D2
+248,0.0237,Colo. Sch. of Mines,145,baseball,171,D2
+249,0.0198,Shepherd,104,baseball,699,D2
+250,0.0158,Caldwell,65,baseball,113,D2
+251,0.0119,Thomas More,78,baseball,948,D2
+252,0.0079,Upper Iowa,118,baseball,833,D2
+253,0.004,Wheeling,77,baseball,902,D2
+1,1,Trinity (TX),98,baseball,798,D3
+2,0.9974,Vassar,55,baseball,853,D3
+3,0.9947,Tufts,74,baseball,801,D3
+4,0.9921,Nichols,77,baseball,538,D3
+5,0.9895,Transylvania,112,baseball,794,D3
+6,0.9868,DeSales,124,baseball,210,D3
+7,0.9842,Salve Regina,74,baseball,681,D3
+8,0.9816,Caltech,102,baseball,117,D3
+9,0.9789,Williams,17,baseball,913,D3
+10,0.9763,Maranatha Baptist,27,baseball,435,D3
+11,0.9737,Alvernia,68,baseball,22,D3
+12,0.9711,Simpson,47,baseball,703,D3
+13,0.9684,UChicago,111,baseball,814,D3
+14,0.9658,Cortland,105,baseball,184,D3
+15,0.9632,Randolph-Macon,102,baseball,636,D3
+16,0.9605,Misericordia,124,baseball,486,D3
+17,0.9579,Messiah,100,baseball,467,D3
+18,0.9553,Stevens,92,baseball,757,D3
+19,0.9526,York (PA),101,baseball,940,D3
+20,0.95,La Roche,78,baseball,382,D3
+21,0.9474,SUNY Oneonta,65,baseball,768,D3
+22,0.9447,Carleton,18,baseball,123,D3
+22,0.9447,NYU,35,baseball,568,D3
+22,0.9447,Colby-Sawyer,54,baseball,169,D3
+25,0.9368,Elmhurst,68,baseball,236,D3
+26,0.9342,Cairn,75,baseball,103,D3
+27,0.9316,Keuka,36,baseball,375,D3
+28,0.9289,Oglethorpe,139,baseball,572,D3
+29,0.9263,RIT,85,baseball,647,D3
+30,0.9237,Adrian,100,baseball,5,D3
+31,0.9211,Lycoming,101,baseball,425,D3
+32,0.9184,Arcadia,67,baseball,30,D3
+33,0.9158,Marietta,94,baseball,437,D3
+34,0.9132,MUW,139,baseball,518,D3
+35,0.9105,Husson,37,baseball,341,D3
+36,0.9079,Southern Me.,52,baseball,721,D3
+37,0.9053,Amherst,35,baseball,24,D3
+38,0.9026,Webster,113,baseball,877,D3
+39,0.9,John Carroll,94,baseball,360,D3
+40,0.8974,Denison,81,baseball,208,D3
+41,0.8947,Bethany Lutheran,59,baseball,75,D3
+42,0.8921,Maryville (TN),142,baseball,449,D3
+43,0.8895,Emory,124,baseball,243,D3
+44,0.8868,Luther,74,baseball,424,D3
+45,0.8842,Anderson (IN),97,baseball,25,D3
+46,0.8816,Drew,80,baseball,214,D3
+47,0.8789,La Verne,133,baseball,383,D3
+48,0.8763,Bridgewater (VA),146,baseball,94,D3
+49,0.8737,Emerson,50,baseball,241,D3
+50,0.8711,Pacific (OR),112,baseball,596,D3
+51,0.8684,Merchant Marine,45,baseball,463,D3
+52,0.8658,Babson,54,baseball,54,D3
+53,0.8632,Pitt.-Bradford,72,baseball,610,D3
+54,0.8605,CWRU,84,baseball,194,D3
+55,0.8579,SUNY Cobleskill,44,baseball,164,D3
+55,0.8579,Ohio Northern,88,baseball,575,D3
+57,0.8526,Wabash,101,baseball,862,D3
+58,0.85,North Central (IL),84,baseball,544,D3
+59,0.8474,Albright,58,baseball,15,D3
+60,0.8447,New England Col.,56,baseball,528,D3
+61,0.8421,Hanover,89,baseball,314,D3
+62,0.8395,Willamette,103,baseball,909,D3
+63,0.8368,Ithaca,68,baseball,354,D3
+64,0.8342,Hartford,39,baseball,317,D3
+65,0.8316,Claremont-M-S,162,baseball,154,D3
+66,0.8289,Berea,147,baseball,72,D3
+67,0.8263,Buena Vista,69,baseball,99,D3
+68,0.8237,Mt. St. Joseph,79,baseball,513,D3
+69,0.8211,Curry,59,baseball,193,D3
+70,0.8184,Belhaven,141,baseball,63,D3
+71,0.8158,St. Joseph's (L.I.),40,baseball,742,D3
+72,0.8132,Coast Guard,51,baseball,162,D3
+72,0.8132,Wash. & Jeff.,68,baseball,867,D3
+74,0.8079,Mitchell,68,baseball,495,D3
+75,0.8053,Berry,116,baseball,73,D3
+76,0.8026,Franklin & Marshall,86,baseball,276,D3
+77,0.8,Aurora,91,baseball,49,D3
+77,0.8,Rochester (NY),56,baseball,650,D3
+77,0.8,Wilson,63,baseball,916,D3
+80,0.7921,Farmingdale St.,40,baseball,253,D3
+81,0.7895,Wesleyan (CT),51,baseball,880,D3
+82,0.7868,Dominican (IL),69,baseball,212,D3
+83,0.7842,St. John Fisher,88,baseball,739,D3
+84,0.7816,Immaculata,74,baseball,348,D3
+85,0.7789,Penn St. Harrisburg,101,baseball,602,D3
+86,0.7763,Pitt.-Greensburg,64,baseball,611,D3
+87,0.7737,Franciscan,34,baseball,274,D3
+88,0.7711,Suffolk,49,baseball,762,D3
+89,0.7684,Heidelberg,92,baseball,323,D3
+89,0.7684,Saint Elizabeth,69,baseball,666,D3
+89,0.7684,Concordia Chicago,92,baseball,177,D3
+92,0.7605,Catholic,75,baseball,128,D3
+93,0.7579,Mary Baldwin,121,baseball,443,D3
+94,0.7553,Allegheny,82,baseball,19,D3
+95,0.7526,Westfield St.,55,baseball,897,D3
+96,0.75,Trine,99,baseball,796,D3
+97,0.7474,Loras,83,baseball,418,D3
+98,0.7447,Lynchburg,122,baseball,426,D3
+99,0.7421,Salem St.,20,baseball,679,D3
+99,0.7421,Baldwin Wallace,80,baseball,55,D3
+101,0.7368,Piedmont,147,baseball,609,D3
+102,0.7342,SUNY Canton,36,baseball,765,D3
+103,0.7316,New Jersey City,45,baseball,530,D3
+104,0.7289,Centenary (NJ),79,baseball,133,D3
+105,0.7263,UW-River Falls,21,baseball,1970,D3
+106,0.7237,MIT,50,baseball,494,D3
+107,0.7211,Dickinson,79,baseball,211,D3
+108,0.7184,Wilkes,64,baseball,908,D3
+109,0.7158,Gustavus Adolphus,60,baseball,309,D3
+110,0.7132,Norwich,66,baseball,564,D3
+111,0.7105,Hamilton,36,baseball,311,D3
+112,0.7079,TCNJ,100,baseball,774,D3
+113,0.7053,Millsaps,130,baseball,478,D3
+114,0.7026,St. Thomas (TX),204,baseball,751,D3
+115,0.7,LeTourneau,184,baseball,402,D3
+116,0.6974,Shenandoah,123,baseball,698,D3
+117,0.6947,Penn St.-Behrend,66,baseball,605,D3
+118,0.6921,McMurry,206,baseball,456,D3
+119,0.6895,Capital,111,baseball,122,D3
+120,0.6868,Utica,39,baseball,844,D3
+121,0.6842,Kean,85,baseball,368,D3
+121,0.6842,Neumann,40,baseball,526,D3
+123,0.6789,Wm. Paterson,74,baseball,931,D3
+124,0.6763,Minn.-Morris,80,baseball,482,D3
+124,0.6763,N.C. Wesleyan,130,baseball,520,D3
+124,0.6763,Wis.-Stout,30,baseball,927,D3
+127,0.6684,Coe,66,baseball,165,D3
+128,0.6658,Alfred St.,122,baseball,18,D3
+129,0.6632,Wooster,97,baseball,933,D3
+130,0.6605,Carthage,75,baseball,126,D3
+130,0.6605,Keene St.,75,baseball,369,D3
+132,0.6553,Eastern,71,baseball,225,D3
+133,0.6526,Wash. & Lee,121,baseball,868,D3
+134,0.65,Southwestern (TX),142,baseball,730,D3
+135,0.6474,Chapman,146,baseball,142,D3
+136,0.6447,Ill. Wesleyan,74,baseball,344,D3
+137,0.6421,Endicott,57,baseball,246,D3
+138,0.6395,Alma,102,baseball,21,D3
+139,0.6368,Ozarks (AR),163,baseball,593,D3
+140,0.6342,Bowdoin,44,baseball,88,D3
+141,0.6316,Wittenberg,104,baseball,930,D3
+141,0.6316,Brandeis,39,baseball,91,D3
+143,0.6263,Rose-Hulman,71,baseball,656,D3
+144,0.6237,Calvin,84,baseball,118,D3
+145,0.6211,Benedictine (IL),70,baseball,70,D3
+146,0.6184,Thomas (ME),39,baseball,790,D3
+147,0.6158,Chris. Newport,114,baseball,150,D3
+148,0.6132,St. Olaf,54,baseball,748,D3
+149,0.6105,Edgewood,75,baseball,233,D3
+150,0.6079,Wartburg,82,baseball,866,D3
+151,0.6053,LaGrange,156,baseball,385,D3
+152,0.6026,Centenary (LA),183,baseball,132,D3
+153,0.6,East Tex. Baptist,147,baseball,223,D3
+154,0.5974,Muskingum,106,baseball,517,D3
+155,0.5947,UMass Dartmouth,76,baseball,822,D3
+156,0.5921,Schreiner,193,baseball,691,D3
+157,0.5895,Ripon,56,baseball,646,D3
+158,0.5868,Rowan,41,baseball,658,D3
+159,0.5842,Bates,17,baseball,61,D3
+160,0.5816,Stockton,43,baseball,759,D3
+161,0.5789,Hood,110,baseball,334,D3
+162,0.5763,Sewanee,87,baseball,696,D3
+163,0.5737,Susquehanna,90,baseball,770,D3
+164,0.5711,Oswego St.,73,baseball,590,D3
+165,0.5684,Albion,67,baseball,14,D3
+166,0.5658,Illinois Tech,65,baseball,342,D3
+167,0.5632,Penn St.-Abington,68,baseball,603,D3
+168,0.5605,Dubuque,71,baseball,216,D3
+169,0.5579,Millikin,93,baseball,477,D3
+170,0.5553,Northwestern-St. Paul,52,baseball,562,D3
+171,0.5526,Monmouth (IL),85,baseball,500,D3
+172,0.55,WashU,74,baseball,873,D3
+173,0.5474,Macalester,69,baseball,428,D3
+174,0.5447,SUNY Maritime,47,baseball,766,D3
+175,0.5421,Puget Sound,155,baseball,625,D3
+176,0.5395,Central (IA),86,baseball,134,D3
+177,0.5368,Occidental,128,baseball,571,D3
+178,0.5342,Scranton,58,baseball,692,D3
+179,0.5316,Austin,171,baseball,50,D3
+180,0.5289,Whitworth,159,baseball,905,D3
+181,0.5263,Saint Mary's (MN),77,baseball,673,D3
+182,0.5237,Clark (MA),62,baseball,156,D3
+183,0.5211,Grove City,77,baseball,307,D3
+184,0.5184,Redlands,157,baseball,637,D3
+185,0.5158,Roger Williams,48,baseball,653,D3
+186,0.5132,Concordia-M'head,67,baseball,179,D3
+187,0.5105,East. Mennonite,100,baseball,224,D3
+188,0.5079,Greensboro,120,baseball,304,D3
+189,0.5053,Me.-Farmington,19,baseball,458,D3
+190,0.5026,Spalding,82,baseball,732,D3
+191,0.5,Hobart,84,baseball,330,D3
+192,0.4974,Skidmore,44,baseball,706,D3
+193,0.4947,Mary Hardin-Baylor,136,baseball,444,D3
+194,0.4921,Westminster (MO),101,baseball,898,D3
+195,0.4895,Widener,73,baseball,907,D3
+196,0.4868,Southern Va.,99,baseball,726,D3
+197,0.4842,SUNY Brockport,83,baseball,764,D3
+198,0.4816,Earlham,56,baseball,219,D3
+199,0.4789,Salisbury,86,baseball,680,D3
+200,0.4763,George Fox,117,baseball,288,D3
+201,0.4737,North Central (MN),60,baseball,545,D3
+202,0.4711,Moravian,61,baseball,504,D3
+203,0.4684,Hilbert,77,baseball,327,D3
+204,0.4658,Chatham,72,baseball,146,D3
+205,0.4632,Wis.-Oshkosh,44,baseball,923,D3
+206,0.4605,Mary Washington,96,baseball,445,D3
+207,0.4579,Bluffton,71,baseball,85,D3
+208,0.4553,Pacific Lutheran,66,baseball,597,D3
+209,0.4526,Johns Hopkins,86,baseball,362,D3
+210,0.45,Worcester St.,20,baseball,934,D3
+210,0.45,Penn St.-Berks,44,baseball,606,D3
+210,0.45,Lebanon Valley,63,baseball,395,D3
+210,0.45,St. Lawrence,18,baseball,744,D3
+210,0.45,Springfield,26,baseball,734,D3
+210,0.45,Beloit,57,baseball,67,D3
+210,0.45,Me.-Presque Isle,4,baseball,459,D3
+210,0.45,Plymouth St.,20,baseball,616,D3
+218,0.4289,Hampden-Sydney,118,baseball,313,D3
+219,0.4263,Fredonia,50,baseball,278,D3
+220,0.4237,Blackburn,81,baseball,81,D3
+221,0.4211,Montclair St.,80,baseball,502,D3
+222,0.4184,Western New Eng.,41,baseball,895,D3
+223,0.4158,Whitman,84,baseball,903,D3
+224,0.4132,Va. Wesleyan,113,baseball,848,D3
+225,0.4105,Bridgewater St.,37,baseball,95,D3
+226,0.4079,Saint John's (MN),35,baseball,667,D3
+227,0.4053,North Park,93,baseball,550,D3
+228,0.4026,Delaware Valley,59,baseball,206,D3
+229,0.4,Thiel,61,baseball,789,D3
+230,0.3974,Rensselaer,76,baseball,639,D3
+231,0.3947,Ramapo,45,baseball,635,D3
+232,0.3921,McDaniel,89,baseball,453,D3
+233,0.3895,Wis.-Whitewater,58,baseball,929,D3
+234,0.3868,Pomona-Pitzer,130,baseball,618,D3
+235,0.3842,Rutgers-Camden,56,baseball,661,D3
+236,0.3816,Huntingdon,136,baseball,340,D3
+237,0.3789,Illinois Col.,68,baseball,346,D3
+238,0.3763,Whittier,136,baseball,904,D3
+239,0.3737,Asbury,118,baseball,40,D3
+240,0.3711,JWU (Providence),69,baseball,364,D3
+241,0.3684,Manchester,73,baseball,431,D3
+242,0.3658,Methodist,107,baseball,468,D3
+243,0.3632,DePauw,54,baseball,209,D3
+243,0.3632,Marywood,54,baseball,450,D3
+245,0.3579,Franklin,68,baseball,275,D3
+246,0.3553,Elizabethtown,64,baseball,235,D3
+247,0.3526,Cornell College,59,baseball,183,D3
+248,0.35,Texas Lutheran,166,baseball,783,D3
+249,0.3474,UMSV,36,baseball,161,D3
+250,0.3447,Gettysburg,72,baseball,296,D3
+251,0.3421,Lawrence,46,baseball,393,D3
+252,0.3395,Grinnell,70,baseball,306,D3
+253,0.3368,Kalamazoo,78,baseball,365,D3
+254,0.3342,Pfeiffer,122,baseball,608,D3
+255,0.3316,Averett,100,baseball,52,D3
+256,0.3289,Swarthmore,80,baseball,771,D3
+257,0.3263,Mass. Maritime,34,baseball,451,D3
+258,0.3237,Elms,58,baseball,238,D3
+259,0.3211,Colby,33,baseball,168,D3
+260,0.3184,Rhodes,87,baseball,642,D3
+261,0.3158,Waynesburg,66,baseball,876,D3
+261,0.3158,Ursinus,75,baseball,834,D3
+261,0.3158,Wis.-Platteville,30,baseball,925,D3
+264,0.3079,Wis.-Superior,44,baseball,928,D3
+265,0.3053,Concordia Wisconsin,58,baseball,178,D3
+266,0.3026,Gwynedd Mercy,50,baseball,310,D3
+267,0.3,Lewis & Clark,90,baseball,404,D3
+268,0.2974,Wilmington (OH),48,baseball,915,D3
+269,0.2947,Ohio Wesleyan,61,baseball,577,D3
+270,0.2921,Roanoke,101,baseball,649,D3
+271,0.2895,Bard,35,baseball,57,D3
+272,0.2868,Middlebury,41,baseball,474,D3
+273,0.2842,Oberlin,71,baseball,570,D3
+274,0.2816,Lakeland,57,baseball,387,D3
+275,0.2789,Guilford,102,baseball,308,D3
+275,0.2789,Valley Forge,51,baseball,850,D3
+277,0.2737,Lancaster Bible,42,baseball,389,D3
+278,0.2711,Linfield,74,baseball,410,D3
+279,0.2684,Marymount (VA),72,baseball,447,D3
+280,0.2658,Hiram,56,baseball,329,D3
+281,0.2632,Cal Lutheran,99,baseball,104,D3
+282,0.2605,Otterbein,54,baseball,591,D3
+283,0.2579,Wis.-Eau Claire,14,baseball,921,D3
+284,0.2553,SUNY New Paltz,55,baseball,767,D3
+285,0.2526,Lyon,90,baseball,957,D3
+286,0.25,VTSU Castleton,58,baseball,860,D3
+287,0.2474,Penn St. Brandywine,55,baseball,964,D3
+288,0.2447,Fitchburg St.,52,baseball,260,D3
+289,0.2421,Wentworth,62,baseball,879,D3
+290,0.2395,Principia,35,baseball,624,D3
+290,0.2395,Rivier,35,baseball,648,D3
+292,0.2342,Rutgers-Newark,50,baseball,662,D3
+293,0.2316,Rosemont,46,baseball,657,D3
+294,0.2289,Crown (MN),56,baseball,187,D3
+295,0.2263,Anna Maria,47,baseball,28,D3
+296,0.2237,Mount Aloysius,82,baseball,507,D3
+297,0.2211,Marian (WI),56,baseball,436,D3
+298,0.2184,Covenant,91,baseball,185,D3
+299,0.2158,William Peace,87,baseball,912,D3
+300,0.2132,Mount Union,82,baseball,510,D3
+301,0.2105,Carroll (WI),68,baseball,124,D3
+302,0.2079,Wheaton (MA),30,baseball,901,D3
+303,0.2053,Dallas,153,baseball,195,D3
+304,0.2026,St. Norbert,41,baseball,747,D3
+305,0.2,Wheaton (IL),69,baseball,900,D3
+306,0.1974,Lasell,28,baseball,392,D3
+307,0.1947,Penn St.-Altoona,53,baseball,604,D3
+308,0.1921,Baruch,32,baseball,60,D3
+309,0.1895,Purchase,27,baseball,626,D3
+310,0.1868,Eureka,49,baseball,249,D3
+311,0.1842,Hendrix,135,baseball,325,D3
+312,0.1816,Lesley,8,baseball,401,D3
+312,0.1816,Keystone,56,baseball,376,D3
+314,0.1763,Penn College,34,baseball,600,D3
+315,0.1737,Clarkson,38,baseball,159,D3
+316,0.1711,Washington Col.,60,baseball,871,D3
+316,0.1711,St. Scholastica,55,baseball,749,D3
+318,0.1658,Howard Payne,114,baseball,339,D3
+319,0.1632,Augustana (IL),59,baseball,46,D3
+320,0.1605,Trinity (CT),33,baseball,797,D3
+321,0.1579,Elmira,40,baseball,237,D3
+322,0.1553,WPI,39,baseball,935,D3
+323,0.1526,Union (NY),32,baseball,830,D3
+324,0.15,Notre Dame (MD),52,baseball,1084,D3
+325,0.1474,Muhlenberg,49,baseball,515,D3
+326,0.1447,JWU Charlotte,70,baseball,2257,D3
+327,0.1421,Gordon,42,baseball,300,D3
+328,0.1395,Greenville,71,baseball,305,D3
+329,0.1368,UMass Boston,34,baseball,821,D3
+329,0.1368,Russell Sage,22,baseball,659,D3
+331,0.1316,Eastern Conn. St.,33,baseball,226,D3
+332,0.1289,Saint Joseph (CT),35,baseball,958,D3
+333,0.1263,WestConn,31,baseball,890,D3
+333,0.1263,Lehman,31,baseball,398,D3
+335,0.1211,Haverford,44,baseball,319,D3
+336,0.1184,Geneva,47,baseball,287,D3
+337,0.1158,FDU-Florham,55,baseball,255,D3
+338,0.1132,Wis.-Stevens Point,22,baseball,926,D3
+339,0.1105,Concordia (TX),123,baseball,176,D3
+340,0.1079,Knox,33,baseball,379,D3
+341,0.1053,Wis. Lutheran,44,baseball,920,D3
+342,0.1026,Neb. Wesleyan,45,baseball,524,D3
+343,0.1,Westminster (PA),37,baseball,899,D3
+344,0.0974,Dean,35,baseball,202,D3
+345,0.0947,Wis.-La Crosse,18,baseball,922,D3
+346,0.0921,CCNY,21,baseball,130,D3
+347,0.0895,VTSU Lyndon,16,baseball,861,D3
+348,0.0868,MSOE,58,baseball,511,D3
+349,0.0842,Bethany (WV),34,baseball,74,D3
+350,0.0816,Hope,60,baseball,335,D3
+351,0.0789,Kenyon,64,baseball,374,D3
+352,0.0763,Mt. St. Mary (NY),46,baseball,514,D3
+353,0.0737,Hamline,58,baseball,312,D3
+354,0.0711,Hardin-Simmons,107,baseball,316,D3
+355,0.0684,Juniata,32,baseball,363,D3
+356,0.0658,Rockford,40,baseball,651,D3
+357,0.0632,Alfred,44,baseball,959,D3
+358,0.0605,John Jay,40,baseball,361,D3
+359,0.0579,Regent,78,baseball,2259,D3
+360,0.0553,Albertus Magnus,27,baseball,13,D3
+361,0.0526,Framingham St.,12,baseball,272,D3
+362,0.05,Rhode Island Col.,34,baseball,641,D3
+363,0.0474,Brevard,78,baseball,92,D3
+364,0.0447,Centre,67,baseball,141,D3
+365,0.0421,St. Joseph's (ME),42,baseball,743,D3
+366,0.0395,Martin Luther,54,baseball,441,D3
+367,0.0368,Houghton,28,baseball,336,D3
+368,0.0342,Old Westbury,18,baseball,583,D3
+369,0.0316,Manhattanville,30,baseball,433,D3
+370,0.0289,Bethel (MN),20,baseball,76,D3
+371,0.0263,St. Joseph's (Brkln),19,baseball,741,D3
+372,0.0237,King's (PA),29,baseball,378,D3
+373,0.0211,Saint Vincent,34,baseball,677,D3
+374,0.0184,Stevenson,24,baseball,758,D3
+375,0.0158,St. Mary's (MD),32,baseball,745,D3
+376,0.0132,Yeshiva,15,baseball,939,D3
+377,0.0105,Plattsburgh St.,21,baseball,615,D3
+378,0.0079,Olivet,25,baseball,585,D3
+379,0.0053,SUNY Poly,21,baseball,769,D3
+380,0.0026,MCLA,8,baseball,455,D3
+1,1,Nebraska,514,softball,1146,D1
+2,0.9968,Tennessee,526,softball,1161,D1
+3,0.9935,Georgia Tech,580,softball,1116,D1
+4,0.9903,Ole Miss,539,softball,1243,D1
+5,0.987,LSU,518,softball,1159,D1
+6,0.9838,Georgia,510,softball,1151,D1
+7,0.9805,Arkansas,490,softball,1195,D1
+8,0.9773,Auburn,546,softball,1303,D1
+9,0.974,Alabama,496,softball,1308,D1
+10,0.9708,Coastal Carolina,495,softball,1176,D1
+11,0.9675,Ohio St.,423,softball,1139,D1
+12,0.9643,Oregon,510,softball,1117,D1
+13,0.961,Arizona,490,softball,1096,D1
+14,0.9578,Baylor,491,softball,1170,D1
+15,0.9545,Clemson,519,softball,1144,D1
+16,0.9513,Texas,465,softball,1085,D1
+17,0.9481,South Carolina,500,softball,1340,D1
+18,0.9448,Samford,482,softball,1179,D1
+19,0.9416,Stanford,396,softball,1221,D1
+20,0.9383,Houston,520,softball,1149,D1
+21,0.9351,Dartmouth,168,softball,1198,D1
+22,0.9318,BYU,464,softball,1100,D1
+23,0.9286,Florida St.,462,softball,1094,D1
+24,0.9253,Charlotte,503,softball,1248,D1
+25,0.9221,Oklahoma St.,474,softball,1119,D1
+26,0.9188,Washington,469,softball,1101,D1
+27,0.9156,Florida,537,softball,1095,D1
+28,0.9123,Stetson,468,softball,1325,D1
+29,0.9091,Boston College,452,softball,1324,D1
+30,0.9058,Missouri,519,softball,1282,D1
+31,0.9026,Texas A&M,474,softball,1120,D1
+32,0.8994,Duke,496,softball,1098,D1
+33,0.8961,Northwestern,430,softball,1225,D1
+34,0.8929,UCLA,460,softball,1104,D1
+35,0.8896,California,483,softball,1118,D1
+36,0.8864,UCF,487,softball,1130,D1
+37,0.8831,Marshall,459,softball,1106,D1
+38,0.8799,Michigan St.,423,softball,1320,D1
+39,0.8766,UC Riverside,337,softball,1236,D1
+40,0.8734,Memphis,449,softball,1376,D1
+41,0.8701,Michigan,463,softball,1222,D1
+42,0.8669,South Alabama,512,softball,1316,D1
+43,0.8636,Rutgers,420,softball,1134,D1
+44,0.8604,Mississippi St.,514,softball,1138,D1
+45,0.8571,Minnesota,446,softball,1137,D1
+46,0.8539,McNeese,490,softball,1229,D1
+47,0.8506,Liberty,424,softball,1277,D1
+48,0.8474,Ga. Southern,432,softball,1291,D1
+49,0.8442,Kentucky,442,softball,1194,D1
+50,0.8409,Southern Utah,507,softball,1213,D1
+51,0.836,Boise St.,493,softball,1125,D1
+52,0.8344,Maryland,408,softball,1200,D1
+53,0.8312,Wisconsin,375,softball,1262,D1
+54,0.8279,San Diego St.,440,softball,1168,D1
+55,0.8247,Kennesaw St.,388,softball,1360,D1
+56,0.8214,Texas Tech,458,softball,1113,D1
+57,0.8182,UAB,454,softball,1327,D1
+58,0.8149,Tulsa,431,softball,1133,D1
+59,0.8117,FGCU,396,softball,1281,D1
+60,0.8084,Notre Dame,441,softball,1158,D1
+61,0.8052,Col. of Charleston,439,softball,1305,D1
+62,0.8019,Villanova,416,softball,1254,D1
+63,0.7987,Eastern Ill.,413,softball,1147,D1
+64,0.7955,ULM,480,softball,1178,D1
+65,0.7922,N.C. Central,341,softball,1302,D1
+66,0.789,Fordham,300,softball,1184,D1
+67,0.7857,Louisiana,462,softball,1102,D1
+68,0.7825,South Fla.,478,softball,1304,D1
+69,0.7792,New Mexico St.,452,softball,1142,D1
+70,0.776,Elon,398,softball,1239,D1
+71,0.7727,Evansville,374,softball,1313,D1
+72,0.7695,Arizona St.,455,softball,1191,D1
+73,0.7662,Radford,374,softball,1290,D1
+74,0.763,Oregon St.,520,softball,1356,D1
+75,0.7597,Cal St. Fullerton,386,softball,1107,D1
+76,0.7565,Virginia Tech,449,softball,1089,D1
+77,0.7532,Belmont,373,softball,1269,D1
+78,0.75,Fresno St.,365,softball,1108,D1
+79,0.7468,Charleston So.,406,softball,1349,D1
+80,0.7435,Oklahoma,478,softball,1086,D1
+81,0.7403,Texas St.,455,softball,1154,D1
+82,0.737,Wichita St.,414,softball,1172,D1
+83,0.7338,Portland St.,357,softball,1209,D1
+84,0.7305,Montana,330,softball,1267,D1
+85,0.7273,NC State,422,softball,1231,D1
+86,0.724,West Ga.,421,softball,1461,D1
+87,0.7208,South Dakota,436,softball,1343,D1
+88,0.7175,San Jose St.,377,softball,1240,D1
+89,0.7143,New Mexico,443,softball,1288,D1
+90,0.711,Western Mich.,304,softball,1188,D1
+91,0.7078,UIC,374,softball,1339,D1
+92,0.7045,Bethune-Cookman,421,softball,1203,D1
+93,0.7013,Abilene Christian,413,softball,1183,D1
+94,0.6981,UTEP,391,softball,1175,D1
+95,0.6948,Utah St.,402,softball,1152,D1
+96,0.6916,Jacksonville St.,442,softball,1274,D1
+97,0.6883,James Madison,375,softball,1114,D1
+98,0.6851,Longwood,405,softball,1268,D1
+99,0.6818,Kansas,440,softball,1206,D1
+100,0.6786,St. Thomas (MN),383,softball,2061,D1
+101,0.6753,Louisiana Tech,433,softball,1259,D1
+102,0.6721,Fla. Atlantic,414,softball,1141,D1
+103,0.6688,North Ala.,337,softball,1275,D1
+104,0.6656,IU Indy,345,softball,1223,D1
+105,0.6623,Purdue,397,softball,1298,D1
+106,0.6591,Loyola Chicago,348,softball,1294,D1
+107,0.6558,Louisville,391,softball,1208,D1
+108,0.6526,Brown,227,softball,1257,D1
+109,0.6494,Binghamton,257,softball,1211,D1
+110,0.6461,Nevada,439,softball,1091,D1
+111,0.6429,UConn,361,softball,1260,D1
+112,0.6396,Missouri St.,357,softball,1296,D1
+113,0.6364,Delaware,359,softball,1153,D1
+114,0.6331,East Carolina,427,softball,1122,D1
+115,0.6299,Northwestern St.,431,softball,1333,D1
+116,0.6266,North Texas,429,softball,1273,D1
+117,0.6234,Georgia St.,426,softball,1332,D1
+118,0.6201,Winthrop,407,softball,1307,D1
+119,0.6169,Southern Miss.,454,softball,1292,D1
+120,0.6136,Penn St.,414,softball,1187,D1
+121,0.6104,Lipscomb,359,softball,1342,D1
+122,0.6071,Central Ark.,416,softball,1293,D1
+123,0.6039,Southern Ill.,369,softball,1235,D1
+124,0.6006,Central Mich.,294,softball,1331,D1
+125,0.5974,Pacific,386,softball,1323,D1
+126,0.5942,CSU Bakersfield,378,softball,1346,D1
+127,0.5909,SFA,430,softball,1354,D1
+128,0.5877,Southeast Mo. St.,336,softball,1177,D1
+129,0.5844,Illinois St.,326,softball,1258,D1
+130,0.5812,Akron,357,softball,1218,D1
+131,0.5779,Southeastern La.,487,softball,1090,D1
+132,0.5747,Nicholls,404,softball,1244,D1
+133,0.5714,Furman,359,softball,1280,D1
+134,0.5682,Virginia,372,softball,1321,D1
+135,0.5649,UNI,296,softball,1271,D1
+136,0.5617,UC Santa Barbara,410,softball,1157,D1
+137,0.5584,Middle Tenn.,350,softball,1272,D1
+138,0.5552,San Diego,358,softball,1246,D1
+139,0.5519,Boston U.,355,softball,1099,D1
+140,0.5487,Illinois,382,softball,1148,D1
+141,0.5455,Lamar University,415,softball,#N/A,D1
+142,0.5422,LMU (CA),425,softball,1174,D1
+143,0.539,Syracuse,258,softball,1180,D1
+144,0.5357,Jacksonville,402,softball,1334,D1
+145,0.5325,Army West Point,324,softball,1330,D1
+146,0.5292,Hawaii,336,softball,1270,D1
+147,0.526,Yale,240,softball,1237,D1
+148,0.5227,Toledo,340,softball,1121,D1
+149,0.5195,Santa Clara,375,softball,1215,D1
+150,0.5162,Kent St.,280,softball,1126,D1
+151,0.513,FIU,394,softball,1169,D1
+152,0.5097,Murray St.,336,softball,1355,D1
+153,0.5065,UNLV,378,softball,1103,D1
+154,0.5032,North Florida,446,softball,1255,D1
+155,0.5,Mercer,318,softball,1234,D1
+156,0.4968,Austin Peay,364,softball,1247,D1
+157,0.4935,Western Caro.,331,softball,1193,D1
+158,0.4903,A&M-Corpus Christi,421,softball,1301,D1
+159,0.487,Chattanooga,340,softball,1132,D1
+160,0.4838,Utah,408,softball,1123,D1
+161,0.4805,Sam Houston,458,softball,1284,D1
+162,0.4773,Bradley,355,softball,1300,D1
+163,0.474,Omaha,324,softball,1224,D1
+164,0.4708,UMass Lowell,263,softball,1317,D1
+165,0.4675,Saint Francis,300,softball,1124,D1
+166,0.4643,Western Ky.,338,softball,1143,D1
+167,0.461,Campbell,359,softball,1156,D1
+168,0.4578,Drake,308,softball,1192,D1
+169,0.4545,Princeton,229,softball,1186,D1
+170,0.4513,Harvard,240,softball,1110,D1
+171,0.4481,Seattle U,305,softball,1127,D1
+172,0.4448,Colgate,323,softball,1266,D1
+173,0.4416,Pittsburgh,352,softball,1328,D1
+174,0.4383,East Texas A&M,406,softball,2079,D1
+175,0.4351,UNC Greensboro,369,softball,1249,D1
+176,0.4318,App State,340,softball,1150,D1
+177,0.4286,Columbia,262,softball,1256,D1
+178,0.4237,Stonehill,224,softball,2062,D1
+179,0.4221,Queens (NC),302,softball,2059,D1
+180,0.4188,UNCW,343,softball,1309,D1
+181,0.4156,Iowa,347,softball,1285,D1
+182,0.4123,Holy Cross,157,softball,1306,D1
+183,0.4091,North Dakota St.,389,softball,1350,D1
+184,0.4058,Houston Christian,368,softball,1286,D1
+185,0.4026,Creighton,369,softball,1190,D1
+186,0.3994,St. Bonaventure,286,softball,1380,D1
+187,0.3961,Eastern Ky.,338,softball,1140,D1
+188,0.3929,North Carolina,312,softball,1088,D1
+189,0.3896,Northern Colo.,388,softball,1279,D1
+190,0.3864,Buffalo,287,softball,1312,D1
+191,0.3831,Alabama St.,368,softball,1164,D1
+192,0.3799,Troy,364,softball,1129,D1
+193,0.3766,Iona,200,softball,1314,D1
+194,0.3734,UIW,377,softball,1109,D1
+195,0.3701,California Baptist,433,softball,1105,D1
+196,0.3669,Howard,272,softball,1093,D1
+197,0.3636,Morgan St.,161,softball,1250,D1
+198,0.3604,Lehigh,299,softball,1131,D1
+199,0.3571,Providence,246,softball,1201,D1
+200,0.3539,Tennessee Tech,276,softball,1166,D1
+201,0.3506,DePaul,342,softball,1357,D1
+202,0.3474,UTSA,393,softball,1374,D1
+203,0.3442,FDU,211,softball,1368,D1
+204,0.3409,USC Upstate,321,softball,1263,D1
+205,0.3377,Indiana,366,softball,1112,D1
+206,0.3344,Sacramento St.,353,softball,1160,D1
+207,0.3312,Detroit Mercy,271,softball,1377,D1
+208,0.3279,Rider,212,softball,1232,D1
+209,0.3247,Presbyterian,333,softball,1348,D1
+210,0.3214,Wofford,273,softball,1358,D1
+211,0.3182,Kansas City,274,softball,1322,D1
+212,0.3149,Bryant,253,softball,1135,D1
+213,0.3117,Florida A&M,281,softball,1115,D1
+214,0.3068,Saint Joseph's,257,softball,1238,D1
+215,0.3052,Bucknell,268,softball,1344,D1
+216,0.3019,Oakland,139,softball,1245,D1
+217,0.2987,Cal Poly,288,softball,1163,D1
+218,0.2955,Lafayette,280,softball,1379,D1
+219,0.2922,Drexel,246,softball,1336,D1
+220,0.289,UC Davis,319,softball,1338,D1
+221,0.2857,Idaho St.,396,softball,1155,D1
+222,0.2825,Saint Mary's (CA),333,softball,1162,D1
+223,0.2792,Grand Canyon,387,softball,1092,D1
+224,0.276,Utah Tech,353,softball,2066,D1
+225,0.2727,Seton Hall,259,softball,1197,D1
+226,0.2695,Northern Ky.,253,softball,1181,D1
+227,0.2662,St. John's (NY),321,softball,1297,D1
+228,0.263,Iowa St.,316,softball,1227,D1
+229,0.2597,Penn,201,softball,1265,D1
+230,0.2565,Massachusetts,268,softball,1351,D1
+231,0.2532,Long Beach St.,356,softball,1315,D1
+232,0.25,Weber St.,376,softball,1216,D1
+233,0.2468,Jackson St.,244,softball,1233,D1
+234,0.2435,Miami (OH),303,softball,1087,D1
+235,0.2403,George Washington,245,softball,1136,D1
+236,0.237,UT Martin,326,softball,1182,D1
+237,0.2338,Saint Louis,281,softball,1212,D1
+238,0.2289,SIUE,315,softball,1185,D1
+239,0.2273,Prairie View,305,softball,1128,D1
+240,0.224,Colorado St.,342,softball,1097,D1
+241,0.2208,Delaware St.,184,softball,1251,D1
+242,0.2175,Utah Valley,311,softball,1165,D1
+243,0.2143,Ohio,291,softball,1202,D1
+244,0.211,Grambling,228,softball,1347,D1
+245,0.2062,Stony Brook,244,softball,1167,D1
+246,0.2045,Ark.-Pine Bluff,221,softball,1359,D1
+247,0.2013,Canisius,167,softball,1283,D1
+248,0.1981,Southern Ind.,242,softball,2060,D1
+249,0.1932,Southern U.,216,softball,1287,D1
+250,0.1916,Alcorn,197,softball,1362,D1
+251,0.1883,Lindenwood,310,softball,2057,D1
+252,0.1851,Sacred Heart,214,softball,1311,D1
+253,0.1818,NIU,179,softball,1207,D1
+254,0.1786,Green Bay,242,softball,1361,D1
+255,0.1753,UMBC,149,softball,1217,D1
+256,0.1721,Indiana St.,296,softball,1276,D1
+257,0.1688,UAlbany,141,softball,1171,D1
+258,0.1656,Robert Morris,159,softball,1261,D1
+259,0.1623,CSUN,244,softball,1241,D1
+260,0.1591,UC San Diego,296,softball,2064,D1
+261,0.1558,Mercyhurst,117,softball,1463,D1
+262,0.1526,Saint Peter's,104,softball,1196,D1
+263,0.1494,Fairfield,194,softball,1310,D1
+264,0.1461,Tarleton St.,351,softball,2063,D1
+265,0.1429,George Mason,243,softball,1318,D1
+266,0.1396,UT Arlington,310,softball,1230,D1
+267,0.1364,Georgetown,169,softball,1353,D1
+268,0.1331,Valparaiso,261,softball,1363,D1
+269,0.1299,South Dakota St.,366,softball,1204,D1
+270,0.1266,Monmouth,238,softball,1335,D1
+271,0.1234,Towson,229,softball,1326,D1
+272,0.1201,Morehead St.,209,softball,1365,D1
+273,0.1169,North Dakota,299,softball,1373,D1
+274,0.1136,Maine,259,softball,1378,D1
+275,0.1104,LIU,277,softball,1253,D1
+276,0.1071,Hampton,212,softball,1319,D1
+277,0.1039,Quinnipiac,142,softball,1289,D1
+278,0.1006,Youngstown St.,221,softball,1173,D1
+279,0.0974,Cornell,122,softball,1220,D1
+280,0.0942,Mount St. Mary's,167,softball,1370,D1
+281,0.0909,Marist,205,softball,1111,D1
+282,0.0877,Siena,156,softball,1264,D1
+283,0.0844,ETSU,177,softball,1345,D1
+284,0.0812,Gardner-Webb,321,softball,1205,D1
+285,0.0779,Bowling Green,211,softball,1369,D1
+286,0.0747,Dayton,165,softball,1189,D1
+287,0.0714,New Haven,130,softball,1647,D1
+288,0.0682,Manhattan,176,softball,1352,D1
+289,0.0649,Merrimack,130,softball,1371,D1
+290,0.0617,Butler,168,softball,1214,D1
+291,0.0584,Hofstra,200,softball,1341,D1
+292,0.0552,Texas Southern,163,softball,1210,D1
+293,0.0519,Ball St.,209,softball,1228,D1
+294,0.0487,Bellarmine,223,softball,2051,D1
+295,0.0455,Western Ill.,184,softball,1337,D1
+296,0.0422,N.C. A&T,279,softball,1367,D1
+297,0.039,Tennessee St.,129,softball,1219,D1
+298,0.0357,Central Conn. St.,103,softball,1278,D1
+299,0.0325,Mississippi Val.,159,softball,1375,D1
+300,0.0292,Alabama A&M,190,softball,1295,D1
+301,0.026,South Carolina St.,109,softball,1364,D1
+302,0.0227,Wagner,119,softball,1366,D1
+303,0.0195,Le Moyne,160,softball,2056,D1
+304,0.0162,Rhode Island,116,softball,1329,D1
+305,0.013,Coppin St.,86,softball,1242,D1
+306,0.0097,Niagara,68,softball,1145,D1
+307,0.0065,UMES,146,softball,1199,D1
+308,0.0032,Norfolk St.,110,softball,1372,D1
+1,1,MSU Moorhead,349,softball,1535,D2
+2,0.9962,Georgia College,339,softball,1418,D2
+3,0.9924,Fort Lewis,414,softball,1487,D2
+4,0.9886,Assumption,156,softball,1522,D2
+5,0.9848,Valdosta St.,376,softball,1430,D2
+6,0.981,Wingate,387,softball,1440,D2
+7,0.9772,Nova Southeastern,426,softball,1436,D2
+8,0.9734,William Jewell,369,softball,1611,D2
+9,0.9696,Wilmington (DE),212,softball,1391,D2
+10,0.9658,Palm Beach Atl.,312,softball,1646,D2
+11,0.962,Montevallo,408,softball,1474,D2
+12,0.9582,Caldwell,160,softball,1407,D2
+13,0.9544,Mo.-St. Louis,330,softball,1481,D2
+14,0.9506,Truman St.,413,softball,1544,D2
+15,0.9468,Christian Brothers,330,softball,1521,D2
+16,0.943,Gannon,132,softball,1401,D2
+17,0.9392,Texas Woman's,437,softball,1625,D2
+18,0.9354,Lynn,212,softball,1585,D2
+19,0.9316,Mount Olive,450,softball,1398,D2
+20,0.9278,Drury,323,softball,1454,D2
+21,0.924,Newberry,356,softball,1424,D2
+22,0.9202,Trevecca Nazarene,210,softball,1437,D2
+23,0.9163,Embry-Riddle (FL),321,softball,1527,D2
+24,0.9125,Minnesota St.,295,softball,1423,D2
+25,0.9087,Lee,476,softball,1409,D2
+26,0.9049,Tampa,261,softball,1492,D2
+27,0.9011,Catawba,340,softball,1416,D2
+28,0.8973,Flagler,353,softball,1439,D2
+29,0.8935,Mississippi Col.,418,softball,1397,D2
+30,0.8897,Mont. St. Billings,322,softball,1543,D2
+31,0.8859,Rollins,294,softball,1510,D2
+32,0.8821,Ferris St.,324,softball,1553,D2
+33,0.8783,Quincy,304,softball,1639,D2
+34,0.8745,Adelphi,148,softball,1564,D2
+35,0.8707,AUM,374,softball,1387,D2
+36,0.8669,Chico St.,283,softball,1601,D2
+37,0.8631,Fla. Southern,303,softball,1619,D2
+38,0.8593,West Ala.,341,softball,1480,D2
+39,0.8555,Okla. Christian,416,softball,1568,D2
+40,0.8517,Menlo,451,softball,2163,D2
+41,0.8479,Barry,366,softball,1579,D2
+42,0.8441,Grand Valley St.,224,softball,1485,D2
+43,0.8403,Western Wash.,334,softball,1501,D2
+44,0.8365,Spring Hill,360,softball,1506,D2
+45,0.8327,Regis (CO),288,softball,1413,D2
+46,0.8289,Johnson C. Smith,242,softball,1575,D2
+47,0.8251,Rogers St.,379,softball,1495,D2
+48,0.8213,Hawaii Hilo,408,softball,1594,D2
+49,0.8175,Tex. A&M Int'l,402,softball,1612,D2
+50,0.8137,Lincoln Memorial,319,softball,1425,D2
+51,0.8099,Shippensburg,133,softball,1404,D2
+52,0.8061,Cal St. Dom. Hills,425,softball,1453,D2
+53,0.8023,Southeastern Okla.,394,softball,1479,D2
+54,0.7985,Cal St. East Bay,358,softball,1593,D2
+55,0.7947,Simon Fraser,311,softball,1551,D2
+56,0.7909,Central Wash.,232,softball,1634,D2
+57,0.7871,Florida Tech,344,softball,1562,D2
+58,0.7833,Northeastern St.,350,softball,1638,D2
+59,0.7795,West Liberty,163,softball,1578,D2
+60,0.7757,Northwood,179,softball,1570,D2
+61,0.7719,Dominican (CA),396,softball,1587,D2
+62,0.7681,Tex. A&M-Kingsville,364,softball,1500,D2
+63,0.7643,Virginia St.,93,softball,1388,D2
+64,0.7605,N.M. Highlands,367,softball,1615,D2
+65,0.7567,Lake Erie,120,softball,1644,D2
+66,0.7529,Shepherd,109,softball,1605,D2
+67,0.749,St. Edward's,365,softball,1636,D2
+68,0.7452,UAH,434,softball,#N/A,D2
+69,0.7414,Ohio Dominican,227,softball,1503,D2
+70,0.7376,Francis Marion,424,softball,1426,D2
+71,0.7338,Lenoir-Rhyne,318,softball,1412,D2
+72,0.73,Barton,328,softball,1525,D2
+73,0.7262,Missouri S&T,311,softball,1608,D2
+74,0.7224,Arkansas Tech,333,softball,1596,D2
+74,0.7224,Ga. Southwestern,333,softball,1421,D2
+76,0.7148,Charleston (WV),227,softball,1395,D2
+77,0.711,Southern Ark.,358,softball,1512,D2
+78,0.7072,West Chester,146,softball,1452,D2
+79,0.7034,Eckerd,268,softball,1633,D2
+80,0.6996,McKendree,345,softball,1497,D2
+81,0.6958,Young Harris,380,softball,1419,D2
+82,0.6901,Stanislaus St.,314,softball,1557,D2
+83,0.6882,Indiana (PA),164,softball,1402,D2
+84,0.6844,Vanguard,379,softball,2228,D2
+85,0.6806,Augusta,258,softball,1565,D2
+86,0.6768,Lander,332,softball,1422,D2
+87,0.673,Angelo St.,414,softball,1516,D2
+88,0.6692,Biola,423,softball,1559,D2
+89,0.6654,USC Aiken,372,softball,1505,D2
+90,0.6616,Davenport,229,softball,1552,D2
+91,0.6578,Ark.-Monticello,365,softball,1582,D2
+92,0.6521,Ursuline,199,softball,1622,D2
+92,0.6521,Cameron,398,softball,1514,D2
+94,0.6464,USC Beaufort,349,softball,2065,D2
+95,0.6426,Adams St.,317,softball,1524,D2
+96,0.6388,Southern Nazarene,370,softball,1417,D2
+97,0.635,Eastern N.M.,298,softball,1431,D2
+98,0.6312,St. Cloud St.,282,softball,1549,D2
+99,0.6274,King (TN),367,softball,1434,D2
+100,0.6236,UVA Wise,313,softball,1584,D2
+101,0.6198,Neb.-Kearney,372,softball,1600,D2
+102,0.616,North Georgia,348,softball,1399,D2
+103,0.6122,Hawaii Pacific,363,softball,1624,D2
+104,0.6084,Saint Leo,297,softball,1429,D2
+105,0.6046,Claflin,169,softball,1406,D2
+106,0.6008,Saginaw Valley,211,softball,1483,D2
+107,0.597,Bemidji St.,250,softball,1569,D2
+108,0.5932,Erskine,260,softball,1563,D2
+109,0.5894,Delta St.,280,softball,1515,D2
+110,0.5856,Edward Waters,163,softball,2052,D2
+111,0.5817,Converse,384,softball,1460,D2
+112,0.5779,Lane,132,softball,1415,D2
+113,0.5741,West Florida,335,softball,1394,D2
+114,0.5703,Roosevelt,221,softball,2070,D2
+115,0.5665,Ouachita Baptist,285,softball,1631,D2
+116,0.5627,Emporia St.,305,softball,1427,D2
+117,0.5589,Southwest Baptist,266,softball,1471,D2
+118,0.5551,Lubbock Christian,344,softball,1451,D2
+119,0.5513,Bowie St.,134,softball,1457,D2
+120,0.5475,Augustana (SD),270,softball,1393,D2
+121,0.5437,Ashland,168,softball,1603,D2
+122,0.5399,Pittsburg St.,339,softball,1390,D2
+123,0.5361,CSUSB,309,softball,1433,D2
+124,0.5323,Winona St.,260,softball,1405,D2
+125,0.5266,East Central,326,softball,1586,D2
+126,0.5247,Lock Haven,144,softball,1556,D2
+127,0.5209,Findlay,207,softball,1448,D2
+128,0.5171,Davis & Elkins,216,softball,1526,D2
+129,0.5133,Emmanuel (GA),320,softball,1386,D2
+130,0.5095,Ferrum,291,softball,2024,D2
+131,0.5057,Tusculum,273,softball,1411,D2
+132,0.5019,Maryville (MO),286,softball,1484,D2
+133,0.4981,Molloy,138,softball,1488,D2
+134,0.4943,Southern Wesleyan,310,softball,1491,D2
+135,0.4905,Wis.-Parkside,240,softball,1511,D2
+136,0.4867,Lees-McRae,209,softball,1581,D2
+137,0.481,Minn. Duluth,273,softball,1473,D2
+138,0.4791,Chaminade,292,softball,1574,D2
+139,0.4753,Dominican (NY),118,softball,1560,D2
+140,0.4715,Columbus St.,299,softball,1414,D2
+141,0.4677,Cal St. Monterey Bay,348,softball,1588,D2
+142,0.4639,Southwestern Okla.,360,softball,1541,D2
+143,0.4601,Sioux Falls,252,softball,1550,D2
+144,0.4563,Edinboro,142,softball,1534,D2
+145,0.4525,Washburn,406,softball,1445,D2
+146,0.4487,San Fran. St.,268,softball,1599,D2
+147,0.4449,Mo. Southern St.,349,softball,1465,D2
+148,0.4411,Emory & Henry,312,softball,2053,D2
+149,0.4373,Thomas More,200,softball,2068,D2
+150,0.4335,Saint Martin's,295,softball,1538,D2
+151,0.4297,Colorado Mesa,280,softball,1389,D2
+152,0.4259,Midwestern St.,302,softball,1643,D2
+153,0.4221,Benedict,185,softball,1620,D2
+154,0.4183,Upper Iowa,297,softball,1602,D2
+155,0.4144,Minn.-Crookston,260,softball,1607,D2
+155,0.4144,North Greenville,350,softball,1383,D2
+157,0.4068,Lewis,170,softball,1519,D2
+158,0.403,Harding,319,softball,1450,D2
+159,0.3992,Glenville St.,180,softball,1539,D2
+160,0.3954,Rockhurst,254,softball,1623,D2
+161,0.3916,Wayne St. (MI),156,softball,1470,D2
+162,0.3878,Southern N.H.,105,softball,1566,D2
+163,0.384,Fairmont St.,154,softball,1420,D2
+164,0.3802,West Tex. A&M,340,softball,1392,D2
+164,0.3802,Western N.M.,306,softball,1606,D2
+166,0.3726,Purdue Northwest,207,softball,1468,D2
+167,0.3688,Northwest Nazarene,309,softball,1561,D2
+168,0.365,Seton Hill,160,softball,1384,D2
+169,0.3612,Miles,287,softball,1621,D2
+170,0.3574,CUI,475,softball,1548,D2
+171,0.3536,Union (TN),291,softball,1494,D2
+172,0.3498,Western Ore.,266,softball,1595,D2
+173,0.346,Central Okla.,323,softball,1428,D2
+174,0.3422,California (PA),149,softball,1447,D2
+175,0.3384,Texas-Dallas,186,softball,1854,D2
+176,0.3346,Ky. Wesleyan,179,softball,1576,D2
+177,0.3308,Concord,169,softball,1507,D2
+178,0.327,Clarion,113,softball,1496,D2
+179,0.3232,Minot St.,157,softball,1508,D2
+180,0.3194,Sul Ross St.,244,softball,1836,D2
+181,0.3156,Cedarville,226,softball,1627,D2
+182,0.3118,Savannah St.,209,softball,1546,D2
+183,0.308,Hillsdale,227,softball,1493,D2
+184,0.3042,Chowan,265,softball,1598,D2
+185,0.3004,Bentley,143,softball,1604,D2
+186,0.2966,Azusa Pacific,345,softball,1513,D2
+187,0.2928,Elizabeth City St.,70,softball,1498,D2
+188,0.289,Northern St.,91,softball,1432,D2
+189,0.2852,Mars Hill,301,softball,1444,D2
+190,0.2814,St. Thomas Aquinas,85,softball,1502,D2
+191,0.2776,Kentucky St.,117,softball,1523,D2
+192,0.2738,Middle Georgia,192,softball,2261,D2
+193,0.27,Belmont Abbey,278,softball,1449,D2
+194,0.2662,Concordia-St. Paul,231,softball,1396,D2
+195,0.2624,Kutztown,195,softball,1469,D2
+196,0.2586,Chadron St.,280,softball,1536,D2
+197,0.2548,Tuskegee,207,softball,1540,D2
+198,0.251,UNC Pembroke,314,softball,1528,D2
+199,0.2471,Shaw,139,softball,1642,D2
+200,0.2433,Holy Family,101,softball,1614,D2
+201,0.2376,Bluefield St.,134,softball,1408,D2
+202,0.2357,Cal St. San Marcos,294,softball,1466,D2
+203,0.2319,Tiffin,168,softball,1490,D2
+204,0.2281,Walsh,124,softball,1533,D2
+205,0.2243,Mercy,64,softball,1462,D2
+206,0.2205,Henderson St.,248,softball,1509,D2
+207,0.2167,Fort Hays St.,254,softball,1532,D2
+208,0.2129,Shorter,339,softball,1640,D2
+209,0.2091,Staten Island,51,softball,1475,D2
+210,0.2053,Northwest Mo. St.,261,softball,1467,D2
+211,0.2015,Saint Anselm,126,softball,#N/A,D2
+212,0.1977,Jamestown,113,softball,2073,D2
+213,0.1939,Colo. Sch. of Mines,249,softball,1442,D2
+214,0.1901,Virginia Union,173,softball,1616,D2
+215,0.1863,Lincoln (PA),128,softball,1589,D2
+216,0.1825,St. Mary's (TX),293,softball,1482,D2
+217,0.1787,UIndy,206,softball,1443,D2
+218,0.1749,Okla. Baptist,333,softball,1499,D2
+219,0.1711,Felician,137,softball,1577,D2
+220,0.1673,UT Tyler,304,softball,1403,D2
+221,0.1635,D'Youville,123,softball,1555,D2
+222,0.1597,Jessup,278,softball,2074,D2
+223,0.1559,Salem (WV),96,softball,1558,D2
+224,0.1521,Colo. Christian,292,softball,1382,D2
+225,0.1483,Lincoln (MO),151,softball,1630,D2
+226,0.1445,Southwest Minn. St.,223,softball,1583,D2
+227,0.1407,Goldey-Beacom,123,softball,1464,D2
+228,0.1369,Franklin Pierce,67,softball,1455,D2
+229,0.1331,Bloomsburg,96,softball,1472,D2
+230,0.1293,Missouri Western,259,softball,1545,D2
+231,0.1255,Northwestern Okla.,265,softball,1571,D2
+232,0.1217,Wheeling,152,softball,1629,D2
+233,0.1179,Post,73,softball,1626,D2
+234,0.1141,Anderson (SC),234,softball,1456,D2
+235,0.1103,Point Park,87,softball,2076,D2
+236,0.1065,West Va. Wesleyan,139,softball,1520,D2
+237,0.1027,Mansfield,55,softball,1617,D2
+238,0.0989,Malone,116,softball,1459,D2
+239,0.0951,UT Permian Basin,269,softball,2242,D2
+240,0.0913,Fort Valley St.,196,softball,1476,D2
+241,0.0875,Slippery Rock,94,softball,1537,D2
+242,0.0837,Carson-Newman,297,softball,1400,D2
+243,0.0798,Clark Atlanta,228,softball,1580,D2
+244,0.076,Fayetteville St.,140,softball,1531,D2
+245,0.0722,Cal Poly Humboldt,251,softball,1573,D2
+246,0.0684,CSU Pueblo,258,softball,1489,D2
+247,0.0646,Coker,210,softball,1441,D2
+248,0.0608,Saint Michael's,66,softball,1592,D2
+249,0.057,Jefferson,76,softball,1572,D2
+249,0.057,American Int'l,76,softball,1554,D2
+251,0.0494,UCCS,240,softball,#N/A,D2
+252,0.0456,Central Mo.,224,softball,1628,D2
+253,0.0418,MSU Denver,233,softball,1385,D2
+254,0.038,Millersville,92,softball,1486,D2
+255,0.0361,Albany St. (GA),122,softball,1381,D2
+256,0.0342,Wayne St. (NE),183,softball,1637,D2
+257,0.0323,Pace,56,softball,1478,D2
+258,0.0304,Bridgeport,123,softball,1517,D2
+259,0.0285,Black Hills St.,243,softball,1504,D2
+260,0.0266,Southern Conn. St.,48,softball,1591,D2
+261,0.0247,West Virginia St.,103,softball,1635,D2
+262,0.0228,Chestnut Hill,54,softball,1641,D2
+263,0.0209,Pitt.-Johnstown,67,softball,1590,D2
+264,0.019,LeMoyne-Owen,107,softball,1632,D2
+265,0.0171,East Stroudsburg,112,softball,1435,D2
+266,0.0152,Ill. Springfield,203,softball,1518,D2
+267,0.0133,Allen,84,softball,2086,D2
+268,0.0114,Newman,138,softball,1547,D2
+269,0.0095,Mary,132,softball,1618,D2
+270,0.0076,Frostburg St.,62,softball,1438,D2
+271,0.0057,Winston-Salem,47,softball,2251,D2
+272,0.0038,Queens (NY),55,softball,1567,D2
+273,0.0019,Livingstone,6,softball,1648,D2
+1,1,St. Lawrence,8,softball,1875,D3
+1,1,Salem St.,1,softball,2019,D3
+3,0.9948,Ithaca,20,softball,1771,D3
+4,0.9922,Lesley,25,softball,2031,D3
+5,0.9896,Plattsburgh St.,10,softball,1960,D3
+6,0.987,George Fox,74,softball,1916,D3
+7,0.9844,Clarkson,16,softball,1977,D3
+8,0.9818,Bethel (MN),68,softball,1698,D3
+9,0.9792,SUNY Brockport,15,softball,1988,D3
+9,0.9792,Smith,12,softball,1912,D3
+9,0.9792,Kalamazoo,6,softball,1913,D3
+12,0.9714,WashU,126,softball,1721,D3
+13,0.9688,Olivet,26,softball,2044,D3
+14,0.9661,St. Joseph's (L.I.),7,softball,1703,D3
+14,0.9661,SUNY Poly,7,softball,1650,D3
+16,0.9609,Wis.-Whitewater,43,softball,1838,D3
+17,0.9583,Hamilton,32,softball,1939,D3
+18,0.9557,Westminster (MO),72,softball,2021,D3
+19,0.9531,Ill. Wesleyan,66,softball,1668,D3
+20,0.9505,Carleton,48,softball,1718,D3
+21,0.9479,SUNY Delhi,35,softball,1992,D3
+22,0.9453,Trine,106,softball,1656,D3
+23,0.9401,Denison,94,softball,1876,D3
+24,0.9388,Middlebury,8,softball,1796,D3
+24,0.9388,Springfield,8,softball,1670,D3
+24,0.9388,Fredonia,28,softball,2014,D3
+24,0.9388,Williams,4,softball,1734,D3
+28,0.9297,Huntingdon,162,softball,1655,D3
+29,0.9271,UW-River Falls,97,softball,2243,D3
+30,0.9245,Scranton,17,softball,1832,D3
+31,0.9219,McMurry,199,softball,1769,D3
+32,0.9193,Wilkes,39,softball,1866,D3
+33,0.9167,Wis.-Oshkosh,41,softball,1760,D3
+34,0.9141,Greensboro,134,softball,1737,D3
+35,0.9115,Emory,165,softball,1678,D3
+36,0.9089,Moravian,72,softball,1702,D3
+37,0.9063,Misericordia,67,softball,1761,D3
+38,0.9036,Saint Benedict,82,softball,1752,D3
+39,0.901,Mitchell,22,softball,1880,D3
+40,0.8984,Belhaven,191,softball,1714,D3
+41,0.8958,N.C. Wesleyan,127,softball,1798,D3
+42,0.8932,VTSU-Johnson,15,softball,1962,D3
+42,0.8932,New England Col.,60,softball,1765,D3
+44,0.888,Loras,83,softball,2023,D3
+45,0.8854,DePauw,99,softball,1690,D3
+46,0.8828,Kean,79,softball,1716,D3
+47,0.8802,St. Norbert,55,softball,1909,D3
+48,0.8776,Millikin,64,softball,1821,D3
+49,0.875,Alfred St.,68,softball,1695,D3
+50,0.8724,Lycoming,46,softball,1935,D3
+51,0.8698,Widener,44,softball,1951,D3
+51,0.8698,Mount Aloysius,44,softball,1828,D3
+53,0.8646,Augsburg,80,softball,1896,D3
+54,0.862,Manhattanville,50,softball,1651,D3
+55,0.8594,JWU (Providence),56,softball,1709,D3
+56,0.8555,CWRU,95,softball,1700,D3
+57,0.8542,St. Joseph's (ME),60,softball,1729,D3
+58,0.8516,Centre,52,softball,1852,D3
+59,0.849,Elmira,29,softball,1973,D3
+60,0.8464,Edgewood,44,softball,1701,D3
+61,0.8438,Lebanon Valley,70,softball,1807,D3
+62,0.8411,Mt. St. Joseph,95,softball,1720,D3
+63,0.8385,Lake Forest,78,softball,1653,D3
+63,0.8385,MCLA,18,softball,1885,D3
+63,0.8385,SUNY Geneseo,3,softball,1776,D3
+66,0.8307,LaGrange,163,softball,1980,D3
+67,0.8281,Rockford,40,softball,1932,D3
+68,0.8255,Texas Lutheran,170,softball,1660,D3
+69,0.8229,Simmons,78,softball,1963,D3
+70,0.8203,Wentworth,83,softball,1829,D3
+70,0.8203,TCNJ,83,softball,1826,D3
+72,0.8151,Meredith,96,softball,1886,D3
+73,0.8112,Pitt.-Bradford,52,softball,1677,D3
+74,0.8099,Berry,149,softball,1652,D3
+75,0.8073,Coe,68,softball,1708,D3
+76,0.8047,Montclair St.,52,softball,1853,D3
+77,0.8021,Pomona-Pitzer,123,softball,1816,D3
+78,0.7969,Drew,53,softball,1805,D3
+79,0.7956,Grove City,33,softball,1808,D3
+80,0.7943,Wilson,47,softball,1679,D3
+81,0.7917,Framingham St.,17,softball,1809,D3
+82,0.7891,Rensselaer,72,softball,1750,D3
+83,0.7865,Cedar Crest,21,softball,2036,D3
+84,0.7839,Susquehanna,79,softball,2001,D3
+85,0.7813,Mary Hardin-Baylor,158,softball,1748,D3
+86,0.7786,Stockton,51,softball,1801,D3
+87,0.776,East Tex. Baptist,159,softball,1649,D3
+88,0.7734,LeTourneau,178,softball,1840,D3
+89,0.7708,Pfeiffer,146,softball,1658,D3
+90,0.7656,Muhlenberg,74,softball,1766,D3
+90,0.7656,Valley Forge,37,softball,1985,D3
+92,0.763,Endicott,15,softball,1927,D3
+93,0.7604,Willamette,112,softball,1984,D3
+94,0.7578,Austin,133,softball,1772,D3
+95,0.7552,Rhodes,133,softball,1740,D3
+96,0.7526,Hilbert,35,softball,1997,D3
+96,0.7526,Transylvania,105,softball,1711,D3
+98,0.7474,Rivier,62,softball,1874,D3
+99,0.7448,Grinnell,58,softball,1669,D3
+100,0.7409,Me.-Farmington,12,softball,1728,D3
+100,0.7409,Babson,16,softball,1915,D3
+100,0.7409,SUNY Oneonta,32,softball,1818,D3
+100,0.7409,Amherst,8,softball,2025,D3
+104,0.7318,Hardin-Simmons,113,softball,1782,D3
+105,0.7292,Neb. Wesleyan,101,softball,1704,D3
+106,0.7266,Hiram,55,softball,1727,D3
+107,0.724,Minn.-Morris,81,softball,1697,D3
+108,0.7214,Albion,48,softball,1858,D3
+109,0.7188,Adrian,121,softball,1733,D3
+110,0.7161,Concordia-M'head,84,softball,2030,D3
+111,0.7135,Southern Me.,9,softball,1739,D3
+112,0.7109,Carthage,71,softball,1791,D3
+112,0.7109,Southern Va.,71,softball,1820,D3
+114,0.7057,Macalester,45,softball,1694,D3
+115,0.7031,Gettysburg,91,softball,1778,D3
+116,0.7005,Cortland,55,softball,1676,D3
+117,0.6979,Randolph-Macon,115,softball,1689,D3
+118,0.6953,William Peace,88,softball,1762,D3
+119,0.6927,Redlands,89,softball,1673,D3
+119,0.6927,Dominican (IL),89,softball,1687,D3
+121,0.6875,Baldwin Wallace,56,softball,1768,D3
+122,0.6836,Ohio Northern,57,softball,1742,D3
+123,0.6823,Hope,59,softball,1835,D3
+124,0.6797,Saint Elizabeth,40,softball,1731,D3
+124,0.6797,Arcadia,20,softball,1897,D3
+126,0.6732,Lawrence,26,softball,1879,D3
+127,0.6719,Albertus Magnus,62,softball,1937,D3
+128,0.6693,La Verne,79,softball,1894,D3
+128,0.6693,Alverno,16,softball,1883,D3
+130,0.6641,Saint Joseph (CT),54,softball,2020,D3
+131,0.6602,Southwestern (TX),150,softball,1893,D3
+132,0.6589,Nichols,54,softball,2008,D3
+133,0.6563,Centenary (LA),161,softball,1837,D3
+133,0.6563,Simpson,46,softball,1688,D3
+135,0.651,Tufts,51,softball,1722,D3
+136,0.6484,SUNY New Paltz,72,softball,1812,D3
+136,0.6484,MUW,96,softball,1959,D3
+138,0.6432,Calvin,67,softball,1803,D3
+139,0.6406,Concordia Wisconsin,78,softball,1665,D3
+140,0.638,Hartford,37,softball,2055,D3
+141,0.6354,Averett,117,softball,1975,D3
+142,0.6315,Emerson,45,softball,1991,D3
+143,0.6302,Chris. Newport,84,softball,1746,D3
+144,0.6276,Western New Eng.,59,softball,1924,D3
+145,0.625,Wis.-Platteville,47,softball,1918,D3
+146,0.6224,Sweet Briar,121,softball,1906,D3
+147,0.6198,Chapman,110,softball,1780,D3
+148,0.6172,Waynesburg,62,softball,1914,D3
+149,0.6146,Wis.-Eau Claire,63,softball,1833,D3
+150,0.612,FDU-Florham,7,softball,1715,D3
+150,0.612,Luther,35,softball,1712,D3
+152,0.6068,McDaniel,44,softball,1888,D3
+153,0.6042,Martin Luther,46,softball,1819,D3
+154,0.6016,Pacific Lutheran,111,softball,1813,D3
+155,0.599,Whittier,88,softball,1719,D3
+156,0.5964,Rowan,56,softball,1725,D3
+157,0.5938,Lyon,100,softball,2072,D3
+158,0.5911,Va. Wesleyan,82,softball,1681,D3
+158,0.5911,Millsaps,123,softball,1990,D3
+160,0.5859,York (PA),34,softball,1792,D3
+161,0.5833,Salisbury,112,softball,1666,D3
+162,0.5807,Husson,82,softball,1787,D3
+163,0.5781,Brooklyn,39,softball,1956,D3
+164,0.5755,Wittenberg,67,softball,1881,D3
+165,0.5729,Alma,58,softball,1940,D3
+166,0.5703,Wis.-Superior,78,softball,1667,D3
+167,0.5677,Immaculata,31,softball,1855,D3
+168,0.5651,John Jay,42,softball,1664,D3
+169,0.5625,Ursinus,31,softball,1878,D3
+169,0.5625,VTSU Castleton,31,softball,1895,D3
+171,0.5573,Carlow,55,softball,1843,D3
+172,0.5547,Muskingum,58,softball,1910,D3
+173,0.5521,Cal Lutheran,102,softball,1936,D3
+174,0.5495,Mary Baldwin,80,softball,1756,D3
+175,0.5469,Curry,57,softball,1978,D3
+176,0.5443,Lewis & Clark,96,softball,1775,D3
+177,0.5417,Lynchburg,109,softball,1846,D3
+178,0.5391,Westfield St.,35,softball,1789,D3
+179,0.5365,Bethany Lutheran,101,softball,1683,D3
+180,0.5339,SUNY Potsdam,39,softball,1865,D3
+180,0.5339,UChicago,39,softball,1744,D3
+182,0.5286,Linfield,78,softball,1661,D3
+183,0.526,Methodist,121,softball,1794,D3
+184,0.5234,Ripon,42,softball,1848,D3
+185,0.5208,Alfred,54,softball,1710,D3
+186,0.5182,Claremont-M-S,106,softball,1745,D3
+187,0.5156,Wash. & Jeff.,59,softball,1817,D3
+188,0.513,St. Thomas (TX),137,softball,1684,D3
+189,0.5104,Greenville,49,softball,1654,D3
+190,0.5078,Mount Union,81,softball,1662,D3
+191,0.5052,Salve Regina,16,softball,1964,D3
+192,0.5026,Bridgewater St.,34,softball,1869,D3
+193,0.5,Illinois Col.,90,softball,1774,D3
+194,0.4974,Alvernia,74,softball,1824,D3
+195,0.4948,Roanoke,80,softball,1823,D3
+196,0.4922,Wartburg,80,softball,1845,D3
+197,0.4896,Catholic,62,softball,1839,D3
+197,0.4896,North Park,62,softball,2009,D3
+199,0.4844,Elms,21,softball,1983,D3
+200,0.4818,Hendrix,126,softball,1863,D3
+201,0.4792,Spalding,92,softball,1751,D3
+202,0.4766,Wis.-Stevens Point,48,softball,1825,D3
+203,0.474,Dallas,97,softball,2010,D3
+204,0.4714,Lakeland,50,softball,1663,D3
+205,0.4688,Swarthmore,77,softball,1763,D3
+206,0.4661,Gustavus Adolphus,87,softball,#N/A,D3
+207,0.4635,Wilmington (OH),45,softball,1692,D3
+208,0.4609,Anderson (IN),50,softball,1966,D3
+209,0.4583,Penn St.-Altoona,53,softball,1747,D3
+210,0.4557,Wis.-Stout,59,softball,1870,D3
+211,0.444,Carnegie Mellon,72,softball,1901,D3
+212,0.4427,North Central (IL),73,softball,1907,D3
+213,0.4414,Marian (WI),58,softball,1781,D3
+213,0.4414,Salem (NC),84,softball,1925,D3
+213,0.4414,Saint Mary's (MN),107,softball,1682,D3
+213,0.4414,Delaware Valley,41,softball,1777,D3
+213,0.4414,Dickinson,40,softball,1953,D3
+213,0.4414,Keuka,6,softball,1860,D3
+213,0.4414,St. Joseph's (Brkln),23,softball,1671,D3
+213,0.4414,Marietta,70,softball,1717,D3
+213,0.4414,Me.-Presque Isle,16,softball,2029,D3
+213,0.4414,Old Westbury,2,softball,1693,D3
+213,0.4414,Wheaton (IL),45,softball,1900,D3
+213,0.4414,Franklin & Marshall,3,softball,1996,D3
+213,0.4414,Knox,2,softball,1942,D3
+213,0.4414,U New England,3,softball,1967,D3
+213,0.4414,Franklin,16,softball,1732,D3
+228,0.4089,Hanover,102,softball,1954,D3
+229,0.4063,Shenandoah,67,softball,1864,D3
+230,0.4036,Wis. Lutheran,57,softball,1917,D3
+231,0.401,St. Olaf,62,softball,1691,D3
+232,0.3984,Maryville (TN),146,softball,1699,D3
+233,0.3958,Suffolk,53,softball,1948,D3
+234,0.3932,Dubuque,40,softball,1877,D3
+235,0.3906,Elizabethtown,44,softball,1976,D3
+236,0.388,Thomas (ME),62,softball,2026,D3
+237,0.3854,Occidental,71,softball,2035,D3
+238,0.3828,Piedmont,120,softball,1724,D3
+239,0.3802,Regis (MA),45,softball,1830,D3
+240,0.3776,Northwestern-St. Paul,82,softball,1659,D3
+241,0.375,Wesleyan (CT),39,softball,1941,D3
+242,0.3724,Rochester (NY),42,softball,1713,D3
+243,0.3698,MSOE,57,softball,1741,D3
+244,0.3659,Geneva,52,softball,1786,D3
+245,0.3646,Mass. Maritime,17,softball,1905,D3
+246,0.362,St. Catherine,69,softball,1757,D3
+247,0.3594,Stevenson,17,softball,1849,D3
+247,0.3594,Juniata,68,softball,1767,D3
+249,0.3542,WestConn,32,softball,1890,D3
+250,0.3516,Howard Payne,30,softball,1920,D3
+251,0.349,Trinity (TX),82,softball,1770,D3
+252,0.3464,Hunter,24,softball,1784,D3
+253,0.3438,Eastern,46,softball,1844,D3
+254,0.3411,WPI,33,softball,1705,D3
+255,0.3385,Baruch,32,softball,1814,D3
+256,0.3359,DeSales,43,softball,1841,D3
+257,0.3333,Rutgers-Newark,20,softball,2037,D3
+258,0.3307,Wesleyan (GA),102,softball,1947,D3
+259,0.3281,Mary Washington,103,softball,1995,D3
+260,0.3255,Carroll (WI),79,softball,2018,D3
+261,0.3229,Utica,50,softball,1696,D3
+262,0.3177,Norwich,34,softball,1989,D3
+263,0.3164,Otterbein,43,softball,1965,D3
+264,0.3151,Allegheny,52,softball,1707,D3
+265,0.3125,Haverford,44,softball,1788,D3
+266,0.3099,Wooster,34,softball,1785,D3
+266,0.3099,Heidelberg,51,softball,1908,D3
+268,0.3047,St. John Fisher,50,softball,1672,D3
+269,0.3021,Bethany (WV),41,softball,1779,D3
+270,0.2995,UMass Dartmouth,16,softball,1961,D3
+271,0.2969,La Roche,41,softball,1804,D3
+272,0.2943,Gordon,54,softball,2017,D3
+273,0.2917,Whitworth,44,softball,1958,D3
+274,0.2891,Penn St.-Behrend,51,softball,1753,D3
+275,0.2865,Benedictine (IL),52,softball,1674,D3
+276,0.2826,SUNY Canton,21,softball,2016,D3
+277,0.2813,Wheaton (MA),47,softball,1898,D3
+278,0.2786,Aurora,32,softball,1657,D3
+278,0.2786,Penn College,32,softball,1759,D3
+280,0.2734,Pacific (OR),70,softball,2028,D3
+281,0.2708,Kenyon,67,softball,1929,D3
+282,0.2682,Ohio Wesleyan,48,softball,1706,D3
+283,0.2656,Pitt.-Greensburg,43,softball,1930,D3
+284,0.263,Coast Guard,24,softball,1986,D3
+285,0.2604,Bridgewater (VA),92,softball,1994,D3
+286,0.2578,Earlham,48,softball,1933,D3
+287,0.2552,Anna Maria,29,softball,1884,D3
+287,0.2552,Houghton,29,softball,2013,D3
+289,0.25,Albright,38,softball,1969,D3
+290,0.2474,Schreiner,135,softball,2007,D3
+291,0.2435,Monmouth (IL),61,softball,1972,D3
+292,0.2422,Rutgers-Camden,13,softball,2002,D3
+292,0.2422,Gallaudet,39,softball,2043,D3
+292,0.2422,St. Mary's (IN),52,softball,1931,D3
+295,0.2344,Thiel,34,softball,1971,D3
+296,0.2318,Rose-Hulman,38,softball,1892,D3
+297,0.2292,King's (PA),49,softball,2027,D3
+298,0.2266,Blackburn,55,softball,1827,D3
+299,0.224,New Jersey City,31,softball,1982,D3
+300,0.2214,St. Scholastica,47,softball,2038,D3
+301,0.2188,Keystone,39,softball,1790,D3
+302,0.2161,Fitchburg St.,42,softball,1950,D3
+303,0.2135,Wis.-La Crosse,30,softball,1723,D3
+304,0.2109,Rhode Island Col.,41,softball,1726,D3
+305,0.2083,Marywood,37,softball,1919,D3
+306,0.2057,Concordia Chicago,29,softball,1857,D3
+307,0.2031,Buena Vista,63,softball,2006,D3
+308,0.2005,Penn St. Harrisburg,34,softball,1802,D3
+309,0.1979,Skidmore,37,softball,1923,D3
+309,0.1979,RIT,37,softball,1926,D3
+311,0.1927,Westminster (PA),42,softball,1758,D3
+312,0.1901,Penn St. Brandywine,38,softball,2075,D3
+313,0.1862,NYU,50,softball,1993,D3
+314,0.1849,Penn St.-Berks,30,softball,1867,D3
+315,0.1823,Emmanuel (MA),43,softball,1871,D3
+316,0.1797,Berea,66,softball,2040,D3
+317,0.1758,Ozarks (AR),111,softball,2032,D3
+318,0.1745,Beloit,63,softball,1847,D3
+318,0.1745,Bowdoin,39,softball,1686,D3
+318,0.1745,Roger Williams,45,softball,1899,D3
+321,0.1667,Covenant,93,softball,1861,D3
+322,0.1641,Gwynedd Mercy,28,softball,1946,D3
+323,0.1615,Colby,5,softball,1921,D3
+324,0.1589,Hood,44,softball,1904,D3
+325,0.1563,Crown (MN),56,softball,2003,D3
+326,0.1536,Lancaster Bible,34,softball,1922,D3
+327,0.151,Marymount (VA),72,softball,1868,D3
+328,0.1484,Concordia (TX),113,softball,1799,D3
+329,0.1458,Sarah Lawrence,16,softball,2049,D3
+330,0.1419,Washington Col.,52,softball,1859,D3
+331,0.1406,Central (IA),32,softball,1806,D3
+332,0.138,Cornell College,31,softball,1834,D3
+333,0.1354,Penn St.-Abington,25,softball,1862,D3
+334,0.1315,Guilford,64,softball,1811,D3
+335,0.1302,Sewanee,90,softball,1945,D3
+336,0.1276,Franciscan,39,softball,2046,D3
+337,0.125,Manchester,11,softball,1773,D3
+338,0.1224,John Carroll,24,softball,2033,D3
+338,0.1224,Capital,48,softball,1738,D3
+340,0.1172,East. Mennonite,59,softball,1999,D3
+341,0.1146,Stevens,54,softball,1911,D3
+342,0.112,Hamline,74,softball,1755,D3
+343,0.1094,Webster,58,softball,1743,D3
+344,0.1068,Asbury,40,softball,1943,D3
+344,0.1068,Clark (MA),40,softball,2039,D3
+346,0.1016,Worcester St.,8,softball,1680,D3
+346,0.1016,Agnes Scott,16,softball,1783,D3
+348,0.0964,Russell Sage,32,softball,1902,D3
+349,0.0938,Union (NY),6,softball,1949,D3
+350,0.0911,Brevard,68,softball,2000,D3
+351,0.0885,Chatham,31,softball,2011,D3
+352,0.0859,Ramapo,18,softball,1730,D3
+353,0.0833,Cairn,20,softball,2034,D3
+354,0.0807,JWU Charlotte,57,softball,#N/A,D3
+355,0.0781,Dean,35,softball,1968,D3
+356,0.0755,Neumann,41,softball,1987,D3
+357,0.0729,SUNY Cobleskill,23,softball,2115,D3
+358,0.0703,Mt. St. Mary (NY),34,softball,1795,D3
+359,0.0677,Puget Sound,38,softball,1981,D3
+360,0.0651,Plymouth St.,5,softball,2012,D3
+361,0.0625,Saint Vincent,29,softball,1793,D3
+362,0.0599,Lasell,28,softball,1797,D3
+363,0.0573,Messiah,40,softball,1685,D3
+364,0.0547,Nazareth,8,softball,2015,D3
+365,0.0521,Centenary (NJ),5,softball,1873,D3
+365,0.0521,MIT,10,softball,1764,D3
+367,0.0469,Bates,4,softball,2004,D3
+368,0.0443,Elmhurst,14,softball,1979,D3
+369,0.0417,Oberlin,35,softball,1955,D3
+370,0.0391,Bluffton,25,softball,2022,D3
+371,0.0365,UMass Boston,8,softball,1810,D3
+372,0.0339,Randolph,36,softball,1889,D3
+373,0.0313,Farmingdale St.,2,softball,1675,D3
+373,0.0313,Keene St.,3,softball,1952,D3
+375,0.026,Brandeis,31,softball,1928,D3
+376,0.0234,Yeshiva,8,softball,2050,D3
+377,0.0208,Wm. Paterson,7,softball,1974,D3
+378,0.0182,Lehman,4,softball,1736,D3
+379,0.0156,Eureka,6,softball,1822,D3
+380,0.013,Notre Dame (MD),6,softball,1800,D3
+381,0.0104,SUNY Morrisville,1,softball,1749,D3
+382,0.0091,UMSV,3,softball,1851,D3
+383,0.0078,Eastern Conn. St.,0,softball,1831,D3
+383,0.0078,Trinity (CT),0,softball,1856,D3
+383,0.0078,Purchase,0,softball,1957,D3
+383,0.0078,Principia,0,softball,2058,D3
+383,0.0078,Hartwick,0,softball,2087,D3
+383,0.0078,Wellesley,0,softball,2005,D3

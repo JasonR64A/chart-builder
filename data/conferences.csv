@@ -1,0 +1,120 @@
+id,name,abbreviation,division,classification
+1,Southland,Southland,D-I,middle
+2,Western Athletic Conference,WAC,D-I,middle
+3,Lone Star,Lone Star,D-II,
+4,PacWest,PacWest,D-II,
+5,Rocky Mountain Athletic Conference,RMAC,D-II,
+6,Northeast 10,NE10,D-II,
+7,Eastern Connecticut Conference,ECC,D-II,
+8,Michigan Intercol. Ath. Assn.,MIAA,D-III,
+9,Mountain West,MW,D-I,middle
+10,Mid-American Conference,MAC,D-I,middle
+11,Southeastern Conference,SEC,D-I,upper
+12,Southwestern Athletic Conference,SWAC,D-I,lower
+13,Gulf South,Gulf South,D-II,
+14,Southern Intercollegiate Athletic Conference,SIAC,D-II,
+15,Great Northeast,GNE,D-III,
+16,MAC Commonwealth,MACC,D-III,
+17,Mountain East Conference,MEC,D-II,
+18,Great Midwest Athletic Conference,G-MAC,D-II,
+19,West Virginia Intercollegiate Athletic Conference,WVIAC,D-II,
+20,Allegheny Mountain Collegiate Conference,AMCC,D-III,
+21,Presidents' Athletic Conference,PAC,D-III,
+22,North Coast Athletic Conference,NCAC,D-III,
+23,Central Atlantic Collegiate Conference,CACC,D-II,
+24,MAC Freedom,MACF,D-III,
+25,Colonial States Athletic Conference,CSAC,D-III,
+26,New England Small College Athletic Conference,NESCAC,D-III,
+27,Heartland Collegiate Athletic Conference,HCAC,D-III,
+28,South Atlantic Conference,SAC,D-II,
+29,Conference Carolinas,Conference Carolinas,D-II,
+30,Conference of New England,CNE,D-III,
+31,Sun Belt,Sun Belt,D-I,upper
+32,SoCon,SoCon,D-I,upper
+33,Pac-12,Pac-12,D-I,lower
+34,Heartland,Heartland,D-II,
+35,Great American Conference,GAC,D-II,
+36,Patriot,Patriot,D-I,middle
+37,DIII Independent,DIII-I,D-III,
+38,Great Lakes Intercollegiate Athletic Conference,GLIAC,D-II,
+39,Minnesota Intercollegiate Athletic Conference,MIAC,D-III,
+40,Peach Belt,Peach Belt,D-II,
+41,College Conference of Illinois and Wisconsin,CCIW,D-III,
+42,Northern Sun Intercollegiate Conference,NSIC,D-II,
+43,North Central Conference,NCC,D-II,
+44,Northern Athletics Collegiate Conference,NACC,D-III,
+45,Northern Illinois-Iowa Conference,NIIC,D-III,
+46,Southern Collegiate Athletic Conference,SCAC,D-III,
+47,American Southwest Conference,ASC,D-III,
+48,Atlantic Sun Conference,ASUN,D-I,lower
+49,Ohio Valley Conference,OVC,D-I,lower
+50,Old Dominion Athletic Conference,ODAC,D-III,
+51,USA South,USAS,D-III,
+52,New England Women's and Men's Athletic Conference,NEWMAC,D-III,
+53,Ohio Athletic Conference,OAC,D-III,
+54,Liberty League,Liberty League,D-III,
+55,Sunshine State,Sunshine State,D-II,
+56,City University of New York Athletic Conference,CUNYAC,D-III,
+57,Knickerbocker Baseball,Knickerbocker,D-III,
+58,Eastern College Athletic Conference,ECAC-III,D-III,
+59,Big 12,Big 12,D-I,upper
+60,Central Coast Section,CCS,D-III,
+61,Great Lakes Valley Conference,GLVC,D-II,
+62,Missouri Valley Conference,MVC,D-I,upper
+63,Midwest Conference,MWC,D-III,
+64,Southern Athletic Association,SAA,D-III,
+65,Upper Midwest Athletic Conference,UMAC,D-III,
+66,Mid-Eastern Athletic Conference,MEAC,D-I,lower
+67,America East,America East,D-I,lower
+68,Big South,Big South,D-I,middle
+69,St. Louis Intercollegiate Athletic Conference,SLIAC,D-III,
+70,Pennsylvania State Athletic Conference,PSAC,D-II,
+71,DII Independent,DII Independent,D-II,
+72,Atlantic Coast Conference,ACC,D-I,upper
+73,American Athletic Conference,AAC,D-I,middle
+74,University Athletic Association,UAA,D-III,
+75,Massachusetts State Collegiate Athletic Conference,MASCAC,D-III,
+76,Ivy League,Ivy League,D-I,lower
+77,Northeast Conference,NEC,D-I,lower
+78,American Rivers,American Rivers,D-III,
+79,Big East,Big East,D-I,upper
+80,Atlantic 10,Atlantic 10,D-I,middle
+81,Horizon,Horizon,D-I,lower
+82,West Coast Conference,WCC,D-I,middle
+83,Atlantic East,Atlantic East,D-III,
+84,United East,United East,D-III,
+85,Southern California Intercollegiate Athletic Conference,SCIAC,D-III,
+86,Big West,Big West,D-I,middle
+87,California Collegiate Athletic Association,CCAA,D-II,
+88,Metro Atlantic Athletic Conference,MAAC,D-I,lower
+89,Landmark,Landmark,D-III,
+90,Coast-To-Coast Athletic Conference,C2C,D-III,
+91,North Atlantic,North Atlantic,D-III,
+92,Summit League,Summit League,D-I,lower
+93,Skyline,Skyline,D-III,
+94,Eastern College Athletic Conference,ECAC,D-III,
+96,Mid-America Intercollegiate,Mid-America Intercollegiate,D-II,
+97,Great Northwest,Great Northwest,D-II,
+98,Division III Independents,DIII Independent,D-III,middle
+99,Conference USA,CUSA,D-I,upper
+100,Central Intercollegiate Athletic Association,CIAA,D-II,
+101,Colonial Athletic Association,CAA,D-I,upper
+102,Lake Michigan,Lake Michigan,D-III,
+103,State University of New York Athletic Conference,SUNYAC,D-III,
+104,Great South,Great South,D-III,
+105,New England Collegiate Conference,NECC,D-III,
+106,Centennial,Centennial,D-III,
+107,Eastern College Athletic Conference,ECAC,D-II,
+108,Little East,Little East,D-III,
+109,Empire 8,Empire 8,D-III,
+111,NWC,NWC,D-III,
+112,DI Independent,DI Independent,D-I,upper
+114,Big Ten,Big Ten,D-I,upper
+115,New Jersey Athletic Conference,NJAC,D-III,
+116,Eastern College Athletic Conference,ECAC-II,D-III,
+119,Wisconsin Intercollegiate Athletic Conference,WIAC,D-III,
+120,New South Atlantic Conference,NSAC,D-II,
+121,National Association of Intercollegiate Athletics,NAIA,,
+122,Junior College,JUCO,,
+123,Big Sky Conference,Big Sky,D-I,
+124,,,,
