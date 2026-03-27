@@ -263,6 +263,209 @@ def _clean_position(pos):
         return pos.split('/')[0]
 
 
+# ── Lineup Card helpers ───────────────────────────────────────────────────────
+FIELD_POSITIONS = ['C', '1B', '2B', '3B', 'SS', 'LF', 'CF', 'RF', 'DH']
+LC_RED = '#C41230'
+LC_DH_COLOR = '#22d3a0'
+LC_RELIEVER_COLOR = '#a855f7'
+
+
+def _ip_to_outs(ip_col):
+    whole = np.floor(ip_col)
+    frac = np.round((ip_col - whole) * 10).astype(int)
+    return (whole * 3 + frac).astype(int)
+
+
+def _outs_to_ip_display(total_outs):
+    return f"{int(total_outs // 3)}.{int(total_outs % 3)}"
+
+
+def compute_pitching_for_lineup(df):
+    total_outs = _ip_to_outs(df['ip']).sum()
+    ip = total_outs / 3
+    h = df['h'].sum(); bb = df['bb'].sum(); hb = df['hb'].sum()
+    so = df['so'].sum(); hr = df['hrA'].sum(); bf = df['bf'].sum()
+    er = df['er'].sum()
+    games = df['gameId'].nunique() if 'gameId' in df.columns else len(df)
+    fip = ((13*hr) + (3*(bb+hb)) - (2*so)) / ip + FIP_CONSTANT if ip > 0 else 99
+    era = (er / ip) * 9 if ip > 0 else 99
+    k_pct = so / bf if bf > 0 else 0
+    return {'IP': _outs_to_ip_display(total_outs), 'IP_actual': ip,
+            'BF': int(bf), 'H': int(h), 'ER': int(er), 'BB': int(bb),
+            'SO': int(so), 'HR': int(hr), 'Games': int(games),
+            'ERA': round(era, 2), 'FIP': round(fip, 2), 'K%': round(k_pct, 3)}
+
+
+def get_best_hitters(hitting_df, league_woba, min_pa=10):
+    best = {}
+    for pos in FIELD_POSITIONS:
+        pos_df = hitting_df[hitting_df['playerPosition'] == pos]
+        if len(pos_df) == 0:
+            continue
+        rows = []
+        for name, group in pos_df.groupby('playerName'):
+            stats = compute_hitting_stats(group)
+            if stats['PA'] >= min_pa:
+                stats['playerName'] = name
+                stats['teamName'] = group['teamName'].mode().iloc[0] if len(group['teamName'].mode()) > 0 else ''
+                stats['wRAA'] = compute_wraa(stats['wOBA'], league_woba, stats['PA'])
+                rows.append(stats)
+        if rows:
+            df = pd.DataFrame(rows).sort_values('OPS', ascending=False)
+            best[pos] = df.iloc[0].to_dict()
+    return best
+
+
+def get_best_pitchers(pitching_df, min_bf=15, n_starters=3, n_relievers=3):
+    rows = []
+    for name, group in pitching_df.groupby('playerName'):
+        stats = compute_pitching_for_lineup(group)
+        if stats['BF'] >= min_bf:
+            stats['playerName'] = name
+            stats['teamName'] = group['teamName'].mode().iloc[0] if len(group['teamName'].mode()) > 0 else ''
+            stats['is_starter'] = stats['IP_actual'] / max(stats['Games'], 1) >= 3.0
+            rows.append(stats)
+    if not rows:
+        return [], []
+    df = pd.DataFrame(rows)
+    starters = df[df['is_starter']].sort_values('FIP').head(n_starters).to_dict('records')
+    relievers = df[~df['is_starter']].sort_values('FIP').head(n_relievers).to_dict('records')
+    return starters, relievers
+
+
+def _initials(name):
+    parts = name.split()
+    return (parts[0][0] + parts[-1][0]) if len(parts) >= 2 else name[:2].upper()
+
+
+def _last_name(name):
+    parts = name.split()
+    return parts[-1] if parts else name
+
+
+POS_COORDS = {
+    'CF': (230, 54), 'LF': (108, 127), 'RF': (352, 127),
+    'SS': (196, 192), '2B': (264, 192),
+    '3B': (152, 252), '1B': (308, 252),
+    'C': (230, 307), 'DH': (230, 375),
+}
+
+
+def render_lineup_svg(best_hitters, starters, relievers, title, subtitle):
+    nodes = []
+    for pos, (x, y) in POS_COORDS.items():
+        if pos in best_hitters:
+            p = best_hitters[pos]
+            color = LC_DH_COLOR if pos == 'DH' else LC_RED
+            ini = _initials(p['playerName']); last = _last_name(p['playerName'])
+            nodes.append(f'''<g transform="translate({x},{y})">
+    <circle r="22" fill="{color}"/><circle r="19" fill="#1c2a38"/>
+    <text font-size="10" font-weight="500" fill="#e8d0b0" text-anchor="middle" dominant-baseline="central" font-family="sans-serif">{ini}</text>
+    <text font-size="8" fill="#c8a880" text-anchor="middle" y="28" font-family="sans-serif">{last}</text>
+    <text font-size="7" fill="#9a8060" text-anchor="middle" y="37" font-family="sans-serif">{pos}</text></g>''')
+        else:
+            nodes.append(f'''<g transform="translate({x},{y})">
+    <circle r="22" fill="#555"/><circle r="19" fill="#1c2a38"/>
+    <text font-size="9" fill="#666" text-anchor="middle" dominant-baseline="central" font-family="sans-serif">—</text>
+    <text font-size="7" fill="#666" text-anchor="middle" y="37" font-family="sans-serif">{pos}</text></g>''')
+
+    # Pitcher sidebar
+    nodes.append('<line x1="416" y1="10" x2="416" y2="390" stroke="#3a3a3a" stroke-width="1"/>')
+    nodes.append('<text x="438" y="26" font-size="8" fill="#a89880" text-anchor="middle" letter-spacing="0.08em" font-family="sans-serif">STARTERS</text>')
+    for i in range(3):
+        y = 58 + i * 56
+        if i < len(starters):
+            sp = starters[i]; ini = _initials(sp['playerName']); last = _last_name(sp['playerName'])
+            nodes.append(f'<g transform="translate(438,{y})"><circle r="20" fill="{LC_RED}"/><circle r="17" fill="#1c2a38"/><text font-size="9" font-weight="500" fill="#e8d0b0" text-anchor="middle" dominant-baseline="central" font-family="sans-serif">{ini}</text><text font-size="7.5" fill="#c8a880" text-anchor="middle" y="25" font-family="sans-serif">{last}</text></g>')
+        else:
+            nodes.append(f'<g transform="translate(438,{y})"><circle r="20" fill="#555"/><circle r="17" fill="#1c2a38"/><text font-size="9" fill="#666" text-anchor="middle" dominant-baseline="central" font-family="sans-serif">—</text></g>')
+
+    nodes.append('<text x="438" y="218" font-size="8" fill="#a89880" text-anchor="middle" letter-spacing="0.08em" font-family="sans-serif">RELIEVERS</text>')
+    for i in range(3):
+        y = 246 + i * 56
+        if i < len(relievers):
+            rp = relievers[i]; ini = _initials(rp['playerName']); last = _last_name(rp['playerName'])
+            nodes.append(f'<g transform="translate(438,{y})"><circle r="20" fill="{LC_RELIEVER_COLOR}"/><circle r="17" fill="#1c2a38"/><text font-size="9" font-weight="500" fill="#ddb8f8" text-anchor="middle" dominant-baseline="central" font-family="sans-serif">{ini}</text><text font-size="7.5" fill="#c090e8" text-anchor="middle" y="25" font-family="sans-serif">{last}</text></g>')
+        else:
+            nodes.append(f'<g transform="translate(438,{y})"><circle r="20" fill="#555"/><circle r="17" fill="#1c2a38"/><text font-size="9" fill="#666" text-anchor="middle" dominant-baseline="central" font-family="sans-serif">—</text></g>')
+
+    svg = f'''<svg width="100%" viewBox="0 -20 460 420" xmlns="http://www.w3.org/2000/svg">
+  <text x="230" y="-10" font-size="14" font-weight="600" fill="#C8C8C8" text-anchor="middle" font-family="sans-serif">{title}</text>
+  <text x="230" y="6" font-size="9" fill="#888" text-anchor="middle" font-family="sans-serif">{subtitle}</text>
+  <path d="M230,340 L50,90 Q230,0 410,90 Z" fill="#2d8a45"/>
+  <path d="M50,90 Q230,0 410,90" fill="none" stroke="{LC_RED}" stroke-width="10"/>
+  <line x1="230" y1="340" x2="50" y2="90" stroke="{LC_RED}" stroke-width="8"/>
+  <line x1="230" y1="340" x2="410" y2="90" stroke="{LC_RED}" stroke-width="8"/>
+  <path d="M230,340 L128,220 Q230,150 332,220 Z" fill="#c8883a"/>
+  <path d="M230,340 L144,230 Q230,166 316,230 Z" fill="#2d8a45"/>
+  <rect x="222" y="168" width="16" height="16" rx="2" fill="#f5efe0" transform="rotate(45 230 176)"/>
+  <rect x="308" y="228" width="14" height="14" rx="2" fill="#f5efe0" transform="rotate(45 315 235)"/>
+  <rect x="148" y="228" width="14" height="14" rx="2" fill="#f5efe0" transform="rotate(45 155 235)"/>
+  <polygon points="230,326 220,316 220,306 240,306 240,316" fill="#f5efe0"/>
+  <circle cx="230" cy="250" r="9" fill="#b87830" opacity="0.9"/>
+  <circle cx="230" cy="250" r="4" fill="#a06820"/>
+  {chr(10).join(nodes)}
+</svg>
+<div style="display:flex;gap:16px;justify-content:center;padding:6px 0;flex-wrap:wrap;">
+  <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:#888;">
+    <div style="width:10px;height:10px;border-radius:50%;background:#C41230;"></div>Fielder / Starter</div>
+  <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:#888;">
+    <div style="width:10px;height:10px;border-radius:50%;background:#22d3a0;"></div>DH</div>
+  <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:#888;">
+    <div style="width:10px;height:10px;border-radius:50%;background:#a855f7;"></div>Reliever</div>
+</div>'''
+    return svg
+
+
+def render_hitter_card_html(p, pos):
+    ini = _initials(p['playerName'])
+    return f'''<div style="background:#222;border-radius:16px;border:1px solid #3a3a3a;padding:18px 16px;max-width:360px;margin:8px auto;font-family:sans-serif;">
+  <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid #3a3a3a;">
+    <div style="width:52px;height:52px;border-radius:50%;background:#1c2a38;border:2.5px solid #C41230;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:500;color:#e8d0b0;flex-shrink:0;">{ini}</div>
+    <div><div style="font-size:15px;font-weight:500;color:#C8C8C8;">{p['playerName']}</div>
+    <div style="font-size:11px;color:#888;margin-top:2px;">{p.get('teamName','')} · {pos}</div></div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:6px;">
+    <div style="background:#2a2a2a;border-radius:8px;padding:8px 4px;text-align:center;"><div style="font-size:17px;font-weight:500;color:#C41230;">{p['OPS']:.3f}</div><div style="font-size:9px;color:#888;">OPS</div></div>
+    <div style="background:#2a2a2a;border-radius:8px;padding:8px 4px;text-align:center;"><div style="font-size:17px;font-weight:500;color:#C41230;">{p['wOBA']:.3f}</div><div style="font-size:9px;color:#888;">wOBA</div></div>
+    <div style="background:#2a2a2a;border-radius:8px;padding:8px 4px;text-align:center;"><div style="font-size:17px;font-weight:500;color:#C41230;">{p['wRAA']:.1f}</div><div style="font-size:9px;color:#888;">wRAA</div></div>
+    <div style="background:#2a2a2a;border-radius:8px;padding:8px 4px;text-align:center;"><div style="font-size:17px;font-weight:500;color:#C8C8C8;">{p['BA']:.3f}</div><div style="font-size:9px;color:#888;">AVG</div></div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px;">
+    <div style="background:#2a2a2a;border-radius:8px;padding:8px 4px;text-align:center;"><div style="font-size:15px;color:#C8C8C8;">{p['HR']}</div><div style="font-size:9px;color:#888;">HR</div></div>
+    <div style="background:#2a2a2a;border-radius:8px;padding:8px 4px;text-align:center;"><div style="font-size:15px;color:#C8C8C8;">{p['RBI']}</div><div style="font-size:9px;color:#888;">RBI</div></div>
+    <div style="background:#2a2a2a;border-radius:8px;padding:8px 4px;text-align:center;"><div style="font-size:15px;color:#C8C8C8;">{p['R']}</div><div style="font-size:9px;color:#888;">R</div></div>
+    <div style="background:#2a2a2a;border-radius:8px;padding:8px 4px;text-align:center;"><div style="font-size:15px;color:#C8C8C8;">{p['BB']}</div><div style="font-size:9px;color:#888;">BB</div></div>
+    <div style="background:#2a2a2a;border-radius:8px;padding:8px 4px;text-align:center;"><div style="font-size:15px;color:#C8C8C8;">{p['SB']}</div><div style="font-size:9px;color:#888;">SB</div></div>
+  </div>
+</div>'''
+
+
+def render_pitcher_card_html(p, role='Starter'):
+    ini = _initials(p['playerName'])
+    ring = LC_RED if role == 'Starter' else LC_RELIEVER_COLOR
+    return f'''<div style="background:#222;border-radius:16px;border:1px solid #3a3a3a;padding:18px 16px;max-width:360px;margin:8px auto;font-family:sans-serif;">
+  <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid #3a3a3a;">
+    <div style="width:52px;height:52px;border-radius:50%;background:#1c2a38;border:2.5px solid {ring};display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:500;color:#e8d0b0;flex-shrink:0;">{ini}</div>
+    <div><div style="font-size:15px;font-weight:500;color:#C8C8C8;">{p['playerName']}</div>
+    <div style="font-size:11px;color:#888;margin-top:2px;">{p.get('teamName','')} · {role}</div></div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:6px;">
+    <div style="background:#2a2a2a;border-radius:8px;padding:8px 4px;text-align:center;"><div style="font-size:17px;font-weight:500;color:#C41230;">{p['ERA']:.2f}</div><div style="font-size:9px;color:#888;">ERA</div></div>
+    <div style="background:#2a2a2a;border-radius:8px;padding:8px 4px;text-align:center;"><div style="font-size:17px;font-weight:500;color:#C41230;">{p['FIP']:.2f}</div><div style="font-size:9px;color:#888;">FIP</div></div>
+    <div style="background:#2a2a2a;border-radius:8px;padding:8px 4px;text-align:center;"><div style="font-size:17px;color:#C8C8C8;">{p['IP']}</div><div style="font-size:9px;color:#888;">IP</div></div>
+    <div style="background:#2a2a2a;border-radius:8px;padding:8px 4px;text-align:center;"><div style="font-size:17px;color:#C8C8C8;">{p['K%']:.3f}</div><div style="font-size:9px;color:#888;">K%</div></div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px;">
+    <div style="background:#2a2a2a;border-radius:8px;padding:8px 4px;text-align:center;"><div style="font-size:15px;color:#C8C8C8;">{p['SO']}</div><div style="font-size:9px;color:#888;">SO</div></div>
+    <div style="background:#2a2a2a;border-radius:8px;padding:8px 4px;text-align:center;"><div style="font-size:15px;color:#C8C8C8;">{p['BB']}</div><div style="font-size:9px;color:#888;">BB</div></div>
+    <div style="background:#2a2a2a;border-radius:8px;padding:8px 4px;text-align:center;"><div style="font-size:15px;color:#C8C8C8;">{p['H']}</div><div style="font-size:9px;color:#888;">H</div></div>
+    <div style="background:#2a2a2a;border-radius:8px;padding:8px 4px;text-align:center;"><div style="font-size:15px;color:#C8C8C8;">{p['HR']}</div><div style="font-size:9px;color:#888;">HR</div></div>
+    <div style="background:#2a2a2a;border-radius:8px;padding:8px 4px;text-align:center;"><div style="font-size:15px;color:#C8C8C8;">{p['Games']}</div><div style="font-size:9px;color:#888;">G</div></div>
+  </div>
+</div>'''
+
+
 # ── Data Loading ─────────────────────────────────────────────────────────────
 @st.cache_data
 def load_pbp(sport, division, stat_type):
@@ -305,21 +508,30 @@ st.sidebar.markdown('---')
 st.sidebar.markdown('### Data Source')
 sport = st.sidebar.selectbox('Sport', ['baseball', 'softball'])
 division = st.sidebar.selectbox('Division', ['D1', 'D2', 'D3'])
-view = st.sidebar.radio('Mode', ['Hitter Stats', 'Pitcher Stats', 'Fielding Stats'], horizontal=True)
+view = st.sidebar.radio('Mode', ['Hitter Stats', 'Pitcher Stats', 'Fielding Stats', 'Lineup Card'], horizontal=True)
 
-# Determine which file to load
-stat_type = {'Hitter Stats': 'hitting', 'Pitcher Stats': 'pitching', 'Fielding Stats': 'fielding'}[view]
-pbp = load_pbp(sport, division, stat_type)
-
-if pbp is None:
-    st.error(f'No {stat_type} PBP data found for {sport} {division}')
-    st.stop()
+# Load data — Lineup Card needs both hitting + pitching
+if view == 'Lineup Card':
+    hitting_pbp = load_pbp(sport, division, 'hitting')
+    pitching_pbp = load_pbp(sport, division, 'pitching')
+    if hitting_pbp is None or pitching_pbp is None:
+        st.error(f'PBP data not found for {sport} {division}')
+        st.stop()
+    # Use hitting for date range reference
+    pbp = hitting_pbp
+else:
+    stat_type = {'Hitter Stats': 'hitting', 'Pitcher Stats': 'pitching', 'Fielding Stats': 'fielding'}[view]
+    pbp = load_pbp(sport, division, stat_type)
+    if pbp is None:
+        st.error(f'No {stat_type} PBP data found for {sport} {division}')
+        st.stop()
 
 st.sidebar.markdown(f'**{len(pbp):,}** game lines loaded')
 
 # Date range filter
 st.sidebar.markdown('---')
 st.sidebar.markdown('### Date Range')
+date_start, date_end = None, None
 if 'date_parsed' in pbp.columns:
     min_date = pbp['date_parsed'].min()
     max_date = pbp['date_parsed'].max()
@@ -328,48 +540,57 @@ if 'date_parsed' in pbp.columns:
             value=(min_date.date(), max_date.date()),
             min_value=min_date.date(), max_value=max_date.date())
         if len(date_range) == 2:
-            start, end = date_range
-            pbp = pbp[(pbp['date_parsed'].dt.date >= start) & (pbp['date_parsed'].dt.date <= end)]
-        else:
-            pass
+            date_start, date_end = date_range
+            pbp = pbp[(pbp['date_parsed'].dt.date >= date_start) & (pbp['date_parsed'].dt.date <= date_end)]
+            if view == 'Lineup Card':
+                hitting_pbp = hitting_pbp[(hitting_pbp['date_parsed'].dt.date >= date_start) & (hitting_pbp['date_parsed'].dt.date <= date_end)]
+                pitching_pbp = pitching_pbp[(pitching_pbp['date_parsed'].dt.date >= date_start) & (pitching_pbp['date_parsed'].dt.date <= date_end)]
     else:
         st.sidebar.warning('Could not parse dates')
 
 st.sidebar.markdown(f'**{len(pbp):,}** lines in range')
 
-# Team filter
-all_teams = sorted(pbp['teamName'].dropna().unique()) if 'teamName' in pbp.columns else []
-team_list = ['All'] + all_teams
-selected_team = st.sidebar.selectbox('Team', team_list)
-if selected_team != 'All':
-    pbp = pbp[pbp['teamName'] == selected_team]
+# Team / Position / Player filters — not shown for Lineup Card
+if view != 'Lineup Card':
+    # Team filter
+    all_teams = sorted(pbp['teamName'].dropna().unique()) if 'teamName' in pbp.columns else []
+    team_list = ['All'] + all_teams
+    selected_team = st.sidebar.selectbox('Team', team_list)
+    if selected_team != 'All':
+        pbp = pbp[pbp['teamName'] == selected_team]
 
-# Position filter
-if 'playerPosition' in pbp.columns:
-    all_positions = sorted(pbp['playerPosition'].dropna().unique())
-    selected_positions = st.sidebar.multiselect('Position', all_positions,
-                                                 help='Leave empty for all positions')
-    if selected_positions:
-        pbp = pbp[pbp['playerPosition'].isin(selected_positions)]
+    # Position filter
+    if 'playerPosition' in pbp.columns:
+        all_positions = sorted(pbp['playerPosition'].dropna().unique())
+        selected_positions = st.sidebar.multiselect('Position', all_positions,
+                                                     help='Leave empty for all positions')
+        if selected_positions:
+            pbp = pbp[pbp['playerPosition'].isin(selected_positions)]
 
-# Min PA/BF
-st.sidebar.markdown('---')
-if view == 'Hitter Stats':
-    min_threshold = st.sidebar.number_input('Min PA', value=10, min_value=1, step=5)
-elif view == 'Pitcher Stats':
-    min_threshold = st.sidebar.number_input('Min BF', value=10, min_value=1, step=5)
+    # Min PA/BF
+    st.sidebar.markdown('---')
+    if view == 'Hitter Stats':
+        min_threshold = st.sidebar.number_input('Min PA', value=10, min_value=1, step=5)
+    elif view == 'Pitcher Stats':
+        min_threshold = st.sidebar.number_input('Min BF', value=10, min_value=1, step=5)
 
-# Player filter
-player_col = 'playerName'
-available_players = sorted(pbp[player_col].dropna().unique()) if player_col in pbp.columns else []
-selected_players = st.sidebar.multiselect('Filter players', available_players,
-                                           help='Leave empty for all')
-if selected_players:
-    pbp = pbp[pbp[player_col].isin(selected_players)]
+    # Player filter
+    player_col = 'playerName'
+    available_players = sorted(pbp[player_col].dropna().unique()) if player_col in pbp.columns else []
+    selected_players = st.sidebar.multiselect('Filter players', available_players,
+                                               help='Leave empty for all')
+    if selected_players:
+        pbp = pbp[pbp[player_col].isin(selected_players)]
 
-if len(pbp) == 0:
-    st.warning('No events match your filters.')
-    st.stop()
+    if len(pbp) == 0:
+        st.warning('No events match your filters.')
+        st.stop()
+else:
+    # Lineup Card specific controls
+    st.sidebar.markdown('---')
+    min_pa_lc = st.sidebar.number_input('Min PA (hitters)', value=10, min_value=1, step=5)
+    min_bf_lc = st.sidebar.number_input('Min BF (pitchers)', value=15, min_value=1, step=5)
+    player_col = 'playerName'
 
 # ── Compute and Display ─────────────────────────────────────────────────────
 if view == 'Hitter Stats':
@@ -489,3 +710,48 @@ else:  # Fielding Stats
         csv_buf = fielding_stats[show_cols].to_csv(index=False)
         st.download_button('Download CSV', data=csv_buf,
                           file_name=f'pbp_fielding_{sport}_{division}.csv', mime='text/csv')
+
+elif view == 'Lineup Card':
+    # Build period label from date range
+    if date_start and date_end:
+        period_label = f"{date_start.strftime('%b %d')} – {date_end.strftime('%b %d, %Y')}"
+    else:
+        period_label = 'Full Season'
+
+    if len(hitting_pbp) == 0 or len(pitching_pbp) == 0:
+        st.warning('No data for selected period.')
+        st.stop()
+
+    # Compute best players
+    league_stats = compute_hitting_stats(hitting_pbp)
+    league_woba = league_stats['wOBA']
+    best_hitters = get_best_hitters(hitting_pbp, league_woba, min_pa=min_pa_lc)
+    starters, relievers = get_best_pitchers(pitching_pbp, min_bf=min_bf_lc)
+
+    # Render SVG
+    title = f"Players of the Period"
+    subtitle = f"{sport.title()} {division} · {period_label}"
+    svg = render_lineup_svg(best_hitters, starters, relievers, title, subtitle)
+    st.markdown(svg, unsafe_allow_html=True)
+
+    # Detail cards
+    st.markdown('---')
+    st.markdown('### Position Players')
+    cols = st.columns(3)
+    for i, pos in enumerate(FIELD_POSITIONS):
+        if pos in best_hitters:
+            with cols[i % 3]:
+                st.markdown(render_hitter_card_html(best_hitters[pos], pos), unsafe_allow_html=True)
+
+    st.markdown('### Pitchers')
+    if starters:
+        cols2 = st.columns(min(len(starters), 3))
+        for i, sp in enumerate(starters[:3]):
+            with cols2[i]:
+                st.markdown(render_pitcher_card_html(sp, 'Starter'), unsafe_allow_html=True)
+
+    if relievers:
+        cols3 = st.columns(min(len(relievers), 3))
+        for i, rp in enumerate(relievers[:3]):
+            with cols3[i]:
+                st.markdown(render_pitcher_card_html(rp, 'Reliever'), unsafe_allow_html=True)
