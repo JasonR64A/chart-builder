@@ -9,10 +9,13 @@ import pandas as pd
 import numpy as np
 from pathlib import Path
 from io import BytesIO
+import base64
 
 # ── Path setup (works locally and on Streamlit Cloud) ─────────────────────────
 _APP_DIR = Path(__file__).resolve().parent.parent
 PBP_DIR = _APP_DIR / 'pbp_data'
+DATA_DIR = _APP_DIR / 'data'
+LOGO_DIR = _APP_DIR / 'team_logos_512'
 BRAND_LOGO = _APP_DIR / 'assets' / 'brand_logo_dark.png'
 
 # wOBA weights (college-specific)
@@ -265,6 +268,38 @@ def _clean_position(pos):
 
 # ── Lineup Card helpers ───────────────────────────────────────────────────────
 FIELD_POSITIONS = ['C', '1B', '2B', '3B', 'SS', 'LF', 'CF', 'RF', 'DH']
+
+
+@st.cache_data
+def load_team_logo_map():
+    """Build team_name -> logo_id mapping from teams.csv."""
+    teams_path = DATA_DIR / 'teams.csv'
+    if not teams_path.exists():
+        return {}
+    teams = pd.read_csv(teams_path, low_memory=False)
+    teams['id'] = pd.to_numeric(teams['id'], errors='coerce').fillna(0).astype(int)
+    # Baseball IDs are canonical for logos
+    bb = teams[teams['sport'] == 'Baseball'][['name', 'id']].drop_duplicates('name')
+    name_to_id = dict(zip(bb['name'], bb['id']))
+    # Add softball teams mapped to baseball counterparts
+    sb = teams[teams['sport'] == 'Softball'][['name', 'id']].drop_duplicates('name')
+    for _, row in sb.iterrows():
+        if row['name'] not in name_to_id:
+            name_to_id[row['name']] = row['id']
+    return name_to_id
+
+
+@st.cache_data
+def get_logo_base64(logo_id):
+    """Load a team logo as base64 string for SVG embedding."""
+    # Try png first, then webp
+    for ext in ['png', 'webp']:
+        p = LOGO_DIR / f'{logo_id}.{ext}'
+        if p.exists():
+            data = p.read_bytes()
+            mime = 'image/png' if ext == 'png' else 'image/webp'
+            return f'data:{mime};base64,{base64.b64encode(data).decode()}'
+    return None
 LC_RED = '#C41230'
 LC_DH_COLOR = '#22d3a0'
 LC_RELIEVER_COLOR = '#a855f7'
@@ -351,18 +386,58 @@ POS_COORDS = {
 }
 
 
-def render_lineup_svg(best_hitters, starters, relievers, title, subtitle):
+def _logo_node(x, y, player, pos, team_map, ring_color, r=22, r_inner=19):
+    """Render a player node with team logo in circle and full name below."""
+    name = player['playerName']
+    team = player.get('teamName', '')
+    logo_id = team_map.get(team)
+    logo_b64 = get_logo_base64(logo_id) if logo_id else None
+    clip_id = f"clip-{pos}-{x}-{y}"
+
+    if logo_b64:
+        return f'''<g transform="translate({x},{y})">
+    <circle r="{r}" fill="{ring_color}"/>
+    <clipPath id="{clip_id}"><circle r="{r_inner}"/></clipPath>
+    <image href="{logo_b64}" x="-{r_inner}" y="-{r_inner}" width="{r_inner*2}" height="{r_inner*2}" clip-path="url(#{clip_id})" preserveAspectRatio="xMidYMid slice"/>
+    <text font-size="7" fill="#c8a880" text-anchor="middle" y="{r+7}" font-family="sans-serif">{name}</text>
+    <text font-size="6.5" fill="#9a8060" text-anchor="middle" y="{r+15}" font-family="sans-serif">{pos}</text></g>'''
+    else:
+        ini = _initials(name)
+        return f'''<g transform="translate({x},{y})">
+    <circle r="{r}" fill="{ring_color}"/><circle r="{r_inner}" fill="#1c2a38"/>
+    <text font-size="10" font-weight="500" fill="#e8d0b0" text-anchor="middle" dominant-baseline="central" font-family="sans-serif">{ini}</text>
+    <text font-size="7" fill="#c8a880" text-anchor="middle" y="{r+7}" font-family="sans-serif">{name}</text>
+    <text font-size="6.5" fill="#9a8060" text-anchor="middle" y="{r+15}" font-family="sans-serif">{pos}</text></g>'''
+
+
+def _pitcher_logo_node(x, y, player, team_map, ring_color, r=20, r_inner=17):
+    """Render a pitcher node with team logo and full name."""
+    name = player['playerName']
+    team = player.get('teamName', '')
+    logo_id = team_map.get(team)
+    logo_b64 = get_logo_base64(logo_id) if logo_id else None
+    clip_id = f"clip-p-{x}-{y}"
+
+    if logo_b64:
+        return f'''<g transform="translate({x},{y})">
+    <circle r="{r}" fill="{ring_color}"/>
+    <clipPath id="{clip_id}"><circle r="{r_inner}"/></clipPath>
+    <image href="{logo_b64}" x="-{r_inner}" y="-{r_inner}" width="{r_inner*2}" height="{r_inner*2}" clip-path="url(#{clip_id})" preserveAspectRatio="xMidYMid slice"/>
+    <text font-size="7" fill="#c8a880" text-anchor="middle" y="25" font-family="sans-serif">{name}</text></g>'''
+    else:
+        ini = _initials(name)
+        return f'''<g transform="translate({x},{y})">
+    <circle r="{r}" fill="{ring_color}"/><circle r="{r_inner}" fill="#1c2a38"/>
+    <text font-size="9" font-weight="500" fill="#e8d0b0" text-anchor="middle" dominant-baseline="central" font-family="sans-serif">{ini}</text>
+    <text font-size="7" fill="#c8a880" text-anchor="middle" y="25" font-family="sans-serif">{name}</text></g>'''
+
+
+def render_lineup_svg(best_hitters, starters, relievers, title, subtitle, team_map):
     nodes = []
     for pos, (x, y) in POS_COORDS.items():
         if pos in best_hitters:
-            p = best_hitters[pos]
             color = LC_DH_COLOR if pos == 'DH' else LC_RED
-            ini = _initials(p['playerName']); last = _last_name(p['playerName'])
-            nodes.append(f'''<g transform="translate({x},{y})">
-    <circle r="22" fill="{color}"/><circle r="19" fill="#1c2a38"/>
-    <text font-size="10" font-weight="500" fill="#e8d0b0" text-anchor="middle" dominant-baseline="central" font-family="sans-serif">{ini}</text>
-    <text font-size="8" fill="#c8a880" text-anchor="middle" y="28" font-family="sans-serif">{last}</text>
-    <text font-size="7" fill="#9a8060" text-anchor="middle" y="37" font-family="sans-serif">{pos}</text></g>''')
+            nodes.append(_logo_node(x, y, best_hitters[pos], pos, team_map, color))
         else:
             nodes.append(f'''<g transform="translate({x},{y})">
     <circle r="22" fill="#555"/><circle r="19" fill="#1c2a38"/>
@@ -375,8 +450,7 @@ def render_lineup_svg(best_hitters, starters, relievers, title, subtitle):
     for i in range(3):
         y = 58 + i * 56
         if i < len(starters):
-            sp = starters[i]; ini = _initials(sp['playerName']); last = _last_name(sp['playerName'])
-            nodes.append(f'<g transform="translate(438,{y})"><circle r="20" fill="{LC_RED}"/><circle r="17" fill="#1c2a38"/><text font-size="9" font-weight="500" fill="#e8d0b0" text-anchor="middle" dominant-baseline="central" font-family="sans-serif">{ini}</text><text font-size="7.5" fill="#c8a880" text-anchor="middle" y="25" font-family="sans-serif">{last}</text></g>')
+            nodes.append(_pitcher_logo_node(438, y, starters[i], team_map, LC_RED))
         else:
             nodes.append(f'<g transform="translate(438,{y})"><circle r="20" fill="#555"/><circle r="17" fill="#1c2a38"/><text font-size="9" fill="#666" text-anchor="middle" dominant-baseline="central" font-family="sans-serif">—</text></g>')
 
@@ -384,8 +458,7 @@ def render_lineup_svg(best_hitters, starters, relievers, title, subtitle):
     for i in range(3):
         y = 246 + i * 56
         if i < len(relievers):
-            rp = relievers[i]; ini = _initials(rp['playerName']); last = _last_name(rp['playerName'])
-            nodes.append(f'<g transform="translate(438,{y})"><circle r="20" fill="{LC_RELIEVER_COLOR}"/><circle r="17" fill="#1c2a38"/><text font-size="9" font-weight="500" fill="#ddb8f8" text-anchor="middle" dominant-baseline="central" font-family="sans-serif">{ini}</text><text font-size="7.5" fill="#c090e8" text-anchor="middle" y="25" font-family="sans-serif">{last}</text></g>')
+            nodes.append(_pitcher_logo_node(438, y, relievers[i], team_map, LC_RELIEVER_COLOR))
         else:
             nodes.append(f'<g transform="translate(438,{y})"><circle r="20" fill="#555"/><circle r="17" fill="#1c2a38"/><text font-size="9" fill="#666" text-anchor="middle" dominant-baseline="central" font-family="sans-serif">—</text></g>')
 
@@ -728,10 +801,13 @@ elif view == 'Lineup Card':
     best_hitters = get_best_hitters(hitting_pbp, league_woba, min_pa=min_pa_lc)
     starters, relievers = get_best_pitchers(pitching_pbp, min_bf=min_bf_lc)
 
+    # Load team logo map
+    team_map = load_team_logo_map()
+
     # Render SVG
     title = f"Players of the Period"
     subtitle = f"{sport.title()} {division} · {period_label}"
-    svg = render_lineup_svg(best_hitters, starters, relievers, title, subtitle)
+    svg = render_lineup_svg(best_hitters, starters, relievers, title, subtitle, team_map)
     st.markdown(svg, unsafe_allow_html=True)
 
     # Detail cards
