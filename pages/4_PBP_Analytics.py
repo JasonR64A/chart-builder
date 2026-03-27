@@ -492,7 +492,7 @@ def render_lineup_svg(best_hitters, starters, relievers, title, subtitle, team_m
   <circle cx="230" cy="220" r="9" fill="#b87830" opacity="0.9"/>
   <circle cx="230" cy="220" r="4" fill="#a06820"/>
   <!-- Brand logo in center field -->
-  {f'<image href="{brand_b64}" x="205" y="-25" width="50" height="50" opacity="0.9" preserveAspectRatio="xMidYMid meet"/>' if brand_b64 else ''}
+  {f'<image href="{brand_b64}" x="205" y="90" width="50" height="50" opacity="0.9" preserveAspectRatio="xMidYMid meet"/>' if brand_b64 else ''}
   {chr(10).join(nodes)}
 </svg>
 <div style="display:flex;gap:16px;justify-content:center;padding:6px 0;flex-wrap:wrap;">
