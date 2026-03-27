@@ -1402,15 +1402,21 @@ def main():
 
     # Player callout UI (shown above chart in player mode)
     player_callout_ui(data, cfg)
-    with st.spinner('Rendering chart...'):
-        fig = render_chart(data, cfg)
+    try:
+        with st.spinner('Rendering chart...'):
+            fig = render_chart(data, cfg)
 
-    # Render to image buffer with explicit facecolor
-    buf = BytesIO()
-    fig.savefig(buf, format='png', dpi=180, bbox_inches='tight',
-                facecolor=chart_theme['bg'], edgecolor='none')
-    buf.seek(0)
-    plt.close(fig)
+        # Render to image buffer with explicit facecolor
+        buf = BytesIO()
+        fig.savefig(buf, format='png', dpi=180, bbox_inches='tight',
+                    facecolor=chart_theme['bg'], edgecolor='none')
+        buf.seek(0)
+        plt.close(fig)
+    except Exception as e:
+        st.error(f"Chart rendering failed: {e}")
+        import traceback
+        st.code(traceback.format_exc())
+        return
 
     st.image(buf, use_container_width=True)
 
