@@ -166,7 +166,7 @@ def load_brand_logo(path=None):
 
 
 @st.cache_data
-def load_logo_thumbnail(logo_path, size=384):
+def load_logo_thumbnail(logo_path, size=256):
     """Load a team logo resized to a thumbnail to save memory."""
     img = Image.open(logo_path).convert('RGBA')
     img.thumbnail((size, size), Image.LANCZOS)
@@ -1130,7 +1130,7 @@ def render_chart(data, cfg):
             zoom = zooms.loc[idx] if idx in zooms.index else cfg['logo_zoom']
             if logo_path and os.path.exists(logo_path):
                 img = load_logo_thumbnail(str(logo_path))
-                ab = AnnotationBbox(OffsetImage(img, zoom=zoom, alpha=0.93),
+                ab = AnnotationBbox(OffsetImage(img, zoom=zoom * 2, alpha=0.93),
                                     (row[x_col], row[y_col]),
                                     frameon=False, zorder=3)
                 ax.add_artist(ab)
@@ -1272,7 +1272,7 @@ def render_chart(data, cfg):
                 logo_z = cfg.get('logo_zoom', 0.055)
                 if logo_path_str and os.path.exists(str(logo_path_str)):
                     img = load_logo_thumbnail(str(logo_path_str))
-                    ab = AnnotationBbox(OffsetImage(img, zoom=logo_z, alpha=logo_alpha),
+                    ab = AnnotationBbox(OffsetImage(img, zoom=logo_z * 2, alpha=logo_alpha),
                                         (px, py), frameon=False, zorder=8)
                     ax.add_artist(ab)
                 else:
