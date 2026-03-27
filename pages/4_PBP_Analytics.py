@@ -191,6 +191,15 @@ def compute_wraa(woba, league_woba, pa):
     return round(((woba - league_woba) / WOBA_SCALE) * pa, 1)
 
 
+def _primary_position(group):
+    """Return the most common position for a player group."""
+    if 'playerPosition' in group.columns:
+        pos = group['playerPosition'].dropna()
+        if len(pos) > 0:
+            return pos.value_counts().index[0]
+    return ''
+
+
 def compute_grouped_hitting(df, group_col, league_woba, min_pa=1):
     """Compute hitting stats grouped by a column."""
     rows = []
@@ -199,6 +208,7 @@ def compute_grouped_hitting(df, group_col, league_woba, min_pa=1):
         if stats['PA'] >= min_pa:
             stats['wRAA'] = compute_wraa(stats['wOBA'], league_woba, stats['PA'])
             stats[group_col] = name
+            stats['Pos'] = _primary_position(group)
             rows.append(stats)
     if not rows:
         return pd.DataFrame()
@@ -214,6 +224,7 @@ def compute_grouped_pitching(df, group_col, min_bf=1):
         stats = compute_pitching_stats(group)
         if stats['BF'] >= min_bf:
             stats[group_col] = name
+            stats['Pos'] = _primary_position(group)
             rows.append(stats)
     if not rows:
         return pd.DataFrame()
@@ -229,6 +240,7 @@ def compute_grouped_fielding(df, group_col):
         stats = compute_fielding_stats(group)
         if stats['TC'] > 0:
             stats[group_col] = name
+            stats['Pos'] = _primary_position(group)
             rows.append(stats)
     if not rows:
         return pd.DataFrame()
@@ -315,6 +327,14 @@ selected_team = st.sidebar.selectbox('Team', team_list)
 if selected_team != 'All':
     pbp = pbp[pbp['teamName'] == selected_team]
 
+# Position filter
+if 'playerPosition' in pbp.columns:
+    all_positions = sorted(pbp['playerPosition'].dropna().unique())
+    selected_positions = st.sidebar.multiselect('Position', all_positions,
+                                                 help='Leave empty for all positions')
+    if selected_positions:
+        pbp = pbp[pbp['playerPosition'].isin(selected_positions)]
+
 # Min PA/BF
 st.sidebar.markdown('---')
 if view == 'Hitter Stats':
@@ -357,7 +377,7 @@ if view == 'Hitter Stats':
     if len(player_stats) == 0:
         st.info(f'No players meet the {min_threshold} PA minimum.')
     else:
-        show_cols = [player_col, 'PA', 'AB', 'H', '1B', '2B', '3B', 'HR', 'TB',
+        show_cols = [player_col, 'Pos', 'PA', 'AB', 'H', '1B', '2B', '3B', 'HR', 'TB',
                      'R', 'RBI', 'BB', 'HBP', 'K', 'SB', 'CS', 'GDP',
                      'BA', 'OBP', 'SLG', 'OPS', 'wOBA', 'wRAA']
         show_cols = [c for c in show_cols if c in player_stats.columns]
@@ -401,7 +421,7 @@ elif view == 'Pitcher Stats':
     if len(pitcher_stats) == 0:
         st.info(f'No pitchers meet the {min_threshold} BF minimum.')
     else:
-        show_cols = [player_col, 'IP', 'BF', 'H', 'ER', 'BB', 'HB', 'SO', 'HR',
+        show_cols = [player_col, 'Pos', 'IP', 'BF', 'H', 'ER', 'BB', 'HB', 'SO', 'HR',
                      'WP', 'ERA', 'FIP', 'BAA', 'OBP Against', 'SLG Against', 'OPS Against',
                      'K%', 'BB%']
         show_cols = [c for c in show_cols if c in pitcher_stats.columns]
@@ -444,7 +464,7 @@ else:  # Fielding Stats
     if len(fielding_stats) == 0:
         st.info('No fielding data available.')
     else:
-        show_cols = [player_col, 'PO', 'A', 'TC', 'E', 'FPCT',
+        show_cols = [player_col, 'Pos', 'PO', 'A', 'TC', 'E', 'FPCT',
                      'PB', 'SBA', 'CSB', 'CS%', 'IDP', 'TP']
         show_cols = [c for c in show_cols if c in fielding_stats.columns]
         st.dataframe(fielding_stats[show_cols], use_container_width=True, hide_index=True)
