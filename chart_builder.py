@@ -166,6 +166,14 @@ def load_brand_logo(path=None):
 
 
 @st.cache_data
+def load_logo_thumbnail(logo_path, size=128):
+    """Load a team logo resized to a small thumbnail to save memory."""
+    img = Image.open(logo_path).convert('RGBA')
+    img.thumbnail((size, size), Image.LANCZOS)
+    return np.array(img) / 255.0  # matplotlib expects 0-1 float for RGBA
+
+
+@st.cache_data
 def get_plottable_columns(csv_name):
     """Return numeric columns suitable for plotting."""
     df = load_csv(csv_name)
@@ -1121,7 +1129,7 @@ def render_chart(data, cfg):
             logo_path = row.get('logo_path')
             zoom = zooms.loc[idx] if idx in zooms.index else cfg['logo_zoom']
             if logo_path and os.path.exists(logo_path):
-                img = mpimg.imread(logo_path)
+                img = load_logo_thumbnail(str(logo_path))
                 ab = AnnotationBbox(OffsetImage(img, zoom=zoom, alpha=0.93),
                                     (row[x_col], row[y_col]),
                                     frameon=False, zorder=3)
@@ -1263,7 +1271,7 @@ def render_chart(data, cfg):
                 logo_path_str = row.get('logo_path')
                 logo_z = cfg.get('logo_zoom', 0.055)
                 if logo_path_str and os.path.exists(str(logo_path_str)):
-                    img = mpimg.imread(str(logo_path_str))
+                    img = load_logo_thumbnail(str(logo_path_str))
                     ab = AnnotationBbox(OffsetImage(img, zoom=logo_z, alpha=logo_alpha),
                                         (px, py), frameon=False, zorder=8)
                     ax.add_artist(ab)
