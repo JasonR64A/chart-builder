@@ -290,6 +290,19 @@ def load_team_logo_map():
 
 
 @st.cache_data
+def load_team_conference_map():
+    """Build team_name -> conference_name mapping from teams.csv + conferences.csv."""
+    teams_path = DATA_DIR / 'teams.csv'
+    confs_path = DATA_DIR / 'conferences.csv'
+    if not teams_path.exists() or not confs_path.exists():
+        return {}
+    teams = pd.read_csv(teams_path, low_memory=False)
+    confs = pd.read_csv(confs_path, low_memory=False)
+    merged = teams.merge(confs[['id', 'name']], left_on='conference_id', right_on='id', suffixes=('', '_conf'))
+    return dict(zip(merged['name'], merged['name_conf']))
+
+
+@st.cache_data
 def get_logo_base64(logo_id):
     """Load a team logo as base64 string for SVG embedding."""
     # Try png first, then webp
@@ -667,6 +680,20 @@ if 'date_parsed' in pbp.columns:
         st.sidebar.warning('Could not parse dates')
 
 st.sidebar.markdown(f'**{len(pbp):,}** lines in range')
+
+# Conference filter (applies to all views)
+conf_map = load_team_conference_map()
+if conf_map and 'teamName' in pbp.columns:
+    pbp_conferences = pbp['teamName'].map(conf_map).dropna().unique()
+    all_conferences = sorted(pbp_conferences)
+    selected_conferences = st.sidebar.multiselect('Conference', all_conferences,
+                                                    help='Leave empty for all conferences')
+    if selected_conferences:
+        conf_teams = {t for t, c in conf_map.items() if c in selected_conferences}
+        pbp = pbp[pbp['teamName'].isin(conf_teams)]
+        if view == 'Lineup Card':
+            hitting_pbp = hitting_pbp[hitting_pbp['teamName'].isin(conf_teams)]
+            pitching_pbp = pitching_pbp[pitching_pbp['teamName'].isin(conf_teams)]
 
 # Team / Position / Player filters — not shown for Lineup Card
 if view != 'Lineup Card':
