@@ -4,25 +4,37 @@ Run:  streamlit run chart_builder.py
 """
 
 import streamlit as st
-import pandas as pd
-import numpy as np
-import matplotlib
-matplotlib.use('Agg')
-import matplotlib.pyplot as plt
-import matplotlib.image as mpimg
-from matplotlib.offsetbox import OffsetImage, AnnotationBbox
-from PIL import Image, ImageDraw
-from pathlib import Path
-from io import BytesIO
-import os
-import matplotlib.font_manager as fm
 
-# ── Path setup (works locally and on Streamlit Cloud) ─────────────────────────
-_APP_DIR = Path(__file__).resolve().parent
-DATA_DIR   = _APP_DIR / 'data'
-LOGO_DIR   = _APP_DIR / 'team_logos_512'
-BRAND_LOGO_DARK  = _APP_DIR / 'assets' / 'brand_logo_dark.png'
-BRAND_LOGO_LIGHT = _APP_DIR / 'assets' / 'brand_logo_light.png'
+# ── Debug: catch startup errors ───────────────────────────────────────────────
+try:
+    import pandas as pd
+    import numpy as np
+    import matplotlib
+    matplotlib.use('Agg')
+    import matplotlib.pyplot as plt
+    import matplotlib.image as mpimg
+    from matplotlib.offsetbox import OffsetImage, AnnotationBbox
+    from PIL import Image, ImageDraw
+    from pathlib import Path
+    from io import BytesIO
+    import os
+    import matplotlib.font_manager as fm
+
+    # ── Path setup (works locally and on Streamlit Cloud) ─────────────────────────
+    _APP_DIR = Path(__file__).resolve().parent
+    DATA_DIR   = _APP_DIR / 'data'
+    LOGO_DIR   = _APP_DIR / 'team_logos_512'
+    BRAND_LOGO_DARK  = _APP_DIR / 'assets' / 'brand_logo_dark.png'
+    BRAND_LOGO_LIGHT = _APP_DIR / 'assets' / 'brand_logo_light.png'
+
+    st.sidebar.success(f"App dir: {_APP_DIR}")
+    st.sidebar.info(f"Data files: {len(list(DATA_DIR.glob('*.csv')))}")
+    st.sidebar.info(f"Logos: {len(list(LOGO_DIR.iterdir()))}")
+except Exception as e:
+    st.error(f"Startup failed: {e}")
+    import traceback
+    st.code(traceback.format_exc())
+    st.stop()
 
 RED      = '#C41230'
 RED_DK   = '#8B1A2A'
