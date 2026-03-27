@@ -488,9 +488,11 @@ def render_lineup_svg(best_hitters, starters, relievers, title, subtitle, team_m
   <rect x="308" y="198" width="14" height="14" rx="2" fill="#f5efe0" transform="rotate(45 315 205)"/>
   <rect x="148" y="198" width="14" height="14" rx="2" fill="#f5efe0" transform="rotate(45 155 205)"/>
   <polygon points="230,296 220,286 220,276 240,276 240,286" fill="#f5efe0"/>
-  <!-- Brand logo on mound -->
-  <circle cx="230" cy="220" r="18" fill="#1a1a1a" opacity="0.85"/>
-  {f'<clipPath id="clip-brand"><circle cx="230" cy="220" r="16"/></clipPath><image href="{brand_b64}" x="214" y="204" width="32" height="32" clip-path="url(#clip-brand)" preserveAspectRatio="xMidYMid slice"/>' if brand_b64 else '<circle cx="230" cy="220" r="9" fill="#b87830"/>'}
+  <!-- Mound -->
+  <circle cx="230" cy="220" r="9" fill="#b87830" opacity="0.9"/>
+  <circle cx="230" cy="220" r="4" fill="#a06820"/>
+  <!-- Brand logo in center field -->
+  {f'<image href="{brand_b64}" x="205" y="-25" width="50" height="50" opacity="0.9" preserveAspectRatio="xMidYMid meet"/>' if brand_b64 else ''}
   {chr(10).join(nodes)}
 </svg>
 <div style="display:flex;gap:16px;justify-content:center;padding:6px 0;flex-wrap:wrap;">
