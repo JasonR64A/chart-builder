@@ -684,7 +684,7 @@ elif view == 'Pitcher Stats':
                 gl_cols = [c for c in gl_cols if c in game_log.columns]
                 st.dataframe(game_log[gl_cols], use_container_width=True, hide_index=True)
 
-else:  # Fielding Stats
+elif view == 'Fielding Stats':
     st.markdown(f'### Fielding Stats — {sport.title()} {division}')
 
     # Overall summary
