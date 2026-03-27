@@ -379,11 +379,14 @@ def _last_name(name):
 
 
 POS_COORDS = {
-    'CF': (230, 54), 'LF': (108, 127), 'RF': (352, 127),
-    'SS': (196, 192), '2B': (264, 192),
-    '3B': (152, 252), '1B': (308, 252),
-    'C': (230, 307), 'DH': (230, 375),
+    'CF': (230, 24), 'LF': (108, 97), 'RF': (352, 97),
+    'SS': (196, 162), '2B': (264, 162),
+    '3B': (152, 222), '1B': (308, 222),
+    'C': (230, 277), 'DH': (230, 345),
 }
+
+
+EGGSHELL = '#f5efe0'
 
 
 def _logo_node(x, y, player, pos, team_map, ring_color, r=22, r_inner=19):
@@ -397,6 +400,7 @@ def _logo_node(x, y, player, pos, team_map, ring_color, r=22, r_inner=19):
     if logo_b64:
         return f'''<g transform="translate({x},{y})">
     <circle r="{r}" fill="{ring_color}"/>
+    <circle r="{r_inner}" fill="{EGGSHELL}"/>
     <clipPath id="{clip_id}"><circle r="{r_inner}"/></clipPath>
     <image href="{logo_b64}" x="-{r_inner}" y="-{r_inner}" width="{r_inner*2}" height="{r_inner*2}" clip-path="url(#{clip_id})" preserveAspectRatio="xMidYMid slice"/>
     <text font-size="7" fill="#c8a880" text-anchor="middle" y="{r+7}" font-family="sans-serif">{name}</text>
@@ -404,8 +408,8 @@ def _logo_node(x, y, player, pos, team_map, ring_color, r=22, r_inner=19):
     else:
         ini = _initials(name)
         return f'''<g transform="translate({x},{y})">
-    <circle r="{r}" fill="{ring_color}"/><circle r="{r_inner}" fill="#1c2a38"/>
-    <text font-size="10" font-weight="500" fill="#e8d0b0" text-anchor="middle" dominant-baseline="central" font-family="sans-serif">{ini}</text>
+    <circle r="{r}" fill="{ring_color}"/><circle r="{r_inner}" fill="{EGGSHELL}"/>
+    <text font-size="10" font-weight="500" fill="#333" text-anchor="middle" dominant-baseline="central" font-family="sans-serif">{ini}</text>
     <text font-size="7" fill="#c8a880" text-anchor="middle" y="{r+7}" font-family="sans-serif">{name}</text>
     <text font-size="6.5" fill="#9a8060" text-anchor="middle" y="{r+15}" font-family="sans-serif">{pos}</text></g>'''
 
@@ -421,14 +425,15 @@ def _pitcher_logo_node(x, y, player, team_map, ring_color, r=20, r_inner=17):
     if logo_b64:
         return f'''<g transform="translate({x},{y})">
     <circle r="{r}" fill="{ring_color}"/>
+    <circle r="{r_inner}" fill="{EGGSHELL}"/>
     <clipPath id="{clip_id}"><circle r="{r_inner}"/></clipPath>
     <image href="{logo_b64}" x="-{r_inner}" y="-{r_inner}" width="{r_inner*2}" height="{r_inner*2}" clip-path="url(#{clip_id})" preserveAspectRatio="xMidYMid slice"/>
     <text font-size="7" fill="#c8a880" text-anchor="middle" y="25" font-family="sans-serif">{name}</text></g>'''
     else:
         ini = _initials(name)
         return f'''<g transform="translate({x},{y})">
-    <circle r="{r}" fill="{ring_color}"/><circle r="{r_inner}" fill="#1c2a38"/>
-    <text font-size="9" font-weight="500" fill="#e8d0b0" text-anchor="middle" dominant-baseline="central" font-family="sans-serif">{ini}</text>
+    <circle r="{r}" fill="{ring_color}"/><circle r="{r_inner}" fill="{EGGSHELL}"/>
+    <text font-size="9" font-weight="500" fill="#333" text-anchor="middle" dominant-baseline="central" font-family="sans-serif">{ini}</text>
     <text font-size="7" fill="#c8a880" text-anchor="middle" y="25" font-family="sans-serif">{name}</text></g>'''
 
 
@@ -462,21 +467,30 @@ def render_lineup_svg(best_hitters, starters, relievers, title, subtitle, team_m
         else:
             nodes.append(f'<g transform="translate(438,{y})"><circle r="20" fill="#555"/><circle r="17" fill="#1c2a38"/><text font-size="9" fill="#666" text-anchor="middle" dominant-baseline="central" font-family="sans-serif">—</text></g>')
 
+    # Brand logo for center field
+    brand_b64 = get_logo_base64('brand') if False else None
+    brand_path = _APP_DIR / 'assets' / 'brand_logo_dark.png'
+    if brand_path.exists():
+        brand_data = brand_path.read_bytes()
+        brand_b64 = f'data:image/png;base64,{base64.b64encode(brand_data).decode()}'
+
     svg = f'''<svg width="100%" viewBox="0 -20 460 420" xmlns="http://www.w3.org/2000/svg">
   <text x="230" y="-10" font-size="14" font-weight="600" fill="#C8C8C8" text-anchor="middle" font-family="sans-serif">{title}</text>
   <text x="230" y="6" font-size="9" fill="#888" text-anchor="middle" font-family="sans-serif">{subtitle}</text>
-  <path d="M230,340 L50,90 Q230,0 410,90 Z" fill="#2d8a45"/>
-  <path d="M50,90 Q230,0 410,90" fill="none" stroke="{LC_RED}" stroke-width="10"/>
-  <line x1="230" y1="340" x2="50" y2="90" stroke="{LC_RED}" stroke-width="8"/>
-  <line x1="230" y1="340" x2="410" y2="90" stroke="{LC_RED}" stroke-width="8"/>
-  <path d="M230,340 L128,220 Q230,150 332,220 Z" fill="#c8883a"/>
-  <path d="M230,340 L144,230 Q230,166 316,230 Z" fill="#2d8a45"/>
-  <rect x="222" y="168" width="16" height="16" rx="2" fill="#f5efe0" transform="rotate(45 230 176)"/>
-  <rect x="308" y="228" width="14" height="14" rx="2" fill="#f5efe0" transform="rotate(45 315 235)"/>
-  <rect x="148" y="228" width="14" height="14" rx="2" fill="#f5efe0" transform="rotate(45 155 235)"/>
-  <polygon points="230,326 220,316 220,306 240,306 240,316" fill="#f5efe0"/>
-  <circle cx="230" cy="250" r="9" fill="#b87830" opacity="0.9"/>
-  <circle cx="230" cy="250" r="4" fill="#a06820"/>
+  <!-- Field shifted up 30px -->
+  <path d="M230,310 L50,60 Q230,-30 410,60 Z" fill="#2d8a45"/>
+  <path d="M50,60 Q230,-30 410,60" fill="none" stroke="{LC_RED}" stroke-width="10"/>
+  <line x1="230" y1="310" x2="50" y2="60" stroke="{LC_RED}" stroke-width="8"/>
+  <line x1="230" y1="310" x2="410" y2="60" stroke="{LC_RED}" stroke-width="8"/>
+  <path d="M230,310 L128,190 Q230,120 332,190 Z" fill="#c8883a"/>
+  <path d="M230,310 L144,200 Q230,136 316,200 Z" fill="#2d8a45"/>
+  <rect x="222" y="138" width="16" height="16" rx="2" fill="#f5efe0" transform="rotate(45 230 146)"/>
+  <rect x="308" y="198" width="14" height="14" rx="2" fill="#f5efe0" transform="rotate(45 315 205)"/>
+  <rect x="148" y="198" width="14" height="14" rx="2" fill="#f5efe0" transform="rotate(45 155 205)"/>
+  <polygon points="230,296 220,286 220,276 240,276 240,286" fill="#f5efe0"/>
+  <!-- Brand logo on mound -->
+  <circle cx="230" cy="220" r="18" fill="#1a1a1a" opacity="0.85"/>
+  {f'<clipPath id="clip-brand"><circle cx="230" cy="220" r="16"/></clipPath><image href="{brand_b64}" x="214" y="204" width="32" height="32" clip-path="url(#clip-brand)" preserveAspectRatio="xMidYMid slice"/>' if brand_b64 else '<circle cx="230" cy="220" r="9" fill="#b87830"/>'}
   {chr(10).join(nodes)}
 </svg>
 <div style="display:flex;gap:16px;justify-content:center;padding:6px 0;flex-wrap:wrap;">
