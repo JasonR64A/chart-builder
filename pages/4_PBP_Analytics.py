@@ -321,14 +321,25 @@ def compute_pitching_for_lineup(df):
     h = df['h'].sum(); bb = df['bb'].sum(); hb = df['hb'].sum()
     so = df['so'].sum(); hr = df['hrA'].sum(); bf = df['bf'].sum()
     er = df['er'].sum()
+    doubles = df['doublesA'].sum(); triples = df['triplesA'].sum()
+    sha = df['sha'].sum(); sfa = df['sfa'].sum()
+    singles = h - doubles - triples - hr
     games = df['gameId'].nunique() if 'gameId' in df.columns else len(df)
     fip = ((13*hr) + (3*(bb+hb)) - (2*so)) / ip + FIP_CONSTANT if ip > 0 else 99
     era = (er / ip) * 9 if ip > 0 else 99
     k_pct = so / bf if bf > 0 else 0
+    # Allowed OPS
+    p_oab = bf - bb - hb - sfa - sha
+    obp_d = p_oab + bb + hb + sfa
+    obp_a = (h + bb + hb) / obp_d if obp_d > 0 else 0
+    tb_a = singles + 2*doubles + 3*triples + 4*hr
+    slg_a = tb_a / p_oab if p_oab > 0 else 0
+    ops_a = obp_a + slg_a
     return {'IP': _outs_to_ip_display(total_outs), 'IP_actual': ip,
             'BF': int(bf), 'H': int(h), 'ER': int(er), 'BB': int(bb),
             'SO': int(so), 'HR': int(hr), 'Games': int(games),
-            'ERA': round(era, 2), 'FIP': round(fip, 2), 'K%': round(k_pct, 3)}
+            'ERA': round(era, 2), 'FIP': round(fip, 2), 'K%': round(k_pct, 3),
+            'OPS Against': round(ops_a, 3)}
 
 
 def get_best_hitters(hitting_df, league_woba, min_pa=10):
@@ -351,6 +362,22 @@ def get_best_hitters(hitting_df, league_woba, min_pa=10):
     return best
 
 
+def _combined_rank(df):
+    """Rank pitchers by combined FIP + OPS Against score.
+    Best (lowest) in each stat gets n/n = 1.000, 2nd gets (n-1)/n, etc.
+    Combined score = FIP rank score + OPS Against rank score. Higher = better.
+    """
+    n = len(df)
+    if n == 0:
+        return df
+    df = df.copy()
+    # rank(ascending=True) gives 1 to lowest value — that's the best for both FIP and OPS Against
+    df['fip_score'] = (n - df['FIP'].rank(method='min') + 1) / n
+    df['ops_a_score'] = (n - df['OPS Against'].rank(method='min') + 1) / n
+    df['combined_score'] = df['fip_score'] + df['ops_a_score']
+    return df.sort_values('combined_score', ascending=False)
+
+
 def get_best_pitchers(pitching_df, min_bf=15, n_starters=3, n_relievers=3):
     rows = []
     for name, group in pitching_df.groupby('playerName'):
@@ -363,8 +390,10 @@ def get_best_pitchers(pitching_df, min_bf=15, n_starters=3, n_relievers=3):
     if not rows:
         return [], []
     df = pd.DataFrame(rows)
-    starters = df[df['is_starter']].sort_values('FIP').head(n_starters).to_dict('records')
-    relievers = df[~df['is_starter']].sort_values('FIP').head(n_relievers).to_dict('records')
+    starter_df = _combined_rank(df[df['is_starter']])
+    reliever_df = _combined_rank(df[~df['is_starter']])
+    starters = starter_df.head(n_starters).to_dict('records')
+    relievers = reliever_df.head(n_relievers).to_dict('records')
     return starters, relievers
 
 
@@ -539,9 +568,10 @@ def render_pitcher_card_html(p, role='Starter'):
     <div><div style="font-size:15px;font-weight:500;color:#C8C8C8;">{p['playerName']}</div>
     <div style="font-size:11px;color:#888;margin-top:2px;">{p.get('teamName','')} · {role}</div></div>
   </div>
-  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:6px;">
+  <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:6px;">
     <div style="background:#2a2a2a;border-radius:8px;padding:8px 4px;text-align:center;"><div style="font-size:17px;font-weight:500;color:#C41230;">{p['ERA']:.2f}</div><div style="font-size:9px;color:#888;">ERA</div></div>
     <div style="background:#2a2a2a;border-radius:8px;padding:8px 4px;text-align:center;"><div style="font-size:17px;font-weight:500;color:#C41230;">{p['FIP']:.2f}</div><div style="font-size:9px;color:#888;">FIP</div></div>
+    <div style="background:#2a2a2a;border-radius:8px;padding:8px 4px;text-align:center;"><div style="font-size:17px;font-weight:500;color:#C41230;">{p['OPS Against']:.3f}</div><div style="font-size:9px;color:#888;">OPS-A</div></div>
     <div style="background:#2a2a2a;border-radius:8px;padding:8px 4px;text-align:center;"><div style="font-size:17px;color:#C8C8C8;">{p['IP']}</div><div style="font-size:9px;color:#888;">IP</div></div>
     <div style="background:#2a2a2a;border-radius:8px;padding:8px 4px;text-align:center;"><div style="font-size:17px;color:#C8C8C8;">{p['K%']:.3f}</div><div style="font-size:9px;color:#888;">K%</div></div>
   </div>
