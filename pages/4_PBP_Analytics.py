@@ -249,6 +249,20 @@ def compute_grouped_fielding(df, group_col):
     return result[cols].sort_values('FPCT', ascending=False).reset_index(drop=True)
 
 
+def _clean_position(pos):
+    """Clean position field: 'PH/LF' → 'PH', '/LF/CF' → 'LF'."""
+    if not pos or (isinstance(pos, float) and np.isnan(pos)):
+        return pos
+    pos = str(pos).strip()
+    if pos.startswith('/'):
+        # Subbed in from bench — take first position after the leading /
+        parts = pos.lstrip('/').split('/')
+        return parts[0] if parts else pos
+    else:
+        # Take position before the first /
+        return pos.split('/')[0]
+
+
 # ── Data Loading ─────────────────────────────────────────────────────────────
 @st.cache_data
 def load_pbp(sport, division, stat_type):
@@ -260,6 +274,9 @@ def load_pbp(sport, division, stat_type):
     # Normalize IDs
     if 'playerId' in df.columns:
         df['playerId'] = pd.to_numeric(df['playerId'], errors='coerce').fillna(0).astype(int).astype(str)
+    # Clean positions: "PH/LF" → "PH", "/LF/CF" → "LF"
+    if 'playerPosition' in df.columns:
+        df['playerPosition'] = df['playerPosition'].apply(_clean_position)
     # Parse dates
     if 'date' in df.columns:
         df['date_parsed'] = pd.to_datetime(df['date'], format='mixed', errors='coerce')
