@@ -166,7 +166,7 @@ def load_brand_logo(path=None):
 
 
 @st.cache_data
-def load_logo_thumbnail(logo_path, size=256):
+def load_logo_thumbnail(logo_path, size=512):
     """Load a team logo resized to a thumbnail to save memory."""
     img = Image.open(logo_path).convert('RGBA')
     img.thumbnail((size, size), Image.LANCZOS)
