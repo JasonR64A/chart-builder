@@ -1,6 +1,6 @@
 """
 64 Analytics — PBP Stat Calculator
-Calendar-dependent stats from enriched play-by-play data.
+Game-level stats from play-by-play data.
 Compute OPS, wRAA, FIP, Allowed OPS for any player/team over any date range.
 """
 
@@ -12,6 +12,7 @@ from io import BytesIO
 
 # ── Path setup (works locally and on Streamlit Cloud) ─────────────────────────
 _APP_DIR = Path(__file__).resolve().parent.parent
+PBP_DIR = _APP_DIR / 'pbp_data'
 BRAND_LOGO = _APP_DIR / 'assets' / 'brand_logo_dark.png'
 
 # wOBA weights (college-specific)
@@ -29,25 +30,45 @@ FIP_CONSTANT = 3.0
 WOBA_SCALE = 1.0
 
 
-# ── Stat Computation ──────────────────────────────────────────────────────────
+# ── IP conversion ────────────────────────────────────────────────────────────
+def baseball_ip_to_outs(ip_col):
+    """Convert baseball IP notation (5.2 = 5 innings + 2 outs) to total outs."""
+    whole = np.floor(ip_col)
+    frac = np.round((ip_col - whole) * 10).astype(int)
+    return (whole * 3 + frac).astype(int)
+
+
+def outs_to_ip(total_outs):
+    """Convert total outs back to display IP (e.g., 17 outs = 5.2)."""
+    innings = total_outs // 3
+    remainder = total_outs % 3
+    return float(f"{int(innings)}.{int(remainder)}")
+
+
+def outs_to_actual_innings(total_outs):
+    """Convert total outs to actual innings for rate calculations."""
+    return total_outs / 3
+
+
+# ── Stat Computation ─────────────────────────────────────────────────────────
 def compute_hitting_stats(df):
-    """Compute hitting stats from summed enriched PBP columns."""
-    ab = df['hit_AB'].sum()
-    h = df['hit_H'].sum()
-    bb = df['hit_BB'].sum()
-    hbp = df['hit_HBP'].sum()
-    sf = df['hit_SF'].sum()
-    sh = df['hit_SH'].sum()
-    tb = df['hit_TB'].sum()
-    hr = df['hit_HR'].sum()
-    doubles = df['hit_2B'].sum()
-    triples = df['hit_3B'].sum()
-    k = df['hit_K'].sum()
-    sb = df['hit_SB'].sum()
-    cs = df['hit_CS'].sum()
-    gdp = df['hit_GDP'].sum()
-    r = df['hit_R'].sum()
-    rbi = df['hit_RBI'].sum()
+    """Compute hitting stats from game-level PBP hitting data."""
+    ab = df['ab'].sum()
+    h = df['h'].sum()
+    bb = df['bb'].sum()
+    hbp = df['hbp'].sum()
+    sf = df['sf'].sum()
+    sh = df['sh'].sum()
+    tb = df['tb'].sum()
+    hr = df['hr'].sum()
+    doubles = df['doubles'].sum()
+    triples = df['triples'].sum()
+    k = df['k'].sum()
+    sb = df['sb'].sum()
+    cs = df['cs'].sum()
+    gdp = df['oppDp'].sum()
+    r = df['r'].sum()
+    rbi = df['rbi'].sum()
     singles = h - doubles - triples - hr
 
     pa = ab + bb + hbp + sf + sh
@@ -66,7 +87,7 @@ def compute_hitting_stats(df):
     ba = h / ab if ab > 0 else 0
 
     # wOBA
-    woba_denom = ab + bb + sf + hbp  # IBB excluded but we don't track it separately
+    woba_denom = ab + bb + sf + hbp
     woba = (WOBA_BB * bb + WOBA_HBP * hbp + WOBA_1B * singles +
             WOBA_2B * doubles + WOBA_3B * triples + WOBA_HR * hr) / woba_denom if woba_denom > 0 else 0
 
@@ -82,28 +103,32 @@ def compute_hitting_stats(df):
 
 
 def compute_pitching_stats(df):
-    """Compute pitching stats from summed enriched PBP columns."""
-    ip_outs = df['pitch_IP_outs'].sum()
-    ip = ip_outs / 3
-    h = df['pitch_H'].sum()
-    bb = df['pitch_BB'].sum()
-    hb = df['pitch_HB'].sum()
-    so = df['pitch_SO'].sum()
-    hr = df['pitch_HR_A'].sum()
-    bf = df['pitch_BF'].sum()
-    go = df['pitch_GO'].sum()
-    fo = df['pitch_FO'].sum()
-    wp = df['pitch_WP'].sum()
-    bk = df['pitch_Bk'].sum()
-    doubles = df['pitch_2B_A'].sum()
-    triples = df['pitch_3B_A'].sum()
+    """Compute pitching stats from game-level PBP pitching data."""
+    total_outs = baseball_ip_to_outs(df['ip']).sum()
+    ip = outs_to_actual_innings(total_outs)
+    h = df['h'].sum()
+    bb = df['bb'].sum()
+    hb = df['hb'].sum()
+    so = df['so'].sum()
+    hr = df['hrA'].sum()
+    bf = df['bf'].sum()
+    wp = df['wp'].sum()
+    bk = df['bk'].sum()
+    doubles = df['doublesA'].sum()
+    triples = df['triplesA'].sum()
     singles = h - doubles - triples - hr
-    p_oab = df['pitch_P_OAB'].sum()
-    sha = df['pitch_SHA'].sum()
-    sfa = df['pitch_SFA'].sum()
+    sha = df['sha'].sum()
+    sfa = df['sfa'].sum()
+    er = df['er'].sum()
+
+    # Opponent AB = BF - BB - HB - SFA - SHA
+    p_oab = bf - bb - hb - sfa - sha
 
     # FIP
     fip = ((13 * hr) + (3 * (bb + hb)) - (2 * so)) / ip + FIP_CONSTANT if ip > 0 else 0
+
+    # ERA
+    era = (er / ip) * 9 if ip > 0 else 0
 
     # Allowed OBP
     obp_denom = p_oab + bb + hb + sfa
@@ -119,21 +144,45 @@ def compute_pitching_stats(df):
     # Allowed BA
     ba_against = h / p_oab if p_oab > 0 else 0
 
-    # K rate
+    # K/BB rates
     k_pct = so / bf if bf > 0 else 0
     bb_pct = bb / bf if bf > 0 else 0
 
     return {
-        'IP': round(ip, 1), 'BF': int(bf), 'H': int(h), 'BB': int(bb),
-        'HB': int(hb), 'SO': int(so), 'HR': int(hr),
+        'IP': outs_to_ip(total_outs), 'BF': int(bf), 'H': int(h),
+        'ER': int(er), 'BB': int(bb), 'HB': int(hb), 'SO': int(so), 'HR': int(hr),
         '2B-A': int(doubles), '3B-A': int(triples),
-        'GO': int(go), 'FO': int(fo), 'WP': int(wp), 'Bk': int(bk),
-        'FIP': round(fip, 2),
+        'WP': int(wp), 'Bk': int(bk),
+        'ERA': round(era, 2), 'FIP': round(fip, 2),
         'BAA': round(ba_against, 3),
         'OBP Against': round(obp_against, 3),
         'SLG Against': round(slg_against, 3),
         'OPS Against': round(ops_against, 3),
         'K%': round(k_pct, 3), 'BB%': round(bb_pct, 3),
+    }
+
+
+def compute_fielding_stats(df):
+    """Compute fielding stats from game-level PBP fielding data."""
+    po = df['po'].sum()
+    a = df['a'].sum()
+    tc = df['tc'].sum()
+    e = df['e'].sum()
+    pb = df['pb'].sum()
+    sba = df['sba'].sum()
+    csb = df['csb'].sum()
+    idp = df['idp'].sum()
+    tp = df['tp'].sum()
+
+    fpct = (po + a) / tc if tc > 0 else 0
+    cs_pct = csb / (sba + csb) if (sba + csb) > 0 else 0
+
+    return {
+        'PO': int(po), 'A': int(a), 'TC': int(tc), 'E': int(e),
+        'FPCT': round(fpct, 3),
+        'PB': int(pb), 'SBA': int(sba), 'CSB': int(csb),
+        'CS%': round(cs_pct, 3),
+        'IDP': int(idp), 'TP': int(tp),
     }
 
 
@@ -173,22 +222,39 @@ def compute_grouped_pitching(df, group_col, min_bf=1):
     return result[cols].sort_values('FIP', ascending=True).reset_index(drop=True)
 
 
-# ── Data Loading ──────────────────────────────────────────────────────────────
+def compute_grouped_fielding(df, group_col):
+    """Compute fielding stats grouped by a column."""
+    rows = []
+    for name, group in df.groupby(group_col):
+        stats = compute_fielding_stats(group)
+        if stats['TC'] > 0:
+            stats[group_col] = name
+            rows.append(stats)
+    if not rows:
+        return pd.DataFrame()
+    result = pd.DataFrame(rows)
+    cols = [group_col] + [c for c in result.columns if c != group_col]
+    return result[cols].sort_values('FPCT', ascending=False).reset_index(drop=True)
+
+
+# ── Data Loading ─────────────────────────────────────────────────────────────
 @st.cache_data
-def load_enriched_pbp(filepath):
-    """Load enriched PBP file."""
+def load_pbp(sport, division, stat_type):
+    """Load a PBP file: sport=baseball|softball, division=D1|D2|D3, stat_type=hitting|pitching|fielding."""
+    filepath = PBP_DIR / sport / f'{stat_type}_pbp_{division}.csv'
+    if not filepath.exists():
+        return None
     df = pd.read_csv(filepath, low_memory=False)
     # Normalize IDs
-    for col in ['playerId', 'pitcherId']:
-        if col in df.columns:
-            df[col] = pd.to_numeric(df[col], errors='coerce').fillna(0).astype(int).astype(str)
+    if 'playerId' in df.columns:
+        df['playerId'] = pd.to_numeric(df['playerId'], errors='coerce').fillna(0).astype(int).astype(str)
     # Parse dates
     if 'date' in df.columns:
         df['date_parsed'] = pd.to_datetime(df['date'], format='mixed', errors='coerce')
     return df
 
 
-# ── Main ──────────────────────────────────────────────────────────────────────
+# ── Main ─────────────────────────────────────────────────────────────────────
 st.set_page_config(page_title='64 Analytics — PBP Stat Calculator', layout='wide',
                    initial_sidebar_state='expanded')
 
@@ -205,20 +271,22 @@ if st.sidebar.button('Reload data'):
     st.cache_data.clear()
     st.rerun()
 
-# File selection
+# Sport / Division / View selectors
 st.sidebar.markdown('---')
 st.sidebar.markdown('### Data Source')
-pbp_file = st.sidebar.text_input('Enriched PBP file path',
-    value='C:/Users/sixty/OneDrive/Desktop/scrape_final/output/2026/03/20/baseball/play_by_play/baseball_play_by_play_2026_D1_full_enriched.csv')
+sport = st.sidebar.selectbox('Sport', ['baseball', 'softball'])
+division = st.sidebar.selectbox('Division', ['D1', 'D2', 'D3'])
+view = st.sidebar.radio('Mode', ['Hitter Stats', 'Pitcher Stats', 'Fielding Stats'], horizontal=True)
 
-if not Path(pbp_file).exists():
-    st.error(f'File not found: {pbp_file}')
+# Determine which file to load
+stat_type = {'Hitter Stats': 'hitting', 'Pitcher Stats': 'pitching', 'Fielding Stats': 'fielding'}[view]
+pbp = load_pbp(sport, division, stat_type)
+
+if pbp is None:
+    st.error(f'No {stat_type} PBP data found for {sport} {division}')
     st.stop()
 
-with st.spinner('Loading PBP data...'):
-    pbp = load_enriched_pbp(pbp_file)
-
-st.sidebar.markdown(f'**{len(pbp):,}** events loaded')
+st.sidebar.markdown(f'**{len(pbp):,}** game lines loaded')
 
 # Date range filter
 st.sidebar.markdown('---')
@@ -232,66 +300,46 @@ if 'date_parsed' in pbp.columns:
             min_value=min_date.date(), max_value=max_date.date())
         if len(date_range) == 2:
             start, end = date_range
-            pbp_filtered = pbp[(pbp['date_parsed'].dt.date >= start) & (pbp['date_parsed'].dt.date <= end)]
+            pbp = pbp[(pbp['date_parsed'].dt.date >= start) & (pbp['date_parsed'].dt.date <= end)]
         else:
-            pbp_filtered = pbp
+            pass
     else:
-        pbp_filtered = pbp
         st.sidebar.warning('Could not parse dates')
-else:
-    pbp_filtered = pbp
 
-st.sidebar.markdown(f'**{len(pbp_filtered):,}** events in range')
-
-# View mode
-st.sidebar.markdown('---')
-st.sidebar.markdown('### View')
-view = st.sidebar.radio('Mode', ['Hitter Stats', 'Pitcher Stats'], horizontal=True)
+st.sidebar.markdown(f'**{len(pbp):,}** lines in range')
 
 # Team filter
-all_batting_teams = sorted(pbp_filtered['battingTeam'].dropna().unique()) if 'battingTeam' in pbp_filtered.columns else []
-all_pitching_teams = sorted(pbp_filtered['fieldingTeam'].dropna().unique()) if 'fieldingTeam' in pbp_filtered.columns else []
-
-if view == 'Hitter Stats':
-    team_list = ['All'] + all_batting_teams
-    selected_team = st.sidebar.selectbox('Team', team_list)
-    if selected_team != 'All':
-        pbp_filtered = pbp_filtered[pbp_filtered['battingTeam'] == selected_team]
-else:
-    team_list = ['All'] + all_pitching_teams
-    selected_team = st.sidebar.selectbox('Team', team_list)
-    if selected_team != 'All':
-        pbp_filtered = pbp_filtered[pbp_filtered['fieldingTeam'] == selected_team]
+all_teams = sorted(pbp['teamName'].dropna().unique()) if 'teamName' in pbp.columns else []
+team_list = ['All'] + all_teams
+selected_team = st.sidebar.selectbox('Team', team_list)
+if selected_team != 'All':
+    pbp = pbp[pbp['teamName'] == selected_team]
 
 # Min PA/BF
+st.sidebar.markdown('---')
 if view == 'Hitter Stats':
     min_threshold = st.sidebar.number_input('Min PA', value=10, min_value=1, step=5)
-else:
+elif view == 'Pitcher Stats':
     min_threshold = st.sidebar.number_input('Min BF', value=10, min_value=1, step=5)
 
 # Player filter
-if view == 'Hitter Stats':
-    player_col = 'player'
-    available_players = sorted(pbp_filtered[player_col].dropna().unique())
-else:
-    player_col = 'pitcher'
-    available_players = sorted(pbp_filtered[player_col].dropna().unique())
-
-selected_players = st.sidebar.multiselect(f'Filter {view.split()[0].lower()}s', available_players,
+player_col = 'playerName'
+available_players = sorted(pbp[player_col].dropna().unique()) if player_col in pbp.columns else []
+selected_players = st.sidebar.multiselect('Filter players', available_players,
                                            help='Leave empty for all')
 if selected_players:
-    pbp_filtered = pbp_filtered[pbp_filtered[player_col].isin(selected_players)]
+    pbp = pbp[pbp[player_col].isin(selected_players)]
 
-if len(pbp_filtered) == 0:
+if len(pbp) == 0:
     st.warning('No events match your filters.')
     st.stop()
 
-# ── Compute and Display ──────────────────────────────────────────────────────
+# ── Compute and Display ─────────────────────────────────────────────────────
 if view == 'Hitter Stats':
-    st.markdown('### Hitter Stats')
+    st.markdown(f'### Hitter Stats — {sport.title()} {division}')
 
     # Compute league wOBA for wRAA
-    league_stats = compute_hitting_stats(pbp_filtered)
+    league_stats = compute_hitting_stats(pbp)
     league_woba = league_stats['wOBA']
 
     # Overall summary
@@ -304,27 +352,25 @@ if view == 'Hitter Stats':
 
     # Per-player table
     st.markdown('---')
-    player_stats = compute_grouped_hitting(pbp_filtered, player_col, league_woba, min_pa=min_threshold)
+    player_stats = compute_grouped_hitting(pbp, player_col, league_woba, min_pa=min_threshold)
 
     if len(player_stats) == 0:
         st.info(f'No players meet the {min_threshold} PA minimum.')
     else:
-        # Format percentages
-        display = player_stats.copy()
         show_cols = [player_col, 'PA', 'AB', 'H', '1B', '2B', '3B', 'HR', 'TB',
                      'R', 'RBI', 'BB', 'HBP', 'K', 'SB', 'CS', 'GDP',
                      'BA', 'OBP', 'SLG', 'OPS', 'wOBA', 'wRAA']
-        show_cols = [c for c in show_cols if c in display.columns]
-        st.dataframe(display[show_cols], use_container_width=True, hide_index=True)
+        show_cols = [c for c in show_cols if c in player_stats.columns]
+        st.dataframe(player_stats[show_cols], use_container_width=True, hide_index=True)
 
-        csv_buf = display[show_cols].to_csv(index=False)
+        csv_buf = player_stats[show_cols].to_csv(index=False)
         st.download_button('Download CSV', data=csv_buf,
-                          file_name='pbp_hitting_stats.csv', mime='text/csv')
+                          file_name=f'pbp_hitting_{sport}_{division}.csv', mime='text/csv')
 
     # Single player deep dive
     if selected_players and len(selected_players) == 1:
         st.markdown(f'### {selected_players[0]} — Game Log')
-        player_data = pbp_filtered[pbp_filtered[player_col] == selected_players[0]]
+        player_data = pbp[pbp[player_col] == selected_players[0]]
 
         if 'date_parsed' in player_data.columns:
             game_log = compute_grouped_hitting(player_data, 'date', league_woba, min_pa=1)
@@ -336,47 +382,73 @@ if view == 'Hitter Stats':
                 gl_cols = [c for c in gl_cols if c in game_log.columns]
                 st.dataframe(game_log[gl_cols], use_container_width=True, hide_index=True)
 
-else:  # Pitcher Stats
-    st.markdown('### Pitcher Stats')
+elif view == 'Pitcher Stats':
+    st.markdown(f'### Pitcher Stats — {sport.title()} {division}')
 
     # Overall summary
-    overall = compute_pitching_stats(pbp_filtered)
+    overall = compute_pitching_stats(pbp)
     c1, c2, c3, c4, c5 = st.columns(5)
     c1.metric('League FIP', f"{overall['FIP']:.2f}")
-    c2.metric('League OPS Against', f"{overall['OPS Against']:.3f}")
-    c3.metric('Total BF', f"{overall['BF']:,}")
-    c4.metric('Total IP', f"{overall['IP']:.0f}")
+    c2.metric('League ERA', f"{overall['ERA']:.2f}")
+    c3.metric('League OPS Against', f"{overall['OPS Against']:.3f}")
+    c4.metric('Total BF', f"{overall['BF']:,}")
     c5.metric('Total SO', f"{overall['SO']:,}")
 
     # Per-pitcher table
     st.markdown('---')
-    pitcher_stats = compute_grouped_pitching(pbp_filtered, player_col, min_bf=min_threshold)
+    pitcher_stats = compute_grouped_pitching(pbp, player_col, min_bf=min_threshold)
 
     if len(pitcher_stats) == 0:
         st.info(f'No pitchers meet the {min_threshold} BF minimum.')
     else:
-        show_cols = [player_col, 'IP', 'BF', 'H', 'BB', 'HB', 'SO', 'HR',
-                     'GO', 'FO', 'WP',
-                     'FIP', 'BAA', 'OBP Against', 'SLG Against', 'OPS Against',
+        show_cols = [player_col, 'IP', 'BF', 'H', 'ER', 'BB', 'HB', 'SO', 'HR',
+                     'WP', 'ERA', 'FIP', 'BAA', 'OBP Against', 'SLG Against', 'OPS Against',
                      'K%', 'BB%']
         show_cols = [c for c in show_cols if c in pitcher_stats.columns]
         st.dataframe(pitcher_stats[show_cols], use_container_width=True, hide_index=True)
 
         csv_buf = pitcher_stats[show_cols].to_csv(index=False)
         st.download_button('Download CSV', data=csv_buf,
-                          file_name='pbp_pitching_stats.csv', mime='text/csv')
+                          file_name=f'pbp_pitching_{sport}_{division}.csv', mime='text/csv')
 
     # Single pitcher deep dive
     if selected_players and len(selected_players) == 1:
         st.markdown(f'### {selected_players[0]} — Game Log')
-        pitcher_data = pbp_filtered[pbp_filtered[player_col] == selected_players[0]]
+        pitcher_data = pbp[pbp[player_col] == selected_players[0]]
 
         if 'date_parsed' in pitcher_data.columns:
             game_log = compute_grouped_pitching(pitcher_data, 'date', min_bf=1)
             if len(game_log) > 0:
                 game_log = game_log.rename(columns={'date': 'Date'})
                 game_log = game_log.sort_values('Date')
-                gl_cols = ['Date', 'IP', 'BF', 'H', 'BB', 'SO', 'HR',
-                          'FIP', 'OPS Against']
+                gl_cols = ['Date', 'IP', 'BF', 'H', 'ER', 'BB', 'SO', 'HR',
+                          'ERA', 'FIP', 'OPS Against']
                 gl_cols = [c for c in gl_cols if c in game_log.columns]
                 st.dataframe(game_log[gl_cols], use_container_width=True, hide_index=True)
+
+else:  # Fielding Stats
+    st.markdown(f'### Fielding Stats — {sport.title()} {division}')
+
+    # Overall summary
+    overall = compute_fielding_stats(pbp)
+    c1, c2, c3, c4 = st.columns(4)
+    c1.metric('Total TC', f"{overall['TC']:,}")
+    c2.metric('Total E', f"{overall['E']:,}")
+    c3.metric('League FPCT', f"{overall['FPCT']:.3f}")
+    c4.metric('League CS%', f"{overall['CS%']:.3f}")
+
+    # Per-player table
+    st.markdown('---')
+    fielding_stats = compute_grouped_fielding(pbp, player_col)
+
+    if len(fielding_stats) == 0:
+        st.info('No fielding data available.')
+    else:
+        show_cols = [player_col, 'PO', 'A', 'TC', 'E', 'FPCT',
+                     'PB', 'SBA', 'CSB', 'CS%', 'IDP', 'TP']
+        show_cols = [c for c in show_cols if c in fielding_stats.columns]
+        st.dataframe(fielding_stats[show_cols], use_container_width=True, hide_index=True)
+
+        csv_buf = fielding_stats[show_cols].to_csv(index=False)
+        st.download_button('Download CSV', data=csv_buf,
+                          file_name=f'pbp_fielding_{sport}_{division}.csv', mime='text/csv')
