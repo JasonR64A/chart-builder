@@ -378,20 +378,19 @@ def _combined_rank(df):
     return df.sort_values('combined_score', ascending=False)
 
 
-def get_best_pitchers(pitching_df, min_bf=15, n_starters=3, n_relievers=3):
+def get_best_pitchers(pitching_df, min_bf_sp=50, min_bf_rp=15, n_starters=3, n_relievers=3):
     rows = []
     for name, group in pitching_df.groupby('playerName'):
         stats = compute_pitching_for_lineup(group)
-        if stats['BF'] >= min_bf:
-            stats['playerName'] = name
-            stats['teamName'] = group['teamName'].mode().iloc[0] if len(group['teamName'].mode()) > 0 else ''
-            stats['is_starter'] = stats['IP_actual'] / max(stats['Games'], 1) >= 3.0
-            rows.append(stats)
+        stats['playerName'] = name
+        stats['teamName'] = group['teamName'].mode().iloc[0] if len(group['teamName'].mode()) > 0 else ''
+        stats['is_starter'] = stats['IP_actual'] / max(stats['Games'], 1) >= 3.0
+        rows.append(stats)
     if not rows:
         return [], []
     df = pd.DataFrame(rows)
-    starter_df = _combined_rank(df[df['is_starter']])
-    reliever_df = _combined_rank(df[~df['is_starter']])
+    starter_df = _combined_rank(df[(df['is_starter']) & (df['BF'] >= min_bf_sp)])
+    reliever_df = _combined_rank(df[(~df['is_starter']) & (df['BF'] >= min_bf_rp)])
     starters = starter_df.head(n_starters).to_dict('records')
     relievers = reliever_df.head(n_relievers).to_dict('records')
     return starters, relievers
@@ -708,7 +707,8 @@ else:
     # Lineup Card specific controls
     st.sidebar.markdown('---')
     min_pa_lc = st.sidebar.number_input('Min PA (hitters)', value=10, min_value=1, step=5)
-    min_bf_lc = st.sidebar.number_input('Min BF (pitchers)', value=15, min_value=1, step=5)
+    min_bf_sp = st.sidebar.number_input('Min BF (starters)', value=50, min_value=1, step=10)
+    min_bf_rp = st.sidebar.number_input('Min BF (relievers)', value=15, min_value=1, step=5)
     player_col = 'playerName'
 
 # ── Compute and Display ─────────────────────────────────────────────────────
@@ -845,7 +845,7 @@ elif view == 'Lineup Card':
     league_stats = compute_hitting_stats(hitting_pbp)
     league_woba = league_stats['wOBA']
     best_hitters = get_best_hitters(hitting_pbp, league_woba, min_pa=min_pa_lc)
-    starters, relievers = get_best_pitchers(pitching_pbp, min_bf=min_bf_lc)
+    starters, relievers = get_best_pitchers(pitching_pbp, min_bf_sp=min_bf_sp, min_bf_rp=min_bf_rp)
 
     # Load team logo map
     team_map = load_team_logo_map()
