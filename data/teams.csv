@@ -4,12 +4,12 @@ id,name,class_ranking,current_rpi,academics,conference_id,team_id_ncaa,sport,log
 3,Adams St.,0,,,5,929,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/3.png
 4,Adelphi,0,,,6,3,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/4.png
 5,Adrian,0,,,8,4,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/5.png
-6,Air Force,0,109,,9,721,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/6.png
+6,Air Force,0,112,,9,721,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/6.png
 7,Akron,0,291,,10,5,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/7.png
 8,Alabama,0,12,,11,8,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/8.png
 9,Alabama A&M,0,299,,12,6,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/9.png
 10,Alabama Huntsville,0,,,13,10,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/10.png
-11,Alabama St.,0,242,,12,7,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/11.png
+11,Alabama St.,0,240,,12,7,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/11.png
 12,Albany St. (GA),0,,,14,13,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/12.png
 13,Albertus Magnus,0,,,15,2798,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/13.png
 14,Albion,0,,,8,15,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/14.png
@@ -35,13 +35,13 @@ id,name,class_ranking,current_rpi,academics,conference_id,team_id_ncaa,sport,log
 34,Ark.-Monticello,0,,,35,8411,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/34.png
 35,Ark.-Pine Bluff,0,268,,12,2678,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/35.png
 36,Arkansas,0,49,,11,31,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/36.png
-37,Arkansas St.,0,33,,31,30,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/37.png
+37,Arkansas St.,0,32,,31,30,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/37.png
 38,Arkansas Tech,0,,,35,947,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/38.png
-39,Army West Point,0,197,,36,725,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/39.png
+39,Army West Point,0,204,,36,725,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/39.png
 40,Asbury,0,,,60,30243,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/40.png
 41,Ashland,0,,,18,35,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/41.png
 42,Assumption,0,,,6,36,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/42.png
-43,Auburn,0,1,,11,37,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/43.png
+43,Auburn,0,2,,11,37,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/43.png
 44,Augsburg,0,,,39,38,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/44.png
 45,Augusta,0,,,40,39,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/45.png
 46,Augustana (IL),0,,,41,40,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/46.png
@@ -49,7 +49,7 @@ id,name,class_ranking,current_rpi,academics,conference_id,team_id_ncaa,sport,log
 48,AUM,0,,,13,30093,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/48.png
 49,Aurora,0,,,44,42,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/49.png
 50,Austin,0,,,46,953,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/50.png
-51,Austin Peay,0,112,,48,43,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/51.png
+51,Austin Peay,0,110,,48,43,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/51.png
 52,Averett,0,,,50,44,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/52.png
 53,Azusa Pacific,0,,,4,30146,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/53.png
 54,Babson,0,,,52,45,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/54.png
@@ -60,7 +60,7 @@ id,name,class_ranking,current_rpi,academics,conference_id,team_id_ncaa,sport,log
 59,Barton,0,,,29,15646,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/59.png
 60,Baruch,0,,,56,58,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/60.png
 61,Bates,0,,,26,50,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/61.png
-62,Baylor,0,39,,59,51,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/62.png
+62,Baylor,0,41,,59,51,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/62.png
 63,Belhaven,0,,,60,30197,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/63.png
 64,Bellarmine,0,225,,48,52,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/64.png
 65,Belmont,0,226,,62,14927,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/65.png
@@ -76,7 +76,7 @@ id,name,class_ranking,current_rpi,academics,conference_id,team_id_ncaa,sport,log
 75,Bethany Lutheran,0,,,65,30038,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/75.png
 76,Bethel (MN),0,,,39,60,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/76.png
 77,Bethune-Cookman,0,233,,12,61,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/77.png
-78,Binghamton,0,156,,67,62,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/78.png
+78,Binghamton,0,157,,67,62,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/78.png
 79,Biola,0,,,4,30220,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/79.png
 80,Birmingham-So.,0,,,,28593,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/80.png
 81,Blackburn,0,,,69,64,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/81.png
@@ -85,21 +85,21 @@ id,name,class_ranking,current_rpi,academics,conference_id,team_id_ncaa,sport,log
 84,Bluefield St.,0,,,71,985,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/84.png
 85,Bluffton,0,,,27,987,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/85.png
 86,Bob Jones,0,,,,30232,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/86.png
-87,Boston College,0,32,,72,67,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/87.png
+87,Boston College,0,31,,72,67,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/87.png
 88,Bowdoin,0,,,26,69,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/88.png
 89,Bowling Green,0,128,,10,71,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/89.png
-90,Bradley,0,251,,62,72,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/90.png
+90,Bradley,0,249,,62,72,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/90.png
 91,Brandeis,0,,,74,73,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/91.png
 92,Brevard,0,,,51,30094,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/92.png
 93,Bridgeport,0,,,23,74,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/93.png
 94,Bridgewater (VA),0,,,50,75,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/94.png
 95,Bridgewater St.,0,,,75,76,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/95.png
 96,Brown,0,196,,76,80,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/96.png
-97,Bryant,0,94,,67,81,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/97.png
+97,Bryant,0,95,,67,81,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/97.png
 98,Bucknell,0,119,,36,83,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/98.png
 99,Buena Vista,0,,,78,84,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/99.png
 100,Butler,0,270,,79,87,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/100.png
-101,BYU,0,60,,59,77,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/101.png
+101,BYU,0,54,,59,77,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/101.png
 102,Cabrini,0,,,,88,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/102.png
 103,Cairn,0,,,84,1305,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/103.png
 104,Cal Lutheran,0,,,85,105,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/104.png
@@ -114,11 +114,11 @@ id,name,class_ranking,current_rpi,academics,conference_id,team_id_ncaa,sport,log
 113,Caldwell,0,,,23,995,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/113.png
 114,California,0,126,,72,107,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/114.png
 115,California (PA),0,,,70,106,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/115.png
-116,California Baptist,0,111,,2,30135,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/116.png
+116,California Baptist,0,108,,2,30135,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/116.png
 117,Caltech,0,,,85,89,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/117.png
 118,Calvin,0,,,8,114,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/118.png
 119,Cameron,0,,,3,996,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/119.png
-120,Campbell,0,95,,101,115,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/120.png
+120,Campbell,0,94,,101,115,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/120.png
 121,Canisius,0,284,,88,116,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/121.png
 122,Capital,0,,,53,117,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/122.png
 123,Carleton,0,,,39,118,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/123.png
@@ -150,7 +150,7 @@ id,name,class_ranking,current_rpi,academics,conference_id,team_id_ncaa,sport,log
 149,Chowan,0,,,29,8875,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/149.png
 150,Chris. Newport,0,,,90,139,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/150.png
 151,Christian Brothers,0,,,13,1015,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/151.png
-152,Cincinnati,0,21,,59,140,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/152.png
+152,Cincinnati,0,19,,59,140,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/152.png
 153,Claflin,0,,,40,30058,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/153.png
 154,Claremont-M-S,0,,,85,142,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/154.png
 155,Clarion,0,,,70,143,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/155.png
@@ -158,14 +158,14 @@ id,name,class_ranking,current_rpi,academics,conference_id,team_id_ncaa,sport,log
 157,Clark Atlanta,0,,,14,144,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/157.png
 158,Clarks Summit,0,,,,958,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/158.png
 159,Clarkson,0,,,54,146,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/159.png
-160,Clemson,0,30,,72,147,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/160.png
+160,Clemson,0,33,,72,147,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/160.png
 161,UMSV,0,,,93,451,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/161.png
 162,Coast Guard,0,,,52,722,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/162.png
 163,Coastal Carolina,0,14,,31,149,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/163.png
 164,SUNY Cobleskill ,0,,,91,30083,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/164.png
 165,Coe,0,,,78,150,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/165.png
 166,Coker,0,,,28,1023,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/166.png
-167,Col. of Charleston,0,229,,101,1014,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/167.png
+167,Col. of Charleston,0,230,,101,1014,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/167.png
 168,Colby,0,,,26,151,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/168.png
 169,Colby-Sawyer,0,,,15,152,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/169.png
 170,Colo. Christian,0,,,5,11403,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/170.png
@@ -179,12 +179,12 @@ id,name,class_ranking,current_rpi,academics,conference_id,team_id_ncaa,sport,log
 178,Concordia Wisconsin,0,,,44,1036,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/178.png
 179,Concordia-M'head,0,,,39,161,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/179_Concordia-mhead.png
 180,Concordia-St. Paul,0,,,42,9081,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/180.png
-181,Coppin St.,0,302,,77,165,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/181.png
+181,Coppin St.,0,303,,77,165,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/181.png
 182,Cornell,0,255,,76,167,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/182.png
 183,Cornell College,0,,,63,166,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/183.png
 184,Cortland,0,,,103,168,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/184.png
 185,Covenant,0,,,60,30111,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/185.png
-186,Creighton,0,93,,79,169,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/186.png
+186,Creighton,0,92,,79,169,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/186.png
 187,Crown (MN),0,,,65,30035,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/187.png
 188,CSU Bakersfield,0,185,,86,94,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/188.png
 189,CSU Pueblo,0,,,5,2720,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/189.png
@@ -199,7 +199,7 @@ id,name,class_ranking,current_rpi,academics,conference_id,team_id_ncaa,sport,log
 198,Davidson,0,214,,80,173,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/198.png
 199,Davis & Elkins,0,,,17,174,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/199.png
 200,Dayton,0,224,,80,175,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/200.png
-201,DBU,0,83,,99,1045,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/201.png
+201,DBU,0,89,,99,1045,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/201.png
 202,Dean,0,,,15,30219,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/202.png
 203,Defiance,0,,,,1050,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/203.png
 204,Delaware,0,167,,99,180,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/204.png
@@ -225,7 +225,7 @@ id,name,class_ranking,current_rpi,academics,conference_id,team_id_ncaa,sport,log
 224,East. Mennonite,0,,,50,203,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/224.png
 225,Eastern,0,,,16,8968,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/225.png
 226,Eastern Conn. St.,0,,,108,200,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/226.png
-227,Eastern Ill.,0,124,,49,201,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/227.png
+227,Eastern Ill.,0,123,,49,201,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/227.png
 228,Eastern Ky.,0,207,,48,202,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/228.png
 229,Eastern Mich.,0,243,,10,204,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/229.png
 230,Eastern N.M.,0,,,3,206,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/230.png
@@ -248,7 +248,7 @@ id,name,class_ranking,current_rpi,academics,conference_id,team_id_ncaa,sport,log
 247,Erskine,0,,,29,1072,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/247.png
 248,ETSU,0,118,,32,198,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/248.png
 249,Eureka,0,,,69,218,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/249.png
-250,Evansville,0,191,,62,219,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/250.png
+250,Evansville,0,190,,62,219,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/250.png
 251,Fairfield,0,227,,88,220,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/251.png
 252,Fairmont St.,0,,,17,1076,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/252.png
 253,Farmingdale St.,0,,,93,27892,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/253.png
@@ -256,7 +256,7 @@ id,name,class_ranking,current_rpi,academics,conference_id,team_id_ncaa,sport,log
 255,FDU-Florham,0,,,24,221,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/255.png
 256,Felician,0,,,23,23157,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/256.png
 257,Ferrum,0,,,29,225,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/257.png
-258,FGCU,0,85,,48,28755,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/258.png
+258,FGCU,0,84,,48,28755,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/258.png
 259,Findlay,0,,,18,1079,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/259.png
 260,Fitchburg St.,0,,,75,227,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/260.png
 261,FIU,0,232,,99,231,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/261.png
@@ -264,11 +264,11 @@ id,name,class_ranking,current_rpi,academics,conference_id,team_id_ncaa,sport,log
 263,Fla. Southern,0,,,55,233,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/263.png
 264,Flagler,0,,,40,30092,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/264.png
 265,Florida,0,8,,11,235,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/265.png
-266,Florida A&M,0,244,,12,228,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/266.png
+266,Florida A&M,0,245,,12,228,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/266.png
 267,Florida St.,0,4,,72,234,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/267.png
 268,Florida Tech,0,,,55,230,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/268.png
 269,Fontbonne,0,,,69,11538,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/269.png
-270,Fordham,0,189,,80,236,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/270.png
+270,Fordham,0,188,,80,236,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/270.png
 271,Fort Hays St.,0,,,96,9011,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/271.png
 272,Framingham St.,0,,,75,238,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/272.png
 273,Francis Marion,0,,,29,1085,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/273.png
@@ -280,27 +280,27 @@ id,name,class_ranking,current_rpi,academics,conference_id,team_id_ncaa,sport,log
 279,Fresno Pacific,0,,,4,30147,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/279.png
 280,Fresno St.,0,265,,9,96,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/280.png
 281,Frostburg St.,0,,,17,243,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/281.png
-282,Ga. Southern,0,202,,31,253,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/282.png
+282,Ga. Southern,0,203,,31,253,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/282.png
 283,Ga. Southwestern,0,,,40,1097,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/283.png
 284,Gallaudet,0,,,,245,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/284.png
 285,Gannon,0,,,70,246,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/285.png
-286,Gardner-Webb,0,123,,68,1092,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/286.png
+286,Gardner-Webb,0,124,,68,1092,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/286.png
 287,Geneva,0,,,21,30084,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/287.png
 288,George Fox,0,,,111,1094,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/288.png
 289,George Mason,0,144,,80,248,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/289.png
 290,George Washington,0,292,,80,249,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/290.png
-291,Georgetown,0,201,,79,251,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/291.png
-292,Georgia,0,44,,11,257,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/292.png
+291,Georgetown,0,198,,79,251,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/291.png
+292,Georgia,0,45,,11,257,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/292.png
 293,Georgia College,0,,,40,1096,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/293.png
 294,Georgia St.,0,116,,31,254,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/294.png
 295,Georgia Tech,0,22,,72,255,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/295.png
 296,Gettysburg,0,,,106,258,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/296.png
 297,Glenville St.,0,,,17,1098,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/297.png
 298,Goldey-Beacom,0,,,23,8366,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/298.png
-299,Gonzaga,0,59,,82,260,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/299.png
+299,Gonzaga,0,65,,82,260,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/299.png
 300,Gordon,0,,,30,1099,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/300.png
 301,Grambling,0,271,,12,261,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/301.png
-302,Grand Canyon,0,249,,9,1104,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/302.png
+302,Grand Canyon,0,251,,9,1104,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/302.png
 303,Grand Valley St.,0,,,38,262,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/303.png
 304,Greensboro,0,,,51,263,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/304.png
 305,Greenville,0,,,69,1111,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/305.png
@@ -318,7 +318,7 @@ id,name,class_ranking,current_rpi,academics,conference_id,team_id_ncaa,sport,log
 317,Hartford,0,,,30,272,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/317.png
 318,Harvard,0,253,,76,275,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/318.png
 319,Haverford,0,,,106,276,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/319.png
-320,Hawaii,0,110,,86,277,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/320.png
+320,Hawaii,0,111,,86,277,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/320.png
 321,Hawaii Hilo,0,,,4,2697,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/321.png
 322,Hawaii Pacific,0,,,4,2696,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/322.png
 323,Heidelberg,0,,,53,278,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/323.png
@@ -343,20 +343,20 @@ id,name,class_ranking,current_rpi,academics,conference_id,team_id_ncaa,sport,log
 342,IIT,0,,,44,30172,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/342.png
 343,Ill. Springfield,0,,,61,30050,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/343.png
 344,Ill. Wesleyan,0,,,41,300,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/344.png
-345,Illinois,0,47,,114,301,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/345.png
+345,Illinois,0,48,,114,301,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/345.png
 346,Illinois Col.,0,,,63,297,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/346.png
-347,Illinois St.,0,102,,62,299,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/347.png
+347,Illinois St.,0,101,,62,299,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/347.png
 348,Immaculata,0,,,83,303,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/348.png
-349,Indiana,0,88,,114,306,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/349.png
+349,Indiana,0,87,,114,306,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/349.png
 350,Indiana (PA),0,,,70,307,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/350.png
 351,Indiana St.,0,182,,62,305,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/351.png
 352,Iona,0,290,,88,310,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/352.png
-353,Iowa,0,86,,114,312,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/353.png
+353,Iowa,0,85,,114,312,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/353.png
 354,Ithaca,0,,,54,313,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/354.png
 355,Jackson St.,0,294,,12,314,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/355.png
 356,Jacksonville,0,169,,48,316,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/356.png
-357,Jacksonville St.,0,41,,99,315,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/357.png
-358,James Madison,0,173,,31,317,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/358.png
+357,Jacksonville St.,0,42,,99,315,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/357.png
+358,James Madison,0,172,,31,317,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/358.png
 359,Jefferson,0,,,23,543,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/359.png
 360,John Carroll,0,,,22,320,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/360.png
 361,John Jay,0,,,56,321,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/361.png
@@ -369,7 +369,7 @@ id,name,class_ranking,current_rpi,academics,conference_id,team_id_ncaa,sport,log
 368,Kean,0,,,115,329,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/368.png
 369,Keene St.,0,,,108,330,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/369.png
 370,Kennesaw St.,0,74,,99,1157,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/370.png
-371,Kent St.,0,42,,10,331,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/371.png
+371,Kent St.,0,43,,10,331,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/371.png
 372,Kentucky,0,13,,11,334,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/372.png
 373,Kentucky St.,0,,,14,332,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/373.png
 374,Kenyon,0,,,22,335,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/374.png
@@ -382,11 +382,11 @@ id,name,class_ranking,current_rpi,academics,conference_id,team_id_ncaa,sport,log
 381,Ky. Wesleyan,0,,,18,333,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/381.png
 382,La Roche,0,,,20,1163,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/382.png
 383,La Verne,0,,,85,341,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/383.png
-384,Lafayette,0,266,,36,342,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/384.png
+384,Lafayette,0,264,,36,342,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/384.png
 385,LaGrange,0,,,60,1162,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/385.png
 386,Lake Erie,0,,,18,2746,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/386.png
 387,Lakeland,0,,,44,1164,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/387.png
-388,Lamar,0,101,,1,346,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/388.png
+388,Lamar,0,100,,1,346,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/388.png
 389,Lancaster Bible,0,,,84,30085,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/389.png
 390,Lander,0,,,40,1167,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/390.png
 391,Lane,0,,,14,347,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/391.png
@@ -403,7 +403,7 @@ id,name,class_ranking,current_rpi,academics,conference_id,team_id_ncaa,sport,log
 402,LeTourneau,0,,,46,8490,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/402.png
 403,Lewis,0,,,61,354,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/403.png
 404,Lewis & Clark,0,,,111,22235,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/404.png
-405,Liberty,0,63,,99,355,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/405.png
+405,Liberty,0,64,,99,355,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/405.png
 406,Limestone,0,,,28,1174,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/406.png
 407,Lincoln (PA),0,,,23,357,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/407.png
 408,Lincoln Memorial,0,,,28,1176,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/408.png
@@ -414,13 +414,13 @@ id,name,class_ranking,current_rpi,academics,conference_id,team_id_ncaa,sport,log
 413,LIU,0,281,,77,361,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/413.png
 414,LMU (CA),0,161,,82,370,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/414.png
 415,Lock Haven,0,,,70,360,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/415.png
-416,Long Beach St.,0,245,,86,99,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/416.png
+416,Long Beach St.,0,244,,86,99,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/416.png
 417,Longwood,0,113,,68,363,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/417.png
 418,Loras,0,,,78,364,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/418.png
 419,Louisiana,0,16,,31,671,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/419.png
 420,Louisiana Tech,0,79,,99,366,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/420.png
 421,Louisville,0,53,,72,367,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/421.png
-422,LSU,0,104,,11,365,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/422.png
+422,LSU,0,105,,11,365,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/422.png
 423,Lubbock Christian,0,,,3,30177,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/423.png
 424,Luther,0,,,78,372,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/424.png
 425,Lycoming,0,,,89,373,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/425.png
@@ -464,10 +464,10 @@ id,name,class_ranking,current_rpi,academics,conference_id,team_id_ncaa,sport,log
 463,Merchant Marine,0,,,93,724,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/463.png
 464,Mercy,0,,,7,407,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/464.png
 465,Mercyhurst,0,306,,77,408,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/465.png
-466,Merrimack,0,202,,88,410,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/466.png
+466,Merrimack,0,201,,88,410,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/466.png
 467,Messiah,0,,,16,411,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/467.png
 468,Methodist,0,,,51,412,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/468.png
-469,Miami (FL),0,48,,72,415,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/469.png
+469,Miami (FL),0,39,,72,415,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/469.png
 470,Miami (OH),0,81,,10,414,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/470.png
 471,Michigan,0,76,,114,418,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/471.png
 472,Michigan St.,0,77,,114,416,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/472.png
@@ -481,7 +481,7 @@ id,name,class_ranking,current_rpi,academics,conference_id,team_id_ncaa,sport,log
 480,Minn. Duluth,0,,,42,427,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/480.png
 481,Minn.-Crookston,0,,,42,27854,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/481.png
 482,Minn.-Morris,0,,,65,1226,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/482.png
-483,Minnesota,0,92,,114,428,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/483.png
+483,Minnesota,0,93,,114,428,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/483.png
 484,Minnesota St.,0,,,42,383,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/484.png
 485,Minot St.,0,,,42,30125,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/485.png
 486,Misericordia,0,,,24,16142,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/486.png
@@ -490,14 +490,14 @@ id,name,class_ranking,current_rpi,academics,conference_id,team_id_ncaa,sport,log
 489,Mississippi Val.,0,295,,12,432,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/489.png
 490,Missouri,0,121,,11,434,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/490.png
 491,Missouri S&T,0,,,61,435,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/491.png
-492,Missouri St.,0,6,,99,669,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/492.png
+492,Missouri St.,0,7,,99,669,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/492.png
 493,Missouri Western,0,,,96,9013,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/493.png
 494,MIT,0,,,52,398,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/494.png
 495,Mitchell,0,,,15,30042,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/495.png
 496,Mo. Southern St.,0,,,96,9012,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/496.png
 497,Mo.-St. Louis,0,,,61,436,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/497.png
 498,Molloy,0,,,7,437,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/498.png
-499,Monmouth,0,219,,101,439,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/499.png
+499,Monmouth,0,218,,101,439,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/499.png
 500,Monmouth (IL),0,,,63,438,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/500.png
 501,Mont. St. Billings,0,,,97,205,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/501.png
 502,Montclair St.,0,,,115,442,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/502.png
@@ -514,23 +514,23 @@ id,name,class_ranking,current_rpi,academics,conference_id,team_id_ncaa,sport,log
 513,Mt. St. Joseph,0,,,27,8567,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/513.png
 514,Mt. St. Mary (NY),0,,,93,1468,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/514.png
 515,Muhlenberg,0,,,106,453,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/515.png
-516,Murray St.,0,178,,62,454,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/516.png
+516,Murray St.,0,180,,62,454,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/516.png
 517,Muskingum,0,,,53,455,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/517.png
 518,MUW,0,,,69,431,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/518.png
 519,N.C. A&T,0,274,,101,488,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/519.png
 520,N.C. Wesleyan,0,,,51,491,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/520.png
 521,N.M. Highlands,0,,,5,8577,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/521.png
 522,Navy,0,272,,36,726,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/522.png
-523,NC State,0,89,,72,490,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/523.png
+523,NC State,0,88,,72,490,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/523.png
 524,Neb. Wesleyan,0,,,78,462,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/524.png
 525,Nebraska,0,28,,114,463,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/525.png
 526,Neumann,0,,,83,1254,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/526.png
-527,Nevada,0,99,,9,466,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/527.png
+527,Nevada,0,98,,9,466,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/527.png
 528,New England Col.,0,,,15,467,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/528.png
 529,New Haven,0,304,,77,470,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/529.png
 530,New Jersey City,0,,,115,319,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/530.png
 531,New Mexico,0,212,,9,473,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/531.png
-532,New Mexico St.,0,188,,99,472,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/532.png
+532,New Mexico St.,0,192,,99,472,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/532.png
 533,New Orleans,0,254,,1,474,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/533.png
 534,Newberry,0,,,28,1257,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/534.png
 535,Newman,0,,,96,30054,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/535.png
@@ -539,20 +539,20 @@ id,name,class_ranking,current_rpi,academics,conference_id,team_id_ncaa,sport,log
 538,Nichols,0,,,30,484,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/538.png
 539,NIU,0,97,,10,503,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/539.png
 540,NJIT,0,301,,67,471,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/540.png
-541,Norfolk St.,0,303,,77,485,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/541.png
+541,Norfolk St.,0,302,,77,485,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/541.png
 542,North Ala.,0,153,,48,487,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/542.png
-543,North Carolina,0,19,,72,457,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/543.png
+543,North Carolina,0,20,,72,457,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/543.png
 544,North Central (IL),0,,,41,492,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/544.png
 545,North Central (MN),0,,,65,30039,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/545.png
-546,North Dakota St.,0,241,,92,493,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/546.png
-547,North Florida,0,150,,48,2711,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/547.png
+546,North Dakota St.,0,242,,92,493,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/546.png
+547,North Florida,0,149,,48,2711,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/547.png
 548,North Georgia,0,,,40,30052,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/548.png
 549,North Greenville,0,,,29,9223,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/549.png
 550,North Park,0,,,41,496,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/550.png
-551,Northeastern,0,157,,101,500,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/551.png
+551,Northeastern,0,156,,101,500,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/551.png
 552,Northeastern St.,0,,,96,12810,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/552.png
 553,Northern Colo.,0,282,,92,502,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/553.png
-554,Northern Ky.,0,217,,81,505,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/554.png
+554,Northern Ky.,0,219,,81,505,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/554.png
 555,Northern St.,0,,,42,1266,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/555.png
 556,Northland,0,,,65,1267,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/556.png
 557,Northwest Mo. St.,0,,,96,507,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/557.png
@@ -578,11 +578,11 @@ id,name,class_ranking,current_rpi,academics,conference_id,team_id_ncaa,sport,log
 577,Ohio Wesleyan,0,,,22,520,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/577.png
 578,Okla. Baptist,0,,,35,30202,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/578.png
 579,Okla. Christian,0,,,3,30179,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/579.png
-580,Oklahoma,0,20,,11,522,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/580.png
-581,Oklahoma St.,0,56,,59,521,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/581.png
+580,Oklahoma,0,21,,11,522,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/580.png
+581,Oklahoma St.,0,68,,59,521,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/581.png
 582,Old Dominion,0,216,,31,523,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/582.png
 583,Old Westbury,0,,,93,524,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/583.png
-584,Ole Miss,0,7,,11,433,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/584.png
+584,Ole Miss,0,6,,11,433,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/584.png
 585,Olivet,0,,,8,525,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/585.png
 586,Omaha,0,231,,92,464,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/586.png
 587,Oral Roberts,0,127,,92,527,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/587.png
@@ -597,7 +597,7 @@ id,name,class_ranking,current_rpi,academics,conference_id,team_id_ncaa,sport,log
 596,Pacific (OR),0,,,111,2751,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/596.png
 597,Pacific Lutheran,0,,,111,1297,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/597.png
 598,Palm Beach Atl.,0,,,55,30045,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/598.png
-599,Penn,0,152,,76,540,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/599.png
+599,Penn,0,151,,76,540,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/599.png
 600,Penn College,0,,,84,30190,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/600.png
 601,Penn St.,0,215,,114,539,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/601.png
 602,Penn St. Harrisburg,0,,,84,30081,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/602.png
@@ -617,7 +617,7 @@ id,name,class_ranking,current_rpi,academics,conference_id,team_id_ncaa,sport,log
 616,Plymouth St.,0,,,108,548,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/616.png
 617,Point Loma,0,,,4,30149,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/617.png
 618,Pomona-Pitzer,0,,,85,549,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/618.png
-619,Portland,0,62,,82,551,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/619.png
+619,Portland,0,63,,82,551,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/619.png
 620,Post,0,,,23,1318,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/620.png
 621,Prairie View,0,296,,12,553,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/621.png
 622,Presbyterian,0,293,,68,1320,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/622.png
@@ -658,7 +658,7 @@ id,name,class_ranking,current_rpi,academics,conference_id,team_id_ncaa,sport,log
 657,Rosemont,0,,,84,15882,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/657.png
 658,Rowan,0,,,115,259,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/658.png
 659,Russell Sage,0,,,109,11036,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/659.png
-660,Rutgers,0,105,,114,587,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/660.png
+660,Rutgers,0,104,,114,587,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/660.png
 661,Rutgers-Camden,0,,,115,588,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/661.png
 662,Rutgers-Newark,0,,,115,589,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/662.png
 663,Sacramento St.,0,199,,2,102,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/663.png
@@ -680,22 +680,22 @@ id,name,class_ranking,current_rpi,academics,conference_id,team_id_ncaa,sport,log
 679,Salem St.,0,,,75,621,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/679.png
 680,Salisbury,0,,,90,622,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/680.png
 681,Salve Regina,0,,,52,623,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/681.png
-682,Sam Houston,0,172,,99,624,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/682.png
-683,Samford,0,136,,32,625,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/683.png
+682,Sam Houston,0,177,,99,624,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/682.png
+683,Samford,0,135,,32,625,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/683.png
 684,San Diego,0,163,,82,627,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/684.png
-685,San Diego St.,0,175,,9,626,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/685.png
+685,San Diego St.,0,173,,9,626,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/685.png
 686,San Fran. St.,0,,,87,628,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/686.png
 687,San Francisco,0,222,,82,629,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/687.png
 688,San Jose St.,0,186,,9,630,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/688.png
-689,Santa Clara,0,149,,82,631,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/689.png
+689,Santa Clara,0,152,,82,631,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/689.png
 690,Savannah St.,0,,,14,632,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/690.png
 691,Schreiner,0,,,46,1355,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/691.png
 692,Scranton,0,,,89,633,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/692.png
-693,Seattle U,0,276,,82,1356,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/693.png
+693,Seattle U,0,275,,82,1356,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/693.png
 694,Seton Hall,0,181,,79,635,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/694.png
 695,Seton Hill,0,,,70,30063,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/695.png
 696,Sewanee,0,,,64,652,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/696.png
-697,SFA,0,192,,1,676,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/697.png
+697,SFA,0,191,,1,676,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/697.png
 698,Shenandoah,0,,,50,637,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/698.png
 699,Shepherd,0,,,70,10870,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/699.png
 700,Shippensburg,0,,,70,638,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/700.png
@@ -707,18 +707,18 @@ id,name,class_ranking,current_rpi,academics,conference_id,team_id_ncaa,sport,log
 706,Skidmore,0,,,54,642,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/706.png
 707,Slippery Rock,0,,,70,643,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/707.png
 708,Sonoma St.,0,,,87,645,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/708.png
-709,South Alabama,0,68,,31,646,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/709.png
-710,South Carolina,0,98,,11,648,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/710.png
+709,South Alabama,0,67,,31,646,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/709.png
+710,South Carolina,0,102,,11,648,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/710.png
 711,South Dakota St.,0,183,,92,649,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/711.png
 712,South Fla.,0,36,,73,651,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/712.png
-713,Southeast Mo. St.,0,45,,49,654,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/713.png
+713,Southeast Mo. St.,0,46,,49,654,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/713.png
 714,Southeastern La.,0,96,,1,655,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/714.png
 715,Southeastern Okla.,0,,,35,1371,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/715.png
 716,Southern Ark.,0,,,35,1376,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/716.png
 717,Southern California,0,11,,114,657,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/717.png
 718,Southern Conn. St.,0,,,6,658,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/718.png
 719,Southern Ill.,0,260,,62,659,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/719.png
-720,Southern Ind.,0,198,,49,661,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/720.png
+720,Southern Ind.,0,197,,49,661,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/720.png
 721,Southern Me.,0,,,108,662,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/721.png
 722,Southern Miss.,0,3,,31,664,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/722.png
 723,Southern N.H.,0,,,6,468,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/723.png
@@ -738,7 +738,7 @@ id,name,class_ranking,current_rpi,academics,conference_id,team_id_ncaa,sport,log
 737,St. Cloud St.,0,,,42,598,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/737.png
 738,St. Edward's,0,,,3,1334,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/738.png
 739,St. John Fisher,0,,,109,601,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/739.png
-740,St. John's (NY),0,132,,79,603,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/740.png
+740,St. John's (NY),0,133,,79,603,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/740.png
 741,St. Joseph's (Brkln),0,,,93,30072,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/741.png
 742,St. Joseph's (L.I.),0,,,93,1340,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/742.png
 743,St. Joseph's (ME),0,,,15,605,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/743.png
@@ -751,7 +751,7 @@ id,name,class_ranking,current_rpi,academics,conference_id,team_id_ncaa,sport,log
 750,St. Thomas (MN),0,263,,92,620,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/750.png
 751,St. Thomas (TX),0,,,46,2810,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/751.png
 752,St. Thomas Aquinas,0,,,7,1348,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/752.png
-753,Stanford,0,151,,72,674,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/753.png
+753,Stanford,0,150,,72,674,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/753.png
 754,Stanislaus St.,0,,,87,103,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/754.png
 755,Staten Island,0,,,7,675,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/755.png
 756,Stetson,0,138,,48,678,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/756.png
@@ -759,7 +759,7 @@ id,name,class_ranking,current_rpi,academics,conference_id,team_id_ncaa,sport,log
 758,Stevenson,0,,,16,21852,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/758.png
 759,Stockton,0,,,115,681,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/759.png
 760,Stonehill,0,246,,77,682,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/760.png
-761,Stony Brook,0,228,,101,683,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/761.png
+761,Stony Brook,0,229,,101,683,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/761.png
 762,Suffolk,0,,,30,684,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/762.png
 763,Sul Ross St.,0,,,3,1390,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/763.png
 764,SUNY Brockport,0,,,109,78,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/764.png
@@ -771,22 +771,22 @@ id,name,class_ranking,current_rpi,academics,conference_id,team_id_ncaa,sport,log
 770,Susquehanna,0,,,89,685,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/770.png
 771,Swarthmore,0,,,106,686,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/771.png
 772,Tampa,0,,,55,689,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/772.png
-773,Tarleton St.,0,90,,2,1395,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/773.png
+773,Tarleton St.,0,91,,2,1395,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/773.png
 774,TCNJ,0,,,115,712,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/774.png
-775,TCU,0,54,,59,698,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/775.png
+775,TCU,0,56,,59,698,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/775.png
 776,Tennessee,0,25,,11,694,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/776.png
 777,Tennessee Tech,0,238,,49,692,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/777.png
 778,Tex. A&M Int'l,0,,,3,30090,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/778.png
 779,Tex. A&M-Kingsville,0,,,3,696,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/779.png
 780,Tex. Permian Basin,0,,,3,30088,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/780.png
-781,Texas,0,2,,11,703,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/781.png
+781,Texas,0,1,,11,703,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/781.png
 782,Texas A&M,0,17,,11,697,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/782.png
 783,Texas Lutheran,0,,,46,1400,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/783.png
 784,Texas Southern,0,277,,12,699,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/784.png
 785,Texas St.,0,38,,31,670,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/785.png
 786,Texas Tech,0,106,,59,700,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/786.png
 787,Texas-Dallas,0,,,3,23121,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/787.png
-788,The Citadel,0,67,,32,141,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/788.png
+788,The Citadel,0,66,,32,141,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/788.png
 789,Thiel,0,,,21,707,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/789.png
 790,Thomas (ME),0,,,91,2758,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/790.png
 791,Tiffin,0,,,18,1403,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/791.png
@@ -803,26 +803,26 @@ id,name,class_ranking,current_rpi,academics,conference_id,team_id_ncaa,sport,log
 802,Tulane,0,206,,73,718,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/802.png
 803,Tusculum,0,,,28,12830,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/803.png
 804,Tuskegee,0,,,14,720,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/804.png
-805,UAB,0,43,,73,9,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/805.png
-806,UAlbany,0,275,,67,14,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/806.png
-807,UC Davis,0,65,,86,108,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/807.png
+805,UAB,0,44,,73,9,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/805.png
+806,UAlbany,0,276,,67,14,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/806.png
+807,UC Davis,0,61,,86,108,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/807.png
 808,UC Irvine,0,162,,86,109,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/808.png
 809,UC Riverside,0,269,,86,111,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/809.png
-810,UC San Diego,0,66,,86,112,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/810.png
-811,UC Santa Barbara,0,31,,86,104,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/811.png
+810,UC San Diego,0,62,,86,112,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/810.png
+811,UC Santa Barbara,0,30,,86,104,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/811.png
 812,UC-Colo. Springs,0,,,5,9754,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/812.png
-813,UCF,0,24,,59,128,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/813.png
+813,UCF,0,27,,59,128,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/813.png
 814,UChicago,0,,,74,137,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/814.png
 815,UCLA,0,9,,114,110,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/815.png
-816,UConn,0,100,,79,164,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/816.png
+816,UConn,0,99,,79,164,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/816.png
 817,UIC,0,240,,62,302,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/817.png
 818,UIndy,0,,,61,309,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/818.png
 819,UIW,0,220,,1,2743,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/819.png
-820,ULM,0,171,,31,498,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/820.png
+820,ULM,0,170,,31,498,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/820.png
 821,UMass Boston,0,,,108,401,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/821.png
 822,UMass Dartmouth,0,,,108,656,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/822.png
 823,UMass Lowell,0,211,,67,368,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/823.png
-824,UMBC,0,204,,67,391,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/824.png
+824,UMBC,0,202,,67,391,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/824.png
 825,UMES,0,305,,77,393,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/825.png
 826,UNC Asheville,0,285,,68,456,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/826.png
 827,UNC Greensboro,0,155,,32,459,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/827.png
@@ -835,22 +835,22 @@ id,name,class_ranking,current_rpi,academics,conference_id,team_id_ncaa,sport,log
 834,Ursinus,0,,,106,730,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/834.png
 835,USC Aiken,0,,,40,11276,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/835.png
 836,USC Beaufort,0,,,40,30259,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/836.png
-837,USC Upstate,0,64,,68,10411,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/837.png
-838,UT Arlington,0,135,,2,702,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/838.png
+837,USC Upstate,0,60,,68,10411,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/837.png
+838,UT Arlington,0,136,,2,702,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/838.png
 839,UT Martin,0,289,,49,695,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/839.png
 840,UT Tyler,0,,,3,30028,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/840.png
 841,Utah,0,107,,59,732,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/841.png
-842,Utah Tech,0,177,,2,30095,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/842.png
+842,Utah Tech,0,175,,2,30095,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/842.png
 843,Utah Valley,0,287,,2,30024,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/843.png
 844,Utica,0,,,109,733,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/844.png
 845,UTRGV,0,69,,1,536,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/845.png
-846,UTSA,0,46,,73,706,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/846.png
+846,UTSA,0,47,,73,706,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/846.png
 847,UVA Wise,0,,,28,30181,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/847.png
 848,Va. Wesleyan,0,,,50,745,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/848.png
 849,Valdosta St.,0,,,13,734,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/849.png
 850,Valley Forge,0,,,84,30166,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/850.png
 851,Valparaiso,0,145,,62,735,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/851.png
-852,Vanderbilt,0,170,,11,736,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/852.png
+852,Vanderbilt,0,171,,11,736,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/852.png
 853,Vassar,0,,,54,737,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/853.png
 854,VCU,0,73,,80,740,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/854.png
 855,Villanova,0,125,,79,739,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/855.png
@@ -861,16 +861,16 @@ id,name,class_ranking,current_rpi,academics,conference_id,team_id_ncaa,sport,log
 860,VTSU Castleton,0,,,108,123,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/860.png
 861,VTSU Lyndon,0,,,91,30065,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/861.png
 862,Wabash,0,,,22,747,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/862.png
-863,Wagner,0,230,,77,748,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/863.png
+863,Wagner,0,228,,77,748,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/863.png
 864,Wake Forest,0,29,,72,749,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/864.png
 865,Walsh,0,,,18,30141,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/865.png
 866,Wartburg,0,,,78,750,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/866.png
 867,Wash. & Jeff.,0,,,21,751,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/867.png
 868,Wash. & Lee,0,,,50,752,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/868.png
 869,Washburn,0,,,96,2814,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/869.png
-870,Washington,0,180,,114,756,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/870.png
+870,Washington,0,178,,114,756,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/870.png
 871,Washington Col.,0,,,106,753,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/871.png
-872,Washington St.,0,84,,9,754,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/872.png
+872,Washington St.,0,83,,9,754,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/872.png
 873,WashU,0,,,74,755,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/873.png
 874,Wayne St. (MI),0,,,38,757,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/874.png
 875,Wayne St. (NE),0,,,42,1433,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/875.png
@@ -882,16 +882,16 @@ id,name,class_ranking,current_rpi,academics,conference_id,team_id_ncaa,sport,log
 881,West Ala.,0,,,13,358,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/881.png
 882,West Chester,0,,,70,765,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/882.png
 883,West Florida,0,,,13,11740,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/883.png
-884,West Ga.,0,218,,48,766,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/884.png
+884,West Ga.,0,217,,48,766,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/884.png
 885,West Liberty,0,,,17,1438,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/885.png
 886,West Tex. A&M,0,,,3,767,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/886.png
 887,West Va. Wesleyan,0,,,17,9630,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/887.png
-888,West Virginia,0,27,,59,768,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/888.png
+888,West Virginia,0,24,,59,768,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/888.png
 889,West Virginia St.,0,,,17,1439,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/889.png
 890,WestConn,0,,,108,770,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/890.png
-891,Western Caro.,0,108,,32,769,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/891.png
+891,Western Caro.,0,109,,32,769,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/891.png
 892,Western Ill.,0,237,,49,771,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/892.png
-893,Western Ky.,0,91,,99,772,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/893.png
+893,Western Ky.,0,90,,99,772,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/893.png
 894,Western Mich.,0,134,,10,774,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/894.png
 895,Western New Eng.,0,,,30,775,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/895.png
 896,Western Ore.,0,,,97,1446,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/896.png
@@ -904,7 +904,7 @@ id,name,class_ranking,current_rpi,academics,conference_id,team_id_ncaa,sport,log
 903,Whitman,0,,,111,780,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/903.png
 904,Whittier,0,,,85,781,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/904.png
 905,Whitworth,0,,,111,1454,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/905.png
-906,Wichita St.,0,190,,73,782,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/906.png
+906,Wichita St.,0,189,,73,782,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/906.png
 907,Widener,0,,,16,783,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/907.png
 908,Wilkes,0,,,89,784,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/908.png
 909,Willamette,0,,,111,785,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/909.png
@@ -917,7 +917,7 @@ id,name,class_ranking,current_rpi,academics,conference_id,team_id_ncaa,sport,log
 916,Wilson,0,,,84,12973,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/916.png
 917,Wingate,0,,,28,1462,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/917.png
 918,Winona St.,0,,,42,790,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/918.png
-919,Winthrop,0,61,,68,792,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/919.png
+919,Winthrop,0,59,,68,792,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/919.png
 920,Wis. Lutheran,0,,,44,8911,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/920.png
 921,Wis.-Eau Claire,0,,,119,793,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/921.png
 922,Wis.-La Crosse,0,,,119,795,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/922.png
@@ -935,7 +935,7 @@ id,name,class_ranking,current_rpi,academics,conference_id,team_id_ncaa,sport,log
 934,Worcester St.,0,,,75,809,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/934.png
 935,WPI,0,,,52,808,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/935.png
 936,Wright St.,0,72,,81,810,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/936.png
-937,Xavier,0,133,,79,812,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/937.png
+937,Xavier,0,132,,79,812,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/937.png
 938,Yale,0,267,,76,813,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/938.png
 939,Yeshiva,0,,,93,814,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/939.png
 940,York (PA),0,,,16,815,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/940.png
@@ -947,7 +947,7 @@ id,name,class_ranking,current_rpi,academics,conference_id,team_id_ncaa,sport,log
 946,Oakland City,0,,,,1278,Baseball,
 947,Ohio Valley,0,,,,15207,Baseball,
 948,Thomas More,0,,,18,1402,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/948.png
-949,La Salle,0,264,,80,340,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/949.png
+949,La Salle,0,266,,80,340,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/949.png
 950,N.C. Central,0,,,66,489,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/950.png
 951,Westmont,0,,,4,30260,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/951.png
 952,Chaminade,0,,,4,133,Baseball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/952.png
@@ -1089,48 +1089,48 @@ id,name,class_ranking,current_rpi,academics,conference_id,team_id_ncaa,sport,log
 1088,North Carolina,,42,,72,457,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/543_North-Carolina.png
 1089,Virginia Tech,,16,,72,742,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/858_Virginia-Tech.png
 1090,Southeastern La.,,52,,1,655,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/714_Southeastern-Louisiana.png
-1091,Nevada,,48,,9,466,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/527_Nevada.png
+1091,Nevada,,49,,9,466,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/527_Nevada.png
 1092,Grand Canyon,,30,,9,1104,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/302_Grand-Canyon.png
-1093,Howard,,212,,66,290,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/1093.png
+1093,Howard,,213,,66,290,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/1093.png
 1094,Florida St.,,10,,72,234,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/267_Florida-State.png
 1095,Florida,,5,,11,235,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/265_Florida.webp
-1096,Arizona,,13,,59,29,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/31_Arizona.png
+1096,Arizona,,12,,59,29,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/31_Arizona.png
 1097,Colorado St.,,179,,9,156,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/1097.png
 1098,Duke,,23,,72,193,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/217_Duke.png
-1099,Boston U.,,76,,36,68,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/1099.png
-1100,BYU,,97,,59,77,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/101_BYU.png
+1099,Boston U.,,75,,36,68,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/1099.png
+1100,BYU,,98,,59,77,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/101_BYU.png
 1101,Washington,,17,,114,756,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/870_Washington.png
 1102,Louisiana,,40,,31,671,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/419_louisiana.png
 1103,UNLV,,148,,9,465,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/832_UNLV.png
 1104,UCLA,,7,,114,110,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/815_UCLA.png
 1105,California Baptist,,103,,2,30135,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/116_California-Baptist.png
 1106,Marshall,,31,,31,388,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/440_Marshall.png
-1107,Cal St. Fullerton,,45,,86,97,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/109_Cal-State-Fullerton.png
+1107,Cal St. Fullerton,,47,,86,97,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/109_Cal-State-Fullerton.png
 1108,Fresno St.,,99,,9,96,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/280_Fresno-State.png
 1109,UIW,,80,,1,2743,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/819_Incarnate-Word.png
 1110,Harvard,,186,,76,275,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/318_Harvard.png
-1111,Marist,,261,,88,386,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/438_Marist.png
+1111,Marist,,262,,88,386,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/438_Marist.png
 1112,Indiana,,53,,114,306,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/349_Indiana.png
 1113,Texas Tech,,8,,59,700,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/786_Texas-Tech.png
 1114,James Madison,,109,,31,317,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/358_James-Madison.png
 1115,Florida A&M,,206,,12,228,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/266_florida-a&m.png
 1116,Georgia Tech,,32,,72,255,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/295_Georgia-Tech.png
-1117,Oregon,,11,,114,529,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/588_Oregon.png
-1118,California,,105,,72,107,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/114_California.webp
+1117,Oregon,,12,,114,529,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/588_Oregon.png
+1118,California,,106,,72,107,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/114_California.webp
 1119,Oklahoma St.,,27,,59,521,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/581_Oklahoma-State.png
 1120,Texas A&M,,22,,11,697,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/782_texas-a&m.png
-1121,Toledo,,223,,10,709,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/792_Toledo.png
-1122,East Carolina,,65,,73,196,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/220_East-Carolina.png
+1121,Toledo,,221,,10,709,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/792_Toledo.png
+1122,East Carolina,,66,,73,196,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/220_East-Carolina.png
 1123,Utah,,56,,59,732,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/841_Utah.png
-1124,Saint Francis,,294,,77,600,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/1124.png
-1125,Boise St.,,78,,9,66,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/1125.png
+1124,Saint Francis,,297,,77,600,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/1124.png
+1125,Boise St.,,76,,9,66,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/1125.png
 1126,Kent St.,,173,,10,331,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/371_Kent-State.png
-1127,Seattle U,,160,,82,1356,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/693_Seattle.png
-1128,Prairie View,,163,,12,553,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/621_PVAM.png
+1127,Seattle U,,171,,82,1356,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/693_Seattle.png
+1128,Prairie View,,162,,12,553,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/621_PVAM.png
 1129,Troy,,82,,31,716,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/799_Troy.png
 1130,UCF,,26,,59,128,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/813_UCF.png
-1131,Lehigh,,152,,36,352,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/397_Lehigh.png
-1132,Chattanooga,,167,,32,693,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/1132.png
+1131,Lehigh,,153,,36,352,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/397_Lehigh.png
+1132,Chattanooga,,168,,32,693,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/1132.png
 1133,Tulsa,,134,,73,719,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/1133.png
 1134,Rutgers,,70,,114,587,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/660_Rutgers.png
 1135,Bryant,,189,,67,81,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/97_Bryant.png
@@ -1146,165 +1146,165 @@ id,name,class_ranking,current_rpi,academics,conference_id,team_id_ncaa,sport,log
 1145,Niagara,,305,,88,482,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/536_Niagara.png
 1146,Nebraska,,3,,114,463,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/525_Nebraska.png
 1147,Eastern Ill.,,131,,49,201,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/227_Eastern-Illinois.png
-1148,Illinois,,214,,114,301,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/345_Illinois.png
+1148,Illinois,,209,,114,301,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/345_Illinois.png
 1149,Houston,,68,,59,288,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/337_Houston.png
-1150,App State,,67,,31,27,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/29_Appalachian-State.png
-1151,Georgia,,12,,11,257,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/292_Georgia.png
+1150,App State,,69,,31,27,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/29_Appalachian-State.png
+1151,Georgia,,11,,11,257,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/292_Georgia.png
 1152,Utah St.,,117,,9,731,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/1152.png
-1153,Delaware,,154,,99,180,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/204_Delaware.png
+1153,Delaware,,155,,99,180,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/204_Delaware.png
 1154,Texas St.,,51,,31,670,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/785_Texas-State.png
 1155,Idaho St.,,114,,123,294,Softball,
 1156,Campbell,,115,,101,115,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/120_Campbell.png
 1157,UC Santa Barbara,,129,,86,104,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/811_UC-Santa-Barbara.png
 1158,Notre Dame,,92,,72,513,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/565_Notre-Dame.png
 1159,LSU,,15,,11,365,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/422_LSU.png
-1160,Sacramento St.,,93,,2,102,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/663_Sacramento-State.png
+1160,Sacramento St.,,94,,2,102,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/663_Sacramento-State.png
 1161,Tennessee,,1,,11,694,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/776_Tennessee.png
 1162,Saint Mary's (CA),,95,,82,610,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/672_saint-mary’s.png
-1163,Cal Poly,,250,,86,90,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/105_Cal-Poly.png
+1163,Cal Poly,,251,,86,90,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/105_Cal-Poly.png
 1164,Alabama St.,,265,,12,7,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/11_Alabama-State.png
 1165,Utah Valley,,121,,2,30024,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/843_Utah-Valley.png
 1166,Tennessee Tech,,252,,49,692,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/777_Tennessee-Tech.png
-1167,Stony Brook,,263,,101,683,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/761_Stony-Brook.png
+1167,Stony Brook,,261,,101,683,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/761_Stony-Brook.png
 1168,San Diego St.,,73,,9,626,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/685_San-Diego-State.png
 1169,FIU,,43,,99,231,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/261_Florida-International.png
 1170,Baylor,,21,,59,51,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/62_Baylor.png
-1171,UAlbany,,244,,67,14,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/806_Albany.png
-1172,Wichita St.,,63,,73,782,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/906_Wichita-State.png
-1173,Youngstown St.,,246,,81,817,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/942_Youngstown-State.png
-1174,LMU (CA),,89,,82,370,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/414_Loyola-Marymount.png
-1175,UTEP,,183,,99,704,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/1175.png
-1176,Coastal Carolina,,49,,31,149,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/163_Coastal-Carolina.webp
+1171,UAlbany,,243,,67,14,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/806_Albany.png
+1172,Wichita St.,,61,,73,782,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/906_Wichita-State.png
+1173,Youngstown St.,,247,,81,817,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/942_Youngstown-State.png
+1174,LMU (CA),,88,,82,370,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/414_Loyola-Marymount.png
+1175,UTEP,,184,,99,704,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/1175.png
+1176,Coastal Carolina,,48,,31,149,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/163_Coastal-Carolina.webp
 1177,Southeast Mo. St.,,231,,49,654,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/713_southeast-missouri-state.png
 1178,ULM,,84,,31,498,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/820_UL-Monroe.png
 1179,Samford,,125,,32,625,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/683_Samford.png
 1180,Syracuse,,112,,72,688,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/1180.png
 1181,Northern Ky.,,236,,81,505,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/554_Northern-Kentucky.png
 1182,UT Martin,,181,,49,695,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/839_tennessee-martin.png
-1183,Abilene Christian,,239,,2,2,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2_Abilene-Christian.png
+1183,Abilene Christian,,238,,2,2,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2_Abilene-Christian.png
 1184,Fordham,,178,,80,236,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/270_Fordham.png
 1185,SIUE,,218,,49,660,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/705_siu-edwardsville.png
-1186,Princeton,,123,,76,554,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/623_Princeton.png
-1187,Penn St.,,59,,114,539,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/601_Penn-State.png
-1188,Western Mich.,,122,,10,774,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/894_Western-Michigan.webp
-1189,Dayton,,192,,80,175,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/200_Dayton.png
-1190,Creighton,,171,,79,169,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/186_Creighton.png
+1186,Princeton,,122,,76,554,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/623_Princeton.png
+1187,Penn St.,,60,,114,539,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/601_Penn-State.png
+1188,Western Mich.,,124,,10,774,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/894_Western-Michigan.webp
+1189,Dayton,,196,,80,175,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/200_Dayton.png
+1190,Creighton,,163,,79,169,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/186_Creighton.png
 1191,Arizona St.,,29,,59,28,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/32_Arizona-State.png
 1192,Drake,,232,,62,189,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/1192.png
-1193,Western Caro.,,88,,32,769,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/891_Western-Carolina.png
+1193,Western Caro.,,89,,32,769,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/891_Western-Carolina.png
 1194,Kentucky,,41,,11,334,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/372_Kentucky.png
 1195,Arkansas,,6,,11,31,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/36_Arkansas.png
-1196,Saint Peter's,,285,,88,617,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/675_saint-peter’s.png
-1197,Seton Hall,,198,,79,635,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/694_Seton-Hall.png
-1198,Dartmouth,,217,,76,172,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/196_Dartmouth.png
+1196,Saint Peter's,,294,,88,617,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/675_saint-peter’s.png
+1197,Seton Hall,,191,,79,635,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/694_Seton-Hall.png
+1198,Dartmouth,,215,,76,172,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/196_Dartmouth.png
 1199,UMES,,306,,77,393,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/825_UMES.png
 1200,Maryland,,96,,114,392,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/446_Maryland.png
-1201,Providence,,153,,79,556,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/1201.png
+1201,Providence,,152,,79,556,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/1201.png
 1202,Ohio,,120,,10,519,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/573_Ohio.webp
 1203,Bethune-Cookman,,230,,12,61,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/77_Bethune-Cookman.png
 1204,South Dakota St.,,216,,92,649,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/711_South-Dakota-State.png
-1205,Gardner-Webb,,168,,68,1092,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/286_Gardner-Webb.png
-1206,Kansas,,37,,59,328,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/366_Kansas.webp
+1205,Gardner-Webb,,166,,68,1092,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/286_Gardner-Webb.png
+1206,Kansas,,36,,59,328,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/366_Kansas.webp
 1207,NIU,,170,,10,503,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/539_Northern-Illinois.png
 1208,Louisville,,33,,72,367,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/421_Louisville.png
 1209,Portland St.,,188,,123,550,Softball,
-1210,Texas Southern,,203,,12,699,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/784_Texas-Southern.png
+1210,Texas Southern,,201,,12,699,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/784_Texas-Southern.png
 1211,Binghamton,,234,,67,62,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/78_Binghamton.png
 1212,Saint Louis,,235,,80,609,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/670_Saint-Louis.png
 1213,Southern Utah,,107,,2,667,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/1213.png
-1214,Butler,,192,,79,87,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/100_Butler.png
+1214,Butler,,193,,79,87,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/100_Butler.png
 1215,Santa Clara,,140,,82,631,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/689_Santa-Clara.png
 1216,Weber St.,,237,,123,758,Softball,
-1217,UMBC,,191,,67,391,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/824_UMBC.png
+1217,UMBC,,190,,67,391,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/824_UMBC.png
 1218,Akron,,145,,10,5,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/7_Akron.png
 1219,Tennessee St.,,302,,49,691,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/1219.png
-1220,Cornell,,257,,76,167,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/182_Cornell.png
+1220,Cornell,,256,,76,167,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/182_Cornell.png
 1221,Stanford,,18,,72,674,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/753_Stanford.png
-1222,Michigan,,35,,114,418,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/471_Michigan.png
+1222,Michigan,,34,,114,418,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/471_Michigan.png
 1223,IU Indy,,268,,81,2699,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/1223.png
 1224,Omaha,,44,,92,464,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/586_Omaha.png
-1225,Northwestern,,69,,114,509,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/559_Northwestern.png
+1225,Northwestern,,59,,114,509,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/559_Northwestern.png
 1226,Cleveland St.,,,,81,148,Softball,
 1227,Iowa St.,,90,,59,311,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/1227.png
-1228,Ball St.,,221,,10,47,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/56_Ball-State.png
-1229,McNeese,,34,,1,402,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/457_McNeese.png
+1228,Ball St.,,220,,10,47,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/56_Ball-State.png
+1229,McNeese,,35,,1,402,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/457_McNeese.png
 1230,UT Arlington,,207,,2,702,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/838_UT-Arlington.png
-1231,NC State,,64,,72,490,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/523_NC-State.png
-1232,Rider,,197,,88,576,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/645_Rider.png
+1231,NC State,,65,,72,490,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/523_NC-State.png
+1232,Rider,,194,,88,576,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/645_Rider.png
 1233,Jackson St.,,258,,12,314,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/355_Jackson-State.png
-1234,Mercer,,166,,32,406,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/462_Mercer.png
+1234,Mercer,,167,,32,406,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/462_Mercer.png
 1235,Southern Ill.,,83,,62,659,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/719_Southern-Illinois.png
 1236,UC Riverside,,228,,86,111,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/809_UC-Riverside.png
-1237,Yale,,248,,76,813,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/938_Yale.png
+1237,Yale,,250,,76,813,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/938_Yale.png
 1238,Saint Joseph's,,175,,80,606,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/668_saint-joseph’s.png
 1239,Elon,,164,,101,1068,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/239_Elon.png
 1240,San Jose St.,,141,,9,630,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/688_San-Jose-State.png
-1241,CSUN,,254,,86,101,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/190_Cal-State-Northridge.png
+1241,CSUN,,255,,86,101,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/190_Cal-State-Northridge.png
 1242,Coppin St.,,307,,77,165,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/181_Coppin-State.png
-1243,Ole Miss,,24,,11,433,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/584_Ole-Miss.png
+1243,Ole Miss,,25,,11,433,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/584_Ole-Miss.png
 1244,Nicholls,,91,,1,483,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/537_Nicholls.png
-1245,Oakland,,272,,81,514,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/569_Oakland.webp
+1245,Oakland,,273,,81,514,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/569_Oakland.webp
 1246,San Diego,,144,,82,627,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/684_San-Diego.png
-1247,Austin Peay,,94,,48,43,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/51_Austin-Peay.png
+1247,Austin Peay,,93,,48,43,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/51_Austin-Peay.png
 1248,Charlotte,,54,,73,458,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/145_Charlotte.png
-1249,UNC Greensboro,,98,,32,459,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/827_UNC-Greensboro.png
-1250,Morgan St.,,280,,66,446,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/1250.png
+1249,UNC Greensboro,,97,,32,459,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/827_UNC-Greensboro.png
+1250,Morgan St.,,281,,66,446,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/1250.png
 1251,Delaware St.,,269,,77,178,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/205_Delaware-State.webp
 1252,Purdue Fort Wayne,,,,81,308,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/628_purdue-fort-wayne.png
-1253,LIU,,289,,77,361,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/413_Long-Island.png
-1254,Villanova,,227,,79,739,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/855_Villanova.png
-1255,North Florida,,61,,48,2711,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/547_North-Florida.png
+1253,LIU,,288,,77,361,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/413_Long-Island.png
+1254,Villanova,,225,,79,739,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/855_Villanova.png
+1255,North Florida,,63,,48,2711,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/547_North-Florida.png
 1256,Columbia,,205,,76,158,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/173_Columbia.png
-1257,Brown,,194,,76,80,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/96_Brown.png
-1258,Illinois St.,,75,,62,299,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/347_Illinois-St.png
-1259,Louisiana Tech,,86,,99,366,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/420_Louisiana-Tech.png
+1257,Brown,,195,,76,80,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/96_Brown.png
+1258,Illinois St.,,74,,62,299,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/347_Illinois-St.png
+1259,Louisiana Tech,,87,,99,366,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/420_Louisiana-Tech.png
 1260,UConn,,169,,79,164,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/816_Connecticut.png
 1261,Robert Morris,,172,,81,579,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/1261.png
-1262,Wisconsin,,60,,114,796,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/1262.png
+1262,Wisconsin,,62,,114,796,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/1262.png
 1263,USC Upstate,,116,,68,10411,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/837_usc-upstate.png
-1264,Siena,,211,,88,639,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/702_Siena.png
-1265,Penn,,224,,76,540,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/599_pennsylvania.png
+1264,Siena,,208,,88,639,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/702_Siena.png
+1265,Penn,,226,,76,540,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/599_pennsylvania.png
 1266,Colgate,,187,,36,153,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/1266.png
 1267,Montana,,241,,123,441,Softball,
-1268,Longwood,,213,,68,363,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/417_Longwood.png
-1269,Belmont,,47,,62,14927,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/65_Belmont.png
+1268,Longwood,,214,,68,363,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/417_Longwood.png
+1269,Belmont,,45,,62,14927,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/65_Belmont.png
 1270,Hawaii,,142,,86,277,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/320_Hawaii.png
-1271,UNI,,133,,62,504,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/1271.png
+1271,UNI,,131,,62,504,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/1271.png
 1272,Middle Tenn.,,149,,99,419,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/473_Middle-Tennessee.png
 1273,North Texas,,101,,73,497,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/1273.png
-1274,Jacksonville St.,,39,,99,315,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/357_Jacksonville-State.png
+1274,Jacksonville St.,,37,,99,315,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/357_Jacksonville-State.png
 1275,North Ala.,,57,,48,487,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/542_North-Alabama.png
-1276,Indiana St.,,204,,62,305,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/351_Indiana-State.png
+1276,Indiana St.,,203,,62,305,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/351_Indiana-State.png
 1277,Liberty,,85,,99,355,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/405_Liberty.png
-1278,Central Conn. St.,,251,,77,127,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/136_Central-Connecticut.png
-1279,Northern Colo.,,162,,92,502,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/553_Northern-Colorado.png
+1278,Central Conn. St.,,246,,77,127,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/136_Central-Connecticut.png
+1279,Northern Colo.,,160,,92,502,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/553_Northern-Colorado.png
 1280,Furman,,249,,32,244,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/1280.png
-1281,FGCU,,124,,48,28755,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/258_florida-gulf-coast.png
+1281,FGCU,,123,,48,28755,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/258_florida-gulf-coast.png
 1282,Missouri,,55,,11,434,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/490_Missouri.png
 1283,Canisius,,274,,88,116,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/121_Canisius.webp
 1284,Sam Houston,,111,,99,624,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/682_sam-houston.png
-1285,Iowa,,66,,114,312,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/353_Iowa-Hawkeyes-logo.png
+1285,Iowa,,67,,114,312,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/353_Iowa-Hawkeyes-logo.png
 1286,Houston Christian,,266,,1,287,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/338_houston-christian.png
-1287,Southern U.,,210,,12,665,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/725_Southern.png
+1287,Southern U.,,212,,12,665,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/725_Southern.png
 1288,New Mexico,,146,,9,473,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/531_New-Mexico.png
-1289,Quinnipiac,,238,,88,562,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/633_Quinnipiac.png
+1289,Quinnipiac,,243,,88,562,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/633_Quinnipiac.png
 1290,Radford,,147,,68,563,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/634_Radford.png
-1291,Ga. Southern,,106,,31,253,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/282_Georgia-Southern.png
+1291,Ga. Southern,,105,,31,253,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/282_Georgia-Southern.png
 1292,Southern Miss.,,81,,31,664,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/722_Southern-Miss.webp
-1293,Central Ark.,,87,,48,1004,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/135_Central-Arkansas.png
+1293,Central Ark.,,86,,48,1004,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/135_Central-Arkansas.png
 1294,Loyola Chicago,,151,,80,371,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/1294.png
 1295,Alabama A&M,,304,,12,6,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/9_alabama-a-m.png
 1296,Missouri St.,,127,,99,669,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/492_Missouri-State.webp
 1297,St. John's (NY),,104,,79,603,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/740_st.-john’s.png
-1298,Purdue,,36,,114,559,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/627_Purdue.png
+1298,Purdue,,39,,114,559,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/627_Purdue.png
 1299,Lamar,,139,,1,346,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/388_Lamar.png
-1300,Bradley,,253,,62,72,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/90_Bradley.png
-1301,A&M-Corpus Christi,,226,,1,26172,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/1_texas-a&m-corpus-christi.png
-1302,N.C. Central,,277,,66,489,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/950_NC.png
+1300,Bradley,,254,,62,72,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/90_Bradley.png
+1301,A&M-Corpus Christi,,224,,1,26172,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/1_texas-a&m-corpus-christi.png
+1302,N.C. Central,,278,,66,489,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/950_NC.png
 1303,Auburn,,20,,11,37,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/43_Auburn.png
 1304,South Fla.,,38,,73,651,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/712_south-florida.png
 1305,Col. of Charleston,,136,,101,1014,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/167_College-of-Charleston.png
-1306,Holy Cross,,281,,36,285,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/332_Holy-Cross.png
+1306,Holy Cross,,280,,36,285,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/332_Holy-Cross.png
 1307,Winthrop,,130,,68,792,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/919_Winthrop.png
 1308,Alabama,,4,,11,8,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/8_Alabama.png
 1309,UNCW,,126,,101,460,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/829_UNC-Wilmington.png
@@ -1312,44 +1312,44 @@ id,name,class_ranking,current_rpi,academics,conference_id,team_id_ncaa,sport,log
 1311,Sacred Heart,,260,,88,590,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/664_Sacred-Heart.png
 1312,Buffalo,,185,,10,86,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/1312.png
 1313,Evansville,,150,,62,219,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/250_Evansville.png
-1314,Iona,,201,,88,310,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/352_Iona.png
+1314,Iona,,227,,88,310,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/352_Iona.png
 1315,Long Beach St.,,135,,86,99,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/416_Long-Beach-State.png
 1316,South Alabama,,50,,31,646,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/709_South-Alabama.webp
 1317,UMass Lowell,,182,,67,368,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/823_UMass-Lowell.png
-1318,George Mason,,208,,80,248,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/289_George-Mason.png
-1319,Hampton,,288,,101,270,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/1319.png
+1318,George Mason,,204,,80,248,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/289_George-Mason.png
+1319,Hampton,,287,,101,270,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/1319.png
 1320,Michigan St.,,71,,114,416,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/472_Michigan-State.png
-1321,Virginia,,25,,72,746,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/856_Virginia.png
-1322,Kansas City,,220,,92,2707,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/1322.png
-1323,Pacific,,194,,82,534,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/595_Pacific.png
+1321,Virginia,,24,,72,746,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/856_Virginia.png
+1322,Kansas City,,217,,92,2707,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/1322.png
+1323,Pacific,,198,,82,534,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/595_Pacific.png
 1324,Boston College,,138,,72,67,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/87_Boston-College.png
-1325,Stetson,,74,,48,678,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/756_Stetson.png
-1326,Towson,,177,,101,711,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/793_Towson.png
+1325,Stetson,,78,,48,678,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/756_Stetson.png
+1326,Towson,,176,,101,711,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/793_Towson.png
 1327,UAB,,118,,73,9,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/805_uab.png
 1328,Pittsburgh,,110,,72,545,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/614_Pittsburgh.png
 1329,Rhode Island,,282,,80,572,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/640_Rhode-Island.png
 1330,Army West Point,,161,,36,725,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/39_army.png
-1331,Central Mich.,,132,,10,129,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/137_Central-Michigan.png
+1331,Central Mich.,,133,,10,129,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/137_Central-Michigan.png
 1332,Georgia St.,,102,,31,254,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/294_Georgia-State.png
 1333,Northwestern St.,,159,,1,508,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/561_Northwestern-State.png
 1334,Jacksonville,,108,,48,316,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/356_Jacksonville-.png
-1335,Monmouth,,255,,101,439,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/499_Monmouth.png
+1335,Monmouth,,253,,101,439,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/499_Monmouth.png
 1336,Drexel,,199,,101,191,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/1336.png
 1337,Western Ill.,,303,,49,771,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/892_Western-Illinois.png
-1338,UC Davis,,176,,86,108,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/807_UC-Davis.png
+1338,UC Davis,,177,,86,108,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/807_UC-Davis.png
 1339,UIC,,137,,62,302,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/817_UIC.png
 1340,South Carolina,,28,,11,648,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/710_South-Carolina.png
-1341,Hofstra,,243,,101,283,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/331_Hofstra.png
-1342,Lipscomb,,194,,48,28600,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/411_Lipscomb.png
-1343,South Dakota,,202,,92,650,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/1343.png
+1341,Hofstra,,240,,101,283,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/331_Hofstra.png
+1342,Lipscomb,,197,,48,28600,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/411_Lipscomb.png
+1343,South Dakota,,200,,92,650,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/1343.png
 1344,Bucknell,,292,,36,83,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/98_Bucknell.png
 1345,ETSU,,245,,32,198,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/248_East-Tennessee-State.png
-1346,CSU Bakersfield,,256,,86,94,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/188_CSU-Bakersfield.png
+1346,CSU Bakersfield,,257,,86,94,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/188_CSU-Bakersfield.png
 1347,Grambling,,270,,12,261,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/301_Grambling.png
 1348,Presbyterian,,222,,68,1320,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/622_Presbyterian.png
-1349,Charleston So.,,247,,68,48,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/144_Charleston-Southern.png
+1349,Charleston So.,,248,,68,48,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/144_Charleston-Southern.png
 1350,North Dakota St.,,158,,92,493,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/546_North-Dakota-State.png
-1351,Massachusetts,,240,,10,400,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/452_massachusetts.png
+1351,Massachusetts,,239,,10,400,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/452_massachusetts.png
 1352,Manhattan,,283,,88,381,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/432_Manhattan.png
 1353,Georgetown,,219,,79,251,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/291_Georgetown.png
 1354,SFA,,113,,1,676,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/697_stephen-f.-austin.png
@@ -1357,26 +1357,26 @@ id,name,class_ranking,current_rpi,academics,conference_id,team_id_ncaa,sport,log
 1356,Oregon St.,,143,,112,528,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/589_Oregon-State.png
 1357,DePaul,,229,,79,176,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/1357.png
 1358,Wofford,,72,,32,2915,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/932_Wofford.png
-1359,Ark.-Pine Bluff,,273,,12,2678,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/35_Arkansas-Pine-Bluff.png
-1360,Kennesaw St.,,184,,99,1157,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/370_Kennesaw-State.png
-1361,Green Bay,,287,,81,794,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/1361.png
-1362,Alcorn,,298,,12,17,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/16_Alcorn-State.png
+1359,Ark.-Pine Bluff,,275,,12,2678,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/35_Arkansas-Pine-Bluff.png
+1360,Kennesaw St.,,183,,99,1157,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/370_Kennesaw-State.png
+1361,Green Bay,,286,,81,794,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/1361.png
+1362,Alcorn,,299,,12,17,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/16_Alcorn-State.png
 1363,Valparaiso,,242,,62,735,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/851_Valparaiso.png
-1364,South Carolina St.,,290,,66,647,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/1364.png
-1365,Morehead St.,,299,,49,444,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/505_Morehead-State.png
-1366,Wagner,,300,,77,748,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/863_Wagner.png
-1367,N.C. A&T,,276,,101,488,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/519_north-carolina-a&t.png
-1368,FDU,,275,,77,222,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/254_Fairleigh-Dickinson.png
-1369,Bowling Green,,200,,10,71,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/89_Bowling-Green.png
-1370,Mount St. Mary's,,291,,88,450,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/509_mount-st.-mary’s.png
-1371,Merrimack,,297,,88,410,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/466_Merrimack.png
-1372,Norfolk St.,,279,,77,485,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/541_Norfolk-State.png
-1373,North Dakota,,156,,92,494,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/1373.png
+1364,South Carolina St.,,289,,66,647,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/1364.png
+1365,Morehead St.,,300,,49,444,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/505_Morehead-State.png
+1366,Wagner,,298,,77,748,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/863_Wagner.png
+1367,N.C. A&T,,277,,101,488,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/519_north-carolina-a&t.png
+1368,FDU,,272,,77,222,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/254_Fairleigh-Dickinson.png
+1369,Bowling Green,,202,,10,71,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/89_Bowling-Green.png
+1370,Mount St. Mary's,,290,,88,450,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/509_mount-st.-mary’s.png
+1371,Merrimack,,296,,88,410,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/466_Merrimack.png
+1372,Norfolk St.,,276,,77,485,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/541_Norfolk-State.png
+1373,North Dakota,,154,,92,494,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/1373.png
 1374,UTSA,,119,,73,706,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/846_utsa.png
 1375,Mississippi Val.,,308,,12,432,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/489_mississippi-valley-state.png
 1376,Memphis,,165,,73,404,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/461_Memphis.png
 1377,Detroit Mercy,,259,,81,184,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/1377.png
-1378,Maine,,286,,67,380,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/429_Maine.png
+1378,Maine,,285,,67,380,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/429_Maine.png
 1379,Lafayette,,267,,36,342,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/384_Lafayette.png
 1380,St. Bonaventure,,284,,80,596,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/736_st.-bonaventure.png
 1381,Albany St. (GA),,,,14,13,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/12_Albany+St.+(GA).png
@@ -1459,9 +1459,9 @@ id,name,class_ranking,current_rpi,academics,conference_id,team_id_ncaa,sport,log
 1458,Winston-Salem,,,,100,791,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/1458.png
 1459,Malone,,,,18,30137,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/430_Malone.png
 1460,Converse,,,,29,8935,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/1460.png
-1461,West Ga.,,190,,48,766,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/884_West-Georgia.png
+1461,West Ga.,,192,,48,766,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/884_West-Georgia.png
 1462,Mercy,,,,7,407,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/464_Mercy.png
-1463,Mercyhurst,,295,,77,408,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/465_Mercy.png
+1463,Mercyhurst,,293,,77,408,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/465_Mercy.png
 1464,Goldey-Beacom,,,,23,8366,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/298_GBU.png
 1465,Mo. Southern St.,,,,96,9012,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/496_Mo.+Southern+St..png
 1466,Cal St. San Marcos,,,,87,30198,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/111_Cal+St.+San+Marcos.png
@@ -2048,22 +2048,22 @@ id,name,class_ranking,current_rpi,academics,conference_id,team_id_ncaa,sport,log
 2048,Maranatha Baptist,,,,98,1194,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/435_Maranatha-Baptist.png
 2049,Sarah Lawrence,,,,93,30163,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/2026/2049.png
 2050,Yeshiva,,,,93,814,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/939_Yeshiva.webp
-2051,Bellarmine,,278,,48,52,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/64_Bellarmine.png
+2051,Bellarmine,,279,,48,52,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/64_Bellarmine.png
 2052,Edward Waters,,,,14,30244,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/234_Edward-Waters.png
 2053,Emory & Henry,,,,28,216,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/244_E-H.png
 2054,Gust. Adolphus,,,,39,266,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/309_Gust-Adolph.png
 2055,Hartford,,,,30,272,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/317_Hartford.png
-2056,Le Moyne,,296,,77,349,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/394_LeMoyne-Owen.png
+2056,Le Moyne,,295,,77,349,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/394_LeMoyne-Owen.png
 2057,Lindenwood,,233,,49,30136,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/409_Lindenwood.png
 2058,Principia,,,,69,555,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/624_Principia.webp
-2059,Queens (NC),,209,,48,11504,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/630_queens-(nc).png
-2060,Southern Ind.,,262,,49,661,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/720_Southern-Indiana.png
-2061,St. Thomas (MN),,62,,92,620,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/750_st.-thomas.png
-2062,Stonehill,,293,,77,682,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/760_Stonehill.png
-2063,Tarleton St.,,155,,2,1395,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/773_tarleton.png
-2064,UC San Diego,,215,,86,112,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/810_UC-San-Diego.png
+2059,Queens (NC),,210,,48,11504,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/630_queens-(nc).png
+2060,Southern Ind.,,263,,49,661,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/720_Southern-Indiana.png
+2061,St. Thomas (MN),,64,,92,620,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/750_st.-thomas.png
+2062,Stonehill,,291,,77,682,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/760_Stonehill.png
+2063,Tarleton St.,,156,,2,1395,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/773_tarleton.png
+2064,UC San Diego,,211,,86,112,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/810_UC-San-Diego.png
 2065,USC Beaufort,,,,40,30259,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/836_USC-Beaufort.png
-2066,Utah Tech,,225,,2,30095,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/842_utah-tech.webp
+2066,Utah Tech,,223,,2,30095,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/842_utah-tech.webp
 2067,West Virginia,,,,59,768,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/888_West-Virginia.png
 2068,Thomas More,,,,18,1402,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/948_Thomas-More.png
 2070,Roosevelt,,,,38,2807,Softball,https://64-analytics-team-logos.s3.us-east-1.amazonaws.com/955_Roosevelt.png
