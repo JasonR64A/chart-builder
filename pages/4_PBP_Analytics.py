@@ -508,7 +508,7 @@ def _pitcher_logo_node(x, y, player, team_map, ring_color, r=20, r_inner=17):
     {_name_with_stroke(name, 27, font_size=8)}</g>'''
 
 
-def render_lineup_svg(best_hitters, starters, relievers, title, subtitle, team_map):
+def render_lineup_svg(best_hitters, starters, relievers, title, subtitle, team_map, date_label=''):
     nodes = []
     for pos, (x, y) in POS_COORDS.items():
         if pos in best_hitters:
@@ -576,8 +576,10 @@ def render_lineup_svg(best_hitters, starters, relievers, title, subtitle, team_m
   <!-- Brand logo in center field -->
   {f'<image href="{brand_b64}" x="128" y="75" width="125" height="125" opacity="0.9" preserveAspectRatio="xMidYMid meet"/>' if brand_b64 else ''}
   {chr(10).join(nodes)}
-  <!-- Company logo bottom-left -->
-  {f'<image href="{wide_logo_b64}" x="5" y="390" width="120" height="30" opacity="0.9" preserveAspectRatio="xMidYMid meet"/>' if wide_logo_b64 else ''}
+  <!-- Branded info tile at C/DH height -->
+  <rect x="5" y="318" rx="8" ry="8" width="80" height="45" fill="#222222" stroke="#FFFFFF" stroke-width="1.5" opacity="0.9"/>
+  {f'<image href="{wide_logo_b64}" x="10" y="323" width="70" height="18" opacity="0.95" preserveAspectRatio="xMidYMid meet"/>' if wide_logo_b64 else ''}
+  <text x="45" y="352" font-size="6" fill="#aaaaaa" text-anchor="middle" font-family="sans-serif">{date_label}</text>
 </svg>
 '''
     return svg
@@ -1276,7 +1278,9 @@ elif view == 'Lineup Card':
     # Render SVG
     title = f"Players of the Period"
     subtitle = f"{sport.title()} {division} · {period_label}"
-    svg = render_lineup_svg(best_hitters, starters, relievers, title, subtitle, team_map)
+    from datetime import date as _date
+    date_label = _date.today().strftime('%b %d, %Y')
+    svg = render_lineup_svg(best_hitters, starters, relievers, title, subtitle, team_map, date_label=date_label)
     st.markdown(svg, unsafe_allow_html=True)
 
     # Detail cards
