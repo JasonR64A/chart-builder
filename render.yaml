@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: 64analytics-chart-builder
+    runtime: python
+    plan: starter
+    repo: https://github.com/JasonR64A/chart-builder.git
+    branch: main
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "streamlit run chart_builder.py --server.port $PORT --server.address 0.0.0.0 --server.headless true"
