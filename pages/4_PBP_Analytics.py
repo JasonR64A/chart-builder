@@ -433,10 +433,10 @@ def _last_name(name):
 
 
 POS_COORDS = {
-    'CF': (190, 15), 'LF': (55, 105), 'RF': (325, 105),
-    'SS': (148, 185), '2B': (232, 185),
-    '3B': (100, 255), '1B': (280, 255),
-    'C': (190, 315), 'DH': (370, 380),
+    'CF': (190, 35), 'LF': (55, 125), 'RF': (325, 125),
+    'SS': (148, 205), '2B': (232, 205),
+    '3B': (100, 275), '1B': (280, 275),
+    'C': (190, 340), 'DH': (330, 320),
 }
 
 
@@ -444,7 +444,12 @@ EGGSHELL = '#f5efe0'
 
 
 def _name_with_stroke(name, y_offset, font_size=9):
-    """SVG text with white stroke outline for pop, then black fill on top."""
+    """SVG text with white stroke outline for pop, then black fill on top. Auto-sizes for long names."""
+    n = len(name)
+    if n > 18:
+        font_size = max(font_size - 2, 6)
+    elif n > 14:
+        font_size = max(font_size - 1, 7)
     return f'''<text font-size="{font_size}" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round"
           text-anchor="middle" y="{y_offset}" font-family="sans-serif" font-weight="bold">{name}</text>
     <text font-size="{font_size}" fill="#111111" text-anchor="middle" y="{y_offset}"
@@ -509,8 +514,8 @@ def render_lineup_svg(best_hitters, starters, relievers, title, subtitle, team_m
     <text font-size="9" fill="#666" text-anchor="middle" dominant-baseline="central" font-family="sans-serif">—</text>
     <text font-size="7" fill="#666" text-anchor="middle" y="37" font-family="sans-serif">{pos}</text></g>''')
 
-    # Pitcher sidebar (right column, centered at x=430)
-    sx = 430
+    # Pitcher sidebar (right column, brushing diamond's right edge)
+    sx = 400
     nodes.append(f'<line x1="{sx-30}" y1="10" x2="{sx-30}" y2="390" stroke="#3a3a3a" stroke-width="1"/>')
     nodes.append(f'<text x="{sx}" y="26" font-size="8" fill="#111111" font-weight="bold" text-anchor="middle" letter-spacing="0.08em" font-family="sans-serif">STARTERS</text>')
     for i in range(3):
@@ -536,22 +541,26 @@ def render_lineup_svg(best_hitters, starters, relievers, title, subtitle, team_m
         brand_b64 = f'data:image/png;base64,{base64.b64encode(brand_data).decode()}'
 
     svg = f'''<svg width="100%" viewBox="0 -10 560 430" xmlns="http://www.w3.org/2000/svg">
-  <!-- Diamond (left column, centered at x=190) -->
-  <path d="M190,345 L-5,60 Q190,-40 385,60 Z" fill="#2d8a45"/>
-  <path d="M-5,60 Q190,-40 385,60" fill="none" stroke="{LC_RED}" stroke-width="10"/>
-  <line x1="190" y1="345" x2="-5" y2="60" stroke="{LC_RED}" stroke-width="8"/>
-  <line x1="190" y1="345" x2="385" y2="60" stroke="{LC_RED}" stroke-width="8"/>
-  <path d="M190,345 L78,210 Q190,135 302,210 Z" fill="#c8883a"/>
-  <path d="M190,345 L94,220 Q190,150 286,220 Z" fill="#2d8a45"/>
-  <rect x="182" y="148" width="16" height="16" rx="2" fill="#f5efe0" transform="rotate(45 190 156)"/>
-  <rect x="278" y="218" width="14" height="14" rx="2" fill="#f5efe0" transform="rotate(45 285 225)"/>
-  <rect x="98" y="218" width="14" height="14" rx="2" fill="#f5efe0" transform="rotate(45 105 225)"/>
-  <polygon points="190,332 180,322 180,312 200,312 200,322" fill="#f5efe0"/>
+  <!-- Diamond (left column, centered at x=190, shifted down 20px) -->
+  <path d="M190,365 L-5,80 Q190,-20 385,80 Z" fill="#2d8a45"/>
+  <path d="M-5,80 Q190,-20 385,80" fill="none" stroke="{LC_RED}" stroke-width="10"/>
+  <line x1="190" y1="365" x2="-5" y2="80" stroke="{LC_RED}" stroke-width="8"/>
+  <line x1="190" y1="365" x2="385" y2="80" stroke="{LC_RED}" stroke-width="8"/>
+  <path d="M190,365 L78,230 Q190,155 302,230 Z" fill="#c8883a"/>
+  <path d="M190,365 L94,240 Q190,170 286,240 Z" fill="#2d8a45"/>
+  <!-- 2nd base bag: centered between SS(148,205) and 2B(232,205), above them -->
+  <rect x="182" y="178" width="16" height="16" rx="2" fill="#f5efe0" transform="rotate(45 190 186)"/>
+  <!-- 1st base bag -->
+  <rect x="278" y="238" width="14" height="14" rx="2" fill="#f5efe0" transform="rotate(45 285 245)"/>
+  <!-- 3rd base bag -->
+  <rect x="98" y="238" width="14" height="14" rx="2" fill="#f5efe0" transform="rotate(45 105 245)"/>
+  <!-- Home plate -->
+  <polygon points="190,352 180,342 180,332 200,332 200,342" fill="#f5efe0"/>
   <!-- Mound -->
-  <circle cx="190" cy="250" r="9" fill="#b87830" opacity="0.9"/>
-  <circle cx="190" cy="250" r="4" fill="#a06820"/>
+  <circle cx="190" cy="270" r="9" fill="#b87830" opacity="0.9"/>
+  <circle cx="190" cy="270" r="4" fill="#a06820"/>
   <!-- Brand logo in center field -->
-  {f'<image href="{brand_b64}" x="128" y="55" width="125" height="125" opacity="0.9" preserveAspectRatio="xMidYMid meet"/>' if brand_b64 else ''}
+  {f'<image href="{brand_b64}" x="128" y="75" width="125" height="125" opacity="0.9" preserveAspectRatio="xMidYMid meet"/>' if brand_b64 else ''}
   {chr(10).join(nodes)}
 </svg>
 '''
