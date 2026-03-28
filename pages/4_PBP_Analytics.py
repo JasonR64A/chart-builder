@@ -450,7 +450,7 @@ def _name_with_stroke(name, y_offset, font_size=9):
         font_size = max(font_size - 2, 6)
     elif n > 14:
         font_size = max(font_size - 1, 7)
-    return f'''<text font-size="{font_size}" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round"
+    return f'''<text font-size="{font_size}" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linejoin="round"
           text-anchor="middle" y="{y_offset}" font-family="sans-serif" font-weight="bold">{name}</text>
     <text font-size="{font_size}" fill="#111111" text-anchor="middle" y="{y_offset}"
           font-family="sans-serif" font-weight="bold">{name}</text>'''
@@ -463,7 +463,7 @@ def _logo_node(x, y, player, pos, team_map, ring_color, r=22, r_inner=19):
     logo_id = team_map.get(team)
     logo_b64 = get_logo_base64(logo_id) if logo_id else None
     clip_id = f"clip-{pos}-{x}-{y}"
-    pos_label = f'''<text font-size="7" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linejoin="round"
+    pos_label = f'''<text font-size="7" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linejoin="round"
           text-anchor="middle" y="{r+19}" font-family="sans-serif" font-weight="bold">DH</text>
     <text font-size="7" fill="#111111" text-anchor="middle" y="{r+19}"
           font-family="sans-serif" font-weight="bold">DH</text>''' if pos == 'DH' else ''
@@ -523,7 +523,8 @@ def render_lineup_svg(best_hitters, starters, relievers, title, subtitle, team_m
     # Pitcher sidebar (right column)
     sx = 415
     nodes.append(f'<line x1="{sx-30}" y1="10" x2="{sx-30}" y2="390" stroke="#3a3a3a" stroke-width="1"/>')
-    nodes.append(f'<text x="{sx}" y="26" font-size="8" fill="#111111" font-weight="bold" text-anchor="middle" letter-spacing="0.08em" font-family="sans-serif">STARTERS</text>')
+    nodes.append(f'''<text x="{sx}" y="26" font-size="8" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linejoin="round" font-weight="bold" text-anchor="middle" letter-spacing="0.08em" font-family="sans-serif">STARTERS</text>
+    <text x="{sx}" y="26" font-size="8" fill="#111111" font-weight="bold" text-anchor="middle" letter-spacing="0.08em" font-family="sans-serif">STARTERS</text>''')
     for i in range(3):
         y = 58 + i * 56
         if i < len(starters):
@@ -531,7 +532,8 @@ def render_lineup_svg(best_hitters, starters, relievers, title, subtitle, team_m
         else:
             nodes.append(f'<g transform="translate({sx},{y})"><circle r="20" fill="#555"/><circle r="17" fill="#1c2a38"/><text font-size="9" fill="#666" text-anchor="middle" dominant-baseline="central" font-family="sans-serif">—</text></g>')
 
-    nodes.append(f'<text x="{sx}" y="218" font-size="8" fill="#111111" font-weight="bold" text-anchor="middle" letter-spacing="0.08em" font-family="sans-serif">RELIEVERS</text>')
+    nodes.append(f'''<text x="{sx}" y="218" font-size="8" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linejoin="round" font-weight="bold" text-anchor="middle" letter-spacing="0.08em" font-family="sans-serif">RELIEVERS</text>
+    <text x="{sx}" y="218" font-size="8" fill="#111111" font-weight="bold" text-anchor="middle" letter-spacing="0.08em" font-family="sans-serif">RELIEVERS</text>''')
     for i in range(3):
         y = 246 + i * 56
         if i < len(relievers):
@@ -539,12 +541,18 @@ def render_lineup_svg(best_hitters, starters, relievers, title, subtitle, team_m
         else:
             nodes.append(f'<g transform="translate({sx},{y})"><circle r="20" fill="#555"/><circle r="17" fill="#1c2a38"/><text font-size="9" fill="#666" text-anchor="middle" dominant-baseline="central" font-family="sans-serif">—</text></g>')
 
-    # Brand logo for center field
-    brand_b64 = get_logo_base64('brand') if False else None
+    # Brand logos
+    brand_b64 = None
     brand_path = _APP_DIR / 'assets' / 'brand_logo_dark.png'
     if brand_path.exists():
         brand_data = brand_path.read_bytes()
         brand_b64 = f'data:image/png;base64,{base64.b64encode(brand_data).decode()}'
+
+    wide_logo_b64 = None
+    wide_logo_path = _APP_DIR / 'assets' / 'brand_logo_wide.png'
+    if wide_logo_path.exists():
+        wide_data = wide_logo_path.read_bytes()
+        wide_logo_b64 = f'data:image/png;base64,{base64.b64encode(wide_data).decode()}'
 
     svg = f'''<svg width="100%" viewBox="0 -10 560 430" xmlns="http://www.w3.org/2000/svg">
   <!-- Diamond (left column, centered at x=190, shifted down 20px) -->
@@ -568,6 +576,8 @@ def render_lineup_svg(best_hitters, starters, relievers, title, subtitle, team_m
   <!-- Brand logo in center field -->
   {f'<image href="{brand_b64}" x="128" y="75" width="125" height="125" opacity="0.9" preserveAspectRatio="xMidYMid meet"/>' if brand_b64 else ''}
   {chr(10).join(nodes)}
+  <!-- Company logo bottom-left -->
+  {f'<image href="{wide_logo_b64}" x="5" y="390" width="120" height="30" opacity="0.9" preserveAspectRatio="xMidYMid meet"/>' if wide_logo_b64 else ''}
 </svg>
 '''
     return svg
