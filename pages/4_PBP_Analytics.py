@@ -436,15 +436,23 @@ POS_COORDS = {
     'CF': (190, 15), 'LF': (55, 105), 'RF': (325, 105),
     'SS': (148, 185), '2B': (232, 185),
     '3B': (100, 255), '1B': (280, 255),
-    'C': (190, 315), 'DH': (190, 380),
+    'C': (190, 315), 'DH': (370, 380),
 }
 
 
 EGGSHELL = '#f5efe0'
 
 
+def _name_with_stroke(name, y_offset, font_size=9):
+    """SVG text with white stroke outline for pop, then black fill on top."""
+    return f'''<text font-size="{font_size}" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round"
+          text-anchor="middle" y="{y_offset}" font-family="sans-serif" font-weight="bold">{name}</text>
+    <text font-size="{font_size}" fill="#111111" text-anchor="middle" y="{y_offset}"
+          font-family="sans-serif" font-weight="bold">{name}</text>'''
+
+
 def _logo_node(x, y, player, pos, team_map, ring_color, r=22, r_inner=19):
-    """Render a player node with team logo in circle and full name below."""
+    """Render a player node with team logo in circle and name below (no position label)."""
     name = player['playerName']
     team = player.get('teamName', '')
     logo_id = team_map.get(team)
@@ -457,15 +465,13 @@ def _logo_node(x, y, player, pos, team_map, ring_color, r=22, r_inner=19):
     <circle r="{r_inner}" fill="{EGGSHELL}"/>
     <clipPath id="{clip_id}"><circle r="{r_inner}"/></clipPath>
     <image href="{logo_b64}" x="-{r_inner}" y="-{r_inner}" width="{r_inner*2}" height="{r_inner*2}" clip-path="url(#{clip_id})" preserveAspectRatio="xMidYMid slice"/>
-    <text font-size="7" fill="#111111" font-weight="bold" text-anchor="middle" y="{r+7}" font-family="sans-serif">{name}</text>
-    <text font-size="6.5" fill="#222222" font-weight="bold" text-anchor="middle" y="{r+15}" font-family="sans-serif">{pos}</text></g>'''
+    {_name_with_stroke(name, r + 10, font_size=9)}</g>'''
     else:
         ini = _initials(name)
         return f'''<g transform="translate({x},{y})">
     <circle r="{r}" fill="{ring_color}"/><circle r="{r_inner}" fill="{EGGSHELL}"/>
     <text font-size="10" font-weight="500" fill="#333" text-anchor="middle" dominant-baseline="central" font-family="sans-serif">{ini}</text>
-    <text font-size="7" fill="#111111" font-weight="bold" text-anchor="middle" y="{r+7}" font-family="sans-serif">{name}</text>
-    <text font-size="6.5" fill="#222222" font-weight="bold" text-anchor="middle" y="{r+15}" font-family="sans-serif">{pos}</text></g>'''
+    {_name_with_stroke(name, r + 10, font_size=9)}</g>'''
 
 
 def _pitcher_logo_node(x, y, player, team_map, ring_color, r=20, r_inner=17):
@@ -482,13 +488,13 @@ def _pitcher_logo_node(x, y, player, team_map, ring_color, r=20, r_inner=17):
     <circle r="{r_inner}" fill="{EGGSHELL}"/>
     <clipPath id="{clip_id}"><circle r="{r_inner}"/></clipPath>
     <image href="{logo_b64}" x="-{r_inner}" y="-{r_inner}" width="{r_inner*2}" height="{r_inner*2}" clip-path="url(#{clip_id})" preserveAspectRatio="xMidYMid slice"/>
-    <text font-size="7" fill="#111111" font-weight="bold" text-anchor="middle" y="25" font-family="sans-serif">{name}</text></g>'''
+    {_name_with_stroke(name, 27, font_size=8)}</g>'''
     else:
         ini = _initials(name)
         return f'''<g transform="translate({x},{y})">
     <circle r="{r}" fill="{ring_color}"/><circle r="{r_inner}" fill="{EGGSHELL}"/>
     <text font-size="9" font-weight="500" fill="#333" text-anchor="middle" dominant-baseline="central" font-family="sans-serif">{ini}</text>
-    <text font-size="7" fill="#111111" font-weight="bold" text-anchor="middle" y="25" font-family="sans-serif">{name}</text></g>'''
+    {_name_with_stroke(name, 27, font_size=8)}</g>'''
 
 
 def render_lineup_svg(best_hitters, starters, relievers, title, subtitle, team_map):
