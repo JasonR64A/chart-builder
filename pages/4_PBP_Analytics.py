@@ -896,18 +896,19 @@ def render_cards_png(best_hitters, starters, relievers, title, subtitle, team_ma
             linewidth=2.5, zorder=2, clip_on=False)
         ax.add_patch(card_bg)
 
-        # Logo circle
-        ring = plt.Circle((1.2, 3.7), 0.55, color=ring_color, zorder=5, clip_on=False)
+        # Logo circle — centered in the name/school row (between divider at 2.85 and top at 5.0)
+        logo_cy = 3.95
+        ring = plt.Circle((1.2, logo_cy), 0.55, color=ring_color, zorder=5, clip_on=False)
         ax.add_patch(ring)
-        eg = plt.Circle((1.2, 3.7), 0.45, color=EGGSHELL, zorder=5, clip_on=False)
+        eg = plt.Circle((1.2, logo_cy), 0.45, color=EGGSHELL, zorder=5, clip_on=False)
         ax.add_patch(eg)
         logo = _load_logo_pil(team, team_map, size=120)
         if logo:
             im = OffsetImage(np.array(logo), zoom=0.28)
-            ab = AnnotationBbox(im, (1.2, 3.7), frameon=False, zorder=6)
+            ab = AnnotationBbox(im, (1.2, logo_cy), frameon=False, zorder=6)
             ax.add_artist(ab)
         else:
-            ax.text(1.2, 3.7, _initials(name), ha='center', va='center', fontsize=11,
+            ax.text(1.2, logo_cy, _initials(name), ha='center', va='center', fontsize=11,
                     fontweight='bold', color='#333', zorder=7)
 
         # Dynamic name size: shorter names get bigger font, long names shrink to fit
