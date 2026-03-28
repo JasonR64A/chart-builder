@@ -798,72 +798,8 @@ def render_diamond_png(best_hitters, starters, relievers, title, subtitle, team_
 
 def render_cards_png(best_hitters, starters, relievers, title, subtitle, team_map):
     """Render player detail cards as a matplotlib PNG."""
-    # Count total cards
-    n_hitters = sum(1 for pos in FIELD_POSITIONS if pos in best_hitters)
-    n_pitchers = len(starters) + len(relievers)
-    total = n_hitters + n_pitchers
-    n_cols = 3
-    n_rows = (total + n_cols - 1) // n_cols + 1  # +1 for section headers
-
-    fig_h = max(4, n_rows * 2.2)
-    fig = plt.figure(figsize=(14, fig_h), facecolor='#1a1a1a')
-
-    fig.text(0.5, 1 - 0.3 / fig_h, title, ha='center', va='top', fontsize=16,
-             fontweight='bold', color='#C8C8C8')
-    fig.text(0.5, 1 - 0.6 / fig_h, subtitle, ha='center', va='top', fontsize=10, color='#888')
-
-    def draw_card(ax, name, team, role_label, stats_top, stats_bottom, team_map, ring_color):
-        ax.set_xlim(0, 1)
-        ax.set_ylim(0, 1)
-        ax.set_facecolor('#222222')
-        for spine in ax.spines.values():
-            spine.set_edgecolor('#3a3a3a')
-            spine.set_linewidth(1)
-
-        # Logo circle
-        ring = plt.Circle((0.12, 0.72), 0.11, color=ring_color, transform=ax.transAxes, zorder=5)
-        ax.add_patch(ring)
-        eg = plt.Circle((0.12, 0.72), 0.09, color=EGGSHELL, transform=ax.transAxes, zorder=5)
-        ax.add_patch(eg)
-        logo = _load_logo_pil(team, team_map, size=80)
-        if logo:
-            im = OffsetImage(np.array(logo), zoom=0.06)
-            ab = AnnotationBbox(im, (0.12, 0.72), xycoords='axes fraction', frameon=False, zorder=6)
-            ax.add_artist(ab)
-        else:
-            ax.text(0.12, 0.72, _initials(name), ha='center', va='center', fontsize=9,
-                    fontweight='bold', color='#333', transform=ax.transAxes, zorder=7)
-
-        # Name and role
-        ax.text(0.28, 0.78, name, ha='left', va='center', fontsize=10,
-                fontweight='bold', color='#C8C8C8', transform=ax.transAxes)
-        ax.text(0.28, 0.66, f'{team} · {role_label}', ha='left', va='center',
-                fontsize=7, color='#888', transform=ax.transAxes)
-
-        # Divider
-        ax.axhline(y=0.58, color='#3a3a3a', linewidth=0.5)
-
-        # Top stats row (highlighted)
-        n_top = len(stats_top)
-        for j, (val, label) in enumerate(stats_top):
-            cx = (j + 0.5) / n_top
-            ax.text(cx, 0.42, str(val), ha='center', va='center', fontsize=12,
-                    fontweight='bold', color=LC_RED, transform=ax.transAxes)
-            ax.text(cx, 0.32, label, ha='center', va='center', fontsize=6,
-                    color='#888', transform=ax.transAxes)
-
-        # Bottom stats row
-        n_bot = len(stats_bottom)
-        for j, (val, label) in enumerate(stats_bottom):
-            cx = (j + 0.5) / n_bot
-            ax.text(cx, 0.16, str(val), ha='center', va='center', fontsize=10,
-                    color='#C8C8C8', transform=ax.transAxes)
-            ax.text(cx, 0.06, label, ha='center', va='center', fontsize=6,
-                    color='#888', transform=ax.transAxes)
-
-    # Layout cards
+    # Build card data
     cards = []
-    # Hitters
     for pos in FIELD_POSITIONS:
         if pos in best_hitters:
             p = best_hitters[pos]
@@ -872,16 +808,12 @@ def render_cards_png(best_hitters, starters, relievers, title, subtitle, team_ma
             bot = [(p['HR'], 'HR'), (p['RBI'], 'RBI'), (p['R'], 'R'),
                    (p['BB'], 'BB'), (p['SB'], 'SB')]
             cards.append(('hitter', p['playerName'], p.get('teamName', ''), pos, top, bot))
-
-    # Starters
     for sp in starters[:3]:
         top = [(f"{sp['ERA']:.2f}", 'ERA'), (f"{sp['FIP']:.2f}", 'FIP'),
                (f"{sp['OPS Against']:.3f}", 'OPS-A'), (sp['IP'], 'IP'), (f"{sp['K%']:.3f}", 'K%')]
         bot = [(sp['SO'], 'SO'), (sp['BB'], 'BB'), (sp['H'], 'H'),
                (sp['HR'], 'HR'), (sp['Games'], 'G')]
         cards.append(('pitcher', sp['playerName'], sp.get('teamName', ''), 'Starter', top, bot))
-
-    # Relievers
     for rp in relievers[:3]:
         top = [(f"{rp['ERA']:.2f}", 'ERA'), (f"{rp['FIP']:.2f}", 'FIP'),
                (f"{rp['OPS Against']:.3f}", 'OPS-A'), (rp['IP'], 'IP'), (f"{rp['K%']:.3f}", 'K%')]
@@ -890,20 +822,76 @@ def render_cards_png(best_hitters, starters, relievers, title, subtitle, team_ma
         cards.append(('pitcher', rp['playerName'], rp.get('teamName', ''), 'Reliever', top, bot))
 
     n_cards = len(cards)
-    rows = (n_cards + 2) // 3
-    top_margin = 1.0 / fig_h
-    available = 1.0 - top_margin * 2
-    card_h = min(available / max(rows, 1), 0.22)
-    card_w = 0.30
-    gap_x = 0.035
-    gap_y = 0.02
+    n_cols = 3
+    n_rows = (n_cards + n_cols - 1) // n_cols
+
+    card_w_in = 4.2
+    card_h_in = 2.0
+    gap_x_in = 0.3
+    gap_y_in = 0.3
+    fig_w = n_cols * card_w_in + (n_cols - 1) * gap_x_in + 0.4
+    fig_h = n_rows * card_h_in + (n_rows - 1) * gap_y_in + 0.8
+    fig = plt.figure(figsize=(fig_w, fig_h), facecolor='#1a1a1a')
+
+    # Subtitle only, centered at top
+    fig.text(0.5, 1 - 0.25 / fig_h, subtitle, ha='center', va='top', fontsize=11, color='#888')
+
+    def draw_card(ax, name, team, role_label, stats_top, stats_bottom, team_map, ring_color):
+        ax.set_xlim(0, 10)
+        ax.set_ylim(0, 5)
+        ax.set_facecolor('#222222')
+        ax.set_xticks([])
+        ax.set_yticks([])
+        for spine in ax.spines.values():
+            spine.set_edgecolor('#3a3a3a')
+            spine.set_linewidth(1.5)
+
+        # Logo circle — use data coords so it's a true circle
+        ring = plt.Circle((1.2, 3.7), 0.55, color=ring_color, zorder=5)
+        ax.add_patch(ring)
+        eg = plt.Circle((1.2, 3.7), 0.45, color=EGGSHELL, zorder=5)
+        ax.add_patch(eg)
+        logo = _load_logo_pil(team, team_map, size=120)
+        if logo:
+            im = OffsetImage(np.array(logo), zoom=0.28)
+            ab = AnnotationBbox(im, (1.2, 3.7), frameon=False, zorder=6)
+            ax.add_artist(ab)
+        else:
+            ax.text(1.2, 3.7, _initials(name), ha='center', va='center', fontsize=11,
+                    fontweight='bold', color='#333', zorder=7)
+
+        # Name and role
+        ax.text(2.5, 4.05, name, ha='left', va='center', fontsize=11,
+                fontweight='bold', color='#C8C8C8')
+        ax.text(2.5, 3.35, f'{team} · {role_label}', ha='left', va='center',
+                fontsize=8, color='#888')
+
+        # Divider
+        ax.axhline(y=2.8, color='#3a3a3a', linewidth=0.5)
+
+        # Top stats row
+        n_top = len(stats_top)
+        for j, (val, label) in enumerate(stats_top):
+            cx = (j + 0.5) / n_top * 10
+            ax.text(cx, 2.1, str(val), ha='center', va='center', fontsize=13,
+                    fontweight='bold', color=LC_RED)
+            ax.text(cx, 1.5, label, ha='center', va='center', fontsize=7, color='#888')
+
+        # Bottom stats row
+        n_bot = len(stats_bottom)
+        for j, (val, label) in enumerate(stats_bottom):
+            cx = (j + 0.5) / n_bot * 10
+            ax.text(cx, 0.8, str(val), ha='center', va='center', fontsize=11, color='#C8C8C8')
+            ax.text(cx, 0.2, label, ha='center', va='center', fontsize=7, color='#888')
 
     for idx, (ctype, name, team, role, top_stats, bot_stats) in enumerate(cards):
-        r = idx // 3
-        c = idx % 3
-        left = 0.02 + c * (card_w + gap_x)
-        bottom = 1.0 - top_margin * 3 - (r + 1) * (card_h + gap_y)
-        card_ax = fig.add_axes([left, bottom, card_w, card_h])
+        r = idx // n_cols
+        c = idx % n_cols
+        left = (0.2 + c * (card_w_in + gap_x_in)) / fig_w
+        bottom = 1.0 - (0.6 + (r + 1) * card_h_in + r * gap_y_in) / fig_h
+        w_frac = card_w_in / fig_w
+        h_frac = card_h_in / fig_h
+        card_ax = fig.add_axes([left, bottom, w_frac, h_frac])
         ring_color = LC_RELIEVER_COLOR if role == 'Reliever' else (LC_DH_COLOR if role == 'DH' else LC_RED)
         draw_card(card_ax, name, team, role, top_stats, bot_stats, team_map, ring_color)
 
