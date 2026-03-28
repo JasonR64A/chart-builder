@@ -706,12 +706,13 @@ def render_diamond_png(best_hitters, starters, relievers, title, subtitle, team_
     mound = plt.Circle((230, 220), 7, color='#b87830', zorder=3)
     ax.add_patch(mound)
 
-    # Brand logo in CF
+    # Brand logo in CF — resize to fixed pixel size to avoid zoom issues
     brand_path = _APP_DIR / 'assets' / 'brand_logo_dark.png'
     if brand_path.exists():
         brand_img = Image.open(brand_path).convert('RGBA')
+        brand_img.thumbnail((80, 80), Image.LANCZOS)
         brand_arr = np.array(brand_img)
-        brand_im = OffsetImage(brand_arr, zoom=0.12)
+        brand_im = OffsetImage(brand_arr, zoom=0.6)
         brand_ab = AnnotationBbox(brand_im, (230, 107), frameon=False, zorder=4)
         ax.add_artist(brand_ab)
 
@@ -757,59 +758,60 @@ def render_diamond_png(best_hitters, starters, relievers, title, subtitle, team_
             ax.text(px, py, '—', ha='center', va='center', fontsize=9, color='#666', zorder=7)
             ax.text(px, py + 37, pos, ha='center', va='top', fontsize=7, color='#666', zorder=7)
 
-    # Pitcher sidebar
-    sidebar_ax = fig.add_axes([0.85, 0, 0.15, 1])
-    sidebar_ax.set_xlim(0, 1)
-    sidebar_ax.set_ylim(0, 1)
+    # Pitcher sidebar — use data coords with equal aspect for true circles
+    sidebar_ax = fig.add_axes([0.85, 0.02, 0.14, 0.96])
+    sidebar_ax.set_xlim(0, 60)
+    sidebar_ax.set_ylim(0, 420)
+    sidebar_ax.set_aspect('equal')
     sidebar_ax.set_facecolor('none')
     sidebar_ax.patch.set_alpha(0)
     sidebar_ax.axis('off')
 
-    sidebar_ax.axvline(x=0.05, color='#3a3a3a', linewidth=1)
-    sidebar_ax.text(0.5, 0.97, 'STARTERS', ha='center', va='top', fontsize=8,
-                    color='#a89880', fontweight='bold', )
-
-    for i in range(3):
-        cy = 0.88 - i * 0.13
-        if i < len(starters):
-            sp = starters[i]
-            logo = _load_logo_pil(sp.get('teamName', ''), team_map, size=100)
-            ring = plt.Circle((0.5, cy), 0.045, color=LC_RED, transform=sidebar_ax.transAxes, zorder=5)
-            sidebar_ax.add_patch(ring)
-            eg = plt.Circle((0.5, cy), 0.038, color=EGGSHELL, transform=sidebar_ax.transAxes, zorder=5)
-            sidebar_ax.add_patch(eg)
-            if logo:
-                arr = np.array(logo)
-                im = OffsetImage(arr, zoom=0.08)
-                ab = AnnotationBbox(im, (0.5, cy), xycoords='axes fraction', frameon=False, zorder=6)
-                sidebar_ax.add_artist(ab)
-            sidebar_ax.text(0.5, cy - 0.06, sp['playerName'], ha='center', va='top',
-                           fontsize=7, color='#c8a880', transform=sidebar_ax.transAxes, zorder=7)
-        else:
-            ring = plt.Circle((0.5, cy), 0.045, color='#555', transform=sidebar_ax.transAxes, zorder=5)
-            sidebar_ax.add_patch(ring)
-
-    sidebar_ax.text(0.5, 0.50, 'RELIEVERS', ha='center', va='top', fontsize=8,
+    sidebar_ax.plot([2, 2], [10, 410], color='#3a3a3a', linewidth=1)
+    sidebar_ax.text(30, 405, 'STARTERS', ha='center', va='top', fontsize=8,
                     color='#a89880', fontweight='bold')
 
     for i in range(3):
-        cy = 0.41 - i * 0.13
+        cy = 370 - i * 65
+        if i < len(starters):
+            sp = starters[i]
+            logo = _load_logo_pil(sp.get('teamName', ''), team_map, size=100)
+            ring = plt.Circle((30, cy), 18, color=LC_RED, zorder=5)
+            sidebar_ax.add_patch(ring)
+            eg = plt.Circle((30, cy), 15, color=EGGSHELL, zorder=5)
+            sidebar_ax.add_patch(eg)
+            if logo:
+                logo_r = logo.resize((28, 28), Image.LANCZOS)
+                im = OffsetImage(np.array(logo_r), zoom=1.0)
+                ab = AnnotationBbox(im, (30, cy), frameon=False, zorder=6)
+                sidebar_ax.add_artist(ab)
+            sidebar_ax.text(30, cy - 22, sp['playerName'], ha='center', va='top',
+                           fontsize=6, color='#c8a880', zorder=7)
+        else:
+            ring = plt.Circle((30, cy), 18, color='#555', zorder=5)
+            sidebar_ax.add_patch(ring)
+
+    sidebar_ax.text(30, 200, 'RELIEVERS', ha='center', va='top', fontsize=8,
+                    color='#a89880', fontweight='bold')
+
+    for i in range(3):
+        cy = 170 - i * 65
         if i < len(relievers):
             rp = relievers[i]
             logo = _load_logo_pil(rp.get('teamName', ''), team_map, size=100)
-            ring = plt.Circle((0.5, cy), 0.045, color=LC_RELIEVER_COLOR, transform=sidebar_ax.transAxes, zorder=5)
+            ring = plt.Circle((30, cy), 18, color=LC_RELIEVER_COLOR, zorder=5)
             sidebar_ax.add_patch(ring)
-            eg = plt.Circle((0.5, cy), 0.038, color=EGGSHELL, transform=sidebar_ax.transAxes, zorder=5)
+            eg = plt.Circle((30, cy), 15, color=EGGSHELL, zorder=5)
             sidebar_ax.add_patch(eg)
             if logo:
-                arr = np.array(logo)
-                im = OffsetImage(arr, zoom=0.08)
-                ab = AnnotationBbox(im, (0.5, cy), xycoords='axes fraction', frameon=False, zorder=6)
+                logo_r = logo.resize((28, 28), Image.LANCZOS)
+                im = OffsetImage(np.array(logo_r), zoom=1.0)
+                ab = AnnotationBbox(im, (30, cy), frameon=False, zorder=6)
                 sidebar_ax.add_artist(ab)
-            sidebar_ax.text(0.5, cy - 0.06, rp['playerName'], ha='center', va='top',
-                           fontsize=7, color='#c090e8', transform=sidebar_ax.transAxes, zorder=7)
+            sidebar_ax.text(30, cy - 22, rp['playerName'], ha='center', va='top',
+                           fontsize=6, color='#c090e8', zorder=7)
         else:
-            ring = plt.Circle((0.5, cy), 0.045, color='#555', transform=sidebar_ax.transAxes, zorder=5)
+            ring = plt.Circle((30, cy), 18, color='#555', zorder=5)
             sidebar_ax.add_patch(ring)
 
     # Title
