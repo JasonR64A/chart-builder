@@ -433,10 +433,10 @@ def _last_name(name):
 
 
 POS_COORDS = {
-    'CF': (190, 24), 'LF': (68, 97), 'RF': (312, 97),
-    'SS': (156, 162), '2B': (224, 162),
-    '3B': (112, 222), '1B': (268, 222),
-    'C': (190, 277), 'DH': (190, 345),
+    'CF': (190, 15), 'LF': (55, 105), 'RF': (325, 105),
+    'SS': (148, 185), '2B': (232, 185),
+    '3B': (100, 255), '1B': (280, 255),
+    'C': (190, 315), 'DH': (190, 380),
 }
 
 
@@ -503,8 +503,8 @@ def render_lineup_svg(best_hitters, starters, relievers, title, subtitle, team_m
     <text font-size="9" fill="#666" text-anchor="middle" dominant-baseline="central" font-family="sans-serif">—</text>
     <text font-size="7" fill="#666" text-anchor="middle" y="37" font-family="sans-serif">{pos}</text></g>''')
 
-    # Pitcher sidebar (right column, centered at x=470)
-    sx = 470
+    # Pitcher sidebar (right column, centered at x=480)
+    sx = 480
     nodes.append(f'<line x1="{sx-30}" y1="10" x2="{sx-30}" y2="390" stroke="#3a3a3a" stroke-width="1"/>')
     nodes.append(f'<text x="{sx}" y="26" font-size="8" fill="#111111" font-weight="bold" text-anchor="middle" letter-spacing="0.08em" font-family="sans-serif">STARTERS</text>')
     for i in range(3):
@@ -529,23 +529,23 @@ def render_lineup_svg(best_hitters, starters, relievers, title, subtitle, team_m
         brand_data = brand_path.read_bytes()
         brand_b64 = f'data:image/png;base64,{base64.b64encode(brand_data).decode()}'
 
-    svg = f'''<svg width="100%" viewBox="0 0 520 400" xmlns="http://www.w3.org/2000/svg">
+    svg = f'''<svg width="100%" viewBox="0 -10 560 430" xmlns="http://www.w3.org/2000/svg">
   <!-- Diamond (left column, centered at x=190) -->
-  <path d="M190,310 L10,60 Q190,-30 370,60 Z" fill="#2d8a45"/>
-  <path d="M10,60 Q190,-30 370,60" fill="none" stroke="{LC_RED}" stroke-width="10"/>
-  <line x1="190" y1="310" x2="10" y2="60" stroke="{LC_RED}" stroke-width="8"/>
-  <line x1="190" y1="310" x2="370" y2="60" stroke="{LC_RED}" stroke-width="8"/>
-  <path d="M190,310 L88,190 Q190,120 292,190 Z" fill="#c8883a"/>
-  <path d="M190,310 L104,200 Q190,136 276,200 Z" fill="#2d8a45"/>
-  <rect x="182" y="138" width="16" height="16" rx="2" fill="#f5efe0" transform="rotate(45 190 146)"/>
-  <rect x="268" y="198" width="14" height="14" rx="2" fill="#f5efe0" transform="rotate(45 275 205)"/>
-  <rect x="108" y="198" width="14" height="14" rx="2" fill="#f5efe0" transform="rotate(45 115 205)"/>
-  <polygon points="190,296 180,286 180,276 200,276 200,286" fill="#f5efe0"/>
+  <path d="M190,345 L-5,60 Q190,-40 385,60 Z" fill="#2d8a45"/>
+  <path d="M-5,60 Q190,-40 385,60" fill="none" stroke="{LC_RED}" stroke-width="10"/>
+  <line x1="190" y1="345" x2="-5" y2="60" stroke="{LC_RED}" stroke-width="8"/>
+  <line x1="190" y1="345" x2="385" y2="60" stroke="{LC_RED}" stroke-width="8"/>
+  <path d="M190,345 L78,210 Q190,135 302,210 Z" fill="#c8883a"/>
+  <path d="M190,345 L94,220 Q190,150 286,220 Z" fill="#2d8a45"/>
+  <rect x="182" y="148" width="16" height="16" rx="2" fill="#f5efe0" transform="rotate(45 190 156)"/>
+  <rect x="278" y="218" width="14" height="14" rx="2" fill="#f5efe0" transform="rotate(45 285 225)"/>
+  <rect x="98" y="218" width="14" height="14" rx="2" fill="#f5efe0" transform="rotate(45 105 225)"/>
+  <polygon points="190,332 180,322 180,312 200,312 200,322" fill="#f5efe0"/>
   <!-- Mound -->
-  <circle cx="190" cy="220" r="9" fill="#b87830" opacity="0.9"/>
-  <circle cx="190" cy="220" r="4" fill="#a06820"/>
+  <circle cx="190" cy="250" r="9" fill="#b87830" opacity="0.9"/>
+  <circle cx="190" cy="250" r="4" fill="#a06820"/>
   <!-- Brand logo in center field -->
-  {f'<image href="{brand_b64}" x="128" y="45" width="125" height="125" opacity="0.9" preserveAspectRatio="xMidYMid meet"/>' if brand_b64 else ''}
+  {f'<image href="{brand_b64}" x="128" y="55" width="125" height="125" opacity="0.9" preserveAspectRatio="xMidYMid meet"/>' if brand_b64 else ''}
   {chr(10).join(nodes)}
 </svg>
 '''
