@@ -436,7 +436,7 @@ POS_COORDS = {
     'CF': (190, 35), 'LF': (55, 125), 'RF': (325, 125),
     'SS': (148, 205), '2B': (232, 205),
     '3B': (100, 275), '1B': (280, 275),
-    'C': (190, 340), 'DH': (330, 340),
+    'C': (190, 340), 'DH': (325, 340),
 }
 
 
@@ -576,10 +576,10 @@ def render_lineup_svg(best_hitters, starters, relievers, title, subtitle, team_m
   <!-- Brand logo in center field -->
   {f'<image href="{brand_b64}" x="128" y="75" width="125" height="125" opacity="0.9" preserveAspectRatio="xMidYMid meet"/>' if brand_b64 else ''}
   {chr(10).join(nodes)}
-  <!-- Branded info tile at C/DH height -->
-  <rect x="5" y="318" rx="8" ry="8" width="80" height="45" fill="#222222" stroke="#FFFFFF" stroke-width="1.5" opacity="0.9"/>
-  {f'<image href="{wide_logo_b64}" x="10" y="323" width="70" height="18" opacity="0.95" preserveAspectRatio="xMidYMid meet"/>' if wide_logo_b64 else ''}
-  <text x="45" y="352" font-size="6" fill="#aaaaaa" text-anchor="middle" font-family="sans-serif">{date_label}</text>
+  <!-- Branded info tile centered on LF x-axis (x=55) at C/DH height -->
+  <rect x="15" y="318" rx="8" ry="8" width="80" height="45" fill="#222222" stroke="#FFFFFF" stroke-width="1.5" opacity="0.9"/>
+  {f'<image href="{wide_logo_b64}" x="20" y="323" width="70" height="18" opacity="0.95" preserveAspectRatio="xMidYMid meet"/>' if wide_logo_b64 else ''}
+  <text x="55" y="352" font-size="6" fill="#aaaaaa" text-anchor="middle" font-family="sans-serif">{date_label}</text>
 </svg>
 '''
     return svg
