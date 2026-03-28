@@ -503,8 +503,8 @@ def render_lineup_svg(best_hitters, starters, relievers, title, subtitle, team_m
     <text font-size="9" fill="#666" text-anchor="middle" dominant-baseline="central" font-family="sans-serif">—</text>
     <text font-size="7" fill="#666" text-anchor="middle" y="37" font-family="sans-serif">{pos}</text></g>''')
 
-    # Pitcher sidebar (right column, centered at x=480)
-    sx = 480
+    # Pitcher sidebar (right column, centered at x=430)
+    sx = 430
     nodes.append(f'<line x1="{sx-30}" y1="10" x2="{sx-30}" y2="390" stroke="#3a3a3a" stroke-width="1"/>')
     nodes.append(f'<text x="{sx}" y="26" font-size="8" fill="#111111" font-weight="bold" text-anchor="middle" letter-spacing="0.08em" font-family="sans-serif">STARTERS</text>')
     for i in range(3):
