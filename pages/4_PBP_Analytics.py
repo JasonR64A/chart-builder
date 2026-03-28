@@ -733,10 +733,10 @@ def render_diamond_png(best_hitters, starters, relievers, title, subtitle, team_
                 eggshell = plt.Circle((px, py), 19, color=EGGSHELL, zorder=5)
                 ax.add_patch(eggshell)
                 # Resize logo to fit circle and center it
-                logo_resized = logo.resize((36, 36), Image.LANCZOS)
+                logo_resized = logo.resize((42, 42), Image.LANCZOS)
                 arr = np.array(logo_resized)
                 im = OffsetImage(arr, zoom=1.0)
-                ab = AnnotationBbox(im, (px, py), frameon=False, zorder=6)
+                ab = AnnotationBbox(im, (px, py - 1), frameon=False, zorder=6)
                 ax.add_artist(ab)
             else:
                 ring = plt.Circle((px, py), 22, color=color, zorder=5)
@@ -923,9 +923,9 @@ def render_cards_png(best_hitters, starters, relievers, title, subtitle, team_ma
             name_size = 12
 
         # Name and team (left column)
-        ax.text(2.5, 4.15, name, ha='left', va='center', fontsize=name_size,
+        ax.text(2.0, 4.15, name, ha='left', va='center', fontsize=name_size,
                 fontweight='bold', color='#FFFFFF', zorder=7)
-        ax.text(2.5, 3.35, team, ha='left', va='center',
+        ax.text(2.0, 3.35, team, ha='left', va='center',
                 fontsize=8, color='#aaa', zorder=7)
 
         # Position/role (right column, large)
