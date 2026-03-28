@@ -740,7 +740,7 @@ def render_diamond_png(best_hitters, starters, relievers, title, subtitle, team_
 
     sidebar_ax.axvline(x=0.05, color='#3a3a3a', linewidth=1)
     sidebar_ax.text(0.5, 0.97, 'STARTERS', ha='center', va='top', fontsize=8,
-                    color='#a89880', fontweight='bold', letterSpacing=0.08)
+                    color='#a89880', fontweight='bold', )
 
     for i in range(3):
         cy = 0.88 - i * 0.13
