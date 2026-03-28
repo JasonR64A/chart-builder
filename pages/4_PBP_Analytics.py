@@ -10,6 +10,12 @@ import numpy as np
 from pathlib import Path
 from io import BytesIO
 import base64
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+import matplotlib.patches as mpatches
+from matplotlib.offsetbox import OffsetImage, AnnotationBbox
+from PIL import Image, ImageDraw
 
 # ── Path setup (works locally and on Streamlit Cloud) ─────────────────────────
 _APP_DIR = Path(__file__).resolve().parent.parent
@@ -597,6 +603,317 @@ def render_pitcher_card_html(p, role='Starter'):
 </div>'''
 
 
+# ── PNG Rendering ─────────────────────────────────────────────────────────────
+def _load_logo_pil(team_name, team_map, size=80):
+    """Load a team logo as a circular PIL image with eggshell background."""
+    logo_id = team_map.get(team_name)
+    if not logo_id:
+        return None
+    for ext in ['png', 'webp']:
+        p = LOGO_DIR / f'{logo_id}.{ext}'
+        if p.exists():
+            img = Image.open(p).convert('RGBA')
+            img.thumbnail((size, size), Image.LANCZOS)
+            # Paste onto eggshell circle
+            bg = Image.new('RGBA', (size, size), (245, 239, 224, 255))
+            mask = Image.new('L', (size, size), 0)
+            ImageDraw.Draw(mask).ellipse([0, 0, size-1, size-1], fill=255)
+            bg.paste(img, ((size - img.width) // 2, (size - img.height) // 2), img)
+            bg.putalpha(mask)
+            return bg
+    return None
+
+
+def _draw_circle_logo(ax, x, y, team_name, team_map, ring_color, zoom=0.08):
+    """Draw a circular team logo with ring on a matplotlib axes."""
+    logo = _load_logo_pil(team_name, team_map, size=120)
+    if logo:
+        # Draw ring circle
+        ring = plt.Circle((x, y), 0.045, color=ring_color, transform=ax.transAxes, zorder=5)
+        ax.add_patch(ring)
+        arr = np.array(logo)
+        im = OffsetImage(arr, zoom=zoom)
+        ab = AnnotationBbox(im, (x, y), xycoords='axes fraction', frameon=False, zorder=6)
+        ax.add_artist(ab)
+        return True
+    return False
+
+
+def render_diamond_png(best_hitters, starters, relievers, title, subtitle, team_map):
+    """Render the lineup card diamond as a matplotlib PNG."""
+    fig = plt.figure(figsize=(12, 10), facecolor='#1a1a1a')
+    ax = fig.add_axes([0, 0, 0.85, 1])
+    ax.set_xlim(0, 460)
+    ax.set_ylim(0, 420)
+    ax.set_facecolor('#1a1a1a')
+    ax.set_aspect('equal')
+    ax.axis('off')
+
+    # Flip y so 0 is top (match SVG coords)
+    ax.invert_yaxis()
+
+    # Field geometry (shifted up 30px from original)
+    from matplotlib.patches import Polygon, Wedge
+    # Outfield grass
+    outfield = Polygon([(230, 310), (50, 60), (230, -30), (410, 60)], closed=True, fc='#2d8a45', ec='none', zorder=1)
+    ax.add_patch(outfield)
+    # Foul lines
+    ax.plot([230, 50], [310, 60], color=LC_RED, linewidth=6, zorder=2)
+    ax.plot([230, 410], [310, 60], color=LC_RED, linewidth=6, zorder=2)
+    # Outfield arc
+    theta = np.linspace(np.radians(25), np.radians(155), 100)
+    arc_r = 280
+    arc_x = 230 + arc_r * np.cos(theta)
+    arc_y = 310 - arc_r * np.sin(theta)
+    ax.plot(arc_x, arc_y, color=LC_RED, linewidth=8, zorder=2)
+    # Infield dirt
+    infield = Polygon([(230, 310), (128, 190), (230, 120), (332, 190)], closed=True, fc='#c8883a', ec='none', zorder=2)
+    ax.add_patch(infield)
+    # Infield grass
+    inner_grass = Polygon([(230, 310), (144, 200), (230, 136), (316, 200)], closed=True, fc='#2d8a45', ec='none', zorder=2)
+    ax.add_patch(inner_grass)
+    # Bases
+    for bx, by, s in [(230, 146, 12), (315, 205, 10), (155, 205, 10)]:
+        base = Polygon([(bx, by-s), (bx+s, by), (bx, by+s), (bx-s, by)], closed=True, fc='#f5efe0', zorder=3)
+        ax.add_patch(base)
+    # Home plate
+    ax.add_patch(Polygon([(220, 276), (220, 296), (230, 306), (240, 296), (240, 276)], closed=True, fc='#f5efe0', zorder=3))
+    # Mound
+    mound = plt.Circle((230, 220), 7, color='#b87830', zorder=3)
+    ax.add_patch(mound)
+
+    # Brand logo in CF
+    brand_path = _APP_DIR / 'assets' / 'brand_logo_dark.png'
+    if brand_path.exists():
+        brand_img = Image.open(brand_path).convert('RGBA')
+        brand_arr = np.array(brand_img)
+        brand_im = OffsetImage(brand_arr, zoom=0.12)
+        brand_ab = AnnotationBbox(brand_im, (230, 107), frameon=False, zorder=4)
+        ax.add_artist(brand_ab)
+
+    # Position players
+    pos_xy = {
+        'CF': (230, 24), 'LF': (108, 97), 'RF': (352, 97),
+        'SS': (196, 162), '2B': (264, 162),
+        '3B': (152, 222), '1B': (308, 222),
+        'C': (230, 277), 'DH': (230, 345),
+    }
+    for pos, (px, py) in pos_xy.items():
+        if pos in best_hitters:
+            p = best_hitters[pos]
+            color = LC_DH_COLOR if pos == 'DH' else LC_RED
+            logo = _load_logo_pil(p.get('teamName', ''), team_map, size=120)
+            if logo:
+                ring = plt.Circle((px, py), 22, color=color, zorder=5)
+                ax.add_patch(ring)
+                eggshell = plt.Circle((px, py), 19, color=EGGSHELL, zorder=5)
+                ax.add_patch(eggshell)
+                arr = np.array(logo)
+                im = OffsetImage(arr, zoom=0.30)
+                ab = AnnotationBbox(im, (px, py), frameon=False, zorder=6)
+                ax.add_artist(ab)
+            else:
+                ring = plt.Circle((px, py), 22, color=color, zorder=5)
+                ax.add_patch(ring)
+                inner = plt.Circle((px, py), 19, color=EGGSHELL, zorder=5)
+                ax.add_patch(inner)
+                ax.text(px, py, _initials(p['playerName']), ha='center', va='center',
+                        fontsize=10, fontweight='bold', color='#333', zorder=7)
+            ax.text(px, py + 29, p['playerName'], ha='center', va='top',
+                    fontsize=7, color='#c8a880', zorder=7)
+            ax.text(px, py + 37, pos, ha='center', va='top',
+                    fontsize=6.5, color='#9a8060', zorder=7)
+        else:
+            ring = plt.Circle((px, py), 22, color='#555', zorder=5)
+            ax.add_patch(ring)
+            inner = plt.Circle((px, py), 19, color='#1c2a38', zorder=5)
+            ax.add_patch(inner)
+            ax.text(px, py, '—', ha='center', va='center', fontsize=9, color='#666', zorder=7)
+            ax.text(px, py + 37, pos, ha='center', va='top', fontsize=7, color='#666', zorder=7)
+
+    # Pitcher sidebar
+    sidebar_ax = fig.add_axes([0.85, 0, 0.15, 1])
+    sidebar_ax.set_xlim(0, 1)
+    sidebar_ax.set_ylim(0, 1)
+    sidebar_ax.set_facecolor('#1a1a1a')
+    sidebar_ax.axis('off')
+
+    sidebar_ax.axvline(x=0.05, color='#3a3a3a', linewidth=1)
+    sidebar_ax.text(0.5, 0.97, 'STARTERS', ha='center', va='top', fontsize=8,
+                    color='#a89880', fontweight='bold', letterSpacing=0.08)
+
+    for i in range(3):
+        cy = 0.88 - i * 0.13
+        if i < len(starters):
+            sp = starters[i]
+            logo = _load_logo_pil(sp.get('teamName', ''), team_map, size=100)
+            ring = plt.Circle((0.5, cy), 0.045, color=LC_RED, transform=sidebar_ax.transAxes, zorder=5)
+            sidebar_ax.add_patch(ring)
+            eg = plt.Circle((0.5, cy), 0.038, color=EGGSHELL, transform=sidebar_ax.transAxes, zorder=5)
+            sidebar_ax.add_patch(eg)
+            if logo:
+                arr = np.array(logo)
+                im = OffsetImage(arr, zoom=0.08)
+                ab = AnnotationBbox(im, (0.5, cy), xycoords='axes fraction', frameon=False, zorder=6)
+                sidebar_ax.add_artist(ab)
+            sidebar_ax.text(0.5, cy - 0.06, sp['playerName'], ha='center', va='top',
+                           fontsize=7, color='#c8a880', transform=sidebar_ax.transAxes, zorder=7)
+        else:
+            ring = plt.Circle((0.5, cy), 0.045, color='#555', transform=sidebar_ax.transAxes, zorder=5)
+            sidebar_ax.add_patch(ring)
+
+    sidebar_ax.text(0.5, 0.50, 'RELIEVERS', ha='center', va='top', fontsize=8,
+                    color='#a89880', fontweight='bold')
+
+    for i in range(3):
+        cy = 0.41 - i * 0.13
+        if i < len(relievers):
+            rp = relievers[i]
+            logo = _load_logo_pil(rp.get('teamName', ''), team_map, size=100)
+            ring = plt.Circle((0.5, cy), 0.045, color=LC_RELIEVER_COLOR, transform=sidebar_ax.transAxes, zorder=5)
+            sidebar_ax.add_patch(ring)
+            eg = plt.Circle((0.5, cy), 0.038, color=EGGSHELL, transform=sidebar_ax.transAxes, zorder=5)
+            sidebar_ax.add_patch(eg)
+            if logo:
+                arr = np.array(logo)
+                im = OffsetImage(arr, zoom=0.08)
+                ab = AnnotationBbox(im, (0.5, cy), xycoords='axes fraction', frameon=False, zorder=6)
+                sidebar_ax.add_artist(ab)
+            sidebar_ax.text(0.5, cy - 0.06, rp['playerName'], ha='center', va='top',
+                           fontsize=7, color='#c090e8', transform=sidebar_ax.transAxes, zorder=7)
+        else:
+            ring = plt.Circle((0.5, cy), 0.045, color='#555', transform=sidebar_ax.transAxes, zorder=5)
+            sidebar_ax.add_patch(ring)
+
+    # Title
+    fig.text(0.42, 0.97, title, ha='center', va='top', fontsize=16, fontweight='bold', color='#C8C8C8')
+    fig.text(0.42, 0.94, subtitle, ha='center', va='top', fontsize=10, color='#888')
+
+    buf = BytesIO()
+    fig.savefig(buf, format='png', dpi=180, facecolor='#1a1a1a', edgecolor='none', bbox_inches='tight')
+    buf.seek(0)
+    plt.close(fig)
+    return buf
+
+
+def render_cards_png(best_hitters, starters, relievers, title, subtitle, team_map):
+    """Render player detail cards as a matplotlib PNG."""
+    # Count total cards
+    n_hitters = sum(1 for pos in FIELD_POSITIONS if pos in best_hitters)
+    n_pitchers = len(starters) + len(relievers)
+    total = n_hitters + n_pitchers
+    n_cols = 3
+    n_rows = (total + n_cols - 1) // n_cols + 1  # +1 for section headers
+
+    fig_h = max(4, n_rows * 2.2)
+    fig = plt.figure(figsize=(14, fig_h), facecolor='#1a1a1a')
+
+    fig.text(0.5, 1 - 0.3 / fig_h, title, ha='center', va='top', fontsize=16,
+             fontweight='bold', color='#C8C8C8')
+    fig.text(0.5, 1 - 0.6 / fig_h, subtitle, ha='center', va='top', fontsize=10, color='#888')
+
+    def draw_card(ax, name, team, role_label, stats_top, stats_bottom, team_map, ring_color):
+        ax.set_xlim(0, 1)
+        ax.set_ylim(0, 1)
+        ax.set_facecolor('#222222')
+        for spine in ax.spines.values():
+            spine.set_edgecolor('#3a3a3a')
+            spine.set_linewidth(1)
+
+        # Logo circle
+        ring = plt.Circle((0.12, 0.72), 0.11, color=ring_color, transform=ax.transAxes, zorder=5)
+        ax.add_patch(ring)
+        eg = plt.Circle((0.12, 0.72), 0.09, color=EGGSHELL, transform=ax.transAxes, zorder=5)
+        ax.add_patch(eg)
+        logo = _load_logo_pil(team, team_map, size=80)
+        if logo:
+            im = OffsetImage(np.array(logo), zoom=0.06)
+            ab = AnnotationBbox(im, (0.12, 0.72), xycoords='axes fraction', frameon=False, zorder=6)
+            ax.add_artist(ab)
+        else:
+            ax.text(0.12, 0.72, _initials(name), ha='center', va='center', fontsize=9,
+                    fontweight='bold', color='#333', transform=ax.transAxes, zorder=7)
+
+        # Name and role
+        ax.text(0.28, 0.78, name, ha='left', va='center', fontsize=10,
+                fontweight='bold', color='#C8C8C8', transform=ax.transAxes)
+        ax.text(0.28, 0.66, f'{team} · {role_label}', ha='left', va='center',
+                fontsize=7, color='#888', transform=ax.transAxes)
+
+        # Divider
+        ax.axhline(y=0.58, color='#3a3a3a', linewidth=0.5)
+
+        # Top stats row (highlighted)
+        n_top = len(stats_top)
+        for j, (val, label) in enumerate(stats_top):
+            cx = (j + 0.5) / n_top
+            ax.text(cx, 0.42, str(val), ha='center', va='center', fontsize=12,
+                    fontweight='bold', color=LC_RED, transform=ax.transAxes)
+            ax.text(cx, 0.32, label, ha='center', va='center', fontsize=6,
+                    color='#888', transform=ax.transAxes)
+
+        # Bottom stats row
+        n_bot = len(stats_bottom)
+        for j, (val, label) in enumerate(stats_bottom):
+            cx = (j + 0.5) / n_bot
+            ax.text(cx, 0.16, str(val), ha='center', va='center', fontsize=10,
+                    color='#C8C8C8', transform=ax.transAxes)
+            ax.text(cx, 0.06, label, ha='center', va='center', fontsize=6,
+                    color='#888', transform=ax.transAxes)
+
+    # Layout cards
+    cards = []
+    # Hitters
+    for pos in FIELD_POSITIONS:
+        if pos in best_hitters:
+            p = best_hitters[pos]
+            top = [(f"{p['OPS']:.3f}", 'OPS'), (f"{p['wOBA']:.3f}", 'wOBA'),
+                   (f"{p['wRAA']:.1f}", 'wRAA'), (f"{p['BA']:.3f}", 'AVG')]
+            bot = [(p['HR'], 'HR'), (p['RBI'], 'RBI'), (p['R'], 'R'),
+                   (p['BB'], 'BB'), (p['SB'], 'SB')]
+            cards.append(('hitter', p['playerName'], p.get('teamName', ''), pos, top, bot))
+
+    # Starters
+    for sp in starters[:3]:
+        top = [(f"{sp['ERA']:.2f}", 'ERA'), (f"{sp['FIP']:.2f}", 'FIP'),
+               (f"{sp['OPS Against']:.3f}", 'OPS-A'), (sp['IP'], 'IP'), (f"{sp['K%']:.3f}", 'K%')]
+        bot = [(sp['SO'], 'SO'), (sp['BB'], 'BB'), (sp['H'], 'H'),
+               (sp['HR'], 'HR'), (sp['Games'], 'G')]
+        cards.append(('pitcher', sp['playerName'], sp.get('teamName', ''), 'Starter', top, bot))
+
+    # Relievers
+    for rp in relievers[:3]:
+        top = [(f"{rp['ERA']:.2f}", 'ERA'), (f"{rp['FIP']:.2f}", 'FIP'),
+               (f"{rp['OPS Against']:.3f}", 'OPS-A'), (rp['IP'], 'IP'), (f"{rp['K%']:.3f}", 'K%')]
+        bot = [(rp['SO'], 'SO'), (rp['BB'], 'BB'), (rp['H'], 'H'),
+               (rp['HR'], 'HR'), (rp['Games'], 'G')]
+        cards.append(('pitcher', rp['playerName'], rp.get('teamName', ''), 'Reliever', top, bot))
+
+    n_cards = len(cards)
+    rows = (n_cards + 2) // 3
+    top_margin = 1.0 / fig_h
+    available = 1.0 - top_margin * 2
+    card_h = min(available / max(rows, 1), 0.22)
+    card_w = 0.30
+    gap_x = 0.035
+    gap_y = 0.02
+
+    for idx, (ctype, name, team, role, top_stats, bot_stats) in enumerate(cards):
+        r = idx // 3
+        c = idx % 3
+        left = 0.02 + c * (card_w + gap_x)
+        bottom = 1.0 - top_margin * 3 - (r + 1) * (card_h + gap_y)
+        card_ax = fig.add_axes([left, bottom, card_w, card_h])
+        ring_color = LC_RELIEVER_COLOR if role == 'Reliever' else (LC_DH_COLOR if role == 'DH' else LC_RED)
+        draw_card(card_ax, name, team, role, top_stats, bot_stats, team_map, ring_color)
+
+    buf = BytesIO()
+    fig.savefig(buf, format='png', dpi=180, facecolor='#1a1a1a', edgecolor='none', bbox_inches='tight')
+    buf.seek(0)
+    plt.close(fig)
+    return buf
+
+
 # ── Data Loading ─────────────────────────────────────────────────────────────
 @st.cache_data
 def load_pbp(sport, division, stat_type):
@@ -904,3 +1221,18 @@ elif view == 'Lineup Card':
         for i, rp in enumerate(relievers[:3]):
             with cols3[i]:
                 st.markdown(render_pitcher_card_html(rp, 'Reliever'), unsafe_allow_html=True)
+
+    # Download PNGs
+    st.markdown('---')
+    st.markdown('### Download')
+    with st.spinner('Rendering PNGs...'):
+        diamond_buf = render_diamond_png(best_hitters, starters, relievers, title, subtitle, team_map)
+        cards_buf = render_cards_png(best_hitters, starters, relievers, title, subtitle, team_map)
+
+    dl1, dl2 = st.columns(2)
+    with dl1:
+        st.download_button('Download Diamond PNG', data=diamond_buf,
+                          file_name=f'lineup_diamond_{sport}_{division}.png', mime='image/png')
+    with dl2:
+        st.download_button('Download Cards PNG', data=cards_buf,
+                          file_name=f'lineup_cards_{sport}_{division}.png', mime='image/png')
