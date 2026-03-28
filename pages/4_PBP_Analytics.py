@@ -436,7 +436,7 @@ POS_COORDS = {
     'CF': (190, 35), 'LF': (55, 125), 'RF': (325, 125),
     'SS': (148, 205), '2B': (232, 205),
     '3B': (100, 275), '1B': (280, 275),
-    'C': (190, 340), 'DH': (330, 320),
+    'C': (190, 340), 'DH': (330, 340),
 }
 
 
@@ -457,12 +457,16 @@ def _name_with_stroke(name, y_offset, font_size=9):
 
 
 def _logo_node(x, y, player, pos, team_map, ring_color, r=22, r_inner=19):
-    """Render a player node with team logo in circle and name below (no position label)."""
+    """Render a player node with team logo in circle and name below. DH gets position label."""
     name = player['playerName']
     team = player.get('teamName', '')
     logo_id = team_map.get(team)
     logo_b64 = get_logo_base64(logo_id) if logo_id else None
     clip_id = f"clip-{pos}-{x}-{y}"
+    pos_label = f'''<text font-size="7" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linejoin="round"
+          text-anchor="middle" y="{r+19}" font-family="sans-serif" font-weight="bold">DH</text>
+    <text font-size="7" fill="#111111" text-anchor="middle" y="{r+19}"
+          font-family="sans-serif" font-weight="bold">DH</text>''' if pos == 'DH' else ''
 
     if logo_b64:
         return f'''<g transform="translate({x},{y})">
@@ -470,13 +474,15 @@ def _logo_node(x, y, player, pos, team_map, ring_color, r=22, r_inner=19):
     <circle r="{r_inner}" fill="{EGGSHELL}"/>
     <clipPath id="{clip_id}"><circle r="{r_inner}"/></clipPath>
     <image href="{logo_b64}" x="-{r_inner}" y="-{r_inner}" width="{r_inner*2}" height="{r_inner*2}" clip-path="url(#{clip_id})" preserveAspectRatio="xMidYMid slice"/>
-    {_name_with_stroke(name, r + 10, font_size=9)}</g>'''
+    {_name_with_stroke(name, r + 10, font_size=9)}
+    {pos_label}</g>'''
     else:
         ini = _initials(name)
         return f'''<g transform="translate({x},{y})">
     <circle r="{r}" fill="{ring_color}"/><circle r="{r_inner}" fill="{EGGSHELL}"/>
     <text font-size="10" font-weight="500" fill="#333" text-anchor="middle" dominant-baseline="central" font-family="sans-serif">{ini}</text>
-    {_name_with_stroke(name, r + 10, font_size=9)}</g>'''
+    {_name_with_stroke(name, r + 10, font_size=9)}
+    {pos_label}</g>'''
 
 
 def _pitcher_logo_node(x, y, player, team_map, ring_color, r=20, r_inner=17):
@@ -514,8 +520,8 @@ def render_lineup_svg(best_hitters, starters, relievers, title, subtitle, team_m
     <text font-size="9" fill="#666" text-anchor="middle" dominant-baseline="central" font-family="sans-serif">—</text>
     <text font-size="7" fill="#666" text-anchor="middle" y="37" font-family="sans-serif">{pos}</text></g>''')
 
-    # Pitcher sidebar (right column, brushing diamond's right edge)
-    sx = 400
+    # Pitcher sidebar (right column)
+    sx = 415
     nodes.append(f'<line x1="{sx-30}" y1="10" x2="{sx-30}" y2="390" stroke="#3a3a3a" stroke-width="1"/>')
     nodes.append(f'<text x="{sx}" y="26" font-size="8" fill="#111111" font-weight="bold" text-anchor="middle" letter-spacing="0.08em" font-family="sans-serif">STARTERS</text>')
     for i in range(3):
