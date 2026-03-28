@@ -355,6 +355,7 @@ def compute_pitching_for_lineup(df):
     slg_a = tb_a / p_oab if p_oab > 0 else 0
     ops_a = obp_a + slg_a
     k9 = (so / ip) * 9 if ip > 0 else 0
+    k7 = (so / ip) * 7 if ip > 0 else 0
     bb_pct = (bb / bf * 100) if bf > 0 else 0
     k_pct_100 = (so / bf * 100) if bf > 0 else 0
     whip = (bb + h) / ip if ip > 0 else 0
@@ -364,7 +365,7 @@ def compute_pitching_for_lineup(df):
             'SO': int(so), 'HR': int(hr), 'A': int(games),
             'ERA': round(era, 2), 'FIP': round(fip, 2),
             'K%': round(k_pct_100, 1), 'BB%': round(bb_pct, 1),
-            'K/9': round(k9, 2), 'K/BB': round(k_bb, 2), 'WHIP': round(whip, 2),
+            'K/9': round(k9, 2), 'K/7': round(k7, 2), 'K/BB': round(k_bb, 2), 'WHIP': round(whip, 2),
             'OPS Against': round(ops_a, 3)}
 
 
@@ -618,7 +619,7 @@ def render_hitter_card_html(p, pos):
 </div>'''
 
 
-def render_pitcher_card_html(p, role='Starter'):
+def render_pitcher_card_html(p, role='Starter', sport='baseball'):
     ini = _initials(p['playerName'])
     ring = LC_RED if role == 'Starter' else LC_RELIEVER_COLOR
     return f'''<div style="background:#222;border-radius:16px;border:1px solid #3a3a3a;padding:18px 16px;max-width:360px;margin:8px auto;font-family:sans-serif;">
@@ -635,7 +636,7 @@ def render_pitcher_card_html(p, role='Starter'):
     <div style="background:#2a2a2a;border-radius:8px;padding:8px 4px;text-align:center;"><div style="font-size:17px;color:#C8C8C8;">{p['K%']:.1f}</div><div style="font-size:9px;color:#888;">K%</div></div>
   </div>
   <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px;">
-    <div style="background:#2a2a2a;border-radius:8px;padding:8px 4px;text-align:center;"><div style="font-size:15px;color:#C8C8C8;">{p['K/9']:.2f}</div><div style="font-size:9px;color:#888;">K/9</div></div>
+    <div style="background:#2a2a2a;border-radius:8px;padding:8px 4px;text-align:center;"><div style="font-size:15px;color:#C8C8C8;">{p['K/7' if sport == 'softball' else 'K/9']:.2f}</div><div style="font-size:9px;color:#888;">{'K/7' if sport == 'softball' else 'K/9'}</div></div>
     <div style="background:#2a2a2a;border-radius:8px;padding:8px 4px;text-align:center;"><div style="font-size:15px;color:#C8C8C8;">{p['K/BB']:.2f}</div><div style="font-size:9px;color:#888;">K/BB</div></div>
     <div style="background:#2a2a2a;border-radius:8px;padding:8px 4px;text-align:center;"><div style="font-size:15px;color:#C8C8C8;">{p['BB%']:.1f}</div><div style="font-size:9px;color:#888;">BB%</div></div>
     <div style="background:#2a2a2a;border-radius:8px;padding:8px 4px;text-align:center;"><div style="font-size:15px;color:#C8C8C8;">{p['WHIP']:.2f}</div><div style="font-size:9px;color:#888;">WHIP</div></div>
@@ -859,28 +860,32 @@ def render_diamond_png(best_hitters, starters, relievers, title, subtitle, team_
     return buf
 
 
-def render_cards_png(best_hitters, starters, relievers, title, subtitle, team_map):
+def render_cards_png(best_hitters, starters, relievers, title, subtitle, team_map, sport='baseball'):
     """Render player detail cards as a matplotlib PNG."""
     # Build card data
+    k_key = 'K/7' if sport == 'softball' else 'K/9'
+    k_label = 'K/7' if sport == 'softball' else 'K/9'
+    dh_label = 'DP' if sport == 'softball' else 'DH'
     cards = []
     for pos in FIELD_POSITIONS:
         if pos in best_hitters:
             p = best_hitters[pos]
+            display_pos = dh_label if pos == 'DH' else pos
             top = [(f"{p['OPS']:.3f}", 'OPS'), (f"{p['wOBA']:.3f}", 'wOBA'),
                    (f"{p['wRAA']:.1f}", 'wRAA'), (f"{p['BA']:.3f}", 'AVG')]
             bot = [(p['HR'], 'HR'), (p['RBI'], 'RBI'), (p['R'], 'R'),
                    (p['BB'], 'BB'), (p['SB'], 'SB')]
-            cards.append(('hitter', p['playerName'], p.get('teamName', ''), pos, top, bot))
+            cards.append(('hitter', p['playerName'], p.get('teamName', ''), display_pos, top, bot))
     for sp in starters[:3]:
         top = [(f"{sp['ERA']:.2f}", 'ERA'), (f"{sp['FIP']:.2f}", 'FIP'),
                (f"{sp['OPS Against']:.3f}", 'OPS-A'), (sp['IP'], 'IP'), (f"{sp['K%']:.1f}", 'K%')]
-        bot = [(f"{sp['K/9']:.2f}", 'K/9'), (f"{sp['K/BB']:.2f}", 'K/BB'),
+        bot = [(f"{sp[k_key]:.2f}", k_label), (f"{sp['K/BB']:.2f}", 'K/BB'),
                (f"{sp['WHIP']:.2f}", 'WHIP'), (sp['A'], 'A')]
         cards.append(('pitcher', sp['playerName'], sp.get('teamName', ''), 'Starter', top, bot))
     for rp in relievers[:3]:
         top = [(f"{rp['ERA']:.2f}", 'ERA'), (f"{rp['FIP']:.2f}", 'FIP'),
                (f"{rp['OPS Against']:.3f}", 'OPS-A'), (rp['IP'], 'IP'), (f"{rp['K%']:.1f}", 'K%')]
-        bot = [(f"{rp['K/9']:.2f}", 'K/9'), (f"{rp['K/BB']:.2f}", 'K/BB'),
+        bot = [(f"{rp[k_key]:.2f}", k_label), (f"{rp['K/BB']:.2f}", 'K/BB'),
                (f"{rp['WHIP']:.2f}", 'WHIP'), (rp['A'], 'A')]
         cards.append(('pitcher', rp['playerName'], rp.get('teamName', ''), 'Reliever', top, bot))
 
@@ -1304,13 +1309,13 @@ elif view == 'Lineup Card':
         cols2 = st.columns(min(len(starters), 3))
         for i, sp in enumerate(starters[:3]):
             with cols2[i]:
-                st.markdown(render_pitcher_card_html(sp, 'Starter'), unsafe_allow_html=True)
+                st.markdown(render_pitcher_card_html(sp, 'Starter', sport=sport), unsafe_allow_html=True)
 
     if relievers:
         cols3 = st.columns(min(len(relievers), 3))
         for i, rp in enumerate(relievers[:3]):
             with cols3[i]:
-                st.markdown(render_pitcher_card_html(rp, 'Reliever'), unsafe_allow_html=True)
+                st.markdown(render_pitcher_card_html(rp, 'Reliever', sport=sport), unsafe_allow_html=True)
 
     # Download PNGs
     st.markdown('---')
@@ -1347,7 +1352,7 @@ elif view == 'Lineup Card':
             st.warning(f'cairosvg failed ({e}), using matplotlib fallback')
             diamond_buf = render_diamond_png(best_hitters, starters, relievers, title, subtitle, team_map)
 
-        cards_buf = render_cards_png(best_hitters, starters, relievers, title, subtitle, team_map)
+        cards_buf = render_cards_png(best_hitters, starters, relievers, title, subtitle, team_map, sport=sport)
 
     dl1, dl2 = st.columns(2)
     with dl1:
