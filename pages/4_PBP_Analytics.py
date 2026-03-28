@@ -852,8 +852,8 @@ def render_cards_png(best_hitters, starters, relievers, title, subtitle, team_ma
 
     card_w_in = 4.2
     card_h_in = 2.0
-    gap_x_in = 0.3
-    gap_y_in = 0.3
+    gap_x_in = 0.15
+    gap_y_in = 0.15
     fig_w = n_cols * card_w_in + (n_cols - 1) * gap_x_in + 0.4
     fig_h = n_rows * card_h_in + (n_rows - 1) * gap_y_in + 0.8
     fig = plt.figure(figsize=(fig_w, fig_h), facecolor='#1a1a1a')
@@ -871,14 +871,24 @@ def render_cards_png(best_hitters, starters, relievers, title, subtitle, team_ma
     def draw_card(ax, name, team, role_label, stats_top, stats_bottom, team_map, ring_color):
         ax.set_xlim(0, 10)
         ax.set_ylim(0, 5)
-        ax.set_facecolor('#222222')
+        ax.set_facecolor('none')
+        ax.patch.set_alpha(0)
         ax.set_xticks([])
         ax.set_yticks([])
         for spine in ax.spines.values():
-            spine.set_edgecolor('#3a3a3a')
-            spine.set_linewidth(1.5)
+            spine.set_visible(False)
 
-        # Logo circle — use data coords so it's a true circle
+        # Shadow (dark rounded rect offset slightly)
+        shadow = mpatches.FancyBboxPatch((0.08, -0.08), 9.84, 4.84,
+            boxstyle='round,pad=0.25', facecolor='#00000044', edgecolor='none', zorder=1)
+        ax.add_patch(shadow)
+        # Card background (rounded rect with white stroke)
+        card_bg = mpatches.FancyBboxPatch((0.1, 0.1), 9.8, 4.8,
+            boxstyle='round,pad=0.25', facecolor='#222222', edgecolor='#FFFFFF',
+            linewidth=1.5, zorder=2)
+        ax.add_patch(card_bg)
+
+        # Logo circle
         ring = plt.Circle((1.2, 3.7), 0.55, color=ring_color, zorder=5)
         ax.add_patch(ring)
         eg = plt.Circle((1.2, 3.7), 0.45, color=EGGSHELL, zorder=5)
@@ -892,29 +902,33 @@ def render_cards_png(best_hitters, starters, relievers, title, subtitle, team_ma
             ax.text(1.2, 3.7, _initials(name), ha='center', va='center', fontsize=11,
                     fontweight='bold', color='#333', zorder=7)
 
-        # Name and role
-        ax.text(2.5, 4.05, name, ha='left', va='center', fontsize=11,
-                fontweight='bold', color='#C8C8C8')
-        ax.text(2.5, 3.35, f'{team} · {role_label}', ha='left', va='center',
-                fontsize=8, color='#888')
+        # Name and team (left column)
+        ax.text(2.5, 4.15, name, ha='left', va='center', fontsize=14,
+                fontweight='bold', color='#FFFFFF', zorder=7)
+        ax.text(2.5, 3.5, team, ha='left', va='center',
+                fontsize=8, color='#aaa', zorder=7)
+
+        # Position/role (right column, emphasized)
+        ax.text(9.5, 3.85, role_label, ha='right', va='center', fontsize=18,
+                fontweight='bold', color='#FFFFFF', alpha=0.9, zorder=7)
 
         # Divider
-        ax.axhline(y=2.8, color='#3a3a3a', linewidth=0.5)
+        ax.plot([0.5, 9.5], [2.85, 2.85], color='#3a3a3a', linewidth=0.5, zorder=3)
 
         # Top stats row
         n_top = len(stats_top)
         for j, (val, label) in enumerate(stats_top):
             cx = (j + 0.5) / n_top * 10
             ax.text(cx, 2.1, str(val), ha='center', va='center', fontsize=13,
-                    fontweight='bold', color=LC_RED)
-            ax.text(cx, 1.5, label, ha='center', va='center', fontsize=7, color='#888')
+                    fontweight='bold', color=LC_RED, zorder=7)
+            ax.text(cx, 1.5, label, ha='center', va='center', fontsize=7, color='#888', zorder=7)
 
         # Bottom stats row
         n_bot = len(stats_bottom)
         for j, (val, label) in enumerate(stats_bottom):
             cx = (j + 0.5) / n_bot * 10
-            ax.text(cx, 0.8, str(val), ha='center', va='center', fontsize=11, color='#C8C8C8')
-            ax.text(cx, 0.2, label, ha='center', va='center', fontsize=7, color='#888')
+            ax.text(cx, 0.8, str(val), ha='center', va='center', fontsize=11, color='#C8C8C8', zorder=7)
+            ax.text(cx, 0.2, label, ha='center', va='center', fontsize=7, color='#888', zorder=7)
 
     for idx, (ctype, name, team, role, top_stats, bot_stats) in enumerate(cards):
         r = idx // n_cols
