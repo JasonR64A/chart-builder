@@ -1282,7 +1282,28 @@ elif view == 'Lineup Card':
     st.markdown('---')
     st.markdown('### Download')
     with st.spinner('Rendering PNGs...'):
-        diamond_buf = render_diamond_png(best_hitters, starters, relievers, title, subtitle, team_map)
+        # Convert the SVG directly to PNG for pixel-perfect match
+        import cairosvg
+        diamond_buf = BytesIO()
+        # Wrap SVG with proper XML header and background
+        svg_full = f'''<?xml version="1.0" encoding="UTF-8"?>
+<svg width="460" height="440" viewBox="0 -20 460 420" xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink">
+<rect x="0" y="-20" width="460" height="440" fill="#1a1a1a"/>
+{svg.split('xmlns="http://www.w3.org/2000/svg">')[1].split('</svg>')[0]}
+</svg>'''
+        # Add background image if available
+        bg_path = _APP_DIR / 'assets' / 'bg_pattern.jpg'
+        if bg_path.exists():
+            bg_data = bg_path.read_bytes()
+            bg_b64 = base64.b64encode(bg_data).decode()
+            svg_full = svg_full.replace(
+                '<rect x="0" y="-20" width="460" height="440" fill="#1a1a1a"/>',
+                f'<image href="data:image/jpeg;base64,{bg_b64}" x="0" y="-20" width="460" height="440" preserveAspectRatio="xMidYMid slice"/>'
+            )
+        cairosvg.svg2png(bytestring=svg_full.encode('utf-8'), write_to=diamond_buf,
+                         output_width=1840, output_height=1760)
+        diamond_buf.seek(0)
         cards_buf = render_cards_png(best_hitters, starters, relievers, title, subtitle, team_map)
 
     dl1, dl2 = st.columns(2)
