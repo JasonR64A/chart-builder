@@ -433,10 +433,10 @@ def _last_name(name):
 
 
 POS_COORDS = {
-    'CF': (230, 24), 'LF': (108, 97), 'RF': (352, 97),
-    'SS': (196, 162), '2B': (264, 162),
-    '3B': (152, 222), '1B': (308, 222),
-    'C': (230, 277), 'DH': (230, 345),
+    'CF': (190, 24), 'LF': (68, 97), 'RF': (312, 97),
+    'SS': (156, 162), '2B': (224, 162),
+    '3B': (112, 222), '1B': (268, 222),
+    'C': (190, 277), 'DH': (190, 345),
 }
 
 
@@ -457,15 +457,15 @@ def _logo_node(x, y, player, pos, team_map, ring_color, r=22, r_inner=19):
     <circle r="{r_inner}" fill="{EGGSHELL}"/>
     <clipPath id="{clip_id}"><circle r="{r_inner}"/></clipPath>
     <image href="{logo_b64}" x="-{r_inner}" y="-{r_inner}" width="{r_inner*2}" height="{r_inner*2}" clip-path="url(#{clip_id})" preserveAspectRatio="xMidYMid slice"/>
-    <text font-size="7" fill="#c8a880" text-anchor="middle" y="{r+7}" font-family="sans-serif">{name}</text>
-    <text font-size="6.5" fill="#9a8060" text-anchor="middle" y="{r+15}" font-family="sans-serif">{pos}</text></g>'''
+    <text font-size="7" fill="#111111" font-weight="bold" text-anchor="middle" y="{r+7}" font-family="sans-serif">{name}</text>
+    <text font-size="6.5" fill="#222222" font-weight="bold" text-anchor="middle" y="{r+15}" font-family="sans-serif">{pos}</text></g>'''
     else:
         ini = _initials(name)
         return f'''<g transform="translate({x},{y})">
     <circle r="{r}" fill="{ring_color}"/><circle r="{r_inner}" fill="{EGGSHELL}"/>
     <text font-size="10" font-weight="500" fill="#333" text-anchor="middle" dominant-baseline="central" font-family="sans-serif">{ini}</text>
-    <text font-size="7" fill="#c8a880" text-anchor="middle" y="{r+7}" font-family="sans-serif">{name}</text>
-    <text font-size="6.5" fill="#9a8060" text-anchor="middle" y="{r+15}" font-family="sans-serif">{pos}</text></g>'''
+    <text font-size="7" fill="#111111" font-weight="bold" text-anchor="middle" y="{r+7}" font-family="sans-serif">{name}</text>
+    <text font-size="6.5" fill="#222222" font-weight="bold" text-anchor="middle" y="{r+15}" font-family="sans-serif">{pos}</text></g>'''
 
 
 def _pitcher_logo_node(x, y, player, team_map, ring_color, r=20, r_inner=17):
@@ -482,13 +482,13 @@ def _pitcher_logo_node(x, y, player, team_map, ring_color, r=20, r_inner=17):
     <circle r="{r_inner}" fill="{EGGSHELL}"/>
     <clipPath id="{clip_id}"><circle r="{r_inner}"/></clipPath>
     <image href="{logo_b64}" x="-{r_inner}" y="-{r_inner}" width="{r_inner*2}" height="{r_inner*2}" clip-path="url(#{clip_id})" preserveAspectRatio="xMidYMid slice"/>
-    <text font-size="7" fill="#c8a880" text-anchor="middle" y="25" font-family="sans-serif">{name}</text></g>'''
+    <text font-size="7" fill="#111111" font-weight="bold" text-anchor="middle" y="25" font-family="sans-serif">{name}</text></g>'''
     else:
         ini = _initials(name)
         return f'''<g transform="translate({x},{y})">
     <circle r="{r}" fill="{ring_color}"/><circle r="{r_inner}" fill="{EGGSHELL}"/>
     <text font-size="9" font-weight="500" fill="#333" text-anchor="middle" dominant-baseline="central" font-family="sans-serif">{ini}</text>
-    <text font-size="7" fill="#c8a880" text-anchor="middle" y="25" font-family="sans-serif">{name}</text></g>'''
+    <text font-size="7" fill="#111111" font-weight="bold" text-anchor="middle" y="25" font-family="sans-serif">{name}</text></g>'''
 
 
 def render_lineup_svg(best_hitters, starters, relievers, title, subtitle, team_map):
@@ -503,23 +503,24 @@ def render_lineup_svg(best_hitters, starters, relievers, title, subtitle, team_m
     <text font-size="9" fill="#666" text-anchor="middle" dominant-baseline="central" font-family="sans-serif">—</text>
     <text font-size="7" fill="#666" text-anchor="middle" y="37" font-family="sans-serif">{pos}</text></g>''')
 
-    # Pitcher sidebar
-    nodes.append('<line x1="416" y1="10" x2="416" y2="390" stroke="#3a3a3a" stroke-width="1"/>')
-    nodes.append('<text x="438" y="26" font-size="8" fill="#a89880" text-anchor="middle" letter-spacing="0.08em" font-family="sans-serif">STARTERS</text>')
+    # Pitcher sidebar (right column, centered at x=470)
+    sx = 470
+    nodes.append(f'<line x1="{sx-30}" y1="10" x2="{sx-30}" y2="390" stroke="#3a3a3a" stroke-width="1"/>')
+    nodes.append(f'<text x="{sx}" y="26" font-size="8" fill="#111111" font-weight="bold" text-anchor="middle" letter-spacing="0.08em" font-family="sans-serif">STARTERS</text>')
     for i in range(3):
         y = 58 + i * 56
         if i < len(starters):
-            nodes.append(_pitcher_logo_node(438, y, starters[i], team_map, LC_RED))
+            nodes.append(_pitcher_logo_node(sx, y, starters[i], team_map, LC_RED))
         else:
-            nodes.append(f'<g transform="translate(438,{y})"><circle r="20" fill="#555"/><circle r="17" fill="#1c2a38"/><text font-size="9" fill="#666" text-anchor="middle" dominant-baseline="central" font-family="sans-serif">—</text></g>')
+            nodes.append(f'<g transform="translate({sx},{y})"><circle r="20" fill="#555"/><circle r="17" fill="#1c2a38"/><text font-size="9" fill="#666" text-anchor="middle" dominant-baseline="central" font-family="sans-serif">—</text></g>')
 
-    nodes.append('<text x="438" y="218" font-size="8" fill="#a89880" text-anchor="middle" letter-spacing="0.08em" font-family="sans-serif">RELIEVERS</text>')
+    nodes.append(f'<text x="{sx}" y="218" font-size="8" fill="#111111" font-weight="bold" text-anchor="middle" letter-spacing="0.08em" font-family="sans-serif">RELIEVERS</text>')
     for i in range(3):
         y = 246 + i * 56
         if i < len(relievers):
-            nodes.append(_pitcher_logo_node(438, y, relievers[i], team_map, LC_RELIEVER_COLOR))
+            nodes.append(_pitcher_logo_node(sx, y, relievers[i], team_map, LC_RELIEVER_COLOR))
         else:
-            nodes.append(f'<g transform="translate(438,{y})"><circle r="20" fill="#555"/><circle r="17" fill="#1c2a38"/><text font-size="9" fill="#666" text-anchor="middle" dominant-baseline="central" font-family="sans-serif">—</text></g>')
+            nodes.append(f'<g transform="translate({sx},{y})"><circle r="20" fill="#555"/><circle r="17" fill="#1c2a38"/><text font-size="9" fill="#666" text-anchor="middle" dominant-baseline="central" font-family="sans-serif">—</text></g>')
 
     # Brand logo for center field
     brand_b64 = get_logo_base64('brand') if False else None
@@ -528,35 +529,26 @@ def render_lineup_svg(best_hitters, starters, relievers, title, subtitle, team_m
         brand_data = brand_path.read_bytes()
         brand_b64 = f'data:image/png;base64,{base64.b64encode(brand_data).decode()}'
 
-    svg = f'''<svg width="100%" viewBox="0 -20 460 420" xmlns="http://www.w3.org/2000/svg">
-  <text x="230" y="-10" font-size="14" font-weight="600" fill="#C8C8C8" text-anchor="middle" font-family="sans-serif">{title}</text>
-  <text x="230" y="6" font-size="9" fill="#888" text-anchor="middle" font-family="sans-serif">{subtitle}</text>
-  <!-- Field shifted up 30px -->
-  <path d="M230,310 L50,60 Q230,-30 410,60 Z" fill="#2d8a45"/>
-  <path d="M50,60 Q230,-30 410,60" fill="none" stroke="{LC_RED}" stroke-width="10"/>
-  <line x1="230" y1="310" x2="50" y2="60" stroke="{LC_RED}" stroke-width="8"/>
-  <line x1="230" y1="310" x2="410" y2="60" stroke="{LC_RED}" stroke-width="8"/>
-  <path d="M230,310 L128,190 Q230,120 332,190 Z" fill="#c8883a"/>
-  <path d="M230,310 L144,200 Q230,136 316,200 Z" fill="#2d8a45"/>
-  <rect x="222" y="138" width="16" height="16" rx="2" fill="#f5efe0" transform="rotate(45 230 146)"/>
-  <rect x="308" y="198" width="14" height="14" rx="2" fill="#f5efe0" transform="rotate(45 315 205)"/>
-  <rect x="148" y="198" width="14" height="14" rx="2" fill="#f5efe0" transform="rotate(45 155 205)"/>
-  <polygon points="230,296 220,286 220,276 240,276 240,286" fill="#f5efe0"/>
+    svg = f'''<svg width="100%" viewBox="0 0 520 400" xmlns="http://www.w3.org/2000/svg">
+  <!-- Diamond (left column, centered at x=190) -->
+  <path d="M190,310 L10,60 Q190,-30 370,60 Z" fill="#2d8a45"/>
+  <path d="M10,60 Q190,-30 370,60" fill="none" stroke="{LC_RED}" stroke-width="10"/>
+  <line x1="190" y1="310" x2="10" y2="60" stroke="{LC_RED}" stroke-width="8"/>
+  <line x1="190" y1="310" x2="370" y2="60" stroke="{LC_RED}" stroke-width="8"/>
+  <path d="M190,310 L88,190 Q190,120 292,190 Z" fill="#c8883a"/>
+  <path d="M190,310 L104,200 Q190,136 276,200 Z" fill="#2d8a45"/>
+  <rect x="182" y="138" width="16" height="16" rx="2" fill="#f5efe0" transform="rotate(45 190 146)"/>
+  <rect x="268" y="198" width="14" height="14" rx="2" fill="#f5efe0" transform="rotate(45 275 205)"/>
+  <rect x="108" y="198" width="14" height="14" rx="2" fill="#f5efe0" transform="rotate(45 115 205)"/>
+  <polygon points="190,296 180,286 180,276 200,276 200,286" fill="#f5efe0"/>
   <!-- Mound -->
-  <circle cx="230" cy="220" r="9" fill="#b87830" opacity="0.9"/>
-  <circle cx="230" cy="220" r="4" fill="#a06820"/>
+  <circle cx="190" cy="220" r="9" fill="#b87830" opacity="0.9"/>
+  <circle cx="190" cy="220" r="4" fill="#a06820"/>
   <!-- Brand logo in center field -->
-  {f'<image href="{brand_b64}" x="168" y="45" width="125" height="125" opacity="0.9" preserveAspectRatio="xMidYMid meet"/>' if brand_b64 else ''}
+  {f'<image href="{brand_b64}" x="128" y="45" width="125" height="125" opacity="0.9" preserveAspectRatio="xMidYMid meet"/>' if brand_b64 else ''}
   {chr(10).join(nodes)}
 </svg>
-<div style="display:flex;gap:16px;justify-content:center;padding:6px 0;flex-wrap:wrap;">
-  <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:#888;">
-    <div style="width:10px;height:10px;border-radius:50%;background:#C41230;"></div>Fielder / Starter</div>
-  <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:#888;">
-    <div style="width:10px;height:10px;border-radius:50%;background:#22d3a0;"></div>DH</div>
-  <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:#888;">
-    <div style="width:10px;height:10px;border-radius:50%;background:#a855f7;"></div>Reliever</div>
-</div>'''
+'''
     return svg
 
 
