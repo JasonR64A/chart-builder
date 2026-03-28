@@ -646,13 +646,30 @@ def _draw_circle_logo(ax, x, y, team_name, team_map, ring_color, zoom=0.08):
     return False
 
 
+def _load_bg_image():
+    """Load the branded background pattern."""
+    bg_path = _APP_DIR / 'assets' / 'bg_pattern.jpg'
+    if bg_path.exists():
+        return Image.open(bg_path).convert('RGB')
+    return None
+
+
 def render_diamond_png(best_hitters, starters, relievers, title, subtitle, team_map):
     """Render the lineup card diamond as a matplotlib PNG."""
     fig = plt.figure(figsize=(12, 10), facecolor='#1a1a1a')
+
+    # Background pattern
+    bg_img = _load_bg_image()
+    if bg_img:
+        bg_ax = fig.add_axes([0, 0, 1, 1])
+        bg_ax.imshow(np.array(bg_img), aspect='auto', extent=[0, 1, 0, 1], zorder=0)
+        bg_ax.axis('off')
+
     ax = fig.add_axes([0, 0, 0.85, 1])
     ax.set_xlim(0, 460)
     ax.set_ylim(0, 420)
-    ax.set_facecolor('#1a1a1a')
+    ax.set_facecolor('none')
+    ax.patch.set_alpha(0)
     ax.set_aspect('equal')
     ax.axis('off')
 
@@ -742,7 +759,8 @@ def render_diamond_png(best_hitters, starters, relievers, title, subtitle, team_
     sidebar_ax = fig.add_axes([0.85, 0, 0.15, 1])
     sidebar_ax.set_xlim(0, 1)
     sidebar_ax.set_ylim(0, 1)
-    sidebar_ax.set_facecolor('#1a1a1a')
+    sidebar_ax.set_facecolor('none')
+    sidebar_ax.patch.set_alpha(0)
     sidebar_ax.axis('off')
 
     sidebar_ax.axvline(x=0.05, color='#3a3a3a', linewidth=1)
@@ -840,8 +858,15 @@ def render_cards_png(best_hitters, starters, relievers, title, subtitle, team_ma
     fig_h = n_rows * card_h_in + (n_rows - 1) * gap_y_in + 0.8
     fig = plt.figure(figsize=(fig_w, fig_h), facecolor='#1a1a1a')
 
+    # Background pattern
+    bg_img = _load_bg_image()
+    if bg_img:
+        bg_ax = fig.add_axes([0, 0, 1, 1])
+        bg_ax.imshow(np.array(bg_img), aspect='auto', extent=[0, 1, 0, 1], zorder=0)
+        bg_ax.axis('off')
+
     # Subtitle only, centered at top
-    fig.text(0.5, 1 - 0.25 / fig_h, subtitle, ha='center', va='top', fontsize=11, color='#888')
+    fig.text(0.5, 1 - 0.25 / fig_h, subtitle, ha='center', va='top', fontsize=11, color='#C8C8C8')
 
     def draw_card(ax, name, team, role_label, stats_top, stats_bottom, team_map, ring_color):
         ax.set_xlim(0, 10)
