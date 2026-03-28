@@ -868,30 +868,35 @@ def render_cards_png(best_hitters, starters, relievers, title, subtitle, team_ma
     # Subtitle only, centered at top
     fig.text(0.5, 1 - 0.25 / fig_h, subtitle, ha='center', va='top', fontsize=11, color='#C8C8C8')
 
-    def draw_card(ax, name, team, role_label, stats_top, stats_bottom, team_map, ring_color):
-        ax.set_xlim(0, 10)
-        ax.set_ylim(0, 5)
-        ax.set_facecolor('none')
-        ax.patch.set_alpha(0)
-        ax.set_xticks([])
-        ax.set_yticks([])
-        for spine in ax.spines.values():
-            spine.set_visible(False)
+    # Map role labels for display
+    ROLE_DISPLAY = {'Starter': 'SP', 'Reliever': 'RP'}
 
-        # Shadow (dark rounded rect offset slightly)
-        shadow = mpatches.FancyBboxPatch((0.08, -0.08), 9.84, 4.84,
-            boxstyle='round,pad=0.25', facecolor='#00000044', edgecolor='none', zorder=1)
-        ax.add_patch(shadow)
-        # Card background (rounded rect with white stroke)
-        card_bg = mpatches.FancyBboxPatch((0.1, 0.1), 9.8, 4.8,
-            boxstyle='round,pad=0.25', facecolor='#222222', edgecolor='#FFFFFF',
-            linewidth=1.5, zorder=2)
+    def draw_card(fig, left, bottom, w_frac, h_frac, name, team, role_label, stats_top, stats_bottom, team_map, ring_color):
+        display_role = ROLE_DISPLAY.get(role_label, role_label)
+
+        # Shadow rect (slightly offset)
+        shadow_ax = fig.add_axes([left + 0.003, bottom - 0.003, w_frac, h_frac])
+        shadow_ax.set_xlim(0, 10); shadow_ax.set_ylim(0, 5)
+        shadow_ax.axis('off')
+        shadow_bg = mpatches.FancyBboxPatch((0, 0), 10, 5,
+            boxstyle='round,pad=0.3', facecolor='#000000', alpha=0.4, edgecolor='none', zorder=1)
+        shadow_ax.add_patch(shadow_bg)
+
+        # Main card
+        ax = fig.add_axes([left, bottom, w_frac, h_frac])
+        ax.set_xlim(0, 10); ax.set_ylim(0, 5)
+        ax.axis('off')
+
+        # Rounded card background with white stroke
+        card_bg = mpatches.FancyBboxPatch((0, 0), 10, 5,
+            boxstyle='round,pad=0.3', facecolor='#222222', edgecolor='#FFFFFF',
+            linewidth=2, zorder=2)
         ax.add_patch(card_bg)
 
         # Logo circle
-        ring = plt.Circle((1.2, 3.7), 0.55, color=ring_color, zorder=5)
+        ring = plt.Circle((1.2, 3.7), 0.55, color=ring_color, zorder=5, clip_on=False)
         ax.add_patch(ring)
-        eg = plt.Circle((1.2, 3.7), 0.45, color=EGGSHELL, zorder=5)
+        eg = plt.Circle((1.2, 3.7), 0.45, color=EGGSHELL, zorder=5, clip_on=False)
         ax.add_patch(eg)
         logo = _load_logo_pil(team, team_map, size=120)
         if logo:
@@ -903,17 +908,17 @@ def render_cards_png(best_hitters, starters, relievers, title, subtitle, team_ma
                     fontweight='bold', color='#333', zorder=7)
 
         # Name and team (left column)
-        ax.text(2.5, 4.15, name, ha='left', va='center', fontsize=14,
+        ax.text(2.5, 4.15, name, ha='left', va='center', fontsize=18,
                 fontweight='bold', color='#FFFFFF', zorder=7)
-        ax.text(2.5, 3.5, team, ha='left', va='center',
+        ax.text(2.5, 3.35, team, ha='left', va='center',
                 fontsize=8, color='#aaa', zorder=7)
 
-        # Position/role (right column, emphasized)
-        ax.text(9.5, 3.85, role_label, ha='right', va='center', fontsize=18,
+        # Position/role (right column, large)
+        ax.text(9.5, 3.85, display_role, ha='right', va='center', fontsize=22,
                 fontweight='bold', color='#FFFFFF', alpha=0.9, zorder=7)
 
         # Divider
-        ax.plot([0.5, 9.5], [2.85, 2.85], color='#3a3a3a', linewidth=0.5, zorder=3)
+        ax.plot([0.5, 9.5], [2.85, 2.85], color='#444', linewidth=0.8, zorder=3)
 
         # Top stats row
         n_top = len(stats_top)
@@ -937,9 +942,8 @@ def render_cards_png(best_hitters, starters, relievers, title, subtitle, team_ma
         bottom = 1.0 - (0.6 + (r + 1) * card_h_in + r * gap_y_in) / fig_h
         w_frac = card_w_in / fig_w
         h_frac = card_h_in / fig_h
-        card_ax = fig.add_axes([left, bottom, w_frac, h_frac])
         ring_color = LC_RELIEVER_COLOR if role == 'Reliever' else (LC_DH_COLOR if role == 'DH' else LC_RED)
-        draw_card(card_ax, name, team, role, top_stats, bot_stats, team_map, ring_color)
+        draw_card(fig, left, bottom, w_frac, h_frac, name, team, role, top_stats, bot_stats, team_map, ring_color)
 
     buf = BytesIO()
     fig.savefig(buf, format='png', dpi=180, facecolor='#1a1a1a', edgecolor='none', bbox_inches='tight')
