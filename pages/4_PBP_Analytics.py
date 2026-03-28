@@ -1278,9 +1278,7 @@ elif view == 'Lineup Card':
     # Render SVG
     title = f"Players of the Period"
     subtitle = f"{sport.title()} {division} · {period_label}"
-    from datetime import date as _date
-    date_label = _date.today().strftime('%b %d, %Y')
-    svg = render_lineup_svg(best_hitters, starters, relievers, title, subtitle, team_map, date_label=date_label)
+    svg = render_lineup_svg(best_hitters, starters, relievers, title, subtitle, team_map, date_label=period_label)
     st.markdown(svg, unsafe_allow_html=True)
 
     # Detail cards
