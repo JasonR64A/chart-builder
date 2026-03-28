@@ -732,8 +732,10 @@ def render_diamond_png(best_hitters, starters, relievers, title, subtitle, team_
                 ax.add_patch(ring)
                 eggshell = plt.Circle((px, py), 19, color=EGGSHELL, zorder=5)
                 ax.add_patch(eggshell)
-                arr = np.array(logo)
-                im = OffsetImage(arr, zoom=0.30)
+                # Resize logo to fit circle and center it
+                logo_resized = logo.resize((36, 36), Image.LANCZOS)
+                arr = np.array(logo_resized)
+                im = OffsetImage(arr, zoom=1.0)
                 ab = AnnotationBbox(im, (px, py), frameon=False, zorder=6)
                 ax.add_artist(ab)
             else:
@@ -908,8 +910,20 @@ def render_cards_png(best_hitters, starters, relievers, title, subtitle, team_ma
             ax.text(1.2, 3.7, _initials(name), ha='center', va='center', fontsize=11,
                     fontweight='bold', color='#333', zorder=7)
 
+        # Dynamic name size: shorter names get bigger font, long names shrink to fit
+        # Reserve space for position label on the right (~2 chars for pos like SS, SP)
+        max_name_chars = len(name)
+        if max_name_chars <= 12:
+            name_size = 18
+        elif max_name_chars <= 16:
+            name_size = 16
+        elif max_name_chars <= 20:
+            name_size = 14
+        else:
+            name_size = 12
+
         # Name and team (left column)
-        ax.text(2.5, 4.15, name, ha='left', va='center', fontsize=18,
+        ax.text(2.5, 4.15, name, ha='left', va='center', fontsize=name_size,
                 fontweight='bold', color='#FFFFFF', zorder=7)
         ax.text(2.5, 3.35, team, ha='left', va='center',
                 fontsize=8, color='#aaa', zorder=7)
