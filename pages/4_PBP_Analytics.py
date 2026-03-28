@@ -368,10 +368,18 @@ def compute_pitching_for_lineup(df):
             'OPS Against': round(ops_a, 3)}
 
 
-def get_best_hitters(hitting_df, league_woba, min_pa=10):
+def get_best_hitters(hitting_df, league_woba, min_pa=10, sport='baseball'):
     best = {}
+    dh_label = 'DP' if sport == 'softball' else 'DH'
     for pos in FIELD_POSITIONS:
-        pos_df = hitting_df[hitting_df['playerPosition'] == pos]
+        if pos == 'DH':
+            # For softball, combine DH + DP into the designated player slot
+            if sport == 'softball':
+                pos_df = hitting_df[hitting_df['playerPosition'].isin(['DH', 'DP'])]
+            else:
+                pos_df = hitting_df[hitting_df['playerPosition'] == 'DH']
+        else:
+            pos_df = hitting_df[hitting_df['playerPosition'] == pos]
         if len(pos_df) == 0:
             continue
         rows = []
@@ -456,17 +464,18 @@ def _name_with_stroke(name, y_offset, font_size=9):
           font-family="sans-serif" font-weight="bold">{name}</text>'''
 
 
-def _logo_node(x, y, player, pos, team_map, ring_color, r=22, r_inner=19):
-    """Render a player node with team logo in circle and name below. DH gets position label."""
+def _logo_node(x, y, player, pos, team_map, ring_color, r=22, r_inner=19, sport='baseball'):
+    """Render a player node with team logo in circle and name below. DH/DP gets position label."""
     name = player['playerName']
     team = player.get('teamName', '')
     logo_id = team_map.get(team)
     logo_b64 = get_logo_base64(logo_id) if logo_id else None
     clip_id = f"clip-{pos}-{x}-{y}"
+    dh_label = 'DP' if sport == 'softball' else 'DH'
     pos_label = f'''<text font-size="7" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linejoin="round"
-          text-anchor="middle" y="{r+19}" font-family="sans-serif" font-weight="bold">DH</text>
+          text-anchor="middle" y="{r+19}" font-family="sans-serif" font-weight="bold">{dh_label}</text>
     <text font-size="7" fill="#111111" text-anchor="middle" y="{r+19}"
-          font-family="sans-serif" font-weight="bold">DH</text>''' if pos == 'DH' else ''
+          font-family="sans-serif" font-weight="bold">{dh_label}</text>''' if pos == 'DH' else ''
 
     if logo_b64:
         return f'''<g transform="translate({x},{y})">
@@ -508,12 +517,12 @@ def _pitcher_logo_node(x, y, player, team_map, ring_color, r=20, r_inner=17):
     {_name_with_stroke(name, 27, font_size=8)}</g>'''
 
 
-def render_lineup_svg(best_hitters, starters, relievers, title, subtitle, team_map, date_label=''):
+def render_lineup_svg(best_hitters, starters, relievers, title, subtitle, team_map, date_label='', sport='baseball'):
     nodes = []
     for pos, (x, y) in POS_COORDS.items():
         if pos in best_hitters:
             color = LC_DH_COLOR if pos == 'DH' else LC_RED
-            nodes.append(_logo_node(x, y, best_hitters[pos], pos, team_map, color))
+            nodes.append(_logo_node(x, y, best_hitters[pos], pos, team_map, color, sport=sport))
         else:
             nodes.append(f'''<g transform="translate({x},{y})">
     <circle r="22" fill="#555"/><circle r="19" fill="#1c2a38"/>
@@ -1269,7 +1278,7 @@ elif view == 'Lineup Card':
     # Compute best players
     league_stats = compute_hitting_stats(hitting_pbp)
     league_woba = league_stats['wOBA']
-    best_hitters = get_best_hitters(hitting_pbp, league_woba, min_pa=min_pa_lc)
+    best_hitters = get_best_hitters(hitting_pbp, league_woba, min_pa=min_pa_lc, sport=sport)
     starters, relievers = get_best_pitchers(pitching_pbp, min_bf_sp=min_bf_sp, min_bf_rp=min_bf_rp)
 
     # Load team logo map
@@ -1278,7 +1287,7 @@ elif view == 'Lineup Card':
     # Render SVG
     title = f"Players of the Period"
     subtitle = f"{sport.title()} {division} · {period_label}"
-    svg = render_lineup_svg(best_hitters, starters, relievers, title, subtitle, team_map, date_label=period_label)
+    svg = render_lineup_svg(best_hitters, starters, relievers, title, subtitle, team_map, date_label=period_label, sport=sport)
     st.markdown(svg, unsafe_allow_html=True)
 
     # Detail cards
