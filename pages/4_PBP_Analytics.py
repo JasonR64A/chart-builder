@@ -706,13 +706,13 @@ def render_diamond_png(best_hitters, starters, relievers, title, subtitle, team_
     mound = plt.Circle((230, 220), 7, color='#b87830', zorder=3)
     ax.add_patch(mound)
 
-    # Brand logo in CF — resize to fixed pixel size to avoid zoom issues
+    # Brand logo in CF — match the website SVG size (~125px)
     brand_path = _APP_DIR / 'assets' / 'brand_logo_dark.png'
     if brand_path.exists():
         brand_img = Image.open(brand_path).convert('RGBA')
-        brand_img.thumbnail((80, 80), Image.LANCZOS)
+        brand_img.thumbnail((250, 250), Image.LANCZOS)
         brand_arr = np.array(brand_img)
-        brand_im = OffsetImage(brand_arr, zoom=0.6)
+        brand_im = OffsetImage(brand_arr, zoom=0.45)
         brand_ab = AnnotationBbox(brand_im, (230, 107), frameon=False, zorder=4)
         ax.add_artist(brand_ab)
 
