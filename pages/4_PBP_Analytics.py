@@ -355,13 +355,16 @@ def compute_pitching_for_lineup(df):
     slg_a = tb_a / p_oab if p_oab > 0 else 0
     ops_a = obp_a + slg_a
     k9 = (so / ip) * 9 if ip > 0 else 0
-    bb_pct = bb / bf if bf > 0 else 0
+    bb_pct = (bb / bf * 100) if bf > 0 else 0
+    k_pct_100 = (so / bf * 100) if bf > 0 else 0
     whip = (bb + h) / ip if ip > 0 else 0
+    k_bb = so / bb if bb > 0 else so
     return {'IP': _outs_to_ip_display(total_outs), 'IP_actual': ip,
             'BF': int(bf), 'H': int(h), 'ER': int(er), 'BB': int(bb),
             'SO': int(so), 'HR': int(hr), 'A': int(games),
-            'ERA': round(era, 2), 'FIP': round(fip, 2), 'K%': round(k_pct, 3),
-            'K/9': round(k9, 2), 'BB%': round(bb_pct, 3), 'WHIP': round(whip, 2),
+            'ERA': round(era, 2), 'FIP': round(fip, 2),
+            'K%': round(k_pct_100, 1), 'BB%': round(bb_pct, 1),
+            'K/9': round(k9, 2), 'K/BB': round(k_bb, 2), 'WHIP': round(whip, 2),
             'OPS Against': round(ops_a, 3)}
 
 
@@ -595,11 +598,12 @@ def render_pitcher_card_html(p, role='Starter'):
     <div style="background:#2a2a2a;border-radius:8px;padding:8px 4px;text-align:center;"><div style="font-size:17px;font-weight:500;color:#C41230;">{p['FIP']:.2f}</div><div style="font-size:9px;color:#888;">FIP</div></div>
     <div style="background:#2a2a2a;border-radius:8px;padding:8px 4px;text-align:center;"><div style="font-size:17px;font-weight:500;color:#C41230;">{p['OPS Against']:.3f}</div><div style="font-size:9px;color:#888;">OPS-A</div></div>
     <div style="background:#2a2a2a;border-radius:8px;padding:8px 4px;text-align:center;"><div style="font-size:17px;color:#C8C8C8;">{p['IP']}</div><div style="font-size:9px;color:#888;">IP</div></div>
-    <div style="background:#2a2a2a;border-radius:8px;padding:8px 4px;text-align:center;"><div style="font-size:17px;color:#C8C8C8;">{p['K%']:.3f}</div><div style="font-size:9px;color:#888;">K%</div></div>
+    <div style="background:#2a2a2a;border-radius:8px;padding:8px 4px;text-align:center;"><div style="font-size:17px;color:#C8C8C8;">{p['K%']:.1f}</div><div style="font-size:9px;color:#888;">K%</div></div>
   </div>
-  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;">
+  <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px;">
     <div style="background:#2a2a2a;border-radius:8px;padding:8px 4px;text-align:center;"><div style="font-size:15px;color:#C8C8C8;">{p['K/9']:.2f}</div><div style="font-size:9px;color:#888;">K/9</div></div>
-    <div style="background:#2a2a2a;border-radius:8px;padding:8px 4px;text-align:center;"><div style="font-size:15px;color:#C8C8C8;">{p['BB%']:.3f}</div><div style="font-size:9px;color:#888;">BB%</div></div>
+    <div style="background:#2a2a2a;border-radius:8px;padding:8px 4px;text-align:center;"><div style="font-size:15px;color:#C8C8C8;">{p['K/BB']:.2f}</div><div style="font-size:9px;color:#888;">K/BB</div></div>
+    <div style="background:#2a2a2a;border-radius:8px;padding:8px 4px;text-align:center;"><div style="font-size:15px;color:#C8C8C8;">{p['BB%']:.1f}</div><div style="font-size:9px;color:#888;">BB%</div></div>
     <div style="background:#2a2a2a;border-radius:8px;padding:8px 4px;text-align:center;"><div style="font-size:15px;color:#C8C8C8;">{p['WHIP']:.2f}</div><div style="font-size:9px;color:#888;">WHIP</div></div>
     <div style="background:#2a2a2a;border-radius:8px;padding:8px 4px;text-align:center;"><div style="font-size:15px;color:#C8C8C8;">{p['A']}</div><div style="font-size:9px;color:#888;">A</div></div>
   </div>
@@ -813,14 +817,14 @@ def render_cards_png(best_hitters, starters, relievers, title, subtitle, team_ma
             cards.append(('hitter', p['playerName'], p.get('teamName', ''), pos, top, bot))
     for sp in starters[:3]:
         top = [(f"{sp['ERA']:.2f}", 'ERA'), (f"{sp['FIP']:.2f}", 'FIP'),
-               (f"{sp['OPS Against']:.3f}", 'OPS-A'), (sp['IP'], 'IP'), (f"{sp['K%']:.3f}", 'K%')]
-        bot = [(f"{sp['K/9']:.2f}", 'K/9'), (f"{sp['BB%']:.3f}", 'BB%'),
+               (f"{sp['OPS Against']:.3f}", 'OPS-A'), (sp['IP'], 'IP'), (f"{sp['K%']:.1f}", 'K%')]
+        bot = [(f"{sp['K/9']:.2f}", 'K/9'), (f"{sp['K/BB']:.2f}", 'K/BB'),
                (f"{sp['WHIP']:.2f}", 'WHIP'), (sp['A'], 'A')]
         cards.append(('pitcher', sp['playerName'], sp.get('teamName', ''), 'Starter', top, bot))
     for rp in relievers[:3]:
         top = [(f"{rp['ERA']:.2f}", 'ERA'), (f"{rp['FIP']:.2f}", 'FIP'),
-               (f"{rp['OPS Against']:.3f}", 'OPS-A'), (rp['IP'], 'IP'), (f"{rp['K%']:.3f}", 'K%')]
-        bot = [(f"{rp['K/9']:.2f}", 'K/9'), (f"{rp['BB%']:.3f}", 'BB%'),
+               (f"{rp['OPS Against']:.3f}", 'OPS-A'), (rp['IP'], 'IP'), (f"{rp['K%']:.1f}", 'K%')]
+        bot = [(f"{rp['K/9']:.2f}", 'K/9'), (f"{rp['K/BB']:.2f}", 'K/BB'),
                (f"{rp['WHIP']:.2f}", 'WHIP'), (rp['A'], 'A')]
         cards.append(('pitcher', rp['playerName'], rp.get('teamName', ''), 'Reliever', top, bot))
 
