@@ -875,22 +875,23 @@ def render_cards_png(best_hitters, starters, relievers, title, subtitle, team_ma
         display_role = ROLE_DISPLAY.get(role_label, role_label)
 
         # Shadow rect (slightly offset)
-        shadow_ax = fig.add_axes([left + 0.003, bottom - 0.003, w_frac, h_frac])
-        shadow_ax.set_xlim(0, 10); shadow_ax.set_ylim(0, 5)
+        shadow_ax = fig.add_axes([left + 0.004, bottom - 0.006, w_frac, h_frac])
+        shadow_ax.set_xlim(-0.5, 10.5); shadow_ax.set_ylim(-0.5, 5.5)
         shadow_ax.axis('off')
         shadow_bg = mpatches.FancyBboxPatch((0, 0), 10, 5,
-            boxstyle='round,pad=0.3', facecolor='#000000', alpha=0.4, edgecolor='none', zorder=1)
+            boxstyle='round,pad=0.3', facecolor='#000000', alpha=0.5, edgecolor='none',
+            zorder=1, clip_on=False)
         shadow_ax.add_patch(shadow_bg)
 
-        # Main card
+        # Main card — expand limits so rounded corners + stroke aren't clipped
         ax = fig.add_axes([left, bottom, w_frac, h_frac])
-        ax.set_xlim(0, 10); ax.set_ylim(0, 5)
+        ax.set_xlim(-0.5, 10.5); ax.set_ylim(-0.5, 5.5)
         ax.axis('off')
 
         # Rounded card background with white stroke
         card_bg = mpatches.FancyBboxPatch((0, 0), 10, 5,
             boxstyle='round,pad=0.3', facecolor='#222222', edgecolor='#FFFFFF',
-            linewidth=2, zorder=2)
+            linewidth=2.5, zorder=2, clip_on=False)
         ax.add_patch(card_bg)
 
         # Logo circle
