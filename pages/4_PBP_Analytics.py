@@ -201,11 +201,24 @@ def compute_wraa(woba, league_woba, pa):
 
 
 def _primary_position(group):
-    """Return the most common position for a player group."""
+    """Return formal position from players.csv, fallback to most common game position."""
+    if 'formalPosition' in group.columns:
+        formal = group['formalPosition'].dropna()
+        if len(formal) > 0:
+            return formal.iloc[0]
     if 'playerPosition' in group.columns:
         pos = group['playerPosition'].dropna()
         if len(pos) > 0:
             return pos.value_counts().index[0]
+    return ''
+
+
+def _player_school(group):
+    """Return school from players.csv lookup."""
+    if 'school' in group.columns:
+        school = group['school'].dropna()
+        if len(school) > 0:
+            return school.iloc[0]
     return ''
 
 
@@ -218,6 +231,7 @@ def compute_grouped_hitting(df, group_col, league_woba, min_pa=1):
             stats['wRAA'] = compute_wraa(stats['wOBA'], league_woba, stats['PA'])
             stats[group_col] = name
             stats['Pos'] = _primary_position(group)
+            stats['School'] = _player_school(group)
             rows.append(stats)
     if not rows:
         return pd.DataFrame()
@@ -234,6 +248,7 @@ def compute_grouped_pitching(df, group_col, min_bf=1):
         if stats['BF'] >= min_bf:
             stats[group_col] = name
             stats['Pos'] = _primary_position(group)
+            stats['School'] = _player_school(group)
             rows.append(stats)
     if not rows:
         return pd.DataFrame()
@@ -250,6 +265,7 @@ def compute_grouped_fielding(df, group_col):
         if stats['TC'] > 0:
             stats[group_col] = name
             stats['Pos'] = _primary_position(group)
+            stats['School'] = _player_school(group)
             rows.append(stats)
     if not rows:
         return pd.DataFrame()
@@ -1011,6 +1027,38 @@ def render_cards_png(best_hitters, starters, relievers, title, subtitle, team_ma
 
 # ── Data Loading ─────────────────────────────────────────────────────────────
 @st.cache_data
+def load_player_lookup():
+    """Build playerId (ncaa_season_id) → {position, school} from rosters + players + teams."""
+    rosters_path = DATA_DIR / 'rosters.csv'
+    players_path = DATA_DIR / 'players.csv'
+    teams_path = DATA_DIR / 'teams.csv'
+    if not all(p.exists() for p in [rosters_path, players_path, teams_path]):
+        return {}
+    rosters = pd.read_csv(rosters_path, low_memory=False)
+    players = pd.read_csv(players_path, low_memory=False, encoding='latin-1')
+    teams = pd.read_csv(teams_path, low_memory=False)
+
+    r = rosters[['player_id', 'player_ncaa_season_id']].dropna().copy()
+    r['player_ncaa_season_id'] = r['player_ncaa_season_id'].astype(int).astype(str)
+    r['player_id'] = r['player_id'].astype(int)
+
+    p = players[['id', 'position', 'team_id']].copy()
+    p['id'] = p['id'].astype(int)
+    p['team_id'] = pd.to_numeric(p['team_id'], errors='coerce').fillna(0).astype(int)
+
+    t = teams[['id', 'name']].copy()
+    t.columns = ['team_db_id', 'school']
+
+    merged = r.merge(p, left_on='player_id', right_on='id')
+    merged = merged.merge(t, left_on='team_id', right_on='team_db_id')
+    merged = merged.drop_duplicates('player_ncaa_season_id')
+    return {
+        'position': dict(zip(merged['player_ncaa_season_id'], merged['position'])),
+        'school': dict(zip(merged['player_ncaa_season_id'], merged['school'])),
+    }
+
+
+@st.cache_data
 def load_pbp(sport, division, stat_type):
     """Load a PBP file: sport=baseball|softball, division=D1|D2|D3, stat_type=hitting|pitching|fielding."""
     filepath = PBP_DIR / sport / f'{stat_type}_pbp_{division}.csv'
@@ -1023,6 +1071,12 @@ def load_pbp(sport, division, stat_type):
     # Clean positions: "PH/LF" → "PH", "/LF/CF" → "LF"
     if 'playerPosition' in df.columns:
         df['playerPosition'] = df['playerPosition'].apply(_clean_position)
+    # Enrich with formal position and school from players.csv
+    if 'playerId' in df.columns:
+        lookup = load_player_lookup()
+        if lookup:
+            df['formalPosition'] = df['playerId'].map(lookup['position'])
+            df['school'] = df['playerId'].map(lookup['school'])
     # Parse dates
     if 'date' in df.columns:
         df['date_parsed'] = pd.to_datetime(df['date'], format='mixed', errors='coerce')
@@ -1173,7 +1227,7 @@ if view == 'Hitter Stats':
     if len(player_stats) == 0:
         st.info(f'No players meet the {min_threshold} PA minimum.')
     else:
-        show_cols = [player_col, 'Pos', 'PA', 'AB', 'H', '1B', '2B', '3B', 'HR', 'TB',
+        show_cols = [player_col, 'School', 'Pos', 'PA', 'AB', 'H', '1B', '2B', '3B', 'HR', 'TB',
                      'R', 'RBI', 'BB', 'HBP', 'K', 'SB', 'CS', 'GDP',
                      'BA', 'OBP', 'SLG', 'OPS', 'wOBA', 'wRAA']
         show_cols = [c for c in show_cols if c in player_stats.columns]
@@ -1217,7 +1271,7 @@ elif view == 'Pitcher Stats':
     if len(pitcher_stats) == 0:
         st.info(f'No pitchers meet the {min_threshold} BF minimum.')
     else:
-        show_cols = [player_col, 'Pos', 'IP', 'BF', 'H', 'ER', 'BB', 'HB', 'SO', 'HR',
+        show_cols = [player_col, 'School', 'Pos', 'IP', 'BF', 'H', 'ER', 'BB', 'HB', 'SO', 'HR',
                      'WP', 'ERA', 'FIP', 'BAA', 'OBP Against', 'SLG Against', 'OPS Against',
                      'K%', 'BB%']
         show_cols = [c for c in show_cols if c in pitcher_stats.columns]
@@ -1260,7 +1314,7 @@ elif view == 'Fielding Stats':
     if len(fielding_stats) == 0:
         st.info('No fielding data available.')
     else:
-        show_cols = [player_col, 'Pos', 'PO', 'A', 'TC', 'E', 'FPCT',
+        show_cols = [player_col, 'School', 'Pos', 'PO', 'A', 'TC', 'E', 'FPCT',
                      'PB', 'SBA', 'CSB', 'CS%', 'IDP', 'TP']
         show_cols = [c for c in show_cols if c in fielding_stats.columns]
         st.dataframe(fielding_stats[show_cols], use_container_width=True, hide_index=True)
