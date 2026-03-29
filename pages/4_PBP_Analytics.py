@@ -1410,16 +1410,21 @@ elif view == 'Pace Chart':
 
     # Pace chart controls
     pace_stat_type = st.sidebar.radio('Stat Type', ['Hitting', 'Pitching'], horizontal=True)
+    pace_level = st.sidebar.radio('Level', ['Player', 'Team'], horizontal=True)
+    pace_theme = st.sidebar.radio('Theme', ['Dark', 'Light'], horizontal=True)
 
     if pace_stat_type == 'Hitting':
         pace_pbp = load_pbp(sport, division, 'hitting')
         cum_stats = {'HR': 'hr', 'H': 'h', 'R': 'r', 'RBI': 'rbi', 'BB': 'bb',
                      'K': 'k', 'SB': 'sb', '2B': 'doubles', '3B': 'triples', 'TB': 'tb',
                      'HBP': 'hbp', 'AB': 'ab'}
+        # Advanced stats computed as running values
+        advanced_hitting = ['wRAA', 'wRC', 'OPS', 'wOBA', 'ISO', 'BABIP']
     else:
         pace_pbp = load_pbp(sport, division, 'pitching')
         cum_stats = {'SO': 'so', 'BB': 'bb', 'H': 'h', 'ER': 'er', 'R': 'r',
                      'HR': 'hrA', 'HB': 'hb'}
+        advanced_pitching = ['FIP', 'WHIP', 'ERA', 'K/9', 'K/7', 'OPS Against', 'BAA', 'K%', 'BB%']
 
     if pace_pbp is None:
         st.error('Data not found.')
@@ -1432,99 +1437,162 @@ elif view == 'Pace Chart':
     # Apply conference filter
     try:
         if conf_map and selected_conferences:
-            conf_teams = {t for t, c in conf_map.items() if c in selected_conferences}
-            pace_pbp = pace_pbp[pace_pbp['teamName'].isin(conf_teams)]
+            c_teams = {t for t, c in conf_map.items() if c in selected_conferences}
+            pace_pbp = pace_pbp[pace_pbp['teamName'].isin(c_teams)]
     except NameError:
         pass
 
-    stat_choice = st.sidebar.selectbox('Stat to Track', list(cum_stats.keys()))
-    stat_col = cum_stats[stat_choice]
+    # Build stat options
+    if pace_stat_type == 'Hitting':
+        all_stat_options = list(cum_stats.keys()) + advanced_hitting
+    else:
+        all_stat_options = list(cum_stats.keys()) + advanced_pitching
+
+    stat_choice = st.sidebar.selectbox('Stat to Track', all_stat_options)
+    is_advanced = stat_choice not in cum_stats
     min_games_pace = st.sidebar.number_input('Min Games', value=5, min_value=1, step=1)
 
-    # Build cumulative data per player
-    if 'date_parsed' not in pace_pbp.columns or stat_col not in pace_pbp.columns:
-        st.warning('Required columns not available.')
+    if 'date_parsed' not in pace_pbp.columns:
+        st.warning('Date column not available.')
         st.stop()
 
-    # Group by player + date, sum the stat, then cumsum
-    player_games = (pace_pbp.groupby(['playerName', 'teamName', 'date_parsed'])[stat_col]
-                    .sum().reset_index()
-                    .sort_values(['playerName', 'date_parsed']))
+    # Group key: player or team
+    group_key = 'teamName' if pace_level == 'Team' else 'playerName'
 
-    # Assign game number per player
-    player_games['game_num'] = player_games.groupby('playerName').cumcount() + 1
-    player_games['cum_stat'] = player_games.groupby('playerName')[stat_col].cumsum()
+    # Compute league stats for advanced hitting metrics
+    if pace_stat_type == 'Hitting' and is_advanced:
+        league_stats_pace = compute_hitting_stats(pace_pbp)
+        league_woba_pace = league_stats_pace['wOBA']
+        league_r_pa_pace = league_stats_pace['R/PA']
 
-    # Filter to players with enough games
-    game_counts = player_games.groupby('playerName')['game_num'].max()
+    # Build running stats per entity per game date
+    entity_games = []
+    for entity_name, edata in pace_pbp.groupby(group_key):
+        edata_sorted = edata.sort_values('date_parsed')
+        dates = edata_sorted['date_parsed'].unique()
+        team = edata_sorted['teamName'].iloc[0] if pace_level == 'Player' else entity_name
+
+        if not is_advanced:
+            # Simple cumulative stat
+            stat_col = cum_stats[stat_choice]
+            if stat_col not in edata_sorted.columns:
+                continue
+            daily = edata_sorted.groupby('date_parsed')[stat_col].sum().reset_index().sort_values('date_parsed')
+            daily['game_num'] = range(1, len(daily) + 1)
+            daily['cum_stat'] = daily[stat_col].cumsum()
+            daily['entity'] = entity_name
+            daily['team'] = team
+            entity_games.append(daily[['entity', 'team', 'date_parsed', 'game_num', 'cum_stat']])
+        else:
+            # Advanced: compute running stat through each game date
+            rows = []
+            for i, d in enumerate(sorted(dates)):
+                window = edata_sorted[edata_sorted['date_parsed'] <= d]
+                if pace_stat_type == 'Hitting':
+                    stats = compute_hitting_stats(window)
+                    if stat_choice == 'wRAA':
+                        val = compute_wraa(stats['wOBA'], league_woba_pace, stats['PA'])
+                    elif stat_choice == 'wRC':
+                        val = compute_wrc(stats['wOBA'], league_woba_pace, league_r_pa_pace, stats['PA'])
+                    else:
+                        val = stats.get(stat_choice, 0)
+                else:
+                    stats = compute_pitching_stats(window)
+                    val = stats.get(stat_choice, 0)
+                rows.append({'entity': entity_name, 'team': team, 'date_parsed': d,
+                            'game_num': i + 1, 'cum_stat': val})
+            if rows:
+                entity_games.append(pd.DataFrame(rows))
+
+    if not entity_games:
+        st.warning('No data available.')
+        st.stop()
+
+    all_games = pd.concat(entity_games, ignore_index=True)
+
+    # Filter by min games
+    game_counts = all_games.groupby('entity')['game_num'].max()
     qualified = game_counts[game_counts >= min_games_pace].index
-    player_games = player_games[player_games['playerName'].isin(qualified)]
+    all_games = all_games[all_games['entity'].isin(qualified)]
 
-    if len(player_games) == 0:
-        st.warning('No players meet the minimum games threshold.')
+    if len(all_games) == 0:
+        st.warning('No entities meet the minimum games threshold.')
         st.stop()
 
-    # Get unique players for highlight selection
-    # Sort by final cumulative stat to show top players first
-    final_stats = player_games.groupby(['playerName', 'teamName']).agg(
+    # Sort by final value for highlight selection
+    final_stats = all_games.groupby(['entity', 'team']).agg(
         total=('cum_stat', 'last'), games=('game_num', 'max')).reset_index()
-    final_stats = final_stats.sort_values('total', ascending=False)
-    player_options = [f"{row['playerName']} ({row['teamName']})" for _, row in final_stats.iterrows()]
-    player_name_map = dict(zip(player_options, final_stats['playerName']))
+    # For pitching rate stats (FIP, WHIP, ERA), lower is better
+    lower_is_better = stat_choice in ['FIP', 'WHIP', 'ERA', 'BAA', 'OPS Against', 'BB%']
+    final_stats = final_stats.sort_values('total', ascending=lower_is_better)
 
-    top_n = st.sidebar.number_input('Show Top N Players', value=20, min_value=5, max_value=100, step=5)
-    top_players = set(final_stats.head(top_n)['playerName'])
-    player_games_filtered = player_games[player_games['playerName'].isin(top_players)]
+    if pace_level == 'Player':
+        options = [f"{row['entity']} ({row['team']})" for _, row in final_stats.iterrows()]
+    else:
+        options = [row['entity'] for _, row in final_stats.iterrows()]
+    name_map = dict(zip(options, final_stats['entity']))
 
-    highlighted = st.sidebar.multiselect('Highlight Players', player_options[:50],
-                                          help='Select players to highlight in red')
-    highlight_names = {player_name_map[p] for p in highlighted}
+    top_n = st.sidebar.number_input('Show Top N', value=20, min_value=5, max_value=100, step=5)
+    top_entities = set(final_stats.head(top_n)['entity'])
+    filtered = all_games[all_games['entity'].isin(top_entities)]
+
+    highlighted = st.sidebar.multiselect(f'Highlight {pace_level}s', options[:50],
+                                          help=f'Select {pace_level.lower()}s to highlight in red')
+    highlight_names = {name_map[p] for p in highlighted}
+
+    # Theme colors
+    if pace_theme == 'Dark':
+        bg = '#1a1a1a'; line_color = '#666666'; label_color = '#888888'
+        text_color = '#C8C8C8'; grid_color = '#444444'; spine_color = '#333333'
+    else:
+        bg = '#FFFFFF'; line_color = '#BBBBBB'; label_color = '#999999'
+        text_color = '#1a1a1a'; grid_color = '#E0E0E0'; spine_color = '#CCCCCC'
 
     # Render chart
-    fig, ax = plt.subplots(figsize=(14, 7), facecolor='#1a1a1a')
-    ax.set_facecolor('#1a1a1a')
+    fig, ax = plt.subplots(figsize=(14, 7), facecolor=bg)
+    ax.set_facecolor(bg)
 
-    for player_name, pdata in player_games_filtered.groupby('playerName'):
-        if player_name in highlight_names:
-            continue  # Draw highlighted last so they're on top
+    for ename, pdata in filtered.groupby('entity'):
+        if ename in highlight_names:
+            continue
         ax.plot(pdata['game_num'], pdata['cum_stat'],
-                color='#666666', alpha=0.3, linewidth=1, zorder=1)
-        # Label at end
+                color=line_color, alpha=0.35, linewidth=1, zorder=1)
         last = pdata.iloc[-1]
-        ax.text(last['game_num'] + 0.3, last['cum_stat'], player_name,
-                fontsize=6, color='#888888', va='center', alpha=0.5, zorder=1)
+        label = ename if pace_level == 'Team' else ename.split()[-1] if len(ename.split()) > 1 else ename
+        ax.text(last['game_num'] + 0.3, last['cum_stat'], label,
+                fontsize=6, color=label_color, va='center', alpha=0.6, zorder=1)
 
-    # Draw highlighted players on top
-    for player_name in highlight_names:
-        pdata = player_games_filtered[player_games_filtered['playerName'] == player_name]
+    for ename in highlight_names:
+        pdata = filtered[filtered['entity'] == ename]
         if len(pdata) == 0:
-            pdata = player_games[player_games['playerName'] == player_name]
+            pdata = all_games[all_games['entity'] == ename]
         if len(pdata) == 0:
             continue
         ax.plot(pdata['game_num'], pdata['cum_stat'],
                 color='#C41230', alpha=1.0, linewidth=3, zorder=3)
         last = pdata.iloc[-1]
-        ax.annotate(f"{player_name}\n{int(last['cum_stat'])} {stat_choice} in {int(last['game_num'])} G",
+        val_fmt = f"{last['cum_stat']:.2f}" if is_advanced else f"{int(last['cum_stat'])}"
+        ax.annotate(f"{ename}\n{val_fmt} {stat_choice} in {int(last['game_num'])} G",
                     xy=(last['game_num'], last['cum_stat']),
                     xytext=(last['game_num'] + 1, last['cum_stat']),
                     fontsize=8, fontweight='bold', color='#C41230',
                     va='center', zorder=4)
 
-    ax.set_xlabel('Game Number', fontsize=11, color='#C8C8C8', labelpad=10)
-    ax.set_ylabel(f'Cumulative {stat_choice}', fontsize=11, color='#C8C8C8', labelpad=10)
-    ax.tick_params(colors='#888888')
-    ax.grid(True, alpha=0.15, color='#444444')
+    y_label = f'Running {stat_choice}' if is_advanced else f'Cumulative {stat_choice}'
+    ax.set_xlabel('Game Number', fontsize=11, color=text_color, labelpad=10)
+    ax.set_ylabel(y_label, fontsize=11, color=text_color, labelpad=10)
+    ax.tick_params(colors=label_color)
+    ax.grid(True, alpha=0.15, color=grid_color)
     for spine in ax.spines.values():
-        spine.set_color('#333333')
+        spine.set_color(spine_color)
 
     buf = BytesIO()
-    fig.savefig(buf, format='png', dpi=180, facecolor='#1a1a1a', bbox_inches='tight')
+    fig.savefig(buf, format='png', dpi=180, facecolor=bg, bbox_inches='tight')
     buf.seek(0)
     plt.close(fig)
 
     st.image(buf, use_container_width=True)
 
-    # Download
     buf.seek(0)
     st.download_button('Download Pace Chart PNG', data=buf,
                       file_name=f'pace_chart_{stat_choice}_{sport}_{division}.png', mime='image/png')
