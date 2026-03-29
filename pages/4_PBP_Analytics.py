@@ -402,6 +402,40 @@ def get_logo_base64(logo_id):
             mime = 'image/png' if ext == 'png' else 'image/webp'
             return f'data:{mime};base64,{base64.b64encode(data).decode()}'
     return None
+
+
+@st.cache_data
+def get_team_color(team_name):
+    """Extract dominant color from a team's logo."""
+    from collections import Counter
+    team_map = load_team_logo_map()
+    logo_id = team_map.get(team_name)
+    if not logo_id:
+        return '#C41230'
+    for ext in ['png', 'webp']:
+        p = LOGO_DIR / f'{logo_id}.{ext}'
+        if p.exists():
+            img = Image.open(p).convert('RGBA')
+            img.thumbnail((64, 64))
+            pixels = np.array(img)
+            mask = pixels[:, :, 3] > 128
+            rgb = pixels[mask][:, :3]
+            if len(rgb) == 0:
+                return '#C41230'
+            filtered = []
+            for r, g, b in rgb:
+                brightness = (int(r) + int(g) + int(b)) / 3
+                if brightness > 220 or brightness < 35:
+                    continue
+                filtered.append((r, g, b))
+            if not filtered:
+                return '#C41230'
+            quantized = [(r // 16 * 16, g // 16 * 16, b // 16 * 16) for r, g, b in filtered]
+            most_common = Counter(quantized).most_common(1)[0][0]
+            return f'#{most_common[0]:02x}{most_common[1]:02x}{most_common[2]:02x}'
+    return '#C41230'
+
+
 LC_RED = '#C41230'
 LC_DH_COLOR = '#22d3a0'
 LC_RELIEVER_COLOR = '#a855f7'
@@ -1568,14 +1602,17 @@ elif view == 'Pace Chart':
             pdata = all_games[all_games['entity'] == ename]
         if len(pdata) == 0:
             continue
+        # Get team color
+        team_for_color = pdata['team'].iloc[0] if pace_level == 'Player' else ename
+        h_color = get_team_color(team_for_color)
         ax.plot(pdata['game_num'], pdata['cum_stat'],
-                color='#C41230', alpha=1.0, linewidth=3, zorder=3)
+                color=h_color, alpha=1.0, linewidth=3, zorder=3)
         last = pdata.iloc[-1]
         val_fmt = f"{last['cum_stat']:.2f}" if is_advanced else f"{int(last['cum_stat'])}"
         ax.annotate(f"{ename}\n{val_fmt} {stat_choice} in {int(last['game_num'])} G",
                     xy=(last['game_num'], last['cum_stat']),
                     xytext=(last['game_num'] + 1, last['cum_stat']),
-                    fontsize=8, fontweight='bold', color='#C41230',
+                    fontsize=8, fontweight='bold', color=h_color,
                     va='center', zorder=4)
 
     y_label = f'Running {stat_choice}' if is_advanced else f'Cumulative {stat_choice}'
