@@ -100,14 +100,30 @@ def compute_hitting_stats(df):
     woba = (WOBA_BB * bb + WOBA_HBP * hbp + WOBA_1B * singles +
             WOBA_2B * doubles + WOBA_3B * triples + WOBA_HR * hr) / woba_denom if woba_denom > 0 else 0
 
+    ibb = df['ibb'].sum() if 'ibb' in df.columns else 0
+
+    # Additional rate stats
+    k_pct = (k / pa * 100) if pa > 0 else 0
+    bb_pct = (bb / pa * 100) if pa > 0 else 0
+    k_bb = k / bb if bb > 0 else k
+    iso = slg - ba
+    babip_denom = ab - k - hr + sf
+    babip = (h - hr) / babip_denom if babip_denom > 0 else 0
+    r_pa = r / pa if pa > 0 else 0
+
+    # wRC = (((wOBA - league_wOBA) / wOBA_scale) + (league_R/PA)) * PA
+    # We'll store wOBA raw and compute wRC in the grouped function where we have league context
+
     return {
         'PA': int(pa), 'AB': int(ab), 'H': int(h), '1B': int(singles),
         '2B': int(doubles), '3B': int(triples), 'HR': int(hr), 'TB': int(tb),
         'R': int(r), 'RBI': int(rbi), 'BB': int(bb), 'HBP': int(hbp),
-        'SF': int(sf), 'SH': int(sh), 'K': int(k),
+        'SF': int(sf), 'SH': int(sh), 'IBB': int(ibb), 'K': int(k),
         'SB': int(sb), 'CS': int(cs), 'GDP': int(gdp),
         'BA': round(ba, 3), 'OBP': round(obp, 3), 'SLG': round(slg, 3),
-        'OPS': round(ops, 3), 'wOBA': round(woba, 3),
+        'OPS': round(ops, 3), 'ISO': round(iso, 3), 'BABIP': round(babip, 3),
+        'wOBA': round(woba, 3), 'K%': round(k_pct, 1), 'BB%': round(bb_pct, 1),
+        'K/BB': round(k_bb, 2), 'R/PA': round(r_pa, 3),
     }
 
 
@@ -116,6 +132,7 @@ def compute_pitching_stats(df):
     total_outs = baseball_ip_to_outs(df['ip']).sum()
     ip = outs_to_actual_innings(total_outs)
     h = df['h'].sum()
+    r = df['r'].sum()
     bb = df['bb'].sum()
     hb = df['hb'].sum()
     so = df['so'].sum()
@@ -129,6 +146,15 @@ def compute_pitching_stats(df):
     sha = df['sha'].sum()
     sfa = df['sfa'].sum()
     er = df['er'].sum()
+    ibb = df['ibb'].sum() if 'ibb' in df.columns else 0
+    app = df['gameId'].nunique() if 'gameId' in df.columns else len(df)
+
+    # Estimate GS: games where pitcher had highest IP on their team that game
+    gs = 0
+    if 'gameId' in df.columns:
+        for gid, gdf in df.groupby('gameId'):
+            if len(gdf) > 0 and gdf['ip'].iloc[0] == gdf['ip'].max():
+                gs += 1
 
     # Opponent AB = BF - BB - HB - SFA - SHA
     p_oab = bf - bb - hb - sfa - sha
@@ -153,21 +179,34 @@ def compute_pitching_stats(df):
     # Allowed BA
     ba_against = h / p_oab if p_oab > 0 else 0
 
-    # K/BB rates
-    k_pct = so / bf if bf > 0 else 0
-    bb_pct = bb / bf if bf > 0 else 0
+    # Rate stats
+    k_pct = (so / bf * 100) if bf > 0 else 0
+    bb_pct = (bb / bf * 100) if bf > 0 else 0
+    k9 = (so / ip) * 9 if ip > 0 else 0
+    k7 = (so / ip) * 7 if ip > 0 else 0
+    k_bb = so / bb if bb > 0 else so
+    whip = (bb + h) / ip if ip > 0 else 0
+
+    # BABIP against
+    babip_denom = p_oab - so - hr + sfa
+    babip = (h - hr) / babip_denom if babip_denom > 0 else 0
 
     return {
-        'IP': outs_to_ip(total_outs), 'BF': int(bf), 'H': int(h),
-        'ER': int(er), 'BB': int(bb), 'HB': int(hb), 'SO': int(so), 'HR': int(hr),
-        '2B-A': int(doubles), '3B-A': int(triples),
-        'WP': int(wp), 'Bk': int(bk),
+        'IP': outs_to_ip(total_outs), 'App': int(app), 'GS': int(gs),
+        'BF': int(bf), 'OAB': int(p_oab),
+        'H': int(h), 'R': int(r), 'ER': int(er),
+        'BB': int(bb), 'HB': int(hb), 'SO': int(so),
+        'HR': int(hr), '2B-A': int(doubles), '3B-A': int(triples),
+        'WP': int(wp), 'Bk': int(bk), 'IBB': int(ibb),
+        'SHA': int(sha), 'SFA': int(sfa),
         'ERA': round(era, 2), 'FIP': round(fip, 2),
-        'BAA': round(ba_against, 3),
+        'BAA': round(ba_against, 3), 'BABIP': round(babip, 3),
         'OBP Against': round(obp_against, 3),
         'SLG Against': round(slg_against, 3),
         'OPS Against': round(ops_against, 3),
-        'K%': round(k_pct, 3), 'BB%': round(bb_pct, 3),
+        'K%': round(k_pct, 1), 'BB%': round(bb_pct, 1),
+        'K/9': round(k9, 2), 'K/7': round(k7, 2),
+        'K/BB': round(k_bb, 2), 'WHIP': round(whip, 2),
     }
 
 
@@ -200,6 +239,16 @@ def compute_wraa(woba, league_woba, pa):
     return round(((woba - league_woba) / WOBA_SCALE) * pa, 1)
 
 
+def compute_wrc(woba, league_woba, league_r_pa, pa):
+    """wRC = (((wOBA - league_wOBA) / wOBA_scale) + league_R/PA) * PA"""
+    return round((((woba - league_woba) / WOBA_SCALE) + league_r_pa) * pa, 1)
+
+
+def compute_wrc_plus(wrc_per_pa, league_r_pa):
+    """wRC+ = (wRC/PA) / (league R/PA) * 100"""
+    return round((wrc_per_pa / league_r_pa) * 100, 0) if league_r_pa > 0 else 100
+
+
 def _primary_position(group):
     """Return formal position from players.csv, fallback to most common game position."""
     if 'formalPosition' in group.columns:
@@ -222,13 +271,17 @@ def _player_school(group):
     return ''
 
 
-def compute_grouped_hitting(df, group_col, league_woba, min_pa=1):
+def compute_grouped_hitting(df, group_col, league_woba, league_r_pa=0, min_pa=1):
     """Compute hitting stats grouped by a column."""
     rows = []
     for name, group in df.groupby(group_col):
         stats = compute_hitting_stats(group)
         if stats['PA'] >= min_pa:
             stats['wRAA'] = compute_wraa(stats['wOBA'], league_woba, stats['PA'])
+            wrc = compute_wrc(stats['wOBA'], league_woba, league_r_pa, stats['PA'])
+            stats['wRC'] = wrc
+            wrc_per_pa = wrc / stats['PA'] if stats['PA'] > 0 else 0
+            stats['wRC+'] = int(compute_wrc_plus(wrc_per_pa, league_r_pa))
             stats[group_col] = name
             stats['Pos'] = _primary_position(group)
             stats['School'] = _player_school(group)
@@ -1211,6 +1264,7 @@ if view == 'Hitter Stats':
     # Compute league wOBA for wRAA
     league_stats = compute_hitting_stats(pbp)
     league_woba = league_stats['wOBA']
+    league_r_pa = league_stats['R/PA']
 
     # Overall summary
     c1, c2, c3, c4, c5 = st.columns(5)
@@ -1222,16 +1276,18 @@ if view == 'Hitter Stats':
 
     # Per-player table
     st.markdown('---')
-    player_stats = compute_grouped_hitting(pbp, player_col, league_woba, min_pa=min_threshold)
+    player_stats = compute_grouped_hitting(pbp, player_col, league_woba, league_r_pa=league_r_pa, min_pa=min_threshold)
 
     if len(player_stats) == 0:
         st.info(f'No players meet the {min_threshold} PA minimum.')
     else:
         show_cols = [player_col, 'School', 'Pos', 'PA', 'AB', 'H', '1B', '2B', '3B', 'HR', 'TB',
-                     'R', 'RBI', 'BB', 'HBP', 'K', 'SB', 'CS', 'GDP',
-                     'BA', 'OBP', 'SLG', 'OPS', 'wOBA', 'wRAA']
+                     'R', 'RBI', 'BB', 'HBP', 'SF', 'SH', 'IBB', 'K', 'SB', 'CS', 'GDP',
+                     'BA', 'OBP', 'SLG', 'OPS', 'ISO', 'BABIP',
+                     'K%', 'BB%', 'K/BB', 'R/PA',
+                     'wOBA', 'wRAA', 'wRC', 'wRC+']
         show_cols = [c for c in show_cols if c in player_stats.columns]
-        st.dataframe(player_stats[show_cols], use_container_width=True, hide_index=True)
+        st.dataframe(player_stats[show_cols], use_container_width=True, hide_index=True, height=1050)
 
         csv_buf = player_stats[show_cols].to_csv(index=False)
         st.download_button('Download CSV', data=csv_buf,
@@ -1243,12 +1299,13 @@ if view == 'Hitter Stats':
         player_data = pbp[pbp[player_col] == selected_players[0]]
 
         if 'date_parsed' in player_data.columns:
-            game_log = compute_grouped_hitting(player_data, 'date', league_woba, min_pa=1)
+            game_log = compute_grouped_hitting(player_data, 'date', league_woba, league_r_pa=league_r_pa, min_pa=1)
             if len(game_log) > 0:
                 game_log = game_log.rename(columns={'date': 'Date'})
                 game_log = game_log.sort_values('Date')
                 gl_cols = ['Date', 'PA', 'AB', 'H', '2B', '3B', 'HR', 'RBI', 'BB', 'K',
-                          'BA', 'OBP', 'SLG', 'OPS', 'wOBA', 'wRAA']
+                          'BA', 'OBP', 'SLG', 'OPS', 'ISO', 'BABIP',
+                          'K%', 'BB%', 'wOBA', 'wRAA']
                 gl_cols = [c for c in gl_cols if c in game_log.columns]
                 st.dataframe(game_log[gl_cols], use_container_width=True, hide_index=True)
 
@@ -1271,11 +1328,15 @@ elif view == 'Pitcher Stats':
     if len(pitcher_stats) == 0:
         st.info(f'No pitchers meet the {min_threshold} BF minimum.')
     else:
-        show_cols = [player_col, 'School', 'Pos', 'IP', 'BF', 'H', 'ER', 'BB', 'HB', 'SO', 'HR',
-                     'WP', 'ERA', 'FIP', 'BAA', 'OBP Against', 'SLG Against', 'OPS Against',
-                     'K%', 'BB%']
+        k_col = 'K/7' if sport == 'softball' else 'K/9'
+        show_cols = [player_col, 'School', 'Pos', 'App', 'GS', 'IP', 'BF', 'OAB',
+                     'H', 'R', 'ER', 'BB', 'HB', 'SO',
+                     'HR', '2B-A', '3B-A', 'Bk', 'IBB', 'SHA', 'SFA',
+                     'ERA', 'FIP', 'BAA', 'BABIP',
+                     'OBP Against', 'SLG Against', 'OPS Against',
+                     'K%', 'BB%', k_col, 'K/BB', 'WHIP']
         show_cols = [c for c in show_cols if c in pitcher_stats.columns]
-        st.dataframe(pitcher_stats[show_cols], use_container_width=True, hide_index=True)
+        st.dataframe(pitcher_stats[show_cols], use_container_width=True, hide_index=True, height=1050)
 
         csv_buf = pitcher_stats[show_cols].to_csv(index=False)
         st.download_button('Download CSV', data=csv_buf,
@@ -1291,8 +1352,8 @@ elif view == 'Pitcher Stats':
             if len(game_log) > 0:
                 game_log = game_log.rename(columns={'date': 'Date'})
                 game_log = game_log.sort_values('Date')
-                gl_cols = ['Date', 'IP', 'BF', 'H', 'ER', 'BB', 'SO', 'HR',
-                          'ERA', 'FIP', 'OPS Against']
+                gl_cols = ['Date', 'IP', 'BF', 'H', 'R', 'ER', 'BB', 'SO', 'HR',
+                          'ERA', 'FIP', 'BABIP', 'OPS Against', 'K%', 'BB%', 'WHIP']
                 gl_cols = [c for c in gl_cols if c in game_log.columns]
                 st.dataframe(game_log[gl_cols], use_container_width=True, hide_index=True)
 
@@ -1317,7 +1378,7 @@ elif view == 'Fielding Stats':
         show_cols = [player_col, 'School', 'Pos', 'PO', 'A', 'TC', 'E', 'FPCT',
                      'PB', 'SBA', 'CSB', 'CS%', 'IDP', 'TP']
         show_cols = [c for c in show_cols if c in fielding_stats.columns]
-        st.dataframe(fielding_stats[show_cols], use_container_width=True, hide_index=True)
+        st.dataframe(fielding_stats[show_cols], use_container_width=True, hide_index=True, height=1050)
 
         csv_buf = fielding_stats[show_cols].to_csv(index=False)
         st.download_button('Download CSV', data=csv_buf,
