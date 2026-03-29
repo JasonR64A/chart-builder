@@ -1532,11 +1532,11 @@ elif view == 'Pace Chart':
         options = [row['entity'] for _, row in final_stats.iterrows()]
     name_map = dict(zip(options, final_stats['entity']))
 
-    top_n = st.sidebar.number_input('Show Top N', value=20, min_value=5, max_value=100, step=5)
+    top_n = st.sidebar.number_input('Show Top N', value=20, min_value=5, max_value=500, step=5)
     top_entities = set(final_stats.head(top_n)['entity'])
     filtered = all_games[all_games['entity'].isin(top_entities)]
 
-    highlighted = st.sidebar.multiselect(f'Highlight {pace_level}s', options[:50],
+    highlighted = st.sidebar.multiselect(f'Highlight {pace_level}s', options[:300],
                                           help=f'Select {pace_level.lower()}s to highlight in red')
     highlight_names = {name_map[p] for p in highlighted}
 
@@ -1585,6 +1585,17 @@ elif view == 'Pace Chart':
     ax.grid(True, alpha=0.15, color=grid_color)
     for spine in ax.spines.values():
         spine.set_color(spine_color)
+
+    # Brand logo bottom-right
+    wide_logo_path = _APP_DIR / 'assets' / 'brand_logo_wide.png'
+    if wide_logo_path.exists():
+        logo_img = Image.open(wide_logo_path).convert('RGBA')
+        logo_img.thumbnail((200, 50), Image.LANCZOS)
+        logo_arr = np.array(logo_img)
+        logo_im = OffsetImage(logo_arr, zoom=0.4, alpha=0.6)
+        logo_ab = AnnotationBbox(logo_im, (0.98, 0.02), xycoords='axes fraction',
+                                  frameon=False, zorder=10, box_alignment=(1, 0))
+        ax.add_artist(logo_ab)
 
     buf = BytesIO()
     fig.savefig(buf, format='png', dpi=180, facecolor=bg, bbox_inches='tight')
