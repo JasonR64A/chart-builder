@@ -36,7 +36,7 @@ WOBA_HR  = 2.101
 FIP_CONSTANT = 3.0
 
 # wOBA scale
-WOBA_SCALE = 1.0
+WOBA_SCALE = 1.6
 
 
 # ── IP conversion ────────────────────────────────────────────────────────────
