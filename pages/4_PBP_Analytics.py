@@ -1172,7 +1172,7 @@ st.sidebar.markdown('---')
 st.sidebar.markdown('### Data Source')
 sport = st.sidebar.selectbox('Sport', ['baseball', 'softball'])
 division = st.sidebar.selectbox('Division', ['D1', 'D2', 'D3'])
-view = st.sidebar.radio('Mode', ['Hitter Stats', 'Pitcher Stats', 'Fielding Stats', 'Lineup Card'], horizontal=True)
+view = st.sidebar.radio('Mode', ['Hitter Stats', 'Pitcher Stats', 'Fielding Stats', 'Pace Chart', 'Lineup Card'], horizontal=True)
 
 # Load data — Lineup Card needs both hitting + pitching
 if view == 'Lineup Card':
@@ -1183,6 +1183,13 @@ if view == 'Lineup Card':
         st.stop()
     # Use hitting for date range reference
     pbp = hitting_pbp
+elif view == 'Pace Chart':
+    # Will choose hitting or pitching based on sidebar selection
+    pace_type = 'hitting'  # placeholder, will be set in sidebar
+    pbp = load_pbp(sport, division, 'hitting')
+    if pbp is None:
+        st.error(f'PBP data not found for {sport} {division}')
+        st.stop()
 else:
     stat_type = {'Hitter Stats': 'hitting', 'Pitcher Stats': 'pitching', 'Fielding Stats': 'fielding'}[view]
     pbp = load_pbp(sport, division, stat_type)
@@ -1397,6 +1404,130 @@ elif view == 'Fielding Stats':
         csv_buf = fielding_stats[show_cols].to_csv(index=False)
         st.download_button('Download CSV', data=csv_buf,
                           file_name=f'pbp_fielding_{sport}_{division}.csv', mime='text/csv')
+
+elif view == 'Pace Chart':
+    st.markdown(f'### Pace Chart — {sport.title()} {division}')
+
+    # Pace chart controls
+    pace_stat_type = st.sidebar.radio('Stat Type', ['Hitting', 'Pitching'], horizontal=True)
+
+    if pace_stat_type == 'Hitting':
+        pace_pbp = load_pbp(sport, division, 'hitting')
+        cum_stats = {'HR': 'hr', 'H': 'h', 'R': 'r', 'RBI': 'rbi', 'BB': 'bb',
+                     'K': 'k', 'SB': 'sb', '2B': 'doubles', '3B': 'triples', 'TB': 'tb',
+                     'HBP': 'hbp', 'AB': 'ab'}
+    else:
+        pace_pbp = load_pbp(sport, division, 'pitching')
+        cum_stats = {'SO': 'so', 'BB': 'bb', 'H': 'h', 'ER': 'er', 'R': 'r',
+                     'HR': 'hrA', 'HB': 'hb'}
+
+    if pace_pbp is None:
+        st.error('Data not found.')
+        st.stop()
+
+    # Apply date filter
+    if 'date_parsed' in pace_pbp.columns and date_start and date_end:
+        pace_pbp = pace_pbp[(pace_pbp['date_parsed'].dt.date >= date_start) & (pace_pbp['date_parsed'].dt.date <= date_end)]
+
+    # Apply conference filter
+    try:
+        if conf_map and selected_conferences:
+            conf_teams = {t for t, c in conf_map.items() if c in selected_conferences}
+            pace_pbp = pace_pbp[pace_pbp['teamName'].isin(conf_teams)]
+    except NameError:
+        pass
+
+    stat_choice = st.sidebar.selectbox('Stat to Track', list(cum_stats.keys()))
+    stat_col = cum_stats[stat_choice]
+    min_games_pace = st.sidebar.number_input('Min Games', value=5, min_value=1, step=1)
+
+    # Build cumulative data per player
+    if 'date_parsed' not in pace_pbp.columns or stat_col not in pace_pbp.columns:
+        st.warning('Required columns not available.')
+        st.stop()
+
+    # Group by player + date, sum the stat, then cumsum
+    player_games = (pace_pbp.groupby(['playerName', 'teamName', 'date_parsed'])[stat_col]
+                    .sum().reset_index()
+                    .sort_values(['playerName', 'date_parsed']))
+
+    # Assign game number per player
+    player_games['game_num'] = player_games.groupby('playerName').cumcount() + 1
+    player_games['cum_stat'] = player_games.groupby('playerName')[stat_col].cumsum()
+
+    # Filter to players with enough games
+    game_counts = player_games.groupby('playerName')['game_num'].max()
+    qualified = game_counts[game_counts >= min_games_pace].index
+    player_games = player_games[player_games['playerName'].isin(qualified)]
+
+    if len(player_games) == 0:
+        st.warning('No players meet the minimum games threshold.')
+        st.stop()
+
+    # Get unique players for highlight selection
+    # Sort by final cumulative stat to show top players first
+    final_stats = player_games.groupby(['playerName', 'teamName']).agg(
+        total=('cum_stat', 'last'), games=('game_num', 'max')).reset_index()
+    final_stats = final_stats.sort_values('total', ascending=False)
+    player_options = [f"{row['playerName']} ({row['teamName']})" for _, row in final_stats.iterrows()]
+    player_name_map = dict(zip(player_options, final_stats['playerName']))
+
+    top_n = st.sidebar.number_input('Show Top N Players', value=20, min_value=5, max_value=100, step=5)
+    top_players = set(final_stats.head(top_n)['playerName'])
+    player_games_filtered = player_games[player_games['playerName'].isin(top_players)]
+
+    highlighted = st.sidebar.multiselect('Highlight Players', player_options[:50],
+                                          help='Select players to highlight in red')
+    highlight_names = {player_name_map[p] for p in highlighted}
+
+    # Render chart
+    fig, ax = plt.subplots(figsize=(14, 7), facecolor='#1a1a1a')
+    ax.set_facecolor('#1a1a1a')
+
+    for player_name, pdata in player_games_filtered.groupby('playerName'):
+        if player_name in highlight_names:
+            continue  # Draw highlighted last so they're on top
+        ax.plot(pdata['game_num'], pdata['cum_stat'],
+                color='#666666', alpha=0.3, linewidth=1, zorder=1)
+        # Label at end
+        last = pdata.iloc[-1]
+        ax.text(last['game_num'] + 0.3, last['cum_stat'], player_name,
+                fontsize=6, color='#888888', va='center', alpha=0.5, zorder=1)
+
+    # Draw highlighted players on top
+    for player_name in highlight_names:
+        pdata = player_games_filtered[player_games_filtered['playerName'] == player_name]
+        if len(pdata) == 0:
+            pdata = player_games[player_games['playerName'] == player_name]
+        if len(pdata) == 0:
+            continue
+        ax.plot(pdata['game_num'], pdata['cum_stat'],
+                color='#C41230', alpha=1.0, linewidth=3, zorder=3)
+        last = pdata.iloc[-1]
+        ax.annotate(f"{player_name}\n{int(last['cum_stat'])} {stat_choice} in {int(last['game_num'])} G",
+                    xy=(last['game_num'], last['cum_stat']),
+                    xytext=(last['game_num'] + 1, last['cum_stat']),
+                    fontsize=8, fontweight='bold', color='#C41230',
+                    va='center', zorder=4)
+
+    ax.set_xlabel('Game Number', fontsize=11, color='#C8C8C8', labelpad=10)
+    ax.set_ylabel(f'Cumulative {stat_choice}', fontsize=11, color='#C8C8C8', labelpad=10)
+    ax.tick_params(colors='#888888')
+    ax.grid(True, alpha=0.15, color='#444444')
+    for spine in ax.spines.values():
+        spine.set_color('#333333')
+
+    buf = BytesIO()
+    fig.savefig(buf, format='png', dpi=180, facecolor='#1a1a1a', bbox_inches='tight')
+    buf.seek(0)
+    plt.close(fig)
+
+    st.image(buf, use_container_width=True)
+
+    # Download
+    buf.seek(0)
+    st.download_button('Download Pace Chart PNG', data=buf,
+                      file_name=f'pace_chart_{stat_choice}_{sport}_{division}.png', mime='image/png')
 
 elif view == 'Lineup Card':
     # Build period label from date range
