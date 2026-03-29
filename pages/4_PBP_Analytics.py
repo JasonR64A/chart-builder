@@ -289,8 +289,15 @@ def compute_grouped_hitting(df, group_col, league_woba, league_r_pa=0, min_pa=1)
     if not rows:
         return pd.DataFrame()
     result = pd.DataFrame(rows)
-    cols = [group_col] + [c for c in result.columns if c != group_col]
-    return result[cols].sort_values('OPS', ascending=False).reset_index(drop=True)
+    # Combined rank: wRAA + OPS (higher = better for both)
+    n = len(result)
+    if n > 0:
+        result['wraa_score'] = (n - result['wRAA'].rank(ascending=False, method='min') + 1) / n
+        result['ops_score'] = (n - result['OPS'].rank(ascending=False, method='min') + 1) / n
+        result['Rank'] = round(result['wraa_score'] + result['ops_score'], 3)
+        result = result.drop(columns=['wraa_score', 'ops_score'])
+    cols = ['Rank'] + [group_col] + [c for c in result.columns if c not in ['Rank', group_col]]
+    return result[cols].sort_values('Rank', ascending=False).reset_index(drop=True)
 
 
 def compute_grouped_pitching(df, group_col, min_bf=1):
@@ -306,8 +313,15 @@ def compute_grouped_pitching(df, group_col, min_bf=1):
     if not rows:
         return pd.DataFrame()
     result = pd.DataFrame(rows)
-    cols = [group_col] + [c for c in result.columns if c != group_col]
-    return result[cols].sort_values('FIP', ascending=True).reset_index(drop=True)
+    # Combined rank: FIP + OPS Against (lower = better for both)
+    n = len(result)
+    if n > 0:
+        result['fip_score'] = (n - result['FIP'].rank(method='min') + 1) / n
+        result['ops_a_score'] = (n - result['OPS Against'].rank(method='min') + 1) / n
+        result['Rank'] = round(result['fip_score'] + result['ops_a_score'], 3)
+        result = result.drop(columns=['fip_score', 'ops_a_score'])
+    cols = ['Rank'] + [group_col] + [c for c in result.columns if c not in ['Rank', group_col]]
+    return result[cols].sort_values('Rank', ascending=False).reset_index(drop=True)
 
 
 def compute_grouped_fielding(df, group_col):
@@ -1281,7 +1295,7 @@ if view == 'Hitter Stats':
     if len(player_stats) == 0:
         st.info(f'No players meet the {min_threshold} PA minimum.')
     else:
-        show_cols = [player_col, 'School', 'Pos', 'PA', 'AB', 'H', '1B', '2B', '3B', 'HR', 'TB',
+        show_cols = ['Rank', player_col, 'School', 'Pos', 'PA', 'AB', 'H', '1B', '2B', '3B', 'HR', 'TB',
                      'R', 'RBI', 'BB', 'HBP', 'SF', 'SH', 'IBB', 'K', 'SB', 'CS', 'GDP',
                      'BA', 'OBP', 'SLG', 'OPS', 'ISO', 'BABIP',
                      'K%', 'BB%', 'K/BB', 'R/PA',
@@ -1329,7 +1343,7 @@ elif view == 'Pitcher Stats':
         st.info(f'No pitchers meet the {min_threshold} BF minimum.')
     else:
         k_col = 'K/7' if sport == 'softball' else 'K/9'
-        show_cols = [player_col, 'School', 'Pos', 'App', 'GS', 'IP', 'BF', 'OAB',
+        show_cols = ['Rank', player_col, 'School', 'Pos', 'App', 'GS', 'IP', 'BF', 'OAB',
                      'H', 'R', 'ER', 'BB', 'HB', 'SO',
                      'HR', '2B-A', '3B-A', 'Bk', 'IBB', 'SHA', 'SFA',
                      'ERA', 'FIP', 'BAA', 'BABIP',
