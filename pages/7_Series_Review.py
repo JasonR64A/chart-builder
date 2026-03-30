@@ -151,14 +151,82 @@ def get_team_context(team_name, sport, division):
                 if len(prev_rank) > 0:
                     context['rank_64_prev'] = int(prev_rank['integer_64_rank_total'].iloc[0])
 
-    # Next weekend opponent
+    # 3-week trend: wRAA and FIP
+    try:
+        hitting_data = load_pbp(sport, division, 'hitting')
+        pitching_data = load_pbp(sport, division, 'pitching')
+        if hitting_data is not None and 'date_parsed' in hitting_data.columns:
+            max_date = hitting_data['date_parsed'].max()
+            recent_start = max_date - timedelta(days=21)
+            prev_start = recent_start - timedelta(days=21)
+
+            team_hitting = hitting_data[hitting_data['teamName'] == team_name]
+            # League for wRAA baseline
+            league_recent = hitting_data[hitting_data['date_parsed'] >= recent_start]
+            l_ab = league_recent['ab'].sum(); l_h = league_recent['h'].sum()
+            l_bb = league_recent['bb'].sum(); l_hbp = league_recent['hbp'].sum()
+            l_sf = league_recent['sf'].sum(); l_sh = league_recent['sh'].sum()
+            l_hr = league_recent['hr'].sum(); l_2b = league_recent['doubles'].sum()
+            l_3b = league_recent['triples'].sum()
+            l_1b = l_h - l_2b - l_3b - l_hr
+            l_pa = l_ab + l_bb + l_hbp + l_sf + l_sh
+            l_wd = l_ab + l_bb + l_sf + l_hbp
+            l_woba = (WOBA_BB*l_bb + WOBA_HBP*l_hbp + WOBA_1B*l_1b + WOBA_2B*l_2b + WOBA_3B*l_3b + WOBA_HR*l_hr) / l_wd if l_wd > 0 else 0.36
+
+            for period, start, end in [('recent', recent_start, max_date), ('previous', prev_start, recent_start)]:
+                ph = team_hitting[(team_hitting['date_parsed'] >= start) & (team_hitting['date_parsed'] < end)]
+                if len(ph) > 0:
+                    ab = ph['ab'].sum(); h = ph['h'].sum(); bb = ph['bb'].sum()
+                    hbp = ph['hbp'].sum(); sf = ph['sf'].sum(); sh = ph['sh'].sum()
+                    hr = ph['hr'].sum(); d2 = ph['doubles'].sum(); d3 = ph['triples'].sum()
+                    s1 = h - d2 - d3 - hr; pa = ab + bb + hbp + sf + sh
+                    wd = ab + bb + sf + hbp
+                    woba = (WOBA_BB*bb + WOBA_HBP*hbp + WOBA_1B*s1 + WOBA_2B*d2 + WOBA_3B*d3 + WOBA_HR*hr) / wd if wd > 0 else 0
+                    wraa = ((woba - l_woba) / WOBA_SCALE) * pa
+                    context.setdefault('wraa_trend', {})[period] = round(wraa, 1)
+
+        if pitching_data is not None and 'date_parsed' in pitching_data.columns:
+            max_date = pitching_data['date_parsed'].max()
+            recent_start = max_date - timedelta(days=21)
+            prev_start = recent_start - timedelta(days=21)
+
+            team_pitching = pitching_data[pitching_data['teamName'] == team_name]
+            for period, start, end in [('recent', recent_start, max_date), ('previous', prev_start, recent_start)]:
+                pp = team_pitching[(team_pitching['date_parsed'] >= start) & (team_pitching['date_parsed'] < end)]
+                if len(pp) > 0:
+                    whole = np.floor(pp['ip']); frac = np.round((pp['ip'] - whole) * 10).astype(int)
+                    total_outs = (whole * 3 + frac).sum(); ip = total_outs / 3
+                    hr = pp['hrA'].sum(); bb = pp['bb'].sum(); hb = pp['hb'].sum(); so = pp['so'].sum()
+                    fip = ((13*hr + 3*(bb+hb) - 2*so) / ip + FIP_CONSTANT) if ip > 0 else 0
+                    context.setdefault('fip_trend', {})[period] = round(fip, 2)
+    except:
+        pass
+
+    # Next weekend opponent + previous 5 and next 5 games
     sched_full = load_schedules(sport)
     if sched_full is not None:
+        # Future games
         future = sched_full[(sched_full['teamName'] == team_name) & (sched_full['isFuture'] == 1)]
         if len(future) > 0:
             future = future.sort_values('date')
             context['next_opponent'] = future.iloc[0]['opponentName']
             context['next_date'] = future.iloc[0]['date']
+            # Next 5
+            next_5 = []
+            for _, g in future.head(5).iterrows():
+                next_5.append({'date': g['date'], 'opp': g['opponentName']})
+            context['next_5'] = next_5
+
+        # Previous 5 games
+        past = sched_full[(sched_full['teamName'] == team_name) & (sched_full['isFuture'] != 1)]
+        if len(past) > 0:
+            past = past.sort_values('date', ascending=False)
+            prev_5 = []
+            for _, g in past.head(5).iterrows():
+                is_win = g['isWin'] == 1 or g['isWin'] == 1.0
+                score = f"W {int(g['runsFor'])}-{int(g['runsAgainst'])}" if is_win else f"L {int(g['runsFor'])}-{int(g['runsAgainst'])}"
+                prev_5.append({'result': score, 'opp': g['opponentName'], 'win': is_win})
+            context['prev_5'] = prev_5
 
     return context
 
@@ -175,32 +243,51 @@ def render_team_card(team_name, context):
     next_opp = context.get('next_opponent', '—')
     next_date = context.get('next_date', '')
 
-    # Stock indicator
-    rank_64_prev = context.get('rank_64_prev')
-    if rank_64 != '—' and rank_64_prev:
-        diff = rank_64_prev - rank_64  # positive = improved
-        if diff > 10:
-            stock = '🔥 Stock Up'
-            stock_color = '#22d3a0'
-        elif diff > 0:
-            stock = '📈 Improving'
-            stock_color = '#22d3a0'
-        elif diff < -10:
-            stock = '📉 Stock Down'
-            stock_color = '#C41230'
-        elif diff < 0:
-            stock = '📉 Declining'
-            stock_color = '#C41230'
-        else:
-            stock = '➡️ Steady'
-            stock_color = '#888'
-        stock_detail = f"64 Rank: {rank_64} (was {rank_64_prev})"
-    else:
-        stock = '—'
-        stock_color = '#888'
-        stock_detail = f"64 Rank: {rank_64}"
+    # 3-week trend indicators
+    wraa_trend = context.get('wraa_trend', {})
+    fip_trend = context.get('fip_trend', {})
 
-    st.markdown(f'''<div style="background:#222;border-radius:12px;padding:16px;border:1px solid #3a3a3a;">
+    wraa_recent = wraa_trend.get('recent', '—')
+    wraa_prev = wraa_trend.get('previous', '—')
+    if wraa_recent != '—' and wraa_prev != '—':
+        wraa_diff = wraa_recent - wraa_prev
+        if wraa_diff > 2:
+            wraa_arrow = '📈'
+            wraa_color = '#22d3a0'
+        elif wraa_diff < -2:
+            wraa_arrow = '📉'
+            wraa_color = '#C41230'
+        else:
+            wraa_arrow = '➡️'
+            wraa_color = '#888'
+        wraa_display = f"{wraa_arrow} {wraa_recent:+.1f}"
+        wraa_detail = f"was {wraa_prev:+.1f}"
+    else:
+        wraa_display = '—'
+        wraa_color = '#888'
+        wraa_detail = ''
+
+    fip_recent = fip_trend.get('recent', '—')
+    fip_prev = fip_trend.get('previous', '—')
+    if fip_recent != '—' and fip_prev != '—':
+        fip_diff = fip_recent - fip_prev  # lower FIP = better
+        if fip_diff < -0.3:
+            fip_arrow = '📈'
+            fip_color = '#22d3a0'
+        elif fip_diff > 0.3:
+            fip_arrow = '📉'
+            fip_color = '#C41230'
+        else:
+            fip_arrow = '➡️'
+            fip_color = '#888'
+        fip_display = f"{fip_arrow} {fip_recent:.2f}"
+        fip_detail = f"was {fip_prev:.2f}"
+    else:
+        fip_display = '—'
+        fip_color = '#888'
+        fip_detail = ''
+
+    html = f'''<div style="background:#222;border-radius:12px;padding:16px;border:1px solid #3a3a3a;">
   <div style="font-size:18px;font-weight:bold;color:#FFFFFF;margin-bottom:8px;">{team_name}</div>
   <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px;">
     <div style="background:#2a2a2a;border-radius:8px;padding:8px;text-align:center;">
@@ -216,7 +303,7 @@ def render_team_card(team_name, context):
       <div style="font-size:9px;color:#888;">CONF RANK</div>
     </div>
   </div>
-  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px;">
+  <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:10px;">
     <div style="background:#2a2a2a;border-radius:8px;padding:8px;text-align:center;">
       <div style="font-size:16px;font-weight:bold;color:#C41230;">#{rpi_rank}</div>
       <div style="font-size:9px;color:#888;">RPI</div>
@@ -225,15 +312,40 @@ def render_team_card(team_name, context):
       <div style="font-size:16px;font-weight:bold;color:#C41230;">#{rank_64}</div>
       <div style="font-size:9px;color:#888;">64A RANK</div>
     </div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:10px;">
     <div style="background:#2a2a2a;border-radius:8px;padding:8px;text-align:center;">
-      <div style="font-size:16px;font-weight:bold;color:{stock_color};">{stock}</div>
-      <div style="font-size:9px;color:#888;">{stock_detail}</div>
+      <div style="font-size:16px;font-weight:bold;color:{wraa_color};">{wraa_display}</div>
+      <div style="font-size:9px;color:#888;">wRAA 3wk {wraa_detail}</div>
+    </div>
+    <div style="background:#2a2a2a;border-radius:8px;padding:8px;text-align:center;">
+      <div style="font-size:16px;font-weight:bold;color:{fip_color};">{fip_display}</div>
+      <div style="font-size:9px;color:#888;">FIP 3wk {fip_detail}</div>
     </div>
   </div>
-  <div style="font-size:12px;color:#888;">
+  <div style="font-size:12px;color:#888;margin-bottom:8px;">
     <strong>Next:</strong> {next_opp} ({next_date})
-  </div>
-</div>''', unsafe_allow_html=True)
+  </div>'''
+
+    # Previous 5 games
+    prev_games = context.get('prev_5', [])
+    if prev_games:
+        html += '<div style="font-size:11px;color:#888;margin-bottom:4px;"><strong>Last 5:</strong> '
+        for g in prev_games:
+            color = '#22d3a0' if g['win'] else '#C41230'
+            html += f'<span style="color:{color};font-weight:bold;">{g["result"]}</span> vs {g["opp"]}  '
+        html += '</div>'
+
+    # Next 5 games
+    next_games = context.get('next_5', [])
+    if next_games:
+        html += '<div style="font-size:11px;color:#888;"><strong>Next 5:</strong> '
+        for g in next_games:
+            html += f'{g["date"]} vs {g["opp"]}  '
+        html += '</div>'
+
+    html += '</div>'
+    st.markdown(html, unsafe_allow_html=True)
 
 
 # ── Series Detection ──────────────────────────────────────────────────────────
@@ -636,22 +748,22 @@ st.markdown('---')
 col1, col2 = st.columns(2)
 
 with col1:
-    st.markdown(f'#### {team_a} — Top 10 Hitters')
+    st.markdown(f'#### {team_a} — Hitting')
     hitters_a = compute_hitter_stats(series_hitting[series_hitting['teamName'] == team_a])
     if len(hitters_a) > 0:
         show_cols = ['Player', 'PA', 'AB', 'H', '2B', '3B', 'HR', 'RBI', 'R', 'BB', 'K', 'SB',
                      'BA', 'OBP', 'SLG', 'OPS', 'wOBA']
         show_cols = [c for c in show_cols if c in hitters_a.columns]
-        st.dataframe(hitters_a[show_cols].head(10), use_container_width=True, hide_index=True)
+        st.dataframe(hitters_a[show_cols], use_container_width=True, hide_index=True)
 
 with col2:
-    st.markdown(f'#### {team_b} — Top 10 Hitters')
+    st.markdown(f'#### {team_b} — Hitting')
     hitters_b = compute_hitter_stats(series_hitting[series_hitting['teamName'] == team_b])
     if len(hitters_b) > 0:
         show_cols = ['Player', 'PA', 'AB', 'H', '2B', '3B', 'HR', 'RBI', 'R', 'BB', 'K', 'SB',
                      'BA', 'OBP', 'SLG', 'OPS', 'wOBA']
         show_cols = [c for c in show_cols if c in hitters_b.columns]
-        st.dataframe(hitters_b[show_cols].head(10), use_container_width=True, hide_index=True)
+        st.dataframe(hitters_b[show_cols], use_container_width=True, hide_index=True)
 
 st.markdown('---')
 
@@ -664,7 +776,7 @@ with col3:
         show_cols = ['Player', 'App', 'GS', 'IP', 'H', 'R', 'ER', 'BB', 'SO', 'HR',
                      'ERA', 'FIP', 'WHIP', 'K%']
         show_cols = [c for c in show_cols if c in pitchers_a.columns]
-        st.dataframe(pitchers_a[show_cols].head(8), use_container_width=True, hide_index=True)
+        st.dataframe(pitchers_a[show_cols], use_container_width=True, hide_index=True)
 
 with col4:
     st.markdown(f'#### {team_b} — Pitching')
@@ -673,7 +785,7 @@ with col4:
         show_cols = ['Player', 'App', 'GS', 'IP', 'H', 'R', 'ER', 'BB', 'SO', 'HR',
                      'ERA', 'FIP', 'WHIP', 'K%']
         show_cols = [c for c in show_cols if c in pitchers_b.columns]
-        st.dataframe(pitchers_b[show_cols].head(8), use_container_width=True, hide_index=True)
+        st.dataframe(pitchers_b[show_cols], use_container_width=True, hide_index=True)
 
 # AI Summary
 st.markdown('---')
