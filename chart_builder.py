@@ -1389,7 +1389,7 @@ def main():
     st.markdown("""
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-    html, body, .stApp, .stApp * { font-family: 'Inter', sans-serif !important; }
+    html, body, .stApp, .stApp *:not([class*="icon"]):not([data-testid*="icon"]):not(.material-icons):not(.material-symbols) { font-family: 'Inter', sans-serif !important; }
     .stApp { background-color: #1a1a1a; }
     .stSidebar { background-color: #111111; }
     h1, h2, h3, p, label, .stMarkdown { color: #C8C8C8 !important; }
