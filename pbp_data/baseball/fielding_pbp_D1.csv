@@ -99607,3 +99607,556 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6533993,2/21/26,baseball,Georgia Tech,,Drew Rogers,34,DH,,0,0,0,0,0,0,0,0,0,0,0
 6533993,2/21/26,baseball,Georgia Tech,,Parker Brosius,1,PR/DH,,0,0,0,0,0,0,0,0,0,0,0
 6533993,2/21/26,baseball,Georgia Tech,,Carson Kerce,3,SS,,2,2,4,0,0,0,0,0,1,0,0
+6551313,2/14/26,baseball,Miami (OH) Fielding,,Dominic Krupinski,10,SS,,0,3,4,1,0,0,0,0,0,0,0
+6551313,2/14/26,baseball,Miami (OH) Fielding,,Evan Appelwick,16,1B,,12,0,12,0,0,0,0,0,0,0,0
+6551313,2/14/26,baseball,Miami (OH) Fielding,,Hayden Christiansen,24,DH,,0,0,0,0,0,0,0,0,0,0,0
+6551313,2/14/26,baseball,Miami (OH) Fielding,,Ryan Novak,31,LF,,2,0,2,0,0,0,0,0,0,0,0
+6551313,2/14/26,baseball,Miami (OH) Fielding,,Ignacio Gonzalez,21,2B,,2,3,5,0,0,0,0,0,0,0,0
+6551313,2/14/26,baseball,Miami (OH) Fielding,,Christopher Roa,3,RF,,0,0,0,0,0,0,0,0,0,0,0
+6551313,2/14/26,baseball,Miami (OH) Fielding,,Keenan Proctor,15,RF,,0,0,0,0,0,0,0,0,0,0,0
+6551313,2/14/26,baseball,Miami (OH) Fielding,,Matthew Buffington,28,C,,10,0,10,0,0,0,4,0,0,0,1.000
+6551313,2/14/26,baseball,Miami (OH) Fielding,,Jamie Rasmussen,33,3B,,0,0,0,0,0,0,0,0,0,0,0
+6551313,2/14/26,baseball,Miami (OH) Fielding,,Marcus Dierks,12,CF,,1,0,1,0,0,0,0,0,0,0,0
+6551313,2/14/26,baseball,Southern U. Fielding,,Beny Bikar,3,SS,,1,3,4,0,0,0,0,0,0,0,0
+6551313,2/14/26,baseball,Southern U. Fielding,,KJ White,5,2B,,0,1,1,0,0,0,0,0,0,0,0
+6551313,2/14/26,baseball,Southern U. Fielding,,Jaylon Lucky,26,1B,,9,0,9,0,0,0,0,0,0,0,0
+6551313,2/14/26,baseball,Southern U. Fielding,,Kameron Byrd,16,LF,,1,0,1,0,0,0,0,0,0,0,0
+6551313,2/14/26,baseball,Southern U. Fielding,,Ryan Hunter,12,RF,,5,1,6,0,0,0,0,0,0,0,0
+6551313,2/14/26,baseball,Southern U. Fielding,,Donnell Sandifer,28,DH,,0,0,0,0,0,0,0,0,0,0,0
+6551313,2/14/26,baseball,Southern U. Fielding,,Glenn Green III,45,PH,,0,0,0,0,0,0,0,0,0,0,0
+6551313,2/14/26,baseball,Southern U. Fielding,,Luis Ayala,29,C,,8,0,8,0,0,0,3,1,0,0,0.750
+6551313,2/14/26,baseball,Southern U. Fielding,,Jacoby Radcliffe,21,CF,,1,0,1,0,0,0,0,0,0,0,0
+6551313,2/14/26,baseball,Southern U. Fielding,,Kenyon Hughes,2,3B,,2,4,6,0,0,0,0,0,0,0,0
+6551317,2/21/26,baseball,Southern U. Fielding,,Beny Bikar,3,SS,,2,0,3,1,0,0,0,0,0,0,0
+6551317,2/21/26,baseball,Southern U. Fielding,,Omari Johnson,23,LF,,0,0,0,0,0,0,0,0,0,0,0
+6551317,2/21/26,baseball,Southern U. Fielding,,Kameron Byrd,16,DH,,0,0,0,0,0,0,0,0,0,0,0
+6551317,2/21/26,baseball,Southern U. Fielding,,Jaylon Lucky,26,1B,,4,2,6,0,0,0,0,0,0,0,0
+6551317,2/21/26,baseball,Southern U. Fielding,,Luis Ayala,29,C,,7,2,9,0,0,0,2,2,0,0,0.500
+6551317,2/21/26,baseball,Southern U. Fielding,,Ryan Hunter,12,RF,,0,0,0,0,0,0,0,0,0,0,0
+6551317,2/21/26,baseball,Southern U. Fielding,,Kenyon Hughes,2,3B,,2,2,5,1,0,0,0,0,0,0,0
+6551317,2/21/26,baseball,Southern U. Fielding,,Jacoby Radcliffe,21,CF,,4,0,4,0,0,0,0,0,0,0,0
+6551317,2/21/26,baseball,Southern U. Fielding,,KJ White,5,2B,,4,2,6,0,0,0,0,0,1,0,0
+6551317,2/21/26,baseball,Texas Southern Fielding,,Christopher Chavez,15,RF,,1,1,2,0,0,0,0,0,0,0,0
+6551317,2/21/26,baseball,Texas Southern Fielding,,Nate Lopez,24,2B,,0,3,4,1,0,0,0,0,0,0,0
+6551317,2/21/26,baseball,Texas Southern Fielding,,Erwin Cabassa,38,1B,,10,1,11,0,0,0,0,0,0,0,0
+6551317,2/21/26,baseball,Texas Southern Fielding,,Byron Robinson,35,DH,,0,0,0,0,0,0,0,0,0,0,0
+6551317,2/21/26,baseball,Texas Southern Fielding,,Jonathan Trejo,5,SS,,5,1,6,0,0,0,0,0,0,0,0
+6551317,2/21/26,baseball,Texas Southern Fielding,,Miguel Morales,29,C,,7,1,8,0,0,1,3,1,0,0,0.750
+6551317,2/21/26,baseball,Texas Southern Fielding,,Tanner Marek,7,3B,,1,2,5,2,0,0,0,0,0,0,0
+6551317,2/21/26,baseball,Texas Southern Fielding,,Evan Joubert,9,3B,,0,1,1,0,0,0,0,0,0,0,0
+6551317,2/21/26,baseball,Texas Southern Fielding,,Marco Mueses,33,LF,,2,0,2,0,0,0,0,0,0,0,0
+6551317,2/21/26,baseball,Texas Southern Fielding,,Zachari Pace,20,CF,,1,0,1,0,0,0,0,0,0,0,0
+6551323,2/24/26,baseball,Southern-N.O. Fielding,,J. Geraldo,13,3B,,0,2,2,0,0,0,0,0,0,0,0
+6551323,2/24/26,baseball,Southern-N.O. Fielding,,B. Guerin,5,CF,,1,0,1,0,0,0,0,0,0,0,0
+6551323,2/24/26,baseball,Southern-N.O. Fielding,,C. Soto,21,DH,,0,0,0,0,0,0,0,0,0,0,0
+6551323,2/24/26,baseball,Southern-N.O. Fielding,,D. Hill,35,PH,,0,0,0,0,0,0,0,0,0,0,0
+6551323,2/24/26,baseball,Southern-N.O. Fielding,,M. Bowens,23,RF,,0,0,0,0,0,0,0,0,0,0,0
+6551323,2/24/26,baseball,Southern-N.O. Fielding,,C. Guillory,11,LF,,1,0,1,0,0,0,0,0,0,0,0
+6551323,2/24/26,baseball,Southern-N.O. Fielding,,Darcy Franklin,28,1B,,6,0,6,0,0,0,0,0,0,0,0
+6551323,2/24/26,baseball,Southern-N.O. Fielding,,T. Brown,24,1B,,1,0,1,0,0,0,0,0,0,0,0
+6551323,2/24/26,baseball,Southern-N.O. Fielding,,A. Spriggs,22,C,,6,1,7,0,0,0,10,0,0,0,1.000
+6551323,2/24/26,baseball,Southern-N.O. Fielding,,Caden Cantu,33,C,,0,0,0,0,0,0,0,0,0,0,0
+6551323,2/24/26,baseball,Southern-N.O. Fielding,,Jr Herazo,2,SS,,3,2,5,0,0,0,0,0,0,0,0
+6551323,2/24/26,baseball,Southern-N.O. Fielding,,Peyton Strahan,1,2B,,0,4,4,0,0,0,0,0,0,0,0
+6551323,2/24/26,baseball,Southern-N.O. Fielding,,J. Avila,15,2B,,0,0,0,0,0,0,0,0,0,0,0
+6551323,2/24/26,baseball,Southern U. Fielding,,KJ White,5,2B,,2,0,2,0,0,0,0,0,0,0,0
+6551323,2/24/26,baseball,Southern U. Fielding,,Jacoby Radcliffe,21,CF,,1,0,1,0,0,0,0,0,0,0,0
+6551323,2/24/26,baseball,Southern U. Fielding,,Kameron Byrd,16,LF,,0,0,0,0,0,0,0,0,0,0,0
+6551323,2/24/26,baseball,Southern U. Fielding,,Jaylon Lucky,26,1B,,2,0,2,0,0,0,0,0,0,0,0
+6551323,2/24/26,baseball,Southern U. Fielding,,Ryan Hunter,12,RF,,2,0,2,0,0,0,0,0,0,0,0
+6551323,2/24/26,baseball,Southern U. Fielding,,Kenyon Hughes,2,3B,,0,1,1,0,0,0,0,0,0,0,0
+6551323,2/24/26,baseball,Southern U. Fielding,,Glenn Green III,45,DH,,0,0,0,0,0,0,0,0,0,0,0
+6551323,2/24/26,baseball,Southern U. Fielding,,Sadir Ryan,35,C,,13,0,13,0,0,1,0,0,0,0,0
+6551323,2/24/26,baseball,Southern U. Fielding,,Edward Gregory Jr.,6,SS,,1,1,2,0,0,0,0,0,0,0,0
+6546612,2/27/26,baseball,Morehead St. Fielding,,Kyle Krupp,16,LF,,2,0,2,0,0,0,0,0,0,0,0
+6546612,2/27/26,baseball,Morehead St. Fielding,,Caden Sheridan,10,C,,8,0,8,0,0,4,4,0,0,0,1.000
+6546612,2/27/26,baseball,Morehead St. Fielding,,Alex Kean,13,1B,,11,0,11,0,0,0,0,0,0,0,0
+6546612,2/27/26,baseball,Morehead St. Fielding,,Aubrey Kearns,2,3B,,0,2,3,1,0,0,0,0,0,0,0
+6546612,2/27/26,baseball,Morehead St. Fielding,,Ian McCubbin,11,DH,,0,0,0,0,0,0,0,0,0,0,0
+6546612,2/27/26,baseball,Morehead St. Fielding,,Davis Germann,3,RF,,1,0,1,0,0,0,0,0,0,0,0
+6546612,2/27/26,baseball,Morehead St. Fielding,,Nicholas Griffith,8,2B,,1,2,3,0,0,0,0,0,0,0,0
+6546612,2/27/26,baseball,Morehead St. Fielding,,Jaden Correa,23,SS,,0,3,5,2,0,0,0,0,0,0,0
+6546612,2/27/26,baseball,Morehead St. Fielding,,Jaden Hart,7,CF,,1,0,1,0,0,0,0,0,0,0,0
+6546612,2/27/26,baseball,Morehead St. Fielding,,Brayton Coomer,4,PH,,0,0,0,0,0,0,0,0,0,0,0
+6546612,2/27/26,baseball,Southern U. Fielding,,Beny Bikar,3,SS,,2,2,4,0,0,0,0,0,0,0,0
+6546612,2/27/26,baseball,Southern U. Fielding,,Kenyon Hughes,2,3B,,0,3,3,0,0,0,0,0,0,0,0
+6546612,2/27/26,baseball,Southern U. Fielding,,Kameron Byrd,16,LF,,0,0,0,0,0,0,0,0,0,0,0
+6546612,2/27/26,baseball,Southern U. Fielding,,Omari Johnson,23,LF,,0,0,0,0,0,0,0,0,0,0,0
+6546612,2/27/26,baseball,Southern U. Fielding,,Jaylon Lucky,26,DH,,0,0,0,0,0,0,0,0,0,0,0
+6546612,2/27/26,baseball,Southern U. Fielding,,Xavier Bradley,9,C,,16,0,16,0,0,1,3,0,0,0,1.000
+6546612,2/27/26,baseball,Southern U. Fielding,,Brant Stewart,30,1B,,4,0,4,0,0,0,0,0,0,0,0
+6546612,2/27/26,baseball,Southern U. Fielding,,Ryan Hunter,12,RF,,0,0,0,0,0,0,0,0,0,0,0
+6546612,2/27/26,baseball,Southern U. Fielding,,Jacoby Radcliffe,21,CF,,3,0,3,0,0,0,0,0,0,0,0
+6546612,2/27/26,baseball,Southern U. Fielding,,KJ White,5,2B,,2,0,2,0,0,0,0,0,0,0,0
+6546613,2/28/26,baseball,Morehead St. Fielding,,Caden Sheridan,10,C,,7,0,7,0,0,0,2,1,0,0,0.667
+6546613,2/28/26,baseball,Morehead St. Fielding,,Davis Germann,3,RF,,1,0,2,1,0,0,0,0,0,0,0
+6546613,2/28/26,baseball,Morehead St. Fielding,,Alex Kean,13,1B,,5,1,6,0,0,0,0,0,0,0,0
+6546613,2/28/26,baseball,Morehead St. Fielding,,Aubrey Kearns,2,3B,,1,2,3,0,0,0,0,0,0,0,0
+6546613,2/28/26,baseball,Morehead St. Fielding,,Ian McCubbin,11,LF,,1,0,1,0,0,0,0,0,0,0,0
+6546613,2/28/26,baseball,Morehead St. Fielding,,Kyle Krupp,16,LF,,1,0,1,0,0,0,0,0,0,0,0
+6546613,2/28/26,baseball,Morehead St. Fielding,,Brayton Coomer,4,DH,,0,0,0,0,0,0,0,0,0,0,0
+6546613,2/28/26,baseball,Morehead St. Fielding,,Nicholas Griffith,8,2B/SS,,8,1,9,0,0,0,0,0,0,0,0
+6546613,2/28/26,baseball,Morehead St. Fielding,,Jaden Correa,23,SS,,0,0,2,2,0,0,0,0,0,0,0
+6546613,2/28/26,baseball,Morehead St. Fielding,,Jack Taylor,17,2B,,0,1,1,0,0,0,0,0,0,0,0
+6546613,2/28/26,baseball,Morehead St. Fielding,,Jaden Hart,7,CF,,0,0,0,0,0,0,0,0,0,0,0
+6546613,2/28/26,baseball,Morehead St. Fielding,,JJ Dutton,5,PH,,0,0,0,0,0,0,0,0,0,0,0
+6546613,2/28/26,baseball,Southern U. Fielding,,Beny Bikar,3,SS,,0,0,0,0,0,0,0,0,0,0,0
+6546613,2/28/26,baseball,Southern U. Fielding,,Kenyon Hughes,2,3B,,0,0,1,1,0,0,0,0,0,0,0
+6546613,2/28/26,baseball,Southern U. Fielding,,Kameron Byrd,16,DH,,0,0,0,0,0,0,0,0,0,0,0
+6546613,2/28/26,baseball,Southern U. Fielding,,Glenn Green III,45,PH,,0,0,0,0,0,0,0,0,0,0,0
+6546613,2/28/26,baseball,Southern U. Fielding,,Omari Johnson,23,PR,,0,0,0,0,0,0,0,0,0,0,0
+6546613,2/28/26,baseball,Southern U. Fielding,,Jaylon Lucky,26,1B,,3,3,6,0,0,0,0,0,1,0,0
+6546613,2/28/26,baseball,Southern U. Fielding,,Xavier Bradley,9,C,,15,1,16,0,0,0,3,0,1,0,1.000
+6546613,2/28/26,baseball,Southern U. Fielding,,Ryan Hunter,12,RF,,3,0,3,0,0,0,0,0,0,0,0
+6546613,2/28/26,baseball,Southern U. Fielding,,Jacoby Radcliffe,21,CF,,2,0,2,0,0,0,0,0,0,0,0
+6546613,2/28/26,baseball,Southern U. Fielding,,KJ White,5,2B,,1,1,2,0,0,0,0,0,0,0,0
+6546613,2/28/26,baseball,Southern U. Fielding,,Kennedy Drexler,1,LF,,2,0,2,0,0,0,0,0,0,0,0
+6546614,3/01/26,baseball,Morehead St. Fielding,,Caden Sheridan,10,DH,,0,0,0,0,0,0,0,0,0,0,0
+6546614,3/01/26,baseball,Morehead St. Fielding,,Davis Germann,3,LF,,0,0,0,0,0,0,0,0,0,0,0
+6546614,3/01/26,baseball,Morehead St. Fielding,,Alex Kean,13,1B,,13,2,15,0,0,0,0,0,1,0,0
+6546614,3/01/26,baseball,Morehead St. Fielding,,Aubrey Kearns,2,2B/3B,,1,5,6,0,0,0,0,0,0,0,0
+6546614,3/01/26,baseball,Morehead St. Fielding,,Ian McCubbin,11,RF,,3,1,4,0,0,0,0,0,0,0,0
+6546614,3/01/26,baseball,Morehead St. Fielding,,Kyle Krupp,16,PR,,0,0,0,0,0,0,0,0,0,0,0
+6546614,3/01/26,baseball,Morehead St. Fielding,,Jaden Hart,7,CF,,0,0,0,0,0,0,0,0,0,0,0
+6546614,3/01/26,baseball,Morehead St. Fielding,,Nicholas Griffith,8,SS,,0,2,4,2,0,0,0,0,0,0,0
+6546614,3/01/26,baseball,Morehead St. Fielding,,Austyn Peak,9,CF/RF,,1,0,1,0,0,0,0,0,0,0,0
+6546614,3/01/26,baseball,Morehead St. Fielding,,Luke Hayes,21,P,,1,0,1,0,0,0,0,0,0,0,0
+6546614,3/01/26,baseball,Morehead St. Fielding,,Griffin Olson,1,3B,,0,0,0,0,0,0,0,0,0,0,0
+6546614,3/01/26,baseball,Morehead St. Fielding,,Jack Taylor,17,2B,,3,3,6,0,0,0,0,0,1,0,0
+6546614,3/01/26,baseball,Southern U. Fielding,,Beny Bikar,3,SS,,2,5,7,0,0,0,0,0,1,0,0
+6546614,3/01/26,baseball,Southern U. Fielding,,Kenyon Hughes,2,3B,,1,2,3,0,0,0,0,0,0,0,0
+6546614,3/01/26,baseball,Southern U. Fielding,,Kameron Byrd,16,DH,,0,0,0,0,0,0,0,0,0,0,0
+6546614,3/01/26,baseball,Southern U. Fielding,,Jaylon Lucky,26,1B,,12,0,12,0,0,0,0,0,1,0,0
+6546614,3/01/26,baseball,Southern U. Fielding,,Ryan Hunter,12,RF,,0,0,0,0,0,0,0,0,0,0,0
+6546614,3/01/26,baseball,Southern U. Fielding,,Luis Ayala,29,C,,9,2,11,0,0,0,3,1,0,0,0.750
+6546614,3/01/26,baseball,Southern U. Fielding,,Jacoby Radcliffe,21,CF,,2,0,2,0,0,0,0,0,0,0,0
+6546614,3/01/26,baseball,Southern U. Fielding,,KJ White,5,2B,,0,4,4,0,0,0,0,0,1,0,0
+6546614,3/01/26,baseball,Southern U. Fielding,,Kennedy Drexler,1,LF,,1,0,1,0,0,0,0,0,0,0,0
+6509789,3/03/26,baseball,McNeese Fielding,,Matt Stancliff,1,2B,,1,2,3,0,0,0,0,0,0,0,0
+6509789,3/03/26,baseball,McNeese Fielding,,Danny Barbero,8,DH,,0,0,0,0,0,0,0,0,0,0,0
+6509789,3/03/26,baseball,McNeese Fielding,,Hayden Stringfellow,34,1B,,4,0,4,0,0,0,0,0,0,0,0
+6509789,3/03/26,baseball,McNeese Fielding,,Marcus Heusohn,19,RF,,3,0,3,0,0,0,0,0,0,0,0
+6509789,3/03/26,baseball,McNeese Fielding,,Connor Schneider,6,3B,,0,0,0,0,0,0,0,0,0,0,0
+6509789,3/03/26,baseball,McNeese Fielding,,Larry Edwards Jr.,28,LF,,1,0,1,0,0,0,0,0,0,0,0
+6509789,3/03/26,baseball,McNeese Fielding,,Bryce Fontenot,0,3B/RF,,0,1,1,0,0,0,0,0,0,0,0
+6509789,3/03/26,baseball,McNeese Fielding,,Easton Dowell,3,SS,,1,0,1,0,0,0,0,0,0,0,0
+6509789,3/03/26,baseball,McNeese Fielding,,DJ Pinkerton,2,CF,,5,0,5,0,0,0,0,0,0,0,0
+6509789,3/03/26,baseball,McNeese Fielding,,Seth Fontenot,44,C,,12,0,12,0,0,0,4,0,0,0,1.000
+6509789,3/03/26,baseball,Southern U. Fielding,,Beny Bikar,3,SS,,4,5,9,0,0,0,0,0,1,0,0
+6509789,3/03/26,baseball,Southern U. Fielding,,Edward Gregory Jr.,6,3B,,2,0,2,0,0,0,0,0,0,0,0
+6509789,3/03/26,baseball,Southern U. Fielding,,Jaylon Lucky,26,1B,,6,1,7,0,0,0,0,0,1,0,0
+6509789,3/03/26,baseball,Southern U. Fielding,,Kameron Byrd,16,LF,,2,1,3,0,0,0,0,0,0,0,0
+6509789,3/03/26,baseball,Southern U. Fielding,,Donnell Sandifer,28,C,,6,0,6,0,0,1,6,1,0,0,0.857
+6509789,3/03/26,baseball,Southern U. Fielding,,Ryan Hunter,12,RF,,1,0,1,0,0,0,0,0,0,0,0
+6509789,3/03/26,baseball,Southern U. Fielding,,Glenn Green III,45,DH,,0,0,0,0,0,0,0,0,0,0,0
+6509789,3/03/26,baseball,Southern U. Fielding,,KJ White,5,2B,,4,2,6,0,0,0,0,0,1,0,0
+6509789,3/03/26,baseball,Southern U. Fielding,,Kennedy Drexler,1,CF,,2,0,3,1,0,0,0,0,0,0,0
+6551329,3/10/26,baseball,Dillard Fielding,,Christopher Jr.,2,2B,,1,1,2,0,0,0,0,0,0,0,0
+6551329,3/10/26,baseball,Dillard Fielding,,Tae Boze,1,2B,,1,1,2,0,0,0,0,0,0,0,0
+6551329,3/10/26,baseball,Dillard Fielding,,Bryson Payne,10,2B,,0,0,0,0,0,0,0,0,0,0,0
+6551329,3/10/26,baseball,Dillard Fielding,,K'Wality Williams,7,SS,,1,1,3,1,0,0,0,0,0,0,0
+6551329,3/10/26,baseball,Dillard Fielding,,Malcolm McKay,4,SS,,1,0,1,0,0,0,0,0,0,0,0
+6551329,3/10/26,baseball,Dillard Fielding,,Mike Lewis,9,LF,,0,0,0,0,0,0,0,0,0,0,0
+6551329,3/10/26,baseball,Dillard Fielding,,Matthew Leblanc,14,LF,,1,0,1,0,0,0,0,0,0,0,0
+6551329,3/10/26,baseball,Dillard Fielding,,Noah Riley,27,1B,,5,2,7,0,0,0,0,0,0,0,0
+6551329,3/10/26,baseball,Dillard Fielding,,RayJ Rose,35,DH,,0,0,0,0,0,0,0,0,0,0,0
+6551329,3/10/26,baseball,Dillard Fielding,,Ronaldo Rivera,6,C,,2,1,3,0,0,0,5,1,0,0,0.833
+6551329,3/10/26,baseball,Dillard Fielding,,Oscar Vargas,0,C,,1,1,2,0,0,0,0,1,0,0,0
+6551329,3/10/26,baseball,Dillard Fielding,,Delvyn Williams,8,RF,,0,0,0,0,0,0,0,0,0,0,0
+6551329,3/10/26,baseball,Dillard Fielding,,Donovan Jr,5,RF,,1,0,1,0,0,0,0,0,0,0,0
+6551329,3/10/26,baseball,Dillard Fielding,,Braylon McNair,18,3B,,1,0,1,0,0,0,0,0,0,0,0
+6551329,3/10/26,baseball,Dillard Fielding,,Joshua Meekins,26,3B,,0,1,1,0,0,0,0,0,0,0,0
+6551329,3/10/26,baseball,Dillard Fielding,,Joseph Ramsey,3,CF,,2,0,2,0,0,0,0,0,0,0,0
+6551329,3/10/26,baseball,Dillard Fielding,,Edrick Harrison,12,CF,,1,0,1,0,0,0,0,0,0,0,0
+6551329,3/10/26,baseball,Dillard Fielding,,Chase Mitchell,34,CF,,0,0,0,0,0,0,0,0,0,0,0
+6551329,3/10/26,baseball,Southern U. Fielding,,Ryan Hunter,12,RF,,0,0,0,0,0,0,0,0,0,0,0
+6551329,3/10/26,baseball,Southern U. Fielding,,KJ White,5,2B,,3,2,5,0,0,0,0,0,1,0,0
+6551329,3/10/26,baseball,Southern U. Fielding,,Kameron Byrd,16,LF,,0,0,0,0,0,0,0,0,0,0,0
+6551329,3/10/26,baseball,Southern U. Fielding,,Jaylon Lucky,26,1B,,6,0,6,0,0,0,0,0,1,0,0
+6551329,3/10/26,baseball,Southern U. Fielding,,Donnell Sandifer,28,DH,,0,0,0,0,0,0,0,0,0,0,0
+6551329,3/10/26,baseball,Southern U. Fielding,,Glenn Green III,45,PH,,0,0,0,0,0,0,0,0,0,0,0
+6551329,3/10/26,baseball,Southern U. Fielding,,Xavier Bradley,9,C,,5,2,7,0,0,0,0,1,0,0,0
+6551329,3/10/26,baseball,Southern U. Fielding,,Sadir Ryan,35,C,,6,0,6,0,0,0,0,0,0,0,0
+6551329,3/10/26,baseball,Southern U. Fielding,,Jacoby Radcliffe,21,CF,,1,1,2,0,0,0,0,0,0,0,0
+6551329,3/10/26,baseball,Southern U. Fielding,,Edward Gregory Jr.,6,3B,,0,0,0,0,0,0,0,0,0,0,0
+6551329,3/10/26,baseball,Southern U. Fielding,,Kenyon Hughes,2,3B,,0,0,0,0,0,0,0,0,0,0,0
+6551329,3/10/26,baseball,Southern U. Fielding,,Beny Bikar,3,SS,,0,2,3,1,0,0,0,0,1,0,0
+6551333,3/14/26,baseball,Southern U. Fielding,,Ryan Hunter,12,RF,,2,0,2,0,0,0,0,0,0,0,0
+6551333,3/14/26,baseball,Southern U. Fielding,,KJ White,5,2B,,4,1,5,0,0,0,0,0,0,0,0
+6551333,3/14/26,baseball,Southern U. Fielding,,Kameron Byrd,20,DH,,0,0,0,0,0,0,0,0,0,0,0
+6551333,3/14/26,baseball,Southern U. Fielding,,Jaylon Lucky,26,1B,,5,0,5,0,0,0,0,0,0,0,0
+6551333,3/14/26,baseball,Southern U. Fielding,,Xavier Bradley,9,C,,9,0,9,0,0,1,1,1,0,0,0.500
+6551333,3/14/26,baseball,Southern U. Fielding,,Kenyon Hughes,2,3B,,2,2,4,0,0,0,0,0,0,0,0
+6551333,3/14/26,baseball,Southern U. Fielding,,Jacoby Radcliffe,21,CF,,3,0,3,0,0,0,0,0,0,0,0
+6551333,3/14/26,baseball,Southern U. Fielding,,Beny Bikar,3,SS,,0,4,5,1,0,0,0,0,0,0,0
+6551333,3/14/26,baseball,Southern U. Fielding,,Kennedy Drexler,1,LF,,1,0,1,0,0,0,0,0,0,0,0
+6551333,3/14/26,baseball,Florida A&M Fielding,,Justen Crews,3,CF,,1,0,1,0,0,0,0,0,0,0,0
+6551333,3/14/26,baseball,Florida A&M Fielding,,Alex Monile,12,PH,,0,0,0,0,0,0,0,0,0,0,0
+6551333,3/14/26,baseball,Florida A&M Fielding,,Colton Ryals,2,LF,,1,1,2,0,0,0,0,0,0,0,0
+6551333,3/14/26,baseball,Florida A&M Fielding,,Jay Campbell,10,3B,,2,2,4,0,0,0,0,0,0,0,0
+6551333,3/14/26,baseball,Florida A&M Fielding,,Ethan Miller,13,C,,10,2,12,0,0,0,4,2,0,0,0.667
+6551333,3/14/26,baseball,Florida A&M Fielding,,Justin Lopez,19,SS,,1,0,1,0,0,0,0,0,0,0,0
+6551333,3/14/26,baseball,Florida A&M Fielding,,Matthew Perez,24,SS/1B,,3,3,6,0,0,0,0,0,1,0,0
+6551333,3/14/26,baseball,Florida A&M Fielding,,Adam Parzych,25,DH,,0,0,0,0,0,0,0,0,0,0,0
+6551333,3/14/26,baseball,Florida A&M Fielding,,Jackson McKenzie,22,DH,,0,0,0,0,0,0,0,0,0,0,0
+6551333,3/14/26,baseball,Florida A&M Fielding,,Josue Figueroa,21,1B/C,,6,0,6,0,0,0,0,0,1,0,0
+6551333,3/14/26,baseball,Florida A&M Fielding,,Will Brown,5,2B,,1,3,4,0,0,0,0,0,1,0,0
+6551333,3/14/26,baseball,Florida A&M Fielding,,Alessandro Villegas,15,PH,,0,0,0,0,0,0,0,0,0,0,0
+6551333,3/14/26,baseball,Florida A&M Fielding,,Jordan Brown,1,RF,,2,0,2,0,0,0,0,0,0,0,0
+6551333,3/14/26,baseball,Florida A&M Fielding,,Caden Kresak,6,PH,,0,0,0,0,0,0,0,0,0,0,0
+6551337,3/27/26,baseball,Prairie View Fielding,,Basilio Williams,3,RF,,1,0,1,0,0,0,0,0,0,0,0
+6551337,3/27/26,baseball,Prairie View Fielding,,Ethan Walker,5,CF,,3,0,3,0,0,0,0,0,0,0,0
+6551337,3/27/26,baseball,Prairie View Fielding,,Ryland Duson,4,3B,,0,0,0,0,0,0,0,0,0,0,0
+6551337,3/27/26,baseball,Prairie View Fielding,,Michael Burroughs,18,DH,,0,0,0,0,0,0,0,0,0,0,0
+6551337,3/27/26,baseball,Prairie View Fielding,,Hunter Ham,45,1B,,12,0,12,0,0,0,0,0,0,0,0
+6551337,3/27/26,baseball,Prairie View Fielding,,Tyvon Moore,1,LF,,1,0,1,0,0,0,0,0,0,0,0
+6551337,3/27/26,baseball,Prairie View Fielding,,Sonnier Moses,16,2B,,1,7,8,0,0,0,0,0,0,0,0
+6551337,3/27/26,baseball,Prairie View Fielding,,John Lawson,43,C,,5,1,6,0,0,1,3,0,0,0,1.000
+6551337,3/27/26,baseball,Prairie View Fielding,,Brenton Jackson,8,SS,,1,3,5,1,0,0,0,0,0,0,0
+6551337,3/27/26,baseball,Prairie View Fielding,,Corie Lockette,20,PH,,0,0,0,0,0,0,0,0,0,0,0
+6551337,3/27/26,baseball,Southern U. Fielding,,Ryan Hunter,12,RF,,2,0,2,0,0,0,0,0,0,0,0
+6551337,3/27/26,baseball,Southern U. Fielding,,KJ White,5,2B,,1,2,3,0,0,0,0,0,0,0,0
+6551337,3/27/26,baseball,Southern U. Fielding,,Jaylon Lucky,26,DH,,0,0,0,0,0,0,0,0,0,0,0
+6551337,3/27/26,baseball,Southern U. Fielding,,Xavier Bradley,9,C,,11,0,12,1,0,0,2,0,0,0,1.000
+6551337,3/27/26,baseball,Southern U. Fielding,,Kenyon Hughes,2,3B,,0,0,1,1,0,0,0,0,0,0,0
+6551337,3/27/26,baseball,Southern U. Fielding,,Kameron Byrd,16,LF,,0,0,0,0,0,0,0,0,0,0,0
+6551337,3/27/26,baseball,Southern U. Fielding,,Brant Stewart,30,1B,,11,1,12,0,0,0,0,0,0,0,0
+6551337,3/27/26,baseball,Southern U. Fielding,,Jacoby Radcliffe,21,CF,,1,1,2,0,0,0,0,0,0,0,0
+6551337,3/27/26,baseball,Southern U. Fielding,,Beny Bikar,3,SS,,0,4,4,0,0,0,0,0,0,0,0
+6521743,2/13/26,baseball,Lindenwood Fielding,,Kam Edwards,8,CF,,2,0,2,0,0,0,0,0,0,0,0
+6521743,2/13/26,baseball,Lindenwood Fielding,,Will Geary,10,2B,,1,2,3,0,0,0,0,0,0,0,0
+6521743,2/13/26,baseball,Lindenwood Fielding,,Charlie Isom-McCall,1,SS,,1,2,3,0,0,0,0,0,0,0,0
+6521743,2/13/26,baseball,Lindenwood Fielding,,Jake Radosevich,33,DH,,0,0,0,0,0,0,0,0,0,0,0
+6521743,2/13/26,baseball,Lindenwood Fielding,,William Zareh,39,C,,8,0,8,0,0,0,0,0,0,0,0
+6521743,2/13/26,baseball,Lindenwood Fielding,,Filip Sarota,27,RF,,2,0,3,1,0,0,0,0,0,0,0
+6521743,2/13/26,baseball,Lindenwood Fielding,,Sam Driscoll,4,LF,,7,0,7,0,0,0,0,0,0,0,0
+6521743,2/13/26,baseball,Lindenwood Fielding,,Mathew Graf,32,1B,,6,0,6,0,0,0,0,0,0,0,0
+6521743,2/13/26,baseball,Lindenwood Fielding,,Cade Martinez,7,PH,,0,0,0,0,0,0,0,0,0,0,0
+6521743,2/13/26,baseball,Lindenwood Fielding,,Tyler Ellis,22,1B,,0,0,0,0,0,0,0,0,0,0,0
+6521743,2/13/26,baseball,Lindenwood Fielding,,Spencer Pederson,5,3B,,0,2,2,0,0,0,0,0,0,0,0
+6521743,2/13/26,baseball,Ark.-Pine Bluff Fielding,,Konner Giddley,8,2B,,0,0,2,2,0,0,0,0,0,0,0
+6521743,2/13/26,baseball,Ark.-Pine Bluff Fielding,,Zach Wieder,7,SS,,0,0,0,0,0,0,0,0,0,0,0
+6521743,2/13/26,baseball,Ark.-Pine Bluff Fielding,,Lazaro Alvarado,20,1B,,2,0,4,2,0,0,0,0,0,0,0
+6521743,2/13/26,baseball,Ark.-Pine Bluff Fielding,,Zyon Hamilton,22,RF,,3,0,3,0,0,0,0,0,0,0,0
+6521743,2/13/26,baseball,Ark.-Pine Bluff Fielding,,Vinny Saumell,4,C,,12,0,12,0,0,0,1,0,0,0,1.000
+6521743,2/13/26,baseball,Ark.-Pine Bluff Fielding,,Dane Small,2,CF,,6,0,6,0,0,0,0,0,0,0,0
+6521743,2/13/26,baseball,Ark.-Pine Bluff Fielding,,Jordan Medellin,21,3B,,0,0,1,1,0,0,0,0,0,0,0
+6521743,2/13/26,baseball,Ark.-Pine Bluff Fielding,,Aaron Grant,42,3B,,0,1,2,1,0,0,0,0,0,0,0
+6521743,2/13/26,baseball,Ark.-Pine Bluff Fielding,,Blake Coleman,24,DH,,0,0,0,0,0,0,0,0,0,0,0
+6521743,2/13/26,baseball,Ark.-Pine Bluff Fielding,,Jose Vasquez,16,LF,,4,0,4,0,0,0,0,0,0,0,0
+6554019,2/14/26,baseball,Lindenwood Fielding,,Kam Edwards,8,CF,,2,0,2,0,0,0,0,0,0,0,0
+6554019,2/14/26,baseball,Lindenwood Fielding,,Will Geary,10,2B,,0,0,0,0,0,0,0,0,0,0,0
+6554019,2/14/26,baseball,Lindenwood Fielding,,Charlie Isom-McCall,1,SS,,4,3,7,0,0,0,0,0,0,0,0
+6554019,2/14/26,baseball,Lindenwood Fielding,,Jake Radosevich,33,DH,,0,0,0,0,0,0,0,0,0,0,0
+6554019,2/14/26,baseball,Lindenwood Fielding,,William Zareh,39,C,,5,1,6,0,0,0,1,1,0,0,0.500
+6554019,2/14/26,baseball,Lindenwood Fielding,,Filip Sarota,27,RF,,3,0,3,0,0,0,0,0,0,0,0
+6554019,2/14/26,baseball,Lindenwood Fielding,,Mathew Graf,32,1B,,9,0,9,0,0,0,0,0,0,0,0
+6554019,2/14/26,baseball,Lindenwood Fielding,,Tyler Ellis,22,3B,,0,2,2,0,0,0,0,0,0,0,0
+6554019,2/14/26,baseball,Lindenwood Fielding,,Ethan Cantareira,15,LF,,4,0,4,0,0,0,0,0,0,0,0
+6554019,2/14/26,baseball,Ark.-Pine Bluff Fielding,,Konner Giddley,8,2B,,1,2,3,0,0,0,0,0,0,0,0
+6554019,2/14/26,baseball,Ark.-Pine Bluff Fielding,,Zach Wieder,7,SS,,3,2,5,0,0,0,0,0,0,0,0
+6554019,2/14/26,baseball,Ark.-Pine Bluff Fielding,,Lazaro Alvarado,20,1B,,6,0,6,0,0,0,0,0,0,0,0
+6554019,2/14/26,baseball,Ark.-Pine Bluff Fielding,,Dane Small,2,CF,,4,0,4,0,0,0,0,0,0,0,0
+6554019,2/14/26,baseball,Ark.-Pine Bluff Fielding,,Vinny Saumell,4,C,,8,1,9,0,0,0,2,1,0,0,0.667
+6554019,2/14/26,baseball,Ark.-Pine Bluff Fielding,,Zyon Hamilton,22,LF,,4,0,4,0,0,0,0,0,0,0,0
+6554019,2/14/26,baseball,Ark.-Pine Bluff Fielding,,Blake Coleman,24,RF,,1,0,1,0,0,0,0,0,0,0,0
+6554019,2/14/26,baseball,Ark.-Pine Bluff Fielding,,Ryan Lamar,3,DH,,0,0,0,0,0,0,0,0,0,0,0
+6554019,2/14/26,baseball,Ark.-Pine Bluff Fielding,,Jose Vasquez,16,DH,,0,0,0,0,0,0,0,0,0,0,0
+6554019,2/14/26,baseball,Ark.-Pine Bluff Fielding,,Trinidad DeLaGarza,14,3B,,0,0,0,0,0,0,0,0,0,0,0
+6554019,2/14/26,baseball,Ark.-Pine Bluff Fielding,,Joe Adams,29,PH,,0,0,0,0,0,0,0,0,0,0,0
+6554019,2/14/26,baseball,Ark.-Pine Bluff Fielding,,Aaron Grant,42,3B,,0,1,1,0,0,0,0,0,0,0,0
+6521752,2/14/26,baseball,Lindenwood Fielding,,Kam Edwards,8,CF,,3,0,3,0,0,0,0,0,0,0,0
+6521752,2/14/26,baseball,Lindenwood Fielding,,Will Geary,10,2B,,1,3,4,0,0,0,0,0,1,0,0
+6521752,2/14/26,baseball,Lindenwood Fielding,,Charlie Isom-McCall,1,SS,,1,1,2,0,0,0,0,0,1,0,0
+6521752,2/14/26,baseball,Lindenwood Fielding,,Jake Radosevich,33,C,,7,0,7,0,0,0,0,0,0,0,0
+6521752,2/14/26,baseball,Lindenwood Fielding,,William Zareh,39,DH,,0,0,0,0,0,0,0,0,0,0,0
+6521752,2/14/26,baseball,Lindenwood Fielding,,Filip Sarota,27,RF,,5,1,6,0,0,0,0,0,0,0,0
+6521752,2/14/26,baseball,Lindenwood Fielding,,Mathew Graf,32,1B,,8,1,9,0,0,0,0,0,1,0,0
+6521752,2/14/26,baseball,Lindenwood Fielding,,Owen Ralph,13,3B,,0,3,3,0,0,0,0,0,0,0,0
+6521752,2/14/26,baseball,Lindenwood Fielding,,Cade Martinez,7,LF,,0,0,0,0,0,0,0,0,0,0,0
+6521752,2/14/26,baseball,Ark.-Pine Bluff Fielding,,Konner Giddley,8,2B,,1,3,4,0,0,0,0,0,1,0,0
+6521752,2/14/26,baseball,Ark.-Pine Bluff Fielding,,Zach Wieder,7,SS,,1,3,4,0,0,0,0,0,1,0,0
+6521752,2/14/26,baseball,Ark.-Pine Bluff Fielding,,Lazaro Alvarado,20,1B,,10,0,10,0,0,0,0,0,1,0,0
+6521752,2/14/26,baseball,Ark.-Pine Bluff Fielding,,Dane Small,2,CF,,2,0,2,0,0,0,0,0,0,0,0
+6521752,2/14/26,baseball,Ark.-Pine Bluff Fielding,,Jose Vasquez,16,PH,,0,0,0,0,0,0,0,0,0,0,0
+6521752,2/14/26,baseball,Ark.-Pine Bluff Fielding,,Joe Adams,29,DH,,0,0,0,0,0,0,0,0,0,0,0
+6521752,2/14/26,baseball,Ark.-Pine Bluff Fielding,,Zyon Hamilton,22,LF,,1,0,1,0,0,0,0,0,0,0,0
+6521752,2/14/26,baseball,Ark.-Pine Bluff Fielding,,Blake Coleman,24,RF,,3,0,3,0,0,0,0,0,0,0,0
+6521752,2/14/26,baseball,Ark.-Pine Bluff Fielding,,Trinidad DeLaGarza,14,3B,,0,4,4,0,0,0,0,0,0,0,0
+6521752,2/14/26,baseball,Ark.-Pine Bluff Fielding,,Aaron Grant,42,3B,,0,0,0,0,0,0,0,0,0,0,0
+6521752,2/14/26,baseball,Ark.-Pine Bluff Fielding,,Matt Dworsky,19,C,,8,1,9,0,0,0,2,0,0,0,1.000
+6549367,3/22/26,baseball,Florida A&M Fielding,,Will Brown,5,2B,,0,4,4,0,0,0,0,0,0,0,0
+6549367,3/22/26,baseball,Florida A&M Fielding,,Justen Crews,3,CF,,3,0,3,0,0,0,0,0,0,0,0
+6549367,3/22/26,baseball,Florida A&M Fielding,,Matthew Perez,7,SS/3B,,1,1,3,1,0,0,0,0,0,0,0
+6549367,3/22/26,baseball,Florida A&M Fielding,,Jay Campbell,10,3B,,0,2,2,0,0,0,0,0,0,0,0
+6549367,3/22/26,baseball,Florida A&M Fielding,,Justin Lopez,19,SS,,0,0,0,0,0,0,0,0,0,0,0
+6549367,3/22/26,baseball,Florida A&M Fielding,,Ethan Miller,13,C,,5,0,5,0,0,2,0,0,0,0,0
+6549367,3/22/26,baseball,Florida A&M Fielding,,Josue Figueroa,21,1B,,9,1,10,0,0,0,0,0,0,0,0
+6549367,3/22/26,baseball,Florida A&M Fielding,,Colton Ryals,2,LF,,2,0,3,1,0,0,0,0,0,0,0
+6549367,3/22/26,baseball,Florida A&M Fielding,,Caden Kresak,6,LF,,0,0,0,0,0,0,0,0,0,0,0
+6549367,3/22/26,baseball,Florida A&M Fielding,,Myles Potter,20,DH,,0,0,0,0,0,0,0,0,0,0,0
+6549367,3/22/26,baseball,Florida A&M Fielding,,Alex Monile,12,DH,,0,0,0,0,0,0,0,0,0,0,0
+6549367,3/22/26,baseball,Florida A&M Fielding,,Jordan Brown,1,RF,,6,0,6,0,0,0,0,0,0,0,0
+6549367,3/22/26,baseball,Ark.-Pine Bluff Fielding,,Jose Vasquez,16,LF,,3,0,3,0,0,0,0,0,0,0,0
+6549367,3/22/26,baseball,Ark.-Pine Bluff Fielding,,Zach Wieder,7,3B/P,,1,2,3,0,0,0,0,0,0,0,0
+6549367,3/22/26,baseball,Ark.-Pine Bluff Fielding,,Aaron Grant,42,SS,,2,1,5,2,0,0,0,0,0,0,0
+6549367,3/22/26,baseball,Ark.-Pine Bluff Fielding,,Blake Coleman,24,DH/1B,,0,0,0,0,0,0,0,0,0,0,0
+6549367,3/22/26,baseball,Ark.-Pine Bluff Fielding,,Nick Hockemeyer,28,CF,,2,0,2,0,0,0,0,0,0,0,0
+6549367,3/22/26,baseball,Ark.-Pine Bluff Fielding,,Dane Small,2,PH,,0,0,0,0,0,0,0,0,0,0,0
+6549367,3/22/26,baseball,Ark.-Pine Bluff Fielding,,Ian Smith,11,1B/3B,,6,0,6,0,0,0,0,0,0,0,0
+6549367,3/22/26,baseball,Ark.-Pine Bluff Fielding,,Konner Giddley,8,2B,,2,2,5,1,0,0,0,0,0,0,0
+6549367,3/22/26,baseball,Ark.-Pine Bluff Fielding,,Zyon Hamilton,22,RF,,4,0,4,0,0,0,0,0,0,0,0
+6549367,3/22/26,baseball,Ark.-Pine Bluff Fielding,,Matt Dworsky,19,C,,2,0,2,0,0,1,0,0,0,0,0
+6549367,3/22/26,baseball,Ark.-Pine Bluff Fielding,,Owen Gietzen,46,C,,4,0,4,0,0,0,2,0,0,0,1.000
+6549367,3/22/26,baseball,Ark.-Pine Bluff Fielding,,Joe Adams,29,PH,,0,0,0,0,0,0,0,0,0,0,0
+6549367,3/22/26,baseball,Ark.-Pine Bluff Fielding,,Vinny Saumell,4,C,,1,0,1,0,0,1,1,0,0,0,1.000
+6546479,2/20/26,baseball,Delaware St. Fielding,,Hassan Turner,4,CF,,3,0,3,0,0,0,0,0,0,0,0
+6546479,2/20/26,baseball,Delaware St. Fielding,,Brandon Boyd,13,RF,,3,0,3,0,0,0,0,0,0,0,0
+6546479,2/20/26,baseball,Delaware St. Fielding,,Jabril Bullock,19,2B,,3,3,6,0,0,0,0,0,0,0,0
+6546479,2/20/26,baseball,Delaware St. Fielding,,Justin Batts,6,DH,,0,0,0,0,0,0,0,0,0,0,0
+6546479,2/20/26,baseball,Delaware St. Fielding,,Jaryn Sample,12,3B,,0,1,2,1,0,0,0,0,0,0,0
+6546479,2/20/26,baseball,Delaware St. Fielding,,Brendan Timmons,9,1B,,6,0,7,1,0,0,0,0,0,0,0
+6546479,2/20/26,baseball,Delaware St. Fielding,,Santino Harwood,1,SS,,1,3,5,1,0,0,0,0,0,0,0
+6546479,2/20/26,baseball,Delaware St. Fielding,,Caleb King,8,C,,5,1,6,0,0,0,6,1,0,0,0.857
+6546479,2/20/26,baseball,Delaware St. Fielding,,Mykah Pelzer,24,C,,1,0,1,0,0,0,0,0,0,0,0
+6546479,2/20/26,baseball,Delaware St. Fielding,,Robert Sasser III,49,LF,,2,0,2,0,0,0,0,0,0,0,0
+6546479,2/20/26,baseball,La Salle Fielding,,Ryan Albin,2,LF,,1,0,1,0,0,0,0,0,0,0,0
+6546479,2/20/26,baseball,La Salle Fielding,,Chase Swain,42,CF,,2,0,2,0,0,0,0,0,0,0,0
+6546479,2/20/26,baseball,La Salle Fielding,,Michael Olender,9,RF,,0,0,0,0,0,0,0,0,0,0,0
+6546479,2/20/26,baseball,La Salle Fielding,,Carter Groen,17,RF,,0,0,0,0,0,0,0,0,0,0,0
+6546479,2/20/26,baseball,La Salle Fielding,,AJ Guiliana,1,CF,,1,0,1,0,0,0,0,0,0,0,0
+6546479,2/20/26,baseball,La Salle Fielding,,Rueben Livingston,3,3B,,1,2,4,1,0,0,0,0,1,0,0
+6546479,2/20/26,baseball,La Salle Fielding,,Dom Tilden,4,3B,,0,0,0,0,0,0,0,0,0,0,0
+6546479,2/20/26,baseball,La Salle Fielding,,Brendan Till,12,3B,,0,0,0,0,0,0,0,0,0,0,0
+6546479,2/20/26,baseball,La Salle Fielding,,Justin Szestowicki,26,SS,,1,3,4,0,0,0,0,0,0,0,0
+6546479,2/20/26,baseball,La Salle Fielding,,Austin Rhue,44,2B,,0,0,0,0,0,0,0,0,0,0,0
+6546479,2/20/26,baseball,La Salle Fielding,,Jayden Novak,14,C,,8,1,9,0,0,0,1,1,0,0,0.500
+6546479,2/20/26,baseball,La Salle Fielding,,Tyler Morgan,52,C,,5,0,5,0,0,0,0,0,0,0,0
+6546479,2/20/26,baseball,La Salle Fielding,,Ryan Perez,28,DH,,0,0,0,0,0,0,0,0,0,0,0
+6546479,2/20/26,baseball,La Salle Fielding,,Aidan Zakarewicz,15,DH,,0,0,0,0,0,0,0,0,0,0,0
+6546479,2/20/26,baseball,La Salle Fielding,,Alec Welshans,6,1B,,6,0,6,0,0,0,0,0,1,0,0
+6546479,2/20/26,baseball,La Salle Fielding,,Jackson Peper,10,1B,,0,0,0,0,0,0,0,0,0,0,0
+6546479,2/20/26,baseball,La Salle Fielding,,Daniel Perez,13,2B/SS,,2,1,3,0,0,0,0,0,0,0,0
+6546483,2/20/26,baseball,Delaware St. Fielding,,Santino Harwood,1,SS,,5,3,10,2,0,0,0,0,3,0,0
+6546483,2/20/26,baseball,Delaware St. Fielding,,Carter Boyd,7,DH,,0,0,0,0,0,0,0,0,0,0,0
+6546483,2/20/26,baseball,Delaware St. Fielding,,Jabril Bullock,19,2B,,1,3,4,0,0,0,0,0,2,0,0
+6546483,2/20/26,baseball,Delaware St. Fielding,,Justin Batts,6,1B,,4,0,4,0,0,0,0,0,3,0,0
+6546483,2/20/26,baseball,Delaware St. Fielding,,Alec Rodriguez,16,LF,,1,0,1,0,0,0,0,0,0,0,0
+6546483,2/20/26,baseball,Delaware St. Fielding,,Myles Dickerson,17,3B,,2,1,3,0,0,0,0,0,0,0,0
+6546483,2/20/26,baseball,Delaware St. Fielding,,Cameron Coco,2,RF,,2,0,2,0,0,0,0,0,0,0,0
+6546483,2/20/26,baseball,Delaware St. Fielding,,Mykah Pelzer,24,C,,5,0,6,1,0,1,1,0,0,0,1.000
+6546483,2/20/26,baseball,Delaware St. Fielding,,Rosnell Lewis,20,CF,,4,0,4,0,0,0,0,0,0,0,0
+6546483,2/20/26,baseball,La Salle Fielding,,AJ Guiliana,1,LF,,2,0,2,0,0,0,0,0,0,0,0
+6546483,2/20/26,baseball,La Salle Fielding,,Chase Swain,42,CF,,3,0,3,0,0,0,0,0,0,0,0
+6546483,2/20/26,baseball,La Salle Fielding,,Carter Groen,17,RF,,1,0,1,0,0,0,0,0,0,0,0
+6546483,2/20/26,baseball,La Salle Fielding,,Rueben Livingston,3,3B,,0,0,1,1,0,0,0,0,0,0,0
+6546483,2/20/26,baseball,La Salle Fielding,,Justin Szestowicki,26,SS,,0,1,1,0,0,0,0,0,0,0,0
+6546483,2/20/26,baseball,La Salle Fielding,,Jayden Novak,14,C,,13,0,14,1,0,1,2,0,0,0,1.000
+6546483,2/20/26,baseball,La Salle Fielding,,Kosei Suzuki,16,DH,,0,0,0,0,0,0,0,0,0,0,0
+6546483,2/20/26,baseball,La Salle Fielding,,Ryan Albin,2,PH,,0,0,0,0,0,0,0,0,0,0,0
+6546483,2/20/26,baseball,La Salle Fielding,,Alec Welshans,6,1B,,4,1,5,0,0,0,0,0,0,0,0
+6546483,2/20/26,baseball,La Salle Fielding,,Daniel Perez,13,2B,,0,3,3,0,0,0,0,0,0,0,0
+6510379,3/10/26,baseball,Rider Fielding,,Will Gallagher,1,3B,,1,2,3,0,0,0,0,0,1,0,0
+6510379,3/10/26,baseball,Rider Fielding,,Erich Hartmann,3,RF,,5,0,5,0,0,0,0,0,0,0,0
+6510379,3/10/26,baseball,Rider Fielding,,Kyle Neri,12,LF,,2,0,2,0,0,0,0,0,0,0,0
+6510379,3/10/26,baseball,Rider Fielding,,Charley Magoulick,15,1B,,7,0,7,0,0,0,0,0,1,0,0
+6510379,3/10/26,baseball,Rider Fielding,,Anthony Paskell,22,CF,,7,0,7,0,0,0,0,0,0,0,0
+6510379,3/10/26,baseball,Rider Fielding,,Peter Crespo,13,2B/DH,,2,3,5,0,0,0,0,0,1,0,0
+6510379,3/10/26,baseball,Rider Fielding,,Austin Cannon,23,DH,,0,0,0,0,0,0,0,0,0,0,0
+6510379,3/10/26,baseball,Rider Fielding,,Eliot Medlock,25,2B,,0,0,0,0,0,0,0,0,0,0,0
+6510379,3/10/26,baseball,Rider Fielding,,Dillon Jennings,88,C,,2,1,3,0,0,0,0,1,0,0,0
+6510379,3/10/26,baseball,Rider Fielding,,Nick Shuhet,24,C,,0,0,0,0,0,0,0,0,0,0,0
+6510379,3/10/26,baseball,Rider Fielding,,Noah Heath,8,SS,,1,1,2,0,0,0,0,0,0,0,0
+6510379,3/10/26,baseball,LIU Fielding,,Noah Sorensen,6,3B,,0,2,2,0,0,0,0,0,0,0,0
+6510379,3/10/26,baseball,LIU Fielding,,Ryan Rivera,5,SS,,2,0,2,0,0,0,0,0,0,0,0
+6510379,3/10/26,baseball,LIU Fielding,,Nicholas Matson,20,CF,,2,0,2,0,0,0,0,0,0,0,0
+6510379,3/10/26,baseball,LIU Fielding,,Elijah Fairchild,4,2B,,0,0,0,0,0,0,0,0,0,0,0
+6510379,3/10/26,baseball,LIU Fielding,,Michael Polubinski,8,RF,,4,0,4,0,0,0,0,0,0,0,0
+6510379,3/10/26,baseball,LIU Fielding,,Jake Kelleher,34,1B,,5,1,6,0,0,0,0,0,0,0,0
+6510379,3/10/26,baseball,LIU Fielding,,Nicholas Delvecchio,3,DH,,0,0,0,0,0,0,0,0,0,0,0
+6510379,3/10/26,baseball,LIU Fielding,,Mason Breton,11,DH,,0,0,0,0,0,0,0,0,0,0,0
+6510379,3/10/26,baseball,LIU Fielding,,Joe Durso,51,C,,12,0,12,0,0,0,0,0,0,0,0
+6510379,3/10/26,baseball,LIU Fielding,,Nate Figueroa,1,LF,,2,0,2,0,0,0,0,0,0,0,0
+6536566,3/14/26,baseball,Wagner Fielding,,Lukas Torres,26,CF,,1,1,2,0,0,0,0,0,0,0,0
+6536566,3/14/26,baseball,Wagner Fielding,,Jackson Blakley,6,CF,,0,0,0,0,0,0,0,0,0,0,0
+6536566,3/14/26,baseball,Wagner Fielding,,Matt Sutera,3,DH,,0,0,0,0,0,0,0,0,0,0,0
+6536566,3/14/26,baseball,Wagner Fielding,,Dominick Inzilla,37,DH,,0,0,0,0,0,0,0,0,0,0,0
+6536566,3/14/26,baseball,Wagner Fielding,,Diego Tavarez,45,LF,,2,0,2,0,0,0,0,0,0,0,0
+6536566,3/14/26,baseball,Wagner Fielding,,Joseph Mennella,28,1B,,5,0,5,0,0,0,0,0,2,0,0
+6536566,3/14/26,baseball,Wagner Fielding,,Jeremy Haigh,5,1B,,0,0,0,0,0,0,0,0,0,0,0
+6536566,3/14/26,baseball,Wagner Fielding,,Dylan Immel,2,2B,,0,1,2,1,0,0,0,0,1,0,0
+6536566,3/14/26,baseball,Wagner Fielding,,Alexander Kerr,20,2B,,1,1,2,0,0,0,0,0,1,0,0
+6536566,3/14/26,baseball,Wagner Fielding,,Nicholas Mazzotta,10,SS,,1,1,2,0,0,0,0,0,1,0,0
+6536566,3/14/26,baseball,Wagner Fielding,,Derek Patrissi,9,SS,,0,1,1,0,0,0,0,0,1,0,0
+6536566,3/14/26,baseball,Wagner Fielding,,Evan McRae,19,RF,,2,0,2,0,0,0,0,0,0,0,0
+6536566,3/14/26,baseball,Wagner Fielding,,Brendan McLoughlin,44,C,,5,0,5,0,0,1,2,0,0,0,1.000
+6536566,3/14/26,baseball,Wagner Fielding,,Jayden Alvarez,8,3B,,1,0,1,0,0,0,0,0,0,0,0
+6536566,3/14/26,baseball,LIU Fielding,,Noah Sorensen,6,3B,,0,0,2,2,0,0,0,0,0,0,0
+6536566,3/14/26,baseball,LIU Fielding,,Ryan Rivera,5,SS,,6,1,7,0,0,0,0,0,0,0,0
+6536566,3/14/26,baseball,LIU Fielding,,Elijah Fairchild,4,2B,,1,2,3,0,0,0,0,0,0,0,0
+6536566,3/14/26,baseball,LIU Fielding,,Michael Polubinski,8,RF,,0,0,0,0,0,0,0,0,0,0,0
+6536566,3/14/26,baseball,LIU Fielding,,Nicholas Matson,20,CF,,2,0,2,0,0,0,0,0,0,0,0
+6536566,3/14/26,baseball,LIU Fielding,,Mason Breton,11,LF,,4,0,4,0,0,0,0,0,0,0,0
+6536566,3/14/26,baseball,LIU Fielding,,Jake Kelleher,34,1B,,2,1,3,0,0,0,0,0,0,0,0
+6536566,3/14/26,baseball,LIU Fielding,,Joe Durso,51,C,,6,2,8,0,0,1,0,1,0,0,0
+6536566,3/14/26,baseball,LIU Fielding,,Nate Figueroa,1,DH,,0,0,0,0,0,0,0,0,0,0,0
+6564765,3/15/26,baseball,Wagner Fielding,,Lukas Torres,26,CF,,7,0,7,0,0,0,0,0,0,0,0
+6564765,3/15/26,baseball,Wagner Fielding,,Matt Sutera,3,DH,,0,0,0,0,0,0,0,0,0,0,0
+6564765,3/15/26,baseball,Wagner Fielding,,Diego Tavarez,45,LF,,3,0,3,0,0,0,0,0,0,0,0
+6564765,3/15/26,baseball,Wagner Fielding,,Joseph Mennella,28,1B,,2,0,2,0,0,0,0,0,0,0,0
+6564765,3/15/26,baseball,Wagner Fielding,,Dylan Immel,2,2B,,3,1,4,0,0,0,0,0,0,0,0
+6564765,3/15/26,baseball,Wagner Fielding,,Nicholas Mazzotta,10,SS,,0,3,3,0,0,0,0,0,0,0,0
+6564765,3/15/26,baseball,Wagner Fielding,,Evan McRae,19,RF,,1,0,1,0,0,0,0,0,0,0,0
+6564765,3/15/26,baseball,Wagner Fielding,,Brendan McLoughlin,44,C,,3,0,3,0,0,0,0,0,0,0,0
+6564765,3/15/26,baseball,Wagner Fielding,,Jayden Alvarez,8,3B,,2,0,3,1,0,0,0,0,0,0,0
+6564765,3/15/26,baseball,LIU Fielding,,Noah Sorensen,6,3B,,1,0,1,0,0,0,0,0,0,0,0
+6564765,3/15/26,baseball,LIU Fielding,,Nate Figueroa,1,3B,,0,0,0,0,0,0,0,0,0,0,0
+6564765,3/15/26,baseball,LIU Fielding,,Ryan Rivera,5,SS,,2,4,6,0,0,0,0,0,0,0,0
+6564765,3/15/26,baseball,LIU Fielding,,Elijah Fairchild,4,2B,,1,1,2,0,0,0,0,0,0,0,0
+6564765,3/15/26,baseball,LIU Fielding,,Michael Polubinski,8,RF,,2,0,3,1,0,0,0,0,0,0,0
+6564765,3/15/26,baseball,LIU Fielding,,Nicholas Matson,20,CF,,2,0,2,0,0,0,0,0,0,0,0
+6564765,3/15/26,baseball,LIU Fielding,,Jake Kelleher,34,1B,,6,0,7,1,0,0,0,0,0,0,0
+6564765,3/15/26,baseball,LIU Fielding,,Joe Durso,51,C,,5,0,5,0,0,0,1,0,0,0,1.000
+6564765,3/15/26,baseball,LIU Fielding,,Mason Breton,11,DH,,0,0,0,0,0,0,0,0,0,0,0
+6564765,3/15/26,baseball,LIU Fielding,,Matthew McGurk,15,LF,,2,0,2,0,0,0,0,0,0,0,0
+6564765,3/15/26,baseball,LIU Fielding,,Nicholas Delvecchio,3,LF,,0,0,0,0,0,0,0,0,0,0,0
+6564804,3/15/26,baseball,Wagner Fielding,,Lukas Torres,26,RF,,4,0,4,0,0,0,0,0,0,0,0
+6564804,3/15/26,baseball,Wagner Fielding,,Matt Sutera,3,DH,,0,0,0,0,0,0,0,0,0,0,0
+6564804,3/15/26,baseball,Wagner Fielding,,Derek Patrissi,9,SS,,0,0,0,0,0,0,0,0,0,0,0
+6564804,3/15/26,baseball,Wagner Fielding,,Diego Tavarez,45,LF,,1,0,1,0,0,0,0,0,0,0,0
+6564804,3/15/26,baseball,Wagner Fielding,,Joseph Mennella,28,1B,,9,0,9,0,0,0,0,0,2,0,0
+6564804,3/15/26,baseball,Wagner Fielding,,Omar Carreras,12,3B,,1,0,1,0,0,0,0,0,0,0,0
+6564804,3/15/26,baseball,Wagner Fielding,,Jayden Alvarez,8,3B,,0,0,0,0,0,0,0,0,0,0,0
+6564804,3/15/26,baseball,Wagner Fielding,,Dylan Immel,2,2B,,2,6,8,0,0,0,0,0,2,0,0
+6564804,3/15/26,baseball,Wagner Fielding,,Nicholas Mazzotta,10,SS/P,,1,2,3,0,0,0,0,0,0,0,0
+6564804,3/15/26,baseball,Wagner Fielding,,Brendan McLoughlin,44,C,,7,0,7,0,0,1,1,0,0,0,1.000
+6564804,3/15/26,baseball,Wagner Fielding,,Josiah Ross,16,CF,,2,0,2,0,0,0,0,0,0,0,0
+6564804,3/15/26,baseball,LIU Fielding,,Nate Figueroa,1,3B,,0,1,1,0,0,0,0,0,0,0,0
+6564804,3/15/26,baseball,LIU Fielding,,Ryan Rivera,5,SS,,2,2,4,0,0,0,0,0,0,0,0
+6564804,3/15/26,baseball,LIU Fielding,,Elijah Fairchild,4,2B,,0,2,2,0,0,0,0,0,0,0,0
+6564804,3/15/26,baseball,LIU Fielding,,Michael Polubinski,8,RF,,2,0,2,0,0,0,0,0,0,0,0
+6564804,3/15/26,baseball,LIU Fielding,,Nicholas Matson,20,CF,,3,0,3,0,0,0,0,0,0,0,0
+6564804,3/15/26,baseball,LIU Fielding,,Jake Kelleher,34,C,,7,1,8,0,0,1,2,0,0,0,1.000
+6564804,3/15/26,baseball,LIU Fielding,,Mason Breton,11,LF,,5,0,5,0,0,0,0,0,0,0,0
+6564804,3/15/26,baseball,LIU Fielding,,Tyler Benick,25,1B,,7,1,9,1,0,0,0,0,0,0,0
+6564804,3/15/26,baseball,LIU Fielding,,Nicholas Delvecchio,3,DH,,0,0,0,0,0,0,0,0,0,0,0
+6564804,3/15/26,baseball,LIU Fielding,,Joe Durso,51,DH,,0,0,0,0,0,0,0,0,0,0,0
+6553741,3/17/26,baseball,Texas A&M-Victoria Fielding,,A. Benitez,7,SS,,1,3,5,1,0,0,0,0,1,0,0
+6553741,3/17/26,baseball,Texas A&M-Victoria Fielding,,Beck Zimmerman,2,C,,4,0,4,0,0,0,1,1,0,0,0.500
+6553741,3/17/26,baseball,Texas A&M-Victoria Fielding,,C. Kaiser,14,3B,,2,2,4,0,0,0,0,0,1,0,0
+6553741,3/17/26,baseball,Texas A&M-Victoria Fielding,,G. Smith,6,1B,,6,0,6,0,0,0,0,0,2,0,0
+6553741,3/17/26,baseball,Texas A&M-Victoria Fielding,,J. Montanez,25,RF,,2,0,2,0,0,0,0,0,0,0,0
+6553741,3/17/26,baseball,Texas A&M-Victoria Fielding,,J. Purcell,40,LF,,5,0,5,0,0,0,0,0,0,0,0
+6553741,3/17/26,baseball,Texas A&M-Victoria Fielding,,Z. Hankins,44,DH,,0,0,0,0,0,0,0,0,0,0,0
+6553741,3/17/26,baseball,Texas A&M-Victoria Fielding,,Ty Boozer,1,2B,,5,5,10,0,0,0,0,0,2,0,0
+6553741,3/17/26,baseball,Texas A&M-Victoria Fielding,,J. Taylor,8,CF,,2,2,4,0,0,0,0,0,0,0,0
+6553741,3/17/26,baseball,Texas Southern Fielding,,Zachari Pace,20,CF,,2,0,2,0,0,0,0,0,0,0,0
+6553741,3/17/26,baseball,Texas Southern Fielding,,Christopher Chavez,15,LF,,1,0,1,0,0,0,0,0,0,0,0
+6553741,3/17/26,baseball,Texas Southern Fielding,,Jonathan Trejo,5,SS,,1,4,6,1,0,0,0,0,2,0,0
+6553741,3/17/26,baseball,Texas Southern Fielding,,Byron Robinson,35,DH,,0,0,0,0,0,0,0,0,0,0,0
+6553741,3/17/26,baseball,Texas Southern Fielding,,Evan Joubert,9,3B,,0,3,5,2,0,0,0,0,0,0,0
+6553741,3/17/26,baseball,Texas Southern Fielding,,Miguel Morales,29,1B,,12,1,13,0,0,0,0,0,3,0,0
+6553741,3/17/26,baseball,Texas Southern Fielding,,Anthony Ruiz,22,RF,,2,0,2,0,0,0,0,0,0,0,0
+6553741,3/17/26,baseball,Texas Southern Fielding,,Elijah Rodriguez,16,C,,6,0,6,0,0,0,2,0,0,0,1.000
+6553741,3/17/26,baseball,Texas Southern Fielding,,Nate Lopez,24,2B,,3,6,9,0,0,0,0,0,3,0,0
+6515736,3/20/26,baseball,Mississippi Val. Fielding,,Tanner Aoki,1,2B,,2,3,6,1,0,0,0,0,1,0,0
+6515736,3/20/26,baseball,Mississippi Val. Fielding,,Kendall Brookins,43,LF,,2,0,2,0,0,0,0,0,0,0,0
+6515736,3/20/26,baseball,Mississippi Val. Fielding,,Jaxon Haynes,20,C,,6,0,6,0,0,0,2,0,0,0,1.000
+6515736,3/20/26,baseball,Mississippi Val. Fielding,,Jace Jones,21,P/PH,,0,0,0,0,0,0,1,0,0,0,1.000
+6515736,3/20/26,baseball,Mississippi Val. Fielding,,Tom Early,3,PH,,0,0,0,0,0,0,0,0,0,0,0
+6515736,3/20/26,baseball,Mississippi Val. Fielding,,Eric Williams,25,3B,,0,3,4,1,0,0,0,0,0,0,0
+6515736,3/20/26,baseball,Mississippi Val. Fielding,,Christopher Soeder,99,1B,,9,0,9,0,0,0,0,0,1,0,0
+6515736,3/20/26,baseball,Mississippi Val. Fielding,,Isreal Ramos,27,RF,,2,0,2,0,0,0,0,0,0,0,0
+6515736,3/20/26,baseball,Mississippi Val. Fielding,,Cody Leming,12,SS,,1,6,7,0,0,0,0,0,1,0,0
+6515736,3/20/26,baseball,Mississippi Val. Fielding,,Gabriel Huelsing,2,CF,,2,0,4,2,0,0,0,0,0,0,0
+6515736,3/20/26,baseball,Texas Southern Fielding,,Zachari Pace,20,LF,,1,0,1,0,0,0,0,0,0,0,0
+6515736,3/20/26,baseball,Texas Southern Fielding,,Christopher Chavez,15,RF,,2,0,2,0,0,0,0,0,0,0,0
+6515736,3/20/26,baseball,Texas Southern Fielding,,Jonathan Trejo,5,SS,,0,1,1,0,0,0,0,0,0,0,0
+6515736,3/20/26,baseball,Texas Southern Fielding,,Byron Robinson,35,DH,,0,0,0,0,0,0,0,0,0,0,0
+6515736,3/20/26,baseball,Texas Southern Fielding,,Evan Joubert,9,3B,,1,2,3,0,0,0,0,0,1,0,0
+6515736,3/20/26,baseball,Texas Southern Fielding,,Miguel Morales,29,1B,,8,0,8,0,0,0,0,0,1,0,0
+6515736,3/20/26,baseball,Texas Southern Fielding,,Elijah Rodriguez,16,C,,12,1,13,0,0,0,1,0,0,0,1.000
+6515736,3/20/26,baseball,Texas Southern Fielding,,Shaun Williams,34,CF,,2,0,2,0,0,0,0,0,0,0,0
+6515736,3/20/26,baseball,Texas Southern Fielding,,Nate Lopez,24,2B,,1,2,4,1,0,0,0,0,1,0,0
+6515738,3/22/26,baseball,Mississippi Val. Fielding,,Tanner Aoki,1,2B,,1,1,3,1,0,0,0,0,0,0,0
+6515738,3/22/26,baseball,Mississippi Val. Fielding,,Kendall Brookins,43,LF,,4,0,4,0,0,0,0,0,0,0,0
+6515738,3/22/26,baseball,Mississippi Val. Fielding,,Christopher Soeder,99,1B,,5,0,5,0,0,0,0,0,0,0,0
+6515738,3/22/26,baseball,Mississippi Val. Fielding,,Tom Early,3,DH,,0,0,0,0,0,0,0,0,0,0,0
+6515738,3/22/26,baseball,Mississippi Val. Fielding,,Eric Williams,25,3B,,0,2,2,0,0,0,0,0,0,0,0
+6515738,3/22/26,baseball,Mississippi Val. Fielding,,Ty Burns,13,C,,7,0,7,0,0,0,3,0,0,0,1.000
+6515738,3/22/26,baseball,Mississippi Val. Fielding,,Noah Bufford,8,RF,,2,0,2,0,0,0,0,0,0,0,0
+6515738,3/22/26,baseball,Mississippi Val. Fielding,,Cody Leming,12,SS,,2,1,3,0,0,0,0,0,0,0,0
+6515738,3/22/26,baseball,Mississippi Val. Fielding,,Gabriel Huelsing,2,CF,,3,0,4,1,0,0,0,0,0,0,0
+6515738,3/22/26,baseball,Texas Southern Fielding,,Anthony Ruiz,22,RF,,1,0,1,0,0,0,0,0,0,0,0
+6515738,3/22/26,baseball,Texas Southern Fielding,,Christopher Chavez,15,LF,,1,0,1,0,0,0,0,0,0,0,0
+6515738,3/22/26,baseball,Texas Southern Fielding,,Marco Mueses,33,LF,,0,0,0,0,0,0,0,0,0,0,0
+6515738,3/22/26,baseball,Texas Southern Fielding,,Jonathan Trejo,5,SS,,0,1,1,0,0,0,0,0,0,0,0
+6515738,3/22/26,baseball,Texas Southern Fielding,,Byron Robinson,35,DH,,0,0,0,0,0,0,0,0,0,0,0
+6515738,3/22/26,baseball,Texas Southern Fielding,,Evan Joubert,9,3B,,1,1,2,0,0,0,0,0,0,0,0
+6515738,3/22/26,baseball,Texas Southern Fielding,,Miguel Morales,29,C,,13,1,14,0,0,0,0,0,0,0,0
+6515738,3/22/26,baseball,Texas Southern Fielding,,Erwin Cabassa,38,1B,,3,0,3,0,0,0,0,0,0,0,0
+6515738,3/22/26,baseball,Texas Southern Fielding,,Derek Gippson,10,2B,,5,2,7,0,0,0,0,0,0,0,0
+6515738,3/22/26,baseball,Texas Southern Fielding,,Shaun Williams,34,CF,,3,0,4,1,0,0,0,0,0,0,0
+6536007,2/17/26,baseball,Col. of Charleston Fielding,,Brent Gibbs,06,2B,,1,1,2,0,0,0,0,0,0,0,0
+6536007,2/17/26,baseball,Col. of Charleston Fielding,,Nick Diaz,04,RF,,2,0,2,0,0,0,0,0,0,0,0
+6536007,2/17/26,baseball,Col. of Charleston Fielding,,Jacob Amman,03,PH/RF,,0,0,0,0,0,0,0,0,0,0,0
+6536007,2/17/26,baseball,Col. of Charleston Fielding,,Ethan Plyler,15,3B,,2,2,4,0,0,0,0,0,0,0,0
+6536007,2/17/26,baseball,Col. of Charleston Fielding,,Dylan Johnson,09,C,,10,0,10,0,0,0,4,0,0,0,1.000
+6536007,2/17/26,baseball,Col. of Charleston Fielding,,Braeden Smith,30,1B,,5,1,6,0,0,0,0,0,0,0,0
+6536007,2/17/26,baseball,Col. of Charleston Fielding,,Payton Frehner,08,LF,,2,0,2,0,0,0,0,0,0,0,0
+6536007,2/17/26,baseball,Col. of Charleston Fielding,,Jackson Berini,07,DH,,0,0,0,0,0,0,0,0,0,0,0
+6536007,2/17/26,baseball,Col. of Charleston Fielding,,Will Tippett,05,SS,,2,1,4,1,0,0,0,0,0,0,0
+6536007,2/17/26,baseball,Col. of Charleston Fielding,,Reece Holbrook,02,CF,,3,0,3,0,0,0,0,0,0,0,0
+6536007,2/17/26,baseball,Coastal Carolina Fielding,,Dean Mihos,8,CF,,3,0,3,0,0,0,0,0,0,0,0
+6536007,2/17/26,baseball,Coastal Carolina Fielding,,Blake Barthol,7,2B,,2,2,4,0,0,0,0,0,0,0,0
+6536007,2/17/26,baseball,Coastal Carolina Fielding,,Trace Mazon III,6,DH,,0,0,0,0,0,0,0,0,0,0,0
+6536007,2/17/26,baseball,Coastal Carolina Fielding,,Rex Watson,12,RF,,2,0,2,0,0,0,0,0,0,0,0
+6536007,2/17/26,baseball,Coastal Carolina Fielding,,Blagen Pado,22,RF,,0,0,0,0,0,0,0,0,0,0,0
+6536007,2/17/26,baseball,Coastal Carolina Fielding,,Walker Mitchell,5,3B,,0,2,2,0,0,0,0,0,0,0,0
+6536007,2/17/26,baseball,Coastal Carolina Fielding,,Colby Thorndyke,11,1B,,8,0,8,0,0,0,0,0,1,0,0
+6536007,2/17/26,baseball,Coastal Carolina Fielding,,Jordan Taylor,23,LF,,1,0,2,1,0,0,0,0,0,0,0
+6536007,2/17/26,baseball,Coastal Carolina Fielding,,Domenico Tozzi,13,C,,9,1,10,0,0,0,0,1,0,0,0
+6536007,2/17/26,baseball,Coastal Carolina Fielding,,Ty Barrango,10,SS,,2,4,6,0,0,0,0,0,1,0,0
+6536007,2/17/26,baseball,Coastal Carolina Fielding,,Brayden Horton,27,PH,,0,0,0,0,0,0,0,0,0,0,0
+6536007,2/17/26,baseball,Coastal Carolina Fielding,,Cruz Harlan,1,SS,,0,0,0,0,0,0,0,0,0,0,0
+6545392,2/22/26,baseball,VCU Fielding,,Michael Petite,1,CF,,3,0,3,0,0,0,0,0,0,0,0
+6545392,2/22/26,baseball,VCU Fielding,,Ethan Acevedo,10,LF,,3,0,3,0,0,0,0,0,0,0,0
+6545392,2/22/26,baseball,VCU Fielding,,Jacob Lee,37,C,,7,1,8,0,0,0,2,0,0,0,1.000
+6545392,2/22/26,baseball,VCU Fielding,,Nick Flores,6,2B,,1,1,2,0,0,0,0,0,0,0,0
+6545392,2/22/26,baseball,VCU Fielding,,Quinn Maher,31,1B,,5,0,5,0,0,0,0,0,0,0,0
+6545392,2/22/26,baseball,VCU Fielding,,Nate Kirkpatrick,3,3B,,0,1,1,0,0,0,0,0,0,0,0
+6545392,2/22/26,baseball,VCU Fielding,,Trent Adelman,9,RF,,4,0,4,0,0,0,0,0,0,0,0
+6545392,2/22/26,baseball,VCU Fielding,,Teige Lethert,11,DH,,0,0,0,0,0,0,0,0,0,0,0
+6545392,2/22/26,baseball,VCU Fielding,,Dante DeFranco,8,SS,,1,3,4,0,0,0,0,0,0,0,0
+6545392,2/22/26,baseball,Coastal Carolina Fielding,,Dean Mihos,8,CF,,1,0,1,0,0,0,0,0,0,0,0
+6545392,2/22/26,baseball,Coastal Carolina Fielding,,Trace Mazon III,6,DH,,0,0,0,0,0,0,0,0,0,0,0
+6545392,2/22/26,baseball,Coastal Carolina Fielding,,Blake Barthol,7,2B,,1,4,5,0,0,0,0,0,0,0,0
+6545392,2/22/26,baseball,Coastal Carolina Fielding,,Walker Mitchell,5,3B,,0,3,3,0,0,0,0,0,0,0,0
+6545392,2/22/26,baseball,Coastal Carolina Fielding,,Rex Watson,12,RF,,1,0,1,0,0,0,0,0,0,0,0
+6545392,2/22/26,baseball,Coastal Carolina Fielding,,Blagen Pado,22,RF,,0,0,0,0,0,0,0,0,0,0,0
+6545392,2/22/26,baseball,Coastal Carolina Fielding,,Jordan Taylor,23,LF,,2,0,2,0,0,0,0,0,0,0,0
+6545392,2/22/26,baseball,Coastal Carolina Fielding,,Colby Thorndyke,11,1B,,12,1,14,1,0,0,0,0,0,0,0
+6545392,2/22/26,baseball,Coastal Carolina Fielding,,Brice Estep,24,C,,6,0,6,0,0,0,1,0,0,0,1.000
+6545392,2/22/26,baseball,Coastal Carolina Fielding,,Brayden Horton,27,PH,,0,0,0,0,0,0,0,0,0,0,0
+6545392,2/22/26,baseball,Coastal Carolina Fielding,,Domenico Tozzi,13,C,,3,0,3,0,0,0,0,0,0,0,0
+6545392,2/22/26,baseball,Coastal Carolina Fielding,,Cruz Harlan,1,SS,,0,5,5,0,0,0,0,0,0,0,0
+6545394,3/20/26,baseball,James Madison Fielding,,Kyle Langley,2,LF,,1,0,1,0,0,0,0,0,0,0,0
+6545394,3/20/26,baseball,James Madison Fielding,,Ike Schmidly,37,RF,,5,1,6,0,0,0,0,0,0,0,0
+6545394,3/20/26,baseball,James Madison Fielding,,Reece Moody,1,2B,,1,1,2,0,0,0,0,0,0,0,0
+6545394,3/20/26,baseball,James Madison Fielding,,Jack Guerrero,24,3B,,0,2,3,1,0,0,0,0,0,0,0
+6545394,3/20/26,baseball,James Madison Fielding,,Clay Thompson,7,CF,,3,0,3,0,0,0,0,0,0,0,0
+6545394,3/20/26,baseball,James Madison Fielding,,Cameron Aycock,3,DH,,0,0,0,0,0,0,0,0,0,0,0
+6545394,3/20/26,baseball,James Madison Fielding,,Wyatt Campbell,5,1B,,4,0,4,0,0,0,0,0,0,0,0
+6545394,3/20/26,baseball,James Madison Fielding,,Ryan Gocio,11,C,,5,0,5,0,0,1,6,0,0,0,1.000
+6545394,3/20/26,baseball,James Madison Fielding,,Ben Barrow,8,C,,0,0,0,0,0,0,1,0,0,0,1.000
+6545394,3/20/26,baseball,James Madison Fielding,,Jack Anderson,18,SS,,1,1,2,0,0,0,0,0,0,0,0
+6545394,3/20/26,baseball,James Madison Fielding,,Maddux Fleck,21,PH/SS,,0,0,0,0,0,0,0,0,0,0,0
+6545394,3/20/26,baseball,Coastal Carolina Fielding,,Dean Mihos,8,CF,,2,0,2,0,0,0,0,0,0,0,0
+6545394,3/20/26,baseball,Coastal Carolina Fielding,,Trace Mazon III,6,DH,,0,0,0,0,0,0,0,0,0,0,0
+6545394,3/20/26,baseball,Coastal Carolina Fielding,,Blake Barthol,7,2B,,2,2,4,0,0,0,0,0,1,0,0
+6545394,3/20/26,baseball,Coastal Carolina Fielding,,Walker Mitchell,5,3B,,0,0,0,0,0,0,0,0,0,0,0
+6545394,3/20/26,baseball,Coastal Carolina Fielding,,Rex Watson,12,RF,,1,0,1,0,0,0,0,0,0,0,0
+6545394,3/20/26,baseball,Coastal Carolina Fielding,,Domenico Tozzi,13,C,,7,2,9,0,0,0,2,2,0,0,0.500
+6545394,3/20/26,baseball,Coastal Carolina Fielding,,Blagen Pado,22,LF,,0,0,0,0,0,0,0,0,0,0,0
+6545394,3/20/26,baseball,Coastal Carolina Fielding,,Colby Thorndyke,11,1B,,5,0,5,0,0,0,0,0,1,0,0
+6545394,3/20/26,baseball,Coastal Carolina Fielding,,Ty Barrango,10,SS,,4,3,7,0,0,0,0,0,1,0,0
