@@ -1512,25 +1512,29 @@ elif view == 'Pace Chart':
     entity_games = []
     for entity_name, edata in pace_pbp.groupby(group_key):
         edata_sorted = edata.sort_values('date_parsed')
-        dates = edata_sorted['date_parsed'].unique()
         team = edata_sorted['teamName'].iloc[0] if pace_level == 'Player' else entity_name
 
         if not is_advanced:
-            # Simple cumulative stat
+            # Simple cumulative stat — group by gameId to handle doubleheaders
             stat_col = cum_stats[stat_choice]
             if stat_col not in edata_sorted.columns:
                 continue
-            daily = edata_sorted.groupby('date_parsed')[stat_col].sum().reset_index().sort_values('date_parsed')
-            daily['game_num'] = range(1, len(daily) + 1)
-            daily['cum_stat'] = daily[stat_col].cumsum()
-            daily['entity'] = entity_name
-            daily['team'] = team
-            entity_games.append(daily[['entity', 'team', 'date_parsed', 'game_num', 'cum_stat']])
+            per_game = edata_sorted.groupby(['gameId', 'date_parsed'])[stat_col].sum().reset_index().sort_values('date_parsed')
+            per_game['game_num'] = range(1, len(per_game) + 1)
+            per_game['cum_stat'] = per_game[stat_col].cumsum()
+            per_game['entity'] = entity_name
+            per_game['team'] = team
+            entity_games.append(per_game[['entity', 'team', 'date_parsed', 'game_num', 'cum_stat']])
         else:
-            # Advanced: compute running stat through each game date
+            # Advanced: compute running stat through each game — use gameId for doubleheaders
+            game_order = edata_sorted.drop_duplicates('gameId')[['gameId', 'date_parsed']].sort_values('date_parsed')
+            game_ids_ordered = game_order['gameId'].tolist()
             rows = []
-            for i, d in enumerate(sorted(dates)):
-                window = edata_sorted[edata_sorted['date_parsed'] <= d]
+            for i, gid in enumerate(game_ids_ordered):
+                d = game_order[game_order['gameId'] == gid]['date_parsed'].iloc[0]
+                # Include all games up to and including this one
+                included_gids = set(game_ids_ordered[:i+1])
+                window = edata_sorted[edata_sorted['gameId'].isin(included_gids)]
                 if pace_stat_type == 'Hitting':
                     stats = compute_hitting_stats(window)
                     if stat_choice == 'wRAA':
