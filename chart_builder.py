@@ -1387,7 +1387,9 @@ def main():
     cfg = sidebar()
 
     st.markdown("""
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+    html, body, .stApp, .stApp * { font-family: 'Inter', sans-serif !important; }
     .stApp { background-color: #1a1a1a; }
     .stSidebar { background-color: #111111; }
     h1, h2, h3, p, label, .stMarkdown { color: #C8C8C8 !important; }

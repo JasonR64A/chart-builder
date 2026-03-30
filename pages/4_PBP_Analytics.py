@@ -1189,7 +1189,9 @@ st.set_page_config(page_title='64 Analytics — PBP Stat Calculator', layout='wi
                    initial_sidebar_state='expanded')
 
 st.markdown("""
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
+html, body, .stApp, .stApp * { font-family: 'Inter', sans-serif !important; }
 .stApp { background-color: #1a1a1a; }
 h1, h2, h3, p, label, .stMarkdown { color: #C8C8C8 !important; }
 </style>
