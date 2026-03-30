@@ -47452,7 +47452,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 47453,Logan Gersbeck,P,,FALSE,,0,0,758,2662810,,,,,,
 47454,Jack Gitterman,1B,,FALSE,,0,0,758,2662808,,FALSE,71,L,L,"Williamstown, MA"
 47455,Seth Hartman,P,,FALSE,,0,0,758,2662814,,,,,,
-47456,Matt Kossey,P,,FALSE,,0,0,758,2662809,,,69,R,R,"Norristown, PA"
+47456,Matt Kossey,P,,TRUE,758,0,0,146,2662809,,,69,R,R,"Norristown, PA"
 47457,Cameron Mebel,P,,FALSE,,0,0,758,2676566,,,,,,
 47458,Eric Mondragon,INF,,FALSE,,0,0,758,2662783,,,,,,
 47459,Cameron Nebel,P,Sr,TRUE,30,0,0,793,2662813,,FALSE,73,L,R,"Mechanicsburg, PA"
@@ -58030,7 +58030,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 58033,Aidan Hernandez,P,,FALSE,,0,0,556,2830454,,FALSE,,,,
 58034,Jack Kelly,P,,FALSE,,0,0,556,2830499,,,,,,
 58035,Andy Linder,LF,,FALSE,,0,0,556,2830501,P,TRUE,,,,
-58036,Grant McCurry,P,,FALSE,,0,0,556,2830492,,FALSE,75,,,"Apple Valley, CA"
+58036,Grant McCurry,P,,TRUE,556,0,0,393,2830492,,FALSE,75,,,"Apple Valley, CA"
 58037,Kazdion Mount,P,,FALSE,,0,0,556,2830490,,FALSE,,,,
 58038,Tyler Murphy,2B,Jr,TRUE,556,0,0,747,2830495,C,FALSE,,,,
 58039,Kurt Price,INF,,FALSE,,0,0,556,2830520,,,72,,,"Sauk Valley, WI"
@@ -92981,7 +92981,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 93062,Madison Hoagland,2B,Jr,FALSE,,,,2018,2942231,SS,FALSE,67,R,R,"Oak Creek, WI"
 93063,Madison Hodges,3B,,FALSE,,,,1836,2813178,,,,,,
 93064,Madison Hollis,P,Sr,FALSE,,,,1507,2819674,1B,TRUE,65,R,R,
-93065,Madison Howell,OF,,FALSE,,,,2091,2977384,,,73,,,"Berea, KY"
+93065,Madison Howell,OF,,TRUE,2091,,,2040,2977384,,,73,,,"Berea, KY"
 93066,Madison Hubbard,3B,Sr,FALSE,,,,1782,2812144,,FALSE,62,R,R,"Frisco, TX"
 93067,Madison Hudson,,,FALSE,,,,1109,2468387,,FALSE,63,R,R,"Lithia, FL"
 93068,Madison Hulse,P,Jr,FALSE,,,,1707,2945988,,FALSE,70,R,R,"San Diego, CA"
@@ -103836,7 +103836,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 104285,Davis Wright,C,So,FALSE,,,,548,3106677,,FALSE,73,L,R,"Marietta, GA"
 104286,Shawn Sower,P,,FALSE,,,,548,3106670,,FALSE,74,R,R,"Fayetteville, GA"
 104287,Ryan Taylor,P,Sr,FALSE,,,,548,3106673,,FALSE,74,R,R,"Woodstock, GA"
-104288,Jose Salcedo,DH,,FALSE,,,,780,3084556,C,FALSE,68,R,R,"Mc Kinney, TX"
+104288,Jose Salcedo,DH,,TRUE,780,,,787,3084556,C,FALSE,68,R,R,"Mc Kinney, TX"
 104289,Jarren Lewis,C,Sr,FALSE,,,,780,3099392,,FALSE,73,R,R,"Hobbs, NM"
 104290,Ashton VanDuzer,2B,So,FALSE,,,,780,3099391,SS,FALSE,73,R,R,"Tomball, TX"
 104291,Jaden Loggins,P,So,FALSE,,,,780,3099396,,FALSE,73,R,R,"Fulshear, TX"
@@ -149112,3 +149112,79 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 150252,Wava Norris,lf,,FALSE,,,,1688,3260464,,,,,,
 150253,Arianna Valle,2b,,FALSE,,,,1693,3260466,,,,,,
 150254,Chloe Murphy,UT,Fr,FALSE,,,,1998,3260608,,,67,R,R,"Manchester, NH"
+150255,Keenan Dingmann,p,,FALSE,,,,44,3260871,,,,,,
+150256,Ezra Griffin,dh,,FALSE,,,,44,3260872,,,,,,
+150257,Jack Huberty,lf,,FALSE,,,,44,3260875,,,,,,
+150258,Jack McCabe,p,,FALSE,,,,44,3260874,,,,,,
+150259,Derek Tomalak,c,,FALSE,,,,44,3260873,,,,,,
+150260,Luke Weisjahn,rf,,FALSE,,,,44,3260876,,,,,,
+150261,Bourke Reid,P,Fr,FALSE,,,,54,3261409,,,,R,R,
+150262,Drew Snyder,P,Fr,FALSE,,,,54,3261423,,,,,,
+150263,Seth Laureano,OF,Fr,FALSE,,,,197,3260776,,,,,,
+150264,Carson Homitz,p,,FALSE,,,,207,3261091,,,,,,
+150265,Grant Morris,p,,FALSE,,,,212,3260880,,,,,,
+150266,Oliver Dugas,ph,,FALSE,,,,236,3261095,,,,,,
+150267,Garrett Fisher,3b,,FALSE,,,,241,3261164,,,,,,
+150268,David Riddick,p,,FALSE,,,,373,3261349,,,,,,
+150269,Nelson Martinez,p,,FALSE,,,,378,3260797,,,,,,
+150270,Andrew Yen,P,Fr,FALSE,,,,392,3261161,,,67,R,R,
+150271,Kineil Stevens,3b,,FALSE,,,,399,3261092,,,,,,
+150272,Andrew Good,p,,FALSE,,,,403,3261093,,,,,,
+150273,Jaden Henry,pr,,FALSE,,,,403,3261094,,,,,,
+150274,Jermiah Brown,p,,FALSE,,,,475,3261470,,,,,,
+150275,Ian Price,P,Fr,FALSE,,,,513,3106363,,,,,,
+150276,Nevin Hanlen,,Fr,FALSE,,,,510,3260775,,,,,,
+150277,Ben Sterbens,P,So,FALSE,,,,524,3260892,,,,,,
+150278,Reyn Ikenaga,2b,,FALSE,,,,550,3260877,,,,,,
+150279,Adrian Medina,ph,,FALSE,,,,550,3260878,,,,,,
+150280,Trevor Myer,rf,,FALSE,,,,550,3260879,,,,,,
+150281,Ryan Buckhardt,c,,FALSE,,,,768,3261469,,,,,,
+150282,Mac Larkin,ss,,FALSE,,,,636,3261371,,,,,,
+150283,Hilton Sanders,1b,,FALSE,,,,636,3261372,,,,,,
+150284,Roger Gutierrez,ph,,FALSE,,,,691,3261486,,,,,,
+150285,Ian Pfahl,p,,FALSE,,,,698,3261096,,,,,,
+150286,Jacob White,p,,FALSE,,,,749,3260881,,,,,,
+150287,Daniel Serna,INF,Jr,FALSE,,,,463,3261181,,,,R,R,"Claremont, CA"
+150288,Hunter Mayville,cf,,FALSE,,,,930,3261408,,,,,,
+150289,Kenadee Golas,pr,,FALSE,,,,1940,3261190,,,,,,
+150290,Kate Gambro,dp,,FALSE,,,,1674,3260791,,,,,,
+150291,Haydon Gage,ss,,FALSE,,,,1827,3261379,,,,,,
+150292,Randi Gischer,2b,,FALSE,,,,1827,3261382,,,,,,
+150293,Katy Shuls,rf,,FALSE,,,,1827,3261383,,,,,,
+150294,Maddie Sidwell,cf,,FALSE,,,,1827,3261380,,,,,,
+150295,Ellie Wood,1b,,FALSE,,,,1827,3261384,,,,,,
+150296,Mailei Garcia,pr,,FALSE,,,,1979,3260890,,,,,,
+150297,Abigail Lindauer,ph,,FALSE,,,,1979,3260889,,,,,,
+150298,Aryanah Padilla,,,FALSE,,,,1979,3261114,,,,,,
+150299,Kelly Graf,pr,Fr,FALSE,,,,1776,3261385,,,,,,
+150300,Seanna Baird,INF,Fr,FALSE,,,,2043,3261189,,,65,R,R,"Indianapolis, IN"
+150301,Raevyn Thomas,lf,,FALSE,,,,1648,3260792,,,,,,
+150302,Megan Anderson,c,,FALSE,,,,2048,3260883,,,,,,
+150303,Layla Damotte,ss,,FALSE,,,,2048,3261381,,,,,,
+150304,Louise Harris,dp,,FALSE,,,,2048,3260884,,,,,,
+150305,Marissa Olmstead,rf,,FALSE,,,,2048,3260888,,,,,,
+150306,Lily Snowe,ss,,FALSE,,,,2048,3260887,,,,,,
+150307,Sarah Strauch,p,,FALSE,,,,2048,3260882,,,,,,
+150308,Emma Warren,3b,,FALSE,,,,2048,3260886,,,,,,
+150309,Kinslee Wickert,lf,,FALSE,,,,2048,3260885,,,,,,
+150310,Mia Libby,pr,,FALSE,,,,1685,3260790,,,,,,
+150311,Gabrielle Miller,lf,,FALSE,,,,1982,3261488,,,,,,
+150312,Kylie Heffern,p,,FALSE,,,,2009,3261386,,,,,,
+150313,Brea Barrow,c,,FALSE,,,,1650,3261378,,,,,,
+150314,Jenna Glenn,,Fr,FALSE,,,,1650,3260798,,,,,,
+150315,Taylor Scranton,c,,FALSE,,,,1650,3261377,,,,,,
+150316,Alison Predmore,ph,,FALSE,,,,1750,3260804,,,,,,
+150317,Zairra Galloway,OF,Fr,FALSE,,,,2002,3261463,,,70,R,R,"Trenton, NJ"
+150318,Lilia Ortiz,OF,Fr,FALSE,,,,2002,3261464,,,66,R,R,"Galloway, NJ"
+150319,Eileen Maddox,rf,,FALSE,,,,1925,3260803,,,,,,
+150320,Lily Singh,UT,Sr,FALSE,,,,2049,3261460,,,,,,
+150321,Alli Mangrum,,Fr,FALSE,,,,1506,3261115,,,,,,
+150322,Maggie Fay,dp,,FALSE,,,,1875,3261472,,,,,,
+150323,Chloe Fontaine,1b,,FALSE,,,,1875,3261473,,,,,,
+150324,Madison Smith,p,,FALSE,,,,1875,3260805,,,,,,
+150325,Molly Delaney,p,,FALSE,,,,1693,3260801,,,,,,
+150326,Caragh Doyle,ph,,FALSE,,,,1693,3260800,,,,,,
+150327,Samantha Ravo,ph,,FALSE,,,,1693,3260799,,,,,,
+150328,Avery Stadler,2b,,FALSE,,,,1856,3260802,,,,,,
+150329,Laney Pearce,pr,,FALSE,,,,1681,3261487,,,,,,
+150330,Regan Parr,p,,FALSE,,,,1924,3261374,,,,,,
