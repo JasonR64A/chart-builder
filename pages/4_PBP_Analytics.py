@@ -1502,8 +1502,13 @@ elif view == 'Pace Chart':
         st.warning('Date column not available.')
         st.stop()
 
-    # Group key: player or team
-    group_key = 'teamName' if pace_level == 'Team' else 'playerName'
+    # Group key: player or team (use player+team combo to avoid merging same-name players)
+    if pace_level == 'Player':
+        pace_pbp = pace_pbp.copy()
+        pace_pbp['_player_team'] = pace_pbp['playerName'] + '|||' + pace_pbp['teamName']
+        group_key = '_player_team'
+    else:
+        group_key = 'teamName'
 
     # Compute league stats for advanced hitting metrics
     if pace_stat_type == 'Hitting' and is_advanced:
@@ -1515,7 +1520,15 @@ elif view == 'Pace Chart':
     entity_games = []
     for entity_name, edata in pace_pbp.groupby(group_key):
         edata_sorted = edata.sort_values('date_parsed')
-        team = edata_sorted['teamName'].iloc[0] if pace_level == 'Player' else entity_name
+        if pace_level == 'Player':
+            player_name = entity_name.split('|||')[0]
+            team = entity_name.split('|||')[1]
+            display_name = player_name
+        else:
+            player_name = entity_name
+            team = entity_name
+            display_name = entity_name
+        entity_name = display_name
 
         if not is_advanced:
             # Simple cumulative stat — group by gameId to handle doubleheaders
