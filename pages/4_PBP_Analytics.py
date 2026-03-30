@@ -294,7 +294,7 @@ def compute_grouped_hitting(df, group_col, league_woba, league_r_pa=0, min_pa=1)
     if n > 0:
         result['wraa_score'] = (n - result['wRAA'].rank(ascending=False, method='min') + 1) / n
         result['ops_score'] = (n - result['OPS'].rank(ascending=False, method='min') + 1) / n
-        result['Rank'] = round(result['wraa_score'] + result['ops_score'], 3)
+        result['Rank'] = round(result['wraa_score'] + result['ops_score'], 6)
         result = result.drop(columns=['wraa_score', 'ops_score'])
     cols = ['Rank'] + [group_col] + [c for c in result.columns if c not in ['Rank', group_col]]
     return result[cols].sort_values('Rank', ascending=False).reset_index(drop=True)
@@ -318,7 +318,7 @@ def compute_grouped_pitching(df, group_col, min_bf=1):
     if n > 0:
         result['fip_score'] = (n - result['FIP'].rank(method='min') + 1) / n
         result['ops_a_score'] = (n - result['OPS Against'].rank(method='min') + 1) / n
-        result['Rank'] = round(result['fip_score'] + result['ops_a_score'], 3)
+        result['Rank'] = round(result['fip_score'] + result['ops_a_score'], 6)
         result = result.drop(columns=['fip_score', 'ops_a_score'])
     cols = ['Rank'] + [group_col] + [c for c in result.columns if c not in ['Rank', group_col]]
     return result[cols].sort_values('Rank', ascending=False).reset_index(drop=True)
