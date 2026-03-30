@@ -489,28 +489,35 @@ def compute_pitching_for_lineup(df):
 def get_best_hitters(hitting_df, league_woba, min_pa=10, sport='baseball'):
     best = {}
     dh_label = 'DP' if sport == 'softball' else 'DH'
+
+    # Step 1: Determine each player's predominant position and compute stats from ALL their PA
+    player_data = []
+    for name, group in hitting_df.groupby('playerName'):
+        stats = compute_hitting_stats(group)
+        if stats['PA'] >= min_pa:
+            # Predominant position = most games played at that position
+            pos_counts = group['playerPosition'].value_counts()
+            predominant_pos = pos_counts.index[0] if len(pos_counts) > 0 else ''
+            # Normalize DP to DH for softball
+            if sport == 'softball' and predominant_pos == 'DP':
+                predominant_pos = 'DH'
+            stats['playerName'] = name
+            stats['teamName'] = group['teamName'].mode().iloc[0] if len(group['teamName'].mode()) > 0 else ''
+            stats['wRAA'] = compute_wraa(stats['wOBA'], league_woba, stats['PA'])
+            stats['_pos'] = predominant_pos
+            player_data.append(stats)
+
+    if not player_data:
+        return best
+
+    # Step 2: For each position, pick the best player whose predominant position matches
+    all_players = pd.DataFrame(player_data)
     for pos in FIELD_POSITIONS:
-        if pos == 'DH':
-            # For softball, combine DH + DP into the designated player slot
-            if sport == 'softball':
-                pos_df = hitting_df[hitting_df['playerPosition'].isin(['DH', 'DP'])]
-            else:
-                pos_df = hitting_df[hitting_df['playerPosition'] == 'DH']
-        else:
-            pos_df = hitting_df[hitting_df['playerPosition'] == pos]
-        if len(pos_df) == 0:
+        pos_players = all_players[all_players['_pos'] == pos]
+        if len(pos_players) == 0:
             continue
-        rows = []
-        for name, group in pos_df.groupby('playerName'):
-            stats = compute_hitting_stats(group)
-            if stats['PA'] >= min_pa:
-                stats['playerName'] = name
-                stats['teamName'] = group['teamName'].mode().iloc[0] if len(group['teamName'].mode()) > 0 else ''
-                stats['wRAA'] = compute_wraa(stats['wOBA'], league_woba, stats['PA'])
-                rows.append(stats)
-        if rows:
-            df = pd.DataFrame(rows).sort_values('OPS', ascending=False)
-            best[pos] = df.iloc[0].to_dict()
+        top = pos_players.sort_values('OPS', ascending=False).iloc[0]
+        best[pos] = top.to_dict()
     return best
 
 
