@@ -16,6 +16,7 @@ for sport in baseball softball; do
     cp "$PBP_SOURCE/$sport/pbp/hitting_pbp_"*.csv "$PBP_DEST/$sport/" 2>/dev/null
     cp "$PBP_SOURCE/$sport/pbp/pitching_pbp_"*.csv "$PBP_DEST/$sport/" 2>/dev/null
     cp "$PBP_SOURCE/$sport/pbp/fielding_pbp_"*.csv "$PBP_DEST/$sport/" 2>/dev/null
+    cp "$PBP_SOURCE/$sport/schedules_full.csv" "$DEST/schedules_full_${sport}.csv" 2>/dev/null
 done
 
 cd "C:/Users/sixty/OneDrive/Desktop/chart-builder-app"

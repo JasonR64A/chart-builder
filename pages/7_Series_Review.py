@@ -50,12 +50,14 @@ def load_pbp(sport, division, stat_type):
 
 @st.cache_data
 def load_schedules(sport):
-    path = Path(f'C:/Users/sixty/OneDrive/Desktop/scrape_final/output/2026/{sport}/schedules_full.csv')
-    if not path.exists():
-        path = DATA_DIR / 'schedules.csv'
-    if not path.exists():
-        return None
-    return pd.read_csv(path, low_memory=False)
+    # Try local scrape path first, then check for bundled copy
+    for p in [
+        Path(f'C:/Users/sixty/OneDrive/Desktop/scrape_final/output/2026/{sport}/schedules_full.csv'),
+        _APP_DIR / 'data' / f'schedules_full_{sport}.csv',
+    ]:
+        if p.exists():
+            return pd.read_csv(p, low_memory=False)
+    return None
 
 
 @st.cache_data
