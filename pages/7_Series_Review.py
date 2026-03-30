@@ -68,6 +68,174 @@ def load_conferences():
     return merged
 
 
+@st.cache_data
+def load_rpi(sport, division):
+    path = Path(f'C:/Users/sixty/OneDrive/Desktop/scrape_final/output/2026/{sport}/rpi/{sport}_rpi_{division}.csv')
+    if not path.exists():
+        # Try bundled copy
+        path = _APP_DIR / 'data' / f'{sport}_rpi_{division}.csv'
+    if not path.exists():
+        return None
+    return pd.read_csv(path, low_memory=False)
+
+
+@st.cache_data
+def load_team_ranks():
+    path = DATA_DIR / 'team_rank.csv'
+    if not path.exists():
+        return None
+    return pd.read_csv(path, low_memory=False)
+
+
+def get_team_context(team_name, sport, division):
+    """Get conference standing, RPI, 64A rank, and trend for a team."""
+    context = {}
+
+    # Conference standings
+    conf_data = load_conferences()
+    sched = pd.read_csv(DATA_DIR / 'schedules.csv', low_memory=False)
+    teams_csv = pd.read_csv(DATA_DIR / 'teams.csv', low_memory=False)
+
+    team_info = conf_data[(conf_data['name'] == team_name) & (conf_data['sport'] == sport.title())]
+    if len(team_info) > 0:
+        conf_name = team_info['name_conf'].iloc[0]
+        team_id = int(team_info['id'].iloc[0])
+        context['conference'] = conf_name
+
+        # Get all teams in conference
+        conf_teams = conf_data[(conf_data['name_conf'] == conf_name) & (conf_data['sport'] == sport.title())]
+        standings = []
+        for _, row in conf_teams.iterrows():
+            tid = int(row['id'])
+            t_sched = sched[(sched['team_id'] == tid) & (sched['Year'] == 2026)]
+            if len(t_sched) == 0:
+                continue
+            s = t_sched.iloc[0]
+            cw = int(s.get('Conf_Win', 0))
+            cl = int(s.get('Conf_Loss', 0))
+            ow = int(s.get('OOC_Win', 0))
+            ol = int(s.get('OOC_Loss', 0))
+            standings.append({'name': row['name'], 'conf_w': cw, 'conf_l': cl,
+                              'overall_w': cw + ow, 'overall_l': cl + ol})
+
+        standings.sort(key=lambda x: (-x['conf_w'], x['conf_l']))
+        context['standings'] = standings
+        for i, s in enumerate(standings):
+            if s['name'] == team_name:
+                context['conf_place'] = i + 1
+                context['conf_record'] = f"{s['conf_w']}-{s['conf_l']}"
+                context['overall_record'] = f"{s['overall_w']}-{s['overall_l']}"
+                break
+    else:
+        context['conference'] = 'Unknown'
+
+    # RPI
+    rpi_data = load_rpi(sport, division)
+    if rpi_data is not None:
+        team_rpi = rpi_data[rpi_data['teamName'] == team_name]
+        if len(team_rpi) > 0:
+            context['rpi_rank'] = int(team_rpi['rank'].iloc[0])
+            context['rpi_value'] = round(float(team_rpi['rpi'].iloc[0]), 5)
+
+    # 64A Rank
+    ranks = load_team_ranks()
+    if ranks is not None:
+        team_info2 = teams_csv[(teams_csv['name'] == team_name) & (teams_csv['sport'] == sport.title())]
+        if len(team_info2) > 0:
+            tid = int(team_info2['id'].iloc[0])
+            team_rank = ranks[(ranks['team_id'] == tid) & (ranks['year'] == 2026)]
+            if len(team_rank) > 0:
+                context['rank_64'] = int(team_rank['integer_64_rank_total'].iloc[0])
+                # Get previous year for trend
+                prev_rank = ranks[(ranks['team_id'] == tid) & (ranks['year'] == 2025)]
+                if len(prev_rank) > 0:
+                    context['rank_64_prev'] = int(prev_rank['integer_64_rank_total'].iloc[0])
+
+    # Next weekend opponent
+    sched_full = load_schedules(sport)
+    if sched_full is not None:
+        future = sched_full[(sched_full['teamName'] == team_name) & (sched_full['isFuture'] == 1)]
+        if len(future) > 0:
+            future = future.sort_values('date')
+            context['next_opponent'] = future.iloc[0]['opponentName']
+            context['next_date'] = future.iloc[0]['date']
+
+    return context
+
+
+def render_team_card(team_name, context):
+    """Render a team context card."""
+    conf = context.get('conference', '?')
+    overall = context.get('overall_record', '?')
+    conf_rec = context.get('conf_record', '?')
+    place = context.get('conf_place', '?')
+    rpi_rank = context.get('rpi_rank', '—')
+    rpi_val = context.get('rpi_value', '—')
+    rank_64 = context.get('rank_64', '—')
+    next_opp = context.get('next_opponent', '—')
+    next_date = context.get('next_date', '')
+
+    # Stock indicator
+    rank_64_prev = context.get('rank_64_prev')
+    if rank_64 != '—' and rank_64_prev:
+        diff = rank_64_prev - rank_64  # positive = improved
+        if diff > 10:
+            stock = '🔥 Stock Up'
+            stock_color = '#22d3a0'
+        elif diff > 0:
+            stock = '📈 Improving'
+            stock_color = '#22d3a0'
+        elif diff < -10:
+            stock = '📉 Stock Down'
+            stock_color = '#C41230'
+        elif diff < 0:
+            stock = '📉 Declining'
+            stock_color = '#C41230'
+        else:
+            stock = '➡️ Steady'
+            stock_color = '#888'
+        stock_detail = f"64 Rank: {rank_64} (was {rank_64_prev})"
+    else:
+        stock = '—'
+        stock_color = '#888'
+        stock_detail = f"64 Rank: {rank_64}"
+
+    st.markdown(f'''<div style="background:#222;border-radius:12px;padding:16px;border:1px solid #3a3a3a;">
+  <div style="font-size:18px;font-weight:bold;color:#FFFFFF;margin-bottom:8px;">{team_name}</div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px;">
+    <div style="background:#2a2a2a;border-radius:8px;padding:8px;text-align:center;">
+      <div style="font-size:16px;font-weight:bold;color:#C8C8C8;">{overall}</div>
+      <div style="font-size:9px;color:#888;">OVERALL</div>
+    </div>
+    <div style="background:#2a2a2a;border-radius:8px;padding:8px;text-align:center;">
+      <div style="font-size:16px;font-weight:bold;color:#C8C8C8;">{conf_rec}</div>
+      <div style="font-size:9px;color:#888;">{conf}</div>
+    </div>
+    <div style="background:#2a2a2a;border-radius:8px;padding:8px;text-align:center;">
+      <div style="font-size:16px;font-weight:bold;color:#C8C8C8;">#{place}</div>
+      <div style="font-size:9px;color:#888;">CONF RANK</div>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px;">
+    <div style="background:#2a2a2a;border-radius:8px;padding:8px;text-align:center;">
+      <div style="font-size:16px;font-weight:bold;color:#C41230;">#{rpi_rank}</div>
+      <div style="font-size:9px;color:#888;">RPI</div>
+    </div>
+    <div style="background:#2a2a2a;border-radius:8px;padding:8px;text-align:center;">
+      <div style="font-size:16px;font-weight:bold;color:#C41230;">#{rank_64}</div>
+      <div style="font-size:9px;color:#888;">64A RANK</div>
+    </div>
+    <div style="background:#2a2a2a;border-radius:8px;padding:8px;text-align:center;">
+      <div style="font-size:16px;font-weight:bold;color:{stock_color};">{stock}</div>
+      <div style="font-size:9px;color:#888;">{stock_detail}</div>
+    </div>
+  </div>
+  <div style="font-size:12px;color:#888;">
+    <strong>Next:</strong> {next_opp} ({next_date})
+  </div>
+</div>''', unsafe_allow_html=True)
+
+
 # ── Series Detection ──────────────────────────────────────────────────────────
 def find_weekend_series(hitting_df, team_name, end_date=None):
     """Find the most recent weekend series for a team (Thu-Sun window)."""
@@ -449,6 +617,18 @@ else:
 # Game scores
 for date, winner, score_w, score_l, loser in game_results:
     st.markdown(f'**{date}**: {winner} **{score_w}**, {loser} {score_l}')
+
+st.markdown('---')
+
+# Team context cards
+ctx_col1, ctx_col2 = st.columns(2)
+context_a = get_team_context(team_a, sport, division)
+context_b = get_team_context(team_b, sport, division)
+
+with ctx_col1:
+    render_team_card(team_a, context_a)
+with ctx_col2:
+    render_team_card(team_b, context_b)
 
 st.markdown('---')
 
