@@ -149,12 +149,8 @@ def compute_pitching_stats(df):
     ibb = df['ibb'].sum() if 'ibb' in df.columns else 0
     app = df['gameId'].nunique() if 'gameId' in df.columns else len(df)
 
-    # Estimate GS: games where pitcher had highest IP on their team that game
-    gs = 0
-    if 'gameId' in df.columns:
-        for gid, gdf in df.groupby('gameId'):
-            if len(gdf) > 0 and gdf['ip'].iloc[0] == gdf['ip'].max():
-                gs += 1
+    # GS: count games where this pitcher was the starter (first listed for their team)
+    gs = int(df['is_starter'].sum()) if 'is_starter' in df.columns else 0
 
     # Opponent AB = BF - BB - HB - SFA - SHA
     p_oab = bf - bb - hb - sfa - sha
@@ -461,6 +457,7 @@ def compute_pitching_for_lineup(df):
     sha = df['sha'].sum(); sfa = df['sfa'].sum()
     singles = h - doubles - triples - hr
     games = df['gameId'].nunique() if 'gameId' in df.columns else len(df)
+    gs = int(df['is_starter'].sum()) if 'is_starter' in df.columns else 0
     fip = ((13*hr) + (3*(bb+hb)) - (2*so)) / ip + FIP_CONSTANT if ip > 0 else 99
     era = (er / ip) * 9 if ip > 0 else 99
     k_pct = so / bf if bf > 0 else 0
@@ -479,7 +476,7 @@ def compute_pitching_for_lineup(df):
     k_bb = so / bb if bb > 0 else so
     return {'IP': _outs_to_ip_display(total_outs), 'IP_actual': ip,
             'BF': int(bf), 'H': int(h), 'ER': int(er), 'BB': int(bb),
-            'SO': int(so), 'HR': int(hr), 'A': int(games),
+            'SO': int(so), 'HR': int(hr), 'A': int(games), 'GS': int(gs),
             'ERA': round(era, 2), 'FIP': round(fip, 2),
             'K%': round(k_pct_100, 1), 'BB%': round(bb_pct, 1),
             'K/9': round(k9, 2), 'K/7': round(k7, 2), 'K/BB': round(k_bb, 2), 'WHIP': round(whip, 2),
@@ -543,7 +540,10 @@ def get_best_pitchers(pitching_df, min_bf_sp=50, min_bf_rp=15, n_starters=3, n_r
         stats = compute_pitching_for_lineup(group)
         stats['playerName'] = name
         stats['teamName'] = group['teamName'].mode().iloc[0] if len(group['teamName'].mode()) > 0 else ''
-        stats['is_starter'] = stats['IP_actual'] / max(stats['A'], 1) >= 3.0
+        # Starter = majority of appearances were starts (first pitcher for team in game)
+        starts = int(group['is_starter'].sum()) if 'is_starter' in group.columns else 0
+        stats['GS'] = starts
+        stats['is_starter'] = starts > (stats['A'] - starts)  # more starts than relief apps
         rows.append(stats)
     if not rows:
         return [], []
@@ -1185,6 +1185,9 @@ def load_pbp(sport, division, stat_type):
         if lookup:
             df['formalPosition'] = df['playerId'].map(lookup['position'])
             df['school'] = df['playerId'].map(lookup['school'])
+    # Mark starters for pitching data: first pitcher per team per game
+    if stat_type == 'pitching' and 'gameId' in df.columns and 'teamName' in df.columns:
+        df['is_starter'] = df.duplicated(subset=['gameId', 'teamName'], keep='first') == False
     # Parse dates
     if 'date' in df.columns:
         df['date_parsed'] = pd.to_datetime(df['date'], format='mixed', errors='coerce')
