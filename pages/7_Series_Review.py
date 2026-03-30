@@ -744,6 +744,80 @@ with ctx_col2:
 
 st.markdown('---')
 
+def compute_team_hitting_totals(df):
+    """Compute team-level hitting totals for a series."""
+    ab = df['ab'].sum(); h = df['h'].sum(); bb = df['bb'].sum()
+    hbp = df['hbp'].sum(); sf = df['sf'].sum(); sh = df['sh'].sum()
+    tb = df['tb'].sum(); hr = df['hr'].sum()
+    doubles = df['doubles'].sum(); triples = df['triples'].sum()
+    k = df['k'].sum(); r = df['r'].sum(); rbi = df['rbi'].sum()
+    sb = df['sb'].sum()
+    pa = ab + bb + hbp + sf + sh
+    ba = h / ab if ab > 0 else 0
+    obp = (h + bb + hbp) / (ab + bb + hbp + sf) if (ab + bb + hbp + sf) > 0 else 0
+    slg = tb / ab if ab > 0 else 0
+    return {'PA': pa, 'AB': ab, 'H': h, '2B': doubles, '3B': triples, 'HR': hr,
+            'RBI': rbi, 'R': r, 'BB': bb, 'K': k, 'SB': sb,
+            'BA': round(ba, 3), 'OBP': round(obp, 3), 'SLG': round(slg, 3), 'OPS': round(obp + slg, 3)}
+
+
+def compute_team_pitching_totals(df, sport='baseball'):
+    """Compute team-level pitching totals for a series."""
+    inn = 7 if sport == 'softball' else 9
+    whole = np.floor(df['ip']); frac = np.round((df['ip'] - whole) * 10).astype(int)
+    total_outs = (whole * 3 + frac).sum(); ip = total_outs / 3
+    h = df['h'].sum(); bb = df['bb'].sum(); hb = df['hb'].sum()
+    so = df['so'].sum(); hr = df['hrA'].sum(); bf = df['bf'].sum()
+    er = df['er'].sum(); r = df['r'].sum()
+    era = (er / ip) * inn if ip > 0 else 0
+    fip = ((13*hr + 3*(bb+hb) - 2*so) / ip + FIP_CONSTANT) if ip > 0 else 0
+    whip = (bb + h) / ip if ip > 0 else 0
+    ip_display = f"{int(total_outs // 3)}.{int(total_outs % 3)}"
+    return {'IP': ip_display, 'H': h, 'R': r, 'ER': er, 'BB': bb, 'SO': so, 'HR': hr,
+            'ERA': round(era, 2), 'FIP': round(fip, 2), 'WHIP': round(whip, 2)}
+
+
+def render_team_totals(label, hit_totals, pitch_totals):
+    """Render team totals as a compact metrics row."""
+    h = hit_totals; p = pitch_totals
+    st.markdown(f'''<div style="background:#2a2a2a;border-radius:8px;padding:10px;margin-bottom:8px;">
+  <div style="font-size:12px;font-weight:bold;color:#C8C8C8;margin-bottom:6px;">{label} — Series Totals</div>
+  <div style="display:flex;gap:12px;flex-wrap:wrap;font-size:11px;color:#C8C8C8;">
+    <span><strong style="color:#C41230;">{h["R"]}</strong> R</span>
+    <span><strong>{h["H"]}</strong> H</span>
+    <span><strong>{h["HR"]}</strong> HR</span>
+    <span><strong>{h["RBI"]}</strong> RBI</span>
+    <span><strong>{h["BB"]}</strong> BB</span>
+    <span><strong>{h["K"]}</strong> K</span>
+    <span><strong>{h["SB"]}</strong> SB</span>
+    <span>|</span>
+    <span><strong>{h["BA"]}</strong> BA</span>
+    <span><strong>{h["OBP"]}</strong> OBP</span>
+    <span><strong>{h["SLG"]}</strong> SLG</span>
+    <span><strong style="color:#C41230;">{h["OPS"]}</strong> OPS</span>
+    <span>|</span>
+    <span>Pitching: <strong>{p["IP"]}</strong> IP</span>
+    <span><strong>{p["ER"]}</strong> ER</span>
+    <span><strong>{p["BB"]}</strong> BB</span>
+    <span><strong>{p["SO"]}</strong> SO</span>
+    <span><strong style="color:#C41230;">{p["ERA"]}</strong> ERA</span>
+    <span><strong>{p["FIP"]}</strong> FIP</span>
+    <span><strong>{p["WHIP"]}</strong> WHIP</span>
+  </div>
+</div>''', unsafe_allow_html=True)
+
+
+# Team totals
+hit_totals_a = compute_team_hitting_totals(series_hitting[series_hitting['teamName'] == team_a])
+hit_totals_b = compute_team_hitting_totals(series_hitting[series_hitting['teamName'] == team_b])
+pitch_totals_a = compute_team_pitching_totals(series_pitching[series_pitching['teamName'] == team_a], sport)
+pitch_totals_b = compute_team_pitching_totals(series_pitching[series_pitching['teamName'] == team_b], sport)
+
+render_team_totals(team_a, hit_totals_a, pitch_totals_a)
+render_team_totals(team_b, hit_totals_b, pitch_totals_b)
+
+st.markdown('---')
+
 # Stats for both teams
 col1, col2 = st.columns(2)
 
