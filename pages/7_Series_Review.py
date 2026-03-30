@@ -726,9 +726,116 @@ elif b_wins > a_wins:
 else:
     st.markdown(f'### {team_a} and {team_b} split series {a_wins}-{b_wins}')
 
-# Game scores
+# Game scores with starting pitcher matchups
+st.markdown('#### Game Results & Starting Pitchers')
 for date, winner, score_w, score_l, loser in game_results:
-    st.markdown(f'**{date}**: {winner} **{score_w}**, {loser} {score_l}')
+    # Find the game
+    game_hit = series_hitting[(series_hitting['date'] == date)]
+    # Narrow to games between these teams on this date
+    game_ids_date = []
+    for gid in game_ids:
+        if date in series_hitting[series_hitting['gameId'] == gid]['date'].values:
+            game_ids_date.append(gid)
+
+    for gid in game_ids_date:
+        game_pitch = series_pitching[series_pitching['gameId'] == gid]
+        # Starters = first pitcher per team
+        sp_a = game_pitch[game_pitch['teamName'] == team_a]
+        sp_b = game_pitch[game_pitch['teamName'] == team_b]
+        starter_a = sp_a.iloc[0]['playerName'] if len(sp_a) > 0 else '?'
+        starter_b = sp_b.iloc[0]['playerName'] if len(sp_b) > 0 else '?'
+
+        # Get starter IP and result
+        sp_a_ip = sp_a.iloc[0]['ip'] if len(sp_a) > 0 else '?'
+        sp_b_ip = sp_b.iloc[0]['ip'] if len(sp_b) > 0 else '?'
+
+        # Determine W/L pitcher (starter of winning team gets W if they went 5+ IP, simplified)
+        game_runs_a = series_hitting[(series_hitting['gameId'] == gid) & (series_hitting['teamName'] == team_a)]['r'].sum()
+        game_runs_b = series_hitting[(series_hitting['gameId'] == gid) & (series_hitting['teamName'] == team_b)]['r'].sum()
+
+        if game_runs_a > game_runs_b:
+            w_marker_a = ' ✅'; w_marker_b = ''
+        elif game_runs_b > game_runs_a:
+            w_marker_a = ''; w_marker_b = ' ✅'
+        else:
+            w_marker_a = ''; w_marker_b = ''
+
+        st.markdown(f'**{date}**: {winner} **{score_w}**, {loser} {score_l} — '
+                    f'{team_a}: {starter_a} ({sp_a_ip} IP){w_marker_a} vs '
+                    f'{team_b}: {starter_b} ({sp_b_ip} IP){w_marker_b}')
+
+st.markdown('---')
+
+# Player of the Series
+st.markdown('#### Player of the Series')
+
+hitters_a_full = compute_hitter_stats(series_hitting[series_hitting['teamName'] == team_a])
+hitters_b_full = compute_hitter_stats(series_hitting[series_hitting['teamName'] == team_b])
+pitchers_a_full = compute_pitcher_stats(series_pitching[series_pitching['teamName'] == team_a], sport)
+pitchers_b_full = compute_pitcher_stats(series_pitching[series_pitching['teamName'] == team_b], sport)
+
+def get_series_mvp(hitters_df, pitchers_df, team_name):
+    """Pick the best player from a team based on OPS for hitters, FIP for pitchers."""
+    best_hitter = None
+    best_pitcher = None
+
+    if len(hitters_df) > 0:
+        # Best hitter by OPS (min 2 PA per game in series)
+        qualified = hitters_df[hitters_df['PA'] >= 2 * len(game_ids)]
+        if len(qualified) > 0:
+            best = qualified.sort_values('OPS', ascending=False).iloc[0]
+            best_hitter = {
+                'name': best['Player'], 'type': 'Hitter',
+                'line': f"{int(best['H'])}-for-{int(best['AB'])}, {best['BA']} BA, {best['OPS']} OPS",
+                'detail': f"{int(best['HR'])} HR, {int(best['RBI'])} RBI, {int(best['R'])} R, {int(best['BB'])} BB",
+                'ops': best['OPS']
+            }
+
+    if len(pitchers_df) > 0:
+        # Best pitcher by FIP (only starters/primary guys)
+        qualified = pitchers_df[pitchers_df['is_starter'] == True] if 'is_starter' in pitchers_df.columns else pitchers_df
+        if len(qualified) > 0:
+            best = qualified.sort_values('FIP').iloc[0]
+            best_pitcher = {
+                'name': best['Player'], 'type': 'Pitcher',
+                'line': f"{best['IP']} IP, {best['ERA']} ERA, {best['FIP']} FIP",
+                'detail': f"{int(best['SO'])} SO, {int(best['BB'])} BB, {best['WHIP']} WHIP",
+                'fip': best['FIP']
+            }
+
+    return best_hitter, best_pitcher
+
+mvp_hit_a, mvp_pitch_a = get_series_mvp(hitters_a_full, pitchers_a_full, team_a)
+mvp_hit_b, mvp_pitch_b = get_series_mvp(hitters_b_full, pitchers_b_full, team_b)
+
+def render_mvp_card(team, hitter, pitcher):
+    html = f'<div style="background:#222;border-radius:10px;padding:14px;border:1px solid #3a3a3a;margin-bottom:8px;">'
+    html += f'<div style="font-size:14px;font-weight:bold;color:#C8C8C8;margin-bottom:10px;">{team}</div>'
+
+    if hitter:
+        html += f'''<div style="margin-bottom:8px;">
+  <div style="font-size:9px;color:#888;text-transform:uppercase;letter-spacing:0.05em;">Best Hitter</div>
+  <div style="font-size:16px;font-weight:bold;color:#C41230;">{hitter["name"]}</div>
+  <div style="font-size:12px;color:#C8C8C8;">{hitter["line"]}</div>
+  <div style="font-size:11px;color:#888;">{hitter["detail"]}</div>
+</div>'''
+
+    if pitcher:
+        html += f'''<div>
+  <div style="font-size:9px;color:#888;text-transform:uppercase;letter-spacing:0.05em;">Best Pitcher</div>
+  <div style="font-size:16px;font-weight:bold;color:#C41230;">{pitcher["name"]}</div>
+  <div style="font-size:12px;color:#C8C8C8;">{pitcher["line"]}</div>
+  <div style="font-size:11px;color:#888;">{pitcher["detail"]}</div>
+</div>'''
+
+    html += '</div>'
+    st.markdown(html, unsafe_allow_html=True)
+
+mvp_col1, mvp_col2 = st.columns(2)
+with mvp_col1:
+    render_mvp_card(team_a, mvp_hit_a, mvp_pitch_a)
+with mvp_col2:
+    render_mvp_card(team_b, mvp_hit_b, mvp_pitch_b)
 
 st.markdown('---')
 
