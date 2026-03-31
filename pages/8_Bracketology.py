@@ -251,57 +251,69 @@ def build_field(sport):
     # For each team: project final win%
     # Convert 64 Rank to actual win probability using historical relationship:
     #   wp = 0.4341 * rank64 + 0.2822
-    # (Derived from 2024 full-season data: 941 teams, r=0.883)
-    #
-    # Instead of a blanket late-season factor, adjust per-team based on
-    # remaining schedule difficulty. A team facing RPI ~120 opponents should
-    # project more wins than one facing RPI ~30 opponents.
+    # Game-by-game win prediction using Elo-style model.
+    # Convert 64 Rank (0-1) to Elo rating, then compute win probability
+    # for each remaining game based on both teams' ratings + home advantage.
+    # Calibrated against Warren Nolan's predicted RPI model.
+
+    ELO_SPREAD = 900   # rank64 0→1 maps to 1200→2100 Elo
+    HOME_ADV = 50       # Elo points for home-field advantage
+
+    def _rank_to_elo(r):
+        return 1200 + r * ELO_SPREAD
+
+    def _elo_win_prob(team_elo, opp_elo):
+        return 1.0 / (1.0 + 10 ** ((opp_elo - team_elo) / 400))
+
     team_sched['sixty_four_rank'] = team_sched['sixty_four_rank'].fillna(0.5)
-    team_sched['base_projected_wp'] = 0.4341 * team_sched['sixty_four_rank'] + 0.2822
     team_sched['games_played'] = team_sched['total_wins'] + team_sched['total_losses']
     team_sched['current_wp'] = np.where(
         team_sched['games_played'] > 0,
         team_sched['total_wins'] / team_sched['games_played'],
         0.5
     )
-    team_sched['games_remaining'] = team_sched['name'].map(remaining_counts).fillna(0)
-    team_sched['total_games_proj'] = team_sched['games_played'] + team_sched['games_remaining']
 
-    # Compute per-team schedule difficulty adjustment
-    # Average opponent RPI for remaining games -> difficulty factor
-    # Harder schedule = lower remaining WP, easier schedule = higher remaining WP
-    rpi_lookup_val = dict(zip(rpi_df['teamName'], rpi_df['rpi']))
-    avg_opp_rpi: dict[str, float] = {}
+    # Build 64 Rank lookup for ALL teams (including non-D1 opponents)
+    all_teams_db = load_teams()
+    all_tr = load_team_rank()
+    tr_all = all_tr[all_tr['year'] == 2026][['team_id', 'sixty_four_rank_weighted_run_efficiency']].copy()
+    tr_all.columns = ['team_id', 'rank64']
+    all_ranked = all_teams_db.merge(tr_all, left_on='id', right_on='team_id', how='left')
+    all_ranked['rank64'] = all_ranked['rank64'].fillna(0.3)  # unranked = weak
+    rank64_lookup = dict(zip(all_ranked['name'], all_ranked['rank64']))
+
+    # Load full schedule for game-by-game prediction
     if sched_full_path.exists():
-        rem_games = pd.read_csv(sched_full_path, low_memory=False)
-        rem_games = rem_games[(rem_games['result'].isna()) | (rem_games['result'] == '')]
-        for team_name, group in rem_games.groupby('teamName'):
-            opp_rpis = []
-            for _, g in group.iterrows():
-                opp = str(g['opponentName']).split('@')[0].strip()
-                opp_rpi = rpi_lookup_val.get(opp)
-                if opp_rpi is None:
-                    # Partial name match
-                    for k, v in rpi_lookup_val.items():
-                        if opp[:8] in k:
-                            opp_rpi = v
-                            break
-                if opp_rpi is not None:
-                    opp_rpis.append(opp_rpi)
-            avg_opp_rpi[team_name] = float(np.mean(opp_rpis)) if opp_rpis else 0.5
+        full_sched_df = pd.read_csv(sched_full_path, low_memory=False)
+        rem_games = full_sched_df[(full_sched_df['result'].isna()) | (full_sched_df['result'] == '')]
+    else:
+        rem_games = pd.DataFrame()
 
-    # Median opponent RPI across all teams as baseline
-    all_avg_opps = [v for v in avg_opp_rpi.values() if v > 0]
-    median_opp_rpi = float(np.median(all_avg_opps)) if all_avg_opps else 0.5
+    # Predict each remaining game
+    proj_remaining_wins_map: dict[str, float] = {}
+    remaining_game_counts: dict[str, int] = {}
+    for team_name, games in rem_games.groupby('teamName'):
+        team_r = rank64_lookup.get(team_name, 0.5)
+        team_elo = _rank_to_elo(team_r)
+        pw = 0.0
+        for _, g in games.iterrows():
+            opp = str(g['opponentName']).split('@')[0].strip()
+            opp_r = rank64_lookup.get(opp, 0.3)
+            opp_elo = _rank_to_elo(opp_r)
+            # Home/away adjustment
+            if pd.notna(g.get('isAway')) and g['isAway'] == 1.0:
+                adj = -HOME_ADV
+            elif '@' in str(g.get('opponentName', '')):
+                adj = 0
+            else:
+                adj = HOME_ADV
+            pw += _elo_win_prob(team_elo + adj, opp_elo)
+        proj_remaining_wins_map[team_name] = pw
+        remaining_game_counts[team_name] = len(games)
 
-    # Schedule factor: harder schedule (higher avg opp RPI) = lower remaining WP
-    # Scale: every 0.05 above median reduces WP by ~0.05, and vice versa
-    team_sched['avg_opp_rpi'] = team_sched['name'].map(avg_opp_rpi).fillna(median_opp_rpi)
-    team_sched['sched_adj'] = (median_opp_rpi - team_sched['avg_opp_rpi'])  # positive = easier schedule
-    team_sched['projected_wp'] = (team_sched['base_projected_wp'] + team_sched['sched_adj']).clip(0.1, 0.95)
-
-    # Project remaining wins using schedule-adjusted win probability
-    team_sched['proj_remaining_wins'] = team_sched['projected_wp'] * team_sched['games_remaining']
+    team_sched['games_remaining'] = team_sched['name'].map(remaining_game_counts).fillna(0)
+    team_sched['total_games_proj'] = team_sched['games_played'] + team_sched['games_remaining']
+    team_sched['proj_remaining_wins'] = team_sched['name'].map(proj_remaining_wins_map).fillna(0)
     team_sched['proj_total_wins'] = team_sched['total_wins'] + team_sched['proj_remaining_wins']
     team_sched['proj_total_losses'] = team_sched['total_losses'] + (team_sched['games_remaining'] - team_sched['proj_remaining_wins'])
     team_sched['proj_wp'] = np.where(
@@ -320,7 +332,24 @@ def build_field(sport):
     # then run the RPI formula.
 
     # Build projected WP lookup for ALL teams (not just D1 field)
+    # For teams in our field, use the game-by-game projected WP.
+    # For ALL teams in the full schedule, compute projected WP from their
+    # game-by-game predictions so OWP/OOWP calculations are accurate.
     wp_lookup = dict(zip(team_sched['name'], team_sched['proj_wp']))
+    # Add any teams from full schedule not in our D1 list
+    for team_name in proj_remaining_wins_map:
+        if team_name not in wp_lookup:
+            # Estimate current record from full schedule
+            if sched_full_path.exists():
+                t_played = full_sched_df[(full_sched_df['teamName'] == team_name) &
+                                         (full_sched_df['result'].notna()) & (full_sched_df['result'] != '')]
+                t_wins = t_played['result'].str.startswith('W').sum() if len(t_played) > 0 else 0
+                t_games = len(t_played)
+                rem_w = proj_remaining_wins_map[team_name]
+                rem_g = remaining_game_counts[team_name]
+                total_w = t_wins + rem_w
+                total_g = t_games + rem_g
+                wp_lookup[team_name] = total_w / total_g if total_g > 0 else 0.5
 
     # Build opponent lists and game locations from full schedule
     sched_full_file = f'schedules_full_{sport}.csv'
