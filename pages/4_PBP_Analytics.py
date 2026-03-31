@@ -1242,10 +1242,10 @@ st.sidebar.markdown('---')
 st.sidebar.markdown('### Data Source')
 sport = st.sidebar.selectbox('Sport', ['baseball', 'softball'])
 division = st.sidebar.selectbox('Division', ['D1', 'D2', 'D3'])
-view = st.sidebar.radio('Mode', ['Hitter Stats', 'Pitcher Stats', 'Fielding Stats', 'Pace Chart', 'Lineup Card', "Who's Hot"], horizontal=True)
+view = st.sidebar.radio('Mode', ['Hitter Stats', 'Pitcher Stats', 'Fielding Stats', 'Pace Chart', 'Lineup Card'], horizontal=True)
 
 # Load data — Lineup Card and Who's Hot need both hitting + pitching
-if view == 'Lineup Card' or view == "Who's Hot":
+if view == 'Lineup Card':
     hitting_pbp = load_pbp(sport, division, 'hitting')
     pitching_pbp = load_pbp(sport, division, 'pitching')
     if hitting_pbp is None or pitching_pbp is None:
@@ -1283,7 +1283,7 @@ if 'date_parsed' in pbp.columns:
         if len(date_range) == 2:
             date_start, date_end = date_range
             pbp = pbp[(pbp['date_parsed'].dt.date >= date_start) & (pbp['date_parsed'].dt.date <= date_end)]
-            if view in ('Lineup Card', "Who's Hot"):
+            if view == 'Lineup Card':
                 hitting_pbp = hitting_pbp[(hitting_pbp['date_parsed'].dt.date >= date_start) & (hitting_pbp['date_parsed'].dt.date <= date_end)]
                 pitching_pbp = pitching_pbp[(pitching_pbp['date_parsed'].dt.date >= date_start) & (pitching_pbp['date_parsed'].dt.date <= date_end)]
     else:
@@ -1301,12 +1301,12 @@ if conf_map and 'teamName' in pbp.columns:
     if selected_conferences:
         conf_teams = {t for t, c in conf_map.items() if c in selected_conferences}
         pbp = pbp[pbp['teamName'].isin(conf_teams)]
-        if view in ('Lineup Card', "Who's Hot"):
+        if view == 'Lineup Card':
             hitting_pbp = hitting_pbp[hitting_pbp['teamName'].isin(conf_teams)]
             pitching_pbp = pitching_pbp[pitching_pbp['teamName'].isin(conf_teams)]
 
 # Team / Position / Player filters — not shown for Lineup Card or Who's Hot
-if view not in ('Lineup Card', "Who's Hot"):
+if view != 'Lineup Card':
     # Team filter
     all_teams = sorted(pbp['teamName'].dropna().unique()) if 'teamName' in pbp.columns else []
     team_list = ['All'] + all_teams
@@ -1347,10 +1347,6 @@ elif view == 'Lineup Card':
     min_pa_lc = st.sidebar.number_input('Min PA (hitters)', value=10, min_value=1, step=5)
     min_bf_sp = st.sidebar.number_input('Min BF (starters)', value=50, min_value=1, step=10)
     min_bf_rp = st.sidebar.number_input('Min BF (relievers)', value=15, min_value=1, step=5)
-    player_col = 'playerName'
-else:
-    # Who's Hot specific controls
-    st.sidebar.markdown('---')
     player_col = 'playerName'
 
 # ── Compute and Display ─────────────────────────────────────────────────────
@@ -1802,201 +1798,3 @@ elif view == 'Lineup Card':
         st.download_button('Download Cards PNG', data=cards_buf,
                           file_name=f'lineup_cards_{sport}_{division}.png', mime='image/png')
 
-elif view == "Who's Hot":
-    st.markdown(f"### Who's Hot — {sport.title()} {division}")
-
-    # Stat type selector
-    wh_stat_type = st.sidebar.radio('Stat Type', ['Hitting (wOBA)', 'Pitching (FIP)'], horizontal=True)
-
-    # Recent window selector
-    wh_window = st.sidebar.selectbox('Recent window', ['Last 7 days', 'Last 14 days', 'Last 21 days'], index=1)
-    window_days = {'Last 7 days': 7, 'Last 14 days': 14, 'Last 21 days': 21}[wh_window]
-
-    if wh_stat_type == 'Hitting (wOBA)':
-        wh_min = st.sidebar.number_input('Min PA (season)', value=30, min_value=1, step=5, key='wh_min_pa')
-        wh_min_recent = st.sidebar.number_input('Min PA (recent)', value=10, min_value=1, step=2, key='wh_min_pa_r')
-    else:
-        wh_min = st.sidebar.number_input('Min BF (season)', value=30, min_value=1, step=5, key='wh_min_bf')
-        wh_min_recent = st.sidebar.number_input('Min BF (recent)', value=10, min_value=1, step=2, key='wh_min_bf_r')
-
-    # Split data into season and recent window
-    if wh_stat_type == 'Hitting (wOBA)':
-        full_data = hitting_pbp
-        stat_col = 'wOBA'
-        stat_label = 'wOBA'
-        higher_is_better = True
-    else:
-        full_data = pitching_pbp
-        stat_col = 'FIP'
-        stat_label = 'FIP'
-        higher_is_better = False
-
-    if full_data is None or len(full_data) == 0:
-        st.warning('No data for selected filters.')
-        st.stop()
-
-    # Determine recent cutoff
-    if 'date_parsed' in full_data.columns:
-        max_date_wh = full_data['date_parsed'].max()
-        cutoff = max_date_wh - pd.Timedelta(days=window_days)
-        recent_data = full_data[full_data['date_parsed'] > cutoff]
-    else:
-        st.warning('Cannot parse dates for recent window.')
-        st.stop()
-
-    if len(recent_data) == 0:
-        st.warning(f'No games in the last {window_days} days.')
-        st.stop()
-
-    # Compute season and recent stats per player
-    if wh_stat_type == 'Hitting (wOBA)':
-        league_stats_wh = compute_hitting_stats(full_data)
-        league_woba_wh = league_stats_wh['wOBA']
-        league_r_pa_wh = league_stats_wh['R/PA']
-        season_df = compute_grouped_hitting(full_data, 'playerName', league_woba_wh,
-                                            league_r_pa=league_r_pa_wh, min_pa=wh_min)
-        recent_league = compute_hitting_stats(recent_data)
-        recent_df = compute_grouped_hitting(recent_data, 'playerName', recent_league['wOBA'],
-                                            league_r_pa=recent_league['R/PA'], min_pa=wh_min_recent)
-    else:
-        season_df = compute_grouped_pitching(full_data, 'playerName', min_bf=wh_min)
-        recent_df = compute_grouped_pitching(recent_data, 'playerName', min_bf=wh_min_recent)
-
-    if len(season_df) == 0 or len(recent_df) == 0:
-        st.info('Not enough players meet the minimum thresholds.')
-        st.stop()
-
-    # Merge season and recent on player name
-    merged_wh = season_df[['playerName', stat_col, 'School']].merge(
-        recent_df[['playerName', stat_col]],
-        on='playerName', suffixes=('_season', '_recent')
-    )
-
-    if len(merged_wh) == 0:
-        st.info('No players have enough data in both season and recent window.')
-        st.stop()
-
-    season_col = f'{stat_col}_season'
-    recent_col = f'{stat_col}_recent'
-
-    # Conference colors
-    conf_map_wh = load_team_conference_map()
-    merged_wh['Conference'] = merged_wh['School'].map(conf_map_wh).fillna('Independent')
-    CONF_PALETTE = [
-        '#30a2da', '#fc4f30', '#e5ae38', '#6d904f', '#8b8b8b',
-        '#ed713a', '#a855f7', '#22d3a0', '#ff6b6b', '#4ecdc4',
-        '#45b7d1', '#96ceb4', '#ffeaa7', '#dfe6e9', '#636e72',
-    ]
-    unique_confs = sorted(merged_wh['Conference'].unique())
-    conf_color_map = {c: CONF_PALETTE[i % len(CONF_PALETTE)] for i, c in enumerate(unique_confs)}
-    merged_wh['_color'] = merged_wh['Conference'].map(conf_color_map)
-
-    # Identify biggest movers for labels
-    merged_wh['_delta'] = merged_wh[recent_col] - merged_wh[season_col]
-    if higher_is_better:
-        surging = set(merged_wh.nlargest(8, '_delta')['playerName'])
-        slumping = set(merged_wh.nsmallest(8, '_delta')['playerName'])
-    else:
-        surging = set(merged_wh.nsmallest(8, '_delta')['playerName'])  # lower FIP = better
-        slumping = set(merged_wh.nlargest(8, '_delta')['playerName'])
-    label_players_wh = surging | slumping
-
-    # Plot
-    fig, ax = plt.subplots(figsize=(10, 10), facecolor='#1a1a1a')
-    ax.set_facecolor('#1a1a1a')
-
-    ax.scatter(merged_wh[season_col], merged_wh[recent_col],
-               c=merged_wh['_color'], s=45, alpha=0.7,
-               edgecolors='white', linewidths=0.3, zorder=3)
-
-    # Diagonal line (no change)
-    all_vals = pd.concat([merged_wh[season_col], merged_wh[recent_col]])
-    lo, hi = all_vals.min() * 0.9, all_vals.max() * 1.1
-    ax.plot([lo, hi], [lo, hi], color='#555555', linestyle='--', linewidth=1, alpha=0.6, zorder=1)
-
-    # Quadrant labels
-    mid_x = merged_wh[season_col].median()
-    mid_y = merged_wh[recent_col].median()
-    if higher_is_better:
-        labels = {
-            (0.95, 0.95): 'Hot All Year',
-            (0.05, 0.95): 'Surging',
-            (0.95, 0.05): 'Slumping',
-            (0.05, 0.05): 'Cold All Year',
-        }
-    else:
-        labels = {
-            (0.05, 0.05): 'Dominant All Year',
-            (0.95, 0.05): 'Surging',
-            (0.05, 0.95): 'Slumping',
-            (0.95, 0.95): 'Struggling All Year',
-        }
-    for (x_frac, y_frac), label in labels.items():
-        ax.text(x_frac, y_frac, label, transform=ax.transAxes,
-                fontsize=11, color='#555555', fontweight='bold', alpha=0.5,
-                ha='center', va='center', style='italic')
-
-    # Label biggest movers
-    for _, row in merged_wh.iterrows():
-        if row['playerName'] in label_players_wh:
-            last_name = row['playerName'].split()[-1] if len(row['playerName'].split()) > 1 else row['playerName']
-            ax.annotate(last_name,
-                        xy=(row[season_col], row[recent_col]),
-                        xytext=(6, 6), textcoords='offset points',
-                        fontsize=7, color='#C8C8C8', fontweight='bold',
-                        alpha=0.9, zorder=5)
-
-    # Axes
-    ax.set_xlabel(f'Season {stat_label}', fontsize=12, color='#C8C8C8', labelpad=10)
-    ax.set_ylabel(f'{wh_window} {stat_label}', fontsize=12, color='#C8C8C8', labelpad=10)
-    ax.tick_params(colors='#888888')
-    ax.grid(alpha=0.1, color='#444444')
-    for spine in ax.spines.values():
-        spine.set_color('#333333')
-
-    period_wh = ''
-    if date_start and date_end:
-        period_wh = f" · {date_start.strftime('%b %d')} – {date_end.strftime('%b %d, %Y')}"
-    ax.set_title(f"Who's Hot — {stat_label} · {sport.title()} {division}{period_wh}",
-                 fontsize=14, color='#C8C8C8', pad=15, fontweight='bold')
-
-    # Conference legend
-    legend_patches = [mpatches.Patch(color=conf_color_map[c], label=c) for c in unique_confs]
-    ax.legend(handles=legend_patches, loc='upper left', fontsize=6,
-              framealpha=0.5, facecolor='#2a2a2a', edgecolor='#444444',
-              labelcolor='#C8C8C8', ncol=max(1, len(unique_confs) // 8 + 1))
-
-    # Brand logo
-    wide_logo_path = _APP_DIR / 'assets' / 'brand_logo_wide.png'
-    if wide_logo_path.exists():
-        logo_img = Image.open(wide_logo_path).convert('RGBA')
-        logo_img.thumbnail((200, 50), Image.LANCZOS)
-        logo_arr = np.array(logo_img)
-        logo_im = OffsetImage(logo_arr, zoom=0.4, alpha=0.6)
-        logo_ab = AnnotationBbox(logo_im, (0.98, 0.02), xycoords='axes fraction',
-                                  frameon=False, zorder=10, box_alignment=(1, 0))
-        ax.add_artist(logo_ab)
-
-    plt.tight_layout()
-
-    wh_buf = BytesIO()
-    fig.savefig(wh_buf, format='png', dpi=180, facecolor='#1a1a1a', edgecolor='none', bbox_inches='tight')
-    wh_buf.seek(0)
-    plt.close(fig)
-
-    st.image(wh_buf, use_container_width=True)
-
-    wh_buf.seek(0)
-    st.download_button('Download PNG', data=wh_buf,
-                      file_name=f'whos_hot_{stat_label}_{sport}_{division}.png', mime='image/png')
-
-    # Summary table of biggest movers
-    st.markdown('---')
-    st.markdown(f'**Biggest Movers ({wh_window})**')
-    display_wh = merged_wh[['playerName', 'School', 'Conference', season_col, recent_col, '_delta']].copy()
-    display_wh.columns = ['Player', 'School', 'Conference', f'Season {stat_label}', f'Recent {stat_label}', 'Delta']
-    if higher_is_better:
-        display_wh = display_wh.sort_values('Delta', ascending=False)
-    else:
-        display_wh = display_wh.sort_values('Delta', ascending=True)
-    st.dataframe(display_wh.reset_index(drop=True), use_container_width=True, hide_index=True)
