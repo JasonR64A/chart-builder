@@ -283,11 +283,31 @@ def build_field(sport):
         team_sched['proj_total_losses'].round(0).astype(int).astype(str)
     )
 
-    # Projected RPI: blend current RPI (which has OWP/OOWP baked in) with
-    # the improvement/decline implied by projected win% vs current win%.
-    # If team projects to improve WP by +0.05, their RPI should improve by ~0.25*0.05
-    team_sched['wp_delta'] = team_sched['proj_wp'] - team_sched['current_wp']
-    team_sched['projected_rpi'] = team_sched['rpi'] + (0.25 * team_sched['wp_delta'])
+    # Projected RPI: blend current RPI with the RPI implied by 64 Rank position.
+    # This naturally regresses inflated RPIs (Missouri St #11 -> #20) and
+    # boosts depressed RPIs (Arkansas #60 -> #34).
+    #
+    # The implied RPI is: "what RPI does the team at this 64 Rank position have?"
+    # Blend weight is based on season completion: more weight on current RPI
+    # early, more on 64 Rank implied later.
+    rpi_values_sorted = team_sched['rpi'].dropna().sort_values(ascending=False).values
+    n_rpi = len(rpi_values_sorted)
+
+    # Map 64 Rank to a position, then get the RPI at that position
+    team_sched['rank64_position'] = team_sched['sixty_four_rank'].rank(ascending=False, method='first').astype(int)
+    team_sched['implied_rpi'] = team_sched['rank64_position'].apply(
+        lambda pos: rpi_values_sorted[min(int(pos) - 1, n_rpi - 1)] if n_rpi > 0 else 0.5
+    )
+
+    # Blend: weight by % of season completed (more of season done = trust current RPI more)
+    avg_pct_played = (team_sched['games_played'] / team_sched['total_games_proj'].clip(1)).mean()
+    current_weight = max(0.45, min(0.75, avg_pct_played))  # clamp between 0.45 and 0.75
+    implied_weight = 1.0 - current_weight
+
+    team_sched['projected_rpi'] = (
+        current_weight * team_sched['rpi'].fillna(0) +
+        implied_weight * team_sched['implied_rpi']
+    )
     team_sched['projected_rpi'] = team_sched['projected_rpi'].clip(0, 1)
 
     # For display
