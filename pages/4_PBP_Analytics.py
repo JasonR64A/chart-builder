@@ -1185,6 +1185,9 @@ def load_pbp(sport, division, stat_type):
         if lookup:
             df['formalPosition'] = df['playerId'].map(lookup['position'])
             df['school'] = df['playerId'].map(lookup['school'])
+            # Fall back to teamName for players not in rosters
+            if 'teamName' in df.columns:
+                df['school'] = df['school'].fillna(df['teamName'])
     # Mark starters for pitching data: first pitcher per team per game
     if stat_type == 'pitching' and 'gameId' in df.columns and 'teamName' in df.columns:
         df['is_starter'] = df.duplicated(subset=['gameId', 'teamName'], keep='first') == False
