@@ -249,8 +249,11 @@ def build_field(sport):
         played_counts = {}
 
     # For each team: project final win%
-    # current_wp from record, 64_rank as future_wp, blend by games proportion
+    # Convert 64 Rank to actual win probability using historical relationship:
+    #   wp = 0.4341 * rank64 + 0.2822
+    # (Derived from 2024 full-season data: 941 teams, r=0.883)
     team_sched['sixty_four_rank'] = team_sched['sixty_four_rank'].fillna(0.5)
+    team_sched['projected_wp'] = 0.4341 * team_sched['sixty_four_rank'] + 0.2822
     team_sched['games_played'] = team_sched['total_wins'] + team_sched['total_losses']
     team_sched['current_wp'] = np.where(
         team_sched['games_played'] > 0,
@@ -260,8 +263,8 @@ def build_field(sport):
     team_sched['games_remaining'] = team_sched['name'].map(remaining_counts).fillna(0)
     team_sched['total_games_proj'] = team_sched['games_played'] + team_sched['games_remaining']
 
-    # Project remaining wins using 64 Rank as win probability
-    team_sched['proj_remaining_wins'] = team_sched['sixty_four_rank'] * team_sched['games_remaining']
+    # Project remaining wins using calibrated win probability from 64 Rank
+    team_sched['proj_remaining_wins'] = team_sched['projected_wp'] * team_sched['games_remaining']
     team_sched['proj_total_wins'] = team_sched['total_wins'] + team_sched['proj_remaining_wins']
     team_sched['proj_total_losses'] = team_sched['total_losses'] + (team_sched['games_remaining'] - team_sched['proj_remaining_wins'])
     team_sched['proj_wp'] = np.where(
