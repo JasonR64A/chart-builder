@@ -478,8 +478,9 @@ def seed_field(field_df):
                     dist = 3000
                 conflict = has_conflict(tm['name'], regional_teams)
                 within_400 = dist <= 400
-                # Sort key: (not within 400, has conflict, distance)
-                sort_key = (not within_400, conflict, dist)
+                # Sort key: (has conflict, not within 400, distance)
+                # No conflict always beats conflict, then prefer within 400mi
+                sort_key = (conflict, not within_400, dist)
                 candidates.append((j, dist, sort_key, tm))
 
             candidates.sort(key=lambda x: x[2])
