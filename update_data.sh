@@ -75,6 +75,26 @@ for sport in ['baseball', 'softball']:
                 fix_csv(path)
 "
 
+# Deduplicate PBP files (cross-division scrapes can produce duplicate game rows)
+echo "Deduplicating PBP files..."
+python3 -c "
+import pandas as pd
+for sport in ['baseball', 'softball']:
+    for stat in ['hitting', 'pitching', 'fielding']:
+        for div in ['D1', 'D2', 'D3']:
+            path = f'C:/Users/sixty/OneDrive/Desktop/chart-builder-app/pbp_data/{sport}/{stat}_pbp_{div}.csv'
+            try:
+                df = pd.read_csv(path, low_memory=False)
+                before = len(df)
+                df = df.drop_duplicates(subset=['gameId', 'playerId', 'teamName'], keep='first')
+                removed = before - len(df)
+                if removed > 0:
+                    df.to_csv(path, index=False)
+                    print(f'  {sport}/{stat}_{div}: removed {removed} dupes')
+            except Exception:
+                pass
+"
+
 # Check if anything changed
 if git diff --quiet data/ pbp_data/; then
     echo "No data changes detected."
