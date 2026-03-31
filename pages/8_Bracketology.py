@@ -362,25 +362,81 @@ def seed_field(field_df):
         row = df.iloc[i]
         remaining_pool.append(team_dict(row))
 
+    # ── Build conflict sets: conference + head-to-head opponents ──
+    # NCAA avoids placing conference opponents or teams that played each
+    # other during the season in the same regional.
+    team_conference = {}
+    teams_db = load_teams()
+    confs_db = load_conferences()
+    conf_name_by_id = dict(zip(confs_db['id'], confs_db['name']))
+    for _, row in teams_db.iterrows():
+        cid = row.get('conference_id')
+        if pd.notna(cid):
+            team_conference[row['name']] = conf_name_by_id.get(int(cid), '')
+
+    # Head-to-head: load full schedule to find who played whom
+    opponents_map: dict[str, set[str]] = {}  # team_name -> set of opponent names
+    for sport_file in ['schedules_full_baseball.csv', 'schedules_full_softball.csv']:
+        sched_path = DATA_DIR / sport_file
+        if sched_path.exists():
+            sched = pd.read_csv(sched_path, low_memory=False)
+            for _, row in sched.iterrows():
+                tn = str(row.get('teamName', ''))
+                opp = str(row.get('opponentName', ''))
+                if tn and opp:
+                    # Clean opponent name (remove venue suffixes like "@City, ST")
+                    opp_clean = opp.split('@')[0].strip().rstrip()
+                    opponents_map.setdefault(tn, set()).add(opp_clean)
+                    opponents_map.setdefault(opp_clean, set()).add(tn)
+
+    def has_conflict(team_name, regional_teams):
+        """Check if team_name conflicts with any team already in the regional."""
+        t_conf = team_conference.get(team_name, '')
+        t_opps = opponents_map.get(team_name, set())
+        for rt in regional_teams:
+            rn = rt.get('name', '')
+            # Same conference
+            if t_conf and t_conf == team_conference.get(rn, ''):
+                return True
+            # Played each other
+            if rn in t_opps:
+                return True
+        return False
+
     # ── Place 2-seeds: ranked 17-32, paired by seed (17→16, 18→15, etc.) ──
     # The 2-seeds are already sorted by adjusted_rpi (best first = seed 17).
     # Seed 17 pairs with seed 16 (worst 1-seed), seed 18 with seed 15, etc.
+    # If the natural pairing creates a conference/opponent conflict, swap with
+    # the next available 2-seed that doesn't conflict.
     regionals = []
+    two_seed_assigned = [False] * len(two_seeds_pool)
 
     for idx in range(min(16, len(hosts))):
         host = hosts[idx]
-        # Pair: seed 1 ↔ seed 32, seed 2 ↔ seed 31, ..., seed 16 ↔ seed 17
-        two_seed_idx = 15 - idx  # host seed 1 → 2-seed index 15 (seed 32), host seed 16 → 2-seed index 0 (seed 17)
+        # Natural pairing: seed 1↔32, seed 2↔31, ..., seed 16↔17
+        natural_idx = 15 - idx
+        regional_teams = [host]
 
-        if two_seed_idx < len(two_seeds_pool):
-            seed2 = two_seeds_pool[two_seed_idx].copy()
-            if pd.notna(host.get('lat')) and pd.notna(seed2.get('lat')):
-                seed2['distance'] = round(haversine_miles(host['lat'], host['lon'], seed2['lat'], seed2['lon']), 0)
-            else:
-                seed2['distance'] = 0
-            seed2['national_seed_num'] = 17 + two_seed_idx
+        # Try natural pairing first, then search for non-conflicting alternative
+        chosen_idx = None
+        for attempt_idx in [natural_idx] + [j for j in range(len(two_seeds_pool)) if j != natural_idx]:
+            if attempt_idx >= len(two_seeds_pool) or two_seed_assigned[attempt_idx]:
+                continue
+            candidate = two_seeds_pool[attempt_idx]
+            if not has_conflict(candidate['name'], regional_teams):
+                chosen_idx = attempt_idx
+                break
+        # If all conflict, take the natural pairing anyway
+        if chosen_idx is None:
+            chosen_idx = natural_idx if natural_idx < len(two_seeds_pool) else 0
+
+        two_seed_assigned[chosen_idx] = True
+        seed2 = two_seeds_pool[chosen_idx].copy()
+        if pd.notna(host.get('lat')) and pd.notna(seed2.get('lat')):
+            seed2['distance'] = round(haversine_miles(host['lat'], host['lon'], seed2['lat'], seed2['lon']), 0)
         else:
-            seed2 = team_dict(df.iloc[0])  # fallback
+            seed2['distance'] = 0
+        seed2['national_seed_num'] = 17 + chosen_idx
 
         regionals.append({
             'national_seed': idx + 1,
@@ -394,7 +450,8 @@ def seed_field(field_df):
     # ── Place 3/4 seeds ──
     # Sort remaining pool by RPI ascending (worst first).
     # The 16 worst RPI teams become 4-seeds, next 16 become 3-seeds.
-    # Within each tier, assign to the closest available host geographically.
+    # Within each tier, assign to the closest host that doesn't create
+    # a conference or head-to-head conflict.
     remaining_pool.sort(key=lambda x: x.get('rpi', 0))
 
     four_seed_pool = remaining_pool[:16]   # worst 16 RPIs → 4-seeds
@@ -403,19 +460,29 @@ def seed_field(field_df):
     for seed_key, pool in [('seed_4', four_seed_pool), ('seed_3', three_seed_pool)]:
         assigned = set()
         for reg in regionals:
-            host = reg['host']
-            best_dist = float('inf')
-            best_j = 0
+            regional_teams = [reg['seed_1'], reg['seed_2']]
+            if reg['seed_3']:
+                regional_teams.append(reg['seed_3'])
+            if reg['seed_4']:
+                regional_teams.append(reg['seed_4'])
+
+            # Score each candidate: prefer closer distance, avoid conflicts
+            candidates = []
             for j, tm in enumerate(pool):
                 if j in assigned:
                     continue
-                if pd.notna(host.get('lat')) and pd.notna(tm.get('lat')):
-                    dist = haversine_miles(host['lat'], host['lon'], tm['lat'], tm['lon'])
+                if pd.notna(reg['host'].get('lat')) and pd.notna(tm.get('lat')):
+                    dist = haversine_miles(reg['host']['lat'], reg['host']['lon'], tm['lat'], tm['lon'])
                 else:
                     dist = 9999
-                if dist < best_dist:
-                    best_dist = dist
-                    best_j = j
+                conflict = has_conflict(tm['name'], regional_teams)
+                # Penalize conflicts heavily (add 5000 miles) so non-conflict options are preferred
+                score = dist + (5000 if conflict else 0)
+                candidates.append((j, dist, score, tm))
+
+            candidates.sort(key=lambda x: x[2])
+            best_j, best_dist, _, _ = candidates[0] if candidates else (0, 9999, 9999, None)
+
             assigned.add(best_j)
             entry = pool[best_j].copy()
             entry['distance'] = round(best_dist, 0)
