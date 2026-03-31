@@ -1242,10 +1242,10 @@ st.sidebar.markdown('---')
 st.sidebar.markdown('### Data Source')
 sport = st.sidebar.selectbox('Sport', ['baseball', 'softball'])
 division = st.sidebar.selectbox('Division', ['D1', 'D2', 'D3'])
-view = st.sidebar.radio('Mode', ['Hitter Stats', 'Pitcher Stats', 'Fielding Stats', 'Pace Chart', 'Lineup Card'], horizontal=True)
+view = st.sidebar.radio('Mode', ['Hitter Stats', 'Pitcher Stats', 'Fielding Stats', 'Pace Chart', 'Lineup Card', "Who's Hot"], horizontal=True)
 
-# Load data — Lineup Card needs both hitting + pitching
-if view == 'Lineup Card':
+# Load data — Lineup Card and Who's Hot need both hitting + pitching
+if view == 'Lineup Card' or view == "Who's Hot":
     hitting_pbp = load_pbp(sport, division, 'hitting')
     pitching_pbp = load_pbp(sport, division, 'pitching')
     if hitting_pbp is None or pitching_pbp is None:
@@ -1283,7 +1283,7 @@ if 'date_parsed' in pbp.columns:
         if len(date_range) == 2:
             date_start, date_end = date_range
             pbp = pbp[(pbp['date_parsed'].dt.date >= date_start) & (pbp['date_parsed'].dt.date <= date_end)]
-            if view == 'Lineup Card':
+            if view in ('Lineup Card', "Who's Hot"):
                 hitting_pbp = hitting_pbp[(hitting_pbp['date_parsed'].dt.date >= date_start) & (hitting_pbp['date_parsed'].dt.date <= date_end)]
                 pitching_pbp = pitching_pbp[(pitching_pbp['date_parsed'].dt.date >= date_start) & (pitching_pbp['date_parsed'].dt.date <= date_end)]
     else:
@@ -1301,12 +1301,12 @@ if conf_map and 'teamName' in pbp.columns:
     if selected_conferences:
         conf_teams = {t for t, c in conf_map.items() if c in selected_conferences}
         pbp = pbp[pbp['teamName'].isin(conf_teams)]
-        if view == 'Lineup Card':
+        if view in ('Lineup Card', "Who's Hot"):
             hitting_pbp = hitting_pbp[hitting_pbp['teamName'].isin(conf_teams)]
             pitching_pbp = pitching_pbp[pitching_pbp['teamName'].isin(conf_teams)]
 
-# Team / Position / Player filters — not shown for Lineup Card
-if view != 'Lineup Card':
+# Team / Position / Player filters — not shown for Lineup Card or Who's Hot
+if view not in ('Lineup Card', "Who's Hot"):
     # Team filter
     all_teams = sorted(pbp['teamName'].dropna().unique()) if 'teamName' in pbp.columns else []
     team_list = ['All'] + all_teams
@@ -1340,12 +1340,16 @@ if view != 'Lineup Card':
     if len(pbp) == 0:
         st.warning('No events match your filters.')
         st.stop()
-else:
+elif view == 'Lineup Card':
     # Lineup Card specific controls
     st.sidebar.markdown('---')
     min_pa_lc = st.sidebar.number_input('Min PA (hitters)', value=10, min_value=1, step=5)
     min_bf_sp = st.sidebar.number_input('Min BF (starters)', value=50, min_value=1, step=10)
     min_bf_rp = st.sidebar.number_input('Min BF (relievers)', value=15, min_value=1, step=5)
+    player_col = 'playerName'
+else:
+    # Who's Hot specific controls
+    st.sidebar.markdown('---')
     player_col = 'playerName'
 
 # ── Compute and Display ─────────────────────────────────────────────────────
@@ -1790,3 +1794,143 @@ elif view == 'Lineup Card':
     with dl2:
         st.download_button('Download Cards PNG', data=cards_buf,
                           file_name=f'lineup_cards_{sport}_{division}.png', mime='image/png')
+
+elif view == "Who's Hot":
+    st.markdown(f"### Who's Hot — {sport.title()} {division}")
+
+    # Stat type selector
+    wh_stat_type = st.sidebar.radio('Stat Type', ['Hitting (wOBA)', 'Pitching (FIP)'], horizontal=True)
+
+    # Min PA/BF filter
+    if wh_stat_type == 'Hitting (wOBA)':
+        wh_min = st.sidebar.number_input('Min PA', value=30, min_value=1, step=5, key='wh_min_pa')
+    else:
+        wh_min = st.sidebar.number_input('Min BF', value=30, min_value=1, step=5, key='wh_min_bf')
+
+    # Compute grouped stats
+    if wh_stat_type == 'Hitting (wOBA)':
+        if len(hitting_pbp) == 0:
+            st.warning('No hitting data for selected filters.')
+            st.stop()
+        league_stats_wh = compute_hitting_stats(hitting_pbp)
+        league_woba_wh = league_stats_wh['wOBA']
+        league_r_pa_wh = league_stats_wh['R/PA']
+        wh_df = compute_grouped_hitting(hitting_pbp, 'playerName', league_woba_wh,
+                                        league_r_pa=league_r_pa_wh, min_pa=wh_min)
+        if len(wh_df) == 0:
+            st.info(f'No players meet the {wh_min} PA minimum.')
+            st.stop()
+        stat_col = 'wOBA'
+        stat_label = 'wOBA'
+        league_avg = league_woba_wh
+        higher_is_better = True
+    else:
+        if len(pitching_pbp) == 0:
+            st.warning('No pitching data for selected filters.')
+            st.stop()
+        wh_df = compute_grouped_pitching(pitching_pbp, 'playerName', min_bf=wh_min)
+        if len(wh_df) == 0:
+            st.info(f'No pitchers meet the {wh_min} BF minimum.')
+            st.stop()
+        league_pitching_wh = compute_pitching_stats(pitching_pbp)
+        stat_col = 'FIP'
+        stat_label = 'FIP'
+        league_avg = league_pitching_wh['FIP']
+        higher_is_better = False
+
+    # Build conference color map
+    conf_map_wh = load_team_conference_map()
+    wh_df['Conference'] = wh_df['School'].map(conf_map_wh).fillna('Unknown')
+
+    # 538-inspired muted color palette
+    CONF_PALETTE = [
+        '#30a2da', '#fc4f30', '#e5ae38', '#6d904f', '#8b8b8b',
+        '#ed713a', '#a855f7', '#22d3a0', '#ff6b6b', '#4ecdc4',
+        '#45b7d1', '#96ceb4', '#ffeaa7', '#dfe6e9', '#636e72',
+    ]
+    unique_confs = sorted(wh_df['Conference'].unique())
+    conf_color_map = {c: CONF_PALETTE[i % len(CONF_PALETTE)] for i, c in enumerate(unique_confs)}
+    wh_df['_color'] = wh_df['Conference'].map(conf_color_map)
+
+    # Identify top/bottom outliers for labels
+    n_label = min(10, len(wh_df))
+    if higher_is_better:
+        top_players = set(wh_df.nlargest(n_label, stat_col)['playerName'])
+        bottom_players = set(wh_df.nsmallest(n_label, stat_col)['playerName'])
+    else:
+        top_players = set(wh_df.nsmallest(n_label, stat_col)['playerName'])
+        bottom_players = set(wh_df.nlargest(n_label, stat_col)['playerName'])
+    label_players = top_players | bottom_players
+
+    # Render the strip plot
+    np.random.seed(42)
+    jitter = np.random.uniform(-0.4, 0.4, size=len(wh_df))
+
+    fig, ax = plt.subplots(figsize=(14, 6), facecolor='#1a1a1a')
+    ax.set_facecolor('#1a1a1a')
+
+    ax.scatter(wh_df[stat_col], jitter, c=wh_df['_color'], s=40, alpha=0.7,
+               edgecolors='white', linewidths=0.3, zorder=3)
+
+    # League average line
+    ax.axvline(league_avg, color='#C8C8C8', linestyle='--', linewidth=1.5, alpha=0.7, zorder=2)
+    ax.text(league_avg, 0.55, f'  Avg: {league_avg:.3f}', transform=ax.get_xaxis_transform(),
+            fontsize=9, color='#C8C8C8', va='bottom', ha='left', alpha=0.9)
+
+    # Label outliers
+    for idx, (_, row) in enumerate(wh_df.iterrows()):
+        if row['playerName'] in label_players:
+            y_val = jitter[idx]
+            last_name = row['playerName'].split()[-1] if len(row['playerName'].split()) > 1 else row['playerName']
+            ax.annotate(last_name,
+                        xy=(row[stat_col], y_val),
+                        xytext=(5, 5), textcoords='offset points',
+                        fontsize=7, color='#C8C8C8', alpha=0.9,
+                        fontweight='bold', zorder=5)
+
+    # Style axes
+    ax.set_xlabel(stat_label, fontsize=12, color='#C8C8C8', labelpad=10)
+    ax.set_yticks([])
+    ax.tick_params(axis='x', colors='#888888')
+    ax.grid(axis='x', alpha=0.15, color='#444444')
+    for spine in ['top', 'right', 'left']:
+        ax.spines[spine].set_visible(False)
+    ax.spines['bottom'].set_color('#333333')
+
+    # Title
+    period_wh = ''
+    if date_start and date_end:
+        period_wh = f" · {date_start.strftime('%b %d')} – {date_end.strftime('%b %d, %Y')}"
+    ax.set_title(f"Who's Hot — {stat_label} · {sport.title()} {division}{period_wh}",
+                 fontsize=14, color='#C8C8C8', pad=15, fontweight='bold')
+
+    # Conference legend
+    legend_patches = [mpatches.Patch(color=conf_color_map[c], label=c) for c in unique_confs]
+    leg = ax.legend(handles=legend_patches, loc='upper right', fontsize=6,
+                    framealpha=0.5, facecolor='#2a2a2a', edgecolor='#444444',
+                    labelcolor='#C8C8C8', ncol=max(1, len(unique_confs) // 8 + 1))
+
+    # Brand logo
+    wide_logo_path = _APP_DIR / 'assets' / 'brand_logo_wide.png'
+    if wide_logo_path.exists():
+        logo_img = Image.open(wide_logo_path).convert('RGBA')
+        logo_img.thumbnail((200, 50), Image.LANCZOS)
+        logo_arr = np.array(logo_img)
+        logo_im = OffsetImage(logo_arr, zoom=0.4, alpha=0.6)
+        logo_ab = AnnotationBbox(logo_im, (0.98, 0.02), xycoords='axes fraction',
+                                  frameon=False, zorder=10, box_alignment=(1, 0))
+        ax.add_artist(logo_ab)
+
+    plt.tight_layout()
+
+    # Save to buffer for display and download
+    wh_buf = BytesIO()
+    fig.savefig(wh_buf, format='png', dpi=180, facecolor='#1a1a1a', edgecolor='none', bbox_inches='tight')
+    wh_buf.seek(0)
+    plt.close(fig)
+
+    st.image(wh_buf, use_container_width=True)
+
+    wh_buf.seek(0)
+    st.download_button('Download PNG', data=wh_buf,
+                      file_name=f'whos_hot_{stat_label}_{sport}_{division}.png', mime='image/png')
