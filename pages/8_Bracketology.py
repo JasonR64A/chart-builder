@@ -291,21 +291,47 @@ def build_field(sport):
     # Build projected WP lookup for ALL teams (not just D1 field)
     wp_lookup = dict(zip(team_sched['name'], team_sched['proj_wp']))
 
-    # Build opponent lists from full schedule
+    # Build opponent lists and game locations from full schedule
     sched_full_file = f'schedules_full_{sport}.csv'
     sched_full_path = DATA_DIR / sched_full_file
     team_opponents: dict[str, list[str]] = {}
+    team_game_locations: dict[str, list[str]] = {}  # team -> list of 'home'/'away'/'neutral' per game
     if sched_full_path.exists():
         all_games = pd.read_csv(sched_full_path, low_memory=False)
         for team_name, group in all_games.groupby('teamName'):
             opps = group['opponentName'].apply(lambda x: str(x).split('@')[0].strip()).tolist()
             team_opponents[team_name] = opps
+            locs = []
+            for _, g in group.iterrows():
+                if pd.notna(g.get('isAway')) and g['isAway'] == 1.0:
+                    locs.append('away')
+                elif '@' in str(g.get('opponentName', '')):
+                    locs.append('neutral')
+                else:
+                    locs.append('home')
+            team_game_locations[team_name] = locs
 
-    # Compute OWP: average projected WP of each team's opponents
+    # Compute location-weighted projected WP for RPI formula
+    # NCAA weights: home W=0.7, away W=1.3, neutral W=1.0
+    def compute_weighted_wp(team_name):
+        locs = team_game_locations.get(team_name, [])
+        proj_wp_val = wp_lookup.get(team_name, 0.5)
+        if not locs:
+            return proj_wp_val
+        # Weight each game's contribution based on location
+        loc_weights = {'home': 0.7, 'away': 1.3, 'neutral': 1.0}
+        w_credit = sum(proj_wp_val * loc_weights.get(loc, 1.0) for loc in locs)
+        l_credit = sum((1 - proj_wp_val) * (2.0 - loc_weights.get(loc, 1.0)) for loc in locs)
+        total = w_credit + l_credit
+        return w_credit / total if total > 0 else 0.5
+
+    weighted_wp_lookup = {t: compute_weighted_wp(t) for t in team_sched['name']}
+
+    # Compute OWP: average weighted WP of each team's opponents
     owp_cache: dict[str, float] = {}
     for t in team_sched['name']:
         opps = team_opponents.get(t, [])
-        opp_wps = [wp_lookup.get(o, 0.5) for o in opps if o in wp_lookup]
+        opp_wps = [weighted_wp_lookup.get(o, 0.5) for o in opps if o in weighted_wp_lookup]
         owp_cache[t] = float(np.mean(opp_wps)) if opp_wps else 0.5
 
     # Compute OOWP: average OWP of each team's opponents
@@ -314,18 +340,20 @@ def build_field(sport):
         opp_owps = [owp_cache.get(o, 0.5) for o in opps if o in owp_cache]
         return float(np.mean(opp_owps)) if opp_owps else 0.5
 
-    # Compute projected RPI for each team
+    # Compute projected RPI for each team using location-weighted WP
     proj_rpis = []
     for _, row in team_sched.iterrows():
-        wp = row['proj_wp']
+        wp = weighted_wp_lookup.get(row['name'], 0.5)
         owp = owp_cache.get(row['name'], 0.5)
         oowp = compute_oowp(row['name'])
         proj_rpis.append(0.25 * wp + 0.50 * owp + 0.25 * oowp)
     team_sched['projected_rpi'] = proj_rpis
 
+    # Compute projected RPI RANK (show rank instead of raw value)
+    team_sched['projected_rpi_rank'] = team_sched['projected_rpi'].rank(ascending=False, method='min').astype(int)
+
     # For display
     team_sched['rpi_display'] = team_sched['rpi']  # current RPI
-    team_sched['proj_rpi_display'] = team_sched['projected_rpi']  # projected RPI
 
     # ── At-large: fill remaining spots from best PROJECTED RPI ──
     total_field = 64
@@ -410,6 +438,7 @@ def seed_field(field_df):
             'name': row.get('name', ''),
             'rpi': row.get('rpi', 0.0),
             'projected_rpi': row.get('projected_rpi', row.get('rpi', 0.0)),
+            'projected_rpi_rank': int(row.get('projected_rpi_rank', 0)) if pd.notna(row.get('projected_rpi_rank')) else 0,
             'record_str': row.get('record_str', ''),
             'proj_record_str': row.get('proj_record_str', row.get('record_str', '')),
             'sixty_four_rank': row.get('sixty_four_rank', 0.0),
@@ -607,9 +636,9 @@ def render_team_row_html(team, seed_num, is_host=False):
 
     name = team.get('name', 'TBD')
     rpi = team.get('rpi', 0)
-    proj_rpi = team.get('projected_rpi', rpi)
+    proj_rpi_rank = team.get('projected_rpi_rank', 0)
     rpi_str = f'{rpi:.5f}' if isinstance(rpi, (int, float)) and pd.notna(rpi) else 'N/A'
-    proj_rpi_str = f'{proj_rpi:.5f}' if isinstance(proj_rpi, (int, float)) and pd.notna(proj_rpi) else 'N/A'
+    proj_rpi_rank_str = f'#{proj_rpi_rank}' if proj_rpi_rank > 0 else 'N/A'
     record = team.get('record_str', '')
     proj_record = team.get('proj_record_str', record)
     sixty_four = team.get('sixty_four_rank', 0)
@@ -642,7 +671,7 @@ def render_team_row_html(team, seed_num, is_host=False):
                 {conf} &middot; {record} &middot; RPI: {rpi_str} &middot; 64A: {sixty_four_str}
             </div>
             <div style="color:#6dbf6d;font-size:10px;">
-                Proj: {proj_record} &middot; Proj RPI: {proj_rpi_str}
+                Proj: {proj_record} &middot; Proj RPI: {proj_rpi_rank_str}
             </div>
         </div>
     </div>
