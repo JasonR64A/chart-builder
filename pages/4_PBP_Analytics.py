@@ -1167,12 +1167,33 @@ def load_player_lookup():
 
 
 @st.cache_data
+def load_division_teams(sport, division):
+    """Get set of team names belonging to a specific division via conferences."""
+    teams_path = DATA_DIR / 'teams.csv'
+    confs_path = DATA_DIR / 'conferences.csv'
+    if not teams_path.exists() or not confs_path.exists():
+        return None
+    teams = pd.read_csv(teams_path, low_memory=False)
+    confs = pd.read_csv(confs_path, low_memory=False)
+    sport_label = sport.title() if sport != 'softball' else 'Softball'
+    div_label = {'D1': 'D-I', 'D2': 'D-II', 'D3': 'D-III'}[division]
+    div_conf_ids = set(confs[confs['division'] == div_label]['id'])
+    sport_teams = teams[teams['sport'] == sport_label]
+    div_teams = sport_teams[sport_teams['conference_id'].isin(div_conf_ids)]
+    return set(div_teams['name'].dropna())
+
+
+@st.cache_data
 def load_pbp(sport, division, stat_type):
     """Load a PBP file: sport=baseball|softball, division=D1|D2|D3, stat_type=hitting|pitching|fielding."""
     filepath = PBP_DIR / sport / f'{stat_type}_pbp_{division}.csv'
     if not filepath.exists():
         return None
     df = pd.read_csv(filepath, low_memory=False)
+    # Filter to only teams in the selected division (cross-division opponents appear in PBP files)
+    div_teams = load_division_teams(sport, division)
+    if div_teams and 'teamName' in df.columns:
+        df = df[df['teamName'].isin(div_teams)].copy()
     # Normalize IDs
     if 'playerId' in df.columns:
         df['playerId'] = pd.to_numeric(df['playerId'], errors='coerce').fillna(0).astype(int).astype(str)
