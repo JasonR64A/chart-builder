@@ -253,13 +253,11 @@ def build_field(sport):
     #   wp = 0.4341 * rank64 + 0.2822
     # (Derived from 2024 full-season data: 941 teams, r=0.883)
     #
-    # Apply a late-season regression factor (0.88): remaining games are
-    # predominantly conference play and tougher than the early-season OOC
-    # schedule. This brings projections more in line with actual finishes
-    # (e.g., Arkansas projects ~35-21 instead of 37-19).
-    LATE_SEASON_FACTOR = 0.88
+    # Instead of a blanket late-season factor, adjust per-team based on
+    # remaining schedule difficulty. A team facing RPI ~120 opponents should
+    # project more wins than one facing RPI ~30 opponents.
     team_sched['sixty_four_rank'] = team_sched['sixty_four_rank'].fillna(0.5)
-    team_sched['projected_wp'] = (0.4341 * team_sched['sixty_four_rank'] + 0.2822) * LATE_SEASON_FACTOR
+    team_sched['base_projected_wp'] = 0.4341 * team_sched['sixty_four_rank'] + 0.2822
     team_sched['games_played'] = team_sched['total_wins'] + team_sched['total_losses']
     team_sched['current_wp'] = np.where(
         team_sched['games_played'] > 0,
@@ -269,7 +267,40 @@ def build_field(sport):
     team_sched['games_remaining'] = team_sched['name'].map(remaining_counts).fillna(0)
     team_sched['total_games_proj'] = team_sched['games_played'] + team_sched['games_remaining']
 
-    # Project remaining wins using calibrated win probability from 64 Rank
+    # Compute per-team schedule difficulty adjustment
+    # Average opponent RPI for remaining games -> difficulty factor
+    # Harder schedule = lower remaining WP, easier schedule = higher remaining WP
+    rpi_lookup_val = dict(zip(rpi_df['teamName'], rpi_df['rpi']))
+    avg_opp_rpi: dict[str, float] = {}
+    if sched_full_path.exists():
+        rem_games = pd.read_csv(sched_full_path, low_memory=False)
+        rem_games = rem_games[(rem_games['result'].isna()) | (rem_games['result'] == '')]
+        for team_name, group in rem_games.groupby('teamName'):
+            opp_rpis = []
+            for _, g in group.iterrows():
+                opp = str(g['opponentName']).split('@')[0].strip()
+                opp_rpi = rpi_lookup_val.get(opp)
+                if opp_rpi is None:
+                    # Partial name match
+                    for k, v in rpi_lookup_val.items():
+                        if opp[:8] in k:
+                            opp_rpi = v
+                            break
+                if opp_rpi is not None:
+                    opp_rpis.append(opp_rpi)
+            avg_opp_rpi[team_name] = float(np.mean(opp_rpis)) if opp_rpis else 0.5
+
+    # Median opponent RPI across all teams as baseline
+    all_avg_opps = [v for v in avg_opp_rpi.values() if v > 0]
+    median_opp_rpi = float(np.median(all_avg_opps)) if all_avg_opps else 0.5
+
+    # Schedule factor: harder schedule (higher avg opp RPI) = lower remaining WP
+    # Scale: every 0.05 above median reduces WP by ~0.05, and vice versa
+    team_sched['avg_opp_rpi'] = team_sched['name'].map(avg_opp_rpi).fillna(median_opp_rpi)
+    team_sched['sched_adj'] = (median_opp_rpi - team_sched['avg_opp_rpi'])  # positive = easier schedule
+    team_sched['projected_wp'] = (team_sched['base_projected_wp'] + team_sched['sched_adj']).clip(0.1, 0.95)
+
+    # Project remaining wins using schedule-adjusted win probability
     team_sched['proj_remaining_wins'] = team_sched['projected_wp'] * team_sched['games_remaining']
     team_sched['proj_total_wins'] = team_sched['total_wins'] + team_sched['proj_remaining_wins']
     team_sched['proj_total_losses'] = team_sched['total_losses'] + (team_sched['games_remaining'] - team_sched['proj_remaining_wins'])
