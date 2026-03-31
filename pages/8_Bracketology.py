@@ -252,8 +252,14 @@ def build_field(sport):
     # Convert 64 Rank to actual win probability using historical relationship:
     #   wp = 0.4341 * rank64 + 0.2822
     # (Derived from 2024 full-season data: 941 teams, r=0.883)
+    #
+    # Apply a late-season regression factor (0.88): remaining games are
+    # predominantly conference play and tougher than the early-season OOC
+    # schedule. This brings projections more in line with actual finishes
+    # (e.g., Arkansas projects ~35-21 instead of 37-19).
+    LATE_SEASON_FACTOR = 0.88
     team_sched['sixty_four_rank'] = team_sched['sixty_four_rank'].fillna(0.5)
-    team_sched['projected_wp'] = 0.4341 * team_sched['sixty_four_rank'] + 0.2822
+    team_sched['projected_wp'] = (0.4341 * team_sched['sixty_four_rank'] + 0.2822) * LATE_SEASON_FACTOR
     team_sched['games_played'] = team_sched['total_wins'] + team_sched['total_losses']
     team_sched['current_wp'] = np.where(
         team_sched['games_played'] > 0,
