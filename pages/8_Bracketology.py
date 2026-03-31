@@ -385,11 +385,14 @@ def build_field(sport):
         total = w_credit + l_credit
         return w_credit / total if total > 0 else 0.5
 
-    weighted_wp_lookup = {t: compute_weighted_wp(t) for t in team_sched['name']}
+    # Build weighted WP for ALL teams in the schedule (not just D1 field)
+    # so OWP/OOWP calculations include every opponent
+    all_schedule_teams = set(wp_lookup.keys()) | set(team_sched['name'])
+    weighted_wp_lookup = {t: compute_weighted_wp(t) for t in all_schedule_teams}
 
-    # Compute OWP: average weighted WP of each team's opponents
+    # Compute OWP for ALL teams (not just field teams)
     owp_cache: dict[str, float] = {}
-    for t in team_sched['name']:
+    for t in all_schedule_teams:
         opps = team_opponents.get(t, [])
         opp_wps = [weighted_wp_lookup.get(o, 0.5) for o in opps if o in weighted_wp_lookup]
         owp_cache[t] = float(np.mean(opp_wps)) if opp_wps else 0.5
@@ -400,7 +403,7 @@ def build_field(sport):
         opp_owps = [owp_cache.get(o, 0.5) for o in opps if o in owp_cache]
         return float(np.mean(opp_owps)) if opp_owps else 0.5
 
-    # Compute projected RPI for each team using location-weighted WP
+    # Compute projected RPI for D1 field teams using location-weighted WP
     proj_rpis = []
     for _, row in team_sched.iterrows():
         wp = weighted_wp_lookup.get(row['name'], 0.5)
