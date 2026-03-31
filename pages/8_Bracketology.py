@@ -362,28 +362,25 @@ def seed_field(field_df):
         row = df.iloc[i]
         remaining_pool.append(team_dict(row))
 
-    # ── Place 2-seeds: assign each to the closest host geographically ──
+    # ── Place 2-seeds: ranked 17-32, paired by seed (17→16, 18→15, etc.) ──
+    # The 2-seeds are already sorted by adjusted_rpi (best first = seed 17).
+    # Seed 17 pairs with seed 16 (worst 1-seed), seed 18 with seed 15, etc.
     regionals = []
-    assigned_2seeds = set()
 
-    for idx, host in enumerate(hosts):
-        # Find closest unassigned 2-seed
-        best_dist = float('inf')
-        best_j = 0
-        for j, ts in enumerate(two_seeds_pool):
-            if j in assigned_2seeds:
-                continue
-            if pd.notna(host['lat']) and pd.notna(ts['lat']):
-                dist = haversine_miles(host['lat'], host['lon'], ts['lat'], ts['lon'])
+    for idx in range(min(16, len(hosts))):
+        host = hosts[idx]
+        # Pair: seed 1 ↔ seed 32, seed 2 ↔ seed 31, ..., seed 16 ↔ seed 17
+        two_seed_idx = 15 - idx  # host seed 1 → 2-seed index 15 (seed 32), host seed 16 → 2-seed index 0 (seed 17)
+
+        if two_seed_idx < len(two_seeds_pool):
+            seed2 = two_seeds_pool[two_seed_idx].copy()
+            if pd.notna(host.get('lat')) and pd.notna(seed2.get('lat')):
+                seed2['distance'] = round(haversine_miles(host['lat'], host['lon'], seed2['lat'], seed2['lon']), 0)
             else:
-                dist = 9999
-            if dist < best_dist:
-                best_dist = dist
-                best_j = j
-
-        assigned_2seeds.add(best_j)
-        seed2 = two_seeds_pool[best_j].copy()
-        seed2['distance'] = round(best_dist, 0)
+                seed2['distance'] = 0
+            seed2['national_seed_num'] = 17 + two_seed_idx
+        else:
+            seed2 = team_dict(df.iloc[0])  # fallback
 
         regionals.append({
             'national_seed': idx + 1,
