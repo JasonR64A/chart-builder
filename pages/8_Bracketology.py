@@ -466,7 +466,8 @@ def seed_field(field_df):
             if reg['seed_4']:
                 regional_teams.append(reg['seed_4'])
 
-            # Score each candidate: prefer closer distance, avoid conflicts
+            # Priority: within 400mi and no conflict > within 400mi with conflict >
+            # outside 400mi no conflict > outside 400mi with conflict
             candidates = []
             for j, tm in enumerate(pool):
                 if j in assigned:
@@ -474,14 +475,15 @@ def seed_field(field_df):
                 if pd.notna(reg['host'].get('lat')) and pd.notna(tm.get('lat')):
                     dist = haversine_miles(reg['host']['lat'], reg['host']['lon'], tm['lat'], tm['lon'])
                 else:
-                    dist = 9999
+                    dist = 3000
                 conflict = has_conflict(tm['name'], regional_teams)
-                # Penalize conflicts heavily (add 5000 miles) so non-conflict options are preferred
-                score = dist + (5000 if conflict else 0)
-                candidates.append((j, dist, score, tm))
+                within_400 = dist <= 400
+                # Sort key: (not within 400, has conflict, distance)
+                sort_key = (not within_400, conflict, dist)
+                candidates.append((j, dist, sort_key, tm))
 
             candidates.sort(key=lambda x: x[2])
-            best_j, best_dist, _, _ = candidates[0] if candidates else (0, 9999, 9999, None)
+            best_j, best_dist, _, _ = candidates[0] if candidates else (0, 3000, (True, True, 3000), None)
 
             assigned.add(best_j)
             entry = pool[best_j].copy()
