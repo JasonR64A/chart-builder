@@ -299,20 +299,35 @@ def seed_field(field_df):
     """
     df = field_df.copy()
 
-    # Compute adjusted score for seeding
-    if df['rpi'].notna().sum() > 0:
-        max_rpi = df['rpi'].max()
-        min_rpi = df['rpi'].min()
-        rpi_range = max_rpi - min_rpi if max_rpi != min_rpi else 1.0
-        df['rpi_percentile'] = (df['rpi'] - min_rpi) / rpi_range
+    # Compute projected RPI using 64 Rank as a win-probability proxy.
+    # 64 Rank has ~80% correlation with win probability, so we use it to
+    # project where a team's RPI should move. Teams with high 64 Rank but
+    # low current RPI are projected to climb; teams with low 64 Rank but
+    # high RPI are projected to fall.
+    #
+    # Method: compute a "projected RPI" from 64 Rank, then blend:
+    #   adjusted_rpi = 0.6 * current_rpi + 0.4 * projected_rpi_from_64rank
+    #
+    # This means a team ranked 18th by 64 Rank but 49th by RPI (like Arkansas)
+    # will project much higher than their current RPI alone suggests.
+
+    df['sixty_four_rank'] = df['sixty_four_rank'].fillna(0.0)
+
+    if df['rpi'].notna().sum() > 0 and df['sixty_four_rank'].sum() > 0:
+        # Map 64 Rank (0-1 efficiency) to an estimated RPI
+        # Use the field's RPI distribution: rank teams by 64 Rank, then assign
+        # the RPI value that corresponds to that rank position
+        rpi_sorted = df['rpi'].dropna().sort_values(ascending=False).values
+        rank_order = df['sixty_four_rank'].rank(ascending=False, method='first').astype(int) - 1
+        df['projected_rpi'] = rank_order.apply(
+            lambda r: rpi_sorted[min(r, len(rpi_sorted) - 1)] if r < len(rpi_sorted) else rpi_sorted[-1]
+        )
+        df['adjusted_rpi'] = 0.6 * df['rpi'].fillna(0) + 0.4 * df['projected_rpi']
     else:
-        df['rpi_percentile'] = 0.5
+        df['adjusted_rpi'] = df['rpi'].fillna(0)
 
-    df['sixty_four_rank'] = df['sixty_four_rank'].fillna(0.5)
-    df['adjusted_score'] = 0.8 * df['rpi_percentile'] + 0.2 * df['sixty_four_rank']
-
-    # Sort by adjusted score descending
-    df = df.sort_values('adjusted_score', ascending=False).reset_index(drop=True)
+    # Sort by adjusted RPI descending (higher = better)
+    df = df.sort_values('adjusted_rpi', ascending=False).reset_index(drop=True)
 
     def team_dict(row, distance=0.0):
         return {
@@ -325,7 +340,7 @@ def seed_field(field_df):
             'logo_url': row.get('logo_url', ''),
             'team_db_id': int(row.get('team_db_id', 0)) if pd.notna(row.get('team_db_id')) else 0,
             'distance': distance,
-            'adjusted_score': row.get('adjusted_score', 0.0),
+            'adjusted_rpi': row.get('adjusted_rpi', 0.0),
             'is_auto_bid': row.get('is_auto_bid', False),
         }
 
@@ -379,50 +394,35 @@ def seed_field(field_df):
             'seed_4': None,
         })
 
-    # ── Place 3/4 seeds: for each regional, find 2 closest remaining teams ──
-    assigned_remaining = set()
+    # ── Place 3/4 seeds ──
+    # Sort remaining pool by RPI ascending (worst first).
+    # The 16 worst RPI teams become 4-seeds, next 16 become 3-seeds.
+    # Within each tier, assign to the closest available host geographically.
+    remaining_pool.sort(key=lambda x: x.get('rpi', 0))
 
-    for reg in regionals:
-        host = reg['host']
-        distances = []
-        for j, tm in enumerate(remaining_pool):
-            if j in assigned_remaining:
-                continue
-            if pd.notna(host['lat']) and pd.notna(tm['lat']):
-                dist = haversine_miles(host['lat'], host['lon'], tm['lat'], tm['lon'])
-            else:
-                dist = 9999
-            distances.append((j, dist, tm))
+    four_seed_pool = remaining_pool[:16]   # worst 16 RPIs → 4-seeds
+    three_seed_pool = remaining_pool[16:]  # better 16 RPIs → 3-seeds
 
-        # Sort by distance
-        distances.sort(key=lambda x: x[1])
-
-        # Take the 2 closest
-        placed = []
-        for j, dist, tm in distances:
-            if len(placed) >= 2:
-                break
-            assigned_remaining.add(j)
-            entry = tm.copy()
-            entry['distance'] = round(dist, 0)
-            placed.append(entry)
-
-        # Assign 3-seed to better RPI, 4-seed to worse
-        if len(placed) == 2:
-            placed.sort(key=lambda x: x.get('rpi', 0), reverse=True)
-            reg['seed_3'] = placed[0]
-            reg['seed_4'] = placed[1]
-        elif len(placed) == 1:
-            reg['seed_3'] = placed[0]
-
-    # Handle any unassigned remaining teams for regionals that got none
-    # (shouldn't happen with 64 teams, but be safe)
-    unassigned = [remaining_pool[j] for j in range(len(remaining_pool)) if j not in assigned_remaining]
-    for reg in regionals:
-        if reg['seed_3'] is None and unassigned:
-            reg['seed_3'] = unassigned.pop(0)
-        if reg['seed_4'] is None and unassigned:
-            reg['seed_4'] = unassigned.pop(0)
+    for seed_key, pool in [('seed_4', four_seed_pool), ('seed_3', three_seed_pool)]:
+        assigned = set()
+        for reg in regionals:
+            host = reg['host']
+            best_dist = float('inf')
+            best_j = 0
+            for j, tm in enumerate(pool):
+                if j in assigned:
+                    continue
+                if pd.notna(host.get('lat')) and pd.notna(tm.get('lat')):
+                    dist = haversine_miles(host['lat'], host['lon'], tm['lat'], tm['lon'])
+                else:
+                    dist = 9999
+                if dist < best_dist:
+                    best_dist = dist
+                    best_j = j
+            assigned.add(best_j)
+            entry = pool[best_j].copy()
+            entry['distance'] = round(best_dist, 0)
+            reg[seed_key] = entry
 
     return regionals
 

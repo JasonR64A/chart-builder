@@ -11,6 +11,11 @@ PBP_DEST="C:/Users/sixty/OneDrive/Desktop/chart-builder-app/pbp_data"
 echo "Copying latest CSVs..."
 cp "$SOURCE"/*.csv "$DEST/"
 
+echo "Copying RPI data..."
+for sport in baseball softball; do
+    cp "$PBP_SOURCE/$sport/rpi/${sport}_rpi_D1.csv" "$DEST/" 2>/dev/null
+done
+
 echo "Copying PBP data..."
 for sport in baseball softball; do
     cp "$PBP_SOURCE/$sport/pbp/hitting_pbp_"*.csv "$PBP_DEST/$sport/" 2>/dev/null
