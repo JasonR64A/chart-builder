@@ -1328,6 +1328,7 @@ if view not in ('Lineup Card', "Who's Hot"):
         min_threshold = st.sidebar.number_input('Min PA', value=10, min_value=1, step=5)
     elif view == 'Pitcher Stats':
         min_threshold = st.sidebar.number_input('Min BF', value=10, min_value=1, step=5)
+        min_ip = st.sidebar.number_input('Min IP', value=0.0, min_value=0.0, step=5.0, format='%.1f')
 
     # Player filter
     player_col = 'playerName'
@@ -1420,8 +1421,14 @@ elif view == 'Pitcher Stats':
     st.markdown('---')
     pitcher_stats = compute_grouped_pitching(pbp, player_col, min_bf=min_threshold)
 
+    # Apply cumulative IP filter
+    if min_ip > 0 and len(pitcher_stats) > 0 and 'IP' in pitcher_stats.columns:
+        pitcher_stats = pitcher_stats[pitcher_stats['IP'].apply(
+            lambda x: int(x) + (round((x - int(x)) * 10) / 3) >= min_ip
+        )].reset_index(drop=True)
+
     if len(pitcher_stats) == 0:
-        st.info(f'No pitchers meet the {min_threshold} BF minimum.')
+        st.info(f'No pitchers meet the minimum filters.')
     else:
         k_col = 'K/7' if sport == 'softball' else 'K/9'
         show_cols = ['Rank', player_col, 'School', 'Pos', 'App', 'GS', 'IP', 'BF', 'OAB',
