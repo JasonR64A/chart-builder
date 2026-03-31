@@ -622,8 +622,17 @@ def seed_field(field_df):
     # a conference or head-to-head conflict.
     remaining_pool.sort(key=lambda x: x.get('rpi', 0))
 
-    four_seed_pool = remaining_pool[:16]   # worst 16 RPIs → 4-seeds
-    three_seed_pool = remaining_pool[16:]  # better 16 RPIs → 3-seeds
+    # Power conference teams (ACC, Big 12, Big Ten, SEC, Sun Belt) are never
+    # 4-seeds. Those 16 spots go to non-power conference teams.
+    POWER_CONFS = {'ACC', 'Big 12', 'Big Ten', 'SEC', 'Sun Belt'}
+    non_power = [t for t in remaining_pool if t.get('conference', '') not in POWER_CONFS]
+    power = [t for t in remaining_pool if t.get('conference', '') in POWER_CONFS]
+
+    # 4-seeds: worst 16 RPIs from non-power teams
+    four_seed_pool = non_power[:16]
+    # 3-seeds: all power conference remainders + leftover non-power
+    three_seed_pool = power + non_power[16:]
+    three_seed_pool.sort(key=lambda x: x.get('rpi', 0), reverse=True)  # best RPI first
 
     for seed_key, pool in [('seed_4', four_seed_pool), ('seed_3', three_seed_pool)]:
         assigned = set()
