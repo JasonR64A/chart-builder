@@ -283,32 +283,45 @@ def build_field(sport):
         team_sched['proj_total_losses'].round(0).astype(int).astype(str)
     )
 
-    # Projected RPI: blend current RPI with the RPI implied by 64 Rank position.
-    # This naturally regresses inflated RPIs (Missouri St #11 -> #20) and
-    # boosts depressed RPIs (Arkansas #60 -> #34).
-    #
-    # The implied RPI is: "what RPI does the team at this 64 Rank position have?"
-    # Blend weight is based on season completion: more weight on current RPI
-    # early, more on 64 Rank implied later.
-    rpi_values_sorted = team_sched['rpi'].dropna().sort_values(ascending=False).values
-    n_rpi = len(rpi_values_sorted)
+    # Projected RPI: compute the actual RPI formula using projected records.
+    # RPI = 0.25*WP + 0.50*OWP + 0.25*OOWP
+    # For each team, project their final WP, then compute opponent WPs,
+    # then run the RPI formula.
 
-    # Map 64 Rank to a position, then get the RPI at that position
-    team_sched['rank64_position'] = team_sched['sixty_four_rank'].rank(ascending=False, method='first').astype(int)
-    team_sched['implied_rpi'] = team_sched['rank64_position'].apply(
-        lambda pos: rpi_values_sorted[min(int(pos) - 1, n_rpi - 1)] if n_rpi > 0 else 0.5
-    )
+    # Build projected WP lookup for ALL teams (not just D1 field)
+    wp_lookup = dict(zip(team_sched['name'], team_sched['proj_wp']))
 
-    # Blend: weight by % of season completed (more of season done = trust current RPI more)
-    avg_pct_played = (team_sched['games_played'] / team_sched['total_games_proj'].clip(1)).mean()
-    current_weight = max(0.45, min(0.75, avg_pct_played))  # clamp between 0.45 and 0.75
-    implied_weight = 1.0 - current_weight
+    # Build opponent lists from full schedule
+    sched_full_file = f'schedules_full_{sport}.csv'
+    sched_full_path = DATA_DIR / sched_full_file
+    team_opponents: dict[str, list[str]] = {}
+    if sched_full_path.exists():
+        all_games = pd.read_csv(sched_full_path, low_memory=False)
+        for team_name, group in all_games.groupby('teamName'):
+            opps = group['opponentName'].apply(lambda x: str(x).split('@')[0].strip()).tolist()
+            team_opponents[team_name] = opps
 
-    team_sched['projected_rpi'] = (
-        current_weight * team_sched['rpi'].fillna(0) +
-        implied_weight * team_sched['implied_rpi']
-    )
-    team_sched['projected_rpi'] = team_sched['projected_rpi'].clip(0, 1)
+    # Compute OWP: average projected WP of each team's opponents
+    owp_cache: dict[str, float] = {}
+    for t in team_sched['name']:
+        opps = team_opponents.get(t, [])
+        opp_wps = [wp_lookup.get(o, 0.5) for o in opps if o in wp_lookup]
+        owp_cache[t] = float(np.mean(opp_wps)) if opp_wps else 0.5
+
+    # Compute OOWP: average OWP of each team's opponents
+    def compute_oowp(team_name):
+        opps = team_opponents.get(team_name, [])
+        opp_owps = [owp_cache.get(o, 0.5) for o in opps if o in owp_cache]
+        return float(np.mean(opp_owps)) if opp_owps else 0.5
+
+    # Compute projected RPI for each team
+    proj_rpis = []
+    for _, row in team_sched.iterrows():
+        wp = row['proj_wp']
+        owp = owp_cache.get(row['name'], 0.5)
+        oowp = compute_oowp(row['name'])
+        proj_rpis.append(0.25 * wp + 0.50 * owp + 0.25 * oowp)
+    team_sched['projected_rpi'] = proj_rpis
 
     # For display
     team_sched['rpi_display'] = team_sched['rpi']  # current RPI
