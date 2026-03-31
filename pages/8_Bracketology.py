@@ -228,16 +228,73 @@ def build_field(sport):
 
     auto_bids_set = set(auto_bids)
 
-    # ── At-large: fill remaining spots from best RPI not already auto-bid ──
+    # ── Project final RPI using 64 Rank + remaining schedule ──
+    # 64 Rank (0-1) serves as win probability proxy. For each team's remaining
+    # games, estimate wins, project final record, and estimate final RPI.
+    # RPI ≈ 0.25*WP + 0.50*OWP + 0.25*OOWP. We simplify by projecting WP
+    # and blending with current RPI (which already captures OWP/OOWP).
+
+    # Load full schedule for remaining games
+    sched_full_file = f'schedules_full_{sport}.csv'
+    sched_full_path = DATA_DIR / sched_full_file
+    if sched_full_path.exists():
+        full_sched = pd.read_csv(sched_full_path, low_memory=False)
+        # Count remaining games per team
+        remaining = full_sched[(full_sched['result'].isna()) | (full_sched['result'] == '')]
+        remaining_counts = remaining.groupby('teamName').size().to_dict()
+        played_games = full_sched[full_sched['result'].notna() & (full_sched['result'] != '')]
+        played_counts = played_games.groupby('teamName').size().to_dict()
+    else:
+        remaining_counts = {}
+        played_counts = {}
+
+    # For each team: project final win%
+    # current_wp from record, 64_rank as future_wp, blend by games proportion
+    team_sched['sixty_four_rank'] = team_sched['sixty_four_rank'].fillna(0.5)
+    team_sched['games_played'] = team_sched['total_wins'] + team_sched['total_losses']
+    team_sched['current_wp'] = np.where(
+        team_sched['games_played'] > 0,
+        team_sched['total_wins'] / team_sched['games_played'],
+        0.5
+    )
+    team_sched['games_remaining'] = team_sched['name'].map(remaining_counts).fillna(0)
+    team_sched['total_games_proj'] = team_sched['games_played'] + team_sched['games_remaining']
+
+    # Project remaining wins using 64 Rank as win probability
+    team_sched['proj_remaining_wins'] = team_sched['sixty_four_rank'] * team_sched['games_remaining']
+    team_sched['proj_total_wins'] = team_sched['total_wins'] + team_sched['proj_remaining_wins']
+    team_sched['proj_total_losses'] = team_sched['total_losses'] + (team_sched['games_remaining'] - team_sched['proj_remaining_wins'])
+    team_sched['proj_wp'] = np.where(
+        team_sched['total_games_proj'] > 0,
+        team_sched['proj_total_wins'] / team_sched['total_games_proj'],
+        0.5
+    )
+    team_sched['proj_record_str'] = (
+        team_sched['proj_total_wins'].round(0).astype(int).astype(str) + '-' +
+        team_sched['proj_total_losses'].round(0).astype(int).astype(str)
+    )
+
+    # Projected RPI: blend current RPI (which has OWP/OOWP baked in) with
+    # the improvement/decline implied by projected win% vs current win%.
+    # If team projects to improve WP by +0.05, their RPI should improve by ~0.25*0.05
+    team_sched['wp_delta'] = team_sched['proj_wp'] - team_sched['current_wp']
+    team_sched['projected_rpi'] = team_sched['rpi'] + (0.25 * team_sched['wp_delta'])
+    team_sched['projected_rpi'] = team_sched['projected_rpi'].clip(0, 1)
+
+    # For display
+    team_sched['rpi_display'] = team_sched['rpi']  # current RPI
+    team_sched['proj_rpi_display'] = team_sched['projected_rpi']  # projected RPI
+
+    # ── At-large: fill remaining spots from best PROJECTED RPI ──
     total_field = 64
     n_auto = len(auto_bids_set)
     n_at_large = total_field - n_auto
 
-    # All teams with RPI, not auto-bid
+    # All teams with RPI, not auto-bid, sorted by projected RPI
     at_large_pool = team_sched[
         (~team_sched['name'].isin(auto_bids_set)) &
         (team_sched['rpi'].notna())
-    ].sort_values('rpi', ascending=False)
+    ].sort_values('projected_rpi', ascending=False)
 
     at_large_teams = at_large_pool.head(n_at_large)['name'].tolist()
 
@@ -299,41 +356,21 @@ def seed_field(field_df):
     """
     df = field_df.copy()
 
-    # Compute projected RPI using 64 Rank as a win-probability proxy.
-    # 64 Rank has ~80% correlation with win probability, so we use it to
-    # project where a team's RPI should move. Teams with high 64 Rank but
-    # low current RPI are projected to climb; teams with low 64 Rank but
-    # high RPI are projected to fall.
-    #
-    # Method: compute a "projected RPI" from 64 Rank, then blend:
-    #   adjusted_rpi = 0.6 * current_rpi + 0.4 * projected_rpi_from_64rank
-    #
-    # This means a team ranked 18th by 64 Rank but 49th by RPI (like Arkansas)
-    # will project much higher than their current RPI alone suggests.
-
-    df['sixty_four_rank'] = df['sixty_four_rank'].fillna(0.0)
-
-    if df['rpi'].notna().sum() > 0 and df['sixty_four_rank'].sum() > 0:
-        # Map 64 Rank (0-1 efficiency) to an estimated RPI
-        # Use the field's RPI distribution: rank teams by 64 Rank, then assign
-        # the RPI value that corresponds to that rank position
-        rpi_sorted = df['rpi'].dropna().sort_values(ascending=False).values
-        rank_order = df['sixty_four_rank'].rank(ascending=False, method='first').astype(int) - 1
-        df['projected_rpi'] = rank_order.apply(
-            lambda r: rpi_sorted[min(r, len(rpi_sorted) - 1)] if r < len(rpi_sorted) else rpi_sorted[-1]
-        )
-        df['adjusted_rpi'] = 0.6 * df['rpi'].fillna(0) + 0.4 * df['projected_rpi']
+    # Seed by projected RPI (already computed in build_field using 64 Rank
+    # win projections applied to remaining schedule)
+    if 'projected_rpi' in df.columns:
+        df = df.sort_values('projected_rpi', ascending=False).reset_index(drop=True)
     else:
-        df['adjusted_rpi'] = df['rpi'].fillna(0)
-
-    # Sort by adjusted RPI descending (higher = better)
-    df = df.sort_values('adjusted_rpi', ascending=False).reset_index(drop=True)
+        df = df.sort_values('rpi', ascending=False, na_position='last').reset_index(drop=True)
 
     def team_dict(row, distance=0.0):
         return {
             'name': row.get('name', ''),
             'rpi': row.get('rpi', 0.0),
+            'projected_rpi': row.get('projected_rpi', row.get('rpi', 0.0)),
             'record_str': row.get('record_str', ''),
+            'proj_record_str': row.get('proj_record_str', row.get('record_str', '')),
+            'sixty_four_rank': row.get('sixty_four_rank', 0.0),
             'conference': row.get('display_conference', ''),
             'lat': row.get('lat', 0.0),
             'lon': row.get('lon', 0.0),
@@ -528,8 +565,13 @@ def render_team_row_html(team, seed_num, is_host=False):
 
     name = team.get('name', 'TBD')
     rpi = team.get('rpi', 0)
+    proj_rpi = team.get('projected_rpi', rpi)
     rpi_str = f'{rpi:.5f}' if isinstance(rpi, (int, float)) and pd.notna(rpi) else 'N/A'
+    proj_rpi_str = f'{proj_rpi:.5f}' if isinstance(proj_rpi, (int, float)) and pd.notna(proj_rpi) else 'N/A'
     record = team.get('record_str', '')
+    proj_record = team.get('proj_record_str', record)
+    sixty_four = team.get('sixty_four_rank', 0)
+    sixty_four_str = f'{sixty_four:.3f}' if isinstance(sixty_four, (int, float)) and pd.notna(sixty_four) else 'N/A'
     conf = team.get('conference', '')
     dist = team.get('distance', 0)
     logo_url = team.get('logo_url', '')
@@ -555,7 +597,10 @@ def render_team_row_html(team, seed_num, is_host=False):
                 {name}{host_badge}{dist_html}
             </div>
             <div style="color:#999;font-size:11px;">
-                {conf} &middot; {record} &middot; RPI: {rpi_str}
+                {conf} &middot; {record} &middot; RPI: {rpi_str} &middot; 64A: {sixty_four_str}
+            </div>
+            <div style="color:#6dbf6d;font-size:10px;">
+                Proj: {proj_record} &middot; Proj RPI: {proj_rpi_str}
             </div>
         </div>
     </div>
