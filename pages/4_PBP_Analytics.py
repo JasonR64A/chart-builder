@@ -850,12 +850,12 @@ def _load_bg_image():
 
 def render_diamond_png(best_hitters, starters, relievers, title, subtitle, team_map):
     """Render the lineup card diamond as a matplotlib PNG."""
-    fig = plt.figure(figsize=(12, 10), facecolor='#1a1a1a')
+    fig = plt.figure(figsize=(12, 10), facecolor='#2c2c2a')
 
-    # Background pattern
+    # Background pattern — cover entire figure including title area
     bg_img = _load_bg_image()
     if bg_img:
-        bg_ax = fig.add_axes([0, 0, 1, 1])
+        bg_ax = fig.add_axes([-0.05, -0.05, 1.1, 1.1])
         bg_ax.imshow(np.array(bg_img), aspect='auto', extent=[0, 1, 0, 1], zorder=0)
         bg_ax.axis('off')
 
@@ -1013,7 +1013,7 @@ def render_diamond_png(best_hitters, starters, relievers, title, subtitle, team_
     fig.text(0.42, 0.94, subtitle, ha='center', va='top', fontsize=10, color='#888')
 
     buf = BytesIO()
-    fig.savefig(buf, format='png', dpi=180, facecolor='#1a1a1a', edgecolor='none',
+    fig.savefig(buf, format='png', dpi=180, facecolor='#2c2c2a', edgecolor='none',
                 bbox_inches='tight', pad_inches=0)
     buf.seek(0)
     plt.close(fig)
