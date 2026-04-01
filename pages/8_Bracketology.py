@@ -331,84 +331,48 @@ def build_field(sport):
     # For each team, project their final WP, then compute opponent WPs,
     # then run the RPI formula.
 
-    # Build projected WP lookup for ALL teams (not just D1 field)
-    # For teams in our field, use the game-by-game projected WP.
-    # For ALL teams in the full schedule, compute projected WP from their
-    # game-by-game predictions so OWP/OOWP calculations are accurate.
-    wp_lookup = dict(zip(team_sched['name'], team_sched['proj_wp']))
-    # Add any teams from full schedule not in our D1 list
-    for team_name in proj_remaining_wins_map:
-        if team_name not in wp_lookup:
-            # Estimate current record from full schedule
-            if sched_full_path.exists():
-                t_played = full_sched_df[(full_sched_df['teamName'] == team_name) &
-                                         (full_sched_df['result'].notna()) & (full_sched_df['result'] != '')]
-                t_wins = t_played['result'].str.startswith('W').sum() if len(t_played) > 0 else 0
-                t_games = len(t_played)
-                rem_w = proj_remaining_wins_map[team_name]
-                rem_g = remaining_game_counts[team_name]
-                total_w = t_wins + rem_w
-                total_g = t_games + rem_g
-                wp_lookup[team_name] = total_w / total_g if total_g > 0 else 0.5
-
-    # Build opponent lists and game locations from full schedule
-    sched_full_file = f'schedules_full_{sport}.csv'
-    sched_full_path = DATA_DIR / sched_full_file
-    team_opponents: dict[str, list[str]] = {}
-    team_game_locations: dict[str, list[str]] = {}  # team -> list of 'home'/'away'/'neutral' per game
+    # Build projected WP for EVERY team in the full schedule (not just D1).
+    # This is critical: OWP/OOWP must use actual projected WPs for all
+    # opponents, not default 0.5. Missing opponents skew the entire RPI.
+    wp_lookup: dict[str, float] = {}
     if sched_full_path.exists():
-        all_games = pd.read_csv(sched_full_path, low_memory=False)
-        for team_name, group in all_games.groupby('teamName'):
-            opps = group['opponentName'].apply(lambda x: str(x).split('@')[0].strip()).tolist()
-            team_opponents[team_name] = opps
-            locs = []
-            for _, g in group.iterrows():
-                if pd.notna(g.get('isAway')) and g['isAway'] == 1.0:
-                    locs.append('away')
-                elif '@' in str(g.get('opponentName', '')):
-                    locs.append('neutral')
-                else:
-                    locs.append('home')
-            team_game_locations[team_name] = locs
+        played_df = full_sched_df[full_sched_df['result'].notna() & (full_sched_df['result'] != '')]
+        for team_name in full_sched_df['teamName'].unique():
+            t_played = played_df[played_df['teamName'] == team_name]
+            t_wins = t_played['result'].str.startswith('W').sum() if len(t_played) > 0 else 0
+            t_games = len(t_played)
+            rem_w = proj_remaining_wins_map.get(team_name, 0)
+            rem_g = remaining_game_counts.get(team_name, 0)
+            total_w = t_wins + rem_w
+            total_g = t_games + rem_g
+            wp_lookup[team_name] = total_w / total_g if total_g > 0 else 0.5
+    # Overlay D1 field teams' projected WP (computed from schedules.csv which is more accurate)
+    for _, row in team_sched.iterrows():
+        wp_lookup[row['name']] = row['proj_wp']
 
-    # Compute location-weighted projected WP for RPI formula
-    # NCAA weights: home W=0.7, away W=1.3, neutral W=1.0
-    def compute_weighted_wp(team_name):
-        locs = team_game_locations.get(team_name, [])
-        proj_wp_val = wp_lookup.get(team_name, 0.5)
-        if not locs:
-            return proj_wp_val
-        # Weight each game's contribution based on location
-        loc_weights = {'home': 0.7, 'away': 1.3, 'neutral': 1.0}
-        w_credit = sum(proj_wp_val * loc_weights.get(loc, 1.0) for loc in locs)
-        l_credit = sum((1 - proj_wp_val) * (2.0 - loc_weights.get(loc, 1.0)) for loc in locs)
-        total = w_credit + l_credit
-        return w_credit / total if total > 0 else 0.5
+    # Build opponent lists from full schedule
+    team_opponents: dict[str, list[str]] = {}
+    for team_name, group in full_sched_df.groupby('teamName'):
+        team_opponents[team_name] = group['opponentName'].apply(
+            lambda x: str(x).split('@')[0].strip()
+        ).tolist()
 
-    # Build weighted WP for ALL teams in the schedule (not just D1 field)
-    # so OWP/OOWP calculations include every opponent
-    all_schedule_teams = set(wp_lookup.keys()) | set(team_sched['name'])
-    weighted_wp_lookup = {t: compute_weighted_wp(t) for t in all_schedule_teams}
-
-    # Compute OWP for ALL teams (not just field teams)
+    # Compute OWP for ALL teams
     owp_cache: dict[str, float] = {}
-    for t in all_schedule_teams:
+    for t in wp_lookup:
         opps = team_opponents.get(t, [])
-        opp_wps = [weighted_wp_lookup.get(o, 0.5) for o in opps if o in weighted_wp_lookup]
+        opp_wps = [wp_lookup.get(o, 0.5) for o in opps if o in wp_lookup]
         owp_cache[t] = float(np.mean(opp_wps)) if opp_wps else 0.5
 
-    # Compute OOWP: average OWP of each team's opponents
-    def compute_oowp(team_name):
-        opps = team_opponents.get(team_name, [])
-        opp_owps = [owp_cache.get(o, 0.5) for o in opps if o in owp_cache]
-        return float(np.mean(opp_owps)) if opp_owps else 0.5
-
-    # Compute projected RPI for D1 field teams using location-weighted WP
+    # Compute projected RPI for D1 field teams
     proj_rpis = []
     for _, row in team_sched.iterrows():
-        wp = weighted_wp_lookup.get(row['name'], 0.5)
-        owp = owp_cache.get(row['name'], 0.5)
-        oowp = compute_oowp(row['name'])
+        t = row['name']
+        wp = wp_lookup.get(t, 0.5)
+        owp = owp_cache.get(t, 0.5)
+        opps = team_opponents.get(t, [])
+        opp_owps = [owp_cache.get(o, 0.5) for o in opps if o in owp_cache]
+        oowp = float(np.mean(opp_owps)) if opp_owps else 0.5
         proj_rpis.append(0.25 * wp + 0.50 * owp + 0.25 * oowp)
     team_sched['projected_rpi'] = proj_rpis
 
