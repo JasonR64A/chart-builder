@@ -1013,7 +1013,8 @@ def render_diamond_png(best_hitters, starters, relievers, title, subtitle, team_
     fig.text(0.42, 0.94, subtitle, ha='center', va='top', fontsize=10, color='#888')
 
     buf = BytesIO()
-    fig.savefig(buf, format='png', dpi=180, facecolor='#1a1a1a', edgecolor='none', bbox_inches='tight')
+    fig.savefig(buf, format='png', dpi=180, facecolor='#1a1a1a', edgecolor='none',
+                bbox_inches='tight', pad_inches=0)
     buf.seek(0)
     plt.close(fig)
     return buf
@@ -1212,7 +1213,8 @@ def load_division_teams(sport, division):
     confs = pd.read_csv(confs_path, low_memory=False)
     sport_label = sport.title() if sport != 'softball' else 'Softball'
     div_label = {'D1': 'D-I', 'D2': 'D-II', 'D3': 'D-III'}[division]
-    div_conf_ids = set(confs[confs['division'] == div_label]['id'])
+    # Exclude Big Sky (id 123) — it's a catch-all bucket for unmapped NAIA teams
+    div_conf_ids = set(confs[(confs['division'] == div_label) & (confs['name'] != 'Big Sky Conference')]['id'])
     sport_teams = teams[teams['sport'] == sport_label]
     div_teams = sport_teams[sport_teams['conference_id'].isin(div_conf_ids)]
     return set(div_teams['name'].dropna())
