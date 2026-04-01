@@ -296,6 +296,26 @@ def compute_grouped_hitting(df, group_col, league_woba, league_r_pa=0, min_pa=1)
     return result[cols].sort_values('Rank', ascending=False).reset_index(drop=True)
 
 
+def compute_game_score(row):
+    """Bill James Game Score for a single game appearance.
+    50 + 1(outs) + 2(innings after 4th) + 1(K) - 2(H) - 4(ER) - 2(UER) - 1(BB)"""
+    ip = float(row.get('ip', 0))
+    whole = int(ip)
+    frac = round((ip - whole) * 10)
+    outs = whole * 3 + frac
+    innings_complete = outs // 3
+    innings_after_4th = max(0, innings_complete - 4)
+
+    so = int(row.get('so', 0))
+    h = int(row.get('h', 0))
+    er = int(row.get('er', 0))
+    r = int(row.get('r', 0))
+    uer = r - er
+    bb = int(row.get('bb', 0))
+
+    return 50 + outs + 2 * innings_after_4th + so - 2 * h - 4 * er - 2 * uer - bb
+
+
 def compute_grouped_pitching(df, group_col, min_bf=1):
     """Compute pitching stats grouped by a column."""
     rows = []
@@ -305,17 +325,24 @@ def compute_grouped_pitching(df, group_col, min_bf=1):
             stats[group_col] = name
             stats['Pos'] = _primary_position(group)
             stats['School'] = _player_school(group)
+            # Average Game Score across all appearances
+            game_scores = group.apply(compute_game_score, axis=1)
+            stats['GmSc'] = round(game_scores.mean(), 1)
             rows.append(stats)
     if not rows:
         return pd.DataFrame()
     result = pd.DataFrame(rows)
-    # Combined rank: FIP + OPS Against (lower = better for both)
+    # Pitcher Rank: FIP rank + A-OPS rank + 2 * Game Score rank
+    # Lower FIP/OPS = better (rank descending), higher GmSc = better (rank ascending)
     n = len(result)
     if n > 0:
         result['fip_score'] = (n - result['FIP'].rank(method='min') + 1) / n
         result['ops_a_score'] = (n - result['OPS Against'].rank(method='min') + 1) / n
-        result['Rank'] = round(result['fip_score'] + result['ops_a_score'], 6)
-        result = result.drop(columns=['fip_score', 'ops_a_score'])
+        result['gmsc_score'] = result['GmSc'].rank(method='min', ascending=True) / n
+        result['Rank'] = round(
+            result['fip_score'] + result['ops_a_score'] + 2 * result['gmsc_score'], 6
+        )
+        result = result.drop(columns=['fip_score', 'ops_a_score', 'gmsc_score'])
     cols = ['Rank'] + [group_col] + [c for c in result.columns if c not in ['Rank', group_col]]
     return result[cols].sort_values('Rank', ascending=False).reset_index(drop=True)
 
@@ -1430,7 +1457,7 @@ elif view == 'Pitcher Stats':
         show_cols = ['Rank', player_col, 'School', 'Pos', 'App', 'GS', 'IP', 'BF', 'OAB',
                      'H', 'R', 'ER', 'BB', 'HB', 'SO',
                      'HR', '2B-A', '3B-A', 'Bk', 'IBB', 'SHA', 'SFA',
-                     'ERA', 'FIP', 'BAA', 'BABIP',
+                     'ERA', 'FIP', 'GmSc', 'BAA', 'BABIP',
                      'OBP Against', 'SLG Against', 'OPS Against',
                      'K%', 'BB%', k_col, 'K/BB', 'WHIP']
         show_cols = [c for c in show_cols if c in pitcher_stats.columns]
