@@ -545,19 +545,27 @@ def get_best_hitters(hitting_df, league_woba, min_pa=10, sport='baseball'):
     return best
 
 
-def _combined_rank(df):
-    """Rank pitchers by combined FIP + OPS Against score.
-    Best (lowest) in each stat gets n/n = 1.000, 2nd gets (n-1)/n, etc.
-    Combined score = FIP rank score + OPS Against rank score. Higher = better.
+def _combined_rank(df, pitching_raw_df=None):
+    """Rank pitchers by FIP rank + OPS Against rank + 2 * Game Score rank.
+    Best (lowest) FIP/OPS gets n/n = 1.000. Best (highest) GmSc gets n/n = 1.000.
     """
     n = len(df)
     if n == 0:
         return df
     df = df.copy()
-    # rank(ascending=True) gives 1 to lowest value — that's the best for both FIP and OPS Against
+    # Compute average Game Score for each pitcher from raw game data
+    if pitching_raw_df is not None:
+        gmsc_map = {}
+        for name, group in pitching_raw_df.groupby('playerName'):
+            scores = group.apply(compute_game_score, axis=1)
+            gmsc_map[name] = scores.mean()
+        df['GmSc'] = df['playerName'].map(gmsc_map).fillna(50.0)
+    elif 'GmSc' not in df.columns:
+        df['GmSc'] = 50.0
     df['fip_score'] = (n - df['FIP'].rank(method='min') + 1) / n
     df['ops_a_score'] = (n - df['OPS Against'].rank(method='min') + 1) / n
-    df['combined_score'] = df['fip_score'] + df['ops_a_score']
+    df['gmsc_score'] = df['GmSc'].rank(method='min', ascending=True) / n
+    df['combined_score'] = df['fip_score'] + df['ops_a_score'] + 2 * df['gmsc_score']
     return df.sort_values('combined_score', ascending=False)
 
 
@@ -575,8 +583,8 @@ def get_best_pitchers(pitching_df, min_bf_sp=50, min_bf_rp=15, n_starters=3, n_r
     if not rows:
         return [], []
     df = pd.DataFrame(rows)
-    starter_df = _combined_rank(df[(df['is_starter']) & (df['BF'] >= min_bf_sp)])
-    reliever_df = _combined_rank(df[(~df['is_starter']) & (df['BF'] >= min_bf_rp)])
+    starter_df = _combined_rank(df[(df['is_starter']) & (df['BF'] >= min_bf_sp)], pitching_df)
+    reliever_df = _combined_rank(df[(~df['is_starter']) & (df['BF'] >= min_bf_rp)], pitching_df)
     starters = starter_df.head(n_starters).to_dict('records')
     relievers = reliever_df.head(n_relievers).to_dict('records')
     return starters, relievers
