@@ -578,7 +578,7 @@ def get_best_pitchers(pitching_df, min_bf_sp=50, min_bf_rp=15, n_starters=3, n_r
         # Starter = majority of appearances were starts (first pitcher for team in game)
         starts = int(group['is_starter'].sum()) if 'is_starter' in group.columns else 0
         stats['GS'] = starts
-        stats['is_starter'] = starts > (stats['A'] - starts)  # more starts than relief apps
+        stats['is_starter'] = starts > 0  # anyone with even 1 start is a starter, not a reliever
         rows.append(stats)
     if not rows:
         return [], []
