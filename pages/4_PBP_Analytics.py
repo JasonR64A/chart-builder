@@ -542,18 +542,38 @@ def get_best_hitters(hitting_df, league_woba, min_pa=10, sport='baseball'):
     if not player_data:
         return best
 
-    # Step 2: Compute combined rank (same formula as compute_grouped_hitting)
-    all_players = pd.DataFrame(player_data)
-    n = len(all_players)
-    if n > 0:
-        all_players['wraa_score'] = (n - all_players['wRAA'].rank(ascending=False, method='min') + 1) / n
-        all_players['ops_score'] = (n - all_players['OPS'].rank(ascending=False, method='min') + 1) / n
-        all_players['Rank'] = all_players['wraa_score'] + all_players['ops_score']
-        all_players = all_players.drop(columns=['wraa_score', 'ops_score'])
+    # Step 2: Compute combined rank using the FULL player population (min 1 PA)
+    # so rankings match the Hitter Stats table regardless of lineup card min PA.
+    # Then filter to min_pa for eligibility.
+    all_players_full = []
+    for name, group in hitting_df.groupby('playerName'):
+        stats = compute_hitting_stats(group)
+        if stats['PA'] >= 1:
+            pos_counts = group['playerPosition'].value_counts()
+            predominant_pos = pos_counts.index[0] if len(pos_counts) > 0 else ''
+            if sport == 'softball' and predominant_pos == 'DP':
+                predominant_pos = 'DH'
+            stats['playerName'] = name
+            stats['teamName'] = group['teamName'].mode().iloc[0] if len(group['teamName'].mode()) > 0 else ''
+            stats['wRAA'] = compute_wraa(stats['wOBA'], league_woba, stats['PA'])
+            stats['_pos'] = predominant_pos
+            all_players_full.append(stats)
 
-    # Step 3: For each position, pick the highest-ranked player
+    if not all_players_full:
+        return best
+
+    all_df = pd.DataFrame(all_players_full)
+    n = len(all_df)
+    if n > 0:
+        all_df['wraa_score'] = (n - all_df['wRAA'].rank(ascending=False, method='min') + 1) / n
+        all_df['ops_score'] = (n - all_df['OPS'].rank(ascending=False, method='min') + 1) / n
+        all_df['Rank'] = all_df['wraa_score'] + all_df['ops_score']
+        all_df = all_df.drop(columns=['wraa_score', 'ops_score'])
+
+    # Step 3: Filter to min_pa eligible, then pick highest-ranked per position
+    eligible = all_df[all_df['PA'] >= min_pa]
     for pos in FIELD_POSITIONS:
-        pos_players = all_players[all_players['_pos'] == pos]
+        pos_players = eligible[eligible['_pos'] == pos]
         if len(pos_players) == 0:
             continue
         top = pos_players.sort_values('Rank', ascending=False).iloc[0]
