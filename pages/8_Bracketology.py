@@ -229,163 +229,89 @@ def build_field(sport):
 
     auto_bids_set = set(auto_bids)
 
-    # ── Predicted RPI using True Rank Log5 game-by-game predictions ──
-    # Same model as Win Generator: True Rank = avg(64A, RPI, Massey, DSR)
-    # Predict each remaining game W/L, then compute full RPI formula.
+    # ── Predicted RPI using True Rank Log5 (same model as Win Generator) ──
 
-    # Build True Rank for ALL teams (avg of available rankings)
     LOGISTIC_A = 0.006355505043163222
     LOGISTIC_B = 151.44616903215248
 
-    def _rank_to_win_pct(rank: float) -> float:
+    def _rank_to_wp(rank: float) -> float:
         return 1.0 / (1.0 + np.exp(LOGISTIC_A * (rank - LOGISTIC_B)))
-
-    def _log5(rank_a: float, rank_b: float) -> float:
-        pA = np.clip(_rank_to_win_pct(rank_a), 0.01, 0.99)
-        pB = np.clip(_rank_to_win_pct(rank_b), 0.01, 0.99)
+    def _log5(ra: float, rb: float) -> float:
+        pA = np.clip(_rank_to_wp(ra), 0.01, 0.99)
+        pB = np.clip(_rank_to_wp(rb), 0.01, 0.99)
         return (pA * (1 - pB)) / (pA * (1 - pB) + pB * (1 - pA))
 
-    # Load all ranking sources for True Rank — filter to current sport to avoid
-    # duplicate entries (Oregon St appears in both baseball and softball)
-    all_teams_db = load_teams()
-    all_tr = load_team_rank()
-    tr_2026 = all_tr[all_tr['year'] == 2026][['team_id', 'integer_64_rank_total']].copy()
-    tr_2026.columns = ['team_id', 'rank_64a']
-    sport_filtered_teams = all_teams_db[all_teams_db['sport'] == sport_label].copy()
-    all_ranked = sport_filtered_teams.merge(tr_2026, left_on='id', right_on='team_id', how='left')
+    # Build True Rank lookup (same as Win Generator)
+    _all_tr = load_team_rank()
+    _tr26 = _all_tr[_all_tr['year'] == 2026][['team_id', 'integer_64_rank_total']].copy()
+    _tr26.columns = ['team_id', 'rank_64a']
+    _sport_teams_all = load_teams()
+    _sport_teams_all = _sport_teams_all[_sport_teams_all['sport'] == sport_label].copy()
+    _ranked = _sport_teams_all.merge(_tr26, left_on='id', right_on='team_id', how='left')
+    _ranked['rank_rpi'] = _ranked['name'].map(dict(zip(rpi_df['teamName'], rpi_df['rank'])))
 
-    rpi_lookup_rank = dict(zip(rpi_df['teamName'], rpi_df['rank']))
-    all_ranked['rank_rpi'] = all_ranked['name'].map(rpi_lookup_rank)
+    _nm_file = DATA_DIR / 'rankings' / 'name_map.csv'
+    _ext_map: dict[str, str] = {}
+    if _nm_file.exists():
+        _nm = pd.read_csv(_nm_file)
+        _ext_map = dict(zip(_nm['external_name'], _nm['our_name']))
+    def _mext(n: str) -> str: return _ext_map.get(n, n)
 
-    # Load external name mapping
-    name_map_file = DATA_DIR / 'rankings' / 'name_map.csv'
-    ext_to_our: dict[str, str] = {}
-    if name_map_file.exists():
-        nm = pd.read_csv(name_map_file)
-        ext_to_our = dict(zip(nm['external_name'], nm['our_name']))
-    def _map_ext(n: str) -> str:
-        return ext_to_our.get(n, n)
+    for src, col in [('massey', 'rank_massey'), ('dsr', 'rank_dsr')]:
+        f = DATA_DIR / 'rankings' / f'{src}_{sport}.csv'
+        if f.exists():
+            d = pd.read_csv(f, low_memory=False)
+            _ranked[col] = _ranked['name'].map({_mext(t): r for t, r in zip(d['team'], d['rank'])})
+        else:
+            _ranked[col] = np.nan
 
-    massey_file = DATA_DIR / 'rankings' / f'massey_{sport}.csv'
-    if massey_file.exists():
-        massey = pd.read_csv(massey_file, low_memory=False)
-        all_ranked['rank_massey'] = all_ranked['name'].map(
-            {_map_ext(t): r for t, r in zip(massey['team'], massey['rank'])})
-    else:
-        all_ranked['rank_massey'] = np.nan
+    _rcols = ['rank_64a', 'rank_rpi', 'rank_massey', 'rank_dsr']
+    _ranked['true_rank'] = _ranked[_rcols].mean(axis=1).fillna(_ranked['rank_64a']).fillna(LOGISTIC_B)
+    _true_rank_lookup = dict(zip(_ranked['name'], _ranked['true_rank']))
 
-    dsr_file = DATA_DIR / 'rankings' / f'dsr_{sport}.csv'
-    if dsr_file.exists():
-        dsr = pd.read_csv(dsr_file, low_memory=False)
-        all_ranked['rank_dsr'] = all_ranked['name'].map(
-            {_map_ext(t): r for t, r in zip(dsr['team'], dsr['rank'])})
-    else:
-        all_ranked['rank_dsr'] = np.nan
+    # Load schedule and compute predicted RPI
+    _sched_file = DATA_DIR / f'schedules_full_{sport}.csv'
+    if _sched_file.exists():
+        _sched = pd.read_csv(_sched_file, low_memory=False)
+        _played = _sched[_sched['result'].notna() & (_sched['result'] != '')]
+        _remaining = _sched[(_sched['result'].isna()) | (_sched['result'] == '')]
 
-    rank_cols = ['rank_64a', 'rank_rpi', 'rank_massey', 'rank_dsr']
-    all_ranked['true_rank'] = all_ranked[rank_cols].mean(axis=1)
-    all_ranked['true_rank'] = all_ranked['true_rank'].fillna(all_ranked['rank_64a']).fillna(LOGISTIC_B)
-    true_rank_lookup: dict[str, float] = dict(zip(all_ranked['name'], all_ranked['true_rank']))
+        _tw: dict[str, float] = {}
+        _tg: dict[str, float] = {}
+        _to: dict[str, list[str]] = {}
+        for tn, grp in _played.groupby('teamName'):
+            _tw[tn] = float(grp['result'].str.startswith('W').sum())
+            _tg[tn] = float(len(grp))
+            _to[tn] = grp['opponentName'].apply(lambda x: str(x).split('@')[0].strip()).tolist()
+        for tn, grp in _remaining.groupby('teamName'):
+            tr_val = _true_rank_lookup.get(tn, LOGISTIC_B)
+            for _, g in grp.iterrows():
+                opp = str(g.get('opponentName', '')).split('@')[0].strip()
+                _tw[tn] = _tw.get(tn, 0) + _log5(tr_val, _true_rank_lookup.get(opp, LOGISTIC_B))
+                _tg[tn] = _tg.get(tn, 0) + 1
+                _to.setdefault(tn, []).append(opp)
 
-    # Load full schedule
-    sched_full_file = f'schedules_full_{sport}.csv'
-    sched_full_path = DATA_DIR / sched_full_file
-    full_sched_df = pd.read_csv(sched_full_path, low_memory=False) if sched_full_path.exists() else pd.DataFrame()
+        _wp = {t: _tw.get(t, 0) / _tg[t] if _tg[t] > 0 else 0.5 for t in _tg}
+        _owp: dict[str, float] = {}
+        for t in _wp:
+            opps = _to.get(t, [])
+            _owp[t] = float(np.mean([_wp.get(o, 0.5) for o in opps if o in _wp])) if opps else 0.5
+        _pred_rpi: dict[str, float] = {}
+        for t in _wp:
+            opps = _to.get(t, [])
+            oowp = float(np.mean([_owp.get(o, 0.5) for o in opps if o in _owp])) if opps else 0.5
+            _pred_rpi[t] = 0.25 * _wp[t] + 0.50 * _owp.get(t, 0.5) + 0.25 * oowp
 
-    if len(full_sched_df) > 0:
-        played_df = full_sched_df[full_sched_df['result'].notna() & (full_sched_df['result'] != '')]
-        remaining_df = full_sched_df[(full_sched_df['result'].isna()) | (full_sched_df['result'] == '')]
-
-        # Predict every remaining game and build projected WP for ALL teams
-        team_wins: dict[str, float] = {}
-        team_games: dict[str, float] = {}
-        team_opponents: dict[str, list[str]] = {}
-
-        for team_name, group in played_df.groupby('teamName'):
-            team_wins[team_name] = float(group['result'].str.startswith('W').sum())
-            team_games[team_name] = float(len(group))
-            team_opponents[team_name] = group['opponentName'].apply(
-                lambda x: str(x).split('@')[0].strip()).tolist()
-
-        for team_name, group in remaining_df.groupby('teamName'):
-            team_rank_val = true_rank_lookup.get(team_name, LOGISTIC_B)
-            for _, game in group.iterrows():
-                opp_name = str(game.get('opponentName', '')).split('@')[0].strip()
-                opp_rank_val = true_rank_lookup.get(opp_name, LOGISTIC_B)
-                win_prob = _log5(team_rank_val, opp_rank_val)
-                team_wins[team_name] = team_wins.get(team_name, 0) + win_prob
-                team_games[team_name] = team_games.get(team_name, 0) + 1
-                if team_name not in team_opponents:
-                    team_opponents[team_name] = []
-                team_opponents[team_name].append(opp_name)
-
-        # Projected WP with NCAA location weighting
-        # Home W=0.7, Away W=1.3, Neutral W=1.0 (losses inverse)
-        team_home_games: dict[str, int] = {}
-        team_away_games: dict[str, int] = {}
-        team_neutral_games: dict[str, int] = {}
-        for team_name, group in full_sched_df.groupby('teamName'):
-            for _, g in group.iterrows():
-                if pd.notna(g.get('isAway')) and g['isAway'] == 1.0:
-                    team_away_games[team_name] = team_away_games.get(team_name, 0) + 1
-                elif '@' in str(g.get('opponentName', '')):
-                    team_neutral_games[team_name] = team_neutral_games.get(team_name, 0) + 1
-                else:
-                    team_home_games[team_name] = team_home_games.get(team_name, 0) + 1
-
-        wp_lookup: dict[str, float] = {}
-        for t in team_games:
-            total_w = team_wins.get(t, 0)
-            total_g = team_games.get(t, 0)
-            if total_g == 0:
-                wp_lookup[t] = 0.5
-                continue
-            wp_raw = total_w / total_g
-            # Apply location weighting
-            home_g = team_home_games.get(t, 0)
-            away_g = team_away_games.get(t, 0)
-            neutral_g = team_neutral_games.get(t, 0)
-            if home_g + away_g + neutral_g > 0:
-                w_credit = wp_raw * (home_g * 0.7 + away_g * 1.3 + neutral_g * 1.0)
-                l_credit = (1 - wp_raw) * (home_g * 1.3 + away_g * 0.7 + neutral_g * 1.0)
-                wp_lookup[t] = w_credit / (w_credit + l_credit) if (w_credit + l_credit) > 0 else 0.5
-            else:
-                wp_lookup[t] = wp_raw
-
-        # OWP
-        owp_lookup: dict[str, float] = {}
-        for t in wp_lookup:
-            opps = team_opponents.get(t, [])
-            opp_wps = [wp_lookup.get(o, 0.5) for o in opps if o in wp_lookup]
-            owp_lookup[t] = float(np.mean(opp_wps)) if opp_wps else 0.5
-
-        # Predicted RPI
-        pred_rpi_lookup: dict[str, float] = {}
-        for t in wp_lookup:
-            wp = wp_lookup[t]
-            owp = owp_lookup.get(t, 0.5)
-            opps = team_opponents.get(t, [])
-            opp_owps = [owp_lookup.get(o, 0.5) for o in opps if o in owp_lookup]
-            oowp = float(np.mean(opp_owps)) if opp_owps else 0.5
-            pred_rpi_lookup[t] = 0.25 * wp + 0.50 * owp + 0.25 * oowp
-
-        # Apply to D1 field teams
-        team_sched['projected_rpi'] = team_sched['name'].map(pred_rpi_lookup)
-        team_sched['projected_rpi_rank'] = team_sched['projected_rpi'].rank(ascending=False, method='min')
-        team_sched['projected_rpi_rank'] = team_sched['projected_rpi_rank'].fillna(999).astype(int)
-
-        # Projected record
-        team_sched['proj_total_wins'] = team_sched['name'].apply(
-            lambda n: round(team_wins.get(n, 0)))
-        team_sched['proj_total_losses'] = team_sched['name'].apply(
-            lambda n: round(team_games.get(n, 0) - team_wins.get(n, 0)))
+        team_sched['projected_rpi'] = team_sched['name'].map(_pred_rpi)
+        team_sched['projected_rpi_rank'] = team_sched['projected_rpi'].rank(ascending=False, method='min').fillna(999).astype(int)
+        team_sched['proj_total_wins'] = team_sched['name'].apply(lambda n: round(_tw.get(n, 0)))
+        team_sched['proj_total_losses'] = team_sched['name'].apply(lambda n: round(_tg.get(n, 0) - _tw.get(n, 0)))
         team_sched['proj_record_str'] = (
             team_sched['proj_total_wins'].fillna(0).astype(int).astype(str) + '-' +
-            team_sched['proj_total_losses'].fillna(0).astype(int).astype(str)
-        )
+            team_sched['proj_total_losses'].fillna(0).astype(int).astype(str))
     else:
         team_sched['projected_rpi'] = team_sched['rpi']
-        team_sched['projected_rpi_rank'] = team_sched['rpi_rank']
+        team_sched['projected_rpi_rank'] = team_sched.get('rpi_rank', 999)
         team_sched['proj_record_str'] = team_sched['record_str']
 
     team_sched['rpi_display'] = team_sched['rpi']
