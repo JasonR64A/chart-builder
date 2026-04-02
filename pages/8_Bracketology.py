@@ -509,7 +509,51 @@ def seed_field(field_df):
     three_seed_pool = power + non_power[16:]
     three_seed_pool.sort(key=lambda x: x.get('rpi', 0), reverse=True)  # best RPI first
 
-    for seed_key, pool in [('seed_4', four_seed_pool), ('seed_3', three_seed_pool)]:
+    for seed_key, pool in [('seed_3', three_seed_pool), ('seed_4', four_seed_pool)]:
+        # Use Hungarian algorithm for 3/4 seeds too — minimizes distance while
+        # respecting conference/opponent conflicts (no 2 SEC teams in same regional)
+        n_reg = len(regionals)
+        n_pool = len(pool)
+        if n_reg > 0 and n_pool > 0:
+            try:
+                from scipy.optimize import linear_sum_assignment
+                cost_34 = []
+                for r_idx, reg in enumerate(regionals):
+                    if reg.get(seed_key) is not None:
+                        # Already assigned — make entire row infinite
+                        cost_34.append([10000] * n_pool)
+                        continue
+                    regional_teams = [reg['seed_1'], reg['seed_2']]
+                    if reg.get('seed_3'):
+                        regional_teams.append(reg['seed_3'])
+                    if reg.get('seed_4'):
+                        regional_teams.append(reg['seed_4'])
+                    row = []
+                    for p_idx, tm in enumerate(pool):
+                        conflict = has_conflict(tm['name'], regional_teams)
+                        if pd.notna(reg['host'].get('lat')) and pd.notna(tm.get('lat')):
+                            dist = haversine_miles(reg['host']['lat'], reg['host']['lon'], tm['lat'], tm['lon'])
+                        else:
+                            dist = 2000
+                        # Cost: distance + heavy penalty for conflicts
+                        row.append(dist + (50000 if conflict else 0))
+                    cost_34.append(row)
+                row_ind, col_ind = linear_sum_assignment(cost_34)
+                for ri, ci in zip(row_ind, col_ind):
+                    if cost_34[ri][ci] >= 50000:
+                        continue  # skip conflict assignments (shouldn't happen with enough options)
+                    entry = pool[ci].copy()
+                    if pd.notna(regionals[ri]['host'].get('lat')) and pd.notna(entry.get('lat')):
+                        entry['distance'] = round(haversine_miles(
+                            regionals[ri]['host']['lat'], regionals[ri]['host']['lon'],
+                            entry['lat'], entry['lon']), 0)
+                    else:
+                        entry['distance'] = 0
+                    regionals[ri][seed_key] = entry
+                continue  # skip the greedy fallback below
+            except ImportError:
+                pass  # fall through to greedy
+
         assigned = set()
         for reg in regionals:
             regional_teams = [reg['seed_1'], reg['seed_2']]
