@@ -152,6 +152,93 @@ def load_current_records(year):
     return sched[['team_id', 'current_wins', 'current_losses']]
 
 
+@st.cache_data
+def compute_predicted_rpi(sport, _ranks_data, _schedules_data, _name_to_rank):
+    """
+    Predict every remaining game's W/L using True Rank Log5, then compute
+    the full RPI formula (0.25*WP + 0.50*OWP + 0.25*OOWP) on projected records.
+    Returns DataFrame with team, projected record, predicted RPI rank.
+    """
+    schedules = _schedules_data
+    name_to_rank_local = _name_to_rank
+
+    played = schedules[schedules['result'].notna() & (schedules['result'] != '')].copy()
+    remaining = schedules[(schedules['result'].isna()) | (schedules['result'] == '')].copy()
+
+    # Step 1: Build projected WP for EVERY team in the schedule
+    # Actual results for played games + predicted W/L for remaining games
+    team_wins: dict[str, float] = {}
+    team_games: dict[str, float] = {}
+    team_opponents: dict[str, list[str]] = {}
+
+    # Count actual wins from played games
+    for team_name, group in played.groupby('teamName'):
+        wins = group['result'].str.startswith('W').sum()
+        team_wins[team_name] = float(wins)
+        team_games[team_name] = float(len(group))
+        opps = group['opponentName'].apply(lambda x: str(x).split('@')[0].strip()).tolist()
+        team_opponents[team_name] = opps
+
+    # Add predicted wins from remaining games using Log5
+    for team_name, group in remaining.groupby('teamName'):
+        team_rank = name_to_rank_local.get(team_name)
+        if team_rank is None:
+            team_rank = LOGISTIC_B  # median
+
+        for _, game in group.iterrows():
+            opp_name = str(game.get('opponentName', '')).split('@')[0].strip()
+            opp_rank = name_to_rank_local.get(opp_name, LOGISTIC_B)
+            win_prob = log5_win_prob(team_rank, opp_rank)
+
+            team_wins[team_name] = team_wins.get(team_name, 0) + win_prob
+            team_games[team_name] = team_games.get(team_name, 0) + 1
+
+            if team_name not in team_opponents:
+                team_opponents[team_name] = []
+            team_opponents[team_name].append(opp_name)
+
+    # Step 2: Compute projected WP for all teams
+    wp_lookup: dict[str, float] = {}
+    for team in team_games:
+        wp_lookup[team] = team_wins.get(team, 0) / team_games[team] if team_games[team] > 0 else 0.5
+
+    # Step 3: Compute OWP for all teams
+    owp_lookup: dict[str, float] = {}
+    for team in wp_lookup:
+        opps = team_opponents.get(team, [])
+        opp_wps = [wp_lookup.get(o, 0.5) for o in opps if o in wp_lookup]
+        owp_lookup[team] = float(np.mean(opp_wps)) if opp_wps else 0.5
+
+    # Step 4: Compute OOWP and RPI for all teams
+    rpi_results = []
+    for team in wp_lookup:
+        wp = wp_lookup[team]
+        owp = owp_lookup.get(team, 0.5)
+        opps = team_opponents.get(team, [])
+        opp_owps = [owp_lookup.get(o, 0.5) for o in opps if o in owp_lookup]
+        oowp = float(np.mean(opp_owps)) if opp_owps else 0.5
+        pred_rpi = 0.25 * wp + 0.50 * owp + 0.25 * oowp
+
+        total_w = team_wins.get(team, 0)
+        total_g = team_games.get(team, 0)
+        total_l = total_g - total_w
+
+        rpi_results.append({
+            'team': team,
+            'proj_wins': round(total_w),
+            'proj_losses': round(total_l),
+            'proj_wp': round(wp, 3),
+            'owp': round(owp, 3),
+            'oowp': round(oowp, 3),
+            'pred_rpi': round(pred_rpi, 5),
+        })
+
+    df = pd.DataFrame(rpi_results)
+    df = df.sort_values('pred_rpi', ascending=False).reset_index(drop=True)
+    df['pred_rpi_rank'] = range(1, len(df) + 1)
+    return df
+
+
 # ── Main ──────────────────────────────────────────────────────────────────────
 st.set_page_config(page_title='64 Analytics — Win Generator', layout='wide',
                    initial_sidebar_state='expanded')
@@ -197,7 +284,7 @@ ranks = ranks.merge(records, on='team_id', how='left')
 ranks['current_wins'] = ranks['current_wins'].fillna(0).astype(int)
 ranks['current_losses'] = ranks['current_losses'].fillna(0).astype(int)
 
-mode = st.sidebar.radio('Mode', ['Team Projection', 'Full Rankings', 'Single Matchup'], horizontal=False)
+mode = st.sidebar.radio('Mode', ['Team Projection', 'Full Rankings', 'Predicted RPI', 'Single Matchup'], horizontal=False)
 
 if mode == 'Single Matchup':
     st.markdown('### Single Matchup')
@@ -311,7 +398,7 @@ elif mode == 'Team Projection':
     if unranked_opps:
         st.caption(f'{len(set(unranked_opps))} opponents without True Rank (assumed median): {", ".join(set(unranked_opps))}')
 
-else:  # Full Rankings
+elif mode == 'Full Rankings':
     st.markdown('### Projected Season Standings')
     st.caption('Projecting remaining games using True Rank (64A + RPI + Massey + DSR) matchup model (1,000 simulations per team)')
 
@@ -367,3 +454,61 @@ else:  # Full Rankings
     csv_buf = df.to_csv()
     st.download_button('Download CSV', data=csv_buf,
                       file_name=f'win_projections_{sport}_{year}.csv', mime='text/csv')
+
+elif mode == 'Predicted RPI':
+    st.markdown('### Predicted RPI Rankings')
+    st.caption('Each remaining game predicted W/L using True Rank Log5, then full RPI formula applied to projected records.')
+
+    # Need full name_to_rank for ALL teams (not division-filtered)
+    all_ranks = load_team_ranks(sport, year)
+    all_name_to_rank = dict(zip(all_ranks['team_name'], all_ranks['rank']))
+
+    with st.spinner('Computing predicted RPI (all teams)...'):
+        pred_rpi_df = compute_predicted_rpi(sport, all_ranks, schedules, all_name_to_rank)
+
+    if len(pred_rpi_df) == 0:
+        st.warning('No data available.')
+        st.stop()
+
+    # Merge with current RPI for comparison
+    rpi_file = DATA_DIR / f'{sport}_rpi_D1.csv'
+    if rpi_file.exists():
+        current_rpi = pd.read_csv(rpi_file, low_memory=False)
+        current_rpi_lookup = dict(zip(current_rpi['teamName'], current_rpi['rank']))
+        pred_rpi_df['current_rpi_rank'] = pred_rpi_df['team'].map(current_rpi_lookup)
+        pred_rpi_df['rpi_delta'] = pred_rpi_df['current_rpi_rank'] - pred_rpi_df['pred_rpi_rank']
+
+    # Filter to division if selected
+    if division != 'All':
+        div_teams = set(ranks['team_name'])
+        pred_rpi_df = pred_rpi_df[pred_rpi_df['team'].isin(div_teams)]
+
+    # Summary metrics
+    c1, c2, c3, c4 = st.columns(4)
+    c1.metric('Teams Ranked', len(pred_rpi_df))
+    if 'current_rpi_rank' in pred_rpi_df.columns:
+        top_riser = pred_rpi_df.dropna(subset=['rpi_delta']).nlargest(1, 'rpi_delta')
+        top_faller = pred_rpi_df.dropna(subset=['rpi_delta']).nsmallest(1, 'rpi_delta')
+        if len(top_riser) > 0:
+            tr = top_riser.iloc[0]
+            c2.metric('Biggest Riser', tr['team'], delta=f"+{int(tr['rpi_delta'])} spots")
+        if len(top_faller) > 0:
+            tf = top_faller.iloc[0]
+            c3.metric('Biggest Faller', tf['team'], delta=f"{int(tf['rpi_delta'])} spots")
+
+    # Display table
+    st.markdown('---')
+    display_cols = ['pred_rpi_rank', 'team', 'proj_wins', 'proj_losses', 'proj_wp', 'owp', 'pred_rpi']
+    col_names = {'pred_rpi_rank': 'Pred RPI Rank', 'team': 'Team', 'proj_wins': 'Proj W',
+                 'proj_losses': 'Proj L', 'proj_wp': 'Proj WP', 'owp': 'OWP', 'pred_rpi': 'Pred RPI'}
+    if 'current_rpi_rank' in pred_rpi_df.columns:
+        display_cols.insert(2, 'current_rpi_rank')
+        display_cols.insert(3, 'rpi_delta')
+        col_names['current_rpi_rank'] = 'Current RPI'
+        col_names['rpi_delta'] = 'Delta'
+    display = pred_rpi_df[display_cols].rename(columns=col_names)
+    st.dataframe(display, use_container_width=True, hide_index=True, height=1050)
+
+    csv_buf = display.to_csv(index=False)
+    st.download_button('Download Predicted RPI CSV', data=csv_buf,
+                      file_name=f'predicted_rpi_{sport}_{year}.csv', mime='text/csv')
