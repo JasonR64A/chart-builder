@@ -849,6 +849,20 @@ st.markdown(
 regionals = seed_field(field_df)
 supers = build_supers(regionals)
 
+# Debug: show 1/2 seed pairings
+with st.expander('Debug: 1/2 Seed Pairings', expanded=False):
+    pairings = []
+    for r in sorted(regionals, key=lambda x: x['national_seed']):
+        pairings.append({
+            'Seed': r['national_seed'],
+            'Host': r['seed_1']['name'] if r['seed_1'] else '?',
+            'Host Conf': r['seed_1'].get('conference', '') if r['seed_1'] else '',
+            '2-Seed': r['seed_2']['name'] if r['seed_2'] else '?',
+            '2-Seed Conf': r['seed_2'].get('conference', '') if r['seed_2'] else '',
+            '2-Seed Rank': r['seed_2'].get('projected_rpi_rank', '?') if r['seed_2'] else '?',
+        })
+    st.dataframe(pd.DataFrame(pairings), hide_index=True)
+
 for i, (high, low) in enumerate(supers):
     st.markdown(
         f'<div style="background:#1e1e1e;border-radius:8px;padding:8px 14px;margin:16px 0 8px 0;'
