@@ -259,11 +259,11 @@ def build_field(sport):
     n_auto = len(auto_bids_set)
     n_at_large = total_field - n_auto
 
-    # All teams with RPI, not auto-bid, sorted by projected RPI
+    # All teams with RPI, not auto-bid, sorted by Final Rank (projected_rpi_rank)
     at_large_pool = team_sched[
         (~team_sched['name'].isin(auto_bids_set)) &
         (team_sched['rpi'].notna())
-    ].sort_values('projected_rpi', ascending=False)
+    ].sort_values('projected_rpi_rank', ascending=True)
 
     at_large_teams = at_large_pool.head(n_at_large)['name'].tolist()
 
