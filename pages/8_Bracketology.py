@@ -414,53 +414,72 @@ def seed_field(field_df):
                 return True
         return False
 
-    # ── Place 2-seeds: ranked 17-32, paired by seed (17→16, 18→15, etc.) ──
-    # two_seeds_pool[0] = rank 17 (best 2-seed), pool[15] = rank 32 (worst)
-    # Seed 1 gets pool[15] (worst 2-seed), seed 16 gets pool[0] (best 2-seed)
-    # No distance consideration for 1/2 matchups — only avoid conference/opponent conflicts.
-    regionals = []
-    two_seed_assigned = [False] * len(two_seeds_pool)
+    # ── Place 2-seeds: global optimization to minimize total rank distance ──
+    # Natural pairing: seed 1 gets pool[15] (rank 32), seed 16 gets pool[0] (rank 17)
+    # But conference/opponent conflicts require swaps. Instead of greedy sequential
+    # assignment (which cascades badly with SEC-heavy top 16), find the globally
+    # optimal assignment that minimizes total rank distance while respecting conflicts.
 
-    for idx in range(min(16, len(hosts))):
-        host = hosts[idx]
-        # Natural pairing: seed 1↔32, seed 2↔31, ..., seed 16↔17
-        natural_idx = 15 - idx
-        regional_teams = [host]
+    n_hosts = min(16, len(hosts))
+    n_pool = min(16, len(two_seeds_pool))
 
-        # Try natural pairing first. If conflict, search toward the END of the pool
-        # (worse 2-seeds) first to avoid pulling top 2-seeds to weak hosts.
-        chosen_idx = None
-        search_order = [natural_idx]
-        for offset in range(1, len(two_seeds_pool)):
-            # Search toward worse 2-seeds first (higher index = worse rank)
-            if natural_idx + offset < len(two_seeds_pool):
-                search_order.append(natural_idx + offset)
-            if natural_idx - offset >= 0:
-                search_order.append(natural_idx - offset)
+    # Build cost matrix: cost[host_idx][pool_idx] = rank distance penalty
+    # Natural pairing has 0 cost, deviations add cost proportional to rank distance
+    # Conflicts get infinite cost
+    INF_COST = 10000
+    cost = []
+    for h_idx in range(n_hosts):
+        row = []
+        natural_pool_idx = (n_pool - 1) - h_idx  # seed 1 -> pool[15], seed 16 -> pool[0]
+        for p_idx in range(n_pool):
+            # Check conflict
+            if has_conflict(two_seeds_pool[p_idx]['name'], [hosts[h_idx]]):
+                row.append(INF_COST)
+            else:
+                # Cost = absolute distance from natural pairing position
+                row.append(abs(p_idx - natural_pool_idx))
+        cost.append(row)
 
-        for attempt_idx in search_order:
-            if attempt_idx >= len(two_seeds_pool) or two_seed_assigned[attempt_idx]:
-                continue
-            candidate = two_seeds_pool[attempt_idx]
-            if not has_conflict(candidate['name'], regional_teams):
-                chosen_idx = attempt_idx
-                break
-        # If all conflict, take the first unassigned 2-seed
-        if chosen_idx is None:
-            for fallback in range(len(two_seeds_pool)):
-                if not two_seed_assigned[fallback]:
-                    chosen_idx = fallback
+    # Solve assignment problem using Hungarian algorithm (scipy) or brute force for 16x16
+    try:
+        from scipy.optimize import linear_sum_assignment
+        row_ind, col_ind = linear_sum_assignment(cost)
+        assignment = {row_ind[i]: col_ind[i] for i in range(len(row_ind))}
+    except ImportError:
+        # Fallback: greedy from most constrained host first
+        assignment = {}
+        used_pools = set()
+        # Sort hosts by how many valid (non-infinite) options they have (most constrained first)
+        host_options = [(h_idx, sum(1 for c in cost[h_idx] if c < INF_COST)) for h_idx in range(n_hosts)]
+        host_options.sort(key=lambda x: x[1])
+        for h_idx, _ in host_options:
+            natural = (n_pool - 1) - h_idx
+            # Sort pool indices by cost for this host
+            ranked = sorted(range(n_pool), key=lambda p: cost[h_idx][p])
+            for p_idx in ranked:
+                if p_idx not in used_pools and cost[h_idx][p_idx] < INF_COST:
+                    assignment[h_idx] = p_idx
+                    used_pools.add(p_idx)
                     break
-            if chosen_idx is None:
-                chosen_idx = 0
+            if h_idx not in assignment:
+                # All conflict — take cheapest unused
+                for p_idx in ranked:
+                    if p_idx not in used_pools:
+                        assignment[h_idx] = p_idx
+                        used_pools.add(p_idx)
+                        break
 
-        two_seed_assigned[chosen_idx] = True
-        seed2 = two_seeds_pool[chosen_idx].copy()
+    # Build regionals from assignment
+    regionals = []
+    for idx in range(n_hosts):
+        host = hosts[idx]
+        pool_idx = assignment.get(idx, (n_pool - 1) - idx)
+        seed2 = two_seeds_pool[pool_idx].copy()
         if pd.notna(host.get('lat')) and pd.notna(seed2.get('lat')):
             seed2['distance'] = round(haversine_miles(host['lat'], host['lon'], seed2['lat'], seed2['lon']), 0)
         else:
             seed2['distance'] = 0
-        seed2['national_seed_num'] = 17 + chosen_idx
+        seed2['national_seed_num'] = 17 + pool_idx
 
         regionals.append({
             'national_seed': idx + 1,
