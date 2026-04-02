@@ -427,15 +427,16 @@ def seed_field(field_df):
         natural_idx = 15 - idx
         regional_teams = [host]
 
-        # Try natural pairing first. If conflict, search nearby indices (similar rank)
-        # to minimize rank disruption. Search outward from natural_idx.
+        # Try natural pairing first. If conflict, search toward the END of the pool
+        # (worse 2-seeds) first to avoid pulling top 2-seeds to weak hosts.
         chosen_idx = None
         search_order = [natural_idx]
         for offset in range(1, len(two_seeds_pool)):
-            if natural_idx - offset >= 0:
-                search_order.append(natural_idx - offset)
+            # Search toward worse 2-seeds first (higher index = worse rank)
             if natural_idx + offset < len(two_seeds_pool):
                 search_order.append(natural_idx + offset)
+            if natural_idx - offset >= 0:
+                search_order.append(natural_idx - offset)
 
         for attempt_idx in search_order:
             if attempt_idx >= len(two_seeds_pool) or two_seed_assigned[attempt_idx]:
