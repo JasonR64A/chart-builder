@@ -285,13 +285,13 @@ def compute_grouped_hitting(df, group_col, league_woba, league_r_pa=0, min_pa=1)
     if not rows:
         return pd.DataFrame()
     result = pd.DataFrame(rows)
-    # Combined rank: wRAA + OPS (higher = better for both)
+    # Combined rank: percentile rank of wRAA + percentile rank of OPS
     n = len(result)
     if n > 0:
-        result['wraa_score'] = (n - result['wRAA'].rank(ascending=False, method='min') + 1) / n
-        result['ops_score'] = (n - result['OPS'].rank(ascending=False, method='min') + 1) / n
-        result['Rank'] = round(result['wraa_score'] + result['ops_score'], 6)
-        result = result.drop(columns=['wraa_score', 'ops_score'])
+        result['wraa_pctl'] = result['wRAA'].rank(pct=True, method='min')
+        result['ops_pctl'] = result['OPS'].rank(pct=True, method='min')
+        result['Rank'] = round(result['wraa_pctl'] + result['ops_pctl'], 6)
+        result = result.drop(columns=['wraa_pctl', 'ops_pctl'])
     cols = ['Rank'] + [group_col] + [c for c in result.columns if c not in ['Rank', group_col]]
     return result[cols].sort_values('Rank', ascending=False).reset_index(drop=True)
 
@@ -565,10 +565,10 @@ def get_best_hitters(hitting_df, league_woba, min_pa=10, sport='baseball'):
     all_df = pd.DataFrame(all_players_full)
     n = len(all_df)
     if n > 0:
-        all_df['wraa_score'] = (n - all_df['wRAA'].rank(ascending=False, method='min') + 1) / n
-        all_df['ops_score'] = (n - all_df['OPS'].rank(ascending=False, method='min') + 1) / n
-        all_df['Rank'] = all_df['wraa_score'] + all_df['ops_score']
-        all_df = all_df.drop(columns=['wraa_score', 'ops_score'])
+        all_df['wraa_pctl'] = all_df['wRAA'].rank(pct=True, method='min')
+        all_df['ops_pctl'] = all_df['OPS'].rank(pct=True, method='min')
+        all_df['Rank'] = all_df['wraa_pctl'] + all_df['ops_pctl']
+        all_df = all_df.drop(columns=['wraa_pctl', 'ops_pctl'])
 
     # Step 3: Filter to min_pa eligible, then pick highest-ranked per position
     eligible = all_df[all_df['PA'] >= min_pa]
