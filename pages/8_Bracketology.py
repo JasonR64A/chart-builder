@@ -230,10 +230,12 @@ def build_field(sport):
     auto_bids_set = set(auto_bids)
 
     # ── Pull Predicted RPI directly from Win Generator computation ──
-    # No game prediction here — just consume the Win Generator's output.
-    # Import and run the same compute_predicted_rpi function.
-    from pages._shared_rpi import compute_predicted_rpi_for_bracketology
-    pred_rpi_df = compute_predicted_rpi_for_bracketology(sport, DATA_DIR)
+    try:
+        from pages._shared_rpi import compute_predicted_rpi_for_bracketology
+        pred_rpi_df = compute_predicted_rpi_for_bracketology(sport, DATA_DIR)
+    except Exception as e:
+        st.error(f'Failed to compute predicted RPI: {e}')
+        pred_rpi_df = pd.DataFrame()
 
     if len(pred_rpi_df) > 0:
         pred_rpi_lookup = dict(zip(pred_rpi_df['team'], pred_rpi_df['pred_rpi']))
@@ -707,7 +709,16 @@ try:
     field_df, auto_bids_df, bubble_in_df, bubble_out_df = build_field(sport_key)
 except Exception as e:
     st.error(f'Error building field: {e}')
+    import traceback
+    st.code(traceback.format_exc())
     st.stop()
+
+# Debug: show top pairings
+with st.expander('Debug: Seeding Details', expanded=False):
+    st.write(f'Field size: {len(field_df)}')
+    if 'projected_rpi_rank' in field_df.columns:
+        top20 = field_df.sort_values('projected_rpi_rank').head(20)[['name', 'projected_rpi_rank']].reset_index(drop=True)
+        st.dataframe(top20, hide_index=True)
 
 # ── Section 1: Summary metrics ──────────────────────────────────────────────
 st.markdown('---')
