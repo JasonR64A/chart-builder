@@ -505,7 +505,19 @@ elif mode == 'Predicted RPI':
         pred_rpi_df['current_rpi_rank'] = pred_rpi_df['team'].map(current_rpi_lookup)
         pred_rpi_df['rpi_delta'] = pred_rpi_df['current_rpi_rank'] - pred_rpi_df['pred_rpi_rank']
 
-    # Filter to division if selected
+    # Filter to D1 teams only (RPI is a D1 concept)
+    # Use the full team list to identify D1 teams via conference
+    all_teams_db = pd.read_csv(DATA_DIR / 'teams.csv', low_memory=False)
+    all_confs = pd.read_csv(DATA_DIR / 'conferences.csv', low_memory=False)
+    sport_label = 'Baseball' if sport == 'baseball' else 'Softball'
+    d1_conf_ids = set(all_confs[(all_confs['division'] == 'D-I') & (all_confs['name'] != 'Big Sky Conference')]['id'])
+    d1_team_names = set(all_teams_db[(all_teams_db['sport'] == sport_label) & (all_teams_db['conference_id'].isin(d1_conf_ids))]['name'])
+    pred_rpi_df = pred_rpi_df[pred_rpi_df['team'].isin(d1_team_names)]
+    # Re-rank after filtering
+    pred_rpi_df = pred_rpi_df.sort_values('pred_rpi', ascending=False).reset_index(drop=True)
+    pred_rpi_df['pred_rpi_rank'] = range(1, len(pred_rpi_df) + 1)
+
+    # Further filter by division if selected
     if division != 'All':
         div_teams = set(ranks['team_name'])
         pred_rpi_df = pred_rpi_df[pred_rpi_df['team'].isin(div_teams)]

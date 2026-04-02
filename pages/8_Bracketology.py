@@ -180,7 +180,7 @@ def build_field(sport):
     # Total record
     team_sched['total_wins'] = team_sched['Conf_Win'] + team_sched['OOC_Win'] + team_sched['Post_Win']
     team_sched['total_losses'] = team_sched['Conf_Loss'] + team_sched['OOC_Loss'] + team_sched['Post_Loss']
-    team_sched['record_str'] = team_sched['total_wins'].astype(int).astype(str) + '-' + team_sched['total_losses'].astype(int).astype(str)
+    team_sched['record_str'] = team_sched['total_wins'].fillna(0).astype(int).astype(str) + '-' + team_sched['total_losses'].fillna(0).astype(int).astype(str)
 
     # Merge RPI data by team name matching
     rpi_df = rpi_df.copy()
@@ -358,16 +358,17 @@ def build_field(sport):
 
         # Apply to D1 field teams
         team_sched['projected_rpi'] = team_sched['name'].map(pred_rpi_lookup)
-        team_sched['projected_rpi_rank'] = team_sched['projected_rpi'].rank(ascending=False, method='min').astype(int)
+        team_sched['projected_rpi_rank'] = team_sched['projected_rpi'].rank(ascending=False, method='min')
+        team_sched['projected_rpi_rank'] = team_sched['projected_rpi_rank'].fillna(999).astype(int)
 
         # Projected record
-        team_sched['proj_total_wins'] = team_sched['name'].map(
+        team_sched['proj_total_wins'] = team_sched['name'].apply(
             lambda n: round(team_wins.get(n, 0)))
-        team_sched['proj_total_losses'] = team_sched['name'].map(
+        team_sched['proj_total_losses'] = team_sched['name'].apply(
             lambda n: round(team_games.get(n, 0) - team_wins.get(n, 0)))
         team_sched['proj_record_str'] = (
-            team_sched['proj_total_wins'].astype(int).astype(str) + '-' +
-            team_sched['proj_total_losses'].astype(int).astype(str)
+            team_sched['proj_total_wins'].fillna(0).astype(int).astype(str) + '-' +
+            team_sched['proj_total_losses'].fillna(0).astype(int).astype(str)
         )
     else:
         team_sched['projected_rpi'] = team_sched['rpi']
