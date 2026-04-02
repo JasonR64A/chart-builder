@@ -383,21 +383,29 @@ FIELD_POSITIONS = ['C', '1B', '2B', '3B', 'SS', 'LF', 'CF', 'RF', 'DH']
 
 
 @st.cache_data
-def load_team_logo_map():
-    """Build team_name -> logo_id mapping from teams.csv."""
+def load_team_logo_map(prefer_sport='baseball'):
+    """Build team_name -> logo_id mapping from teams.csv.
+    For the preferred sport, use that sport's team ID if a logo file exists.
+    Otherwise fall back to baseball ID (canonical)."""
     teams_path = DATA_DIR / 'teams.csv'
     if not teams_path.exists():
         return {}
     teams = pd.read_csv(teams_path, low_memory=False)
     teams['id'] = pd.to_numeric(teams['id'], errors='coerce').fillna(0).astype(int)
-    # Baseball IDs are canonical for logos
+    # Baseball IDs are canonical baseline
     bb = teams[teams['sport'] == 'Baseball'][['name', 'id']].drop_duplicates('name')
     name_to_id = dict(zip(bb['name'], bb['id']))
-    # Add softball teams mapped to baseball counterparts
+    # Add softball teams for schools without baseball
     sb = teams[teams['sport'] == 'Softball'][['name', 'id']].drop_duplicates('name')
     for _, row in sb.iterrows():
         if row['name'] not in name_to_id:
             name_to_id[row['name']] = row['id']
+    # If preferred sport is softball, override with softball ID where a logo file exists
+    if prefer_sport == 'softball':
+        for _, row in sb.iterrows():
+            logo_path = LOGO_DIR / f"{row['id']}.png"
+            if logo_path.exists():
+                name_to_id[row['name']] = row['id']
     return name_to_id
 
 
@@ -1759,8 +1767,8 @@ elif view == 'Lineup Card':
     best_hitters = get_best_hitters(hitting_pbp, league_woba, min_pa=min_pa_lc, sport=sport)
     starters, relievers = get_best_pitchers(pitching_pbp, min_bf_sp=min_bf_sp, min_bf_rp=min_bf_rp)
 
-    # Load team logo map
-    team_map = load_team_logo_map()
+    # Load team logo map (prefer softball logos when viewing softball)
+    team_map = load_team_logo_map(prefer_sport=sport)
 
     # Render SVG
     title = f"Players of the Period"
