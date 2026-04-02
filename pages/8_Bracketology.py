@@ -255,17 +255,28 @@ def build_field(sport):
     rpi_lookup_rank = dict(zip(rpi_df['teamName'], rpi_df['rank']))
     all_ranked['rank_rpi'] = all_ranked['name'].map(rpi_lookup_rank)
 
+    # Load external name mapping
+    name_map_file = DATA_DIR / 'rankings' / 'name_map.csv'
+    ext_to_our: dict[str, str] = {}
+    if name_map_file.exists():
+        nm = pd.read_csv(name_map_file)
+        ext_to_our = dict(zip(nm['external_name'], nm['our_name']))
+    def _map_ext(n: str) -> str:
+        return ext_to_our.get(n, n)
+
     massey_file = DATA_DIR / 'rankings' / f'massey_{sport}.csv'
     if massey_file.exists():
         massey = pd.read_csv(massey_file, low_memory=False)
-        all_ranked['rank_massey'] = all_ranked['name'].map(dict(zip(massey['team'], massey['rank'])))
+        all_ranked['rank_massey'] = all_ranked['name'].map(
+            {_map_ext(t): r for t, r in zip(massey['team'], massey['rank'])})
     else:
         all_ranked['rank_massey'] = np.nan
 
     dsr_file = DATA_DIR / 'rankings' / f'dsr_{sport}.csv'
     if dsr_file.exists():
         dsr = pd.read_csv(dsr_file, low_memory=False)
-        all_ranked['rank_dsr'] = all_ranked['name'].map(dict(zip(dsr['team'], dsr['rank'])))
+        all_ranked['rank_dsr'] = all_ranked['name'].map(
+            {_map_ext(t): r for t, r in zip(dsr['team'], dsr['rank'])})
     else:
         all_ranked['rank_dsr'] = np.nan
 

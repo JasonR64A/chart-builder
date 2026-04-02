@@ -101,11 +101,22 @@ def load_team_ranks(sport, year):
     else:
         merged['rank_rpi'] = np.nan
 
+    # Load external name mapping
+    name_map_file = DATA_DIR / 'rankings' / 'name_map.csv'
+    ext_to_our: dict[str, str] = {}
+    if name_map_file.exists():
+        nm = pd.read_csv(name_map_file)
+        ext_to_our = dict(zip(nm['external_name'], nm['our_name']))
+
+    def _map_external(ext_name: str) -> str:
+        """Map external ranking name to our team name."""
+        return ext_to_our.get(ext_name, ext_name)
+
     # Load Massey ranks
     massey_file = DATA_DIR / 'rankings' / f'massey_{sport}.csv'
     if massey_file.exists():
         massey = pd.read_csv(massey_file, low_memory=False)
-        massey_lookup = dict(zip(massey['team'], massey['rank']))
+        massey_lookup = {_map_external(t): r for t, r in zip(massey['team'], massey['rank'])}
         merged['rank_massey'] = merged['team_name'].map(massey_lookup)
     else:
         merged['rank_massey'] = np.nan
@@ -114,7 +125,7 @@ def load_team_ranks(sport, year):
     dsr_file = DATA_DIR / 'rankings' / f'dsr_{sport}.csv'
     if dsr_file.exists():
         dsr = pd.read_csv(dsr_file, low_memory=False)
-        dsr_lookup = dict(zip(dsr['team'], dsr['rank']))
+        dsr_lookup = {_map_external(t): r for t, r in zip(dsr['team'], dsr['rank'])}
         merged['rank_dsr'] = merged['team_name'].map(dsr_lookup)
     else:
         merged['rank_dsr'] = np.nan
