@@ -12,7 +12,7 @@ from io import BytesIO
 # ── Path setup (works locally and on Streamlit Cloud) ─────────────────────────
 _APP_DIR = Path(__file__).resolve().parent.parent
 DATA_DIR = _APP_DIR / 'data'
-SCRAPE_DIR = _APP_DIR / 'scrape_data'
+# No longer needed — schedules loaded from DATA_DIR
 BRAND_LOGO = _APP_DIR / 'assets' / 'brand_logo_dark.png'
 
 # Logistic model params: win_pct = 1 / (1 + exp(A * (rank - B)))
@@ -97,7 +97,7 @@ def load_team_ranks(sport, year):
 @st.cache_data
 def load_schedules(sport):
     """Load scraped schedule data."""
-    schedule_file = SCRAPE_DIR / sport / 'schedules_full.csv'
+    schedule_file = DATA_DIR / f'schedules_full_{sport}.csv'
     if not schedule_file.exists():
         return pd.DataFrame()
     df = pd.read_csv(schedule_file, low_memory=False)
@@ -153,21 +153,8 @@ division = st.sidebar.selectbox('Division', divisions)
 if division != 'All':
     ranks = ranks[ranks['division'] == division]
 
-# Build yearId -> rank lookup
-# Need to map schedule opponent yearIds to ranks
-# Schedule uses yearIds, ranks use team_db_id (Supabase ID)
-# We need a bridge: teams.csv has both
-teams_csv = pd.read_csv(DATA_DIR / 'teams.csv', low_memory=False)
-scrape_teams = SCRAPE_DIR / sport / 'teams.csv'
-if scrape_teams.exists():
-    scrape_t = pd.read_csv(scrape_teams)
-    # yearId -> name -> team_db_id -> rank
-    yearid_to_name = dict(zip(scrape_t['yearId'].astype(str), scrape_t['name']))
-    name_to_rank = dict(zip(ranks['team_name'], ranks['rank']))
-    yearid_to_rank = {yid: name_to_rank.get(name) for yid, name in yearid_to_name.items()}
-else:
-    st.warning('Scrape teams file not found.')
-    st.stop()
+# Build name -> rank lookup for matching schedule opponents
+name_to_rank = dict(zip(ranks['team_name'], ranks['rank']))
 
 # Merge current records
 ranks = ranks.merge(records, on='team_id', how='left')
@@ -210,21 +197,10 @@ elif mode == 'Team Projection':
     current_w = int(team_row['current_wins'])
     current_l = int(team_row['current_losses'])
 
-    # Find this team's yearId
-    team_yearid = None
-    for yid, name in yearid_to_name.items():
-        if name == selected_team:
-            team_yearid = yid
-            break
-
-    if not team_yearid:
-        st.warning(f'Could not find yearId for {selected_team}')
-        st.stop()
-
-    # Get future games
+    # Get future games by team name
     team_sched = schedules[
-        (schedules['teamYearId'].astype(str) == team_yearid) &
-        (schedules['isFuture'] == 1)
+        (schedules['teamName'] == selected_team) &
+        ((schedules['result'].isna()) | (schedules['result'] == ''))
     ]
 
     if len(team_sched) == 0:
@@ -235,14 +211,14 @@ elif mode == 'Team Projection':
     opp_ranks = []
     unranked_opps = []
     for _, game in team_sched.iterrows():
-        opp_yid = str(game['opponentYearId'])
-        opp_rank = yearid_to_rank.get(opp_yid)
+        opp_name = str(game.get('opponentName', '')).split('@')[0].strip()
+        opp_rank = name_to_rank.get(opp_name)
         if opp_rank is not None and not np.isnan(opp_rank):
             opp_ranks.append(int(opp_rank))
         else:
             # Unknown opponent — use median rank as estimate
             opp_ranks.append(int(LOGISTIC_B))
-            unranked_opps.append(game.get('opponentName', opp_yid))
+            unranked_opps.append(opp_name)
 
     # Run projection
     projection = project_season(team_rank, opp_ranks, current_w, current_l)
@@ -266,11 +242,10 @@ elif mode == 'Team Projection':
     with st.expander('Remaining schedule'):
         sched_rows = []
         for _, game in team_sched.iterrows():
-            opp_yid = str(game['opponentYearId'])
-            opp_rank = yearid_to_rank.get(opp_yid)
-            opp_name = game.get('opponentName', '?')
-            venue = 'Away' if game.get('isAway') else 'Home'
-            if opp_rank and not np.isnan(opp_rank):
+            opp_name = str(game.get('opponentName', '?')).split('@')[0].strip()
+            opp_rank = name_to_rank.get(opp_name)
+            venue = 'Away' if game.get('isAway') == 1.0 else ('Neutral' if '@' in str(game.get('opponentName', '')) else 'Home')
+            if opp_rank is not None and not np.isnan(opp_rank):
                 prob = log5_win_prob(team_rank, int(opp_rank))
                 sched_rows.append({
                     'Date': game['date'],
@@ -304,25 +279,16 @@ else:  # Full Rankings
             current_w = int(team_row['current_wins'])
             current_l = int(team_row['current_losses'])
 
-            # Find yearId
-            team_yearid = None
-            for yid, name in yearid_to_name.items():
-                if name == team_name:
-                    team_yearid = yid
-                    break
-
-            if not team_yearid:
-                continue
-
             # Get future games
             team_sched = schedules[
-                (schedules['teamYearId'].astype(str) == team_yearid) &
-                (schedules['isFuture'] == 1)
+                (schedules['teamName'] == team_name) &
+                ((schedules['result'].isna()) | (schedules['result'] == ''))
             ]
 
             opp_ranks = []
             for _, game in team_sched.iterrows():
-                opp_rank = yearid_to_rank.get(str(game['opponentYearId']))
+                opp_name = str(game.get('opponentName', '')).split('@')[0].strip()
+                opp_rank = name_to_rank.get(opp_name)
                 if opp_rank is not None and not np.isnan(opp_rank):
                     opp_ranks.append(int(opp_rank))
                 else:
