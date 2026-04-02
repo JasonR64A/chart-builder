@@ -435,9 +435,14 @@ def seed_field(field_df):
             if not has_conflict(candidate['name'], regional_teams):
                 chosen_idx = attempt_idx
                 break
-        # If all conflict, take the natural pairing anyway
+        # If all conflict, take the first unassigned 2-seed
         if chosen_idx is None:
-            chosen_idx = natural_idx if natural_idx < len(two_seeds_pool) else 0
+            for fallback in range(len(two_seeds_pool)):
+                if not two_seed_assigned[fallback]:
+                    chosen_idx = fallback
+                    break
+            if chosen_idx is None:
+                chosen_idx = 0  # shouldn't happen with 16 hosts and 16 two-seeds
 
         two_seed_assigned[chosen_idx] = True
         seed2 = two_seeds_pool[chosen_idx].copy()
