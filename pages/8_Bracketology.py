@@ -413,10 +413,9 @@ def seed_field(field_df):
         return False
 
     # ── Place 2-seeds: ranked 17-32, paired by seed (17→16, 18→15, etc.) ──
-    # The 2-seeds are already sorted by adjusted_rpi (best first = seed 17).
-    # Seed 17 pairs with seed 16 (worst 1-seed), seed 18 with seed 15, etc.
-    # If the natural pairing creates a conference/opponent conflict, swap with
-    # the next available 2-seed that doesn't conflict.
+    # two_seeds_pool[0] = rank 17 (best 2-seed), pool[15] = rank 32 (worst)
+    # Seed 1 gets pool[15] (worst 2-seed), seed 16 gets pool[0] (best 2-seed)
+    # No distance consideration for 1/2 matchups — only avoid conference/opponent conflicts.
     regionals = []
     two_seed_assigned = [False] * len(two_seeds_pool)
 
@@ -426,9 +425,17 @@ def seed_field(field_df):
         natural_idx = 15 - idx
         regional_teams = [host]
 
-        # Try natural pairing first, then search for non-conflicting alternative
+        # Try natural pairing first. If conflict, search nearby indices (similar rank)
+        # to minimize rank disruption. Search outward from natural_idx.
         chosen_idx = None
-        for attempt_idx in [natural_idx] + [j for j in range(len(two_seeds_pool)) if j != natural_idx]:
+        search_order = [natural_idx]
+        for offset in range(1, len(two_seeds_pool)):
+            if natural_idx - offset >= 0:
+                search_order.append(natural_idx - offset)
+            if natural_idx + offset < len(two_seeds_pool):
+                search_order.append(natural_idx + offset)
+
+        for attempt_idx in search_order:
             if attempt_idx >= len(two_seeds_pool) or two_seed_assigned[attempt_idx]:
                 continue
             candidate = two_seeds_pool[attempt_idx]
@@ -442,7 +449,7 @@ def seed_field(field_df):
                     chosen_idx = fallback
                     break
             if chosen_idx is None:
-                chosen_idx = 0  # shouldn't happen with 16 hosts and 16 two-seeds
+                chosen_idx = 0
 
         two_seed_assigned[chosen_idx] = True
         seed2 = two_seeds_pool[chosen_idx].copy()
