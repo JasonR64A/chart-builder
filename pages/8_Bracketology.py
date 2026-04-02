@@ -302,8 +302,25 @@ def build_field(sport):
             oowp = float(np.mean([_owp.get(o, 0.5) for o in opps if o in _owp])) if opps else 0.5
             _pred_rpi[t] = 0.25 * _wp[t] + 0.50 * _owp.get(t, 0.5) + 0.25 * oowp
 
+        # Rank ALL teams by predicted RPI, filter to D1 (excl Big Sky), re-rank
+        # This matches exactly what the Win Generator Predicted RPI mode does
+        _all_pred = pd.DataFrame([
+            {'name': t, 'pred_rpi': v} for t, v in _pred_rpi.items()
+        ]).sort_values('pred_rpi', ascending=False)
+
+        _confs = load_conferences()
+        _d1_ids = set(_confs[(_confs['division'] == 'D-I') & (_confs['name'] != 'Big Sky Conference')]['id'])
+        _all_teams_for_filter = load_teams()
+        _d1_names = set(_all_teams_for_filter[
+            (_all_teams_for_filter['sport'] == sport_label) &
+            (_all_teams_for_filter['conference_id'].isin(_d1_ids))
+        ]['name'])
+        _d1_pred = _all_pred[_all_pred['name'].isin(_d1_names)].reset_index(drop=True)
+        _d1_pred['pred_rpi_rank'] = range(1, len(_d1_pred) + 1)
+        _pred_rpi_rank_lookup = dict(zip(_d1_pred['name'], _d1_pred['pred_rpi_rank']))
+
         team_sched['projected_rpi'] = team_sched['name'].map(_pred_rpi)
-        team_sched['projected_rpi_rank'] = team_sched['projected_rpi'].rank(ascending=False, method='min').fillna(999).astype(int)
+        team_sched['projected_rpi_rank'] = team_sched['name'].map(_pred_rpi_rank_lookup).fillna(999).astype(int)
         team_sched['proj_total_wins'] = team_sched['name'].apply(lambda n: round(_tw.get(n, 0)))
         team_sched['proj_total_losses'] = team_sched['name'].apply(lambda n: round(_tg.get(n, 0) - _tw.get(n, 0)))
         team_sched['proj_record_str'] = (
@@ -387,9 +404,11 @@ def seed_field(field_df):
     """
     df = field_df.copy()
 
-    # Seed by projected RPI (already computed in build_field using 64 Rank
-    # win projections applied to remaining schedule)
-    if 'projected_rpi' in df.columns:
+    # Sort by projected_rpi_rank (matches Win Generator Predicted RPI exactly)
+    # Rank 1-16 = national seeds/hosts, 17-32 = 2 seeds, 33-48 = 3 seeds, 49-64 = 4 seeds
+    if 'projected_rpi_rank' in df.columns:
+        df = df.sort_values('projected_rpi_rank', ascending=True).reset_index(drop=True)
+    elif 'projected_rpi' in df.columns:
         df = df.sort_values('projected_rpi', ascending=False).reset_index(drop=True)
     else:
         df = df.sort_values('rpi', ascending=False, na_position='last').reset_index(drop=True)
