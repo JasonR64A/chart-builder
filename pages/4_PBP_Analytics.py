@@ -542,13 +542,21 @@ def get_best_hitters(hitting_df, league_woba, min_pa=10, sport='baseball'):
     if not player_data:
         return best
 
-    # Step 2: For each position, pick the best player whose predominant position matches
+    # Step 2: Compute combined rank (same formula as compute_grouped_hitting)
     all_players = pd.DataFrame(player_data)
+    n = len(all_players)
+    if n > 0:
+        all_players['wraa_score'] = (n - all_players['wRAA'].rank(ascending=False, method='min') + 1) / n
+        all_players['ops_score'] = (n - all_players['OPS'].rank(ascending=False, method='min') + 1) / n
+        all_players['Rank'] = all_players['wraa_score'] + all_players['ops_score']
+        all_players = all_players.drop(columns=['wraa_score', 'ops_score'])
+
+    # Step 3: For each position, pick the highest-ranked player
     for pos in FIELD_POSITIONS:
         pos_players = all_players[all_players['_pos'] == pos]
         if len(pos_players) == 0:
             continue
-        top = pos_players.sort_values('OPS', ascending=False).iloc[0]
+        top = pos_players.sort_values('Rank', ascending=False).iloc[0]
         best[pos] = top.to_dict()
     return best
 
