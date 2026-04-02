@@ -901,6 +901,145 @@ for i, (high, low) in enumerate(supers):
         st.markdown(render_regional_card(low), unsafe_allow_html=True)
 
 
+# ── Bracket PNG export ─────────────────────────────────────────────────────
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+from matplotlib.offsetbox import OffsetImage, AnnotationBbox
+from PIL import Image
+from io import BytesIO
+
+def render_bracket_png(supers_data, sport_label, bg_path, brand_path):
+    """Render the full bracket as a branded PNG with 64A backdrop."""
+    fig = plt.figure(figsize=(20, 28), facecolor='#2c2c2a')
+
+    # Background pattern
+    if bg_path.exists():
+        bg_img = Image.open(bg_path).convert('RGB')
+        bg_ax = fig.add_axes([-0.05, -0.05, 1.1, 1.1])
+        bg_ax.imshow(np.array(bg_img), aspect='auto', extent=[0, 1, 0, 1], zorder=0)
+        bg_ax.axis('off')
+
+    ax = fig.add_axes([0.02, 0.02, 0.96, 0.96])
+    ax.set_xlim(0, 100)
+    ax.set_ylim(0, 140)
+    ax.set_facecolor('none')
+    ax.patch.set_alpha(0)
+    ax.axis('off')
+    ax.invert_yaxis()
+
+    # Title
+    ax.text(50, 2, f'NCAA {sport_label} Bracketology', ha='center', va='top',
+            fontsize=22, fontweight='bold', color='#e0e0e0', zorder=5)
+    ax.text(50, 6, '2026 Tournament Field Projection | 64 Analytics', ha='center', va='top',
+            fontsize=11, color='#888888', zorder=5)
+
+    # Brand logo top-right
+    if brand_path.exists():
+        logo_img = Image.open(brand_path).convert('RGBA')
+        logo_img.thumbnail((300, 80), Image.LANCZOS)
+        logo_im = OffsetImage(np.array(logo_img), zoom=0.35, alpha=0.8)
+        logo_ab = AnnotationBbox(logo_im, (88, 3), xycoords='data', frameon=False, zorder=10)
+        ax.add_artist(logo_ab)
+
+    # Draw 8 super regionals, 2 columns of 4
+    for i, (high, low) in enumerate(supers_data):
+        col = 0 if i < 4 else 1
+        row = i % 4
+        x_base = 2 + col * 50
+        y_base = 12 + row * 32
+
+        # Super regional header
+        ax.add_patch(plt.Rectangle((x_base, y_base), 46, 3, facecolor='#C41230', edgecolor='none', zorder=3, alpha=0.9))
+        ax.text(x_base + 1, y_base + 1.5, f'SUPER REGIONAL {i+1}', fontsize=8, fontweight='bold',
+                color='white', va='center', zorder=5)
+        seed_text = f'Seed {high["national_seed"]} vs Seed {low["national_seed"] if low else "TBD"}'
+        ax.text(x_base + 45, y_base + 1.5, seed_text, fontsize=7, color='#ffcccc',
+                ha='right', va='center', zorder=5)
+
+        # Two regional cards side by side
+        for j, regional in enumerate([high, low]):
+            if regional is None:
+                continue
+            rx = x_base + j * 23
+            ry = y_base + 3.5
+
+            # Regional card background
+            ax.add_patch(plt.Rectangle((rx, ry), 22, 27, facecolor='#252525',
+                                       edgecolor='#3a3a3a', linewidth=0.5, zorder=2, alpha=0.95))
+
+            # National seed badge
+            ns = regional['national_seed']
+            ax.add_patch(plt.Rectangle((rx, ry), 4, 3, facecolor='#C41230', edgecolor='none', zorder=3))
+            ax.text(rx + 2, ry + 1.5, f'#{ns}', fontsize=9, fontweight='bold',
+                    color='white', ha='center', va='center', zorder=5)
+
+            # Host name
+            host_name = regional['seed_1']['name'] if regional['seed_1'] else 'TBD'
+            ax.text(rx + 5, ry + 1.5, f'{host_name} Regional', fontsize=8, fontweight='bold',
+                    color='#e0e0e0', va='center', zorder=5)
+
+            # 4 seed rows
+            for s_idx, seed_key in enumerate(['seed_1', 'seed_2', 'seed_3', 'seed_4']):
+                team = regional.get(seed_key)
+                sy = ry + 4 + s_idx * 5.8
+
+                if team is None:
+                    ax.text(rx + 1, sy + 2, 'TBD', fontsize=7, color='#666', va='center', zorder=5)
+                    continue
+
+                # Seed number
+                ax.text(rx + 1.5, sy + 2, str(s_idx + 1), fontsize=10, fontweight='bold',
+                        color='#C41230', va='center', zorder=5)
+
+                # Team name
+                name = team.get('name', '')
+                ax.text(rx + 4, sy + 1.2, name, fontsize=7.5, fontweight='600',
+                        color='#e0e0e0', va='center', zorder=5)
+
+                # Conference + record
+                conf = team.get('conference', '')
+                record = team.get('record_str', '')
+                proj_record = team.get('proj_record_str', record)
+                rpi_rank = team.get('projected_rpi_rank', '')
+                info = f'{conf} | {record}'
+                ax.text(rx + 4, sy + 3, info, fontsize=5.5, color='#999', va='center', zorder=5)
+
+                # Projected info
+                proj_info = f'Proj: {proj_record} | Proj RPI: #{rpi_rank}'
+                ax.text(rx + 4, sy + 4.3, proj_info, fontsize=5, color='#6dbf6d', va='center', zorder=5)
+
+                # Distance (for non-hosts)
+                if s_idx > 0:
+                    dist = team.get('distance', 0)
+                    if dist and dist > 0:
+                        ax.text(rx + 21, sy + 1.2, f'{int(dist)}mi', fontsize=5,
+                                color='#888', ha='right', va='center', zorder=5)
+
+                # Host badge
+                if s_idx == 0:
+                    ax.add_patch(plt.Rectangle((rx + 18, sy + 0.5), 3, 1.5, facecolor='#C41230',
+                                               edgecolor='none', zorder=3, alpha=0.8))
+                    ax.text(rx + 19.5, sy + 1.25, 'HOST', fontsize=4.5, fontweight='bold',
+                            color='white', ha='center', va='center', zorder=5)
+
+    plt.tight_layout()
+    buf = BytesIO()
+    fig.savefig(buf, format='png', dpi=150, facecolor='#2c2c2a', edgecolor='none',
+                bbox_inches='tight', pad_inches=0)
+    buf.seek(0)
+    plt.close(fig)
+    return buf
+
+
+bracket_png = render_bracket_png(
+    supers, sport_key.title(),
+    _APP_DIR / 'assets' / 'bg_pattern.jpg',
+    _APP_DIR / 'assets' / 'brand_logo_dark.png'
+)
+st.download_button('Download Bracket PNG', data=bracket_png,
+                  file_name=f'bracketology_{sport_key}_2026.png', mime='image/png')
+
 # ── Section 3: Bubble ───────────────────────────────────────────────────────
 st.markdown('---')
 st.markdown('## The Bubble')
