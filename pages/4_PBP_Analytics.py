@@ -1723,12 +1723,13 @@ elif view == 'Pace Chart':
     for ename, pdata in filtered.groupby('entity'):
         if ename in highlight_names:
             continue
-        ax.plot(pdata['game_num'], pdata['cum_stat'],
+        ax.plot(pdata['date_parsed'], pdata['cum_stat'],
                 color=line_color, alpha=0.35, linewidth=1, zorder=1)
         last = pdata.iloc[-1]
         label = ename if pace_level == 'Team' else ename.split()[-1] if len(ename.split()) > 1 else ename
-        ax.text(last['game_num'] + 0.3, last['cum_stat'], label,
-                fontsize=6, color=label_color, va='center', alpha=0.6, zorder=1)
+        ax.annotate(label, xy=(last['date_parsed'], last['cum_stat']),
+                    xytext=(5, 0), textcoords='offset points',
+                    fontsize=6, color=label_color, va='center', alpha=0.6, zorder=1)
 
     for ename in highlight_names:
         pdata = filtered[filtered['entity'] == ename]
@@ -1739,18 +1740,19 @@ elif view == 'Pace Chart':
         # Get team color
         team_for_color = pdata['team'].iloc[0] if pace_level == 'Player' else ename
         h_color = get_team_color(team_for_color)
-        ax.plot(pdata['game_num'], pdata['cum_stat'],
+        ax.plot(pdata['date_parsed'], pdata['cum_stat'],
                 color=h_color, alpha=1.0, linewidth=3, zorder=3)
         last = pdata.iloc[-1]
         val_fmt = f"{last['cum_stat']:.2f}" if is_advanced else f"{int(last['cum_stat'])}"
         ax.annotate(f"{ename}\n{val_fmt} {stat_choice} in {int(last['game_num'])} G",
-                    xy=(last['game_num'], last['cum_stat']),
-                    xytext=(last['game_num'] + 1, last['cum_stat']),
+                    xy=(last['date_parsed'], last['cum_stat']),
+                    xytext=(10, 0), textcoords='offset points',
                     fontsize=8, fontweight='bold', color=h_color,
                     va='center', zorder=4)
 
     y_label = f'Running {stat_choice}' if is_advanced else f'Cumulative {stat_choice}'
-    ax.set_xlabel('Game Number', fontsize=11, color=text_color, labelpad=10)
+    ax.set_xlabel('Date', fontsize=11, color=text_color, labelpad=10)
+    fig.autofmt_xdate(rotation=45)
     ax.set_ylabel(y_label, fontsize=11, color=text_color, labelpad=10)
     ax.tick_params(colors=label_color)
     ax.grid(True, alpha=0.15, color=grid_color)
