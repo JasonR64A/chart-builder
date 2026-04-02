@@ -733,12 +733,6 @@ except Exception as e:
     st.code(traceback.format_exc())
     st.stop()
 
-# Debug: show top pairings
-with st.expander('Debug: Seeding Details', expanded=False):
-    st.write(f'Field size: {len(field_df)}')
-    if 'projected_rpi_rank' in field_df.columns:
-        top20 = field_df.sort_values('projected_rpi_rank').head(20)[['name', 'projected_rpi_rank']].reset_index(drop=True)
-        st.dataframe(top20, hide_index=True)
 
 # ── Section 1: Summary metrics ──────────────────────────────────────────────
 st.markdown('---')
@@ -869,21 +863,18 @@ st.markdown(
 regionals = seed_field(field_df)
 supers = build_supers(regionals)
 
-# Debug: show 1/2 seed pairings
-with st.expander('Debug: 1/2 Seed Pairings', expanded=False):
-    pairings = []
-    for r in sorted(regionals, key=lambda x: x['national_seed']):
-        pairings.append({
-            'Seed': r['national_seed'],
-            'Host': r['seed_1']['name'] if r['seed_1'] else '?',
-            'Host Conf': r['seed_1'].get('conference', '') if r['seed_1'] else '',
-            '2-Seed': r['seed_2']['name'] if r['seed_2'] else '?',
-            '2-Seed Conf': r['seed_2'].get('conference', '') if r['seed_2'] else '',
-            '2-Seed Rank': r['seed_2'].get('projected_rpi_rank', '?') if r['seed_2'] else '?',
-        })
-    st.dataframe(pd.DataFrame(pairings), hide_index=True)
 
-for i, (high, low) in enumerate(supers):
+# Display order for Omaha bracket view:
+# Super 1 vs Super 8, Super 4 vs Super 5, Super 2 vs Super 7, Super 3 vs Super 6
+# This mirrors the CWS bracket where these winners would play each other
+omaha_order = [0, 7, 3, 4, 1, 6, 2, 5]  # indices into supers list
+
+for display_idx, super_idx in enumerate(omaha_order):
+    if super_idx >= len(supers):
+        continue
+    high, low = supers[super_idx]
+    i = super_idx  # original super regional number
+
     st.markdown(
         f'<div style="background:#1e1e1e;border-radius:8px;padding:8px 14px;margin:16px 0 8px 0;'
         f'border-left:4px solid {RED};">'
@@ -943,9 +934,15 @@ def render_bracket_png(supers_data, sport_label, bg_path, brand_path):
         ax.add_artist(logo_ab)
 
     # Draw 8 super regionals, 2 columns of 4
-    for i, (high, low) in enumerate(supers_data):
-        col = 0 if i < 4 else 1
-        row = i % 4
+    # Omaha bracket order: 1v8, 4v5, 2v7, 3v6
+    png_order = [0, 7, 3, 4, 1, 6, 2, 5]
+    for display_idx, si in enumerate(png_order):
+        if si >= len(supers_data):
+            continue
+        high, low = supers_data[si]
+        i = si
+        col = 0 if display_idx < 4 else 1
+        row = display_idx % 4
         x_base = 2 + col * 50
         y_base = 12 + row * 32
 
