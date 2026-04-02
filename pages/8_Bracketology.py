@@ -238,11 +238,12 @@ def build_field(sport):
     if len(pred_rpi_df) > 0:
         pred_rpi_lookup = dict(zip(pred_rpi_df['team'], pred_rpi_df['pred_rpi']))
         pred_rpi_rank_lookup = dict(zip(pred_rpi_df['team'], pred_rpi_df['pred_rpi_rank']))
+        final_rank_lookup = dict(zip(pred_rpi_df['team'], pred_rpi_df['final_rank']))
         proj_w_lookup = dict(zip(pred_rpi_df['team'], pred_rpi_df['proj_wins']))
         proj_l_lookup = dict(zip(pred_rpi_df['team'], pred_rpi_df['proj_losses']))
 
         team_sched['projected_rpi'] = team_sched['name'].map(pred_rpi_lookup)
-        team_sched['projected_rpi_rank'] = team_sched['name'].map(pred_rpi_rank_lookup).fillna(999).astype(int)
+        team_sched['projected_rpi_rank'] = team_sched['name'].map(final_rank_lookup).fillna(999).astype(int)
         team_sched['proj_record_str'] = team_sched['name'].apply(
             lambda n: f"{int(proj_w_lookup.get(n, 0))}-{int(proj_l_lookup.get(n, 0))}"
         )

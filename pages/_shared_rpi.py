@@ -142,4 +142,12 @@ def compute_predicted_rpi_for_bracketology(sport: str, DATA_DIR: Path) -> pd.Dat
     df = df[df['team'].isin(d1_names)].reset_index(drop=True)
     df['pred_rpi_rank'] = range(1, len(df) + 1)
 
+    # Add True Rank and Final Rank (70% True Rank + 30% Predicted RPI Rank)
+    df['true_rank'] = df['team'].map(true_rank_lookup)
+    # Re-rank True Rank within D1 teams
+    df['true_rank_d1'] = df['true_rank'].rank(method='min').fillna(len(df)).astype(int)
+    df['final_rank_score'] = 0.70 * df['true_rank_d1'] + 0.30 * df['pred_rpi_rank']
+    df['final_rank'] = df['final_rank_score'].rank(method='min').astype(int)
+    df = df.sort_values('final_rank').reset_index(drop=True)
+
     return df

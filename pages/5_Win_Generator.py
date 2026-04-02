@@ -497,12 +497,10 @@ elif mode == 'Predicted RPI':
     st.markdown('### Predicted RPI Rankings')
     st.caption('Each remaining game predicted W/L using True Rank Log5, then full RPI formula applied to projected records.')
 
-    # Need full name_to_rank for ALL teams (not division-filtered)
-    all_ranks = load_team_ranks(sport, year)
-    all_name_to_rank = dict(zip(all_ranks['team_name'], all_ranks['rank']))
+    from pages._shared_rpi import compute_predicted_rpi_for_bracketology
 
-    with st.spinner('Computing predicted RPI (all teams)...'):
-        pred_rpi_df = compute_predicted_rpi(sport, all_ranks, schedules, all_name_to_rank)
+    with st.spinner('Computing predicted RPI (all D1 teams)...'):
+        pred_rpi_df = compute_predicted_rpi_for_bracketology(sport, DATA_DIR)
 
     if len(pred_rpi_df) == 0:
         st.warning('No data available.')
@@ -514,19 +512,7 @@ elif mode == 'Predicted RPI':
         current_rpi = pd.read_csv(rpi_file, low_memory=False)
         current_rpi_lookup = dict(zip(current_rpi['teamName'], current_rpi['rank']))
         pred_rpi_df['current_rpi_rank'] = pred_rpi_df['team'].map(current_rpi_lookup)
-        pred_rpi_df['rpi_delta'] = pred_rpi_df['current_rpi_rank'] - pred_rpi_df['pred_rpi_rank']
-
-    # Filter to D1 teams only (RPI is a D1 concept)
-    # Use the full team list to identify D1 teams via conference
-    all_teams_db = pd.read_csv(DATA_DIR / 'teams.csv', low_memory=False)
-    all_confs = pd.read_csv(DATA_DIR / 'conferences.csv', low_memory=False)
-    sport_label = 'Baseball' if sport == 'baseball' else 'Softball'
-    d1_conf_ids = set(all_confs[(all_confs['division'] == 'D-I') & (all_confs['name'] != 'Big Sky Conference')]['id'])
-    d1_team_names = set(all_teams_db[(all_teams_db['sport'] == sport_label) & (all_teams_db['conference_id'].isin(d1_conf_ids))]['name'])
-    pred_rpi_df = pred_rpi_df[pred_rpi_df['team'].isin(d1_team_names)]
-    # Re-rank after filtering
-    pred_rpi_df = pred_rpi_df.sort_values('pred_rpi', ascending=False).reset_index(drop=True)
-    pred_rpi_df['pred_rpi_rank'] = range(1, len(pred_rpi_df) + 1)
+        pred_rpi_df['rpi_delta'] = pred_rpi_df['current_rpi_rank'] - pred_rpi_df['final_rank']
 
     # Further filter by division if selected
     if division != 'All':
@@ -540,23 +526,27 @@ elif mode == 'Predicted RPI':
         top_riser = pred_rpi_df.dropna(subset=['rpi_delta']).nlargest(1, 'rpi_delta')
         top_faller = pred_rpi_df.dropna(subset=['rpi_delta']).nsmallest(1, 'rpi_delta')
         if len(top_riser) > 0:
-            tr = top_riser.iloc[0]
-            c2.metric('Biggest Riser', tr['team'], delta=f"+{int(tr['rpi_delta'])} spots")
+            r = top_riser.iloc[0]
+            c2.metric('Biggest Riser', r['team'], delta=f"+{int(r['rpi_delta'])} spots")
         if len(top_faller) > 0:
-            tf = top_faller.iloc[0]
-            c3.metric('Biggest Faller', tf['team'], delta=f"{int(tf['rpi_delta'])} spots")
+            r = top_faller.iloc[0]
+            c3.metric('Biggest Faller', r['team'], delta=f"{int(r['rpi_delta'])} spots")
 
     # Display table
     st.markdown('---')
-    display_cols = ['pred_rpi_rank', 'team', 'proj_wins', 'proj_losses', 'proj_wp', 'owp', 'pred_rpi']
-    col_names = {'pred_rpi_rank': 'Pred RPI Rank', 'team': 'Team', 'proj_wins': 'Proj W',
-                 'proj_losses': 'Proj L', 'proj_wp': 'Proj WP', 'owp': 'OWP', 'pred_rpi': 'Pred RPI'}
+    display_cols = ['final_rank', 'team', 'true_rank_d1', 'pred_rpi_rank', 'proj_wins', 'proj_losses', 'pred_rpi']
+    col_names = {
+        'final_rank': 'Final Rank', 'team': 'Team',
+        'true_rank_d1': 'True Rank', 'pred_rpi_rank': 'Pred RPI Rank',
+        'proj_wins': 'Proj W', 'proj_losses': 'Proj L', 'pred_rpi': 'Pred RPI',
+    }
     if 'current_rpi_rank' in pred_rpi_df.columns:
         display_cols.insert(2, 'current_rpi_rank')
         display_cols.insert(3, 'rpi_delta')
         col_names['current_rpi_rank'] = 'Current RPI'
         col_names['rpi_delta'] = 'Delta'
-    display = pred_rpi_df[display_cols].rename(columns=col_names)
+    available_cols = [c for c in display_cols if c in pred_rpi_df.columns]
+    display = pred_rpi_df[available_cols].rename(columns=col_names)
     st.dataframe(display, use_container_width=True, hide_index=True, height=1050)
 
     csv_buf = display.to_csv(index=False)
