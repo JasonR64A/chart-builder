@@ -34,7 +34,6 @@ html, body, .stApp, .stApp *:not([class*="icon"]):not([data-testid*="icon"]) {
 .stApp { background-color: #1a1a1a; }
 h1, h2, h3, p, label, .stMarkdown { color: #C8C8C8 !important; }
 div[data-testid="stSidebar"] { background-color: #222222; }
-[data-testid="stDataFrameSortIcon"] { font-family: 'Material Symbols Rounded' !important; }
 </style>
 ''', unsafe_allow_html=True)
 

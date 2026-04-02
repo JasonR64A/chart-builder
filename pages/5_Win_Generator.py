@@ -125,10 +125,9 @@ st.markdown("""
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet">
 <style>
-html, body, .stApp, .stApp *:not([class*="icon"]):not([data-testid*="icon"]):not(.material-icons):not(.material-symbols):not([data-testid="stDataFrameSortIcon"]) { font-family: 'Inter', sans-serif !important; }
+html, body, .stApp, .stApp *:not([class*="icon"]):not([class*="Icon"]):not([data-testid*="icon"]):not([data-testid*="Icon"]):not([data-testid*="arrow"]):not(.material-icons):not(.material-symbols):not(.material-symbols-rounded){ font-family: 'Inter', sans-serif !important; }
 .stApp { background-color: #1a1a1a; }
 h1, h2, h3, p, label, .stMarkdown { color: #C8C8C8 !important; }
-[data-testid="stDataFrameSortIcon"] { font-family: 'Material Symbols Rounded' !important; }
 </style>
 """, unsafe_allow_html=True)
 

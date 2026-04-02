@@ -29,7 +29,7 @@ st.markdown('''
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-html, body, .stApp, .stApp *:not([class*="icon"]):not([data-testid*="icon"]):not(.material-icons):not(.material-symbols):not([data-testid="stDataFrameSortIcon"]) {
+html, body, .stApp, .stApp *:not([class*="icon"]):not([class*="Icon"]):not([data-testid*="icon"]):not([data-testid*="Icon"]):not([data-testid*="arrow"]):not(.material-icons):not(.material-symbols):not(.material-symbols-rounded):not([data-testid="stDataFrameSortIcon"]) {
     font-family: 'Inter', sans-serif !important;
 }
 .stApp { background-color: #1a1a1a; }
