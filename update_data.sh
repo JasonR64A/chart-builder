@@ -16,6 +16,13 @@ for sport in baseball softball; do
     cp "$PBP_SOURCE/$sport/rpi/${sport}_rpi_D1.csv" "$DEST/" 2>/dev/null
 done
 
+echo "Copying external rankings (Massey + DSR)..."
+mkdir -p "$DEST/rankings"
+for sport in baseball softball; do
+    cp "$PBP_SOURCE/$sport/rankings/massey_${sport}.csv" "$DEST/rankings/" 2>/dev/null
+    cp "$PBP_SOURCE/$sport/rankings/dsr_${sport}.csv" "$DEST/rankings/" 2>/dev/null
+done
+
 echo "Copying PBP data..."
 for sport in baseball softball; do
     cp "$PBP_SOURCE/$sport/pbp/hitting_pbp_"*.csv "$PBP_DEST/$sport/" 2>/dev/null
