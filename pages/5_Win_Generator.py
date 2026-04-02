@@ -73,7 +73,7 @@ def project_season(team_rank, opponent_ranks, current_wins, current_losses, n_si
 # ── Data Loading ──────────────────────────────────────────────────────────────
 @st.cache_data
 def load_team_ranks(sport, year):
-    """Load 64 integer ranks for all teams."""
+    """Load True Rank for all teams: average of 64A Rank, RPI, Massey, DSR."""
     tr = pd.read_csv(DATA_DIR / 'team_rank.csv', low_memory=False)
     tr = tr[tr['year'] == int(year)]
     tr['team_id'] = tr['team_id'].astype(str)
@@ -90,7 +90,42 @@ def load_team_ranks(sport, year):
 
     merged = tr.merge(sport_teams[['team_db_id', 'team_name', 'division', 'conference_name']],
                       left_on='team_id', right_on='team_db_id', how='inner')
-    merged['rank'] = pd.to_numeric(merged['integer_64_rank_total'], errors='coerce')
+    merged['rank_64a'] = pd.to_numeric(merged['integer_64_rank_total'], errors='coerce')
+
+    # Load RPI ranks
+    rpi_file = DATA_DIR / f'{sport}_rpi_D1.csv'
+    if rpi_file.exists():
+        rpi = pd.read_csv(rpi_file, low_memory=False)
+        rpi_lookup = dict(zip(rpi['teamName'], rpi['rank']))
+        merged['rank_rpi'] = merged['team_name'].map(rpi_lookup)
+    else:
+        merged['rank_rpi'] = np.nan
+
+    # Load Massey ranks
+    massey_file = DATA_DIR / 'rankings' / f'massey_{sport}.csv'
+    if massey_file.exists():
+        massey = pd.read_csv(massey_file, low_memory=False)
+        massey_lookup = dict(zip(massey['team'], massey['rank']))
+        merged['rank_massey'] = merged['team_name'].map(massey_lookup)
+    else:
+        merged['rank_massey'] = np.nan
+
+    # Load DSR ranks
+    dsr_file = DATA_DIR / 'rankings' / f'dsr_{sport}.csv'
+    if dsr_file.exists():
+        dsr = pd.read_csv(dsr_file, low_memory=False)
+        dsr_lookup = dict(zip(dsr['team'], dsr['rank']))
+        merged['rank_dsr'] = merged['team_name'].map(dsr_lookup)
+    else:
+        merged['rank_dsr'] = np.nan
+
+    # True Rank = average of available rankings
+    rank_cols = ['rank_64a', 'rank_rpi', 'rank_massey', 'rank_dsr']
+    merged['rank'] = merged[rank_cols].mean(axis=1)
+    # For teams missing some rankings, use what's available
+    merged['rank'] = merged['rank'].fillna(merged['rank_64a'])
+    merged['rankings_used'] = merged[rank_cols].notna().sum(axis=1)
+
     return merged.dropna(subset=['rank', 'team_name'])
 
 
@@ -184,9 +219,9 @@ if mode == 'Single Matchup':
     prob_a = log5_win_prob(rank_a, rank_b)
 
     c1, c2, c3 = st.columns(3)
-    c1.metric(f'{team_a} (#{rank_a})', f'{prob_a:.1%} win prob')
+    c1.metric(f'{team_a} (True Rank #{rank_a})', f'{prob_a:.1%} win prob')
     c2.metric('vs', '')
-    c3.metric(f'{team_b} (#{rank_b})', f'{1-prob_a:.1%} win prob')
+    c3.metric(f'{team_b} (True Rank #{rank_b})', f'{1-prob_a:.1%} win prob')
 
 elif mode == 'Team Projection':
     st.markdown('### Team Win Projection')
@@ -197,6 +232,14 @@ elif mode == 'Team Projection':
     team_rank = int(team_row['rank'])
     current_w = int(team_row['current_wins'])
     current_l = int(team_row['current_losses'])
+
+    # Show True Rank breakdown
+    rank_parts = []
+    for label, col in [('64A', 'rank_64a'), ('RPI', 'rank_rpi'), ('Massey', 'rank_massey'), ('DSR', 'rank_dsr')]:
+        val = team_row.get(col)
+        if pd.notna(val):
+            rank_parts.append(f'{label}: #{int(val)}')
+    st.caption(f'True Rank components: {" | ".join(rank_parts)} → **True Rank: #{team_rank}**')
 
     # Get future games by team name
     team_sched = schedules[
@@ -266,11 +309,11 @@ elif mode == 'Team Projection':
         st.dataframe(pd.DataFrame(sched_rows), use_container_width=True, hide_index=True)
 
     if unranked_opps:
-        st.caption(f'{len(set(unranked_opps))} opponents without 64 rank (assumed median): {", ".join(set(unranked_opps))}')
+        st.caption(f'{len(set(unranked_opps))} opponents without True Rank (assumed median): {", ".join(set(unranked_opps))}')
 
 else:  # Full Rankings
     st.markdown('### Projected Season Standings')
-    st.caption('Projecting remaining games using 64 Rank matchup model (1,000 simulations per team)')
+    st.caption('Projecting remaining games using True Rank (64A + RPI + Massey + DSR) matchup model (1,000 simulations per team)')
 
     with st.spinner('Running projections...'):
         results = []
