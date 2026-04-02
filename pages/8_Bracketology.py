@@ -245,12 +245,14 @@ def build_field(sport):
         pB = np.clip(_rank_to_win_pct(rank_b), 0.01, 0.99)
         return (pA * (1 - pB)) / (pA * (1 - pB) + pB * (1 - pA))
 
-    # Load all ranking sources for True Rank
+    # Load all ranking sources for True Rank — filter to current sport to avoid
+    # duplicate entries (Oregon St appears in both baseball and softball)
     all_teams_db = load_teams()
     all_tr = load_team_rank()
     tr_2026 = all_tr[all_tr['year'] == 2026][['team_id', 'integer_64_rank_total']].copy()
     tr_2026.columns = ['team_id', 'rank_64a']
-    all_ranked = all_teams_db.merge(tr_2026, left_on='id', right_on='team_id', how='left')
+    sport_filtered_teams = all_teams_db[all_teams_db['sport'] == sport_label].copy()
+    all_ranked = sport_filtered_teams.merge(tr_2026, left_on='id', right_on='team_id', how='left')
 
     rpi_lookup_rank = dict(zip(rpi_df['teamName'], rpi_df['rank']))
     all_ranked['rank_rpi'] = all_ranked['name'].map(rpi_lookup_rank)
