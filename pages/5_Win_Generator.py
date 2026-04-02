@@ -197,10 +197,37 @@ def compute_predicted_rpi(sport, _ranks_data, _schedules_data, _name_to_rank):
                 team_opponents[team_name] = []
             team_opponents[team_name].append(opp_name)
 
-    # Step 2: Compute projected WP for all teams
+    # Step 2: Compute projected WP with NCAA location weighting
+    # Home W=0.7, Away W=1.3, Neutral W=1.0
+    team_home_games: dict[str, int] = {}
+    team_away_games: dict[str, int] = {}
+    team_neutral_games: dict[str, int] = {}
+    for team_name, group in schedules.groupby('teamName'):
+        for _, g in group.iterrows():
+            if pd.notna(g.get('isAway')) and g['isAway'] == 1.0:
+                team_away_games[team_name] = team_away_games.get(team_name, 0) + 1
+            elif '@' in str(g.get('opponentName', '')):
+                team_neutral_games[team_name] = team_neutral_games.get(team_name, 0) + 1
+            else:
+                team_home_games[team_name] = team_home_games.get(team_name, 0) + 1
+
     wp_lookup: dict[str, float] = {}
     for team in team_games:
-        wp_lookup[team] = team_wins.get(team, 0) / team_games[team] if team_games[team] > 0 else 0.5
+        total_w = team_wins.get(team, 0)
+        total_g = team_games.get(team, 0)
+        if total_g == 0:
+            wp_lookup[team] = 0.5
+            continue
+        wp_raw = total_w / total_g
+        home_g = team_home_games.get(team, 0)
+        away_g = team_away_games.get(team, 0)
+        neutral_g = team_neutral_games.get(team, 0)
+        if home_g + away_g + neutral_g > 0:
+            w_credit = wp_raw * (home_g * 0.7 + away_g * 1.3 + neutral_g * 1.0)
+            l_credit = (1 - wp_raw) * (home_g * 1.3 + away_g * 0.7 + neutral_g * 1.0)
+            wp_lookup[team] = w_credit / (w_credit + l_credit) if (w_credit + l_credit) > 0 else 0.5
+        else:
+            wp_lookup[team] = wp_raw
 
     # Step 3: Compute OWP for all teams
     owp_lookup: dict[str, float] = {}
