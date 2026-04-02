@@ -1661,7 +1661,8 @@ elif view == 'Pace Chart':
     # Sort by final value for highlight selection
     final_stats = all_games.groupby(['entity', 'team']).agg(
         total=('cum_stat', 'last'), games=('game_num', 'max')).reset_index()
-    # For pitching rate stats (FIP, WHIP, ERA), lower is better
+    # For pitching rate stats, lower is better (sort ascending so best = first).
+    # For cumulative counting stats (ER, H, BB, SO, HR, etc.), higher volume = "top".
     lower_is_better = stat_choice in ['FIP', 'WHIP', 'ERA', 'BAA', 'OPS Against', 'BB%']
     final_stats = final_stats.sort_values('total', ascending=lower_is_better)
 
@@ -1671,11 +1672,11 @@ elif view == 'Pace Chart':
         options = [row['entity'] for _, row in final_stats.iterrows()]
     name_map = dict(zip(options, final_stats['entity']))
 
-    top_n = st.sidebar.number_input('Show Top N', value=20, min_value=5, max_value=500, step=5)
+    top_n = st.sidebar.number_input('Show Top N', value=20, min_value=5, max_value=2000, step=5)
     top_entities = set(final_stats.head(top_n)['entity'])
     filtered = all_games[all_games['entity'].isin(top_entities)]
 
-    highlighted = st.sidebar.multiselect(f'Highlight {pace_level}s', options[:300],
+    highlighted = st.sidebar.multiselect(f'Highlight {pace_level}s', options,
                                           help=f'Select {pace_level.lower()}s to highlight in red')
     highlight_names = {name_map[p] for p in highlighted}
 
