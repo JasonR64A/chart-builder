@@ -35,13 +35,13 @@ RED      = '#C41230'
 RED_DK   = '#8B1A2A'
 RED_LT   = '#E8455E'
 
-# CWS Final Four teams by year (team names match teams.csv)
+# All 8 CWS (Omaha) teams by year (team names match teams.csv)
 CWS_FINAL_FOUR = {
-    '2021': ['NC State', 'Vanderbilt', 'Mississippi St.', 'Texas'],
-    '2022': ['Oklahoma', 'Texas A&M', 'Ole Miss', 'Arkansas'],
-    '2023': ['Florida', 'TCU', 'Wake Forest', 'LSU'],
-    '2024': ['Tennessee', 'Florida St.', 'Texas A&M', 'Florida'],
-    '2025': ['LSU', 'Arkansas', 'Coastal Carolina', 'Louisville'],
+    '2021': ['Mississippi St.', 'Vanderbilt', 'NC State', 'Stanford', 'Texas', 'Tennessee', 'Arizona', 'Virginia'],
+    '2022': ['Ole Miss', 'Oklahoma', 'Arkansas', 'Stanford', 'Texas A&M', 'Notre Dame', 'Auburn', 'Texas'],
+    '2023': ['LSU', 'Wake Forest', 'Florida', 'Stanford', 'Virginia', 'TCU', 'Oral Roberts', 'Tennessee'],
+    '2024': ['Tennessee', 'Texas A&M', 'Kentucky', 'North Carolina', 'Florida St.', 'Virginia', 'NC State', 'Florida'],
+    '2025': ['Arkansas', 'LSU', 'Coastal Carolina', 'Louisville', 'Oregon St.', 'Arizona', 'UCLA', 'Murray St.'],
 }
 
 CWS_CHAMPIONS = {
@@ -548,8 +548,8 @@ def sidebar():
     # ── CWS Overlay ──
     if cfg['mode'] == 'Team' and cfg['sport'] == 'Baseball':
         st.sidebar.markdown('---')
-        st.sidebar.markdown('### CWS Final Four Overlay')
-        cfg['cws_enabled'] = st.sidebar.checkbox('Show CWS Final Four', key='cws_on')
+        st.sidebar.markdown('### CWS Teams Overlay')
+        cfg['cws_enabled'] = st.sidebar.checkbox('Show CWS Teams', key='cws_on')
         if cfg['cws_enabled']:
             cws_years = sorted(CWS_FINAL_FOUR.keys(), reverse=True)
             cfg['cws_years'] = st.sidebar.multiselect('Years', cws_years, default=cws_years, key='cws_yrs')
@@ -675,7 +675,7 @@ def apply_subset(df, plot_col, rank_col, range_start, range_end, agg_func):
 
 
 def build_cws_overlay(cfg):
-    """Build CWS Final Four data points from their respective years."""
+    """Build CWS Teams data points from their respective years."""
     teams_df = load_teams()
     bb_teams = teams_df[teams_df['sport'] == 'Baseball']
     name_to_id = dict(zip(bb_teams['team_name'], bb_teams['team_db_id']))
@@ -1235,7 +1235,7 @@ def render_chart(data, cfg):
                                    connectionstyle='arc3,rad=0.2'),
                     zorder=7)
 
-    # ── CWS Final Four Overlay ──
+    # ── CWS Teams Overlay ──
     # Plots CWS teams using their stats from their actual CWS year
     if cfg.get('cws_enabled') and is_team_markers:
         from matplotlib.lines import Line2D
@@ -1309,7 +1309,7 @@ def render_chart(data, cfg):
             legend_entries.append(
                 Line2D([0], [0], marker='o', color='w', markerfacecolor='none',
                        markeredgecolor=yr_color, markeredgewidth=2,
-                       markersize=10, label=f"'{yr[2:]} CWS Final Four")
+                       markersize=10, label=f"'{yr[2:]} CWS Teams")
             )
         legend_entries.append(
             Line2D([0], [0], marker='o', color='w', markerfacecolor='none',
