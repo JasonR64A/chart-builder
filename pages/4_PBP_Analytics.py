@@ -1680,6 +1680,24 @@ elif view == 'Pace Chart':
 
     all_games = pd.concat(entity_games, ignore_index=True)
 
+    # Extend all entities to the last date in the range (flat line if no data)
+    max_date = all_games['date_parsed'].max()
+    if date_end:
+        max_date = max(max_date, pd.Timestamp(date_end))
+    extensions = []
+    for entity_name, edata in all_games.groupby('entity'):
+        last_row = edata.sort_values('date_parsed').iloc[-1]
+        if last_row['date_parsed'] < max_date:
+            extensions.append({
+                'entity': entity_name,
+                'team': last_row['team'],
+                'date_parsed': max_date,
+                'game_num': last_row['game_num'],
+                'cum_stat': last_row['cum_stat'],
+            })
+    if extensions:
+        all_games = pd.concat([all_games, pd.DataFrame(extensions)], ignore_index=True)
+
     # Filter by min games
     game_counts = all_games.groupby('entity')['game_num'].max()
     qualified = game_counts[game_counts >= min_games_pace].index
