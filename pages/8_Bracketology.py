@@ -97,6 +97,62 @@ def load_historical_rpi():
     return df
 
 
+@st.cache_data(show_spinner=False)
+def load_previous_snapshot(sport):
+    """Load the most recent bracketology snapshot for movement comparison.
+    Returns a dict: team_name -> {overall_seed, seed_tier, national_seed}
+    """
+    snapshot_dir = BRACKET_DIR / 'snapshots'
+    if not snapshot_dir.exists():
+        return {}
+    # Find all snapshot files for this sport, sorted by date descending
+    import glob
+    pattern = str(snapshot_dir / f'{sport}_bracketology_2*.csv')
+    files = sorted(glob.glob(pattern), reverse=True)
+    if not files:
+        return {}
+    # Load the most recent snapshot
+    df = pd.read_csv(files[0])
+    lookup = {}
+    for _, row in df.iterrows():
+        lookup[row['name']] = {
+            'overall_seed': int(row.get('overall_seed', 0)),
+            'seed_tier': str(row.get('seed_tier', '')),
+            'national_seed': row.get('national_seed', None),
+        }
+    return lookup
+
+
+def compute_movement(team_name, current_seed, current_tier, previous_snapshot):
+    """Compute movement indicator for a team.
+    Returns (direction, label) where direction is 'up', 'down', or None.
+    'up' means the team improved (lower seed number = better).
+    """
+    if not previous_snapshot or team_name not in previous_snapshot:
+        return None, ''
+    prev = previous_snapshot[team_name]
+    prev_seed = prev['overall_seed']
+
+    if current_seed < prev_seed:
+        diff = prev_seed - current_seed
+        return 'up', f'+{diff}'
+    elif current_seed > prev_seed:
+        diff = current_seed - prev_seed
+        return 'down', f'-{diff}'
+    return None, ''
+
+
+def movement_html(direction, label):
+    """Return HTML for a movement arrow indicator."""
+    if direction == 'up':
+        return (f'<span style="color:#4CAF50;font-size:11px;font-weight:700;margin-left:6px;">'
+                f'&#9650; {label}</span>')
+    elif direction == 'down':
+        return (f'<span style="color:#F44336;font-size:11px;font-weight:700;margin-left:6px;">'
+                f'&#9660; {label}</span>')
+    return ''
+
+
 # ── Conference abbreviation mapping (RPI conference names -> conferences.csv) ─
 def build_conf_abbrev_map(conferences_df):
     """Map RPI conference strings to conference ids."""
@@ -617,7 +673,7 @@ def team_logo_path(team_db_id):
     return str(p) if p.exists() else None
 
 
-def render_team_row_html(team, seed_num, is_host=False):
+def render_team_row_html(team, seed_num, is_host=False, move_direction=None, move_label=''):
     """Return HTML for a single team row inside a regional card."""
     if team is None:
         return '<div style="padding:6px 10px;color:#666;">TBD</div>'
@@ -643,17 +699,26 @@ def render_team_row_html(team, seed_num, is_host=False):
     if is_host:
         host_badge = '<span style="background:#C41230;color:#fff;font-size:9px;padding:1px 5px;border-radius:3px;margin-left:6px;">HOST</span>'
 
+    move_arrow = movement_html(move_direction, move_label)
+
     logo_html = ''
     if logo_url:
         logo_html = f'<img src="{logo_url}" style="width:24px;height:24px;border-radius:4px;margin-right:8px;vertical-align:middle;object-fit:contain;" onerror="this.style.display=\'none\'">'
 
+    # Row highlight for movement
+    bg_color = ''
+    if move_direction == 'up':
+        bg_color = 'background:rgba(76,175,80,0.08);'
+    elif move_direction == 'down':
+        bg_color = 'background:rgba(244,67,54,0.08);'
+
     return f'''
-    <div style="display:flex;align-items:center;padding:6px 10px;border-bottom:1px solid #333;">
+    <div style="display:flex;align-items:center;padding:6px 10px;border-bottom:1px solid #333;{bg_color}">
         <div style="min-width:24px;font-weight:700;color:{RED};font-size:16px;margin-right:8px;">{seed_num}</div>
         {logo_html}
         <div style="flex:1;">
             <div style="color:#e0e0e0;font-weight:600;font-size:13px;">
-                {name}{host_badge}{dist_html}
+                {name}{host_badge}{dist_html}{move_arrow}
             </div>
             <div style="color:#999;font-size:11px;">
                 {conf} &middot; {record} &middot; RPI: {rpi_str} &middot; 64A: {sixty_four_str}
@@ -666,7 +731,7 @@ def render_team_row_html(team, seed_num, is_host=False):
     '''
 
 
-def render_regional_card(regional):
+def render_regional_card(regional, previous_snapshot=None):
     """Return full HTML for a regional card."""
     if regional is None:
         return '<div style="background:#252525;border-radius:10px;padding:16px;text-align:center;color:#666;">No data</div>'
@@ -680,11 +745,35 @@ def render_regional_card(regional):
     if logo_url:
         logo_html = f'<img src="{logo_url}" style="width:40px;height:40px;border-radius:6px;margin-right:12px;object-fit:contain;" onerror="this.style.display=\'none\'">'
 
+    def _team_move(team, current_overall_seed):
+        if team is None or not previous_snapshot:
+            return None, ''
+        return compute_movement(
+            team.get('name', ''), current_overall_seed,
+            '', previous_snapshot
+        )
+
     rows_html = ''
-    rows_html += render_team_row_html(regional.get('seed_1'), 1, is_host=True)
-    rows_html += render_team_row_html(regional.get('seed_2'), 2)
-    rows_html += render_team_row_html(regional.get('seed_3'), 3)
-    rows_html += render_team_row_html(regional.get('seed_4'), 4)
+    s1 = regional.get('seed_1')
+    s2 = regional.get('seed_2')
+    s3 = regional.get('seed_3')
+    s4 = regional.get('seed_4')
+
+    # Overall seed: host is national_seed, seed_2 has national_seed_num, etc.
+    s1_overall = ns
+    s2_overall = s2.get('national_seed_num', 0) if s2 else 0
+    s3_overall = s3.get('national_seed_num', 0) if s3 else 0
+    s4_overall = s4.get('national_seed_num', 0) if s4 else 0
+
+    d1, l1 = _team_move(s1, s1_overall)
+    d2, l2 = _team_move(s2, s2_overall)
+    d3, l3 = _team_move(s3, s3_overall)
+    d4, l4 = _team_move(s4, s4_overall)
+
+    rows_html += render_team_row_html(s1, 1, is_host=True, move_direction=d1, move_label=l1)
+    rows_html += render_team_row_html(s2, 2, move_direction=d2, move_label=l2)
+    rows_html += render_team_row_html(s3, 3, move_direction=d3, move_label=l3)
+    rows_html += render_team_row_html(s4, 4, move_direction=d4, move_label=l4)
 
     return f'''
     <div style="background:#252525;border-radius:10px;overflow:hidden;border:1px solid #333;margin-bottom:8px;">
@@ -703,7 +792,7 @@ def render_regional_card(regional):
     '''
 
 
-def render_bubble_card(team_row, label_prefix=''):
+def render_bubble_card(team_row, label_prefix='', previous_snapshot=None, current_seed=0):
     """Render a bubble team card from a DataFrame row."""
     name = team_row.get('name', '')
     rpi = team_row.get('rpi', 0)
@@ -717,15 +806,26 @@ def render_bubble_card(team_row, label_prefix=''):
     if is_ab:
         ab_badge = '<span style="background:#2a6e2a;color:#fff;font-size:9px;padding:1px 5px;border-radius:3px;margin-left:6px;">AUTO-BID</span>'
 
+    move_direction, move_label = None, ''
+    if previous_snapshot and current_seed > 0:
+        move_direction, move_label = compute_movement(name, current_seed, '', previous_snapshot)
+    move_arrow = movement_html(move_direction, move_label)
+
     logo_html = ''
     if isinstance(logo_url, str) and logo_url:
         logo_html = f'<img src="{logo_url}" style="width:28px;height:28px;border-radius:4px;margin-right:10px;object-fit:contain;" onerror="this.style.display=\'none\'">'
 
+    bg_color = ''
+    if move_direction == 'up':
+        bg_color = 'background:rgba(76,175,80,0.12);'
+    elif move_direction == 'down':
+        bg_color = 'background:rgba(244,67,54,0.12);'
+
     return f'''
-    <div style="display:flex;align-items:center;padding:10px 14px;background:#252525;border-radius:8px;margin-bottom:6px;border:1px solid #333;">
+    <div style="display:flex;align-items:center;padding:10px 14px;background:#252525;border-radius:8px;margin-bottom:6px;border:1px solid #333;{bg_color}">
         {logo_html}
         <div style="flex:1;">
-            <div style="color:#e0e0e0;font-weight:600;font-size:13px;">{name}{ab_badge}</div>
+            <div style="color:#e0e0e0;font-weight:600;font-size:13px;">{name}{ab_badge}{move_arrow}</div>
             <div style="color:#999;font-size:11px;">{conf} &middot; {record} &middot; RPI: {rpi_str}</div>
         </div>
     </div>
@@ -904,6 +1004,9 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
+# Load previous snapshot for movement indicators
+prev_snapshot = load_previous_snapshot(sport_key)
+
 regionals = seed_field(field_df)
 supers = build_supers(regionals)
 
@@ -931,9 +1034,9 @@ for display_idx, super_idx in enumerate(omaha_order):
 
     col_left, col_right = st.columns(2)
     with col_left:
-        st.markdown(render_regional_card(high), unsafe_allow_html=True)
+        st.markdown(render_regional_card(high, previous_snapshot=prev_snapshot), unsafe_allow_html=True)
     with col_right:
-        st.markdown(render_regional_card(low), unsafe_allow_html=True)
+        st.markdown(render_regional_card(low, previous_snapshot=prev_snapshot), unsafe_allow_html=True)
 
 
 # ── Bracket PNG export ─────────────────────────────────────────────────────
@@ -1095,8 +1198,9 @@ with b_col1:
         unsafe_allow_html=True,
     )
     if len(bubble_in_df) > 0:
-        for _, row in bubble_in_df.iterrows():
-            st.markdown(render_bubble_card(row), unsafe_allow_html=True)
+        for idx, (_, row) in enumerate(bubble_in_df.iterrows()):
+            seed_est = 61 + idx  # last 4 in = seeds 61-64
+            st.markdown(render_bubble_card(row, previous_snapshot=prev_snapshot, current_seed=seed_est), unsafe_allow_html=True)
     else:
         st.markdown('<p style="color:#666;">No bubble data available.</p>', unsafe_allow_html=True)
 
@@ -1108,8 +1212,9 @@ with b_col2:
         unsafe_allow_html=True,
     )
     if len(bubble_out_df) > 0:
-        for _, row in bubble_out_df.iterrows():
-            st.markdown(render_bubble_card(row), unsafe_allow_html=True)
+        for idx, (_, row) in enumerate(bubble_out_df.iterrows()):
+            seed_est = 65 + idx  # first 4 out = seeds 65-68
+            st.markdown(render_bubble_card(row, previous_snapshot=prev_snapshot, current_seed=seed_est), unsafe_allow_html=True)
     else:
         st.markdown('<p style="color:#666;">No bubble data available.</p>', unsafe_allow_html=True)
 

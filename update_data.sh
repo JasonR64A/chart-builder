@@ -23,6 +23,13 @@ for sport in baseball softball; do
     cp "$PBP_SOURCE/$sport/rankings/dsr_${sport}.csv" "$DEST/rankings/" 2>/dev/null
 done
 
+echo "Copying bracketology snapshots..."
+mkdir -p "$DEST/bracketology/snapshots"
+for sport in baseball softball; do
+    cp "$PBP_SOURCE/$sport/bracketology/${sport}_bracketology_"*.csv "$DEST/bracketology/snapshots/" 2>/dev/null
+    cp "$PBP_SOURCE/$sport/bracketology/${sport}_bracketology_history.csv" "$DEST/bracketology/snapshots/" 2>/dev/null
+done
+
 echo "Copying PBP data..."
 for sport in baseball softball; do
     cp "$PBP_SOURCE/$sport/pbp/hitting_pbp_"*.csv "$PBP_DEST/$sport/" 2>/dev/null
@@ -108,7 +115,7 @@ for sport in ['baseball', 'softball']:
 "
 
 # Check if anything changed
-if git diff --quiet data/ pbp_data/; then
+if git diff --quiet data/ pbp_data/ 2>/dev/null; then
     echo "No data changes detected."
     exit 0
 fi
