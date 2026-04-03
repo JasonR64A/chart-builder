@@ -745,13 +745,15 @@ def render_regional_card(regional, previous_snapshot=None):
     if logo_url:
         logo_html = f'<img src="{logo_url}" style="width:40px;height:40px;border-radius:6px;margin-right:12px;object-fit:contain;" onerror="this.style.display=\'none\'">'
 
-    def _team_move(team, current_overall_seed):
+    def _team_move(team):
         if team is None or not previous_snapshot:
             return None, ''
-        return compute_movement(
-            team.get('name', ''), current_overall_seed,
-            '', previous_snapshot
-        )
+        name = team.get('name', '')
+        # Use projected_rpi_rank as the overall seed (1-64 ranking used to place teams)
+        current_overall = int(team.get('projected_rpi_rank', 0))
+        if current_overall <= 0:
+            return None, ''
+        return compute_movement(name, current_overall, '', previous_snapshot)
 
     rows_html = ''
     s1 = regional.get('seed_1')
@@ -759,16 +761,10 @@ def render_regional_card(regional, previous_snapshot=None):
     s3 = regional.get('seed_3')
     s4 = regional.get('seed_4')
 
-    # Overall seed: host is national_seed, seed_2 has national_seed_num, etc.
-    s1_overall = ns
-    s2_overall = s2.get('national_seed_num', 0) if s2 else 0
-    s3_overall = s3.get('national_seed_num', 0) if s3 else 0
-    s4_overall = s4.get('national_seed_num', 0) if s4 else 0
-
-    d1, l1 = _team_move(s1, s1_overall)
-    d2, l2 = _team_move(s2, s2_overall)
-    d3, l3 = _team_move(s3, s3_overall)
-    d4, l4 = _team_move(s4, s4_overall)
+    d1, l1 = _team_move(s1)
+    d2, l2 = _team_move(s2)
+    d3, l3 = _team_move(s3)
+    d4, l4 = _team_move(s4)
 
     rows_html += render_team_row_html(s1, 1, is_host=True, move_direction=d1, move_label=l1)
     rows_html += render_team_row_html(s2, 2, move_direction=d2, move_label=l2)
