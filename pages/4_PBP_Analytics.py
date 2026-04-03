@@ -1757,7 +1757,7 @@ if view != 'Lineup Card':
     # ── Situational Filter ──────────────────────────────────────────────────
     situational_active = False
     sit_filters = {}
-    if view in ('Hitter Stats', 'Pitcher Stats'):
+    if view in ('Hitter Stats', 'Pitcher Stats', 'Pace Chart'):
         st.sidebar.markdown('---')
         st.sidebar.markdown('### Situational Filter')
         sit_filters['outs'] = st.sidebar.selectbox('Outs', ['All', '0', '1', '2'])
@@ -2080,51 +2080,210 @@ elif view == 'Fielding Stats':
                           file_name=f'pbp_fielding_{sport}_{division}.csv', mime='text/csv')
 
 elif view == 'Pace Chart':
-    st.markdown(f'### Pace Chart — {sport.title()} {division}')
+    if situational_active:
+        filter_label = ', '.join(f'{k}={v}' for k, v in sit_filters.items() if v != 'All')
+        st.markdown(f'### Pace Chart — {sport.title()} {division} — *{filter_label}*')
+    else:
+        st.markdown(f'### Pace Chart — {sport.title()} {division}')
 
     # Pace chart controls
     pace_stat_type = st.sidebar.radio('Stat Type', ['Hitting', 'Pitching'], horizontal=True)
     pace_level = st.sidebar.radio('Level', ['Player', 'Team'], horizontal=True)
     pace_theme = st.sidebar.radio('Theme', ['Dark', 'Light'], horizontal=True)
 
-    if pace_stat_type == 'Hitting':
-        pace_pbp = load_pbp(sport, division, 'hitting')
-        cum_stats = {'HR': 'hr', 'H': 'h', 'R': 'r', 'RBI': 'rbi', 'BB': 'bb',
-                     'K': 'k', 'SB': 'sb', '2B': 'doubles', '3B': 'triples', 'TB': 'tb',
-                     'HBP': 'hbp', 'AB': 'ab'}
-        # Advanced stats computed as running values
-        advanced_hitting = ['wRAA', 'wRC', 'OPS', 'wOBA', 'ISO', 'BABIP']
+    # Situational pace: use play-by-play events filtered to situation
+    if situational_active:
+        pbp_events_pace = load_play_by_play(sport, division)
+        if len(pbp_events_pace) == 0:
+            st.warning('Play-by-play event data not available for situational pace chart.')
+            st.stop()
+
+        # Resolve names
+        player_lookup_pace = build_player_lookup()
+        pbp_events_pace = resolve_pbp_names(pbp_events_pace, player_lookup_pace)
+
+        # Date filter
+        if 'date' in pbp_events_pace.columns:
+            pbp_events_pace['date_parsed'] = pd.to_datetime(pbp_events_pace['date'], errors='coerce')
+            if date_start and date_end:
+                pbp_events_pace = pbp_events_pace[
+                    (pbp_events_pace['date_parsed'].dt.date >= date_start) &
+                    (pbp_events_pace['date_parsed'].dt.date <= date_end)
+                ]
+
+        # Team filter
+        if selected_team and selected_team != 'All':
+            if pace_stat_type == 'Hitting':
+                pbp_events_pace = pbp_events_pace[pbp_events_pace['teamName'].str.contains(selected_team, case=False, na=False)]
+            else:
+                pbp_events_pace = pbp_events_pace[pbp_events_pace['pitcherTeam'].str.contains(selected_team, case=False, na=False)]
+
+        # Compute situational columns and filter
+        sit_pace = compute_situational_counts(pbp_events_pace)
+        if sit_filters.get('outs') != 'All':
+            sit_pace = sit_pace[sit_pace['outs'].astype(int) == int(sit_filters['outs'])]
+        if sit_filters.get('balls') != 'All':
+            sit_pace = sit_pace[sit_pace['final_balls'] == int(sit_filters['balls'])]
+        if sit_filters.get('strikes') != 'All':
+            sit_pace = sit_pace[sit_pace['final_strikes'] == int(sit_filters['strikes'])]
+        if sit_filters.get('r1b') == 'Yes':
+            sit_pace = sit_pace[sit_pace['runner1B'] != '']
+        if sit_filters.get('r2b') == 'Yes':
+            sit_pace = sit_pace[sit_pace['runner2B'] != '']
+        if sit_filters.get('r3b') == 'Yes':
+            sit_pace = sit_pace[sit_pace['runner3B'] != '']
+
+        # Map play results to counting stats for pace
+        sit_pace['_h'] = sit_pace['is_hit'].astype(int)
+        sit_pace['_hr'] = (sit_pace['playResult'] == 'HR').astype(int)
+        sit_pace['_bb'] = (sit_pace['playResult'] == 'BB').astype(int)
+        sit_pace['_k'] = sit_pace['playResult'].isin(['K', 'KL']).astype(int)
+        sit_pace['_2b'] = (sit_pace['playResult'] == '2B').astype(int)
+        sit_pace['_3b'] = (sit_pace['playResult'] == '3B').astype(int)
+        sit_pace['_1b'] = (sit_pace['playResult'] == '1B').astype(int)
+        sit_pace['_hbp'] = (sit_pace['playResult'] == 'HBP').astype(int)
+        sit_pace['_ab'] = sit_pace['is_ab'].astype(int)
+        sit_pace['_pa'] = 1
+        sit_pace['_tb'] = sit_pace['_1b'] + 2 * sit_pace['_2b'] + 3 * sit_pace['_3b'] + 4 * sit_pace['_hr']
+        sit_pace['_sf'] = (sit_pace['playResult'] == 'SF').astype(int)
+
+        cum_stats = {'H': '_h', 'HR': '_hr', 'BB': '_bb', 'K': '_k', '2B': '_2b',
+                     '3B': '_3b', 'TB': '_tb', 'HBP': '_hbp', 'AB': '_ab', 'PA': '_pa'}
+        if pace_stat_type == 'Hitting':
+            advanced_hitting = ['OPS', 'BA', 'OBP', 'SLG', 'wOBA', 'ISO']
+            all_stat_options = list(cum_stats.keys()) + advanced_hitting
+        else:
+            advanced_pitching = ['OPS Against', 'BA Against', 'K%', 'BB%']
+            all_stat_options = list(cum_stats.keys()) + advanced_pitching
+
+        stat_choice = st.sidebar.selectbox('Stat to Track', all_stat_options)
+        is_advanced = stat_choice not in cum_stats
+        min_games_pace = st.sidebar.number_input('Min Games', value=5, min_value=1, step=1)
+
+        # Build pace data from situational plays
+        if pace_stat_type == 'Hitting':
+            name_col = 'playerName' if pace_level == 'Player' else 'teamName'
+            team_col = 'teamName'
+        else:
+            name_col = 'pitcherName' if pace_level == 'Player' else 'pitcherTeam'
+            team_col = 'pitcherTeam'
+
+        if 'date_parsed' not in sit_pace.columns:
+            sit_pace['date_parsed'] = pd.to_datetime(sit_pace['date'], errors='coerce')
+
+        # Build a fake pace_pbp-like structure for the existing chart code
+        # by creating per-game aggregates from situational plays
+        pace_pbp = sit_pace.copy()
+        pace_pbp['playerName'] = pace_pbp.get(name_col, '')
+        pace_pbp['teamName'] = pace_pbp.get(team_col, '')
+
+        if pace_level == 'Player':
+            pace_pbp['_player_team'] = pace_pbp[name_col].astype(str) + '|||' + pace_pbp[team_col].astype(str)
+            group_key = '_player_team'
+        else:
+            group_key = team_col
+
+        # Run pace computation
+        entity_games = []
+        for entity_name, edata in pace_pbp.groupby(group_key):
+            edata_sorted = edata.sort_values('date_parsed')
+            if pace_level == 'Player':
+                parts = str(entity_name).split('|||')
+                display_name = parts[0]
+                team = parts[1] if len(parts) > 1 else ''
+            else:
+                display_name = entity_name
+                team = entity_name
+
+            if not is_advanced:
+                stat_col = cum_stats.get(stat_choice)
+                if not stat_col or stat_col not in edata_sorted.columns:
+                    continue
+                per_game = edata_sorted.groupby(['gameId', 'date_parsed'])[stat_col].sum().reset_index().sort_values('date_parsed')
+                per_game['game_num'] = range(1, len(per_game) + 1)
+                per_game['cum_stat'] = per_game[stat_col].cumsum()
+                per_game['entity'] = display_name
+                per_game['team'] = team
+                entity_games.append(per_game[['entity', 'team', 'date_parsed', 'game_num', 'cum_stat']])
+            else:
+                game_order = edata_sorted.drop_duplicates('gameId')[['gameId', 'date_parsed']].sort_values('date_parsed')
+                game_ids_ordered = game_order['gameId'].tolist()
+                rows = []
+                for i, gid in enumerate(game_ids_ordered):
+                    d = game_order[game_order['gameId'] == gid]['date_parsed'].iloc[0]
+                    included_gids = set(game_ids_ordered[:i+1])
+                    window = edata_sorted[edata_sorted['gameId'].isin(included_gids)]
+                    stats = compute_stats_from_plays(window)
+                    if pace_stat_type == 'Pitching':
+                        stats = compute_pitching_stats_from_plays(window)
+                    val = stats.get(stat_choice, 0)
+                    rows.append({'entity': display_name, 'team': team, 'date_parsed': d,
+                                'game_num': i + 1, 'cum_stat': val})
+                if rows:
+                    entity_games.append(pd.DataFrame(rows))
+
+        if not entity_games:
+            st.warning('No situational data available for pace chart.')
+            st.stop()
+
+        all_games = pd.concat(entity_games, ignore_index=True)
+        game_counts = all_games.groupby('entity')['game_num'].max()
+        qualified = game_counts[game_counts >= min_games_pace].index
+        all_games = all_games[all_games['entity'].isin(qualified)]
+
+        if len(all_games) == 0:
+            st.warning('No entities meet the minimum games threshold.')
+            st.stop()
+
+        # Sort by final value
+        final_stats = all_games.groupby(['entity', 'team']).agg(
+            total=('cum_stat', 'last'), games=('game_num', 'max')).reset_index()
+        lower_is_better = stat_choice in ['OPS Against', 'BA Against', 'BB%']
+        final_stats = final_stats.sort_values('total', ascending=lower_is_better)
+
+        # Jump to chart rendering (shared with non-situational path below)
+
     else:
-        pace_pbp = load_pbp(sport, division, 'pitching')
-        cum_stats = {'SO': 'so', 'BB': 'bb', 'H': 'h', 'ER': 'er', 'R': 'r',
-                     'HR': 'hrA', 'HB': 'hb'}
-        advanced_pitching = ['FIP', 'WHIP', 'ERA', 'K/9', 'K/7', 'OPS Against', 'BAA', 'K%', 'BB%']
+        # Non-situational pace chart (original code)
+        pace_stat_type_label = pace_stat_type  # keep reference
 
-    if pace_pbp is None:
-        st.error('Data not found.')
-        st.stop()
+        if pace_stat_type == 'Hitting':
+            pace_pbp = load_pbp(sport, division, 'hitting')
+            cum_stats = {'HR': 'hr', 'H': 'h', 'R': 'r', 'RBI': 'rbi', 'BB': 'bb',
+                         'K': 'k', 'SB': 'sb', '2B': 'doubles', '3B': 'triples', 'TB': 'tb',
+                         'HBP': 'hbp', 'AB': 'ab'}
+            advanced_hitting = ['wRAA', 'wRC', 'OPS', 'wOBA', 'ISO', 'BABIP']
+        else:
+            pace_pbp = load_pbp(sport, division, 'pitching')
+            cum_stats = {'SO': 'so', 'BB': 'bb', 'H': 'h', 'ER': 'er', 'R': 'r',
+                         'HR': 'hrA', 'HB': 'hb'}
+            advanced_pitching = ['FIP', 'WHIP', 'ERA', 'K/9', 'K/7', 'OPS Against', 'BAA', 'K%', 'BB%']
 
-    # Apply date filter
-    if 'date_parsed' in pace_pbp.columns and date_start and date_end:
-        pace_pbp = pace_pbp[(pace_pbp['date_parsed'].dt.date >= date_start) & (pace_pbp['date_parsed'].dt.date <= date_end)]
+        if pace_pbp is None:
+            st.error('Data not found.')
+            st.stop()
 
-    # Apply conference filter
-    try:
-        if conf_map and selected_conferences:
-            c_teams = {t for t, c in conf_map.items() if c in selected_conferences}
-            pace_pbp = pace_pbp[pace_pbp['teamName'].isin(c_teams)]
-    except NameError:
-        pass
+        # Apply date filter
+        if 'date_parsed' in pace_pbp.columns and date_start and date_end:
+            pace_pbp = pace_pbp[(pace_pbp['date_parsed'].dt.date >= date_start) & (pace_pbp['date_parsed'].dt.date <= date_end)]
 
-    # Build stat options
-    if pace_stat_type == 'Hitting':
-        all_stat_options = list(cum_stats.keys()) + advanced_hitting
-    else:
-        all_stat_options = list(cum_stats.keys()) + advanced_pitching
+        # Apply conference filter
+        try:
+            if conf_map and selected_conferences:
+                c_teams = {t for t, c in conf_map.items() if c in selected_conferences}
+                pace_pbp = pace_pbp[pace_pbp['teamName'].isin(c_teams)]
+        except NameError:
+            pass
 
-    stat_choice = st.sidebar.selectbox('Stat to Track', all_stat_options)
-    is_advanced = stat_choice not in cum_stats
-    min_games_pace = st.sidebar.number_input('Min Games', value=5, min_value=1, step=1)
+        # Build stat options
+        if pace_stat_type == 'Hitting':
+            all_stat_options = list(cum_stats.keys()) + advanced_hitting
+        else:
+            all_stat_options = list(cum_stats.keys()) + advanced_pitching
+
+        stat_choice = st.sidebar.selectbox('Stat to Track', all_stat_options)
+        is_advanced = stat_choice not in cum_stats
+        min_games_pace = st.sidebar.number_input('Min Games', value=5, min_value=1, step=1)
 
     if 'date_parsed' not in pace_pbp.columns:
         st.warning('Date column not available.')
