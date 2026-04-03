@@ -62,6 +62,101 @@ def outs_to_actual_innings(total_outs):
 # ── Play-by-Play Situational Data ────────────────────────────────────────────
 PBP_EVENT_DIR = _APP_DIR / 'pbp_data' / 'play_by_play'
 
+
+@st.cache_data(show_spinner=False)
+def build_player_lookup():
+    """Build lookup from player_ncaa_season_id -> (player_name, team_name).
+    Chain: rosters.player_ncaa_season_id -> rosters.player_id -> players.id -> players.player_name, players.team_id -> teams.name
+    """
+    try:
+        rosters = pd.read_csv(DATA_DIR / 'rosters.csv', low_memory=False,
+                              usecols=['player_id', 'player_ncaa_season_id', 'Year'])
+        rosters = rosters[rosters['Year'] == 2026].dropna(subset=['player_ncaa_season_id'])
+        players = pd.read_csv(DATA_DIR / 'players.csv', low_memory=False, encoding='latin-1',
+                              usecols=['id', 'player_name', 'team_id'])
+        teams = pd.read_csv(DATA_DIR / 'teams.csv', low_memory=False, usecols=['id', 'name'])
+
+        team_map = dict(zip(teams['id'], teams['name']))
+        player_map = {}
+        for _, p in players.iterrows():
+            player_map[int(p['id'])] = (p['player_name'], team_map.get(p['team_id'], ''))
+
+        # season_id -> (name, team)
+        lookup = {}
+        for _, r in rosters.iterrows():
+            sid = int(r['player_ncaa_season_id'])
+            pid = r['player_id']
+            if pd.notna(pid) and int(pid) in player_map:
+                lookup[sid] = player_map[int(pid)]
+        return lookup
+    except Exception:
+        return {}
+
+
+def resolve_pbp_names(df, lookup):
+    """Replace abbreviated PBP names/teams with full names from the database."""
+    if not lookup or len(df) == 0:
+        return df
+
+    df = df.copy()
+
+    # Resolve batter names
+    if 'playerId' in df.columns and 'player' in df.columns:
+        def resolve_player(row):
+            pid = row.get('playerId')
+            if pd.notna(pid):
+                try:
+                    entry = lookup.get(int(float(pid)))
+                    if entry:
+                        return entry[0]
+                except (ValueError, TypeError):
+                    pass
+            return row.get('player', '')
+
+        def resolve_batter_team(row):
+            pid = row.get('playerId')
+            if pd.notna(pid):
+                try:
+                    entry = lookup.get(int(float(pid)))
+                    if entry:
+                        return entry[1]
+                except (ValueError, TypeError):
+                    pass
+            return row.get('battingTeam', '')
+
+        df['playerName'] = df.apply(resolve_player, axis=1)
+        df['teamName'] = df.apply(resolve_batter_team, axis=1)
+
+    # Resolve pitcher names
+    if 'pitcherId' in df.columns and 'pitcher' in df.columns:
+        def resolve_pitcher(row):
+            pid = row.get('pitcherId')
+            if pd.notna(pid):
+                try:
+                    entry = lookup.get(int(float(pid)))
+                    if entry:
+                        return entry[0]
+                except (ValueError, TypeError):
+                    pass
+            return row.get('pitcher', '')
+
+        def resolve_pitcher_team(row):
+            pid = row.get('pitcherId')
+            if pd.notna(pid):
+                try:
+                    entry = lookup.get(int(float(pid)))
+                    if entry:
+                        return entry[1]
+                except (ValueError, TypeError):
+                    pass
+            return row.get('fieldingTeam', '')
+
+        df['pitcherName'] = df.apply(resolve_pitcher, axis=1)
+        df['pitcherTeam'] = df.apply(resolve_pitcher_team, axis=1)
+
+    return df
+
+
 # Play results that count as plate appearances
 PA_RESULTS = {'1B', '2B', '3B', 'HR', 'GO', 'FO', 'LO', 'PO', 'K', 'KL',
               'BB', 'HBP', 'FC', 'DP', 'E', 'ROE', 'IF', 'SAC', 'SF', 'TP'}
@@ -205,8 +300,11 @@ def compute_grouped_situational(plays_df, group_col, min_pa=1):
         if stats and stats['PA'] >= min_pa:
             stats[group_col] = name
             # Add team name if grouping by player
-            if group_col == 'player' and 'battingTeam' in grp.columns:
-                stats['Team'] = grp['battingTeam'].mode().iloc[0] if len(grp) > 0 else ''
+            if group_col in ('player', 'playerName'):
+                if 'teamName' in grp.columns:
+                    stats['Team'] = grp['teamName'].mode().iloc[0] if len(grp) > 0 else ''
+                elif 'battingTeam' in grp.columns:
+                    stats['Team'] = grp['battingTeam'].mode().iloc[0] if len(grp) > 0 else ''
             rows.append(stats)
 
     if not rows:
@@ -276,8 +374,11 @@ def compute_grouped_situational_pitching(plays_df, group_col, min_bf=1):
         stats = compute_pitching_stats_from_plays(grp)
         if stats and stats['BF'] >= min_bf:
             stats[group_col] = name
-            if group_col == 'pitcher' and 'fieldingTeam' in grp.columns:
-                stats['Team'] = grp['fieldingTeam'].mode().iloc[0] if len(grp) > 0 else ''
+            if group_col in ('pitcher', 'pitcherName'):
+                if 'pitcherTeam' in grp.columns:
+                    stats['Team'] = grp['pitcherTeam'].mode().iloc[0] if len(grp) > 0 else ''
+                elif 'fieldingTeam' in grp.columns:
+                    stats['Team'] = grp['fieldingTeam'].mode().iloc[0] if len(grp) > 0 else ''
             rows.append(stats)
 
     if not rows:
@@ -1701,15 +1802,17 @@ if view == 'Hitter Stats':
                         (pbp_events['date_parsed'] <= pd.Timestamp(date_range[1]))
                     ]
 
+            # Resolve abbreviated names to full names from database
+            player_lookup = build_player_lookup()
+            pbp_events = resolve_pbp_names(pbp_events, player_lookup)
+
             # Filter to selected team/players if any
             if selected_team and selected_team != 'All':
                 pbp_events = pbp_events[
-                    (pbp_events['battingTeam'].str.contains(selected_team, case=False, na=False)) |
-                    (pbp_events['fieldingTeam'].str.contains(selected_team, case=False, na=False))
+                    pbp_events['teamName'].str.contains(selected_team, case=False, na=False)
                 ]
-                pbp_events = pbp_events[pbp_events['battingTeam'].str.contains(selected_team, case=False, na=False)]
             if selected_players:
-                pbp_events = pbp_events[pbp_events['player'].isin(selected_players)]
+                pbp_events = pbp_events[pbp_events['playerName'].isin(selected_players)]
 
             # Compute situational columns
             sit_df = compute_situational_counts(pbp_events)
@@ -1752,11 +1855,11 @@ if view == 'Hitter Stats':
 
                 # Per-player table
                 st.markdown('---')
-                player_stats = compute_grouped_situational(sit_df, 'player', min_pa=min_threshold)
+                player_stats = compute_grouped_situational(sit_df, 'playerName', min_pa=min_threshold)
                 if len(player_stats) == 0:
                     st.info(f'No players meet the {min_threshold} PA minimum in this situation.')
                 else:
-                    show_cols = ['Rank', 'player', 'Team', 'PA', 'AB', 'H', '1B', '2B', '3B', 'HR', 'TB',
+                    show_cols = ['Rank', 'playerName', 'Team', 'PA', 'AB', 'H', '1B', '2B', '3B', 'HR', 'TB',
                                  'BB', 'HBP', 'K', 'SF', 'SAC', 'DP', 'GO', 'FO',
                                  'BA', 'OBP', 'SLG', 'OPS', 'ISO', 'wOBA', 'K%', 'BB%']
                     show_cols = [c for c in show_cols if c in player_stats.columns]
@@ -1832,13 +1935,17 @@ elif view == 'Pitcher Stats':
                         (pbp_events['date_parsed'] <= pd.Timestamp(date_range[1]))
                     ]
 
+            # Resolve abbreviated names to full names from database
+            player_lookup = build_player_lookup()
+            pbp_events = resolve_pbp_names(pbp_events, player_lookup)
+
             # Filter to selected team/players
             if selected_team and selected_team != 'All':
                 pbp_events = pbp_events[
-                    pbp_events['fieldingTeam'].str.contains(selected_team, case=False, na=False)
+                    pbp_events['pitcherTeam'].str.contains(selected_team, case=False, na=False)
                 ]
             if selected_players:
-                pbp_events = pbp_events[pbp_events['pitcher'].isin(selected_players)]
+                pbp_events = pbp_events[pbp_events['pitcherName'].isin(selected_players)]
 
             # Compute situational columns
             sit_df = compute_situational_counts(pbp_events)
@@ -1881,11 +1988,11 @@ elif view == 'Pitcher Stats':
 
                 # Per-pitcher table
                 st.markdown('---')
-                pitcher_stats = compute_grouped_situational_pitching(sit_df, 'pitcher', min_bf=min_threshold)
+                pitcher_stats = compute_grouped_situational_pitching(sit_df, 'pitcherName', min_bf=min_threshold)
                 if len(pitcher_stats) == 0:
                     st.info(f'No pitchers meet the {min_threshold} BF minimum in this situation.')
                 else:
-                    show_cols = ['Rank', 'pitcher', 'Team', 'BF', 'H', '1B', '2B', '3B', 'HR', 'TB',
+                    show_cols = ['Rank', 'pitcherName', 'Team', 'BF', 'H', '1B', '2B', '3B', 'HR', 'TB',
                                  'BB', 'HBP', 'K', 'SF', 'GO', 'FO',
                                  'BA Against', 'OBP Against', 'SLG Against', 'OPS Against',
                                  'wOBA Against', 'K%', 'BB%']
