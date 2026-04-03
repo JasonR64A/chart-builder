@@ -168,71 +168,58 @@ HIT_RESULTS = {'1B', '2B', '3B', 'HR'}
 
 @st.cache_data(show_spinner='Loading play-by-play events...')
 def load_play_by_play(sport, division):
-    """Load compressed play-by-play event data."""
+    """Load compressed play-by-play event data (essential columns only)."""
     fname = PBP_EVENT_DIR / f'{sport}_play_by_play_{division}.csv.gz'
     if not fname.exists():
         return pd.DataFrame()
-    df = pd.read_csv(fname, low_memory=False)
-    # Normalize runner columns: treat NaN, 0, '0' as empty
+    # Only load columns needed for situational analysis to save memory
+    use_cols = [
+        'gameId', 'date', 'sport', 'battingTeam', 'fieldingTeam',
+        'inning', 'halfInning', 'pitcher', 'pitcherId',
+        'player', 'playerId', 'playResult', 'playDescription',
+        'outs', 'runner1B', 'runner2B', 'runner3B',
+    ]
+    # Add pitch count columns
+    for i in range(1, 11):
+        use_cols.extend([f'balls{i}', f'strikes{i}'])
+    df = pd.read_csv(fname, low_memory=False, usecols=lambda c: c in use_cols,
+                      dtype={'outs': 'Int8', 'runner1B': str, 'runner2B': str, 'runner3B': str})
+    # Normalize runner columns
     for col in ['runner1B', 'runner2B', 'runner3B']:
         if col in df.columns:
-            df[col] = df[col].fillna(0).astype(str).replace({'0': '', '0.0': '', 'nan': ''})
+            df[col] = df[col].fillna('').replace({'0': '', '0.0': '', 'nan': ''})
     return df
-
-
-def get_final_count(row):
-    """Reconstruct the final ball-strike count before the play result."""
-    balls, strikes = 0, 0
-    for i in range(1, 16):
-        b_col = f'balls{i}'
-        s_col = f'strikes{i}'
-        if b_col not in row.index or pd.isna(row.get(b_col)):
-            break
-        b_val = row.get(b_col)
-        s_val = row.get(s_col)
-        if pd.notna(b_val):
-            try:
-                balls = int(float(b_val))
-            except (ValueError, TypeError):
-                pass
-        if pd.notna(s_val):
-            try:
-                strikes = int(float(s_val))
-            except (ValueError, TypeError):
-                pass
-    return balls, strikes
 
 
 def compute_situational_counts(pbp_events):
     """Add situational columns to play-by-play data for filtering."""
-    df = pbp_events.copy()
+    df = pbp_events[pbp_events['playResult'].isin(PA_RESULTS)].copy()
 
-    # Only plate appearances
-    df = df[df['playResult'].isin(PA_RESULTS)].copy()
+    if len(df) == 0:
+        return df
 
     # RISP: runner on 2B or 3B
     df['is_risp'] = (df['runner2B'] != '') | (df['runner3B'] != '')
-
-    # Runner on 3rd
     df['runner_on_3rd'] = df['runner3B'] != ''
-
-    # Bases empty
     df['bases_empty'] = (df['runner1B'] == '') & (df['runner2B'] == '') & (df['runner3B'] == '')
-
-    # Runners on
     df['runners_on'] = ~df['bases_empty']
 
-    # Get final count for each PA
-    counts = df.apply(get_final_count, axis=1)
-    df['final_balls'] = counts.apply(lambda x: x[0])
-    df['final_strikes'] = counts.apply(lambda x: x[1])
+    # Get final count vectorized: find last non-null balls/strikes column
+    df['final_balls'] = 0
+    df['final_strikes'] = 0
+    for i in range(10, 0, -1):
+        b_col = f'balls{i}'
+        s_col = f'strikes{i}'
+        if b_col in df.columns:
+            mask = df['final_balls'].eq(0) & df[b_col].notna()
+            df.loc[mask, 'final_balls'] = pd.to_numeric(df.loc[mask, b_col], errors='coerce').fillna(0).astype(int)
+        if s_col in df.columns:
+            mask = df['final_strikes'].eq(0) & df[s_col].notna()
+            df.loc[mask, 'final_strikes'] = pd.to_numeric(df.loc[mask, s_col], errors='coerce').fillna(0).astype(int)
 
-    # Two-strike count
     df['two_strikes'] = df['final_strikes'] >= 2
-
-    # Count situation
-    df['count_ahead'] = df['final_strikes'] > df['final_balls']  # pitcher ahead
-    df['count_behind'] = df['final_balls'] > df['final_strikes']  # hitter ahead
+    df['count_ahead'] = df['final_strikes'] > df['final_balls']
+    df['count_behind'] = df['final_balls'] > df['final_strikes']
     df['count_even'] = df['final_balls'] == df['final_strikes']
 
     # Hit type flags
