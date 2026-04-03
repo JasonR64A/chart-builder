@@ -1034,8 +1034,8 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-# Load previous snapshot for movement indicators
-prev_snapshot = load_previous_snapshot(sport_key)
+# Movement indicators disabled for now
+prev_snapshot = {}
 
 regionals = seed_field(field_df)
 supers = build_supers(regionals)
