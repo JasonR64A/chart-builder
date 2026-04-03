@@ -123,22 +123,57 @@ def load_previous_snapshot(sport):
     return lookup
 
 
-def compute_movement(team_name, current_seed, current_tier, previous_snapshot):
+SEED_TIER_ORDER = {'1-seed': 1, '2-seed': 2, '3-seed': 3, '4-seed': 4, 'first_four_out': 5}
+
+
+def _get_seed_tier(overall_seed):
+    """Map overall seed (1-68) to tier name."""
+    if overall_seed <= 16:
+        return '1-seed'
+    elif overall_seed <= 32:
+        return '2-seed'
+    elif overall_seed <= 48:
+        return '3-seed'
+    elif overall_seed <= 64:
+        return '4-seed'
+    return 'first_four_out'
+
+
+def compute_movement(team_name, current_overall_seed, current_tier, previous_snapshot):
     """Compute movement indicator for a team.
     Returns (direction, label) where direction is 'up', 'down', or None.
-    'up' means the team improved (lower seed number = better).
+
+    Rules:
+    - For 1-seeds (national seeds): show if national seed number changed
+    - For 2/3/4-seeds: only show if seed TIER changed (e.g., 3-seed -> 2-seed)
+    - For bubble: show if moved in/out of field or changed tier
     """
     if not previous_snapshot or team_name not in previous_snapshot:
         return None, ''
+
     prev = previous_snapshot[team_name]
     prev_seed = prev['overall_seed']
+    prev_tier = prev.get('seed_tier', _get_seed_tier(prev_seed))
+    curr_tier = current_tier if current_tier else _get_seed_tier(current_overall_seed)
 
-    if current_seed < prev_seed:
-        diff = prev_seed - current_seed
-        return 'up', f'+{diff}'
-    elif current_seed > prev_seed:
-        diff = current_seed - prev_seed
-        return 'down', f'-{diff}'
+    prev_tier_num = SEED_TIER_ORDER.get(str(prev_tier), 5)
+    curr_tier_num = SEED_TIER_ORDER.get(str(curr_tier), 5)
+
+    # Tier changed — this is the main movement indicator
+    if curr_tier_num < prev_tier_num:
+        # Moved up a tier (e.g., 3-seed -> 2-seed)
+        return 'up', f'{prev_tier} to {curr_tier}'
+    elif curr_tier_num > prev_tier_num:
+        # Dropped a tier (e.g., 2-seed -> 3-seed)
+        return 'down', f'{prev_tier} to {curr_tier}'
+
+    # Same tier — only show movement for 1-seeds (national seed number matters)
+    if curr_tier == '1-seed' and current_overall_seed != prev_seed:
+        if current_overall_seed < prev_seed:
+            return 'up', f'#{prev_seed} to #{current_overall_seed}'
+        else:
+            return 'down', f'#{prev_seed} to #{current_overall_seed}'
+
     return None, ''
 
 
@@ -745,26 +780,25 @@ def render_regional_card(regional, previous_snapshot=None):
     if logo_url:
         logo_html = f'<img src="{logo_url}" style="width:40px;height:40px;border-radius:6px;margin-right:12px;object-fit:contain;" onerror="this.style.display=\'none\'">'
 
-    def _team_move(team):
-        if team is None or not previous_snapshot:
-            return None, ''
-        name = team.get('name', '')
-        # Use projected_rpi_rank as the overall seed (1-64 ranking used to place teams)
-        current_overall = int(team.get('projected_rpi_rank', 0))
-        if current_overall <= 0:
-            return None, ''
-        return compute_movement(name, current_overall, '', previous_snapshot)
-
     rows_html = ''
     s1 = regional.get('seed_1')
     s2 = regional.get('seed_2')
     s3 = regional.get('seed_3')
     s4 = regional.get('seed_4')
 
-    d1, l1 = _team_move(s1)
-    d2, l2 = _team_move(s2)
-    d3, l3 = _team_move(s3)
-    d4, l4 = _team_move(s4)
+    def _team_move(team, seed_tier):
+        if team is None or not previous_snapshot:
+            return None, ''
+        name = team.get('name', '')
+        overall = int(team.get('projected_rpi_rank', 0))
+        if overall <= 0:
+            return None, ''
+        return compute_movement(name, overall, seed_tier, previous_snapshot)
+
+    d1, l1 = _team_move(s1, '1-seed')
+    d2, l2 = _team_move(s2, '2-seed')
+    d3, l3 = _team_move(s3, '3-seed')
+    d4, l4 = _team_move(s4, '4-seed')
 
     rows_html += render_team_row_html(s1, 1, is_host=True, move_direction=d1, move_label=l1)
     rows_html += render_team_row_html(s2, 2, move_direction=d2, move_label=l2)
@@ -788,7 +822,7 @@ def render_regional_card(regional, previous_snapshot=None):
     '''
 
 
-def render_bubble_card(team_row, label_prefix='', previous_snapshot=None, current_seed=0):
+def render_bubble_card(team_row, label_prefix='', previous_snapshot=None, current_seed=0, current_tier=''):
     """Render a bubble team card from a DataFrame row."""
     name = team_row.get('name', '')
     rpi = team_row.get('rpi', 0)
@@ -804,7 +838,7 @@ def render_bubble_card(team_row, label_prefix='', previous_snapshot=None, curren
 
     move_direction, move_label = None, ''
     if previous_snapshot and current_seed > 0:
-        move_direction, move_label = compute_movement(name, current_seed, '', previous_snapshot)
+        move_direction, move_label = compute_movement(name, current_seed, current_tier, previous_snapshot)
     move_arrow = movement_html(move_direction, move_label)
 
     logo_html = ''
@@ -1196,7 +1230,7 @@ with b_col1:
     if len(bubble_in_df) > 0:
         for idx, (_, row) in enumerate(bubble_in_df.iterrows()):
             seed_est = 61 + idx  # last 4 in = seeds 61-64
-            st.markdown(render_bubble_card(row, previous_snapshot=prev_snapshot, current_seed=seed_est), unsafe_allow_html=True)
+            st.markdown(render_bubble_card(row, previous_snapshot=prev_snapshot, current_seed=seed_est, current_tier='4-seed'), unsafe_allow_html=True)
     else:
         st.markdown('<p style="color:#666;">No bubble data available.</p>', unsafe_allow_html=True)
 
@@ -1210,7 +1244,7 @@ with b_col2:
     if len(bubble_out_df) > 0:
         for idx, (_, row) in enumerate(bubble_out_df.iterrows()):
             seed_est = 65 + idx  # first 4 out = seeds 65-68
-            st.markdown(render_bubble_card(row, previous_snapshot=prev_snapshot, current_seed=seed_est), unsafe_allow_html=True)
+            st.markdown(render_bubble_card(row, previous_snapshot=prev_snapshot, current_seed=seed_est, current_tier='first_four_out'), unsafe_allow_html=True)
     else:
         st.markdown('<p style="color:#666;">No bubble data available.</p>', unsafe_allow_html=True)
 
