@@ -1780,6 +1780,11 @@ elif view == 'Pace Chart':
     for spine in ax.spines.values():
         spine.set_color(spine_color)
 
+    # Force whole-number y-axis ticks for counting stats
+    if not is_advanced:
+        from matplotlib.ticker import MaxNLocator
+        ax.yaxis.set_major_locator(MaxNLocator(integer=True))
+
     # Brand logo bottom-right
     wide_logo_path = _APP_DIR / 'assets' / 'brand_logo_wide.png'
     if wide_logo_path.exists():
