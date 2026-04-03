@@ -1764,10 +1764,11 @@ if view != 'Lineup Card':
         sc1, sc2 = st.sidebar.columns(2)
         sit_filters['balls'] = sc1.selectbox('Balls', ['All', '0', '1', '2', '3'])
         sit_filters['strikes'] = sc2.selectbox('Strikes', ['All', '0', '1', '2'])
+        st.sidebar.markdown('**Runners On Base**')
         rc1, rc2, rc3 = st.sidebar.columns(3)
-        sit_filters['r1b'] = rc1.selectbox('1B', ['All', 'Yes', 'No'])
-        sit_filters['r2b'] = rc2.selectbox('2B', ['All', 'Yes', 'No'])
-        sit_filters['r3b'] = rc3.selectbox('3B', ['All', 'Yes', 'No'])
+        sit_filters['r1b'] = 'Yes' if rc1.checkbox('1B', value=False) else 'All'
+        sit_filters['r2b'] = 'Yes' if rc2.checkbox('2B', value=False) else 'All'
+        sit_filters['r3b'] = 'Yes' if rc3.checkbox('3B', value=False) else 'All'
         situational_active = any(v != 'All' for v in sit_filters.values())
 
 elif view == 'Lineup Card':
