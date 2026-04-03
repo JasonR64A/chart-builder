@@ -2285,97 +2285,91 @@ elif view == 'Pace Chart':
         is_advanced = stat_choice not in cum_stats
         min_games_pace = st.sidebar.number_input('Min Games', value=5, min_value=1, step=1)
 
-    if 'date_parsed' not in pace_pbp.columns:
-        st.warning('Date column not available.')
-        st.stop()
+    if not situational_active:
+        if 'date_parsed' not in pace_pbp.columns:
+            st.warning('Date column not available.')
+            st.stop()
 
-    # Group key: player or team (use player+team combo to avoid merging same-name players)
-    if pace_level == 'Player':
-        pace_pbp = pace_pbp.copy()
-        pace_pbp['_player_team'] = pace_pbp['playerName'] + '|||' + pace_pbp['teamName']
-        group_key = '_player_team'
-    else:
-        group_key = 'teamName'
-
-    # Compute league stats for advanced hitting metrics
-    if pace_stat_type == 'Hitting' and is_advanced:
-        league_stats_pace = compute_hitting_stats(pace_pbp)
-        league_woba_pace = league_stats_pace['wOBA']
-        league_r_pa_pace = league_stats_pace['R/PA']
-
-    # Build running stats per entity per game date
-    entity_games = []
-    for entity_name, edata in pace_pbp.groupby(group_key):
-        edata_sorted = edata.sort_values('date_parsed')
+        # Group key: player or team (use player+team combo to avoid merging same-name players)
         if pace_level == 'Player':
-            player_name = entity_name.split('|||')[0]
-            team = entity_name.split('|||')[1]
-            display_name = player_name
+            pace_pbp = pace_pbp.copy()
+            pace_pbp['_player_team'] = pace_pbp['playerName'] + '|||' + pace_pbp['teamName']
+            group_key = '_player_team'
         else:
-            player_name = entity_name
-            team = entity_name
-            display_name = entity_name
-        entity_name = display_name
+            group_key = 'teamName'
 
-        if not is_advanced:
-            # Simple cumulative stat — group by gameId to handle doubleheaders
-            stat_col = cum_stats[stat_choice]
-            if stat_col not in edata_sorted.columns:
-                continue
-            per_game = edata_sorted.groupby(['gameId', 'date_parsed'])[stat_col].sum().reset_index().sort_values('date_parsed')
-            per_game['game_num'] = range(1, len(per_game) + 1)
-            per_game['cum_stat'] = per_game[stat_col].cumsum()
-            per_game['entity'] = entity_name
-            per_game['team'] = team
-            entity_games.append(per_game[['entity', 'team', 'date_parsed', 'game_num', 'cum_stat']])
-        else:
-            # Advanced: compute running stat through each game — use gameId for doubleheaders
-            game_order = edata_sorted.drop_duplicates('gameId')[['gameId', 'date_parsed']].sort_values('date_parsed')
-            game_ids_ordered = game_order['gameId'].tolist()
-            rows = []
-            for i, gid in enumerate(game_ids_ordered):
-                d = game_order[game_order['gameId'] == gid]['date_parsed'].iloc[0]
-                # Include all games up to and including this one
-                included_gids = set(game_ids_ordered[:i+1])
-                window = edata_sorted[edata_sorted['gameId'].isin(included_gids)]
-                if pace_stat_type == 'Hitting':
-                    stats = compute_hitting_stats(window)
-                    if stat_choice == 'wRAA':
-                        val = compute_wraa(stats['wOBA'], league_woba_pace, stats['PA'])
-                    elif stat_choice == 'wRC':
-                        val = compute_wrc(stats['wOBA'], league_woba_pace, league_r_pa_pace, stats['PA'])
+        # Compute league stats for advanced hitting metrics
+        if pace_stat_type == 'Hitting' and is_advanced:
+            league_stats_pace = compute_hitting_stats(pace_pbp)
+            league_woba_pace = league_stats_pace['wOBA']
+            league_r_pa_pace = league_stats_pace['R/PA']
+
+        # Build running stats per entity per game date
+        entity_games = []
+        for entity_name, edata in pace_pbp.groupby(group_key):
+            edata_sorted = edata.sort_values('date_parsed')
+            if pace_level == 'Player':
+                player_name = entity_name.split('|||')[0]
+                team = entity_name.split('|||')[1]
+                display_name = player_name
+            else:
+                player_name = entity_name
+                team = entity_name
+                display_name = entity_name
+            entity_name = display_name
+
+            if not is_advanced:
+                stat_col = cum_stats[stat_choice]
+                if stat_col not in edata_sorted.columns:
+                    continue
+                per_game = edata_sorted.groupby(['gameId', 'date_parsed'])[stat_col].sum().reset_index().sort_values('date_parsed')
+                per_game['game_num'] = range(1, len(per_game) + 1)
+                per_game['cum_stat'] = per_game[stat_col].cumsum()
+                per_game['entity'] = entity_name
+                per_game['team'] = team
+                entity_games.append(per_game[['entity', 'team', 'date_parsed', 'game_num', 'cum_stat']])
+            else:
+                game_order = edata_sorted.drop_duplicates('gameId')[['gameId', 'date_parsed']].sort_values('date_parsed')
+                game_ids_ordered = game_order['gameId'].tolist()
+                rows = []
+                for i, gid in enumerate(game_ids_ordered):
+                    d = game_order[game_order['gameId'] == gid]['date_parsed'].iloc[0]
+                    included_gids = set(game_ids_ordered[:i+1])
+                    window = edata_sorted[edata_sorted['gameId'].isin(included_gids)]
+                    if pace_stat_type == 'Hitting':
+                        stats = compute_hitting_stats(window)
+                        if stat_choice == 'wRAA':
+                            val = compute_wraa(stats['wOBA'], league_woba_pace, stats['PA'])
+                        elif stat_choice == 'wRC':
+                            val = compute_wrc(stats['wOBA'], league_woba_pace, league_r_pa_pace, stats['PA'])
+                        else:
+                            val = stats.get(stat_choice, 0)
                     else:
+                        stats = compute_pitching_stats(window)
                         val = stats.get(stat_choice, 0)
-                else:
-                    stats = compute_pitching_stats(window)
-                    val = stats.get(stat_choice, 0)
-                rows.append({'entity': entity_name, 'team': team, 'date_parsed': d,
-                            'game_num': i + 1, 'cum_stat': val})
-            if rows:
-                entity_games.append(pd.DataFrame(rows))
+                    rows.append({'entity': entity_name, 'team': team, 'date_parsed': d,
+                                'game_num': i + 1, 'cum_stat': val})
+                if rows:
+                    entity_games.append(pd.DataFrame(rows))
 
-    if not entity_games:
-        st.warning('No data available.')
-        st.stop()
+        if not entity_games:
+            st.warning('No data available.')
+            st.stop()
 
-    all_games = pd.concat(entity_games, ignore_index=True)
+        all_games = pd.concat(entity_games, ignore_index=True)
 
-    # Filter by min games
-    game_counts = all_games.groupby('entity')['game_num'].max()
-    qualified = game_counts[game_counts >= min_games_pace].index
-    all_games = all_games[all_games['entity'].isin(qualified)]
+        game_counts = all_games.groupby('entity')['game_num'].max()
+        qualified = game_counts[game_counts >= min_games_pace].index
+        all_games = all_games[all_games['entity'].isin(qualified)]
 
-    if len(all_games) == 0:
-        st.warning('No entities meet the minimum games threshold.')
-        st.stop()
+        if len(all_games) == 0:
+            st.warning('No entities meet the minimum games threshold.')
+            st.stop()
 
-    # Sort by final value for highlight selection
-    final_stats = all_games.groupby(['entity', 'team']).agg(
-        total=('cum_stat', 'last'), games=('game_num', 'max')).reset_index()
-    # For pitching rate stats, lower is better (sort ascending so best = first).
-    # For cumulative counting stats (ER, H, BB, SO, HR, etc.), higher volume = "top".
-    lower_is_better = stat_choice in ['FIP', 'WHIP', 'ERA', 'BAA', 'OPS Against', 'BB%']
-    final_stats = final_stats.sort_values('total', ascending=lower_is_better)
+        final_stats = all_games.groupby(['entity', 'team']).agg(
+            total=('cum_stat', 'last'), games=('game_num', 'max')).reset_index()
+        lower_is_better = stat_choice in ['FIP', 'WHIP', 'ERA', 'BAA', 'OPS Against', 'BB%']
+        final_stats = final_stats.sort_values('total', ascending=lower_is_better)
 
     if pace_level == 'Player':
         options = [f"{row['entity']} ({row['team']})" for _, row in final_stats.iterrows()]
