@@ -3,3 +3,4 @@ __pycache__/
 .DS_Store
 *.bat
 .env
+pbp_data/play_by_play/*.csv

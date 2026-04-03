@@ -59,6 +59,241 @@ def outs_to_actual_innings(total_outs):
     return total_outs / 3
 
 
+# ── Play-by-Play Situational Data ────────────────────────────────────────────
+PBP_EVENT_DIR = _APP_DIR / 'pbp_data' / 'play_by_play'
+
+# Play results that count as plate appearances
+PA_RESULTS = {'1B', '2B', '3B', 'HR', 'GO', 'FO', 'LO', 'PO', 'K', 'KL',
+              'BB', 'HBP', 'FC', 'DP', 'E', 'ROE', 'IF', 'SAC', 'SF', 'TP'}
+# At-bat results (PA minus BB, HBP, SAC, SF)
+AB_RESULTS = {'1B', '2B', '3B', 'HR', 'GO', 'FO', 'LO', 'PO', 'K', 'KL',
+              'FC', 'DP', 'E', 'ROE', 'IF', 'TP'}
+HIT_RESULTS = {'1B', '2B', '3B', 'HR'}
+
+
+@st.cache_data(show_spinner='Loading play-by-play events...')
+def load_play_by_play(sport, division):
+    """Load compressed play-by-play event data."""
+    fname = PBP_EVENT_DIR / f'{sport}_play_by_play_{division}.csv.gz'
+    if not fname.exists():
+        return pd.DataFrame()
+    df = pd.read_csv(fname, low_memory=False)
+    # Normalize runner columns: treat NaN, 0, '0' as empty
+    for col in ['runner1B', 'runner2B', 'runner3B']:
+        if col in df.columns:
+            df[col] = df[col].fillna(0).astype(str).replace({'0': '', '0.0': '', 'nan': ''})
+    return df
+
+
+def get_final_count(row):
+    """Reconstruct the final ball-strike count before the play result."""
+    balls, strikes = 0, 0
+    for i in range(1, 16):
+        b_col = f'balls{i}'
+        s_col = f'strikes{i}'
+        if b_col not in row.index or pd.isna(row.get(b_col)):
+            break
+        b_val = row.get(b_col)
+        s_val = row.get(s_col)
+        if pd.notna(b_val):
+            try:
+                balls = int(float(b_val))
+            except (ValueError, TypeError):
+                pass
+        if pd.notna(s_val):
+            try:
+                strikes = int(float(s_val))
+            except (ValueError, TypeError):
+                pass
+    return balls, strikes
+
+
+def compute_situational_counts(pbp_events):
+    """Add situational columns to play-by-play data for filtering."""
+    df = pbp_events.copy()
+
+    # Only plate appearances
+    df = df[df['playResult'].isin(PA_RESULTS)].copy()
+
+    # RISP: runner on 2B or 3B
+    df['is_risp'] = (df['runner2B'] != '') | (df['runner3B'] != '')
+
+    # Runner on 3rd
+    df['runner_on_3rd'] = df['runner3B'] != ''
+
+    # Bases empty
+    df['bases_empty'] = (df['runner1B'] == '') & (df['runner2B'] == '') & (df['runner3B'] == '')
+
+    # Runners on
+    df['runners_on'] = ~df['bases_empty']
+
+    # Get final count for each PA
+    counts = df.apply(get_final_count, axis=1)
+    df['final_balls'] = counts.apply(lambda x: x[0])
+    df['final_strikes'] = counts.apply(lambda x: x[1])
+
+    # Two-strike count
+    df['two_strikes'] = df['final_strikes'] >= 2
+
+    # Count situation
+    df['count_ahead'] = df['final_strikes'] > df['final_balls']  # pitcher ahead
+    df['count_behind'] = df['final_balls'] > df['final_strikes']  # hitter ahead
+    df['count_even'] = df['final_balls'] == df['final_strikes']
+
+    # Hit type flags
+    df['is_hit'] = df['playResult'].isin(HIT_RESULTS)
+    df['is_ab'] = df['playResult'].isin(AB_RESULTS)
+
+    return df
+
+
+def compute_stats_from_plays(plays_df):
+    """Compute batting stats from filtered play-by-play events."""
+    n = len(plays_df)
+    if n == 0:
+        return {}
+
+    pa = n
+    ab = int(plays_df['is_ab'].sum())
+    h = int(plays_df['is_hit'].sum())
+
+    singles = int((plays_df['playResult'] == '1B').sum())
+    doubles = int((plays_df['playResult'] == '2B').sum())
+    triples = int((plays_df['playResult'] == '3B').sum())
+    hr = int((plays_df['playResult'] == 'HR').sum())
+    bb = int((plays_df['playResult'] == 'BB').sum())
+    hbp = int((plays_df['playResult'] == 'HBP').sum())
+    k = int((plays_df['playResult'].isin(['K', 'KL'])).sum())
+    sf = int((plays_df['playResult'] == 'SF').sum())
+    sac = int((plays_df['playResult'] == 'SAC').sum())
+    dp = int((plays_df['playResult'] == 'DP').sum())
+    fc = int((plays_df['playResult'] == 'FC').sum())
+    go = int((plays_df['playResult'] == 'GO').sum())
+    fo = int((plays_df['playResult'].isin(['FO', 'LO', 'PO', 'IF'])).sum())
+
+    tb = singles + 2 * doubles + 3 * triples + 4 * hr
+
+    ba = h / ab if ab > 0 else 0
+    obp_denom = ab + bb + hbp + sf
+    obp = (h + bb + hbp) / obp_denom if obp_denom > 0 else 0
+    slg = tb / ab if ab > 0 else 0
+    ops = obp + slg
+    iso = slg - ba
+
+    woba_denom = ab + bb + sf + hbp
+    woba = (WOBA_BB * bb + WOBA_HBP * hbp + WOBA_1B * singles +
+            WOBA_2B * doubles + WOBA_3B * triples + WOBA_HR * hr) / woba_denom if woba_denom > 0 else 0
+
+    k_pct = (k / pa * 100) if pa > 0 else 0
+    bb_pct = (bb / pa * 100) if pa > 0 else 0
+
+    return {
+        'PA': pa, 'AB': ab, 'H': h, '1B': singles, '2B': doubles, '3B': triples,
+        'HR': hr, 'TB': tb, 'BB': bb, 'HBP': hbp, 'K': k, 'SF': sf, 'SAC': sac,
+        'DP': dp, 'FC': fc, 'GO': go, 'FO': fo,
+        'BA': round(ba, 3), 'OBP': round(obp, 3), 'SLG': round(slg, 3),
+        'OPS': round(ops, 3), 'ISO': round(iso, 3), 'wOBA': round(woba, 3),
+        'K%': round(k_pct, 1), 'BB%': round(bb_pct, 1),
+    }
+
+
+def compute_grouped_situational(plays_df, group_col, min_pa=1):
+    """Compute stats per player/team from situational play-by-play data."""
+    rows = []
+    for name, grp in plays_df.groupby(group_col):
+        stats = compute_stats_from_plays(grp)
+        if stats and stats['PA'] >= min_pa:
+            stats[group_col] = name
+            # Add team name if grouping by player
+            if group_col == 'player' and 'battingTeam' in grp.columns:
+                stats['Team'] = grp['battingTeam'].mode().iloc[0] if len(grp) > 0 else ''
+            rows.append(stats)
+
+    if not rows:
+        return pd.DataFrame()
+    result = pd.DataFrame(rows)
+    # Rank by OPS
+    if len(result) > 0:
+        result['wraa_pctl'] = result['wOBA'].rank(pct=True, method='min')
+        result['ops_pctl'] = result['OPS'].rank(pct=True, method='min')
+        result['tb_pctl'] = result['TB'].rank(pct=True, method='min')
+        result['Rank'] = round(result['wraa_pctl'] + result['ops_pctl'] + result['tb_pctl'], 6)
+        result = result.drop(columns=['wraa_pctl', 'ops_pctl', 'tb_pctl'])
+    cols = ['Rank'] + [group_col] + [c for c in result.columns if c not in ['Rank', group_col]]
+    return result[cols].sort_values('Rank', ascending=False).reset_index(drop=True)
+
+
+def compute_pitching_stats_from_plays(plays_df):
+    """Compute pitching stats from filtered play-by-play events (pitcher perspective)."""
+    n = len(plays_df)
+    if n == 0:
+        return {}
+
+    bf = n
+    ab = int(plays_df['is_ab'].sum())
+    h = int(plays_df['is_hit'].sum())
+    singles = int((plays_df['playResult'] == '1B').sum())
+    doubles = int((plays_df['playResult'] == '2B').sum())
+    triples = int((plays_df['playResult'] == '3B').sum())
+    hr = int((plays_df['playResult'] == 'HR').sum())
+    bb = int((plays_df['playResult'] == 'BB').sum())
+    hbp = int((plays_df['playResult'] == 'HBP').sum())
+    k = int((plays_df['playResult'].isin(['K', 'KL'])).sum())
+    sf = int((plays_df['playResult'] == 'SF').sum())
+    go = int((plays_df['playResult'] == 'GO').sum())
+    fo = int((plays_df['playResult'].isin(['FO', 'LO', 'PO', 'IF'])).sum())
+
+    tb = singles + 2 * doubles + 3 * triples + 4 * hr
+
+    ba_against = h / ab if ab > 0 else 0
+    obp_denom = ab + bb + hbp + sf
+    obp_against = (h + bb + hbp) / obp_denom if obp_denom > 0 else 0
+    slg_against = tb / ab if ab > 0 else 0
+    ops_against = obp_against + slg_against
+
+    woba_denom = ab + bb + sf + hbp
+    woba_against = (WOBA_BB * bb + WOBA_HBP * hbp + WOBA_1B * singles +
+                    WOBA_2B * doubles + WOBA_3B * triples + WOBA_HR * hr) / woba_denom if woba_denom > 0 else 0
+
+    k_pct = (k / bf * 100) if bf > 0 else 0
+    bb_pct = (bb / bf * 100) if bf > 0 else 0
+
+    return {
+        'BF': bf, 'H': h, '1B': singles, '2B': doubles, '3B': triples,
+        'HR': hr, 'TB': tb, 'BB': bb, 'HBP': hbp, 'K': k, 'SF': sf,
+        'GO': go, 'FO': fo,
+        'BA Against': round(ba_against, 3), 'OBP Against': round(obp_against, 3),
+        'SLG Against': round(slg_against, 3), 'OPS Against': round(ops_against, 3),
+        'wOBA Against': round(woba_against, 3),
+        'K%': round(k_pct, 1), 'BB%': round(bb_pct, 1),
+    }
+
+
+def compute_grouped_situational_pitching(plays_df, group_col, min_bf=1):
+    """Compute pitching stats per pitcher from situational play-by-play data."""
+    rows = []
+    for name, grp in plays_df.groupby(group_col):
+        stats = compute_pitching_stats_from_plays(grp)
+        if stats and stats['BF'] >= min_bf:
+            stats[group_col] = name
+            if group_col == 'pitcher' and 'fieldingTeam' in grp.columns:
+                stats['Team'] = grp['fieldingTeam'].mode().iloc[0] if len(grp) > 0 else ''
+            rows.append(stats)
+
+    if not rows:
+        return pd.DataFrame()
+    result = pd.DataFrame(rows)
+    # Rank: lower OPS against = better
+    if len(result) > 0:
+        n = len(result)
+        result['ops_score'] = (n - result['OPS Against'].rank(method='min') + 1) / n
+        result['k_score'] = result['K%'].rank(method='min', pct=True)
+        result['Rank'] = round(result['ops_score'] + result['k_score'], 6)
+        result = result.drop(columns=['ops_score', 'k_score'])
+    cols = ['Rank'] + [group_col] + [c for c in result.columns if c not in ['Rank', group_col]]
+    return result[cols].sort_values('Rank', ascending=False).reset_index(drop=True)
+
+
 # ── Stat Computation ─────────────────────────────────────────────────────────
 def compute_hitting_stats(df):
     """Compute hitting stats from game-level PBP hitting data."""
@@ -1417,6 +1652,29 @@ if view != 'Lineup Card':
     if len(pbp) == 0:
         st.warning('No events match your filters.')
         st.stop()
+
+    # ── Situational Filter ──────────────────────────────────────────────────
+    situational_active = False
+    situation = 'All At-Bats'
+    if view in ('Hitter Stats', 'Pitcher Stats'):
+        st.sidebar.markdown('---')
+        st.sidebar.markdown('### Situational Filter')
+        situation = st.sidebar.selectbox('Situation', [
+            'All At-Bats',
+            'RISP (Runners in Scoring Position)',
+            'Runner on 3rd',
+            'Bases Empty',
+            'Runners On',
+            'Two Strikes',
+            'Hitter Ahead in Count',
+            'Pitcher Ahead in Count',
+            'Even Count',
+            'RISP + 2 Outs (Clutch)',
+            '2 Outs',
+            '0 Outs (Leadoff)',
+        ])
+        situational_active = situation != 'All At-Bats'
+
 elif view == 'Lineup Card':
     # Lineup Card specific controls
     st.sidebar.markdown('---')
@@ -1427,39 +1685,120 @@ elif view == 'Lineup Card':
 
 # ── Compute and Display ─────────────────────────────────────────────────────
 if view == 'Hitter Stats':
-    st.markdown(f'### Hitter Stats — {sport.title()} {division}')
+    # Check if situational filter is active
+    if situational_active:
+        st.markdown(f'### Hitter Stats — {sport.title()} {division} — *{situation}*')
+        pbp_events = load_play_by_play(sport, division)
+        if len(pbp_events) == 0:
+            st.warning('Play-by-play event data not available yet. Situational stats require event-level data.')
+        else:
+            # Filter to date range
+            if 'date' in pbp_events.columns:
+                pbp_events['date_parsed'] = pd.to_datetime(pbp_events['date'], errors='coerce')
+                if date_range and len(date_range) == 2:
+                    pbp_events = pbp_events[
+                        (pbp_events['date_parsed'] >= pd.Timestamp(date_range[0])) &
+                        (pbp_events['date_parsed'] <= pd.Timestamp(date_range[1]))
+                    ]
 
-    # Compute league wOBA for wRAA
-    league_stats = compute_hitting_stats(pbp)
-    league_woba = league_stats['wOBA']
-    league_r_pa = league_stats['R/PA']
+            # Filter to selected team/players if any
+            if selected_team and selected_team != 'All':
+                pbp_events = pbp_events[
+                    (pbp_events['battingTeam'].str.contains(selected_team, case=False, na=False)) |
+                    (pbp_events['fieldingTeam'].str.contains(selected_team, case=False, na=False))
+                ]
+                pbp_events = pbp_events[pbp_events['battingTeam'].str.contains(selected_team, case=False, na=False)]
+            if selected_players:
+                pbp_events = pbp_events[pbp_events['player'].isin(selected_players)]
 
-    # Overall summary
-    c1, c2, c3, c4, c5 = st.columns(5)
-    c1.metric('League wOBA', f"{league_woba:.3f}")
-    c2.metric('League OPS', f"{league_stats['OPS']:.3f}")
-    c3.metric('Total PA', f"{league_stats['PA']:,}")
-    c4.metric('Total H', f"{league_stats['H']:,}")
-    c5.metric('Total HR', f"{league_stats['HR']:,}")
+            # Compute situational columns
+            sit_df = compute_situational_counts(pbp_events)
 
-    # Per-player table
-    st.markdown('---')
-    player_stats = compute_grouped_hitting(pbp, player_col, league_woba, league_r_pa=league_r_pa, min_pa=min_threshold)
+            # Apply situational filter
+            if situation == 'RISP (Runners in Scoring Position)':
+                sit_df = sit_df[sit_df['is_risp']]
+            elif situation == 'Runner on 3rd':
+                sit_df = sit_df[sit_df['runner_on_3rd']]
+            elif situation == 'Bases Empty':
+                sit_df = sit_df[sit_df['bases_empty']]
+            elif situation == 'Runners On':
+                sit_df = sit_df[sit_df['runners_on']]
+            elif situation == 'Two Strikes':
+                sit_df = sit_df[sit_df['two_strikes']]
+            elif situation == 'Hitter Ahead in Count':
+                sit_df = sit_df[sit_df['count_behind']]  # hitter ahead = pitcher behind
+            elif situation == 'Pitcher Ahead in Count':
+                sit_df = sit_df[sit_df['count_ahead']]
+            elif situation == 'Even Count':
+                sit_df = sit_df[sit_df['count_even']]
+            elif situation == 'RISP + 2 Outs (Clutch)':
+                sit_df = sit_df[sit_df['is_risp'] & (sit_df['outs'].astype(int) == 2)]
+            elif situation == '2 Outs':
+                sit_df = sit_df[sit_df['outs'].astype(int) == 2]
+            elif situation == '0 Outs (Leadoff)':
+                sit_df = sit_df[sit_df['outs'].astype(int) == 0]
 
-    if len(player_stats) == 0:
-        st.info(f'No players meet the {min_threshold} PA minimum.')
+            if len(sit_df) == 0:
+                st.info(f'No plate appearances match "{situation}" filter.')
+            else:
+                # Overall situational summary
+                overall = compute_stats_from_plays(sit_df)
+                c1, c2, c3, c4, c5 = st.columns(5)
+                c1.metric('PA', f"{overall['PA']:,}")
+                c2.metric('BA', f"{overall['BA']:.3f}")
+                c3.metric('OPS', f"{overall['OPS']:.3f}")
+                c4.metric('wOBA', f"{overall['wOBA']:.3f}")
+                c5.metric('K%', f"{overall['K%']:.1f}")
+
+                # Per-player table
+                st.markdown('---')
+                player_stats = compute_grouped_situational(sit_df, 'player', min_pa=min_threshold)
+                if len(player_stats) == 0:
+                    st.info(f'No players meet the {min_threshold} PA minimum in this situation.')
+                else:
+                    show_cols = ['Rank', 'player', 'Team', 'PA', 'AB', 'H', '1B', '2B', '3B', 'HR', 'TB',
+                                 'BB', 'HBP', 'K', 'SF', 'SAC', 'DP', 'GO', 'FO',
+                                 'BA', 'OBP', 'SLG', 'OPS', 'ISO', 'wOBA', 'K%', 'BB%']
+                    show_cols = [c for c in show_cols if c in player_stats.columns]
+                    st.dataframe(player_stats[show_cols], use_container_width=True, hide_index=True, height=1050)
+
+                    csv_buf = player_stats[show_cols].to_csv(index=False)
+                    st.download_button('Download CSV', data=csv_buf,
+                                      file_name=f'pbp_situational_hitting_{sport}_{division}.csv', mime='text/csv')
     else:
-        show_cols = ['Rank', player_col, 'School', 'Pos', 'PA', 'AB', 'H', '1B', '2B', '3B', 'HR', 'TB',
-                     'R', 'RBI', 'BB', 'HBP', 'SF', 'SH', 'IBB', 'K', 'SB', 'CS', 'GDP',
-                     'BA', 'OBP', 'SLG', 'OPS', 'ISO', 'BABIP',
-                     'K%', 'BB%', 'K/BB', 'R/PA',
-                     'wOBA', 'wRAA', 'wRC', 'wRC+']
-        show_cols = [c for c in show_cols if c in player_stats.columns]
-        st.dataframe(player_stats[show_cols], use_container_width=True, hide_index=True, height=1050)
+        st.markdown(f'### Hitter Stats — {sport.title()} {division}')
 
-        csv_buf = player_stats[show_cols].to_csv(index=False)
-        st.download_button('Download CSV', data=csv_buf,
-                          file_name=f'pbp_hitting_{sport}_{division}.csv', mime='text/csv')
+        # Compute league wOBA for wRAA
+        league_stats = compute_hitting_stats(pbp)
+        league_woba = league_stats['wOBA']
+        league_r_pa = league_stats['R/PA']
+
+        # Overall summary
+        c1, c2, c3, c4, c5 = st.columns(5)
+        c1.metric('League wOBA', f"{league_woba:.3f}")
+        c2.metric('League OPS', f"{league_stats['OPS']:.3f}")
+        c3.metric('Total PA', f"{league_stats['PA']:,}")
+        c4.metric('Total H', f"{league_stats['H']:,}")
+        c5.metric('Total HR', f"{league_stats['HR']:,}")
+
+        # Per-player table
+        st.markdown('---')
+        player_stats = compute_grouped_hitting(pbp, player_col, league_woba, league_r_pa=league_r_pa, min_pa=min_threshold)
+
+        if len(player_stats) == 0:
+            st.info(f'No players meet the {min_threshold} PA minimum.')
+        else:
+            show_cols = ['Rank', player_col, 'School', 'Pos', 'PA', 'AB', 'H', '1B', '2B', '3B', 'HR', 'TB',
+                         'R', 'RBI', 'BB', 'HBP', 'SF', 'SH', 'IBB', 'K', 'SB', 'CS', 'GDP',
+                         'BA', 'OBP', 'SLG', 'OPS', 'ISO', 'BABIP',
+                         'K%', 'BB%', 'K/BB', 'R/PA',
+                         'wOBA', 'wRAA', 'wRC', 'wRC+']
+            show_cols = [c for c in show_cols if c in player_stats.columns]
+            st.dataframe(player_stats[show_cols], use_container_width=True, hide_index=True, height=1050)
+
+            csv_buf = player_stats[show_cols].to_csv(index=False)
+            st.download_button('Download CSV', data=csv_buf,
+                              file_name=f'pbp_hitting_{sport}_{division}.csv', mime='text/csv')
 
     # Single player deep dive
     if selected_players and len(selected_players) == 1:
@@ -1478,43 +1817,122 @@ if view == 'Hitter Stats':
                 st.dataframe(game_log[gl_cols], use_container_width=True, hide_index=True)
 
 elif view == 'Pitcher Stats':
-    st.markdown(f'### Pitcher Stats — {sport.title()} {division}')
+    if situational_active:
+        st.markdown(f'### Pitcher Stats — {sport.title()} {division} — *{situation}*')
+        pbp_events = load_play_by_play(sport, division)
+        if len(pbp_events) == 0:
+            st.warning('Play-by-play event data not available yet.')
+        else:
+            # Filter to date range
+            if 'date' in pbp_events.columns:
+                pbp_events['date_parsed'] = pd.to_datetime(pbp_events['date'], errors='coerce')
+                if date_range and len(date_range) == 2:
+                    pbp_events = pbp_events[
+                        (pbp_events['date_parsed'] >= pd.Timestamp(date_range[0])) &
+                        (pbp_events['date_parsed'] <= pd.Timestamp(date_range[1]))
+                    ]
 
-    # Overall summary
-    overall = compute_pitching_stats(pbp)
-    c1, c2, c3, c4, c5 = st.columns(5)
-    c1.metric('League FIP', f"{overall['FIP']:.2f}")
-    c2.metric('League ERA', f"{overall['ERA']:.2f}")
-    c3.metric('League OPS Against', f"{overall['OPS Against']:.3f}")
-    c4.metric('Total BF', f"{overall['BF']:,}")
-    c5.metric('Total SO', f"{overall['SO']:,}")
+            # Filter to selected team/players
+            if selected_team and selected_team != 'All':
+                pbp_events = pbp_events[
+                    pbp_events['fieldingTeam'].str.contains(selected_team, case=False, na=False)
+                ]
+            if selected_players:
+                pbp_events = pbp_events[pbp_events['pitcher'].isin(selected_players)]
 
-    # Per-pitcher table
-    st.markdown('---')
-    pitcher_stats = compute_grouped_pitching(pbp, player_col, min_bf=min_threshold)
+            # Compute situational columns
+            sit_df = compute_situational_counts(pbp_events)
 
-    # Apply cumulative IP filter
-    if min_ip > 0 and len(pitcher_stats) > 0 and 'IP' in pitcher_stats.columns:
-        pitcher_stats = pitcher_stats[pitcher_stats['IP'].apply(
-            lambda x: int(x) + (round((x - int(x)) * 10) / 3) >= min_ip
-        )].reset_index(drop=True)
+            # Apply situational filter
+            if situation == 'RISP (Runners in Scoring Position)':
+                sit_df = sit_df[sit_df['is_risp']]
+            elif situation == 'Runner on 3rd':
+                sit_df = sit_df[sit_df['runner_on_3rd']]
+            elif situation == 'Bases Empty':
+                sit_df = sit_df[sit_df['bases_empty']]
+            elif situation == 'Runners On':
+                sit_df = sit_df[sit_df['runners_on']]
+            elif situation == 'Two Strikes':
+                sit_df = sit_df[sit_df['two_strikes']]
+            elif situation == 'Hitter Ahead in Count':
+                sit_df = sit_df[sit_df['count_behind']]
+            elif situation == 'Pitcher Ahead in Count':
+                sit_df = sit_df[sit_df['count_ahead']]
+            elif situation == 'Even Count':
+                sit_df = sit_df[sit_df['count_even']]
+            elif situation == 'RISP + 2 Outs (Clutch)':
+                sit_df = sit_df[sit_df['is_risp'] & (sit_df['outs'].astype(int) == 2)]
+            elif situation == '2 Outs':
+                sit_df = sit_df[sit_df['outs'].astype(int) == 2]
+            elif situation == '0 Outs (Leadoff)':
+                sit_df = sit_df[sit_df['outs'].astype(int) == 0]
 
-    if len(pitcher_stats) == 0:
-        st.info(f'No pitchers meet the minimum filters.')
+            if len(sit_df) == 0:
+                st.info(f'No plate appearances match "{situation}" filter.')
+            else:
+                # Overall situational summary
+                overall = compute_pitching_stats_from_plays(sit_df)
+                c1, c2, c3, c4, c5 = st.columns(5)
+                c1.metric('BF', f"{overall['BF']:,}")
+                c2.metric('BA Against', f"{overall['BA Against']:.3f}")
+                c3.metric('OPS Against', f"{overall['OPS Against']:.3f}")
+                c4.metric('wOBA Against', f"{overall['wOBA Against']:.3f}")
+                c5.metric('K%', f"{overall['K%']:.1f}")
+
+                # Per-pitcher table
+                st.markdown('---')
+                pitcher_stats = compute_grouped_situational_pitching(sit_df, 'pitcher', min_bf=min_threshold)
+                if len(pitcher_stats) == 0:
+                    st.info(f'No pitchers meet the {min_threshold} BF minimum in this situation.')
+                else:
+                    show_cols = ['Rank', 'pitcher', 'Team', 'BF', 'H', '1B', '2B', '3B', 'HR', 'TB',
+                                 'BB', 'HBP', 'K', 'SF', 'GO', 'FO',
+                                 'BA Against', 'OBP Against', 'SLG Against', 'OPS Against',
+                                 'wOBA Against', 'K%', 'BB%']
+                    show_cols = [c for c in show_cols if c in pitcher_stats.columns]
+                    st.dataframe(pitcher_stats[show_cols], use_container_width=True, hide_index=True, height=1050)
+
+                    csv_buf = pitcher_stats[show_cols].to_csv(index=False)
+                    st.download_button('Download CSV', data=csv_buf,
+                                      file_name=f'pbp_situational_pitching_{sport}_{division}.csv', mime='text/csv')
     else:
-        k_col = 'K/7' if sport == 'softball' else 'K/9'
-        show_cols = ['Rank', player_col, 'School', 'Pos', 'App', 'GS', 'IP', 'BF', 'OAB',
-                     'H', 'R', 'ER', 'BB', 'HB', 'SO',
-                     'HR', '2B-A', '3B-A', 'Bk', 'IBB', 'SHA', 'SFA',
-                     'ERA', 'FIP', 'GmSc', 'BAA', 'BABIP',
-                     'OBP Against', 'SLG Against', 'OPS Against',
-                     'K%', 'BB%', k_col, 'K/BB', 'WHIP']
-        show_cols = [c for c in show_cols if c in pitcher_stats.columns]
-        st.dataframe(pitcher_stats[show_cols], use_container_width=True, hide_index=True, height=1050)
+        st.markdown(f'### Pitcher Stats — {sport.title()} {division}')
 
-        csv_buf = pitcher_stats[show_cols].to_csv(index=False)
-        st.download_button('Download CSV', data=csv_buf,
-                          file_name=f'pbp_pitching_{sport}_{division}.csv', mime='text/csv')
+        # Overall summary
+        overall = compute_pitching_stats(pbp)
+        c1, c2, c3, c4, c5 = st.columns(5)
+        c1.metric('League FIP', f"{overall['FIP']:.2f}")
+        c2.metric('League ERA', f"{overall['ERA']:.2f}")
+        c3.metric('League OPS Against', f"{overall['OPS Against']:.3f}")
+        c4.metric('Total BF', f"{overall['BF']:,}")
+        c5.metric('Total SO', f"{overall['SO']:,}")
+
+        # Per-pitcher table
+        st.markdown('---')
+        pitcher_stats = compute_grouped_pitching(pbp, player_col, min_bf=min_threshold)
+
+        # Apply cumulative IP filter
+        if min_ip > 0 and len(pitcher_stats) > 0 and 'IP' in pitcher_stats.columns:
+            pitcher_stats = pitcher_stats[pitcher_stats['IP'].apply(
+                lambda x: int(x) + (round((x - int(x)) * 10) / 3) >= min_ip
+            )].reset_index(drop=True)
+
+        if len(pitcher_stats) == 0:
+            st.info(f'No pitchers meet the minimum filters.')
+        else:
+            k_col = 'K/7' if sport == 'softball' else 'K/9'
+            show_cols = ['Rank', player_col, 'School', 'Pos', 'App', 'GS', 'IP', 'BF', 'OAB',
+                         'H', 'R', 'ER', 'BB', 'HB', 'SO',
+                         'HR', '2B-A', '3B-A', 'Bk', 'IBB', 'SHA', 'SFA',
+                         'ERA', 'FIP', 'GmSc', 'BAA', 'BABIP',
+                         'OBP Against', 'SLG Against', 'OPS Against',
+                         'K%', 'BB%', k_col, 'K/BB', 'WHIP']
+            show_cols = [c for c in show_cols if c in pitcher_stats.columns]
+            st.dataframe(pitcher_stats[show_cols], use_container_width=True, hide_index=True, height=1050)
+
+            csv_buf = pitcher_stats[show_cols].to_csv(index=False)
+            st.download_button('Download CSV', data=csv_buf,
+                              file_name=f'pbp_pitching_{sport}_{division}.csv', mime='text/csv')
 
     # Single pitcher deep dive
     if selected_players and len(selected_players) == 1:

@@ -30,6 +30,14 @@ for sport in baseball softball; do
     cp "$PBP_SOURCE/$sport/bracketology/${sport}_bracketology_history.csv" "$DEST/bracketology/snapshots/" 2>/dev/null
 done
 
+echo "Copying play-by-play event data..."
+mkdir -p "$PBP_DEST/play_by_play"
+for sport in baseball softball; do
+    for div in D1 D2 D3; do
+        cp "$PBP_SOURCE/$sport/pbp/play_by_play_${div}.csv" "$PBP_DEST/play_by_play/${sport}_play_by_play_${div}.csv" 2>/dev/null
+    done
+done
+
 echo "Copying PBP data..."
 for sport in baseball softball; do
     cp "$PBP_SOURCE/$sport/pbp/hitting_pbp_"*.csv "$PBP_DEST/$sport/" 2>/dev/null
