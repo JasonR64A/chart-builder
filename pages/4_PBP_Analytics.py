@@ -1595,6 +1595,13 @@ elif view == 'Pace Chart':
     except NameError:
         pass
 
+    # Apply team filter
+    try:
+        if selected_team and selected_team != 'All':
+            pace_pbp = pace_pbp[pace_pbp['teamName'] == selected_team]
+    except NameError:
+        pass
+
     # Build stat options
     if pace_stat_type == 'Hitting':
         all_stat_options = list(cum_stats.keys()) + advanced_hitting
