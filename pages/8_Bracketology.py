@@ -1034,8 +1034,8 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-# Movement indicators disabled for now
-prev_snapshot = {}
+# Load previous snapshot for movement indicators
+prev_snapshot = load_previous_snapshot(sport_key)
 
 regionals = seed_field(field_df)
 supers = build_supers(regionals)
@@ -1230,7 +1230,7 @@ with b_col1:
     if len(bubble_in_df) > 0:
         for idx, (_, row) in enumerate(bubble_in_df.iterrows()):
             seed_est = 61 + idx  # last 4 in = seeds 61-64
-            st.markdown(render_bubble_card(row, previous_snapshot=prev_snapshot, current_seed=seed_est, current_tier='4-seed'), unsafe_allow_html=True)
+            st.markdown(render_bubble_card(row), unsafe_allow_html=True)
     else:
         st.markdown('<p style="color:#666;">No bubble data available.</p>', unsafe_allow_html=True)
 
@@ -1244,7 +1244,7 @@ with b_col2:
     if len(bubble_out_df) > 0:
         for idx, (_, row) in enumerate(bubble_out_df.iterrows()):
             seed_est = 65 + idx  # first 4 out = seeds 65-68
-            st.markdown(render_bubble_card(row, previous_snapshot=prev_snapshot, current_seed=seed_est, current_tier='first_four_out'), unsafe_allow_html=True)
+            st.markdown(render_bubble_card(row), unsafe_allow_html=True)
     else:
         st.markdown('<p style="color:#666;">No bubble data available.</p>', unsafe_allow_html=True)
 
