@@ -1756,25 +1756,19 @@ if view != 'Lineup Card':
 
     # ── Situational Filter ──────────────────────────────────────────────────
     situational_active = False
-    situation = 'All At-Bats'
+    sit_filters = {}
     if view in ('Hitter Stats', 'Pitcher Stats'):
         st.sidebar.markdown('---')
         st.sidebar.markdown('### Situational Filter')
-        situation = st.sidebar.selectbox('Situation', [
-            'All At-Bats',
-            'RISP (Runners in Scoring Position)',
-            'Runner on 3rd',
-            'Bases Empty',
-            'Runners On',
-            'Two Strikes',
-            'Hitter Ahead in Count',
-            'Pitcher Ahead in Count',
-            'Even Count',
-            'RISP + 2 Outs (Clutch)',
-            '2 Outs',
-            '0 Outs (Leadoff)',
-        ])
-        situational_active = situation != 'All At-Bats'
+        sit_filters['outs'] = st.sidebar.selectbox('Outs', ['All', '0', '1', '2'])
+        sc1, sc2 = st.sidebar.columns(2)
+        sit_filters['balls'] = sc1.selectbox('Balls', ['All', '0', '1', '2', '3'])
+        sit_filters['strikes'] = sc2.selectbox('Strikes', ['All', '0', '1', '2'])
+        rc1, rc2, rc3 = st.sidebar.columns(3)
+        sit_filters['r1b'] = rc1.selectbox('1B', ['All', 'Yes', 'No'])
+        sit_filters['r2b'] = rc2.selectbox('2B', ['All', 'Yes', 'No'])
+        sit_filters['r3b'] = rc3.selectbox('3B', ['All', 'Yes', 'No'])
+        situational_active = any(v != 'All' for v in sit_filters.values())
 
 elif view == 'Lineup Card':
     # Lineup Card specific controls
@@ -1788,7 +1782,8 @@ elif view == 'Lineup Card':
 if view == 'Hitter Stats':
     # Check if situational filter is active
     if situational_active:
-        st.markdown(f'### Hitter Stats — {sport.title()} {division} — *{situation}*')
+        filter_label = ', '.join(f'{k}={v}' for k, v in sit_filters.items() if v != 'All')
+        st.markdown(f'### Hitter Stats — {sport.title()} {division} — *{filter_label}*')
         pbp_events = load_play_by_play(sport, division)
         if len(pbp_events) == 0:
             st.warning('Play-by-play event data not available yet. Situational stats require event-level data.')
@@ -1817,32 +1812,32 @@ if view == 'Hitter Stats':
             # Compute situational columns
             sit_df = compute_situational_counts(pbp_events)
 
-            # Apply situational filter
-            if situation == 'RISP (Runners in Scoring Position)':
-                sit_df = sit_df[sit_df['is_risp']]
-            elif situation == 'Runner on 3rd':
-                sit_df = sit_df[sit_df['runner_on_3rd']]
-            elif situation == 'Bases Empty':
-                sit_df = sit_df[sit_df['bases_empty']]
-            elif situation == 'Runners On':
-                sit_df = sit_df[sit_df['runners_on']]
-            elif situation == 'Two Strikes':
-                sit_df = sit_df[sit_df['two_strikes']]
-            elif situation == 'Hitter Ahead in Count':
-                sit_df = sit_df[sit_df['count_behind']]  # hitter ahead = pitcher behind
-            elif situation == 'Pitcher Ahead in Count':
-                sit_df = sit_df[sit_df['count_ahead']]
-            elif situation == 'Even Count':
-                sit_df = sit_df[sit_df['count_even']]
-            elif situation == 'RISP + 2 Outs (Clutch)':
-                sit_df = sit_df[sit_df['is_risp'] & (sit_df['outs'].astype(int) == 2)]
-            elif situation == '2 Outs':
-                sit_df = sit_df[sit_df['outs'].astype(int) == 2]
-            elif situation == '0 Outs (Leadoff)':
-                sit_df = sit_df[sit_df['outs'].astype(int) == 0]
+            # Apply situational filters
+            if sit_filters.get('outs') != 'All':
+                sit_df = sit_df[sit_df['outs'].astype(int) == int(sit_filters['outs'])]
+            if sit_filters.get('balls') != 'All':
+                sit_df = sit_df[sit_df['final_balls'] == int(sit_filters['balls'])]
+            if sit_filters.get('strikes') != 'All':
+                sit_df = sit_df[sit_df['final_strikes'] == int(sit_filters['strikes'])]
+            if sit_filters.get('r1b') == 'Yes':
+                sit_df = sit_df[sit_df['runner1B'] != '']
+            elif sit_filters.get('r1b') == 'No':
+                sit_df = sit_df[sit_df['runner1B'] == '']
+            if sit_filters.get('r2b') == 'Yes':
+                sit_df = sit_df[sit_df['runner2B'] != '']
+            elif sit_filters.get('r2b') == 'No':
+                sit_df = sit_df[sit_df['runner2B'] == '']
+            if sit_filters.get('r3b') == 'Yes':
+                sit_df = sit_df[sit_df['runner3B'] != '']
+            elif sit_filters.get('r3b') == 'No':
+                sit_df = sit_df[sit_df['runner3B'] == '']
+
+            # Build filter description
+            active_filters = [f'{k}={v}' for k, v in sit_filters.items() if v != 'All']
+            filter_desc = ', '.join(active_filters)
 
             if len(sit_df) == 0:
-                st.info(f'No plate appearances match "{situation}" filter.')
+                st.info(f'No plate appearances match filters: {filter_desc}')
             else:
                 # Overall situational summary
                 overall = compute_stats_from_plays(sit_df)
@@ -1921,7 +1916,8 @@ if view == 'Hitter Stats':
 
 elif view == 'Pitcher Stats':
     if situational_active:
-        st.markdown(f'### Pitcher Stats — {sport.title()} {division} — *{situation}*')
+        filter_label = ', '.join(f'{k}={v}' for k, v in sit_filters.items() if v != 'All')
+        st.markdown(f'### Pitcher Stats — {sport.title()} {division} — *{filter_label}*')
         pbp_events = load_play_by_play(sport, division)
         if len(pbp_events) == 0:
             st.warning('Play-by-play event data not available yet.')
@@ -1950,32 +1946,31 @@ elif view == 'Pitcher Stats':
             # Compute situational columns
             sit_df = compute_situational_counts(pbp_events)
 
-            # Apply situational filter
-            if situation == 'RISP (Runners in Scoring Position)':
-                sit_df = sit_df[sit_df['is_risp']]
-            elif situation == 'Runner on 3rd':
-                sit_df = sit_df[sit_df['runner_on_3rd']]
-            elif situation == 'Bases Empty':
-                sit_df = sit_df[sit_df['bases_empty']]
-            elif situation == 'Runners On':
-                sit_df = sit_df[sit_df['runners_on']]
-            elif situation == 'Two Strikes':
-                sit_df = sit_df[sit_df['two_strikes']]
-            elif situation == 'Hitter Ahead in Count':
-                sit_df = sit_df[sit_df['count_behind']]
-            elif situation == 'Pitcher Ahead in Count':
-                sit_df = sit_df[sit_df['count_ahead']]
-            elif situation == 'Even Count':
-                sit_df = sit_df[sit_df['count_even']]
-            elif situation == 'RISP + 2 Outs (Clutch)':
-                sit_df = sit_df[sit_df['is_risp'] & (sit_df['outs'].astype(int) == 2)]
-            elif situation == '2 Outs':
-                sit_df = sit_df[sit_df['outs'].astype(int) == 2]
-            elif situation == '0 Outs (Leadoff)':
-                sit_df = sit_df[sit_df['outs'].astype(int) == 0]
+            # Apply situational filters
+            if sit_filters.get('outs') != 'All':
+                sit_df = sit_df[sit_df['outs'].astype(int) == int(sit_filters['outs'])]
+            if sit_filters.get('balls') != 'All':
+                sit_df = sit_df[sit_df['final_balls'] == int(sit_filters['balls'])]
+            if sit_filters.get('strikes') != 'All':
+                sit_df = sit_df[sit_df['final_strikes'] == int(sit_filters['strikes'])]
+            if sit_filters.get('r1b') == 'Yes':
+                sit_df = sit_df[sit_df['runner1B'] != '']
+            elif sit_filters.get('r1b') == 'No':
+                sit_df = sit_df[sit_df['runner1B'] == '']
+            if sit_filters.get('r2b') == 'Yes':
+                sit_df = sit_df[sit_df['runner2B'] != '']
+            elif sit_filters.get('r2b') == 'No':
+                sit_df = sit_df[sit_df['runner2B'] == '']
+            if sit_filters.get('r3b') == 'Yes':
+                sit_df = sit_df[sit_df['runner3B'] != '']
+            elif sit_filters.get('r3b') == 'No':
+                sit_df = sit_df[sit_df['runner3B'] == '']
+
+            active_filters = [f'{k}={v}' for k, v in sit_filters.items() if v != 'All']
+            filter_desc = ', '.join(active_filters)
 
             if len(sit_df) == 0:
-                st.info(f'No plate appearances match "{situation}" filter.')
+                st.info(f'No plate appearances match filters: {filter_desc}')
             else:
                 # Overall situational summary
                 overall = compute_pitching_stats_from_plays(sit_df)
