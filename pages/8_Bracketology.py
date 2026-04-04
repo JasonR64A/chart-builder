@@ -99,20 +99,19 @@ def load_historical_rpi():
 
 @st.cache_data(show_spinner=False)
 def load_previous_snapshot(sport):
-    """Load the most recent bracketology snapshot for movement comparison.
+    """Load yesterday's bracketology snapshot for movement comparison.
     Returns a dict: team_name -> {overall_seed, seed_tier, national_seed}
     """
     snapshot_dir = BRACKET_DIR / 'snapshots'
     if not snapshot_dir.exists():
         return {}
-    # Find all snapshot files for this sport, sorted by date descending
     import glob
     pattern = str(snapshot_dir / f'{sport}_bracketology_2*.csv')
     files = sorted(glob.glob(pattern), reverse=True)
-    if not files:
+    # Need at least 2 snapshots — skip the most recent (today), use the one before it
+    if len(files) < 2:
         return {}
-    # Load the most recent snapshot
-    df = pd.read_csv(files[0])
+    df = pd.read_csv(files[1])  # second most recent = yesterday
     lookup = {}
     for _, row in df.iterrows():
         lookup[row['name']] = {
