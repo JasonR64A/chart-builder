@@ -86,6 +86,16 @@ def load_rpi(sport):
 
 
 @st.cache_data(show_spinner=False)
+def load_bracketology_history(sport):
+    """Load concatenated daily bracketology snapshots for seed progression chart."""
+    path = BRACKET_DIR / 'snapshots' / f'{sport}_bracketology_history.csv'
+    if not path.exists():
+        return pd.DataFrame()
+    df = pd.read_csv(path)
+    return df
+
+
+@st.cache_data(show_spinner=False)
 def load_historical_brackets():
     df = pd.read_csv(BRACKET_DIR / 'historical_brackets.csv')
     return df
@@ -831,6 +841,11 @@ def render_bubble_card(team_row, label_prefix='', previous_snapshot=None, curren
     is_ab = team_row.get('is_auto_bid', False)
     logo_url = team_row.get('logo_url', '')
 
+    # Projected data
+    proj_record = team_row.get('proj_record_str', record)
+    proj_rpi_rank = team_row.get('projected_rpi_rank', 0)
+    proj_rpi_rank_str = f'#{int(proj_rpi_rank)}' if pd.notna(proj_rpi_rank) and proj_rpi_rank > 0 and proj_rpi_rank < 999 else 'N/A'
+
     ab_badge = ''
     if is_ab:
         ab_badge = '<span style="background:#2a6e2a;color:#fff;font-size:9px;padding:1px 5px;border-radius:3px;margin-left:6px;">AUTO-BID</span>'
@@ -844,18 +859,13 @@ def render_bubble_card(team_row, label_prefix='', previous_snapshot=None, curren
     if isinstance(logo_url, str) and logo_url:
         logo_html = f'<img src="{logo_url}" style="width:28px;height:28px;border-radius:4px;margin-right:10px;object-fit:contain;" onerror="this.style.display=\'none\'">'
 
-    bg_color = ''
-    if move_direction == 'up':
-        bg_color = 'background:rgba(76,175,80,0.12);'
-    elif move_direction == 'down':
-        bg_color = 'background:rgba(244,67,54,0.12);'
-
     return f'''
-    <div style="display:flex;align-items:center;padding:10px 14px;background:#252525;border-radius:8px;margin-bottom:6px;border:1px solid #333;{bg_color}">
+    <div style="display:flex;align-items:center;padding:10px 14px;background:#252525;border-radius:8px;margin-bottom:6px;border:1px solid #333;">
         {logo_html}
         <div style="flex:1;">
             <div style="color:#e0e0e0;font-weight:600;font-size:13px;">{name}{ab_badge}{move_arrow}</div>
             <div style="color:#999;font-size:11px;">{conf} &middot; {record} &middot; RPI: {rpi_str}</div>
+            <div style="color:#6dbf6d;font-size:10px;">Proj: {proj_record} &middot; Proj RPI: {proj_rpi_rank_str}</div>
         </div>
     </div>
     '''
@@ -1248,7 +1258,135 @@ with b_col2:
         st.markdown('<p style="color:#666;">No bubble data available.</p>', unsafe_allow_html=True)
 
 
-# ── Section 4: Conference Auto-Bids ─────────────────────────────────────────
+# ── Section 4: Seed Progression ──────────────────────────────────────────────
+st.markdown('---')
+st.markdown('## Seed Progression')
+
+history_df = load_bracketology_history(sport_key)
+
+if len(history_df) > 1 and history_df['snapshot_date'].nunique() > 1:
+    # Build display seed: 1-seeds show national_seed (1-16), others show tier number (2, 3, 4)
+    def display_seed(row):
+        tier = str(row.get('seed_tier', ''))
+        if tier == '1-seed':
+            ns = row.get('national_seed', row.get('overall_seed', 0))
+            return int(ns) if pd.notna(ns) else row.get('overall_seed', 0)
+        elif tier == '2-seed':
+            return 17
+        elif tier == '3-seed':
+            return 18
+        elif tier == '4-seed':
+            return 19
+        else:
+            return 20  # first four out / bubble
+
+    history_df = history_df.copy()
+    history_df['display_seed'] = history_df.apply(display_seed, axis=1)
+    history_df['snapshot_date'] = pd.to_datetime(history_df['snapshot_date'])
+
+    # Tier filter
+    tier_options = ['1-seeds (1-16)', '2-seeds', '3-seeds', '4-seeds']
+    selected_tier = st.selectbox('Seed Tier', tier_options, index=0, key='seed_prog_tier')
+
+    tier_map = {
+        '1-seeds (1-16)': '1-seed',
+        '2-seeds': '2-seed',
+        '3-seeds': '3-seed',
+        '4-seeds': '4-seed',
+    }
+    filter_tier = tier_map[selected_tier]
+
+    # Get teams that appeared in this tier on ANY date
+    tier_teams = history_df[history_df['seed_tier'] == filter_tier]['name'].unique()
+    chart_df = history_df[history_df['name'].isin(tier_teams)].copy()
+
+    if len(chart_df) > 0:
+        dates = sorted(chart_df['snapshot_date'].unique())
+
+        fig, ax = plt.subplots(figsize=(12, 6), facecolor='#1a1a1a')
+        ax.set_facecolor('#1a1a1a')
+
+        # Color palette
+        colors = [
+            '#C41230', '#4CAF50', '#2196F3', '#FF9800', '#9C27B0',
+            '#00BCD4', '#E91E63', '#8BC34A', '#FF5722', '#3F51B5',
+            '#CDDC39', '#009688', '#FFC107', '#673AB7', '#03A9F4',
+            '#F44336',
+        ]
+
+        teams_sorted = sorted(tier_teams)
+        for i, team in enumerate(teams_sorted):
+            team_data = chart_df[chart_df['name'] == team].sort_values('snapshot_date')
+            color = colors[i % len(colors)]
+            ax.plot(
+                team_data['snapshot_date'], team_data['display_seed'],
+                marker='o', markersize=5, linewidth=2, color=color,
+                label=team, alpha=0.9,
+            )
+            # Label at the end of each line
+            last = team_data.iloc[-1]
+            ax.annotate(
+                team, (last['snapshot_date'], last['display_seed']),
+                textcoords='offset points', xytext=(8, 0),
+                fontsize=8, color=color, va='center', fontweight='600',
+            )
+
+        # Y-axis setup depends on tier
+        if filter_tier == '1-seed':
+            ax.set_ylim(16.5, 0.5)
+            ax.set_yticks(range(1, 17))
+            ax.set_yticklabels([str(i) for i in range(1, 17)])
+            ax.set_ylabel('National Seed', color='#999', fontsize=11)
+        else:
+            # For 2/3/4 seeds, show overall_seed rank within tier
+            # Re-map to use overall_seed for finer granularity
+            tier_ranges = {'2-seed': (17, 32), '3-seed': (33, 48), '4-seed': (49, 64)}
+            lo, hi = tier_ranges[filter_tier]
+            ax.set_ylim(hi + 0.5, lo - 0.5)
+            ax.set_yticks(range(lo, hi + 1))
+            ax.set_yticklabels([str(i) for i in range(lo, hi + 1)])
+            ax.set_ylabel('Overall Seed', color='#999', fontsize=11)
+            # Use overall_seed instead of display_seed for these tiers
+            for line in ax.get_lines():
+                team_name = line.get_label()
+                team_data = chart_df[chart_df['name'] == team_name].sort_values('snapshot_date')
+                if len(team_data) > 0:
+                    line.set_ydata(team_data['overall_seed'].values)
+            # Update annotations
+            for child in ax.texts:
+                team_name = child.get_text()
+                team_data = chart_df[chart_df['name'] == team_name].sort_values('snapshot_date')
+                if len(team_data) > 0:
+                    last = team_data.iloc[-1]
+                    child.set_position((0, 0))
+                    child.xy = (last['snapshot_date'], last['overall_seed'])
+
+        ax.set_xlabel('Date', color='#999', fontsize=11)
+        ax.tick_params(colors='#999', labelsize=9)
+        ax.grid(axis='y', color='#333', linewidth=0.5, alpha=0.5)
+        ax.spines['top'].set_visible(False)
+        ax.spines['right'].set_visible(False)
+        ax.spines['bottom'].set_color('#444')
+        ax.spines['left'].set_color('#444')
+
+        import matplotlib.dates as mdates
+        ax.xaxis.set_major_formatter(mdates.DateFormatter('%b %d'))
+        fig.autofmt_xdate(rotation=0, ha='center')
+
+        plt.tight_layout()
+        st.pyplot(fig)
+        plt.close(fig)
+    else:
+        st.markdown('<p style="color:#666;">No teams found for this tier.</p>', unsafe_allow_html=True)
+else:
+    st.markdown(
+        '<p style="color:#666;">Seed progression requires at least 2 days of snapshots. '
+        'History will build automatically each night.</p>',
+        unsafe_allow_html=True,
+    )
+
+
+# ── Section 5: Conference Auto-Bids ─────────────────────────────────────────
 st.markdown('---')
 st.markdown('## Conference Auto-Bids')
 st.markdown(
