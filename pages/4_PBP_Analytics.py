@@ -1687,6 +1687,25 @@ elif view == 'Pace Chart':
 
     all_games = pd.concat(entity_games, ignore_index=True)
 
+    # Anchor all entities to the start date at 0 (so lines originate from the same point)
+    min_date = all_games['date_parsed'].min()
+    if date_start:
+        min_date = min(min_date, pd.Timestamp(date_start))
+    start_val = 0
+    anchors = []
+    for entity_name, edata in all_games.groupby('entity'):
+        first_row = edata.sort_values('date_parsed').iloc[0]
+        if first_row['date_parsed'] > min_date:
+            anchors.append({
+                'entity': entity_name,
+                'team': first_row['team'],
+                'date_parsed': min_date,
+                'game_num': 0,
+                'cum_stat': start_val if not is_advanced else first_row['cum_stat'],
+            })
+    if anchors:
+        all_games = pd.concat([all_games, pd.DataFrame(anchors)], ignore_index=True)
+
     # Extend all entities to the last date in the range (flat line if no data)
     max_date = all_games['date_parsed'].max()
     if date_end:
@@ -1792,16 +1811,16 @@ elif view == 'Pace Chart':
                     color=h_color, va='center', zorder=4)
         legend_entries.append((ename, h_color))
 
-    # Division average line (dashed)
-    if len(filtered) > 0:
-        avg_val = filtered.groupby('entity')['cum_stat'].last().mean()
+    # Division average line (dashed) — uses ALL qualified entities, not just top N
+    if len(all_games) > 0:
+        avg_val = all_games.groupby('entity')['cum_stat'].last().mean()
         ax.axhline(y=avg_val, color=avg_line_color, linestyle='--',
                    linewidth=1.5, alpha=0.5, zorder=2)
         avg_fmt = f"{avg_val:.2f}" if is_advanced else f"{int(avg_val)}"
-        ax.text(0.98, avg_val, f'  {division} average = {avg_fmt}',
+        ax.text(0.50, avg_val, f'  {division} average = {avg_fmt}',
                 transform=ax.get_yaxis_transform(), fontsize=9,
                 fontfamily=BODY_FONT, color=avg_line_color, alpha=0.7,
-                va='center', ha='right', zorder=5)
+                va='bottom', ha='center', zorder=5)
 
     # Title
     y_label = f'Running {stat_choice}' if is_advanced else f'Cumulative {stat_choice}'
