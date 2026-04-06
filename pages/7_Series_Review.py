@@ -223,6 +223,8 @@ def get_team_context(team_name, sport, division):
             past = past.sort_values('date', ascending=False)
             prev_5 = []
             for _, g in past.head(5).iterrows():
+                if pd.isna(g['runsFor']) or pd.isna(g['runsAgainst']):
+                    continue
                 is_win = g['isWin'] == 1 or g['isWin'] == 1.0
                 score = f"W {int(g['runsFor'])}-{int(g['runsAgainst'])}" if is_win else f"L {int(g['runsFor'])}-{int(g['runsAgainst'])}"
                 prev_5.append({'result': score, 'opp': g['opponentName'], 'win': is_win})
