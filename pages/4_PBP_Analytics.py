@@ -1804,12 +1804,8 @@ elif view == 'Pace Chart':
                 color=h_color, alpha=1.0, linewidth=2.5, zorder=3)
         last = pdata.iloc[-1]
         val_fmt = f"{last['cum_stat']:.2f}" if is_advanced else f"{int(last['cum_stat'])}"
-        ax.annotate(f"{ename}\n{val_fmt} {stat_choice} in {int(last['game_num'])} G",
-                    xy=(last['date_parsed'], last['cum_stat']),
-                    xytext=(10, 0), textcoords='offset points',
-                    fontsize=8, fontweight='bold', fontfamily=BODY_FONT,
-                    color=h_color, va='center', zorder=4)
-        legend_entries.append((ename, h_color))
+        legend_label = f"{ename} — {val_fmt} {stat_choice} in {int(last['game_num'])} G"
+        legend_entries.append((legend_label, h_color))
 
     # Division average line (dashed) — uses ALL qualified entities, not just top N
     if len(all_games) > 0:
