@@ -1691,7 +1691,6 @@ elif view == 'Pace Chart':
     min_date = all_games['date_parsed'].min()
     if date_start:
         min_date = min(min_date, pd.Timestamp(date_start))
-    start_val = 0
     anchors = []
     for entity_name, edata in all_games.groupby('entity'):
         first_row = edata.sort_values('date_parsed').iloc[0]
@@ -1701,7 +1700,7 @@ elif view == 'Pace Chart':
                 'team': first_row['team'],
                 'date_parsed': min_date,
                 'game_num': 0,
-                'cum_stat': start_val if not is_advanced else first_row['cum_stat'],
+                'cum_stat': 0,
             })
     if anchors:
         all_games = pd.concat([all_games, pd.DataFrame(anchors)], ignore_index=True)
@@ -1734,6 +1733,7 @@ elif view == 'Pace Chart':
         st.stop()
 
     # Sort by final value for highlight selection
+    all_games = all_games.sort_values('date_parsed')
     final_stats = all_games.groupby(['entity', 'team']).agg(
         total=('cum_stat', 'last'), games=('game_num', 'max')).reset_index()
     # For pitching rate stats, lower is better (sort ascending so best = first).
