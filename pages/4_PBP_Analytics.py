@@ -1736,63 +1736,112 @@ elif view == 'Pace Chart':
                                           help=f'Select {pace_level.lower()}s to highlight in red')
     highlight_names = {name_map[p] for p in highlighted}
 
+    # Font setup (match main chart builder)
+    _has_font = lambda name: any(name.lower() in f.name.lower() for f in matplotlib.font_manager.fontManager.ttflist)
+    TITLE_FONT = 'Franklin Gothic Heavy' if _has_font('Franklin Gothic') else 'DejaVu Sans'
+    SUBTITLE_FONT = 'Franklin Gothic Medium' if _has_font('Franklin Gothic') else 'DejaVu Sans'
+    BODY_FONT = 'Calibri' if _has_font('Calibri') else 'DejaVu Sans'
+
     # Theme colors
     if pace_theme == 'Dark':
-        bg = '#1a1a1a'; line_color = '#666666'; label_color = '#888888'
-        text_color = '#C8C8C8'; grid_color = '#444444'; spine_color = '#333333'
+        bg = '#1a1a1a'; plot_bg = '#1a1a1a'
+        line_color = '#4a5568'; label_color = '#718096'
+        text_color = '#e2e8f0'; text_md = '#a0aec0'; grid_color = '#2e2e2e'
+        spine_color = '#2d3748'; avg_line_color = '#63b3ed'
     else:
-        bg = '#FFFFFF'; line_color = '#BBBBBB'; label_color = '#999999'
-        text_color = '#1a1a1a'; grid_color = '#E0E0E0'; spine_color = '#CCCCCC'
+        bg = '#F5F1EB'; plot_bg = '#F5F1EB'
+        line_color = '#B0A898'; label_color = '#8C8278'
+        text_color = '#2D2926'; text_md = '#4A4540'; grid_color = '#E6E0D8'
+        spine_color = '#D6D0C8'; avg_line_color = '#3182CE'
 
     # Render chart
     fig, ax = plt.subplots(figsize=(14, 7), facecolor=bg)
-    ax.set_facecolor(bg)
+    ax.set_facecolor(plot_bg)
 
+    # Draw non-highlighted lines
     for ename, pdata in filtered.groupby('entity'):
         if ename in highlight_names:
             continue
         ax.plot(pdata['date_parsed'], pdata['cum_stat'],
-                color=line_color, alpha=0.35, linewidth=1, zorder=1)
+                color=line_color, alpha=0.3, linewidth=1, zorder=1)
         last = pdata.iloc[-1]
         label = ename if pace_level == 'Team' else ename.split()[-1] if len(ename.split()) > 1 else ename
         ax.annotate(label, xy=(last['date_parsed'], last['cum_stat']),
                     xytext=(5, 0), textcoords='offset points',
-                    fontsize=6, color=label_color, va='center', alpha=0.6, zorder=1)
+                    fontsize=6, fontfamily=BODY_FONT, color=label_color,
+                    va='center', alpha=0.5, zorder=1)
 
+    # Draw highlighted lines with team colors
+    legend_entries = []
     for ename in highlight_names:
         pdata = filtered[filtered['entity'] == ename]
         if len(pdata) == 0:
             pdata = all_games[all_games['entity'] == ename]
         if len(pdata) == 0:
             continue
-        # Get team color
         team_for_color = pdata['team'].iloc[0] if pace_level == 'Player' else ename
         h_color = get_team_color(team_for_color)
         ax.plot(pdata['date_parsed'], pdata['cum_stat'],
-                color=h_color, alpha=1.0, linewidth=3, zorder=3)
+                color=h_color, alpha=1.0, linewidth=2.5, zorder=3)
         last = pdata.iloc[-1]
         val_fmt = f"{last['cum_stat']:.2f}" if is_advanced else f"{int(last['cum_stat'])}"
         ax.annotate(f"{ename}\n{val_fmt} {stat_choice} in {int(last['game_num'])} G",
                     xy=(last['date_parsed'], last['cum_stat']),
                     xytext=(10, 0), textcoords='offset points',
-                    fontsize=8, fontweight='bold', color=h_color,
-                    va='center', zorder=4)
+                    fontsize=8, fontweight='bold', fontfamily=BODY_FONT,
+                    color=h_color, va='center', zorder=4)
+        legend_entries.append((ename, h_color))
 
+    # Division average line (dashed)
+    if len(filtered) > 0:
+        avg_val = filtered.groupby('entity')['cum_stat'].last().mean()
+        ax.axhline(y=avg_val, color=avg_line_color, linestyle='--',
+                   linewidth=1.5, alpha=0.5, zorder=2)
+        avg_fmt = f"{avg_val:.2f}" if is_advanced else f"{int(avg_val)}"
+        ax.text(0.98, avg_val, f'  {division} average = {avg_fmt}',
+                transform=ax.get_yaxis_transform(), fontsize=9,
+                fontfamily=BODY_FONT, color=avg_line_color, alpha=0.7,
+                va='center', ha='right', zorder=5)
+
+    # Title
     y_label = f'Running {stat_choice}' if is_advanced else f'Cumulative {stat_choice}'
-    ax.set_xlabel('Date', fontsize=11, color=text_color, labelpad=10)
+    title_main = f'{stat_choice} Pace Chart'
+    title_sub = f'{sport.title()} {division} - 2025-26 Season'
+    fig.text(0.5, 0.97, title_main, fontsize=18, fontfamily=TITLE_FONT,
+             fontweight='bold', color=text_color, ha='center', va='top')
+    fig.text(0.5, 0.93, title_sub, fontsize=12, fontfamily=SUBTITLE_FONT,
+             color=text_md, ha='center', va='top')
+
+    # Legend (top-left, clean)
+    if legend_entries:
+        for i, (lname, lcolor) in enumerate(legend_entries):
+            ax.plot([], [], color=lcolor, linewidth=2.5,
+                    label=lname)
+        legend = ax.legend(loc='upper left', frameon=False, fontsize=10,
+                          labelcolor=text_color, handlelength=2)
+        for text in legend.get_texts():
+            text.set_fontfamily(SUBTITLE_FONT)
+            text.set_fontweight('bold')
+
+    # Axis styling
+    ax.set_xlabel('Date', fontsize=11, fontfamily=BODY_FONT, color=text_md, labelpad=10)
     fig.autofmt_xdate(rotation=45)
-    ax.set_ylabel(y_label, fontsize=11, color=text_color, labelpad=10)
-    ax.tick_params(colors=label_color)
-    ax.grid(True, alpha=0.15, color=grid_color)
+    ax.set_ylabel(y_label, fontsize=11, fontfamily=BODY_FONT, color=text_md, labelpad=10)
+    ax.tick_params(colors=text_md, labelsize=9)
+    for label in ax.get_xticklabels() + ax.get_yticklabels():
+        label.set_fontfamily(BODY_FONT)
+    ax.grid(True, alpha=0.12, color=grid_color)
     for spine in ax.spines.values():
         spine.set_color(spine_color)
+
+    fig.subplots_adjust(top=0.88)
 
     # Force whole-number y-axis ticks for counting stats
     if not is_advanced:
         from matplotlib.ticker import MaxNLocator
         ax.yaxis.set_major_locator(MaxNLocator(integer=True))
 
-    # Brand logo bottom-right
+    # Brand logo bottom-left
     wide_logo_path = _APP_DIR / 'assets' / 'brand_logo_wide.png'
     if wide_logo_path.exists():
         logo_img = Image.open(wide_logo_path).convert('RGBA')
