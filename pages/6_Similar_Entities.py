@@ -262,7 +262,7 @@ def render_similarity_chart(target_label, target_team, target_pct, matches, matc
             zorder=10, label=f'{target_label} ({target_team})', solid_capstyle='round')
     # Big markers at each metric vertex
     ax.scatter(angles, target_vals, color=target_color, s=120, zorder=11,
-               edgecolors=bg, linewidths=2)
+               edgecolors=bg_solid, linewidths=2)
 
     # Axis styling
     ax.set_theta_offset(np.pi / 2)  # start at top
