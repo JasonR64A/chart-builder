@@ -95236,3 +95236,954 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6494886,4/04/26,softball,Alfred,1.0,Brielle Wark,4.0,LF,9662942,3,0,1,1,0,2,0,0,0,0,0,0,1,0,0,0,0,0
 6494886,4/04/26,softball,Alfred,1.0,Paris Guzman,20.0,C,9658537,3,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
 6494886,4/04/26,softball,Alfred,1.0,Destiny Avila,6.0,2B,9665225,3,1,2,1,0,3,0,0,0,0,0,0,0,1,0,0,0,0
+6568799,3/21/26,softball,John Carroll,,Bella Carcioppolo,14.0,CF,11240652,5,1,2,0,0,2,0,1,0,0,0,0,0,0,0,0,0,0
+6568799,3/21/26,softball,John Carroll,,Elizabeth Hohlefelder,16.0,1B,9656013,5,1,2,0,0,2,0,2,0,0,0,0,0,0,0,0,0,0
+6568799,3/21/26,softball,John Carroll,,Izzy Coode,33.0,SS,9668533,3,0,1,0,0,1,0,3,1,0,0,0,0,0,0,0,0,0
+6568799,3/21/26,softball,John Carroll,,Jordan Anderson,5.0,DP,11240599,4,0,2,0,0,2,0,1,0,0,0,0,0,0,0,0,0,0
+6568799,3/21/26,softball,John Carroll,,Gayle Mishic,21.0,RF,11240689,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6568799,3/21/26,softball,John Carroll,,Brynne Smith,24.0,PH,11240698,1,1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6568799,3/21/26,softball,John Carroll,,Bella Hunter,7.0,2B,11240635,4,2,2,0,0,2,0,0,0,0,0,0,1,0,0,0,0,0
+6568799,3/21/26,softball,John Carroll,,Isa Crespo,44.0,C,9663564,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6568799,3/21/26,softball,John Carroll,,Melissa Smith,8.0,C,9655767,1,1,1,1,0,2,0,1,0,0,0,0,0,0,0,0,0,0
+6568799,3/21/26,softball,John Carroll,,Elaina Rodriguez,3.0,3B,9668705,3,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6568799,3/21/26,softball,John Carroll,,Norah Bradley,22.0,PH,9658381,1,1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6568799,3/21/26,softball,John Carroll,,Emily Graves,9.0,LF,9664828,4,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6568799,3/21/26,softball,Albion,1.0,Elaina Braunscheidel,11.0,LF,11230829,5,2,4,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0
+6568799,3/21/26,softball,Albion,1.0,Emma Schramm,10.0,SS,9670157,5,1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6568799,3/21/26,softball,Albion,1.0,Jessie Anstandig,28.0,2B,9661451,4,1,1,1,0,2,0,3,0,0,0,0,0,0,0,0,0,0
+6568799,3/21/26,softball,Albion,1.0,Layla Vallone,8.0,PR,11230836,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6568799,3/21/26,softball,Albion,1.0,Allie Trantham,17.0,C,9657015,4,0,1,0,0,1,0,1,0,0,0,0,0,1,0,0,0,0
+6568799,3/21/26,softball,Albion,1.0,Cameron McDonald,26.0,RF,11230833,3,1,1,1,0,2,0,0,1,0,0,0,0,0,0,0,0,0
+6568799,3/21/26,softball,Albion,1.0,Kiersten Wilkin,12.0,3B,9658853,4,1,2,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0
+6568799,3/21/26,softball,Albion,1.0,Kaitlyn Ruselink,30.0,1B,11230834,3,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6568799,3/21/26,softball,Albion,1.0,Ryley Frank,2.0,PH,11230831,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6568799,3/21/26,softball,Albion,1.0,Kayla Cole,4.0,CF,9659615,4,1,3,0,0,3,0,1,0,0,0,0,0,0,0,0,0,0
+6524409,3/28/26,softball,Lynchburg,,Alex Love,2.0,CF,9662120,5,1,2,1,0,3,0,2,0,0,0,0,0,0,0,0,0,0
+6524409,3/28/26,softball,Lynchburg,,Sarah Watts,7.0,SS,9669279,4,2,0,0,0,0,0,0,1,0,0,0,0,0,0,0,2,0
+6524409,3/28/26,softball,Lynchburg,,Georgia Thompson,14.0,3B,9668702,4,1,1,0,0,1,0,0,1,0,0,0,2,0,0,0,0,0
+6524409,3/28/26,softball,Lynchburg,,Helen Maddux,3.0,DP,11239665,4,1,2,0,0,5,1,4,0,0,0,0,0,0,0,0,1,0
+6524409,3/28/26,softball,Lynchburg,,Hailey Schildt,16.0,C,11239678,4,0,1,1,0,2,0,0,0,0,0,0,1,0,0,0,0,0
+6524409,3/28/26,softball,Lynchburg,,Kourtney Kidd,23.0,PR,11239685,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6524409,3/28/26,softball,Lynchburg,,Alyssa Talayumptewa,17.0,LF,9665398,3,0,1,1,0,2,0,0,0,1,0,0,0,0,0,0,0,0
+6524409,3/28/26,softball,Lynchburg,,Bryanna Orange,22.0,1B,9655811,2,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0
+6524409,3/28/26,softball,Lynchburg,,Abby Lockhart,27.0,PH,11239693,1,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6524409,3/28/26,softball,Lynchburg,,Zoe Elliott,12.0,RF,9669976,2,1,1,0,0,1,0,0,1,1,0,0,1,0,0,0,0,0
+6524409,3/28/26,softball,Lynchburg,,Layla Lietzan,33.0,2B,9657525,1,1,1,0,0,1,0,0,1,0,0,0,0,0,0,0,1,0
+6524409,3/28/26,softball,Lynchburg,,Sydney Bryant,8.0,PH,11239668,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6524409,3/28/26,softball,Lynchburg,,Olivia Seamster,19.0,2B,11239680,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6524409,3/28/26,softball,East. Mennonite,1.0,Aliza Judd,27.0,1B,11330978,4,1,2,0,0,2,0,1,0,0,0,0,0,0,0,0,0,0
+6524409,3/28/26,softball,East. Mennonite,1.0,Braxten Jones,7.0,C,9654742,3,2,2,1,0,3,0,1,1,0,0,0,0,0,0,0,0,0
+6524409,3/28/26,softball,East. Mennonite,1.0,Destiny Jones,23.0,3B,9657581,2,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0
+6524409,3/28/26,softball,East. Mennonite,1.0,Meaghan Dean,22.0,DP,9660941,3,1,1,0,0,4,1,2,1,0,0,0,0,0,0,0,0,0
+6524409,3/28/26,softball,East. Mennonite,1.0,Aniyah Walker,20.0,PR,11332029,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6524409,3/28/26,softball,East. Mennonite,1.0,Kaitlyn Cunningham,9.0,PR,11330976,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6524409,3/28/26,softball,East. Mennonite,1.0,Hannah Johnston,6.0,SS,11330977,4,0,1,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0
+6524409,3/28/26,softball,East. Mennonite,1.0,Brooke Morris,15.0,RF,9658207,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6524409,3/28/26,softball,East. Mennonite,1.0,Maggie Mayhew,8.0,CF,9663181,4,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6524409,3/28/26,softball,East. Mennonite,1.0,Aspen Jones,12.0,2B,9663976,3,1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6524409,3/28/26,softball,East. Mennonite,1.0,Payton Keesee,11.0,LF,11330981,2,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0
+6524412,3/28/26,softball,Lynchburg,,Alex Love,2.0,CF,9662120,4,1,2,0,0,2,0,0,1,0,0,0,1,0,0,0,1,0
+6524412,3/28/26,softball,Lynchburg,,Sarah Watts,7.0,SS,9669279,3,2,0,0,0,0,0,1,2,0,0,0,1,0,0,0,2,0
+6524412,3/28/26,softball,Lynchburg,,Helen Maddux,3.0,DP/RF,11239665,5,2,1,0,0,4,1,3,0,0,0,0,1,0,0,0,0,0
+6524412,3/28/26,softball,Lynchburg,,Hailey Schildt,16.0,C,11239678,4,1,2,1,0,3,0,0,1,0,0,0,0,0,0,0,0,0
+6524412,3/28/26,softball,Lynchburg,,Mckenzie Kolesar,11.0,PR,11239676,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6524412,3/28/26,softball,Lynchburg,,Alyssa Talayumptewa,17.0,LF,9665398,5,1,3,0,0,3,0,2,0,0,0,0,0,0,0,0,0,0
+6524412,3/28/26,softball,Lynchburg,,Georgia Thompson,14.0,3B,9668702,2,0,1,0,0,1,0,1,1,0,0,1,0,0,0,0,1,0
+6524412,3/28/26,softball,Lynchburg,,Abby Lockhart,27.0,1B,11239693,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6524412,3/28/26,softball,Lynchburg,,Kourtney Kidd,23.0,PH,11239685,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6524412,3/28/26,softball,Lynchburg,,Zoe Elliott,12.0,RF,9669976,2,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0
+6524412,3/28/26,softball,Lynchburg,,Sydney Bryant,8.0,DP,11239668,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6524412,3/28/26,softball,Lynchburg,,Layla Lietzan,33.0,2B,9657525,3,1,2,0,0,2,0,0,0,0,0,0,0,0,0,0,1,0
+6524412,3/28/26,softball,Lynchburg,,Olivia Seamster,19.0,PH,11239680,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6524412,3/28/26,softball,East. Mennonite,1.0,Aliza Judd,27.0,1B/LF,11330978,4,0,2,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0
+6524412,3/28/26,softball,East. Mennonite,1.0,Aniyah Walker,20.0,PR,11332029,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6524412,3/28/26,softball,East. Mennonite,1.0,Braxten Jones,7.0,C/1B,9654742,3,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0
+6524412,3/28/26,softball,East. Mennonite,1.0,Destiny Jones,23.0,3B,9657581,4,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0
+6524412,3/28/26,softball,East. Mennonite,1.0,Meaghan Dean,22.0,DP/P,9660941,4,0,1,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0
+6524412,3/28/26,softball,East. Mennonite,1.0,Hannah Johnston,6.0,SS/C,11330977,3,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6524412,3/28/26,softball,East. Mennonite,1.0,Brooke Morris,15.0,RF,9658207,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6524412,3/28/26,softball,East. Mennonite,1.0,Maggie Mayhew,8.0,CF,9663181,1,1,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0
+6524412,3/28/26,softball,East. Mennonite,1.0,Aspen Jones,12.0,2B,9663976,2,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6524412,3/28/26,softball,East. Mennonite,1.0,Kaitlyn Cunningham,9.0,PH,11330976,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6524412,3/28/26,softball,East. Mennonite,1.0,Payton Keesee,11.0,LF/SS,11330981,1,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0
+6524412,3/28/26,softball,East. Mennonite,1.0,Kaliyah Braxton,24.0,PH,11332030,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0
+6524415,3/29/26,softball,Lynchburg,,Alex Love,2.0,CF,9662120,4,2,3,0,0,3,0,3,1,0,0,0,0,0,0,0,1,0
+6524415,3/29/26,softball,Lynchburg,,Sarah Watts,7.0,SS,9669279,3,1,1,0,0,1,0,1,2,0,0,0,0,0,0,0,2,0
+6524415,3/29/26,softball,Lynchburg,,Helen Maddux,3.0,DP/RF,11239665,3,1,1,0,0,1,0,2,1,0,0,0,0,0,0,0,1,0
+6524415,3/29/26,softball,Lynchburg,,Alyssa Talayumptewa,17.0,LF,9665398,3,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0
+6524415,3/29/26,softball,Lynchburg,,Mckenzie Kolesar,11.0,LF,11239676,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0
+6524415,3/29/26,softball,Lynchburg,,Hailey Schildt,16.0,C,11239678,2,2,1,0,0,1,0,0,2,0,0,0,0,0,0,0,0,0
+6524415,3/29/26,softball,Lynchburg,,Georgia Thompson,14.0,3B,9668702,3,2,2,0,0,2,0,0,0,0,0,1,0,0,0,0,0,0
+6524415,3/29/26,softball,Lynchburg,,Abby Lockhart,27.0,1B,11239693,2,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0
+6524415,3/29/26,softball,Lynchburg,,Kourtney Kidd,23.0,1B,11239685,2,2,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0
+6524415,3/29/26,softball,Lynchburg,,Zoe Elliott,12.0,RF,9669976,2,1,2,0,0,2,0,1,0,0,0,0,0,0,0,0,1,0
+6524415,3/29/26,softball,Lynchburg,,Sydney Bryant,8.0,P,11239668,2,2,1,0,1,3,0,2,0,0,0,0,0,0,0,0,1,0
+6524415,3/29/26,softball,Lynchburg,,Layla Lietzan,33.0,2B,9657525,3,1,2,0,0,2,0,1,0,0,0,0,0,0,0,0,0,0
+6524415,3/29/26,softball,Lynchburg,,Bryanna Orange,22.0,PH,9655811,1,0,1,1,0,2,0,1,0,0,0,0,0,0,0,0,0,0
+6524415,3/29/26,softball,Randolph,1.0,Haili Gonzalez,4.0,SS,9666731,2,0,1,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0
+6524415,3/29/26,softball,Randolph,1.0,Addy Compton,3.0,3B,9668718,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6524415,3/29/26,softball,Randolph,1.0,Rylee Humble,20.0,LF,9655618,2,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0
+6524415,3/29/26,softball,Randolph,1.0,Rachel Arce,18.0,DP/PH,9654372,2,0,1,1,0,2,0,0,1,0,0,0,0,0,0,0,0,0
+6524415,3/29/26,softball,Randolph,1.0,Alexx Reinwald,8.0,PR,11244952,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6524415,3/29/26,softball,Randolph,1.0,Edie Jennings,6.0,C,9662414,3,0,1,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+6524415,3/29/26,softball,Randolph,1.0,Michaela Williams,12.0,PR,9662052,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6524415,3/29/26,softball,Randolph,1.0,Calla Christian,25.0,1B,11244961,2,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6524415,3/29/26,softball,Randolph,1.0,Kaitlyn Wills,7.0,PH,9660834,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6524415,3/29/26,softball,Randolph,1.0,Chesney Shook,11.0,2B,9654115,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6524415,3/29/26,softball,Randolph,1.0,Sammie Carroll,30.0,RF,9654932,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6524415,3/29/26,softball,Randolph,1.0,Laura Herzig,10.0,CF,9664228,2,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6524418,3/29/26,softball,Lynchburg,,Alex Love,2.0,CF,9662120,5,2,2,0,0,2,0,0,0,0,0,0,0,0,0,0,1,0
+6524418,3/29/26,softball,Lynchburg,,Sarah Watts,7.0,SS,9669279,2,1,0,0,0,0,0,1,3,0,0,0,0,0,0,0,1,0
+6524418,3/29/26,softball,Lynchburg,,Helen Maddux,3.0,RF,11239665,5,1,2,0,0,2,0,1,0,0,0,0,1,0,0,0,0,0
+6524418,3/29/26,softball,Lynchburg,,Alyssa Talayumptewa,17.0,LF,9665398,5,1,2,0,0,2,0,2,0,0,0,0,0,0,0,0,0,0
+6524418,3/29/26,softball,Lynchburg,,Hailey Schildt,16.0,C,11239678,3,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0
+6524418,3/29/26,softball,Lynchburg,,Georgia Thompson,14.0,3B,9668702,4,2,2,0,1,4,0,2,0,0,0,0,0,0,0,0,0,0
+6524418,3/29/26,softball,Lynchburg,,Sydney Bryant,8.0,DP,11239668,4,2,3,1,0,4,0,1,0,0,0,0,0,0,0,0,0,0
+6524418,3/29/26,softball,Lynchburg,,Bryanna Orange,22.0,1B,9655811,4,0,1,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+6524418,3/29/26,softball,Lynchburg,,Layla Lietzan,33.0,2B,9657525,1,1,0,0,0,0,0,0,1,0,0,1,0,0,0,0,2,0
+6524418,3/29/26,softball,Lynchburg,,Abby Lockhart,27.0,PH,11239693,1,0,1,0,0,1,0,2,0,0,0,0,0,0,0,0,0,0
+6524418,3/29/26,softball,Randolph,1.0,Haili Gonzalez,4.0,SS,9666731,3,1,1,0,1,3,0,0,1,0,0,0,0,0,0,0,0,0
+6524418,3/29/26,softball,Randolph,1.0,Kyndall Shapiro,5.0,3B,11244950,4,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6524418,3/29/26,softball,Randolph,1.0,Laura Herzig,10.0,PR,9664228,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6524418,3/29/26,softball,Randolph,1.0,Rylee Humble,20.0,P,9655618,4,0,1,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+6524418,3/29/26,softball,Randolph,1.0,Rachel Arce,18.0,DP,9654372,3,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0
+6524418,3/29/26,softball,Randolph,1.0,Edie Jennings,6.0,C,9662414,3,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0
+6524418,3/29/26,softball,Randolph,1.0,Brianne Slape,22.0,PR,11244958,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6524418,3/29/26,softball,Randolph,1.0,Calla Christian,25.0,1B,11244961,3,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6524418,3/29/26,softball,Randolph,1.0,Chesney Shook,11.0,2B,9654115,3,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6524418,3/29/26,softball,Randolph,1.0,Michaela Williams,12.0,CF,9662052,2,0,1,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0
+6524418,3/29/26,softball,Randolph,1.0,Sammie Carroll,30.0,RF,9654932,2,0,1,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0
+6524418,3/29/26,softball,Randolph,1.0,Alexx Reinwald,8.0,RF,11244952,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6568746,3/31/26,softball,John Carroll,,Elizabeth Hohlefelder,16.0,1B,9656013,4,2,1,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0
+6568746,3/31/26,softball,John Carroll,,Izzy Coode,33.0,SS,9668533,4,1,2,1,0,3,0,1,0,0,0,0,0,0,0,0,0,0
+6568746,3/31/26,softball,John Carroll,,Jordan Anderson,5.0,DP/PH,11240599,4,0,2,0,0,2,0,0,0,0,0,0,1,0,0,0,1,0
+6568746,3/31/26,softball,John Carroll,,Gianna DiFranco,19.0,DP,11240683,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6568746,3/31/26,softball,John Carroll,,Brynne Smith,24.0,2B,11240698,3,1,2,0,0,5,1,3,0,0,0,0,0,0,0,0,1,0
+6568746,3/31/26,softball,John Carroll,,Bella Carcioppolo,14.0,CF,11240652,3,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0
+6568746,3/31/26,softball,John Carroll,,Gayle Mishic,21.0,RF,11240689,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6568746,3/31/26,softball,John Carroll,,Jordan Bradford,23.0,PH,11240691,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6568746,3/31/26,softball,John Carroll,,Emily Graves,9.0,LF,9664828,3,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6568746,3/31/26,softball,John Carroll,,Isa Crespo,44.0,C,9663564,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6568746,3/31/26,softball,John Carroll,,Melissa Smith,8.0,C,9655767,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6568746,3/31/26,softball,John Carroll,,Elaina Rodriguez,3.0,3B,9668705,3,0,2,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0
+6568746,3/31/26,softball,Otterbein,1.0,Caitlin Wilkins,1.0,CF,11330969,3,1,2,1,0,3,0,1,1,0,0,0,0,0,0,0,0,0
+6568746,3/31/26,softball,Otterbein,1.0,Kaylie Eichorn,26.0,2B,9655679,4,1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6568746,3/31/26,softball,Otterbein,1.0,Rachel Miller,16.0,LF,9670303,3,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0
+6568746,3/31/26,softball,Otterbein,1.0,Maggie McVicker,21.0,DP/PH,9656859,3,1,2,2,0,4,0,2,0,0,0,0,0,0,0,0,0,0
+6568746,3/31/26,softball,Otterbein,1.0,Kayla Ferrell,7.0,PR,11330937,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6568746,3/31/26,softball,Otterbein,1.0,Emma Calkins,12.0,1B,9669917,3,0,2,0,0,2,0,2,0,0,0,0,0,0,0,0,0,0
+6568746,3/31/26,softball,Otterbein,1.0,Kylie Galownia,17.0,3B,9665414,3,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6568746,3/31/26,softball,Otterbein,1.0,Kameron Biederman,4.0,RF,11330966,3,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6568746,3/31/26,softball,Otterbein,1.0,Alex Newsome,23.0,C,9657201,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6568746,3/31/26,softball,Otterbein,1.0,Emily Black,25.0,SS,11330940,2,1,2,1,0,3,0,0,0,0,0,0,0,0,0,0,0,0
+6568746,3/31/26,softball,Otterbein,1.0,Katie Koulianos,18.0,PH,11330939,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6568749,4/04/26,softball,Buffalo St.,,Deme Kellogg,7.0,C,11329755,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6568749,4/04/26,softball,Buffalo St.,,Ashley Jedrich,0.0,SS,9661028,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6568749,4/04/26,softball,Buffalo St.,,Erin Paolilli,22.0,1B,9659533,3,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6568749,4/04/26,softball,Buffalo St.,,Izzy Pezdek,12.0,P/DP,9659925,3,1,3,2,0,5,0,0,0,0,0,0,0,0,0,0,0,0
+6568749,4/04/26,softball,Buffalo St.,,Lexi Quagliana,20.0,3B,9667392,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6568749,4/04/26,softball,Buffalo St.,,Natalie Burck,16.0,2B,9661328,3,0,1,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+6568749,4/04/26,softball,Buffalo St.,,Briana Fitzgerald,3.0,CF,11329781,3,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6568749,4/04/26,softball,Buffalo St.,,Mya Hurley,6.0,RF,9659643,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6568749,4/04/26,softball,Buffalo St.,,Grace Albano,10.0,RF,9656526,2,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6568749,4/04/26,softball,Buffalo St.,,Megan Galbraith,5.0,PH,9665437,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6568749,4/04/26,softball,Buffalo St.,,Jenna Smyczynski,1.0,LF,11329785,2,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6568749,4/04/26,softball,SUNY New Paltz,1.0,Ava Thys,6.0,SS,11242525,4,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6568749,4/04/26,softball,SUNY New Paltz,1.0,Maddie Anderson,1.0,3B,9664400,4,1,1,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0
+6568749,4/04/26,softball,SUNY New Paltz,1.0,Kelsey O'Brien,24.0,CF,9654718,3,1,2,2,0,4,0,1,0,0,0,0,0,0,0,0,0,0
+6568749,4/04/26,softball,SUNY New Paltz,1.0,Ella Sharrock,23.0,1B,9660998,2,0,1,0,0,1,0,1,1,0,0,0,0,0,0,0,1,0
+6568749,4/04/26,softball,SUNY New Paltz,1.0,Mallory Rohon,30.0,C,9658130,2,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0
+6568749,4/04/26,softball,SUNY New Paltz,1.0,Lauren Serrao,5.0,2B,9657929,3,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6568749,4/04/26,softball,SUNY New Paltz,1.0,Brianna Hardwick,17.0,DP,11242586,3,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6568749,4/04/26,softball,SUNY New Paltz,1.0,Kaitlyn Gordon,15.0,PR,11242575,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0
+6568749,4/04/26,softball,SUNY New Paltz,1.0,Jenna Carmody,12.0,LF,11242534,2,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0
+6568749,4/04/26,softball,SUNY New Paltz,1.0,Michaela Bridgwood,4.0,RF,9656940,2,1,1,0,0,1,0,2,0,1,0,0,1,0,0,0,1,0
+6568748,4/04/26,softball,Principia,,Megan Lupton,27.0,P/SS,9662312,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6568748,4/04/26,softball,Principia,,Paige Morris,4.0,CF,11330633,2,1,2,1,0,3,0,0,0,0,0,0,0,0,0,0,0,0
+6568748,4/04/26,softball,Principia,,Mallory Clark,17.0,PH,11330637,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6568748,4/04/26,softball,Principia,,Sophie Wegrzyn,24.0,3B/P,11330638,3,0,2,1,0,3,0,1,0,0,0,0,0,0,0,0,0,0
+6568748,4/04/26,softball,Principia,,Ella Straber,16.0,LF,9665483,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6568748,4/04/26,softball,Principia,,Samantha Goodrich,14.0,LF,9656242,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6568748,4/04/26,softball,Principia,,Bailey Lancaster,12.0,C,11330636,2,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6568748,4/04/26,softball,Principia,,Jasmine Shipley,23.0,2B/3B,9665361,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0
+6568748,4/04/26,softball,Principia,,Dana Galinis,22.0,1B,9657959,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6568748,4/04/26,softball,Principia,,Alex Kibbe,11.0,SS/RF,9654947,2,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6568748,4/04/26,softball,Principia,,Georgia Golbiw,1.0,RF/2B,11330632,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6568748,4/04/26,softball,MUW,1.0,Gillion Eaves,10.0,RF,11240797,4,2,2,0,1,4,0,4,0,0,0,0,0,0,0,0,1,0
+6568748,4/04/26,softball,MUW,1.0,Kaitlyn Bearley,3.0,LF,9660868,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6568748,4/04/26,softball,MUW,1.0,Madison York,27.0,CF,11240808,2,3,1,0,0,1,0,1,1,1,0,0,0,0,0,0,0,0
+6568748,4/04/26,softball,MUW,1.0,Addison Owen,19.0,P,11240807,3,2,2,1,0,3,0,0,0,1,0,0,0,0,1,0,1,0
+6568748,4/04/26,softball,MUW,1.0,Kaylee Crawford,18.0,1B,11240806,3,2,2,0,0,2,0,3,1,0,0,0,1,0,0,0,0,0
+6568748,4/04/26,softball,MUW,1.0,Brianna Byrd,8.0,DP,11240795,2,2,0,0,0,0,0,1,2,0,0,0,0,0,0,0,1,0
+6568748,4/04/26,softball,MUW,1.0,Trinity Garvin,13.0,3B,11240800,4,0,1,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+6568748,4/04/26,softball,MUW,1.0,MC Brown,21.0,C,9661441,1,3,0,0,0,0,0,1,2,1,0,0,0,0,0,0,0,0
+6568748,4/04/26,softball,MUW,1.0,Rachel Etheridge,17.0,2B,11240803,2,2,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0
+6568748,4/04/26,softball,MUW,1.0,Lymnnzie Kennedy,15.0,LF/RF,9661731,0,1,0,0,0,0,0,1,2,0,0,1,0,0,0,0,0,0
+6529336,4/04/26,softball,Chapman,,Mia Reyes,20.0,2B,9659074,4,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6529336,4/04/26,softball,Chapman,,Shea Higa,4.0,SS,9670150,4,0,2,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0
+6529336,4/04/26,softball,Chapman,,Milla Fukuda,0.0,LF,9660929,3,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6529336,4/04/26,softball,Chapman,,Kloe Lobato,19.0,3B,11245173,3,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6529336,4/04/26,softball,Chapman,,Aleena Helms,18.0,1B,9668717,3,1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6529336,4/04/26,softball,Chapman,,Sam Mather,10.0,DP,11245172,2,0,1,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0
+6529336,4/04/26,softball,Chapman,,Ava Fagin,34.0,CF,9657209,2,0,0,0,0,0,0,1,0,0,1,0,1,0,0,0,0,0
+6529336,4/04/26,softball,Chapman,,Jordyn Balingit,35.0,C,11245180,3,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6529336,4/04/26,softball,Chapman,,Brooke Wigand,31.0,RF,11245169,3,0,2,0,0,2,0,0,0,0,0,0,1,0,0,0,0,0
+6529336,4/04/26,softball,Pomona-Pitzer,1.0,Yuri Song,7.0,C,11240413,3,1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0
+6529336,4/04/26,softball,Pomona-Pitzer,1.0,Sadie Huryn,8.0,2B,11240416,2,1,1,0,1,3,0,0,0,1,0,0,1,0,0,0,1,0
+6529336,4/04/26,softball,Pomona-Pitzer,1.0,Kylie Liu,17.0,1B,9666938,3,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0
+6529336,4/04/26,softball,Pomona-Pitzer,1.0,Natalie Murguia,1.0,CF,9666073,3,1,1,1,0,2,0,0,0,0,0,0,0,0,0,0,0,0
+6529336,4/04/26,softball,Pomona-Pitzer,1.0,Gianna Phillips,12.0,3B,11240418,3,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6529336,4/04/26,softball,Pomona-Pitzer,1.0,Claire Sefkow,11.0,SS,9654312,2,0,1,0,0,1,0,0,0,0,0,1,0,0,0,0,1,0
+6529336,4/04/26,softball,Pomona-Pitzer,1.0,Audrey Reimers,15.0,RF,9665732,2,1,1,0,0,4,1,2,0,0,1,0,0,0,0,0,0,0
+6529336,4/04/26,softball,Pomona-Pitzer,1.0,Marie Milton,24.0,DP,9661704,3,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0
+6529336,4/04/26,softball,Pomona-Pitzer,1.0,Maya Grande,4.0,LF,11240410,2,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6505447,4/04/26,softball,Carnegie Mellon,,Kira Monji,22.0,2B,9660025,5,1,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0
+6505447,4/04/26,softball,Carnegie Mellon,,Maddy Beall,18.0,CF,9665079,5,2,1,0,0,4,1,2,0,1,0,0,0,0,0,0,0,0
+6505447,4/04/26,softball,Carnegie Mellon,,Reagan Diamond,13.0,C,9659830,5,3,4,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0
+6505447,4/04/26,softball,Carnegie Mellon,,Madison Heimann,32.0,DP,11236840,3,2,2,1,0,3,0,1,2,0,0,0,0,0,0,0,0,0
+6505447,4/04/26,softball,Carnegie Mellon,,Lindsey Murai,8.0,1B,9663424,3,3,2,0,0,2,0,2,2,0,0,0,0,0,0,0,1,0
+6505447,4/04/26,softball,Carnegie Mellon,,Gabrielle Yamoah,10.0,LF,9664088,2,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6505447,4/04/26,softball,Carnegie Mellon,,Maddie Lee,3.0,LF,11236832,3,1,1,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0
+6505447,4/04/26,softball,Carnegie Mellon,,Maya Bala,23.0,3B,9667708,3,1,1,1,0,2,0,2,2,0,0,0,0,0,0,0,0,0
+6505447,4/04/26,softball,Carnegie Mellon,,Aubrey Feldman,6.0,SS,11236833,5,0,3,0,0,3,0,4,0,0,0,0,0,0,0,0,0,0
+6505447,4/04/26,softball,Carnegie Mellon,,Riya Sharda,24.0,RF,11236839,2,1,1,0,0,1,0,0,1,1,0,0,0,0,0,0,0,0
+6505447,4/04/26,softball,Carnegie Mellon,,Bella Reuss,7.0,PH,11236834,1,0,1,1,0,2,0,0,0,0,0,0,0,0,0,0,0,0
+6505447,4/04/26,softball,UChicago,1.0,Sedona Ding,1.0,CF,9670278,2,1,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0
+6505447,4/04/26,softball,UChicago,1.0,Brianna Leech,3.0,PH,9670893,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6505447,4/04/26,softball,UChicago,1.0,Madeline Murphy,7.0,SS,9666300,4,0,3,1,0,4,0,0,0,0,0,0,0,0,0,0,0,0
+6505447,4/04/26,softball,UChicago,1.0,Natalie Antin,16.0,RF,9660457,3,2,2,1,0,3,0,0,1,0,0,0,0,0,0,0,0,0
+6505447,4/04/26,softball,UChicago,1.0,Audrey Hui,14.0,LF,9662309,3,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0
+6505447,4/04/26,softball,UChicago,1.0,Mia Bocian,15.0,C,9664254,2,0,1,1,0,2,0,1,2,0,0,0,1,0,0,0,0,0
+6505447,4/04/26,softball,UChicago,1.0,Ashlee Boodoo,22.0,PR,9660423,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6505447,4/04/26,softball,UChicago,1.0,Olivia Cataldo,13.0,1B,9660302,4,1,1,1,0,2,0,1,0,0,0,0,2,0,0,0,0,0
+6505447,4/04/26,softball,UChicago,1.0,Matilda Nelson,17.0,3B,9661286,4,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6505447,4/04/26,softball,UChicago,1.0,Melana Badea,32.0,PR,11230593,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6505447,4/04/26,softball,UChicago,1.0,Lakyn Wilkinson,25.0,DP,11230606,3,0,1,0,0,1,0,1,1,0,0,0,0,0,0,0,0,0
+6505447,4/04/26,softball,UChicago,1.0,Anna Jensen,4.0,2B,9663334,2,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0
+6505447,4/04/26,softball,UChicago,1.0,Hannah Schwager,10.0,PH,11230603,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6511870,4/06/26,softball,U New England,,Hannah Irons,26.0,SS,9662854,4,0,1,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+6511870,4/06/26,softball,U New England,,Emma Michaud,1.0,2B,9654838,3,0,1,1,0,2,0,2,0,0,1,0,0,0,0,0,0,0
+6511870,4/06/26,softball,U New England,,Adrianna Carsetti,33.0,LF,11241723,4,1,1,1,0,2,0,0,0,0,0,0,0,0,0,0,0,0
+6511870,4/06/26,softball,U New England,,Delaney Whitten,44.0,DP,9667183,3,0,1,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0
+6511870,4/06/26,softball,U New England,,Sam Kowalick,5.0,PR,11241716,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6511870,4/06/26,softball,U New England,,Zoe Twarog,12.0,3B,11241720,4,2,2,0,0,5,1,2,0,0,0,0,0,0,0,0,0,0
+6511870,4/06/26,softball,U New England,,Fiona Casey,9.0,1B,9656855,3,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0
+6511870,4/06/26,softball,U New England,,Lizzie Brytowski,2.0,RF,9661446,4,2,1,1,0,2,0,1,0,0,0,0,0,0,0,0,0,0
+6511870,4/06/26,softball,U New England,,Emma Koenig,22.0,C,9670336,3,2,2,0,0,2,0,2,1,0,0,0,1,0,0,0,0,0
+6511870,4/06/26,softball,U New England,,Hannah Lappin,3.0,CF,9664958,1,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0
+6511870,4/06/26,softball,St. Joseph's (ME),1.0,Kiera Gabric,17.0,RF,11250555,3,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6511870,4/06/26,softball,St. Joseph's (ME),1.0,Olivia Thomas,3.0,3B,11250560,1,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0
+6511870,4/06/26,softball,St. Joseph's (ME),1.0,Sadie Tirrell,14.0,CF,9655715,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6511870,4/06/26,softball,St. Joseph's (ME),1.0,Chantelle Bouchard,39.0,1B,9663748,3,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6511870,4/06/26,softball,St. Joseph's (ME),1.0,Jayden Sullivan,11.0,DP,11250559,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6511870,4/06/26,softball,St. Joseph's (ME),1.0,Brianna Eastman,12.0,C,11250554,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6511870,4/06/26,softball,St. Joseph's (ME),1.0,Abbie Green-Sermak,7.0,LF,9669629,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6511870,4/06/26,softball,St. Joseph's (ME),1.0,Makayla Quintal,24.0,2B,9658455,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6511870,4/06/26,softball,St. Joseph's (ME),1.0,Jaylah Trottier,5.0,SS,11250562,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6511871,4/06/26,softball,U New England,,Hannah Irons,26.0,SS,9662854,4,2,2,1,0,3,0,0,1,0,0,0,0,0,0,0,0,0
+6511871,4/06/26,softball,U New England,,Emma Michaud,1.0,2B,9654838,3,0,1,0,0,1,0,2,1,1,0,0,0,0,0,0,0,0
+6511871,4/06/26,softball,U New England,,Adrianna Carsetti,33.0,LF,11241723,5,1,1,1,0,2,0,1,0,0,0,0,1,0,0,0,0,0
+6511871,4/06/26,softball,U New England,,Delaney Whitten,44.0,3B,9667183,4,1,1,1,0,2,0,1,0,0,0,0,0,0,0,0,0,0
+6511871,4/06/26,softball,U New England,,Zoe Twarog,12.0,DP,11241720,4,0,3,1,0,4,0,2,0,0,0,0,0,0,0,0,0,0
+6511871,4/06/26,softball,U New England,,Tess Bolduc,8.0,1B,11241718,3,1,1,0,0,1,0,0,0,1,0,0,1,0,0,0,0,0
+6511871,4/06/26,softball,U New England,,Kyleigh Matola,27.0,C,11241722,4,0,2,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0
+6511871,4/06/26,softball,U New England,,Elise Connor,7.0,RF,9658376,2,1,0,0,0,0,0,0,1,0,0,1,1,0,0,0,0,0
+6511871,4/06/26,softball,U New England,,Hannah Lappin,3.0,CF,9664958,4,1,2,0,0,2,0,1,0,0,0,0,0,0,0,0,0,0
+6511871,4/06/26,softball,St. Joseph's (ME),1.0,Kiera Gabric,17.0,RF,11250555,3,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,1,0
+6511871,4/06/26,softball,St. Joseph's (ME),1.0,Olivia Thomas,3.0,3B/P,11250560,3,0,1,1,0,2,0,0,1,0,0,0,1,0,0,0,0,0
+6511871,4/06/26,softball,St. Joseph's (ME),1.0,Sadie Tirrell,14.0,CF,9655715,4,0,1,1,0,2,0,0,0,0,0,0,0,0,0,0,0,0
+6511871,4/06/26,softball,St. Joseph's (ME),1.0,Chantelle Bouchard,39.0,1B,9663748,3,2,1,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0
+6511871,4/06/26,softball,St. Joseph's (ME),1.0,Jayden Sullivan,11.0,DP/3B,11250559,4,1,2,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0
+6511871,4/06/26,softball,St. Joseph's (ME),1.0,Breann MacMillian,22.0,LF,9670346,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6511871,4/06/26,softball,St. Joseph's (ME),1.0,Bella Napolitano-Aberle,42.0,C,11250556,4,0,2,1,0,3,0,2,0,0,0,0,0,0,0,0,0,0
+6511871,4/06/26,softball,St. Joseph's (ME),1.0,Rebecca Osgood,4.0,PR,11250557,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6511871,4/06/26,softball,St. Joseph's (ME),1.0,Makayla Quintal,24.0,2B,9658455,3,1,1,0,1,3,0,1,1,0,0,0,0,0,0,0,0,0
+6511871,4/06/26,softball,St. Joseph's (ME),1.0,Jaylah Trottier,5.0,SS,11250562,2,0,1,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0
+6568783,4/06/26,softball,Lyon,,Sophie Varela,3.0,CF,9657989,2,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0
+6568783,4/06/26,softball,Lyon,,Mia Sanchez,12.0,RF,11244360,2,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0
+6568783,4/06/26,softball,Lyon,,Chloe McCance,6.0,DP/3B,11377518,3,0,1,1,0,2,0,0,0,0,0,0,0,0,0,0,0,0
+6568783,4/06/26,softball,Lyon,,Skylar Foreman,31.0,1B,9665605,2,1,1,0,0,4,1,2,0,0,0,0,0,0,0,0,0,0
+6568783,4/06/26,softball,Lyon,,Madison DeRoussel,1.0,P,9669992,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6568783,4/06/26,softball,Lyon,,Rebecca Rodriguez,23.0,3B/DP,9656885,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6568783,4/06/26,softball,Lyon,,Kori Cox,15.0,C,11244364,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6568783,4/06/26,softball,Lyon,,Anna Voth,29.0,2B,9669892,2,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6568783,4/06/26,softball,Lyon,,Ohnrie Bergman,22.0,LF,9668542,2,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6568783,4/06/26,softball,Westminster (MO),1.0,Paige Cruzan,13.0,SS,9668491,2,2,1,0,0,1,0,0,1,0,0,0,1,0,0,0,0,0
+6568783,4/06/26,softball,Westminster (MO),1.0,Ellie Schisler,0.0,DP,11235467,2,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0
+6568783,4/06/26,softball,Westminster (MO),1.0,Amber Dierling,2.0,1B,9656231,3,2,2,0,0,2,0,4,0,0,0,0,0,0,0,0,0,0
+6568783,4/06/26,softball,Westminster (MO),1.0,Carlie Regier,62.0,C,9656407,3,1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6568783,4/06/26,softball,Westminster (MO),1.0,Chole Ferguson,14.0,CF,9664785,2,1,2,0,0,5,1,4,1,0,0,0,0,0,0,0,1,0
+6568783,4/06/26,softball,Westminster (MO),1.0,Morgan Rusley,5.0,LF,9668560,3,0,1,0,0,1,0,2,0,0,0,0,0,0,0,0,1,0
+6568783,4/06/26,softball,Westminster (MO),1.0,Taylor Engelmeyer,21.0,RF,9655894,3,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6568783,4/06/26,softball,Westminster (MO),1.0,Maddie Clubb,8.0,3B,11235461,2,1,1,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0
+6568783,4/06/26,softball,Westminster (MO),1.0,Angela McQuarrie,11.0,PR,9660351,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6568783,4/06/26,softball,Westminster (MO),1.0,Felicity Kirby,9.0,2B,9664007,1,1,1,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0
+6568765,4/06/26,softball,Lyon,,Sophie Varela,3.0,CF,9657989,4,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6568765,4/06/26,softball,Lyon,,Mia Sanchez,12.0,RF,11244360,4,1,1,0,0,1,0,0,0,0,0,0,2,0,0,0,0,0
+6568765,4/06/26,softball,Lyon,,Chloe McCance,6.0,DP/P,11377518,4,2,2,1,0,3,0,0,0,0,0,0,0,0,0,0,0,0
+6568765,4/06/26,softball,Lyon,,Skylar Foreman,31.0,1B,9665605,4,0,1,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+6568765,4/06/26,softball,Lyon,,Taylor Gongre,24.0,SS,11244401,2,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0
+6568765,4/06/26,softball,Lyon,,Rebecca Rodriguez,23.0,3B,9656885,3,0,1,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+6568765,4/06/26,softball,Lyon,,Anna Voth,29.0,2B,9669892,2,0,1,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0
+6568765,4/06/26,softball,Lyon,,Brekiyah Edwards,9.0,PH,11244359,1,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6568765,4/06/26,softball,Lyon,,Callie Marberry,13.0,C,9670383,2,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0
+6568765,4/06/26,softball,Lyon,,Kori Cox,15.0,PH,11244364,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0
+6568765,4/06/26,softball,Lyon,,Ohnrie Bergman,22.0,LF,9668542,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0
+6568765,4/06/26,softball,Lyon,,Hannah Pegg,42.0,PH,11244423,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6568765,4/06/26,softball,Westminster (MO),1.0,Paige Cruzan,13.0,SS,9668491,3,2,3,0,0,3,0,0,1,0,0,0,0,0,0,0,2,0
+6568765,4/06/26,softball,Westminster (MO),1.0,Ellie Schisler,0.0,C,11235467,4,1,3,2,0,5,0,3,0,0,0,0,1,0,0,0,0,0
+6568765,4/06/26,softball,Westminster (MO),1.0,Amber Dierling,2.0,1B,9656231,4,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0
+6568765,4/06/26,softball,Westminster (MO),1.0,Carlie Regier,62.0,DP,9656407,3,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0
+6568765,4/06/26,softball,Westminster (MO),1.0,Chole Ferguson,14.0,CF,9664785,4,0,2,0,0,2,0,0,0,0,0,0,0,0,0,0,1,0
+6568765,4/06/26,softball,Westminster (MO),1.0,Morgan Rusley,5.0,RF,9668560,3,1,1,0,0,1,0,0,1,0,0,0,0,0,0,0,2,0
+6568765,4/06/26,softball,Westminster (MO),1.0,Payton Dudenhoeffer,24.0,2B,9654961,2,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0
+6568765,4/06/26,softball,Westminster (MO),1.0,Yadira Montes,4.0,3B,9659407,3,1,1,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+6568765,4/06/26,softball,Westminster (MO),1.0,Gabriella Pierre,10.0,LF,11235465,3,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6568776,4/06/26,softball,Concordia Wisconsin,,Jenna Shadoski,13.0,CF,9666368,3,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0
+6568776,4/06/26,softball,Concordia Wisconsin,,Jenna Lischka,5.0,2B,9662914,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6568776,4/06/26,softball,Concordia Wisconsin,,Rylie DuVal,18.0,3B,9665329,3,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6568776,4/06/26,softball,Concordia Wisconsin,,Maggie Plahmer,2.0,1B,9667825,2,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6568776,4/06/26,softball,Concordia Wisconsin,,Kaitlyn Way,11.0,PH,9662705,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6568776,4/06/26,softball,Concordia Wisconsin,,Isa Bruno,6.0,DP,11228209,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6568776,4/06/26,softball,Concordia Wisconsin,,Anya Weiler,16.0,PH,9659178,1,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6568776,4/06/26,softball,Concordia Wisconsin,,Grace Olson,10.0,PR,11228212,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6568776,4/06/26,softball,Concordia Wisconsin,,Faith Keiper,22.0,RF,11228217,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6568776,4/06/26,softball,Concordia Wisconsin,,Nora Statz,12.0,SS,9661117,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6568776,4/06/26,softball,Concordia Wisconsin,,Emma Shellstrom,3.0,P,9670793,2,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0
+6568776,4/06/26,softball,Concordia Wisconsin,,Julia Moker,1.0,LF,9657875,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0
+6568776,4/06/26,softball,Carroll (WI),1.0,Abby Curtis,23.0,LF,9657276,4,1,2,0,0,2,0,0,0,0,0,0,0,0,0,0,1,0
+6568776,4/06/26,softball,Carroll (WI),1.0,Kali Stanchina,6.0,SS,9665676,3,1,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0
+6568776,4/06/26,softball,Carroll (WI),1.0,Grace O'Connor,30.0,1B,11240369,3,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6568776,4/06/26,softball,Carroll (WI),1.0,Adeline Bretz,20.0,PR,11240321,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0
+6568776,4/06/26,softball,Carroll (WI),1.0,Jenna Andler,11.0,C,9664122,3,1,2,1,0,3,0,2,0,0,0,0,0,0,0,0,0,0
+6568776,4/06/26,softball,Carroll (WI),1.0,Madison Hoagland,24.0,2B,9670307,3,0,1,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+6568776,4/06/26,softball,Carroll (WI),1.0,Addison Leck,2.0,DP,9663130,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6568776,4/06/26,softball,Carroll (WI),1.0,Val Osthoff,9.0,3B,9656567,3,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6568776,4/06/26,softball,Carroll (WI),1.0,Makayla Grantz,16.0,RF,11240311,3,0,3,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0
+6568776,4/06/26,softball,Carroll (WI),1.0,Gianna Buske,3.0,CF,9655076,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6568795,4/06/26,softball,Concordia Wisconsin,,Jenna Shadoski,13.0,CF,9666368,3,3,2,0,0,2,0,0,1,0,0,0,0,0,0,0,1,0
+6568795,4/06/26,softball,Concordia Wisconsin,,Jenna Lischka,5.0,2B,9662914,3,2,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0
+6568795,4/06/26,softball,Concordia Wisconsin,,Rylie DuVal,18.0,3B,9665329,4,1,2,2,0,4,0,4,0,0,0,0,0,0,0,0,0,0
+6568795,4/06/26,softball,Concordia Wisconsin,,Anya Weiler,16.0,DP,9659178,4,0,3,0,0,3,0,2,0,0,0,0,0,0,0,0,0,0
+6568795,4/06/26,softball,Concordia Wisconsin,,Kaitlyn Way,11.0,1B,9662705,3,0,1,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0
+6568795,4/06/26,softball,Concordia Wisconsin,,Nora Statz,12.0,SS,9661117,4,1,2,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0
+6568795,4/06/26,softball,Concordia Wisconsin,,Hope Hughes,17.0,C,11228216,4,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6568795,4/06/26,softball,Concordia Wisconsin,,Natalie Kinney,7.0,RF,11228205,3,2,1,0,0,4,1,2,0,0,0,0,0,0,0,0,0,0
+6568795,4/06/26,softball,Concordia Wisconsin,,Julia Moker,1.0,LF,9657875,3,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6568795,4/06/26,softball,Carroll (WI),1.0,Abby Curtis,23.0,LF,9657276,3,1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0
+6568795,4/06/26,softball,Carroll (WI),1.0,Kali Stanchina,6.0,SS,9665676,3,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6568795,4/06/26,softball,Carroll (WI),1.0,Grace O'Connor,30.0,1B,11240369,3,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6568795,4/06/26,softball,Carroll (WI),1.0,Jenna Andler,11.0,C,9664122,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6568795,4/06/26,softball,Carroll (WI),1.0,Addison Leck,2.0,DP,9663130,2,0,1,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0
+6568795,4/06/26,softball,Carroll (WI),1.0,Val Osthoff,9.0,3B,9656567,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6568795,4/06/26,softball,Carroll (WI),1.0,Madison Hoagland,24.0,2B,9670307,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0
+6568795,4/06/26,softball,Carroll (WI),1.0,Kaylee Baker,13.0,RF,9663922,1,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0
+6568795,4/06/26,softball,Carroll (WI),1.0,Gianna Buske,3.0,CF,9655076,1,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0
+6496065,4/06/26,softball,Anderson (IN),,Avery Owens,15.0,LF,11332085,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6496065,4/06/26,softball,Anderson (IN),,Belle Blickenstaff,10.0,SS,9670178,3,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6496065,4/06/26,softball,Anderson (IN),,Maddie Schoenradt,34.0,CF,9670223,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6496065,4/06/26,softball,Anderson (IN),,Braelynn Hattendorf,33.0,2B,9661728,1,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6496065,4/06/26,softball,Anderson (IN),,Mia Flores,11.0,2B,11331060,1,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,1,0
+6496065,4/06/26,softball,Anderson (IN),,Ariannah Jones,17.0,DP,11331063,3,0,1,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0
+6496065,4/06/26,softball,Anderson (IN),,Olivia Cain,2.0,PR,9670616,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6496065,4/06/26,softball,Anderson (IN),,Paycee Lewis,29.0,3B,9658451,3,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6496065,4/06/26,softball,Anderson (IN),,Alexis Schultz,22.0,RF,9668996,3,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6496065,4/06/26,softball,Anderson (IN),,Kylie Coleman,7.0,1B,9658489,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6496065,4/06/26,softball,Anderson (IN),,Lindsey Pickering,14.0,C,11331061,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6496065,4/06/26,softball,Bluffton,1.0,Brooklynn Bakle,15.0,SS,11211036,4,1,1,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0
+6496065,4/06/26,softball,Bluffton,1.0,Madison Brentlinger,25.0,2B,11211059,3,2,2,0,0,2,0,0,1,0,0,0,0,0,0,0,0,0
+6496065,4/06/26,softball,Bluffton,1.0,Julia Tegeder,16.0,CF,9664396,4,1,1,0,1,3,0,3,0,0,0,0,2,0,0,0,0,0
+6496065,4/06/26,softball,Bluffton,1.0,Kaylee Grant,13.0,3B,9668267,4,0,1,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0
+6496065,4/06/26,softball,Bluffton,1.0,Grace Gronberg,7.0,P,9659766,2,1,2,0,0,2,0,0,1,0,0,0,0,0,0,0,0,0
+6496065,4/06/26,softball,Bluffton,1.0,Taryn Hampton,11.0,LF,9659969,2,1,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0
+6496065,4/06/26,softball,Bluffton,1.0,Leah Ramirez,6.0,DP,11220987,2,0,1,0,0,1,0,2,1,0,0,0,0,0,0,0,0,0
+6496065,4/06/26,softball,Bluffton,1.0,Halee McDade,2.0,1B,9669221,3,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0
+6496065,4/06/26,softball,Bluffton,1.0,Tianna Galbraith,1.0,RF,9655193,2,1,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0
+6525355,4/06/26,softball,La Roche,,Brooke Murgenovich,2.0,RF,9655228,1,0,1,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0
+6525355,4/06/26,softball,La Roche,,Briana Wynn,42.0,RF,9659399,2,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0
+6525355,4/06/26,softball,La Roche,,Maura Wade,4.0,CF,9657492,3,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0
+6525355,4/06/26,softball,La Roche,,Cassidee Fitterer,0.0,LF,9664497,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6525355,4/06/26,softball,La Roche,,Ashley Huffman,17.0,LF,9666159,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6525355,4/06/26,softball,La Roche,,Finley Hohn,12.0,1B,9667603,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6525355,4/06/26,softball,La Roche,,Taylor Young,22.0,P,11246071,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6525355,4/06/26,softball,La Roche,,Rachel Malatok,18.0,C,9656116,2,0,1,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0
+6525355,4/06/26,softball,La Roche,,Anastacia Jacobs,99.0,2B,9657457,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6525355,4/06/26,softball,La Roche,,Samantha Dixon,33.0,3B,9662464,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6525355,4/06/26,softball,La Roche,,Iyarah Hicks,8.0,SS,9654468,2,0,1,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0
+6525355,4/06/26,softball,Wash. & Jeff.,1.0,Julia DiPietro-Harvey,12.0,CF,9661650,3,1,1,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0
+6525355,4/06/26,softball,Wash. & Jeff.,1.0,Jacie Hilligsberg,20.0,DP,11212739,4,1,2,0,0,2,0,2,0,0,0,0,0,0,0,0,0,0
+6525355,4/06/26,softball,Wash. & Jeff.,1.0,Sydney VanNess,16.0,RF,9665952,3,2,2,1,0,3,0,2,0,0,0,0,0,0,0,0,0,0
+6525355,4/06/26,softball,Wash. & Jeff.,1.0,Hannah Allen,21.0,SS,9655391,3,2,3,0,0,6,1,3,0,0,0,0,0,0,0,0,0,0
+6525355,4/06/26,softball,Wash. & Jeff.,1.0,Mirranda Rinehart,2.0,2B,9662482,2,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0
+6525355,4/06/26,softball,Wash. & Jeff.,1.0,Kaylee Witner,28.0,P,9664232,3,0,1,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+6525355,4/06/26,softball,Wash. & Jeff.,1.0,Savannah Bodnar,26.0,LF,9663211,2,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0
+6525355,4/06/26,softball,Wash. & Jeff.,1.0,Cheyenne Fischer,3.0,LF,11212736,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6525355,4/06/26,softball,Wash. & Jeff.,1.0,Deanna Gratton,24.0,3B,9656621,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6525355,4/06/26,softball,Wash. & Jeff.,1.0,Maddie Luxenberger,19.0,C,9668455,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6525355,4/06/26,softball,Wash. & Jeff.,1.0,Bella Stewart,15.0,C,11212738,1,1,1,1,0,2,0,0,0,0,0,0,0,0,0,0,0,0
+6527025,4/06/26,softball,Eureka,,Lexi Liptak,14.0,2B/SS,9661398,3,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6527025,4/06/26,softball,Eureka,,Tylar Whitaker,42.0,1B,9661393,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0
+6527025,4/06/26,softball,Eureka,,Ashlyn Voyles,33.0,C,9657392,2,0,1,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0
+6527025,4/06/26,softball,Eureka,,Kenna Newton,20.0,PR,11254097,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6527025,4/06/26,softball,Eureka,,Danika Apostolovich,6.0,LF,9664745,2,1,1,1,0,2,0,2,0,0,0,0,1,0,0,0,0,0
+6527025,4/06/26,softball,Eureka,,Kayleigh Zerrusen,10.0,DP,11254094,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6527025,4/06/26,softball,Eureka,,Olivia Hurst,24.0,3B,11254099,2,0,1,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0
+6527025,4/06/26,softball,Eureka,,Breannyn Dixon,12.0,CF,9655782,2,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6527025,4/06/26,softball,Eureka,,Shaylun Christenberry,13.0,SS/P,11254095,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6527025,4/06/26,softball,Eureka,,Kaitlyn Robinson,1.0,P/2B,11254088,2,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6527025,4/06/26,softball,Greenville,1.0,Rylee Bloomer,2.0,DP,11222461,3,3,1,0,0,1,0,1,0,1,0,0,0,0,0,0,2,0
+6527025,4/06/26,softball,Greenville,1.0,Emma Longcor,3.0,LF,9658087,3,1,2,0,0,2,0,2,0,0,0,1,0,0,0,0,0,0
+6527025,4/06/26,softball,Greenville,1.0,Ashlyn Colvis,12.0,SS,9666570,2,1,2,0,0,2,0,2,1,0,1,0,0,0,0,0,0,0
+6527025,4/06/26,softball,Greenville,1.0,Anna Cox,28.0,2B/1B,11222468,3,1,2,2,0,4,0,0,0,0,0,0,0,0,0,0,0,0
+6527025,4/06/26,softball,Greenville,1.0,Brooklyn Garrett,7.0,3B,11222471,3,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6527025,4/06/26,softball,Greenville,1.0,Kelsey Martlage,27.0,1B,9663489,2,2,1,1,0,2,0,0,1,0,0,0,0,0,0,0,0,0
+6527025,4/06/26,softball,Greenville,1.0,Jayden Zamora,17.0,2B,9670134,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6527025,4/06/26,softball,Greenville,1.0,Kayla Kocher,10.0,RF,11222475,3,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6527025,4/06/26,softball,Greenville,1.0,Sadie Ziegler,5.0,RF,11222489,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6527025,4/06/26,softball,Greenville,1.0,Makenna Budde,0.0,C,9663596,2,1,1,1,0,2,0,3,1,0,0,0,0,0,0,0,0,0
+6527025,4/06/26,softball,Greenville,1.0,Emma Williams,13.0,CF,9656195,3,1,1,1,0,2,0,3,0,0,0,0,0,0,0,0,1,0
+6549163,4/06/26,softball,Benedictine (IL),,Morgan Bruno,4.0,C,9665053,3,2,2,0,0,2,0,0,1,0,0,0,0,0,0,0,0,0
+6549163,4/06/26,softball,Benedictine (IL),,Lauren Bogard,10.0,CF,9662886,4,2,1,1,0,2,0,0,0,0,0,0,0,0,0,0,0,0
+6549163,4/06/26,softball,Benedictine (IL),,Haley Barnes,20.0,3B,11332177,3,1,2,1,0,3,0,3,0,1,0,0,0,0,0,0,1,0
+6549163,4/06/26,softball,Benedictine (IL),,Alyssa Perkins,29.0,2B/DP,11332179,4,2,2,1,0,3,0,2,0,0,0,0,1,0,0,0,0,0
+6549163,4/06/26,softball,Benedictine (IL),,Taylor Oppenhuis,8.0,1B,9668593,4,2,2,0,0,5,1,2,0,0,0,0,0,0,0,0,0,0
+6549163,4/06/26,softball,Benedictine (IL),,Jasmine Lozano,3.0,LF,9670269,3,1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6549163,4/06/26,softball,Benedictine (IL),,Autumn Adamik,7.0,RF,11332245,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6549163,4/06/26,softball,Benedictine (IL),,Mia Giammarese,15.0,RF,9669718,1,1,1,1,0,2,0,2,1,0,0,0,0,0,0,0,0,0
+6549163,4/06/26,softball,Benedictine (IL),,Olivia Mickelson,33.0,PR,9667500,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6549163,4/06/26,softball,Benedictine (IL),,Madye Greenwood,12.0,PH,9656493,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6549163,4/06/26,softball,Benedictine (IL),,Jenna Bartke,18.0,SS,9663440,2,1,1,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0
+6549163,4/06/26,softball,Benedictine (IL),,Lauryn Olson,25.0,DP/2B,9667325,2,1,1,1,0,2,0,2,0,0,0,0,0,0,0,0,0,0
+6549163,4/06/26,softball,Benedictine (IL),,Victoria Duszynski,1.0,PH/LF,9669374,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6549163,4/06/26,softball,North Park,1.0,Eden Baker,3.0,LF,9655278,3,0,1,0,1,3,0,1,0,0,0,0,0,0,0,0,0,0
+6549163,4/06/26,softball,North Park,1.0,Kayla Sapolu,24.0,CF,9664884,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6549163,4/06/26,softball,North Park,1.0,Kayla Lorenz,4.0,SS,9654317,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6549163,4/06/26,softball,North Park,1.0,Miabella Collazo,16.0,2B,11332559,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6549163,4/06/26,softball,North Park,1.0,Salyssa Garcia,10.0,1B,9655710,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6549163,4/06/26,softball,North Park,1.0,Katie Patton,21.0,C,9659387,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6549163,4/06/26,softball,North Park,1.0,Kathryn Keehn,7.0,DP,9664017,1,2,1,1,0,2,0,0,1,0,0,0,0,0,0,0,0,0
+6549163,4/06/26,softball,North Park,1.0,Sydney Snyder,23.0,RF,9668176,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6549163,4/06/26,softball,North Park,1.0,Chloe Bader,13.0,3B,11332558,2,0,1,1,0,2,0,1,0,0,0,0,0,0,0,0,0,0
+6518230,4/06/26,softball,Plymouth St.,,Kenzie Bessette,16.0,CF,9665563,4,1,1,0,1,3,0,0,0,0,0,0,0,0,0,0,1,0
+6518230,4/06/26,softball,Plymouth St.,,Emily Bessette,19.0,SS,9670253,2,0,1,0,0,1,0,1,2,0,0,0,0,0,1,0,1,0
+6518230,4/06/26,softball,Plymouth St.,,Avery Couch,26.0,LF,9670443,4,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0
+6518230,4/06/26,softball,Plymouth St.,,Abbey Nezuch,7.0,P,9654226,3,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6518230,4/06/26,softball,Plymouth St.,,Kennedy Michaud,12.0,C,9670987,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6518230,4/06/26,softball,Plymouth St.,,Addison Willett,21.0,RF,11254891,2,1,1,0,0,1,0,0,1,0,0,0,0,0,0,0,1,0
+6518230,4/06/26,softball,Plymouth St.,,Ariana Cray,1.0,2B,9663026,2,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0
+6518230,4/06/26,softball,Plymouth St.,,Eva Zuber,15.0,3B,9667516,1,0,1,0,0,1,0,0,1,1,0,0,0,0,0,0,0,0
+6518230,4/06/26,softball,Plymouth St.,,Gianna DiSpirito,6.0,PR,11254886,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0
+6518230,4/06/26,softball,Plymouth St.,,Courtney McKenna,18.0,1B,11254890,2,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6518230,4/06/26,softball,Plymouth St.,,Kiera Larson,14.0,PH,9665393,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6518230,4/06/26,softball,Mitchell,1.0,Cassandra Roman,16.0,3B,9665135,3,1,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0
+6518230,4/06/26,softball,Mitchell,1.0,Christina Aneiro,10.0,LF,11332181,4,0,2,0,0,2,0,0,0,0,0,0,2,0,0,0,0,0
+6518230,4/06/26,softball,Mitchell,1.0,Olivia DeCiccio,21.0,P,9657598,4,0,2,0,0,2,0,1,0,0,0,0,2,0,0,0,0,0
+6518230,4/06/26,softball,Mitchell,1.0,Brooke Clancy,15.0,1B,9658321,3,1,2,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0
+6518230,4/06/26,softball,Mitchell,1.0,Tess Frager,5.0,PR,11332185,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6518230,4/06/26,softball,Mitchell,1.0,Kaylee Drago,12.0,RF,9666308,3,1,1,0,0,4,1,2,0,0,0,0,1,0,0,0,0,0
+6518230,4/06/26,softball,Mitchell,1.0,Zoe Battersby,20.0,CF,11332182,2,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0
+6518230,4/06/26,softball,Mitchell,1.0,Arianna Drouin,9.0,SS,11332183,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6518230,4/06/26,softball,Mitchell,1.0,Camryn Russo,26.0,2B,11332187,3,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6518230,4/06/26,softball,Mitchell,1.0,Madison Cole,14.0,C,9660222,3,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0
+6496083,4/06/26,softball,Anderson (IN),,Maddie Schoenradt,34.0,CF,9670223,3,0,1,0,0,1,0,2,0,0,1,0,0,0,0,0,1,0
+6496083,4/06/26,softball,Anderson (IN),,Mia Flores,11.0,2B,11331060,4,1,2,0,0,2,0,0,0,0,0,0,0,0,0,0,1,0
+6496083,4/06/26,softball,Anderson (IN),,Braelynn Hattendorf,33.0,DP,9661728,3,2,3,1,0,4,0,2,1,0,0,0,0,0,0,0,0,0
+6496083,4/06/26,softball,Anderson (IN),,Olivia Cain,2.0,PR,9670616,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6496083,4/06/26,softball,Anderson (IN),,Ariannah Jones,17.0,1B,11331063,3,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0
+6496083,4/06/26,softball,Anderson (IN),,Kylie Coleman,7.0,1B,9658489,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6496083,4/06/26,softball,Anderson (IN),,Alexis Schultz,22.0,RF,9668996,2,1,2,0,0,2,0,2,0,0,1,0,0,0,0,0,0,0
+6496083,4/06/26,softball,Anderson (IN),,Paycee Lewis,29.0,3B,9658451,2,2,1,0,0,1,0,1,1,0,0,0,0,0,0,0,0,0
+6496083,4/06/26,softball,Anderson (IN),,Belle Blickenstaff,10.0,SS,9670178,2,2,1,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0
+6496083,4/06/26,softball,Anderson (IN),,Lindsey Pickering,14.0,C,11331061,2,2,1,1,0,2,0,2,1,0,0,0,0,0,0,0,0,0
+6496083,4/06/26,softball,Anderson (IN),,Avery Owens,15.0,LF,11332085,2,1,0,0,0,0,0,1,1,0,0,0,1,0,0,0,0,0
+6496083,4/06/26,softball,Bluffton,1.0,Brooklynn Bakle,15.0,SS,11211036,3,0,1,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0
+6496083,4/06/26,softball,Bluffton,1.0,Madison Brentlinger,25.0,2B,11211059,2,1,1,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0
+6496083,4/06/26,softball,Bluffton,1.0,Julia Tegeder,16.0,CF,9664396,2,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0
+6496083,4/06/26,softball,Bluffton,1.0,Emma Crombie,8.0,PH,11211033,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6496083,4/06/26,softball,Bluffton,1.0,Kaylee Grant,13.0,3B,9668267,3,0,2,1,0,3,0,1,0,0,0,0,0,0,0,0,0,0
+6496083,4/06/26,softball,Bluffton,1.0,Hailey Mowell,22.0,DP,11211055,2,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6496083,4/06/26,softball,Bluffton,1.0,Ella McCombs,14.0,PH,9660298,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0
+6496083,4/06/26,softball,Bluffton,1.0,Leah Ramirez,6.0,1B,11220987,3,1,2,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0
+6496083,4/06/26,softball,Bluffton,1.0,Taryn Hampton,11.0,LF,9659969,3,1,2,1,0,3,0,0,0,0,0,0,0,0,0,0,0,0
+6496083,4/06/26,softball,Bluffton,1.0,Tianna Galbraith,1.0,RF,9655193,2,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0
+6496083,4/06/26,softball,Bluffton,1.0,Isabella Dutko,18.0,PR,11211041,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6496083,4/06/26,softball,Bluffton,1.0,Klary McKay,19.0,P,11211046,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6496083,4/06/26,softball,Bluffton,1.0,Colleen Meese,12.0,P,9666089,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6536692,4/06/26,softball,Gwynedd Mercy,,Kassidy Kehoe,13.0,1B,9660552,1,1,0,0,0,0,0,0,2,0,0,0,1,0,0,0,1,0
+6536692,4/06/26,softball,Gwynedd Mercy,,Macey Harrold,9.0,2B,11241785,3,0,1,1,0,2,0,0,0,0,0,0,0,0,0,0,1,0
+6536692,4/06/26,softball,Gwynedd Mercy,,Hannah Smith,5.0,SS,9667569,3,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6536692,4/06/26,softball,Gwynedd Mercy,,Hannah Cohen,99.0,3B,9670775,3,1,1,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+6536692,4/06/26,softball,Gwynedd Mercy,,Maya Hellyer,71.0,C,9654367,3,0,3,0,0,3,0,1,0,0,0,0,0,0,0,0,0,0
+6536692,4/06/26,softball,Gwynedd Mercy,,Gianna Trerotola,1.0,PR,11241781,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6536692,4/06/26,softball,Gwynedd Mercy,,Nya Brown,11.0,CF,11241788,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6536692,4/06/26,softball,Gwynedd Mercy,,Jess Kepner,21.0,DP,11241794,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6536692,4/06/26,softball,Gwynedd Mercy,,Ashlyn Merz,10.0,PH,11241786,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0
+6536692,4/06/26,softball,Gwynedd Mercy,,Sierra Miller,24.0,RF,11241795,2,1,1,0,0,4,1,3,0,0,0,0,0,0,0,0,0,0
+6536692,4/06/26,softball,Gwynedd Mercy,,Stephanie Jones,6.0,LF,11241782,2,0,1,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0
+6536692,4/06/26,softball,Penn St. Harrisburg,1.0,Mackenzie Fisher,6.0,SS,9656787,3,2,1,0,0,1,0,1,1,0,0,0,0,0,0,0,0,0
+6536692,4/06/26,softball,Penn St. Harrisburg,1.0,Lauren Maguire,5.0,RF,11247248,4,1,3,0,0,3,0,3,0,0,0,0,0,0,0,0,0,0
+6536692,4/06/26,softball,Penn St. Harrisburg,1.0,Madisen Minney,23.0,2B,9668890,4,1,2,0,0,2,0,1,0,0,0,0,0,0,0,0,0,0
+6536692,4/06/26,softball,Penn St. Harrisburg,1.0,Emily Cutman,16.0,DP,9661831,1,2,1,1,0,2,0,2,2,0,0,0,0,0,0,0,1,0
+6536692,4/06/26,softball,Penn St. Harrisburg,1.0,Jocelyn Bennett,7.0,PH,9659532,1,0,1,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+6536692,4/06/26,softball,Penn St. Harrisburg,1.0,Rylee Martinez,19.0,1B,9663510,2,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0
+6536692,4/06/26,softball,Penn St. Harrisburg,1.0,Shelby Mitman,10.0,1B,11247249,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6536692,4/06/26,softball,Penn St. Harrisburg,1.0,Ashley Elefante,13.0,CF,9664133,3,2,2,1,1,5,0,2,0,0,0,0,0,0,0,0,0,0
+6536692,4/06/26,softball,Penn St. Harrisburg,1.0,Sierra Sims,4.0,LF,9661641,3,2,2,0,0,2,0,3,0,0,0,0,0,0,0,0,0,0
+6536692,4/06/26,softball,Penn St. Harrisburg,1.0,Aspen Walker,20.0,C,9669441,2,2,1,1,0,2,0,0,1,0,0,0,0,0,0,0,0,0
+6536692,4/06/26,softball,Penn St. Harrisburg,1.0,Aleisa Rowe,2.0,3B,9666997,2,1,1,1,0,2,0,1,1,0,0,0,0,0,0,0,0,0
+6549352,4/06/26,softball,Misericordia,,Bridget Doherty,8.0,CF,9664221,4,2,2,0,0,2,0,1,2,0,0,0,1,0,0,0,1,0
+6549352,4/06/26,softball,Misericordia,,Rylie Nasso,28.0,LF,9657733,6,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6549352,4/06/26,softball,Misericordia,,Mackenzie Fizer,21.0,2B,9654858,5,1,2,0,0,2,0,2,1,0,0,0,0,0,0,0,0,0
+6549352,4/06/26,softball,Misericordia,,Casey Funesti,25.0,1B,9654396,5,2,3,1,0,4,0,1,0,0,0,0,0,0,0,0,0,0
+6549352,4/06/26,softball,Misericordia,,Sammie Gallick,17.0,1B,11330145,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6549352,4/06/26,softball,Misericordia,,Gianna Foreman,32.0,DP,9661696,3,1,2,1,0,6,1,4,1,0,0,0,0,0,0,0,0,0
+6549352,4/06/26,softball,Misericordia,,Emma Lamlin,13.0,DP,9670350,1,1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6549352,4/06/26,softball,Misericordia,,Emmalee Mowery,99.0,SS,11330147,4,1,1,0,0,1,0,1,1,0,0,0,0,0,0,0,0,0
+6549352,4/06/26,softball,Misericordia,,A. Moran,44.0,3B,11330146,4,2,2,1,0,3,0,1,1,0,0,0,1,0,0,0,0,0
+6549352,4/06/26,softball,Misericordia,,Stephanie Barone,0.0,RF,11330733,4,2,2,0,0,2,0,1,1,0,0,0,1,0,0,0,1,0
+6549352,4/06/26,softball,Misericordia,,Mikayla Sasuk,22.0,C,9655035,3,3,2,0,0,2,0,1,2,0,0,0,0,0,0,0,0,0
+6549352,4/06/26,softball,Albright,1.0,Juliette Licata,50.0,CF,11244875,2,1,0,0,0,0,0,0,1,1,0,0,1,0,0,0,0,0
+6549352,4/06/26,softball,Albright,1.0,Mya Frana,4.0,2B,9659701,2,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0
+6549352,4/06/26,softball,Albright,1.0,Katie Behler,99.0,1B,9669627,3,1,1,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0
+6549352,4/06/26,softball,Albright,1.0,Slaydon Fisher,27.0,SS,9659740,4,0,1,1,0,2,0,1,0,0,0,0,0,1,0,0,0,0
+6549352,4/06/26,softball,Albright,1.0,Grace Landante,3.0,3B,9658717,4,0,2,1,0,3,0,0,0,0,0,0,0,0,0,0,0,0
+6549352,4/06/26,softball,Albright,1.0,Sadie Gonzalez,7.0,DP,9663229,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6549352,4/06/26,softball,Albright,1.0,Madison Lasko,51.0,C,11244876,3,0,1,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0
+6549352,4/06/26,softball,Albright,1.0,MaLayna Blanco,5.0,PR,11244844,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6549352,4/06/26,softball,Albright,1.0,Riley Winchell,25.0,LF,9665743,2,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0
+6549352,4/06/26,softball,Albright,1.0,Adriana Buonacore,17.0,RF,11244872,2,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0
+6540796,4/06/26,softball,Salem St.,,Alaina Giuliano,9.0,RF,9665674,3,1,1,0,0,1,0,0,1,0,0,0,2,0,0,0,1,0
+6540796,4/06/26,softball,Salem St.,,Katie Sullivan,12.0,RF,11248466,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6540796,4/06/26,softball,Salem St.,,Abigail Richardson,6.0,RF,9654282,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6540796,4/06/26,softball,Salem St.,,Samantha Gaona-Sullivan,7.0,SS,9658838,4,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,1,0
+6540796,4/06/26,softball,Salem St.,,Alanis Toledano,11.0,1B,9659208,3,1,2,1,0,3,0,1,1,0,0,0,0,0,0,0,0,0
+6540796,4/06/26,softball,Salem St.,,Giana Johanson,3.0,LF,11248461,3,1,1,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0
+6540796,4/06/26,softball,Salem St.,,Paige Souza,1.0,2B,9655592,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6540796,4/06/26,softball,Salem St.,,Abigail LaClair,27.0,C,11248482,4,0,1,1,0,2,0,2,0,0,0,0,0,0,0,0,0,0
+6540796,4/06/26,softball,Salem St.,,Tara Perryman,13.0,DP,9663174,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6540796,4/06/26,softball,Salem St.,,Ellie Kleinheinz,21.0,3B,11248476,1,1,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0
+6540796,4/06/26,softball,Salem St.,,Allison Frost,16.0,CF,9660263,2,0,1,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0
+6540796,4/06/26,softball,Saint Joseph (CT),1.0,Jennifer Antonowicz,12.0,2B,9667207,4,0,2,0,0,2,0,1,0,0,0,0,1,0,0,0,0,0
+6540796,4/06/26,softball,Saint Joseph (CT),1.0,Rachel Brewer-Karimi,2.0,CF,11229726,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6540796,4/06/26,softball,Saint Joseph (CT),1.0,Kaitlyn Ouellette,6.0,RF,9669548,3,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6540796,4/06/26,softball,Saint Joseph (CT),1.0,Kayla Pehlps,7.0,DP/1B,9670766,3,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6540796,4/06/26,softball,Saint Joseph (CT),1.0,Gianna Quaresima,21.0,PR,9670039,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0
+6540796,4/06/26,softball,Saint Joseph (CT),1.0,Gabby Marichal,5.0,3B,9667544,3,1,1,0,0,1,0,0,0,0,0,0,1,0,0,0,1,0
+6540796,4/06/26,softball,Saint Joseph (CT),1.0,Brenna Lyver,20.0,1B/DP,9664309,3,0,1,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+6540796,4/06/26,softball,Saint Joseph (CT),1.0,Abi Julian,14.0,C,9668974,3,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6540796,4/06/26,softball,Saint Joseph (CT),1.0,Gracie Browne,18.0,SS,11229731,1,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0
+6540796,4/06/26,softball,Saint Joseph (CT),1.0,Avianna Ibrahim,23.0,LF,9669151,3,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6525362,4/06/26,softball,La Roche,,Brooke Murgenovich,2.0,RF,9655228,3,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6525362,4/06/26,softball,La Roche,,Maura Wade,4.0,CF,9657492,3,0,2,1,0,3,0,0,0,0,0,0,0,0,0,0,0,0
+6525362,4/06/26,softball,La Roche,,Cassidee Fitterer,0.0,LF/PH,9664497,2,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6525362,4/06/26,softball,La Roche,,Ashley Huffman,17.0,LF,9666159,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0
+6525362,4/06/26,softball,La Roche,,Finley Hohn,12.0,1B,9667603,3,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6525362,4/06/26,softball,La Roche,,Briana Wynn,42.0,PR,9659399,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6525362,4/06/26,softball,La Roche,,Iyarah Hicks,8.0,SS,9654468,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6525362,4/06/26,softball,La Roche,,Ashlee Bair,15.0,2B,9669847,2,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0
+6525362,4/06/26,softball,La Roche,,Rachel Malatok,18.0,C,9656116,3,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6525362,4/06/26,softball,La Roche,,Samantha Dixon,33.0,3B,9662464,3,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6525362,4/06/26,softball,La Roche,,Klover Haberthier,66.0,P,9663620,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6525362,4/06/26,softball,La Roche,,Gabby Sbraccia,14.0,PH,9654501,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6525362,4/06/26,softball,Wash. & Jeff.,1.0,Julia DiPietro-Harvey,12.0,CF,9661650,3,0,1,1,0,2,0,1,0,0,1,0,0,0,0,0,0,0
+6525362,4/06/26,softball,Wash. & Jeff.,1.0,Jacie Hilligsberg,20.0,RF,11212739,4,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6525362,4/06/26,softball,Wash. & Jeff.,1.0,Sydney VanNess,16.0,DP,9665952,4,0,1,0,0,1,0,2,0,0,0,0,0,0,0,0,0,0
+6525362,4/06/26,softball,Wash. & Jeff.,1.0,Hannah Allen,21.0,SS,9655391,3,1,2,1,0,3,0,0,1,0,0,0,0,0,0,0,0,0
+6525362,4/06/26,softball,Wash. & Jeff.,1.0,Deanna Gratton,24.0,3B,9656621,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6525362,4/06/26,softball,Wash. & Jeff.,1.0,Bella Stewart,15.0,C,11212738,3,0,1,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0
+6525362,4/06/26,softball,Wash. & Jeff.,1.0,Mirranda Rinehart,2.0,2B,9662482,2,2,1,1,0,2,0,0,0,1,0,0,1,0,0,0,0,0
+6525362,4/06/26,softball,Wash. & Jeff.,1.0,Braelyn Altman,25.0,P,11212742,1,1,1,0,0,1,0,1,1,0,1,0,0,0,0,0,0,0
+6525362,4/06/26,softball,Wash. & Jeff.,1.0,Addison Reese,18.0,LF,9661693,3,1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6497704,4/06/26,softball,Rockford,,Tomi Hill,8.0,LF,9654965,5,1,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0
+6497704,4/06/26,softball,Rockford,,Brooklyn Lee,9.0,SS,11211636,4,2,2,0,0,2,0,0,1,0,0,0,0,0,0,0,0,0
+6497704,4/06/26,softball,Rockford,,Liz Mois,15.0,C,11211653,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6497704,4/06/26,softball,Rockford,,Payton Willenkamp,18.0,1B,9660527,3,1,2,0,0,2,0,2,1,0,0,0,0,0,0,0,0,0
+6497704,4/06/26,softball,Rockford,,Olivia Lysaght,3.0,RF,9656991,3,1,1,0,0,4,1,2,1,0,0,0,1,0,0,0,0,0
+6497704,4/06/26,softball,Rockford,,McKenna Morris,12.0,P,9664471,1,1,1,0,0,4,1,2,1,0,0,0,0,0,0,0,0,0
+6497704,4/06/26,softball,Rockford,,Kendall Knoll,5.0,P,11211654,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0
+6497704,4/06/26,softball,Rockford,,Mia Cosentino,4.0,2B,9662129,4,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6497704,4/06/26,softball,Rockford,,Sophia Hulsey,2.0,DP,9656660,3,1,2,0,0,2,0,0,0,1,0,0,0,0,0,0,0,0
+6497704,4/06/26,softball,Rockford,,Kieran Madigan,11.0,CF,9660990,4,0,2,0,0,2,0,1,0,0,0,0,0,0,0,0,0,0
+6497704,4/06/26,softball,Concordia Chicago,1.0,Emily Garcia,22.0,2B,9665593,3,2,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0
+6497704,4/06/26,softball,Concordia Chicago,1.0,Haley Gulsby,4.0,LF,9663777,3,3,1,1,0,2,0,2,1,0,0,1,0,0,0,0,0,0
+6497704,4/06/26,softball,Concordia Chicago,1.0,Arissa Santos,15.0,DP/PH,9667188,3,1,3,0,0,3,0,1,0,0,0,0,0,0,0,0,0,0
+6497704,4/06/26,softball,Concordia Chicago,1.0,Alaina Pilas,3.0,PR,11237952,2,2,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6497704,4/06/26,softball,Concordia Chicago,1.0,Melisa Hadzic,13.0,C,9654095,5,2,4,2,0,6,0,4,0,0,0,0,0,0,0,0,0,0
+6497704,4/06/26,softball,Concordia Chicago,1.0,McKyler Morris,17.0,CF,9656520,3,1,1,0,0,1,0,0,1,1,0,0,0,0,0,0,0,0
+6497704,4/06/26,softball,Concordia Chicago,1.0,Alyssa Campos,1.0,P/3B,9656522,4,1,2,0,0,2,0,3,0,0,0,0,0,0,0,0,0,0
+6497704,4/06/26,softball,Concordia Chicago,1.0,Mayah Larenas,30.0,1B,9655195,2,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0
+6497704,4/06/26,softball,Concordia Chicago,1.0,Julia Pataluna,27.0,PH,9659307,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0
+6497704,4/06/26,softball,Concordia Chicago,1.0,Linley Southern,11.0,RF,9660484,3,0,1,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+6497704,4/06/26,softball,Concordia Chicago,1.0,Charlize Gonzalez,2.0,PH,11237964,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6497704,4/06/26,softball,Concordia Chicago,1.0,Eliza Auger,5.0,SS,11237955,3,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0
+6523705,4/06/26,softball,Bethany (WV),,Amber Dedmon,4.0,LF,9670012,4,0,1,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0
+6523705,4/06/26,softball,Bethany (WV),,Trinity Edge,6.0,P,11243193,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6523705,4/06/26,softball,Bethany (WV),,Katelyn Ziems,15.0,P,9660119,2,0,2,0,0,2,0,2,1,0,0,0,0,0,0,0,0,0
+6523705,4/06/26,softball,Bethany (WV),,Olivia Kidd,28.0,C,9669652,4,1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6523705,4/06/26,softball,Bethany (WV),,Emma Jackson,30.0,3B,9668171,4,1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6523705,4/06/26,softball,Bethany (WV),,Brooke Markland,2.0,SS,9665658,4,0,2,1,0,3,0,2,0,0,0,0,1,0,0,0,0,0
+6523705,4/06/26,softball,Bethany (WV),,Jenna Nolan,18.0,1B,11243196,3,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0
+6523705,4/06/26,softball,Bethany (WV),,Shelby Crow,31.0,1B,11243198,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6523705,4/06/26,softball,Bethany (WV),,Molly Hitchen,21.0,DP,9666255,2,0,1,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0
+6523705,4/06/26,softball,Bethany (WV),,Trista Morris,11.0,RF,9655036,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6523705,4/06/26,softball,Bethany (WV),,Bella Juozapaitus,14.0,RF,9654644,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6523705,4/06/26,softball,Bethany (WV),,Addison Hamilton,5.0,2B,9659774,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0
+6523705,4/06/26,softball,Bethany (WV),,Caitlin O'Farrell,10.0,2B,9654812,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6523705,4/06/26,softball,Kenyon,1.0,Keala Montgomery,21.0,1B,9660124,4,2,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6523705,4/06/26,softball,Kenyon,1.0,Leah Schlissberg,5.0,RF,11233361,4,1,1,1,0,2,0,2,0,0,0,0,0,0,0,0,0,0
+6523705,4/06/26,softball,Kenyon,1.0,Maeve McLaughlin,18.0,LF/DP,9669681,4,1,3,0,0,3,0,1,0,0,0,0,0,0,0,0,1,0
+6523705,4/06/26,softball,Kenyon,1.0,Leah Kuban,7.0,DP/LF,9657104,4,1,2,0,0,2,0,1,0,0,0,0,0,0,0,0,0,0
+6523705,4/06/26,softball,Kenyon,1.0,Peyton Green,2.0,C,11233354,2,1,1,1,0,2,0,1,1,0,0,0,0,0,0,0,0,0
+6523705,4/06/26,softball,Kenyon,1.0,Emma Cashell,4.0,C,9658472,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6523705,4/06/26,softball,Kenyon,1.0,Brooke Avila,10.0,CF,9668688,3,2,2,1,0,3,0,2,1,0,0,0,0,1,0,0,0,0
+6523705,4/06/26,softball,Kenyon,1.0,Lily Colvin,23.0,2B,9667781,3,1,2,0,0,2,0,0,0,0,0,0,0,0,0,0,1,0
+6523705,4/06/26,softball,Kenyon,1.0,Anna Engler,16.0,PH,11233371,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0
+6523705,4/06/26,softball,Kenyon,1.0,Kinsey White,15.0,SS,9659592,3,1,2,1,0,3,0,1,0,0,0,0,0,0,0,0,0,0
+6523705,4/06/26,softball,Kenyon,1.0,Madison Buckwalter,11.0,3B,9657490,3,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0
+6491509,4/06/26,softball,Concordia Wisconsin,,Jenna Shadoski,13.0,CF,9666368,3,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0
+6491509,4/06/26,softball,Concordia Wisconsin,,Jenna Lischka,5.0,2B,9662914,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6491509,4/06/26,softball,Concordia Wisconsin,,Rylie DuVal,18.0,3B,9665329,3,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6491509,4/06/26,softball,Concordia Wisconsin,,Maggie Plahmer,2.0,1B,9667825,2,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6491509,4/06/26,softball,Concordia Wisconsin,,Kaitlyn Way,11.0,PH,9662705,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6491509,4/06/26,softball,Concordia Wisconsin,,Isa Bruno,6.0,DP,11228209,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6491509,4/06/26,softball,Concordia Wisconsin,,Anya Weiler,16.0,PH,9659178,1,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6491509,4/06/26,softball,Concordia Wisconsin,,Grace Olson,10.0,PR,11228212,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6491509,4/06/26,softball,Concordia Wisconsin,,Faith Keiper,22.0,RF,11228217,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6491509,4/06/26,softball,Concordia Wisconsin,,Nora Statz,12.0,SS,9661117,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6491509,4/06/26,softball,Concordia Wisconsin,,Emma Shellstrom,3.0,P,9670793,2,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0
+6491509,4/06/26,softball,Concordia Wisconsin,,Julia Moker,1.0,LF,9657875,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0
+6491509,4/06/26,softball,Carroll (WI),1.0,Abby Curtis,23.0,LF,9657276,4,1,2,0,0,2,0,0,0,0,0,0,0,0,0,0,1,0
+6491509,4/06/26,softball,Carroll (WI),1.0,Kali Stanchina,6.0,SS,9665676,3,1,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0
+6491509,4/06/26,softball,Carroll (WI),1.0,Grace O'Connor,30.0,1B,11240369,3,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6491509,4/06/26,softball,Carroll (WI),1.0,Adeline Bretz,20.0,PR,11240321,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0
+6491509,4/06/26,softball,Carroll (WI),1.0,Jenna Andler,11.0,C,9664122,3,1,2,1,0,3,0,2,0,0,0,0,0,0,0,0,0,0
+6491509,4/06/26,softball,Carroll (WI),1.0,Madison Hoagland,24.0,2B,9670307,3,0,1,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+6491509,4/06/26,softball,Carroll (WI),1.0,Addison Leck,2.0,DP,9663130,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6491509,4/06/26,softball,Carroll (WI),1.0,Val Osthoff,9.0,3B,9656567,3,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6491509,4/06/26,softball,Carroll (WI),1.0,Makayla Grantz,16.0,RF,11240311,3,0,3,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0
+6491509,4/06/26,softball,Carroll (WI),1.0,Gianna Buske,3.0,CF,9655076,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6494843,4/06/26,softball,Crown (MN),,Emmy Romportl,13.0,2B,9655596,3,1,2,1,0,3,0,0,0,0,0,0,0,0,0,0,0,0
+6494843,4/06/26,softball,Crown (MN),,Lindsay Stapleton,26.0,3B,11215276,3,1,1,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0
+6494843,4/06/26,softball,Crown (MN),,Maria Lilienthal,18.0,1B,11215270,3,1,1,0,0,4,1,2,0,0,0,0,1,0,0,0,0,0
+6494843,4/06/26,softball,Crown (MN),,Itzel Valles,99.0,C,9664094,2,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6494843,4/06/26,softball,Crown (MN),,Brooklyn Ocker,23.0,LF/P,11215274,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6494843,4/06/26,softball,Crown (MN),,Megan Cryer,38.0,DH,11215277,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6494843,4/06/26,softball,Crown (MN),,Savannah Urbinsky,17.0,RF,11215269,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6494843,4/06/26,softball,Crown (MN),,Sophie Monsman,1.0,CF,11215260,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6494843,4/06/26,softball,Crown (MN),,Catelyn Garza,15.0,SS,9654680,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0
+6494843,4/06/26,softball,Northwestern-St. Paul,1.0,Lani Schoper,2.0,SS,9659385,3,1,1,0,0,1,0,1,1,0,0,0,0,0,0,0,0,0
+6494843,4/06/26,softball,Northwestern-St. Paul,1.0,Hannah Storey,4.0,CF,9666685,4,1,1,0,0,1,0,2,0,0,0,0,1,0,0,0,0,0
+6494843,4/06/26,softball,Northwestern-St. Paul,1.0,Emma Edwards,28.0,1B,9665423,2,1,2,0,0,5,1,3,1,0,0,0,0,0,0,0,0,0
+6494843,4/06/26,softball,Northwestern-St. Paul,1.0,Bryn Anderson,15.0,RF,9659287,2,2,1,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0
+6494843,4/06/26,softball,Northwestern-St. Paul,1.0,Gabrielle Keith,21.0,DH,11233121,3,1,1,0,0,4,1,2,0,0,0,0,0,0,0,0,0,0
+6494843,4/06/26,softball,Northwestern-St. Paul,1.0,Kate Van Ess,8.0,2B,11233116,2,2,1,1,0,2,0,1,1,0,0,0,0,0,0,0,0,0
+6494843,4/06/26,softball,Northwestern-St. Paul,1.0,Trista Oberle,12.0,LF,9667893,2,2,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0
+6494843,4/06/26,softball,Northwestern-St. Paul,1.0,Kate Trump,20.0,3B,9666858,3,1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0
+6494843,4/06/26,softball,Northwestern-St. Paul,1.0,Hannah Lexvold,9.0,C,11233118,1,1,1,1,0,2,0,3,1,0,0,1,0,0,0,0,0,0
+6537644,4/06/26,softball,King's (PA),,Kara Krouse,2.0,CF,9666176,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6537644,4/06/26,softball,King's (PA),,Breanna Goldspiel,3.0,LF,9660341,2,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0
+6537644,4/06/26,softball,King's (PA),,Paige Bergan,14.0,1B,9666513,2,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0
+6537644,4/06/26,softball,King's (PA),,Megan Matsko,24.0,RF,9661976,2,1,1,1,0,2,0,0,0,1,0,0,0,0,0,0,0,0
+6537644,4/06/26,softball,King's (PA),,Elise Larson,10.0,2B,11242430,2,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0
+6537644,4/06/26,softball,King's (PA),,Meghan Marianelli,29.0,3B,9665704,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6537644,4/06/26,softball,King's (PA),,Ellie Higdon,16.0,C,9656185,3,0,1,0,0,1,0,2,0,0,0,0,0,0,0,0,0,0
+6537644,4/06/26,softball,King's (PA),,Makenzie Johnson,8.0,DP,11242414,2,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6537644,4/06/26,softball,King's (PA),,Molly Veach,19.0,PH,11242433,1,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6537644,4/06/26,softball,King's (PA),,Colleen Shuler,7.0,SS,9669851,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6537644,4/06/26,softball,Scranton,1.0,Mollie Ferreira,1.0,SS,11254848,3,1,2,0,0,2,0,0,1,0,0,0,0,0,0,0,0,0
+6537644,4/06/26,softball,Scranton,1.0,Celia Totaro,9.0,CF,9662083,3,1,2,0,1,4,0,2,0,0,0,1,0,0,0,0,1,0
+6537644,4/06/26,softball,Scranton,1.0,Gianna Muliero,2.0,LF,11254849,4,1,2,2,0,4,0,2,0,0,0,0,0,0,0,0,0,0
+6537644,4/06/26,softball,Scranton,1.0,Juliana Janezic,16.0,DP,9659250,4,1,1,0,1,3,0,1,0,0,0,0,0,0,0,0,0,0
+6537644,4/06/26,softball,Scranton,1.0,Emmie Feltenberger,22.0,2B,9657703,4,1,1,1,0,2,0,1,0,0,0,0,0,0,0,0,0,0
+6537644,4/06/26,softball,Scranton,1.0,Alli Babino,18.0,1B,9662738,4,1,2,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0
+6537644,4/06/26,softball,Scranton,1.0,Emily Riehl,19.0,RF,11254851,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6537644,4/06/26,softball,Scranton,1.0,Ellyn Cervona,12.0,C,9667720,1,1,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0
+6537644,4/06/26,softball,Scranton,1.0,Hailey Poskonka,3.0,3B,9664116,2,1,1,0,0,1,0,2,0,0,0,0,0,0,0,0,0,0
+6537644,4/06/26,softball,Scranton,1.0,Madison Byrwa,10.0,3B,9666001,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6518769,4/06/26,softball,Thomas (ME),,Elisa Gonzalez,2.0,2B,11247299,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6518769,4/06/26,softball,Thomas (ME),,Leah Knight,1.0,LF,9658771,3,0,0,0,0,0,0,0,0,0,0,0,3,0,0,0,0,0
+6518769,4/06/26,softball,Thomas (ME),,Megan Oberholzer,30.0,1B/P,9670691,3,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0
+6518769,4/06/26,softball,Thomas (ME),,Mackenzie Toner,24.0,DP/1B,9663837,2,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0
+6518769,4/06/26,softball,Thomas (ME),,Maeve Hickok,26.0,3B,9656811,2,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0
+6518769,4/06/26,softball,Thomas (ME),,Emily Rock,17.0,SS,9668056,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6518769,4/06/26,softball,Thomas (ME),,Bella Mederios,9.0,C,11247302,2,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6518769,4/06/26,softball,Thomas (ME),,Carlie Jarvais,22.0,C,9661887,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6518769,4/06/26,softball,Thomas (ME),,Morgan Duhaime,11.0,RF,9665912,2,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6518769,4/06/26,softball,Thomas (ME),,Abby Farone,7.0,CF,11247301,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6518769,4/06/26,softball,Southern Me.,1.0,Avery Moore,22.0,LF,11331762,4,1,2,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0
+6518769,4/06/26,softball,Southern Me.,1.0,Emily Wheeler,8.0,3B,11331763,3,2,2,0,0,2,0,0,1,0,0,0,0,0,0,0,0,0
+6518769,4/06/26,softball,Southern Me.,1.0,Olivia Levasseur,1.0,SS,9663065,3,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0
+6518769,4/06/26,softball,Southern Me.,1.0,Mackenzie Renner,19.0,C,9654653,3,1,2,1,0,3,0,3,0,0,0,0,0,0,0,0,0,0
+6518769,4/06/26,softball,Southern Me.,1.0,Hannah Garcia,13.0,DP,9656418,2,0,1,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+6518769,4/06/26,softball,Southern Me.,1.0,Caitlyn Lemay,9.0,CF,11331761,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0
+6518769,4/06/26,softball,Southern Me.,1.0,Brianna Grenier,25.0,1B,11331758,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6518769,4/06/26,softball,Southern Me.,1.0,Kendall Migliorini,15.0,PH,9658308,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6518769,4/06/26,softball,Southern Me.,1.0,Gwen Christie,21.0,2B,9662691,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0
+6518769,4/06/26,softball,Southern Me.,1.0,Kristina Yebba,12.0,2B/1B,9662746,3,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6518769,4/06/26,softball,Southern Me.,1.0,Ella Bezansom,20.0,CF,9663379,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6518769,4/06/26,softball,Southern Me.,1.0,Taylor Takatsu,14.0,DP,9667966,1,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6518769,4/06/26,softball,Southern Me.,1.0,Aislin Davis,2.0,RF,9664524,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6518769,4/06/26,softball,Southern Me.,1.0,Alana DeLisle,28.0,RF,9666358,1,0,1,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+6513443,4/06/26,softball,Purchase,,Natalie Gallo,8.0,RF,11250978,3,1,2,1,1,5,0,3,1,0,0,0,0,0,1,0,0,0
+6513443,4/06/26,softball,Purchase,,Halle Greaige,14.0,SS,9667760,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6513443,4/06/26,softball,Purchase,,Sariah Sanchez,1.0,1B,9655119,3,1,2,1,0,3,0,1,0,1,0,0,0,0,0,0,0,0
+6513443,4/06/26,softball,Purchase,,Christiana Bazzini,7.0,C,11250976,3,2,2,1,0,3,0,0,1,0,0,0,0,0,0,0,0,0
+6513443,4/06/26,softball,Purchase,,Mel Harper,2.0,2B,9669874,4,2,2,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0
+6513443,4/06/26,softball,Purchase,,Tyler Salerno,3.0,3B,9657047,4,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6513443,4/06/26,softball,Purchase,,Bryce Kane,11.0,P,11250979,4,2,1,1,0,2,0,1,0,0,0,0,0,0,0,0,0,0
+6513443,4/06/26,softball,Purchase,,Devynn Hernandez,13.0,LF,9654905,2,3,2,0,0,2,0,1,1,1,0,0,0,0,0,0,0,0
+6513443,4/06/26,softball,Purchase,,Sam Christopher,4.0,CF,9663754,4,2,2,0,1,4,0,2,0,0,0,0,0,0,0,0,0,0
+6513443,4/06/26,softball,Brooklyn,1.0,Haylee Burleigh,4.0,CF,11330789,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6513443,4/06/26,softball,Brooklyn,1.0,Lianna Gonzalez,8.0,LF,9665832,1,0,1,0,0,1,0,0,2,0,0,0,0,0,0,0,0,0
+6513443,4/06/26,softball,Brooklyn,1.0,Addy Cook,9.0,3B,11330791,3,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6513443,4/06/26,softball,Brooklyn,1.0,Katelyn Young,30.0,RF,11330801,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6513443,4/06/26,softball,Brooklyn,1.0,Aaliyah Vargas,0.0,RF,9662752,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6513443,4/06/26,softball,Brooklyn,1.0,Jazlyn Roberts,23.0,2B,11330797,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6513443,4/06/26,softball,Brooklyn,1.0,Victoria Elderbaum,5.0,DP,11330790,1,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0
+6513443,4/06/26,softball,Brooklyn,1.0,Julia Corcoran,11.0,C,11330793,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6513443,4/06/26,softball,Brooklyn,1.0,Vida Rodriguez,21.0,1B,9654456,2,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0
+6513443,4/06/26,softball,Brooklyn,1.0,Olivia Gonzalez,99.0,SS,11330799,2,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6549164,4/06/26,softball,Benedictine (IL),,Morgan Bruno,4.0,C,9665053,2,2,1,1,0,2,0,0,2,0,0,0,0,0,0,0,2,0
+6549164,4/06/26,softball,Benedictine (IL),,Lauren Bogard,10.0,CF,9662886,2,3,1,1,0,2,0,1,2,0,0,0,1,0,0,0,1,0
+6549164,4/06/26,softball,Benedictine (IL),,Haley Barnes,20.0,3B,11332177,3,1,1,1,0,2,0,1,1,0,0,0,0,0,1,0,1,0
+6549164,4/06/26,softball,Benedictine (IL),,Alyssa Perkins,29.0,DP,11332179,4,1,2,0,0,5,1,4,0,0,0,0,0,0,0,0,0,0
+6549164,4/06/26,softball,Benedictine (IL),,Taylor Oppenhuis,8.0,1B,9668593,3,0,0,0,0,0,0,1,0,0,0,1,0,1,0,0,1,0
+6549164,4/06/26,softball,Benedictine (IL),,Jasmine Lozano,3.0,LF,9670269,3,1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0
+6549164,4/06/26,softball,Benedictine (IL),,Mia Giammarese,15.0,RF,9669718,1,1,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0
+6549164,4/06/26,softball,Benedictine (IL),,Olivia Mickelson,33.0,PH/RF,9667500,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6549164,4/06/26,softball,Benedictine (IL),,Jenna Bartke,18.0,SS,9663440,1,1,0,0,0,0,0,0,2,0,0,0,0,1,0,0,0,0
+6549164,4/06/26,softball,Benedictine (IL),,Lauryn Olson,25.0,2B,9667325,3,0,1,1,0,2,0,3,0,0,0,0,1,0,0,0,0,0
+6549164,4/06/26,softball,North Park,1.0,Eden Baker,3.0,P/LF,9655278,3,1,2,0,0,2,0,0,0,0,0,0,0,0,0,0,2,0
+6549164,4/06/26,softball,North Park,1.0,Kayla Sapolu,24.0,CF,9664884,0,0,0,0,0,0,0,0,1,0,0,2,0,0,0,0,1,0
+6549164,4/06/26,softball,North Park,1.0,Kayla Lorenz,4.0,SS,9654317,2,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,1,0
+6549164,4/06/26,softball,North Park,1.0,Miabella Collazo,16.0,2B,11332559,3,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6549164,4/06/26,softball,North Park,1.0,Kathryn Keehn,7.0,DP,9664017,2,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0
+6549164,4/06/26,softball,North Park,1.0,Salyssa Garcia,10.0,1B,9655710,2,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6549164,4/06/26,softball,North Park,1.0,Bella Frohwirth,5.0,PH,9669224,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6549164,4/06/26,softball,North Park,1.0,Katie Patton,21.0,C,9659387,2,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6549164,4/06/26,softball,North Park,1.0,Dora Cihocki,17.0,PH,9655727,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6549164,4/06/26,softball,North Park,1.0,Sydney Snyder,23.0,RF,9668176,2,1,1,1,0,2,0,0,0,0,0,0,1,0,0,0,0,0
+6549164,4/06/26,softball,North Park,1.0,Chloe Bader,13.0,3B,11332558,2,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6527029,4/06/26,softball,Eureka,,Kayleigh Zerrusen,10.0,C,11254094,3,0,1,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0
+6527029,4/06/26,softball,Eureka,,Lexi Liptak,14.0,SS,9661398,2,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0
+6527029,4/06/26,softball,Eureka,,Ashlyn Voyles,33.0,1B,9657392,2,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6527029,4/06/26,softball,Eureka,,Mallory Kohnen,7.0,P,11254092,2,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0
+6527029,4/06/26,softball,Eureka,,Olivia Hurst,24.0,3B,11254099,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6527029,4/06/26,softball,Eureka,,Maisie Bowers,22.0,3B/2B,11254098,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0
+6527029,4/06/26,softball,Eureka,,Ryleigh Jourdan,48.0,RF,11254100,2,0,1,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0
+6527029,4/06/26,softball,Eureka,,Kacie Morris,3.0,LF,11254090,2,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6527029,4/06/26,softball,Eureka,,Kenna Newton,20.0,CF,11254097,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6527029,4/06/26,softball,Eureka,,Brooklyn Bowman,18.0,PH,11254096,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6527029,4/06/26,softball,Eureka,,Railynn Brown,2.0,2B,11254089,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0
+6527029,4/06/26,softball,Eureka,,Shaylun Christenberry,13.0,P,11254095,1,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6527029,4/06/26,softball,Greenville,1.0,Rylee Bloomer,2.0,DP,11222461,2,1,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0
+6527029,4/06/26,softball,Greenville,1.0,Madison Lupton,19.0,PH,11222479,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0
+6527029,4/06/26,softball,Greenville,1.0,Emma Longcor,3.0,LF,9658087,4,3,4,0,1,6,0,2,0,0,0,0,0,0,0,0,1,0
+6527029,4/06/26,softball,Greenville,1.0,Ashlyn Colvis,12.0,SS,9666570,3,1,3,0,0,3,0,4,0,0,0,0,0,0,0,0,0,0
+6527029,4/06/26,softball,Greenville,1.0,Jillian Cameron,4.0,PR,9655829,1,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6527029,4/06/26,softball,Greenville,1.0,Anna Cox,28.0,1B,11222468,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6527029,4/06/26,softball,Greenville,1.0,Emerald Watson,21.0,C,11222487,2,1,1,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+6527029,4/06/26,softball,Greenville,1.0,Makenna Budde,0.0,C/1B,9663596,4,2,3,0,1,8,1,4,0,0,0,0,0,0,0,0,0,0
+6527029,4/06/26,softball,Greenville,1.0,Brooklyn Garrett,7.0,3B,11222471,3,1,1,0,0,1,0,0,1,0,0,0,1,0,0,0,0,0
+6527029,4/06/26,softball,Greenville,1.0,Emma Williams,13.0,CF,9656195,2,1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6527029,4/06/26,softball,Greenville,1.0,Sadie Ziegler,5.0,CF,11222489,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0
+6527029,4/06/26,softball,Greenville,1.0,Jayden Zamora,17.0,2B,9670134,3,1,1,0,0,1,0,2,0,0,0,0,0,0,0,0,0,0
+6527029,4/06/26,softball,Greenville,1.0,Aylexis Otto,14.0,RF,11222482,3,2,1,1,0,2,0,1,0,0,0,0,0,0,0,0,0,0
+6540797,4/06/26,softball,Salem St.,,Allison Frost,16.0,CF,9660263,3,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6540797,4/06/26,softball,Salem St.,,Katie Sullivan,12.0,CF,11248466,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6540797,4/06/26,softball,Salem St.,,Samantha Gaona-Sullivan,7.0,SS,9658838,3,0,1,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0
+6540797,4/06/26,softball,Salem St.,,Tara Perryman,13.0,C,9663174,3,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0
+6540797,4/06/26,softball,Salem St.,,Abigail LaClair,27.0,DP,11248482,2,1,1,1,0,2,0,0,0,1,0,0,0,0,0,0,0,0
+6540797,4/06/26,softball,Salem St.,,Ellie Kleinheinz,21.0,3B,11248476,2,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0
+6540797,4/06/26,softball,Salem St.,,Emma Quinn,20.0,1B,11248468,2,0,1,0,0,1,0,2,1,0,0,0,0,0,0,0,1,0
+6540797,4/06/26,softball,Salem St.,,Hailey Ano,2.0,LF,9670033,2,0,0,0,0,0,0,0,1,0,0,0,2,0,0,0,0,0
+6540797,4/06/26,softball,Salem St.,,Isabelle Besser,18.0,PR,9659181,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6540797,4/06/26,softball,Salem St.,,Abigail Richardson,6.0,2B/RF,9654282,2,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0
+6540797,4/06/26,softball,Salem St.,,Sula Roberge,15.0,RF,9658997,3,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0
+6540797,4/06/26,softball,Salem St.,,Madison DeWitt,5.0,PH,11248464,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6540797,4/06/26,softball,Salem St.,,Paige Souza,1.0,2B,9655592,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6540797,4/06/26,softball,Saint Joseph (CT),1.0,Jennifer Antonowicz,12.0,SS,9667207,3,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6540797,4/06/26,softball,Saint Joseph (CT),1.0,Rachel Brewer-Karimi,2.0,RF,11229726,3,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0
+6540797,4/06/26,softball,Saint Joseph (CT),1.0,Kaitlyn Ouellette,6.0,P,9669548,3,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0
+6540797,4/06/26,softball,Saint Joseph (CT),1.0,Madelyn Ellis,10.0,LF,9668049,2,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6540797,4/06/26,softball,Saint Joseph (CT),1.0,Kayla Pehlps,7.0,3B,9670766,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6540797,4/06/26,softball,Saint Joseph (CT),1.0,Gabby Marichal,5.0,DP,9667544,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6540797,4/06/26,softball,Saint Joseph (CT),1.0,Sadie Girgasky,29.0,C,9659368,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6540797,4/06/26,softball,Saint Joseph (CT),1.0,Lorynes Suriel,3.0,CF,9666930,2,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6540797,4/06/26,softball,Saint Joseph (CT),1.0,Sophia Onofrio,4.0,2B,9666677,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6549353,4/06/26,softball,Misericordia,,Bridget Doherty,8.0,CF,9664221,4,2,1,0,0,1,0,0,0,1,0,0,0,0,1,0,1,0
+6549353,4/06/26,softball,Misericordia,,Emmalee Mowery,99.0,LF,11330147,3,2,1,0,0,1,0,1,2,0,0,0,0,0,0,0,0,0
+6549353,4/06/26,softball,Misericordia,,Mackenzie Fizer,21.0,2B,9654858,3,1,1,1,0,2,0,3,0,1,0,1,0,0,0,0,0,0
+6549353,4/06/26,softball,Misericordia,,Casey Funesti,25.0,1B,9654396,4,0,3,1,0,4,0,2,0,0,0,0,1,0,0,0,0,0
+6549353,4/06/26,softball,Misericordia,,Rylie Nasso,28.0,PR,9657733,1,2,1,1,0,2,0,1,0,0,0,0,0,0,0,0,0,0
+6549353,4/06/26,softball,Misericordia,,A. Moran,44.0,3B,11330146,3,1,1,0,0,1,0,0,2,0,0,0,0,0,0,0,0,0
+6549353,4/06/26,softball,Misericordia,,Kailana Auchey,2.0,SS,11330835,5,1,2,0,0,2,0,0,0,0,0,0,1,0,0,0,0,0
+6549353,4/06/26,softball,Misericordia,,Emma Lamlin,13.0,DP,9670350,4,0,1,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0
+6549353,4/06/26,softball,Misericordia,,Stephanie Barone,0.0,RF,11330733,4,1,2,0,0,2,0,2,1,0,0,0,0,0,0,0,1,0
+6549353,4/06/26,softball,Misericordia,,Sammie Gallick,17.0,C,11330145,4,2,1,0,0,1,0,2,1,0,0,0,0,0,0,0,0,0
+6549353,4/06/26,softball,Albright,1.0,Juliette Licata,50.0,CF,11244875,2,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0
+6549353,4/06/26,softball,Albright,1.0,Adriana Buonacore,17.0,2B,11244872,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6549353,4/06/26,softball,Albright,1.0,Katie Behler,99.0,DP,9669627,3,0,1,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0
+6549353,4/06/26,softball,Albright,1.0,Slaydon Fisher,27.0,SS,9659740,3,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6549353,4/06/26,softball,Albright,1.0,Grace Landante,3.0,3B,9658717,3,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6549353,4/06/26,softball,Albright,1.0,Emma Massie,6.0,RF/LF,11244869,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6549353,4/06/26,softball,Albright,1.0,Sadie Gonzalez,7.0,PH,9663229,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6549353,4/06/26,softball,Albright,1.0,Madison Lasko,51.0,C,11244876,3,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6549353,4/06/26,softball,Albright,1.0,Faith Sanchez-Schroeder,11.0,PR,9665002,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6549353,4/06/26,softball,Albright,1.0,Riley Winchell,25.0,LF,9665743,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6549353,4/06/26,softball,Albright,1.0,Kaitlin Mulry,18.0,RF,9667193,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6549353,4/06/26,softball,Albright,1.0,Gabriella Weiss,23.0,P,9665057,2,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6536695,4/06/26,softball,Gwynedd Mercy,,Kassidy Kehoe,13.0,1B,9660552,2,1,1,0,0,1,0,0,1,0,0,0,0,1,0,0,0,0
+6536695,4/06/26,softball,Gwynedd Mercy,,Macey Harrold,9.0,2B/SS,11241785,3,0,2,1,0,3,0,3,0,0,0,0,0,0,0,0,0,0
+6536695,4/06/26,softball,Gwynedd Mercy,,Hannah Smith,5.0,SS,9667569,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6536695,4/06/26,softball,Gwynedd Mercy,,Jess Kepner,21.0,2B,11241794,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6536695,4/06/26,softball,Gwynedd Mercy,,Hannah Cohen,99.0,3B,9670775,2,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6536695,4/06/26,softball,Gwynedd Mercy,,Ashlyn Merz,10.0,3B,11241786,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6536695,4/06/26,softball,Gwynedd Mercy,,Maya Hellyer,71.0,DP,9654367,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6536695,4/06/26,softball,Gwynedd Mercy,,Nya Brown,11.0,CF,11241788,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0
+6536695,4/06/26,softball,Gwynedd Mercy,,Makayla Mihelcic,32.0,C,9661171,2,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6536695,4/06/26,softball,Gwynedd Mercy,,Lexie Kurth,18.0,LF,11241792,2,1,1,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0
+6536695,4/06/26,softball,Gwynedd Mercy,,Gianna Trerotola,1.0,RF,11241781,2,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6536695,4/06/26,softball,Penn St. Harrisburg,1.0,Mackenzie Fisher,6.0,SS,9656787,1,2,1,0,0,1,0,0,1,0,0,0,0,0,0,0,1,0
+6536695,4/06/26,softball,Penn St. Harrisburg,1.0,Shannon Williams,33.0,SS,11247250,1,1,1,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0
+6536695,4/06/26,softball,Penn St. Harrisburg,1.0,Lauren Maguire,5.0,RF,11247248,1,2,1,0,0,1,0,1,2,0,0,0,0,0,0,0,0,0
+6536695,4/06/26,softball,Penn St. Harrisburg,1.0,Emily Karetas,9.0,RF,11247247,1,0,1,0,0,1,0,2,0,0,0,0,0,0,0,0,0,0
+6536695,4/06/26,softball,Penn St. Harrisburg,1.0,Madisen Minney,23.0,2B,9668890,3,1,3,1,0,4,0,3,0,0,0,0,0,0,0,0,0,0
+6536695,4/06/26,softball,Penn St. Harrisburg,1.0,Megan Foltz,25.0,2B,11247246,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6536695,4/06/26,softball,Penn St. Harrisburg,1.0,Emily Cutman,16.0,DP,9661831,2,0,1,1,0,2,0,3,0,0,1,0,0,0,0,0,0,0
+6536695,4/06/26,softball,Penn St. Harrisburg,1.0,Rylee Martinez,19.0,1B,9663510,1,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0
+6536695,4/06/26,softball,Penn St. Harrisburg,1.0,Kierstyn Smith,15.0,1B,9670451,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6536695,4/06/26,softball,Penn St. Harrisburg,1.0,Ashley Elefante,13.0,CF,9664133,2,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0
+6536695,4/06/26,softball,Penn St. Harrisburg,1.0,Sierra Sims,4.0,LF,9661641,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6536695,4/06/26,softball,Penn St. Harrisburg,1.0,Elaina Gates,3.0,LF,9660900,2,1,2,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0
+6536695,4/06/26,softball,Penn St. Harrisburg,1.0,Lillian Feltenberger,21.0,3B,9664047,3,2,1,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0
+6536695,4/06/26,softball,Penn St. Harrisburg,1.0,Aspen Walker,20.0,C,9669441,2,2,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6536695,4/06/26,softball,Penn St. Harrisburg,1.0,Esther Feltenberger,18.0,PH,11247245,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6491510,4/06/26,softball,Concordia Wisconsin,,Jenna Shadoski,13.0,CF,9666368,3,3,2,0,0,2,0,0,1,0,0,0,0,0,0,0,1,0
+6491510,4/06/26,softball,Concordia Wisconsin,,Jenna Lischka,5.0,2B,9662914,3,2,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0
+6491510,4/06/26,softball,Concordia Wisconsin,,Rylie DuVal,18.0,3B,9665329,4,1,2,2,0,4,0,4,0,0,0,0,0,0,0,0,0,0
+6491510,4/06/26,softball,Concordia Wisconsin,,Anya Weiler,16.0,DP,9659178,4,0,3,0,0,3,0,2,0,0,0,0,0,0,0,0,0,0
+6491510,4/06/26,softball,Concordia Wisconsin,,Kaitlyn Way,11.0,1B,9662705,3,0,1,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0
+6491510,4/06/26,softball,Concordia Wisconsin,,Nora Statz,12.0,SS,9661117,4,1,2,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0
+6491510,4/06/26,softball,Concordia Wisconsin,,Hope Hughes,17.0,C,11228216,4,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6491510,4/06/26,softball,Concordia Wisconsin,,Natalie Kinney,7.0,RF,11228205,3,2,1,0,0,4,1,2,0,0,0,0,0,0,0,0,0,0
+6491510,4/06/26,softball,Concordia Wisconsin,,Julia Moker,1.0,LF,9657875,3,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6491510,4/06/26,softball,Carroll (WI),1.0,Abby Curtis,23.0,LF,9657276,3,1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0
+6491510,4/06/26,softball,Carroll (WI),1.0,Kali Stanchina,6.0,SS,9665676,3,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6491510,4/06/26,softball,Carroll (WI),1.0,Grace O'Connor,30.0,1B,11240369,3,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6491510,4/06/26,softball,Carroll (WI),1.0,Jenna Andler,11.0,C,9664122,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6491510,4/06/26,softball,Carroll (WI),1.0,Addison Leck,2.0,DP,9663130,2,0,1,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0
+6491510,4/06/26,softball,Carroll (WI),1.0,Val Osthoff,9.0,3B,9656567,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6491510,4/06/26,softball,Carroll (WI),1.0,Madison Hoagland,24.0,2B,9670307,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0
+6491510,4/06/26,softball,Carroll (WI),1.0,Kaylee Baker,13.0,RF,9663922,1,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0
+6491510,4/06/26,softball,Carroll (WI),1.0,Gianna Buske,3.0,CF,9655076,1,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0
+6523720,4/06/26,softball,Bethany (WV),,Amber Dedmon,4.0,LF,9670012,3,0,1,0,0,1,0,1,0,0,0,0,0,0,0,0,2,0
+6523720,4/06/26,softball,Bethany (WV),,Brooke Markland,2.0,SS,9665658,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6523720,4/06/26,softball,Bethany (WV),,Olivia Kidd,28.0,C,9669652,3,0,1,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0
+6523720,4/06/26,softball,Bethany (WV),,Emma Jackson,30.0,3B,9668171,2,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0
+6523720,4/06/26,softball,Bethany (WV),,Caitlin O'Farrell,10.0,2B,9654812,3,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6523720,4/06/26,softball,Bethany (WV),,Katelyn Ziems,15.0,DP,9660119,2,1,1,0,0,4,1,1,0,0,0,0,0,0,0,0,0,0
+6523720,4/06/26,softball,Bethany (WV),,Molly Hitchen,21.0,1B,9666255,2,1,2,2,0,4,0,0,0,0,0,0,0,0,0,0,0,0
+6523720,4/06/26,softball,Bethany (WV),,Victoria Wehrberger,3.0,CF,9668944,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6523720,4/06/26,softball,Bethany (WV),,Bella Juozapaitus,14.0,RF,9654644,2,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6523720,4/06/26,softball,Kenyon,1.0,Keala Montgomery,21.0,1B,9660124,3,1,1,1,0,2,0,3,1,0,0,0,0,0,0,0,0,0
+6523720,4/06/26,softball,Kenyon,1.0,Leah Schlissberg,5.0,RF,11233361,2,1,1,1,0,2,0,1,1,1,0,0,0,0,0,0,1,0
+6523720,4/06/26,softball,Kenyon,1.0,Maeve McLaughlin,18.0,LF,9669681,4,0,2,0,0,2,0,2,0,0,0,0,1,0,0,0,0,0
+6523720,4/06/26,softball,Kenyon,1.0,Leah Kuban,7.0,DP,9657104,1,0,0,0,0,0,0,1,2,0,1,0,0,0,0,0,0,0
+6523720,4/06/26,softball,Kenyon,1.0,Peyton Green,2.0,2B,11233354,3,1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6523720,4/06/26,softball,Kenyon,1.0,Brooke Avila,10.0,CF,9668688,2,2,1,0,0,4,1,2,1,0,0,0,0,0,0,0,0,0
+6523720,4/06/26,softball,Kenyon,1.0,Lily Colvin,23.0,SS,9667781,1,1,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0
+6523720,4/06/26,softball,Kenyon,1.0,Kinsey White,15.0,3B,9659592,2,2,1,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+6523720,4/06/26,softball,Kenyon,1.0,Madison Buckwalter,11.0,PH,9657490,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6523720,4/06/26,softball,Kenyon,1.0,Emma Cashell,4.0,C,9658472,2,2,1,0,0,1,0,0,0,1,0,0,1,0,0,0,0,0
+6494847,4/06/26,softball,Crown (MN),,Emmy Romportl,13.0,P/DH,9655596,3,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6494847,4/06/26,softball,Crown (MN),,Lindsay Stapleton,26.0,1B,11215276,3,1,2,0,0,2,0,0,0,0,0,0,1,0,0,0,0,0
+6494847,4/06/26,softball,Crown (MN),,Maria Lilienthal,18.0,3B,11215270,2,1,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0
+6494847,4/06/26,softball,Crown (MN),,Itzel Valles,99.0,C,9664094,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6494847,4/06/26,softball,Crown (MN),,Brooklyn Ocker,23.0,LF,11215274,2,0,1,1,0,2,0,2,0,0,0,0,1,0,0,0,0,0
+6494847,4/06/26,softball,Crown (MN),,Ava Svec,20.0,LF,11215271,1,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6494847,4/06/26,softball,Crown (MN),,Megan Cryer,38.0,DH/P,11215277,3,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6494847,4/06/26,softball,Crown (MN),,Savannah Urbinsky,17.0,2B,11215269,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6494847,4/06/26,softball,Crown (MN),,Kya Oakes,19.0,2B,9669282,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0
+6494847,4/06/26,softball,Crown (MN),,Sophie Monsman,1.0,CF,11215260,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0
+6494847,4/06/26,softball,Crown (MN),,Catelyn Garza,15.0,SS,9654680,1,1,1,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0
+6494847,4/06/26,softball,Northwestern-St. Paul,1.0,Lani Schoper,2.0,SS,9659385,2,2,1,0,0,4,1,2,0,1,0,0,0,0,0,0,0,0
+6494847,4/06/26,softball,Northwestern-St. Paul,1.0,Ella Priola,17.0,SS,9665403,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6494847,4/06/26,softball,Northwestern-St. Paul,1.0,Hannah Storey,4.0,CF,9666685,3,3,3,1,0,4,0,1,0,0,0,0,0,0,0,0,0,0
+6494847,4/06/26,softball,Northwestern-St. Paul,1.0,Emma Westrate,10.0,PH,11233119,1,1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6494847,4/06/26,softball,Northwestern-St. Paul,1.0,Emma Edwards,28.0,1B,9665423,3,2,2,0,0,5,1,3,0,0,0,0,0,0,0,0,0,0
+6494847,4/06/26,softball,Northwestern-St. Paul,1.0,Jenna Nusbaum,27.0,PH,9659813,1,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0
+6494847,4/06/26,softball,Northwestern-St. Paul,1.0,Bryn Anderson,15.0,RF,9659287,3,2,3,0,0,3,0,1,0,0,0,0,0,0,0,0,1,0
+6494847,4/06/26,softball,Northwestern-St. Paul,1.0,Abigail Washburn,22.0,PH,9654586,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6494847,4/06/26,softball,Northwestern-St. Paul,1.0,Gabrielle Keith,21.0,DH,11233121,3,1,1,0,0,4,1,3,0,0,0,0,0,1,0,0,0,0
+6494847,4/06/26,softball,Northwestern-St. Paul,1.0,Emma Morrissey,11.0,PH,9666968,1,1,1,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+6494847,4/06/26,softball,Northwestern-St. Paul,1.0,Kate Van Ess,8.0,2B,11233116,3,2,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6494847,4/06/26,softball,Northwestern-St. Paul,1.0,Maddy Smith,1.0,PH,11233110,1,1,1,0,0,4,1,3,0,0,0,0,0,0,0,0,0,0
+6494847,4/06/26,softball,Northwestern-St. Paul,1.0,Trista Oberle,12.0,LF,9667893,3,1,2,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0
+6494847,4/06/26,softball,Northwestern-St. Paul,1.0,Lexi Gonzalez,5.0,PH,9663851,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6494847,4/06/26,softball,Northwestern-St. Paul,1.0,Kate Trump,20.0,3B,9666858,3,1,1,0,0,4,1,3,0,0,0,0,2,0,0,0,0,0
+6494847,4/06/26,softball,Northwestern-St. Paul,1.0,Hannah Lexvold,9.0,C,11233118,3,2,1,0,0,1,0,2,0,0,0,0,0,0,0,0,0,0
+6537651,4/06/26,softball,King's (PA),,Elise Larson,10.0,SS,11242430,3,1,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0
+6537651,4/06/26,softball,King's (PA),,Breanna Goldspiel,3.0,LF,9660341,4,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6537651,4/06/26,softball,King's (PA),,Megan Matsko,24.0,CF,9661976,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6537651,4/06/26,softball,King's (PA),,Ellie Higdon,16.0,3B,9656185,3,1,2,0,1,4,0,1,0,0,0,0,0,0,0,0,0,0
+6537651,4/06/26,softball,King's (PA),,Meghan Marianelli,29.0,DP,9665704,3,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6537651,4/06/26,softball,King's (PA),,Molly Veach,19.0,C,11242433,3,0,2,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0
+6537651,4/06/26,softball,King's (PA),,Madison Badali,17.0,2B,9655090,3,0,1,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0
+6537651,4/06/26,softball,King's (PA),,Liz Wilson,12.0,1B,11242431,3,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6537651,4/06/26,softball,King's (PA),,Brianna Kesslick,40.0,RF,9658949,2,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6537651,4/06/26,softball,King's (PA),,Paige Bergan,14.0,PH,9666513,1,0,1,0,1,3,0,0,0,0,0,0,0,0,1,0,0,0
+6537651,4/06/26,softball,Scranton,1.0,Mollie Ferreira,1.0,SS,11254848,3,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0
+6537651,4/06/26,softball,Scranton,1.0,Celia Totaro,9.0,CF,9662083,4,2,3,1,0,4,0,0,0,0,0,0,1,0,0,0,1,0
+6537651,4/06/26,softball,Scranton,1.0,Gianna Muliero,2.0,LF,11254849,3,1,1,0,0,1,0,0,0,0,0,1,0,0,0,0,2,0
+6537651,4/06/26,softball,Scranton,1.0,Daniela Brescia,24.0,DP,9656401,3,0,0,0,0,0,0,2,0,0,1,0,0,0,0,0,0,0
+6537651,4/06/26,softball,Scranton,1.0,Emmie Feltenberger,22.0,2B,9657703,4,1,0,0,0,0,0,0,0,0,0,0,2,0,0,0,1,0
+6537651,4/06/26,softball,Scranton,1.0,Madison Byrwa,10.0,3B,9666001,3,0,3,1,0,4,0,1,0,0,0,0,0,0,0,0,0,0
+6537651,4/06/26,softball,Scranton,1.0,Gabriella Gorzkowski,7.0,C,11254850,2,0,1,1,0,2,0,0,1,0,0,0,1,0,0,0,0,0
+6537651,4/06/26,softball,Scranton,1.0,Alli Babino,18.0,1B,9662738,2,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0
+6537651,4/06/26,softball,Scranton,1.0,Emily Riehl,19.0,RF,11254851,2,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6537651,4/06/26,softball,Scranton,1.0,Alexa Bruno,13.0,RF,9660117,1,1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6518771,4/06/26,softball,Thomas (ME),,Elisa Gonzalez,2.0,2B,11247299,4,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6518771,4/06/26,softball,Thomas (ME),,Carlie Jarvais,22.0,C,9661887,4,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6518771,4/06/26,softball,Thomas (ME),,Megan Oberholzer,30.0,1B/DP,9670691,2,0,1,0,0,1,0,1,1,0,0,0,1,0,0,0,0,0
+6518771,4/06/26,softball,Thomas (ME),,Mackenzie Toner,24.0,DP/1B,9663837,1,0,1,0,0,1,0,0,1,1,0,0,0,0,0,0,0,0
+6518771,4/06/26,softball,Thomas (ME),,Maeve Hickok,26.0,3B,9656811,3,0,1,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0
+6518771,4/06/26,softball,Thomas (ME),,Emily Rock,17.0,SS,9668056,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6518771,4/06/26,softball,Thomas (ME),,Corinne Vasvary,3.0,LF,9658522,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6518771,4/06/26,softball,Thomas (ME),,Morgan Duhaime,11.0,RF,9665912,3,1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6518771,4/06/26,softball,Thomas (ME),,Abby Farone,7.0,CF,11247301,2,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0
+6518771,4/06/26,softball,Southern Me.,1.0,Avery Moore,22.0,LF,11331762,2,1,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0
+6518771,4/06/26,softball,Southern Me.,1.0,Hannah Garcia,13.0,PH,9656418,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+6518771,4/06/26,softball,Southern Me.,1.0,Emily Wheeler,8.0,3B,11331763,3,2,1,0,0,1,0,2,1,0,0,0,1,0,0,0,0,0
+6518771,4/06/26,softball,Southern Me.,1.0,Olivia Levasseur,1.0,SS,9663065,2,0,1,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0
+6518771,4/06/26,softball,Southern Me.,1.0,Addison Hawthorne,17.0,PH,11331759,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0
+6518771,4/06/26,softball,Southern Me.,1.0,Mackenzie Renner,19.0,C,9654653,3,1,2,1,0,3,0,4,0,0,0,0,0,0,0,0,0,0
+6518771,4/06/26,softball,Southern Me.,1.0,Brielle Foote,23.0,PH,11331757,1,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6518771,4/06/26,softball,Southern Me.,1.0,Kristina Yebba,12.0,2B,9662746,3,0,2,0,0,2,0,1,0,0,0,0,0,0,0,0,0,0
+6518771,4/06/26,softball,Southern Me.,1.0,Kendall Migliorini,15.0,PH,9658308,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0
+6518771,4/06/26,softball,Southern Me.,1.0,Brianna Grenier,25.0,1B,11331758,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6518771,4/06/26,softball,Southern Me.,1.0,Taylor Takatsu,14.0,PH,9667966,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6518771,4/06/26,softball,Southern Me.,1.0,Ava Gerrish,5.0,DP,9664049,1,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0
+6518771,4/06/26,softball,Southern Me.,1.0,Madison Brown,3.0,PR,9669696,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6518771,4/06/26,softball,Southern Me.,1.0,Ella Bezansom,20.0,CF,9663379,3,1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6518771,4/06/26,softball,Southern Me.,1.0,Alana DeLisle,28.0,RF,9666358,3,1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6513444,4/06/26,softball,Purchase,,Natalie Gallo,8.0,SS/CF,11250978,3,2,1,0,1,3,0,1,1,0,0,0,0,0,0,0,0,0
+6513444,4/06/26,softball,Purchase,,Halle Greaige,14.0,2B/SS,9667760,4,1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6513444,4/06/26,softball,Purchase,,Sariah Sanchez,1.0,1B,9655119,4,0,1,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0
+6513444,4/06/26,softball,Purchase,,Christiana Bazzini,7.0,C,11250976,3,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0
+6513444,4/06/26,softball,Purchase,,Sam Christopher,4.0,CF/P,9663754,4,0,1,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0
+6513444,4/06/26,softball,Purchase,,Tyler Salerno,3.0,RF,9657047,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6513444,4/06/26,softball,Purchase,,Bryce Kane,11.0,3B,11250979,3,1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6513444,4/06/26,softball,Purchase,,Mel Harper,2.0,DP/2B,9669874,2,0,1,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0
+6513444,4/06/26,softball,Purchase,,Devynn Hernandez,13.0,LF,9654905,3,2,2,0,0,2,0,1,0,0,0,0,0,0,0,0,0,0
+6513444,4/06/26,softball,Brooklyn,1.0,Haylee Burleigh,4.0,CF,11330789,3,0,1,0,0,1,0,1,1,0,0,0,0,0,0,0,0,0
+6513444,4/06/26,softball,Brooklyn,1.0,Lianna Gonzalez,8.0,LF,9665832,2,1,0,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0
+6513444,4/06/26,softball,Brooklyn,1.0,Addy Cook,9.0,3B,11330791,3,1,1,0,0,1,0,1,1,0,0,0,0,0,0,0,0,0
+6513444,4/06/26,softball,Brooklyn,1.0,Katelyn Young,30.0,C,11330801,4,2,3,1,0,4,0,2,0,0,0,0,0,0,0,0,0,0
+6513444,4/06/26,softball,Brooklyn,1.0,Jazlyn Roberts,23.0,2B,11330797,4,0,1,1,0,2,0,1,0,0,0,0,2,0,0,0,0,0
+6513444,4/06/26,softball,Brooklyn,1.0,Victoria Elderbaum,5.0,DP,11330790,4,0,2,1,0,3,0,1,0,0,0,0,1,0,0,0,0,0
+6513444,4/06/26,softball,Brooklyn,1.0,Jenna Hood,7.0,PR,9669918,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6513444,4/06/26,softball,Brooklyn,1.0,Aaliyah Vargas,0.0,RF,9662752,4,1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+6513444,4/06/26,softball,Brooklyn,1.0,Vida Rodriguez,21.0,1B,9654456,4,1,1,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0
+6513444,4/06/26,softball,Brooklyn,1.0,Olivia Gonzalez,99.0,SS,11330799,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0
+6513444,4/06/26,softball,Brooklyn,1.0,Julia Corcoran,11.0,PH,11330793,1,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
