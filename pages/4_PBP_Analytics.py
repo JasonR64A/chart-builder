@@ -1710,62 +1710,145 @@ elif view == 'Pace Chart':
         league_woba_pace = league_stats_pace['wOBA']
         league_r_pa_pace = league_stats_pace['R/PA']
 
-    # Build running stats per entity per game date
-    entity_games = []
-    for entity_name, edata in pace_pbp.groupby(group_key):
-        edata_sorted = edata.sort_values('date_parsed')
-        if pace_level == 'Player':
-            player_name = entity_name.split('|||')[0]
-            team = entity_name.split('|||')[1]
-            display_name = player_name
-        else:
-            player_name = entity_name
-            team = entity_name
-            display_name = entity_name
-        entity_name = display_name
+    # Build running stats per entity per game date — VECTORIZED
+    # Step 1: Aggregate per (entity, gameId, date_parsed) using sums of underlying counts.
+    # This handles doubleheaders (multiple rows for same gameId) by summing them.
+    if pace_stat_type == 'Hitting':
+        sum_cols = ['ab', 'h', 'bb', 'hbp', 'sf', 'sh', 'tb', 'hr', 'doubles', 'triples',
+                    'k', 'sb', 'cs', 'oppDp', 'r', 'rbi']
+    else:
+        sum_cols = ['h', 'r', 'er', 'bb', 'so', 'hrA', 'hb', 'bf', 'doublesA', 'triplesA',
+                    'sha', 'sfa', 'wp', 'bk']
+    sum_cols = [c for c in sum_cols if c in pace_pbp.columns]
 
-        if not is_advanced:
-            # Simple cumulative stat — group by gameId to handle doubleheaders
-            stat_col = cum_stats[stat_choice]
-            if stat_col not in edata_sorted.columns:
-                continue
-            per_game = edata_sorted.groupby(['gameId', 'date_parsed'])[stat_col].sum().reset_index().sort_values('date_parsed')
-            per_game['game_num'] = range(1, len(per_game) + 1)
-            per_game['cum_stat'] = per_game[stat_col].cumsum()
-            per_game['entity'] = entity_name
-            per_game['team'] = team
-            entity_games.append(per_game[['entity', 'team', 'date_parsed', 'game_num', 'cum_stat']])
-        else:
-            # Advanced: compute running stat through each game — use gameId for doubleheaders
-            game_order = edata_sorted.drop_duplicates('gameId')[['gameId', 'date_parsed']].sort_values('date_parsed')
-            game_ids_ordered = game_order['gameId'].tolist()
-            rows = []
-            for i, gid in enumerate(game_ids_ordered):
-                d = game_order[game_order['gameId'] == gid]['date_parsed'].iloc[0]
-                # Include all games up to and including this one
-                included_gids = set(game_ids_ordered[:i+1])
-                window = edata_sorted[edata_sorted['gameId'].isin(included_gids)]
-                if pace_stat_type == 'Hitting':
-                    stats = compute_hitting_stats(window)
-                    if stat_choice == 'wRAA':
-                        val = compute_wraa(stats['wOBA'], league_woba_pace, stats['PA'])
-                    elif stat_choice == 'wRC':
-                        val = compute_wrc(stats['wOBA'], league_woba_pace, league_r_pa_pace, stats['PA'])
-                    else:
-                        val = stats.get(stat_choice, 0)
-                else:
-                    stats = compute_pitching_stats(window)
-                    val = stats.get(stat_choice, 0)
-                rows.append({'entity': entity_name, 'team': team, 'date_parsed': d,
-                            'game_num': i + 1, 'cum_stat': val})
-            if rows:
-                entity_games.append(pd.DataFrame(rows))
+    # For pitching, also need ip (special handling)
+    if pace_stat_type == 'Pitching' and 'ip' in pace_pbp.columns:
+        pace_pbp = pace_pbp.copy()
+        pace_pbp['_outs'] = baseball_ip_to_outs(pace_pbp['ip'])
+        sum_cols.append('_outs')
 
-    if not entity_games:
-        st.warning('No data available.')
+    if 'teamName' not in pace_pbp.columns or 'gameId' not in pace_pbp.columns:
+        st.warning('Required columns missing.')
         st.stop()
 
-    all_games = pd.concat(entity_games, ignore_index=True)
+    # Group key + team in one aggregation
+    agg_cols = sum_cols
+    grouped = pace_pbp.groupby([group_key, 'gameId', 'date_parsed'], sort=False)
+    per_game = grouped[agg_cols].sum().reset_index()
+
+    # Get team name per (entity, gameId) — first occurrence
+    team_lookup = pace_pbp.groupby([group_key, 'gameId'], sort=False)['teamName'].first().reset_index()
+    per_game = per_game.merge(team_lookup, on=[group_key, 'gameId'], how='left')
+
+    # Step 2: Sort by date within each entity, assign game numbers, compute cumsums
+    per_game = per_game.sort_values([group_key, 'date_parsed']).reset_index(drop=True)
+    per_game['game_num'] = per_game.groupby(group_key, sort=False).cumcount() + 1
+
+    cum_df = per_game[sum_cols].groupby(per_game[group_key], sort=False).cumsum()
+    cum_df.columns = [f'cum_{c}' for c in sum_cols]
+    per_game = pd.concat([per_game, cum_df], axis=1)
+
+    # Step 3: Compute the cum_stat for the requested stat
+    if not is_advanced:
+        stat_col = cum_stats[stat_choice]
+        if stat_col not in pace_pbp.columns:
+            st.warning(f'{stat_choice} not in data.')
+            st.stop()
+        per_game['cum_stat'] = per_game[f'cum_{stat_col}']
+    else:
+        if pace_stat_type == 'Hitting':
+            ab = per_game['cum_ab']; h = per_game['cum_h']; bb = per_game['cum_bb']
+            hbp = per_game['cum_hbp']; sf = per_game['cum_sf']; sh = per_game['cum_sh']
+            tb = per_game['cum_tb']; hr = per_game['cum_hr']
+            doubles = per_game['cum_doubles']; triples = per_game['cum_triples']
+            k = per_game['cum_k']
+            singles = h - doubles - triples - hr
+            pa = ab + bb + hbp + sf + sh
+            obp_d = ab + bb + hbp + sf
+            obp = np.where(obp_d > 0, (h + bb + hbp) / obp_d, 0.0)
+            slg = np.where(ab > 0, tb / ab, 0.0)
+            ba = np.where(ab > 0, h / ab, 0.0)
+            woba_d = ab + bb + sf + hbp
+            woba_num = (WOBA_BB * bb + WOBA_HBP * hbp + WOBA_1B * singles +
+                        WOBA_2B * doubles + WOBA_3B * triples + WOBA_HR * hr)
+            woba_raw = np.where(woba_d > 0, woba_num / woba_d, 0.0)
+            woba = np.round(woba_raw, 3)  # match compute_hitting_stats rounding
+            babip_d = ab - k - hr + sf
+            babip = np.where(babip_d > 0, (h - hr) / babip_d, 0.0)
+
+            if stat_choice == 'wRAA':
+                per_game['cum_stat'] = np.round(((woba - league_woba_pace) / WOBA_SCALE) * pa, 1)
+            elif stat_choice == 'wRC':
+                per_game['cum_stat'] = np.round((((woba - league_woba_pace) / WOBA_SCALE) + league_r_pa_pace) * pa, 1)
+            elif stat_choice == 'OPS':
+                per_game['cum_stat'] = obp + slg
+            elif stat_choice == 'wOBA':
+                per_game['cum_stat'] = woba
+            elif stat_choice == 'ISO':
+                per_game['cum_stat'] = slg - ba
+            elif stat_choice == 'BABIP':
+                per_game['cum_stat'] = babip
+            else:
+                per_game['cum_stat'] = 0
+        else:
+            # Pitching
+            outs = per_game['cum__outs']
+            ip = outs / 3.0
+            h = per_game['cum_h']; bb = per_game['cum_bb']
+            so = per_game['cum_so']; hr = per_game['cum_hrA']
+            hb = per_game['cum_hb']; bf = per_game['cum_bf']
+            er = per_game['cum_er']
+            sha = per_game.get('cum_sha', 0); sfa = per_game.get('cum_sfa', 0)
+            doubles = per_game.get('cum_doublesA', 0); triples = per_game.get('cum_triplesA', 0)
+            singles = h - doubles - triples - hr
+            p_oab = bf - bb - hb - sfa - sha
+            obp_d = p_oab + bb + hb + sfa
+            obp_against = np.where(obp_d > 0, (h + bb + hb) / obp_d, 0.0)
+            tb_against = singles + 2 * doubles + 3 * triples + 4 * hr
+            slg_against = np.where(p_oab > 0, tb_against / p_oab, 0.0)
+            ba_against = np.where(p_oab > 0, h / p_oab, 0.0)
+            fip = np.where(ip > 0, ((13 * hr) + (3 * (bb + hb)) - (2 * so)) / ip + FIP_CONSTANT, 0.0)
+            era = np.where(ip > 0, (er / ip) * 9, 0.0)
+            whip = np.where(ip > 0, (bb + h) / ip, 0.0)
+            k9 = np.where(ip > 0, (so / ip) * 9, 0.0)
+            k7 = np.where(ip > 0, (so / ip) * 7, 0.0)
+            k_pct = np.where(bf > 0, so / bf * 100, 0.0)
+            bb_pct = np.where(bf > 0, bb / bf * 100, 0.0)
+
+            if stat_choice == 'FIP':
+                per_game['cum_stat'] = fip
+            elif stat_choice == 'WHIP':
+                per_game['cum_stat'] = whip
+            elif stat_choice == 'ERA':
+                per_game['cum_stat'] = era
+            elif stat_choice == 'K/9':
+                per_game['cum_stat'] = k9
+            elif stat_choice == 'K/7':
+                per_game['cum_stat'] = k7
+            elif stat_choice == 'OPS Against':
+                per_game['cum_stat'] = obp_against + slg_against
+            elif stat_choice == 'BAA':
+                per_game['cum_stat'] = ba_against
+            elif stat_choice == 'K%':
+                per_game['cum_stat'] = k_pct
+            elif stat_choice == 'BB%':
+                per_game['cum_stat'] = bb_pct
+            else:
+                per_game['cum_stat'] = 0
+
+    # Step 4: Build the entity column and assemble final dataframe
+    if pace_level == 'Player':
+        per_game['entity'] = per_game[group_key].str.split('\\|\\|\\|').str[0]
+        per_game['team'] = per_game[group_key].str.split('\\|\\|\\|').str[1]
+    else:
+        per_game['entity'] = per_game[group_key]
+        per_game['team'] = per_game['teamName']
+
+    all_games = per_game[['entity', 'team', 'date_parsed', 'game_num', 'cum_stat']].copy()
+
+    if len(all_games) == 0:
+        st.warning('No data available.')
+        st.stop()
 
     # Anchor all entities to the start date at 0 (so lines originate from the same point)
     min_date = all_games['date_parsed'].min()
