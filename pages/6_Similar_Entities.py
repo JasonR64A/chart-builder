@@ -302,6 +302,28 @@ def render_similarity_chart(target_label, target_team, target_pct, matches, matc
     # Push the polar chart down so the top metric label doesn't crash into the subtitle
     fig.subplots_adjust(top=0.86, bottom=0.18)
 
+    # Target team logo at the center of the radar
+    team_map = load_team_logo_map()
+    logo_id = team_map.get(target_team)
+    if logo_id:
+        for ext in ('png', 'webp'):
+            center_logo_path = LOGO_DIR / f'{logo_id}.{ext}'
+            if center_logo_path.exists():
+                try:
+                    center_img = Image.open(center_logo_path).convert('RGBA')
+                    center_img.thumbnail((260, 260), Image.LANCZOS)
+                    center_arr = np.array(center_img)
+                    center_im = OffsetImage(center_arr, zoom=0.42, alpha=0.95)
+                    # Place at center of the polar axes (axes fraction 0.5, 0.5)
+                    center_ab = AnnotationBbox(center_im, (0.5, 0.5),
+                                                xycoords=ax.transAxes,
+                                                frameon=False, zorder=15,
+                                                box_alignment=(0.5, 0.5))
+                    ax.add_artist(center_ab)
+                except Exception:
+                    pass
+                break
+
     # Brand logo bottom-right
     wide_logo_path = _APP_DIR / 'assets' / 'brand_logo_wide.png'
     if wide_logo_path.exists():
