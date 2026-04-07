@@ -402,49 +402,189 @@ def compute_game_score(row):
 
 
 def compute_grouped_pitching(df, group_col, min_bf=1):
-    """Compute pitching stats grouped by a column."""
-    rows = []
-    for name, group in df.groupby(group_col):
-        stats = compute_pitching_stats(group)
-        if stats['BF'] >= min_bf:
-            stats[group_col] = name
-            stats['Pos'] = _primary_position(group)
-            stats['School'] = _player_school(group)
-            # Average Game Score across all appearances
-            game_scores = group.apply(compute_game_score, axis=1)
-            stats['GmSc'] = round(game_scores.mean(), 1)
-            rows.append(stats)
-    if not rows:
+    """Compute pitching stats grouped by a column. Vectorized."""
+    if len(df) == 0:
         return pd.DataFrame()
-    result = pd.DataFrame(rows)
+
+    df = df.copy()
+    # Convert IP notation to total outs (vectorized)
+    df['_outs'] = baseball_ip_to_outs(df['ip'])
+
+    # Compute game score per row (vectorized)
+    whole = df['_outs'] // 3
+    innings_after_4th = np.maximum(0, whole - 4)
+    so_row = df['so'].astype(int)
+    h_row = df['h'].astype(int)
+    er_row = df['er'].astype(int)
+    r_row = df['r'].astype(int)
+    bb_row = df['bb'].astype(int)
+    df['_gmsc'] = 50 + df['_outs'] + 2 * innings_after_4th + so_row - 2 * h_row - 4 * er_row - 2 * (r_row - er_row) - bb_row
+
+    # Aggregate per pitcher
+    sum_cols = ['_outs', 'h', 'r', 'bb', 'hb', 'so', 'hrA', 'bf', 'wp', 'bk',
+                'doublesA', 'triplesA', 'sha', 'sfa', 'er']
+    if 'ibb' in df.columns:
+        sum_cols.append('ibb')
+    if 'is_starter' in df.columns:
+        sum_cols.append('is_starter')
+
+    g = df.groupby(group_col, sort=False)
+    agg = g[sum_cols].sum().reset_index()
+    if 'ibb' not in agg.columns:
+        agg['ibb'] = 0
+    if 'is_starter' not in agg.columns:
+        agg['is_starter'] = 0
+    agg['_gmsc_mean'] = g['_gmsc'].mean().values
+    if 'gameId' in df.columns:
+        agg['_app'] = g['gameId'].nunique().values
+    else:
+        agg['_app'] = g.size().values
+
+    # Vectorized derived stats
+    outs = agg['_outs']
+    ip_actual = outs / 3.0
+    h = agg['h']; r = agg['r']; bb = agg['bb']; hb = agg['hb']
+    so = agg['so']; hr = agg['hrA']; bf = agg['bf']
+    er = agg['er']; sha = agg['sha']; sfa = agg['sfa']
+    doubles = agg['doublesA']; triples = agg['triplesA']
+    singles = h - doubles - triples - hr
+    p_oab = bf - bb - hb - sfa - sha
+
+    fip = np.where(ip_actual > 0, ((13 * hr) + (3 * (bb + hb)) - (2 * so)) / ip_actual + FIP_CONSTANT, 0.0)
+    era = np.where(ip_actual > 0, (er / ip_actual) * 9, 0.0)
+    obp_d = p_oab + bb + hb + sfa
+    obp_against = np.where(obp_d > 0, (h + bb + hb) / obp_d, 0.0)
+    tb_against = singles + 2 * doubles + 3 * triples + 4 * hr
+    slg_against = np.where(p_oab > 0, tb_against / p_oab, 0.0)
+    ops_against = obp_against + slg_against
+    ba_against = np.where(p_oab > 0, h / p_oab, 0.0)
+    k_pct = np.where(bf > 0, so / bf * 100, 0.0)
+    bb_pct = np.where(bf > 0, bb / bf * 100, 0.0)
+    k9 = np.where(ip_actual > 0, (so / ip_actual) * 9, 0.0)
+    k7 = np.where(ip_actual > 0, (so / ip_actual) * 7, 0.0)
+    k_bb = np.where(bb > 0, so / bb, so.astype(float))
+    whip = np.where(ip_actual > 0, (bb + h) / ip_actual, 0.0)
+    babip_d = p_oab - so - hr + sfa
+    babip = np.where(babip_d > 0, (h - hr) / babip_d, 0.0)
+
+    # IP display: convert outs back to baseball notation
+    ip_display = (outs // 3).astype(int).astype(str) + '.' + (outs % 3).astype(int).astype(str)
+    ip_display = ip_display.astype(float)
+
+    result = pd.DataFrame({
+        group_col: agg[group_col],
+        'IP': ip_display,
+        'App': agg['_app'].astype(int),
+        'GS': agg['is_starter'].astype(int),
+        'BF': bf.astype(int), 'OAB': p_oab.astype(int),
+        'H': h.astype(int), 'R': r.astype(int), 'ER': er.astype(int),
+        'BB': bb.astype(int), 'HB': hb.astype(int), 'SO': so.astype(int),
+        'HR': hr.astype(int), '2B-A': doubles.astype(int), '3B-A': triples.astype(int),
+        'WP': agg['wp'].astype(int), 'Bk': agg['bk'].astype(int),
+        'IBB': agg['ibb'].astype(int),
+        'SHA': sha.astype(int), 'SFA': sfa.astype(int),
+        'ERA': np.round(era, 2), 'FIP': np.round(fip, 2),
+        'BAA': np.round(ba_against, 3), 'BABIP': np.round(babip, 3),
+        'OBP Against': np.round(obp_against, 3),
+        'SLG Against': np.round(slg_against, 3),
+        'OPS Against': np.round(ops_against, 3),
+        'K%': np.round(k_pct, 1), 'BB%': np.round(bb_pct, 1),
+        'K/9': np.round(k9, 2), 'K/7': np.round(k7, 2),
+        'K/BB': np.round(k_bb, 2), 'WHIP': np.round(whip, 2),
+        'GmSc': np.round(agg['_gmsc_mean'], 1),
+    })
+
+    # Filter to min_bf
+    result = result[result['BF'] >= min_bf].copy()
+    if len(result) == 0:
+        return pd.DataFrame()
+
+    # Position and school enrichment
+    if 'formalPosition' in df.columns:
+        formal = df.dropna(subset=['formalPosition']).groupby(group_col, sort=False)['formalPosition'].first()
+        pos_map = formal.to_dict()
+    else:
+        pos_map = {}
+    if 'playerPosition' in df.columns:
+        pp = df.dropna(subset=['playerPosition'])
+        fallback = pp.groupby(group_col, sort=False)['playerPosition'].agg(
+            lambda s: s.value_counts().index[0] if len(s) > 0 else '')
+        fallback_map = fallback.to_dict()
+    else:
+        fallback_map = {}
+    result['Pos'] = result[group_col].map(lambda n: pos_map.get(n) or fallback_map.get(n, ''))
+
+    if 'school' in df.columns:
+        school = df.dropna(subset=['school']).groupby(group_col, sort=False)['school'].first()
+        school_map = school.to_dict()
+        result['School'] = result[group_col].map(school_map).fillna('')
+    else:
+        result['School'] = ''
+
     # Pitcher Rank: FIP rank + A-OPS rank + 2 * Game Score rank
-    # Lower FIP/OPS = better (rank descending), higher GmSc = better (rank ascending)
     n = len(result)
     if n > 0:
-        result['fip_score'] = (n - result['FIP'].rank(method='min') + 1) / n
-        result['ops_a_score'] = (n - result['OPS Against'].rank(method='min') + 1) / n
-        result['gmsc_score'] = result['GmSc'].rank(method='min', ascending=True) / n
-        result['Rank'] = round(
-            result['fip_score'] + result['ops_a_score'] + 2 * result['gmsc_score'], 6
-        )
-        result = result.drop(columns=['fip_score', 'ops_a_score', 'gmsc_score'])
+        fip_score = (n - result['FIP'].rank(method='min') + 1) / n
+        ops_a_score = (n - result['OPS Against'].rank(method='min') + 1) / n
+        gmsc_score = result['GmSc'].rank(method='min', ascending=True) / n
+        result['Rank'] = (fip_score + ops_a_score + 2 * gmsc_score).round(6)
+
     cols = ['Rank'] + [group_col] + [c for c in result.columns if c not in ['Rank', group_col]]
     return result[cols].sort_values('Rank', ascending=False).reset_index(drop=True)
 
 
 def compute_grouped_fielding(df, group_col):
-    """Compute fielding stats grouped by a column."""
-    rows = []
-    for name, group in df.groupby(group_col):
-        stats = compute_fielding_stats(group)
-        if stats['TC'] > 0:
-            stats[group_col] = name
-            stats['Pos'] = _primary_position(group)
-            stats['School'] = _player_school(group)
-            rows.append(stats)
-    if not rows:
+    """Compute fielding stats grouped by a column. Vectorized."""
+    if len(df) == 0:
         return pd.DataFrame()
-    result = pd.DataFrame(rows)
+
+    sum_cols = ['po', 'a', 'tc', 'e', 'pb', 'sba', 'csb', 'idp', 'tp']
+    sum_cols = [c for c in sum_cols if c in df.columns]
+    g = df.groupby(group_col, sort=False)
+    agg = g[sum_cols].sum().reset_index()
+
+    po = agg['po']; a = agg['a']; tc = agg['tc']; e = agg['e']
+    sba = agg['sba']; csb = agg['csb']
+    fpct = np.where(tc > 0, (po + a) / tc, 0.0)
+    cs_pct = np.where((sba + csb) > 0, csb / (sba + csb), 0.0)
+
+    result = pd.DataFrame({
+        group_col: agg[group_col],
+        'PO': po.astype(int), 'A': a.astype(int), 'TC': tc.astype(int), 'E': e.astype(int),
+        'FPCT': np.round(fpct, 3),
+        'PB': agg['pb'].astype(int),
+        'SBA': sba.astype(int), 'CSB': csb.astype(int),
+        'CS%': np.round(cs_pct, 3),
+        'IDP': agg['idp'].astype(int), 'TP': agg['tp'].astype(int),
+    })
+
+    # Filter to TC > 0
+    result = result[result['TC'] > 0].copy()
+    if len(result) == 0:
+        return pd.DataFrame()
+
+    # Position and school enrichment
+    if 'formalPosition' in df.columns:
+        formal = df.dropna(subset=['formalPosition']).groupby(group_col, sort=False)['formalPosition'].first()
+        pos_map = formal.to_dict()
+    else:
+        pos_map = {}
+    if 'playerPosition' in df.columns:
+        pp = df.dropna(subset=['playerPosition'])
+        fallback = pp.groupby(group_col, sort=False)['playerPosition'].agg(
+            lambda s: s.value_counts().index[0] if len(s) > 0 else '')
+        fallback_map = fallback.to_dict()
+    else:
+        fallback_map = {}
+    result['Pos'] = result[group_col].map(lambda n: pos_map.get(n) or fallback_map.get(n, ''))
+
+    if 'school' in df.columns:
+        school = df.dropna(subset=['school']).groupby(group_col, sort=False)['school'].first()
+        school_map = school.to_dict()
+        result['School'] = result[group_col].map(school_map).fillna('')
+    else:
+        result['School'] = ''
+
     cols = [group_col] + [c for c in result.columns if c != group_col]
     return result[cols].sort_values('FPCT', ascending=False).reset_index(drop=True)
 
