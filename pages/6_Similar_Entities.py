@@ -372,6 +372,13 @@ if mode == 'Player':
         # Merge on (player_id, year) so we don't cross years
         df = h2.merge(p2[['player_id', 'year'] + [m[0] for m in PITCHING_METRICS] + ['batters_faced']],
                       on=['player_id', 'year'], how='inner', suffixes=('', '_p'))
+        # Overlapping columns (walk_percentage, strikeout_percentage, strikeout_to_walk_ratio)
+        # got '_p' suffix on the pitching side. Replace the hitting versions with the
+        # pitching versions since HITTING_METRICS doesn't reference these columns.
+        for ov_col in ['walk_percentage', 'strikeout_percentage', 'strikeout_to_walk_ratio']:
+            if ov_col + '_p' in df.columns:
+                df[ov_col] = df[ov_col + '_p']
+                df = df.drop(columns=[ov_col + '_p'])
         df['__display'] = df['player_name'].fillna('Unknown') + ' — ' + df['team_name'] + ' (' + df['year'].astype(str) + ')'
         df = df.sort_values('__display').reset_index(drop=True)
         metrics = HITTING_METRICS + PITCHING_METRICS
@@ -433,6 +440,13 @@ else:  # Team
     # Merge on (team_id, year) so each team-season is its own row
     df = th.merge(tp[['team_id', 'year'] + [m[0] for m in PITCHING_METRICS]],
                   on=['team_id', 'year'], how='inner', suffixes=('', '_p'))
+    # Overlapping columns (walk_percentage, strikeout_percentage, strikeout_to_walk_ratio)
+    # got '_p' suffix on the pitching side. Replace the hitting versions with the
+    # pitching versions since HITTING_METRICS doesn't reference these columns.
+    for ov_col in ['walk_percentage', 'strikeout_percentage', 'strikeout_to_walk_ratio']:
+        if ov_col + '_p' in df.columns:
+            df[ov_col] = df[ov_col + '_p']
+            df = df.drop(columns=[ov_col + '_p'])
     df['__display'] = df['team_name'] + ' (' + df['year'].astype(str) + ')'
     # Sort: most recent year first, then alphabetical
     df = df.sort_values(['year', 'team_name'], ascending=[False, True]).reset_index(drop=True)
