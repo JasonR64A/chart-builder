@@ -198,11 +198,11 @@ def render_similarity_chart(target_label, target_team, target_pct, matches, matc
     if theme == 'Dark':
         bg = '#1a1a1a'; text_color = '#e2e8f0'; text_md = '#a0aec0'
         grid_color = '#3a3a3a'; spine_color = '#2d3748'
-        target_color = '#FFFFFF'
+        target_color = '#FFD700'  # gold — pops on dark navy
     else:
         bg = '#F5F1EB'; text_color = '#2D2926'; text_md = '#4A4540'
         grid_color = '#C8C0B0'; spine_color = '#D6D0C8'
-        target_color = '#1a1a1a'
+        target_color = '#C41230'  # brand red — pops on eggshell
 
     metric_labels = [m[1] for m in metrics]
     metric_cols = [m[0] for m in metrics]
@@ -215,14 +215,7 @@ def render_similarity_chart(target_label, target_team, target_pct, matches, matc
     fig = plt.figure(figsize=(11, 11), facecolor=bg)
     ax = fig.add_subplot(111, polar=True, facecolor=bg)
 
-    # Target polygon (drawn first/behind, prominent thick line + light fill)
-    target_vals = [float(target_pct[c]) if c in target_pct.index else 0.0 for c in metric_cols]
-    target_vals_closed = target_vals + [target_vals[0]]
-    ax.plot(angles_closed, target_vals_closed, color=target_color, linewidth=3.0,
-            zorder=5, label=f'{target_label} ({target_team})')
-    ax.fill(angles_closed, target_vals_closed, color=target_color, alpha=0.15, zorder=4)
-
-    # Match polygons
+    # Match polygons FIRST (behind target)
     for i, (_, m_row) in enumerate(matches.iterrows()):
         m_name = m_row.get('player_name') or m_row.get('team_name', '?')
         m_team = m_row.get('team_name', '?')
@@ -237,9 +230,20 @@ def render_similarity_chart(target_label, target_team, target_pct, matches, matc
         m_color = get_team_color(m_team)
         m_vals = [float(match_pcts.loc[m_row.name, c]) if c in match_pcts.columns else 0.0 for c in metric_cols]
         m_vals_closed = m_vals + [m_vals[0]]
-        ax.plot(angles_closed, m_vals_closed, color=m_color, linewidth=2.0,
-                alpha=0.9, zorder=3, label=legend_label)
-        ax.fill(angles_closed, m_vals_closed, color=m_color, alpha=0.08, zorder=2)
+        ax.plot(angles_closed, m_vals_closed, color=m_color, linewidth=1.8,
+                alpha=0.75, zorder=3, label=legend_label, linestyle='--')
+        ax.fill(angles_closed, m_vals_closed, color=m_color, alpha=0.06, zorder=2)
+
+    # Target polygon — draw LAST and on TOP, with markers and bold styling
+    target_vals = [float(target_pct[c]) if c in target_pct.index else 0.0 for c in metric_cols]
+    target_vals_closed = target_vals + [target_vals[0]]
+    # Solid heavy line with fill
+    ax.fill(angles_closed, target_vals_closed, color=target_color, alpha=0.30, zorder=9)
+    ax.plot(angles_closed, target_vals_closed, color=target_color, linewidth=4.5,
+            zorder=10, label=f'{target_label} ({target_team})', solid_capstyle='round')
+    # Big markers at each metric vertex
+    ax.scatter(angles, target_vals, color=target_color, s=120, zorder=11,
+               edgecolors=bg, linewidths=2)
 
     # Axis styling
     ax.set_theta_offset(np.pi / 2)  # start at top
