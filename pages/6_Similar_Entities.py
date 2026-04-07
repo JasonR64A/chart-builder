@@ -193,16 +193,28 @@ def get_team_color(team_name):
     return '#C41230'
 
 # ── Bar chart ─────────────────────────────────────────────────────────────────
+def _make_grainy_bg(color_rgb, size=400, noise_scale=0.03, seed=42):
+    """Generate a grainy noise background array around a base color."""
+    rng = np.random.default_rng(seed)
+    noise = rng.normal(0, 1, (size, size, 3)) * noise_scale
+    base = np.array(color_rgb)
+    return np.clip(base + noise, 0, 1)
+
 def render_similarity_chart(target_label, target_team, target_pct, matches, match_pcts, metrics, theme='Light', show_year=False):
     """Spider/radar chart: each axis is a metric, each entity is a polygon."""
     if theme == 'Dark':
-        bg = '#1a1a1a'; text_color = '#e2e8f0'; text_md = '#a0aec0'
+        bg_solid = '#1a1a1a'; text_color = '#e2e8f0'; text_md = '#a0aec0'
         grid_color = '#3a3a3a'; spine_color = '#2d3748'
-        target_color = '#FFD700'  # gold — pops on dark navy
+        bg_rgb = (0.10, 0.10, 0.10)
+        noise_scale = 0.012
     else:
-        bg = '#F5F1EB'; text_color = '#2D2926'; text_md = '#4A4540'
+        bg_solid = '#F0EAD6'; text_color = '#2D2926'; text_md = '#4A4540'
         grid_color = '#C8C0B0'; spine_color = '#D6D0C8'
-        target_color = '#C41230'  # brand red — pops on eggshell
+        bg_rgb = (0.941, 0.918, 0.839)  # eggshell
+        noise_scale = 0.018
+
+    # Use the target team's actual color (falls back to brand red)
+    target_color = get_team_color(target_team) or '#C41230'
 
     metric_labels = [m[1] for m in metrics]
     metric_cols = [m[0] for m in metrics]
@@ -212,8 +224,15 @@ def render_similarity_chart(target_label, target_team, target_pct, matches, matc
     angles = np.linspace(0, 2 * np.pi, n_metrics, endpoint=False).tolist()
     angles_closed = angles + [angles[0]]
 
-    fig = plt.figure(figsize=(11, 11), facecolor=bg)
-    ax = fig.add_subplot(111, polar=True, facecolor=bg)
+    fig = plt.figure(figsize=(11, 11), facecolor=bg_solid)
+
+    # Grainy textured background that fills the whole figure
+    bg_ax = fig.add_axes([0, 0, 1, 1], zorder=-1)
+    bg_ax.set_axis_off()
+    bg_img = _make_grainy_bg(bg_rgb, size=500, noise_scale=noise_scale)
+    bg_ax.imshow(bg_img, aspect='auto', extent=[0, 1, 0, 1], interpolation='bilinear')
+
+    ax = fig.add_subplot(111, polar=True, facecolor='none')
 
     # Match polygons FIRST (behind target)
     for i, (_, m_row) in enumerate(matches.iterrows()):
@@ -265,11 +284,11 @@ def render_similarity_chart(target_label, target_team, target_pct, matches, matc
     ax.spines['polar'].set_color(spine_color)
     ax.spines['polar'].set_linewidth(1.0)
 
-    # Title
-    fig.text(0.5, 0.97, 'Similarity Profile', fontsize=20,
+    # Title + subtitle (subtitle tucked right under title)
+    fig.text(0.5, 0.965, 'Similarity Profile', fontsize=20,
              fontfamily=TITLE_FONT, fontweight='bold',
              color=text_color, ha='center', va='top')
-    fig.text(0.5, 0.93, 'Percentile within division (per year)',
+    fig.text(0.5, 0.935, 'Percentile within division (per year)',
              fontsize=11, fontfamily=SUBTITLE_FONT, color=text_md,
              ha='center', va='top')
 
@@ -279,10 +298,10 @@ def render_similarity_chart(target_label, target_team, target_pct, matches, matc
     for text in legend.get_texts():
         text.set_fontfamily(SUBTITLE_FONT)
 
-    fig.subplots_adjust(top=0.88, bottom=0.18)
+    fig.subplots_adjust(top=0.90, bottom=0.18)
 
     buf = BytesIO()
-    fig.savefig(buf, format='png', dpi=180, facecolor=bg, bbox_inches='tight')
+    fig.savefig(buf, format='png', dpi=180, facecolor=bg_solid, bbox_inches='tight')
     buf.seek(0)
     plt.close(fig)
     return buf
