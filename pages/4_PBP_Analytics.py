@@ -523,47 +523,43 @@ def get_best_hitters(hitting_df, league_woba, min_pa=10, sport='baseball'):
     best = {}
     dh_label = 'DP' if sport == 'softball' else 'DH'
 
+    def _pos_for_group(group):
+        # Prefer formalPosition from players.csv (matches Hitter Stats table)
+        if 'formalPosition' in group.columns:
+            formal = group['formalPosition'].dropna()
+            if len(formal) > 0:
+                p = formal.iloc[0]
+                if sport == 'softball' and p == 'DP':
+                    p = 'DH'
+                return p
+        # Fallback: most-common game position
+        if 'playerPosition' in group.columns:
+            pos = group['playerPosition'].dropna()
+            if len(pos) > 0:
+                p = pos.value_counts().index[0]
+                if sport == 'softball' and p == 'DP':
+                    p = 'DH'
+                return p
+        return ''
+
     # Step 1: Determine each player's predominant position and compute stats from ALL their PA
     player_data = []
     for name, group in hitting_df.groupby('playerName'):
         stats = compute_hitting_stats(group)
         if stats['PA'] >= min_pa:
-            # Predominant position = most games played at that position
-            pos_counts = group['playerPosition'].value_counts()
-            predominant_pos = pos_counts.index[0] if len(pos_counts) > 0 else ''
-            # Normalize DP to DH for softball
-            if sport == 'softball' and predominant_pos == 'DP':
-                predominant_pos = 'DH'
             stats['playerName'] = name
             stats['teamName'] = group['teamName'].mode().iloc[0] if len(group['teamName'].mode()) > 0 else ''
             stats['wRAA'] = compute_wraa(stats['wOBA'], league_woba, stats['PA'])
-            stats['_pos'] = predominant_pos
+            stats['_pos'] = _pos_for_group(group)
             player_data.append(stats)
 
     if not player_data:
         return best
 
-    # Step 2: Compute combined rank using the FULL player population (min 1 PA)
-    # so rankings match the Hitter Stats table regardless of lineup card min PA.
-    # Then filter to min_pa for eligibility.
-    all_players_full = []
-    for name, group in hitting_df.groupby('playerName'):
-        stats = compute_hitting_stats(group)
-        if stats['PA'] >= 1:
-            pos_counts = group['playerPosition'].value_counts()
-            predominant_pos = pos_counts.index[0] if len(pos_counts) > 0 else ''
-            if sport == 'softball' and predominant_pos == 'DP':
-                predominant_pos = 'DH'
-            stats['playerName'] = name
-            stats['teamName'] = group['teamName'].mode().iloc[0] if len(group['teamName'].mode()) > 0 else ''
-            stats['wRAA'] = compute_wraa(stats['wOBA'], league_woba, stats['PA'])
-            stats['_pos'] = predominant_pos
-            all_players_full.append(stats)
-
-    if not all_players_full:
-        return best
-
-    all_df = pd.DataFrame(all_players_full)
+    # Step 2: Compute combined rank using ONLY players who meet min_pa.
+    # This matches the Hitter Stats table behavior, where rank is computed
+    # within the min_pa-filtered population.
+    all_df = pd.DataFrame(player_data)
     n = len(all_df)
     if n > 0:
         all_df['wraa_pctl'] = all_df['wRAA'].rank(pct=True, method='min')
@@ -572,8 +568,8 @@ def get_best_hitters(hitting_df, league_woba, min_pa=10, sport='baseball'):
         all_df['Rank'] = all_df['wraa_pctl'] + all_df['ops_pctl'] + all_df['tb_pctl']
         all_df = all_df.drop(columns=['wraa_pctl', 'ops_pctl', 'tb_pctl'])
 
-    # Step 3: Filter to min_pa eligible, then pick highest-ranked per position
-    eligible = all_df[all_df['PA'] >= min_pa]
+    # Step 3: Pick highest-ranked per position (already filtered to min_pa)
+    eligible = all_df
     for pos in FIELD_POSITIONS:
         pos_players = eligible[eligible['_pos'] == pos]
         if len(pos_players) == 0:
