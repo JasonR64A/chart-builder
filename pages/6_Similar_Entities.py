@@ -209,10 +209,10 @@ def render_similarity_chart(target_label, target_team, target_pct, matches, matc
         bg_rgb = (0.10, 0.10, 0.10)
         noise_scale = 0.012
     else:
-        bg_solid = '#F0EAD6'; text_color = '#2D2926'; text_md = '#4A4540'
-        grid_color = '#C8C0B0'; spine_color = '#D6D0C8'
-        bg_rgb = (0.941, 0.918, 0.839)  # eggshell
-        noise_scale = 0.018
+        bg_solid = '#FAF8F2'; text_color = '#2D2926'; text_md = '#4A4540'
+        grid_color = '#D8D2C4'; spine_color = '#E2DCCC'
+        bg_rgb = (0.980, 0.972, 0.949)  # near-white with hint of warmth
+        noise_scale = 0.012
 
     # Use the target team's actual color (falls back to brand red)
     target_color = get_team_color(target_team) or '#C41230'
@@ -285,11 +285,11 @@ def render_similarity_chart(target_label, target_team, target_pct, matches, matc
     ax.spines['polar'].set_color(spine_color)
     ax.spines['polar'].set_linewidth(1.0)
 
-    # Title + subtitle (subtitle tucked right under title)
-    fig.text(0.5, 0.965, 'Similarity Profile', fontsize=20,
+    # Title + subtitle (clear space between title and subtitle, then space before chart)
+    fig.text(0.5, 0.985, 'Similarity Profile', fontsize=20,
              fontfamily=TITLE_FONT, fontweight='bold',
              color=text_color, ha='center', va='top')
-    fig.text(0.5, 0.935, 'Percentile within division (per year)',
+    fig.text(0.5, 0.945, 'Percentile within division (per year)',
              fontsize=11, fontfamily=SUBTITLE_FONT, color=text_md,
              ha='center', va='top')
 
@@ -299,7 +299,8 @@ def render_similarity_chart(target_label, target_team, target_pct, matches, matc
     for text in legend.get_texts():
         text.set_fontfamily(SUBTITLE_FONT)
 
-    fig.subplots_adjust(top=0.90, bottom=0.18)
+    # Push the polar chart down so the top metric label doesn't crash into the subtitle
+    fig.subplots_adjust(top=0.86, bottom=0.18)
 
     # Brand logo bottom-right
     wide_logo_path = _APP_DIR / 'assets' / 'brand_logo_wide.png'
