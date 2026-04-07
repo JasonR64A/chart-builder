@@ -194,32 +194,35 @@ def get_team_color(team_name):
 
 # ── Bar chart ─────────────────────────────────────────────────────────────────
 def render_similarity_chart(target_label, target_team, target_pct, matches, match_pcts, metrics, theme='Light', show_year=False):
-    """Grouped bar chart: one group per metric, target + 5 matches as bars."""
+    """Spider/radar chart: each axis is a metric, each entity is a polygon."""
     if theme == 'Dark':
         bg = '#1a1a1a'; text_color = '#e2e8f0'; text_md = '#a0aec0'
-        grid_color = '#2e2e2e'; spine_color = '#2d3748'
+        grid_color = '#3a3a3a'; spine_color = '#2d3748'
         target_color = '#FFFFFF'
     else:
         bg = '#F5F1EB'; text_color = '#2D2926'; text_md = '#4A4540'
-        grid_color = '#E6E0D8'; spine_color = '#D6D0C8'
+        grid_color = '#C8C0B0'; spine_color = '#D6D0C8'
         target_color = '#1a1a1a'
 
     metric_labels = [m[1] for m in metrics]
     metric_cols = [m[0] for m in metrics]
     n_metrics = len(metric_labels)
-    n_entities = 1 + len(matches)
-    bar_width = 0.8 / n_entities
-    x = np.arange(n_metrics)
 
-    fig, ax = plt.subplots(figsize=(14, 7), facecolor=bg)
-    ax.set_facecolor(bg)
+    # Compute angle per axis
+    angles = np.linspace(0, 2 * np.pi, n_metrics, endpoint=False).tolist()
+    angles_closed = angles + [angles[0]]
 
-    # Target bars
-    target_vals = [target_pct[c] if c in target_pct.index else 0 for c in metric_cols]
-    ax.bar(x - 0.4 + bar_width / 2, target_vals, bar_width,
-           label=f'{target_label} ({target_team})', color=target_color, edgecolor='none')
+    fig = plt.figure(figsize=(11, 11), facecolor=bg)
+    ax = fig.add_subplot(111, polar=True, facecolor=bg)
 
-    # Match bars
+    # Target polygon (drawn first/behind, prominent thick line + light fill)
+    target_vals = [float(target_pct[c]) if c in target_pct.index else 0.0 for c in metric_cols]
+    target_vals_closed = target_vals + [target_vals[0]]
+    ax.plot(angles_closed, target_vals_closed, color=target_color, linewidth=3.0,
+            zorder=5, label=f'{target_label} ({target_team})')
+    ax.fill(angles_closed, target_vals_closed, color=target_color, alpha=0.15, zorder=4)
+
+    # Match polygons
     for i, (_, m_row) in enumerate(matches.iterrows()):
         m_name = m_row.get('player_name') or m_row.get('team_name', '?')
         m_team = m_row.get('team_name', '?')
@@ -232,31 +235,47 @@ def render_similarity_chart(target_label, target_team, target_pct, matches, matc
         else:
             legend_label = f'{m_name} ({m_team})'
         m_color = get_team_color(m_team)
-        m_vals = [match_pcts.loc[m_row.name, c] if c in match_pcts.columns else 0 for c in metric_cols]
-        offset = -0.4 + bar_width * (i + 1) + bar_width / 2
-        ax.bar(x + offset, m_vals, bar_width,
-               label=legend_label, color=m_color, edgecolor='none')
+        m_vals = [float(match_pcts.loc[m_row.name, c]) if c in match_pcts.columns else 0.0 for c in metric_cols]
+        m_vals_closed = m_vals + [m_vals[0]]
+        ax.plot(angles_closed, m_vals_closed, color=m_color, linewidth=2.0,
+                alpha=0.9, zorder=3, label=legend_label)
+        ax.fill(angles_closed, m_vals_closed, color=m_color, alpha=0.08, zorder=2)
 
-    ax.set_xticks(x)
-    ax.set_xticklabels(metric_labels, fontsize=11, fontfamily=BODY_FONT, color=text_color)
-    ax.set_ylabel('Percentile (within division)', fontsize=11, fontfamily=BODY_FONT, color=text_md, labelpad=10)
-    ax.set_ylim(0, 105)
-    ax.tick_params(colors=text_md, labelsize=9)
-    for label in ax.get_yticklabels():
-        label.set_fontfamily(BODY_FONT)
-    ax.grid(True, axis='y', alpha=0.15, color=grid_color)
-    for spine in ax.spines.values():
-        spine.set_color(spine_color)
+    # Axis styling
+    ax.set_theta_offset(np.pi / 2)  # start at top
+    ax.set_theta_direction(-1)       # clockwise
+    ax.set_xticks(angles)
+    ax.set_xticklabels(metric_labels, fontsize=12, fontfamily=BODY_FONT,
+                       fontweight='bold', color=text_color)
+    # Pad tick labels away from circle
+    ax.tick_params(axis='x', pad=15)
 
-    legend = ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.10),
-                       ncol=3, frameon=False, fontsize=9, labelcolor=text_color)
+    # Radial gridlines at 25/50/75/100
+    ax.set_ylim(0, 100)
+    ax.set_yticks([25, 50, 75, 100])
+    ax.set_yticklabels(['25', '50', '75', '100'], fontsize=8,
+                       fontfamily=BODY_FONT, color=text_md)
+    ax.set_rlabel_position(180 / n_metrics)  # offset radial labels between axes
+
+    ax.grid(color=grid_color, alpha=0.5, linewidth=0.8)
+    ax.spines['polar'].set_color(spine_color)
+    ax.spines['polar'].set_linewidth(1.0)
+
+    # Title
+    fig.text(0.5, 0.97, 'Similarity Profile', fontsize=20,
+             fontfamily=TITLE_FONT, fontweight='bold',
+             color=text_color, ha='center', va='top')
+    fig.text(0.5, 0.93, 'Percentile within division (per year)',
+             fontsize=11, fontfamily=SUBTITLE_FONT, color=text_md,
+             ha='center', va='top')
+
+    # Legend below chart
+    legend = ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.08),
+                       ncol=2, frameon=False, fontsize=10, labelcolor=text_color)
     for text in legend.get_texts():
         text.set_fontfamily(SUBTITLE_FONT)
 
-    title_main = 'Similarity Profile'
-    fig.text(0.5, 0.97, title_main, fontsize=18, fontfamily=TITLE_FONT,
-             fontweight='bold', color=text_color, ha='center', va='top')
-    fig.subplots_adjust(top=0.92, bottom=0.20)
+    fig.subplots_adjust(top=0.88, bottom=0.18)
 
     buf = BytesIO()
     fig.savefig(buf, format='png', dpi=180, facecolor=bg, bbox_inches='tight')
