@@ -13,6 +13,7 @@ import matplotlib.pyplot as plt
 import matplotlib.font_manager as fm
 from io import BytesIO
 from PIL import Image
+from matplotlib.offsetbox import OffsetImage, AnnotationBbox
 
 # ── Path setup ────────────────────────────────────────────────────────────────
 _APP_DIR = Path(__file__).resolve().parent.parent
@@ -299,6 +300,20 @@ def render_similarity_chart(target_label, target_team, target_pct, matches, matc
         text.set_fontfamily(SUBTITLE_FONT)
 
     fig.subplots_adjust(top=0.90, bottom=0.18)
+
+    # Brand logo bottom-right
+    wide_logo_path = _APP_DIR / 'assets' / 'brand_logo_wide.png'
+    if wide_logo_path.exists():
+        try:
+            logo_img = Image.open(wide_logo_path).convert('RGBA')
+            logo_img.thumbnail((220, 60), Image.LANCZOS)
+            logo_arr = np.array(logo_img)
+            logo_im = OffsetImage(logo_arr, zoom=0.42, alpha=0.85)
+            logo_ab = AnnotationBbox(logo_im, (0.97, 0.04), xycoords='figure fraction',
+                                      frameon=False, zorder=20, box_alignment=(1, 0))
+            fig.add_artist(logo_ab)
+        except Exception:
+            pass
 
     buf = BytesIO()
     fig.savefig(buf, format='png', dpi=180, facecolor=bg_solid, bbox_inches='tight')
