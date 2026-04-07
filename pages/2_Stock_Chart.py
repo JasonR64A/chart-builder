@@ -51,15 +51,15 @@ THEMES = {
         'streamlit_bg': '#1a1a1a',
     },
     'Light': {
-        'bg': '#FFFFFF', 'plot_bg': '#F5F5F5',
-        'text': '#1a1a1a', 'text_sub': '#333333',
-        'text_md': '#666666', 'text_dk': '#999999',
-        'grid': '#E0E0E0', 'spine': '#CCCCCC',
+        'bg': '#FAF8F2', 'plot_bg': '#F2EFE5',
+        'text': '#2D2926', 'text_sub': '#3F3A35',
+        'text_md': '#4A4540', 'text_dk': '#6E6660',
+        'grid': '#E2DCCC', 'spine': '#D6D0C0',
         'up': RED_DK, 'up_light': RED,
         'down': '#1E3A5F', 'down_dark': '#4A7FB5',
-        'start_marker': '#999999',
+        'start_marker': '#8C8278',
         'brand_logo': BRAND_LOGO_LIGHT,
-        'streamlit_bg': '#FFFFFF',
+        'streamlit_bg': '#FAF8F2',
     },
 }
 

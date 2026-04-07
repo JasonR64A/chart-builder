@@ -2077,10 +2077,10 @@ elif view == 'Pace Chart':
         text_color = '#e2e8f0'; text_md = '#a0aec0'; grid_color = '#2e2e2e'
         spine_color = '#2d3748'; avg_line_color = '#63b3ed'
     else:
-        bg = '#F5F1EB'; plot_bg = '#F5F1EB'
+        bg = '#FAF8F2'; plot_bg = '#FAF8F2'
         line_color = '#B0A898'; label_color = '#8C8278'
-        text_color = '#2D2926'; text_md = '#4A4540'; grid_color = '#E6E0D8'
-        spine_color = '#D6D0C8'; avg_line_color = '#3182CE'
+        text_color = '#2D2926'; text_md = '#4A4540'; grid_color = '#E2DCCC'
+        spine_color = '#D6D0C0'; avg_line_color = '#3182CE'
 
     # Render chart
     fig, ax = plt.subplots(figsize=(14, 7), facecolor=bg)
