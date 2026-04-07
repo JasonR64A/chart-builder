@@ -70,9 +70,9 @@ def load_players():
     return df[['id', 'player_name']].rename(columns={'id': 'player_id'})
 
 @st.cache_data
-def load_player_hitting(sport, division, year=2026):
+def load_player_hitting(sport, division):
+    """Load hitting for ALL years for the given sport/division."""
     hit = pd.read_csv(DATA_DIR / 'hitting.csv', low_memory=False)
-    hit = hit[hit['year'] == year]
     teams = load_teams_division(sport)
     teams = teams[teams['division'] == division]
     df = hit.merge(teams, on='team_id', how='inner')
@@ -82,9 +82,8 @@ def load_player_hitting(sport, division, year=2026):
     return df
 
 @st.cache_data
-def load_player_pitching(sport, division, year=2026):
+def load_player_pitching(sport, division):
     pit = pd.read_csv(DATA_DIR / 'pitching.csv', low_memory=False)
-    pit = pit[pit['year'] == year]
     teams = load_teams_division(sport)
     teams = teams[teams['division'] == division]
     df = pit.merge(teams, on='team_id', how='inner')
@@ -94,38 +93,40 @@ def load_player_pitching(sport, division, year=2026):
     return df
 
 @st.cache_data
-def load_team_hitting(sport, division, year=2026):
+def load_team_hitting(sport, division):
     th = pd.read_csv(DATA_DIR / 'hitting_team.csv', low_memory=False)
-    th = th[th['year'] == year]
     teams = load_teams_division(sport)
     teams = teams[teams['division'] == division]
     return th.merge(teams, on='team_id', how='inner')
 
 @st.cache_data
-def load_team_pitching(sport, division, year=2026):
+def load_team_pitching(sport, division):
     tp = pd.read_csv(DATA_DIR / 'pitching_team.csv', low_memory=False)
-    tp = tp[tp['year'] == year]
     teams = load_teams_division(sport)
     teams = teams[teams['division'] == division]
     return tp.merge(teams, on='team_id', how='inner')
 
 # ── Percentile + Similarity ───────────────────────────────────────────────────
-def compute_percentiles(df, metrics):
-    """Compute 0-100 percentile rank for each metric. Inverts lower-is-better stats."""
+def compute_percentiles(df, metrics, cohort_col='year'):
+    """Compute 0-100 percentile rank for each metric WITHIN each cohort
+    (default: per year). Inverts lower-is-better stats so higher = better."""
     out = pd.DataFrame(index=df.index)
     for col, _, lower_better in metrics:
         if col not in df.columns:
             continue
+        # Rank within each cohort (year)
+        ranks = df.groupby(cohort_col)[col].rank(pct=True, method='min')
         if lower_better:
-            out[col] = (1 - df[col].rank(pct=True, method='min')) * 100
+            out[col] = (1 - ranks) * 100
         else:
-            out[col] = df[col].rank(pct=True, method='min') * 100
+            out[col] = ranks * 100
     return out
 
 def find_similar(target_idx, df, metrics, volume_col=None, top_n=5):
     """Return the top_n most similar entities to the target by Euclidean distance
-    in percentile space, with optional volume weighting."""
-    pct = compute_percentiles(df, metrics)
+    in percentile space, with optional volume weighting. Percentiles are
+    computed per-year cohort so cross-year comparisons are normalized."""
+    pct = compute_percentiles(df, metrics, cohort_col='year')
     if target_idx not in pct.index:
         return None, None
     target_vec = pct.loc[target_idx].values
@@ -133,7 +134,8 @@ def find_similar(target_idx, df, metrics, volume_col=None, top_n=5):
     eucl = np.sqrt((diffs ** 2).sum(axis=1))
 
     if volume_col and volume_col in df.columns:
-        vol_pct = df[volume_col].rank(pct=True, method='min') * 100
+        # Volume percentile also computed per-year cohort
+        vol_pct = df.groupby('year')[volume_col].rank(pct=True, method='min') * 100
         target_vol = vol_pct.loc[target_idx]
         vol_penalty = np.abs(vol_pct.values - target_vol) * VOLUME_WEIGHT
         eucl = eucl + vol_penalty
@@ -191,7 +193,7 @@ def get_team_color(team_name):
     return '#C41230'
 
 # ── Bar chart ─────────────────────────────────────────────────────────────────
-def render_similarity_chart(target_label, target_team, target_pct, matches, match_pcts, metrics, theme='Light'):
+def render_similarity_chart(target_label, target_team, target_pct, matches, match_pcts, metrics, theme='Light', show_year=False):
     """Grouped bar chart: one group per metric, target + 5 matches as bars."""
     if theme == 'Dark':
         bg = '#1a1a1a'; text_color = '#e2e8f0'; text_md = '#a0aec0'
@@ -219,13 +221,21 @@ def render_similarity_chart(target_label, target_team, target_pct, matches, matc
 
     # Match bars
     for i, (_, m_row) in enumerate(matches.iterrows()):
-        m_label = m_row.get('player_name') or m_row.get('team_name', '?')
+        m_name = m_row.get('player_name') or m_row.get('team_name', '?')
         m_team = m_row.get('team_name', '?')
+        m_year = int(m_row['year']) if show_year and 'year' in m_row.index else None
+        if show_year and m_year is not None:
+            if m_row.get('player_name'):
+                legend_label = f'{m_name} — {m_team} ({m_year})'
+            else:
+                legend_label = f'{m_team} ({m_year})'
+        else:
+            legend_label = f'{m_name} ({m_team})'
         m_color = get_team_color(m_team)
         m_vals = [match_pcts.loc[m_row.name, c] if c in match_pcts.columns else 0 for c in metric_cols]
         offset = -0.4 + bar_width * (i + 1) + bar_width / 2
         ax.bar(x + offset, m_vals, bar_width,
-               label=f'{m_label} ({m_team})', color=m_color, edgecolor='none')
+               label=legend_label, color=m_color, edgecolor='none')
 
     ax.set_xticks(x)
     ax.set_xticklabels(metric_labels, fontsize=11, fontfamily=BODY_FONT, color=text_color)
@@ -279,28 +289,32 @@ if mode == 'Player':
 
     if type_choice == 'Hitter':
         df = hit_df.copy()
-        df['__display'] = df['player_name'].fillna('Unknown') + ' — ' + df['team_name']
+        df['__display'] = df['player_name'].fillna('Unknown') + ' — ' + df['team_name'] + ' (' + df['year'].astype(str) + ')'
         df = df.sort_values('__display').reset_index(drop=True)
         metrics = HITTING_METRICS
         volume_col = 'plate_appearances'
         volume_label = 'PA'
     elif type_choice == 'Pitcher':
         df = pit_df.copy()
-        df['__display'] = df['player_name'].fillna('Unknown') + ' — ' + df['team_name']
+        df['__display'] = df['player_name'].fillna('Unknown') + ' — ' + df['team_name'] + ' (' + df['year'].astype(str) + ')'
         df = df.sort_values('__display').reset_index(drop=True)
         metrics = PITCHING_METRICS
         volume_col = 'batters_faced'
         volume_label = 'BF'
     else:  # Two-Way
-        if not two_way_ids:
+        # Two-way detection: a (player_id, year) appearing in BOTH hitting and pitching
+        h_keys = set(zip(hit_df['player_id'], hit_df['year']))
+        p_keys = set(zip(pit_df['player_id'], pit_df['year']))
+        two_way_keys = h_keys & p_keys
+        if not two_way_keys:
             st.warning(f'No two-way players found in {sport.title()} {division}.')
             st.stop()
-        h2 = hit_df[hit_df['player_id'].isin(two_way_ids)].copy()
-        p2 = pit_df[pit_df['player_id'].isin(two_way_ids)].copy()
-        # Merge on player_id
-        df = h2.merge(p2[['player_id'] + [m[0] for m in PITCHING_METRICS] + ['batters_faced']],
-                      on='player_id', how='inner', suffixes=('', '_p'))
-        df['__display'] = df['player_name'].fillna('Unknown') + ' — ' + df['team_name']
+        h2 = hit_df[hit_df.set_index(['player_id', 'year']).index.isin(two_way_keys)].copy()
+        p2 = pit_df[pit_df.set_index(['player_id', 'year']).index.isin(two_way_keys)].copy()
+        # Merge on (player_id, year) so we don't cross years
+        df = h2.merge(p2[['player_id', 'year'] + [m[0] for m in PITCHING_METRICS] + ['batters_faced']],
+                      on=['player_id', 'year'], how='inner', suffixes=('', '_p'))
+        df['__display'] = df['player_name'].fillna('Unknown') + ' — ' + df['team_name'] + ' (' + df['year'].astype(str) + ')'
         df = df.sort_values('__display').reset_index(drop=True)
         metrics = HITTING_METRICS + PITCHING_METRICS
         volume_col = 'plate_appearances'  # use PA for volume weighting on two-way
@@ -324,7 +338,7 @@ if mode == 'Player':
     target_pct = all_pcts.loc[target_idx]
 
     # Header card
-    st.markdown(f"### {target_row['player_name']} — {target_row['team_name']}")
+    st.markdown(f"### {target_row['player_name']} — {target_row['team_name']} ({int(target_row['year'])})")
     cols = st.columns(len(metrics) + 1)
     cols[0].metric(volume_label, int(target_row[volume_col]))
     for i, (col, label, _) in enumerate(metrics):
@@ -337,9 +351,10 @@ if mode == 'Player':
     st.markdown('### Top Matches')
 
     # Match table
-    show_cols = ['player_name', 'team_name', volume_col] + [m[0] for m in metrics] + ['_distance']
+    show_cols = ['year', 'player_name', 'team_name', volume_col] + [m[0] for m in metrics] + ['_distance']
     show_cols = [c for c in show_cols if c in matches.columns]
-    rename = {'player_name': 'Player', 'team_name': 'School', volume_col: volume_label, '_distance': 'Distance'}
+    rename = {'year': 'Year', 'player_name': 'Player', 'team_name': 'School',
+              volume_col: volume_label, '_distance': 'Distance'}
     for col, label, _ in metrics:
         rename[col] = label
     display_df = matches[show_cols].rename(columns=rename).reset_index(drop=True)
@@ -347,20 +362,22 @@ if mode == 'Player':
     st.dataframe(display_df, use_container_width=True)
 
     # Bar chart
-    target_label = target_row['player_name']
+    target_label = f"{target_row['player_name']} {int(target_row['year'])}"
     target_team = target_row['team_name']
-    chart = render_similarity_chart(target_label, target_team, target_pct, matches, all_pcts, metrics, theme=theme)
+    chart = render_similarity_chart(target_label, target_team, target_pct, matches, all_pcts, metrics, theme=theme, show_year=True)
     st.image(chart, use_container_width=True)
     st.download_button('Download Chart PNG', data=chart,
-                       file_name=f'similar_{target_label}_{sport}_{division}.png', mime='image/png')
+                       file_name=f'similar_{target_row["player_name"]}_{int(target_row["year"])}_{sport}_{division}.png', mime='image/png')
 
 else:  # Team
     th = load_team_hitting(sport, division)
     tp = load_team_pitching(sport, division)
-    df = th.merge(tp[['team_id'] + [m[0] for m in PITCHING_METRICS]],
-                  on='team_id', how='inner', suffixes=('', '_p'))
-    df['__display'] = df['team_name']
-    df = df.sort_values('__display').reset_index(drop=True)
+    # Merge on (team_id, year) so each team-season is its own row
+    df = th.merge(tp[['team_id', 'year'] + [m[0] for m in PITCHING_METRICS]],
+                  on=['team_id', 'year'], how='inner', suffixes=('', '_p'))
+    df['__display'] = df['team_name'] + ' (' + df['year'].astype(str) + ')'
+    # Sort: most recent year first, then alphabetical
+    df = df.sort_values(['year', 'team_name'], ascending=[False, True]).reset_index(drop=True)
     metrics = HITTING_METRICS + PITCHING_METRICS
 
     if len(df) == 0:
@@ -378,7 +395,7 @@ else:  # Team
 
     target_pct = all_pcts.loc[target_idx]
 
-    st.markdown(f"### {target_row['team_name']}")
+    st.markdown(f"### {target_row['team_name']} ({int(target_row['year'])})")
     cols = st.columns(min(len(metrics), 6))
     for i, (col, label, _) in enumerate(metrics[:6]):
         if col in target_row.index:
@@ -389,18 +406,20 @@ else:  # Team
     st.markdown('---')
     st.markdown('### Top Matches')
 
-    show_cols = ['team_name'] + [m[0] for m in metrics] + ['_distance']
+    show_cols = ['year', 'team_name'] + [m[0] for m in metrics] + ['_distance']
     show_cols = [c for c in show_cols if c in matches.columns]
-    rename = {'team_name': 'Team', '_distance': 'Distance'}
+    rename = {'year': 'Year', 'team_name': 'Team', '_distance': 'Distance'}
     for col, label, _ in metrics:
         rename[col] = label
     display_df = matches[show_cols].rename(columns=rename).reset_index(drop=True)
     display_df.index = display_df.index + 1
     st.dataframe(display_df, use_container_width=True)
 
-    chart = render_similarity_chart(target_row['team_name'], target_row['team_name'],
-                                     target_pct, matches, all_pcts, metrics, theme=theme)
+    chart_label = f"{target_row['team_name']} {int(target_row['year'])}"
+    chart = render_similarity_chart(chart_label, target_row['team_name'],
+                                     target_pct, matches, all_pcts, metrics, theme=theme,
+                                     show_year=True)
     st.image(chart, use_container_width=True)
     st.download_button('Download Chart PNG', data=chart,
-                       file_name=f'similar_team_{target_row["team_name"]}_{sport}_{division}.png',
+                       file_name=f'similar_team_{target_row["team_name"]}_{int(target_row["year"])}_{sport}_{division}.png',
                        mime='image/png')
