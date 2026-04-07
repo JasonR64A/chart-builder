@@ -1,0 +1,406 @@
+"""
+64 Analytics — Similar Entities Finder
+Find players or teams with similar performance profiles within the same division.
+"""
+
+import streamlit as st
+import pandas as pd
+import numpy as np
+from pathlib import Path
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+import matplotlib.font_manager as fm
+from io import BytesIO
+from PIL import Image
+
+# ── Path setup ────────────────────────────────────────────────────────────────
+_APP_DIR = Path(__file__).resolve().parent.parent
+DATA_DIR = _APP_DIR / 'data'
+LOGO_DIR = _APP_DIR / 'team_logos_512'
+
+# ── Fonts ─────────────────────────────────────────────────────────────────────
+def _has_font(name):
+    return any(name.lower() in f.name.lower() for f in fm.fontManager.ttflist)
+
+TITLE_FONT = 'Franklin Gothic Heavy' if _has_font('Franklin Gothic') else 'DejaVu Sans'
+SUBTITLE_FONT = 'Franklin Gothic Medium' if _has_font('Franklin Gothic') else 'DejaVu Sans'
+BODY_FONT = 'Calibri' if _has_font('Calibri') else 'DejaVu Sans'
+
+# ── Metric definitions ────────────────────────────────────────────────────────
+# (raw_column, display_name, lower_is_better)
+HITTING_METRICS = [
+    ('on_base_plus_slugging',     'OPS',  False),
+    ('weighted_on_base_average',  'wOBA', False),
+    ('isolated_power',            'ISO',  False),
+    ('weighted_runs_created',     'wRC',  False),
+    ('weighted_runs_above_average','wRAA', False),
+    ('runs_plate_appearance',     'R/PA', False),
+]
+
+PITCHING_METRICS = [
+    ('on_base_plus_slugging_against',         'A-OPS', True),
+    ('walk_percentage',                        'BB%',   True),
+    ('strikeout_percentage',                   'K%',    False),
+    ('strikeout_to_walk_ratio',                'K/BB',  False),
+    ('walks_plus_hits_per_inning_pitched',     'WHIP',  True),
+    ('fielding_independent_pitching',          'FIP',   True),
+]
+
+VOLUME_WEIGHT = 2.0  # how strongly to weight PA/IP similarity vs metric similarity
+
+# ── Data loading ──────────────────────────────────────────────────────────────
+@st.cache_data
+def load_teams_division(sport):
+    """Returns DataFrame with team_id, team_name, division, sport for the given sport."""
+    teams = pd.read_csv(DATA_DIR / 'teams.csv', low_memory=False)
+    confs = pd.read_csv(DATA_DIR / 'conferences.csv', low_memory=False)
+    sport_label = sport.title() if sport != 'softball' else 'Softball'
+    teams = teams[teams['sport'] == sport_label][['id', 'name', 'conference_id']].copy()
+    teams = teams.rename(columns={'id': 'team_id', 'name': 'team_name'})
+    div_map = dict(zip(confs['id'], confs['division']))
+    teams['division'] = teams['conference_id'].map(div_map)
+    div_normalize = {'D-I': 'D1', 'D-II': 'D2', 'D-III': 'D3'}
+    teams['division'] = teams['division'].map(div_normalize)
+    return teams[['team_id', 'team_name', 'division']]
+
+@st.cache_data
+def load_players():
+    df = pd.read_csv(DATA_DIR / 'players.csv', low_memory=False, encoding='latin-1')
+    return df[['id', 'player_name']].rename(columns={'id': 'player_id'})
+
+@st.cache_data
+def load_player_hitting(sport, division, year=2026):
+    hit = pd.read_csv(DATA_DIR / 'hitting.csv', low_memory=False)
+    hit = hit[hit['year'] == year]
+    teams = load_teams_division(sport)
+    teams = teams[teams['division'] == division]
+    df = hit.merge(teams, on='team_id', how='inner')
+    players = load_players()
+    df = df.merge(players, on='player_id', how='left')
+    df = df[df['plate_appearances'] > 0].copy()
+    return df
+
+@st.cache_data
+def load_player_pitching(sport, division, year=2026):
+    pit = pd.read_csv(DATA_DIR / 'pitching.csv', low_memory=False)
+    pit = pit[pit['year'] == year]
+    teams = load_teams_division(sport)
+    teams = teams[teams['division'] == division]
+    df = pit.merge(teams, on='team_id', how='inner')
+    players = load_players()
+    df = df.merge(players, on='player_id', how='left')
+    df = df[df['batters_faced'] > 0].copy()
+    return df
+
+@st.cache_data
+def load_team_hitting(sport, division, year=2026):
+    th = pd.read_csv(DATA_DIR / 'hitting_team.csv', low_memory=False)
+    th = th[th['year'] == year]
+    teams = load_teams_division(sport)
+    teams = teams[teams['division'] == division]
+    return th.merge(teams, on='team_id', how='inner')
+
+@st.cache_data
+def load_team_pitching(sport, division, year=2026):
+    tp = pd.read_csv(DATA_DIR / 'pitching_team.csv', low_memory=False)
+    tp = tp[tp['year'] == year]
+    teams = load_teams_division(sport)
+    teams = teams[teams['division'] == division]
+    return tp.merge(teams, on='team_id', how='inner')
+
+# ── Percentile + Similarity ───────────────────────────────────────────────────
+def compute_percentiles(df, metrics):
+    """Compute 0-100 percentile rank for each metric. Inverts lower-is-better stats."""
+    out = pd.DataFrame(index=df.index)
+    for col, _, lower_better in metrics:
+        if col not in df.columns:
+            continue
+        if lower_better:
+            out[col] = (1 - df[col].rank(pct=True, method='min')) * 100
+        else:
+            out[col] = df[col].rank(pct=True, method='min') * 100
+    return out
+
+def find_similar(target_idx, df, metrics, volume_col=None, top_n=5):
+    """Return the top_n most similar entities to the target by Euclidean distance
+    in percentile space, with optional volume weighting."""
+    pct = compute_percentiles(df, metrics)
+    if target_idx not in pct.index:
+        return None, None
+    target_vec = pct.loc[target_idx].values
+    diffs = pct.values - target_vec  # (n, m)
+    eucl = np.sqrt((diffs ** 2).sum(axis=1))
+
+    if volume_col and volume_col in df.columns:
+        vol_pct = df[volume_col].rank(pct=True, method='min') * 100
+        target_vol = vol_pct.loc[target_idx]
+        vol_penalty = np.abs(vol_pct.values - target_vol) * VOLUME_WEIGHT
+        eucl = eucl + vol_penalty
+
+    df_out = df.copy()
+    df_out['_distance'] = eucl
+    df_out = df_out[df_out.index != target_idx]
+    df_out = df_out.sort_values('_distance').head(top_n)
+    return df_out, pct
+
+# ── Logo helpers ──────────────────────────────────────────────────────────────
+@st.cache_data
+def load_team_logo_map():
+    teams = pd.read_csv(DATA_DIR / 'teams.csv', low_memory=False)
+    teams['id'] = pd.to_numeric(teams['id'], errors='coerce').fillna(0).astype(int)
+    bb = teams[teams['sport'] == 'Baseball'][['name', 'id']].drop_duplicates('name')
+    name_to_id = dict(zip(bb['name'], bb['id']))
+    sb = teams[teams['sport'] == 'Softball'][['name', 'id']].drop_duplicates('name')
+    for _, row in sb.iterrows():
+        if row['name'] not in name_to_id:
+            name_to_id[row['name']] = row['id']
+    return name_to_id
+
+def get_team_color(team_name):
+    """Extract dominant color from a team's logo."""
+    from collections import Counter
+    team_map = load_team_logo_map()
+    logo_id = team_map.get(team_name)
+    if not logo_id:
+        return '#C41230'
+    for ext in ['png', 'webp']:
+        p = LOGO_DIR / f'{logo_id}.{ext}'
+        if p.exists():
+            try:
+                img = Image.open(p).convert('RGBA')
+                img.thumbnail((64, 64))
+                pixels = np.array(img)
+                mask = pixels[:, :, 3] > 128
+                rgb = pixels[mask][:, :3]
+                if len(rgb) == 0:
+                    return '#C41230'
+                filtered = []
+                for r, g, b in rgb:
+                    brightness = (int(r) + int(g) + int(b)) / 3
+                    if brightness > 220 or brightness < 35:
+                        continue
+                    filtered.append((r, g, b))
+                if not filtered:
+                    return '#C41230'
+                quantized = [(r // 16 * 16, g // 16 * 16, b // 16 * 16) for r, g, b in filtered]
+                most_common = Counter(quantized).most_common(1)[0][0]
+                return f'#{most_common[0]:02x}{most_common[1]:02x}{most_common[2]:02x}'
+            except Exception:
+                return '#C41230'
+    return '#C41230'
+
+# ── Bar chart ─────────────────────────────────────────────────────────────────
+def render_similarity_chart(target_label, target_team, target_pct, matches, match_pcts, metrics, theme='Light'):
+    """Grouped bar chart: one group per metric, target + 5 matches as bars."""
+    if theme == 'Dark':
+        bg = '#1a1a1a'; text_color = '#e2e8f0'; text_md = '#a0aec0'
+        grid_color = '#2e2e2e'; spine_color = '#2d3748'
+        target_color = '#FFFFFF'
+    else:
+        bg = '#F5F1EB'; text_color = '#2D2926'; text_md = '#4A4540'
+        grid_color = '#E6E0D8'; spine_color = '#D6D0C8'
+        target_color = '#1a1a1a'
+
+    metric_labels = [m[1] for m in metrics]
+    metric_cols = [m[0] for m in metrics]
+    n_metrics = len(metric_labels)
+    n_entities = 1 + len(matches)
+    bar_width = 0.8 / n_entities
+    x = np.arange(n_metrics)
+
+    fig, ax = plt.subplots(figsize=(14, 7), facecolor=bg)
+    ax.set_facecolor(bg)
+
+    # Target bars
+    target_vals = [target_pct[c] if c in target_pct.index else 0 for c in metric_cols]
+    ax.bar(x - 0.4 + bar_width / 2, target_vals, bar_width,
+           label=f'{target_label} ({target_team})', color=target_color, edgecolor='none')
+
+    # Match bars
+    for i, (_, m_row) in enumerate(matches.iterrows()):
+        m_label = m_row.get('player_name') or m_row.get('team_name', '?')
+        m_team = m_row.get('team_name', '?')
+        m_color = get_team_color(m_team)
+        m_vals = [match_pcts.loc[m_row.name, c] if c in match_pcts.columns else 0 for c in metric_cols]
+        offset = -0.4 + bar_width * (i + 1) + bar_width / 2
+        ax.bar(x + offset, m_vals, bar_width,
+               label=f'{m_label} ({m_team})', color=m_color, edgecolor='none')
+
+    ax.set_xticks(x)
+    ax.set_xticklabels(metric_labels, fontsize=11, fontfamily=BODY_FONT, color=text_color)
+    ax.set_ylabel('Percentile (within division)', fontsize=11, fontfamily=BODY_FONT, color=text_md, labelpad=10)
+    ax.set_ylim(0, 105)
+    ax.tick_params(colors=text_md, labelsize=9)
+    for label in ax.get_yticklabels():
+        label.set_fontfamily(BODY_FONT)
+    ax.grid(True, axis='y', alpha=0.15, color=grid_color)
+    for spine in ax.spines.values():
+        spine.set_color(spine_color)
+
+    legend = ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.10),
+                       ncol=3, frameon=False, fontsize=9, labelcolor=text_color)
+    for text in legend.get_texts():
+        text.set_fontfamily(SUBTITLE_FONT)
+
+    title_main = 'Similarity Profile'
+    fig.text(0.5, 0.97, title_main, fontsize=18, fontfamily=TITLE_FONT,
+             fontweight='bold', color=text_color, ha='center', va='top')
+    fig.subplots_adjust(top=0.92, bottom=0.20)
+
+    buf = BytesIO()
+    fig.savefig(buf, format='png', dpi=180, facecolor=bg, bbox_inches='tight')
+    buf.seek(0)
+    plt.close(fig)
+    return buf
+
+# ── UI ────────────────────────────────────────────────────────────────────────
+st.set_page_config(page_title='Similar Entities', layout='wide')
+st.title('Similar Entities Finder')
+st.markdown('Find players or teams with similar performance profiles within the same division.')
+
+st.sidebar.markdown('### Setup')
+sport = st.sidebar.selectbox('Sport', ['baseball', 'softball'])
+division = st.sidebar.selectbox('Division', ['D1', 'D2', 'D3'])
+mode = st.sidebar.radio('Mode', ['Player', 'Team'], horizontal=True)
+theme = st.sidebar.radio('Theme', ['Light', 'Dark'], horizontal=True)
+top_n = st.sidebar.number_input('Number of matches', value=5, min_value=3, max_value=15, step=1)
+
+if mode == 'Player':
+    hit_df = load_player_hitting(sport, division)
+    pit_df = load_player_pitching(sport, division)
+
+    # Identify two-way players (player_id appears in both)
+    hitter_ids = set(hit_df['player_id'])
+    pitcher_ids = set(pit_df['player_id'])
+    two_way_ids = hitter_ids & pitcher_ids
+
+    type_choice = st.sidebar.radio('Player Type', ['Hitter', 'Pitcher', 'Two-Way'], horizontal=True)
+
+    if type_choice == 'Hitter':
+        df = hit_df.copy()
+        df['__display'] = df['player_name'].fillna('Unknown') + ' — ' + df['team_name']
+        df = df.sort_values('__display').reset_index(drop=True)
+        metrics = HITTING_METRICS
+        volume_col = 'plate_appearances'
+        volume_label = 'PA'
+    elif type_choice == 'Pitcher':
+        df = pit_df.copy()
+        df['__display'] = df['player_name'].fillna('Unknown') + ' — ' + df['team_name']
+        df = df.sort_values('__display').reset_index(drop=True)
+        metrics = PITCHING_METRICS
+        volume_col = 'batters_faced'
+        volume_label = 'BF'
+    else:  # Two-Way
+        if not two_way_ids:
+            st.warning(f'No two-way players found in {sport.title()} {division}.')
+            st.stop()
+        h2 = hit_df[hit_df['player_id'].isin(two_way_ids)].copy()
+        p2 = pit_df[pit_df['player_id'].isin(two_way_ids)].copy()
+        # Merge on player_id
+        df = h2.merge(p2[['player_id'] + [m[0] for m in PITCHING_METRICS] + ['batters_faced']],
+                      on='player_id', how='inner', suffixes=('', '_p'))
+        df['__display'] = df['player_name'].fillna('Unknown') + ' — ' + df['team_name']
+        df = df.sort_values('__display').reset_index(drop=True)
+        metrics = HITTING_METRICS + PITCHING_METRICS
+        volume_col = 'plate_appearances'  # use PA for volume weighting on two-way
+        volume_label = 'PA'
+
+    if len(df) == 0:
+        st.warning('No players found.')
+        st.stop()
+
+    # Target selection
+    target_display = st.selectbox(f'Select {type_choice}', df['__display'].tolist())
+    target_row = df[df['__display'] == target_display].iloc[0]
+    target_idx = target_row.name
+
+    # Find similar
+    matches, all_pcts = find_similar(target_idx, df, metrics, volume_col=volume_col, top_n=top_n)
+    if matches is None or len(matches) == 0:
+        st.warning('Could not compute similarity.')
+        st.stop()
+
+    target_pct = all_pcts.loc[target_idx]
+
+    # Header card
+    st.markdown(f"### {target_row['player_name']} — {target_row['team_name']}")
+    cols = st.columns(len(metrics) + 1)
+    cols[0].metric(volume_label, int(target_row[volume_col]))
+    for i, (col, label, _) in enumerate(metrics):
+        if col in target_row.index:
+            raw = target_row[col]
+            pct = target_pct.get(col, 0)
+            cols[i + 1].metric(label, f'{raw:.3f}' if abs(raw) < 100 else f'{raw:.1f}', f'{pct:.0f} pct')
+
+    st.markdown('---')
+    st.markdown('### Top Matches')
+
+    # Match table
+    show_cols = ['player_name', 'team_name', volume_col] + [m[0] for m in metrics] + ['_distance']
+    show_cols = [c for c in show_cols if c in matches.columns]
+    rename = {'player_name': 'Player', 'team_name': 'School', volume_col: volume_label, '_distance': 'Distance'}
+    for col, label, _ in metrics:
+        rename[col] = label
+    display_df = matches[show_cols].rename(columns=rename).reset_index(drop=True)
+    display_df.index = display_df.index + 1
+    st.dataframe(display_df, use_container_width=True)
+
+    # Bar chart
+    target_label = target_row['player_name']
+    target_team = target_row['team_name']
+    chart = render_similarity_chart(target_label, target_team, target_pct, matches, all_pcts, metrics, theme=theme)
+    st.image(chart, use_container_width=True)
+    st.download_button('Download Chart PNG', data=chart,
+                       file_name=f'similar_{target_label}_{sport}_{division}.png', mime='image/png')
+
+else:  # Team
+    th = load_team_hitting(sport, division)
+    tp = load_team_pitching(sport, division)
+    df = th.merge(tp[['team_id'] + [m[0] for m in PITCHING_METRICS]],
+                  on='team_id', how='inner', suffixes=('', '_p'))
+    df['__display'] = df['team_name']
+    df = df.sort_values('__display').reset_index(drop=True)
+    metrics = HITTING_METRICS + PITCHING_METRICS
+
+    if len(df) == 0:
+        st.warning('No teams found.')
+        st.stop()
+
+    target_display = st.selectbox('Select Team', df['__display'].tolist())
+    target_row = df[df['__display'] == target_display].iloc[0]
+    target_idx = target_row.name
+
+    matches, all_pcts = find_similar(target_idx, df, metrics, volume_col=None, top_n=top_n)
+    if matches is None or len(matches) == 0:
+        st.warning('Could not compute similarity.')
+        st.stop()
+
+    target_pct = all_pcts.loc[target_idx]
+
+    st.markdown(f"### {target_row['team_name']}")
+    cols = st.columns(min(len(metrics), 6))
+    for i, (col, label, _) in enumerate(metrics[:6]):
+        if col in target_row.index:
+            raw = target_row[col]
+            pct = target_pct.get(col, 0)
+            cols[i].metric(label, f'{raw:.3f}' if abs(raw) < 100 else f'{raw:.1f}', f'{pct:.0f} pct')
+
+    st.markdown('---')
+    st.markdown('### Top Matches')
+
+    show_cols = ['team_name'] + [m[0] for m in metrics] + ['_distance']
+    show_cols = [c for c in show_cols if c in matches.columns]
+    rename = {'team_name': 'Team', '_distance': 'Distance'}
+    for col, label, _ in metrics:
+        rename[col] = label
+    display_df = matches[show_cols].rename(columns=rename).reset_index(drop=True)
+    display_df.index = display_df.index + 1
+    st.dataframe(display_df, use_container_width=True)
+
+    chart = render_similarity_chart(target_row['team_name'], target_row['team_name'],
+                                     target_pct, matches, all_pcts, metrics, theme=theme)
+    st.image(chart, use_container_width=True)
+    st.download_button('Download Chart PNG', data=chart,
+                       file_name=f'similar_team_{target_row["team_name"]}_{sport}_{division}.png',
+                       mime='image/png')
