@@ -268,31 +268,115 @@ def _player_school(group):
 
 
 def compute_grouped_hitting(df, group_col, league_woba, league_r_pa=0, min_pa=1):
-    """Compute hitting stats grouped by a column."""
-    rows = []
-    for name, group in df.groupby(group_col):
-        stats = compute_hitting_stats(group)
-        if stats['PA'] >= min_pa:
-            stats['wRAA'] = compute_wraa(stats['wOBA'], league_woba, stats['PA'])
-            wrc = compute_wrc(stats['wOBA'], league_woba, league_r_pa, stats['PA'])
-            stats['wRC'] = wrc
-            wrc_per_pa = wrc / stats['PA'] if stats['PA'] > 0 else 0
-            stats['wRC+'] = int(compute_wrc_plus(wrc_per_pa, league_r_pa))
-            stats[group_col] = name
-            stats['Pos'] = _primary_position(group)
-            stats['School'] = _player_school(group)
-            rows.append(stats)
-    if not rows:
+    """Compute hitting stats grouped by a column. Vectorized for speed —
+    matches the per-group compute_hitting_stats output exactly (same rounding,
+    same formulas, same column names)."""
+    if len(df) == 0:
         return pd.DataFrame()
-    result = pd.DataFrame(rows)
-    # Combined rank: percentile rank of wRAA + percentile rank of OPS + percentile rank of TB
+
+    # Step 1: Sum all counting stats in one groupby pass
+    sum_cols = ['ab', 'h', 'bb', 'hbp', 'sf', 'sh', 'tb', 'hr', 'doubles', 'triples',
+                'k', 'sb', 'cs', 'oppDp', 'r', 'rbi']
+    if 'ibb' in df.columns:
+        sum_cols.append('ibb')
+    g = df.groupby(group_col, sort=False)
+    agg = g[sum_cols].sum().reset_index()
+    if 'ibb' not in agg.columns:
+        agg['ibb'] = 0
+
+    # Step 2: Vectorized derived stats (raw, no rounding yet)
+    ab = agg['ab']; h = agg['h']; bb = agg['bb']; hbp = agg['hbp']
+    sf = agg['sf']; sh = agg['sh']; tb = agg['tb']; hr = agg['hr']
+    doubles = agg['doubles']; triples = agg['triples']; k = agg['k']
+    singles = h - doubles - triples - hr
+    pa = ab + bb + hbp + sf + sh
+
+    obp_d = ab + bb + hbp + sf
+    obp = np.where(obp_d > 0, (h + bb + hbp) / obp_d, 0.0)
+    slg = np.where(ab > 0, tb / ab, 0.0)
+    ba = np.where(ab > 0, h / ab, 0.0)
+    ops = obp + slg
+    iso = slg - ba
+    babip_d = ab - k - hr + sf
+    babip = np.where(babip_d > 0, (h - hr) / babip_d, 0.0)
+
+    woba_d = ab + bb + sf + hbp
+    woba_num = (WOBA_BB * bb + WOBA_HBP * hbp + WOBA_1B * singles +
+                WOBA_2B * doubles + WOBA_3B * triples + WOBA_HR * hr)
+    woba = np.where(woba_d > 0, woba_num / woba_d, 0.0)
+
+    k_pct = np.where(pa > 0, k / pa * 100, 0.0)
+    bb_pct = np.where(pa > 0, bb / pa * 100, 0.0)
+    k_bb = np.where(bb > 0, k / bb, k.astype(float))
+    r_pa = np.where(pa > 0, agg['r'] / pa, 0.0)
+
+    # Step 3: Build result dataframe with rounding to match compute_hitting_stats
+    result = pd.DataFrame({
+        group_col: agg[group_col],
+        'PA': pa.astype(int),
+        'AB': ab.astype(int), 'H': h.astype(int), '1B': singles.astype(int),
+        '2B': doubles.astype(int), '3B': triples.astype(int), 'HR': hr.astype(int),
+        'TB': tb.astype(int),
+        'R': agg['r'].astype(int), 'RBI': agg['rbi'].astype(int),
+        'BB': bb.astype(int), 'HBP': hbp.astype(int),
+        'SF': sf.astype(int), 'SH': sh.astype(int),
+        'IBB': agg['ibb'].astype(int), 'K': k.astype(int),
+        'SB': agg['sb'].astype(int), 'CS': agg['cs'].astype(int),
+        'GDP': agg['oppDp'].astype(int),
+        'BA': np.round(ba, 3), 'OBP': np.round(obp, 3),
+        'SLG': np.round(slg, 3), 'OPS': np.round(ops, 3),
+        'ISO': np.round(iso, 3), 'BABIP': np.round(babip, 3),
+        'wOBA': np.round(woba, 3),
+        'K%': np.round(k_pct, 1), 'BB%': np.round(bb_pct, 1),
+        'K/BB': np.round(k_bb, 2), 'R/PA': np.round(r_pa, 3),
+    })
+
+    # Filter to min_pa
+    result = result[result['PA'] >= min_pa].copy()
+    if len(result) == 0:
+        return pd.DataFrame()
+
+    # Step 4: wRAA / wRC / wRC+ — use ROUNDED wOBA to match original behavior
+    result['wRAA'] = np.round(((result['wOBA'] - league_woba) / WOBA_SCALE) * result['PA'], 1)
+    wrc_raw = (((result['wOBA'] - league_woba) / WOBA_SCALE) + league_r_pa) * result['PA']
+    result['wRC'] = np.round(wrc_raw, 1)
+    wrc_per_pa = np.where(result['PA'] > 0, result['wRC'] / result['PA'], 0.0)
+    if league_r_pa > 0:
+        result['wRC+'] = np.round((wrc_per_pa / league_r_pa) * 100, 0).astype(int)
+    else:
+        result['wRC+'] = 100
+
+    # Step 5: Position and school enrichment (per-group lookups)
+    if 'formalPosition' in df.columns:
+        formal = df.dropna(subset=['formalPosition']).groupby(group_col, sort=False)['formalPosition'].first()
+        pos_map = formal.to_dict()
+    else:
+        pos_map = {}
+    if 'playerPosition' in df.columns:
+        # Most-common game position as fallback
+        pp = df.dropna(subset=['playerPosition'])
+        fallback = pp.groupby(group_col, sort=False)['playerPosition'].agg(
+            lambda s: s.value_counts().index[0] if len(s) > 0 else '')
+        fallback_map = fallback.to_dict()
+    else:
+        fallback_map = {}
+    result['Pos'] = result[group_col].map(lambda n: pos_map.get(n) or fallback_map.get(n, ''))
+
+    if 'school' in df.columns:
+        school = df.dropna(subset=['school']).groupby(group_col, sort=False)['school'].first()
+        school_map = school.to_dict()
+        result['School'] = result[group_col].map(school_map).fillna('')
+    else:
+        result['School'] = ''
+
+    # Step 6: Combined rank — percentile rank of wRAA + OPS + TB
     n = len(result)
     if n > 0:
-        result['wraa_pctl'] = result['wRAA'].rank(pct=True, method='min')
-        result['ops_pctl'] = result['OPS'].rank(pct=True, method='min')
-        result['tb_pctl'] = result['TB'].rank(pct=True, method='min')
-        result['Rank'] = round(result['wraa_pctl'] + result['ops_pctl'] + result['tb_pctl'], 6)
-        result = result.drop(columns=['wraa_pctl', 'ops_pctl', 'tb_pctl'])
+        wraa_pctl = result['wRAA'].rank(pct=True, method='min')
+        ops_pctl = result['OPS'].rank(pct=True, method='min')
+        tb_pctl = result['TB'].rank(pct=True, method='min')
+        result['Rank'] = (wraa_pctl + ops_pctl + tb_pctl).round(6)
+
     cols = ['Rank'] + [group_col] + [c for c in result.columns if c not in ['Rank', group_col]]
     return result[cols].sort_values('Rank', ascending=False).reset_index(drop=True)
 
