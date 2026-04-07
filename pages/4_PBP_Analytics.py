@@ -743,9 +743,18 @@ def compute_pitching_for_lineup(df):
             'OPS Against': round(ops_a, 3)}
 
 
-def get_best_hitters(hitting_df, league_woba, min_pa=10, sport='baseball'):
+def get_best_hitters(hitting_df, league_woba, min_pa=10, sport='baseball', rank_min_pa=None):
+    """
+    min_pa: PA threshold for eligibility (must have this many PA to appear in the lineup card)
+    rank_min_pa: PA threshold for the rank calculation population. If set, percentile ranks
+                  are computed within the PA >= rank_min_pa population so that the lineup
+                  card agrees with the Hitter Stats table (which uses min_threshold for both
+                  filtering and ranking). Defaults to min_pa.
+    """
     best = {}
     dh_label = 'DP' if sport == 'softball' else 'DH'
+    if rank_min_pa is None:
+        rank_min_pa = min_pa
 
     def _pos_for_group(group):
         # Prefer formalPosition from players.csv (matches Hitter Stats table)
@@ -766,11 +775,12 @@ def get_best_hitters(hitting_df, league_woba, min_pa=10, sport='baseball'):
                 return p
         return ''
 
-    # Step 1: Determine each player's predominant position and compute stats from ALL their PA
+    # Step 1: Build full player pool — anyone meeting EITHER threshold needs to be considered
+    pa_floor = min(min_pa, rank_min_pa)
     player_data = []
     for name, group in hitting_df.groupby('playerName'):
         stats = compute_hitting_stats(group)
-        if stats['PA'] >= min_pa:
+        if stats['PA'] >= pa_floor:
             stats['playerName'] = name
             stats['teamName'] = group['teamName'].mode().iloc[0] if len(group['teamName'].mode()) > 0 else ''
             stats['wRAA'] = compute_wraa(stats['wOBA'], league_woba, stats['PA'])
@@ -780,20 +790,23 @@ def get_best_hitters(hitting_df, league_woba, min_pa=10, sport='baseball'):
     if not player_data:
         return best
 
-    # Step 2: Compute combined rank using ONLY players who meet min_pa.
-    # This matches the Hitter Stats table behavior, where rank is computed
-    # within the min_pa-filtered population.
     all_df = pd.DataFrame(player_data)
-    n = len(all_df)
-    if n > 0:
-        all_df['wraa_pctl'] = all_df['wRAA'].rank(pct=True, method='min')
-        all_df['ops_pctl'] = all_df['OPS'].rank(pct=True, method='min')
-        all_df['tb_pctl'] = all_df['TB'].rank(pct=True, method='min')
-        all_df['Rank'] = all_df['wraa_pctl'] + all_df['ops_pctl'] + all_df['tb_pctl']
-        all_df = all_df.drop(columns=['wraa_pctl', 'ops_pctl', 'tb_pctl'])
 
-    # Step 3: Pick highest-ranked per position (already filtered to min_pa)
-    eligible = all_df
+    # Step 2: Compute the rank within the rank_min_pa population only (matches Hitter Stats)
+    rank_pop = all_df[all_df['PA'] >= rank_min_pa].copy()
+    if len(rank_pop) > 0:
+        rank_pop['wraa_pctl'] = rank_pop['wRAA'].rank(pct=True, method='min')
+        rank_pop['ops_pctl'] = rank_pop['OPS'].rank(pct=True, method='min')
+        rank_pop['tb_pctl'] = rank_pop['TB'].rank(pct=True, method='min')
+        rank_pop['Rank'] = rank_pop['wraa_pctl'] + rank_pop['ops_pctl'] + rank_pop['tb_pctl']
+    # Map player → rank
+    rank_map = dict(zip(rank_pop.get('playerName', []), rank_pop.get('Rank', [])))
+    all_df['Rank'] = all_df['playerName'].map(rank_map)
+
+    # Step 3: Filter to eligible (PA >= min_pa) AND has a rank (PA >= rank_min_pa)
+    # Players with PA in [min_pa, rank_min_pa) are eligible by min_pa but have no rank,
+    # so they get excluded — they'd have no comparable rank to Hitter Stats anyway.
+    eligible = all_df[(all_df['PA'] >= min_pa) & all_df['Rank'].notna()].copy()
     for pos in FIELD_POSITIONS:
         pos_players = eligible[eligible['_pos'] == pos]
         if len(pos_players) == 0:
@@ -1640,7 +1653,10 @@ if view != 'Lineup Card':
 elif view == 'Lineup Card':
     # Lineup Card specific controls
     st.sidebar.markdown('---')
-    min_pa_lc = st.sidebar.number_input('Min PA (hitters)', value=10, min_value=1, step=5)
+    min_pa_lc = st.sidebar.number_input('Min PA (eligibility)', value=10, min_value=1, step=1,
+                                         help='Minimum PA to be eligible for the lineup card.')
+    rank_min_pa_lc = st.sidebar.number_input('Min PA (rank pop)', value=10, min_value=1, step=1,
+                                              help='PA threshold for the rank calculation population. Set to match the Hitter Stats Min PA so the lineup card and Hitter Stats agree on rankings.')
     min_bf_sp = st.sidebar.number_input('Min BF (starters)', value=50, min_value=1, step=10)
     min_bf_rp = st.sidebar.number_input('Min BF (relievers)', value=15, min_value=1, step=5)
     player_col = 'playerName'
@@ -2203,7 +2219,7 @@ elif view == 'Lineup Card':
     # Compute best players
     league_stats = compute_hitting_stats(hitting_pbp)
     league_woba = league_stats['wOBA']
-    best_hitters = get_best_hitters(hitting_pbp, league_woba, min_pa=min_pa_lc, sport=sport)
+    best_hitters = get_best_hitters(hitting_pbp, league_woba, min_pa=min_pa_lc, sport=sport, rank_min_pa=rank_min_pa_lc)
     starters, relievers = get_best_pitchers(pitching_pbp, min_bf_sp=min_bf_sp, min_bf_rp=min_bf_rp)
 
     # Load team logo map (prefer softball logos when viewing softball)
