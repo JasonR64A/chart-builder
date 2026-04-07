@@ -1977,14 +1977,17 @@ elif view == 'Pace Chart':
                 per_game['cum_stat'] = 0
 
     # Step 4: Build the entity column and assemble final dataframe
+    # _key uniquely identifies (player+team) so name collisions don't merge
     if pace_level == 'Player':
         per_game['entity'] = per_game[group_key].str.split('\\|\\|\\|').str[0]
         per_game['team'] = per_game[group_key].str.split('\\|\\|\\|').str[1]
+        per_game['_key'] = per_game[group_key]
     else:
         per_game['entity'] = per_game[group_key]
         per_game['team'] = per_game['teamName']
+        per_game['_key'] = per_game[group_key]
 
-    all_games = per_game[['entity', 'team', 'date_parsed', 'game_num', 'cum_stat']].copy()
+    all_games = per_game[['_key', 'entity', 'team', 'date_parsed', 'game_num', 'cum_stat']].copy()
 
     if len(all_games) == 0:
         st.warning('No data available.')
@@ -1995,11 +1998,12 @@ elif view == 'Pace Chart':
     if date_start:
         min_date = min(min_date, pd.Timestamp(date_start))
     anchors = []
-    for entity_name, edata in all_games.groupby('entity'):
+    for key, edata in all_games.groupby('_key', sort=False):
         first_row = edata.sort_values('date_parsed').iloc[0]
         if first_row['date_parsed'] > min_date:
             anchors.append({
-                'entity': entity_name,
+                '_key': key,
+                'entity': first_row['entity'],
                 'team': first_row['team'],
                 'date_parsed': min_date,
                 'game_num': 0,
@@ -2013,11 +2017,12 @@ elif view == 'Pace Chart':
     if date_end:
         max_date = max(max_date, pd.Timestamp(date_end))
     extensions = []
-    for entity_name, edata in all_games.groupby('entity'):
+    for key, edata in all_games.groupby('_key', sort=False):
         last_row = edata.sort_values('date_parsed').iloc[-1]
         if last_row['date_parsed'] < max_date:
             extensions.append({
-                'entity': entity_name,
+                '_key': key,
+                'entity': last_row['entity'],
                 'team': last_row['team'],
                 'date_parsed': max_date,
                 'game_num': last_row['game_num'],
@@ -2026,10 +2031,10 @@ elif view == 'Pace Chart':
     if extensions:
         all_games = pd.concat([all_games, pd.DataFrame(extensions)], ignore_index=True)
 
-    # Filter by min games
-    game_counts = all_games.groupby('entity')['game_num'].max()
+    # Filter by min games — use _key so name collisions don't merge
+    game_counts = all_games.groupby('_key')['game_num'].max()
     qualified = game_counts[game_counts >= min_games_pace].index
-    all_games = all_games[all_games['entity'].isin(qualified)]
+    all_games = all_games[all_games['_key'].isin(qualified)]
 
     if len(all_games) == 0:
         st.warning('No entities meet the minimum games threshold.')
@@ -2037,7 +2042,7 @@ elif view == 'Pace Chart':
 
     # Sort by final value for highlight selection
     all_games = all_games.sort_values('date_parsed')
-    final_stats = all_games.groupby(['entity', 'team']).agg(
+    final_stats = all_games.groupby(['_key', 'entity', 'team']).agg(
         total=('cum_stat', 'last'), games=('game_num', 'max')).reset_index()
     # For pitching rate stats, lower is better (sort ascending so best = first).
     # For cumulative counting stats (ER, H, BB, SO, HR, etc.), higher volume = "top".
@@ -2048,15 +2053,16 @@ elif view == 'Pace Chart':
         options = [f"{row['entity']} ({row['team']})" for _, row in final_stats.iterrows()]
     else:
         options = [row['entity'] for _, row in final_stats.iterrows()]
-    name_map = dict(zip(options, final_stats['entity']))
+    # Map dropdown option string -> _key (unique)
+    key_map = dict(zip(options, final_stats['_key']))
 
     top_n = st.sidebar.number_input('Show Top N', value=20, min_value=5, max_value=2000, step=5)
-    top_entities = set(final_stats.head(top_n)['entity'])
-    filtered = all_games[all_games['entity'].isin(top_entities)]
+    top_keys = set(final_stats.head(top_n)['_key'])
+    filtered = all_games[all_games['_key'].isin(top_keys)]
 
     highlighted = st.sidebar.multiselect(f'Highlight {pace_level}s', options,
                                           help=f'Select {pace_level.lower()}s to highlight in red')
-    highlight_names = {name_map[p] for p in highlighted}
+    highlight_keys = {key_map[p] for p in highlighted}
 
     # Font setup (match main chart builder)
     _has_font = lambda name: any(name.lower() in f.name.lower() for f in matplotlib.font_manager.fontManager.ttflist)
@@ -2081,9 +2087,10 @@ elif view == 'Pace Chart':
     ax.set_facecolor(plot_bg)
 
     # Draw non-highlighted lines
-    for ename, pdata in filtered.groupby('entity'):
-        if ename in highlight_names:
+    for key, pdata in filtered.groupby('_key', sort=False):
+        if key in highlight_keys:
             continue
+        ename = pdata['entity'].iloc[0]
         ax.plot(pdata['date_parsed'], pdata['cum_stat'],
                 color=line_color, alpha=0.3, linewidth=1, zorder=1)
         last = pdata.iloc[-1]
@@ -2095,12 +2102,13 @@ elif view == 'Pace Chart':
 
     # Draw highlighted lines with team colors
     legend_entries = []
-    for ename in highlight_names:
-        pdata = filtered[filtered['entity'] == ename]
+    for key in highlight_keys:
+        pdata = filtered[filtered['_key'] == key]
         if len(pdata) == 0:
-            pdata = all_games[all_games['entity'] == ename]
+            pdata = all_games[all_games['_key'] == key]
         if len(pdata) == 0:
             continue
+        ename = pdata['entity'].iloc[0]
         team_for_color = pdata['team'].iloc[0] if pace_level == 'Player' else ename
         h_color = get_team_color(team_for_color)
         ax.plot(pdata['date_parsed'], pdata['cum_stat'],
@@ -2112,7 +2120,7 @@ elif view == 'Pace Chart':
 
     # Division average line (dashed) — uses ALL qualified entities, not just top N
     if len(all_games) > 0:
-        avg_val = all_games.groupby('entity')['cum_stat'].last().mean()
+        avg_val = all_games.groupby('_key')['cum_stat'].last().mean()
         ax.axhline(y=avg_val, color=avg_line_color, linestyle='--',
                    linewidth=1.5, alpha=0.5, zorder=2)
         avg_fmt = f"{avg_val:.2f}" if is_advanced else f"{int(avg_val)}"
