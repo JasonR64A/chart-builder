@@ -18,6 +18,28 @@ BRAND_LOGO = _APP_DIR / 'assets' / 'brand_logo_dark.png'
 
 RED = '#C41230'
 
+# Sport-specific conference overrides for teams that are listed incorrectly in
+# teams.csv (e.g., teams whose softball program plays in a different conference
+# than their baseball program, or teams marked as Independent when they actually
+# joined a conference for one sport). Keyed by (sport, team name).
+# Values: (full_conference_name, abbreviation).
+CONFERENCE_OVERRIDES = {
+    ('softball', 'Oregon St.'): ('West Coast Conference', 'WCC'),
+}
+
+# Defunct / non-existent sport programs that appear in teams.csv but don't
+# sponsor the sport at the D-I level. Keyed by sport, values are sets of team
+# names to exclude from the bracketology team pool.
+DEFUNCT_PROGRAMS = {
+    'softball': {
+        'Cleveland St.',
+        'Purdue Fort Wayne',
+        'West Virginia',
+        'San Francisco',
+    },
+    'baseball': set(),
+}
+
 # ── Page config & style ─────────────────────────────────────────────────────
 st.set_page_config(
     page_title='64 Analytics \u2014 Bracketology',
@@ -257,6 +279,28 @@ def build_field(sport):
     sport_label = 'Baseball' if sport == 'baseball' else 'Softball'
     sport_teams = teams[teams['sport'] == sport_label].copy()
 
+    # Apply sport-specific conference overrides BEFORE the D-I filter so a team
+    # being moved from Independent to (e.g.) WCC is picked up as a D-I team.
+    conf_name_to_id = {str(crow['name']).strip(): int(crow['id']) for _, crow in di_confs.iterrows()}
+    conf_abbrev_to_id = {str(crow['abbreviation']).strip().upper(): int(crow['id']) for _, crow in di_confs.iterrows()}
+    for (ov_sport, ov_team), (ov_full, ov_abbrev) in CONFERENCE_OVERRIDES.items():
+        if ov_sport != sport:
+            continue
+        new_cid = conf_name_to_id.get(ov_full) or conf_abbrev_to_id.get(ov_abbrev.upper())
+        if new_cid is None:
+            continue
+        mask = sport_teams['name'] == ov_team
+        if mask.any():
+            sport_teams.loc[mask, 'conference_id'] = new_cid
+
+    # Remove defunct / non-existent programs for this sport
+    defunct = DEFUNCT_PROGRAMS.get(sport, set())
+    if defunct:
+        sport_teams = sport_teams[~sport_teams['name'].isin(defunct)].copy()
+
+    # Record sport for downstream callers that don't receive it as a param
+    st.session_state['bracketology_sport'] = sport
+
     # Filter to D-I teams
     sport_teams = sport_teams[sport_teams['conference_id'].isin(di_conf_ids)].copy()
 
@@ -484,6 +528,11 @@ def seed_field(field_df):
         cid = row.get('conference_id')
         if pd.notna(cid):
             team_conference[row['name']] = conf_name_by_id.get(int(cid), '')
+    # Apply sport-specific overrides for teams misclassified in teams.csv
+    sport_key = st.session_state.get('bracketology_sport', 'softball')
+    for (ov_sport, ov_team), (ov_full, _) in CONFERENCE_OVERRIDES.items():
+        if ov_sport == sport_key:
+            team_conference[ov_team] = ov_full
 
     # Head-to-head: load full schedule to find who played whom
     opponents_map: dict[str, set[str]] = {}  # team_name -> set of opponent names
@@ -639,9 +688,10 @@ def seed_field(field_df):
                         row.append(dist + (50000 if conflict else 0))
                     cost_34.append(row)
                 row_ind, col_ind = linear_sum_assignment(cost_34)
+                used_pool_indices = set()
                 for ri, ci in zip(row_ind, col_ind):
                     if cost_34[ri][ci] >= 50000:
-                        continue  # skip conflict assignments (shouldn't happen with enough options)
+                        continue  # conflict — will be handled in the fallback pass below
                     entry = pool[ci].copy()
                     if pd.notna(regionals[ri]['host'].get('lat')) and pd.notna(entry.get('lat')):
                         entry['distance'] = round(haversine_miles(
@@ -650,6 +700,38 @@ def seed_field(field_df):
                     else:
                         entry['distance'] = 0
                     regionals[ri][seed_key] = entry
+                    used_pool_indices.add(ci)
+
+                # Fallback pass: any regional still missing this seed gets the best
+                # available team (least conflict, then closest). Better to seed a
+                # minor conflict than leave a TBD slot.
+                for r_idx, reg in enumerate(regionals):
+                    if reg.get(seed_key) is not None:
+                        continue
+                    regional_teams = [reg['seed_1'], reg['seed_2']]
+                    if reg.get('seed_3'):
+                        regional_teams.append(reg['seed_3'])
+                    if reg.get('seed_4'):
+                        regional_teams.append(reg['seed_4'])
+                    candidates = []
+                    for p_idx, tm in enumerate(pool):
+                        if p_idx in used_pool_indices:
+                            continue
+                        conflict = has_conflict(tm['name'], regional_teams)
+                        if pd.notna(reg['host'].get('lat')) and pd.notna(tm.get('lat')):
+                            dist = haversine_miles(reg['host']['lat'], reg['host']['lon'], tm['lat'], tm['lon'])
+                        else:
+                            dist = 3000
+                        # Sort key: prefer no-conflict, then closest
+                        candidates.append((conflict, dist, p_idx, tm))
+                    if not candidates:
+                        continue  # genuinely nothing left in the pool
+                    candidates.sort(key=lambda x: (x[0], x[1]))
+                    _, best_dist, best_p_idx, best_tm = candidates[0]
+                    entry = best_tm.copy()
+                    entry['distance'] = round(best_dist, 0)
+                    regionals[r_idx][seed_key] = entry
+                    used_pool_indices.add(best_p_idx)
                 continue  # skip the greedy fallback below
             except ImportError:
                 pass  # fall through to greedy
