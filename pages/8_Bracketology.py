@@ -677,30 +677,35 @@ def seed_field(field_df):
     # a conference or head-to-head conflict.
     remaining_pool.sort(key=lambda x: x.get('rpi', 0))
 
-    # Power conference teams (ACC, Big 12, Big Ten, SEC, Sun Belt) are NOT
-    # preferred as 4-seeds. Those 16 spots go to non-power conference teams
-    # when possible, but if there are fewer than 16 non-power teams in the
-    # remaining pool (which happens in SEC-heavy softball fields), we borrow
-    # the WORST-RPI power teams to fill the 4-seed pool. "Never TBDs" > "no
-    # power 4-seeds" when they conflict.
+    # Power conference teams (ACC, Big 12, Big Ten, SEC, Sun Belt) are NEVER
+    # 4-seeds. Per user directive 2026-04-08: "no power conference team should
+    # ever be a 4 seed as there are more than 16 small conference auto bid
+    # teams." With the auto-bid + at-large field, every conference contributes
+    # at least one team and there are always 16+ non-power teams in the bottom
+    # 32 of the field. The 4-seed pool is filled exclusively by the 16 worst-RPI
+    # non-power teams. The previous "borrow worst power" fallback was based on
+    # a bad mental model and is removed.
     POWER_CONFS = {'ACC', 'Big 12', 'Big Ten', 'SEC', 'Sun Belt'}
     non_power = [t for t in remaining_pool if t.get('conference', '') not in POWER_CONFS]
     power = [t for t in remaining_pool if t.get('conference', '') in POWER_CONFS]
 
-    # 4-seeds: worst 16 RPIs from non-power teams; fill shortfall from worst power
+    # 4-seeds: 16 worst-RPI non-power teams in the remaining pool. No power teams.
     four_seed_pool = list(non_power[:16])
-    n_reg = min(16, len(regionals))
-    borrowed_names: set = set()
-    if len(four_seed_pool) < n_reg:
-        shortfall = n_reg - len(four_seed_pool)
-        # `power` is already sorted worst-first (ascending by RPI)
-        borrowed = power[:shortfall]
-        four_seed_pool.extend(borrowed)
-        borrowed_names = {t['name'] for t in borrowed}
 
-    # 3-seeds: all power conference remainders (minus borrowed) + leftover non-power
-    three_seed_pool = [t for t in power if t['name'] not in borrowed_names] + non_power[16:]
-    three_seed_pool.sort(key=lambda x: x.get('rpi', 0), reverse=True)  # best RPI first
+    # 3-seeds: all power teams in the remaining pool + leftover non-power (those
+    # ranked above the worst-16 non-power). Sorted best-RPI first for Hungarian.
+    three_seed_pool = list(power) + list(non_power[16:])
+    three_seed_pool.sort(key=lambda x: x.get('rpi', 0), reverse=True)
+
+    # Sanity check: if the field selection is broken and we have fewer than 16
+    # non-power teams in the remaining pool, log a warning. This SHOULD never
+    # happen with a correct auto-bid + at-large field.
+    if len(four_seed_pool) < min(16, len(regionals)):
+        st.warning(
+            f'⚠️ Bracketology: only {len(four_seed_pool)} non-power teams in the '
+            f'remaining pool — expected ≥16. Some 4-seed slots will be empty. '
+            f'Check the field construction (auto-bid + at-large logic).'
+        )
 
     for seed_key, pool in [('seed_3', three_seed_pool), ('seed_4', four_seed_pool)]:
         # Hungarian assignment with seed-weighted conflict penalties. The optimizer
@@ -793,30 +798,36 @@ def seed_field(field_df):
                 cc += w
         return d + cc
 
+    # Post-pass swap optimizer — SAME-SEED SWAPS ONLY.
+    # The previous implementation iterated all combinations of (si, sj) which
+    # included cross-seed swaps (3↔4 across regionals). Cross-seed swaps could
+    # demote a power-conference team from a 3-seed slot to a 4-seed slot, which
+    # violates the "no power 4-seeds" rule. By restricting to same-seed swaps,
+    # the optimizer can still fix Hungarian's sequential placement mistakes
+    # (e.g., a 3-seed in the wrong regional) while preserving pool composition.
     SWAPPABLE_SLOTS = ['seed_3', 'seed_4']
     for _ in range(10):  # bounded iterations; almost always converges in 2-3
         improved = False
         for i in range(len(regionals)):
             for j in range(i + 1, len(regionals)):
-                for si in SWAPPABLE_SLOTS:
-                    for sj in SWAPPABLE_SLOTS:
-                        if regionals[i].get(si) is None or regionals[j].get(sj) is None:
-                            continue
-                        before = _slot_cost(regionals[i], si) + _slot_cost(regionals[j], sj)
-                        regionals[i][si], regionals[j][sj] = regionals[j][sj], regionals[i][si]
-                        after = _slot_cost(regionals[i], si) + _slot_cost(regionals[j], sj)
-                        if after < before:
-                            # Recompute distances on the moved entries.
-                            for reg_ref, sk in [(regionals[i], si), (regionals[j], sj)]:
-                                tm = reg_ref[sk]
-                                if pd.notna(reg_ref['host'].get('lat')) and pd.notna(tm.get('lat')):
-                                    tm['distance'] = round(haversine_miles(
-                                        reg_ref['host']['lat'], reg_ref['host']['lon'],
-                                        tm['lat'], tm['lon']), 0)
-                            improved = True
-                        else:
-                            # Revert swap
-                            regionals[i][si], regionals[j][sj] = regionals[j][sj], regionals[i][si]
+                for slot in SWAPPABLE_SLOTS:  # same-seed only: si == sj
+                    if regionals[i].get(slot) is None or regionals[j].get(slot) is None:
+                        continue
+                    before = _slot_cost(regionals[i], slot) + _slot_cost(regionals[j], slot)
+                    regionals[i][slot], regionals[j][slot] = regionals[j][slot], regionals[i][slot]
+                    after = _slot_cost(regionals[i], slot) + _slot_cost(regionals[j], slot)
+                    if after < before:
+                        # Recompute distances on the moved entries.
+                        for reg_ref in [regionals[i], regionals[j]]:
+                            tm = reg_ref[slot]
+                            if pd.notna(reg_ref['host'].get('lat')) and pd.notna(tm.get('lat')):
+                                tm['distance'] = round(haversine_miles(
+                                    reg_ref['host']['lat'], reg_ref['host']['lon'],
+                                    tm['lat'], tm['lon']), 0)
+                        improved = True
+                    else:
+                        # Revert swap
+                        regionals[i][slot], regionals[j][slot] = regionals[j][slot], regionals[i][slot]
         if not improved:
             break
 
