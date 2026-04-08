@@ -46,6 +46,15 @@ for sport in baseball softball; do
     cp "$PBP_SOURCE/$sport/schedules_full.csv" "$DEST/schedules_full_${sport}.csv" 2>/dev/null
 done
 
+echo "Copying PBP validation output (diff JSONs for the Validator page)..."
+mkdir -p "$PBP_DEST/validated"
+for sport in baseball softball; do
+    for div in D1 D2 D3; do
+        cp "$PBP_SOURCE/$sport/pbp/validated/validation_diff_${sport}_${div}.json" "$PBP_DEST/validated/" 2>/dev/null
+        cp "$PBP_SOURCE/$sport/pbp/validated/validated_events_${sport}_${div}.parquet" "$PBP_DEST/validated/" 2>/dev/null
+    done
+done
+
 cd "C:/Users/sixty/OneDrive/Desktop/chart-builder-app"
 
 # Fix player names with commas (e.g. "Bocachica, Jr.") that break CSV parsing

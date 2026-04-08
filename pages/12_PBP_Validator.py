@@ -20,6 +20,7 @@ VALIDATED_DIR = _APP_DIR / 'pbp_data' / 'validated'
 RULES_PATH = _APP_DIR / 'data' / 'pbp_classification_rules.csv'
 CORRECTIONS_PATH = _APP_DIR / 'data' / 'pbp_corrections.csv'
 EXCEPTIONS_PATH = _APP_DIR / 'data' / 'pbp_validation_exceptions.csv'
+REVIEWED_PATTERNS_PATH = _APP_DIR / 'data' / 'pbp_reviewed_patterns.csv'
 
 # ── Classification options ───────────────────────────────────────────────────
 OUTCOME_OPTIONS = [
@@ -162,6 +163,27 @@ def remove_exception(gameId, playerId):
         df = df[~mask].copy()
         df.to_csv(EXCEPTIONS_PATH, index=False)
 
+def load_reviewed_patterns():
+    """Patterns the user has reviewed and chose to keep as-is. Stored so they
+    don't reappear in the Pattern Review tab."""
+    if not REVIEWED_PATTERNS_PATH.exists():
+        return pd.DataFrame(columns=['playResult', 'signal', 'decision', 'reviewedAt'])
+    return pd.read_csv(REVIEWED_PATTERNS_PATH, low_memory=False, keep_default_na=False)
+
+def save_reviewed_pattern(playResult, signal, decision):
+    df = load_reviewed_patterns()
+    mask = (df['playResult'] == playResult) & (df['signal'] == signal)
+    df = df[~mask].copy()
+    new_row = pd.DataFrame([{
+        'playResult': playResult,
+        'signal': signal,
+        'decision': decision,
+        'reviewedAt': datetime.now().isoformat(timespec='seconds'),
+    }])
+    df = pd.concat([df, new_row], ignore_index=True)
+    REVIEWED_PATTERNS_PATH.parent.mkdir(parents=True, exist_ok=True)
+    df.to_csv(REVIEWED_PATTERNS_PATH, index=False)
+
 # ── Rule matching helpers (for UI preview + suggester) ───────────────────────
 def strip_parens(text):
     return re.sub(r'\([^)]*\)', '', str(text))
@@ -246,7 +268,7 @@ c2.metric('Validated', f'{valid:,}', f'{rate*100:.1f}%')
 c3.metric('Scrape gaps', f'{gaps:,}', help='Box has records but no events scraped — not a parser issue')
 c4.metric('Parser mismatches', f'{parser_miss:,}', help='Fixable via rules or point corrections')
 
-tab_browser, tab_rules, tab_suggest = st.tabs(['🔍 Failure Browser', '📚 Rules Library', '💡 Suggested Rules'])
+tab_suggest, tab_browser, tab_rules = st.tabs(['🎯 Pattern Review', '🔍 Failure Browser', '📚 Rules Library'])
 
 # ─────────────────────────────────────────────────────────────────────────────
 # TAB 1: FAILURE BROWSER
@@ -533,21 +555,18 @@ with tab_rules:
                 st.cache_data.clear()
 
 # ─────────────────────────────────────────────────────────────────────────────
-# TAB 3: SUGGESTED RULES
+# TAB: PATTERN REVIEW
 # ─────────────────────────────────────────────────────────────────────────────
 with tab_suggest:
-    st.markdown('### Auto-Suggested Rules')
-    st.caption('Analyzes failed events for common patterns and proposes rules to fix them in bulk.')
+    st.markdown('### Pattern Review')
+    st.caption("Default for every pattern is 'keep as is'. Only touch the dropdown for patterns you want to correct, then hit 'Submit all' at the top or bottom. Corrections become rules that apply everywhere; keeps just hide the pattern from this queue.")
 
     failed_events = load_all_failed_events(sport, division)
     if len(failed_events) == 0:
         st.info('No parser mismatches to analyze.')
         st.stop()
 
-    st.markdown(f'Analyzing **{len(failed_events):,}** failed events...')
-
-    # Pattern: (playResult, distinctive_keyword) → count
-    # For each failed event, extract 1-3 "distinctive" keywords from the action
+    # Build patterns: (playResult, signal) → list of example actions
     STOP = {'the', 'a', 'to', 'of', 'on', 'in', 'at', 'out', 'advanced', 'base',
             'second', 'third', 'first', 'home', 'left', 'right', 'center',
             'field', 'for', 'from', 'by', 'an', 'and', 'or', 'his', 'her'}
@@ -557,61 +576,97 @@ with tab_suggest:
         action = strip_parens(r['playAction']).lower().strip().rstrip('.')
         if not action:
             continue
-        # Extract "signal" words: short distinctive keywords
         words = [w for w in re.findall(r"[a-z]+", action) if w not in STOP and len(w) > 2]
-        # Look for specific signal phrases
         signals = set()
         for phrase in ['picked off', 'sacrifice fly', 'sacrifice bunt',
                        'reached on', 'scored', 'advanced on', 'bunt', 'hit by pitch',
                        'sac', 'sf', 'rbi', 'unearned', 'foul', 'lineup', 'pinch']:
             if phrase in action:
                 signals.add(phrase)
-        # Add first 2 non-stopword tokens as a fallback signal
         if len(words) >= 2:
             signals.add(' '.join(words[:2]))
         for sig in signals:
             patterns[(result, sig)].append(r['playAction'])
 
-    # Filter to patterns with enough support
+    # Filter out patterns the user has already reviewed
+    reviewed_df = load_reviewed_patterns()
+    reviewed_keys: set = set()
+    if len(reviewed_df) > 0:
+        reviewed_keys = {(str(row['playResult']), str(row['signal']))
+                         for _, row in reviewed_df.iterrows()}
+
     top_patterns = sorted(
-        [((pr, sig), examples) for (pr, sig), examples in patterns.items() if len(examples) >= 5],
+        [((pr, sig), examples) for (pr, sig), examples in patterns.items()
+         if len(examples) >= 5 and (pr, sig) not in reviewed_keys],
         key=lambda x: -len(x[1]),
-    )[:30]
+    )[:100]
+
+    header = st.columns([3, 1])
+    header[0].markdown(
+        f'Analyzing **{len(failed_events):,}** failed events. '
+        f'Showing top **{len(top_patterns)}** unreviewed patterns (≥5 occurrences).'
+    )
+    if len(reviewed_keys) > 0:
+        header[1].caption(f'{len(reviewed_keys)} patterns already reviewed')
 
     if not top_patterns:
-        st.info('No high-frequency patterns detected.')
+        st.success('All common patterns have been reviewed. Nothing left in the queue.')
     else:
-        st.markdown(f'#### Top {len(top_patterns)} patterns')
-        for (pr, sig), examples in top_patterns:
-            with st.container(border=True):
-                pcol = st.columns([1, 3, 1.5, 1.5])
-                pcol[0].markdown(f"**{pr or '(any)'}**")
-                pcol[1].markdown(f"contains `{sig}`")
-                pcol[2].metric('Occurrences', len(examples))
-                # Show sample
-                with pcol[3]:
-                    with st.popover(f'{min(3, len(examples))} examples'):
-                        for ex in examples[:5]:
-                            st.caption(ex)
-                # Propose outcome — user picks
-                colx = st.columns([3, 1])
-                suggested_outcome = colx[0].selectbox(
-                    'Classify matching events as',
-                    ['1B', '2B', '3B', 'HR', 'BB', 'HBP', 'K', 'KL',
-                     'GO', 'FO', 'LO', 'PO', 'FC', 'DP', 'E', 'SF', 'SAC', 'NONE'],
-                    key=f'sugg_out_{pr}_{sig}',
-                )
-                if colx[1].button('Add as rule', key=f'sugg_add_{pr}_{sig}'):
-                    name = f'Auto: {pr or "any"} + "{sig}" → {suggested_outcome}'
+        outcome_choices = [
+            'keep as is',
+            '1B', '2B', '3B', 'HR', 'BB', 'HBP', 'K', 'KL',
+            'GO', 'FO', 'LO', 'PO', 'FC', 'DP', 'E', 'SF', 'SAC', 'NONE',
+        ]
+
+        def _submit_all_patterns():
+            keeps = 0
+            rules_added = 0
+            for (pr, sig), examples in top_patterns:
+                key = f'pr_choice_{pr}_{sig}'
+                choice = st.session_state.get(key, 'keep as is')
+                if choice == 'keep as is':
+                    save_reviewed_pattern(pr, sig, 'keep')
+                    keeps += 1
+                else:
+                    rule_name = f'Pattern Review: {pr or "any"} + "{sig}" → {choice}'
                     add_rule(
-                        name=name,
+                        name=rule_name,
                         match_playResult=pr,
                         match_contains=sig,
                         match_excludes='',
                         match_regex='',
-                        corrected_result=suggested_outcome,
-                        notes=f'Auto-proposed from {len(examples)} failed events',
+                        corrected_result=choice,
+                        notes=f'Created from Pattern Review ({len(examples)} failed events)',
                     )
-                    st.success(f'Added rule: {name}. Run validate-pbp-events.py to apply.')
-                    st.cache_data.clear()
-                    st.rerun()
+                    save_reviewed_pattern(pr, sig, choice)
+                    rules_added += 1
+            st.cache_data.clear()
+            st.toast(f'Submitted: {keeps} kept, {rules_added} new rules')
+
+        if st.button(f'✅ Submit all {len(top_patterns)} decisions',
+                     type='primary', use_container_width=True, key='pr_submit_all_top'):
+            _submit_all_patterns()
+            st.rerun()
+
+        for (pr, sig), examples in top_patterns:
+            with st.container(border=True):
+                top = st.columns([1, 3, 1])
+                top[0].markdown(f"**{pr or '(any)'}**")
+                top[1].markdown(f"contains `{sig}`")
+                top[2].metric('Count', len(examples))
+
+                with st.expander(f'{min(5, len(examples))} example plays'):
+                    for ex in examples[:5]:
+                        st.caption(f'• {ex}')
+
+                st.selectbox(
+                    'Decision',
+                    outcome_choices,
+                    key=f'pr_choice_{pr}_{sig}',
+                    label_visibility='collapsed',
+                )
+
+        if st.button(f'✅ Submit all {len(top_patterns)} decisions',
+                     type='primary', use_container_width=True, key='pr_submit_all_bottom'):
+            _submit_all_patterns()
+            st.rerun()
