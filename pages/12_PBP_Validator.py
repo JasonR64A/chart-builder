@@ -19,6 +19,7 @@ _APP_DIR = Path(__file__).resolve().parent.parent
 VALIDATED_DIR = _APP_DIR / 'pbp_data' / 'validated'
 RULES_PATH = _APP_DIR / 'data' / 'pbp_classification_rules.csv'
 CORRECTIONS_PATH = _APP_DIR / 'data' / 'pbp_corrections.csv'
+EXCEPTIONS_PATH = _APP_DIR / 'data' / 'pbp_validation_exceptions.csv'
 
 # ── Classification options ───────────────────────────────────────────────────
 OUTCOME_OPTIONS = [
@@ -126,6 +127,41 @@ def remove_correction(gameId, playerId, eventIndex):
         df = df[~mask].copy()
         df.to_csv(CORRECTIONS_PATH, index=False)
 
+def load_exceptions():
+    """Game-players manually verified as correct (counts mismatch is a data quality
+    issue outside of the parser's control — box score error, missing event, etc.).
+    The validator treats these as validated."""
+    if not EXCEPTIONS_PATH.exists():
+        return pd.DataFrame(columns=[
+            'gameId', 'playerId', 'playerName', 'teamName', 'date',
+            'reason', 'verifiedAt',
+        ])
+    return pd.read_csv(EXCEPTIONS_PATH, low_memory=False)
+
+def save_exception(gameId, playerId, playerName, teamName, date, reason=''):
+    df = load_exceptions()
+    mask = (df['gameId'] == gameId) & (df['playerId'] == playerId)
+    df = df[~mask].copy()
+    new_row = pd.DataFrame([{
+        'gameId': gameId,
+        'playerId': playerId,
+        'playerName': playerName,
+        'teamName': teamName,
+        'date': date,
+        'reason': reason,
+        'verifiedAt': datetime.now().isoformat(timespec='seconds'),
+    }])
+    df = pd.concat([df, new_row], ignore_index=True)
+    EXCEPTIONS_PATH.parent.mkdir(parents=True, exist_ok=True)
+    df.to_csv(EXCEPTIONS_PATH, index=False)
+
+def remove_exception(gameId, playerId):
+    df = load_exceptions()
+    mask = (df['gameId'] == gameId) & (df['playerId'] == playerId)
+    if mask.any():
+        df = df[~mask].copy()
+        df.to_csv(EXCEPTIONS_PATH, index=False)
+
 # ── Rule matching helpers (for UI preview + suggester) ───────────────────────
 def strip_parens(text):
     return re.sub(r'\([^)]*\)', '', str(text))
@@ -226,6 +262,18 @@ with tab_browser:
     elif failure_type == 'Scrape gaps':
         failures = [f for f in failures if f.get('failure_type') == 'scrape_gap']
 
+    # Hide game-players the user has manually verified (unless the "show verified"
+    # toggle is on so you can review/unverify them).
+    show_verified = st.checkbox('Show already-verified failures', value=False, key='fb_show_verified')
+    exc_df = load_exceptions()
+    if not show_verified and len(exc_df) > 0:
+        verified_keys = {(int(r['gameId']), int(r['playerId'])) for _, r in exc_df.iterrows()}
+        before_count = len(failures)
+        failures = [f for f in failures if (int(f.get('gameId', 0)), int(f.get('playerId', 0))) not in verified_keys]
+        hidden = before_count - len(failures)
+        if hidden > 0:
+            st.caption(f'{hidden:,} failures hidden (marked as verified).')
+
     col_filters = st.columns(3)
     teams = sorted({f.get('teamName', '') for f in failures if f.get('teamName')})
     team_filter = col_filters[0].selectbox('Team', ['(all)'] + teams, key='fb_team')
@@ -262,12 +310,43 @@ with tab_browser:
 
         st.markdown('---')
         hcol = st.columns([3, 2])
+        gameId = int(failure['gameId'])
+        playerId = int(failure['playerId'])
         with hcol[0]:
             st.markdown(f"#### {failure.get('playerName', '?')} — {failure.get('teamName', '?')}")
             st.markdown(f"**Game:** {failure.get('gameId')} &nbsp;&nbsp; **Date:** {failure.get('date','')} &nbsp;&nbsp; **Type:** `{failure.get('failure_type','?')}`")
         with hcol[1]:
             if failure.get('failure_type') == 'scrape_gap':
                 st.warning('Scrape gap — no events captured. Needs re-scrape, not manual correction.')
+
+            # Mark-as-verified controls
+            exc_df_detail = load_exceptions()
+            is_verified = (
+                (exc_df_detail['gameId'] == gameId) & (exc_df_detail['playerId'] == playerId)
+            ).any() if len(exc_df_detail) > 0 else False
+            if is_verified:
+                st.success('✓ Marked as verified')
+                if st.button('Undo verification', key=f'unverify_{gameId}_{playerId}'):
+                    remove_exception(gameId, playerId)
+                    st.rerun()
+            else:
+                reason = st.text_input(
+                    'Verification reason (optional)',
+                    placeholder='e.g. box score error, missing event, data quality issue',
+                    key=f'vreason_{gameId}_{playerId}',
+                )
+                if st.button('✓ Mark as verified (keep all plays as-is)',
+                             key=f'verify_{gameId}_{playerId}', type='primary'):
+                    save_exception(
+                        gameId=gameId,
+                        playerId=playerId,
+                        playerName=failure.get('playerName', ''),
+                        teamName=failure.get('teamName', ''),
+                        date=failure.get('date', ''),
+                        reason=reason,
+                    )
+                    st.toast('Marked as verified — will no longer show as a failure.')
+                    st.rerun()
 
         # Expected vs derived
         exp = failure.get('expected', {})
@@ -293,8 +372,6 @@ with tab_browser:
                 for _, row in existing_corrections.iterrows()
             }
 
-            gameId = int(failure['gameId'])
-            playerId = int(failure['playerId'])
             events = failure.get('events', [])
 
             for i, e in enumerate(events):
