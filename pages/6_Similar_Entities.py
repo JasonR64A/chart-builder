@@ -201,7 +201,7 @@ def _make_grainy_bg(color_rgb, size=400, noise_scale=0.03, seed=42):
     base = np.array(color_rgb)
     return np.clip(base + noise, 0, 1)
 
-def render_similarity_chart(target_label, target_team, target_pct, matches, match_pcts, metrics, theme='Light', show_year=False):
+def render_similarity_chart(target_label, target_team, target_pct, matches, match_pcts, metrics, theme='Light', show_year=False, entity_type='player'):
     """Spider/radar chart: each axis is a metric, each entity is a polygon."""
     if theme == 'Dark':
         bg_solid = '#1a1a1a'; text_color = '#e2e8f0'; text_md = '#a0aec0'
@@ -274,10 +274,40 @@ def render_similarity_chart(target_label, target_team, target_pct, matches, matc
     # Pad tick labels away from circle
     ax.tick_params(axis='x', pad=15)
 
-    # Radial gridlines at 25/50/75/100
-    ax.set_ylim(0, 100)
-    ax.set_yticks([25, 50, 75, 100])
-    ax.set_yticklabels(['25', '50', '75', '100'], fontsize=8,
+    # Radial gridlines. Teams always use the fixed 0-100 scale so the rings
+    # stay interpretable. For players, compute a dynamic floor so elite
+    # players clustered in the 95-100 range don't all collapse onto the same
+    # polygon. The floor is set to 5 below the lowest plotted value, rounded
+    # down to the nearest 5, and is only applied when the result is at or
+    # above 50 (below that, the full 0-100 scale is still informative).
+    all_plotted_vals = list(target_vals)
+    for _, m_row in matches.iterrows():
+        m_vals = [float(match_pcts.loc[m_row.name, c]) if c in match_pcts.columns else 0.0 for c in metric_cols]
+        all_plotted_vals.extend(m_vals)
+
+    min_val = min(all_plotted_vals) if all_plotted_vals else 0
+    if entity_type == 'player' and min_val >= 50:
+        r_floor = max(0, int(min_val // 5) * 5 - 5)
+    else:
+        r_floor = 0
+
+    ax.set_ylim(r_floor, 100)
+
+    # Choose tick spacing based on the visible range so we get round numbers.
+    tick_range = 100 - r_floor
+    if tick_range <= 10:
+        step = 2
+    elif tick_range <= 25:
+        step = 5
+    elif tick_range <= 50:
+        step = 10
+    else:
+        step = 25
+    yticks = list(range(int(r_floor), 101, step))
+    if yticks[-1] != 100:
+        yticks.append(100)
+    ax.set_yticks(yticks)
+    ax.set_yticklabels([str(t) for t in yticks], fontsize=8,
                        fontfamily=BODY_FONT, color=text_md)
     ax.set_rlabel_position(180 / n_metrics)  # offset radial labels between axes
 
@@ -451,7 +481,7 @@ if mode == 'Player':
     # Bar chart
     target_label = f"{target_row['player_name']} {int(target_row['year'])}"
     target_team = target_row['team_name']
-    chart = render_similarity_chart(target_label, target_team, target_pct, matches, all_pcts, metrics, theme=theme, show_year=True)
+    chart = render_similarity_chart(target_label, target_team, target_pct, matches, all_pcts, metrics, theme=theme, show_year=True, entity_type='player')
     st.image(chart, use_container_width=True)
     st.download_button('Download Chart PNG', data=chart,
                        file_name=f'similar_{target_row["player_name"]}_{int(target_row["year"])}_{sport}_{division}.png', mime='image/png')
@@ -512,7 +542,7 @@ else:  # Team
     chart_label = f"{target_row['team_name']} {int(target_row['year'])}"
     chart = render_similarity_chart(chart_label, target_row['team_name'],
                                      target_pct, matches, all_pcts, metrics, theme=theme,
-                                     show_year=True)
+                                     show_year=True, entity_type='team')
     st.image(chart, use_container_width=True)
     st.download_button('Download Chart PNG', data=chart,
                        file_name=f'similar_team_{target_row["team_name"]}_{int(target_row["year"])}_{sport}_{division}.png',
