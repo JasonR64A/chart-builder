@@ -1506,11 +1506,31 @@ if len(history_df) > 1 and history_df['snapshot_date'].nunique() > 1:
     if len(chart_df) > 0:
         dates = sorted(chart_df['snapshot_date'].unique())
 
-        fig, ax = plt.subplots(figsize=(12, 6), facecolor='#1a1a1a')
-        ax.set_facecolor('#1a1a1a')
+        # Light theme — eggshell background with grainy noise texture (same as
+        # Similar Entities + Pace chart).
+        BG_SOLID = '#FAF8F2'
+        BG_RGB = (0.980, 0.972, 0.949)
+        TEXT_COLOR = '#2D2926'
+        TEXT_MD = '#4A4540'
+        GRID_COLOR = '#D8D2C4'
+        SPINE_COLOR = '#E2DCCC'
 
-        # Use each team's primary logo color. Track used colors to nudge
-        # near-duplicates so lines remain distinguishable on the dark bg.
+        def _make_grainy_bg(color_rgb, size=500, noise_scale=0.012, seed=42):
+            rng = np.random.default_rng(seed)
+            noise = rng.normal(0, 1, (size, size, 3)) * noise_scale
+            base = np.array(color_rgb)
+            return np.clip(base + noise, 0, 1)
+
+        fig = plt.figure(figsize=(12, 6), facecolor=BG_SOLID)
+        # Full-figure grainy background
+        bg_ax = fig.add_axes([0, 0, 1, 1], zorder=-1)
+        bg_ax.set_axis_off()
+        bg_img = _make_grainy_bg(BG_RGB, size=500, noise_scale=0.012)
+        bg_ax.imshow(bg_img, aspect='auto', extent=[0, 1, 0, 1], interpolation='bilinear')
+
+        ax = fig.add_subplot(111, facecolor='none')
+
+        # Use each team's primary logo color.
         teams_sorted = sorted(tier_teams)
         team_colors = {t: get_team_color(t, prefer_sport=sport_key) for t in teams_sorted}
 
@@ -1535,16 +1555,15 @@ if len(history_df) > 1 and history_df['snapshot_date'].nunique() > 1:
             ax.set_ylim(16.5, 0.5)
             ax.set_yticks(range(1, 17))
             ax.set_yticklabels([str(i) for i in range(1, 17)])
-            ax.set_ylabel('National Seed', color='#999', fontsize=11)
+            ax.set_ylabel('National Seed', color=TEXT_MD, fontsize=11)
         else:
             # For 2/3/4 seeds, show overall_seed rank within tier
-            # Re-map to use overall_seed for finer granularity
             tier_ranges = {'2-seed': (17, 32), '3-seed': (33, 48), '4-seed': (49, 64)}
             lo, hi = tier_ranges[filter_tier]
             ax.set_ylim(hi + 0.5, lo - 0.5)
             ax.set_yticks(range(lo, hi + 1))
             ax.set_yticklabels([str(i) for i in range(lo, hi + 1)])
-            ax.set_ylabel('Overall Seed', color='#999', fontsize=11)
+            ax.set_ylabel('Overall Seed', color=TEXT_MD, fontsize=11)
             # Use overall_seed instead of display_seed for these tiers
             for line in ax.get_lines():
                 team_name = line.get_label()
@@ -1560,21 +1579,33 @@ if len(history_df) > 1 and history_df['snapshot_date'].nunique() > 1:
                     child.set_position((0, 0))
                     child.xy = (last['snapshot_date'], last['overall_seed'])
 
-        ax.set_xlabel('Date', color='#999', fontsize=11)
-        ax.tick_params(colors='#999', labelsize=9)
-        ax.grid(axis='y', color='#333', linewidth=0.5, alpha=0.5)
+        ax.set_xlabel('Date', color=TEXT_MD, fontsize=11)
+        ax.tick_params(colors=TEXT_COLOR, labelsize=9)
+        ax.grid(axis='y', color=GRID_COLOR, linewidth=0.5, alpha=0.7)
         ax.spines['top'].set_visible(False)
         ax.spines['right'].set_visible(False)
-        ax.spines['bottom'].set_color('#444')
-        ax.spines['left'].set_color('#444')
+        ax.spines['bottom'].set_color(SPINE_COLOR)
+        ax.spines['left'].set_color(SPINE_COLOR)
 
         import matplotlib.dates as mdates
         ax.xaxis.set_major_formatter(mdates.DateFormatter('%b %d'))
         fig.autofmt_xdate(rotation=0, ha='center')
 
-        plt.tight_layout()
-        st.pyplot(fig)
+        # Save to BytesIO for both display and download (same pattern as
+        # Similar Entities + Pace chart).
+        from io import BytesIO
+        buf = BytesIO()
+        fig.savefig(buf, format='png', dpi=180, facecolor=BG_SOLID, bbox_inches='tight')
+        buf.seek(0)
         plt.close(fig)
+
+        st.image(buf, use_container_width=True)
+        st.download_button(
+            'Download Seed Progression PNG',
+            data=buf,
+            file_name=f'seed_progression_{sport_key}_{selected_tier.split()[0].lower()}.png',
+            mime='image/png',
+        )
     else:
         st.markdown('<p style="color:#666;">No teams found for this tier.</p>', unsafe_allow_html=True)
 else:
