@@ -1506,10 +1506,12 @@ if len(history_df) > 1 and history_df['snapshot_date'].nunique() > 1:
     if len(chart_df) > 0:
         dates = sorted(chart_df['snapshot_date'].unique())
 
-        # Light theme — eggshell background with grainy noise texture (same as
-        # Similar Entities + Pace chart).
+        # Two-tone light theme: grainy #FAF8F2 outer figure (Similar Entities
+        # style) with a solid #F2EFE5 inner plot area (Stock Chart / Team
+        # Comparison / Pace chart two-tone pattern).
         BG_SOLID = '#FAF8F2'
         BG_RGB = (0.980, 0.972, 0.949)
+        PLOT_BG = '#F2EFE5'
         TEXT_COLOR = '#2D2926'
         TEXT_MD = '#4A4540'
         GRID_COLOR = '#D8D2C4'
@@ -1522,13 +1524,14 @@ if len(history_df) > 1 and history_df['snapshot_date'].nunique() > 1:
             return np.clip(base + noise, 0, 1)
 
         fig = plt.figure(figsize=(12, 6), facecolor=BG_SOLID)
-        # Full-figure grainy background
+        # Full-figure grainy background (outer)
         bg_ax = fig.add_axes([0, 0, 1, 1], zorder=-1)
         bg_ax.set_axis_off()
         bg_img = _make_grainy_bg(BG_RGB, size=500, noise_scale=0.012)
         bg_ax.imshow(bg_img, aspect='auto', extent=[0, 1, 0, 1], interpolation='bilinear')
 
-        ax = fig.add_subplot(111, facecolor='none')
+        # Inner plot area: solid slightly-darker tone for contrast
+        ax = fig.add_subplot(111, facecolor=PLOT_BG)
 
         # Use each team's primary logo color.
         teams_sorted = sorted(tier_teams)
