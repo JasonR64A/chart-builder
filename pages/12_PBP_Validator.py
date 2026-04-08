@@ -165,12 +165,18 @@ def remove_exception(gameId, playerId):
 
 def load_reviewed_patterns():
     """Patterns the user has reviewed and chose to keep as-is. Stored so they
-    don't reappear in the Pattern Review tab."""
+    don't reappear in the Pattern Review tab. The `comment` column holds an
+    optional user explanation of what a phrase means (e.g. "'singled through'
+    = single with direction info") so future humans + Claude can understand
+    the decision context."""
     if not REVIEWED_PATTERNS_PATH.exists():
-        return pd.DataFrame(columns=['playResult', 'signal', 'decision', 'reviewedAt'])
-    return pd.read_csv(REVIEWED_PATTERNS_PATH, low_memory=False, keep_default_na=False)
+        return pd.DataFrame(columns=['playResult', 'signal', 'decision', 'comment', 'reviewedAt'])
+    df = pd.read_csv(REVIEWED_PATTERNS_PATH, low_memory=False, keep_default_na=False)
+    if 'comment' not in df.columns:
+        df['comment'] = ''
+    return df
 
-def save_reviewed_pattern(playResult, signal, decision):
+def save_reviewed_pattern(playResult, signal, decision, comment=''):
     df = load_reviewed_patterns()
     mask = (df['playResult'] == playResult) & (df['signal'] == signal)
     df = df[~mask].copy()
@@ -178,6 +184,7 @@ def save_reviewed_pattern(playResult, signal, decision):
         'playResult': playResult,
         'signal': signal,
         'decision': decision,
+        'comment': comment or '',
         'reviewedAt': datetime.now().isoformat(timespec='seconds'),
     }])
     df = pd.concat([df, new_row], ignore_index=True)
@@ -571,6 +578,22 @@ with tab_suggest:
             'second', 'third', 'first', 'home', 'left', 'right', 'center',
             'field', 'for', 'from', 'by', 'an', 'and', 'or', 'his', 'her'}
     patterns = defaultdict(list)
+    # Actionable signals: phrases that suggest a specific PA outcome reclassification.
+    # Descriptive-only phrases ("scored", "rbi", "advanced on", "unearned") are excluded
+    # because they describe context (runner scored, hit drove in a run) — they don't
+    # map to any PA outcome code, so there's nothing to correct them to.
+    ACTIONABLE_PHRASES = [
+        'picked off', 'sacrifice fly', 'sacrifice bunt', 'hit by pitch',
+        'pinch', 'wild pitch', 'passed ball', 'batter interference',
+        'catcher interference', 'balk', 'bunt', 'interference',
+        'foul bunt', 'dropped third strike', 'out stealing', 'caught stealing',
+    ]
+    # Canonical PA outcomes — if the parser already assigned one of these, a generic
+    # "first 2 words" pattern is redundant (the answer is already in the playResult).
+    # We only show the first-2-words fallback when the playResult is empty/unusual.
+    CANONICAL_RESULTS = {'1B', '2B', '3B', 'HR', 'BB', 'HBP', 'K', 'KL',
+                         'SF', 'SAC', 'GO', 'FO', 'LO', 'PO', 'FC', 'DP', 'E', 'ROE'}
+
     for _, r in failed_events.iterrows():
         result = (r['playResult'] or '').upper()
         action = strip_parens(r['playAction']).lower().strip().rstrip('.')
@@ -578,12 +601,13 @@ with tab_suggest:
             continue
         words = [w for w in re.findall(r"[a-z]+", action) if w not in STOP and len(w) > 2]
         signals = set()
-        for phrase in ['picked off', 'sacrifice fly', 'sacrifice bunt',
-                       'reached on', 'scored', 'advanced on', 'bunt', 'hit by pitch',
-                       'sac', 'sf', 'rbi', 'unearned', 'foul', 'lineup', 'pinch']:
+        for phrase in ACTIONABLE_PHRASES:
             if phrase in action:
                 signals.add(phrase)
-        if len(words) >= 2:
+        # First-2-words fallback only fires when the playResult is NOT already a
+        # canonical outcome — otherwise the rule would just restate what the parser
+        # already knows.
+        if result not in CANONICAL_RESULTS and len(words) >= 2:
             signals.add(' '.join(words[:2]))
         for sig in signals:
             patterns[(result, sig)].append(r['playAction'])
@@ -622,13 +646,16 @@ with tab_suggest:
             keeps = 0
             rules_added = 0
             for (pr, sig), examples in top_patterns:
-                key = f'pr_choice_{pr}_{sig}'
-                choice = st.session_state.get(key, 'keep as is')
+                choice_key = f'pr_choice_{pr}_{sig}'
+                comment_key = f'pr_comment_{pr}_{sig}'
+                choice = st.session_state.get(choice_key, 'keep as is')
+                comment = st.session_state.get(comment_key, '').strip()
                 if choice == 'keep as is':
-                    save_reviewed_pattern(pr, sig, 'keep')
+                    save_reviewed_pattern(pr, sig, 'keep', comment)
                     keeps += 1
                 else:
                     rule_name = f'Pattern Review: {pr or "any"} + "{sig}" → {choice}'
+                    rule_notes = comment if comment else f'Created from Pattern Review ({len(examples)} failed events)'
                     add_rule(
                         name=rule_name,
                         match_playResult=pr,
@@ -636,9 +663,9 @@ with tab_suggest:
                         match_excludes='',
                         match_regex='',
                         corrected_result=choice,
-                        notes=f'Created from Pattern Review ({len(examples)} failed events)',
+                        notes=rule_notes,
                     )
-                    save_reviewed_pattern(pr, sig, choice)
+                    save_reviewed_pattern(pr, sig, choice, comment)
                     rules_added += 1
             st.cache_data.clear()
             st.toast(f'Submitted: {keeps} kept, {rules_added} new rules')
@@ -659,10 +686,17 @@ with tab_suggest:
                     for ex in examples[:5]:
                         st.caption(f'• {ex}')
 
-                st.selectbox(
+                dc = st.columns([1, 2])
+                dc[0].selectbox(
                     'Decision',
                     outcome_choices,
                     key=f'pr_choice_{pr}_{sig}',
+                    label_visibility='collapsed',
+                )
+                dc[1].text_input(
+                    'Comment',
+                    key=f'pr_comment_{pr}_{sig}',
+                    placeholder='Optional: explain what this phrase means (e.g. "singled through" = single with direction)',
                     label_visibility='collapsed',
                 )
 
