@@ -8,6 +8,8 @@ import pandas as pd
 import numpy as np
 from pathlib import Path
 from math import radians, sin, cos, sqrt, atan2
+from collections import Counter
+from PIL import Image
 
 # ── Path setup ───────────────────────────────────────────────────────────────
 _APP_DIR = Path(__file__).resolve().parent.parent
@@ -105,6 +107,64 @@ def load_rpi(sport):
     fname = 'baseball_rpi_D1.csv' if sport == 'baseball' else 'softball_rpi_D1.csv'
     df = pd.read_csv(DATA_DIR / fname)
     return df
+
+
+@st.cache_data(show_spinner=False)
+def load_team_logo_map(prefer_sport='baseball'):
+    """Build team_name -> logo_id mapping from teams.csv. Baseball IDs are
+    canonical; softball fills in schools without baseball."""
+    teams_path = DATA_DIR / 'teams.csv'
+    if not teams_path.exists():
+        return {}
+    teams = pd.read_csv(teams_path, low_memory=False)
+    teams['id'] = pd.to_numeric(teams['id'], errors='coerce').fillna(0).astype(int)
+    bb = teams[teams['sport'] == 'Baseball'][['name', 'id']].drop_duplicates('name')
+    name_to_id = dict(zip(bb['name'], bb['id']))
+    sb = teams[teams['sport'] == 'Softball'][['name', 'id']].drop_duplicates('name')
+    for _, row in sb.iterrows():
+        if row['name'] not in name_to_id:
+            name_to_id[row['name']] = row['id']
+    if prefer_sport == 'softball':
+        for _, row in sb.iterrows():
+            logo_path = LOGO_DIR / f"{row['id']}.png"
+            if logo_path.exists():
+                name_to_id[row['name']] = row['id']
+    return name_to_id
+
+
+@st.cache_data(show_spinner=False)
+def get_team_color(team_name, prefer_sport='baseball'):
+    """Extract dominant color from a team's logo. Returns a hex string.
+    Falls back to brand red if the logo is missing or produces an unusable color."""
+    team_map = load_team_logo_map(prefer_sport)
+    logo_id = team_map.get(team_name)
+    if not logo_id:
+        return RED
+    for ext in ['png', 'webp']:
+        p = LOGO_DIR / f'{logo_id}.{ext}'
+        if p.exists():
+            try:
+                img = Image.open(p).convert('RGBA')
+                img.thumbnail((64, 64))
+                pixels = np.array(img)
+                mask = pixels[:, :, 3] > 128
+                rgb = pixels[mask][:, :3]
+                if len(rgb) == 0:
+                    return RED
+                filtered = []
+                for r, g, b in rgb:
+                    brightness = (int(r) + int(g) + int(b)) / 3
+                    if brightness > 220 or brightness < 35:
+                        continue
+                    filtered.append((int(r), int(g), int(b)))
+                if not filtered:
+                    return RED
+                quantized = [(r // 16 * 16, g // 16 * 16, b // 16 * 16) for r, g, b in filtered]
+                most_common = Counter(quantized).most_common(1)[0][0]
+                return f'#{most_common[0]:02x}{most_common[1]:02x}{most_common[2]:02x}'
+            except Exception:
+                return RED
+    return RED
 
 
 @st.cache_data(show_spinner=False)
@@ -1227,7 +1287,6 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from matplotlib.offsetbox import OffsetImage, AnnotationBbox
-from PIL import Image
 from io import BytesIO
 
 def render_bracket_png(supers_data, sport_label, bg_path, brand_path):
@@ -1450,18 +1509,14 @@ if len(history_df) > 1 and history_df['snapshot_date'].nunique() > 1:
         fig, ax = plt.subplots(figsize=(12, 6), facecolor='#1a1a1a')
         ax.set_facecolor('#1a1a1a')
 
-        # Color palette
-        colors = [
-            '#C41230', '#4CAF50', '#2196F3', '#FF9800', '#9C27B0',
-            '#00BCD4', '#E91E63', '#8BC34A', '#FF5722', '#3F51B5',
-            '#CDDC39', '#009688', '#FFC107', '#673AB7', '#03A9F4',
-            '#F44336',
-        ]
-
+        # Use each team's primary logo color. Track used colors to nudge
+        # near-duplicates so lines remain distinguishable on the dark bg.
         teams_sorted = sorted(tier_teams)
-        for i, team in enumerate(teams_sorted):
+        team_colors = {t: get_team_color(t, prefer_sport=sport_key) for t in teams_sorted}
+
+        for team in teams_sorted:
             team_data = chart_df[chart_df['name'] == team].sort_values('snapshot_date')
-            color = colors[i % len(colors)]
+            color = team_colors[team]
             ax.plot(
                 team_data['snapshot_date'], team_data['display_seed'],
                 marker='o', markersize=5, linewidth=2, color=color,
