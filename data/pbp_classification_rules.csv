@@ -1,0 +1,7 @@
+rule_id,priority,enabled,name,match_playResult,match_contains,match_excludes,match_regex,corrected_result,notes,added_at
+1,10,true,Sac bunt (explicit bunt word),,bunt,,\b(sac|sacrifice)\b,SAC,"Batter bunted with sacrifice designation",2026-04-08
+2,20,true,Sac fly (explicit),,sacrifice fly,,,SF,"Explicit 'sacrifice fly' text",2026-04-08
+3,30,true,Sac fly via SAC/SF abbrev on fly/line out,"FO,LO",,bunt,\b(sac|sf)\b,SF,"Fly or line out with SAC/SF abbreviation",2026-04-08
+4,40,true,Sac bunt via SAC abbrev on ground/line out,"GO,LO",,"bunt,sacrifice fly",\bsac\b,SAC,"Ground or line out with SAC abbreviation (no bunt word)",2026-04-08
+5,50,true,Pickoff is baserunning,,picked off,,,NONE,"Any event with 'picked off' is baserunning, not a PA",2026-04-08
+6,60,true,Baserunning E (advanced/scored),E,,,^\s*(advanced|scored),NONE,"Runner advancing or scoring on an error is not a PA",2026-04-08
