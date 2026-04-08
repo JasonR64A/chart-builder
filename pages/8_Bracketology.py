@@ -168,6 +168,31 @@ def get_team_color(team_name, prefer_sport='baseball'):
 
 
 @st.cache_data(show_spinner=False)
+def get_local_logo_data_url(team_name, prefer_sport='baseball'):
+    """Return a base64 data URL for a team's local logo in team_logos_512/,
+    or an empty string if the logo is missing. Bracketology previously used
+    remote S3 URLs from teams.csv `logo_url`, which meant local logo updates
+    didn't flow to the page. Now all logos render from local files so a git
+    commit of team_logos_512/{id}.png is the only update step needed.
+    """
+    import base64
+    team_map = load_team_logo_map(prefer_sport)
+    logo_id = team_map.get(team_name)
+    if not logo_id:
+        return ''
+    for ext in ('png', 'webp'):
+        p = LOGO_DIR / f'{logo_id}.{ext}'
+        if p.exists():
+            try:
+                data = p.read_bytes()
+                mime = 'image/png' if ext == 'png' else 'image/webp'
+                return f'data:{mime};base64,{base64.b64encode(data).decode()}'
+            except Exception:
+                return ''
+    return ''
+
+
+@st.cache_data(show_spinner=False)
 def load_bracketology_history(sport):
     """Load concatenated daily bracketology snapshots for seed progression chart."""
     path = BRACKET_DIR / 'snapshots' / f'{sport}_bracketology_history.csv'
@@ -921,7 +946,7 @@ def team_logo_path(team_db_id):
     return str(p) if p.exists() else None
 
 
-def render_team_row_html(team, seed_num, is_host=False, move_direction=None, move_label=''):
+def render_team_row_html(team, seed_num, is_host=False, move_direction=None, move_label='', sport='baseball'):
     """Return HTML for a single team row inside a regional card."""
     if team is None:
         return '<div style="padding:6px 10px;color:#666;">TBD</div>'
@@ -937,7 +962,6 @@ def render_team_row_html(team, seed_num, is_host=False, move_direction=None, mov
     sixty_four_str = f'{sixty_four:.3f}' if isinstance(sixty_four, (int, float)) and pd.notna(sixty_four) else 'N/A'
     conf = team.get('conference', '')
     dist = team.get('distance', 0)
-    logo_url = team.get('logo_url', '')
 
     dist_html = ''
     if not is_host and dist and dist > 0:
@@ -949,9 +973,11 @@ def render_team_row_html(team, seed_num, is_host=False, move_direction=None, mov
 
     move_arrow = movement_html(move_direction, move_label)
 
+    # Local logo via team_logos_512/{id}.png (base64-embedded, cached)
+    logo_data_url = get_local_logo_data_url(name, prefer_sport=sport)
     logo_html = ''
-    if logo_url:
-        logo_html = f'<img src="{logo_url}" style="width:24px;height:24px;border-radius:4px;margin-right:8px;vertical-align:middle;object-fit:contain;" onerror="this.style.display=\'none\'">'
+    if logo_data_url:
+        logo_html = f'<img src="{logo_data_url}" style="width:24px;height:24px;border-radius:4px;margin-right:8px;vertical-align:middle;object-fit:contain;">'
 
     # Row highlight for movement
     bg_color = ''
@@ -979,7 +1005,7 @@ def render_team_row_html(team, seed_num, is_host=False, move_direction=None, mov
     '''
 
 
-def render_regional_card(regional, previous_snapshot=None):
+def render_regional_card(regional, previous_snapshot=None, sport='baseball'):
     """Return full HTML for a regional card."""
     if regional is None:
         return '<div style="background:#252525;border-radius:10px;padding:16px;text-align:center;color:#666;">No data</div>'
@@ -987,11 +1013,12 @@ def render_regional_card(regional, previous_snapshot=None):
     ns = regional['national_seed']
     host = regional['host']
     host_name = host.get('name', 'TBD')
-    logo_url = host.get('logo_url', '')
 
+    # Local logo via team_logos_512/{id}.png (base64-embedded, cached)
+    logo_data_url = get_local_logo_data_url(host_name, prefer_sport=sport)
     logo_html = ''
-    if logo_url:
-        logo_html = f'<img src="{logo_url}" style="width:40px;height:40px;border-radius:6px;margin-right:12px;object-fit:contain;" onerror="this.style.display=\'none\'">'
+    if logo_data_url:
+        logo_html = f'<img src="{logo_data_url}" style="width:40px;height:40px;border-radius:6px;margin-right:12px;object-fit:contain;">'
 
     rows_html = ''
     s1 = regional.get('seed_1')
@@ -1013,10 +1040,10 @@ def render_regional_card(regional, previous_snapshot=None):
     d3, l3 = _team_move(s3, '3-seed')
     d4, l4 = _team_move(s4, '4-seed')
 
-    rows_html += render_team_row_html(s1, 1, is_host=True, move_direction=d1, move_label=l1)
-    rows_html += render_team_row_html(s2, 2, move_direction=d2, move_label=l2)
-    rows_html += render_team_row_html(s3, 3, move_direction=d3, move_label=l3)
-    rows_html += render_team_row_html(s4, 4, move_direction=d4, move_label=l4)
+    rows_html += render_team_row_html(s1, 1, is_host=True, move_direction=d1, move_label=l1, sport=sport)
+    rows_html += render_team_row_html(s2, 2, move_direction=d2, move_label=l2, sport=sport)
+    rows_html += render_team_row_html(s3, 3, move_direction=d3, move_label=l3, sport=sport)
+    rows_html += render_team_row_html(s4, 4, move_direction=d4, move_label=l4, sport=sport)
 
     return f'''
     <div style="background:#252525;border-radius:10px;overflow:hidden;border:1px solid #333;margin-bottom:8px;">
@@ -1035,7 +1062,7 @@ def render_regional_card(regional, previous_snapshot=None):
     '''
 
 
-def render_bubble_card(team_row, label_prefix='', previous_snapshot=None, current_seed=0, current_tier=''):
+def render_bubble_card(team_row, label_prefix='', previous_snapshot=None, current_seed=0, current_tier='', sport='baseball'):
     """Render a bubble team card from a DataFrame row."""
     name = team_row.get('name', '')
     rpi = team_row.get('rpi', 0)
@@ -1043,7 +1070,6 @@ def render_bubble_card(team_row, label_prefix='', previous_snapshot=None, curren
     record = team_row.get('record_str', '')
     conf = team_row.get('display_conference', team_row.get('rpi_conference', ''))
     is_ab = team_row.get('is_auto_bid', False)
-    logo_url = team_row.get('logo_url', '')
 
     # Projected data
     proj_record = team_row.get('proj_record_str', record)
@@ -1059,9 +1085,11 @@ def render_bubble_card(team_row, label_prefix='', previous_snapshot=None, curren
         move_direction, move_label = compute_movement(name, current_seed, current_tier, previous_snapshot)
     move_arrow = movement_html(move_direction, move_label)
 
+    # Local logo via team_logos_512/{id}.png (base64-embedded, cached)
+    logo_data_url = get_local_logo_data_url(name, prefer_sport=sport)
     logo_html = ''
-    if isinstance(logo_url, str) and logo_url:
-        logo_html = f'<img src="{logo_url}" style="width:28px;height:28px;border-radius:4px;margin-right:10px;object-fit:contain;" onerror="this.style.display=\'none\'">'
+    if logo_data_url:
+        logo_html = f'<img src="{logo_data_url}" style="width:28px;height:28px;border-radius:4px;margin-right:10px;object-fit:contain;">'
 
     return f'''
     <div style="display:flex;align-items:center;padding:10px 14px;background:#252525;border-radius:8px;margin-bottom:6px;border:1px solid #333;">
@@ -1277,9 +1305,9 @@ for display_idx, super_idx in enumerate(omaha_order):
 
     col_left, col_right = st.columns(2)
     with col_left:
-        st.markdown(render_regional_card(high, previous_snapshot=prev_snapshot), unsafe_allow_html=True)
+        st.markdown(render_regional_card(high, previous_snapshot=prev_snapshot, sport=sport_key), unsafe_allow_html=True)
     with col_right:
-        st.markdown(render_regional_card(low, previous_snapshot=prev_snapshot), unsafe_allow_html=True)
+        st.markdown(render_regional_card(low, previous_snapshot=prev_snapshot, sport=sport_key), unsafe_allow_html=True)
 
 
 # ── Bracket PNG export ─────────────────────────────────────────────────────
@@ -1442,7 +1470,7 @@ with b_col1:
     if len(bubble_in_df) > 0:
         for idx, (_, row) in enumerate(bubble_in_df.iterrows()):
             seed_est = 61 + idx  # last 4 in = seeds 61-64
-            st.markdown(render_bubble_card(row), unsafe_allow_html=True)
+            st.markdown(render_bubble_card(row, sport=sport_key), unsafe_allow_html=True)
     else:
         st.markdown('<p style="color:#666;">No bubble data available.</p>', unsafe_allow_html=True)
 
@@ -1456,7 +1484,7 @@ with b_col2:
     if len(bubble_out_df) > 0:
         for idx, (_, row) in enumerate(bubble_out_df.iterrows()):
             seed_est = 65 + idx  # first 4 out = seeds 65-68
-            st.markdown(render_bubble_card(row), unsafe_allow_html=True)
+            st.markdown(render_bubble_card(row, sport=sport_key), unsafe_allow_html=True)
     else:
         st.markdown('<p style="color:#666;">No bubble data available.</p>', unsafe_allow_html=True)
 
