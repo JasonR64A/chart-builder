@@ -563,6 +563,37 @@ def seed_field(field_df):
                 return True
         return False
 
+    # Seed-weighted conflict penalty. The 1-seed is the most protected; the
+    # optimizer will push any unavoidable conflict toward the 4-seed first,
+    # then the 3, then the 2, and only conflict with the 1-seed as an absolute
+    # last resort. Weights are large enough that any conflict dominates a
+    # realistic distance (max ~3000 miles), so no-conflict always wins when
+    # feasible. The relative spread (10x per tier) ensures a 1-seed conflict
+    # is never preferred over a 4-seed conflict.
+    SEED_CONFLICT_WEIGHTS = {
+        'seed_1': 1_000_000,
+        'seed_2': 100_000,
+        'seed_3': 10_000,
+        'seed_4': 1_000,
+    }
+
+    def conflict_cost_weighted(team_name, reg):
+        """Sum seed-weighted conflict penalties for placing team_name in reg.
+        Returns 0 if no conflicts. Higher = worse."""
+        total = 0
+        t_conf = team_conference.get(team_name, '')
+        t_opps = opponents_map.get(team_name, set())
+        for seed_key, weight in SEED_CONFLICT_WEIGHTS.items():
+            rt = reg.get(seed_key)
+            if rt is None:
+                continue
+            rn = rt.get('name', '')
+            if not rn:
+                continue
+            if (t_conf and t_conf == team_conference.get(rn, '')) or (rn in t_opps):
+                total += weight
+        return total
+
     # ── Place 2-seeds: global optimization to minimize total rank distance ──
     # Natural pairing: seed 1 gets pool[15] (rank 32), seed 16 gets pool[0] (rank 17)
     # But conference/opponent conflicts require swaps. Instead of greedy sequential
@@ -646,21 +677,36 @@ def seed_field(field_df):
     # a conference or head-to-head conflict.
     remaining_pool.sort(key=lambda x: x.get('rpi', 0))
 
-    # Power conference teams (ACC, Big 12, Big Ten, SEC, Sun Belt) are never
-    # 4-seeds. Those 16 spots go to non-power conference teams.
+    # Power conference teams (ACC, Big 12, Big Ten, SEC, Sun Belt) are NOT
+    # preferred as 4-seeds. Those 16 spots go to non-power conference teams
+    # when possible, but if there are fewer than 16 non-power teams in the
+    # remaining pool (which happens in SEC-heavy softball fields), we borrow
+    # the WORST-RPI power teams to fill the 4-seed pool. "Never TBDs" > "no
+    # power 4-seeds" when they conflict.
     POWER_CONFS = {'ACC', 'Big 12', 'Big Ten', 'SEC', 'Sun Belt'}
     non_power = [t for t in remaining_pool if t.get('conference', '') not in POWER_CONFS]
     power = [t for t in remaining_pool if t.get('conference', '') in POWER_CONFS]
 
-    # 4-seeds: worst 16 RPIs from non-power teams
-    four_seed_pool = non_power[:16]
-    # 3-seeds: all power conference remainders + leftover non-power
-    three_seed_pool = power + non_power[16:]
+    # 4-seeds: worst 16 RPIs from non-power teams; fill shortfall from worst power
+    four_seed_pool = list(non_power[:16])
+    n_reg = min(16, len(regionals))
+    borrowed_names: set = set()
+    if len(four_seed_pool) < n_reg:
+        shortfall = n_reg - len(four_seed_pool)
+        # `power` is already sorted worst-first (ascending by RPI)
+        borrowed = power[:shortfall]
+        four_seed_pool.extend(borrowed)
+        borrowed_names = {t['name'] for t in borrowed}
+
+    # 3-seeds: all power conference remainders (minus borrowed) + leftover non-power
+    three_seed_pool = [t for t in power if t['name'] not in borrowed_names] + non_power[16:]
     three_seed_pool.sort(key=lambda x: x.get('rpi', 0), reverse=True)  # best RPI first
 
     for seed_key, pool in [('seed_3', three_seed_pool), ('seed_4', four_seed_pool)]:
-        # Use Hungarian algorithm for 3/4 seeds too — minimizes distance while
-        # respecting conference/opponent conflicts (no 2 SEC teams in same regional)
+        # Hungarian assignment with seed-weighted conflict penalties. The optimizer
+        # globally minimizes (distance + weighted conflict cost), pushing any
+        # unavoidable conflict toward the 4-seed first, then 3, then 2, and
+        # sparing the 1-seed. Every regional gets a team — no TBDs.
         n_reg = len(regionals)
         n_pool = len(pool)
         if n_reg > 0 and n_pool > 0:
@@ -668,30 +714,17 @@ def seed_field(field_df):
                 from scipy.optimize import linear_sum_assignment
                 cost_34 = []
                 for r_idx, reg in enumerate(regionals):
-                    if reg.get(seed_key) is not None:
-                        # Already assigned — make entire row infinite
-                        cost_34.append([10000] * n_pool)
-                        continue
-                    regional_teams = [reg['seed_1'], reg['seed_2']]
-                    if reg.get('seed_3'):
-                        regional_teams.append(reg['seed_3'])
-                    if reg.get('seed_4'):
-                        regional_teams.append(reg['seed_4'])
                     row = []
                     for p_idx, tm in enumerate(pool):
-                        conflict = has_conflict(tm['name'], regional_teams)
+                        cc = conflict_cost_weighted(tm['name'], reg)
                         if pd.notna(reg['host'].get('lat')) and pd.notna(tm.get('lat')):
                             dist = haversine_miles(reg['host']['lat'], reg['host']['lon'], tm['lat'], tm['lon'])
                         else:
                             dist = 2000
-                        # Cost: distance + heavy penalty for conflicts
-                        row.append(dist + (50000 if conflict else 0))
+                        row.append(dist + cc)
                     cost_34.append(row)
                 row_ind, col_ind = linear_sum_assignment(cost_34)
-                used_pool_indices = set()
                 for ri, ci in zip(row_ind, col_ind):
-                    if cost_34[ri][ci] >= 50000:
-                        continue  # conflict — will be handled in the fallback pass below
                     entry = pool[ci].copy()
                     if pd.notna(regionals[ri]['host'].get('lat')) and pd.notna(entry.get('lat')):
                         entry['distance'] = round(haversine_miles(
@@ -700,52 +733,14 @@ def seed_field(field_df):
                     else:
                         entry['distance'] = 0
                     regionals[ri][seed_key] = entry
-                    used_pool_indices.add(ci)
-
-                # Fallback pass: any regional still missing this seed gets the best
-                # available team (least conflict, then closest). Better to seed a
-                # minor conflict than leave a TBD slot.
-                for r_idx, reg in enumerate(regionals):
-                    if reg.get(seed_key) is not None:
-                        continue
-                    regional_teams = [reg['seed_1'], reg['seed_2']]
-                    if reg.get('seed_3'):
-                        regional_teams.append(reg['seed_3'])
-                    if reg.get('seed_4'):
-                        regional_teams.append(reg['seed_4'])
-                    candidates = []
-                    for p_idx, tm in enumerate(pool):
-                        if p_idx in used_pool_indices:
-                            continue
-                        conflict = has_conflict(tm['name'], regional_teams)
-                        if pd.notna(reg['host'].get('lat')) and pd.notna(tm.get('lat')):
-                            dist = haversine_miles(reg['host']['lat'], reg['host']['lon'], tm['lat'], tm['lon'])
-                        else:
-                            dist = 3000
-                        # Sort key: prefer no-conflict, then closest
-                        candidates.append((conflict, dist, p_idx, tm))
-                    if not candidates:
-                        continue  # genuinely nothing left in the pool
-                    candidates.sort(key=lambda x: (x[0], x[1]))
-                    _, best_dist, best_p_idx, best_tm = candidates[0]
-                    entry = best_tm.copy()
-                    entry['distance'] = round(best_dist, 0)
-                    regionals[r_idx][seed_key] = entry
-                    used_pool_indices.add(best_p_idx)
-                continue  # skip the greedy fallback below
+                continue  # Hungarian assigned everything — skip the greedy fallback
             except ImportError:
-                pass  # fall through to greedy
+                pass  # scipy unavailable — fall through to greedy
 
+        # Greedy fallback (no scipy). Same weighted-conflict semantics:
+        # always fill every regional, preferring lowest (conflict + distance).
         assigned = set()
         for reg in regionals:
-            regional_teams = [reg['seed_1'], reg['seed_2']]
-            if reg['seed_3']:
-                regional_teams.append(reg['seed_3'])
-            if reg['seed_4']:
-                regional_teams.append(reg['seed_4'])
-
-            # Priority: within 400mi and no conflict > within 400mi with conflict >
-            # outside 400mi no conflict > outside 400mi with conflict
             candidates = []
             for j, tm in enumerate(pool):
                 if j in assigned:
@@ -754,20 +749,76 @@ def seed_field(field_df):
                     dist = haversine_miles(reg['host']['lat'], reg['host']['lon'], tm['lat'], tm['lon'])
                 else:
                     dist = 3000
-                conflict = has_conflict(tm['name'], regional_teams)
-                within_400 = dist <= 400
-                # Sort key: (has conflict, not within 400, distance)
-                # No conflict always beats conflict, then prefer within 400mi
-                sort_key = (conflict, not within_400, dist)
-                candidates.append((j, dist, sort_key, tm))
-
-            candidates.sort(key=lambda x: x[2])
-            best_j, best_dist, _, _ = candidates[0] if candidates else (0, 3000, (True, True, 3000), None)
-
+                cc = conflict_cost_weighted(tm['name'], reg)
+                candidates.append((cc + dist, j, dist, tm))
+            if not candidates:
+                continue  # pool exhausted — genuinely nothing left
+            candidates.sort(key=lambda x: x[0])
+            _, best_j, best_dist, best_tm = candidates[0]
             assigned.add(best_j)
-            entry = pool[best_j].copy()
+            entry = best_tm.copy()
             entry['distance'] = round(best_dist, 0)
             reg[seed_key] = entry
+
+    # ── Post-pass swap optimizer ───────────────────────────────────────────
+    # Hungarian assigns 3-seeds and 4-seeds in two SEPARATE passes, so the
+    # global optimum across both seeds is not guaranteed. After both passes,
+    # try every pairwise swap (3↔3, 4↔4, 3↔4) across regionals and apply any
+    # swap that reduces total (distance + weighted conflict cost). Repeat
+    # until no improvement. This catches improvements the sequential Hungarian
+    # passes can't see and is provably correct (only applies cost-reducing
+    # swaps, never makes things worse).
+    def _slot_cost(reg, slot):
+        tm = reg.get(slot)
+        if tm is None:
+            return 0
+        if pd.notna(reg['host'].get('lat')) and pd.notna(tm.get('lat')):
+            d = haversine_miles(reg['host']['lat'], reg['host']['lon'], tm['lat'], tm['lon'])
+        else:
+            d = 2000
+        # Conflict against other seeds, excluding this team's own slot.
+        cc = 0
+        t_conf = team_conference.get(tm['name'], '')
+        t_opps = opponents_map.get(tm['name'], set())
+        for sk, w in SEED_CONFLICT_WEIGHTS.items():
+            if sk == slot:
+                continue
+            rt = reg.get(sk)
+            if rt is None:
+                continue
+            rn = rt.get('name', '')
+            if not rn or rn == tm['name']:
+                continue
+            if (t_conf and t_conf == team_conference.get(rn, '')) or (rn in t_opps):
+                cc += w
+        return d + cc
+
+    SWAPPABLE_SLOTS = ['seed_3', 'seed_4']
+    for _ in range(10):  # bounded iterations; almost always converges in 2-3
+        improved = False
+        for i in range(len(regionals)):
+            for j in range(i + 1, len(regionals)):
+                for si in SWAPPABLE_SLOTS:
+                    for sj in SWAPPABLE_SLOTS:
+                        if regionals[i].get(si) is None or regionals[j].get(sj) is None:
+                            continue
+                        before = _slot_cost(regionals[i], si) + _slot_cost(regionals[j], sj)
+                        regionals[i][si], regionals[j][sj] = regionals[j][sj], regionals[i][si]
+                        after = _slot_cost(regionals[i], si) + _slot_cost(regionals[j], sj)
+                        if after < before:
+                            # Recompute distances on the moved entries.
+                            for reg_ref, sk in [(regionals[i], si), (regionals[j], sj)]:
+                                tm = reg_ref[sk]
+                                if pd.notna(reg_ref['host'].get('lat')) and pd.notna(tm.get('lat')):
+                                    tm['distance'] = round(haversine_miles(
+                                        reg_ref['host']['lat'], reg_ref['host']['lon'],
+                                        tm['lat'], tm['lon']), 0)
+                            improved = True
+                        else:
+                            # Revert swap
+                            regionals[i][si], regionals[j][sj] = regionals[j][sj], regionals[i][si]
+        if not improved:
+            break
 
     return regionals
 
