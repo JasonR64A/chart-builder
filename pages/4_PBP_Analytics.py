@@ -2266,23 +2266,27 @@ elif view == 'Lineup Card':
             inner_end = svg.rfind('</svg>')
             inner_content = svg[inner_start:inner_end]
 
-            # Build background
-            bg_element = '<rect x="0" y="-20" width="460" height="440" fill="#1a1a1a"/>'
+            # Build background — square 460x460 viewBox for 1:1 Twitter/X aspect.
+            # Content's natural top is ~y=10 (sidebar line) and y=24 (CF), and natural
+            # bottom is ~y=365 (home plate). Using viewBox y=-5 to y=455 trims 15 units
+            # of empty top padding (vs the previous -20) and adds 55 units of bottom
+            # padding to reach a square 460x460 frame.
+            bg_element = '<rect x="0" y="-5" width="460" height="460" fill="#1a1a1a"/>'
             bg_path = _APP_DIR / 'assets' / 'bg_pattern.jpg'
             if bg_path.exists():
                 bg_data = bg_path.read_bytes()
                 bg_b64 = base64.b64encode(bg_data).decode()
-                bg_element = f'<image href="data:image/jpeg;base64,{bg_b64}" x="0" y="-20" width="460" height="440" preserveAspectRatio="xMidYMid slice"/>'
+                bg_element = f'<image href="data:image/jpeg;base64,{bg_b64}" x="0" y="-5" width="460" height="460" preserveAspectRatio="xMidYMid slice"/>'
 
             svg_full = f'''<?xml version="1.0" encoding="UTF-8"?>
-<svg width="460" height="440" viewBox="0 -20 460 420"
+<svg width="460" height="460" viewBox="0 -5 460 460"
      xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 {bg_element}
 {inner_content}
 </svg>'''
             diamond_buf = BytesIO()
             cairosvg.svg2png(bytestring=svg_full.encode('utf-8'), write_to=diamond_buf,
-                             output_width=1840, output_height=1760)
+                             output_width=1200, output_height=1200)
             diamond_buf.seek(0)
         except Exception as e:
             st.warning(f'cairosvg failed ({e}), using matplotlib fallback')
