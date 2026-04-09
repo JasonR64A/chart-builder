@@ -1340,12 +1340,15 @@ def render_chart(data, cfg):
 
 
 def render_plotly_scatter(data, cfg):
-    """Render the player scatter as an interactive Plotly figure with hover tooltips.
+    """Interactive Plotly version of render_chart for Player mode.
 
-    Mirrors the matplotlib player-mode path in render_chart, but uses Plotly so
-    every dot has a native hover tooltip showing player name, team, conference,
-    and the X / Y stat values. Used only in Player mode when view_mode='Interactive'.
-    Static mode keeps the matplotlib renderer for the PNG export.
+    Mirrors the matplotlib player-mode renderer feature-for-feature so the
+    interactive view is a full replacement, not a stripped-down preview.
+    Includes: quadrants, trend line + R^2, prediction band, title block,
+    footer, axis inversion, custom annotations, and per-dot hover tooltips.
+
+    Pieces NOT yet ported (vs static): player photo callouts, CWS overlay,
+    brand logo image. Static mode keeps the matplotlib renderer for those.
     """
     import plotly.graph_objects as go
 
@@ -1355,12 +1358,19 @@ def render_plotly_scatter(data, cfg):
     has_pid = 'player_id' in data.columns
 
     df = data.copy()
-    if 'player_name' not in df.columns:
-        df['player_name'] = ''
-    if 'team_name' not in df.columns:
-        df['team_name'] = ''
-    if 'conference_name' not in df.columns:
-        df['conference_name'] = ''
+    for col in ('player_name', 'team_name', 'conference_name'):
+        if col not in df.columns:
+            df[col] = ''
+
+    # ── Axis range with padding (mirrors render_chart) ───────────────────────
+    x_vals = df[x_col].values.astype(float)
+    y_vals = df[y_col].values.astype(float)
+    avg_x = float(np.nanmean(x_vals))
+    avg_y = float(np.nanmean(y_vals))
+    pad_x = (np.nanmax(x_vals) - np.nanmin(x_vals)) * 0.10
+    pad_y = (np.nanmax(y_vals) - np.nanmin(y_vals)) * 0.10
+    xl = (float(np.nanmin(x_vals) - pad_x), float(np.nanmax(x_vals) + pad_x))
+    yl = (float(np.nanmin(y_vals) - pad_y), float(np.nanmax(y_vals) + pad_y))
 
     # Split highlighted (callout) players from the rest so they get a distinct trace
     if has_pid and callout_ids:
@@ -1393,11 +1403,120 @@ def render_plotly_scatter(data, cfg):
 
     fig = go.Figure()
 
+    # ── Quadrants (background fills + avg lines + labels) ────────────────────
+    if cfg.get('show_quadrants'):
+        if cfg.get('custom_q_colors'):
+            q_alpha = 0.25
+        else:
+            q_alpha = 0.6 if cfg.get('theme') == 'Dark' else 0.35
+        qc_tl = cfg.get('q_tl_color', t['q_tl']) if cfg.get('custom_q_colors') else t['q_tl']
+        qc_tr = cfg.get('q_tr_color', t['q_tr']) if cfg.get('custom_q_colors') else t['q_tr']
+        qc_bl = cfg.get('q_bl_color', t['q_bl']) if cfg.get('custom_q_colors') else t['q_bl']
+        qc_br = cfg.get('q_br_color', t['q_br']) if cfg.get('custom_q_colors') else t['q_br']
+
+        for x0, y0, x1, y1, color in [
+            (xl[0], avg_y, avg_x, yl[1], qc_tl),
+            (avg_x, avg_y, xl[1], yl[1], qc_tr),
+            (xl[0], yl[0], avg_x, avg_y, qc_bl),
+            (avg_x, yl[0], xl[1], avg_y, qc_br),
+        ]:
+            fig.add_shape(type='rect', xref='x', yref='y',
+                          x0=x0, y0=y0, x1=x1, y1=y1,
+                          fillcolor=color, opacity=q_alpha,
+                          line=dict(width=0), layer='below')
+
+        # Avg lines (dashed) — using shapes so they sit below markers
+        fig.add_shape(type='line', xref='x', yref='y',
+                      x0=avg_x, y0=yl[0], x1=avg_x, y1=yl[1],
+                      line=dict(color=t['text_dk'], width=1.2, dash='dash'),
+                      opacity=0.7, layer='below')
+        fig.add_shape(type='line', xref='x', yref='y',
+                      x0=xl[0], y0=avg_y, x1=xl[1], y1=avg_y,
+                      line=dict(color=t['text_dk'], width=1.2, dash='dash'),
+                      opacity=0.7, layer='below')
+
+        # Avg value tags
+        fig.add_annotation(x=avg_x, y=yl[0], xref='x', yref='y',
+                           text=f'AVG {avg_x:.3f}', showarrow=False,
+                           font=dict(size=10, color=t['text_md'], family='Inter'),
+                           xanchor='center', yanchor='bottom',
+                           bgcolor=t['avg_bg'], borderpad=2, opacity=0.85)
+        fig.add_annotation(x=xl[0], y=avg_y, xref='x', yref='y',
+                           text=f'AVG {avg_y:.3f}', showarrow=False,
+                           font=dict(size=10, color=t['text_md'], family='Inter'),
+                           xanchor='left', yanchor='middle',
+                           bgcolor=t['avg_bg'], borderpad=2, opacity=0.85)
+
+        # Corner quadrant labels
+        margin_x = (xl[1] - xl[0]) * 0.02
+        margin_y = (yl[1] - yl[0]) * 0.02
+        for x, y, xa, ya, text, color in [
+            (xl[0] + margin_x, yl[1] - margin_y, 'left',  'top',    cfg.get('q_tl', ''), t['q_tl_text']),
+            (xl[1] - margin_x, yl[1] - margin_y, 'right', 'top',    cfg.get('q_tr', ''), t['q_tr_text']),
+            (xl[0] + margin_x, yl[0] + margin_y, 'left',  'bottom', cfg.get('q_bl', ''), t['q_bl_text']),
+            (xl[1] - margin_x, yl[0] + margin_y, 'right', 'bottom', cfg.get('q_br', ''), t['q_br_text']),
+        ]:
+            if text:
+                fig.add_annotation(x=x, y=y, xref='x', yref='y',
+                                   text=text, showarrow=False,
+                                   font=dict(size=13, color=color, family='Inter'),
+                                   xanchor=xa, yanchor=ya, opacity=0.7)
+
+    # ── Correlation / Trend line + R^2 + prediction band ─────────────────────
+    if cfg.get('show_correlation'):
+        mask = np.isfinite(x_vals) & np.isfinite(y_vals)
+        if mask.sum() > 2:
+            xf, yf = x_vals[mask], y_vals[mask]
+            m, b = np.polyfit(xf, yf, 1)
+            corr = float(np.corrcoef(xf, yf)[0, 1])
+            r_sq = corr ** 2
+            x_line = np.linspace(xl[0], xl[1], 200)
+            y_line = m * x_line + b
+
+            # Prediction band (drawn first so the trend line sits on top)
+            if cfg.get('show_prediction_band'):
+                residuals = yf - (m * xf + b)
+                resid_sd = float(np.std(residuals, ddof=2))
+                n_sd = cfg.get('prediction_band_sd', 1)
+                band = resid_sd * n_sd
+                band_alpha = 0.12 if cfg.get('theme') == 'Dark' else 0.10
+                # Upper edge invisible, lower edge fills to upper
+                fig.add_trace(go.Scatter(
+                    x=x_line, y=y_line + band, mode='lines',
+                    line=dict(color=RED, width=0.7, dash='dash'),
+                    opacity=0.4, hoverinfo='skip', showlegend=False))
+                fig.add_trace(go.Scatter(
+                    x=x_line, y=y_line - band, mode='lines',
+                    line=dict(color=RED, width=0.7, dash='dash'),
+                    fill='tonexty', fillcolor=f'rgba(196,18,48,{band_alpha})',
+                    opacity=0.4, hoverinfo='skip', showlegend=False))
+
+            # Trend line
+            fig.add_trace(go.Scatter(
+                x=x_line, y=y_line, mode='lines',
+                line=dict(color=RED, width=2.0),
+                opacity=0.6, hoverinfo='skip', showlegend=False))
+
+            # R^2 annotation in lower-right corner
+            direction = 'positive' if corr > 0 else 'negative'
+            band_label = (f"<br>\u00b1{cfg.get('prediction_band_sd', 1)} SD band"
+                          if cfg.get('show_prediction_band') else '')
+            fig.add_annotation(
+                xref='paper', yref='paper', x=0.98, y=0.04,
+                xanchor='right', yanchor='bottom',
+                text=(f'Pearson r = {corr:+.3f}<br>'
+                      f'R\u00b2 = {r_sq:.3f}<br>'
+                      f'{abs(corr):.0%} {direction} correlation'
+                      f'{band_label}'),
+                showarrow=False, align='right',
+                font=dict(size=11, color=t['text_sub'], family='Inter'),
+                bgcolor=t['corr_bg'], bordercolor=RED_DK, borderwidth=1.2,
+                borderpad=6, opacity=0.92)
+
+    # ── Player markers ───────────────────────────────────────────────────────
     if len(regular) > 0:
         fig.add_trace(go.Scatter(
-            x=regular[x_col],
-            y=regular[y_col],
-            mode='markers',
+            x=regular[x_col], y=regular[y_col], mode='markers',
             marker=dict(
                 size=8,
                 color=cfg.get('player_color', RED),
@@ -1406,28 +1525,70 @@ def render_plotly_scatter(data, cfg):
             ),
             customdata=_customdata(regular),
             hovertemplate=hover_tmpl,
-            name='Players',
-            showlegend=False,
+            name='Players', showlegend=False,
         ))
 
     if len(highlighted) > 0:
         fig.add_trace(go.Scatter(
-            x=highlighted[x_col],
-            y=highlighted[y_col],
+            x=highlighted[x_col], y=highlighted[y_col],
             mode='markers+text',
             text=highlighted['player_name'],
             textposition='top center',
             textfont=dict(color=t['text'], size=12, family='Inter'),
-            marker=dict(
-                size=16,
-                color='#FFFFFF',
-                line=dict(width=2.5, color=RED),
-            ),
+            marker=dict(size=16, color='#FFFFFF', line=dict(width=2.5, color=RED)),
             customdata=_customdata(highlighted),
             hovertemplate=hover_tmpl,
-            name='Highlighted',
-            showlegend=False,
+            name='Highlighted', showlegend=False,
         ))
+
+    # ── Custom annotations (user-drawn) ──────────────────────────────────────
+    for ann in cfg.get('annotations', []):
+        fig.add_annotation(
+            x=ann['x'], y=ann['y'], xref='x', yref='y',
+            ax=ann.get('off_x', 20), ay=-ann.get('off_y', 20),
+            text=ann['text'], showarrow=True,
+            arrowhead=2, arrowsize=1.2, arrowwidth=1.5,
+            arrowcolor=t['text_md'],
+            font=dict(size=12, color=t['text'], family='Inter'),
+            bgcolor=t['callout_bg'], bordercolor=t['spine'],
+            borderpad=4, opacity=0.92)
+
+    # ── Title block + count label (top of figure) ────────────────────────────
+    title_overline = (cfg.get('title') or '').strip().upper()
+    title_main = (cfg.get('subtitle') or f"{x_label} vs {y_label}").upper()
+    count_label = f'{len(df)} PLAYERS  \u00b7  {cfg.get("year", "")} SEASON'
+
+    title_annotations = [
+        dict(xref='paper', yref='paper', x=0.0, y=1.14,
+             xanchor='left', yanchor='top', showarrow=False,
+             text=title_overline,
+             font=dict(size=12, color=t['text_md'], family='Inter')),
+        dict(xref='paper', yref='paper', x=0.5, y=1.10,
+             xanchor='center', yanchor='top', showarrow=False,
+             text=f'<b>{title_main}</b>',
+             font=dict(size=26, color=t['text'], family='Inter')),
+        dict(xref='paper', yref='paper', x=1.0, y=1.14,
+             xanchor='right', yanchor='top', showarrow=False,
+             text=count_label,
+             font=dict(size=11, color=t['text_dk'], family='Inter')),
+        # Footer
+        dict(xref='paper', yref='paper', x=0.0, y=-0.18,
+             xanchor='left', yanchor='top', showarrow=False,
+             text=f'n = {len(df)} players  \u00b7  64analytics.com',
+             font=dict(size=11, color=t['text_dk'], family='Inter')),
+    ]
+    for ta in title_annotations:
+        fig.add_annotation(**ta)
+
+    # ── Axis ranges (with optional inversion) ────────────────────────────────
+    x_range = list(xl) if cfg.get('x_direction') != 'Lower is better' else [xl[1], xl[0]]
+    y_range = list(yl) if cfg.get('y_direction') != 'Lower is better' else [yl[1], yl[0]]
+
+    # Smart 3-decimal formatter for small numeric ranges
+    x_span = float(np.nanmax(x_vals) - np.nanmin(x_vals))
+    y_span = float(np.nanmax(y_vals) - np.nanmin(y_vals))
+    x_tickformat = '.3f' if x_span < 5 else ''
+    y_tickformat = '.3f' if y_span < 5 else ''
 
     fig.update_layout(
         plot_bgcolor=t['plot_bg'],
@@ -1442,6 +1603,8 @@ def render_plotly_scatter(data, cfg):
             zerolinecolor=t['spine'],
             linecolor=t['spine'],
             tickfont=dict(color=t['text_sub'], size=11),
+            range=x_range,
+            tickformat=x_tickformat,
         ),
         yaxis=dict(
             title=dict(
@@ -1452,9 +1615,11 @@ def render_plotly_scatter(data, cfg):
             zerolinecolor=t['spine'],
             linecolor=t['spine'],
             tickfont=dict(color=t['text_sub'], size=11),
+            range=y_range,
+            tickformat=y_tickformat,
         ),
-        margin=dict(l=70, r=30, t=30, b=70),
-        height=700,
+        margin=dict(l=70, r=40, t=130, b=110),
+        height=820,
         hovermode='closest',
         hoverlabel=dict(
             bgcolor=t['callout_bg'],
