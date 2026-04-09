@@ -209,6 +209,14 @@ def sidebar():
 
     # ── Mode ──
     cfg['mode'] = st.sidebar.radio('Chart Mode', ['Team', 'Player'], horizontal=True)
+    cfg['view_mode'] = st.sidebar.radio(
+        'View',
+        ['Static', 'Interactive'],
+        horizontal=True,
+        help='Static = matplotlib PNG (downloadable, Twitter-ready). '
+             'Interactive = Plotly with hover tooltips on every dot. '
+             'Interactive view is only available in Player mode.',
+    )
     available_csvs = ALL_CSVS
 
     # ── Filters ──
@@ -1331,6 +1339,133 @@ def render_chart(data, cfg):
     return fig
 
 
+def render_plotly_scatter(data, cfg):
+    """Render the player scatter as an interactive Plotly figure with hover tooltips.
+
+    Mirrors the matplotlib player-mode path in render_chart, but uses Plotly so
+    every dot has a native hover tooltip showing player name, team, conference,
+    and the X / Y stat values. Used only in Player mode when view_mode='Interactive'.
+    Static mode keeps the matplotlib renderer for the PNG export.
+    """
+    import plotly.graph_objects as go
+
+    t = THEMES[cfg.get('theme', 'Dark')]
+    x_col, y_col = '_x_val', '_y_val'
+    callout_ids = set(cfg.get('callout_ids', []))
+    has_pid = 'player_id' in data.columns
+
+    df = data.copy()
+    if 'player_name' not in df.columns:
+        df['player_name'] = ''
+    if 'team_name' not in df.columns:
+        df['team_name'] = ''
+    if 'conference_name' not in df.columns:
+        df['conference_name'] = ''
+
+    # Split highlighted (callout) players from the rest so they get a distinct trace
+    if has_pid and callout_ids:
+        is_call = df['player_id'].astype(str).isin(callout_ids)
+        regular = df[~is_call]
+        highlighted = df[is_call]
+    else:
+        regular = df
+        highlighted = df.iloc[0:0]
+
+    def _customdata(d):
+        return np.column_stack([
+            d['player_name'].fillna('Unknown').astype(str),
+            d['team_name'].fillna('').astype(str),
+            d['conference_name'].fillna('').astype(str),
+        ])
+
+    x_label = cfg['x_label']
+    y_label = cfg['y_label']
+    x_arrow = '\u2192' if cfg['x_direction'] == 'Higher is better' else '\u2190'
+    y_arrow = '\u2192' if cfg['y_direction'] == 'Higher is better' else '\u2190'
+
+    hover_tmpl = (
+        '<b>%{customdata[0]}</b><br>'
+        '%{customdata[1]} \u00b7 %{customdata[2]}<br>'
+        f'{x_label}: ' + '%{x:.3f}<br>'
+        f'{y_label}: ' + '%{y:.3f}'
+        '<extra></extra>'
+    )
+
+    fig = go.Figure()
+
+    if len(regular) > 0:
+        fig.add_trace(go.Scatter(
+            x=regular[x_col],
+            y=regular[y_col],
+            mode='markers',
+            marker=dict(
+                size=8,
+                color=cfg.get('player_color', RED),
+                opacity=cfg.get('player_alpha', 0.55),
+                line=dict(width=0.5, color=t['spine']),
+            ),
+            customdata=_customdata(regular),
+            hovertemplate=hover_tmpl,
+            name='Players',
+            showlegend=False,
+        ))
+
+    if len(highlighted) > 0:
+        fig.add_trace(go.Scatter(
+            x=highlighted[x_col],
+            y=highlighted[y_col],
+            mode='markers+text',
+            text=highlighted['player_name'],
+            textposition='top center',
+            textfont=dict(color=t['text'], size=12, family='Inter'),
+            marker=dict(
+                size=16,
+                color='#FFFFFF',
+                line=dict(width=2.5, color=RED),
+            ),
+            customdata=_customdata(highlighted),
+            hovertemplate=hover_tmpl,
+            name='Highlighted',
+            showlegend=False,
+        ))
+
+    fig.update_layout(
+        plot_bgcolor=t['plot_bg'],
+        paper_bgcolor=t['bg'],
+        font=dict(color=t['text_md'], family='Inter'),
+        xaxis=dict(
+            title=dict(
+                text=f'{x_label.upper()}  {x_arrow}  {cfg["x_direction"].upper()}',
+                font=dict(size=13, color=t['text_md'], family='Inter'),
+            ),
+            gridcolor=t['grid'],
+            zerolinecolor=t['spine'],
+            linecolor=t['spine'],
+            tickfont=dict(color=t['text_sub'], size=11),
+        ),
+        yaxis=dict(
+            title=dict(
+                text=f'{y_label.upper()}  {y_arrow}  {cfg["y_direction"].upper()}',
+                font=dict(size=13, color=t['text_md'], family='Inter'),
+            ),
+            gridcolor=t['grid'],
+            zerolinecolor=t['spine'],
+            linecolor=t['spine'],
+            tickfont=dict(color=t['text_sub'], size=11),
+        ),
+        margin=dict(l=70, r=30, t=30, b=70),
+        height=700,
+        hovermode='closest',
+        hoverlabel=dict(
+            bgcolor=t['callout_bg'],
+            bordercolor=RED,
+            font=dict(color=t['text'], family='Inter', size=12),
+        ),
+    )
+
+    return fig
+
+
 # ── Player Callout UI ─────────────────────────────────────────────────────────
 def player_callout_ui(data, cfg):
     """Show player search/select UI when in player mode. Returns callout config."""
@@ -1420,28 +1555,49 @@ def main():
 
     # Player callout UI (shown above chart in player mode)
     player_callout_ui(data, cfg)
-    try:
-        with st.spinner('Rendering chart...'):
-            fig = render_chart(data, cfg)
 
-        # Render to image buffer with explicit facecolor
-        buf = BytesIO()
-        fig.savefig(buf, format='png', dpi=180, bbox_inches='tight',
-                    facecolor=chart_theme['bg'], edgecolor='none')
+    # Branch on view mode: Interactive (Plotly w/ hover) only works in Player mode;
+    # Static (matplotlib PNG) is the default and the only option for Team mode.
+    use_interactive = cfg.get('view_mode') == 'Interactive' and not is_team
+    if cfg.get('view_mode') == 'Interactive' and is_team:
+        st.info('Interactive view is only available in Player mode. '
+                'Showing static chart for team mode.')
+
+    if use_interactive:
+        try:
+            with st.spinner('Rendering interactive chart...'):
+                pfig = render_plotly_scatter(data, cfg)
+            st.plotly_chart(pfig, use_container_width=True, theme=None)
+            st.caption('Hover over any dot to see player details. '
+                       'Switch to Static view in the sidebar to download a PNG.')
+        except Exception as e:
+            st.error(f"Interactive chart rendering failed: {e}")
+            import traceback
+            st.code(traceback.format_exc())
+            return
+    else:
+        try:
+            with st.spinner('Rendering chart...'):
+                fig = render_chart(data, cfg)
+
+            # Render to image buffer with explicit facecolor
+            buf = BytesIO()
+            fig.savefig(buf, format='png', dpi=180, bbox_inches='tight',
+                        facecolor=chart_theme['bg'], edgecolor='none')
+            buf.seek(0)
+            plt.close(fig)
+        except Exception as e:
+            st.error(f"Chart rendering failed: {e}")
+            import traceback
+            st.code(traceback.format_exc())
+            return
+
+        st.image(buf, use_container_width=True)
+
+        # Download button (re-seek buffer)
         buf.seek(0)
-        plt.close(fig)
-    except Exception as e:
-        st.error(f"Chart rendering failed: {e}")
-        import traceback
-        st.code(traceback.format_exc())
-        return
-
-    st.image(buf, use_container_width=True)
-
-    # Download button (re-seek buffer)
-    buf.seek(0)
-    st.download_button('Download PNG', data=buf, file_name='64analytics_chart.png',
-                       mime='image/png')
+        st.download_button('Download PNG', data=buf, file_name='64analytics_chart.png',
+                           mime='image/png')
 
     # Data preview
     with st.expander('View data table'):
