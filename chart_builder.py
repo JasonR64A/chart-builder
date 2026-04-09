@@ -18,6 +18,7 @@ try:
     from pathlib import Path
     from io import BytesIO
     import os
+    import base64
     import matplotlib.font_manager as fm
 except Exception as e:
     st.error(f"Import failed: {e}")
@@ -1339,60 +1340,52 @@ def render_chart(data, cfg):
     return fig
 
 
-def render_plotly_scatter(data, cfg):
-    """Interactive Plotly version of render_chart for Player mode.
+def render_plotly_scatter(data, cfg, static_png_b64):
+    """Interactive view = the static matplotlib chart + invisible hover overlay.
 
-    Mirrors the matplotlib player-mode renderer feature-for-feature so the
-    interactive view is a full replacement, not a stripped-down preview.
-    Includes: quadrants, trend line + R^2, prediction band, title block,
-    footer, axis inversion, custom annotations, and per-dot hover tooltips.
+    Strategy: render the matplotlib chart in Player mode (the *exact* static
+    visual the user already likes — quadrants, trend line, logo, callouts,
+    everything), embed it as a Plotly background image, and overlay an
+    invisible hover-only scatter trace at the player coordinates. The user
+    sees the static chart pixel-for-pixel and gains tooltips on every dot.
 
-    Pieces NOT yet ported (vs static): player photo callouts, CWS overlay,
-    brand logo image. Static mode keeps the matplotlib renderer for those.
+    The matplotlib axes live at figure-fraction [0.07, 0.06, 0.97, 0.86]
+    (left, bottom, right, top) — Plotly's axis domain is set to match so
+    data-coord overlays land on the same pixels as the matplotlib dots.
     """
     import plotly.graph_objects as go
 
-    t = THEMES[cfg.get('theme', 'Dark')]
     x_col, y_col = '_x_val', '_y_val'
-    callout_ids = set(cfg.get('callout_ids', []))
-    has_pid = 'player_id' in data.columns
 
     df = data.copy()
     for col in ('player_name', 'team_name', 'conference_name'):
         if col not in df.columns:
             df[col] = ''
+    if 'player_id' not in df.columns:
+        df['player_id'] = ''
 
-    # ── Axis range with padding (mirrors render_chart) ───────────────────────
+    # Axis range MUST match the matplotlib computation in render_chart so dots
+    # overlay correctly on the static PNG.
     x_vals = df[x_col].values.astype(float)
     y_vals = df[y_col].values.astype(float)
-    avg_x = float(np.nanmean(x_vals))
-    avg_y = float(np.nanmean(y_vals))
     pad_x = (np.nanmax(x_vals) - np.nanmin(x_vals)) * 0.10
     pad_y = (np.nanmax(y_vals) - np.nanmin(y_vals)) * 0.10
     xl = (float(np.nanmin(x_vals) - pad_x), float(np.nanmax(x_vals) + pad_x))
     yl = (float(np.nanmin(y_vals) - pad_y), float(np.nanmax(y_vals) + pad_y))
 
-    # Split highlighted (callout) players from the rest so they get a distinct trace
-    if has_pid and callout_ids:
-        is_call = df['player_id'].astype(str).isin(callout_ids)
-        regular = df[~is_call]
-        highlighted = df[is_call]
-    else:
-        regular = df
-        highlighted = df.iloc[0:0]
+    # Apply axis inversion to match render_chart's "best is top-right" rule
+    x_range = [xl[1], xl[0]] if cfg.get('x_direction') == 'Lower is better' else list(xl)
+    y_range = [yl[1], yl[0]] if cfg.get('y_direction') == 'Lower is better' else list(yl)
 
-    def _customdata(d):
-        return np.column_stack([
-            d['player_name'].fillna('Unknown').astype(str),
-            d['team_name'].fillna('').astype(str),
-            d['conference_name'].fillna('').astype(str),
-        ])
+    customdata = np.column_stack([
+        df['player_name'].fillna('Unknown').astype(str),
+        df['team_name'].fillna('').astype(str),
+        df['conference_name'].fillna('').astype(str),
+        df['player_id'].astype(str),
+    ])
 
     x_label = cfg['x_label']
     y_label = cfg['y_label']
-    x_arrow = '\u2192' if cfg['x_direction'] == 'Higher is better' else '\u2190'
-    y_arrow = '\u2192' if cfg['y_direction'] == 'Higher is better' else '\u2190'
-
     hover_tmpl = (
         '<b>%{customdata[0]}</b><br>'
         '%{customdata[1]} \u00b7 %{customdata[2]}<br>'
@@ -1403,228 +1396,57 @@ def render_plotly_scatter(data, cfg):
 
     fig = go.Figure()
 
-    # ── Quadrants (background fills + avg lines + labels) ────────────────────
-    if cfg.get('show_quadrants'):
-        if cfg.get('custom_q_colors'):
-            q_alpha = 0.25
-        else:
-            q_alpha = 0.6 if cfg.get('theme') == 'Dark' else 0.35
-        qc_tl = cfg.get('q_tl_color', t['q_tl']) if cfg.get('custom_q_colors') else t['q_tl']
-        qc_tr = cfg.get('q_tr_color', t['q_tr']) if cfg.get('custom_q_colors') else t['q_tr']
-        qc_bl = cfg.get('q_bl_color', t['q_bl']) if cfg.get('custom_q_colors') else t['q_bl']
-        qc_br = cfg.get('q_br_color', t['q_br']) if cfg.get('custom_q_colors') else t['q_br']
+    # The static PNG as the entire visual layer
+    fig.add_layout_image(
+        source=f'data:image/png;base64,{static_png_b64}',
+        xref='paper', yref='paper',
+        x=0, y=1, sizex=1, sizey=1,
+        xanchor='left', yanchor='top',
+        sizing='stretch', layer='below',
+    )
 
-        for x0, y0, x1, y1, color in [
-            (xl[0], avg_y, avg_x, yl[1], qc_tl),
-            (avg_x, avg_y, xl[1], yl[1], qc_tr),
-            (xl[0], yl[0], avg_x, avg_y, qc_bl),
-            (avg_x, yl[0], xl[1], avg_y, qc_br),
-        ]:
-            fig.add_shape(type='rect', xref='x', yref='y',
-                          x0=x0, y0=y0, x1=x1, y1=y1,
-                          fillcolor=color, opacity=q_alpha,
-                          line=dict(width=0), layer='below')
-
-        # Avg lines (dashed) — using shapes so they sit below markers
-        fig.add_shape(type='line', xref='x', yref='y',
-                      x0=avg_x, y0=yl[0], x1=avg_x, y1=yl[1],
-                      line=dict(color=t['text_dk'], width=1.2, dash='dash'),
-                      opacity=0.7, layer='below')
-        fig.add_shape(type='line', xref='x', yref='y',
-                      x0=xl[0], y0=avg_y, x1=xl[1], y1=avg_y,
-                      line=dict(color=t['text_dk'], width=1.2, dash='dash'),
-                      opacity=0.7, layer='below')
-
-        # Avg value tags
-        fig.add_annotation(x=avg_x, y=yl[0], xref='x', yref='y',
-                           text=f'AVG {avg_x:.3f}', showarrow=False,
-                           font=dict(size=10, color=t['text_md'], family='Inter'),
-                           xanchor='center', yanchor='bottom',
-                           bgcolor=t['avg_bg'], borderpad=2, opacity=0.85)
-        fig.add_annotation(x=xl[0], y=avg_y, xref='x', yref='y',
-                           text=f'AVG {avg_y:.3f}', showarrow=False,
-                           font=dict(size=10, color=t['text_md'], family='Inter'),
-                           xanchor='left', yanchor='middle',
-                           bgcolor=t['avg_bg'], borderpad=2, opacity=0.85)
-
-        # Corner quadrant labels
-        margin_x = (xl[1] - xl[0]) * 0.02
-        margin_y = (yl[1] - yl[0]) * 0.02
-        for x, y, xa, ya, text, color in [
-            (xl[0] + margin_x, yl[1] - margin_y, 'left',  'top',    cfg.get('q_tl', ''), t['q_tl_text']),
-            (xl[1] - margin_x, yl[1] - margin_y, 'right', 'top',    cfg.get('q_tr', ''), t['q_tr_text']),
-            (xl[0] + margin_x, yl[0] + margin_y, 'left',  'bottom', cfg.get('q_bl', ''), t['q_bl_text']),
-            (xl[1] - margin_x, yl[0] + margin_y, 'right', 'bottom', cfg.get('q_br', ''), t['q_br_text']),
-        ]:
-            if text:
-                fig.add_annotation(x=x, y=y, xref='x', yref='y',
-                                   text=text, showarrow=False,
-                                   font=dict(size=13, color=color, family='Inter'),
-                                   xanchor=xa, yanchor=ya, opacity=0.7)
-
-    # ── Correlation / Trend line + R^2 + prediction band ─────────────────────
-    if cfg.get('show_correlation'):
-        mask = np.isfinite(x_vals) & np.isfinite(y_vals)
-        if mask.sum() > 2:
-            xf, yf = x_vals[mask], y_vals[mask]
-            m, b = np.polyfit(xf, yf, 1)
-            corr = float(np.corrcoef(xf, yf)[0, 1])
-            r_sq = corr ** 2
-            x_line = np.linspace(xl[0], xl[1], 200)
-            y_line = m * x_line + b
-
-            # Prediction band (drawn first so the trend line sits on top)
-            if cfg.get('show_prediction_band'):
-                residuals = yf - (m * xf + b)
-                resid_sd = float(np.std(residuals, ddof=2))
-                n_sd = cfg.get('prediction_band_sd', 1)
-                band = resid_sd * n_sd
-                band_alpha = 0.12 if cfg.get('theme') == 'Dark' else 0.10
-                # Upper edge invisible, lower edge fills to upper
-                fig.add_trace(go.Scatter(
-                    x=x_line, y=y_line + band, mode='lines',
-                    line=dict(color=RED, width=0.7, dash='dash'),
-                    opacity=0.4, hoverinfo='skip', showlegend=False))
-                fig.add_trace(go.Scatter(
-                    x=x_line, y=y_line - band, mode='lines',
-                    line=dict(color=RED, width=0.7, dash='dash'),
-                    fill='tonexty', fillcolor=f'rgba(196,18,48,{band_alpha})',
-                    opacity=0.4, hoverinfo='skip', showlegend=False))
-
-            # Trend line
-            fig.add_trace(go.Scatter(
-                x=x_line, y=y_line, mode='lines',
-                line=dict(color=RED, width=2.0),
-                opacity=0.6, hoverinfo='skip', showlegend=False))
-
-            # R^2 annotation in lower-right corner
-            direction = 'positive' if corr > 0 else 'negative'
-            band_label = (f"<br>\u00b1{cfg.get('prediction_band_sd', 1)} SD band"
-                          if cfg.get('show_prediction_band') else '')
-            fig.add_annotation(
-                xref='paper', yref='paper', x=0.98, y=0.04,
-                xanchor='right', yanchor='bottom',
-                text=(f'Pearson r = {corr:+.3f}<br>'
-                      f'R\u00b2 = {r_sq:.3f}<br>'
-                      f'{abs(corr):.0%} {direction} correlation'
-                      f'{band_label}'),
-                showarrow=False, align='right',
-                font=dict(size=11, color=t['text_sub'], family='Inter'),
-                bgcolor=t['corr_bg'], bordercolor=RED_DK, borderwidth=1.2,
-                borderpad=6, opacity=0.92)
-
-    # ── Player markers ───────────────────────────────────────────────────────
-    if len(regular) > 0:
-        fig.add_trace(go.Scatter(
-            x=regular[x_col], y=regular[y_col], mode='markers',
-            marker=dict(
-                size=8,
-                color=cfg.get('player_color', RED),
-                opacity=cfg.get('player_alpha', 0.55),
-                line=dict(width=0.5, color=t['spine']),
-            ),
-            customdata=_customdata(regular),
-            hovertemplate=hover_tmpl,
-            name='Players', showlegend=False,
-        ))
-
-    if len(highlighted) > 0:
-        fig.add_trace(go.Scatter(
-            x=highlighted[x_col], y=highlighted[y_col],
-            mode='markers+text',
-            text=highlighted['player_name'],
-            textposition='top center',
-            textfont=dict(color=t['text'], size=12, family='Inter'),
-            marker=dict(size=16, color='#FFFFFF', line=dict(width=2.5, color=RED)),
-            customdata=_customdata(highlighted),
-            hovertemplate=hover_tmpl,
-            name='Highlighted', showlegend=False,
-        ))
-
-    # ── Custom annotations (user-drawn) ──────────────────────────────────────
-    for ann in cfg.get('annotations', []):
-        fig.add_annotation(
-            x=ann['x'], y=ann['y'], xref='x', yref='y',
-            ax=ann.get('off_x', 20), ay=-ann.get('off_y', 20),
-            text=ann['text'], showarrow=True,
-            arrowhead=2, arrowsize=1.2, arrowwidth=1.5,
-            arrowcolor=t['text_md'],
-            font=dict(size=12, color=t['text'], family='Inter'),
-            bgcolor=t['callout_bg'], bordercolor=t['spine'],
-            borderpad=4, opacity=0.92)
-
-    # ── Title block + count label (top of figure) ────────────────────────────
-    title_overline = (cfg.get('title') or '').strip().upper()
-    title_main = (cfg.get('subtitle') or f"{x_label} vs {y_label}").upper()
-    count_label = f'{len(df)} PLAYERS  \u00b7  {cfg.get("year", "")} SEASON'
-
-    title_annotations = [
-        dict(xref='paper', yref='paper', x=0.0, y=1.14,
-             xanchor='left', yanchor='top', showarrow=False,
-             text=title_overline,
-             font=dict(size=12, color=t['text_md'], family='Inter')),
-        dict(xref='paper', yref='paper', x=0.5, y=1.10,
-             xanchor='center', yanchor='top', showarrow=False,
-             text=f'<b>{title_main}</b>',
-             font=dict(size=26, color=t['text'], family='Inter')),
-        dict(xref='paper', yref='paper', x=1.0, y=1.14,
-             xanchor='right', yanchor='top', showarrow=False,
-             text=count_label,
-             font=dict(size=11, color=t['text_dk'], family='Inter')),
-        # Footer
-        dict(xref='paper', yref='paper', x=0.0, y=-0.18,
-             xanchor='left', yanchor='top', showarrow=False,
-             text=f'n = {len(df)} players  \u00b7  64analytics.com',
-             font=dict(size=11, color=t['text_dk'], family='Inter')),
-    ]
-    for ta in title_annotations:
-        fig.add_annotation(**ta)
-
-    # ── Axis ranges (with optional inversion) ────────────────────────────────
-    x_range = list(xl) if cfg.get('x_direction') != 'Lower is better' else [xl[1], xl[0]]
-    y_range = list(yl) if cfg.get('y_direction') != 'Lower is better' else [yl[1], yl[0]]
-
-    # Smart 3-decimal formatter for small numeric ranges
-    x_span = float(np.nanmax(x_vals) - np.nanmin(x_vals))
-    y_span = float(np.nanmax(y_vals) - np.nanmin(y_vals))
-    x_tickformat = '.3f' if x_span < 5 else ''
-    y_tickformat = '.3f' if y_span < 5 else ''
+    # Invisible hover dots — opacity is 0.01 so the static dots remain pristine
+    # but Plotly still triggers hover/click events when the cursor hits them.
+    fig.add_trace(go.Scatter(
+        x=df[x_col], y=df[y_col],
+        mode='markers',
+        marker=dict(
+            size=18,                       # bigger than the static dot for easier hover targeting
+            color='rgba(0,0,0,0.01)',      # essentially invisible
+            line=dict(width=0),
+        ),
+        customdata=customdata,
+        hovertemplate=hover_tmpl,
+        name='', showlegend=False,
+    ))
 
     fig.update_layout(
-        plot_bgcolor=t['plot_bg'],
-        paper_bgcolor=t['bg'],
-        font=dict(color=t['text_md'], family='Inter'),
+        # Match the matplotlib figsize=(22,17) aspect (~1.294)
+        width=1100, height=850,
+        autosize=False,
+        margin=dict(l=0, r=0, t=0, b=0),
+        plot_bgcolor='rgba(0,0,0,0)',
+        paper_bgcolor='rgba(0,0,0,0)',
+        # Hidden axes — the static PNG already has its own axis labels and ticks
         xaxis=dict(
-            title=dict(
-                text=f'{x_label.upper()}  {x_arrow}  {cfg["x_direction"].upper()}',
-                font=dict(size=13, color=t['text_md'], family='Inter'),
-            ),
-            gridcolor=t['grid'],
-            zerolinecolor=t['spine'],
-            linecolor=t['spine'],
-            tickfont=dict(color=t['text_sub'], size=11),
+            visible=False,
             range=x_range,
-            tickformat=x_tickformat,
+            domain=[0.07, 0.97],           # matches matplotlib ax.add_axes([0.07, 0.06, 0.90, 0.80])
+            fixedrange=True,
         ),
         yaxis=dict(
-            title=dict(
-                text=f'{y_label.upper()}  {y_arrow}  {cfg["y_direction"].upper()}',
-                font=dict(size=13, color=t['text_md'], family='Inter'),
-            ),
-            gridcolor=t['grid'],
-            zerolinecolor=t['spine'],
-            linecolor=t['spine'],
-            tickfont=dict(color=t['text_sub'], size=11),
+            visible=False,
             range=y_range,
-            tickformat=y_tickformat,
+            domain=[0.06, 0.86],
+            fixedrange=True,
         ),
-        margin=dict(l=70, r=40, t=130, b=110),
-        height=820,
         hovermode='closest',
+        clickmode='event+select',
+        dragmode=False,
         hoverlabel=dict(
-            bgcolor=t['callout_bg'],
+            bgcolor='rgba(20,20,20,0.95)',
             bordercolor=RED,
-            font=dict(color=t['text'], family='Inter', size=12),
+            font=dict(color='#FFFFFF', family='Inter', size=13),
         ),
     )
 
@@ -1731,10 +1553,56 @@ def main():
     if use_interactive:
         try:
             with st.spinner('Rendering interactive chart...'):
-                pfig = render_plotly_scatter(data, cfg)
-            st.plotly_chart(pfig, use_container_width=True, theme=None)
-            st.caption('Hover over any dot to see player details. '
-                       'Switch to Static view in the sidebar to download a PNG.')
+                # Render the matplotlib chart once and use it as both the
+                # downloadable PNG AND the visual layer of the interactive view.
+                fig = render_chart(data, cfg)
+                buf = BytesIO()
+                fig.savefig(buf, format='png', dpi=180,
+                            facecolor=chart_theme['bg'], edgecolor='none')
+                buf.seek(0)
+                png_bytes = buf.getvalue()
+                plt.close(fig)
+                static_b64 = base64.b64encode(png_bytes).decode('ascii')
+                pfig = render_plotly_scatter(data, cfg, static_b64)
+
+            event = st.plotly_chart(
+                pfig, use_container_width=False, theme=None,
+                key='interactive_chart',
+                on_select='rerun',
+                selection_mode='points',
+                config={'displayModeBar': False, 'doubleClick': False},
+            )
+            st.caption('Hover any dot for player details. **Click** a dot to '
+                       'pin it below. Switch to Static view in the sidebar to '
+                       'download a PNG.')
+
+            # Click-to-freeze panel: show the most recently clicked player
+            sel_points = []
+            try:
+                sel_points = event.selection.points if event and event.selection else []
+            except Exception:
+                sel_points = []
+            if sel_points:
+                pt = sel_points[-1]
+                cd = pt.get('customdata') or []
+                pname = cd[0] if len(cd) > 0 else 'Unknown'
+                pteam = cd[1] if len(cd) > 1 else ''
+                pconf = cd[2] if len(cd) > 2 else ''
+                px = pt.get('x')
+                py = pt.get('y')
+                with st.container(border=True):
+                    c1, c2, c3, c4 = st.columns([3, 2, 2, 1])
+                    c1.markdown(f'**{pname}**  \n{pteam} \u00b7 {pconf}')
+                    c2.metric(cfg['x_label'], f'{px:.3f}' if px is not None else '\u2014')
+                    c3.metric(cfg['y_label'], f'{py:.3f}' if py is not None else '\u2014')
+                    if c4.button('Clear', key='clear_pin'):
+                        st.session_state.pop('interactive_chart', None)
+                        st.rerun()
+
+            # Download button still available in interactive view
+            st.download_button('Download PNG', data=png_bytes,
+                               file_name='64analytics_chart.png',
+                               mime='image/png')
         except Exception as e:
             st.error(f"Interactive chart rendering failed: {e}")
             import traceback
