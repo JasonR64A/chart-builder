@@ -1067,18 +1067,23 @@ def render_chart(data, cfg):
             bnorm = 1.0 - bnorm
         # Fill missing rows at the midpoint so they don't disappear
         bnorm = bnorm.fillna(0.5)
+        # Top-end emphasis curve: bnorm**1.7 keeps mid-pack players modest in
+        # size and lets the top ~10-20% really stand out. (Linear scaling made
+        # the 'do it well' players blend in with the mid-pack.)
+        bnorm = bnorm ** 1.7
         intensity = cfg.get('bubble_intensity', 4)
         if is_team_markers:
+            # Team logos: asymmetric spread — much bigger jump at the top
             base_zoom = cfg.get('logo_zoom', 0.055)
-            spread = intensity * 0.008
-            zoom_lo = max(0.01, base_zoom - spread)
-            zoom_hi = base_zoom + spread
+            zoom_lo = max(0.01, base_zoom - intensity * 0.003)
+            zoom_hi = base_zoom + intensity * 0.020
             zooms = zoom_lo + bnorm * (zoom_hi - zoom_lo)
         else:
+            # Player dots: small bubbles barely shrink, big bubbles grow a LOT.
+            # At intensity=4 the top dot is ~26pt; at intensity=10 it's ~56pt.
             base_size = cfg.get('player_size', 6)
-            spread = intensity * 1.5
-            size_lo = max(2, base_size - spread)
-            size_hi = base_size + spread
+            size_lo = max(2.0, base_size - intensity * 0.4)
+            size_hi = base_size + intensity * 5.0
             bubble_sizes = size_lo + bnorm * (size_hi - size_lo)
 
     # ── Highlighted players ──
