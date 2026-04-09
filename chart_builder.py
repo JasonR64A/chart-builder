@@ -522,6 +522,39 @@ def sidebar():
         cfg['rank_invert'] = False
         cfg['zoom_min'] = cfg['zoom_max'] = None
 
+    # ── Bubble Scale (size by third stat) ──
+    st.sidebar.markdown('---')
+    st.sidebar.markdown('### Bubble Scale (Third Stat)')
+    st.sidebar.caption('Size dots / logos by a third stat. Useful for spotting '
+                       'context — e.g. ERA vs WHIP scatter, sized by opponent ISO.')
+    cfg['bubble_enabled'] = st.sidebar.checkbox('Enable bubble scale', key='bubble_en')
+    if cfg['bubble_enabled']:
+        bubble_csv_default = available_csvs.index(cfg['x_csv']) if cfg['x_csv'] in available_csvs else 0
+        cfg['bubble_csv'] = st.sidebar.selectbox('Source CSV (bubble)', available_csvs,
+                                                  index=bubble_csv_default, key='bubble_csv')
+        bubble_cols = get_plottable_columns(cfg['bubble_csv'])
+        if not bubble_cols:
+            st.sidebar.warning(f'No numeric columns in {cfg["bubble_csv"]}')
+            cfg['bubble_col'] = None
+        else:
+            cfg['bubble_col'] = st.sidebar.selectbox('Bubble stat', bubble_cols, key='bubble_col_sel')
+        cfg['bubble_invert'] = st.sidebar.checkbox(
+            'Lower value = bigger bubble',
+            help='Check this if a LOW value is "worse" and you want it shown as a BIG bubble '
+                 '(e.g. opponent ISO — high means hit hard, so leave UNCHECKED to make hit-hard '
+                 'pitchers stand out as big bubbles).',
+            key='bubble_inv')
+        cfg['bubble_intensity'] = st.sidebar.slider(
+            'Size contrast', 1, 10, 4,
+            help='1 = subtle, 10 = extreme', key='bubble_int')
+        if cfg['rank_enabled']:
+            st.sidebar.caption('\u26A0\uFE0F Rank weighting and bubble scale both control size '
+                               '— bubble scale takes priority when enabled.')
+    else:
+        cfg['bubble_csv'] = cfg['bubble_col'] = None
+        cfg['bubble_invert'] = False
+        cfg['bubble_intensity'] = 4
+
     # ── Correlation ──
     st.sidebar.markdown('---')
     st.sidebar.markdown('### Correlation')
@@ -945,6 +978,26 @@ def build_data(cfg):
         rank_key['team_id'] = rank_key['team_id'].astype(str)
         merged = merged.merge(rank_key, on='team_id', how='left', suffixes=('', '_rank'))
 
+    # ── Add bubble scale column ──
+    # Pulls a third stat (e.g. opponent ISO) into the merged frame so render_chart
+    # can use it to size player dots / team logos. Joins on player_id when in
+    # player mode (and the CSV has player_id), else falls back to team_id.
+    if cfg.get('bubble_enabled') and cfg.get('bubble_col'):
+        bcol = cfg['bubble_col']
+        if bcol not in merged.columns:
+            bdf = load_and_filter(cfg['bubble_csv'], cfg['year'], team_ids)
+            if bcol in bdf.columns:
+                bdf[bcol] = pd.to_numeric(bdf[bcol], errors='coerce')
+                if 'player_id' in merged.columns and 'player_id' in bdf.columns:
+                    bkey = bdf[['player_id', bcol]].dropna().drop_duplicates('player_id')
+                    bkey['player_id'] = bkey['player_id'].astype(str)
+                    merged['player_id'] = merged['player_id'].astype(str)
+                    merged = merged.merge(bkey, on='player_id', how='left', suffixes=('', '_bubble'))
+                elif 'team_id' in bdf.columns:
+                    bkey = bdf[['team_id', bcol]].dropna().drop_duplicates('team_id')
+                    bkey['team_id'] = bkey['team_id'].astype(str)
+                    merged = merged.merge(bkey, on='team_id', how='left', suffixes=('', '_bubble'))
+
     # ── Add logo paths (use logo_id which maps softball→baseball IDs) ──
     def _logo_path(lid):
         p = LOGO_DIR / f'{lid}.png'
@@ -997,6 +1050,36 @@ def render_chart(data, cfg):
         zooms = cfg['zoom_min'] + norm * (cfg['zoom_max'] - cfg['zoom_min'])
     else:
         zooms = pd.Series(cfg['logo_zoom'], index=data.index)
+
+    # ── Bubble scale (third-stat sizing) ──
+    # Player mode: per-row marker size. Team mode: overrides `zooms` above.
+    # Default = no per-row sizing (bubble_sizes is None → players use cfg['player_size']).
+    bubble_sizes = None
+    if (cfg.get('bubble_enabled') and cfg.get('bubble_col')
+            and cfg['bubble_col'] in data.columns):
+        bvals = pd.to_numeric(data[cfg['bubble_col']], errors='coerce')
+        bmin, bmax = bvals.min(), bvals.max()
+        if pd.notna(bmin) and pd.notna(bmax) and bmax > bmin:
+            bnorm = (bvals - bmin) / (bmax - bmin)
+        else:
+            bnorm = pd.Series(0.5, index=bvals.index)
+        if cfg.get('bubble_invert', False):
+            bnorm = 1.0 - bnorm
+        # Fill missing rows at the midpoint so they don't disappear
+        bnorm = bnorm.fillna(0.5)
+        intensity = cfg.get('bubble_intensity', 4)
+        if is_team_markers:
+            base_zoom = cfg.get('logo_zoom', 0.055)
+            spread = intensity * 0.008
+            zoom_lo = max(0.01, base_zoom - spread)
+            zoom_hi = base_zoom + spread
+            zooms = zoom_lo + bnorm * (zoom_hi - zoom_lo)
+        else:
+            base_size = cfg.get('player_size', 6)
+            spread = intensity * 1.5
+            size_lo = max(2, base_size - spread)
+            size_hi = base_size + spread
+            bubble_sizes = size_lo + bnorm * (size_hi - size_lo)
 
     # ── Highlighted players ──
     callout_ids = set(cfg.get('callout_ids', []))
@@ -1206,9 +1289,12 @@ def render_chart(data, cfg):
                                            connectionstyle='arc3,rad=0.15'),
                             zorder=6)
             else:
+                ms = (float(bubble_sizes.loc[idx])
+                      if bubble_sizes is not None and idx in bubble_sizes.index
+                      else cfg['player_size'])
                 ax.plot(px, py, cfg['player_marker'],
                         color=cfg['player_color'],
-                        markersize=cfg['player_size'],
+                        markersize=ms,
                         alpha=cfg['player_alpha'],
                         markeredgecolor=cfg['player_edge_color'],
                         markeredgewidth=cfg['player_edge_width'],
