@@ -10,9 +10,9 @@ import pandas as pd
 import requests
 from pathlib import Path
 
-ROOT = Path(__file__).parent
-OUTPUT_DIR = ROOT / "output"
-MATCHED_DIR = OUTPUT_DIR / "02_matched"
+_APP_DIR = Path(__file__).resolve().parent.parent
+PORTAL_DIR = _APP_DIR / 'data' / 'portal'
+MATCHED_DIR = PORTAL_DIR
 
 # ── Supabase ─────────────────────────────────────────────────────────────────
 SUPABASE_URL = 'https://vfzoroabzmbvwkcyozes.supabase.co'
