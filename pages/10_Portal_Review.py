@@ -1,16 +1,95 @@
 """
 64 Analytics — Portal Player Review
 Review and confirm player ID matches from the NCAA transfer portal scrape.
+Decisions persist to Supabase (portal_review_decisions table) so multiple
+reviewers can collaborate and data survives Render redeploys.
 """
 import streamlit as st
 import pandas as pd
+import requests
 from pathlib import Path
 
 # ── Path setup ───────────────────────────────────────────────────────────────
 _APP_DIR = Path(__file__).resolve().parent.parent
 DATA_DIR = _APP_DIR / 'data'
 PORTAL_DIR = DATA_DIR / 'portal'
-DECISIONS_PATH = PORTAL_DIR / 'review_decisions.csv'
+
+# ── Supabase connection (anon key is public/client-safe) ─────────────────────
+SUPABASE_URL = 'https://vfzoroabzmbvwkcyozes.supabase.co'
+SUPABASE_ANON_KEY = (
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.'
+    'eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZmem9yb2Fiem1idndrY3lvemVzIiwi'
+    'cm9sZSI6ImFub24iLCJpYXQiOjE2OTQwNDU5NTgsImV4cCI6MjAwOTYyMTk1OH0.'
+    'MpzhpgI2fVDC5ucrECl2AuQ9VfT_8aaTmFunthyJAPA'
+)
+DECISIONS_TABLE = 'portal_review_decisions'
+
+HEADERS = {
+    'apikey': SUPABASE_ANON_KEY,
+    'Authorization': f'Bearer {SUPABASE_ANON_KEY}',
+    'Content-Type': 'application/json',
+    'Prefer': 'return=minimal',
+}
+
+
+def sb_url(table: str) -> str:
+    return f'{SUPABASE_URL}/rest/v1/{table}'
+
+
+def load_decisions_from_supabase() -> dict:
+    """Load all saved decisions from Supabase."""
+    try:
+        resp = requests.get(
+            sb_url(DECISIONS_TABLE),
+            headers={**HEADERS, 'Prefer': ''},
+            params={'select': 'ncaa_id,action,override_id'},
+            timeout=10,
+        )
+        if resp.status_code == 200:
+            decisions = {}
+            for r in resp.json():
+                decisions[r['ncaa_id']] = {
+                    'action': r.get('action', ''),
+                    'override_id': r.get('override_id', ''),
+                }
+            return decisions
+        else:
+            st.warning(f'Could not load decisions from Supabase (HTTP {resp.status_code}). Using local session only.')
+            return {}
+    except Exception as e:
+        st.warning(f'Supabase connection failed: {e}. Using local session only.')
+        return {}
+
+
+def save_decisions_to_supabase(decisions: dict) -> bool:
+    """Upsert all decisions to Supabase."""
+    if not decisions:
+        return True
+    rows = [
+        {
+            'ncaa_id': ncaa_id,
+            'action': d.get('action', ''),
+            'override_id': d.get('override_id', ''),
+        }
+        for ncaa_id, d in decisions.items()
+        if d.get('action') or d.get('override_id')
+    ]
+    if not rows:
+        return True
+    try:
+        resp = requests.post(
+            sb_url(DECISIONS_TABLE),
+            headers={
+                **HEADERS,
+                'Prefer': 'resolution=merge-duplicates,return=minimal',
+            },
+            json=rows,
+            timeout=15,
+        )
+        return resp.status_code in (200, 201, 204)
+    except Exception:
+        return False
+
 
 # ── Page config & styling ────────────────────────────────────────────────────
 st.set_page_config(
@@ -26,7 +105,6 @@ html, body, .stApp, .stApp *:not([class*="icon"]):not([class*="Icon"]):not([data
 }
 .stApp { background-color: #1a1a1a; }
 h1, h2, h3, p, label, .stMarkdown { color: #C8C8C8 !important; }
-div[data-testid="stForm"] { border: 1px solid #333; padding: 1rem; border-radius: 8px; }
 </style>
 ''', unsafe_allow_html=True)
 
@@ -36,9 +114,7 @@ st.title('Portal Player Review')
 # ── Data loading ─────────────────────────────────────────────────────────────
 @st.cache_data
 def load_all_portal_players():
-    """Combine matched, needs_review, and unmatched into one unified table."""
     rows = []
-
     for sport in ['baseball', 'softball']:
         for source, filename in [
             ('matched', f'{sport}_matched.csv'),
@@ -64,19 +140,7 @@ def load_all_portal_players():
                     'confidence': r.get('confidence', 'NONE'),
                     'source': source,
                 })
-
     return pd.DataFrame(rows)
-
-
-def load_decisions() -> pd.DataFrame:
-    if not DECISIONS_PATH.exists():
-        return pd.DataFrame(columns=['ncaa_id', 'action', 'override_id'])
-    return pd.read_csv(DECISIONS_PATH, dtype=str).fillna('')
-
-
-def save_decisions(df: pd.DataFrame):
-    PORTAL_DIR.mkdir(parents=True, exist_ok=True)
-    df.to_csv(DECISIONS_PATH, index=False)
 
 
 # ── Main ─────────────────────────────────────────────────────────────────────
@@ -86,11 +150,11 @@ if all_players.empty:
     st.warning('No portal data found. Run the portal pipeline first.')
     st.stop()
 
-# Load existing decisions
-decisions_df = load_decisions()
-decisions_map = {}
-for _, r in decisions_df.iterrows():
-    decisions_map[r['ncaa_id']] = {'action': r['action'], 'override_id': r['override_id']}
+# Load decisions from Supabase
+if 'decisions' not in st.session_state:
+    st.session_state.decisions = load_decisions_from_supabase()
+
+decisions_map = st.session_state.decisions
 
 # ── Filters ──────────────────────────────────────────────────────────────────
 fcol1, fcol2, fcol3, fcol4 = st.columns(4)
@@ -123,7 +187,7 @@ total = len(all_players)
 n_matched = len(all_players[all_players['source'] == 'matched'])
 n_review = len(all_players[all_players['source'] == 'needs_review'])
 n_unmatched = len(all_players[all_players['source'] == 'unmatched'])
-n_decided = len(decisions_map)
+n_decided = sum(1 for d in decisions_map.values() if d.get('action') or d.get('override_id'))
 
 st.markdown(
     f'**{total} total** — '
@@ -143,9 +207,7 @@ page_df = df.iloc[start:start + PAGE_SIZE].reset_index(drop=True)
 
 st.caption(f'Rows {start + 1}–{min(start + PAGE_SIZE, len(df))} of {len(df)}')
 
-# Build editable form
 with st.form('review_form'):
-    # Column headers
     hdr = st.columns([2.5, 2, 3, 1, 1.2, 1.5, 1.5])
     hdr[0].markdown('**Portal Name**')
     hdr[1].markdown('**Predicted Match**')
@@ -157,30 +219,24 @@ with st.form('review_form'):
 
     form_data = []
 
-    for i, (_, row) in enumerate(page_df.iterrows()):
+    for _, row in page_df.iterrows():
         ncaa_id = row['ncaa_id']
         has_pred = bool(row['predicted_64a_id'])
         existing = decisions_map.get(ncaa_id, {})
 
         cols = st.columns([2.5, 2, 3, 1, 1.2, 1.5, 1.5])
 
-        # Portal name
         cols[0].write(row['portal_name'])
 
-        # Predicted match
         if has_pred:
             cols[1].write(f"{row['predicted_name']}  \n`{row['predicted_64a_id']}`")
         else:
             cols[1].write('—')
 
-        # School + division
         cols[2].write(f"{row['institution']}  \n(D-{row['division']})")
 
-        # Score
-        score = row['match_score']
-        cols[3].write(score if score else '—')
+        cols[3].write(row['match_score'] if row['match_score'] else '—')
 
-        # Source status
         src = row['source']
         if src == 'matched':
             cols[4].markdown(':green[matched]')
@@ -189,7 +245,6 @@ with st.form('review_form'):
         else:
             cols[4].markdown(':red[unmatched]')
 
-        # Action dropdown
         if has_pred:
             options = ['', 'confirm', 'adjust']
             cur = existing.get('action', '')
@@ -203,7 +258,6 @@ with st.form('review_form'):
             action = ''
             cols[5].write('—')
 
-        # Override ID
         cur_override = existing.get('override_id', '')
         override = cols[6].text_input(
             'ovr', value=cur_override,
@@ -227,11 +281,8 @@ with st.form('review_form'):
             action = item['action']
             override = item['override'].strip()
 
-            # Infer action from override
             if override and not action:
                 action = 'adjust'
-            elif action == 'confirm' and not override:
-                action = 'confirm'
 
             if action or override:
                 decisions_map[ncaa_id] = {
@@ -239,34 +290,33 @@ with st.form('review_form'):
                     'override_id': override,
                 }
 
-        # Save to CSV
-        rows = [
-            {'ncaa_id': k, 'action': v.get('action', ''), 'override_id': v.get('override_id', '')}
-            for k, v in decisions_map.items()
-        ]
-        save_decisions(pd.DataFrame(rows))
-        st.success(f'Saved {len(decisions_map)} decisions')
-        st.cache_data.clear()
+        st.session_state.decisions = decisions_map
+        ok = save_decisions_to_supabase(decisions_map)
+        if ok:
+            st.success(f'Saved {n_decided} decisions to Supabase')
+        else:
+            st.error('Failed to save to Supabase. Decisions are in your session only.')
 
 # ── Download ─────────────────────────────────────────────────────────────────
 st.divider()
 dcol1, dcol2 = st.columns(2)
 with dcol1:
     st.download_button(
-        '📥 Download All Portal Players (CSV)',
+        'Download All Portal Players (CSV)',
         data=all_players.to_csv(index=False),
         file_name='portal_players_all.csv',
         mime='text/csv',
     )
 with dcol2:
     if decisions_map:
-        dec_df = pd.DataFrame([
+        dec_rows = [
             {'ncaa_id': k, 'action': v.get('action', ''), 'override_id': v.get('override_id', '')}
             for k, v in decisions_map.items()
-        ])
+            if v.get('action') or v.get('override_id')
+        ]
         st.download_button(
-            '📥 Download Decisions (CSV)',
-            data=dec_df.to_csv(index=False),
+            'Download Decisions (CSV)',
+            data=pd.DataFrame(dec_rows).to_csv(index=False),
             file_name='review_decisions.csv',
             mime='text/csv',
         )
