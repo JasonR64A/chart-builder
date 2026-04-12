@@ -178,16 +178,23 @@ n_unmatched = len(all_players[all_players['source'] == 'unmatched'])
 n_matched_low = len(all_players[all_players['source'] == 'matched_low'])
 n_decided = sum(1 for d in decisions_map.values() if d.get('action') or d.get('override_id'))
 
+remaining = len(df)
 st.markdown(
-    f'**{len(all_players)} players need review** — '
+    f'**{remaining} remaining** of {len(all_players)} total — '
+    f'**{n_decided} decided** · '
     f':orange[{n_review} needs review] · '
     f':red[{n_unmatched} unmatched] · '
-    f':blue[{n_matched_low} matched <100%] · '
-    f'**{n_decided} decisions saved** · '
-    f'Showing {len(df)}'
+    f':blue[{n_matched_low} matched <100%]'
 )
+if remaining == 0:
+    st.success('All players have been reviewed! Re-run the pipeline to generate updated rankings and upload documents.')
+    st.stop()
 
 # ── Review table ─────────────────────────────────────────────────────────────
+# Filter out already-decided players so reviewers only see what's left
+decided_ids = set(k for k, v in decisions_map.items() if v.get('action') or v.get('override_id'))
+df = df[~df['ncaa_id'].isin(decided_ids)]
+
 page_df = df.reset_index(drop=True)
 page = 1  # no pagination — all players on one page
 
