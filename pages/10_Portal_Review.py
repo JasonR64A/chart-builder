@@ -188,13 +188,8 @@ st.markdown(
 )
 
 # ── Review table ─────────────────────────────────────────────────────────────
-PAGE_SIZE = 25
-total_pages = max(1, (len(df) + PAGE_SIZE - 1) // PAGE_SIZE)
-page = st.number_input('Page', min_value=1, max_value=total_pages, value=1)
-start = (page - 1) * PAGE_SIZE
-page_df = df.iloc[start:start + PAGE_SIZE].reset_index(drop=True)
-
-st.caption(f'Rows {start + 1} - {min(start + PAGE_SIZE, len(df))} of {len(df)}')
+page_df = df.reset_index(drop=True)
+page = 1  # no pagination — all players on one page
 
 with st.form('review_form'):
     hdr = st.columns([2.5, 2, 3, 1, 1.2, 1.5, 1.5])
