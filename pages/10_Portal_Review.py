@@ -192,14 +192,15 @@ page_df = df.reset_index(drop=True)
 page = 1  # no pagination — all players on one page
 
 with st.form('review_form'):
-    hdr = st.columns([2.5, 2, 3, 1, 1.2, 1.5, 1.5])
+    hdr = st.columns([2.5, 1.2, 2, 3, 1, 1.2, 1.5, 1.5])
     hdr[0].markdown('**Portal Name**')
-    hdr[1].markdown('**Predicted Match**')
-    hdr[2].markdown('**School (Division)**')
-    hdr[3].markdown('**Score**')
-    hdr[4].markdown('**Status**')
-    hdr[5].markdown('**Action**')
-    hdr[6].markdown('**Override 64A ID**')
+    hdr[1].markdown('**NCAA ID**')
+    hdr[2].markdown('**Predicted Match**')
+    hdr[3].markdown('**School (Division)**')
+    hdr[4].markdown('**Score**')
+    hdr[5].markdown('**Status**')
+    hdr[6].markdown('**Action**')
+    hdr[7].markdown('**Override 64A ID**')
 
     form_data = []
 
@@ -208,43 +209,45 @@ with st.form('review_form'):
         has_pred = bool(row['predicted_64a_id'])
         existing = decisions_map.get(ncaa_id, {})
 
-        cols = st.columns([2.5, 2, 3, 1, 1.2, 1.5, 1.5])
+        cols = st.columns([2.5, 1.2, 2, 3, 1, 1.2, 1.5, 1.5])
 
         cols[0].write(row['portal_name'])
 
+        cols[1].write(f"`{row['ncaa_id']}`")
+
         if has_pred:
-            cols[1].write(f"{row['predicted_name']}  \n`{row['predicted_64a_id']}`")
+            cols[2].write(f"{row['predicted_name']}  \n`{row['predicted_64a_id']}`")
         else:
-            cols[1].write('--')
+            cols[2].write('--')
 
-        cols[2].write(f"{row['institution']}  \n(D-{row['division']})")
+        cols[3].write(f"{row['institution']}  \n(D-{row['division']})")
 
-        cols[3].write(row['match_score'] if row['match_score'] else '--')
+        cols[4].write(row['match_score'] if row['match_score'] else '--')
 
         src = row['source']
         if src == 'matched_low':
-            cols[4].markdown(':blue[matched]')
+            cols[5].markdown(':blue[matched]')
         elif src == 'needs_review':
-            cols[4].markdown(':orange[review]')
+            cols[5].markdown(':orange[review]')
         else:
-            cols[4].markdown(':red[unmatched]')
+            cols[5].markdown(':red[unmatched]')
 
         # Use row_idx for unique keys (ncaa_id can duplicate across status changes)
         if has_pred:
             options = ['', 'confirm', 'adjust']
             cur = existing.get('action', '')
             idx = options.index(cur) if cur in options else 0
-            action = cols[5].selectbox(
+            action = cols[6].selectbox(
                 'act', options, index=idx,
                 key=f'act_{row_idx}',
                 label_visibility='collapsed',
             )
         else:
             action = ''
-            cols[5].write('--')
+            cols[6].write('--')
 
         cur_override = existing.get('override_id', '')
-        override = cols[6].text_input(
+        override = cols[7].text_input(
             'ovr', value=cur_override,
             key=f'ovr_{row_idx}',
             label_visibility='collapsed',
