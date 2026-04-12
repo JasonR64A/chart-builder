@@ -203,7 +203,7 @@ with st.form('review_form'):
 
     form_data = []
 
-    for _, row in page_df.iterrows():
+    for row_idx, (_, row) in enumerate(page_df.iterrows()):
         ncaa_id = row['ncaa_id']
         has_pred = bool(row['predicted_64a_id'])
         existing = decisions_map.get(ncaa_id, {})
@@ -229,13 +229,14 @@ with st.form('review_form'):
         else:
             cols[4].markdown(':red[unmatched]')
 
+        # Use row_idx for unique keys (ncaa_id can duplicate across status changes)
         if has_pred:
             options = ['', 'confirm', 'adjust']
             cur = existing.get('action', '')
             idx = options.index(cur) if cur in options else 0
             action = cols[5].selectbox(
                 'act', options, index=idx,
-                key=f'act_{ncaa_id}_{page}',
+                key=f'act_{row_idx}',
                 label_visibility='collapsed',
             )
         else:
@@ -245,7 +246,7 @@ with st.form('review_form'):
         cur_override = existing.get('override_id', '')
         override = cols[6].text_input(
             'ovr', value=cur_override,
-            key=f'ovr_{ncaa_id}_{page}',
+            key=f'ovr_{row_idx}',
             label_visibility='collapsed',
             placeholder='64A ID',
         )
