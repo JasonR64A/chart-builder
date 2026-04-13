@@ -101,7 +101,13 @@ SUBTITLE_FONT = 'Franklin Gothic Medium' if _has_font('Franklin Gothic') else 'D
 BODY_FONT     = 'Calibri' if _has_font('Calibri') else 'DejaVu Sans'
 AXIS_FONT     = 'Calibri' if _has_font('Calibri') else 'DejaVu Sans'
 
-ALL_CSVS = sorted([f.name for f in DATA_DIR.glob('*.csv')])
+_EXTRA_SUBDIRS = ['Graphcis', 'rankings']
+ALL_CSVS = sorted(
+    [f.name for f in DATA_DIR.glob('*.csv')]
+    + [str(f.relative_to(DATA_DIR)).replace('\\', '/')
+       for sd in _EXTRA_SUBDIRS
+       for f in (DATA_DIR / sd).glob('*.csv') if f.is_file()]
+)
 
 # Columns to exclude from axis dropdowns (identifiers, not plottable)
 ID_COLS = {'id', 'key_id', 'team_id', 'Team_Id', 'player_id', 'year', 'Year',
