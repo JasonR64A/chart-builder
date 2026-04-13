@@ -50,6 +50,23 @@ PITCHING_METRICS = [
 
 VOLUME_WEIGHT = 2.0  # how strongly to weight PA/IP similarity vs metric similarity
 
+# All 8 CWS (Omaha) teams by year (team names match teams.csv)
+CWS_TEAMS = {
+    '2021': ['Mississippi St.', 'Vanderbilt', 'NC State', 'Stanford', 'Texas', 'Tennessee', 'Arizona', 'Virginia'],
+    '2022': ['Ole Miss', 'Oklahoma', 'Arkansas', 'Stanford', 'Texas A&M', 'Notre Dame', 'Auburn', 'Texas'],
+    '2023': ['LSU', 'Wake Forest', 'Florida', 'Stanford', 'Virginia', 'TCU', 'Oral Roberts', 'Tennessee'],
+    '2024': ['Tennessee', 'Texas A&M', 'Kentucky', 'North Carolina', 'Florida St.', 'Virginia', 'NC State', 'Florida'],
+    '2025': ['Arkansas', 'LSU', 'Coastal Carolina', 'Louisville', 'Oregon St.', 'Arizona', 'UCLA', 'Murray St.'],
+}
+
+CWS_CHAMPIONS = {
+    '2021': 'Mississippi St.',
+    '2022': 'Ole Miss',
+    '2023': 'LSU',
+    '2024': 'Tennessee',
+    '2025': 'LSU',
+}
+
 # ── Data loading ──────────────────────────────────────────────────────────────
 @st.cache_data
 def load_teams_division(sport):
@@ -146,6 +163,40 @@ def find_similar(target_idx, df, metrics, volume_col=None, top_n=5):
     df_out = df_out[df_out.index != target_idx]
     df_out = df_out.sort_values('_distance').head(top_n)
     return df_out, pct
+
+
+def find_closest_omaha(target_idx, df, metrics):
+    """Find the single closest CWS (Omaha) team to the target.
+    Uses the same percentile-space distance as find_similar but filters
+    candidates to only teams that appeared in the CWS (2021-2025)."""
+    # Build set of (team_name, year) for all CWS teams
+    cws_set = set()
+    for yr_str, teams in CWS_TEAMS.items():
+        yr = int(yr_str)
+        for t in teams:
+            cws_set.add((t, yr))
+
+    # Find which rows in df are CWS teams
+    cws_mask = df.apply(lambda r: (r.get('team_name'), int(r.get('year', 0))) in cws_set, axis=1)
+    if not cws_mask.any():
+        return None, None
+
+    pct = compute_percentiles(df, metrics, cohort_col='year')
+    if target_idx not in pct.index:
+        return None, None
+
+    target_vec = pct.loc[target_idx].values
+    diffs = pct.values - target_vec
+    eucl = np.sqrt((diffs ** 2).sum(axis=1))
+
+    df_out = df.copy()
+    df_out['_distance'] = eucl
+    # Exclude the target itself and filter to CWS teams only
+    df_out = df_out[(df_out.index != target_idx) & cws_mask]
+    if len(df_out) == 0:
+        return None, None
+    closest = df_out.sort_values('_distance').head(1)
+    return closest, pct
 
 # ── Logo helpers ──────────────────────────────────────────────────────────────
 @st.cache_data
@@ -538,6 +589,29 @@ else:  # Team
     display_df = matches[show_cols].rename(columns=rename).reset_index(drop=True)
     display_df.index = display_df.index + 1
     st.dataframe(display_df, use_container_width=True)
+
+    # ── Closest Omaha Comp (baseball D1 only) ──
+    if sport == 'baseball' and division == 'D1':
+        omaha_match, omaha_pcts = find_closest_omaha(target_idx, df, metrics)
+        if omaha_match is not None and len(omaha_match) > 0:
+            om = omaha_match.iloc[0]
+            om_name = om['team_name']
+            om_year = int(om['year'])
+            om_dist = om['_distance']
+            is_champ = CWS_CHAMPIONS.get(str(om_year)) == om_name
+            champ_badge = ' \U0001F3C6' if is_champ else ''
+
+            st.markdown('---')
+            st.markdown(f"### Closest Omaha Comp: {om_name} ({om_year}){champ_badge}")
+            st.caption(f'Similarity distance: {om_dist:.1f} — based on hitting + pitching percentile profile')
+
+            om_cols = st.columns(min(len(metrics), 6))
+            om_pct = omaha_pcts.loc[om.name]
+            for i, (col, label, _) in enumerate(metrics[:6]):
+                if col in om.index:
+                    raw = om[col]
+                    pct_val = om_pct.get(col, 0)
+                    om_cols[i].metric(label, f'{raw:.3f}' if abs(raw) < 100 else f'{raw:.1f}', f'{pct_val:.0f} pct')
 
     chart_label = f"{target_row['team_name']} {int(target_row['year'])}"
     chart = render_similarity_chart(chart_label, target_row['team_name'],
