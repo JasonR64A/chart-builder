@@ -1629,8 +1629,52 @@ if 'date_parsed' in pbp.columns:
 
 st.sidebar.markdown(f'**{len(pbp):,}** lines in range')
 
-# Conference filter (applies to all views)
+# Home / Away filter
+st.sidebar.markdown('---')
+st.sidebar.markdown('### Game Context')
+venue_filter = st.sidebar.selectbox('Venue', ['All', 'Home', 'Away'], key='venue_filter')
+if venue_filter == 'Home':
+    pbp = pbp[pbp['isHome'] == 1]
+    if view == 'Lineup Card':
+        hitting_pbp = hitting_pbp[hitting_pbp['isHome'] == 1]
+        pitching_pbp = pitching_pbp[pitching_pbp['isHome'] == 1]
+elif venue_filter == 'Away':
+    pbp = pbp[pbp['isHome'] != 1]
+    if view == 'Lineup Card':
+        hitting_pbp = hitting_pbp[hitting_pbp['isHome'] != 1]
+        pitching_pbp = pitching_pbp[pitching_pbp['isHome'] != 1]
+
+# Conference / Non-Conference game filter
 conf_map = load_team_conference_map()
+game_type_filter = st.sidebar.selectbox('Game Type', ['All', 'Conference', 'Non-Conference'], key='game_type_filter')
+if game_type_filter != 'All' and conf_map and 'teamName' in pbp.columns and 'gameId' in pbp.columns:
+    # For each game, check if both teams are in the same conference
+    game_teams = pbp.groupby('gameId')['teamName'].apply(set).reset_index()
+    conf_games = set()
+    non_conf_games = set()
+    for _, row in game_teams.iterrows():
+        teams_in_game = list(row['teamName'])
+        if len(teams_in_game) == 2:
+            c1 = conf_map.get(teams_in_game[0], '')
+            c2 = conf_map.get(teams_in_game[1], '')
+            if c1 and c2 and c1 == c2:
+                conf_games.add(row['gameId'])
+            else:
+                non_conf_games.add(row['gameId'])
+        else:
+            non_conf_games.add(row['gameId'])
+    if game_type_filter == 'Conference':
+        pbp = pbp[pbp['gameId'].isin(conf_games)]
+        if view == 'Lineup Card':
+            hitting_pbp = hitting_pbp[hitting_pbp['gameId'].isin(conf_games)]
+            pitching_pbp = pitching_pbp[pitching_pbp['gameId'].isin(conf_games)]
+    else:
+        pbp = pbp[pbp['gameId'].isin(non_conf_games)]
+        if view == 'Lineup Card':
+            hitting_pbp = hitting_pbp[hitting_pbp['gameId'].isin(non_conf_games)]
+            pitching_pbp = pitching_pbp[pitching_pbp['gameId'].isin(non_conf_games)]
+
+# Conference filter (applies to all views)
 if conf_map and 'teamName' in pbp.columns:
     pbp_conferences = pbp['teamName'].map(conf_map).dropna().unique()
     all_conferences = sorted(pbp_conferences)
