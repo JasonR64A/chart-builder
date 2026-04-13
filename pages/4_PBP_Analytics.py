@@ -281,6 +281,10 @@ def compute_grouped_hitting(df, group_col, league_woba, league_r_pa=0, min_pa=1)
         sum_cols.append('ibb')
     g = df.groupby(group_col, sort=False)
     agg = g[sum_cols].sum().reset_index()
+    # When grouping by playerId, add playerName for display
+    if group_col == 'playerId' and 'playerName' in df.columns:
+        name_map = df.dropna(subset=['playerName']).groupby(group_col, sort=False)['playerName'].first()
+        agg['playerName'] = agg[group_col].map(name_map)
     if 'ibb' not in agg.columns:
         agg['ibb'] = 0
 
@@ -430,6 +434,10 @@ def compute_grouped_pitching(df, group_col, min_bf=1):
 
     g = df.groupby(group_col, sort=False)
     agg = g[sum_cols].sum().reset_index()
+    # When grouping by playerId, add playerName for display
+    if group_col == 'playerId' and 'playerName' in df.columns:
+        name_map = df.dropna(subset=['playerName']).groupby(group_col, sort=False)['playerName'].first()
+        agg['playerName'] = agg[group_col].map(name_map)
     if 'ibb' not in agg.columns:
         agg['ibb'] = 0
     if 'is_starter' not in agg.columns:
@@ -542,6 +550,10 @@ def compute_grouped_fielding(df, group_col):
     sum_cols = [c for c in sum_cols if c in df.columns]
     g = df.groupby(group_col, sort=False)
     agg = g[sum_cols].sum().reset_index()
+    # When grouping by playerId, add playerName for display
+    if group_col == 'playerId' and 'playerName' in df.columns:
+        name_map = df.dropna(subset=['playerName']).groupby(group_col, sort=False)['playerName'].first()
+        agg['playerName'] = agg[group_col].map(name_map)
 
     po = agg['po']; a = agg['a']; tc = agg['tc']; e = agg['e']
     sba = agg['sba']; csb = agg['csb']
@@ -778,10 +790,12 @@ def get_best_hitters(hitting_df, league_woba, min_pa=10, sport='baseball', rank_
     # Step 1: Build full player pool — anyone meeting EITHER threshold needs to be considered
     pa_floor = min(min_pa, rank_min_pa)
     player_data = []
-    for name, group in hitting_df.groupby('playerName'):
+    hit_group_col = 'playerId' if 'playerId' in hitting_df.columns else 'playerName'
+    for key, group in hitting_df.groupby(hit_group_col):
         stats = compute_hitting_stats(group)
         if stats['PA'] >= pa_floor:
-            stats['playerName'] = name
+            stats['playerName'] = group['playerName'].iloc[0]
+            stats['playerId'] = key if hit_group_col == 'playerId' else ''
             stats['teamName'] = group['teamName'].mode().iloc[0] if len(group['teamName'].mode()) > 0 else ''
             stats['wRAA'] = compute_wraa(stats['wOBA'], league_woba, stats['PA'])
             stats['_pos'] = _pos_for_group(group)
@@ -827,10 +841,11 @@ def _combined_rank(df, pitching_raw_df=None):
     # Compute average Game Score for each pitcher from raw game data
     if pitching_raw_df is not None:
         gmsc_map = {}
-        for name, group in pitching_raw_df.groupby('playerName'):
+        raw_group_col = 'playerId' if 'playerId' in pitching_raw_df.columns else 'playerName'
+        for key, group in pitching_raw_df.groupby(raw_group_col):
             scores = group.apply(compute_game_score, axis=1)
-            gmsc_map[name] = scores.mean()
-        df['GmSc'] = df['playerName'].map(gmsc_map).fillna(50.0)
+            gmsc_map[key] = scores.mean()
+        df['GmSc'] = df[raw_group_col].map(gmsc_map).fillna(50.0) if raw_group_col in df.columns else 50.0
     elif 'GmSc' not in df.columns:
         df['GmSc'] = 50.0
     df['fip_score'] = (n - df['FIP'].rank(method='min') + 1) / n
@@ -842,9 +857,11 @@ def _combined_rank(df, pitching_raw_df=None):
 
 def get_best_pitchers(pitching_df, min_bf_sp=50, min_bf_rp=15, n_starters=3, n_relievers=3):
     rows = []
-    for name, group in pitching_df.groupby('playerName'):
+    pit_group_col = 'playerId' if 'playerId' in pitching_df.columns else 'playerName'
+    for key, group in pitching_df.groupby(pit_group_col):
         stats = compute_pitching_for_lineup(group)
-        stats['playerName'] = name
+        stats['playerName'] = group['playerName'].iloc[0]
+        stats['playerId'] = key if pit_group_col == 'playerId' else ''
         stats['teamName'] = group['teamName'].mode().iloc[0] if len(group['teamName'].mode()) > 0 else ''
         # Starter = majority of appearances were starts (first pitcher for team in game)
         starts = int(group['is_starter'].sum()) if 'is_starter' in group.columns else 0
@@ -1639,13 +1656,13 @@ if view != 'Lineup Card':
         min_threshold = st.sidebar.number_input('Min BF', value=10, min_value=1, step=5)
         min_ip = st.sidebar.number_input('Min IP', value=0.0, min_value=0.0, step=5.0, format='%.1f')
 
-    # Player filter
-    player_col = 'playerName'
-    available_players = sorted(pbp[player_col].dropna().unique()) if player_col in pbp.columns else []
+    # Player filter (UI uses names, computation groups by playerId)
+    player_col = 'playerId' if 'playerId' in pbp.columns else 'playerName'
+    available_players = sorted(pbp['playerName'].dropna().unique()) if 'playerName' in pbp.columns else []
     selected_players = st.sidebar.multiselect('Filter players', available_players,
                                                help='Leave empty for all')
     if selected_players:
-        pbp = pbp[pbp[player_col].isin(selected_players)]
+        pbp = pbp[pbp['playerName'].isin(selected_players)]
 
     if len(pbp) == 0:
         st.warning('No events match your filters.')
@@ -1659,7 +1676,7 @@ elif view == 'Lineup Card':
                                               help='PA threshold for the rank calculation population. Set to match the Hitter Stats Min PA so the lineup card and Hitter Stats agree on rankings.')
     min_bf_sp = st.sidebar.number_input('Min BF (starters)', value=50, min_value=1, step=10)
     min_bf_rp = st.sidebar.number_input('Min BF (relievers)', value=15, min_value=1, step=5)
-    player_col = 'playerName'
+    player_col = 'playerId' if 'playerId' in pbp.columns else 'playerName'
 
 # ── Compute and Display ─────────────────────────────────────────────────────
 if view == 'Hitter Stats':
@@ -1685,7 +1702,8 @@ if view == 'Hitter Stats':
     if len(player_stats) == 0:
         st.info(f'No players meet the {min_threshold} PA minimum.')
     else:
-        show_cols = ['Rank', player_col, 'School', 'Pos', 'PA', 'AB', 'H', '1B', '2B', '3B', 'HR', 'TB',
+        display_col = 'playerName' if 'playerName' in player_stats.columns else player_col
+        show_cols = ['Rank', display_col, 'School', 'Pos', 'PA', 'AB', 'H', '1B', '2B', '3B', 'HR', 'TB',
                      'R', 'RBI', 'BB', 'HBP', 'SF', 'SH', 'IBB', 'K', 'SB', 'CS', 'GDP',
                      'BA', 'OBP', 'SLG', 'OPS', 'ISO', 'BABIP',
                      'K%', 'BB%', 'K/BB', 'R/PA',
@@ -1700,7 +1718,7 @@ if view == 'Hitter Stats':
     # Single player deep dive
     if selected_players and len(selected_players) == 1:
         st.markdown(f'### {selected_players[0]} — Game Log')
-        player_data = pbp[pbp[player_col] == selected_players[0]]
+        player_data = pbp[pbp['playerName'] == selected_players[0]]
 
         if 'date_parsed' in player_data.columns:
             game_log = compute_grouped_hitting(player_data, 'date', league_woba, league_r_pa=league_r_pa, min_pa=1)
@@ -1739,7 +1757,8 @@ elif view == 'Pitcher Stats':
         st.info(f'No pitchers meet the minimum filters.')
     else:
         k_col = 'K/7' if sport == 'softball' else 'K/9'
-        show_cols = ['Rank', player_col, 'School', 'Pos', 'App', 'GS', 'IP', 'BF', 'OAB',
+        pit_display_col = 'playerName' if 'playerName' in pitcher_stats.columns else player_col
+        show_cols = ['Rank', pit_display_col, 'School', 'Pos', 'App', 'GS', 'IP', 'BF', 'OAB',
                      'H', 'R', 'ER', 'BB', 'HB', 'SO',
                      'HR', '2B-A', '3B-A', 'Bk', 'IBB', 'SHA', 'SFA',
                      'ERA', 'FIP', 'GmSc', 'BAA', 'BABIP',
@@ -1755,7 +1774,7 @@ elif view == 'Pitcher Stats':
     # Single pitcher deep dive
     if selected_players and len(selected_players) == 1:
         st.markdown(f'### {selected_players[0]} — Game Log')
-        pitcher_data = pbp[pbp[player_col] == selected_players[0]]
+        pitcher_data = pbp[pbp['playerName'] == selected_players[0]]
 
         if 'date_parsed' in pitcher_data.columns:
             game_log = compute_grouped_pitching(pitcher_data, 'date', min_bf=1)
@@ -1785,7 +1804,8 @@ elif view == 'Fielding Stats':
     if len(fielding_stats) == 0:
         st.info('No fielding data available.')
     else:
-        show_cols = [player_col, 'School', 'Pos', 'PO', 'A', 'TC', 'E', 'FPCT',
+        fld_display_col = 'playerName' if 'playerName' in fielding_stats.columns else player_col
+        show_cols = [fld_display_col, 'School', 'Pos', 'PO', 'A', 'TC', 'E', 'FPCT',
                      'PB', 'SBA', 'CSB', 'CS%', 'IDP', 'TP']
         show_cols = [c for c in show_cols if c in fielding_stats.columns]
         st.dataframe(fielding_stats[show_cols], use_container_width=True, hide_index=True, height=1050)

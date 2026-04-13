@@ -443,7 +443,9 @@ def get_all_weekend_series(hitting_df, end_date=None):
 def compute_hitter_stats(df):
     """Compute hitting stats for a set of games."""
     rows = []
-    for name, group in df.groupby('playerName'):
+    group_col = 'playerId' if 'playerId' in df.columns else 'playerName'
+    for key, group in df.groupby(group_col):
+        name = group['playerName'].iloc[0]
         ab = group['ab'].sum(); h = group['h'].sum(); bb = group['bb'].sum()
         hbp = group['hbp'].sum(); sf = group['sf'].sum(); sh = group['sh'].sum()
         tb = group['tb'].sum(); hr = group['hr'].sum()
@@ -476,7 +478,9 @@ def compute_pitcher_stats(df, sport='baseball'):
     rows = []
     inn_per_game = 7 if sport == 'softball' else 9
 
-    for name, group in df.groupby('playerName'):
+    group_col = 'playerId' if 'playerId' in df.columns else 'playerName'
+    for key, group in df.groupby(group_col):
+        name = group['playerName'].iloc[0]
         ip_raw = group['ip'].sum()  # baseball notation
         # Convert to actual innings
         whole = np.floor(group['ip'])
