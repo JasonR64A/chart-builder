@@ -335,6 +335,10 @@ def compute_grouped_hitting(df, group_col, league_woba, league_r_pa=0, min_pa=1)
         'K/BB': np.round(k_bb, 2), 'R/PA': np.round(r_pa, 3),
     })
 
+    # Carry playerName into result when grouping by playerId
+    if 'playerName' in agg.columns:
+        result['playerName'] = agg['playerName'].values
+
     # Filter to min_pa
     result = result[result['PA'] >= min_pa].copy()
     if len(result) == 0:
@@ -502,6 +506,10 @@ def compute_grouped_pitching(df, group_col, min_bf=1):
         'GmSc': np.round(agg['_gmsc_mean'], 1),
     })
 
+    # Carry playerName into result when grouping by playerId
+    if 'playerName' in agg.columns:
+        result['playerName'] = agg['playerName'].values
+
     # Filter to min_bf
     result = result[result['BF'] >= min_bf].copy()
     if len(result) == 0:
@@ -569,6 +577,10 @@ def compute_grouped_fielding(df, group_col):
         'CS%': np.round(cs_pct, 3),
         'IDP': agg['idp'].astype(int), 'TP': agg['tp'].astype(int),
     })
+
+    # Carry playerName into result when grouping by playerId
+    if 'playerName' in agg.columns:
+        result['playerName'] = agg['playerName'].values
 
     # Filter to TC > 0
     result = result[result['TC'] > 0].copy()
