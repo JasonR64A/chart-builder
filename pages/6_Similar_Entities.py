@@ -252,7 +252,7 @@ def _make_grainy_bg(color_rgb, size=400, noise_scale=0.03, seed=42):
     base = np.array(color_rgb)
     return np.clip(base + noise, 0, 1)
 
-def render_similarity_chart(target_label, target_team, target_pct, matches, match_pcts, metrics, theme='Light', show_year=False, entity_type='player'):
+def render_similarity_chart(target_label, target_team, target_pct, matches, match_pcts, metrics, theme='Light', show_year=False, entity_type='player', omaha_comp=None, omaha_pcts=None):
     """Spider/radar chart: each axis is a metric, each entity is a polygon."""
     if theme == 'Dark':
         bg_solid = '#1a1a1a'; text_color = '#e2e8f0'; text_md = '#a0aec0'
@@ -305,6 +305,23 @@ def render_similarity_chart(target_label, target_team, target_pct, matches, matc
                 alpha=0.75, zorder=3, label=legend_label, linestyle='--')
         ax.fill(angles_closed, m_vals_closed, color=m_color, alpha=0.06, zorder=2)
 
+    # Omaha comp polygon — drawn BETWEEN matches and target, gold solid line
+    if omaha_comp is not None and omaha_pcts is not None and len(omaha_comp) > 0:
+        om_row = omaha_comp.iloc[0]
+        om_team = om_row.get('team_name', '?')
+        om_year = int(om_row['year'])
+        is_champ = CWS_CHAMPIONS.get(str(om_year)) == om_team
+        om_badge = '\U0001F3C6 ' if is_champ else ''
+        om_label = f'{om_badge}CWS: {om_team} ({om_year})'
+        om_color = '#D4A017'  # gold
+        om_vals = [float(omaha_pcts.loc[om_row.name, c]) if c in omaha_pcts.columns else 0.0 for c in metric_cols]
+        om_vals_closed = om_vals + [om_vals[0]]
+        ax.plot(angles_closed, om_vals_closed, color=om_color, linewidth=3.0,
+                alpha=0.9, zorder=6, label=om_label, linestyle='-')
+        ax.fill(angles_closed, om_vals_closed, color=om_color, alpha=0.10, zorder=5)
+        ax.scatter(angles, om_vals, color=om_color, s=60, zorder=7,
+                   edgecolors=bg_solid, linewidths=1.5, marker='D')
+
     # Target polygon — draw LAST and on TOP, with markers and bold styling
     target_vals = [float(target_pct[c]) if c in target_pct.index else 0.0 for c in metric_cols]
     target_vals_closed = target_vals + [target_vals[0]]
@@ -335,6 +352,10 @@ def render_similarity_chart(target_label, target_team, target_pct, matches, matc
     for _, m_row in matches.iterrows():
         m_vals = [float(match_pcts.loc[m_row.name, c]) if c in match_pcts.columns else 0.0 for c in metric_cols]
         all_plotted_vals.extend(m_vals)
+    if omaha_comp is not None and omaha_pcts is not None and len(omaha_comp) > 0:
+        om_r = omaha_comp.iloc[0]
+        om_v = [float(omaha_pcts.loc[om_r.name, c]) if c in omaha_pcts.columns else 0.0 for c in metric_cols]
+        all_plotted_vals.extend(om_v)
 
     min_val = min(all_plotted_vals) if all_plotted_vals else 0
     if entity_type == 'player' and min_val >= 50:
@@ -591,6 +612,8 @@ else:  # Team
     st.dataframe(display_df, use_container_width=True)
 
     # ── Closest Omaha Comp (baseball D1 only) ──
+    omaha_match = None
+    omaha_pcts = None
     if sport == 'baseball' and division == 'D1':
         omaha_match, omaha_pcts = find_closest_omaha(target_idx, df, metrics)
         if omaha_match is not None and len(omaha_match) > 0:
@@ -616,7 +639,8 @@ else:  # Team
     chart_label = f"{target_row['team_name']} {int(target_row['year'])}"
     chart = render_similarity_chart(chart_label, target_row['team_name'],
                                      target_pct, matches, all_pcts, metrics, theme=theme,
-                                     show_year=True, entity_type='team')
+                                     show_year=True, entity_type='team',
+                                     omaha_comp=omaha_match, omaha_pcts=omaha_pcts)
     st.image(chart, use_container_width=True)
     st.download_button('Download Chart PNG', data=chart,
                        file_name=f'similar_team_{target_row["team_name"]}_{int(target_row["year"])}_{sport}_{division}.png',
