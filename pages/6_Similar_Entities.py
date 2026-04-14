@@ -85,7 +85,53 @@ def load_teams_division(sport):
 @st.cache_data
 def load_players():
     df = pd.read_csv(DATA_DIR / 'players.csv', low_memory=False, encoding='latin-1')
-    return df[['id', 'player_name']].rename(columns={'id': 'player_id'})
+    cols = ['id', 'player_name', 'position']
+    cols = [c for c in cols if c in df.columns]
+    out = df[cols].rename(columns={'id': 'player_id'})
+    if 'position' in out.columns:
+        # Normalize case (some rows have 'p' vs 'P', 'lf' vs 'LF', etc.)
+        out['position'] = out['position'].astype(str).str.upper().str.strip()
+    return out
+
+
+# Position compatibility rules for similarity matching.
+# Each key is the target player's position; value is the set of positions
+# that the target can be meaningfully compared against.
+POSITION_GROUPS = {
+    # OF: any outfielder (and generic OF)
+    'OF': {'OF', 'LF', 'CF', 'RF'},
+    'LF': {'OF', 'LF', 'CF', 'RF'},
+    'CF': {'OF', 'LF', 'CF', 'RF'},
+    'RF': {'OF', 'LF', 'CF', 'RF'},
+    # Corners: 1B↔3B↔INF
+    '1B': {'1B', '3B', 'INF'},
+    '3B': {'3B', '1B', 'INF'},
+    # Middle IF: 2B↔SS↔INF
+    '2B': {'2B', 'SS', 'INF'},
+    'SS': {'SS', '2B', 'INF'},
+    # Generic INF matches any infielder
+    'INF': {'1B', '2B', '3B', 'SS', 'INF'},
+    # C only with C
+    'C': {'C'},
+    # DH matches anyone (generic bat)
+    'DH': {'OF', 'LF', 'CF', 'RF', '1B', '2B', '3B', 'SS', 'INF', 'C', 'DH', 'UT'},
+    # UT (utility) — treat like DH, any
+    'UT': {'OF', 'LF', 'CF', 'RF', '1B', '2B', '3B', 'SS', 'INF', 'C', 'DH', 'UT'},
+    # Pitchers (pitcher similarity already filters to pitching stats)
+    'P': {'P', 'SP', 'RP'},
+    'SP': {'P', 'SP', 'RP'},
+    'RP': {'P', 'SP', 'RP'},
+}
+
+
+def compatible_positions(target_pos):
+    """Return the set of positions compatible with target_pos, per POSITION_GROUPS.
+    Unknown/missing positions fall back to "all positions allowed" so we never
+    silently exclude everyone."""
+    if not isinstance(target_pos, str) or not target_pos:
+        return None  # None => no filter
+    pos = target_pos.upper().strip()
+    return POSITION_GROUPS.get(pos)  # None if not mapped => no filter
 
 @st.cache_data
 def load_player_hitting(sport, division):
@@ -140,10 +186,13 @@ def compute_percentiles(df, metrics, cohort_col='year'):
             out[col] = ranks * 100
     return out
 
-def find_similar(target_idx, df, metrics, volume_col=None, top_n=5):
+def find_similar(target_idx, df, metrics, volume_col=None, top_n=5, position_filter=None):
     """Return the top_n most similar entities to the target by Euclidean distance
     in percentile space, with optional volume weighting. Percentiles are
-    computed per-year cohort so cross-year comparisons are normalized."""
+    computed per-year cohort so cross-year comparisons are normalized.
+
+    position_filter: optional set of allowed positions. If provided and df has
+    a 'position' column, candidates are restricted to these positions."""
     pct = compute_percentiles(df, metrics, cohort_col='year')
     if target_idx not in pct.index:
         return None, None
@@ -161,6 +210,11 @@ def find_similar(target_idx, df, metrics, volume_col=None, top_n=5):
     df_out = df.copy()
     df_out['_distance'] = eucl
     df_out = df_out[df_out.index != target_idx]
+
+    # Apply position filter (if provided and column exists)
+    if position_filter is not None and 'position' in df_out.columns:
+        df_out = df_out[df_out['position'].isin(position_filter)]
+
     df_out = df_out.sort_values('_distance').head(top_n)
     return df_out, pct
 
@@ -342,12 +396,11 @@ def render_similarity_chart(target_label, target_team, target_pct, matches, matc
     # Pad tick labels away from circle
     ax.tick_params(axis='x', pad=15)
 
-    # Radial gridlines. Teams always use the fixed 0-100 scale so the rings
-    # stay interpretable. For players, compute a dynamic floor so elite
-    # players clustered in the 95-100 range don't all collapse onto the same
-    # polygon. The floor is set to 5 below the lowest plotted value, rounded
-    # down to the nearest 5, and is only applied when the result is at or
-    # above 50 (below that, the full 0-100 scale is still informative).
+    # Radial gridlines. Compute a dynamic floor for BOTH players and teams so
+    # elite entities clustered in the 90-100 range don't all collapse onto the
+    # same polygon. The floor is set to 5 below the lowest plotted value,
+    # rounded down to the nearest 5, and is only applied when the result is
+    # at or above 50 (below that, the full 0-100 scale is still informative).
     all_plotted_vals = list(target_vals)
     for _, m_row in matches.iterrows():
         m_vals = [float(match_pcts.loc[m_row.name, c]) if c in match_pcts.columns else 0.0 for c in metric_cols]
@@ -358,7 +411,7 @@ def render_similarity_chart(target_label, target_team, target_pct, matches, matc
         all_plotted_vals.extend(om_v)
 
     min_val = min(all_plotted_vals) if all_plotted_vals else 0
-    if entity_type == 'player' and min_val >= 50:
+    if min_val >= 50:
         r_floor = max(0, int(min_val // 5) * 5 - 5)
     else:
         r_floor = 0
@@ -518,8 +571,32 @@ if mode == 'Player':
     target_row = df[df['__display'] == target_display].iloc[0]
     target_idx = target_row.name
 
+    # Position-aware matching (hitters and two-way; pitcher position is uniform)
+    pos_filter = None
+    if type_choice in ('Hitter', 'Two-Way') and 'position' in df.columns:
+        target_pos = target_row.get('position')
+        match_by_position = st.sidebar.checkbox(
+            'Match by position',
+            value=True,
+            help='Restrict matches to positionally-compatible players '
+                 '(e.g. 1B ↔ 3B ↔ INF; SS ↔ 2B ↔ INF; OF within itself; '
+                 'C only with C; DH with anyone).',
+            key='match_by_pos')
+        if match_by_position:
+            pos_filter = compatible_positions(target_pos)
+            if pos_filter is not None:
+                st.sidebar.caption(
+                    f"Target position: **{target_pos}** · "
+                    f"Matching against: {', '.join(sorted(pos_filter))}"
+                )
+            else:
+                st.sidebar.caption(
+                    f"Target position: **{target_pos or 'unknown'}** · no filter applied"
+                )
+
     # Find similar
-    matches, all_pcts = find_similar(target_idx, df, metrics, volume_col=volume_col, top_n=top_n)
+    matches, all_pcts = find_similar(target_idx, df, metrics, volume_col=volume_col,
+                                      top_n=top_n, position_filter=pos_filter)
     if matches is None or len(matches) == 0:
         st.warning('Could not compute similarity.')
         st.stop()
