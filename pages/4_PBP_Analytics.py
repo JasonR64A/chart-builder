@@ -1743,13 +1743,46 @@ if view == 'Hitter Stats':
     league_woba = league_stats['wOBA']
     league_r_pa = league_stats['R/PA']
 
-    # Overall summary
-    c1, c2, c3, c4, c5 = st.columns(5)
-    c1.metric('League wOBA', f"{league_woba:.3f}")
-    c2.metric('League OPS', f"{league_stats['OPS']:.3f}")
-    c3.metric('Total PA', f"{league_stats['PA']:,}")
-    c4.metric('Total H', f"{league_stats['H']:,}")
-    c5.metric('Total HR', f"{league_stats['HR']:,}")
+    # Overall summary — sample-wide rate + counting stats
+    st.markdown('**Rate Stats (sample)**')
+    r1 = st.columns(7)
+    r1[0].metric('BA', f"{league_stats['BA']:.3f}")
+    r1[1].metric('OBP', f"{league_stats['OBP']:.3f}")
+    r1[2].metric('SLG', f"{league_stats['SLG']:.3f}")
+    r1[3].metric('OPS', f"{league_stats['OPS']:.3f}")
+    r1[4].metric('ISO', f"{league_stats['ISO']:.3f}")
+    r1[5].metric('BABIP', f"{league_stats['BABIP']:.3f}")
+    r1[6].metric('wOBA', f"{league_woba:.3f}")
+
+    r2 = st.columns(7)
+    r2[0].metric('K%', f"{league_stats['K%']:.1f}")
+    r2[1].metric('BB%', f"{league_stats['BB%']:.1f}")
+    r2[2].metric('K/BB', f"{league_stats['K/BB']:.2f}")
+    r2[3].metric('R/PA', f"{league_stats['R/PA']:.3f}")
+    r2[4].metric('PA', f"{league_stats['PA']:,}")
+    r2[5].metric('AB', f"{league_stats['AB']:,}")
+    r2[6].metric('H', f"{league_stats['H']:,}")
+
+    st.markdown('**Counting Stats (sample)**')
+    r3 = st.columns(8)
+    r3[0].metric('1B', f"{league_stats['1B']:,}")
+    r3[1].metric('2B', f"{league_stats['2B']:,}")
+    r3[2].metric('3B', f"{league_stats['3B']:,}")
+    r3[3].metric('HR', f"{league_stats['HR']:,}")
+    r3[4].metric('TB', f"{league_stats['TB']:,}")
+    r3[5].metric('R', f"{league_stats['R']:,}")
+    r3[6].metric('RBI', f"{league_stats['RBI']:,}")
+    r3[7].metric('K', f"{league_stats['K']:,}")
+
+    r4 = st.columns(8)
+    r4[0].metric('BB', f"{league_stats['BB']:,}")
+    r4[1].metric('HBP', f"{league_stats['HBP']:,}")
+    r4[2].metric('IBB', f"{league_stats['IBB']:,}")
+    r4[3].metric('SF', f"{league_stats['SF']:,}")
+    r4[4].metric('SH', f"{league_stats['SH']:,}")
+    r4[5].metric('SB', f"{league_stats['SB']:,}")
+    r4[6].metric('CS', f"{league_stats['CS']:,}")
+    r4[7].metric('GDP', f"{league_stats['GDP']:,}")
 
     # Per-player table
     st.markdown('---')
@@ -1790,14 +1823,50 @@ if view == 'Hitter Stats':
 elif view == 'Pitcher Stats':
     st.markdown(f'### Pitcher Stats — {sport.title()} {division}')
 
-    # Overall summary
+    # Overall summary — sample-wide rate + counting stats
     overall = compute_pitching_stats(pbp)
-    c1, c2, c3, c4, c5 = st.columns(5)
-    c1.metric('League FIP', f"{overall['FIP']:.2f}")
-    c2.metric('League ERA', f"{overall['ERA']:.2f}")
-    c3.metric('League OPS Against', f"{overall['OPS Against']:.3f}")
-    c4.metric('Total BF', f"{overall['BF']:,}")
-    c5.metric('Total SO', f"{overall['SO']:,}")
+    k_per_label = 'K/7' if sport == 'softball' else 'K/9'
+    k_per_val = overall['K/7'] if sport == 'softball' else overall['K/9']
+
+    st.markdown('**Rate Stats (sample)**')
+    r1 = st.columns(7)
+    r1[0].metric('ERA', f"{overall['ERA']:.2f}")
+    r1[1].metric('FIP', f"{overall['FIP']:.2f}")
+    r1[2].metric('WHIP', f"{overall['WHIP']:.2f}")
+    r1[3].metric('BAA', f"{overall['BAA']:.3f}")
+    r1[4].metric('BABIP', f"{overall['BABIP']:.3f}")
+    r1[5].metric('OPS-A', f"{overall['OPS Against']:.3f}")
+    r1[6].metric('OBP-A', f"{overall['OBP Against']:.3f}")
+
+    r2 = st.columns(7)
+    r2[0].metric('SLG-A', f"{overall['SLG Against']:.3f}")
+    r2[1].metric('K%', f"{overall['K%']:.1f}")
+    r2[2].metric('BB%', f"{overall['BB%']:.1f}")
+    r2[3].metric(k_per_label, f"{k_per_val:.2f}")
+    r2[4].metric('K/BB', f"{overall['K/BB']:.2f}")
+    r2[5].metric('IP', f"{overall['IP']}")
+    r2[6].metric('App', f"{overall['App']:,}")
+
+    st.markdown('**Counting Stats (sample)**')
+    r3 = st.columns(8)
+    r3[0].metric('BF', f"{overall['BF']:,}")
+    r3[1].metric('OAB', f"{overall['OAB']:,}")
+    r3[2].metric('H', f"{overall['H']:,}")
+    r3[3].metric('R', f"{overall['R']:,}")
+    r3[4].metric('ER', f"{overall['ER']:,}")
+    r3[5].metric('BB', f"{overall['BB']:,}")
+    r3[6].metric('SO', f"{overall['SO']:,}")
+    r3[7].metric('HR', f"{overall['HR']:,}")
+
+    r4 = st.columns(8)
+    r4[0].metric('HB', f"{overall['HB']:,}")
+    r4[1].metric('IBB', f"{overall['IBB']:,}")
+    r4[2].metric('2B-A', f"{overall['2B-A']:,}")
+    r4[3].metric('3B-A', f"{overall['3B-A']:,}")
+    r4[4].metric('WP', f"{overall['WP']:,}")
+    r4[5].metric('Bk', f"{overall['Bk']:,}")
+    r4[6].metric('SHA', f"{overall['SHA']:,}")
+    r4[7].metric('SFA', f"{overall['SFA']:,}")
 
     # Per-pitcher table
     st.markdown('---')
@@ -1845,13 +1914,27 @@ elif view == 'Pitcher Stats':
 elif view == 'Fielding Stats':
     st.markdown(f'### Fielding Stats — {sport.title()} {division}')
 
-    # Overall summary
+    # Overall summary — sample-wide fielding stats
     overall = compute_fielding_stats(pbp)
-    c1, c2, c3, c4 = st.columns(4)
-    c1.metric('Total TC', f"{overall['TC']:,}")
-    c2.metric('Total E', f"{overall['E']:,}")
-    c3.metric('League FPCT', f"{overall['FPCT']:.3f}")
-    c4.metric('League CS%', f"{overall['CS%']:.3f}")
+
+    st.markdown('**Rate Stats (sample)**')
+    r1 = st.columns(2)
+    r1[0].metric('FPCT', f"{overall['FPCT']:.3f}")
+    r1[1].metric('CS%', f"{overall['CS%']:.3f}")
+
+    st.markdown('**Counting Stats (sample)**')
+    r2 = st.columns(8)
+    r2[0].metric('PO', f"{overall['PO']:,}")
+    r2[1].metric('A', f"{overall['A']:,}")
+    r2[2].metric('TC', f"{overall['TC']:,}")
+    r2[3].metric('E', f"{overall['E']:,}")
+    r2[4].metric('PB', f"{overall['PB']:,}")
+    r2[5].metric('SBA', f"{overall['SBA']:,}")
+    r2[6].metric('CSB', f"{overall['CSB']:,}")
+    r2[7].metric('IDP', f"{overall['IDP']:,}")
+
+    r3 = st.columns(8)
+    r3[0].metric('TP', f"{overall['TP']:,}")
 
     # Per-player table
     st.markdown('---')
