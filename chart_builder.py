@@ -119,19 +119,20 @@ ID_COLS = {'id', 'key_id', 'team_id', 'Team_Id', 'player_id', 'year', 'Year',
 @st.cache_data
 @st.cache_data
 def _load_team_name_to_id():
-    """Build team_name -> team_id lookup for injecting team_id into
-    CSVs that only have team names (rankings, RPI, etc). Uses baseball IDs
-    as primary, falls back to softball. Applies rankings/name_map.csv to
-    handle external-source name variants (e.g. 'Miami FL' -> 'Miami (FL)')."""
+    """Build sport-specific team_name -> team_id lookups.
+    Returns (baseball_map, softball_map), each applying rankings/name_map.csv
+    aliases so external sources like 'Miami FL' resolve to 'Miami (FL)'.
+    Falls back across sports: if a name exists for baseball but not softball
+    (or vice versa), the missing-sport map borrows the other sport's ID
+    (better than nothing, but sport-correct IDs take precedence)."""
     teams = pd.read_csv(DATA_DIR / 'teams.csv', low_memory=False)
     teams['id'] = pd.to_numeric(teams['id'], errors='coerce').fillna(0).astype(int).astype(str)
     bb = teams[teams['sport'] == 'Baseball'][['name', 'id']].drop_duplicates('name')
-    name_to_id = dict(zip(bb['name'], bb['id']))
     sb = teams[teams['sport'] == 'Softball'][['name', 'id']].drop_duplicates('name')
-    for _, row in sb.iterrows():
-        if row['name'] not in name_to_id:
-            name_to_id[row['name']] = row['id']
-    # Apply external name aliases (rankings/name_map.csv)
+    bb_map = dict(zip(bb['name'], bb['id']))
+    sb_map = dict(zip(sb['name'], sb['id']))
+
+    # Apply external name aliases (rankings/name_map.csv) to both maps
     name_map_path = DATA_DIR / 'rankings' / 'name_map.csv'
     if name_map_path.exists():
         try:
@@ -139,15 +140,40 @@ def _load_team_name_to_id():
             for _, row in nm.iterrows():
                 ext = row.get('external_name')
                 ours = row.get('our_name')
-                if ext and ours and ours in name_to_id:
-                    name_to_id[ext] = name_to_id[ours]
+                if not ext or not ours:
+                    continue
+                if ours in bb_map:
+                    bb_map[ext] = bb_map[ours]
+                if ours in sb_map:
+                    sb_map[ext] = sb_map[ours]
         except Exception:
             pass
-    return name_to_id
+
+    # Cross-fill: if a name only exists in one sport, let the other sport
+    # borrow the ID (keeps non-NaN even for single-sport programs).
+    for name, tid in bb_map.items():
+        sb_map.setdefault(name, tid)
+    for name, tid in sb_map.items():
+        bb_map.setdefault(name, tid)
+
+    return bb_map, sb_map
 
 
-def _inject_team_id(df):
-    """If df has a team name column but no team_id, look up team_id from teams.csv."""
+def _infer_sport_from_filename(filename):
+    """Infer sport from the CSV filename. Returns 'baseball', 'softball', or None."""
+    fn = str(filename).lower()
+    if 'softball' in fn or '_sb_' in fn or '/sb/' in fn:
+        return 'softball'
+    if 'baseball' in fn or '_bb_' in fn or '/bb/' in fn:
+        return 'baseball'
+    return None
+
+
+def _inject_team_id(df, filename=None):
+    """If df has a team name column but no team_id, look up team_id from teams.csv.
+    Uses the sport-specific lookup when the filename indicates a sport;
+    otherwise defaults to baseball (preserves existing behavior for
+    sport-agnostic files)."""
     if 'team_id' in df.columns:
         return df
     # Find a team-name-like column
@@ -159,9 +185,11 @@ def _inject_team_id(df):
     if name_col is None:
         return df
     try:
-        name_to_id = _load_team_name_to_id()
+        bb_map, sb_map = _load_team_name_to_id()
     except Exception:
         return df
+    sport = _infer_sport_from_filename(filename)
+    name_to_id = sb_map if sport == 'softball' else bb_map
     df = df.copy()
     df['team_id'] = df[name_col].map(name_to_id)
     return df
@@ -179,7 +207,7 @@ def load_csv(filename):
     if 'year' in df.columns:
         df['year'] = df['year'].astype(str)
     # Inject team_id for CSVs that only have team names (rankings, RPI, etc.)
-    df = _inject_team_id(df)
+    df = _inject_team_id(df, filename)
     for col in ['team_id', 'player_id']:
         if col in df.columns:
             numeric = pd.to_numeric(df[col], errors='coerce')

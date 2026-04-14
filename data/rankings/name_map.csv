@@ -22,11 +22,13 @@ Boise State,Boise St.
 Boston Univ,Boston U.
 Boston University,Boston U.
 C Michigan,Central Mich.
+CS Bakersfield,CSU Bakersfield
 CS Bakersfield,Cal St. Bakersfield
 CS Fullerton,Cal St. Fullerton
 CS Northridge,CSUN
 CS Sacramento,Sacramento St.
 Cal Baptist,California Baptist
+Cal State Bakersfield,CSU Bakersfield
 Cal State Fullerton,Cal St. Fullerton
 Cal State Northridge,CSUN
 Cent Arkansas,Central Ark.
@@ -40,6 +42,7 @@ Citadel,The Citadel
 Coastal Car,Coastal Carolina
 Col Charleston,Col. of Charleston
 College of Charleston,Charleston
+College of Charleston,Col. of Charleston
 Colorado St,Colorado St.
 Colorado State,Colorado St.
 Connecticut,UConn
@@ -60,10 +63,12 @@ Eastern Kentucky,Eastern Ky.
 Eastern Michigan,Eastern Mich.
 F Dickinson,FDU
 FL Atlantic,FAU
+FL Atlantic,Fla. Atlantic
 FL Gulf Coast,FGCU
 FL International,FIU
 Fairleigh Dickinson,FDU
 Florida Atlantic,FAU
+Florida Atlantic,Fla. Atlantic
 Florida Gulf Coast,FGCU
 Florida International,FIU
 Florida Intl,FIU
@@ -73,12 +78,15 @@ Fresno St,Fresno St.
 Fresno State,Fresno St.
 G Washington,George Washington
 GA Tech,Georgia Tech
+Ga Southern,Ga. Southern
 Ga Southern,Georgia Southern
 Gardner Webb,Gardner-Webb
 Georgia Southern,Ga. Southern
 Georgia St,Georgia St.
 Georgia State,Georgia St.
+Grambling,Grambling
 Grambling,Grambling St.
+Grambling St,Grambling
 Houston Chr,Houston Christian
 IL Chicago,UIC
 IL St,Illinois St.
@@ -89,6 +97,7 @@ Illinois St,Illinois St.
 Illinois State,Illinois St.
 Illinois-Chicago,UIC
 Incarnate Word,Incarnate Word
+Incarnate Word,UIW
 Indiana St,Indiana St.
 Indiana State,Indiana St.
 Iowa St,Iowa St.
@@ -117,6 +126,7 @@ MA Lowell,UMass Lowell
 MD E Shore,UMES
 MS Valley St,Mississippi Val.
 MTSU,Middle Tenn.
+Massachusetts,Massachusetts
 McNeese St,McNeese
 Miami,Miami (FL)
 Miami FL,Miami (FL)
@@ -148,8 +158,10 @@ N Carolina St,NC State
 N Colorado,Northern Colo.
 N Dakota St,North Dakota St.
 N Florida,North Florida
+N Illinois,NIU
 N Illinois,Northern Ill.
 N Kentucky,Northern Kentucky
+N Kentucky,Northern Ky.
 NC A&T,N.C. A&T
 NC Central,N.C. Central
 NE Omaha,Omaha
@@ -184,7 +196,9 @@ Penn St,Penn St.
 Penn State,Penn St.
 Portland St,Portland St.
 Portland State,Portland St.
+Prairie View,Prairie View
 Prairie View,Prairie View A&M
+Prairie View A&M,Prairie View
 Queens NC,Queens (NC)
 S Alabama,South Alabama
 S Carolina,South Carolina
@@ -196,11 +210,13 @@ S Illinois,Southern Ill.
 SC Upstate,USC Upstate
 SE Louisiana,Southeastern La.
 SE Missouri St,Southeast Missouri
+SE Missouri St,Southeast Mo. St.
 SF Austin,SFA
 SUNY Albany,UAlbany
 Sacramento State,Sacramento St.
 Sam Houston,Sam Houston St.
 Sam Houston St,Sam Houston
+Sam Houston State,Sam Houston
 Sam Houston State,Sam Houston St.
 San Diego St,San Diego St.
 San Diego State,San Diego St.
@@ -212,6 +228,8 @@ South Carolina Upstate,USC Upstate
 South Dakota State,South Dakota St.
 South Florida,South Fla.
 Southeast Missouri,Southeast Missouri
+Southeast Missouri,Southeast Mo. St.
+Southeast Mo. St,Southeast Mo. St.
 Southeastern Louisiana,Southeastern La.
 Southern,Southern U.
 Southern Illinois,Southern Ill.
@@ -236,9 +254,11 @@ Stephen F. Austin,SFA
 Stony Brook,Stony Brook
 TAM C. Christi,A&M-Corpus Christi
 TN Martin,UT Martin
+TX Arlington,UT Arlington
 TX Southern,Texas Southern
 Tarleton St,Tarleton St.
 Tarleton State,Tarleton St.
+Tenn-Martin,UT Martin
 Tennessee St,Tennessee St.
 Tennessee State,Tennessee St.
 Tennessee Tech,Tennessee Tech
@@ -253,14 +273,18 @@ UC Riverside,UC Riverside
 UC San Diego,UC San Diego
 UC Santa Barbara,UC Santa Barbara
 UL Monroe,ULM
+UMass,Massachusetts
 UMass,UMass
+UMass Lowell,UMass Lowell
 UMass Lowell,UMass-Lowell
 UNC Wilmington,UNCW
 UNCG,UNC Greensboro
 USC,Southern California
 USF,South Fla.
+UT Arlington,UT Arlington
 UT Arlington,UTA
 UT Martin,Tenn.-Martin
+UT Martin,UT Martin
 UT Rio Grande Valley,UTRGV
 UT San Antonio,UTSA
 Utah St,Utah St.
