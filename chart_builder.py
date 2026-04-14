@@ -1086,6 +1086,15 @@ def build_data(cfg):
 
     # ── Add logo paths (use logo_id which maps softball→baseball IDs) ──
     def _logo_path(lid):
+        if pd.isna(lid):
+            return None
+        # Normalize numeric ids — float 815.0 would produce '815.0.png' which doesn't exist
+        try:
+            as_num = pd.to_numeric(lid)
+            if pd.notna(as_num):
+                lid = int(as_num)
+        except (ValueError, TypeError):
+            pass
         p = LOGO_DIR / f'{lid}.png'
         return str(p) if p.exists() else None
     logo_col = 'logo_id' if 'logo_id' in merged.columns else 'team_id'
@@ -1311,7 +1320,8 @@ def render_chart(data, cfg):
         for idx, row in data.iterrows():
             logo_path = row.get('logo_path')
             zoom = zooms.loc[idx] if idx in zooms.index else cfg['logo_zoom']
-            if logo_path and os.path.exists(logo_path):
+            # Guard against NaN / non-string logo_path values (unmapped teams)
+            if isinstance(logo_path, str) and logo_path and os.path.exists(logo_path):
                 img = load_logo_thumbnail(str(logo_path))
                 ab = AnnotationBbox(OffsetImage(img, zoom=zoom * 4, alpha=0.93),
                                     (row[x_col], row[y_col]),
@@ -1456,7 +1466,7 @@ def render_chart(data, cfg):
                 # Draw team logo
                 logo_path_str = row.get('logo_path')
                 logo_z = cfg.get('logo_zoom', 0.055)
-                if logo_path_str and os.path.exists(str(logo_path_str)):
+                if isinstance(logo_path_str, str) and logo_path_str and os.path.exists(logo_path_str):
                     img = load_logo_thumbnail(str(logo_path_str))
                     ab = AnnotationBbox(OffsetImage(img, zoom=logo_z * 4, alpha=logo_alpha),
                                         (px, py), frameon=False, zorder=8)
