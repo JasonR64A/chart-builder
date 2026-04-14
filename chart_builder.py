@@ -117,6 +117,56 @@ ID_COLS = {'id', 'key_id', 'team_id', 'Team_Id', 'player_id', 'year', 'Year',
 
 # ── Data Loading ──────────────────────────────────────────────────────────────
 @st.cache_data
+@st.cache_data
+def _load_team_name_to_id():
+    """Build team_name -> team_id lookup for injecting team_id into
+    CSVs that only have team names (rankings, RPI, etc). Uses baseball IDs
+    as primary, falls back to softball. Applies rankings/name_map.csv to
+    handle external-source name variants (e.g. 'Miami FL' -> 'Miami (FL)')."""
+    teams = pd.read_csv(DATA_DIR / 'teams.csv', low_memory=False)
+    teams['id'] = pd.to_numeric(teams['id'], errors='coerce').fillna(0).astype(int).astype(str)
+    bb = teams[teams['sport'] == 'Baseball'][['name', 'id']].drop_duplicates('name')
+    name_to_id = dict(zip(bb['name'], bb['id']))
+    sb = teams[teams['sport'] == 'Softball'][['name', 'id']].drop_duplicates('name')
+    for _, row in sb.iterrows():
+        if row['name'] not in name_to_id:
+            name_to_id[row['name']] = row['id']
+    # Apply external name aliases (rankings/name_map.csv)
+    name_map_path = DATA_DIR / 'rankings' / 'name_map.csv'
+    if name_map_path.exists():
+        try:
+            nm = pd.read_csv(name_map_path, low_memory=False)
+            for _, row in nm.iterrows():
+                ext = row.get('external_name')
+                ours = row.get('our_name')
+                if ext and ours and ours in name_to_id:
+                    name_to_id[ext] = name_to_id[ours]
+        except Exception:
+            pass
+    return name_to_id
+
+
+def _inject_team_id(df):
+    """If df has a team name column but no team_id, look up team_id from teams.csv."""
+    if 'team_id' in df.columns:
+        return df
+    # Find a team-name-like column
+    name_col = None
+    for candidate in ['team_name', 'teamName', 'team', 'Team']:
+        if candidate in df.columns:
+            name_col = candidate
+            break
+    if name_col is None:
+        return df
+    try:
+        name_to_id = _load_team_name_to_id()
+    except Exception:
+        return df
+    df = df.copy()
+    df['team_id'] = df[name_col].map(name_to_id)
+    return df
+
+
 def load_csv(filename):
     """Load a CSV and normalize column names."""
     df = pd.read_csv(DATA_DIR / filename, low_memory=False, encoding='utf-8-sig')
@@ -128,6 +178,8 @@ def load_csv(filename):
         df = df.rename(columns={'Year': 'year'})
     if 'year' in df.columns:
         df['year'] = df['year'].astype(str)
+    # Inject team_id for CSVs that only have team names (rankings, RPI, etc.)
+    df = _inject_team_id(df)
     for col in ['team_id', 'player_id']:
         if col in df.columns:
             numeric = pd.to_numeric(df[col], errors='coerce')
