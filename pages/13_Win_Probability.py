@@ -29,8 +29,14 @@ LOGO_DIR = _APP_DIR / 'team_logos_512'
 BRAND_LOGO = _APP_DIR / 'assets' / 'brand_logo_wide.png'
 
 HOME_FIELD_ADVANTAGE = 0.04
+# In-game clamps — allow real blowouts to read near-certain
 CLAMP_MIN = 0.01
 CLAMP_MAX = 0.99
+# Pre-game clamps — tighter so talent gap never implies a near-lock.
+# A 90% ceiling keeps the best-vs-worst D1 matchups (Arkansas vs UAPB etc.)
+# from pinning at 99%, which felt unrealistic. Tune from here.
+PREGAME_CLAMP_MIN = 0.10
+PREGAME_CLAMP_MAX = 0.90
 
 # 64Analytics brand colors (matches other chart pages)
 BG_COLOR = '#FAF8F2'       # warm off-white
@@ -216,7 +222,7 @@ def pre_game_wp(home_pct, away_pct):
     if pd.isna(home_pct) or pd.isna(away_pct):
         return 0.5
     base = log5(home_pct, away_pct)
-    return max(CLAMP_MIN, min(CLAMP_MAX, base + HOME_FIELD_ADVANTAGE))
+    return max(PREGAME_CLAMP_MIN, min(PREGAME_CLAMP_MAX, base + HOME_FIELD_ADVANTAGE))
 
 
 def state_key(row):
