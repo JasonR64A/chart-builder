@@ -11,7 +11,7 @@ ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfe
 2210706051,TYLER,DEJONG,Tyler Dejong,Florida State University,Atlantic Coast Conference|Atlantic Coast Conference|Atlantic Coast Conference,I,03/25/2026,03/26/2026,Active,2025-26,"Baseball|Men's Track, Indoor|Men's Track, Outdoor",267,none,NONE
 2101987945,CONNOR,VIOLA,Connor Viola,Eastern University,Middle Atlantic Conference Commonwealth,III,03/24/2026,03/24/2026,Active,2025-26,Baseball,231,none,NONE
 2411455553,THOMAS,MARTENS,Thomas Martens,Mars Hill University,South Atlantic Conference,II,03/24/2026,03/24/2026,Active,2025-26,Baseball,439,none,NONE
-2505608775,ELI,PERRIN,Eli Perrin,Middle Georgia State University,Peach Belt Conference,II,03/19/2026,03/19/2026,Active,2025-26,Baseball,,none,NONE
+2505608775,ELI,PERRIN,Eli Perrin,Middle Georgia State University,Peach Belt Conference,II,03/19/2026,03/19/2026,Active,2025-26,Baseball,1022,none,NONE
 2511772050,JAMES,BURNES,James Burnes,Johnson & Wales University (Providence),Conference of New England,III,11/19/2025,03/19/2026,Active,2025-26,Baseball,364,none,NONE
 2507666874,GRANT,GURSKY,Grant Gursky,University of Mount Olive,Conference Carolinas,II,03/13/2026,03/13/2026,Active,2025-26,Baseball,508,none,NONE
 2112395212,BRYCE,RONKEN,Bryce Ronken,Augustana University (South Dakota),Northern Sun Intercollegiate Conference,II,03/12/2026,03/13/2026,Active,2025-26,Baseball,47,none,NONE
@@ -34,8 +34,8 @@ ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfe
 2203473766,CADEN,PINNICK,Caden Pinnick,"University of California, Davis",Big West Conference|Big Sky Conference,I,01/02/2026,02/21/2026,Matriculated,2025-26,Baseball|Football,807,none,NONE
 2106209076,TOMMY,WINTON,Tommy Winton,"University of Tennessee, Knoxville",Southeastern Conference|Southeastern Conference,I,01/06/2026,02/21/2026,Matriculated,2025-26,Baseball|Football,776,none,NONE
 2404267668,DOMINIC,MEJIA,Dominic Mejia,Shepherd University,Pennsylvania State Athletic Conference,II,11/20/2025,02/18/2026,Matriculated,2025-26,Baseball,699,none,NONE
-2411464218,KRISTOPHER,COLTON,Kristopher Colton,Middle Georgia State University,Peach Belt Conference,II,11/21/2025,02/17/2026,Active,2025-26,Baseball,,none,NONE
-2310150262,JACE,PASK,Jace Pask,Middle Georgia State University,Peach Belt Conference,II,11/17/2025,02/17/2026,Active,2025-26,Baseball,,none,NONE
+2411464218,KRISTOPHER,COLTON,Kristopher Colton,Middle Georgia State University,Peach Belt Conference,II,11/21/2025,02/17/2026,Active,2025-26,Baseball,1022,none,NONE
+2310150262,JACE,PASK,Jace Pask,Middle Georgia State University,Peach Belt Conference,II,11/17/2025,02/17/2026,Active,2025-26,Baseball,1022,none,NONE
 1907644276,KADE,ABRISZ,Kade Abrisz,Point Park University,Mountain East Conference,II,02/16/2026,02/16/2026,Active,2025-26,Baseball,965,none,NONE
 2309115297,JOHN,FOX JR.,John Fox Jr.,University of Saint Joseph (Connecticut),Great Northeast Athletic Conference,III,02/13/2026,02/13/2026,Active,2025-26,Baseball,958,none,NONE
 2402218789,COLTIN,SMITH,Coltin Smith,"Minnesota State University, Mankato",Northern Sun Intercollegiate Conference,II,02/10/2026,02/12/2026,Active,2025-26,Baseball,484,none,NONE
@@ -81,7 +81,7 @@ ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfe
 2405291704,JONATHON,ROSSI,Jonathon Rossi,Webster University,St. Louis Intercollegiate Athletic Conference,III,12/10/2025,01/13/2026,Active,2025-26,Baseball,877,none,NONE
 2309121242,JACK RAYMOND,RAYMOND,Jack Raymond Raymond,Southern Connecticut State University,Northeast 10 Conference,II,12/10/2025,01/12/2026,Matriculated,2025-26,Baseball,718,none,NONE
 2002804440,EYON,EVERETT,Eyon Everett,Newberry College,South Atlantic Conference,II,10/30/2025,01/10/2026,Active,2025-26,Baseball,534,none,NONE
-2508686477,AMARI K,ALLEN,Amari K Allen,Middle Georgia State University,Peach Belt Conference,II,10/30/2025,01/10/2026,Active,2025-26,Baseball,,none,NONE
+2508686477,AMARI K,ALLEN,Amari K Allen,Middle Georgia State University,Peach Belt Conference,II,10/30/2025,01/10/2026,Active,2025-26,Baseball,1022,none,NONE
 2312180711,RILEY,FURROW,Riley Furrow,Lenoir-Rhyne University,South Atlantic Conference,II,01/09/2026,01/09/2026,Active,2025-26,Baseball,400,none,NONE
 2201417662,ETHAN,GOODBAND,Ethan Goodband,D'Youville University,East Coast Conference,II,11/25/2025,01/09/2026,Active,2025-26,Baseball,218,none,NONE
 2408379909,SKYLER,HEGLER,Skyler Hegler,Clemson University,Atlantic Coast Conference,I,12/02/2025,01/09/2026,Active,2025-26,Baseball,160,none,NONE
