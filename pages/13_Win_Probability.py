@@ -167,16 +167,15 @@ def rgba_from_hex(hex_color, alpha=0.22):
 
 
 @st.cache_data
-def rotated_logo_b64(team_full_name, angle=-45, size=200, alpha=0.18):
-    """Load a team's logo, rotate, reduce opacity, return base64 PNG."""
+def faded_logo_b64(team_full_name, size=160, alpha=0.16):
+    """Load a team's logo at given size with reduced opacity. Not rotated —
+    used as a wallpaper-style tile across the chart."""
     p = team_logo_path(team_full_name)
     if not p:
         return None
     try:
         img = Image.open(p).convert('RGBA')
         img.thumbnail((size, size), Image.LANCZOS)
-        img = img.rotate(angle, expand=True, resample=Image.BICUBIC)
-        # Apply alpha
         alpha_layer = img.split()[3]
         alpha_layer = alpha_layer.point(lambda a: int(a * alpha))
         img.putalpha(alpha_layer)
@@ -370,9 +369,12 @@ away_col = team_color(away, fallback=AWAY_COLOR)
 # Plotly figure
 fig = go.Figure()
 
-# Baseline at 50 (invisible trace used as fill reference)
+# Baseline at 50 (used as a fill anchor — needs mode='lines' or
+# tonexty doesn't register the previous trace).
+INVISIBLE = 'rgba(0,0,0,0)'
 fig.add_trace(go.Scatter(
-    x=x_indices, y=[50] * len(x_indices), mode='none',
+    x=x_indices, y=[50] * len(x_indices), mode='lines',
+    line=dict(color=INVISIBLE, width=0),
     showlegend=False, hoverinfo='skip',
 ))
 
@@ -381,14 +383,15 @@ fig.add_trace(go.Scatter(
 home_ahead_y = [w if w > 50 else 50 for w in home_wps]
 fig.add_trace(go.Scatter(
     x=x_indices, y=home_ahead_y, fill='tonexty',
-    fillcolor=rgba_from_hex(home_col, 0.30),
-    mode='none', name=f'{home} ahead', showlegend=True, hoverinfo='skip',
-    line=dict(width=0),
+    fillcolor=rgba_from_hex(home_col, 0.55),
+    mode='lines', line=dict(color=INVISIBLE, width=0),
+    name=f'{home} ahead', showlegend=True, hoverinfo='skip',
 ))
 
 # Reset baseline for away fill
 fig.add_trace(go.Scatter(
-    x=x_indices, y=[50] * len(x_indices), mode='none',
+    x=x_indices, y=[50] * len(x_indices), mode='lines',
+    line=dict(color=INVISIBLE, width=0),
     showlegend=False, hoverinfo='skip',
 ))
 
@@ -396,9 +399,9 @@ fig.add_trace(go.Scatter(
 away_ahead_y = [w if w < 50 else 50 for w in home_wps]
 fig.add_trace(go.Scatter(
     x=x_indices, y=away_ahead_y, fill='tonexty',
-    fillcolor=rgba_from_hex(away_col, 0.30),
-    mode='none', name=f'{away} ahead', showlegend=True, hoverinfo='skip',
-    line=dict(width=0),
+    fillcolor=rgba_from_hex(away_col, 0.55),
+    mode='lines', line=dict(color=INVISIBLE, width=0),
+    name=f'{away} ahead', showlegend=True, hoverinfo='skip',
 ))
 
 # 50% reference line on top of fills
@@ -427,40 +430,40 @@ annotations = [
          font=dict(size=11, color=TEXT_MUTED)),
 ]
 
-# Brand logo (bottom-right) + team logos rotated 45° throughout each team's lead segments
+# Brand logo (bottom-right) + team-logo wallpaper tile pattern
+# (whichever team is leading at a tile's x-position gets that tile)
 images = []
 
-def add_team_logos_in_segments(team_name, want_home_ahead):
-    """Drop the team's rotated logo repeatedly through every lead segment.
-    Spacing = one logo per ~10 plays so long runs get multiple watermarks."""
-    logo_b64_rot = rotated_logo_b64(team_name, angle=-45, size=240, alpha=0.18)
-    if not logo_b64_rot:
-        return
-    segments = find_all_segments(home_wps, want_home_ahead=want_home_ahead, min_len=4)
-    logo_spacing = 10  # plays between logos in a long segment
-    logo_size_x = 7    # plays wide
-    logo_size_y = 12   # WP units tall
-    for start, end in segments:
-        seg_len = end - start + 1
-        n_logos = max(1, seg_len // logo_spacing)
-        for k in range(n_logos):
-            # Distribute logos evenly within the segment
-            frac = (k + 0.5) / n_logos
-            cx = start + frac * seg_len
-            # Midpoint y within the shaded band (between 50 and the curve at this x)
-            ci = int(cx)
-            if ci < 0 or ci >= len(home_wps):
-                continue
-            cy = (50 + home_wps[ci]) / 2
-            images.append(dict(
-                source=f'data:image/png;base64,{logo_b64_rot}',
-                xref='x', yref='y',
-                x=cx, y=cy, sizex=logo_size_x, sizey=logo_size_y,
-                xanchor='center', yanchor='middle', layer='below',
-            ))
+home_logo_b64 = faded_logo_b64(home, size=200, alpha=0.16)
+away_logo_b64 = faded_logo_b64(away, size=200, alpha=0.16)
 
-add_team_logos_in_segments(home, want_home_ahead=True)
-add_team_logos_in_segments(away, want_home_ahead=False)
+# Tile grid across the full chart area — dense enough to look like wallpaper.
+# x-step = ~6 plays apart, y-step = 8 WP units.  Logo size = 5x9 in data units.
+tile_size_x = 5
+tile_size_y = 9
+x_step = 6
+y_step = 8
+n_x = max(1, len(x_indices))
+y_grid = list(range(4, 100, y_step))  # 4, 12, 20, ..., 96
+x_grid = list(range(0, n_x, x_step))
+
+for cx in x_grid:
+    if cx >= n_x:
+        continue
+    home_leading = home_wps[cx] > 50
+    logo_b64 = home_logo_b64 if home_leading else away_logo_b64
+    if not logo_b64:
+        continue
+    for cy in y_grid:
+        # Stagger every other column for a brick-pattern wallpaper look
+        cy_offset = (y_step / 2) if (cx // x_step) % 2 == 1 else 0
+        images.append(dict(
+            source=f'data:image/png;base64,{logo_b64}',
+            xref='x', yref='y',
+            x=cx, y=cy + cy_offset,
+            sizex=tile_size_x, sizey=tile_size_y,
+            xanchor='center', yanchor='middle', layer='below',
+        ))
 
 # 64Analytics brand logo bottom-right
 brand_b64 = brand_logo_b64()
@@ -478,9 +481,11 @@ fig.update_layout(
     height=560,
     margin=dict(t=90, b=80, l=70, r=30),
     xaxis=dict(
-        title=dict(text='Inning', font=dict(size=13, color=TEXT_COLOR)),
+        title=dict(text='Inning', font=dict(size=14, color=TEXT_COLOR)),
         tickmode='array', tickvals=inning_positions, ticktext=inning_labels,
-        tickangle=0, color=TEXT_MUTED, gridcolor=GRID_COLOR, gridwidth=0.5,
+        tickangle=0, color=TEXT_COLOR,
+        tickfont=dict(size=13, color=TEXT_COLOR, family='Arial Black'),
+        gridcolor=GRID_COLOR, gridwidth=0.5,
         showgrid=False, zeroline=False,
     ),
     yaxis=dict(
