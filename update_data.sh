@@ -38,6 +38,15 @@ for sport in baseball softball; do
     done
 done
 
+# Regenerate gzipped copies so Render can access PBP events.
+# The raw .csv files are gitignored (~260MB each), but .csv.gz compress to ~15MB.
+echo "Gzipping play-by-play event data for Render..."
+for f in "$PBP_DEST/play_by_play/"*.csv; do
+    if [ -f "$f" ]; then
+        gzip -9 -c "$f" > "$f.gz"
+    fi
+done
+
 echo "Copying PBP data..."
 for sport in baseball softball; do
     cp "$PBP_SOURCE/$sport/pbp/hitting_pbp_"*.csv "$PBP_DEST/$sport/" 2>/dev/null

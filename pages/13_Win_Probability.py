@@ -22,7 +22,9 @@ from PIL import Image
 
 _APP_DIR = Path(__file__).resolve().parent.parent
 DATA_DIR = _APP_DIR / 'data'
-PBP_FILE = _APP_DIR / 'pbp_data' / 'play_by_play' / 'baseball_play_by_play_D1.csv'
+PBP_DIR = _APP_DIR / 'pbp_data' / 'play_by_play'
+PBP_FILE = PBP_DIR / 'baseball_play_by_play_D1.csv'
+PBP_FILE_GZ = PBP_DIR / 'baseball_play_by_play_D1.csv.gz'
 LOOKUP_FILE = _APP_DIR / 'pbp_data' / 'wp_state_lookup_bb_d1.pkl'
 LOGO_DIR = _APP_DIR / 'team_logos_512'
 
@@ -34,12 +36,16 @@ CLAMP_MAX = 0.99
 # ── Data loaders ─────────────────────────────────────────────────────────────
 @st.cache_data
 def load_pbp():
-    if not PBP_FILE.exists():
-        return None
+    # Prefer uncompressed (faster) if present locally; fall back to .gz (Render).
     cols = ['gameId', 'date', 'awayTeam', 'homeTeam', 'inning', 'halfInning',
             'outs', 'runner1B', 'runner2B', 'runner3B',
             'awayScore', 'homeScore', 'player', 'playDescription']
-    df = pd.read_csv(PBP_FILE, low_memory=False, usecols=cols)
+    if PBP_FILE.exists():
+        df = pd.read_csv(PBP_FILE, low_memory=False, usecols=cols)
+    elif PBP_FILE_GZ.exists():
+        df = pd.read_csv(PBP_FILE_GZ, low_memory=False, usecols=cols, compression='gzip')
+    else:
+        return None
     df['inning'] = pd.to_numeric(df['inning'], errors='coerce').fillna(0).astype(int)
     df['outs'] = pd.to_numeric(df['outs'], errors='coerce').fillna(0).astype(int)
     df['awayScore'] = pd.to_numeric(df['awayScore'], errors='coerce').fillna(0).astype(int)
