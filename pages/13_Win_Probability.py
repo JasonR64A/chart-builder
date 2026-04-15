@@ -12,12 +12,10 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import pickle
+import base64
 from pathlib import Path
 from io import BytesIO
-import matplotlib
-matplotlib.use('Agg')
-import matplotlib.pyplot as plt
-from matplotlib.offsetbox import OffsetImage, AnnotationBbox
+import plotly.graph_objects as go
 from PIL import Image
 
 _APP_DIR = Path(__file__).resolve().parent.parent
@@ -27,16 +25,24 @@ PBP_FILE = PBP_DIR / 'baseball_play_by_play_D1.csv'
 PBP_FILE_GZ = PBP_DIR / 'baseball_play_by_play_D1.csv.gz'
 LOOKUP_FILE = _APP_DIR / 'pbp_data' / 'wp_state_lookup_bb_d1.pkl'
 LOGO_DIR = _APP_DIR / 'team_logos_512'
+BRAND_LOGO = _APP_DIR / 'assets' / 'brand_logo_wide.png'
 
-HOME_FIELD_ADVANTAGE = 0.04  # ±4% bump
+HOME_FIELD_ADVANTAGE = 0.04
 CLAMP_MIN = 0.01
 CLAMP_MAX = 0.99
+
+# 64Analytics brand colors (matches other chart pages)
+BG_COLOR = '#FAF8F2'       # warm off-white
+TEXT_COLOR = '#2D2926'
+TEXT_MUTED = '#4A4540'
+GRID_COLOR = '#D8D2C4'
+HOME_COLOR = '#2E5C8A'     # navy blue
+AWAY_COLOR = '#C41230'     # cardinal red
 
 
 # ── Data loaders ─────────────────────────────────────────────────────────────
 @st.cache_data
 def load_pbp():
-    # Prefer uncompressed (faster) if present locally; fall back to .gz (Render).
     cols = ['gameId', 'date', 'awayTeam', 'homeTeam', 'inning', 'halfInning',
             'outs', 'runner1B', 'runner2B', 'runner3B',
             'awayScore', 'homeScore', 'player', 'playDescription']
@@ -70,7 +76,6 @@ def load_teams():
     di_ids = set(confs[confs['division'] == 'D-I']['id'])
     bb_d1 = t[(t['sport'] == 'Baseball') & (t['conference_id'].isin(di_ids))]
     tr_d1 = tr[tr['team_id'].isin(bb_d1['id'])]
-    # rank → percentile (1 = best → 1.0)
     N = len(tr_d1)
     tr_d1 = tr_d1.dropna(subset=['rank']).copy()
     tr_d1['rank_pct'] = 1 - (tr_d1['rank'] - 1) / (N - 1)
@@ -78,22 +83,26 @@ def load_teams():
                             tr_d1['rank_pct']))
     name_to_rank = dict(zip(bb_d1.set_index('id').loc[tr_d1['team_id'].values, 'name'],
                              tr_d1['rank'].astype(int)))
-    name_to_id = dict(zip(bb_d1['name'], bb_d1['id']))
-    return name_to_pct, name_to_rank, name_to_id
+    return name_to_pct, name_to_rank
+
+
+@st.cache_data
+def brand_logo_b64():
+    if BRAND_LOGO.exists():
+        with open(BRAND_LOGO, 'rb') as f:
+            return base64.b64encode(f.read()).decode()
+    return None
 
 
 def log5(wa, wb):
     denom = wa + wb - 2 * wa * wb
-    if denom == 0:
-        return 0.5
-    return (wa - wa * wb) / denom
+    return (wa - wa * wb) / denom if denom else 0.5
 
 
 def pre_game_wp(home_pct, away_pct):
-    """Home team pre-game WP. Log5 + home field bump, clamped."""
     if pd.isna(home_pct) or pd.isna(away_pct):
         return 0.5
-    base = log5(home_pct, away_pct)  # log5(home, away) = P(home wins)
+    base = log5(home_pct, away_pct)
     return max(CLAMP_MIN, min(CLAMP_MAX, base + HOME_FIELD_ADVANTAGE))
 
 
@@ -109,37 +118,47 @@ def state_key(row):
     return (inning, half, outs, bases, sd)
 
 
-def game_progress_weight(play_idx, total_plays):
-    """Weight on state-based WP. 0 = all pre-game. 1 = all state."""
-    if total_plays <= 0:
-        return 0.5
-    return min(1.0, play_idx / total_plays)
+def short_team(name):
+    for sfx in [' Eagles', ' Tigers', ' Bulldogs', ' Wildcats', ' Hokies', ' Crimson Tide',
+                ' Volunteers', ' Razorbacks', ' Commodores', ' Rebels', ' Gators', ' Longhorns',
+                ' Aggies', ' Bears', ' Hawks', ' Owls', ' Ducks', ' Beavers', ' Huskies',
+                ' Jayhawks', ' Cornhuskers', ' Sooners', ' Cowboys', ' Cyclones']:
+        if name.endswith(sfx):
+            return name[:-len(sfx)]
+    parts = name.rsplit(' ', 1)
+    return parts[0] if len(parts) == 2 else name
+
+
+def find_team(name, team_pct, team_rank):
+    for cand in [name, short_team(name)]:
+        if cand in team_pct:
+            return cand, team_pct[cand], team_rank.get(cand)
+    for k in team_pct.keys():
+        if name.startswith(k) or k.startswith(short_team(name)):
+            return k, team_pct[k], team_rank.get(k)
+    return name, None, None
 
 
 # ── UI ───────────────────────────────────────────────────────────────────────
 st.set_page_config(page_title='Win Probability', layout='wide')
 st.title('Win Probability — Pace Chart')
-st.caption('Play-by-play win probability curve. Starting point = log5 of 64 integer ranks ± 4% home-field bump. '
-           'In-game = empirical state lookup blended with pre-game anchor (early weight → pre-game, late weight → state).')
+st.caption('Play-by-play WP curve. Starting point = log5 of 64 integer ranks ± 4% home-field bump. '
+           'In-game WP = empirical state lookup blended with pre-game anchor (weight shifts to state as game progresses).')
 
 pbp = load_pbp()
 if pbp is None:
-    st.warning(
-        'Play-by-play event data is not available here. This page requires '
-        '`pbp_data/play_by_play/baseball_play_by_play_D1.csv` which is too large '
-        'for git (~260MB) and lives only on the local machine. Run this page '
-        'locally: `streamlit run chart_builder.py` from the chart-builder-app folder.'
-    )
+    st.warning('Play-by-play data not available on Render. Redeploy should include the gzipped PBP file.')
     st.stop()
 
 lookup = load_lookup()
-team_pct, team_rank, team_id_map = load_teams()
+team_pct, team_rank = load_teams()
 
 # Game picker
 st.sidebar.markdown('### Game selection')
 teams_in_data = sorted(set(pbp['awayTeam'].dropna()) | set(pbp['homeTeam'].dropna()))
-sel_team = st.sidebar.selectbox('Team', teams_in_data, index=teams_in_data.index('Boston College Eagles')
-                                 if 'Boston College Eagles' in teams_in_data else 0)
+default_team = 'Boston College Eagles' if 'Boston College Eagles' in teams_in_data else teams_in_data[0]
+sel_team = st.sidebar.selectbox('Team', teams_in_data,
+                                 index=teams_in_data.index(default_team))
 
 team_games = pbp[(pbp['awayTeam'] == sel_team) | (pbp['homeTeam'] == sel_team)]
 game_list = team_games.groupby('gameId').first().reset_index()
@@ -150,117 +169,164 @@ game_list['label'] = game_list.apply(
 sel_label = st.sidebar.selectbox('Game', game_list['label'].tolist())
 sel_gid = int(game_list[game_list['label'] == sel_label]['gameId'].iloc[0])
 
-# Pull full game
 game = pbp[pbp['gameId'] == sel_gid].copy().reset_index(drop=True)
 home = game['homeTeam'].iloc[0]
 away = game['awayTeam'].iloc[0]
 
-# Short names (strip common suffixes for matching team_rank)
-def short_name(full_name):
-    for sfx in [' Eagles', ' Tigers', ' Bulldogs', ' Wildcats', ' Hokies', ' Crimson Tide',
-                ' Volunteers', ' Razorbacks', ' Commodores', ' Rebels', ' Gators', ' Longhorns',
-                ' Aggies', ' Bears', ' Hawks', ' Owls', ' Ducks', ' Beavers', ' Huskies',
-                ' Jayhawks', ' Cornhuskers', ' Sooners', ' Cowboys', ' Cyclones']:
-        if full_name.endswith(sfx):
-            return full_name[:-len(sfx)]
-    # Split on last space and try the name without the final word
-    parts = full_name.rsplit(' ', 1)
-    if len(parts) == 2:
-        return parts[0]
-    return full_name
-
-def find_team_pct(full_name):
-    # Exact, short, or anything that starts with the key
-    for cand in [full_name, short_name(full_name)]:
-        if cand in team_pct:
-            return cand, team_pct[cand], team_rank.get(cand)
-    for k in team_pct.keys():
-        if full_name.startswith(k) or k.startswith(short_name(full_name)):
-            return k, team_pct[k], team_rank.get(k)
-    return full_name, None, None
-
-home_key, home_p, home_r = find_team_pct(home)
-away_key, away_p, away_r = find_team_pct(away)
-
-# Show game header + rankings
-c1, c2, c3 = st.columns([2, 1, 2])
-c1.markdown(f"### {away}")
-c1.caption(f"64 Rank: {away_r if away_r else 'N/A'} ({away_p:.3f} pct)" if away_p else "No rank data")
-c2.markdown('### vs')
-c3.markdown(f"### {home}")
-c3.caption(f"64 Rank: {home_r if home_r else 'N/A'} ({home_p:.3f} pct)" if home_p else "No rank data")
+home_key, home_p, home_r = find_team(home, team_pct, team_rank)
+away_key, away_p, away_r = find_team(away, team_pct, team_rank)
 
 # Pre-game WP
-if home_p is not None and away_p is not None:
-    pg_home = pre_game_wp(home_p, away_p)
-else:
-    pg_home = 0.5  # fallback
+pg_home = pre_game_wp(home_p, away_p) if home_p and away_p else 0.5
 
+# Header cards
 c1, c2, c3, c4 = st.columns(4)
 c1.metric('Pre-game WP (home)', f"{pg_home*100:.1f}%")
 c2.metric('Pre-game WP (away)', f"{(1-pg_home)*100:.1f}%")
-c3.metric('Final score', f"{int(game['awayScore'].max())} - {int(game['homeScore'].max())}")
-c4.metric('Plays in game', f"{len(game)}")
+c3.metric('Final score', f"{away} {int(game['awayScore'].max())} — {int(game['homeScore'].max())} {home}")
+c4.metric('Plays', f"{len(game)}")
 
-# Build WP curve
+# Compute WP curve per play
 total_plays = len(game)
-home_wp_curve = [pg_home]
+wp_curve = [pg_home]  # anchor at index 0 (pre-game)
+state_wp_curve = [None]
 for i, row in game.iterrows():
     key = state_key(row)
-    state_info = lookup.get(key)
-    w = game_progress_weight(i + 1, total_plays)
-    if state_info is None or state_info[1] < 10:  # fall back to pre-game if sample too small
+    info = lookup.get(key)
+    w = min(1.0, (i + 1) / total_plays)
+    if info is None or info[1] < 10:
         wp = pg_home
+        sw = None
     else:
-        state_wp = state_info[0]
-        wp = w * state_wp + (1 - w) * pg_home
-    home_wp_curve.append(max(CLAMP_MIN, min(CLAMP_MAX, wp)))
+        sw = info[0]
+        wp = w * sw + (1 - w) * pg_home
+    wp_curve.append(max(CLAMP_MIN, min(CLAMP_MAX, wp)))
+    state_wp_curve.append(sw)
 
-# Plot
-fig, ax = plt.subplots(figsize=(14, 6), facecolor='#FAF8F2')
-ax.set_facecolor('#FAF8F2')
-ax.fill_between(range(len(home_wp_curve)), home_wp_curve, 0.5,
-                where=[w >= 0.5 for w in home_wp_curve], color='#2E5C8A', alpha=0.25, label=f'{home} ahead')
-ax.fill_between(range(len(home_wp_curve)), home_wp_curve, 0.5,
-                where=[w < 0.5 for w in home_wp_curve], color='#C41230', alpha=0.25, label=f'{away} ahead')
-ax.plot(range(len(home_wp_curve)), home_wp_curve, color='#2D2926', linewidth=2.2)
-ax.axhline(0.5, color='#666', linewidth=0.8, linestyle='--', alpha=0.5)
+# Build hover data
+hover_texts = []
+hover_texts.append(f"<b>Pre-game</b><br>{home} starting WP: <b>{pg_home*100:.1f}%</b>")
+for i, row in game.iterrows():
+    wp_before = wp_curve[i]
+    wp_after = wp_curve[i + 1]
+    delta = (wp_after - wp_before) * 100
+    arrow = '▲' if delta > 0 else ('▼' if delta < 0 else '—')
+    delta_str = f"{arrow} {abs(delta):.1f}%"
+    half = 'Bot' if row['halfInning'] == 'bottom' else 'Top'
+    score = f"{int(row['awayScore'])}-{int(row['homeScore'])}"
+    player = row.get('player', '') or ''
+    desc = str(row.get('playDescription', '') or '')[:90]
+    hover_texts.append(
+        f"<b>{half} {int(row['inning'])}</b>  {score}  ·  {int(row['outs'])} out<br>"
+        f"<i>{player}</i>: {desc}<br>"
+        f"<b>{home} WP: {wp_after*100:.1f}%</b>  ({delta_str})"
+    )
 
-# Annotate start and end
-ax.annotate(f"Start: {pg_home*100:.1f}%", xy=(0, pg_home), xytext=(5, pg_home + 0.05),
-            fontsize=10, color='#333')
-ax.annotate(f"End: {home_wp_curve[-1]*100:.1f}%", xy=(len(home_wp_curve)-1, home_wp_curve[-1]),
-            xytext=(len(home_wp_curve)-30, home_wp_curve[-1] + 0.05), fontsize=10, color='#333')
+# Build inning-based x-axis positions
+# The x coord is play index (0..N), but we label ticks at inning boundaries.
+inning_labels = []
+inning_positions = []
+last_inning = None
+for i, row in game.iterrows():
+    ih = (int(row['inning']), row['halfInning'])
+    if ih != last_inning:
+        inning_positions.append(i + 1)  # +1 because pre-game is at 0
+        half_abbr = 'T' if row['halfInning'] == 'top' else 'B'
+        inning_labels.append(f"{half_abbr}{int(row['inning'])}")
+        last_inning = ih
 
-# Mark inning transitions (top → bottom of each inning)
-inning_changes = game[['inning', 'halfInning']].drop_duplicates().index.tolist()
-for idx in inning_changes[1:]:  # skip first
-    ax.axvline(idx + 1, color='#aaa', linewidth=0.4, alpha=0.4)
+x_indices = list(range(len(wp_curve)))
+home_wps = [w * 100 for w in wp_curve]
 
-ax.set_xlim(0, len(home_wp_curve) - 1)
-ax.set_ylim(0, 1)
-ax.set_xlabel(f'Play #  ({len(game)} plays in game)', fontsize=11)
-ax.set_ylabel(f'{home} Win Probability', fontsize=11)
-ax.set_title(f'{away} @ {home} — {game["date"].iloc[0]}', fontsize=14, fontweight='bold')
-ax.set_yticks([0, 0.25, 0.5, 0.75, 1.0])
-ax.set_yticklabels(['0%', '25%', '50%', '75%', '100%'])
-ax.legend(loc='upper left', frameon=False)
-ax.grid(True, alpha=0.2)
+# Plotly figure
+fig = go.Figure()
 
-buf = BytesIO()
-fig.savefig(buf, format='png', dpi=130, bbox_inches='tight', facecolor='#FAF8F2')
-buf.seek(0)
-plt.close(fig)
-st.image(buf, use_container_width=True)
+# 50% reference
+fig.add_hline(y=50, line_dash='dash', line_color='#888', line_width=1, opacity=0.5)
 
-st.download_button('Download Chart PNG', data=buf,
-                   file_name=f'wp_{sel_gid}_{home}_vs_{away}.png',
-                   mime='image/png')
+# Shaded area (home ahead = blue, away ahead = red)
+above = [max(w, 50) for w in home_wps]
+below = [min(w, 50) for w in home_wps]
 
-# Optional: show the raw play log
+fig.add_trace(go.Scatter(
+    x=x_indices, y=above, fill='tonexty', fillcolor='rgba(46,92,138,0.18)',
+    mode='none', name=f'{home} ahead', showlegend=True, hoverinfo='skip',
+))
+fig.add_trace(go.Scatter(
+    x=x_indices, y=[50] * len(x_indices), mode='none',
+    showlegend=False, hoverinfo='skip',
+))
+fig.add_trace(go.Scatter(
+    x=x_indices, y=below, fill='tonexty', fillcolor='rgba(196,18,48,0.18)',
+    mode='none', name=f'{away} ahead', showlegend=True, hoverinfo='skip',
+))
+
+# Main WP line with rich hover
+fig.add_trace(go.Scatter(
+    x=x_indices, y=home_wps, mode='lines+markers',
+    line=dict(color=TEXT_COLOR, width=2.4),
+    marker=dict(size=4, color=TEXT_COLOR),
+    hovertext=hover_texts, hoverinfo='text',
+    name='Win Probability', showlegend=False,
+))
+
+# Inning divider lines
+for pos in inning_positions[1:]:
+    fig.add_vline(x=pos, line_dash='dot', line_color='#bbb', line_width=0.6, opacity=0.4)
+
+# Layout with 64Analytics branding
+annotations = [
+    dict(x=0.5, y=1.08, xref='paper', yref='paper', showarrow=False,
+         text=f'<b>{away}</b> @ <b>{home}</b>  ·  {game["date"].iloc[0]}',
+         font=dict(size=18, color=TEXT_COLOR, family='Arial Black')),
+    dict(x=0.5, y=1.03, xref='paper', yref='paper', showarrow=False,
+         text=f'Pre-game: {pg_home*100:.1f}%  →  Final: {home_wps[-1]:.1f}%',
+         font=dict(size=11, color=TEXT_MUTED)),
+]
+
+# Brand logo (bottom-right)
+logo_b64 = brand_logo_b64()
+images = []
+if logo_b64:
+    images.append(dict(
+        source=f'data:image/png;base64,{logo_b64}',
+        xref='paper', yref='paper',
+        x=0.99, y=-0.16, sizex=0.16, sizey=0.10,
+        xanchor='right', yanchor='bottom', opacity=0.85, layer='above',
+    ))
+
+fig.update_layout(
+    plot_bgcolor=BG_COLOR,
+    paper_bgcolor=BG_COLOR,
+    height=560,
+    margin=dict(t=90, b=80, l=70, r=30),
+    xaxis=dict(
+        title=dict(text='Inning', font=dict(size=13, color=TEXT_COLOR)),
+        tickmode='array', tickvals=inning_positions, ticktext=inning_labels,
+        tickangle=0, color=TEXT_MUTED, gridcolor=GRID_COLOR, gridwidth=0.5,
+        showgrid=False, zeroline=False,
+    ),
+    yaxis=dict(
+        title=dict(text=f'{home} Win Probability', font=dict(size=13, color=TEXT_COLOR)),
+        range=[0, 100], tickvals=[0, 25, 50, 75, 100],
+        ticktext=['0%', '25%', '50%', '75%', '100%'],
+        color=TEXT_MUTED, gridcolor=GRID_COLOR, gridwidth=0.5, zeroline=False,
+    ),
+    annotations=annotations,
+    images=images,
+    legend=dict(orientation='h', y=-0.12, x=0, font=dict(color=TEXT_COLOR, size=11),
+                bgcolor='rgba(0,0,0,0)'),
+    hoverlabel=dict(bgcolor=BG_COLOR, bordercolor=TEXT_COLOR,
+                    font=dict(color=TEXT_COLOR, size=12)),
+)
+
+st.plotly_chart(fig, use_container_width=True)
+
+# Play-by-play log expander
 with st.expander('Play-by-play log with WP'):
-    game_display = game.copy()
-    game_display['Home WP'] = [f'{w*100:.1f}%' for w in home_wp_curve[1:]]
-    st.dataframe(game_display[['inning', 'halfInning', 'outs', 'awayScore', 'homeScore',
-                                'player', 'playDescription', 'Home WP']],
+    gdisp = game.copy()
+    gdisp['Home WP'] = [f'{w*100:.1f}%' for w in wp_curve[1:]]
+    gdisp['WP Δ'] = [f'{(wp_curve[i+1]-wp_curve[i])*100:+.1f}%' for i in range(len(game))]
+    st.dataframe(gdisp[['inning', 'halfInning', 'outs', 'awayScore', 'homeScore',
+                         'player', 'playDescription', 'Home WP', 'WP Δ']],
                  use_container_width=True, hide_index=True)
