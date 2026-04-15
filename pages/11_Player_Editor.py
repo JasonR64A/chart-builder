@@ -54,7 +54,6 @@ def load_pending_queue():
         )
         if resp.status_code == 200:
             rows = resp.json()
-            # Flatten payload into top-level columns for display
             flat = []
             for r in rows:
                 payload = r.get('payload') or {}
@@ -65,6 +64,32 @@ def load_pending_queue():
         return []
     except Exception as e:
         st.error(f'Supabase load error: {e}')
+        return []
+
+
+def load_applied_history(limit=200):
+    """Fetch already-merged history entries (sorted by applied_at desc)."""
+    try:
+        resp = requests.get(
+            sb_url(QUEUE_TABLE),
+            headers=HEADERS,
+            params={'select': 'id,player_id,action,payload,created_at,applied_at',
+                    'applied_at': 'not.is.null', 'order': 'applied_at.desc',
+                    'limit': str(limit)},
+            timeout=10,
+        )
+        if resp.status_code == 200:
+            rows = resp.json()
+            flat = []
+            for r in rows:
+                payload = r.get('payload') or {}
+                flat.append({'queue_id': r['id'], 'player_id': r['player_id'], 'action': r['action'],
+                             'created_at': r.get('created_at','')[:19],
+                             'applied_at': r.get('applied_at','')[:19],
+                             **payload})
+            return flat
+        return []
+    except Exception:
         return []
 
 
@@ -403,9 +428,26 @@ else:
                     st.rerun()
 
 st.markdown('---')
+with st.expander('Change history (already-applied edits)', expanded=False):
+    history = load_applied_history(limit=500)
+    if not history:
+        st.caption('No applied entries yet.')
+    else:
+        hdf = pd.DataFrame(history)
+        st.caption(f'{len(hdf)} applied entries (most recent first, up to 500)')
+        st.dataframe(hdf, use_container_width=True, hide_index=True)
+        hist_buf = StringIO()
+        hdf.to_csv(hist_buf, index=False)
+        st.download_button(
+            'Download full history CSV',
+            data=hist_buf.getvalue(),
+            file_name=f'player_editor_history_{datetime.now().strftime("%Y%m%d")}.csv',
+            mime='text/csv',
+        )
+
 st.caption(
     'Edits persist in Supabase — refreshing this page or switching reviewers still '
     'shows the same queue. Workflow: save edits here → download pending CSV → merge '
     'into players.csv locally → commit + push chart-builder → click "Mark all as '
-    'applied" to clear the queue.'
+    'applied" to move entries into history.'
 )
