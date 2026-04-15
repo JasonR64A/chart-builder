@@ -285,7 +285,15 @@ game_list['label'] = game_list.apply(
 sel_label = st.sidebar.selectbox('Game', game_list['label'].tolist())
 sel_gid = int(game_list[game_list['label'] == sel_label]['gameId'].iloc[0])
 
-game = pbp[pbp['gameId'] == sel_gid].copy().reset_index(drop=True)
+game = pbp[pbp['gameId'] == sel_gid].copy()
+# The scraper writes all bottom-of-inning plays BEFORE the top-of-inning
+# plays within each inning. That breaks chronological order. Sort so that
+# top precedes bottom within every inning. Stable sort preserves the
+# correct within-half play sequence (outs already increase monotonically).
+game['_half_order'] = (game['half_true'] == 'bottom').astype(int)
+game = (game.sort_values(['inning', '_half_order'], kind='stable')
+             .drop(columns=['_half_order'])
+             .reset_index(drop=True))
 home = game['homeTeam'].iloc[0]
 away = game['awayTeam'].iloc[0]
 
