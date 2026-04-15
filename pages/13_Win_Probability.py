@@ -34,6 +34,8 @@ CLAMP_MAX = 0.99
 # ── Data loaders ─────────────────────────────────────────────────────────────
 @st.cache_data
 def load_pbp():
+    if not PBP_FILE.exists():
+        return None
     cols = ['gameId', 'date', 'awayTeam', 'homeTeam', 'inning', 'halfInning',
             'outs', 'runner1B', 'runner2B', 'runner3B',
             'awayScore', 'homeScore', 'player', 'playDescription']
@@ -115,6 +117,15 @@ st.caption('Play-by-play win probability curve. Starting point = log5 of 64 inte
            'In-game = empirical state lookup blended with pre-game anchor (early weight → pre-game, late weight → state).')
 
 pbp = load_pbp()
+if pbp is None:
+    st.warning(
+        'Play-by-play event data is not available here. This page requires '
+        '`pbp_data/play_by_play/baseball_play_by_play_D1.csv` which is too large '
+        'for git (~260MB) and lives only on the local machine. Run this page '
+        'locally: `streamlit run chart_builder.py` from the chart-builder-app folder.'
+    )
+    st.stop()
+
 lookup = load_lookup()
 team_pct, team_rank, team_id_map = load_teams()
 
