@@ -108,6 +108,114 @@ def load_teams():
 
 
 @st.cache_data
+def build_team_profiles():
+    """
+    Per-team profile of talent for player-adjusted pre-game WP.
+    Returns a dict keyed by team name:
+      {
+        team_name: {
+          'pitchers': [pit_pct, pit_pct, ...],  # sorted desc (best first)
+          'hitters_by_pa': [hit_pct, hit_pct, ...],  # sorted by last-30d games played desc
+        }
+      }
+    Uses the latest year of player_rank.csv per player. Hitter usage comes
+    from game-row counts in hitting_pbp_D1.csv over the last 30 days
+    (captures who actually plays, not just who's on the roster).
+    """
+    try:
+        pr = pd.read_csv(DATA_DIR / 'player_rank.csv', low_memory=False,
+                         usecols=['player_id','team_id','year',
+                                  'percentile_rank_weighted_run_created_efficiency',
+                                  'percentile_rank_weighted_run_allowed_efficiency'])
+        pr['year'] = pd.to_numeric(pr['year'], errors='coerce')
+        pr = pr.sort_values('year').drop_duplicates('player_id', keep='last')
+        pr['team_id'] = pd.to_numeric(pr['team_id'], errors='coerce').astype('Int64')
+        pr['hit'] = pd.to_numeric(pr['percentile_rank_weighted_run_created_efficiency'], errors='coerce')
+        pr['pit'] = pd.to_numeric(pr['percentile_rank_weighted_run_allowed_efficiency'], errors='coerce')
+
+        teams = pd.read_csv(DATA_DIR / 'teams.csv', low_memory=False, dtype=str).fillna('')
+        teams = teams[teams['sport'].str.lower() == 'baseball']
+        teams['id_int'] = pd.to_numeric(teams['id'], errors='coerce').astype('Int64')
+        id_to_name = dict(zip(teams['id_int'], teams['name']))
+
+        # PA usage proxy: games-played in last 30 days from hitting_pbp
+        hit_pbp_path = PBP_DIR.parent / 'baseball' / 'hitting_pbp_D1.csv'
+        pa_counts = {}
+        if hit_pbp_path.exists():
+            hp = pd.read_csv(hit_pbp_path, low_memory=False, usecols=['date','playerId'])
+            hp['date'] = pd.to_datetime(hp['date'], errors='coerce', format='mixed')
+            cutoff = hp['date'].max() - pd.Timedelta(days=30)
+            hp = hp[hp['date'] >= cutoff]
+            pa_counts = hp.groupby('playerId').size().to_dict()
+
+        profiles = {}
+        for tid, grp in pr.groupby('team_id'):
+            name = id_to_name.get(tid)
+            if not name: continue
+            # Pitchers: those with a pitching percentile, sorted desc
+            pit_df = grp.dropna(subset=['pit'])
+            pit_df = pit_df[pit_df['pit'] > 0]
+            pit_list = pit_df.sort_values('pit', ascending=False)['pit'].tolist()
+            # Hitters: those with a hitting percentile, sorted by last-30d usage
+            hit_df = grp.dropna(subset=['hit']).copy()
+            hit_df = hit_df[hit_df['hit'] > 0]
+            hit_df['usage'] = hit_df['player_id'].map(pa_counts).fillna(0)
+            hit_list = hit_df.sort_values(['usage','hit'], ascending=[False, False])['hit'].tolist()
+            profiles[name] = {'pitchers': pit_list, 'hitters_by_pa': hit_list}
+        return profiles
+    except Exception as e:
+        print(f'build_team_profiles failed: {e}')
+        return {}
+
+
+def adjusted_team_pct(name, profiles, game_type, game_num, static_pct):
+    """
+    Player-driven team talent pct.
+      - Weekend: starter = P1/P2/P3 based on game_num; hitting = top-9 by PA mean
+      - Midweek: starter = mean of pitchers 5-12 (indices 4-11); hitting = bench lineup
+                 (top-6 summed + 3 * mean(hitters 7-12)) / 9
+    Falls back to static team_pct if profile is missing or insufficient.
+    Weight: 0.40 hitting + 0.60 pitching.
+    """
+    if not name or name not in profiles:
+        return static_pct
+    prof = profiles[name]
+    pitchers = prof.get('pitchers', [])
+    hitters = prof.get('hitters_by_pa', [])
+
+    # Pitching component
+    pit_pct = None
+    if game_type == 'Weekend':
+        idx = max(0, min(2, int(game_num) - 1))  # 0/1/2 for Game 1/2/3
+        if len(pitchers) > idx:
+            pit_pct = pitchers[idx]
+    else:  # Midweek
+        mw_pool = pitchers[4:12]
+        if mw_pool:
+            pit_pct = sum(mw_pool) / len(mw_pool)
+
+    # Hitting component
+    hit_pct = None
+    if game_type == 'Weekend':
+        top9 = hitters[:9]
+        if top9:
+            hit_pct = sum(top9) / len(top9)
+    else:  # Midweek: bench lineup
+        top6 = hitters[:6]
+        bench_pool = hitters[6:12]
+        if top6 and bench_pool:
+            bench_mean = sum(bench_pool) / len(bench_pool)
+            hit_pct = (sum(top6) + 3 * bench_mean) / 9
+        elif hitters:
+            hit_pct = sum(hitters[:9]) / min(9, len(hitters))
+
+    if pit_pct is None or hit_pct is None:
+        return static_pct
+
+    return 0.40 * hit_pct + 0.60 * pit_pct
+
+
+@st.cache_data
 def brand_logo_b64():
     if BRAND_LOGO.exists():
         with open(BRAND_LOGO, 'rb') as f:
@@ -317,8 +425,32 @@ away = game['awayTeam'].iloc[0]
 home_key, home_p, home_r = find_team(home, team_pct, team_rank)
 away_key, away_p, away_r = find_team(away, team_pct, team_rank)
 
-# Pre-game WP
-pg_home = pre_game_wp(home_p, away_p) if home_p and away_p else 0.5
+# Player-adjusted talent picker
+st.sidebar.markdown('### Talent model')
+game_type = st.sidebar.radio('Game type', ['Weekend', 'Midweek'], horizontal=True,
+    help='Weekend uses each team\'s P1/P2/P3 starter + top-9 regulars by PA. '
+         'Midweek uses mean of pitchers ranked 5-12 + bench-lineup hitting '
+         '(top-6 by PA + 3x mean of hitters 7-12).')
+game_num = 1
+if game_type == 'Weekend':
+    game_num = st.sidebar.selectbox('Series game #', [1, 2, 3], index=0,
+        help='Which game of the 3-game series — determines which starter (P1/P2/P3) takes the mound.')
+
+profiles = build_team_profiles()
+home_p_adj = adjusted_team_pct(home_key, profiles, game_type, game_num, home_p) if home_p else home_p
+away_p_adj = adjusted_team_pct(away_key, profiles, game_type, game_num, away_p) if away_p else away_p
+
+# Show what the talent model resolved to (transparency)
+with st.sidebar.expander('Talent breakdown', expanded=False):
+    st.caption(f'**{home}** (home)')
+    st.caption(f'  team rank pct: {home_p:.3f}' if home_p else '  no team pct')
+    st.caption(f'  player-adj pct: {home_p_adj:.3f}' if home_p_adj else '  fallback')
+    st.caption(f'**{away}** (away)')
+    st.caption(f'  team rank pct: {away_p:.3f}' if away_p else '  no team pct')
+    st.caption(f'  player-adj pct: {away_p_adj:.3f}' if away_p_adj else '  fallback')
+
+# Pre-game WP — use player-adjusted pct
+pg_home = pre_game_wp(home_p_adj, away_p_adj) if home_p_adj and away_p_adj else 0.5
 
 # Header cards
 c1, c2, c3, c4 = st.columns(4)
