@@ -115,6 +115,22 @@ def delete_entry(queue_id):
         st.error(f'Supabase delete error: {e}')
         return False
 
+
+def delete_pending_for_player(player_id):
+    """Delete any pending (unapplied) queue entries for this player_id.
+    Used when saving a new edit to ensure only one pending entry per player."""
+    try:
+        resp = requests.delete(
+            sb_url(QUEUE_TABLE),
+            headers={**HEADERS, 'Prefer': 'return=minimal'},
+            params={'player_id': f'eq.{int(player_id)}', 'applied_at': 'is.null'},
+            timeout=10,
+        )
+        return resp.status_code in (200, 204)
+    except Exception as e:
+        st.error(f'Supabase delete-pending error: {e}')
+        return False
+
 _APP_DIR = Path(__file__).resolve().parent.parent
 DATA_DIR = _APP_DIR / 'data'
 PLAYERS_PATH = DATA_DIR / 'players.csv'
@@ -198,16 +214,36 @@ if mode == 'Edit':
             target = match.iloc[0]
 
     if target is not None:
+        # Check for existing pending edit on this player — if present, overlay
+        # the pending new_* values onto the displayed "current" state so
+        # multiple reviewers see the same working state and don't duplicate work.
+        existing_pending = next((e for e in pending_queue if int(e.get('player_id', -1)) == int(pid_input)), None)
+
         with col_info:
             team = team_label(target.get('team_id'), teams_df)
             st.success(f"**{target['player_name']}** — {team}")
+            if existing_pending:
+                st.warning(
+                    f"⚠️ This player has a **pending edit** already queued "
+                    f"(queue_id={existing_pending['queue_id']}, saved {existing_pending.get('created_at','?')[:19]}). "
+                    f"Values below reflect the queued edit. Saving again will REPLACE the existing queue entry."
+                )
+
+        # Build the working-state "current" values: players.csv base + pending overlay
+        target_display = target.copy()
+        if existing_pending:
+            for col in EDITABLE_COLS:
+                new_val = existing_pending.get(f'new_{col}')
+                if new_val is not None and str(new_val) != '':
+                    target_display[col] = new_val
 
         # Show current values + editable inputs side by side
-        st.markdown('#### Current values → New values')
+        label = 'Current values (incl. pending overlay)' if existing_pending else 'Current values'
+        st.markdown(f'#### {label} → New values')
         c1, c2 = st.columns(2)
         new_vals = {}
         for col in EDITABLE_COLS:
-            cur = target.get(col)
+            cur = target_display.get(col)
             cur_display = '' if pd.isna(cur) else str(cur)
             with c1:
                 st.text_input(f'Current {col}', value=cur_display, disabled=True, key=f'cur_{col}')
@@ -239,22 +275,33 @@ if mode == 'Edit':
                 else:
                     new_vals[col] = st.text_input(f'New {col}', value=cur_display, key=f'new_{col}')
 
-        if st.button('Save edit to queue', type='primary', key='edit_add'):
-            payload = {'player_name': target.get('player_name')}
-            # Capture original + new for each editable col (JSON-safe: no NaN)
-            for col in EDITABLE_COLS:
-                orig = target.get(col)
-                if pd.isna(orig): orig = None
-                payload[f'original_{col}'] = orig
-                new = new_vals.get(col)
-                if pd.isna(new): new = None
-                payload[f'new_{col}'] = new
-            ok = save_entry(int(target['id']), 'edit', payload)
-            if ok:
-                st.success(f"Saved edit for {target['player_name']} (id={target['id']}).")
-                st.rerun()
-            else:
-                st.error('Save failed — see error above.')
+        btn_c1, btn_c2 = st.columns([1, 1])
+        with btn_c1:
+            if st.button('Save edit to queue', type='primary', key='edit_add'):
+                payload = {'player_name': target.get('player_name')}
+                # Capture original (always from players.csv baseline) + new
+                for col in EDITABLE_COLS:
+                    orig = target.get(col)
+                    if pd.isna(orig): orig = None
+                    payload[f'original_{col}'] = orig
+                    new = new_vals.get(col)
+                    if pd.isna(new): new = None
+                    payload[f'new_{col}'] = new
+                # Replace any existing pending entry for this player — enforces
+                # one-pending-edit-per-player so multiple reviewers don't collide
+                delete_pending_for_player(int(target['id']))
+                ok = save_entry(int(target['id']), 'edit', payload)
+                if ok:
+                    st.success(f"Saved edit for {target['player_name']} (id={target['id']}).")
+                    st.rerun()
+                else:
+                    st.error('Save failed — see error above.')
+        with btn_c2:
+            if existing_pending and st.button('Cancel queued edit', type='secondary', key='edit_cancel',
+                help='Remove the pending queue entry for this player (does not revert any already-merged changes).'):
+                if delete_entry(existing_pending['queue_id']):
+                    st.success(f"Cancelled queued edit for player {target['id']}.")
+                    st.rerun()
 
 # ── CREATE MODE ──────────────────────────────────────────────────────────────
 else:
