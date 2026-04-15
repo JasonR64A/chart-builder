@@ -45,6 +45,7 @@ AWAY_COLOR = '#C41230'     # cardinal red
 @st.cache_data
 def load_pbp():
     cols = ['gameId', 'date', 'awayTeam', 'homeTeam', 'inning', 'halfInning',
+            'battingTeam',
             'outs', 'runner1B', 'runner2B', 'runner3B',
             'awayScore', 'homeScore', 'player', 'playDescription']
     if PBP_FILE.exists():
@@ -57,6 +58,11 @@ def load_pbp():
     df['outs'] = pd.to_numeric(df['outs'], errors='coerce').fillna(0).astype(int)
     df['awayScore'] = pd.to_numeric(df['awayScore'], errors='coerce').fillna(0).astype(int)
     df['homeScore'] = pd.to_numeric(df['homeScore'], errors='coerce').fillna(0).astype(int)
+    # Derive the correct half from battingTeam. The scraper's halfInning
+    # label is swapped ("bottom" is recorded for top-of-inning plays where
+    # away team bats). Use battingTeam as ground truth.
+    # true_half = 'top' if awayTeam is batting, else 'bottom'
+    df['half_true'] = np.where(df['battingTeam'] == df['awayTeam'], 'top', 'bottom')
     return df
 
 
@@ -215,6 +221,9 @@ def pre_game_wp(home_pct, away_pct):
 
 
 def state_key(row):
+    # Lookup uses the raw halfInning (consistent with how the table was
+    # built). The raw label is swapped but applied consistently across
+    # all games, so the probabilities still resolve correctly.
     inning = min(int(row['inning']), 10) if pd.notna(row['inning']) else 1
     half = 1 if row.get('halfInning') == 'bottom' else 0
     outs = min(int(row['outs']), 2) if pd.notna(row['outs']) else 0
@@ -311,6 +320,14 @@ for i, row in game.iterrows():
     wp_curve.append(max(CLAMP_MIN, min(CLAMP_MAX, wp)))
     state_wp_curve.append(sw)
 
+# Lock the final WP to the actual game result. After the last out is
+# recorded, the outcome is determined — not a probability anymore.
+final_home_score = int(game['homeScore'].max())
+final_away_score = int(game['awayScore'].max())
+if final_home_score != final_away_score:
+    home_won = final_home_score > final_away_score
+    wp_curve[-1] = 1.0 if home_won else 0.0
+
 # Build hover data
 hover_texts = []
 hover_texts.append(f"<b>Pre-game</b><br>{home} starting WP: <b>{pg_home*100:.1f}%</b>")
@@ -320,7 +337,7 @@ for i, row in game.iterrows():
     delta = (wp_after - wp_before) * 100
     arrow = '▲' if delta > 0 else ('▼' if delta < 0 else '—')
     delta_str = f"{arrow} {abs(delta):.1f}%"
-    half = 'Bot' if row['halfInning'] == 'bottom' else 'Top'
+    half = 'Bot' if row['half_true'] == 'bottom' else 'Top'
     score = f"{int(row['awayScore'])}-{int(row['homeScore'])}"
     player = row.get('player', '') or ''
     desc = str(row.get('playDescription', '') or '')[:90]
@@ -336,10 +353,10 @@ inning_labels = []
 inning_positions = []
 last_inning = None
 for i, row in game.iterrows():
-    ih = (int(row['inning']), row['halfInning'])
+    ih = (int(row['inning']), row['half_true'])
     if ih != last_inning:
         inning_positions.append(i + 1)  # +1 because pre-game is at 0
-        half_abbr = 'T' if row['halfInning'] == 'top' else 'B'
+        half_abbr = 'T' if row['half_true'] == 'top' else 'B'
         inning_labels.append(f"{half_abbr}{int(row['inning'])}")
         last_inning = ih
 
@@ -487,6 +504,7 @@ with st.expander('Play-by-play log with WP'):
     gdisp = game.copy()
     gdisp['Home WP'] = [f'{w*100:.1f}%' for w in wp_curve[1:]]
     gdisp['WP Δ'] = [f'{(wp_curve[i+1]-wp_curve[i])*100:+.1f}%' for i in range(len(game))]
-    st.dataframe(gdisp[['inning', 'halfInning', 'outs', 'awayScore', 'homeScore',
+    gdisp['half'] = gdisp['half_true']
+    st.dataframe(gdisp[['inning', 'half', 'outs', 'awayScore', 'homeScore',
                          'player', 'playDescription', 'Home WP', 'WP Δ']],
                  use_container_width=True, hide_index=True)
