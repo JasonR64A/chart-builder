@@ -17,6 +17,7 @@ from pathlib import Path
 from io import BytesIO
 import plotly.graph_objects as go
 from PIL import Image
+from collections import Counter
 
 _APP_DIR = Path(__file__).resolve().parent.parent
 DATA_DIR = _APP_DIR / 'data'
@@ -92,6 +93,116 @@ def brand_logo_b64():
         with open(BRAND_LOGO, 'rb') as f:
             return base64.b64encode(f.read()).decode()
     return None
+
+
+@st.cache_data
+def team_logo_map():
+    """Build team name → 64A team id for locating logo files."""
+    t = pd.read_csv(DATA_DIR / 'teams.csv', low_memory=False)
+    t['id'] = pd.to_numeric(t['id'], errors='coerce').fillna(0).astype(int)
+    bb = t[t['sport'] == 'Baseball'][['name', 'id']].drop_duplicates('name')
+    m = dict(zip(bb['name'], bb['id']))
+    return m
+
+
+def team_logo_path(team_full_name):
+    """Find the logo file for a team (accounting for trailing mascot names)."""
+    logo_map = team_logo_map()
+    for cand in [team_full_name, short_team(team_full_name)]:
+        if cand in logo_map:
+            for ext in ('png', 'webp'):
+                p = LOGO_DIR / f'{logo_map[cand]}.{ext}'
+                if p.exists():
+                    return p
+    # Fuzzy: try substring match
+    for name, tid in logo_map.items():
+        if name in team_full_name or team_full_name in name:
+            for ext in ('png', 'webp'):
+                p = LOGO_DIR / f'{tid}.{ext}'
+                if p.exists():
+                    return p
+    return None
+
+
+def team_color(team_full_name, fallback='#C41230'):
+    """Extract dominant non-black-non-white color from team logo."""
+    p = team_logo_path(team_full_name)
+    if not p:
+        return fallback
+    try:
+        img = Image.open(p).convert('RGBA')
+        img.thumbnail((64, 64))
+        px = np.array(img)
+        mask = px[:, :, 3] > 128
+        rgb = px[mask][:, :3]
+        if len(rgb) == 0:
+            return fallback
+        filtered = []
+        for r, g, b in rgb:
+            bright = (int(r) + int(g) + int(b)) / 3
+            if bright > 220 or bright < 35:
+                continue
+            filtered.append((r, g, b))
+        if not filtered:
+            return fallback
+        quant = [(r // 16 * 16, g // 16 * 16, b // 16 * 16) for r, g, b in filtered]
+        top = Counter(quant).most_common(1)[0][0]
+        return f'#{top[0]:02x}{top[1]:02x}{top[2]:02x}'
+    except Exception:
+        return fallback
+
+
+def rgba_from_hex(hex_color, alpha=0.22):
+    hex_color = hex_color.lstrip('#')
+    r = int(hex_color[0:2], 16)
+    g = int(hex_color[2:4], 16)
+    b = int(hex_color[4:6], 16)
+    return f'rgba({r},{g},{b},{alpha})'
+
+
+@st.cache_data
+def rotated_logo_b64(team_full_name, angle=-45, size=200, alpha=0.18):
+    """Load a team's logo, rotate, reduce opacity, return base64 PNG."""
+    p = team_logo_path(team_full_name)
+    if not p:
+        return None
+    try:
+        img = Image.open(p).convert('RGBA')
+        img.thumbnail((size, size), Image.LANCZOS)
+        img = img.rotate(angle, expand=True, resample=Image.BICUBIC)
+        # Apply alpha
+        alpha_layer = img.split()[3]
+        alpha_layer = alpha_layer.point(lambda a: int(a * alpha))
+        img.putalpha(alpha_layer)
+        buf = BytesIO()
+        img.save(buf, format='PNG')
+        return base64.b64encode(buf.getvalue()).decode()
+    except Exception:
+        return None
+
+
+def find_biggest_segment(home_wps, want_home_ahead):
+    """Return (start_idx, end_idx) of the longest stretch where:
+       - want_home_ahead=True  → WP > 50
+       - want_home_ahead=False → WP < 50
+    Returns None if no such stretch exists."""
+    best = None
+    cur_start = None
+    for i, wp in enumerate(home_wps):
+        ahead = wp > 50 if want_home_ahead else wp < 50
+        if ahead:
+            if cur_start is None:
+                cur_start = i
+        else:
+            if cur_start is not None:
+                if best is None or (i - cur_start) > (best[1] - best[0]):
+                    best = (cur_start, i - 1)
+                cur_start = None
+    if cur_start is not None:
+        end = len(home_wps) - 1
+        if best is None or (end - cur_start) > (best[1] - best[0]):
+            best = (cur_start, end)
+    return best
 
 
 def log5(wa, wb):
@@ -238,18 +349,23 @@ for i, row in game.iterrows():
 x_indices = list(range(len(wp_curve)))
 home_wps = [w * 100 for w in wp_curve]
 
+# Team-specific colors from logos
+home_col = team_color(home, fallback=HOME_COLOR)
+away_col = team_color(away, fallback=AWAY_COLOR)
+
 # Plotly figure
 fig = go.Figure()
 
 # 50% reference
 fig.add_hline(y=50, line_dash='dash', line_color='#888', line_width=1, opacity=0.5)
 
-# Shaded area (home ahead = blue, away ahead = red)
+# Shaded area uses each team's own color (home above 50%, away below)
 above = [max(w, 50) for w in home_wps]
 below = [min(w, 50) for w in home_wps]
 
 fig.add_trace(go.Scatter(
-    x=x_indices, y=above, fill='tonexty', fillcolor='rgba(46,92,138,0.18)',
+    x=x_indices, y=above, fill='tonexty',
+    fillcolor=rgba_from_hex(home_col, 0.22),
     mode='none', name=f'{home} ahead', showlegend=True, hoverinfo='skip',
 ))
 fig.add_trace(go.Scatter(
@@ -257,7 +373,8 @@ fig.add_trace(go.Scatter(
     showlegend=False, hoverinfo='skip',
 ))
 fig.add_trace(go.Scatter(
-    x=x_indices, y=below, fill='tonexty', fillcolor='rgba(196,18,48,0.18)',
+    x=x_indices, y=below, fill='tonexty',
+    fillcolor=rgba_from_hex(away_col, 0.22),
     mode='none', name=f'{away} ahead', showlegend=True, hoverinfo='skip',
 ))
 
@@ -284,12 +401,47 @@ annotations = [
          font=dict(size=11, color=TEXT_MUTED)),
 ]
 
-# Brand logo (bottom-right)
-logo_b64 = brand_logo_b64()
+# Brand logo (bottom-right) + team logos rotated 45° in each team's shaded region
 images = []
-if logo_b64:
+
+def add_team_logo_in_segment(team_name, want_home_ahead):
+    """Place the team's rotated logo in the middle of their largest lead segment."""
+    seg = find_biggest_segment(home_wps, want_home_ahead=want_home_ahead)
+    if seg is None:
+        return
+    start, end = seg
+    mid_x = (start + end) / 2
+    # Compute a representative midpoint y value within the segment
+    seg_wps = home_wps[start:end + 1]
+    if want_home_ahead:
+        # WPs above 50 — logo centered between 50 and the segment's average WP
+        avg_wp = sum(seg_wps) / len(seg_wps)
+        mid_y = (50 + avg_wp) / 2
+    else:
+        avg_wp = sum(seg_wps) / len(seg_wps)
+        mid_y = (50 + avg_wp) / 2  # still centered in the shaded band
+    logo_b64_rot = rotated_logo_b64(team_name, angle=-45, size=240, alpha=0.22)
+    if not logo_b64_rot:
+        return
+    # Size logo proportional to segment width (clamped)
+    seg_len = end - start + 1
+    sizex = max(6, min(18, seg_len / 2.5))
+    sizey = 18  # WP units
     images.append(dict(
-        source=f'data:image/png;base64,{logo_b64}',
+        source=f'data:image/png;base64,{logo_b64_rot}',
+        xref='x', yref='y',
+        x=mid_x, y=mid_y, sizex=sizex, sizey=sizey,
+        xanchor='center', yanchor='middle', layer='below',
+    ))
+
+add_team_logo_in_segment(home, want_home_ahead=True)
+add_team_logo_in_segment(away, want_home_ahead=False)
+
+# 64Analytics brand logo bottom-right
+brand_b64 = brand_logo_b64()
+if brand_b64:
+    images.append(dict(
+        source=f'data:image/png;base64,{brand_b64}',
         xref='paper', yref='paper',
         x=0.99, y=-0.16, sizex=0.16, sizey=0.10,
         xanchor='right', yanchor='bottom', opacity=0.85, layer='above',
