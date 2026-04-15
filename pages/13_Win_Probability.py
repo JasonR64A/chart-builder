@@ -437,33 +437,49 @@ images = []
 home_logo_b64 = faded_logo_b64(home, size=200, alpha=0.16)
 away_logo_b64 = faded_logo_b64(away, size=200, alpha=0.16)
 
-# Tile grid across the full chart area — dense enough to look like wallpaper.
-# x-step = ~6 plays apart, y-step = 8 WP units.  Logo size = 5x9 in data units.
+# Tile grid CONFINED to the lead band (between 50% and the curve).
+# Two interleaved column sets so the pattern doesn't look uniform:
+#   - "main"   columns every X_STEP_MAIN plays, rows starting at Y_BASE
+#   - "offset" columns shifted half-step right, rows shifted half-step down
+# Half as many rows as before (Y_STEP doubled).
 tile_size_x = 5
-tile_size_y = 9
-x_step = 6
-y_step = 8
+tile_size_y = 7
+X_STEP_MAIN = 12
+Y_STEP = 16
+Y_BASE = 6
 n_x = max(1, len(x_indices))
-y_grid = list(range(4, 100, y_step))  # 4, 12, 20, ..., 96
-x_grid = list(range(0, n_x, x_step))
 
-for cx in x_grid:
-    if cx >= n_x:
-        continue
-    home_leading = home_wps[cx] > 50
+def add_wallpaper_column(cx, y_start):
+    """Drop tiles down a single x-column, but only inside the lead band."""
+    if cx < 0 or cx >= n_x:
+        return
+    w = home_wps[cx]
+    if w == 50:
+        return
+    home_leading = w > 50
     logo_b64 = home_logo_b64 if home_leading else away_logo_b64
     if not logo_b64:
-        continue
-    for cy in y_grid:
-        # Stagger every other column for a brick-pattern wallpaper look
-        cy_offset = (y_step / 2) if (cx // x_step) % 2 == 1 else 0
+        return
+    band_low, band_high = (50, w) if home_leading else (w, 50)
+    for cy in range(y_start, 100, Y_STEP):
+        # Tile must fit entirely inside the lead band so it never bleeds
+        # into the unfilled half of the chart.
+        if (cy - tile_size_y / 2) < band_low or (cy + tile_size_y / 2) > band_high:
+            continue
         images.append(dict(
             source=f'data:image/png;base64,{logo_b64}',
             xref='x', yref='y',
-            x=cx, y=cy + cy_offset,
+            x=cx, y=cy,
             sizex=tile_size_x, sizey=tile_size_y,
             xanchor='center', yanchor='middle', layer='below',
         ))
+
+# Main columns
+for cx in range(0, n_x, X_STEP_MAIN):
+    add_wallpaper_column(cx, y_start=Y_BASE)
+# In-between offset columns (shifted half-step horizontally + vertically)
+for cx in range(X_STEP_MAIN // 2, n_x, X_STEP_MAIN):
+    add_wallpaper_column(cx, y_start=Y_BASE + Y_STEP // 2)
 
 # 64Analytics brand logo bottom-right
 brand_b64 = brand_logo_b64()
