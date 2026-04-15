@@ -181,12 +181,12 @@ def rotated_logo_b64(team_full_name, angle=-45, size=200, alpha=0.18):
         return None
 
 
-def find_biggest_segment(home_wps, want_home_ahead):
-    """Return (start_idx, end_idx) of the longest stretch where:
+def find_all_segments(home_wps, want_home_ahead, min_len=5):
+    """Return list of (start_idx, end_idx) stretches where:
        - want_home_ahead=True  → WP > 50
        - want_home_ahead=False → WP < 50
-    Returns None if no such stretch exists."""
-    best = None
+    Only returns segments of at least `min_len` plays."""
+    segments = []
     cur_start = None
     for i, wp in enumerate(home_wps):
         ahead = wp > 50 if want_home_ahead else wp < 50
@@ -194,15 +194,12 @@ def find_biggest_segment(home_wps, want_home_ahead):
             if cur_start is None:
                 cur_start = i
         else:
-            if cur_start is not None:
-                if best is None or (i - cur_start) > (best[1] - best[0]):
-                    best = (cur_start, i - 1)
-                cur_start = None
-    if cur_start is not None:
-        end = len(home_wps) - 1
-        if best is None or (end - cur_start) > (best[1] - best[0]):
-            best = (cur_start, end)
-    return best
+            if cur_start is not None and (i - cur_start) >= min_len:
+                segments.append((cur_start, i - 1))
+            cur_start = None
+    if cur_start is not None and (len(home_wps) - cur_start) >= min_len:
+        segments.append((cur_start, len(home_wps) - 1))
+    return segments
 
 
 def log5(wa, wb):
@@ -356,27 +353,39 @@ away_col = team_color(away, fallback=AWAY_COLOR)
 # Plotly figure
 fig = go.Figure()
 
-# 50% reference
-fig.add_hline(y=50, line_dash='dash', line_color='#888', line_width=1, opacity=0.5)
-
-# Shaded area uses each team's own color (home above 50%, away below)
-above = [max(w, 50) for w in home_wps]
-below = [min(w, 50) for w in home_wps]
-
-fig.add_trace(go.Scatter(
-    x=x_indices, y=above, fill='tonexty',
-    fillcolor=rgba_from_hex(home_col, 0.22),
-    mode='none', name=f'{home} ahead', showlegend=True, hoverinfo='skip',
-))
+# Baseline at 50 (invisible trace used as fill reference)
 fig.add_trace(go.Scatter(
     x=x_indices, y=[50] * len(x_indices), mode='none',
     showlegend=False, hoverinfo='skip',
 ))
+
+# HOME ahead region: fill between 50 and curve where curve > 50.
+# Everywhere else, y equals 50 (zero-height fill).
+home_ahead_y = [w if w > 50 else 50 for w in home_wps]
 fig.add_trace(go.Scatter(
-    x=x_indices, y=below, fill='tonexty',
-    fillcolor=rgba_from_hex(away_col, 0.22),
-    mode='none', name=f'{away} ahead', showlegend=True, hoverinfo='skip',
+    x=x_indices, y=home_ahead_y, fill='tonexty',
+    fillcolor=rgba_from_hex(home_col, 0.30),
+    mode='none', name=f'{home} ahead', showlegend=True, hoverinfo='skip',
+    line=dict(width=0),
 ))
+
+# Reset baseline for away fill
+fig.add_trace(go.Scatter(
+    x=x_indices, y=[50] * len(x_indices), mode='none',
+    showlegend=False, hoverinfo='skip',
+))
+
+# AWAY ahead region: fill between curve and 50 where curve < 50.
+away_ahead_y = [w if w < 50 else 50 for w in home_wps]
+fig.add_trace(go.Scatter(
+    x=x_indices, y=away_ahead_y, fill='tonexty',
+    fillcolor=rgba_from_hex(away_col, 0.30),
+    mode='none', name=f'{away} ahead', showlegend=True, hoverinfo='skip',
+    line=dict(width=0),
+))
+
+# 50% reference line on top of fills
+fig.add_hline(y=50, line_dash='dash', line_color='#888', line_width=1, opacity=0.6)
 
 # Main WP line with rich hover
 fig.add_trace(go.Scatter(
@@ -401,41 +410,40 @@ annotations = [
          font=dict(size=11, color=TEXT_MUTED)),
 ]
 
-# Brand logo (bottom-right) + team logos rotated 45° in each team's shaded region
+# Brand logo (bottom-right) + team logos rotated 45° throughout each team's lead segments
 images = []
 
-def add_team_logo_in_segment(team_name, want_home_ahead):
-    """Place the team's rotated logo in the middle of their largest lead segment."""
-    seg = find_biggest_segment(home_wps, want_home_ahead=want_home_ahead)
-    if seg is None:
-        return
-    start, end = seg
-    mid_x = (start + end) / 2
-    # Compute a representative midpoint y value within the segment
-    seg_wps = home_wps[start:end + 1]
-    if want_home_ahead:
-        # WPs above 50 — logo centered between 50 and the segment's average WP
-        avg_wp = sum(seg_wps) / len(seg_wps)
-        mid_y = (50 + avg_wp) / 2
-    else:
-        avg_wp = sum(seg_wps) / len(seg_wps)
-        mid_y = (50 + avg_wp) / 2  # still centered in the shaded band
-    logo_b64_rot = rotated_logo_b64(team_name, angle=-45, size=240, alpha=0.22)
+def add_team_logos_in_segments(team_name, want_home_ahead):
+    """Drop the team's rotated logo repeatedly through every lead segment.
+    Spacing = one logo per ~10 plays so long runs get multiple watermarks."""
+    logo_b64_rot = rotated_logo_b64(team_name, angle=-45, size=240, alpha=0.18)
     if not logo_b64_rot:
         return
-    # Size logo proportional to segment width (clamped)
-    seg_len = end - start + 1
-    sizex = max(6, min(18, seg_len / 2.5))
-    sizey = 18  # WP units
-    images.append(dict(
-        source=f'data:image/png;base64,{logo_b64_rot}',
-        xref='x', yref='y',
-        x=mid_x, y=mid_y, sizex=sizex, sizey=sizey,
-        xanchor='center', yanchor='middle', layer='below',
-    ))
+    segments = find_all_segments(home_wps, want_home_ahead=want_home_ahead, min_len=4)
+    logo_spacing = 10  # plays between logos in a long segment
+    logo_size_x = 7    # plays wide
+    logo_size_y = 12   # WP units tall
+    for start, end in segments:
+        seg_len = end - start + 1
+        n_logos = max(1, seg_len // logo_spacing)
+        for k in range(n_logos):
+            # Distribute logos evenly within the segment
+            frac = (k + 0.5) / n_logos
+            cx = start + frac * seg_len
+            # Midpoint y within the shaded band (between 50 and the curve at this x)
+            ci = int(cx)
+            if ci < 0 or ci >= len(home_wps):
+                continue
+            cy = (50 + home_wps[ci]) / 2
+            images.append(dict(
+                source=f'data:image/png;base64,{logo_b64_rot}',
+                xref='x', yref='y',
+                x=cx, y=cy, sizex=logo_size_x, sizey=logo_size_y,
+                xanchor='center', yanchor='middle', layer='below',
+            ))
 
-add_team_logo_in_segment(home, want_home_ahead=True)
-add_team_logo_in_segment(away, want_home_ahead=False)
+add_team_logos_in_segments(home, want_home_ahead=True)
+add_team_logos_in_segments(away, want_home_ahead=False)
 
 # 64Analytics brand logo bottom-right
 brand_b64 = brand_logo_b64()
