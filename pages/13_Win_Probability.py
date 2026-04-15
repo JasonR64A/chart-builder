@@ -32,9 +32,17 @@ HOME_FIELD_ADVANTAGE = 0.04
 # In-game clamps — allow real blowouts to read near-certain
 CLAMP_MIN = 0.01
 CLAMP_MAX = 0.99
-# Pre-game clamps — tighter so talent gap never implies a near-lock.
-# A 90% ceiling keeps the best-vs-worst D1 matchups (Arkansas vs UAPB etc.)
-# from pinning at 99%, which felt unrealistic. Tune from here.
+# Pre-game proportional compression.
+# Rather than a hard cap, we scale the log5 edge (distance from 0.5) by this
+# factor, then add HFA. Every pre-game WP's gap from 50/50 gets pulled in
+# proportionally, so relative ordering is preserved at all levels:
+#   - Arkansas vs UAPB (raw ~99%) compresses to ~90% max
+#   - A 57% matchup compresses to ~56.2%
+# 0.72 was chosen to put the best-vs-worst D1 matchup around 90% including HFA.
+# Tune down for more compression, up for less.
+PREGAME_EDGE_SCALE = 0.72
+# Safety clamp — the math above should keep us inside this range, but floor/ceil
+# guards against any rank_pct edge case producing something silly.
 PREGAME_CLAMP_MIN = 0.10
 PREGAME_CLAMP_MAX = 0.90
 
@@ -222,7 +230,10 @@ def pre_game_wp(home_pct, away_pct):
     if pd.isna(home_pct) or pd.isna(away_pct):
         return 0.5
     base = log5(home_pct, away_pct)
-    return max(PREGAME_CLAMP_MIN, min(PREGAME_CLAMP_MAX, base + HOME_FIELD_ADVANTAGE))
+    # Compress the edge toward 50/50 before applying home-field advantage
+    scaled = 0.5 + (base - 0.5) * PREGAME_EDGE_SCALE
+    adjusted = scaled + HOME_FIELD_ADVANTAGE
+    return max(PREGAME_CLAMP_MIN, min(PREGAME_CLAMP_MAX, adjusted))
 
 
 def state_key(row):
