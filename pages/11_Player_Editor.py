@@ -1,21 +1,119 @@
 """
 Player Editor — Edit or create player records for cross-referencing with players.csv.
 
+Edits and creates are saved to Supabase (`player_editor_queue` table) so they
+persist across sessions and are visible to any reviewer. Never writes to
+players.csv directly. Download the queue and merge manually.
+
 Edit mode: Search by player_id, see current values, edit position/classification/
-height/bat/throw/hometown. Changes are tracked in a session queue, never written
-to players.csv directly.
+height/bat/throw/hometown.
 
-Create mode: Enter a new player's details. Gets the next available ID; also
-tracked in the session queue.
+Create mode: Enter a new player's details. Gets the next available ID.
 
-Exports: Download the queue as a CSV with original values (for edits) + new
-values, so a human can cross-reference and manually merge into players.csv.
+Exports: Download all pending (unapplied) entries from Supabase as a CSV
+for local merge into players.csv. After merging + pushing, click
+"Mark all as applied" to clear the queue.
 """
 import streamlit as st
 import pandas as pd
+import requests
+import json
 from pathlib import Path
 from datetime import datetime
 from io import StringIO
+
+# ── Supabase ─────────────────────────────────────────────────────────────────
+SUPABASE_URL = 'https://vfzoroabzmbvwkcyozes.supabase.co'
+SUPABASE_ANON_KEY = (
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.'
+    'eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZmem9yb2Fiem1idndrY3lvemVzIiwi'
+    'cm9sZSI6ImFub24iLCJpYXQiOjE2OTQwNDU5NTgsImV4cCI6MjAwOTYyMTk1OH0.'
+    'MpzhpgI2fVDC5ucrECl2AuQ9VfT_8aaTmFunthyJAPA'
+)
+QUEUE_TABLE = 'player_editor_queue'
+
+HEADERS = {
+    'apikey': SUPABASE_ANON_KEY,
+    'Authorization': f'Bearer {SUPABASE_ANON_KEY}',
+    'Content-Type': 'application/json',
+}
+
+
+def sb_url(table):
+    return f'{SUPABASE_URL}/rest/v1/{table}'
+
+
+def load_pending_queue():
+    """Fetch all unapplied queue entries from Supabase."""
+    try:
+        resp = requests.get(
+            sb_url(QUEUE_TABLE),
+            headers=HEADERS,
+            params={'select': 'id,player_id,action,payload,created_at', 'applied_at': 'is.null', 'order': 'created_at.desc'},
+            timeout=10,
+        )
+        if resp.status_code == 200:
+            rows = resp.json()
+            # Flatten payload into top-level columns for display
+            flat = []
+            for r in rows:
+                payload = r.get('payload') or {}
+                flat.append({'queue_id': r['id'], 'player_id': r['player_id'], 'action': r['action'],
+                             'created_at': r.get('created_at',''), **payload})
+            return flat
+        st.error(f'Failed to load queue: {resp.status_code} {resp.text[:200]}')
+        return []
+    except Exception as e:
+        st.error(f'Supabase load error: {e}')
+        return []
+
+
+def save_entry(player_id, action, payload):
+    """Save a single edit/create to Supabase."""
+    row = {'player_id': int(player_id), 'action': action, 'payload': payload}
+    try:
+        resp = requests.post(
+            sb_url(QUEUE_TABLE),
+            headers={**HEADERS, 'Prefer': 'return=minimal'},
+            json=[row],
+            timeout=10,
+        )
+        return resp.status_code in (200, 201, 204)
+    except Exception as e:
+        st.error(f'Supabase save error: {e}')
+        return False
+
+
+def mark_all_applied(ids):
+    """Set applied_at=now() for the given queue ids."""
+    if not ids: return True
+    try:
+        resp = requests.patch(
+            sb_url(QUEUE_TABLE),
+            headers={**HEADERS, 'Prefer': 'return=minimal'},
+            params={'id': f'in.({",".join(str(i) for i in ids)})'},
+            json={'applied_at': datetime.utcnow().isoformat() + 'Z'},
+            timeout=15,
+        )
+        return resp.status_code in (200, 204)
+    except Exception as e:
+        st.error(f'Supabase mark-applied error: {e}')
+        return False
+
+
+def delete_entry(queue_id):
+    """Remove a single pending entry (for cancel/undo)."""
+    try:
+        resp = requests.delete(
+            sb_url(QUEUE_TABLE),
+            headers={**HEADERS, 'Prefer': 'return=minimal'},
+            params={'id': f'eq.{queue_id}'},
+            timeout=10,
+        )
+        return resp.status_code in (200, 204)
+    except Exception as e:
+        st.error(f'Supabase delete error: {e}')
+        return False
 
 _APP_DIR = Path(__file__).resolve().parent.parent
 DATA_DIR = _APP_DIR / 'data'
@@ -67,15 +165,15 @@ def next_player_id(players_df):
 # ── UI ────────────────────────────────────────────────────────────────────────
 st.set_page_config(page_title='Player Editor', layout='wide')
 st.title('Player Editor')
-st.caption('Edit or create player records for cross-referencing with players.csv. '
-           'Never modifies players.csv directly — download the queue and merge manually.')
+st.caption('Edits are saved to Supabase — they persist across sessions and are '
+           'visible to any reviewer. Download the queue when ready to merge into '
+           'players.csv locally, then mark them applied.')
 
 players_df = load_players()
 teams_df = load_teams()
 
-# Session queue — list of dicts
-if 'editor_queue' not in st.session_state:
-    st.session_state.editor_queue = []
+# Pull pending queue from Supabase on every render
+pending_queue = load_pending_queue()
 
 mode = st.radio('Mode', ['Edit', 'Create'], horizontal=True, key='editor_mode')
 st.markdown('---')
@@ -141,18 +239,22 @@ if mode == 'Edit':
                 else:
                     new_vals[col] = st.text_input(f'New {col}', value=cur_display, key=f'new_{col}')
 
-        if st.button('Add to export queue', type='primary', key='edit_add'):
-            entry = {
-                'action': 'edit',
-                'id': int(target['id']),
-                'timestamp': datetime.now().isoformat(timespec='seconds'),
-            }
-            # Capture original + new for each editable col
+        if st.button('Save edit to queue', type='primary', key='edit_add'):
+            payload = {'player_name': target.get('player_name')}
+            # Capture original + new for each editable col (JSON-safe: no NaN)
             for col in EDITABLE_COLS:
-                entry[f'original_{col}'] = target.get(col)
-                entry[f'new_{col}'] = new_vals.get(col)
-            st.session_state.editor_queue.append(entry)
-            st.success(f"Added edit for {target['player_name']} (id={target['id']}) to queue.")
+                orig = target.get(col)
+                if pd.isna(orig): orig = None
+                payload[f'original_{col}'] = orig
+                new = new_vals.get(col)
+                if pd.isna(new): new = None
+                payload[f'new_{col}'] = new
+            ok = save_entry(int(target['id']), 'edit', payload)
+            if ok:
+                st.success(f"Saved edit for {target['player_name']} (id={target['id']}).")
+                st.rerun()
+            else:
+                st.error('Save failed — see error above.')
 
 # ── CREATE MODE ──────────────────────────────────────────────────────────────
 else:
@@ -188,17 +290,14 @@ else:
 
     can_add = bool(new_name.strip()) and not id_conflict
 
-    if st.button('Add to export queue', type='primary', disabled=not can_add, key='create_add'):
-        # Parse team_id from the label (format: "Name (Sport) — id=123")
+    if st.button('Save new player to queue', type='primary', disabled=not can_add, key='create_add'):
         team_id = None
         if new_team_label and 'id=' in new_team_label:
             try:
                 team_id = int(new_team_label.rsplit('id=', 1)[1].strip().rstrip(')').strip())
             except (ValueError, IndexError):
                 team_id = None
-        entry = {
-            'action': 'create',
-            'id': int(new_id),
+        payload = {
             'player_name': new_name.strip(),
             'position': new_pos or None,
             'classification': new_class or None,
@@ -207,41 +306,59 @@ else:
             'bat': new_bat or None,
             'throw': new_throw or None,
             'hometown': new_home.strip() or None,
-            'timestamp': datetime.now().isoformat(timespec='seconds'),
         }
-        st.session_state.editor_queue.append(entry)
-        st.success(f"Added new player {new_name.strip()} (id={new_id}) to queue.")
+        ok = save_entry(int(new_id), 'create', payload)
+        if ok:
+            st.success(f"Saved new player {new_name.strip()} (id={new_id}).")
+            st.rerun()
+        else:
+            st.error('Save failed — see error above.')
 
 # ── Queue display + export ───────────────────────────────────────────────────
 st.markdown('---')
-st.markdown(f'### Export queue ({len(st.session_state.editor_queue)} entries)')
+st.markdown(f'### Pending edit queue ({len(pending_queue)} entries)')
 
-if len(st.session_state.editor_queue) == 0:
-    st.caption('No entries yet. Use Edit or Create mode above to add some.')
+if len(pending_queue) == 0:
+    st.caption('No pending entries. Use Edit or Create mode above to add some.')
 else:
-    q = pd.DataFrame(st.session_state.editor_queue)
+    q = pd.DataFrame(pending_queue)
     st.dataframe(q, use_container_width=True, hide_index=True)
 
-    c1, c2, c3 = st.columns([1, 1, 3])
+    c1, c2, c3 = st.columns([1, 1, 2])
     with c1:
-        # Export as CSV
         csv_buf = StringIO()
         q.to_csv(csv_buf, index=False)
         st.download_button(
-            'Download queue CSV',
+            'Download pending CSV',
             data=csv_buf.getvalue(),
             file_name=f'player_editor_queue_{datetime.now().strftime("%Y%m%d_%H%M%S")}.csv',
             mime='text/csv',
             type='primary',
         )
     with c2:
-        if st.button('Clear queue', type='secondary'):
-            st.session_state.editor_queue = []
-            st.rerun()
+        if st.button('Mark all as applied', type='secondary',
+                     help='Click after you have merged the downloaded CSV into players.csv and pushed.'):
+            ids = [e['queue_id'] for e in pending_queue]
+            if mark_all_applied(ids):
+                st.success(f'Marked {len(ids)} entries as applied.')
+                st.rerun()
+            else:
+                st.error('Failed to mark applied — queue unchanged.')
+    with c3:
+        if st.button('Delete single entry', key='del_btn'):
+            st.session_state.show_delete = True
+        if st.session_state.get('show_delete'):
+            del_id = st.number_input('queue_id to delete', min_value=0, step=1, value=0, key='del_id')
+            if del_id and st.button('Confirm delete', type='secondary', key='del_confirm'):
+                if delete_entry(int(del_id)):
+                    st.success(f'Deleted entry {del_id}.')
+                    st.session_state.show_delete = False
+                    st.rerun()
 
 st.markdown('---')
 st.caption(
-    'Queue lives in your browser session only — refresh the page and it\'s gone. '
-    'Download before closing. Nothing here writes to players.csv; the CSV is for '
-    'manual cross-reference and merge.'
+    'Edits persist in Supabase — refreshing this page or switching reviewers still '
+    'shows the same queue. Workflow: save edits here → download pending CSV → merge '
+    'into players.csv locally → commit + push chart-builder → click "Mark all as '
+    'applied" to clear the queue.'
 )
