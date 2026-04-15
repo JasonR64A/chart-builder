@@ -1,258 +1,28 @@
 ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfer_date,update_date,status,year,sport,team_id,match_method,confidence
 2309104294,ELIJAH,DEVITA,Elijah Devita,Point Park University,Mountain East Conference,II,02/03/2026,04/08/2026,Withdrawn,2025-26,Baseball,965,none,NONE
-2604871252,TANNER,DELCOURT,Tanner Delcourt,Westminster College (Missouri),St. Louis Intercollegiate Athletic Conference,III,04/08/2026,04/08/2026,Active,2025-26,Baseball,898,none,NONE
-2507664092,BRODY,COLEMAN,Brody Coleman,Trine University,Michigan Intercollegiate Athletic Association,III,04/07/2026,04/07/2026,Active,2025-26,Baseball,796,none,NONE
-2604868992,JAKE,NOVELLO,Jake Novello,Rhode Island College,Little East Conference,III,04/07/2026,04/07/2026,Active,2025-26,Baseball,641,none,NONE
-2405313862,MYLES,SEID,Myles Seid,Saint Leo University,Sunshine State Conference,II,04/07/2026,04/07/2026,Active,2025-26,Baseball,669,none,NONE
-2401192717,WILLIAM,EVERETT,William Everett,Emmanuel University (Georgia),Conference Carolinas,II,04/06/2026,04/06/2026,Active,2025-26,Baseball,242,none,NONE
-2406326658,ISAIAH,MITCHELL,Isaiah Mitchell,Point Park University,Mountain East Conference,II,04/03/2026,04/03/2026,Active,2025-26,Baseball,965,none,NONE
-2009930516,JARED,MUNOZ,Jared Munoz,"University of Massachusetts, Amherst",Mid-American Conference,I,10/06/2025,03/31/2026,Active,2025-26,Baseball,452,none,NONE
 2012983441,STEELE,BURD,Steele Burd,Clemson University,Atlantic Coast Conference,I,12/01/2025,03/26/2026,Signed,2025-26,Baseball,160,none,NONE
-2210706051,TYLER,DEJONG,Tyler Dejong,Florida State University,Atlantic Coast Conference|Atlantic Coast Conference|Atlantic Coast Conference,I,03/25/2026,03/26/2026,Active,2025-26,"Baseball|Men's Track, Indoor|Men's Track, Outdoor",267,none,NONE
-2101987945,CONNOR,VIOLA,Connor Viola,Eastern University,Middle Atlantic Conference Commonwealth,III,03/24/2026,03/24/2026,Active,2025-26,Baseball,231,none,NONE
-2411455553,THOMAS,MARTENS,Thomas Martens,Mars Hill University,South Atlantic Conference,II,03/24/2026,03/24/2026,Active,2025-26,Baseball,439,none,NONE
-2505608775,ELI,PERRIN,Eli Perrin,Middle Georgia State University,Peach Belt Conference,II,03/19/2026,03/19/2026,Active,2025-26,Baseball,1022,none,NONE
-2511772050,JAMES,BURNES,James Burnes,Johnson & Wales University (Providence),Conference of New England,III,11/19/2025,03/19/2026,Active,2025-26,Baseball,364,none,NONE
-2507666874,GRANT,GURSKY,Grant Gursky,University of Mount Olive,Conference Carolinas,II,03/13/2026,03/13/2026,Active,2025-26,Baseball,508,none,NONE
-2112395212,BRYCE,RONKEN,Bryce Ronken,Augustana University (South Dakota),Northern Sun Intercollegiate Conference,II,03/12/2026,03/13/2026,Active,2025-26,Baseball,47,none,NONE
-2109322479,AIDAN,OKEEFE,Aidan Okeefe,University of Richmond,Atlantic 10 Conference,I,03/11/2026,03/11/2026,Active,2025-26,Baseball,644,none,NONE
 2302781133,CHRISTOPHER,YANNELLA,Christopher Yannella,St. Thomas Aquinas College,East Coast Conference,II,01/12/2026,03/10/2026,Matriculated,2025-26,Baseball,752,none,NONE
-2304845215,WILLIAM,FLEMING,William Fleming,Transylvania University,Heartland Collegiate Athletic Conference,III,03/09/2026,03/09/2026,Active,2025-26,Baseball,794,none,NONE
-2603840311,BRIDGER,THOMAS,Bridger Thomas,Trinity University (Texas),Southern Athletic Association,III,03/09/2026,03/09/2026,Active,2025-26,Baseball,798,none,NONE
 2205571046,AH'MARION,ASHLEY,Ah'Marion Ashley,"California State University, Fresno",Mountain West Conference|Mountain West Conference,I,01/02/2026,03/03/2026,Matriculated,2025-26,Baseball|Football,280,none,NONE
-2401201440,CURTIS,MAIER,Curtis Maier,"Pennsylvania Western University, California",Pennsylvania State Athletic Conference,II,03/02/2026,03/02/2026,Active,2025-26,Baseball,115,none,NONE
-2402214693,LIAM,GAINE,Liam Gaine,Curry College,Conference of New England,III,02/27/2026,02/28/2026,Active,2025-26,Baseball,193,none,NONE
 2512778849,ISAAC,CARAHER,Isaac Caraher,Mary Baldwin University,USA South Athletic Conference,III,12/01/2025,02/26/2026,Matriculated,2025-26,Baseball,443,none,NONE
 2407362492,MARTIN,RESTREPO ZULUAGA,Martin Restrepo Zuluaga,Loras College,American Rivers Conference,III,02/26/2026,02/26/2026,Active,2025-26,Baseball,418,none,NONE
-2009913932,ANTONIO,DIGRIGOLI,Antonio Digrigoli,Towson University,Coastal Athletic Association,I,12/01/2025,02/26/2026,Active,2025-26,Baseball,793,none,NONE
-2602832708,TAYLOR,LEMANSKI,Taylor Lemanski,University of Wisconsin-La Crosse,Wisconsin Intercollegiate Athletic Conference,III,02/26/2026,02/26/2026,Active,2025-26,Baseball,922,none,NONE
 2404270928,MICHAEL,GIAMARTINO,Michael Giamartino,Wofford College,Southern Conference,I,12/05/2025,02/21/2026,Matriculated,2025-26,Baseball,932,none,NONE
 2309121194,ISRAEL,PETITE,Israel Petite,Robert Morris University,Sport not sponsored|Northeast Conference,I,01/02/2026,02/21/2026,Matriculated,2025-26,Baseball|Football,,none,NONE
 2406335997,PAUL,SCHUYLER III,Paul Schuyler Iii,University of Nebraska at Omaha,The Summit League,I,12/10/2025,02/21/2026,Matriculated,2025-26,Baseball,586,none,NONE
 2312184676,RYAN,MAINEY,Ryan Mainey,Franklin Pierce University,Northeast 10 Conference,II,09/08/2025,02/21/2026,Signed,2025-26,Baseball,277,none,NONE
-2408381778,BRADY,LARGENT,Brady Largent,Concord University,Mountain East Conference,II,11/10/2025,02/21/2026,Active,2025-26,Baseball,175,none,NONE
 2203473766,CADEN,PINNICK,Caden Pinnick,"University of California, Davis",Big West Conference|Big Sky Conference,I,01/02/2026,02/21/2026,Matriculated,2025-26,Baseball|Football,807,none,NONE
 2106209076,TOMMY,WINTON,Tommy Winton,"University of Tennessee, Knoxville",Southeastern Conference|Southeastern Conference,I,01/06/2026,02/21/2026,Matriculated,2025-26,Baseball|Football,776,none,NONE
 2404267668,DOMINIC,MEJIA,Dominic Mejia,Shepherd University,Pennsylvania State Athletic Conference,II,11/20/2025,02/18/2026,Matriculated,2025-26,Baseball,699,none,NONE
-2411464218,KRISTOPHER,COLTON,Kristopher Colton,Middle Georgia State University,Peach Belt Conference,II,11/21/2025,02/17/2026,Active,2025-26,Baseball,1022,none,NONE
-2310150262,JACE,PASK,Jace Pask,Middle Georgia State University,Peach Belt Conference,II,11/17/2025,02/17/2026,Active,2025-26,Baseball,1022,none,NONE
-1907644276,KADE,ABRISZ,Kade Abrisz,Point Park University,Mountain East Conference,II,02/16/2026,02/16/2026,Active,2025-26,Baseball,965,none,NONE
 2309115297,JOHN,FOX JR.,John Fox Jr.,University of Saint Joseph (Connecticut),Great Northeast Athletic Conference,III,02/13/2026,02/13/2026,Active,2025-26,Baseball,958,none,NONE
-2402218789,COLTIN,SMITH,Coltin Smith,"Minnesota State University, Mankato",Northern Sun Intercollegiate Conference,II,02/10/2026,02/12/2026,Active,2025-26,Baseball,484,none,NONE
-2408381812,EDWARD,GIROIR,Edward Giroir,Kentucky State University,Southern Intercol. Ath. Conf.,II,02/11/2026,02/11/2026,Active,2025-26,Baseball,373,none,NONE
 2212745877,JACOB,COLEMAN,Jacob Coleman,Concord University,Mountain East Conference,II,10/28/2025,02/10/2026,Matriculated,2025-26,Baseball,175,none,NONE
-2211726945,BRIAN,BECKER,Brian Becker,Alvernia University,Middle Atlantic Conference Commonwealth,III,02/06/2026,02/06/2026,Active,2025-26,Baseball,22,none,NONE
-2505618421,DOMINIC,FASSIO,Dominic Fassio,Christian Brothers University,Gulf South Conference,II,02/06/2026,02/06/2026,Active,2025-26,Baseball,151,none,NONE
-2602818335,ALEJANDRO,CASTIILLO-RIVERA,Alejandro Castiillo-Rivera,"University of Massachusetts, Dartmouth",Little East Conference,III,02/05/2026,02/05/2026,Active,2025-26,Baseball,822,none,NONE
 2207616427,MORLEDRAEYON,DUNCAN,Morledraeyon Duncan,Fort Valley State University,Sport not sponsored|Southern Intercol. Ath. Conf.,II,12/02/2025,02/05/2026,Matriculated,2025-26,Baseball|Football,,none,NONE
-2110359911,TYLER,GIORDANO,Tyler Giordano,Wagner College,Northeast Conference,I,12/01/2025,02/03/2026,Active,2025-26,Baseball,863,none,NONE
-2601813247,XANDER,VELEZ,Xander Velez,"University of Pittsburgh, Greensburg",Allegheny Mountain Collegiate Conference,III,02/02/2026,02/02/2026,Active,2025-26,Baseball,611,none,NONE
-2105167417,JOHN,ANTONELLI,John Antonelli,Wheeling University,Mountain East Conference,II,11/26/2025,02/01/2026,Active,2025-26,Baseball,902,none,NONE
-2301759688,SIMON,RABE,Simon Rabe,Illinois College,Midwest Conference,III,01/30/2026,01/31/2026,Active,2025-26,Baseball,346,none,NONE
-2408379030,MATTHEW,BOLINGER,Matthew Bolinger,University of Central Oklahoma,Mid-America Intercollegiate Athletics Association,II,12/24/2025,01/31/2026,Active,2025-26,Baseball,139,none,NONE
-2412474635,JASON,PRUDENTE,Jason Prudente,Shepherd University,Pennsylvania State Athletic Conference,II,11/20/2025,01/29/2026,Active,2025-26,Baseball,699,none,NONE
 2211713509,ENRIQUE,BARRAZA,Enrique Barraza,Thomas Jefferson University,Central Atlantic Collegiate Conference,II,12/29/2025,01/29/2026,Matriculated,2025-26,Baseball,359,none,NONE
 2503549431,HELMUT,WATERS,Helmut Waters,Lane College,Southern Intercol. Ath. Conf.,II,11/10/2025,01/28/2026,Matriculated,2025-26,Baseball,391,none,NONE
 2312174445,AUSTIN,BUCHANAN,Austin Buchanan,La Salle University,Atlantic 10 Conference,I,12/01/2025,01/28/2026,Matriculated,2025-26,Baseball,949,none,NONE
-2508706210,GREGORY,AYUBE,Gregory Ayube,New Jersey City University,New Jersey Athletic Conference,III,01/28/2026,01/28/2026,Active,2025-26,Baseball,530,none,NONE
-2410432917,JODY,MURILLO,Jody Murillo,"University of Arkansas, Pine Bluff",Southwestern Athletic Conf.,I,12/01/2025,01/27/2026,Active,2025-26,Baseball,35,none,NONE
-2411461075,NICHOLAS,BURGOS,Nicholas Burgos,University of North Carolina at Pembroke,Conference Carolinas,II,12/09/2025,01/27/2026,Active,2025-26,Baseball,828,none,NONE
-2210691255,ANDREW,YELTON,Andrew Yelton,College of Charleston (South Carolina),Coastal Athletic Association,I,12/01/2025,01/24/2026,Active,2025-26,Baseball,167,none,NONE
-2201425948,SHELBY,ANDERS,Shelby Anders,Harding University,Great American Conference,II,12/10/2025,01/24/2026,Active,2025-26,Baseball,315,none,NONE
-2202435496,COLETON,DAHL,Coleton Dahl,Point Loma Nazarene University,Pacific West Conference,II,01/23/2026,01/24/2026,Active,2025-26,Baseball,617,none,NONE
-2109334902,MAXWELL,SENESAC,Maxwell Senesac,University of San Diego,West Coast Conference,I,12/15/2025,01/23/2026,Active,2025-26,Baseball,684,none,NONE
-2601807059,HENRY,FABER,Henry Faber,University of Hartford,Conference of New England,III,01/22/2026,01/22/2026,Active,2025-26,Baseball,317,none,NONE
-2411460579,KYLE,LAMANTEER,Kyle Lamanteer,Rider University,Metro Atlantic Athletic Conference,I,12/01/2025,01/21/2026,Active,2025-26,Baseball,645,none,NONE
-2309109154,TYLER,RUETE,Tyler Ruete,Salem University (West Virginia),Independent,II,01/06/2026,01/21/2026,Active,2025-26,Baseball,678,none,NONE
 2507665947,MARISA,HENNIX,Marisa Hennix,San Jose State University,Mountain West Conference|Mountain West Conference|Mountain West Conference,I,12/07/2025,01/21/2026,Matriculated,2025-26,"Baseball|Women's Track, Indoor|Women's Track, Outdoor",688,none,NONE
-2409406143,JAMES,SKIFFINGTON,James Skiffington,University of Connecticut,BIG EAST Conference,I,12/01/2025,01/21/2026,Active,2025-26,Baseball,816,none,NONE
 2109334187,TYLER,GUNDELFINGER,Tyler Gundelfinger,Arkansas Tech University,Great American Conference,II,11/19/2025,01/20/2026,Matriculated,2025-26,Baseball,38,none,NONE
-2504567708,CORY,SUGG,Cory Sugg,"University of Hawaii, Manoa",Big West Conference,I,12/05/2025,01/19/2026,Active,2025-26,Baseball,320,none,NONE
-2211727463,KAI,NAGASHIMA,Kai Nagashima,"University of Hawaii, Manoa",Big West Conference,I,12/01/2025,01/19/2026,Active,2025-26,Baseball,320,none,NONE
-2501485824,AUGUST,PORTER,August Porter,Lane College,Southern Intercol. Ath. Conf.|Southern Intercol. Ath. Conf.,II,01/17/2026,01/17/2026,Active,2025-26,Baseball|Football,391,none,NONE
-2201424834,BRAYDEN,GUM,Brayden Gum,Missouri State University,Conference USA,I,12/01/2025,01/17/2026,Active,2025-26,Baseball,492,none,NONE
-2206580121,LANDON,CAMPBELL,Landon Campbell,Eastern Kentucky University,Atlantic Sun Conference,I,12/09/2025,01/16/2026,Active,2025-26,Baseball,228,none,NONE
 2510757920,SHANE,MCKENNA,Shane Mckenna,Denison University,North Coast Athletic Conference,III,11/04/2025,01/15/2026,Matriculated,2025-26,Baseball,208,none,NONE
-2208651892,DYLAN,OMALLEY,Dylan Omalley,Trinity College (Connecticut),New England Small College Athletic Conference,III,12/04/2025,01/14/2026,Active,2025-26,Baseball,797,none,NONE
-2208632994,LEGEND,FUGETT,Legend Fugett,Southeastern Oklahoma State University,Great American Conference,II,12/03/2025,01/14/2026,Active,2025-26,Baseball,715,none,NONE
-2310142275,COOPER,FISKEWOLD,Cooper Fiskewold,University of Nebraska at Omaha,The Summit League,I,12/11/2025,01/13/2026,Active,2025-26,Baseball,586,none,NONE
-2112393648,LIAM,ONEAL,Liam Oneal,University of Bridgeport,Central Atlantic Collegiate Conference,II,01/13/2026,01/13/2026,Active,2025-26,Baseball,93,none,NONE
-2508700704,KAIJ,ORDAZ,Kaij Ordaz,St. Edward's University,Lone Star Conference,II,12/06/2025,01/13/2026,Active,2025-26,Baseball,738,none,NONE
-2405291704,JONATHON,ROSSI,Jonathon Rossi,Webster University,St. Louis Intercollegiate Athletic Conference,III,12/10/2025,01/13/2026,Active,2025-26,Baseball,877,none,NONE
 2309121242,JACK RAYMOND,RAYMOND,Jack Raymond Raymond,Southern Connecticut State University,Northeast 10 Conference,II,12/10/2025,01/12/2026,Matriculated,2025-26,Baseball,718,none,NONE
-2002804440,EYON,EVERETT,Eyon Everett,Newberry College,South Atlantic Conference,II,10/30/2025,01/10/2026,Active,2025-26,Baseball,534,none,NONE
-2508686477,AMARI K,ALLEN,Amari K Allen,Middle Georgia State University,Peach Belt Conference,II,10/30/2025,01/10/2026,Active,2025-26,Baseball,1022,none,NONE
-2312180711,RILEY,FURROW,Riley Furrow,Lenoir-Rhyne University,South Atlantic Conference,II,01/09/2026,01/09/2026,Active,2025-26,Baseball,400,none,NONE
-2201417662,ETHAN,GOODBAND,Ethan Goodband,D'Youville University,East Coast Conference,II,11/25/2025,01/09/2026,Active,2025-26,Baseball,218,none,NONE
-2408379909,SKYLER,HEGLER,Skyler Hegler,Clemson University,Atlantic Coast Conference,I,12/02/2025,01/09/2026,Active,2025-26,Baseball,160,none,NONE
 2306924371,KENNETH,PICKENS IV,Kenneth Pickens Iv,Berry College,Southern Athletic Association,III,10/09/2025,01/09/2026,Active,2025-26,Baseball,73,none,NONE
-2302793358,ASHTON,PESHKE,Ashton Peshke,"University of Maryland, College Park",Big Ten Conference,I,12/01/2025,01/08/2026,Active,2025-26,Baseball,446,none,NONE
-2310131174,CARTER,BROWN,Carter Brown,Pepperdine University,West Coast Conference,I,12/03/2025,01/08/2026,Active,2025-26,Baseball,607,none,NONE
-2410442832,ETHAN,HUNT,Ethan Hunt,University of Houston,Big 12 Conference,I,12/03/2025,01/07/2026,Active,2025-26,Baseball,337,none,NONE
-2503538495,CAMDEN,BAKER,Camden Baker,Mount St. Mary's University,Metro Atlantic Athletic Conference,I,08/28/2025,01/07/2026,Active,2025-26,Baseball,509,none,NONE
-2409405937,RYAN,FLASINSKI,Ryan Flasinski,Chestnut Hill College,Central Atlantic Collegiate Conference,II,01/07/2026,01/07/2026,Active,2025-26,Baseball,147,none,NONE
-2412476422,MACK,PHILLIPS,Mack Phillips,University of Dayton,Atlantic 10 Conference,I,12/04/2025,01/07/2026,Active,2025-26,Baseball,200,none,NONE
-2406341731,SEAN,BEUG-HOFFMAN,Sean Beug-Hoffman,University of Wisconsin-Whitewater,Wisconsin Intercollegiate Athletic Conference,III,09/10/2025,01/07/2026,Active,2025-26,Baseball,929,none,NONE
-2405317827,BRENDEN,LEE,Brenden Lee,University of Evansville,Missouri Valley Conference,I,12/09/2025,01/06/2026,Active,2025-26,Baseball,250,none,NONE
-2111364324,BLAKE,SCHNEEBERGER,Blake Schneeberger,Bluefield State University,Independent,II,12/04/2025,01/06/2026,Active,2025-26,Baseball,84,none,NONE
-2208654025,JACKSON,LITTLE,Jackson Little,East Carolina University,American Conference,I,12/02/2025,01/03/2026,Active,2025-26,Baseball,220,none,NONE
-2501496937,SHEPPARD,GRAF,Sheppard Graf,University of South Carolina Aiken,Peach Belt Conference,II,01/02/2026,01/02/2026,Active,2025-26,Baseball,835,none,NONE
-2309119179,ASHER,JENNINGS,Asher Jennings,Oklahoma Christian University,Lone Star Conference,II,12/09/2025,01/01/2026,Active,2025-26,Baseball,579,none,NONE
-2411461407,BLAKE,WILSON,Blake Wilson,Northwest Nazarene University,Great Northwest Athletic Conference,II,12/31/2025,12/31/2025,Active,2025-26,Baseball,558,none,NONE
-2412472025,NICHOLAS,BUMBACO,Nicholas Bumbaco,Saint Peter's University,Metro Atlantic Athletic Conference,I,12/01/2025,12/30/2025,Active,2025-26,Baseball,675,none,NONE
-2001784465,AHMAR,DONATTO,Ahmar Donatto,University of Louisiana at Lafayette,Sun Belt Conference,I,12/11/2025,12/23/2025,Active,2025-26,Baseball,419,none,NONE
-2506650622,THEODORE,WOOD,Theodore Wood,Shepherd University,Pennsylvania State Athletic Conference,II,11/21/2025,12/23/2025,Active,2025-26,Baseball,699,none,NONE
-2501490002,DAVID,BULLARD,David Bullard,Holy Family University,Central Atlantic Collegiate Conference,II,12/22/2025,12/22/2025,Active,2025-26,Baseball,954,none,NONE
-2310143789,EDEN,NALIN,Eden Nalin,Grinnell College,Midwest Conference,III,12/19/2025,12/19/2025,Active,2025-26,Baseball,306,none,NONE
-2208641942,CONNOR,DEMKO,Connor Demko,Central Michigan University,Mid-American Conference,I,12/05/2025,12/19/2025,Active,2025-26,Baseball,137,none,NONE
-2209664873,OLIVER,CLARK,Oliver Clark,Central Michigan University,Mid-American Conference,I,12/03/2025,12/19/2025,Active,2025-26,Baseball,137,none,NONE
-2311155239,ASHTON,MCNAUGHTON,Ashton Mcnaughton,"California State Polytechnic University, Pomona",California Collegiate Athletic Association,II,12/18/2025,12/18/2025,Active,2025-26,Baseball,106,none,NONE
-2501503880,WALTER,ARGRETT,Walter Argrett,Edward Waters University,Southern Intercol. Ath. Conf.,II,12/18/2025,12/18/2025,Active,2025-26,Baseball,234,none,NONE
-2308980439,ABRAM,DELANO,Abram Delano,Northern Kentucky University,Horizon League,I,12/02/2025,12/18/2025,Active,2025-26,Baseball,554,none,NONE
-2304836883,HECTOR,CAMACHO,Hector Camacho,Barry University,Sunshine State Conference,II,10/21/2025,12/18/2025,Active,2025-26,Baseball,58,none,NONE
-2409395349,TANNER,MORNEAU,Tanner Morneau,University of North Georgia,Peach Belt Conference,II,11/11/2025,12/17/2025,Active,2025-26,Baseball,548,none,NONE
-2112401899,MADDOX,BOHANNON,Maddox Bohannon,Carson-Newman University,South Atlantic Conference,II,11/11/2025,12/17/2025,Active,2025-26,Baseball,125,none,NONE
-2009924915,LUKE,KLOOSTER,Luke Klooster,University of Washington,Big Ten Conference,I,12/05/2025,12/17/2025,Active,2025-26,Baseball,870,none,NONE
-2306940809,JAMES,JOINER,James Joiner,University of North Georgia,Peach Belt Conference,II,11/06/2025,12/17/2025,Active,2025-26,Baseball,548,none,NONE
-2410438513,CHASE,GIESER,Chase Gieser,Coker University,South Atlantic Conference,II,11/21/2025,12/16/2025,Active,2025-26,Baseball,166,none,NONE
-2407368285,DEMETRIUS,DERAMUS,Demetrius Deramus,University of Alabama,Southeastern Conference,I,12/08/2025,12/16/2025,Active,2025-26,Baseball,8,none,NONE
-2410427917,BRADY,YARABINETZ,Brady Yarabinetz,La Salle University,Atlantic 10 Conference,I,12/15/2025,12/15/2025,Active,2025-26,Baseball,949,none,NONE
-2504585645,CARSON,SHERRILL,Carson Sherrill,Fort Hays State University,Mid-America Intercollegiate Athletics Association,II,12/15/2025,12/15/2025,Active,2025-26,Baseball,271,none,NONE
-2508699088,ALEX,MESSON,Alex Messon,Felician University,Central Atlantic Collegiate Conference,II,12/15/2025,12/15/2025,Active,2025-26,Baseball,256,none,NONE
-2110337819,KADEN,MONKERUD,Kaden Monkerud,St. Edward's University,Lone Star Conference,II,12/14/2025,12/14/2025,Active,2025-26,Baseball,738,none,NONE
-2507666951,ARRINGTON,MCKAY,Arrington Mckay,Lyon College,St. Louis Intercollegiate Athletic Conference,III,12/12/2025,12/13/2025,Active,2025-26,Baseball,957,none,NONE
-2405308468,PRESLEY,WOODSON,Presley Woodson,Florida State University,Atlantic Coast Conference,I,12/11/2025,12/13/2025,Active,2025-26,Baseball,267,none,NONE
-2304845023,BLAKE,SIGGERS,Blake Siggers,Kentucky State University,Southern Intercol. Ath. Conf.,II,12/12/2025,12/12/2025,Active,2025-26,Baseball,373,none,NONE
-2312173923,TOBY,GLEESON-PAYNE,Toby Gleeson-Payne,The University of Texas Permian Basin,Lone Star Conference,II,12/12/2025,12/12/2025,Active,2025-26,Baseball,780,none,NONE
-2308976718,MICHAEL,SPADACCINO,Michael Spadaccino,St. John's University (New York),BIG EAST Conference,I,12/12/2025,12/12/2025,Active,2025-26,Baseball,740,none,NONE
-2502509870,JOEY,WOODS,Joey Woods,University of Illinois Springfield,Great Lakes Valley Conference,II,12/12/2025,12/12/2025,Active,2025-26,Baseball,343,none,NONE
-2304860299,ISAAC,GREEN,Isaac Green,Lane College,Southern Intercol. Ath. Conf.,II,12/12/2025,12/12/2025,Active,2025-26,Baseball,391,none,NONE
-2506645241,TYLER,RATTI,Tyler Ratti,Trine University,Michigan Intercollegiate Athletic Association|Michigan Intercollegiate Athletic Association,III,12/11/2025,12/11/2025,Active,2025-26,Baseball|Football,796,none,NONE
-2411453974,JORDEN,POPE,Jorden Pope,Adams State University,Rocky Mountain Athletic Conference,II,12/11/2025,12/11/2025,Active,2025-26,Baseball,3,none,NONE
-2107274497,OWEN,ANCHORS,Owen Anchors,Clemson University,Atlantic Coast Conference,I,12/11/2025,12/11/2025,Active,2025-26,Baseball,160,none,NONE
-2109331232,MIKHAI,GRANT,Mikhai Grant,Kennesaw State University,Conference USA,I,12/11/2025,12/11/2025,Active,2025-26,Baseball,370,none,NONE
-2408388298,JAYLEN,RUTHERFORD,Jaylen Rutherford,Purdue University Northwest,Great Lakes Intercollegiate Athletic Conference,II,12/10/2025,12/10/2025,Active,2025-26,Baseball,629,none,NONE
-2410444560,JOSEPH,LIFSTED,Joseph Lifsted,West Chester University of Pennsylvania,Pennsylvania State Athletic Conference,II,12/10/2025,12/10/2025,Active,2025-26,Baseball,882,none,NONE
-2108305891,EVAN,SLAWINSKI,Evan Slawinski,University of Tampa,Sunshine State Conference,II,12/09/2025,12/10/2025,Active,2025-26,Baseball,772,none,NONE
-2211720810,JORDAN,KELLY,Jordan Kelly,University of St. Thomas (Texas),Southern Collegiate Athletic Conference,III,12/09/2025,12/09/2025,Active,2025-26,Baseball,751,none,NONE
-1910729439,TREVOR,TESTERMAN,Trevor Testerman,Belmont Abbey College,Conference Carolinas,II,12/09/2025,12/09/2025,Active,2025-26,Baseball,66,none,NONE
-2306934716,ETHAN,RAMIREZ,Ethan Ramirez,Sul Ross State University,Lone Star Conference,II,12/08/2025,12/08/2025,Active,2025-26,Baseball,763,none,NONE
-2503530301,DEVIN,KRAFT,Devin Kraft,Roosevelt University,Great Lakes Intercollegiate Athletic Conference,II,12/08/2025,12/08/2025,Active,2025-26,Baseball,955,none,NONE
-2408388176,SHANE,RICHTERS,Shane Richters,Salve Regina University,New England Women's and Men's Athletic Conference,III,12/08/2025,12/08/2025,Active,2025-26,Baseball,681,none,NONE
-2311151402,JADEN,OVALLES,Jaden Ovalles,University of Tampa,Sunshine State Conference,II,12/08/2025,12/08/2025,Active,2025-26,Baseball,772,none,NONE
-2109336922,JARRYN,BARBER,Jarryn Barber,Lock Haven University of Pennsylvania,Pennsylvania State Athletic Conference,II,12/08/2025,12/08/2025,Active,2025-26,Baseball,415,none,NONE
-2107273325,REECE,BARIOLA,Reece Bariola,Missouri Western State University,Mid-America Intercollegiate Athletics Association,II,12/08/2025,12/08/2025,Active,2025-26,Baseball,493,none,NONE
-2405308246,TEAGUE,SPIVEY,Teague Spivey,North Greenville University,Conference Carolinas,II,12/05/2025,12/05/2025,Active,2025-26,Baseball,549,none,NONE
-2407345512,JOHN,HEDRICK,John Hedrick,University of South Carolina Aiken,Peach Belt Conference,II,12/05/2025,12/05/2025,Active,2025-26,Baseball,835,none,NONE
-2505594405,CONNOR,BULLARD,Connor Bullard,Western Oregon University,Great Northwest Athletic Conference,II,12/05/2025,12/05/2025,Active,2025-26,Baseball,896,none,NONE
-2504572451,KILIAN,DEMAYO,Kilian Demayo,North Greenville University,Conference Carolinas,II,12/05/2025,12/05/2025,Active,2025-26,Baseball,549,none,NONE
-2408382317,RYAN,RECIO,Ryan Recio,Menlo College,Pacific West Conference,II,12/05/2025,12/05/2025,Active,2025-26,Baseball,953,none,NONE
-2301763624,LOUIS,LEON,Louis Leon,Stephen F. Austin State University,Southland Conference,I,12/04/2025,12/05/2025,Active,2025-26,Baseball,697,none,NONE
-2209680133,CHRISTIAN,CLAUSS,Christian Clauss,College of the Holy Cross,Patriot League,I,12/05/2025,12/05/2025,Active,2025-26,Baseball,332,none,NONE
-2409402731,BRADY,BENJAMIN,Brady Benjamin,Walsh University,Great Midwest Athletic Conference,II,12/04/2025,12/05/2025,Active,2025-26,Baseball,865,none,NONE
-2305910761,CYRUS,ELROD,Cyrus Elrod,Southwest Minnesota State University,Northern Sun Intercollegiate Conference,II,12/04/2025,12/04/2025,Active,2025-26,Baseball,729,none,NONE
-2509720237,WILSON,MOORE,Wilson Moore,Shorter University,Conference Carolinas,II,12/04/2025,12/04/2025,Active,2025-26,Baseball,701,none,NONE
-2410424517,NOAH,SCHMID,Noah Schmid,Shorter University,Conference Carolinas,II,12/04/2025,12/04/2025,Active,2025-26,Baseball,701,none,NONE
-2508694702,JACK,HIRCHERT,Jack Hirchert,Lincoln Memorial University,South Atlantic Conference,II,12/04/2025,12/04/2025,Active,2025-26,Baseball,408,none,NONE
-2310130495,ANTHONY,WILKIE,Anthony Wilkie,Clemson University,Atlantic Coast Conference,I,12/04/2025,12/04/2025,Active,2025-26,Baseball,160,none,NONE
-2503528332,TYLER,LOGAN,Tyler Logan,University of Oregon,Big Ten Conference,I,12/01/2025,12/04/2025,Active,2025-26,Baseball,588,none,NONE
-2308993642,CANNON,FEAZELL,Cannon Feazell,Clemson University,Atlantic Coast Conference,I,12/04/2025,12/04/2025,Active,2025-26,Baseball,160,none,NONE
-2102106412,JOSHUA,TIBBITS,Joshua Tibbits,Point Park University,Mountain East Conference,II,12/04/2025,12/04/2025,Active,2025-26,Baseball,965,none,NONE
-2106206175,LOGAN,SULLIVAN,Logan Sullivan,Eureka College,St. Louis Intercollegiate Athletic Conference,III,12/04/2025,12/04/2025,Active,2025-26,Baseball,249,none,NONE
-2406343400,CALEB,RISER,Caleb Riser,North Greenville University,Conference Carolinas,II,12/04/2025,12/04/2025,Active,2025-26,Baseball,549,none,NONE
-2311156641,MICHAEL,MAANUM,Michael Maanum,Southwest Baptist University,Great Lakes Valley Conference,II,12/03/2025,12/03/2025,Active,2025-26,Baseball,728,none,NONE
-2507675446,DEVON,HOGUE,Devon Hogue,Coker University,South Atlantic Conference,II,12/03/2025,12/03/2025,Active,2025-26,Baseball,166,none,NONE
-2309117208,CADEN,BAKER,Caden Baker,Rice University,American Conference,I,12/03/2025,12/03/2025,Active,2025-26,Baseball,643,none,NONE
-2508687057,SAMUEL,FUNK,Samuel Funk,Lubbock Christian University,Lone Star Conference,II,12/03/2025,12/03/2025,Active,2025-26,Baseball,423,none,NONE
-2308989813,JOHN,LAROSE,John Larose,University of Connecticut,BIG EAST Conference,I,12/01/2025,12/03/2025,Active,2025-26,Baseball,816,none,NONE
-2505592255,MATTHEW,PETERSON,Matthew Peterson,"University of Nevada, Las Vegas",Mountain West Conference,I,12/02/2025,12/03/2025,Active,2025-26,Baseball,832,none,NONE
-2405312091,ISAIAH,RALLS,Isaiah Ralls,Coker University,South Atlantic Conference,II,12/03/2025,12/03/2025,Active,2025-26,Baseball,166,none,NONE
-2102117680,ANDREW,HOLUB,Andrew Holub,University of South Carolina Upstate,Big South Conference,I,12/03/2025,12/03/2025,Active,2025-26,Baseball,837,none,NONE
-2302781904,KADEN,COYNE,Kaden Coyne,"University of Massachusetts, Amherst",Mid-American Conference,I,12/02/2025,12/03/2025,Active,2025-26,Baseball,452,none,NONE
-2411454396,BRAYDEN,KRATZ,Brayden Kratz,La Salle University,Atlantic 10 Conference,I,12/02/2025,12/02/2025,Active,2025-26,Baseball,949,none,NONE
-2205558175,CARTER,WOJCIK,Carter Wojcik,La Salle University,Atlantic 10 Conference,I,12/02/2025,12/02/2025,Active,2025-26,Baseball,949,none,NONE
-2209661491,JACK,GHUFRAN,Jack Ghufran,San Jose State University,Mountain West Conference,I,12/02/2025,12/02/2025,Active,2025-26,Baseball,688,none,NONE
-2112397943,NICHOLAS,MIRABILE,Nicholas Mirabile,La Salle University,Atlantic 10 Conference,I,12/02/2025,12/02/2025,Active,2025-26,Baseball,949,none,NONE
-2109331667,JAMES,FAGNANT,James Fagnant,University of Richmond,Atlantic 10 Conference,I,12/02/2025,12/02/2025,Active,2025-26,Baseball,644,none,NONE
-2112389131,LUCAS,CASEY,Lucas Casey,Campbell University,Coastal Athletic Association,I,12/02/2025,12/02/2025,Active,2025-26,Baseball,120,none,NONE
-2210695118,ANDRE,MODUGNO,Andre Modugno,"University of California, Berkeley",Atlantic Coast Conference,I,12/02/2025,12/02/2025,Active,2025-26,Baseball,114,none,NONE
-2209683260,CARTER,PTAK,Carter Ptak,Saint Peter's University,Metro Atlantic Athletic Conference,I,12/01/2025,12/02/2025,Active,2025-26,Baseball,675,none,NONE
-2411446421,MYLES,JOHNSON,Myles Johnson,Eastern Kentucky University,Atlantic Sun Conference,I,12/01/2025,12/01/2025,Active,2025-26,Baseball,228,none,NONE
-2408393196,KEVIN,RUFF,Kevin Ruff,La Salle University,Atlantic 10 Conference,I,12/01/2025,12/01/2025,Active,2025-26,Baseball,949,none,NONE
-2411453317,JOHN,KOCH,John Koch,La Salle University,Atlantic 10 Conference,I,12/01/2025,12/01/2025,Active,2025-26,Baseball,949,none,NONE
-2309107534,GIANNI,RICCI,Gianni Ricci,La Salle University,Atlantic 10 Conference,I,12/01/2025,12/01/2025,Active,2025-26,Baseball,949,none,NONE
-2210684487,EVAN,SCHICKLER,Evan Schickler,La Salle University,Atlantic 10 Conference,I,12/01/2025,12/01/2025,Active,2025-26,Baseball,949,none,NONE
-2001787932,JUSTIN,GOTTLIEB,Justin Gottlieb,St. Bonaventure University,Atlantic 10 Conference,I,12/01/2025,12/01/2025,Active,2025-26,Baseball,736,none,NONE
-2410438692,BLAKE,SANDVIK,Blake Sandvik,University of Oregon,Big Ten Conference,I,12/01/2025,12/01/2025,Active,2025-26,Baseball,588,none,NONE
-2108284203,COLTON,WOMBLES,Colton Wombles,Radford University,Big South Conference,I,12/01/2025,12/01/2025,Active,2025-26,Baseball,634,none,NONE
-2312183389,TREYOR,ADDONIZIO,Treyor Addonizio,University of Richmond,Atlantic 10 Conference,I,12/01/2025,12/01/2025,Active,2025-26,Baseball,644,none,NONE
-2502520522,BRETT,HAGGERTY,Brett Haggerty,Coppin State University,Northeast Conference,I,12/01/2025,12/01/2025,Active,2025-26,Baseball,181,none,NONE
-2109333704,SHEA,CUCINOTTA,Shea Cucinotta,Saint Peter's University,Metro Atlantic Athletic Conference,I,12/01/2025,12/01/2025,Active,2025-26,Baseball,675,none,NONE
-2411455236,JAY,CONSTANTINO,Jay Constantino,Holy Family University,Central Atlantic Collegiate Conference,II,12/01/2025,12/01/2025,Active,2025-26,Baseball,954,none,NONE
-2211711661,KADEN,WARREN,Kaden Warren,Michigan State University,Big Ten Conference,I,12/01/2025,12/01/2025,Active,2025-26,Baseball,472,none,NONE
-2205565279,KORBYN,RUSSELL,Korbyn Russell,Michigan State University,Big Ten Conference,I,12/01/2025,12/01/2025,Active,2025-26,Baseball,472,none,NONE
-2509724641,CALEB,RUWE,Caleb Ruwe,Virginia Military Institute,Southern Conference,I,12/01/2025,12/01/2025,Active,2025-26,Baseball,859,none,NONE
-2211729956,JACK,REIMANN,Jack Reimann,Saint Peter's University,Metro Atlantic Athletic Conference,I,12/01/2025,12/01/2025,Active,2025-26,Baseball,675,none,NONE
-2202444144,LUCAS,DOMAN,Lucas Doman,Saint Peter's University,Metro Atlantic Athletic Conference,I,12/01/2025,12/01/2025,Active,2025-26,Baseball,675,none,NONE
-2212737422,LUCA,SIEGER,Luca Sieger,Saint Peter's University,Metro Atlantic Athletic Conference,I,12/01/2025,12/01/2025,Active,2025-26,Baseball,675,none,NONE
-2404275966,JACK,QUIRK,Jack Quirk,Menlo College,Pacific West Conference,II,11/29/2025,11/30/2025,Active,2025-26,Baseball,953,none,NONE
-2306935590,CALLAN,FRAZIER,Callan Frazier,Oklahoma Christian University,Lone Star Conference,II,11/25/2025,11/25/2025,Active,2025-26,Baseball,579,none,NONE
-2411456665,KAI,DANIELLS,Kai Daniells,Southern Arkansas University,Great American Conference,II,11/25/2025,11/25/2025,Active,2025-26,Baseball,716,none,NONE
 2111369787,CRISTIAN,CHAMORRO CASTRO,Cristian Chamorro Castro,Edward Waters University,Southern Intercol. Ath. Conf.,II,11/24/2025,11/24/2025,Active,2025-26,Baseball,234,none,NONE
-2511774508,JAMES,ANDERSON,James Anderson,The College of New Jersey,New Jersey Athletic Conference,III,11/22/2025,11/22/2025,Active,2025-26,Baseball,774,none,NONE
-2410425222,MICHAEL,SURANE,Michael Surane,Coker University,South Atlantic Conference,II,11/21/2025,11/21/2025,Active,2025-26,Baseball,166,none,NONE
-2305893340,BRENNON,SEIGLER,Brennon Seigler,"University of Tennessee, Knoxville",Southeastern Conference,I,11/14/2025,11/20/2025,Active,2025-26,Baseball,776,none,NONE
-2210696694,CADEN,LONG,Caden Long,Frostburg State University,Mountain East Conference,II,11/20/2025,11/20/2025,Active,2025-26,Baseball,281,none,NONE
-2511772599,BODIE,BLOOM,Bodie Bloom,St. Norbert College,Northern Athletics Collegiate Conference,III,11/19/2025,11/20/2025,Active,2025-26,Baseball,747,none,NONE
-2407362703,ELIJAH,BOGGS,Elijah Boggs,Shepherd University,Pennsylvania State Athletic Conference,II,11/20/2025,11/20/2025,Active,2025-26,Baseball,699,none,NONE
-2402212416,THOMAS,ANTONIO,Thomas Antonio,Shepherd University,Pennsylvania State Athletic Conference,II,11/20/2025,11/20/2025,Active,2025-26,Baseball,699,none,NONE
-2411461050,JACKSON,CARTER,Jackson Carter,Erskine College,Conference Carolinas,II,11/10/2025,11/20/2025,Active,2025-26,Baseball,247,none,NONE
-2212744862,LUCAS,SHAFFERT,Lucas Shaffert,"Pennsylvania Western University, California",Pennsylvania State Athletic Conference,II,11/20/2025,11/20/2025,Active,2025-26,Baseball,115,none,NONE
-2401187778,CARSON,JESBERGER,Carson Jesberger,University of Wisconsin-Whitewater,Wisconsin Intercollegiate Athletic Conference,III,11/20/2025,11/20/2025,Active,2025-26,Baseball,929,none,NONE
-2308981734,DAVID,WALKER,David Walker,"University of Tennessee, Knoxville",Southeastern Conference,I,11/17/2025,11/20/2025,Active,2025-26,Baseball,776,none,NONE
-2502518026,RYAN,HIGGINS,Ryan Higgins,Queens College (New York),East Coast Conference,II,11/18/2025,11/18/2025,Active,2025-26,Baseball,631,none,NONE
-2209672349,PATRICK,JUNG,Patrick Jung,Holy Family University,Central Atlantic Collegiate Conference,II,11/17/2025,11/17/2025,Active,2025-26,Baseball,954,none,NONE
-2501495914,JADEN,WALPOLE,Jaden Walpole,University of Indianapolis,Great Lakes Valley Conference,II,11/17/2025,11/17/2025,Active,2025-26,Baseball,818,none,NONE
-2406325473,LUCAS,VASEY,Lucas Vasey,University of Jamestown,Northern Sun Intercollegiate Conference,II,11/16/2025,11/16/2025,Active,2025-26,Baseball,962,none,NONE
-2210690544,BRAYLEN,ROSS,Braylen Ross,Concord University,Mountain East Conference,II,11/14/2025,11/15/2025,Active,2025-26,Baseball,175,none,NONE
-2308977270,COLE,LEWIS,Cole Lewis,Concord University,Mountain East Conference,II,11/12/2025,11/13/2025,Active,2025-26,Baseball,175,none,NONE
-2310136345,JAKE,DEPALMA,Jake Depalma,Saint Michael's College,Northeast 10 Conference,II,11/13/2025,11/13/2025,Active,2025-26,Baseball,674,none,NONE
-2409417652,AUSTIN,MATTINGLY,Austin Mattingly,Missouri Southern State University,Mid-America Intercollegiate Athletics Association,II,11/13/2025,11/13/2025,Active,2025-26,Baseball,496,none,NONE
-2502512862,ZAIRE,MEWBORN,Zaire Mewborn,Point Park University,Mountain East Conference,II,11/13/2025,11/13/2025,Active,2025-26,Baseball,965,none,NONE
 2310139041,TRACEY,THOMAS JR,Tracey Thomas Jr,West Virginia Wesleyan College,Mountain East Conference,II,11/12/2025,11/12/2025,Active,2025-26,Baseball,887,none,NONE
-2110337752,WESTON,CRUZ,Weston Cruz,University of Dallas,Southern Collegiate Athletic Conference,III,11/12/2025,11/12/2025,Active,2025-26,Baseball,195,none,NONE
-2310137433,DAVIEN ABREU,ABREU,Davien Abreu Abreu,William Paterson University of New Jersey,New Jersey Athletic Conference,III,11/12/2025,11/12/2025,Active,2025-26,Baseball,931,none,NONE
-2304851589,ALEX,CLAPP,Alex Clapp,Linfield University,Northwest Conference,III,11/12/2025,11/12/2025,Active,2025-26,Baseball,410,none,NONE
-2210706080,ERIC,LOGSDON,Eric Logsdon,Western Oregon University,Great Northwest Athletic Conference,II,11/10/2025,11/10/2025,Active,2025-26,Baseball,896,none,NONE
-2106197645,LUKAS,LOWERY,Lukas Lowery,East Tennessee State University,Southern Conference,I,11/06/2025,11/08/2025,Active,2025-26,Baseball,248,none,NONE
-2303811746,CONNOR,BERG,Connor Berg,Belmont Abbey College,Conference Carolinas,II,11/07/2025,11/07/2025,Active,2025-26,Baseball,66,none,NONE
-2411449213,RONALD,COSTNER,Ronald Costner,Erskine College,Conference Carolinas,II,11/07/2025,11/07/2025,Active,2025-26,Baseball,247,none,NONE
-2506631198,MADDOX,CABBAGE,Maddox Cabbage,Erskine College,Conference Carolinas,II,11/05/2025,11/05/2025,Active,2025-26,Baseball,247,none,NONE
-2208646723,JONATHAN,LINTELL,Jonathan Lintell,Erskine College,Conference Carolinas,II,11/05/2025,11/05/2025,Active,2025-26,Baseball,247,none,NONE
-2202446407,MAX,MULLANE,Max Mullane,Winona State University,Northern Sun Intercollegiate Conference,II,11/04/2025,11/04/2025,Active,2025-26,Baseball,918,none,NONE
-2412480744,FLORENT,RIEP,Florent Riep,Erskine College,Conference Carolinas,II,11/04/2025,11/04/2025,Active,2025-26,Baseball,247,none,NONE
-2502514279,AUBREY,PETERSON,Aubrey Peterson,Sul Ross State University,Lone Star Conference,II,11/03/2025,11/03/2025,Active,2025-26,Baseball,763,none,NONE
-2407365084,JACK,WECHT,Jack Wecht,Methodist University,USA South Athletic Conference,III,11/03/2025,11/03/2025,Active,2025-26,Baseball,468,none,NONE
-2401200713,LANDON,HARDIN,Landon Hardin,University of Central Oklahoma,Mid-America Intercollegiate Athletics Association,II,11/03/2025,11/03/2025,Active,2025-26,Baseball,139,none,NONE
-2501499940,GRANT,LAMBETH,Grant Lambeth,Pittsburg State University,Mid-America Intercollegiate Athletics Association,II,11/03/2025,11/03/2025,Active,2025-26,Baseball,613,none,NONE
-2211729853,AARON,GIBBS,Aaron Gibbs,Manhattanville University,Skyline Conference,III,10/29/2025,10/30/2025,Active,2025-26,Baseball,433,none,NONE
-2506626730,KARLO,AGUIRRE,Karlo Aguirre,Erskine College,Conference Carolinas,II,10/30/2025,10/30/2025,Active,2025-26,Baseball,247,none,NONE
-2409400104,CASEN,LETT,Casen Lett,Emporia State University,Mid-America Intercollegiate Athletics Association,II,10/28/2025,10/28/2025,Active,2025-26,Baseball,245,none,NONE
-1608570386,LOGAN,SMITH,Logan Smith,U.S. Military Academy,Patriot League,I,10/01/2025,10/28/2025,Active,2025-26,Baseball,39,none,NONE
-2310129273,CAMERON,HANCOCK,Cameron Hancock,University of Colorado Colorado Springs,Rocky Mountain Athletic Conference,II,10/27/2025,10/27/2025,Active,2025-26,Baseball,812,none,NONE
-2209669063,RONALD,GREENE,Ronald Greene,Mary Baldwin University,USA South Athletic Conference,III,10/23/2025,10/24/2025,Active,2025-26,Baseball,443,none,NONE
-2302787360,CHARLES,KELLOGG-LONG,Charles Kellogg-Long,Stevenson University,Middle Atlantic Conference Commonwealth,III,10/22/2025,10/23/2025,Active,2025-26,Baseball,758,none,NONE
-2201404032,LOGAN,BIANCO,Logan Bianco,Thiel College,Presidents' Athletic Conference,III,10/22/2025,10/22/2025,Active,2025-26,Baseball,789,none,NONE
-2402215494,CADEN,SCHIE,Caden Schie,Walsh University,Great Midwest Athletic Conference,II,10/22/2025,10/22/2025,Active,2025-26,Baseball,865,none,NONE
-2504555873,COLT,WHALEY,Colt Whaley,Erskine College,Conference Carolinas,II,10/21/2025,10/21/2025,Active,2025-26,Baseball,247,none,NONE
-2307959230,NICHOLAS,YORLANO,Nicholas Yorlano,Drew University,Landmark Conference,III,10/20/2025,10/21/2025,Active,2025-26,Baseball,214,none,NONE
-2510749976,ANDREW,WEAVER,Andrew Weaver,Misericordia University,Middle Atlantic Conference Freedom,III,10/20/2025,10/20/2025,Active,2025-26,Baseball,486,none,NONE
-2209680379,DYLAN,HAMPSHIRE,Dylan Hampshire,Emporia State University,Mid-America Intercollegiate Athletics Association,II,10/20/2025,10/20/2025,Active,2025-26,Baseball,245,none,NONE
-2407361143,REID,MILLER,Reid Miller,Coker University,South Atlantic Conference,II,09/30/2025,10/18/2025,Active,2025-26,Baseball,166,none,NONE
-2409407878,BENJAMIN,FRANKLIN,Benjamin Franklin,Shorter University,Conference Carolinas,II,10/13/2025,10/13/2025,Active,2025-26,Baseball,701,none,NONE
-2405317792,FINN,BUMSTEAD,Finn Bumstead,Springfield College,New England Women's and Men's Athletic Conference,III,10/10/2025,10/10/2025,Active,2025-26,Baseball,734,none,NONE
-2401207196,REMINGTON,HIGLEY,Remington Higley,Salem University (West Virginia),Independent,II,10/08/2025,10/08/2025,Active,2025-26,Baseball,678,none,NONE
-2510736914,JORDAN,FRANCISCO,Jordan Francisco,Anna Maria College,Massachusetts State Collegiate Athletic Conference,III,10/02/2025,10/02/2025,Active,2025-26,Baseball,28,none,NONE
-2206584713,DANIEL,KAMINSKY,Daniel Kaminsky,Holy Family University,Central Atlantic Collegiate Conference,II,09/19/2025,09/19/2025,Active,2025-26,Baseball,954,none,NONE
-2508702585,KADEN,SHOCKLEY,Kaden Shockley,Delaware Valley University,Middle Atlantic Conference Freedom,III,08/20/2025,08/20/2025,Active,2025-26,Baseball,206,none,NONE
 2407345691,ALEJANDRO,LOPEZ VASQUEZ,Alejandro Lopez Vasquez,Northeastern State University,Mid-America Intercollegiate Athletics Association,II,08/08/2025,08/08/2025,Active,2025-26,Baseball,552,none,NONE
