@@ -241,7 +241,7 @@ with st.form('review_form'):
 
         # Use row_idx for unique keys (ncaa_id can duplicate across status changes)
         if has_pred:
-            options = ['', 'confirm', 'adjust']
+            options = ['', 'confirm', 'adjust', 'unmatch']
             cur = existing.get('action', '')
             idx = options.index(cur) if cur in options else 0
             action = cols[6].selectbox(
@@ -283,7 +283,7 @@ with st.form('review_form'):
 
 # ── Downloads ────────────────────────────────────────────────────────────────
 st.divider()
-dcol1, dcol2 = st.columns(2)
+dcol1, dcol2, dcol3 = st.columns(3)
 with dcol1:
     st.download_button(
         'Download Review Players (CSV)',
@@ -305,3 +305,17 @@ with dcol2:
                 file_name='review_decisions.csv',
                 mime='text/csv',
             )
+with dcol3:
+    # Unmatched export: players the reviewer flagged as false-positive matches.
+    # Output columns are what's needed to seed a fresh player upload.
+    unmatched_ids = {k for k, v in decisions_map.items() if v.get('action') == 'unmatch'}
+    if unmatched_ids:
+        um_rows = all_players[all_players['ncaa_id'].isin(unmatched_ids)][
+            ['portal_name', 'institution', 'division', 'sport', 'ncaa_id']
+        ].drop_duplicates()
+        st.download_button(
+            f'Download Unmatched ({len(um_rows)}) for Player Upload',
+            data=um_rows.to_csv(index=False),
+            file_name='portal_unmatched_for_upload.csv',
+            mime='text/csv',
+        )
