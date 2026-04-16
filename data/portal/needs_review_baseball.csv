@@ -1,4 +1,6 @@
 ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfer_date,update_date,status,year,sport,team_id,player_id_64a,player_id_ncaa_stats,matched_name,match_score,match_method,confidence,position,class_year,player_csv_team_id
+2208645657,HEWITT,WILT,Hewitt Wilt,Thiel College,Presidents' Athletic Conference,III,04/15/2026,04/16/2026,Active,2025-26,Baseball,789,122562,3124552,H. Wilt,66.7,team+lastname_diff_first,REVIEW,LF,Fr,789
+2602826004,ANTHONY,MAYNARD,Anthony Maynard,Austin College,Southern Collegiate Athletic Conference,III,04/14/2026,04/15/2026,Active,2025-26,Baseball,50,123822,3126325,A. Maynard,72.0,team+lastname_diff_first,REVIEW,DH,Jr,50
 2306929208,CHASE,FERNANDEZ,Chase Fernandez,Trevecca Nazarene University,Gulf South Conference,II,12/29/2025,02/21/2026,Matriculated,2025-26,Baseball,795,48006,2648919,Alex Fernandez,82.0,team+lastname_diff_first,REVIEW,RF,Sr,795
 2211731052,SEAN,BROWN,Sean Brown,Coker University,South Atlantic Conference,II,12/02/2025,02/12/2026,Active,2025-26,Baseball,166,101840,3093217,Keagan Brown,81.8,team+lastname_diff_first,REVIEW,2B,,166
 2502509948,COLLIN,PARKER,Collin Parker,Mount St. Mary's University,Metro Atlantic Athletic Conference,I,09/25/2025,01/28/2026,Active,2025-26,Baseball,509,19566,1774313,Vaughn Parker,46.2,team+lastname_diff_first,REVIEW,INF,,509
