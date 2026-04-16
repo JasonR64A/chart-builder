@@ -341,9 +341,15 @@ def find_team(name, team_pct, team_rank):
     for cand in [name, short_team(name)]:
         if cand in team_pct:
             return cand, team_pct[cand], team_rank.get(cand)
+    # Longest prefix match to avoid "Oklahoma St." -> "Oklahoma" errors
+    best_k, best_len = None, 0
     for k in team_pct.keys():
-        if name.startswith(k) or k.startswith(short_team(name)):
-            return k, team_pct[k], team_rank.get(k)
+        if name.startswith(k) and len(k) > best_len:
+            best_k, best_len = k, len(k)
+        elif k.startswith(short_team(name)) and len(short_team(name)) > best_len:
+            best_k, best_len = k, len(short_team(name))
+    if best_k:
+        return best_k, team_pct[best_k], team_rank.get(best_k)
     return name, None, None
 
 

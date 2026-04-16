@@ -93,16 +93,19 @@ def compute_for_division(sport_label, div_code, lookup, name_pct, profiles):
         pbp[c] = pd.to_numeric(pbp[c], errors='coerce').fillna(0).astype(int)
     pbp['_ho'] = np.where(pbp['battingTeam'] == pbp['awayTeam'], 0, 1)
 
-    # Build PBP full name -> short name map
+    # Build PBP full name -> short name map (longest prefix wins to avoid
+    # "Oklahoma St. Cowboys" matching "Oklahoma" instead of "Oklahoma St.")
     pbp_names = set(pbp['homeTeam'].dropna()) | set(pbp['awayTeam'].dropna())
     p2s = {}
     for full in pbp_names:
         if not isinstance(full, str):
             continue
+        best = None
         for short in name_pct:
-            if full.startswith(short):
-                p2s[full] = short
-                break
+            if full.startswith(short) and (best is None or len(short) > len(best)):
+                best = short
+        if best:
+            p2s[full] = best
 
     results = []
     game_ids = pbp['gameId'].unique()
