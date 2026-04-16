@@ -740,11 +740,14 @@ if selected_play and selected_play not in ('(none)', '───── All plays 
         delta_str = f"{arrow} {abs(delta):.1f}%"
         short_home = home.split(' ')[0] if len(home) > 15 else home
         # Word-wrap the description by inserting <br> at ~50 char intervals
-        def _wrap(text, width=40):
+        # Wrap ALL lines to max 28 chars (conservative for variable-width font).
+        # Plotly annotation width is set to match so box and text agree.
+        WRAP = 28
+        def _wrap_line(text):
             words = text.split(' ')
             lines, cur = [], ''
             for w in words:
-                if cur and len(cur) + 1 + len(w) > width:
+                if cur and len(cur) + 1 + len(w) > WRAP:
                     lines.append(cur)
                     cur = w
                 else:
@@ -752,21 +755,19 @@ if selected_play and selected_play not in ('(none)', '───── All plays 
             if cur:
                 lines.append(cur)
             return '<br>'.join(lines)
-        wrapped_desc = _wrap(f'{player}: {desc}')
-        ann_text = (
-            f"<b>{half} {int(row['inning'])}</b>  {score}  ·  {outs} out<br>"
-            f"<i>{wrapped_desc}</i><br>"
-            f"<b>{short_home} WP: {wp_a*100:.1f}%</b>  ({delta_str})"
-        )
+        line1 = f"<b>{half} {int(row['inning'])}</b>  {score}  ·  {outs} out"
+        line2 = _wrap_line(f'{player}: {desc}')
+        line3 = f"<b>{short_home} WP: {wp_a*100:.1f}%</b>  ({delta_str})"
+        ann_text = f"{line1}<br><i>{line2}</i><br>{line3}"
         fig.add_annotation(
             x=pidx, y=wp_a * 100,
             text=ann_text,
             showarrow=True, arrowhead=2, arrowsize=1, arrowwidth=1.5,
             arrowcolor=TEXT_COLOR,
             ax=ann_x_offset, ay=ann_y_offset,
-            bordercolor=TEXT_COLOR, borderwidth=1, borderpad=8,
+            bordercolor=TEXT_COLOR, borderwidth=1, borderpad=6,
             bgcolor=BG_COLOR, opacity=0.95,
-            font=dict(size=11, color=TEXT_COLOR),
+            font=dict(size=10, color=TEXT_COLOR, family='Courier New'),
             align='left',
         )
         fig.add_trace(go.Scatter(
