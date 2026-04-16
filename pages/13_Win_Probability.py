@@ -752,11 +752,8 @@ if selected_play and selected_play not in ('(none)', '───── All plays 
         half = 'Bot' if row['half_true'] == 'bottom' else 'Top'
         score = f"{int(row['awayScore'])}-{int(row['homeScore'])}"
         outs = int(row['outs'])
-        player = str(row.get('player', '') or '')[:22]
+        player = str(row.get('player', '') or '')
         desc = str(row.get('playDescription', '') or '')
-        # Truncate description: take first ~45 chars, break at last space
-        if len(desc) > 45:
-            desc = desc[:45].rsplit(' ', 1)[0] + '...'
         delta = (wp_a - wp_b) * 100
         arrow = '▲' if delta > 0 else ('▼' if delta < 0 else '—')
         delta_str = f"{arrow} {abs(delta):.1f}%"
@@ -774,9 +771,8 @@ if selected_play and selected_play not in ('(none)', '───── All plays 
             ax=ann_x_offset, ay=ann_y_offset,
             bordercolor=TEXT_COLOR, borderwidth=1, borderpad=8,
             bgcolor=BG_COLOR, opacity=0.95,
-            font=dict(size=11, color=TEXT_COLOR),
+            font=dict(size=12, color=TEXT_COLOR),
             align='left',
-            width=280,
         )
         fig.add_trace(go.Scatter(
             x=[pidx], y=[wp_a * 100], mode='markers',
