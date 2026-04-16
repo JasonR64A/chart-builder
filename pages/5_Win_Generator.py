@@ -418,8 +418,14 @@ elif mode == 'Team Projection':
 
     team_row = ranks[ranks['team_name'] == selected_team].iloc[0]
     team_rank = int(team_row['rank'])
-    current_w = int(team_row['current_wins'])
-    current_l = int(team_row['current_losses'])
+    # Derive current W-L from schedules_full (same source as Predicted RPI)
+    # so game counts are always consistent across modes.
+    team_played = schedules[
+        (schedules['teamName'] == selected_team) &
+        (schedules['result'].notna()) & (schedules['result'] != '')
+    ]
+    current_w = int(team_played['result'].str.startswith('W').sum())
+    current_l = int(len(team_played) - current_w)
 
     # Show True Rank breakdown
     rank_parts = []
@@ -514,8 +520,13 @@ elif mode == 'Full Rankings':
         for _, team_row in ranks.iterrows():
             team_name = team_row['team_name']
             team_rank = int(team_row['rank'])
-            current_w = int(team_row['current_wins'])
-            current_l = int(team_row['current_losses'])
+            # Derive current W-L from schedules_full (same source as Predicted RPI)
+            tp = schedules[
+                (schedules['teamName'] == team_name) &
+                (schedules['result'].notna()) & (schedules['result'] != '')
+            ]
+            current_w = int(tp['result'].str.startswith('W').sum())
+            current_l = int(len(tp) - current_w)
 
             # Get future games
             team_sched = schedules[
