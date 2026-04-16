@@ -718,17 +718,38 @@ if selected_play and selected_play not in ('(none)', '───── All plays 
     match = next((p for p in play_data if p[1] == clean_label), None)
     if match:
         pidx, plabel, wp_b, wp_a, hover_html = match
-        # Use the exact same content + styling as the live hover tooltip
+        # Build a compact annotation that fits in a fixed-width box.
+        # Same styling as the hover tooltip but truncated description
+        # so text doesn't overflow.
+        row = game.iloc[pidx - 1]
+        half = 'Bot' if row['half_true'] == 'bottom' else 'Top'
+        score = f"{int(row['awayScore'])}-{int(row['homeScore'])}"
+        outs = int(row['outs'])
+        player = str(row.get('player', '') or '')[:22]
+        desc = str(row.get('playDescription', '') or '')
+        # Truncate description: take first ~45 chars, break at last space
+        if len(desc) > 45:
+            desc = desc[:45].rsplit(' ', 1)[0] + '...'
+        delta = (wp_a - wp_b) * 100
+        arrow = '▲' if delta > 0 else ('▼' if delta < 0 else '—')
+        delta_str = f"{arrow} {abs(delta):.1f}%"
+        short_home = home.split(' ')[0] if len(home) > 15 else home
+        ann_text = (
+            f"<b>{half} {int(row['inning'])}</b>  {score}  ·  {outs} out<br>"
+            f"<i>{player}</i>: {desc}<br>"
+            f"<b>{short_home} WP: {wp_a*100:.1f}%</b>  ({delta_str})"
+        )
         fig.add_annotation(
             x=pidx, y=wp_a * 100,
-            text=hover_html,
+            text=ann_text,
             showarrow=True, arrowhead=2, arrowsize=1, arrowwidth=1.5,
             arrowcolor=TEXT_COLOR,
             ax=ann_x_offset, ay=ann_y_offset,
             bordercolor=TEXT_COLOR, borderwidth=1, borderpad=8,
             bgcolor=BG_COLOR, opacity=0.95,
-            font=dict(size=12, color=TEXT_COLOR),
+            font=dict(size=11, color=TEXT_COLOR),
             align='left',
+            width=280,
         )
         fig.add_trace(go.Scatter(
             x=[pidx], y=[wp_a * 100], mode='markers',
