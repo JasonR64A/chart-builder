@@ -459,14 +459,12 @@ with st.sidebar.expander('Talent breakdown', expanded=False):
 # Pre-game WP — use the blended pct
 pg_home = pre_game_wp(home_p_adj, away_p_adj) if home_p_adj and away_p_adj else 0.5
 
-# Header cards
-c1, c2, c3, c4, c5 = st.columns(5)
-c1.metric('Pre-game WP (home)', f"{pg_home*100:.1f}%")
-c2.metric('Pre-game WP (away)', f"{(1-pg_home)*100:.1f}%")
-c3.metric('Final score', f"{away} {int(game['awayScore'].max())} — {int(game['homeScore'].max())} {home}")
-c4.metric('Plays', f"{len(game)}")
-c5.metric('Thrill Score', f"{thrill_score:.0f}",
-          help='0-100 excitement rating. Balance (both teams led) + Closeness (WP near 50%) + Lead changes.')
+# Header cards (Thrill Score added after WP curve is computed below)
+_hdr_cols = st.columns(5)
+_hdr_cols[0].metric('Pre-game WP (home)', f"{pg_home*100:.1f}%")
+_hdr_cols[1].metric('Pre-game WP (away)', f"{(1-pg_home)*100:.1f}%")
+_hdr_cols[2].metric('Final score', f"{away} {int(game['awayScore'].max())} — {int(game['homeScore'].max())} {home}")
+_hdr_cols[3].metric('Plays', f"{len(game)}")
 
 # Compute WP curve per play
 total_plays = len(game)
@@ -517,6 +515,8 @@ for j in range(1, len(wp_arr)):
 # Normalize lead changes: 6+ is very high, cap contribution at 1.0
 lead_change_score = min(1.0, crosses / 6.0)
 thrill_score = (0.40 * balance + 0.40 * closeness + 0.20 * lead_change_score) * 100
+_hdr_cols[4].metric('Thrill Score', f"{thrill_score:.0f}",
+                     help='0-100 excitement rating. Balance (both teams led) + Closeness (WP near 50%) + Lead changes.')
 
 # Build hover data
 hover_texts = []
