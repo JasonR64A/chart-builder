@@ -657,6 +657,59 @@ else:  # Team
         st.warning('No teams found.')
         st.stop()
 
+    team_mode = st.radio('Mode', ['Find Similar', 'Compare Teams'], horizontal=True, key='team_mode')
+
+    if team_mode == 'Compare Teams':
+        tc1, tc2 = st.columns(2)
+        team_a_display = tc1.selectbox('Team A', df['__display'].tolist(), index=0, key='comp_a')
+        team_b_display = tc2.selectbox('Team B', df['__display'].tolist(),
+                                        index=min(1, len(df) - 1), key='comp_b')
+        if team_a_display == team_b_display:
+            st.warning('Pick two different team-seasons.')
+            st.stop()
+
+        row_a = df[df['__display'] == team_a_display].iloc[0]
+        row_b = df[df['__display'] == team_b_display].iloc[0]
+        all_pcts = compute_percentiles(df, metrics)
+
+        pct_a = all_pcts.loc[row_a.name]
+        pct_b = all_pcts.loc[row_b.name]
+
+        st.markdown(f"### {row_a['team_name']} ({int(row_a['year'])}) vs {row_b['team_name']} ({int(row_b['year'])})")
+
+        # Side-by-side metrics
+        header_cols = st.columns([2] + [1] * min(len(metrics), 6) + [2])
+        header_cols[0].markdown(f"**{row_a['team_name']} {int(row_a['year'])}**")
+        for i, (col, label, _) in enumerate(metrics[:6]):
+            header_cols[i + 1].caption(label)
+        header_cols[-1].markdown(f"**{row_b['team_name']} {int(row_b['year'])}**")
+
+        val_cols = st.columns([2] + [1] * min(len(metrics), 6) + [2])
+        val_cols[0].write('')
+        for i, (col, label, _) in enumerate(metrics[:6]):
+            a_val = row_a.get(col, 0)
+            b_val = row_b.get(col, 0)
+            a_str = f'{a_val:.3f}' if abs(a_val) < 100 else f'{a_val:.1f}'
+            b_str = f'{b_val:.3f}' if abs(b_val) < 100 else f'{b_val:.1f}'
+            val_cols[i + 1].write(f'{a_str} / {b_str}')
+        val_cols[-1].write('')
+
+        st.markdown('---')
+
+        # Build a "matches" df with just team B so render_similarity_chart works
+        comp_matches = df.loc[[row_b.name]].copy()
+        comp_matches['_distance'] = 0.0
+
+        chart_label = f"{row_a['team_name']} {int(row_a['year'])}"
+        chart = render_similarity_chart(chart_label, row_a['team_name'],
+                                         pct_a, comp_matches, all_pcts, metrics,
+                                         theme=theme, show_year=True, entity_type='team')
+        st.image(chart, use_container_width=True)
+        st.download_button('Download Comparison PNG', data=chart,
+                           file_name=f'compare_{row_a["team_name"]}_{int(row_a["year"])}_vs_{row_b["team_name"]}_{int(row_b["year"])}.png',
+                           mime='image/png')
+        st.stop()
+
     target_display = st.selectbox('Select Team', df['__display'].tolist())
     target_row = df[df['__display'] == target_display].iloc[0]
     target_idx = target_row.name
