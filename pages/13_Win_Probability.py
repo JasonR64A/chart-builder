@@ -380,8 +380,14 @@ team_games = pbp[(pbp['awayTeam'] == sel_team) | (pbp['homeTeam'] == sel_team)]
 game_list = team_games.groupby('gameId').first().reset_index()
 game_list['date_parsed'] = pd.to_datetime(game_list['date'], format='mixed', errors='coerce')
 game_list = game_list.sort_values('date_parsed', ascending=False)
-game_list['label'] = game_list.apply(
+# Label each game; add "G1/G2" suffix for doubleheaders (same date + same matchup)
+game_list['base_label'] = game_list.apply(
     lambda r: f"{r['date']}  {r['awayTeam']} @ {r['homeTeam']}", axis=1)
+dup_mask = game_list.duplicated(subset='base_label', keep=False)
+game_list['_dh_num'] = game_list.groupby('base_label').cumcount() + 1
+game_list['label'] = game_list.apply(
+    lambda r: f"{r['base_label']} (G{r['_dh_num']})" if dup_mask[r.name] else r['base_label'],
+    axis=1)
 sel_label = st.sidebar.selectbox('Game', game_list['label'].tolist())
 sel_gid = int(game_list[game_list['label'] == sel_label]['gameId'].iloc[0])
 
@@ -413,13 +419,17 @@ series_games['_d'] = pd.to_datetime(series_games['date'], format='mixed', errors
 if pd.notna(sel_date):
     series_games = series_games[(series_games['_d'] >= sel_date - pd.Timedelta(days=2)) &
                                  (series_games['_d'] <= sel_date + pd.Timedelta(days=2))]
-# One row per gameId in the window
-series_dates = (series_games.drop_duplicates('gameId')
-                             .sort_values('_d')['_d'].tolist())
-if len(series_dates) >= 2:
+# One row per gameId in the window, sorted by (date, gameId) so
+# doubleheaders on the same date get distinct positions.
+series_ids = (series_games.drop_duplicates('gameId')
+                          .sort_values(['_d', 'gameId'])['gameId'].tolist())
+if len(series_ids) >= 2:
     game_type = 'Weekend'
-    game_num = max(1, min(3, sum(1 for d in series_dates if d <= sel_date)))
-    detected_label = f'Weekend — Game {game_num} of {len(series_dates)}'
+    try:
+        game_num = max(1, min(3, series_ids.index(sel_gid) + 1))
+    except ValueError:
+        game_num = 1
+    detected_label = f'Weekend — Game {game_num} of {len(series_ids)}'
 else:
     game_type = 'Midweek'
     game_num = 0

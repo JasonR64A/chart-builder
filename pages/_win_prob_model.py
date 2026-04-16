@@ -175,9 +175,15 @@ def detect_game_context(game_date, opp_name, team_schedule):
     window = sched[(sched['_opp'] == opp_clean) &
                    (sched['_d'] >= sel - pd.Timedelta(days=2)) &
                    (sched['_d'] <= sel + pd.Timedelta(days=2))]
-    dates = sorted(window['_d'].dropna().unique())
-    if len(dates) >= 2:
-        game_num = max(1, min(3, sum(1 for d in dates if d <= sel)))
+    # Count ROWS (not unique dates) so doubleheaders on the same date
+    # get counted as 2 games, not 1.
+    n_games = len(window)
+    if n_games >= 2:
+        # Position within the window (sorted by date) — for doubleheaders
+        # on the same date, row order determines game number.
+        window_sorted = window.sort_values('_d').reset_index(drop=True)
+        pos = window_sorted.index[window_sorted['_d'] == sel]
+        game_num = max(1, min(3, int(pos[0]) + 1 if len(pos) else 1))
         return 'Weekend', game_num
     return 'Midweek', 0
 
