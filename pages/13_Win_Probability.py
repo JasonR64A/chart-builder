@@ -808,3 +808,60 @@ with st.expander('Play-by-play log with WP'):
     st.dataframe(gdisp[['inning', 'half', 'outs', 'awayScore', 'homeScore',
                          'player', 'playDescription', 'Home WP', 'WP Δ']],
                  use_container_width=True, hide_index=True)
+
+# ── Thrill Score Leaderboard ─────────────────────────────────────────────────
+st.markdown('---')
+st.markdown('### Thrill Score Leaderboard')
+
+thrill_csv = DATA_DIR / 'thrill_scores.csv'
+if thrill_csv.exists():
+    @st.cache_data
+    def load_thrill_scores():
+        return pd.read_csv(thrill_csv, low_memory=False)
+
+    tdf = load_thrill_scores()
+    # Filter to selected sport + division
+    tdf_filt = tdf[(tdf['sport'] == sel_sport) & (tdf['division'] == sel_division)].copy()
+
+    if tdf_filt.empty:
+        st.info(f'No thrill scores available for {sel_sport} {sel_division}.')
+    else:
+        tdf_filt['date'] = pd.to_datetime(tdf_filt['date'], errors='coerce')
+        # Date range filter
+        tc1, tc2, tc3 = st.columns([1, 1, 2])
+        min_date = tdf_filt['date'].min()
+        max_date = tdf_filt['date'].max()
+        if pd.notna(min_date) and pd.notna(max_date):
+            date_start = tc1.date_input('From', value=max_date - pd.Timedelta(days=14),
+                                         min_value=min_date, max_value=max_date, key='thrill_from')
+            date_end = tc2.date_input('To', value=max_date,
+                                       min_value=min_date, max_value=max_date, key='thrill_to')
+            tdf_filt = tdf_filt[(tdf_filt['date'] >= pd.Timestamp(date_start)) &
+                                 (tdf_filt['date'] <= pd.Timestamp(date_end))]
+
+        search = tc3.text_input('Search team', '', placeholder='Filter by team name...', key='thrill_search')
+        if search:
+            q = search.lower()
+            tdf_filt = tdf_filt[tdf_filt['home'].str.lower().str.contains(q, na=False) |
+                                 tdf_filt['away'].str.lower().str.contains(q, na=False)]
+
+        tdf_filt = tdf_filt.sort_values('thrill_score', ascending=False).reset_index(drop=True)
+        tdf_filt.index = tdf_filt.index + 1
+        tdf_filt.index.name = '#'
+
+        display_cols = ['date', 'away', 'home', 'final_away', 'final_home',
+                        'thrill_score', 'balance', 'closeness', 'lead_changes', 'team_quality', 'plays']
+        display_cols = [c for c in display_cols if c in tdf_filt.columns]
+        tdf_filt['date'] = tdf_filt['date'].dt.strftime('%m/%d')
+        tdf_filt = tdf_filt.rename(columns={
+            'final_away': 'Away', 'final_home': 'Home',
+            'thrill_score': 'Thrill', 'lead_changes': 'Leads',
+            'team_quality': 'Quality',
+        })
+        display_cols = ['date', 'away', 'home', 'Away', 'Home', 'Thrill',
+                        'balance', 'closeness', 'Leads', 'Quality', 'plays']
+        display_cols = [c for c in display_cols if c in tdf_filt.columns]
+        st.dataframe(tdf_filt[display_cols], use_container_width=True, height=500)
+        st.caption(f'{len(tdf_filt)} games shown')
+else:
+    st.info('Thrill scores not yet computed. Run `python scripts/compute_thrill_scores.py` to generate.')
