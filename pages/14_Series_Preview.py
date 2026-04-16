@@ -361,42 +361,113 @@ def render_matchup_card(team_a, team_b, stats_a, stats_b, all_team_stats,
                          ranks_a, ranks_b, rec_a, rec_b, tr_a, tr_b):
     """
     Render a publication-quality matchup stat card as a PNG.
-    Mirrored layout: Team A stats on left, Team B on right, branding center.
+    5-column mirrored layout matching the 64 Analytics Twitter Graphics template:
+    [A Pitching] [A Hitting] [CENTER wRCE/wRAE] [B Hitting] [B Pitching]
     """
-    fig, ax = plt.subplots(1, 1, figsize=(16, 12), facecolor='#FAF8F2')
-    ax.set_xlim(0, 16)
-    ax.set_ylim(0, 12)
+    BG = '#FAF8F2'
+    TXT = '#2D2926'
+    RED = '#C41230'
+    NAVY = '#29335c'
+    GRAY = '#888888'
+    CELL_BG = '#FFFFFF'
+    CELL_BORDER = '#CCCCCC'
+
+    fig, ax = plt.subplots(1, 1, figsize=(18, 14), facecolor=BG)
+    ax.set_xlim(0, 18)
+    ax.set_ylim(0, 14)
     ax.axis('off')
-    ax.set_facecolor('#FAF8F2')
+    ax.set_facecolor(BG)
 
-    # ── Header ───────────────────────────────────────────────────────────────
-    ax.text(3, 11.4, team_a, fontsize=22, fontweight='bold', ha='center', va='center', color='#2D2926')
-    ax.text(13, 11.4, team_b, fontsize=22, fontweight='bold', ha='center', va='center', color='#2D2926')
-    ax.text(8, 11.4, '64 ANALYTICS', fontsize=14, fontweight='bold', ha='center', va='center',
-            color='#C41230', fontstyle='italic')
+    # ── Header: Team names ───────────────────────────────────────────────────
+    ax.text(4.5, 13.3, team_a, fontsize=24, fontweight='bold', ha='center', color=TXT)
+    ax.text(9, 13.3, '64 ANALYTICS', fontsize=13, fontweight='bold', ha='center',
+            color=RED, fontstyle='italic')
+    ax.text(13.5, 13.3, team_b, fontsize=24, fontweight='bold', ha='center', color=TXT)
 
-    # Sub-header: Record + Ranks
-    def draw_subheader(x, ranks, rec, side='left'):
-        ha = 'center'
-        y = 10.7
+    # ── Sub-header: Record / 64A Rank / RPI ──────────────────────────────────
+    def draw_header_stats(cx, ranks, rec):
+        y = 12.5
+        r64 = f"#{int(ranks['64A'])}" if ranks.get('64A') else '—'
+        rpi = f"#{int(ranks['RPI'])}" if ranks.get('RPI') else '—'
         rec_str = f"{rec['wins']}-{rec['losses']}"
-        r64 = f"#{int(ranks.get('64A', 0))}" if ranks.get('64A') else '—'
-        rpi = f"#{int(ranks.get('RPI', 0))}" if ranks.get('RPI') else '—'
-        ax.text(x - 1.5, y, 'Record', fontsize=9, ha='center', color='#888', fontweight='bold')
-        ax.text(x - 1.5, y - 0.35, rec_str, fontsize=14, ha='center', color='#2D2926', fontweight='bold')
-        ax.text(x + 0.5, y, '64A Rank', fontsize=9, ha='center', color='#888', fontweight='bold')
-        ax.text(x + 0.5, y - 0.35, r64, fontsize=14, ha='center', color='#2D2926', fontweight='bold')
-        ax.text(x + 2.2, y, 'RPI', fontsize=9, ha='center', color='#888', fontweight='bold')
-        ax.text(x + 2.2, y - 0.35, rpi, fontsize=14, ha='center', color='#2D2926', fontweight='bold')
+        for label, val, dx in [('Record', rec_str, -2.2), ('64A Rank', r64, 0), ('RPI', rpi, 2.2)]:
+            ax.text(cx + dx, y + 0.3, label, fontsize=9, ha='center', color=GRAY, fontweight='bold')
+            ax.text(cx + dx, y - 0.15, val, fontsize=16, ha='center', color=TXT, fontweight='bold')
 
-    draw_subheader(2, ranks_a, rec_a, 'left')
-    draw_subheader(12, ranks_b, rec_b, 'right')
+    draw_header_stats(4.5, ranks_a, rec_a)
+    draw_header_stats(13.5, ranks_b, rec_b)
 
-    # Divider
-    ax.plot([0.5, 15.5], [10.1, 10.1], color='#ddd', linewidth=1)
+    # Divider line
+    ax.plot([0.5, 17.5], [11.9, 11.9], color='#ddd', linewidth=1)
 
-    # ── Stat Cells ───────────────────────────────────────────────────────────
-    hitting_stats = [
+    # ── Stat cell helper ─────────────────────────────────────────────────────
+    all_vals = {}
+    for key in list(stats_a.keys()):
+        all_vals[key] = [s.get(key, 0) for s in all_team_stats if s.get(key, 0) != 0]
+
+    def draw_cell(cx, y, label, val, all_v, higher_is_better, w=3.2, h=0.95):
+        """Single stat cell: label above, box with percentile + value."""
+        # Label
+        ax.text(cx, y + h / 2 + 0.25, label, fontsize=10, ha='center', fontweight='bold', color=TXT)
+        # Box
+        rect = mpatches.FancyBboxPatch((cx - w / 2, y - h / 2), w, h,
+                                        boxstyle='round,pad=0.04', facecolor=CELL_BG,
+                                        edgecolor=CELL_BORDER, linewidth=0.8)
+        ax.add_patch(rect)
+        # Value (centered, bold)
+        fmt = '.3f' if isinstance(val, float) and abs(val) < 10 else '.1f'
+        ax.text(cx, y + 0.12, f'{val:{fmt}}', fontsize=14, ha='center', va='center',
+                fontweight='bold', color=TXT)
+        # Percentile below value
+        pct = compute_percentile(val, all_v, higher_is_better) if all_v else 50
+        ax.text(cx, y - 0.25, f'{pct:.0f}%', fontsize=9, ha='center', va='center',
+                fontweight='bold', color=pct_color(pct))
+
+    def draw_center_cell(cx, y, label, val_a, val_b, w=3.8, h=0.95):
+        """Center column cell with both teams' values side by side."""
+        ax.text(cx, y + h / 2 + 0.25, label, fontsize=10, ha='center', fontweight='bold', color=TXT)
+        rect = mpatches.FancyBboxPatch((cx - w / 2, y - h / 2), w, h,
+                                        boxstyle='round,pad=0.04', facecolor=CELL_BG,
+                                        edgecolor=CELL_BORDER, linewidth=0.8)
+        ax.add_patch(rect)
+        fmt_a = '.1f' if isinstance(val_a, float) and abs(val_a) >= 1 else '.3f'
+        fmt_b = '.1f' if isinstance(val_b, float) and abs(val_b) >= 1 else '.3f'
+        ax.text(cx - w * 0.22, y, f'{val_a:{fmt_a}}', fontsize=13, ha='center', va='center',
+                fontweight='bold', color=TXT)
+        ax.plot([cx, cx], [y - h / 2 + 0.1, y + h / 2 - 0.1], color='#ddd', linewidth=0.8)
+        ax.text(cx + w * 0.22, y, f'{val_b:{fmt_b}}', fontsize=13, ha='center', va='center',
+                fontweight='bold', color=TXT)
+
+    # ── Column positions ─────────────────────────────────────────────────────
+    COL_A_PIT = 2.0    # Team A Pitching (far left)
+    COL_A_HIT = 5.5    # Team A Hitting
+    COL_CENTER = 9.0   # Center metrics
+    COL_B_HIT = 12.5   # Team B Hitting
+    COL_B_PIT = 16.0   # Team B Pitching (far right)
+    ROW_START = 10.8
+    ROW_STEP = 1.35
+
+    # ── Section headers ──────────────────────────────────────────────────────
+    ax.text(COL_A_PIT, 11.5, 'Pitching', fontsize=14, ha='center', fontweight='bold', color=NAVY)
+    ax.text(COL_A_HIT, 11.5, 'Hitting', fontsize=14, ha='center', fontweight='bold', color=RED)
+    ax.text(COL_B_HIT, 11.5, 'Hitting', fontsize=14, ha='center', fontweight='bold', color=RED)
+    ax.text(COL_B_PIT, 11.5, 'Pitching', fontsize=14, ha='center', fontweight='bold', color=NAVY)
+
+    # ── Pitching stats (cols 1 and 5) ────────────────────────────────────────
+    pit_stats = [
+        ('ERA', 'ERA', False),
+        ('WHIP', 'WHIP', False),
+        ('K9', 'K/9', True),
+        ('BB9', 'BB/9', False),
+        ('K_BB', 'K/BB', True),
+    ]
+    for i, (key, label, hib) in enumerate(pit_stats):
+        y = ROW_START - i * ROW_STEP
+        draw_cell(COL_A_PIT, y, label, stats_a.get(key, 0), all_vals.get(key, []), hib)
+        draw_cell(COL_B_PIT, y, label, stats_b.get(key, 0), all_vals.get(key, []), hib)
+
+    # ── Hitting stats (cols 2 and 4) ─────────────────────────────────────────
+    hit_stats = [
         ('OPS', 'OPS', True),
         ('OBP', 'OBP', True),
         ('SLG', 'SLG', True),
@@ -406,86 +477,35 @@ def render_matchup_card(team_a, team_b, stats_a, stats_b, all_team_stats,
         ('K_rate_h', 'K%', False),
         ('HR_rate', 'HR Rate', True),
     ]
-    pitching_stats = [
-        ('ERA', 'ERA', False),
-        ('WHIP', 'WHIP', False),
-        ('K9', 'K/9', True),
-        ('BB9', 'BB/9', False),
-        ('K_BB', 'K/BB', True),
+    for i, (key, label, hib) in enumerate(hit_stats):
+        y = ROW_START - i * ROW_STEP
+        draw_cell(COL_A_HIT, y, label, stats_a.get(key, 0), all_vals.get(key, []), hib)
+        draw_cell(COL_B_HIT, y, label, stats_b.get(key, 0), all_vals.get(key, []), hib)
+
+    # ── Center column (col 3) ────────────────────────────────────────────────
+    center_stats = [
+        ('wRCE', tr_a.get('wRCE', 0), tr_b.get('wRCE', 0)),
+        ('wRAE', tr_a.get('wRAE', 0), tr_b.get('wRAE', 0)),
+        ('Total Rank', float(tr_a.get('rank', 0)), float(tr_b.get('rank', 0))),
     ]
+    for i, (label, va, vb) in enumerate(center_stats):
+        y = ROW_START - i * ROW_STEP
+        draw_center_cell(COL_CENTER, y, label, va, vb)
 
-    all_vals = {}
-    for key in list(stats_a.keys()):
-        all_vals[key] = [s.get(key, 0) for s in all_team_stats if s.get(key, 0) != 0]
-
-    def draw_stat_cell(x, y, label, val_a, val_b, all_v, higher_is_better, width=2.8):
-        """Draw a mirrored stat cell: Team A value left, Team B value right."""
-        # Header
-        ax.text(x + width / 2, y + 0.55, label, fontsize=10, ha='center', va='center',
-                fontweight='bold', color='#2D2926')
-        # Box outline
-        rect = mpatches.FancyBboxPatch((x, y - 0.45), width, 0.9,
-                                        boxstyle='round,pad=0.05', facecolor='white',
-                                        edgecolor='#ccc', linewidth=0.8)
-        ax.add_patch(rect)
-        # Values
-        fmt = '.3f' if abs(val_a) < 2 else '.1f'
-        pct_a = compute_percentile(val_a, all_v, higher_is_better)
-        pct_b = compute_percentile(val_b, all_v, higher_is_better)
-        # Team A (left half)
-        ax.text(x + width * 0.25, y + 0.1, f'{val_a:{fmt}}', fontsize=11, ha='center',
-                va='center', fontweight='bold', color='#2D2926')
-        ax.text(x + width * 0.25, y - 0.2, f'{pct_a:.0f}%', fontsize=8, ha='center',
-                va='center', color=pct_color(pct_a), fontweight='bold')
-        # Divider
-        ax.plot([x + width / 2, x + width / 2], [y - 0.4, y + 0.4],
-                color='#eee', linewidth=0.8)
-        # Team B (right half)
-        ax.text(x + width * 0.75, y + 0.1, f'{val_b:{fmt}}', fontsize=11, ha='center',
-                va='center', fontweight='bold', color='#2D2926')
-        ax.text(x + width * 0.75, y - 0.2, f'{pct_b:.0f}%', fontsize=8, ha='center',
-                va='center', color=pct_color(pct_b), fontweight='bold')
-
-    # Section headers
-    ax.text(2.5, 9.7, 'Hitting', fontsize=14, ha='center', fontweight='bold', color='#C41230')
-    ax.text(8, 9.7, 'Pitching', fontsize=14, ha='center', fontweight='bold', color='#29335c')
-    ax.text(13.5, 9.7, 'Team Rankings', fontsize=14, ha='center', fontweight='bold', color='#888')
-
-    # Draw hitting stats (left section)
-    for i, (key, label, hib) in enumerate(hitting_stats):
-        y_pos = 9.0 - i * 1.1
-        va = stats_a.get(key, 0)
-        vb = stats_b.get(key, 0)
-        draw_stat_cell(1.0, y_pos, label, va, vb, all_vals.get(key, []), hib)
-
-    # Draw pitching stats (center section)
-    for i, (key, label, hib) in enumerate(pitching_stats):
-        y_pos = 9.0 - i * 1.1
-        va = stats_a.get(key, 0)
-        vb = stats_b.get(key, 0)
-        draw_stat_cell(6.5, y_pos, label, va, vb, all_vals.get(key, []), hib)
-
-    # Team-level metrics (right section) from team_rank
-    team_metrics = [
-        ('wRCE', tr_a.get('wRCE', 0), tr_b.get('wRCE', 0), True),
-        ('wRAE', tr_a.get('wRAE', 0), tr_b.get('wRAE', 0), True),
-        ('Total Rank', tr_a.get('rank', 0), tr_b.get('rank', 0), False),
-    ]
-    for i, (label, va, vb, hib) in enumerate(team_metrics):
-        y_pos = 9.0 - i * 1.1
-        draw_stat_cell(12.0, y_pos, label, va, vb, [], hib)
+    # ── Team labels at bottom ────────────────────────────────────────────────
+    bottom_y = ROW_START - max(len(hit_stats), len(pit_stats)) * ROW_STEP - 0.3
+    ax.text(COL_A_PIT, bottom_y, team_a, fontsize=9, ha='center', color=RED, fontweight='bold')
+    ax.text(COL_A_HIT, bottom_y, team_a, fontsize=9, ha='center', color=RED, fontweight='bold')
+    ax.text(COL_B_HIT, bottom_y, team_b, fontsize=9, ha='center', color=NAVY, fontweight='bold')
+    ax.text(COL_B_PIT, bottom_y, team_b, fontsize=9, ha='center', color=NAVY, fontweight='bold')
 
     # Footer
-    ax.text(8, 0.3, '*Percentages are division rankings', fontsize=8, ha='center',
-            color='#888', fontstyle='italic')
+    ax.text(9, 0.3, '*Percentages are division rankings', fontsize=8, ha='center',
+            color=GRAY, fontstyle='italic')
 
-    # Team name labels at bottom of each stat column
-    ax.text(1.7, 0.7, team_a, fontsize=9, ha='center', color='#C41230', fontweight='bold')
-    ax.text(3.5, 0.7, team_b, fontsize=9, ha='center', color='#29335c', fontweight='bold')
-
-    plt.tight_layout(pad=0.5)
+    plt.tight_layout(pad=0.3)
     buf = BytesIO()
-    fig.savefig(buf, format='png', dpi=150, bbox_inches='tight', facecolor='#FAF8F2')
+    fig.savefig(buf, format='png', dpi=150, bbox_inches='tight', facecolor=BG)
     plt.close(fig)
     buf.seek(0)
     return buf.getvalue()
