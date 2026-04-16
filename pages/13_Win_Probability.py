@@ -243,16 +243,20 @@ def brand_logo_b64():
 
 @st.cache_data
 def team_logo_map():
-    """Build team name → 64A team id for locating logo files."""
+    """Build team name → 64A team id for locating logo files.
+    Covers both Baseball and Softball (logo files are shared by id)."""
     t = pd.read_csv(DATA_DIR / 'teams.csv', low_memory=False)
     t['id'] = pd.to_numeric(t['id'], errors='coerce').fillna(0).astype(int)
-    bb = t[t['sport'] == 'Baseball'][['name', 'id']].drop_duplicates('name')
-    m = dict(zip(bb['name'], bb['id']))
-    return m
+    both = t[t['sport'].isin(['Baseball','Softball'])][['name', 'id']].drop_duplicates('name')
+    return dict(zip(both['name'], both['id']))
 
 
 def team_logo_path(team_full_name):
-    """Find the logo file for a team (accounting for trailing mascot names)."""
+    """Find the logo file for a team (accounting for trailing mascot names).
+    Returns None if team_full_name isn't a usable string (e.g. NaN from a
+    game row where team data was missing)."""
+    if not isinstance(team_full_name, str) or not team_full_name:
+        return None
     logo_map = team_logo_map()
     for cand in [team_full_name, short_team(team_full_name)]:
         if cand in logo_map:
@@ -262,6 +266,8 @@ def team_logo_path(team_full_name):
                     return p
     # Fuzzy: try substring match
     for name, tid in logo_map.items():
+        if not isinstance(name, str):
+            continue
         if name in team_full_name or team_full_name in name:
             for ext in ('png', 'webp'):
                 p = LOGO_DIR / f'{tid}.{ext}'
@@ -447,6 +453,9 @@ game = (game.sort_values(['inning', '_half_order'], kind='stable')
              .reset_index(drop=True))
 home = game['homeTeam'].iloc[0]
 away = game['awayTeam'].iloc[0]
+if not isinstance(home, str) or not isinstance(away, str):
+    st.warning(f'Selected game has missing team data (home={home!r}, away={away!r}). Pick a different game.')
+    st.stop()
 
 home_key, home_p, home_r = find_team(home, team_pct, team_rank)
 away_key, away_p, away_r = find_team(away, team_pct, team_rank)
