@@ -425,31 +425,61 @@ away = game['awayTeam'].iloc[0]
 home_key, home_p, home_r = find_team(home, team_pct, team_rank)
 away_key, away_p, away_r = find_team(away, team_pct, team_rank)
 
-# Player-adjusted talent picker
-st.sidebar.markdown('### Talent model')
-game_type = st.sidebar.radio('Game type', ['Weekend', 'Midweek'], horizontal=True,
-    help='Weekend uses each team\'s P1/P2/P3 starter + top-9 regulars by PA. '
-         'Midweek uses mean of pitchers ranked 5-12 + bench-lineup hitting '
-         '(top-6 by PA + 3x mean of hitters 7-12).')
-game_num = 1
-if game_type == 'Weekend':
-    game_num = st.sidebar.selectbox('Series game #', [1, 2, 3], index=0,
-        help='Which game of the 3-game series — determines which starter (P1/P2/P3) takes the mound.')
+# Auto-detect Weekend vs Midweek + series game # from the PBP data.
+# A game is part of a 3-game series if the same two teams play >=2 times
+# within a 4-day window around the selected date. Otherwise it's midweek.
+sel_date = pd.to_datetime(game['date'].iloc[0], format='mixed', errors='coerce')
+series_games = pbp[((pbp['homeTeam'] == home) & (pbp['awayTeam'] == away)) |
+                   ((pbp['homeTeam'] == away) & (pbp['awayTeam'] == home))].copy()
+series_games['_d'] = pd.to_datetime(series_games['date'], format='mixed', errors='coerce')
+if pd.notna(sel_date):
+    series_games = series_games[(series_games['_d'] >= sel_date - pd.Timedelta(days=2)) &
+                                 (series_games['_d'] <= sel_date + pd.Timedelta(days=2))]
+# One row per gameId in the window
+series_dates = (series_games.drop_duplicates('gameId')
+                             .sort_values('_d')['_d'].tolist())
+if len(series_dates) >= 2:
+    game_type = 'Weekend'
+    game_num = max(1, min(3, sum(1 for d in series_dates if d <= sel_date)))
+    detected_label = f'Weekend — Game {game_num} of {len(series_dates)}'
+else:
+    game_type = 'Midweek'
+    game_num = 0
+    detected_label = 'Midweek (single game)'
+
+# Talent model config (knobs)
+TEAM_RANK_BLEND = 0.5  # 0 = pure player-adj, 1 = pure team-rank
 
 profiles = build_team_profiles()
-home_p_adj = adjusted_team_pct(home_key, profiles, game_type, game_num, home_p) if home_p else home_p
-away_p_adj = adjusted_team_pct(away_key, profiles, game_type, game_num, away_p) if away_p else away_p
+home_p_player = adjusted_team_pct(home_key, profiles, game_type, game_num, home_p) if home_p else home_p
+away_p_player = adjusted_team_pct(away_key, profiles, game_type, game_num, away_p) if away_p else away_p
 
-# Show what the talent model resolved to (transparency)
+# Blend team-rank with player-driven pct to keep the team-level context
+# (depth, conference adjustments, etc.) in the mix. Pure player-driven
+# saturates for elite teams — see Arkansas-vs-Alabama diagnostic.
+def blend(player_pct, team_rank_pct, w=TEAM_RANK_BLEND):
+    if player_pct is None or team_rank_pct is None:
+        return player_pct or team_rank_pct
+    return w * team_rank_pct + (1 - w) * player_pct
+
+home_p_adj = blend(home_p_player, home_p)
+away_p_adj = blend(away_p_player, away_p)
+
+# Sidebar transparency: what we detected + resolved values
+st.sidebar.markdown('### Talent model')
+st.sidebar.info(f'Detected: **{detected_label}**')
 with st.sidebar.expander('Talent breakdown', expanded=False):
+    st.caption(f'Team-rank blend: {TEAM_RANK_BLEND:.2f}')
     st.caption(f'**{home}** (home)')
-    st.caption(f'  team rank pct: {home_p:.3f}' if home_p else '  no team pct')
-    st.caption(f'  player-adj pct: {home_p_adj:.3f}' if home_p_adj else '  fallback')
+    st.caption(f'  team-rank pct: {home_p:.3f}' if home_p else '  no team pct')
+    st.caption(f'  player-adj pct: {home_p_player:.3f}' if home_p_player else '  fallback')
+    st.caption(f'  blended: {home_p_adj:.3f}' if home_p_adj else '  fallback')
     st.caption(f'**{away}** (away)')
-    st.caption(f'  team rank pct: {away_p:.3f}' if away_p else '  no team pct')
-    st.caption(f'  player-adj pct: {away_p_adj:.3f}' if away_p_adj else '  fallback')
+    st.caption(f'  team-rank pct: {away_p:.3f}' if away_p else '  no team pct')
+    st.caption(f'  player-adj pct: {away_p_player:.3f}' if away_p_player else '  fallback')
+    st.caption(f'  blended: {away_p_adj:.3f}' if away_p_adj else '  fallback')
 
-# Pre-game WP — use player-adjusted pct
+# Pre-game WP — use the blended pct
 pg_home = pre_game_wp(home_p_adj, away_p_adj) if home_p_adj and away_p_adj else 0.5
 
 # Header cards
