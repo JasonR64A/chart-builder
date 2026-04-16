@@ -682,7 +682,62 @@ fig.update_layout(
                     font=dict(color=TEXT_COLOR, size=12)),
 )
 
-st.plotly_chart(fig, use_container_width=True)
+# ── Play highlighter: select a play to pin an annotation on the chart ────────
+# Build play options (biggest WP swings first, then full list)
+play_options = ['(none)']
+play_data = []  # parallel list of (play_index, label, wp_before, wp_after, hover)
+for idx in range(len(game)):
+    wp_b = wp_curve[idx]
+    wp_a = wp_curve[idx + 1]
+    delta = (wp_a - wp_b) * 100
+    row = game.iloc[idx]
+    half = 'Bot' if row['half_true'] == 'bottom' else 'Top'
+    player = str(row.get('player', '') or '')[:20]
+    desc = str(row.get('playDescription', '') or '')[:60]
+    label = f"{half} {int(row['inning'])}, {int(row['outs'])} out | {player}: {desc} ({delta:+.1f}%)"
+    play_data.append((idx + 1, label, wp_b, wp_a, hover_texts[idx + 1]))
+
+# Sort by absolute delta for the "Top swings" section
+top_swings = sorted(play_data, key=lambda x: abs(x[3] - x[2]), reverse=True)[:8]
+play_options += [f"★ {p[1]}" for p in top_swings]
+play_options += ['───── All plays ─────']
+play_options += [p[1] for p in play_data]
+
+st.markdown('**Pin a play** — select to add a visible callout on the chart (stays in PNG export):')
+selected_play = st.selectbox('Highlight play', play_options, index=0, key='highlight_play',
+                              label_visibility='collapsed')
+
+# If a play is selected, add annotation to the figure
+if selected_play and selected_play not in ('(none)', '───── All plays ─────'):
+    clean_label = selected_play.lstrip('★ ').strip()
+    match = next((p for p in play_data if p[1] == clean_label), None)
+    if match:
+        pidx, plabel, wp_b, wp_a, _ = match
+        delta_pct = (wp_a - wp_b) * 100
+        row = game.iloc[pidx - 1]
+        player = str(row.get('player', '') or '')[:20]
+        half = 'Bot' if row['half_true'] == 'bottom' else 'Top'
+        ann_text = (f"<b>{half} {int(row['inning'])}</b><br>"
+                    f"{player}<br>"
+                    f"<b>{delta_pct:+.1f}%</b> → {wp_a*100:.0f}%")
+        fig.add_annotation(
+            x=pidx, y=wp_a * 100,
+            text=ann_text,
+            showarrow=True, arrowhead=2, arrowsize=1.5, arrowwidth=2,
+            arrowcolor='#C41230',
+            ax=0, ay=-60 if delta_pct > 0 else 60,
+            bordercolor='#C41230', borderwidth=2, borderpad=6,
+            bgcolor='white', opacity=0.95,
+            font=dict(size=12, color='#2D2926'),
+        )
+        fig.add_trace(go.Scatter(
+            x=[pidx], y=[wp_a * 100], mode='markers',
+            marker=dict(size=12, color='#C41230', symbol='diamond'),
+            showlegend=False, hoverinfo='skip',
+        ))
+
+st.plotly_chart(fig, use_container_width=True, config={'toImageButtonOptions': {
+    'format': 'png', 'filename': f'WP_{home}_vs_{away}', 'scale': 2}})
 
 # Play-by-play log expander
 with st.expander('Play-by-play log with WP'):
