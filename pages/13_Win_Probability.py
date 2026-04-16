@@ -758,9 +758,23 @@ if selected_play and selected_play not in ('(none)', '───── All plays 
         arrow = '▲' if delta > 0 else ('▼' if delta < 0 else '—')
         delta_str = f"{arrow} {abs(delta):.1f}%"
         short_home = home.split(' ')[0] if len(home) > 15 else home
+        # Word-wrap the description by inserting <br> at ~50 char intervals
+        def _wrap(text, width=50):
+            words = text.split(' ')
+            lines, cur = [], ''
+            for w in words:
+                if cur and len(cur) + 1 + len(w) > width:
+                    lines.append(cur)
+                    cur = w
+                else:
+                    cur = f'{cur} {w}'.strip()
+            if cur:
+                lines.append(cur)
+            return '<br>'.join(lines)
+        wrapped_desc = _wrap(f'{player}: {desc}')
         ann_text = (
             f"<b>{half} {int(row['inning'])}</b>  {score}  ·  {outs} out<br>"
-            f"<i>{player}</i>: {desc}<br>"
+            f"<i>{wrapped_desc}</i><br>"
             f"<b>{short_home} WP: {wp_a*100:.1f}%</b>  ({delta_str})"
         )
         fig.add_annotation(
