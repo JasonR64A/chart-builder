@@ -7,3 +7,5 @@ pbp_data/play_by_play/*.csv
 pbp_data/validated/*.parquet
 pbp_data/validated/*_full.json
 data/_backups_2026_*/
+*.backup_*.csv
+*.pre_restore_*.csv
