@@ -22,11 +22,24 @@ from collections import Counter
 _APP_DIR = Path(__file__).resolve().parent.parent
 DATA_DIR = _APP_DIR / 'data'
 PBP_DIR = _APP_DIR / 'pbp_data' / 'play_by_play'
-PBP_FILE = PBP_DIR / 'baseball_play_by_play_D1.csv'
-PBP_FILE_GZ = PBP_DIR / 'baseball_play_by_play_D1.csv.gz'
-LOOKUP_FILE = _APP_DIR / 'pbp_data' / 'wp_state_lookup_bb_d1.pkl'
+LOOKUP_FILE = _APP_DIR / 'pbp_data' / 'wp_state_lookup_bb_d1.pkl'  # shared fallback — baseball D1 model
 LOGO_DIR = _APP_DIR / 'team_logos_512'
 BRAND_LOGO = _APP_DIR / 'assets' / 'brand_logo_wide.png'
+
+# Division labels: short codes used in file names, readable labels for UI
+DIVISION_LABELS = {'D1': 'D-I', 'D2': 'D-II', 'D3': 'D-III'}
+SPORT_OPTIONS = ['Baseball', 'Softball']
+DIVISION_OPTIONS = ['D1', 'D2', 'D3']
+
+
+def pbp_paths(sport, division):
+    sport_l = sport.lower()
+    base = PBP_DIR / f'{sport_l}_play_by_play_{division}'
+    return base.with_suffix('.csv'), base.with_suffix('.csv.gz')
+
+
+def hitting_pbp_path(sport, division):
+    return _APP_DIR / 'pbp_data' / sport.lower() / f'hitting_pbp_{division}.csv'
 
 HOME_FIELD_ADVANTAGE = 0.04
 # In-game clamps — allow real blowouts to read near-certain
@@ -57,15 +70,16 @@ AWAY_COLOR = '#C41230'     # cardinal red
 
 # ── Data loaders ─────────────────────────────────────────────────────────────
 @st.cache_data
-def load_pbp():
+def load_pbp(sport='Baseball', division='D1'):
     cols = ['gameId', 'date', 'awayTeam', 'homeTeam', 'inning', 'halfInning',
             'battingTeam',
             'outs', 'runner1B', 'runner2B', 'runner3B',
             'awayScore', 'homeScore', 'player', 'playDescription']
-    if PBP_FILE.exists():
-        df = pd.read_csv(PBP_FILE, low_memory=False, usecols=cols)
-    elif PBP_FILE_GZ.exists():
-        df = pd.read_csv(PBP_FILE_GZ, low_memory=False, usecols=cols, compression='gzip')
+    pbp_csv, pbp_gz = pbp_paths(sport, division)
+    if pbp_csv.exists():
+        df = pd.read_csv(pbp_csv, low_memory=False, usecols=cols)
+    elif pbp_gz.exists():
+        df = pd.read_csv(pbp_gz, low_memory=False, usecols=cols, compression='gzip')
     else:
         return None
     df['inning'] = pd.to_numeric(df['inning'], errors='coerce').fillna(0).astype(int)
@@ -87,28 +101,31 @@ def load_lookup():
 
 
 @st.cache_data
-def load_teams():
+def load_teams(sport='Baseball', division='D1'):
     t = pd.read_csv(DATA_DIR / 'teams.csv', low_memory=False)
     t['id'] = pd.to_numeric(t['id'], errors='coerce').fillna(0).astype(int)
     tr = pd.read_csv(DATA_DIR / 'team_rank.csv', low_memory=False)
     tr = tr[tr['year'] == 2026].copy()
     tr['rank'] = pd.to_numeric(tr['integer_64_rank_total'], errors='coerce')
     confs = pd.read_csv(DATA_DIR / 'conferences.csv', low_memory=False)
-    di_ids = set(confs[confs['division'] == 'D-I']['id'])
-    bb_d1 = t[(t['sport'] == 'Baseball') & (t['conference_id'].isin(di_ids))]
-    tr_d1 = tr[tr['team_id'].isin(bb_d1['id'])]
-    N = len(tr_d1)
-    tr_d1 = tr_d1.dropna(subset=['rank']).copy()
-    tr_d1['rank_pct'] = 1 - (tr_d1['rank'] - 1) / (N - 1)
-    name_to_pct = dict(zip(bb_d1.set_index('id').loc[tr_d1['team_id'].values, 'name'],
-                            tr_d1['rank_pct']))
-    name_to_rank = dict(zip(bb_d1.set_index('id').loc[tr_d1['team_id'].values, 'name'],
-                             tr_d1['rank'].astype(int)))
+    div_label = DIVISION_LABELS.get(division, division)
+    div_ids = set(confs[confs['division'] == div_label]['id'])
+    bucket = t[(t['sport'] == sport) & (t['conference_id'].isin(div_ids))]
+    tr_b = tr[tr['team_id'].isin(bucket['id'])]
+    N = len(tr_b)
+    tr_b = tr_b.dropna(subset=['rank']).copy()
+    if N < 2:
+        return {}, {}
+    tr_b['rank_pct'] = 1 - (tr_b['rank'] - 1) / (N - 1)
+    name_to_pct = dict(zip(bucket.set_index('id').loc[tr_b['team_id'].values, 'name'],
+                            tr_b['rank_pct']))
+    name_to_rank = dict(zip(bucket.set_index('id').loc[tr_b['team_id'].values, 'name'],
+                             tr_b['rank'].astype(int)))
     return name_to_pct, name_to_rank
 
 
 @st.cache_data
-def build_team_profiles():
+def build_team_profiles(sport='Baseball', division='D1'):
     """
     Per-team profile of talent for player-adjusted pre-game WP.
     Returns a dict keyed by team name:
@@ -119,8 +136,9 @@ def build_team_profiles():
         }
       }
     Uses the latest year of player_rank.csv per player. Hitter usage comes
-    from game-row counts in hitting_pbp_D1.csv over the last 30 days
-    (captures who actually plays, not just who's on the roster).
+    from game-row counts in hitting_pbp for the selected sport/division
+    over the last 30 days (captures who actually plays, not just who's on
+    the roster).
     """
     try:
         pr = pd.read_csv(DATA_DIR / 'player_rank.csv', low_memory=False,
@@ -134,15 +152,15 @@ def build_team_profiles():
         pr['pit'] = pd.to_numeric(pr['percentile_rank_weighted_run_allowed_efficiency'], errors='coerce')
 
         teams = pd.read_csv(DATA_DIR / 'teams.csv', low_memory=False, dtype=str).fillna('')
-        teams = teams[teams['sport'].str.lower() == 'baseball']
+        teams = teams[teams['sport'] == sport]
         teams['id_int'] = pd.to_numeric(teams['id'], errors='coerce').astype('Int64')
         id_to_name = dict(zip(teams['id_int'], teams['name']))
 
-        # PA usage proxy: games-played in last 30 days from hitting_pbp
-        hit_pbp_path = PBP_DIR.parent / 'baseball' / 'hitting_pbp_D1.csv'
+        # PA usage proxy: games-played in last 30 days from the matching sport+division hitting_pbp
+        hit_pbp_file = hitting_pbp_path(sport, division)
         pa_counts = {}
-        if hit_pbp_path.exists():
-            hp = pd.read_csv(hit_pbp_path, low_memory=False, usecols=['date','playerId'])
+        if hit_pbp_file.exists():
+            hp = pd.read_csv(hit_pbp_file, low_memory=False, usecols=['date','playerId'])
             hp['date'] = pd.to_datetime(hp['date'], errors='coerce', format='mixed')
             cutoff = hp['date'].max() - pd.Timedelta(days=30)
             hp = hp[hp['date'] >= cutoff]
@@ -386,13 +404,21 @@ st.title('Win Probability — Pace Chart')
 st.caption('Play-by-play WP curve. Starting point = log5 of 64 integer ranks ± 4% home-field bump. '
            'In-game WP = empirical state lookup blended with pre-game anchor (weight shifts to state as game progresses).')
 
-pbp = load_pbp()
+# Sport + division selectors drive every data load below.
+st.sidebar.markdown('### Sport / Division')
+sel_sport = st.sidebar.selectbox('Sport', SPORT_OPTIONS, index=0, key='wp_sport')
+sel_division = st.sidebar.selectbox('Division', DIVISION_OPTIONS, index=0, key='wp_division')
+
+pbp = load_pbp(sel_sport, sel_division)
 if pbp is None:
-    st.warning('Play-by-play data not available on Render. Redeploy should include the gzipped PBP file.')
+    st.warning(f'Play-by-play data for {sel_sport} {sel_division} not available.')
     st.stop()
 
 lookup = load_lookup()
-team_pct, team_rank = load_teams()
+if sel_sport != 'Baseball' or sel_division != 'D1':
+    st.sidebar.caption('ℹ️ In-game WP uses the baseball D1 state model. Sport/division-specific models coming later.')
+
+team_pct, team_rank = load_teams(sel_sport, sel_division)
 
 # Game picker
 st.sidebar.markdown('### Game selection')
@@ -450,7 +476,7 @@ else:
 # Talent model config (knobs)
 TEAM_RANK_BLEND = 0.5  # 0 = pure player-adj, 1 = pure team-rank
 
-profiles = build_team_profiles()
+profiles = build_team_profiles(sel_sport, sel_division)
 home_p_player = adjusted_team_pct(home_key, profiles, game_type, game_num, home_p) if home_p else home_p
 away_p_player = adjusted_team_pct(away_key, profiles, game_type, game_num, away_p) if away_p else away_p
 
