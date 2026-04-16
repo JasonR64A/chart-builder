@@ -1,30 +1,31 @@
 """
 Shared Predicted RPI computation used by both Win Generator and Bracketology.
-Uses True Rank (64A + RPI + Massey + DSR) Log5 model.
+
+Uses the same pre-game WP model as the Win Probability page and the Win
+Generator's Team Projection: compressed log5 + HFA + 50/50 team-rank/player
+blend + auto-detected Weekend/Midweek series context. Single source of truth
+lives in pages/_win_prob_model.py.
 """
 
 import pandas as pd
 import numpy as np
 from pathlib import Path
 
-LOGISTIC_A = 0.006355505043163222
-LOGISTIC_B = 151.44616903215248
-
-
-def _rank_to_win_pct(rank):
-    return 1.0 / (1.0 + np.exp(LOGISTIC_A * (rank - LOGISTIC_B)))
-
-
-def _log5(rank_a, rank_b):
-    pA = np.clip(_rank_to_win_pct(rank_a), 0.01, 0.99)
-    pB = np.clip(_rank_to_win_pct(rank_b), 0.01, 0.99)
-    return (pA * (1 - pB)) / (pA * (1 - pB) + pB * (1 - pA))
+from pages._win_prob_model import (
+    build_team_profiles, detect_game_context, compute_matchup_wp,
+    build_rank_pct_map,
+)
 
 
 def compute_predicted_rpi_for_bracketology(sport: str, DATA_DIR: Path) -> pd.DataFrame:
     """
-    Compute Predicted RPI for all D1 teams using True Rank Log5.
-    Returns DataFrame with: team, pred_rpi, pred_rpi_rank, proj_wins, proj_losses
+    Compute Predicted RPI for all D1 teams using the unified WP pipeline.
+    Returns DataFrame with: team, pred_rpi, pred_rpi_rank, proj_wins, proj_losses.
+
+    Remaining-game wins are expected values (sum of per-game WP) using the
+    full pipeline. Played games come straight from schedules_full result
+    column. Game-count source = schedule for both played and remaining, so
+    results line up with Predicted RPI display / Bracketology.
     """
     # Load True Rank components
     teams = pd.read_csv(DATA_DIR / 'teams.csv', low_memory=False)
@@ -40,7 +41,6 @@ def compute_predicted_rpi_for_bracketology(sport: str, DATA_DIR: Path) -> pd.Dat
     ranked = sport_teams.merge(tr_2026, left_on='id', right_on='team_id', how='left')
     ranked['rank_rpi'] = ranked['name'].map(dict(zip(rpi_df['teamName'], rpi_df['rank'])))
 
-    # Name mapping for external rankings
     nm_file = DATA_DIR / 'rankings' / 'name_map.csv'
     ext_map: dict = {}
     if nm_file.exists():
@@ -56,36 +56,62 @@ def compute_predicted_rpi_for_bracketology(sport: str, DATA_DIR: Path) -> pd.Dat
             ranked[col] = np.nan
 
     rcols = ['rank_64a', 'rank_rpi', 'rank_massey', 'rank_dsr']
-    ranked['true_rank'] = ranked[rcols].mean(axis=1).fillna(ranked['rank_64a']).fillna(LOGISTIC_B)
-    true_rank_lookup = dict(zip(ranked['name'], ranked['true_rank']))
+    ranked['true_rank'] = ranked[rcols].mean(axis=1).fillna(ranked['rank_64a'])
+    # Median fallback for teams missing every ranking
+    median_rank = float(ranked['true_rank'].median()) if ranked['true_rank'].notna().any() else 150.0
+    ranked['true_rank'] = ranked['true_rank'].fillna(median_rank)
 
-    # Load schedule, predict games, compute RPI
+    # Build rank_pct map for D1 (so percentiles are computed within-division)
+    d1_ids = set(confs[(confs['division'] == 'D-I') & (confs['name'] != 'Big Sky Conference')]['id'])
+    d1_team_names = set(teams[(teams['sport'] == sport_label) & (teams['conference_id'].isin(d1_ids))]['name'])
+
+    ranked_d1 = ranked[ranked['name'].isin(d1_team_names)][['name', 'true_rank']].copy()
+    ranked_d1.columns = ['team_name', 'rank']
+    rank_pct_map = build_rank_pct_map(ranked_d1, 'rank')
+
+    # Load player-driven profiles (D1 for this sport)
+    profiles = build_team_profiles(sport_label, 'D1')
+
+    # Schedule is the single source of truth for both played and remaining
     sched_file = DATA_DIR / f'schedules_full_{sport}.csv'
     if not sched_file.exists():
         return pd.DataFrame()
 
     sched = pd.read_csv(sched_file, low_memory=False)
-    played = sched[sched['result'].notna() & (sched['result'] != '')]
-    remaining = sched[(sched['result'].isna()) | (sched['result'] == '')]
 
     team_wins: dict = {}
     team_games: dict = {}
     team_opponents: dict = {}
 
+    # Played games: actual W/L from the result column
+    played = sched[sched['result'].notna() & (sched['result'] != '')]
     for tn, grp in played.groupby('teamName'):
         team_wins[tn] = float(grp['result'].str.startswith('W').sum())
         team_games[tn] = float(len(grp))
-        team_opponents[tn] = grp['opponentName'].apply(lambda x: str(x).split('@')[0].strip()).tolist()
+        team_opponents[tn] = grp['opponentName'].apply(
+            lambda x: str(x).split('@')[0].strip()).tolist()
 
+    # Remaining games: expected wins via the full pipeline
+    remaining = sched[(sched['result'].isna()) | (sched['result'] == '')]
+    # Group by team so we can feed detect_game_context the team's own schedule
     for tn, grp in remaining.groupby('teamName'):
-        tr_val = true_rank_lookup.get(tn, LOGISTIC_B)
+        full_team_sched = sched[sched['teamName'] == tn]  # both played + remaining for series detection
         for _, g in grp.iterrows():
             opp = str(g.get('opponentName', '')).split('@')[0].strip()
-            team_wins[tn] = team_wins.get(tn, 0) + _log5(tr_val, true_rank_lookup.get(opp, LOGISTIC_B))
+            is_home = not (pd.notna(g.get('isAway')) and g.get('isAway') == 1.0)
+            home = tn if is_home else opp
+            away = opp if is_home else tn
+            gtype, gnum = detect_game_context(g['date'], opp, full_team_sched)
+            if home in rank_pct_map and away in rank_pct_map:
+                wp = compute_matchup_wp(home, away, is_home, gtype, gnum,
+                                         rank_pct_map, profiles)
+            else:
+                wp = 0.5
+            team_wins[tn] = team_wins.get(tn, 0) + wp
             team_games[tn] = team_games.get(tn, 0) + 1
             team_opponents.setdefault(tn, []).append(opp)
 
-    # Location-weighted WP
+    # Location-weighted WP (kept unchanged — still the Bracketology convention)
     team_loc: dict = {'home': {}, 'away': {}, 'neutral': {}}
     for tn, grp in sched.groupby('teamName'):
         for _, g in grp.iterrows():
@@ -114,14 +140,14 @@ def compute_predicted_rpi_for_bracketology(sport: str, DATA_DIR: Path) -> pd.Dat
         else:
             wp_lookup[t] = wp_raw
 
-    # OWP
     owp_lookup: dict = {}
     for t in wp_lookup:
         opps = team_opponents.get(t, [])
         owps = [wp_lookup.get(o, 0.5) for o in opps if o in wp_lookup]
         owp_lookup[t] = float(np.mean(owps)) if owps else 0.5
 
-    # RPI
+    true_rank_lookup = dict(zip(ranked['name'], ranked['true_rank']))
+
     results = []
     for t in wp_lookup:
         opps = team_opponents.get(t, [])
@@ -135,20 +161,11 @@ def compute_predicted_rpi_for_bracketology(sport: str, DATA_DIR: Path) -> pd.Dat
         })
 
     df = pd.DataFrame(results).sort_values('pred_rpi', ascending=False)
-
-    # Filter to D1 (excl Big Sky catch-all)
-    d1_ids = set(confs[(confs['division'] == 'D-I') & (confs['name'] != 'Big Sky Conference')]['id'])
-    d1_names = set(teams[(teams['sport'] == sport_label) & (teams['conference_id'].isin(d1_ids))]['name'])
-    df = df[df['team'].isin(d1_names)].reset_index(drop=True)
+    df = df[df['team'].isin(d1_team_names)].reset_index(drop=True)
     df['pred_rpi_rank'] = range(1, len(df) + 1)
-
-    # Add True Rank and Final Rank (70% True Rank + 30% Predicted RPI Rank)
     df['true_rank'] = df['team'].map(true_rank_lookup)
-    # Re-rank True Rank within D1 teams
     df['true_rank_d1'] = df['true_rank'].rank(method='min').fillna(len(df)).astype(int)
     df['final_rank_score'] = 0.70 * df['true_rank_d1'] + 0.30 * df['pred_rpi_rank']
-    # Break ties by pred_rpi (higher = better) so no two teams share the same final rank.
     df = df.sort_values(['final_rank_score', 'pred_rpi'], ascending=[True, False]).reset_index(drop=True)
     df['final_rank'] = range(1, len(df) + 1)
-
     return df

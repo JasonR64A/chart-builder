@@ -41,23 +41,23 @@ def pbp_paths(sport, division):
 def hitting_pbp_path(sport, division):
     return _APP_DIR / 'pbp_data' / sport.lower() / f'hitting_pbp_{division}.csv'
 
-HOME_FIELD_ADVANTAGE = 0.04
-# In-game clamps — allow real blowouts to read near-certain
+# Pre-game WP constants + helpers live in the shared model module so every
+# page that projects games (Win Probability, Win Generator, Predicted RPI)
+# uses the exact same math.
+from pages._win_prob_model import (
+    HOME_FIELD_ADVANTAGE, PREGAME_EDGE_SCALE,
+    PREGAME_CLAMP_MIN, PREGAME_CLAMP_MAX,
+    TEAM_RANK_BLEND, PITCHING_WEIGHT,
+    log5 as _shared_log5,
+    pre_game_wp as _shared_pre_game_wp,
+    build_team_profiles as _shared_build_team_profiles,
+    adjusted_team_pct as _shared_adjusted_team_pct,
+    blend_with_static as _shared_blend_with_static,
+)
+
+# In-game clamps — different from pre-game (blowouts should be able to read near-certain)
 CLAMP_MIN = 0.01
 CLAMP_MAX = 0.99
-# Pre-game proportional compression.
-# Rather than a hard cap, we scale the log5 edge (distance from 0.5) by this
-# factor, then add HFA. Every pre-game WP's gap from 50/50 gets pulled in
-# proportionally, so relative ordering is preserved at all levels:
-#   - Arkansas vs UAPB (raw ~99%) compresses to ~90% max
-#   - A 57% matchup compresses to ~56.2%
-# 0.72 was chosen to put the best-vs-worst D1 matchup around 90% including HFA.
-# Tune down for more compression, up for less.
-PREGAME_EDGE_SCALE = 0.72
-# Safety clamp — the math above should keep us inside this range, but floor/ceil
-# guards against any rank_pct edge case producing something silly.
-PREGAME_CLAMP_MIN = 0.10
-PREGAME_CLAMP_MAX = 0.90
 
 # 64Analytics brand colors (matches other chart pages)
 BG_COLOR = '#FAF8F2'       # warm off-white
@@ -124,22 +124,13 @@ def load_teams(sport='Baseball', division='D1'):
     return name_to_pct, name_to_rank
 
 
-@st.cache_data
 def build_team_profiles(sport='Baseball', division='D1'):
-    """
-    Per-team profile of talent for player-adjusted pre-game WP.
-    Returns a dict keyed by team name:
-      {
-        team_name: {
-          'pitchers': [pit_pct, pit_pct, ...],  # sorted desc (best first)
-          'hitters_by_pa': [hit_pct, hit_pct, ...],  # sorted by last-30d games played desc
-        }
-      }
-    Uses the latest year of player_rank.csv per player. Hitter usage comes
-    from game-row counts in hitting_pbp for the selected sport/division
-    over the last 30 days (captures who actually plays, not just who's on
-    the roster).
-    """
+    """Thin wrapper — real implementation in pages/_win_prob_model.py."""
+    return _shared_build_team_profiles(sport, division)
+
+
+def _legacy_build_team_profiles_inline(sport='Baseball', division='D1'):
+    """Retained for reference only; not called."""
     try:
         pr = pd.read_csv(DATA_DIR / 'player_rank.csv', low_memory=False,
                          usecols=['player_id','team_id','year',
@@ -187,50 +178,8 @@ def build_team_profiles(sport='Baseball', division='D1'):
 
 
 def adjusted_team_pct(name, profiles, game_type, game_num, static_pct):
-    """
-    Player-driven team talent pct.
-      - Weekend: starter = P1/P2/P3 based on game_num; hitting = top-9 by PA mean
-      - Midweek: starter = mean of pitchers 5-12 (indices 4-11); hitting = bench lineup
-                 (top-6 summed + 3 * mean(hitters 7-12)) / 9
-    Falls back to static team_pct if profile is missing or insufficient.
-    Weight: 0.40 hitting + 0.60 pitching.
-    """
-    if not name or name not in profiles:
-        return static_pct
-    prof = profiles[name]
-    pitchers = prof.get('pitchers', [])
-    hitters = prof.get('hitters_by_pa', [])
-
-    # Pitching component
-    pit_pct = None
-    if game_type == 'Weekend':
-        idx = max(0, min(2, int(game_num) - 1))  # 0/1/2 for Game 1/2/3
-        if len(pitchers) > idx:
-            pit_pct = pitchers[idx]
-    else:  # Midweek
-        mw_pool = pitchers[4:12]
-        if mw_pool:
-            pit_pct = sum(mw_pool) / len(mw_pool)
-
-    # Hitting component
-    hit_pct = None
-    if game_type == 'Weekend':
-        top9 = hitters[:9]
-        if top9:
-            hit_pct = sum(top9) / len(top9)
-    else:  # Midweek: bench lineup
-        top6 = hitters[:6]
-        bench_pool = hitters[6:12]
-        if top6 and bench_pool:
-            bench_mean = sum(bench_pool) / len(bench_pool)
-            hit_pct = (sum(top6) + 3 * bench_mean) / 9
-        elif hitters:
-            hit_pct = sum(hitters[:9]) / min(9, len(hitters))
-
-    if pit_pct is None or hit_pct is None:
-        return static_pct
-
-    return 0.40 * hit_pct + 0.60 * pit_pct
+    """Thin wrapper — real implementation in pages/_win_prob_model.py."""
+    return _shared_adjusted_team_pct(name, profiles, game_type, game_num, static_pct)
 
 
 @st.cache_data
@@ -353,19 +302,13 @@ def find_all_segments(home_wps, want_home_ahead, min_len=5):
     return segments
 
 
+# Thin wrappers so existing call sites keep working
 def log5(wa, wb):
-    denom = wa + wb - 2 * wa * wb
-    return (wa - wa * wb) / denom if denom else 0.5
+    return _shared_log5(wa, wb)
 
 
 def pre_game_wp(home_pct, away_pct):
-    if pd.isna(home_pct) or pd.isna(away_pct):
-        return 0.5
-    base = log5(home_pct, away_pct)
-    # Compress the edge toward 50/50 before applying home-field advantage
-    scaled = 0.5 + (base - 0.5) * PREGAME_EDGE_SCALE
-    adjusted = scaled + HOME_FIELD_ADVANTAGE
-    return max(PREGAME_CLAMP_MIN, min(PREGAME_CLAMP_MAX, adjusted))
+    return _shared_pre_game_wp(home_pct, away_pct)
 
 
 def state_key(row):
@@ -482,23 +425,12 @@ else:
     game_num = 0
     detected_label = 'Midweek (single game)'
 
-# Talent model config (knobs)
-TEAM_RANK_BLEND = 0.5  # 0 = pure player-adj, 1 = pure team-rank
-
 profiles = build_team_profiles(sel_sport, sel_division)
 home_p_player = adjusted_team_pct(home_key, profiles, game_type, game_num, home_p) if home_p else home_p
 away_p_player = adjusted_team_pct(away_key, profiles, game_type, game_num, away_p) if away_p else away_p
 
-# Blend team-rank with player-driven pct to keep the team-level context
-# (depth, conference adjustments, etc.) in the mix. Pure player-driven
-# saturates for elite teams — see Arkansas-vs-Alabama diagnostic.
-def blend(player_pct, team_rank_pct, w=TEAM_RANK_BLEND):
-    if player_pct is None or team_rank_pct is None:
-        return player_pct or team_rank_pct
-    return w * team_rank_pct + (1 - w) * player_pct
-
-home_p_adj = blend(home_p_player, home_p)
-away_p_adj = blend(away_p_player, away_p)
+home_p_adj = _shared_blend_with_static(home_p_player, home_p)
+away_p_adj = _shared_blend_with_static(away_p_player, away_p)
 
 # Sidebar transparency: what we detected + resolved values
 st.sidebar.markdown('### Talent model')
