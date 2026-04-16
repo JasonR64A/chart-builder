@@ -69,7 +69,11 @@ def build_team_profiles(sport, division):
                                   'percentile_rank_weighted_run_created_efficiency',
                                   'percentile_rank_weighted_run_allowed_efficiency'])
         pr['year'] = pd.to_numeric(pr['year'], errors='coerce')
-        pr = pr.sort_values('year').drop_duplicates('player_id', keep='last')
+        # Use CURRENT year only — don't let graduated/transferred players'
+        # old stats bleed into current team profiles (e.g. Hagen Smith 2025
+        # showing as Arkansas's P1 in 2026 after he was drafted).
+        max_year = pr['year'].max()
+        pr = pr[pr['year'] == max_year]
         pr['team_id'] = pd.to_numeric(pr['team_id'], errors='coerce').astype('Int64')
         pr['hit'] = pd.to_numeric(pr['percentile_rank_weighted_run_created_efficiency'], errors='coerce')
         pr['pit'] = pd.to_numeric(pr['percentile_rank_weighted_run_allowed_efficiency'], errors='coerce')

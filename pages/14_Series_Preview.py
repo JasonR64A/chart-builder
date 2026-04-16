@@ -107,7 +107,9 @@ def load_player_rank():
                               'percentile_rank_weighted_run_created_efficiency',
                               'percentile_rank_weighted_run_allowed_efficiency'])
     pr['year'] = pd.to_numeric(pr['year'], errors='coerce')
-    pr = pr.sort_values('year').drop_duplicates('player_id', keep='last')
+    # Current year only — prevents graduated/transferred players from appearing
+    max_year = pr['year'].max()
+    pr = pr[pr['year'] == max_year]
     pr['team_id'] = pd.to_numeric(pr['team_id'], errors='coerce').astype('Int64')
     pr['hit_pct'] = pd.to_numeric(pr['percentile_rank_weighted_run_created_efficiency'], errors='coerce')
     pr['pit_pct'] = pd.to_numeric(pr['percentile_rank_weighted_run_allowed_efficiency'], errors='coerce')
