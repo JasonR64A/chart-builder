@@ -712,27 +712,22 @@ if selected_play and selected_play not in ('(none)', '───── All plays 
     clean_label = selected_play.lstrip('★ ').strip()
     match = next((p for p in play_data if p[1] == clean_label), None)
     if match:
-        pidx, plabel, wp_b, wp_a, _ = match
-        delta_pct = (wp_a - wp_b) * 100
-        row = game.iloc[pidx - 1]
-        player = str(row.get('player', '') or '')[:20]
-        half = 'Bot' if row['half_true'] == 'bottom' else 'Top'
-        ann_text = (f"<b>{half} {int(row['inning'])}</b><br>"
-                    f"{player}<br>"
-                    f"<b>{delta_pct:+.1f}%</b> → {wp_a*100:.0f}%")
+        pidx, plabel, wp_b, wp_a, hover_html = match
+        # Use the exact same content + styling as the live hover tooltip
         fig.add_annotation(
             x=pidx, y=wp_a * 100,
-            text=ann_text,
-            showarrow=True, arrowhead=2, arrowsize=1.5, arrowwidth=2,
-            arrowcolor='#C41230',
-            ax=0, ay=-60 if delta_pct > 0 else 60,
-            bordercolor='#C41230', borderwidth=2, borderpad=6,
-            bgcolor='white', opacity=0.95,
-            font=dict(size=12, color='#2D2926'),
+            text=hover_html,
+            showarrow=True, arrowhead=2, arrowsize=1, arrowwidth=1.5,
+            arrowcolor=TEXT_COLOR,
+            ax=0, ay=-70 if (wp_a - wp_b) > 0 else 70,
+            bordercolor=TEXT_COLOR, borderwidth=1, borderpad=8,
+            bgcolor=BG_COLOR, opacity=0.95,
+            font=dict(size=12, color=TEXT_COLOR),
+            align='left',
         )
         fig.add_trace(go.Scatter(
             x=[pidx], y=[wp_a * 100], mode='markers',
-            marker=dict(size=12, color='#C41230', symbol='diamond'),
+            marker=dict(size=10, color=TEXT_COLOR, symbol='circle'),
             showlegend=False, hoverinfo='skip',
         ))
 
