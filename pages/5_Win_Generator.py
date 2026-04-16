@@ -15,31 +15,214 @@ DATA_DIR = _APP_DIR / 'data'
 # No longer needed — schedules loaded from DATA_DIR
 BRAND_LOGO = _APP_DIR / 'assets' / 'brand_logo_dark.png'
 
-# Logistic model params: win_pct = 1 / (1 + exp(A * (rank - B)))
-# Fitted on 3,052 team-seasons (2024-2026) with R² = 0.69
+# Legacy logistic model — kept for reference / fallback
 LOGISTIC_A = 0.006355505043163222
 LOGISTIC_B = 151.44616903215248
 RESIDUAL_STD = 0.09449904970441943
 
+# Pre-game WP model (same calibration as Win Probability page)
+HOME_FIELD_ADVANTAGE = 0.04
+PREGAME_EDGE_SCALE = 0.72        # compress log5 edge so best-vs-worst ≈ 90%
+PREGAME_CLAMP_MIN = 0.10
+PREGAME_CLAMP_MAX = 0.90
+TEAM_RANK_BLEND = 0.5            # 50/50 team-rank + player-driven
+PITCHING_WEIGHT = 0.60           # 60/40 pitching-to-hitting
+
 
 # ── Model Functions ───────────────────────────────────────────────────────────
 def rank_to_win_pct(rank):
-    """Convert 64 integer rank to expected win percentage."""
+    """Legacy: convert 64 integer rank to expected win percentage."""
     return 1.0 / (1.0 + np.exp(LOGISTIC_A * (rank - LOGISTIC_B)))
 
 
+def log5(wa, wb):
+    denom = wa + wb - 2 * wa * wb
+    return (wa - wa * wb) / denom if denom else 0.5
+
+
+def pre_game_wp(home_pct, away_pct, include_hfa=True):
+    """Compressed log5 pre-game WP matching the Win Probability page."""
+    if home_pct is None or away_pct is None or np.isnan(home_pct) or np.isnan(away_pct):
+        return 0.5
+    base = log5(home_pct, away_pct)
+    scaled = 0.5 + (base - 0.5) * PREGAME_EDGE_SCALE
+    adjusted = scaled + (HOME_FIELD_ADVANTAGE if include_hfa else 0.0)
+    return max(PREGAME_CLAMP_MIN, min(PREGAME_CLAMP_MAX, adjusted))
+
+
 def log5_win_prob(rank_a, rank_b):
-    """Win probability for team A vs team B using Log5 method."""
+    """Legacy raw log5 (for back-compat). Prefer pre_game_wp + rank_pct pipeline."""
     pA = np.clip(rank_to_win_pct(rank_a), 0.01, 0.99)
     pB = np.clip(rank_to_win_pct(rank_b), 0.01, 0.99)
     return (pA * (1 - pB)) / (pA * (1 - pB) + pB * (1 - pA))
 
 
+@st.cache_data
+def build_team_profiles(sport, division):
+    """
+    Per-team talent profiles for player-adjusted WP. Mirrors the Win
+    Probability page (pages/13_Win_Probability.py). Returns dict keyed by
+    team name:
+      { team_name: {'pitchers': [pit_pct,...], 'hitters_by_pa': [hit_pct,...]} }
+    """
+    try:
+        pr = pd.read_csv(DATA_DIR / 'player_rank.csv', low_memory=False,
+                         usecols=['player_id','team_id','year',
+                                  'percentile_rank_weighted_run_created_efficiency',
+                                  'percentile_rank_weighted_run_allowed_efficiency'])
+        pr['year'] = pd.to_numeric(pr['year'], errors='coerce')
+        pr = pr.sort_values('year').drop_duplicates('player_id', keep='last')
+        pr['team_id'] = pd.to_numeric(pr['team_id'], errors='coerce').astype('Int64')
+        pr['hit'] = pd.to_numeric(pr['percentile_rank_weighted_run_created_efficiency'], errors='coerce')
+        pr['pit'] = pd.to_numeric(pr['percentile_rank_weighted_run_allowed_efficiency'], errors='coerce')
+
+        sport_label = 'Baseball' if sport == 'baseball' else 'Softball'
+        teams = pd.read_csv(DATA_DIR / 'teams.csv', low_memory=False, dtype=str).fillna('')
+        teams = teams[teams['sport'] == sport_label]
+        teams['id_int'] = pd.to_numeric(teams['id'], errors='coerce').astype('Int64')
+        id_to_name = dict(zip(teams['id_int'], teams['name']))
+
+        # Hitter usage — last 30 days games-played from hitting_pbp
+        hit_pbp_path = _APP_DIR / 'pbp_data' / sport / f'hitting_pbp_{division}.csv'
+        pa_counts = {}
+        if hit_pbp_path.exists():
+            hp = pd.read_csv(hit_pbp_path, low_memory=False, usecols=['date','playerId'])
+            hp['date'] = pd.to_datetime(hp['date'], errors='coerce', format='mixed')
+            cutoff = hp['date'].max() - pd.Timedelta(days=30)
+            hp = hp[hp['date'] >= cutoff]
+            pa_counts = hp.groupby('playerId').size().to_dict()
+
+        profiles = {}
+        for tid, grp in pr.groupby('team_id'):
+            name = id_to_name.get(tid)
+            if not name:
+                continue
+            pit_df = grp.dropna(subset=['pit']); pit_df = pit_df[pit_df['pit'] > 0]
+            pit_list = pit_df.sort_values('pit', ascending=False)['pit'].tolist()
+            hit_df = grp.dropna(subset=['hit']).copy(); hit_df = hit_df[hit_df['hit'] > 0]
+            hit_df['usage'] = hit_df['player_id'].map(pa_counts).fillna(0)
+            hit_list = hit_df.sort_values(['usage','hit'], ascending=[False, False])['hit'].tolist()
+            profiles[name] = {'pitchers': pit_list, 'hitters_by_pa': hit_list}
+        return profiles
+    except Exception as e:
+        print(f'build_team_profiles failed: {e}')
+        return {}
+
+
+def adjusted_team_pct(name, profiles, game_type, game_num, static_pct):
+    """Player-driven team talent pct. Falls back to static_pct if profile missing."""
+    if not name or name not in profiles:
+        return static_pct
+    prof = profiles[name]
+    pitchers = prof.get('pitchers', [])
+    hitters = prof.get('hitters_by_pa', [])
+
+    pit_pct = None
+    if game_type == 'Weekend':
+        idx = max(0, min(2, int(game_num) - 1))
+        if len(pitchers) > idx:
+            pit_pct = pitchers[idx]
+    else:
+        mw_pool = pitchers[4:12]
+        if mw_pool:
+            pit_pct = sum(mw_pool) / len(mw_pool)
+
+    hit_pct = None
+    if game_type == 'Weekend':
+        top9 = hitters[:9]
+        if top9:
+            hit_pct = sum(top9) / len(top9)
+    else:
+        top6 = hitters[:6]
+        bench_pool = hitters[6:12]
+        if top6 and bench_pool:
+            bench_mean = sum(bench_pool) / len(bench_pool)
+            hit_pct = (sum(top6) + 3 * bench_mean) / 9
+        elif hitters:
+            hit_pct = sum(hitters[:9]) / min(9, len(hitters))
+
+    if pit_pct is None or hit_pct is None:
+        return static_pct
+    return (1 - PITCHING_WEIGHT) * hit_pct + PITCHING_WEIGHT * pit_pct
+
+
+def blend_with_static(player_pct, static_pct, w=TEAM_RANK_BLEND):
+    """Blend player-driven pct with static team-rank pct (w = weight on static)."""
+    if player_pct is None:
+        return static_pct
+    if static_pct is None:
+        return player_pct
+    return w * static_pct + (1 - w) * player_pct
+
+
+def detect_game_context(game_date, opp_name, team_schedule):
+    """
+    Given a scheduled game's date and opponent, detect whether it's part
+    of a Weekend series (>=2 games vs same opponent within a 4-day
+    window) or a Midweek single game. Returns (game_type, game_num).
+    """
+    sel = pd.to_datetime(game_date, format='mixed', errors='coerce')
+    if pd.isna(sel):
+        return 'Midweek', 0
+    opp_clean = str(opp_name).split('@')[0].strip()
+    sched = team_schedule.copy()
+    sched['_opp'] = sched['opponentName'].astype(str).str.split('@').str[0].str.strip()
+    sched['_d'] = pd.to_datetime(sched['date'], format='mixed', errors='coerce')
+    window = sched[(sched['_opp'] == opp_clean) &
+                   (sched['_d'] >= sel - pd.Timedelta(days=2)) &
+                   (sched['_d'] <= sel + pd.Timedelta(days=2))]
+    dates = sorted(window['_d'].dropna().unique())
+    if len(dates) >= 2:
+        game_num = max(1, min(3, sum(1 for d in dates if d <= sel)))
+        return 'Weekend', game_num
+    return 'Midweek', 0
+
+
+def compute_matchup_wp(home_name, away_name, is_home_for_selected, game_type, game_num,
+                       rank_pct_map, profiles):
+    """Full pre-game WP pipeline. Returns P(selected team wins)."""
+    home_static = rank_pct_map.get(home_name)
+    away_static = rank_pct_map.get(away_name)
+    home_player = adjusted_team_pct(home_name, profiles, game_type, game_num, home_static)
+    away_player = adjusted_team_pct(away_name, profiles, game_type, game_num, away_static)
+    home_p = blend_with_static(home_player, home_static)
+    away_p = blend_with_static(away_player, away_static)
+    p_home_wins = pre_game_wp(home_p, away_p)
+    return p_home_wins if is_home_for_selected else (1 - p_home_wins)
+
+
+def project_season_probs(win_probs, current_wins, current_losses, n_simulations=1000):
+    """
+    Monte Carlo projection when per-game win probabilities are already
+    computed (e.g. via the full compressed-log5 + HFA + player-blend
+    pipeline). Faster than re-computing per game per sim.
+    """
+    probs = np.asarray(win_probs, dtype=float)
+    rng = np.random.default_rng()
+    total_games = current_wins + current_losses + len(probs)
+    sim_wins = []
+    for _ in range(n_simulations):
+        rolls = rng.random(len(probs))
+        wins = current_wins + int((rolls < probs).sum())
+        sim_wins.append(wins)
+    sim_wins = np.array(sim_wins)
+    expected = float(np.mean(sim_wins))
+    expected_losses = total_games - expected
+    return {
+        'expected_wins': round(expected, 1),
+        'expected_losses': round(expected_losses, 1),
+        'expected_win_pct': round(expected / total_games, 3) if total_games > 0 else 0,
+        'win_low': int(np.percentile(sim_wins, 10)),
+        'win_high': int(np.percentile(sim_wins, 90)),
+        'win_floor': int(np.min(sim_wins)),
+        'win_ceiling': int(np.max(sim_wins)),
+        'remaining_games': len(probs),
+        'projected_remaining_wins': round(expected - current_wins, 1),
+    }
+
+
 def project_season(team_rank, opponent_ranks, current_wins, current_losses, n_simulations=1000):
-    """
-    Project final W-L using Monte Carlo simulation.
-    Returns: expected_wins, expected_losses, win_range_low, win_range_high
-    """
+    """Legacy projection using static rank-to-wp logistic + raw log5."""
     sim_wins = []
     for _ in range(n_simulations):
         wins = current_wins
@@ -317,6 +500,28 @@ if division != 'All':
 # Build name -> rank lookup for matching schedule opponents
 name_to_rank = dict(zip(ranks['team_name'], ranks['rank']))
 
+# Build rank_pct map (1 - (rank-1)/(N-1)) for the new compressed-log5 pipeline.
+# Ranks here are "True Rank" (mean of up to 4 sources, float). Use dense ranking
+# within the current division filter to convert to a percentile.
+ranks_sorted = ranks.dropna(subset=['rank']).copy()
+ranks_sorted['rank_ordinal'] = ranks_sorted['rank'].rank(method='min', ascending=True)
+N_div = len(ranks_sorted)
+if N_div >= 2:
+    ranks_sorted['rank_pct'] = 1 - (ranks_sorted['rank_ordinal'] - 1) / (N_div - 1)
+else:
+    ranks_sorted['rank_pct'] = 0.5
+rank_pct_map = dict(zip(ranks_sorted['team_name'], ranks_sorted['rank_pct']))
+
+# Build player-talent profiles for the selected sport(+division).
+DIV_LABEL_TO_CODE = {'D-I': 'D1', 'D-II': 'D2', 'D-III': 'D3'}
+if division == 'All':
+    profiles = {}
+    for _code in ('D1', 'D2', 'D3'):
+        profiles.update(build_team_profiles(sport, _code))
+else:
+    _code = DIV_LABEL_TO_CODE.get(division, 'D1')
+    profiles = build_team_profiles(sport, _code)
+
 # Merge current records
 ranks = ranks.merge(records, on='team_id', how='left')
 ranks['current_wins'] = ranks['current_wins'].fillna(0).astype(int)
@@ -341,7 +546,22 @@ if mode == 'Single Matchup':
 
     rank_a = int(row_a['rank'])
     rank_b = int(row_b['rank'])
-    prob_a = log5_win_prob(rank_a, rank_b)
+
+    mc1, mc2 = st.columns(2)
+    host = mc1.radio('Home team', [team_a, team_b], horizontal=True, key='match_host')
+    gtype = mc2.radio('Game type', ['Weekend', 'Midweek'], horizontal=True, key='match_type')
+    gnum = 1
+    if gtype == 'Weekend':
+        gnum = st.radio('Series game #', [1, 2, 3], horizontal=True, key='match_gnum')
+
+    is_home_for_a = (host == team_a)
+    prob_a = compute_matchup_wp(
+        home_name=team_a if is_home_for_a else team_b,
+        away_name=team_b if is_home_for_a else team_a,
+        is_home_for_selected=is_home_for_a,
+        game_type=gtype, game_num=gnum,
+        rank_pct_map=rank_pct_map, profiles=profiles,
+    )
 
     c1, c2, c3 = st.columns(3)
     c1.metric(f'{team_a} (True Rank #{rank_a})', f'{prob_a:.1%} win prob')
@@ -376,21 +596,33 @@ elif mode == 'Team Projection':
         st.info(f'No future games found for {selected_team}. Season may be complete.')
         st.stop()
 
-    # Get opponent ranks for future games
-    opp_ranks = []
+    # Compute per-game WP using the full pipeline (compressed log5 + HFA
+    # + 50/50 team-rank/player blend, with auto-detected Weekend/Midweek).
+    win_probs = []
     unranked_opps = []
+    game_details = []  # parallel list, for the Remaining-schedule expander
     for _, game in team_sched.iterrows():
         opp_name = str(game.get('opponentName', '')).split('@')[0].strip()
-        opp_rank = name_to_rank.get(opp_name)
-        if opp_rank is not None and not np.isnan(opp_rank):
-            opp_ranks.append(int(opp_rank))
+        is_home_for_selected = not (pd.notna(game.get('isAway')) and game.get('isAway') == 1.0)
+        if is_home_for_selected:
+            home, away = selected_team, opp_name
         else:
-            # Unknown opponent — use median rank as estimate
-            opp_ranks.append(int(LOGISTIC_B))
-            unranked_opps.append(opp_name)
+            home, away = opp_name, selected_team
+        gtype, gnum = detect_game_context(game['date'], opp_name, team_sched)
+        # If either team has no rank_pct, fall back to 50%
+        if home not in rank_pct_map or away not in rank_pct_map:
+            wp = 0.5
+            if opp_name not in rank_pct_map:
+                unranked_opps.append(opp_name)
+        else:
+            wp = compute_matchup_wp(home, away, is_home_for_selected,
+                                     gtype, gnum, rank_pct_map, profiles)
+        win_probs.append(wp)
+        game_details.append({'opp': opp_name, 'is_home': is_home_for_selected,
+                              'game_type': gtype, 'game_num': gnum, 'wp': wp,
+                              'date': game.get('date')})
 
-    # Run projection
-    projection = project_season(team_rank, opp_ranks, current_w, current_l)
+    projection = project_season_probs(win_probs, current_w, current_l)
 
     # Display
     st.markdown(f'**{selected_team}** — Rank #{team_rank}')
@@ -407,30 +639,24 @@ elif mode == 'Team Projection':
     **Full Range**: {projection['win_floor']}-{projection['win_ceiling']} wins
     """)
 
-    # Remaining schedule detail
+    # Remaining schedule detail — uses per-game WPs already computed above
     with st.expander('Remaining schedule'):
         sched_rows = []
-        for _, game in team_sched.iterrows():
-            opp_name = str(game.get('opponentName', '?')).split('@')[0].strip()
+        for d, (_, game) in zip(game_details, team_sched.iterrows()):
+            opp_name = d['opp']
             opp_rank = name_to_rank.get(opp_name)
-            venue = 'Away' if game.get('isAway') == 1.0 else ('Neutral' if '@' in str(game.get('opponentName', '')) else 'Home')
-            if opp_rank is not None and not np.isnan(opp_rank):
-                prob = log5_win_prob(team_rank, int(opp_rank))
-                sched_rows.append({
-                    'Date': game['date'],
-                    'Opponent': opp_name,
-                    'Venue': venue,
-                    'Opp Rank': int(opp_rank),
-                    'Win Prob': f'{prob:.1%}',
-                })
-            else:
-                sched_rows.append({
-                    'Date': game['date'],
-                    'Opponent': opp_name,
-                    'Venue': venue,
-                    'Opp Rank': 'N/A',
-                    'Win Prob': '~50%',
-                })
+            venue = 'Home' if d['is_home'] else 'Away'
+            if '@' in str(game.get('opponentName', '')):
+                venue = 'Neutral'
+            type_label = f"Wknd G{d['game_num']}" if d['game_type'] == 'Weekend' else 'Midweek'
+            sched_rows.append({
+                'Date': d['date'],
+                'Opponent': opp_name,
+                'Venue': venue,
+                'Type': type_label,
+                'Opp Rank': int(opp_rank) if opp_rank is not None and not np.isnan(opp_rank) else 'N/A',
+                'Win Prob': f'{d["wp"]:.1%}',
+            })
         st.dataframe(pd.DataFrame(sched_rows), use_container_width=True, hide_index=True)
 
     if unranked_opps:
@@ -454,16 +680,22 @@ elif mode == 'Full Rankings':
                 ((schedules['result'].isna()) | (schedules['result'] == ''))
             ]
 
-            opp_ranks = []
+            # Per-game WP with the new compressed-log5 + blend model
+            win_probs = []
             for _, game in team_sched.iterrows():
                 opp_name = str(game.get('opponentName', '')).split('@')[0].strip()
-                opp_rank = name_to_rank.get(opp_name)
-                if opp_rank is not None and not np.isnan(opp_rank):
-                    opp_ranks.append(int(opp_rank))
+                is_home = not (pd.notna(game.get('isAway')) and game.get('isAway') == 1.0)
+                home = team_name if is_home else opp_name
+                away = opp_name if is_home else team_name
+                gtype, gnum = detect_game_context(game['date'], opp_name, team_sched)
+                if home in rank_pct_map and away in rank_pct_map:
+                    wp = compute_matchup_wp(home, away, is_home, gtype, gnum,
+                                             rank_pct_map, profiles)
                 else:
-                    opp_ranks.append(int(LOGISTIC_B))
+                    wp = 0.5
+                win_probs.append(wp)
 
-            if len(opp_ranks) == 0:
+            if len(win_probs) == 0:
                 results.append({
                     'Team': team_name, 'Rank': team_rank,
                     'Current': f'{current_w}-{current_l}',
@@ -473,7 +705,7 @@ elif mode == 'Full Rankings':
                 })
                 continue
 
-            proj = project_season(team_rank, opp_ranks, current_w, current_l, n_simulations=500)
+            proj = project_season_probs(win_probs, current_w, current_l, n_simulations=500)
             results.append({
                 'Team': team_name, 'Rank': team_rank,
                 'Current': f'{current_w}-{current_l}',
