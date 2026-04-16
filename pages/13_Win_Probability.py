@@ -584,7 +584,7 @@ fig.add_trace(go.Scatter(
     x=x_indices, y=home_ahead_y, fill='tonexty',
     fillcolor=rgba_from_hex(home_col, 0.55),
     mode='lines', line=dict(color=INVISIBLE, width=0),
-    name=f'{home} ahead', showlegend=True, hoverinfo='skip',
+    name=f'{home}', showlegend=True, hoverinfo='skip',
 ))
 
 # Reset baseline for away fill
@@ -600,7 +600,7 @@ fig.add_trace(go.Scatter(
     x=x_indices, y=away_ahead_y, fill='tonexty',
     fillcolor=rgba_from_hex(away_col, 0.55),
     mode='lines', line=dict(color=INVISIBLE, width=0),
-    name=f'{away} ahead', showlegend=True, hoverinfo='skip',
+    name=f'{away}', showlegend=True, hoverinfo='skip',
 ))
 
 # 50% reference line on top of fills
@@ -764,11 +764,10 @@ if selected_play and selected_play not in ('(none)', '───── All plays 
             showarrow=True, arrowhead=2, arrowsize=1, arrowwidth=1.5,
             arrowcolor=TEXT_COLOR,
             ax=ann_x_offset, ay=ann_y_offset,
-            bordercolor=TEXT_COLOR, borderwidth=1, borderpad=12,
+            bordercolor=TEXT_COLOR, borderwidth=1, borderpad=8,
             bgcolor=BG_COLOR, opacity=0.95,
             font=dict(size=11, color=TEXT_COLOR),
             align='left',
-            width=320,
         )
         fig.add_trace(go.Scatter(
             x=[pidx], y=[wp_a * 100], mode='markers',
