@@ -460,11 +460,13 @@ with st.sidebar.expander('Talent breakdown', expanded=False):
 pg_home = pre_game_wp(home_p_adj, away_p_adj) if home_p_adj and away_p_adj else 0.5
 
 # Header cards
-c1, c2, c3, c4 = st.columns(4)
+c1, c2, c3, c4, c5 = st.columns(5)
 c1.metric('Pre-game WP (home)', f"{pg_home*100:.1f}%")
 c2.metric('Pre-game WP (away)', f"{(1-pg_home)*100:.1f}%")
 c3.metric('Final score', f"{away} {int(game['awayScore'].max())} — {int(game['homeScore'].max())} {home}")
 c4.metric('Plays', f"{len(game)}")
+c5.metric('Thrill Score', f"{thrill_score:.0f}",
+          help='0-100 excitement rating. Balance (both teams led) + Closeness (WP near 50%) + Lead changes.')
 
 # Compute WP curve per play
 total_plays = len(game)
@@ -490,6 +492,31 @@ final_away_score = int(game['awayScore'].max())
 if final_home_score != final_away_score:
     home_won = final_home_score > final_away_score
     wp_curve[-1] = 1.0 if home_won else 0.0
+
+# ── Thrill Score ─────────────────────────────────────────────────────────────
+# Measures how exciting the game was based on the WP curve shape.
+# Components:
+#   Balance  — did both teams hold the lead at some point? (0-1)
+#   Closeness — how tight was the WP to 50% throughout? (0-1)
+#   Lead changes — how many times did the WP cross 50%? (0-1 normalized)
+# Thrill = 40% balance + 40% closeness + 20% lead_changes, scaled 0-100.
+wp_arr = np.array(wp_curve[:-1])  # exclude the locked final 0/100 endpoint
+deviations = np.abs(wp_arr - 0.5)
+home_lead_area = float(np.sum(np.maximum(wp_arr - 0.5, 0)))
+away_lead_area = float(np.sum(np.maximum(0.5 - wp_arr, 0)))
+max_area = max(home_lead_area, away_lead_area)
+min_area = min(home_lead_area, away_lead_area)
+balance = (min_area / max_area) if max_area > 0 else 0.0
+closeness = float(1.0 - np.mean(deviations) / 0.5)
+closeness = max(0.0, closeness)
+# Lead changes: count crossings of 0.5
+crosses = 0
+for j in range(1, len(wp_arr)):
+    if (wp_arr[j-1] < 0.5 and wp_arr[j] >= 0.5) or (wp_arr[j-1] >= 0.5 and wp_arr[j] < 0.5):
+        crosses += 1
+# Normalize lead changes: 6+ is very high, cap contribution at 1.0
+lead_change_score = min(1.0, crosses / 6.0)
+thrill_score = (0.40 * balance + 0.40 * closeness + 0.20 * lead_change_score) * 100
 
 # Build hover data
 hover_texts = []
