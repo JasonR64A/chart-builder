@@ -704,8 +704,13 @@ play_options += ['───── All plays ─────']
 play_options += [p[1] for p in play_data]
 
 st.markdown('**Pin a play** — select to add a visible callout on the chart (stays in PNG export):')
-selected_play = st.selectbox('Highlight play', play_options, index=0, key='highlight_play',
-                              label_visibility='collapsed')
+pc1, pc2, pc3 = st.columns([3, 1, 1])
+selected_play = pc1.selectbox('Highlight play', play_options, index=0, key='highlight_play',
+                               label_visibility='collapsed')
+ann_x_offset = pc2.slider('H offset', -200, 200, 0, step=10, key='ann_x',
+                           help='Horizontal offset of the callout box (negative = left, positive = right)')
+ann_y_offset = pc3.slider('V offset', -200, 200, -70, step=10, key='ann_y',
+                           help='Vertical offset of the callout box (negative = up, positive = down)')
 
 # If a play is selected, add annotation to the figure
 if selected_play and selected_play not in ('(none)', '───── All plays ─────'):
@@ -719,7 +724,7 @@ if selected_play and selected_play not in ('(none)', '───── All plays 
             text=hover_html,
             showarrow=True, arrowhead=2, arrowsize=1, arrowwidth=1.5,
             arrowcolor=TEXT_COLOR,
-            ax=0, ay=-70 if (wp_a - wp_b) > 0 else 70,
+            ax=ann_x_offset, ay=ann_y_offset,
             bordercolor=TEXT_COLOR, borderwidth=1, borderpad=8,
             bgcolor=BG_COLOR, opacity=0.95,
             font=dict(size=12, color=TEXT_COLOR),
