@@ -492,12 +492,12 @@ if final_home_score != final_away_score:
     wp_curve[-1] = 1.0 if home_won else 0.0
 
 # ── Thrill Score ─────────────────────────────────────────────────────────────
-# Measures how exciting the game was based on the WP curve shape.
+# Measures how exciting the game was based on WP curve shape + team quality.
 # Components:
-#   Balance  — did both teams hold the lead at some point? (0-1)
-#   Closeness — how tight was the WP to 50% throughout? (0-1)
-#   Lead changes — how many times did the WP cross 50%? (0-1 normalized)
-# Thrill = 40% balance + 40% closeness + 20% lead_changes, scaled 0-100.
+#   Balance  (30%) — did both teams hold the lead at some point? (0-1)
+#   Closeness (30%) — how tight was the WP to 50% throughout? (0-1)
+#   Lead changes (15%) — how many times did the WP cross 50%? (0-1 normalized)
+#   Team quality (25%) — mean of both teams' rank percentile (0-1, higher = elite matchup)
 wp_arr = np.array(wp_curve[:-1])  # exclude the locked final 0/100 endpoint
 deviations = np.abs(wp_arr - 0.5)
 home_lead_area = float(np.sum(np.maximum(wp_arr - 0.5, 0)))
@@ -507,14 +507,16 @@ min_area = min(home_lead_area, away_lead_area)
 balance = (min_area / max_area) if max_area > 0 else 0.0
 closeness = float(1.0 - np.mean(deviations) / 0.5)
 closeness = max(0.0, closeness)
-# Lead changes: count crossings of 0.5
 crosses = 0
 for j in range(1, len(wp_arr)):
     if (wp_arr[j-1] < 0.5 and wp_arr[j] >= 0.5) or (wp_arr[j-1] >= 0.5 and wp_arr[j] < 0.5):
         crosses += 1
-# Normalize lead changes: 6+ is very high, cap contribution at 1.0
 lead_change_score = min(1.0, crosses / 6.0)
-thrill_score = (0.40 * balance + 0.40 * closeness + 0.20 * lead_change_score) * 100
+# Team quality: average rank_pct of both teams (0-1, higher = better matchup)
+home_rpct = home_p if home_p else 0.5
+away_rpct = away_p if away_p else 0.5
+team_quality = (home_rpct + away_rpct) / 2.0
+thrill_score = (0.30 * balance + 0.30 * closeness + 0.15 * lead_change_score + 0.25 * team_quality) * 100
 _hdr_cols[4].metric('Thrill Score', f"{thrill_score:.0f}",
                      help='0-100 excitement rating. Balance (both teams led) + Closeness (WP near 50%) + Lead changes.')
 
