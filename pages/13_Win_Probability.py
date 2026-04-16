@@ -472,14 +472,49 @@ _hdr_cols[1].metric('Pre-game WP (away)', f"{(1-pg_home)*100:.1f}%")
 _hdr_cols[2].metric('Final score', f"{away} {int(game['awayScore'].max())} — {int(game['homeScore'].max())} {home}")
 _hdr_cols[3].metric('Plays', f"{len(game)}")
 
-# Compute WP curve per play
-total_plays = len(game)
+# Compute WP curve per play.
+# Substitution plays (lineup changes, pinch runners announced, etc.) are
+# non-action rows that shouldn't advance the blend weight. Detect them
+# by checking if the game state (score + outs) is unchanged from prior play
+# AND the description contains sub patterns like "to ... for" / "pinch ran".
+import re
+_SUB_RE = re.compile(r'\bto\b.+\bfor\b|\bpinch (ran|hit) for\b', re.IGNORECASE)
+
+def _is_substitution(row, prev_row):
+    """True if this play row is a non-action substitution."""
+    desc = str(row.get('playDescription', '') or '')
+    if not _SUB_RE.search(desc):
+        return False
+    if prev_row is None:
+        return False
+    return (int(row['outs']) == int(prev_row['outs']) and
+            int(row['awayScore']) == int(prev_row['awayScore']) and
+            int(row['homeScore']) == int(prev_row['homeScore']))
+
+# Count real (non-sub) plays for the weight denominator
+game_rows = list(game.iterrows())
+prev_row = None
+real_play_count = 0
+is_real = []
+for _, row in game_rows:
+    if _is_substitution(row, prev_row):
+        is_real.append(False)
+    else:
+        is_real.append(True)
+        real_play_count += 1
+    prev_row = row
+total_plays = max(1, real_play_count)
+
 wp_curve = [pg_home]  # anchor at index 0 (pre-game)
 state_wp_curve = [None]
-for i, row in game.iterrows():
+real_idx = 0
+prev_row = None
+for play_i, (_, row) in enumerate(game_rows):
     key = state_key(row)
     info = lookup.get(key)
-    w = min(1.0, (i + 1) / total_plays)
+    if is_real[play_i]:
+        real_idx += 1
+    w = min(1.0, real_idx / total_plays)
     if info is None or info[1] < 10:
         wp = pg_home
         sw = None
@@ -488,6 +523,7 @@ for i, row in game.iterrows():
         wp = w * sw + (1 - w) * pg_home
     wp_curve.append(max(CLAMP_MIN, min(CLAMP_MAX, wp)))
     state_wp_curve.append(sw)
+    prev_row = row
 
 # Lock the final WP to the actual game result. After the last out is
 # recorded, the outcome is determined — not a probability anymore.
