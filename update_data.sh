@@ -140,6 +140,10 @@ for sport in ['baseball', 'softball']:
                 pass
 "
 
+# Refresh thrill scores (uses current PBP data to compute per-game excitement ratings)
+echo "Computing thrill scores..."
+python scripts/compute_thrill_scores.py 2>&1 | tail -3
+
 # Check if anything changed
 if git diff --quiet data/ pbp_data/ 2>/dev/null; then
     echo "No data changes detected."
