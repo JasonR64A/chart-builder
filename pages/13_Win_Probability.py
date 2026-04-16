@@ -177,9 +177,9 @@ def _legacy_build_team_profiles_inline(sport='Baseball', division='D1'):
         return {}
 
 
-def adjusted_team_pct(name, profiles, game_type, game_num, static_pct):
+def adjusted_team_pct(name, profiles, game_type, game_num, static_pct, sport='Baseball'):
     """Thin wrapper — real implementation in pages/_win_prob_model.py."""
-    return _shared_adjusted_team_pct(name, profiles, game_type, game_num, static_pct)
+    return _shared_adjusted_team_pct(name, profiles, game_type, game_num, static_pct, sport=sport)
 
 
 @st.cache_data
@@ -442,8 +442,8 @@ else:
     detected_label = 'Midweek (single game)'
 
 profiles = build_team_profiles(sel_sport, sel_division)
-home_p_player = adjusted_team_pct(home_key, profiles, game_type, game_num, home_p) if home_p else home_p
-away_p_player = adjusted_team_pct(away_key, profiles, game_type, game_num, away_p) if away_p else away_p
+home_p_player = adjusted_team_pct(home_key, profiles, game_type, game_num, home_p, sport=sel_sport) if home_p else home_p
+away_p_player = adjusted_team_pct(away_key, profiles, game_type, game_num, away_p, sport=sel_sport) if away_p else away_p
 
 home_p_adj = _shared_blend_with_static(home_p_player, home_p)
 away_p_adj = _shared_blend_with_static(away_p_player, away_p)
@@ -562,8 +562,10 @@ x_indices = list(range(len(wp_curve)))
 home_wps = [w * 100 for w in wp_curve]
 
 # Team-specific colors from logos
-home_col = team_color(home, fallback=HOME_COLOR)
-away_col = team_color(away, fallback=AWAY_COLOR)
+# Use home_key/away_key (resolved short names) for logo/color lookups
+# to avoid substring collisions (e.g. "Texas" matching "Texas A&M Aggies")
+home_col = team_color(home_key or home, fallback=HOME_COLOR)
+away_col = team_color(away_key or away, fallback=AWAY_COLOR)
 
 # Plotly figure
 fig = go.Figure()
@@ -633,8 +635,8 @@ annotations = [
 # Home logo in the upper zone (50-100%), away logo in the lower zone (0-50%).
 # Fixed position — no more tile-grid math, no floating/gap issues.
 images = []
-home_logo_b64 = faded_logo_b64(home, size=300, alpha=0.18)
-away_logo_b64 = faded_logo_b64(away, size=300, alpha=0.18)
+home_logo_b64 = faded_logo_b64(home_key or home, size=300, alpha=0.18)
+away_logo_b64 = faded_logo_b64(away_key or away, size=300, alpha=0.18)
 
 if home_logo_b64:
     images.append(dict(

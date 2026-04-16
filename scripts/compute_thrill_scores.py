@@ -128,8 +128,8 @@ def compute_for_division(sport_label, div_code, lookup, name_pct, profiles):
         # Pre-game WP
         h_static = name_pct[hs]
         a_static = name_pct[aS]
-        h_player = adjusted_team_pct(hs, profiles, 'Weekend', 1, h_static)
-        a_player = adjusted_team_pct(aS, profiles, 'Weekend', 1, a_static)
+        h_player = adjusted_team_pct(hs, profiles, 'Weekend', 1, h_static, sport=sport_label)
+        a_player = adjusted_team_pct(aS, profiles, 'Weekend', 1, a_static, sport=sport_label)
         hp = TEAM_RANK_BLEND * h_static + (1 - TEAM_RANK_BLEND) * h_player
         ap = TEAM_RANK_BLEND * a_static + (1 - TEAM_RANK_BLEND) * a_player
         pg = pre_game_wp(hp, ap)

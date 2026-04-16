@@ -106,12 +106,16 @@ def build_team_profiles(sport, division):
         return {}
 
 
-def adjusted_team_pct(name, profiles, game_type, game_num, static_pct):
+def adjusted_team_pct(name, profiles, game_type, game_num, static_pct, sport='Baseball'):
     """
     Player-driven team talent pct.
-      - Weekend: starter = P1/P2/P3 by game_num; hitting = mean top-9 by PA
-      - Midweek: starter = mean of pitchers 5-12; hitting = bench lineup
-                 (top-6 summed + 3 * mean of 7-12) / 9
+      Baseball:
+        - Weekend: starter = P1/P2/P3 by game_num; hitting = mean top-9 by PA
+        - Midweek: starter = mean of pitchers 3-end; hitting = bench lineup
+                   (top-6 summed + 3 * mean of 7-12) / 9
+      Softball:
+        - Always uses best pitcher (P1) + top-9 regulars regardless of
+          game type. Softball aces pitch most games — no rotation concept.
     Falls back to static_pct if profile missing.
     """
     if not name or name not in profiles:
@@ -120,13 +124,25 @@ def adjusted_team_pct(name, profiles, game_type, game_num, static_pct):
     pitchers = prof.get('pitchers', [])
     hitters = prof.get('hitters_by_pa', [])
 
+    # Softball: always use best pitcher + top-9 regulars
+    is_softball = str(sport).lower().startswith('soft')
+    if is_softball:
+        game_type = 'Weekend'
+        game_num = 1
+
     pit_pct = None
     if game_type == 'Weekend':
         idx = max(0, min(2, int(game_num) - 1))
         if len(pitchers) > idx:
             pit_pct = pitchers[idx]
     else:
-        mw_pool = pitchers[4:12]
+        # Midweek (baseball only — softball is forced to Weekend above):
+        # Use pitchers 3 through end-of-roster. Originally designed as "5-12"
+        # but shallow rosters (e.g. Texas Tech softball with 5 pitchers) had
+        # only 1 mediocre arm in positions 5-12, cratering the talent pct.
+        # Pitchers 3-end captures the user's original "3-7" group idea while
+        # handling any roster depth.
+        mw_pool = pitchers[2:]  # index 2 = pitcher #3
         if mw_pool:
             pit_pct = sum(mw_pool) / len(mw_pool)
 
@@ -189,12 +205,13 @@ def detect_game_context(game_date, opp_name, team_schedule):
 
 
 def compute_matchup_wp(home_name, away_name, is_home_for_selected,
-                        game_type, game_num, rank_pct_map, profiles):
+                        game_type, game_num, rank_pct_map, profiles,
+                        sport='Baseball'):
     """Full pre-game WP pipeline. Returns P(selected team wins)."""
     home_static = rank_pct_map.get(home_name)
     away_static = rank_pct_map.get(away_name)
-    home_player = adjusted_team_pct(home_name, profiles, game_type, game_num, home_static)
-    away_player = adjusted_team_pct(away_name, profiles, game_type, game_num, away_static)
+    home_player = adjusted_team_pct(home_name, profiles, game_type, game_num, home_static, sport=sport)
+    away_player = adjusted_team_pct(away_name, profiles, game_type, game_num, away_static, sport=sport)
     home_p = blend_with_static(home_player, home_static)
     away_p = blend_with_static(away_player, away_static)
     p_home_wins = pre_game_wp(home_p, away_p)

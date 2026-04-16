@@ -404,6 +404,7 @@ if mode == 'Single Matchup':
         is_home_for_selected=is_home_for_a,
         game_type=gtype, game_num=gnum,
         rank_pct_map=rank_pct_map, profiles=profiles,
+        sport=sport,
     )
 
     c1, c2, c3 = st.columns(3)
@@ -465,7 +466,8 @@ elif mode == 'Team Projection':
                 unranked_opps.append(opp_name)
         else:
             wp = compute_matchup_wp(home, away, is_home_for_selected,
-                                     gtype, gnum, rank_pct_map, profiles)
+                                     gtype, gnum, rank_pct_map, profiles,
+                                     sport=sport)
         win_probs.append(wp)
         game_details.append({'opp': opp_name, 'is_home': is_home_for_selected,
                               'game_type': gtype, 'game_num': gnum, 'wp': wp,
@@ -544,7 +546,8 @@ elif mode == 'Full Rankings':
                 gtype, gnum = detect_game_context(game['date'], opp_name, team_sched)
                 if home in rank_pct_map and away in rank_pct_map:
                     wp = compute_matchup_wp(home, away, is_home, gtype, gnum,
-                                             rank_pct_map, profiles)
+                                             rank_pct_map, profiles,
+                                             sport=sport)
                 else:
                     wp = 0.5
                 win_probs.append(wp)

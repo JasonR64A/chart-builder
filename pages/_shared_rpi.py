@@ -104,7 +104,7 @@ def compute_predicted_rpi_for_bracketology(sport: str, DATA_DIR: Path) -> pd.Dat
             gtype, gnum = detect_game_context(g['date'], opp, full_team_sched)
             if home in rank_pct_map and away in rank_pct_map:
                 wp = compute_matchup_wp(home, away, is_home, gtype, gnum,
-                                         rank_pct_map, profiles)
+                                         rank_pct_map, profiles, sport=sport_label)
             else:
                 wp = 0.5
             team_wins[tn] = team_wins.get(tn, 0) + wp

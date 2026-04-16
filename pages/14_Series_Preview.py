@@ -424,8 +424,8 @@ for game_num in [1, 2, 3]:
     # Compute WP for this game
     a_static = rank_pct_map.get(team_a, 0.5)
     b_static = rank_pct_map.get(team_b, 0.5)
-    a_player = adjusted_team_pct(team_a, profiles, 'Weekend', game_num, a_static)
-    b_player = adjusted_team_pct(team_b, profiles, 'Weekend', game_num, b_static)
+    a_player = adjusted_team_pct(team_a, profiles, 'Weekend', game_num, a_static, sport=sel_sport)
+    b_player = adjusted_team_pct(team_b, profiles, 'Weekend', game_num, b_static, sport=sel_sport)
     a_p = blend_with_static(a_player, a_static)
     b_p = blend_with_static(b_player, b_static)
     # team_b is home
@@ -532,8 +532,8 @@ st.markdown('### Series Outcome Probabilities')
 n_sims = 5000
 game_wps = []
 for gn in [1, 2, 3]:
-    a_pl = adjusted_team_pct(team_a, profiles, 'Weekend', gn, a_static)
-    b_pl = adjusted_team_pct(team_b, profiles, 'Weekend', gn, b_static)
+    a_pl = adjusted_team_pct(team_a, profiles, 'Weekend', gn, a_static, sport=sel_sport)
+    b_pl = adjusted_team_pct(team_b, profiles, 'Weekend', gn, b_static, sport=sel_sport)
     a_bl = blend_with_static(a_pl, a_static)
     b_bl = blend_with_static(b_pl, b_static)
     game_wps.append(pre_game_wp(b_bl, a_bl))  # P(home=team_b wins)
