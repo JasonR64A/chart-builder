@@ -9,6 +9,12 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import plotly.graph_objects as go
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+import matplotlib.patches as mpatches
+from matplotlib.offsetbox import OffsetImage, AnnotationBbox
+from io import BytesIO
 from pathlib import Path
 from datetime import datetime, timedelta
 
@@ -256,6 +262,235 @@ def get_hot_pitcher(team_name, pitching_pbp, days=14):
     }
 
 
+def compute_team_stats(team_name, hitting_pbp, pitching_pbp):
+    """Aggregate season hitting + pitching stats for a team from PBP box scores."""
+    stats = {}
+    # Map PBP team name (with mascot) to short name
+    if not hitting_pbp.empty:
+        pbp_names = hitting_pbp['teamName'].dropna().unique()
+        pbp_name = next((n for n in pbp_names if isinstance(n, str) and n.startswith(team_name)), team_name)
+    else:
+        pbp_name = team_name
+
+    # Hitting
+    if not hitting_pbp.empty:
+        h = hitting_pbp[hitting_pbp['teamName'] == pbp_name].copy()
+        for c in ['ab', 'h', 'hr', 'bb', 'hbp', 'doubles', 'triples', 'r', 'rbi', 'sf', 'tb']:
+            if c in h.columns:
+                h[c] = pd.to_numeric(h[c], errors='coerce').fillna(0)
+        ab = h['ab'].sum()
+        hits = h['h'].sum()
+        hr = h['hr'].sum() if 'hr' in h.columns else 0
+        bb = h['bb'].sum() if 'bb' in h.columns else 0
+        hbp = h['hbp'].sum() if 'hbp' in h.columns else 0
+        sf = h['sf'].sum() if 'sf' in h.columns else 0
+        tb = h['tb'].sum() if 'tb' in h.columns else hits
+        doubles = h['doubles'].sum() if 'doubles' in h.columns else 0
+        triples = h['triples'].sum() if 'triples' in h.columns else 0
+        k_h = h[h.columns[h.columns.str.lower().isin(['k', 'so'])]].sum().sum() if any(c.lower() in ('k', 'so') for c in h.columns) else 0
+        pa = ab + bb + hbp + sf
+        stats['BA'] = hits / ab if ab else 0
+        stats['OBP'] = (hits + bb + hbp) / pa if pa else 0
+        stats['SLG'] = tb / ab if ab else 0
+        stats['OPS'] = stats['OBP'] + stats['SLG']
+        stats['ISO'] = stats['SLG'] - stats['BA']
+        stats['HR'] = int(hr)
+        stats['R'] = int(h['r'].sum()) if 'r' in h.columns else 0
+        stats['RBI'] = int(h['rbi'].sum()) if 'rbi' in h.columns else 0
+        stats['K_rate_h'] = k_h / ab if ab else 0
+        stats['BB_rate_h'] = bb / ab if ab else 0
+        stats['HR_rate'] = hr / ab if ab else 0
+        stats['AB'] = int(ab)
+        stats['PA'] = int(pa)
+    else:
+        for k in ['BA','OBP','SLG','OPS','ISO','HR','R','RBI','K_rate_h','BB_rate_h','HR_rate','AB','PA']:
+            stats[k] = 0
+
+    # Pitching
+    if not pitching_pbp.empty:
+        p_name = next((n for n in pitching_pbp['teamName'].dropna().unique()
+                        if isinstance(n, str) and n.startswith(team_name)), team_name)
+        p = pitching_pbp[pitching_pbp['teamName'] == p_name].copy()
+        for c in ['ip', 'h', 'er', 'bb', 'so', 'hr', 'bf']:
+            if c in p.columns:
+                p[c] = pd.to_numeric(p[c], errors='coerce').fillna(0)
+        ip = p['ip'].sum()
+        p_h = p['h'].sum()
+        p_er = p['er'].sum()
+        p_bb = p['bb'].sum()
+        p_so = p['so'].sum() if 'so' in p.columns else 0
+        p_hr = p['hr'].sum() if 'hr' in p.columns else 0
+        stats['ERA'] = (p_er / ip * 9) if ip else 0
+        stats['WHIP'] = (p_h + p_bb) / ip if ip else 0
+        stats['K9'] = (p_so / ip * 9) if ip else 0
+        stats['BB9'] = (p_bb / ip * 9) if ip else 0
+        stats['K_BB'] = p_so / p_bb if p_bb else 0
+        stats['IP'] = round(ip, 1)
+        stats['H_allowed'] = int(p_h)
+        stats['SO'] = int(p_so)
+    else:
+        for k in ['ERA','WHIP','K9','BB9','K_BB','IP','H_allowed','SO']:
+            stats[k] = 0
+
+    return stats
+
+
+def compute_percentile(val, all_vals, higher_is_better=True):
+    """Percentile of val within all_vals. 100 = best."""
+    arr = sorted([v for v in all_vals if pd.notna(v) and v != 0])
+    if not arr:
+        return 50.0
+    pos = sum(1 for v in arr if v <= val)
+    pct = pos / len(arr) * 100
+    return pct if higher_is_better else (100 - pct)
+
+
+def pct_color(pct):
+    """Color based on percentile: green=top, yellow=mid, red=bottom."""
+    if pct >= 75:
+        return '#2d8a4e'  # green
+    elif pct >= 50:
+        return '#e8a735'  # yellow/gold
+    elif pct >= 25:
+        return '#d97030'  # orange
+    else:
+        return '#c41230'  # red
+
+
+def render_matchup_card(team_a, team_b, stats_a, stats_b, all_team_stats,
+                         ranks_a, ranks_b, rec_a, rec_b, tr_a, tr_b):
+    """
+    Render a publication-quality matchup stat card as a PNG.
+    Mirrored layout: Team A stats on left, Team B on right, branding center.
+    """
+    fig, ax = plt.subplots(1, 1, figsize=(16, 12), facecolor='#FAF8F2')
+    ax.set_xlim(0, 16)
+    ax.set_ylim(0, 12)
+    ax.axis('off')
+    ax.set_facecolor('#FAF8F2')
+
+    # ── Header ───────────────────────────────────────────────────────────────
+    ax.text(3, 11.4, team_a, fontsize=22, fontweight='bold', ha='center', va='center', color='#2D2926')
+    ax.text(13, 11.4, team_b, fontsize=22, fontweight='bold', ha='center', va='center', color='#2D2926')
+    ax.text(8, 11.4, '64 ANALYTICS', fontsize=14, fontweight='bold', ha='center', va='center',
+            color='#C41230', fontstyle='italic')
+
+    # Sub-header: Record + Ranks
+    def draw_subheader(x, ranks, rec, side='left'):
+        ha = 'center'
+        y = 10.7
+        rec_str = f"{rec['wins']}-{rec['losses']}"
+        r64 = f"#{int(ranks.get('64A', 0))}" if ranks.get('64A') else '—'
+        rpi = f"#{int(ranks.get('RPI', 0))}" if ranks.get('RPI') else '—'
+        ax.text(x - 1.5, y, 'Record', fontsize=9, ha='center', color='#888', fontweight='bold')
+        ax.text(x - 1.5, y - 0.35, rec_str, fontsize=14, ha='center', color='#2D2926', fontweight='bold')
+        ax.text(x + 0.5, y, '64A Rank', fontsize=9, ha='center', color='#888', fontweight='bold')
+        ax.text(x + 0.5, y - 0.35, r64, fontsize=14, ha='center', color='#2D2926', fontweight='bold')
+        ax.text(x + 2.2, y, 'RPI', fontsize=9, ha='center', color='#888', fontweight='bold')
+        ax.text(x + 2.2, y - 0.35, rpi, fontsize=14, ha='center', color='#2D2926', fontweight='bold')
+
+    draw_subheader(2, ranks_a, rec_a, 'left')
+    draw_subheader(12, ranks_b, rec_b, 'right')
+
+    # Divider
+    ax.plot([0.5, 15.5], [10.1, 10.1], color='#ddd', linewidth=1)
+
+    # ── Stat Cells ───────────────────────────────────────────────────────────
+    hitting_stats = [
+        ('OPS', 'OPS', True),
+        ('OBP', 'OBP', True),
+        ('SLG', 'SLG', True),
+        ('ISO', 'ISO', True),
+        ('BA', 'AVG', True),
+        ('BB_rate_h', 'BB%', True),
+        ('K_rate_h', 'K%', False),
+        ('HR_rate', 'HR Rate', True),
+    ]
+    pitching_stats = [
+        ('ERA', 'ERA', False),
+        ('WHIP', 'WHIP', False),
+        ('K9', 'K/9', True),
+        ('BB9', 'BB/9', False),
+        ('K_BB', 'K/BB', True),
+    ]
+
+    all_vals = {}
+    for key in list(stats_a.keys()):
+        all_vals[key] = [s.get(key, 0) for s in all_team_stats if s.get(key, 0) != 0]
+
+    def draw_stat_cell(x, y, label, val_a, val_b, all_v, higher_is_better, width=2.8):
+        """Draw a mirrored stat cell: Team A value left, Team B value right."""
+        # Header
+        ax.text(x + width / 2, y + 0.55, label, fontsize=10, ha='center', va='center',
+                fontweight='bold', color='#2D2926')
+        # Box outline
+        rect = mpatches.FancyBboxPatch((x, y - 0.45), width, 0.9,
+                                        boxstyle='round,pad=0.05', facecolor='white',
+                                        edgecolor='#ccc', linewidth=0.8)
+        ax.add_patch(rect)
+        # Values
+        fmt = '.3f' if abs(val_a) < 2 else '.1f'
+        pct_a = compute_percentile(val_a, all_v, higher_is_better)
+        pct_b = compute_percentile(val_b, all_v, higher_is_better)
+        # Team A (left half)
+        ax.text(x + width * 0.25, y + 0.1, f'{val_a:{fmt}}', fontsize=11, ha='center',
+                va='center', fontweight='bold', color='#2D2926')
+        ax.text(x + width * 0.25, y - 0.2, f'{pct_a:.0f}%', fontsize=8, ha='center',
+                va='center', color=pct_color(pct_a), fontweight='bold')
+        # Divider
+        ax.plot([x + width / 2, x + width / 2], [y - 0.4, y + 0.4],
+                color='#eee', linewidth=0.8)
+        # Team B (right half)
+        ax.text(x + width * 0.75, y + 0.1, f'{val_b:{fmt}}', fontsize=11, ha='center',
+                va='center', fontweight='bold', color='#2D2926')
+        ax.text(x + width * 0.75, y - 0.2, f'{pct_b:.0f}%', fontsize=8, ha='center',
+                va='center', color=pct_color(pct_b), fontweight='bold')
+
+    # Section headers
+    ax.text(2.5, 9.7, 'Hitting', fontsize=14, ha='center', fontweight='bold', color='#C41230')
+    ax.text(8, 9.7, 'Pitching', fontsize=14, ha='center', fontweight='bold', color='#29335c')
+    ax.text(13.5, 9.7, 'Team Rankings', fontsize=14, ha='center', fontweight='bold', color='#888')
+
+    # Draw hitting stats (left section)
+    for i, (key, label, hib) in enumerate(hitting_stats):
+        y_pos = 9.0 - i * 1.1
+        va = stats_a.get(key, 0)
+        vb = stats_b.get(key, 0)
+        draw_stat_cell(1.0, y_pos, label, va, vb, all_vals.get(key, []), hib)
+
+    # Draw pitching stats (center section)
+    for i, (key, label, hib) in enumerate(pitching_stats):
+        y_pos = 9.0 - i * 1.1
+        va = stats_a.get(key, 0)
+        vb = stats_b.get(key, 0)
+        draw_stat_cell(6.5, y_pos, label, va, vb, all_vals.get(key, []), hib)
+
+    # Team-level metrics (right section) from team_rank
+    team_metrics = [
+        ('wRCE', tr_a.get('wRCE', 0), tr_b.get('wRCE', 0), True),
+        ('wRAE', tr_a.get('wRAE', 0), tr_b.get('wRAE', 0), True),
+        ('Total Rank', tr_a.get('rank', 0), tr_b.get('rank', 0), False),
+    ]
+    for i, (label, va, vb, hib) in enumerate(team_metrics):
+        y_pos = 9.0 - i * 1.1
+        draw_stat_cell(12.0, y_pos, label, va, vb, [], hib)
+
+    # Footer
+    ax.text(8, 0.3, '*Percentages are division rankings', fontsize=8, ha='center',
+            color='#888', fontstyle='italic')
+
+    # Team name labels at bottom of each stat column
+    ax.text(1.7, 0.7, team_a, fontsize=9, ha='center', color='#C41230', fontweight='bold')
+    ax.text(3.5, 0.7, team_b, fontsize=9, ha='center', color='#29335c', fontweight='bold')
+
+    plt.tight_layout(pad=0.5)
+    buf = BytesIO()
+    fig.savefig(buf, format='png', dpi=150, bbox_inches='tight', facecolor='#FAF8F2')
+    plt.close(fig)
+    buf.seek(0)
+    return buf.getvalue()
+
+
 def build_spider_chart(team_a_name, team_b_name, team_a_id, team_b_id,
                         player_rank_df, hitting_pbp, pitching_pbp,
                         team_a_color, team_b_color):
@@ -401,12 +636,43 @@ with h3:
 st.markdown('---')
 
 
-# ── Spider Chart ─────────────────────────────────────────────────────────────
+# ── Matchup Stat Card ────────────────────────────────────────────────────────
 st.markdown('### Team Comparison')
-spider = build_spider_chart(team_a, team_b, team_a_id, team_b_id,
-                             pr, hitting_pbp, pitching_pbp,
-                             CARD_RED, NAVY)
-st.plotly_chart(spider, use_container_width=True)
+
+# Compute stats for both teams + all teams in division (for percentiles)
+stats_a = compute_team_stats(team_a, hitting_pbp, pitching_pbp)
+stats_b = compute_team_stats(team_b, hitting_pbp, pitching_pbp)
+
+# Compute stats for all teams in division for percentile context
+all_team_names = sorted(sport_teams['name'].tolist())
+all_team_stats = []
+for tn in all_team_names:
+    ts = compute_team_stats(tn, hitting_pbp, pitching_pbp)
+    if ts.get('AB', 0) > 0:
+        all_team_stats.append(ts)
+
+# Team-rank metrics
+tr26_data = load_team_ranks(sel_sport, div_label)
+def get_team_rank_metrics(tid):
+    row = tr26_data[tr26_data['team_id'] == tid]
+    if row.empty:
+        return {'rank': 0, 'wRCE': 0, 'wRAE': 0}
+    r = row.iloc[0]
+    return {
+        'rank': int(r['rank_64a']) if pd.notna(r.get('rank_64a')) else 0,
+        'wRCE': float(r.get('weighted_run_created_efficiency', 0) or 0),
+        'wRAE': float(r.get('weighted_run_allowed_efficiency', 0) or 0),
+    }
+
+tr_metrics_a = get_team_rank_metrics(team_a_id)
+tr_metrics_b = get_team_rank_metrics(team_b_id)
+
+card_png = render_matchup_card(team_a, team_b, stats_a, stats_b, all_team_stats,
+                                ranks_a, ranks_b, rec_a, rec_b,
+                                tr_metrics_a, tr_metrics_b)
+st.image(card_png, use_container_width=True)
+st.download_button('Download Matchup Card PNG', data=card_png,
+                   file_name=f'matchup_{team_a}_vs_{team_b}.png', mime='image/png')
 
 
 # ── Game-by-Game Predictions ─────────────────────────────────────────────────
