@@ -627,8 +627,8 @@ annotations = [
 # (whichever team is leading at a tile's x-position gets that tile)
 images = []
 
-home_logo_b64 = faded_logo_b64(home, size=200, alpha=0.16)
-away_logo_b64 = faded_logo_b64(away, size=200, alpha=0.16)
+home_logo_b64 = faded_logo_b64(home, size=200, alpha=0.6)
+away_logo_b64 = faded_logo_b64(away, size=200, alpha=0.6)
 
 # Tile grid CONFINED to the lead band (between 50% and the curve).
 # Two interleaved column sets so the pattern doesn't look uniform:
@@ -761,7 +761,7 @@ if selected_play and selected_play not in ('(none)', '───── All plays 
         delta_str = f"{arrow} {abs(delta):.1f}%"
         short_home = home.split(' ')[0] if len(home) > 15 else home
         # Word-wrap the description by inserting <br> at ~50 char intervals
-        def _wrap(text, width=50):
+        def _wrap(text, width=40):
             words = text.split(' ')
             lines, cur = [], ''
             for w in words:
@@ -785,10 +785,11 @@ if selected_play and selected_play not in ('(none)', '───── All plays 
             showarrow=True, arrowhead=2, arrowsize=1, arrowwidth=1.5,
             arrowcolor=TEXT_COLOR,
             ax=ann_x_offset, ay=ann_y_offset,
-            bordercolor=TEXT_COLOR, borderwidth=1, borderpad=8,
+            bordercolor=TEXT_COLOR, borderwidth=1, borderpad=12,
             bgcolor=BG_COLOR, opacity=0.95,
-            font=dict(size=12, color=TEXT_COLOR),
+            font=dict(size=11, color=TEXT_COLOR),
             align='left',
+            width=320,
         )
         fig.add_trace(go.Scatter(
             x=[pidx], y=[wp_a * 100], mode='markers',
