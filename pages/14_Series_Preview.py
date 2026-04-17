@@ -1083,10 +1083,14 @@ if template_path.exists():
 
     components.html(html, height=960, scrolling=False)
 
-    # PNG export via Playwright screenshot
+    # PNG export via Playwright screenshot (local only — Playwright not on Render)
     if st.button('Download Series Preview PNG', type='primary', key='dl_preview'):
         import tempfile
-        from playwright.sync_api import sync_playwright
+        try:
+            from playwright.sync_api import sync_playwright
+        except ImportError:
+            st.error('Playwright not installed on this server. PNG export works locally only.')
+            st.stop()
         with st.spinner('Rendering PNG...'):
             with tempfile.NamedTemporaryFile(suffix='.html', delete=False, mode='w', encoding='utf-8') as tmp:
                 tmp.write(html)
