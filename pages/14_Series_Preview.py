@@ -806,7 +806,7 @@ if template_path.exists():
     window.BULLETS = {json.dumps([
         {"label": "wRCE", "a": {"v": fmt_val(tr_metrics_a['wRCE']), "pct": 50}, "b": {"v": fmt_val(tr_metrics_b['wRCE']), "pct": 50}},
         {"label": "wRAE", "a": {"v": fmt_val(tr_metrics_a['wRAE']), "pct": 50}, "b": {"v": fmt_val(tr_metrics_b['wRAE']), "pct": 50}},
-        {"label": "TRUE RANK", "a": {"v": f"#{ranks_a.get('True Rank', '?')}", "pct": 50}, "b": {"v": f"#{ranks_b.get('True Rank', '?')}", "pct": 50}},
+        {"label": "CUMULATIVE RANK", "a": {"v": f"#{ranks_a.get('True Rank', '?')}", "pct": 50}, "b": {"v": f"#{ranks_b.get('True Rank', '?')}", "pct": 50}},
     ])};
     window.LAST5 = {{
       a: {json.dumps(last5_a)},
@@ -877,16 +877,17 @@ if template_path.exists():
     """
     html = html.replace('</style>', f'{color_css}</style>')
 
-    # Also inject color vars into JS for the radar/charts
-    html = html.replace("var(--red)", color_a)
-    html = html.replace("'red'", f"'{color_a}'")
-    html = html.replace("var(--navy)", color_b)
-    html = html.replace("'navy'", f"'{color_b}'")
-    # Keep CSS vars for non-team uses but override the JS color refs
+    # Inject team color JS variables for radar/pace/bullet charts
     color_js = f"""
     var TEAM_A_COLOR = '{color_a}';
     var TEAM_B_COLOR = '{color_b}';
     """
+    # Replace pace chart color params (targeted — only in renderPaceSmall calls)
+    import re as re_mod
+    html = re_mod.sub(r"(renderPaceSmall\(\$\('#paceA[^']*'\),\s*PACE\.a\.\w+,\s*PACE\.meta\.\w+,\s*)'red'",
+                       rf"\1'{color_a}'", html)
+    html = re_mod.sub(r"(renderPaceSmall\(\$\('#paceB[^']*'\),\s*PACE\.b\.\w+,\s*PACE\.meta\.\w+,\s*)'navy'",
+                       rf"\1'{color_b}'", html)
 
     # Replace team names, records, ranks in the HTML
     html = html.replace('NORTH GEORGIA', team_a.upper())
