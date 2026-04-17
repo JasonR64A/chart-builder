@@ -928,8 +928,24 @@ if template_path.exists():
     html = html.replace('>#22<', f'>{r64b}<')
     html = html.replace('>#8<', f'>{rpia}<')
     html = html.replace('>#19<', f'>{rpib}<')
-    html = html.replace('>9‑3<', f">—<")
-    html = html.replace('>10‑4<', f">—<")
+    # Conference record — compute from schedule (games vs same-conference opponents)
+    def get_conf_record(team_name_key, sched_df, teams_all, confs_all):
+        tid = get_team_id(team_name_key, teams_all, sel_sport)
+        if not tid or sched_df.empty: return '—'
+        team_conf = teams_all[teams_all['id']==tid]['conference_id'].iloc[0] if len(teams_all[teams_all['id']==tid]) else None
+        if not team_conf: return '—'
+        conf_teams = set(teams_all[teams_all['conference_id']==team_conf]['name'])
+        team_sched = sched_df[(sched_df['teamName']==team_name_key) & (sched_df['result'].notna()) & (sched_df['result']!='')]
+        conf_games = team_sched[team_sched['opponentName'].apply(lambda x: str(x).split('@')[0].strip() in conf_teams)]
+        if conf_games.empty: return '—'
+        cw = int(conf_games['result'].str.startswith('W').sum())
+        cl = len(conf_games) - cw
+        return f'{cw}‑{cl}'
+
+    conf_a = get_conf_record(team_a, schedules_df, teams_df, confs_df)
+    conf_b = get_conf_record(team_b, schedules_df, teams_df, confs_df)
+    html = html.replace('>9‑3<', f'>{conf_a}<')
+    html = html.replace('>10‑4<', f'>{conf_b}<')
     html = html.replace('Peach Belt Conference', f'{sel_sport} {sel_div}')
     html = html.replace('HOME · 19‑4', f"HOME · {rec_a['wins']}‑{rec_a['losses']}")
     html = html.replace('AWAY · 19‑6', f"AWAY · {rec_b['wins']}‑{rec_b['losses']}")
