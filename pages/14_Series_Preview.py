@@ -1082,6 +1082,40 @@ if template_path.exists():
     html = html.replace('</head>', f'{all_js}\n</head>')
 
     components.html(html, height=960, scrolling=False)
+
+    # PNG export via Playwright screenshot
+    if st.button('Download Series Preview PNG', type='primary', key='dl_preview'):
+        import tempfile
+        from playwright.sync_api import sync_playwright
+        with st.spinner('Rendering PNG...'):
+            with tempfile.NamedTemporaryFile(suffix='.html', delete=False, mode='w', encoding='utf-8') as tmp:
+                tmp.write(html)
+                tmp_path = tmp.name
+            try:
+                with sync_playwright() as pw:
+                    browser = pw.chromium.launch(headless=True)
+                    page = browser.new_page(viewport={'width': 1400, 'height': 900})
+                    page.goto(f'file:///{tmp_path.replace(chr(92), "/")}', wait_until='networkidle')
+                    page.wait_for_timeout(2000)  # let charts render
+                    # Screenshot just the card element
+                    card = page.query_selector('.card')
+                    if card:
+                        png_bytes = card.screenshot(type='png')
+                    else:
+                        png_bytes = page.screenshot(type='png', full_page=False)
+                    browser.close()
+                st.download_button(
+                    'Save PNG',
+                    data=png_bytes,
+                    file_name=f'series_preview_{team_a}_vs_{team_b}.png',
+                    mime='image/png',
+                    key='dl_png_file',
+                )
+            except Exception as e:
+                st.error(f'PNG render failed: {e}')
+            finally:
+                import os
+                os.unlink(tmp_path)
 else:
     st.warning('Series preview template not found. Run the design build first.')
 
