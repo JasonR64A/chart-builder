@@ -844,8 +844,132 @@ if template_path.exists():
     html = html.replace('HOME · 19‑4', f"HOME · {rec_a['wins']}‑{rec_a['losses']}")
     html = html.replace('AWAY · 19‑6', f"AWAY · {rec_b['wins']}‑{rec_b['losses']}")
 
-    # Inject dynamic data JS — override the hardcoded DATA
-    html = html.replace('window.DATA = {', f'{data_js}\n/* Original data below (overridden) */\nwindow._ORIG_DATA = {{')
+    # Override ALL hardcoded template data with our dynamic versions
+    html = html.replace('window.DATA = {', f'window._ORIG_DATA = {{')
+    html = html.replace('window.LAST5 = {', f'window._ORIG_LAST5 = {{')
+    html = html.replace('window.RADAR_AXES = [', f'window._ORIG_RADAR_AXES = [')
+    html = html.replace('window.BULLETS = [', f'window._ORIG_BULLETS = [')
+
+    # Replace xFIP/SIERA labels with FIP/WHIP in the pace chart HTML
+    html = html.replace('>xFIP<', '>FIP<')
+    html = html.replace('>SIERA<', '>WHIP<')
+    html = html.replace('paceAXFIP', 'paceAFIP')
+    html = html.replace('paceASIERA', 'paceAWHIP')
+    html = html.replace('paceBXFIP', 'paceBFIP')
+    html = html.replace('paceBSIERA', 'paceBWHIP')
+
+    # Build pace data from real PBP (rolling 7-game averages)
+    def compute_pace(team_name, hitting_pbp_df, pitching_pbp_df, n_games=14):
+        """Compute rolling 7-game pace for OPS, FIP, wRC+, WHIP."""
+        pace = {'ops': [], 'fip': [], 'wrc': [], 'whip': []}
+        if hitting_pbp_df.empty:
+            return pace
+
+        pbp_name = next((n for n in hitting_pbp_df['teamName'].dropna().unique()
+                          if isinstance(n, str) and n.startswith(team_name)), team_name)
+
+        # Get recent games
+        h = hitting_pbp_df[hitting_pbp_df['teamName'] == pbp_name].copy()
+        h['date'] = pd.to_datetime(h['date'], errors='coerce', format='mixed')
+        for c in ['ab','h','hr','bb','hbp','tb','doubles','triples']:
+            if c in h.columns: h[c] = pd.to_numeric(h[c], errors='coerce').fillna(0)
+
+        game_stats = h.groupby('gameId').agg(
+            date=('date','first'), ab=('ab','sum'), hits=('h','sum'),
+            hr=('hr','sum'), bb=('bb','sum'), hbp=('hbp','sum'),
+            tb=('tb','sum')
+        ).sort_values('date', ascending=False).head(n_games).iloc[::-1]
+
+        if len(game_stats) < 3:
+            return pace
+
+        # Pitching per game
+        p_name = next((n for n in pitching_pbp_df['teamName'].dropna().unique()
+                        if isinstance(n, str) and n.startswith(team_name)), team_name) if not pitching_pbp_df.empty else team_name
+        p = pitching_pbp_df[pitching_pbp_df['teamName'] == p_name].copy() if not pitching_pbp_df.empty else pd.DataFrame()
+        if not p.empty:
+            p['date'] = pd.to_datetime(p['date'], errors='coerce', format='mixed')
+            for c in ['ip','h','bb','so','hrA','hb','er']:
+                if c in p.columns: p[c] = pd.to_numeric(p[c], errors='coerce').fillna(0)
+            p_games = p.groupby('gameId').agg(
+                date=('date','first'), ip=('ip','sum'), p_h=('h','sum'),
+                p_bb=('bb','sum'), p_so=('so','sum'), p_hr=('hrA','sum'),
+                p_hb=('hb','sum'), p_er=('er','sum')
+            ).sort_values('date', ascending=False).head(n_games).iloc[::-1]
+        else:
+            p_games = pd.DataFrame()
+
+        # Rolling 7-game windows
+        for i in range(len(game_stats)):
+            window = game_stats.iloc[max(0, i-6):i+1]
+            ab = window['ab'].sum()
+            hits_w = window['hits'].sum()
+            tb = window['tb'].sum()
+            bb = window['bb'].sum()
+            hbp = window['hbp'].sum()
+            pa = ab + bb + hbp
+            ops = ((hits_w+bb+hbp)/pa + tb/ab) if ab > 0 and pa > 0 else 0
+            pace['ops'].append(round(ops, 3))
+            pace['wrc'].append(round(ops * 100 / 0.8, 0) if ops > 0 else 100)  # rough wRC+ proxy
+
+            if not p_games.empty and i < len(p_games):
+                pw = p_games.iloc[max(0, i-6):i+1]
+                ip = pw['ip'].sum()
+                whip = (pw['p_h'].sum() + pw['p_bb'].sum()) / ip if ip > 0 else 0
+                hr_p = pw['p_hr'].sum()
+                bb_p = pw['p_bb'].sum()
+                hb_p = pw['p_hb'].sum()
+                so_p = pw['p_so'].sum()
+                fip = ((13*hr_p + 3*(bb_p+hb_p) - 2*so_p) / ip + 3.10) if ip > 0 else 0
+                pace['fip'].append(round(fip, 2))
+                pace['whip'].append(round(whip, 2))
+            else:
+                pace['fip'].append(4.5)
+                pace['whip'].append(1.4)
+        return pace
+
+    pace_a = compute_pace(team_a, hitting_pbp, pitching_pbp)
+    pace_b = compute_pace(team_b, hitting_pbp, pitching_pbp)
+
+    pace_js = f"""
+    window.PACE = {{
+      a: {{ ops: {json.dumps(pace_a['ops'])}, xfip: {json.dumps(pace_a['fip'])},
+           wrc: {json.dumps(pace_a['wrc'])}, siera: {json.dumps(pace_a['whip'])} }},
+      b: {{ ops: {json.dumps(pace_b['ops'])}, xfip: {json.dumps(pace_b['fip'])},
+           wrc: {json.dumps(pace_b['wrc'])}, siera: {json.dumps(pace_b['whip'])} }},
+      meta: {{
+        ops:   {{ divAvg: 0.750, min: 0.55, max: 1.05, format: function(v) {{ return '.' + Math.max(0, Math.round(v*1000)).toString().padStart(3,'0').slice(-3); }} }},
+        xfip:  {{ divAvg: 4.50, min: 2.0, max: 7.0, format: function(v) {{ return v.toFixed(2); }}, lowerBetter: true }},
+        wrc:   {{ divAvg: 100, min: 70, max: 160, format: function(v) {{ return Math.round(v).toString(); }} }},
+        siera: {{ divAvg: 1.40, min: 0.9, max: 2.0, format: function(v) {{ return v.toFixed(2); }}, lowerBetter: true }}
+      }}
+    }};
+    """
+    html = html.replace('window.PACE = {', f'{pace_js}\nwindow._ORIG_PACE = {{')
+
+    # Team logo watermarks — replace hardcoded team logos with selected team's logo
+    import base64 as b64mod
+    logo_dir = _APP_DIR / 'team_logos_512'
+    for team_name_key, zone_id in [(team_a, 'zoneA'), (team_b, 'zoneB')]:
+        tid = get_team_id(team_name_key, teams_df, sel_sport)
+        if tid:
+            for ext in ('png', 'webp'):
+                logo_path = logo_dir / f'{tid}.{ext}'
+                if logo_path.exists():
+                    logo_b64 = b64mod.b64encode(logo_path.read_bytes()).decode()
+                    mime = 'image/png' if ext == 'png' else 'image/webp'
+                    # Inject CSS to override the pace-grid watermark for this zone
+                    css_inject = f"""
+                    #{zone_id} .pace-grid-4::after {{
+                        background-image: url('data:{mime};base64,{logo_b64}') !important;
+                    }}
+                    """
+                    html = html.replace('</style>', f'{css_inject}</style>')
+                    break
+
+    # Inject all dynamic JS right before </head>
+    all_js = f'<script>{data_js}\n{pace_js}</script>'
+    html = html.replace('</head>', f'{all_js}\n</head>')
 
     components.html(html, height=960, scrolling=False)
 else:
