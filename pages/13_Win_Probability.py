@@ -311,11 +311,18 @@ def pre_game_wp(home_pct, away_pct):
     return _shared_pre_game_wp(home_pct, away_pct)
 
 
-def state_key(row):
+def state_key(row, is_softball=False):
     # Lookup uses the raw halfInning (consistent with how the table was
     # built). The raw label is swapped but applied consistently across
     # all games, so the probabilities still resolve correctly.
-    inning = min(int(row['inning']), 10) if pd.notna(row['inning']) else 1
+    raw_inning = min(int(row['inning']), 10) if pd.notna(row['inning']) else 1
+    # Softball is 7 innings, not 9. Map softball innings to baseball-equivalent
+    # so the lookup (built from BB D1 data) gives correct pacing:
+    # SB inning 7 (last) → BB inning 9 (last), SB 4 (mid) → BB 5 (mid), etc.
+    if is_softball and raw_inning <= 7:
+        inning = min(10, round(raw_inning * 9 / 7))
+    else:
+        inning = raw_inning
     half = 1 if row.get('halfInning') == 'bottom' else 0
     outs = min(int(row['outs']), 2) if pd.notna(row['outs']) else 0
     bases = int(pd.notna(row.get('runner1B'))) + \
@@ -510,7 +517,7 @@ state_wp_curve = [None]
 real_idx = 0
 prev_row = None
 for play_i, (_, row) in enumerate(game_rows):
-    key = state_key(row)
+    key = state_key(row, is_softball=(sel_sport == 'Softball'))
     info = lookup.get(key)
     if is_real[play_i]:
         real_idx += 1
