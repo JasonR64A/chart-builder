@@ -46,7 +46,7 @@ window.DATA = {
 
 /* Head-to-head bullet bars: 5 headline stats */
 window.BULLETS = [
-  { label: "TEAM wRAE35", a: { v: "3.31", pct: 92.2 }, b: { v: "2.87", pct: 89.8 } },
+  { label: "wRAE35",      a: { v: "3.31", pct: 92.2 }, b: { v: "2.87", pct: 89.8 } },
   { label: "wRCE35",      a: { v: "1.53", pct: 62.9 }, b: { v: "1.62", pct: 69.9 } },
   { label: "ROTATION",    a: { v: "67.78", pct: 76.9 }, b: { v: "48.54", pct: 87.1 } },
   { label: "BULLPEN",     a: { v: "16.03", pct: 86.7 }, b: { v: "9.55",  pct: 80.0 } },

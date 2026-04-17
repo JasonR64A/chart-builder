@@ -101,7 +101,7 @@
   .body {
     flex: 1;
     display: grid;
-    grid-template-columns: 0.9fr 1.15fr 0.9fr;
+    grid-template-columns: 0.72fr 1.72fr 0.72fr;
     gap: 26px;
     padding: 22px 0 18px;
     min-height: 0;
@@ -114,12 +114,27 @@
     gap: 10px;
     flex: 1;
     min-height: 0;
+    position: relative;
   }
+  .pace-grid-4::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 55% auto;
+    opacity: 0.07;
+    pointer-events: none;
+    z-index: 5;
+    mix-blend-mode: multiply;
+  }
+  #zoneA .pace-grid-4::after { background-image: url('assets/team-ng.png'); }
+  #zoneB .pace-grid-4::after { background-image: url('assets/team-cat.svg'); }
   .pace-card { min-height: 0; display: flex; flex-direction: column; }
   .pace-svg-wrap { flex: 1; min-height: 60px; position: relative; }
   .pace-svg-wrap svg { width: 100%; height: 100%; display: block; }
 
-  .radar-hero { flex: 1.2; min-height: 340px; }
+  .radar-hero { flex: 1.5; min-height: 480px; }
 
   .zone { display: flex; flex-direction: column; min-height: 0; gap: 10px; }
 
@@ -296,27 +311,36 @@
     position: relative;
     isolation: isolate;
   }
-  .center-block::before {
+  .center-block::before { display: none; }
+  .center-block > * { position: relative; z-index: 1; }
+  .center-block .zone-head { background: transparent; }
+
+  /* Large wordmark watermark behind the radar chart */
+  .radar-wrap::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 50%;
-    width: 140px;
-    height: 60px;
-    transform: translateX(-50%);
-    background: url('assets/64a-emblem.png') center/contain no-repeat;
-    opacity: 0.1;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 85%;
+    height: 52%;
+    background: url('assets/64a-logo-red-black.png') center/contain no-repeat;
+    opacity: 0.07;
     z-index: 0;
     pointer-events: none;
   }
-  .center-block > * { position: relative; z-index: 1; }
-  .center-block .zone-head { background: transparent; }
+  .radar-wrap svg { position: relative; z-index: 1; }
 
   .module-head {
     display: flex; align-items: baseline; gap: 8px;
     margin-bottom: 6px;
     white-space: nowrap;
   }
+  .pace-card .module-head {
+    justify-content: center;
+    margin-bottom: 0;
+  }
+  .pace-card .module-title { text-align: center; }
+  .pace-card .pace-svg-wrap { margin-top: -2px; }
   .module-title { white-space: nowrap; }
   .module-kicker {
     font-family: 'JetBrains Mono', monospace;
@@ -518,11 +542,7 @@
           <!-- === LEFT ZONE: Team A pace + micro === -->
           <div class="zone" id="zoneA">
             <div class="zone-head logo-head">
-              <div class="team-logo a" aria-label="North Georgia logo placeholder">
-                <span class="team-logo-mono">NG</span>
-              </div>
               <div class="logo-head-text">
-                <span class="zone-title" style="color:var(--red)">North Georgia</span>
                 <div class="last5" id="last5A"></div>
               </div>
             </div>
@@ -557,10 +577,9 @@
 
           <!-- === CENTER ZONE: Radar + bullets === -->
           <div class="zone center-block">
-            <div class="zone-head logo-head center">
-              <div class="logo-head-text">
-                <span class="zone-kicker">02 · Shape</span>
-                <span class="zone-title">Head-to-head</span>
+            <div class="zone-head logo-head center" style="justify-content:center;text-align:center">
+              <div class="logo-head-text" style="text-align:center">
+                <span class="zone-title" style="font-size:28px">Head-to-head</span>
                 <span class="zone-note-sub">Percentile overlay · division rank</span>
               </div>
             </div>
@@ -578,11 +597,7 @@
           <div class="zone" id="zoneB">
             <div class="zone-head logo-head right">
               <div class="logo-head-text" style="text-align:right">
-                <span class="zone-title" style="color:var(--navy)">Catawba</span>
                 <div class="last5 right" id="last5B"></div>
-              </div>
-              <div class="team-logo b" aria-label="Catawba logo placeholder">
-                <span class="team-logo-mono">CAT</span>
               </div>
             </div>
             <div class="pace-grid-4">
@@ -617,51 +632,19 @@
 
         <!-- ========== FOOTER ========== -->
         <footer class="footer">
-          <div class="footer-team a">NORTH GEORGIA<span class="loc">HOME · 19‑4</span></div>
+          <div></div>
           <div class="footnotes">
             <div>*Percentages are division rankings. *Pace is rolling 7-game average across last 14 games.</div>
             <div>*Rotation = pitchers with at or one less than the max game starts for their team. *Bullpen = pitchers with no starts and greater than average appearance value per team.</div>
           </div>
-          <div class="footer-team b">CATAWBA<span class="loc">AWAY · 19‑6</span></div>
+          <div></div>
         </footer>
 
       </div>
     </div>
   </div>
 
-  <!-- ========== TWEAKS ========== -->
-  <div class="tweaks-panel" id="tweaksPanel">
-    <h4>Tweaks</h4>
-    <div class="tweak-row">
-      <label>Radar style</label>
-      <select id="tweakRadar">
-        <option value="rings">Concentric rings (default)</option>
-        <option value="polygon">Polygon grid</option>
-        <option value="minimal">Minimal (spokes only)</option>
-      </select>
-    </div>
-    <div class="tweak-row inline">
-      <label>Show pace avg band</label>
-      <div class="switch on" id="tweakBand"></div>
-    </div>
-    <div class="tweak-row inline">
-      <label>Show radar dots</label>
-      <div class="switch on" id="tweakDots"></div>
-    </div>
-    <div class="tweak-row">
-      <label>Theme</label>
-      <select id="tweakTheme">
-        <option value="warm">Warm cream (default)</option>
-        <option value="paper">Crisp paper</option>
-      </select>
-    </div>
-    <div class="tweak-row">
-      <label>Series title</label>
-      <input type="text" id="tweakTitle" value="Peach Belt Conference" />
-    </div>
-  </div>
-
-<script src="chart-data.js?v=8"></script>
-<script src="charts.js?v=8"></script>
+<script src="chart-data.js?v=17"></script>
+<script src="charts.js?v=17"></script>
 </body>
 </html>

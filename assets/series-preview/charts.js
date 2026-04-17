@@ -26,9 +26,9 @@ function axisPct(team, axis) {
 /* ====== RADAR (hero, in center) ====== */
 function renderRadar(el, axes, teamA, teamB, opts = {}) {
   if (!el) return;
-  const W = 520, H = 440;
+  const W = 480, H = 480;
   const cx = W / 2, cy = H / 2;
-  const R = 150;
+  const R = 200;
   const n = axes.length;
   const style = opts.style || 'rings';
   const angle = i => -Math.PI / 2 + (i / n) * Math.PI * 2;
@@ -39,13 +39,15 @@ function renderRadar(el, axes, teamA, teamB, opts = {}) {
   if (style === 'rings') {
     rings.forEach(v => {
       const r = (v / 100) * R;
-      gridSVG += `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#E2DED2" stroke-width="${v === 100 ? 1 : 0.6}" ${v < 100 ? 'stroke-dasharray="2 2"' : ''}/>`;
+      const strokeColor = v === 100 ? '#B5B0A3' : '#E2DED2';
+      gridSVG += `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${strokeColor}" stroke-width="${v === 100 ? 1.2 : 0.6}" ${v < 100 ? 'stroke-dasharray="2 2"' : ''}/>`;
     });
   } else if (style === 'polygon') {
     rings.forEach(v => {
       const r = (v / 100) * R;
       const poly = axes.map((_, i) => pt(i, r).join(',')).join(' ');
-      gridSVG += `<polygon points="${poly}" fill="none" stroke="#E2DED2" stroke-width="${v === 100 ? 1 : 0.6}" ${v < 100 ? 'stroke-dasharray="2 2"' : ''}/>`;
+      const strokeColor = v === 100 ? '#B5B0A3' : '#E2DED2';
+      gridSVG += `<polygon points="${poly}" fill="none" stroke="${strokeColor}" stroke-width="${v === 100 ? 1.2 : 0.6}" ${v < 100 ? 'stroke-dasharray="2 2"' : ''}/>`;
     });
   }
 
@@ -115,7 +117,6 @@ function renderRadar(el, axes, teamA, teamB, opts = {}) {
     const tx = cx + Math.cos(mid)*(rr + 14);
     const ty = cy + Math.sin(mid)*(rr + 14);
     return `
-      <path d="M ${x0} ${y0} A ${rr} ${rr} 0 ${large} 1 ${x1} ${y1}" fill="none" stroke="${color}" stroke-width="1.2" stroke-linecap="round" opacity="0.6"/>
       <text x="${tx}" y="${ty}" text-anchor="middle" dominant-baseline="middle"
         font-family="Inter, sans-serif" font-size="10" font-weight="800" letter-spacing="0.22em" fill="${color}">${label}</text>`;
   }
@@ -162,8 +163,8 @@ function renderBullets(el, rows) {
    One team's series, one metric. Subtle band, single line + area. */
 function renderPaceSmall(el, values, meta, teamColor, opts = {}) {
   if (!el) return;
-  const W = 260, H = 110;
-  const padL = 28, padR = 10, padT = 10, padB = 16;
+  const W = 260, H = 150;
+  const padL = 28, padR = 36, padT = 16, padB = 18;
   const innerW = W - padL - padR;
   const innerH = H - padT - padB;
   const n = values.length;
@@ -188,7 +189,8 @@ function renderPaceSmall(el, values, meta, teamColor, opts = {}) {
   [0, n-1].forEach((i, k) => {
     const xx = x(i);
     const lbl = i === 0 ? 'G‑14' : 'NOW';
-    xAxis += `<text x="${xx}" y="${H - 4}" text-anchor="${k===0?'start':'end'}" font-family="JetBrains Mono, monospace" font-size="7.5" fill="#B5B0A3" font-weight="500" letter-spacing="0.06em">${lbl}</text>`;
+    const anchor = k===0 ? 'start' : 'middle';
+    xAxis += `<text x="${xx}" y="${H - 4}" text-anchor="${anchor}" font-family="JetBrains Mono, monospace" font-size="7.5" fill="#B5B0A3" font-weight="500" letter-spacing="0.06em">${lbl}</text>`;
   });
 
   // Band
@@ -220,13 +222,13 @@ function renderPaceSmall(el, values, meta, teamColor, opts = {}) {
   const strokeColor = teamColor === 'red' ? '#C41230' : '#29335C';
 
   el.innerHTML = `
-    <svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">
+    <svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">
       ${yGrid}${band}${xAxis}
       <path d="${areaD}" fill="${fillColor}"/>
       <path d="${path(pts)}" fill="none" stroke="${strokeColor}" stroke-width="2" stroke-linejoin="round"/>
       ${pts.slice(0, -1).map(p => `<circle cx="${p[0]}" cy="${p[1]}" r="1.3" fill="${strokeColor}" opacity="0.5"/>`).join('')}
       <circle cx="${last[0]}" cy="${last[1]}" r="3.5" fill="${strokeColor}" stroke="#FAF8F2" stroke-width="1.5"/>
-      <text x="${last[0] - 5}" y="${last[1] - 7}" text-anchor="end" font-family="Inter, sans-serif" font-size="10" font-weight="800" fill="${strokeColor}">${meta.format(lastVal)}</text>
+      <text x="${last[0] + 6}" y="${last[1]}" text-anchor="start" dominant-baseline="middle" font-family="Inter, sans-serif" font-size="10" font-weight="800" fill="${strokeColor}">${meta.format(lastVal)}</text>
     </svg>`;
 }
 
@@ -333,42 +335,27 @@ function fit() {
 fit();
 window.addEventListener('resize', fit);
 
-/* ====== TWEAK WIRING ====== */
-document.getElementById('tweakRadar').value = tweaks.radarStyle;
-document.getElementById('tweakTheme').value = tweaks.theme;
-document.getElementById('tweakTitle').value = tweaks.seriesTitle;
-document.getElementById('tweakBand').classList.toggle('on', !!tweaks.showBand);
-document.getElementById('tweakDots').classList.toggle('on', !!tweaks.showDots);
+/* ====== TWEAK WIRING (optional - panel may not exist) ====== */
+const _tR = document.getElementById('tweakRadar');
+const _tT = document.getElementById('tweakTheme');
+const _tTi = document.getElementById('tweakTitle');
+const _tB = document.getElementById('tweakBand');
+const _tD = document.getElementById('tweakDots');
+const _tP = document.getElementById('tweaksPanel');
 
 function postEdit(patch) {
   window.parent.postMessage({ type: '__edit_mode_set_keys', edits: patch }, '*');
 }
-document.getElementById('tweakRadar').addEventListener('change', e => {
-  tweaks.radarStyle = e.target.value; renderAll(); postEdit({ radarStyle: tweaks.radarStyle });
-});
-document.getElementById('tweakTheme').addEventListener('change', e => {
-  tweaks.theme = e.target.value; applyTheme(tweaks.theme); postEdit({ theme: tweaks.theme });
-});
-document.getElementById('tweakBand').addEventListener('click', () => {
-  tweaks.showBand = !tweaks.showBand;
-  document.getElementById('tweakBand').classList.toggle('on', tweaks.showBand);
-  renderAll(); postEdit({ showBand: tweaks.showBand });
-});
-document.getElementById('tweakDots').addEventListener('click', () => {
-  tweaks.showDots = !tweaks.showDots;
-  document.getElementById('tweakDots').classList.toggle('on', tweaks.showDots);
-  renderAll(); postEdit({ showDots: tweaks.showDots });
-});
-document.getElementById('tweakTitle').addEventListener('input', e => {
-  tweaks.seriesTitle = e.target.value;
-  document.getElementById('seriesTitle').textContent = tweaks.seriesTitle;
-  postEdit({ seriesTitle: tweaks.seriesTitle });
-});
+if (_tR) { _tR.value = tweaks.radarStyle; _tR.addEventListener('change', e => { tweaks.radarStyle = e.target.value; renderAll(); postEdit({ radarStyle: tweaks.radarStyle }); }); }
+if (_tT) { _tT.value = tweaks.theme; _tT.addEventListener('change', e => { tweaks.theme = e.target.value; applyTheme(tweaks.theme); postEdit({ theme: tweaks.theme }); }); }
+if (_tTi) { _tTi.value = tweaks.seriesTitle; _tTi.addEventListener('input', e => { tweaks.seriesTitle = e.target.value; document.getElementById('seriesTitle').textContent = tweaks.seriesTitle; postEdit({ seriesTitle: tweaks.seriesTitle }); }); }
+if (_tB) { _tB.classList.toggle('on', !!tweaks.showBand); _tB.addEventListener('click', () => { tweaks.showBand = !tweaks.showBand; _tB.classList.toggle('on', tweaks.showBand); renderAll(); postEdit({ showBand: tweaks.showBand }); }); }
+if (_tD) { _tD.classList.toggle('on', !!tweaks.showDots); _tD.addEventListener('click', () => { tweaks.showDots = !tweaks.showDots; _tD.classList.toggle('on', tweaks.showDots); renderAll(); postEdit({ showDots: tweaks.showDots }); }); }
 
 window.addEventListener('message', (ev) => {
   const m = ev.data;
-  if (!m || !m.type) return;
-  if (m.type === '__activate_edit_mode') document.getElementById('tweaksPanel').classList.add('on');
-  else if (m.type === '__deactivate_edit_mode') document.getElementById('tweaksPanel').classList.remove('on');
+  if (!m || !m.type || !_tP) return;
+  if (m.type === '__activate_edit_mode') _tP.classList.add('on');
+  else if (m.type === '__deactivate_edit_mode') _tP.classList.remove('on');
 });
-window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+if (_tP) window.parent.postMessage({ type: '__edit_mode_available' }, '*');
