@@ -248,10 +248,17 @@ def get_last_5(team_name, schedules_df):
     results = []
     for _, g in sched.iterrows():
         result_str = str(g.get('result', ''))
-        wl = 'W' if result_str.startswith('W') else 'L'
-        score = result_str.replace('W ', '').replace('L ', '').strip()
+        # Handle postponed/canceled as grey
+        if any(k in result_str.lower() for k in ['ppd', 'canc', 'postpone', 'cancel']):
+            wl = 'P'  # postponed — rendered grey in JS
+            score = 'PPD'
+        elif result_str.startswith('W'):
+            wl = 'W'
+            score = result_str.replace('W ', '').strip()
+        else:
+            wl = 'L'
+            score = result_str.replace('L ', '').strip()
         opp = str(g.get('opponentName', '')).split('@')[0].strip()
-        # Shorten opponent name
         opp_short = opp[:3].upper() if len(opp) > 3 else opp.upper()
         venue = '@ ' if pd.notna(g.get('isAway')) and g.get('isAway') == 1.0 else 'vs '
         results.append({'wl': wl, 'score': score, 'opp': f'{venue}{opp_short}'})
@@ -799,7 +806,7 @@ if template_path.exists():
     window.BULLETS = {json.dumps([
         {"label": "wRCE", "a": {"v": fmt_val(tr_metrics_a['wRCE']), "pct": 50}, "b": {"v": fmt_val(tr_metrics_b['wRCE']), "pct": 50}},
         {"label": "wRAE", "a": {"v": fmt_val(tr_metrics_a['wRAE']), "pct": 50}, "b": {"v": fmt_val(tr_metrics_b['wRAE']), "pct": 50}},
-        {"label": "TOTAL RANK", "a": {"v": str(tr_metrics_a['rank']), "pct": 50}, "b": {"v": str(tr_metrics_b['rank']), "pct": 50}},
+        {"label": "TRUE RANK", "a": {"v": f"#{ranks_a.get('True Rank', '?')}", "pct": 50}, "b": {"v": f"#{ranks_b.get('True Rank', '?')}", "pct": 50}},
     ])};
     window.LAST5 = {{
       a: {json.dumps(last5_a)},
@@ -823,6 +830,64 @@ if template_path.exists():
     ];
     """
 
+    # ── Extract team colors from logos ──
+    from PIL import Image
+    from collections import Counter as ImgCounter
+    def get_team_color(team_name_key, fallback='#C41230'):
+        tid = get_team_id(team_name_key, teams_df, sel_sport)
+        if not tid: return fallback
+        for ext in ('png', 'webp'):
+            lp = _APP_DIR / 'team_logos_512' / f'{tid}.{ext}'
+            if lp.exists():
+                try:
+                    img = Image.open(lp).convert('RGBA')
+                    img.thumbnail((64, 64))
+                    px = np.array(img)
+                    mask = px[:, :, 3] > 128
+                    rgb = px[mask][:, :3]
+                    filtered = [(r,g,b) for r,g,b in rgb if 35 < (int(r)+int(g)+int(b))/3 < 220]
+                    if not filtered: return fallback
+                    quant = [(r//16*16, g//16*16, b//16*16) for r,g,b in filtered]
+                    top = ImgCounter(quant).most_common(1)[0][0]
+                    return f'#{top[0]:02x}{top[1]:02x}{top[2]:02x}'
+                except: pass
+        return fallback
+
+    color_a = get_team_color(team_a, '#C41230')
+    color_b = get_team_color(team_b, '#29335C')
+
+    # Inject team colors as CSS overrides
+    color_css = f"""
+    .team-block.left .team-name {{ color: {color_a} !important; }}
+    .team-block.right .team-name {{ color: {color_b} !important; }}
+    .footer-team.a {{ color: {color_a} !important; }}
+    .footer-team.b {{ color: {color_b} !important; }}
+    .micro-group-label {{ color: {color_a} !important; }}
+    #zoneB .micro-group-label {{ color: {color_b} !important; }}
+    .zone-title {{ color: {color_a}; }}
+    #zoneB .zone-title {{ color: {color_b} !important; }}
+    .bullet-bar.a {{ background: {color_a} !important; }}
+    .bullet-bar.b {{ background: {color_b} !important; }}
+    .bullet-val.a {{ color: {color_a} !important; }}
+    .bullet-val.b {{ color: {color_b} !important; }}
+    .radar-legend .sw.a {{ background: {color_a}33 !important; border-color: {color_a} !important; }}
+    .radar-legend .sw.b {{ background: {color_b}33 !important; border-color: {color_b} !important; }}
+    .team-logo.a {{ background: {color_a} !important; }}
+    .team-logo.b {{ background: {color_b} !important; }}
+    """
+    html = html.replace('</style>', f'{color_css}</style>')
+
+    # Also inject color vars into JS for the radar/charts
+    html = html.replace("var(--red)", color_a)
+    html = html.replace("'red'", f"'{color_a}'")
+    html = html.replace("var(--navy)", color_b)
+    html = html.replace("'navy'", f"'{color_b}'")
+    # Keep CSS vars for non-team uses but override the JS color refs
+    color_js = f"""
+    var TEAM_A_COLOR = '{color_a}';
+    var TEAM_B_COLOR = '{color_b}';
+    """
+
     # Replace team names, records, ranks in the HTML
     html = html.replace('NORTH GEORGIA', team_a.upper())
     html = html.replace('North Georgia', team_a)
@@ -830,19 +895,21 @@ if template_path.exists():
     html = html.replace('Catawba', team_b)
     html = html.replace('NIGHTHAWKS · DAHLONEGA, GA', f'{sel_sport.upper()} · {sel_div}')
     html = html.replace('INDIANS · SALISBURY, NC', f'{sel_sport.upper()} · {sel_div}')
-    # Replace record values
     html = html.replace('>19‑4<', f">{rec_a['wins']}‑{rec_a['losses']}<")
     html = html.replace('>19‑6<', f">{rec_b['wins']}‑{rec_b['losses']}<")
     html = html.replace('>#13<', f'>{r64a}<')
     html = html.replace('>#22<', f'>{r64b}<')
     html = html.replace('>#8<', f'>{rpia}<')
     html = html.replace('>#19<', f'>{rpib}<')
-    html = html.replace('>9‑3<', f">—<")  # conference record placeholder
+    html = html.replace('>9‑3<', f">—<")
     html = html.replace('>10‑4<', f">—<")
     html = html.replace('Peach Belt Conference', f'{sel_sport} {sel_div}')
-    # Footer records
     html = html.replace('HOME · 19‑4', f"HOME · {rec_a['wins']}‑{rec_a['losses']}")
     html = html.replace('AWAY · 19‑6', f"AWAY · {rec_b['wins']}‑{rec_b['losses']}")
+
+    # Add "2 WEEK REVIEW" header above pace charts
+    html = html.replace('<div class="pace-grid-4">',
+                        '<div style="font-size:11px;font-weight:800;letter-spacing:0.2em;text-transform:uppercase;color:var(--gray);text-align:center;margin-bottom:4px;">2 WEEK REVIEW</div><div class="pace-grid-4">')
 
     # Override ALL hardcoded template data with our dynamic versions
     html = html.replace('window.DATA = {', f'window._ORIG_DATA = {{')
