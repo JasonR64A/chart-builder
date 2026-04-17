@@ -8,7 +8,7 @@ import pandas as pd
 from pathlib import Path
 
 _APP_DIR = Path(__file__).resolve().parent.parent
-PARSED_DIR = Path("C:/Users/sixty/Dev/portal-pipeline/output/01_parsed")
+ARCHIVE_DIR = _APP_DIR / 'data' / 'portal_archive'
 
 st.set_page_config(page_title='NCAA Transfer Portal', layout='wide')
 
@@ -22,20 +22,11 @@ def load_portal_data():
     frames = []
     for sport, f in [('Baseball', 'baseball_full_archive.csv'),
                       ('Softball', 'softball_full_archive.csv')]:
-        path = PARSED_DIR / f
+        path = ARCHIVE_DIR / f
         if path.exists():
             df = pd.read_csv(path, dtype=str).fillna('')
             df['sport_label'] = sport
             frames.append(df)
-    if not frames:
-        # Fall back to raw files
-        for sport, f in [('Baseball', 'baseball_raw.csv'),
-                          ('Softball', 'softball_raw.csv')]:
-            path = PARSED_DIR / f
-            if path.exists():
-                df = pd.read_csv(path, dtype=str).fillna('')
-                df['sport_label'] = sport
-                frames.append(df)
     if not frames:
         return pd.DataFrame()
     return pd.concat(frames, ignore_index=True)
