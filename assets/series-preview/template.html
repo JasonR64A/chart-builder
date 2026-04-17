@@ -1,0 +1,667 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Series Preview — North Georgia vs Catawba</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Spectral:ital,wght@0,500;0,700;0,800;1,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #C41230;
+    --red-soft: #E4788A;
+    --navy: #29335C;
+    --navy-soft: #8B93B3;
+    --bg: #FAF8F2;
+    --bg-2: #F4F1E8;
+    --ink: #2D2926;
+    --gray: #888888;
+    --gray-2: #B5B0A3;
+    --line: #E2DED2;
+    --line-strong: #CFCABA;
+    --card: #FFFFFF;
+    --card-border: #D9D5CC;
+
+    --p-green: #2D8A4E;
+    --p-gold: #E8A735;
+    --p-orange: #D97030;
+    --p-red: #C41230;
+  }
+
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: #141414;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    color: var(--ink);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .stage { width: 100vw; height: 100vh; display: grid; place-items: center; overflow: hidden; }
+  .card-wrap { width: 1600px; height: 900px; transform-origin: center center; position: relative; }
+  .card {
+    width: 1600px; height: 900px;
+    background: var(--bg);
+    position: relative;
+    padding: 42px 56px 36px;
+    display: flex; flex-direction: column;
+    font-feature-settings: "tnum" 1, "ss01" 1;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.35);
+  }
+
+  /* ============ HEADER ============ */
+  .header {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 40px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--line);
+  }
+  .team-block { display: flex; flex-direction: column; gap: 10px; }
+  .team-block.left  { align-items: flex-start; text-align: left;  }
+  .team-block.right { align-items: flex-end;   text-align: right; }
+  .team-name {
+    font-family: 'Spectral', Georgia, serif;
+    font-weight: 800;
+    font-size: 46px;
+    letter-spacing: -0.01em;
+    line-height: 0.95;
+    color: var(--ink);
+  }
+  .team-block.left  .team-name { color: var(--red); }
+  .team-block.right .team-name { color: var(--navy); }
+  .team-sub { font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gray); font-weight: 600; margin-top: 2px; }
+
+  .team-meta { display: flex; gap: 18px; align-items: baseline; margin-top: 4px; }
+  .meta-item { display: flex; gap: 6px; align-items: baseline; }
+  .meta-label { color: var(--gray); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; font-size: 10.5px; }
+  .meta-value { color: var(--ink); font-weight: 700; font-size: 15px; font-variant-numeric: tabular-nums; }
+  .meta-sep { width: 1px; height: 14px; background: var(--line-strong); align-self: center; }
+  .conf-row {
+    font-size: 11px; color: var(--gray); letter-spacing: 0.08em;
+    text-transform: uppercase; font-weight: 600;
+  }
+  .conf-row b {
+    color: var(--ink); font-weight: 700; font-size: 12.5px;
+    letter-spacing: 0; text-transform: none; margin-left: 6px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .wordmark { display: flex; flex-direction: column; align-items: center; gap: 8px; min-width: 300px; }
+  .wordmark-logo { height: 40px; width: auto; display: block; }
+  .wordmark-sub { font-size: 10px; letter-spacing: 0.32em; color: var(--gray); font-weight: 600; text-transform: uppercase; }
+  .wordmark-title { font-size: 13px; letter-spacing: 0.18em; color: var(--ink); font-weight: 700; text-transform: uppercase; }
+  .wordmark-date { font-size: 10px; color: var(--gray); letter-spacing: 0.08em; text-transform: uppercase; font-weight: 500; }
+
+  /* ============ BODY ============ */
+  .body {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 0.9fr 1.15fr 0.9fr;
+    gap: 26px;
+    padding: 22px 0 18px;
+    min-height: 0;
+  }
+
+  .pace-grid-4 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 10px;
+    flex: 1;
+    min-height: 0;
+  }
+  .pace-card { min-height: 0; display: flex; flex-direction: column; }
+  .pace-svg-wrap { flex: 1; min-height: 60px; position: relative; }
+  .pace-svg-wrap svg { width: 100%; height: 100%; display: block; }
+
+  .radar-hero { flex: 1.2; min-height: 340px; }
+
+  .zone { display: flex; flex-direction: column; min-height: 0; gap: 10px; }
+
+  /* ===== Zone headers ===== */
+  .zone-head {
+    display: flex; align-items: baseline; gap: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--line);
+    white-space: nowrap;
+  }
+
+  /* Logo-style zone heads */
+  .logo-head {
+    align-items: center;
+    gap: 14px;
+    padding-bottom: 10px;
+  }
+  .logo-head.right { justify-content: flex-end; }
+  .logo-head.center { justify-content: center; }
+  .logo-head-text {
+    display: flex; flex-direction: column; gap: 2px;
+    line-height: 1.1;
+  }
+  .logo-head-text .zone-kicker { font-size: 9px; }
+  .logo-head-text .zone-title { font-size: 18px; line-height: 1; }
+  .zone-note-sub {
+    font-size: 9.5px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--gray); font-weight: 600;
+  }
+
+  .team-logo {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Spectral', Georgia, serif;
+    font-weight: 800;
+    font-size: 15px;
+    letter-spacing: 0.02em;
+    color: #fff;
+    flex-shrink: 0;
+    position: relative;
+  }
+  .team-logo::after {
+    content: ''; position: absolute; inset: -4px;
+    border: 1px dashed var(--line-strong); border-radius: 50%;
+    opacity: 0.8;
+  }
+  .team-logo.a { background: var(--red); }
+  .team-logo.b { background: var(--navy); }
+  .team-logo-mono { position: relative; z-index: 1; }
+
+  .center-emblem {
+    width: 44px; height: 44px; display: block; flex-shrink: 0;
+    object-fit: contain;
+  }
+
+  /* Last 5 games strip */
+  .last5 {
+    display: flex; gap: 4px; margin-top: 4px;
+    font-variant-numeric: tabular-nums;
+  }
+  .last5.right { justify-content: flex-end; }
+  .last5-item {
+    display: flex; align-items: center; gap: 4px;
+    padding: 2px 6px 2px 4px;
+    border: 1px solid var(--line-strong);
+    border-radius: 4px;
+    background: #fff;
+  }
+  .last5-wl {
+    width: 14px; height: 14px;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 9px; font-weight: 800; letter-spacing: 0;
+    color: #fff;
+    border-radius: 2px;
+  }
+  .last5-wl.w { background: var(--p-green); }
+  .last5-wl.l { background: var(--p-red); }
+  .last5-score {
+    font-size: 10px; font-weight: 700; color: var(--ink); letter-spacing: 0;
+  }
+  .last5-opp {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8px; letter-spacing: 0.06em; color: var(--gray);
+    font-weight: 600;
+  }
+  .zone-title { white-space: nowrap; }
+  .zone-note { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .zone-kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--gray);
+  }
+  .zone-title {
+    font-family: 'Spectral', Georgia, serif;
+    font-weight: 700; font-size: 17px; letter-spacing: 0.01em;
+    color: var(--ink);
+  }
+  .zone-note {
+    margin-left: auto;
+    font-size: 10px; color: var(--gray); letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600;
+  }
+
+  /* ============ RADAR ZONE ============ */
+  .radar-wrap {
+    position: relative;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 0;
+  }
+  .radar-wrap svg { width: 100%; height: 100%; }
+
+  .radar-legend {
+    display: flex; gap: 18px; justify-content: center;
+    padding-top: 6px;
+    font-size: 11px;
+  }
+  .radar-legend .sw {
+    width: 16px; height: 10px; border-radius: 2px; display: inline-block; margin-right: 6px;
+    vertical-align: middle;
+  }
+  .radar-legend .sw.a { background: rgba(196,18,48,0.22); border: 1.5px solid var(--red); }
+  .radar-legend .sw.b { background: rgba(41,51,92,0.22); border: 1.5px solid var(--navy); }
+  .radar-legend .lbl { color: var(--ink); font-weight: 600; letter-spacing: 0.02em; }
+
+  /* ============ MICRO STRIP ============ */
+  .micro {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+    padding-top: 6px;
+    border-top: 1px dashed var(--line-strong);
+  }
+  .micro-cell {
+    display: flex; flex-direction: column; align-items: center; gap: 1px;
+    padding: 4px 2px;
+  }
+  .micro-label {
+    font-size: 8.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--gray);
+  }
+  .micro-value {
+    font-size: 12.5px; font-weight: 800; font-variant-numeric: tabular-nums;
+    letter-spacing: -0.01em; color: var(--ink);
+  }
+  .micro-pct { font-size: 8.5px; font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: 0.02em; }
+  .micro-pct.na { color: var(--gray); font-weight: 600; }
+  .pct-green  { color: var(--p-green); }
+  .pct-gold   { color: var(--p-gold); }
+  .pct-orange { color: var(--p-orange); }
+  .pct-red    { color: var(--p-red); }
+
+  .micro-7 { grid-template-columns: repeat(7, 1fr); }
+  .micro-divider {
+    height: 1px;
+    background: var(--line);
+    margin: 6px 0;
+  }
+  .micro-group-label {
+    font-size: 9px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--ink);
+    margin-bottom: 2px;
+  }
+  .micro-group { display: flex; flex-direction: column; gap: 4px; }
+
+  /* ============ CENTER ZONE ============ */
+  .center-block {
+    display: flex; flex-direction: column;
+    gap: 14px;
+    min-height: 0;
+    flex: 1;
+    position: relative;
+    isolation: isolate;
+  }
+  .center-block::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 140px;
+    height: 60px;
+    transform: translateX(-50%);
+    background: url('assets/64a-emblem.png') center/contain no-repeat;
+    opacity: 0.1;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .center-block > * { position: relative; z-index: 1; }
+  .center-block .zone-head { background: transparent; }
+
+  .module-head {
+    display: flex; align-items: baseline; gap: 8px;
+    margin-bottom: 6px;
+    white-space: nowrap;
+  }
+  .module-title { white-space: nowrap; }
+  .module-kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--gray);
+  }
+  .module-title {
+    font-family: 'Spectral', Georgia, serif;
+    font-weight: 700; font-size: 14.5px; color: var(--ink);
+  }
+  .module-sub {
+    margin-left: auto;
+    font-size: 9.5px; color: var(--gray); letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600;
+  }
+
+  /* ---- Bullet bars ---- */
+  .bullets { display: flex; flex-direction: column; gap: 8px; }
+  .bullet-row {
+    display: grid;
+    grid-template-columns: 54px 1fr 54px;
+    align-items: center;
+    gap: 10px;
+  }
+  .bullet-val {
+    font-size: 13px; font-weight: 800; font-variant-numeric: tabular-nums;
+    letter-spacing: -0.01em;
+  }
+  .bullet-val.a { color: var(--red); text-align: right; }
+  .bullet-val.b { color: var(--navy); text-align: left; }
+
+  .bullet-track {
+    position: relative;
+    height: 22px;
+    background: linear-gradient(90deg, rgba(196,18,48,0.05), rgba(41,51,92,0.05));
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .bullet-mid {
+    position: absolute; top: 0; bottom: 0; left: 50%;
+    width: 1px; background: var(--line-strong);
+  }
+  .bullet-bar {
+    position: absolute; top: 3px; bottom: 3px;
+    border-radius: 2px;
+  }
+  .bullet-bar.a {
+    background: var(--red); right: 50%;
+  }
+  .bullet-bar.b {
+    background: var(--navy); left: 50%;
+  }
+  .bullet-label {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 9px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--ink);
+    background: var(--bg);
+    padding: 1px 6px;
+    border-radius: 2px;
+    z-index: 2;
+    white-space: nowrap;
+  }
+
+  /* Old pace-grid kept for fallback safety */
+  .pace-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    flex: 1;
+    min-height: 0;
+  }
+
+  .pace-footer {
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 9.5px; color: var(--gray); letter-spacing: 0.08em;
+    padding-top: 3px;
+  }
+  .pace-delta { font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: 0; }
+  .pace-delta.up { color: var(--p-green); }
+  .pace-delta.down { color: var(--p-red); }
+
+  /* ============ FOOTER ============ */
+  .footer {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 30px;
+    padding-top: 12px;
+    border-top: 1px solid var(--line);
+  }
+  .footer-team {
+    font-family: 'Spectral', Georgia, serif;
+    font-size: 15px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+  }
+  .footer-team.a { color: var(--red); text-align: left; }
+  .footer-team.b { color: var(--navy); text-align: right; }
+  .footer-team .loc {
+    display: block; margin-top: 3px;
+    font-family: 'Inter', sans-serif;
+    font-size: 10px; letter-spacing: 0.2em; color: var(--gray); font-weight: 600;
+  }
+  .footnotes {
+    display: flex; flex-direction: column; gap: 2px;
+    font-size: 9.5px; color: var(--gray); font-style: italic;
+    text-align: center; max-width: 640px; line-height: 1.4;
+  }
+
+  .corner {
+    position: absolute; top: 18px; left: 24px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; color: var(--gray); letter-spacing: 0.18em;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .corner-right {
+    position: absolute; top: 20px; right: 24px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; color: var(--gray); letter-spacing: 0.18em;
+  }
+
+  /* ============ TWEAKS ============ */
+  .tweaks-panel {
+    position: fixed; right: 16px; bottom: 16px; width: 300px;
+    background: #fff; color: #2D2926; border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.35);
+    padding: 14px 16px 16px; font-size: 12px; z-index: 1000;
+    display: none; border: 1px solid #D9D5CC;
+  }
+  .tweaks-panel.on { display: block; }
+  .tweaks-panel h4 { margin: 0 0 10px; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: #2D2926; font-weight: 800; }
+  .tweak-row { margin-bottom: 10px; display: flex; flex-direction: column; gap: 5px; }
+  .tweak-row label { font-size: 10.5px; font-weight: 700; color: #888; letter-spacing: 0.08em; text-transform: uppercase; }
+  .tweak-row select, .tweak-row input[type="text"] {
+    font: inherit; padding: 5px 7px; border: 1px solid #D9D5CC; border-radius: 6px; background: #FAF8F2;
+  }
+  .tweak-row.inline { flex-direction: row; align-items: center; justify-content: space-between; }
+  .tweak-row.inline label { margin: 0; }
+  .switch { width: 34px; height: 20px; background: #D9D5CC; border-radius: 999px; position: relative; cursor: pointer; transition: background 0.15s; }
+  .switch::after { content: ''; position: absolute; top: 2px; left: 2px; width: 16px; height: 16px; border-radius: 50%; background: #fff; transition: transform 0.15s; }
+  .switch.on { background: var(--red); }
+  .switch.on::after { transform: translateX(14px); }
+
+</style>
+</head>
+<body>
+
+  <div class="stage">
+    <div class="card-wrap" id="cardWrap">
+      <div class="card" id="card" data-screen-label="01 Series Preview">
+
+        <div class="corner">
+          <img src="assets/64a-circle-red-black.png" alt="64 Analytics" style="width:22px;height:22px;display:block;" />
+          <span>SERIES PREVIEW · NCAA D‑II</span>
+        </div>
+        <div class="corner-right">WEEK 9 · APR 17 · 2026</div>
+
+        <!-- ========== HEADER ========== -->
+        <header class="header">
+          <div class="team-block left">
+            <div>
+              <div class="team-name">NORTH GEORGIA</div>
+              <div class="team-sub">NIGHTHAWKS · DAHLONEGA, GA</div>
+            </div>
+            <div class="team-meta">
+              <div class="meta-item"><span class="meta-label">Rec</span><span class="meta-value">19‑4</span></div>
+              <span class="meta-sep"></span>
+              <div class="meta-item"><span class="meta-label">64A</span><span class="meta-value">#13</span></div>
+              <span class="meta-sep"></span>
+              <div class="meta-item"><span class="meta-label">RPI</span><span class="meta-value">#8</span></div>
+            </div>
+            <div class="conf-row">Conference <b>9‑3</b></div>
+          </div>
+
+          <div class="wordmark">
+            <img class="wordmark-logo" src="assets/64a-logo-red-black.png" alt="64 Analytics" />
+            <div class="wordmark-sub">Weekend Series</div>
+            <div class="wordmark-title" id="seriesTitle">Peach Belt Conference</div>
+            <div class="wordmark-date">FRI · SAT · SUN — APR 17–19</div>
+          </div>
+
+          <div class="team-block right">
+            <div>
+              <div class="team-name">CATAWBA</div>
+              <div class="team-sub">INDIANS · SALISBURY, NC</div>
+            </div>
+            <div class="team-meta">
+              <div class="meta-item"><span class="meta-label">Rec</span><span class="meta-value">19‑6</span></div>
+              <span class="meta-sep"></span>
+              <div class="meta-item"><span class="meta-label">64A</span><span class="meta-value">#22</span></div>
+              <span class="meta-sep"></span>
+              <div class="meta-item"><span class="meta-label">RPI</span><span class="meta-value">#19</span></div>
+            </div>
+            <div class="conf-row">Conference <b>10‑4</b></div>
+          </div>
+        </header>
+
+        <!-- ========== BODY: 3 ZONES ========== -->
+        <div class="body">
+
+          <!-- === LEFT ZONE: Team A pace + micro === -->
+          <div class="zone" id="zoneA">
+            <div class="zone-head logo-head">
+              <div class="team-logo a" aria-label="North Georgia logo placeholder">
+                <span class="team-logo-mono">NG</span>
+              </div>
+              <div class="logo-head-text">
+                <span class="zone-title" style="color:var(--red)">North Georgia</span>
+                <div class="last5" id="last5A"></div>
+              </div>
+            </div>
+            <div class="pace-grid-4">
+              <div class="pace-card">
+                <div class="module-head"><span class="module-title">OPS</span></div>
+                <div class="pace-svg-wrap" id="paceAOPS"></div>
+                <div class="pace-footer"><span id="paceAOPSnow"></span><span id="paceAOPSdelta" class="pace-delta"></span></div>
+              </div>
+              <div class="pace-card">
+                <div class="module-head"><span class="module-title">xFIP</span></div>
+                <div class="pace-svg-wrap" id="paceAXFIP"></div>
+                <div class="pace-footer"><span id="paceAXFIPnow"></span><span id="paceAXFIPdelta" class="pace-delta"></span></div>
+              </div>
+              <div class="pace-card">
+                <div class="module-head"><span class="module-title">wRC+</span></div>
+                <div class="pace-svg-wrap" id="paceAWRC"></div>
+                <div class="pace-footer"><span id="paceAWRCnow"></span><span id="paceAWRCdelta" class="pace-delta"></span></div>
+              </div>
+              <div class="pace-card">
+                <div class="module-head"><span class="module-title">SIERA</span></div>
+                <div class="pace-svg-wrap" id="paceASIERA"></div>
+                <div class="pace-footer"><span id="paceASIERAnow"></span><span id="paceASIERAdelta" class="pace-delta"></span></div>
+              </div>
+            </div>
+            <div class="micro-group">
+              <div class="micro-group-label" style="color:var(--red)">Season averages</div>
+              <div class="micro micro-7" id="microAH"></div>
+              <div class="micro micro-7" id="microAP"></div>
+            </div>
+          </div>
+
+          <!-- === CENTER ZONE: Radar + bullets === -->
+          <div class="zone center-block">
+            <div class="zone-head logo-head center">
+              <div class="logo-head-text">
+                <span class="zone-kicker">02 · Shape</span>
+                <span class="zone-title">Head-to-head</span>
+                <span class="zone-note-sub">Percentile overlay · division rank</span>
+              </div>
+            </div>
+
+            <div class="radar-wrap radar-hero" id="radarCenter"></div>
+            <div class="radar-legend">
+              <span><span class="sw a"></span><span class="lbl">North Georgia</span></span>
+              <span><span class="sw b"></span><span class="lbl">Catawba</span></span>
+            </div>
+
+            <div class="bullets" id="bullets"></div>
+          </div>
+
+          <!-- === RIGHT ZONE: Team B pace + micro === -->
+          <div class="zone" id="zoneB">
+            <div class="zone-head logo-head right">
+              <div class="logo-head-text" style="text-align:right">
+                <span class="zone-title" style="color:var(--navy)">Catawba</span>
+                <div class="last5 right" id="last5B"></div>
+              </div>
+              <div class="team-logo b" aria-label="Catawba logo placeholder">
+                <span class="team-logo-mono">CAT</span>
+              </div>
+            </div>
+            <div class="pace-grid-4">
+              <div class="pace-card">
+                <div class="module-head"><span class="module-title">OPS</span></div>
+                <div class="pace-svg-wrap" id="paceBOPS"></div>
+                <div class="pace-footer"><span id="paceBOPSnow"></span><span id="paceBOPSdelta" class="pace-delta"></span></div>
+              </div>
+              <div class="pace-card">
+                <div class="module-head"><span class="module-title">xFIP</span></div>
+                <div class="pace-svg-wrap" id="paceBXFIP"></div>
+                <div class="pace-footer"><span id="paceBXFIPnow"></span><span id="paceBXFIPdelta" class="pace-delta"></span></div>
+              </div>
+              <div class="pace-card">
+                <div class="module-head"><span class="module-title">wRC+</span></div>
+                <div class="pace-svg-wrap" id="paceBWRC"></div>
+                <div class="pace-footer"><span id="paceBWRCnow"></span><span id="paceBWRCdelta" class="pace-delta"></span></div>
+              </div>
+              <div class="pace-card">
+                <div class="module-head"><span class="module-title">SIERA</span></div>
+                <div class="pace-svg-wrap" id="paceBSIERA"></div>
+                <div class="pace-footer"><span id="paceBSIERAnow"></span><span id="paceBSIERAdelta" class="pace-delta"></span></div>
+              </div>
+            </div>
+            <div class="micro-group">
+              <div class="micro-group-label" style="color:var(--navy)">Season averages</div>
+              <div class="micro micro-7" id="microBH"></div>
+              <div class="micro micro-7" id="microBP"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ========== FOOTER ========== -->
+        <footer class="footer">
+          <div class="footer-team a">NORTH GEORGIA<span class="loc">HOME · 19‑4</span></div>
+          <div class="footnotes">
+            <div>*Percentages are division rankings. *Pace is rolling 7-game average across last 14 games.</div>
+            <div>*Rotation = pitchers with at or one less than the max game starts for their team. *Bullpen = pitchers with no starts and greater than average appearance value per team.</div>
+          </div>
+          <div class="footer-team b">CATAWBA<span class="loc">AWAY · 19‑6</span></div>
+        </footer>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== TWEAKS ========== -->
+  <div class="tweaks-panel" id="tweaksPanel">
+    <h4>Tweaks</h4>
+    <div class="tweak-row">
+      <label>Radar style</label>
+      <select id="tweakRadar">
+        <option value="rings">Concentric rings (default)</option>
+        <option value="polygon">Polygon grid</option>
+        <option value="minimal">Minimal (spokes only)</option>
+      </select>
+    </div>
+    <div class="tweak-row inline">
+      <label>Show pace avg band</label>
+      <div class="switch on" id="tweakBand"></div>
+    </div>
+    <div class="tweak-row inline">
+      <label>Show radar dots</label>
+      <div class="switch on" id="tweakDots"></div>
+    </div>
+    <div class="tweak-row">
+      <label>Theme</label>
+      <select id="tweakTheme">
+        <option value="warm">Warm cream (default)</option>
+        <option value="paper">Crisp paper</option>
+      </select>
+    </div>
+    <div class="tweak-row">
+      <label>Series title</label>
+      <input type="text" id="tweakTitle" value="Peach Belt Conference" />
+    </div>
+  </div>
+
+<script src="chart-data.js?v=8"></script>
+<script src="charts.js?v=8"></script>
+</body>
+</html>

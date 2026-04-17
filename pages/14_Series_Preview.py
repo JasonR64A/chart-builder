@@ -656,22 +656,19 @@ with h3:
 st.markdown('---')
 
 
-# ── Matchup Stat Card ────────────────────────────────────────────────────────
+# ── Matchup Card (Claude Design template) ────────────────────────────────────
 st.markdown('### Team Comparison')
 
-# Compute stats for both teams + all teams in division (for percentiles)
+# Compute stats for both teams + percentiles
 stats_a = compute_team_stats(team_a, hitting_pbp, pitching_pbp)
 stats_b = compute_team_stats(team_b, hitting_pbp, pitching_pbp)
-
-# Compute stats for all teams in division for percentile context
 all_team_names = sorted(sport_teams['name'].tolist())
-all_team_stats = []
+all_team_stats_list = []
 for tn in all_team_names:
     ts = compute_team_stats(tn, hitting_pbp, pitching_pbp)
     if ts.get('AB', 0) > 0:
-        all_team_stats.append(ts)
+        all_team_stats_list.append(ts)
 
-# Team-rank metrics
 tr26_data = load_team_ranks(sel_sport, div_label)
 def get_team_rank_metrics(tid):
     row = tr26_data[tr26_data['team_id'] == tid]
@@ -683,16 +680,87 @@ def get_team_rank_metrics(tid):
         'wRCE': float(r.get('weighted_run_created_efficiency', 0) or 0),
         'wRAE': float(r.get('weighted_run_allowed_efficiency', 0) or 0),
     }
-
 tr_metrics_a = get_team_rank_metrics(team_a_id)
 tr_metrics_b = get_team_rank_metrics(team_b_id)
 
-card_png = render_matchup_card(team_a, team_b, stats_a, stats_b, all_team_stats,
-                                ranks_a, ranks_b, rec_a, rec_b,
-                                tr_metrics_a, tr_metrics_b)
-st.image(card_png, use_container_width=True)
-st.download_button('Download Matchup Card PNG', data=card_png,
-                   file_name=f'matchup_{team_a}_vs_{team_b}.png', mime='image/png')
+# Render via the Claude Design HTML template
+import streamlit.components.v1 as components
+import json
+
+template_path = _APP_DIR / 'assets' / 'series-preview' / 'template_inline.html'
+if template_path.exists():
+    html = template_path.read_text(encoding='utf-8')
+
+    def fmt_val(v, is_rate=False):
+        if isinstance(v, float):
+            if is_rate: return f"{v*100:.1f}%"
+            if abs(v) < 1: return f".{int(v*1000):03d}" if v >= 0 else f"-.{int(abs(v)*1000):03d}"
+            if abs(v) < 10: return f"{v:.2f}"
+            return f"{v:.1f}"
+        return str(v)
+
+    def pct_for(key, stats, higher_is_better=True):
+        val = stats.get(key, 0)
+        all_v = [s.get(key, 0) for s in all_team_stats_list if s.get(key, 0) != 0]
+        if not all_v: return 50.0
+        pos = sum(1 for v in all_v if v <= val)
+        pct = pos / len(all_v) * 100
+        return round(pct, 1) if higher_is_better else round(100 - pct, 1)
+
+    # Build DATA object matching the template's format
+    hitting_keys = [('OPS','OPS',True),('OBP','wOBA',True),('ISO','ISO',True),
+                    ('BA','AVG',True),('BB_rate_h','BB%',True),('K_rate_h','K%',False),
+                    ('HR_rate','HR Rate',True)]
+    pitching_keys = [('ERA','ERA',False),('WHIP','WHIP',False),('K9','K/9',True),
+                     ('BB9','BB/9',False),('K_BB','K/BB',True)]
+
+    def build_stats_array(stats, keys):
+        arr = []
+        for key, label, hib in keys:
+            val = stats.get(key, 0)
+            arr.append({"label": label, "value": fmt_val(val), "pct": pct_for(key, stats, hib)})
+        return arr
+
+    data_js = f"""
+    window.DATA = {{
+      teamA: {{
+        name: {json.dumps(team_a.upper())},
+        hitting: {json.dumps(build_stats_array(stats_a, hitting_keys))},
+        pitching: {json.dumps(build_stats_array(stats_a, pitching_keys))}
+      }},
+      teamB: {{
+        name: {json.dumps(team_b.upper())},
+        hitting: {json.dumps(build_stats_array(stats_b, hitting_keys))},
+        pitching: {json.dumps(build_stats_array(stats_b, pitching_keys))}
+      }}
+    }};
+    window.BULLETS = {json.dumps([
+        {"label": "wRCE", "a": {"v": fmt_val(tr_metrics_a['wRCE']), "pct": 50}, "b": {"v": fmt_val(tr_metrics_b['wRCE']), "pct": 50}},
+        {"label": "wRAE", "a": {"v": fmt_val(tr_metrics_a['wRAE']), "pct": 50}, "b": {"v": fmt_val(tr_metrics_b['wRAE']), "pct": 50}},
+        {"label": "TOTAL RANK", "a": {"v": str(tr_metrics_a['rank']), "pct": 50}, "b": {"v": str(tr_metrics_b['rank']), "pct": 50}},
+    ])};
+    """
+
+    # Replace team names in the HTML
+    html = html.replace('NORTH GEORGIA', team_a.upper())
+    html = html.replace('North Georgia', team_a)
+    html = html.replace('CATAWBA', team_b.upper())
+    html = html.replace('Catawba', team_b)
+    html = html.replace('NIGHTHAWKS · DAHLONEGA, GA', f'{sel_sport} · {sel_div}')
+    html = html.replace('INDIANS · SALISBURY, NC', f'{sel_sport} · {sel_div}')
+    html = html.replace('19‑4', f"{rec_a['wins']}‑{rec_a['losses']}")
+    html = html.replace('19‑6', f"{rec_b['wins']}‑{rec_b['losses']}")
+    r64a = f"#{int(ranks_a['64A'])}" if ranks_a.get('64A') else '—'
+    r64b = f"#{int(ranks_b['64A'])}" if ranks_b.get('64A') else '—'
+    rpia = f"#{int(ranks_a['RPI'])}" if ranks_a.get('RPI') else '—'
+    rpib = f"#{int(ranks_b['RPI'])}" if ranks_b.get('RPI') else '—'
+
+    # Inject dynamic data JS BEFORE the chart-data.js inline script
+    html = html.replace('window.DATA = {', f'{data_js}\n/* Original data below (overridden) */\nwindow._ORIG_DATA = {{')
+
+    components.html(html, height=960, scrolling=False)
+else:
+    st.warning('Series preview template not found. Run the design build first.')
 
 
 # ── Game-by-Game Predictions ─────────────────────────────────────────────────
