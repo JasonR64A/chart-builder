@@ -89,6 +89,15 @@ def load_external_ranks(sport):
 
 
 @st.cache_data
+@st.cache_data
+def load_schedules(sport):
+    sport_l = sport.lower()
+    f = DATA_DIR / f'schedules_full_{sport_l}.csv'
+    if not f.exists():
+        return pd.DataFrame()
+    return pd.read_csv(f, low_memory=False).fillna('')
+
+
 def load_records(sport):
     sport_l = sport.lower()
     sf = DATA_DIR / f'schedules_full_{sport_l}.csv'
@@ -230,6 +239,25 @@ def get_hot_hitters(team_name, hitting_pbp, n=3, days=14):
     return result
 
 
+def get_last_5(team_name, schedules_df):
+    """Get last 5 completed games for a team."""
+    sched = schedules_df[schedules_df['teamName'] == team_name].copy()
+    sched = sched[sched['result'].notna() & (sched['result'] != '')]
+    sched['_d'] = pd.to_datetime(sched['date'], errors='coerce', format='mixed')
+    sched = sched.sort_values('_d', ascending=False).head(5)
+    results = []
+    for _, g in sched.iterrows():
+        result_str = str(g.get('result', ''))
+        wl = 'W' if result_str.startswith('W') else 'L'
+        score = result_str.replace('W ', '').replace('L ', '').strip()
+        opp = str(g.get('opponentName', '')).split('@')[0].strip()
+        # Shorten opponent name
+        opp_short = opp[:3].upper() if len(opp) > 3 else opp.upper()
+        venue = '@ ' if pd.notna(g.get('isAway')) and g.get('isAway') == 1.0 else 'vs '
+        results.append({'wl': wl, 'score': score, 'opp': f'{venue}{opp_short}'})
+    return results
+
+
 def get_hot_pitcher(team_name, pitching_pbp, days=14):
     """Top pitcher by IP in last `days` days."""
     if pitching_pbp.empty:
@@ -306,12 +334,12 @@ def compute_team_stats(team_name, hitting_pbp, pitching_pbp):
         for k in ['BA','OBP','SLG','OPS','ISO','HR','R','RBI','K_rate_h','BB_rate_h','HR_rate','AB','PA']:
             stats[k] = 0
 
-    # Pitching
+    # Pitching — compute all 7 stats to match the 14-axis radar template
     if not pitching_pbp.empty:
         p_name = next((n for n in pitching_pbp['teamName'].dropna().unique()
                         if isinstance(n, str) and n.startswith(team_name)), team_name)
         p = pitching_pbp[pitching_pbp['teamName'] == p_name].copy()
-        for c in ['ip', 'h', 'er', 'bb', 'so', 'hr', 'bf']:
+        for c in ['ip', 'h', 'r', 'er', 'bb', 'so', 'bf', 'hrA', 'doublesA', 'triplesA', 'hb']:
             if c in p.columns:
                 p[c] = pd.to_numeric(p[c], errors='coerce').fillna(0)
         ip = p['ip'].sum()
@@ -319,7 +347,13 @@ def compute_team_stats(team_name, hitting_pbp, pitching_pbp):
         p_er = p['er'].sum()
         p_bb = p['bb'].sum()
         p_so = p['so'].sum() if 'so' in p.columns else 0
-        p_hr = p['hr'].sum() if 'hr' in p.columns else 0
+        p_hr = p['hrA'].sum() if 'hrA' in p.columns else 0
+        p_bf = p['bf'].sum() if 'bf' in p.columns else 0
+        p_hb = p['hb'].sum() if 'hb' in p.columns else 0
+        p_2b = p['doublesA'].sum() if 'doublesA' in p.columns else 0
+        p_3b = p['triplesA'].sum() if 'triplesA' in p.columns else 0
+        p_1b = p_h - p_2b - p_3b - p_hr
+        # Standard pitching stats
         stats['ERA'] = (p_er / ip * 9) if ip else 0
         stats['WHIP'] = (p_h + p_bb) / ip if ip else 0
         stats['K9'] = (p_so / ip * 9) if ip else 0
@@ -328,8 +362,24 @@ def compute_team_stats(team_name, hitting_pbp, pitching_pbp):
         stats['IP'] = round(ip, 1)
         stats['H_allowed'] = int(p_h)
         stats['SO'] = int(p_so)
+        # OPS-against (for radar)
+        ab_against = p_bf - p_bb - p_hb  # approximate AB
+        if ab_against > 0:
+            ba_against = p_h / ab_against
+            obp_against = (p_h + p_bb + p_hb) / p_bf if p_bf else 0
+            tb_against = p_1b + 2*p_2b + 3*p_3b + 4*p_hr
+            slg_against = tb_against / ab_against
+            stats['OPS_against'] = obp_against + slg_against
+        else:
+            stats['OPS_against'] = 0
+        # BB% and K% (per BF, not per 9)
+        stats['BB_pct'] = p_bb / p_bf if p_bf else 0
+        stats['K_pct'] = p_so / p_bf if p_bf else 0
+        # HR/AB rate (proxy for HR/FB% since we don't have fly ball data)
+        stats['HR_AB'] = p_hr / ab_against if ab_against > 0 else 0
     else:
-        for k in ['ERA','WHIP','K9','BB9','K_BB','IP','H_allowed','SO']:
+        for k in ['ERA','WHIP','K9','BB9','K_BB','IP','H_allowed','SO',
+                   'OPS_against','BB_pct','K_pct','HR_AB']:
             stats[k] = 0
 
     return stats
@@ -707,19 +757,31 @@ if template_path.exists():
         pct = pos / len(all_v) * 100
         return round(pct, 1) if higher_is_better else round(100 - pct, 1)
 
-    # Build DATA object matching the template's format
+    # Build DATA object matching the template's 14-axis format (7 hitting + 7 pitching)
     hitting_keys = [('OPS','OPS',True),('OBP','wOBA',True),('ISO','ISO',True),
                     ('BA','AVG',True),('BB_rate_h','BB%',True),('K_rate_h','K%',False),
                     ('HR_rate','HR Rate',True)]
-    pitching_keys = [('ERA','ERA',False),('WHIP','WHIP',False),('K9','K/9',True),
-                     ('BB9','BB/9',False),('K_BB','K/BB',True)]
+    pitching_keys = [('OPS_against','OPS',False),('BB_pct','BB%',False),('K_pct','K%',True),
+                     ('WHIP','WHIP',False),('ERA','ERA',False),('K9','K/9',True),
+                     ('HR_AB','HR/AB%',False)]
 
-    def build_stats_array(stats, keys):
+    def build_stats_array(stats_dict, keys):
         arr = []
         for key, label, hib in keys:
-            val = stats.get(key, 0)
-            arr.append({"label": label, "value": fmt_val(val), "pct": pct_for(key, stats, hib)})
+            val = stats_dict.get(key, 0)
+            arr.append({"label": label, "value": fmt_val(val), "pct": pct_for(key, stats_dict, hib)})
         return arr
+
+    # Last 5 games
+    schedules_df = load_schedules(sel_sport)
+    last5_a = get_last_5(team_a, schedules_df) if not schedules_df.empty else []
+    last5_b = get_last_5(team_b, schedules_df) if not schedules_df.empty else []
+
+    # Records + ranks for header
+    r64a = f"#{int(ranks_a['64A'])}" if ranks_a.get('64A') else '—'
+    r64b = f"#{int(ranks_b['64A'])}" if ranks_b.get('64A') else '—'
+    rpia = f"#{int(ranks_a['RPI'])}" if ranks_a.get('RPI') else '—'
+    rpib = f"#{int(ranks_b['RPI'])}" if ranks_b.get('RPI') else '—'
 
     data_js = f"""
     window.DATA = {{
@@ -739,23 +801,50 @@ if template_path.exists():
         {"label": "wRAE", "a": {"v": fmt_val(tr_metrics_a['wRAE']), "pct": 50}, "b": {"v": fmt_val(tr_metrics_b['wRAE']), "pct": 50}},
         {"label": "TOTAL RANK", "a": {"v": str(tr_metrics_a['rank']), "pct": 50}, "b": {"v": str(tr_metrics_b['rank']), "pct": 50}},
     ])};
+    window.LAST5 = {{
+      a: {json.dumps(last5_a)},
+      b: {json.dumps(last5_b)}
+    }};
+    window.RADAR_AXES = [
+      {{ key: "OPS", group: "H" }},
+      {{ key: "wOBA", group: "H" }},
+      {{ key: "ISO", group: "H" }},
+      {{ key: "AVG", group: "H" }},
+      {{ key: "BB%", group: "H" }},
+      {{ key: "K%", group: "H" }},
+      {{ key: "HR Rate", group: "H" }},
+      {{ key: "OPS", label: "OPS-A", group: "P", source: "pitching", lookup: "OPS" }},
+      {{ key: "BB%", group: "P", source: "pitching", lookup: "BB%" }},
+      {{ key: "K%", group: "P", source: "pitching", lookup: "K%" }},
+      {{ key: "WHIP", group: "P" }},
+      {{ key: "ERA", group: "P" }},
+      {{ key: "K/9", group: "P" }},
+      {{ key: "HR/AB%", group: "P" }}
+    ];
     """
 
-    # Replace team names in the HTML
+    # Replace team names, records, ranks in the HTML
     html = html.replace('NORTH GEORGIA', team_a.upper())
     html = html.replace('North Georgia', team_a)
     html = html.replace('CATAWBA', team_b.upper())
     html = html.replace('Catawba', team_b)
-    html = html.replace('NIGHTHAWKS · DAHLONEGA, GA', f'{sel_sport} · {sel_div}')
-    html = html.replace('INDIANS · SALISBURY, NC', f'{sel_sport} · {sel_div}')
-    html = html.replace('19‑4', f"{rec_a['wins']}‑{rec_a['losses']}")
-    html = html.replace('19‑6', f"{rec_b['wins']}‑{rec_b['losses']}")
-    r64a = f"#{int(ranks_a['64A'])}" if ranks_a.get('64A') else '—'
-    r64b = f"#{int(ranks_b['64A'])}" if ranks_b.get('64A') else '—'
-    rpia = f"#{int(ranks_a['RPI'])}" if ranks_a.get('RPI') else '—'
-    rpib = f"#{int(ranks_b['RPI'])}" if ranks_b.get('RPI') else '—'
+    html = html.replace('NIGHTHAWKS · DAHLONEGA, GA', f'{sel_sport.upper()} · {sel_div}')
+    html = html.replace('INDIANS · SALISBURY, NC', f'{sel_sport.upper()} · {sel_div}')
+    # Replace record values
+    html = html.replace('>19‑4<', f">{rec_a['wins']}‑{rec_a['losses']}<")
+    html = html.replace('>19‑6<', f">{rec_b['wins']}‑{rec_b['losses']}<")
+    html = html.replace('>#13<', f'>{r64a}<')
+    html = html.replace('>#22<', f'>{r64b}<')
+    html = html.replace('>#8<', f'>{rpia}<')
+    html = html.replace('>#19<', f'>{rpib}<')
+    html = html.replace('>9‑3<', f">—<")  # conference record placeholder
+    html = html.replace('>10‑4<', f">—<")
+    html = html.replace('Peach Belt Conference', f'{sel_sport} {sel_div}')
+    # Footer records
+    html = html.replace('HOME · 19‑4', f"HOME · {rec_a['wins']}‑{rec_a['losses']}")
+    html = html.replace('AWAY · 19‑6', f"AWAY · {rec_b['wins']}‑{rec_b['losses']}")
 
-    # Inject dynamic data JS BEFORE the chart-data.js inline script
+    # Inject dynamic data JS — override the hardcoded DATA
     html = html.replace('window.DATA = {', f'{data_js}\n/* Original data below (overridden) */\nwindow._ORIG_DATA = {{')
 
     components.html(html, height=960, scrolling=False)
