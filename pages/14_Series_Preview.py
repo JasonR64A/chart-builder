@@ -803,12 +803,13 @@ if template_path.exists():
         pitching: {json.dumps(build_stats_array(stats_b, pitching_keys))}
       }}
     }};
-    # Compute D1 percentiles for bullet bar widths
+    """
+
+    # Compute D1 percentiles for bullet bar widths (OUTSIDE the f-string)
     all_tr = tr26_data[tr26_data['team_id'].isin(sport_teams['id'])].copy()
     all_tr['wRCE'] = pd.to_numeric(all_tr.get('weighted_run_created_efficiency'), errors='coerce')
     all_tr['wRAE'] = pd.to_numeric(all_tr.get('weighted_run_allowed_efficiency'), errors='coerce')
     all_tr['rank'] = pd.to_numeric(all_tr.get('rank_64a'), errors='coerce')
-    n_teams = len(all_tr.dropna(subset=['rank']))
 
     def div_pct(val, col, higher_better=True):
         vals = all_tr[col].dropna().tolist()
@@ -821,13 +822,14 @@ if template_path.exists():
     wrce_b_pct = div_pct(tr_metrics_b['wRCE'], 'wRCE', True)
     wrae_a_pct = div_pct(tr_metrics_a['wRAE'], 'wRAE', True)
     wrae_b_pct = div_pct(tr_metrics_b['wRAE'], 'wRAE', True)
-    rank_a_pct = div_pct(tr_metrics_a['rank'], 'rank', False)  # lower rank = better
+    rank_a_pct = div_pct(tr_metrics_a['rank'], 'rank', False)
     rank_b_pct = div_pct(tr_metrics_b['rank'], 'rank', False)
 
+    data_js += f"""
     window.BULLETS = {json.dumps([
         {"label": "wRCE", "a": {"v": fmt_val(tr_metrics_a['wRCE']), "pct": wrce_a_pct}, "b": {"v": fmt_val(tr_metrics_b['wRCE']), "pct": wrce_b_pct}},
         {"label": "wRAE", "a": {"v": fmt_val(tr_metrics_a['wRAE']), "pct": wrae_a_pct}, "b": {"v": fmt_val(tr_metrics_b['wRAE']), "pct": wrae_b_pct}},
-        {"label": "CUMULATIVE RANK", "a": {"v": f"#{ranks_a.get('True Rank', '?')}", "pct": rank_a_pct}, "b": {"v": f"#{ranks_b.get('True Rank', '?')}", "pct": rank_b_pct}},
+        {"label": "CUMULATIVE RANK", "a": {"v": "#{ranks_a.get('True Rank', '?')}", "pct": rank_a_pct}, "b": {"v": "#{ranks_b.get('True Rank', '?')}", "pct": rank_b_pct}},
     ])};
     window.LAST5 = {{
       a: {json.dumps(last5_a)},
