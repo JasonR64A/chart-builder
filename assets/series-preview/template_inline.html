@@ -133,12 +133,12 @@
 
   .radar-hero { flex: 1.5; min-height: 380px; }
 
-  .zone { display: flex; flex-direction: column; min-height: 0; gap: 6px; }
+  .zone { display: flex; flex-direction: column; min-height: 0; gap: 2px; }
 
   /* ===== Zone headers ===== */
   .zone-head {
     display: flex; align-items: baseline; gap: 10px;
-    padding-bottom: 4px;
+    padding-bottom: 1px;
     border-bottom: 1px solid var(--line);
     white-space: nowrap;
   }
@@ -298,9 +298,9 @@
   .micro-group-label {
     font-size: 9px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase;
     color: var(--ink);
-    margin-bottom: 2px;
+    margin-bottom: 0;
   }
-  .micro-group { display: flex; flex-direction: column; gap: 4px; }
+  .micro-group { display: flex; flex-direction: column; gap: 1px; }
 
   /* ============ CENTER ZONE ============ */
   .center-block {
@@ -956,7 +956,7 @@ function renderPaceSmall(el, values, meta, teamColor, opts = {}) {
   ticks.forEach(v => {
     const y = yScale(v);
     yGrid += `<line x1="${padL}" y1="${y}" x2="${W - padR}" y2="${y}" stroke="#CFCABA" stroke-width="0.5" stroke-dasharray="2 2"/>`;
-    yGrid += `<text x="${padL - 5}" y="${y}" text-anchor="end" dominant-baseline="middle" font-family="JetBrains Mono, monospace" font-size="7.5" fill="#B5B0A3" font-weight="500">${meta.format(v)}</text>`;
+    yGrid += `<text x="${padL - 5}" y="${y}" text-anchor="end" dominant-baseline="middle" font-family="JetBrains Mono, monospace" font-size="7.5" fill="#7A7568" font-weight="700">${meta.format(v)}</text>`;
   });
 
   // X labels
@@ -965,7 +965,7 @@ function renderPaceSmall(el, values, meta, teamColor, opts = {}) {
     const xx = x(i);
     const lbl = i === 0 ? 'G‑14' : 'NOW';
     const anchor = k===0 ? 'start' : 'middle';
-    xAxis += `<text x="${xx}" y="${H - 4}" text-anchor="${anchor}" font-family="JetBrains Mono, monospace" font-size="7.5" fill="#B5B0A3" font-weight="500" letter-spacing="0.06em">${lbl}</text>`;
+    xAxis += `<text x="${xx}" y="${H - 4}" text-anchor="${anchor}" font-family="JetBrains Mono, monospace" font-size="7.5" fill="#7A7568" font-weight="700" letter-spacing="0.06em">${lbl}</text>`;
   });
 
   // Band
