@@ -1123,7 +1123,7 @@ if template_path.exists():
                     break
 
     # Inject all dynamic JS right before </head>
-    all_js = f'<script>{data_js}\n{pace_js}</script>'
+    all_js = f'<script>{color_js}\n{data_js}\n{pace_js}</script>'
     html = html.replace('</head>', f'{all_js}\n</head>')
 
     # Inject a PNG download button directly into the card HTML
