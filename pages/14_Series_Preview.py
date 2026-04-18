@@ -1091,16 +1091,20 @@ if template_path.exists():
     all_js = f'<script>{data_js}\n{pace_js}</script>'
     html = html.replace('</head>', f'{all_js}\n</head>')
 
-    components.html(html, height=940, scrolling=False)
+    # Inject a PNG download button directly into the card HTML
+    png_btn = f"""
+    <div style="text-align:center;padding:8px 0 0;">
+      <button onclick="window.downloadCardPNG()" style="
+        background:#C41230;color:#fff;border:none;padding:8px 24px;
+        font-size:13px;font-weight:700;border-radius:6px;cursor:pointer;
+        letter-spacing:0.06em;font-family:Inter,sans-serif;">
+        Download PNG
+      </button>
+    </div>
+    """
+    html = html.replace('</body>', f'{png_btn}</body>')
 
-    st.download_button(
-        'Download Series Preview',
-        data=html.encode('utf-8'),
-        file_name=f'series_preview_{team_a}_vs_{team_b}.html',
-        mime='text/html',
-        type='primary',
-    )
-    st.caption('Open the downloaded HTML file in your browser, then right-click → Save as Image, or press Ctrl+P → Save as PDF.')
+    components.html(html, height=960, scrolling=False)
 
 else:
     st.warning('Series preview template not found. Run the design build first.')

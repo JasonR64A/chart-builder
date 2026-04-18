@@ -37,7 +37,7 @@
     min-height: 0;
   }
 
-  .stage { width: 1400px; height: 900px; margin: 0 auto; overflow: hidden; }
+  .stage { width: 100%; display: flex; justify-content: center; overflow: hidden; }
   .card-wrap { width: 1400px; height: 900px; transform-origin: center center; position: relative; }
   .card {
     width: 1400px; height: 900px;
@@ -580,7 +580,7 @@
           <div class="zone center-block">
             <div class="zone-head logo-head center" style="justify-content:center;text-align:center">
               <div class="logo-head-text" style="text-align:center">
-                <span class="zone-title" style="font-size:28px">Head-to-head</span>
+                <span class="zone-title" style="font-size:28px" style="color:#C41230">Head-to-head</span>
                 <span class="zone-note-sub">Percentile overlay · division rank</span>
               </div>
             </div>
@@ -1144,6 +1144,22 @@ window.addEventListener('message', (ev) => {
   else if (m.type === '__deactivate_edit_mode') _tP.classList.remove('on');
 });
 if (_tP) window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script>
+window.downloadCardPNG = function() {
+  var card = document.querySelector('.card');
+  if (!card) return;
+  html2canvas(card, { scale: 2, backgroundColor: '#FAF8F2', useCORS: true, allowTaint: true }).then(function(canvas) {
+    var a = document.createElement('a');
+    a.download = 'series_preview.png';
+    a.href = canvas.toDataURL('image/png');
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  });
+};
 </script>
 </body>
 </html>
