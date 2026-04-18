@@ -960,7 +960,7 @@ if template_path.exists():
 
     # Add "2 WEEK REVIEW" header above pace charts
     html = html.replace('<div class="pace-grid-4">',
-                        '<div style="font-size:11px;font-weight:800;letter-spacing:0.2em;text-transform:uppercase;color:var(--gray);text-align:center;margin-bottom:4px;">2 WEEK REVIEW</div><div class="pace-grid-4">')
+                        '<div style="font-size:11px;font-weight:800;letter-spacing:0.2em;text-transform:uppercase;color:var(--gray);text-align:center;margin-bottom:0;">2 WEEK REVIEW</div><div class="pace-grid-4">')
 
     # Override ALL hardcoded template data with our dynamic versions
     html = html.replace('window.DATA = {', f'window._ORIG_DATA = {{')
