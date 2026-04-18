@@ -939,7 +939,7 @@ function renderBullets(el, rows) {
 function renderPaceSmall(el, values, meta, teamColor, opts = {}) {
   if (!el) return;
   const W = 260, H = 150;
-  const padL = 28, padR = 36, padT = 16, padB = 18;
+  const padL = 28, padR = 36, padT = 8, padB = 10;
   const innerW = W - padL - padR;
   const innerH = H - padT - padB;
   const n = values.length;
@@ -955,7 +955,7 @@ function renderPaceSmall(el, values, meta, teamColor, opts = {}) {
   let yGrid = '';
   ticks.forEach(v => {
     const y = yScale(v);
-    yGrid += `<line x1="${padL}" y1="${y}" x2="${W - padR}" y2="${y}" stroke="#CFCABA" stroke-width="0.5" stroke-dasharray="2 2"/>`;
+    yGrid += `<line x1="${padL}" y1="${y}" x2="${W - padR}" y2="${y}" stroke="#333333" stroke-width="0.7"/>`;
     yGrid += `<text x="${padL - 5}" y="${y}" text-anchor="end" dominant-baseline="middle" font-family="JetBrains Mono, monospace" font-size="7.5" fill="#7A7568" font-weight="700">${meta.format(v)}</text>`;
   });
 
@@ -1009,6 +1009,8 @@ function renderPaceSmall(el, values, meta, teamColor, opts = {}) {
   el.innerHTML = `
     <svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">
       ${yGrid}${band}${xAxis}
+      <line x1="${padL}" y1="${padT + innerH}" x2="${W - padR}" y2="${padT + innerH}" stroke="#333333" stroke-width="1"/>
+      <line x1="${padL}" y1="${padT}" x2="${padL}" y2="${padT + innerH}" stroke="#333333" stroke-width="1"/>
       <path d="${areaD}" fill="${fillColor}"/>
       <path d="${path(pts)}" fill="none" stroke="${strokeColor}" stroke-width="2" stroke-linejoin="round"/>
       ${pts.slice(0, -1).map(p => `<circle cx="${p[0]}" cy="${p[1]}" r="1.3" fill="${strokeColor}" opacity="0.5"/>`).join('')}
