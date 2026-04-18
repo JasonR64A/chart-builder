@@ -300,10 +300,14 @@ def get_hot_pitcher(team_name, pitching_pbp, days=14):
 def compute_team_stats(team_name, hitting_pbp, pitching_pbp):
     """Aggregate season hitting + pitching stats for a team from PBP box scores."""
     stats = {}
-    # Map PBP team name (with mascot) to short name
+    # Map PBP team name (with mascot) to short name — LONGEST PREFIX wins
+    # to avoid "Georgia" matching "Georgia St." or "Georgia Tech"
     if not hitting_pbp.empty:
-        pbp_names = hitting_pbp['teamName'].dropna().unique()
-        pbp_name = next((n for n in pbp_names if isinstance(n, str) and n.startswith(team_name)), team_name)
+        pbp_names = [n for n in hitting_pbp['teamName'].dropna().unique() if isinstance(n, str)]
+        candidates = [n for n in pbp_names if n.startswith(team_name)]
+        # Prefer shortest match (exact team name + mascot, not a longer team like "Georgia St.")
+        candidates.sort(key=len)
+        pbp_name = candidates[0] if candidates else team_name
     else:
         pbp_name = team_name
 
@@ -343,8 +347,9 @@ def compute_team_stats(team_name, hitting_pbp, pitching_pbp):
 
     # Pitching — compute all 7 stats to match the 14-axis radar template
     if not pitching_pbp.empty:
-        p_name = next((n for n in pitching_pbp['teamName'].dropna().unique()
-                        if isinstance(n, str) and n.startswith(team_name)), team_name)
+        p_cands = sorted([n for n in pitching_pbp['teamName'].dropna().unique()
+                          if isinstance(n, str) and n.startswith(team_name)], key=len)
+        p_name = p_cands[0] if p_cands else team_name
         p = pitching_pbp[pitching_pbp['teamName'] == p_name].copy()
         for c in ['ip', 'h', 'r', 'er', 'bb', 'so', 'bf', 'hrA', 'doublesA', 'triplesA', 'hb']:
             if c in p.columns:
@@ -975,8 +980,9 @@ if template_path.exists():
         if hitting_pbp_df.empty:
             return pace
 
-        pbp_name = next((n for n in hitting_pbp_df['teamName'].dropna().unique()
-                          if isinstance(n, str) and n.startswith(team_name)), team_name)
+        h_cands = sorted([n for n in hitting_pbp_df['teamName'].dropna().unique()
+                          if isinstance(n, str) and n.startswith(team_name)], key=len)
+        pbp_name = h_cands[0] if h_cands else team_name
 
         # Get recent games
         h = hitting_pbp_df[hitting_pbp_df['teamName'] == pbp_name].copy()
@@ -994,8 +1000,9 @@ if template_path.exists():
             return pace
 
         # Pitching per game
-        p_name = next((n for n in pitching_pbp_df['teamName'].dropna().unique()
-                        if isinstance(n, str) and n.startswith(team_name)), team_name) if not pitching_pbp_df.empty else team_name
+        pp_cands = sorted([n for n in pitching_pbp_df['teamName'].dropna().unique()
+                           if isinstance(n, str) and n.startswith(team_name)], key=len)
+        p_name = pp_cands[0] if pp_cands else team_name if not pitching_pbp_df.empty else team_name
         p = pitching_pbp_df[pitching_pbp_df['teamName'] == p_name].copy() if not pitching_pbp_df.empty else pd.DataFrame()
         if not p.empty:
             p['date'] = pd.to_datetime(p['date'], errors='coerce', format='mixed')
@@ -1170,10 +1177,8 @@ st.markdown("### Who's Hot (last 14 days)")
 if not hitting_pbp.empty:
     pbp_names = set(hitting_pbp['teamName'].dropna())
     def find_pbp_name(short):
-        for full in pbp_names:
-            if isinstance(full, str) and full.startswith(short):
-                return full
-        return short
+        cands = sorted([n for n in pbp_names if isinstance(n, str) and n.startswith(short)], key=len)
+        return cands[0] if cands else short
     pbp_a = find_pbp_name(team_a)
     pbp_b = find_pbp_name(team_b)
 else:
