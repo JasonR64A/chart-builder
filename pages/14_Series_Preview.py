@@ -891,6 +891,9 @@ if template_path.exists():
     color_css = f"""
     .team-block.left .team-name {{ color: {color_a} !important; }}
     .team-block.right .team-name {{ color: {color_b} !important; }}
+    .wordmark-logo, .wordmark-sub, .wordmark-title {{ filter: none !important; }}
+    #zoneB .micro-group {{ direction: ltr; }}
+    #zoneB .zone-head {{ justify-content: flex-end; }}
     .footer-team.a {{ color: {color_a} !important; }}
     .footer-team.b {{ color: {color_b} !important; }}
     .micro-group-label {{ color: {color_a} !important; }}
@@ -1088,7 +1091,7 @@ if template_path.exists():
     all_js = f'<script>{data_js}\n{pace_js}</script>'
     html = html.replace('</head>', f'{all_js}\n</head>')
 
-    components.html(html, height=960, scrolling=False)
+    components.html(html, height=940, scrolling=False)
 
     st.download_button(
         'Download Series Preview',

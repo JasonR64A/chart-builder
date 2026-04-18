@@ -41,12 +41,12 @@
   }
 
   .stage { width: 100vw; height: 100vh; display: grid; place-items: center; overflow: hidden; }
-  .card-wrap { width: 1400px; height: 900px; transform-origin: center center; position: relative; }
+  .card-wrap { width: 1200px; height: 900px; transform-origin: center center; position: relative; }
   .card {
-    width: 1400px; height: 900px;
+    width: 1200px; height: 900px;
     background: var(--bg);
     position: relative;
-    padding: 24px 40px 20px;
+    padding: 24px 28px 20px;
     display: flex; flex-direction: column;
     font-feature-settings: "tnum" 1, "ss01" 1;
     
@@ -92,7 +92,7 @@
   }
 
   .wordmark { display: flex; flex-direction: column; align-items: center; gap: 4px; min-width: 280px; }
-  .wordmark-logo { height: 40px; width: auto; display: block; }
+  .wordmark-logo { height: 40px; filter: none !important; width: auto; display: block; }
   .wordmark-sub { font-size: 10px; letter-spacing: 0.32em; color: var(--gray); font-weight: 600; text-transform: uppercase; }
   .wordmark-title { font-size: 13px; letter-spacing: 0.18em; color: var(--ink); font-weight: 700; text-transform: uppercase; }
   .wordmark-date { font-size: 10px; color: var(--gray); letter-spacing: 0.08em; text-transform: uppercase; font-weight: 500; }
@@ -421,7 +421,7 @@
     font-size: 9.5px; color: var(--gray); letter-spacing: 0.08em;
     padding-top: 3px;
   }
-  .pace-delta { font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: 0; }
+  .pace-delta { font-weight: 800; font-variant-numeric: tabular-nums; letter-spacing: 0; font-size: 12px; }
   .pace-delta.up { color: var(--p-green); }
   .pace-delta.down { color: var(--p-red); }
 
