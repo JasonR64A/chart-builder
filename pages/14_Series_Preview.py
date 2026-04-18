@@ -825,8 +825,8 @@ if template_path.exists():
 
     wrce_a_pct = div_pct(tr_metrics_a['wRCE'], 'wRCE', True)
     wrce_b_pct = div_pct(tr_metrics_b['wRCE'], 'wRCE', True)
-    wrae_a_pct = div_pct(tr_metrics_a['wRAE'], 'wRAE', True)
-    wrae_b_pct = div_pct(tr_metrics_b['wRAE'], 'wRAE', True)
+    wrae_a_pct = div_pct(tr_metrics_a['wRAE'], 'wRAE', False)  # lower wRAE = better pitching
+    wrae_b_pct = div_pct(tr_metrics_b['wRAE'], 'wRAE', False)
     rank_a_pct = div_pct(tr_metrics_a['rank'], 'rank', False)
     rank_b_pct = div_pct(tr_metrics_b['rank'], 'rank', False)
 
