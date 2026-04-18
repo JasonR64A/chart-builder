@@ -1085,20 +1085,13 @@ if template_path.exists():
 
     st.download_button(
         'Download Series Preview',
-        data=card_html_bytes,
+        data=html.encode('utf-8'),
         file_name=f'series_preview_{team_a}_vs_{team_b}.html',
         mime='text/html',
         type='primary',
     )
     st.caption('Open the downloaded HTML file in your browser, then right-click → Save as Image, or press Ctrl+P → Save as PDF.')
 
-    # PNG export — render card to image bytes server-side using matplotlib
-    def render_card_png(html_content):
-        """Save HTML to temp file and render with matplotlib's web backend as fallback."""
-        # For now, provide the HTML as a downloadable file that can be opened + screenshotted
-        return html_content.encode('utf-8')
-
-    card_html_bytes = render_card_png(html)
 else:
     st.warning('Series preview template not found. Run the design build first.')
 
