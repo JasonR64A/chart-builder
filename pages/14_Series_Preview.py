@@ -184,11 +184,11 @@ def get_starters(team_id, player_rank_df, players_df, n=3):
 
 
 def get_bullpen(team_id, player_rank_df, players_df):
-    """Pitchers 4-10 by pitching percentile."""
+    """Pitchers 4-12 by pitching percentile."""
     team_pr = player_rank_df[player_rank_df['team_id'] == team_id].copy()
     pitchers = team_pr.dropna(subset=['pit_pct'])
     pitchers = pitchers[pitchers['pit_pct'] > 0].sort_values('pit_pct', ascending=False)
-    bp = pitchers.iloc[3:10]
+    bp = pitchers.iloc[3:12]
     if bp.empty:
         return {'mean_pct': 0, 'count': 0, 'names': []}
     names = []
@@ -832,9 +832,44 @@ if template_path.exists():
 
     cum_rank_a = f"#{int(ranks_a['True Rank'])}" if ranks_a.get('True Rank') else '—'
     cum_rank_b = f"#{int(ranks_b['True Rank'])}" if ranks_b.get('True Rank') else '—'
+
+    # Rotation (top 3) + Bullpen (pitchers 4-12) wRAE mean + division rank
+    def _team_rot_mean(tid):
+        s = get_starters(tid, pr, players, n=3)
+        return (sum(x['pit_pct'] for x in s) / len(s)) if s else None
+
+    def _team_bp_mean(tid):
+        b = get_bullpen(tid, pr, players)
+        return b['mean_pct'] if b['count'] > 0 else None
+
+    div_team_ids = sport_teams['id'].astype(int).tolist()
+    rot_means = {tid: _team_rot_mean(tid) for tid in div_team_ids}
+    bp_means = {tid: _team_bp_mean(tid) for tid in div_team_ids}
+
+    def _rank_in(my_val, d):
+        vals = sorted([v for v in d.values() if v is not None], reverse=True)  # higher = better
+        if my_val is None or not vals:
+            return None, 50
+        try:
+            rank = vals.index(my_val) + 1
+        except ValueError:
+            rank = len(vals)
+        pct = round((len(vals) - rank) / len(vals) * 100, 1)
+        return rank, pct
+
+    rot_a_rank, rot_a_pct = _rank_in(rot_means.get(team_a_id), rot_means)
+    rot_b_rank, rot_b_pct = _rank_in(rot_means.get(team_b_id), rot_means)
+    bp_a_rank,  bp_a_pct  = _rank_in(bp_means.get(team_a_id),  bp_means)
+    bp_b_rank,  bp_b_pct  = _rank_in(bp_means.get(team_b_id),  bp_means)
+
+    def _rank_display(r):
+        return f"#{r}" if r else "—"
+
     bullets_data = [
         {"label": "wRCE", "a": {"v": fmt_val(tr_metrics_a['wRCE']), "pct": wrce_a_pct}, "b": {"v": fmt_val(tr_metrics_b['wRCE']), "pct": wrce_b_pct}},
         {"label": "wRAE", "a": {"v": fmt_val(tr_metrics_a['wRAE']), "pct": wrae_a_pct}, "b": {"v": fmt_val(tr_metrics_b['wRAE']), "pct": wrae_b_pct}},
+        {"label": "STARTING ROTATION", "a": {"v": _rank_display(rot_a_rank), "pct": rot_a_pct}, "b": {"v": _rank_display(rot_b_rank), "pct": rot_b_pct}},
+        {"label": "BULLPEN", "a": {"v": _rank_display(bp_a_rank), "pct": bp_a_pct}, "b": {"v": _rank_display(bp_b_rank), "pct": bp_b_pct}},
         {"label": "CUMULATIVE RANK", "a": {"v": cum_rank_a, "pct": rank_a_pct}, "b": {"v": cum_rank_b, "pct": rank_b_pct}},
     ]
     data_js += f"""
