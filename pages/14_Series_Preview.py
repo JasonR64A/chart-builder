@@ -1083,43 +1083,31 @@ if template_path.exists():
 
     components.html(html, height=960, scrolling=False)
 
-    # PNG export via Playwright screenshot (local only — Playwright not on Render)
-    if st.button('Download Series Preview PNG', type='primary', key='dl_preview'):
-        import tempfile
-        try:
-            from playwright.sync_api import sync_playwright
-        except ImportError:
-            st.error('Playwright not installed on this server. PNG export works locally only.')
-            st.stop()
-        with st.spinner('Rendering PNG...'):
-            with tempfile.NamedTemporaryFile(suffix='.html', delete=False, mode='w', encoding='utf-8') as tmp:
-                tmp.write(html)
-                tmp_path = tmp.name
-            try:
-                with sync_playwright() as pw:
-                    browser = pw.chromium.launch(headless=True)
-                    page = browser.new_page(viewport={'width': 1400, 'height': 900})
-                    page.goto(f'file:///{tmp_path.replace(chr(92), "/")}', wait_until='networkidle')
-                    page.wait_for_timeout(2000)  # let charts render
-                    # Screenshot just the card element
-                    card = page.query_selector('.card')
-                    if card:
-                        png_bytes = card.screenshot(type='png')
-                    else:
-                        png_bytes = page.screenshot(type='png', full_page=False)
-                    browser.close()
-                st.download_button(
-                    'Save PNG',
-                    data=png_bytes,
-                    file_name=f'series_preview_{team_a}_vs_{team_b}.png',
-                    mime='image/png',
-                    key='dl_png_file',
-                )
-            except Exception as e:
-                st.error(f'PNG render failed: {e}')
-            finally:
-                import os
-                os.unlink(tmp_path)
+    # PNG export — inject html2canvas + download button directly into the card
+    dl_js = f"""
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script>
+    function downloadPNG() {{
+      var card = document.querySelector('.card');
+      if (!card) return;
+      html2canvas(card, {{ scale: 2, backgroundColor: '#FAF8F2', useCORS: true }}).then(function(canvas) {{
+        var a = document.createElement('a');
+        a.download = 'series_preview_{team_a}_vs_{team_b}.png';
+        a.href = canvas.toDataURL('image/png');
+        a.click();
+      }});
+    }}
+    </script>
+    <div style="text-align:center;padding:12px 0;">
+      <button onclick="downloadPNG()" style="
+        background:#C41230;color:#fff;border:none;padding:10px 28px;
+        font-size:14px;font-weight:700;border-radius:6px;cursor:pointer;
+        letter-spacing:0.06em;font-family:Inter,sans-serif;">
+        Download PNG
+      </button>
+    </div>
+    """
+    html = html.replace('</body>', f'{dl_js}</body>')
 else:
     st.warning('Series preview template not found. Run the design build first.')
 
