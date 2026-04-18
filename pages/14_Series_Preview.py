@@ -1093,7 +1093,7 @@ if template_path.exists():
       b: {{ ops: {json.dumps(pace_b['ops'])}, xfip: {json.dumps(pace_b['fip'])},
            wrc: {json.dumps(pace_b['wrc'])}, siera: {json.dumps(pace_b['whip'])} }},
       meta: {{
-        ops:   {{ divAvg: 0.750, min: 0.55, max: 1.05, format: function(v) {{ return '.' + Math.max(0, Math.round(v*1000)).toString().padStart(3,'0').slice(-3); }} }},
+        ops:   {{ divAvg: 0.750, min: 0.55, max: 1.05, format: function(v) {{ if (v >= 1) return v.toFixed(3); return '.' + Math.max(0, Math.round(v*1000)).toString().padStart(3,'0').slice(-3); }} }},
         xfip:  {{ divAvg: 4.50, min: 2.0, max: 7.0, format: function(v) {{ return v.toFixed(2); }}, lowerBetter: true }},
         wrc:   {{ divAvg: 100, min: 70, max: 160, format: function(v) {{ return Math.round(v).toString(); }} }},
         siera: {{ divAvg: 1.40, min: 0.9, max: 2.0, format: function(v) {{ return v.toFixed(2); }}, lowerBetter: true }}

@@ -386,7 +386,7 @@ window.PACE = {
     siera: mockSeries(9.8, 4.72,  0.35,  0.12)
   },
   meta: {
-    ops:   { divAvg:0.800, min:0.70, max:1.02, format: function(v){ return '.' + Math.max(0, Math.round(v*1000)).toString().padStart(3,'0').slice(-3); } },
+    ops:   { divAvg:0.800, min:0.70, max:1.02, format: function(v){ if (v >= 1) return v.toFixed(3); return '.' + Math.max(0, Math.round(v*1000)).toString().padStart(3,'0').slice(-3); } },
     xfip:  { divAvg:4.80,  min:3.6,  max:6.2,  format: function(v){ return v.toFixed(2); }, lowerBetter:true },
     wrc:   { divAvg:100,   min:85,   max:155,  format: function(v){ return Math.round(v).toString(); } },
     siera: { divAvg:4.70,  min:3.6,  max:6.0,  format: function(v){ return v.toFixed(2); }, lowerBetter:true }
