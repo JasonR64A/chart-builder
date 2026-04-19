@@ -1,0 +1,108 @@
+{
+  "teams": {
+    "Arizona": {
+      "pbp_team": "Arizona",
+      "sched_dates": 36,
+      "pbp_dates": 36,
+      "missing_dates": []
+    },
+    "Arizona St.": {
+      "pbp_team": "Arizona St.",
+      "sched_dates": 40,
+      "pbp_dates": 40,
+      "missing_dates": []
+    },
+    "ETSU": {
+      "pbp_team": "ETSU",
+      "sched_dates": 32,
+      "pbp_dates": 31,
+      "missing_dates": [
+        "2026-03-17"
+      ]
+    },
+    "SFA": {
+      "pbp_team": "SFA",
+      "sched_dates": 36,
+      "pbp_dates": 36,
+      "missing_dates": []
+    },
+    "Southern California": {
+      "pbp_team": "Southern California",
+      "sched_dates": 38,
+      "pbp_dates": 38,
+      "missing_dates": []
+    },
+    "Southern U.": {
+      "pbp_team": "Southern U.",
+      "sched_dates": 33,
+      "pbp_dates": 19,
+      "missing_dates": [
+        "2026-02-21",
+        "2026-02-22",
+        "2026-02-24",
+        "2026-02-27",
+        "2026-02-28",
+        "2026-03-01",
+        "2026-03-03",
+        "2026-03-10",
+        "2026-03-14",
+        "2026-03-27",
+        "2026-03-28",
+        "2026-03-29",
+        "2026-04-03",
+        "2026-04-04"
+      ]
+    },
+    "Texas Southern": {
+      "pbp_team": "Texas Southern",
+      "sched_dates": 32,
+      "pbp_dates": 26,
+      "missing_dates": [
+        "2026-02-15",
+        "2026-02-21",
+        "2026-03-17",
+        "2026-03-20",
+        "2026-03-22",
+        "2026-04-14"
+      ]
+    },
+    "Valparaiso": {
+      "pbp_team": "Valparaiso",
+      "sched_dates": 31,
+      "pbp_dates": 30,
+      "missing_dates": [
+        "2026-03-17"
+      ]
+    },
+    "Washington St.": {
+      "pbp_team": "Washington St.",
+      "sched_dates": 35,
+      "pbp_dates": 34,
+      "missing_dates": [
+        "2026-02-26"
+      ]
+    }
+  },
+  "unique_dates": [
+    "2026-02-15",
+    "2026-02-21",
+    "2026-02-22",
+    "2026-02-24",
+    "2026-02-26",
+    "2026-02-27",
+    "2026-02-28",
+    "2026-03-01",
+    "2026-03-03",
+    "2026-03-10",
+    "2026-03-14",
+    "2026-03-17",
+    "2026-03-20",
+    "2026-03-22",
+    "2026-03-27",
+    "2026-03-28",
+    "2026-03-29",
+    "2026-04-03",
+    "2026-04-04",
+    "2026-04-14"
+  ]
+}
