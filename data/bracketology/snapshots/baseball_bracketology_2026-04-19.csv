@@ -1,0 +1,69 @@
+sport,snapshot_date,name,display_conference,record_str,rpi,rpi_rank,projected_rpi,projected_rpi_rank,proj_record_str,sixty_four_rank,overall_seed,seed_tier,national_seed,is_auto_bid,bubble_status,conf_win_pct
+baseball,2026-04-19,A&M-Corpus Christi,Southland,16-22,0.35714,199.0,0.35714,999,16-22,0.329,1,1-seed,1.0,False,,0.2631578947368421
+baseball,2026-04-19,Abilene Christian,Western Athletic,18-19,0.58117,130.0,0.58117,999,18-19,0.3974,2,1-seed,2.0,False,,0.3333333333333333
+baseball,2026-04-19,Air Force,Mountain West,17-19,0.51299,151.0,0.51299,999,17-19,0.5603,3,1-seed,3.0,False,,0.6153846153846154
+baseball,2026-04-19,Akron,Mid-American,16-22,0.07468,286.0,0.07468,999,16-22,0.1303,4,1-seed,4.0,False,,0.3157894736842105
+baseball,2026-04-19,Alabama,SEC,27-12,0.99026,4.0,0.99026,999,27-12,0.8893,5,1-seed,5.0,False,,0.5
+baseball,2026-04-19,Alabama A&M,SWAC,8-32,0.00974,306.0,0.00974,999,8-32,0.0163,6,1-seed,6.0,False,,0.125
+baseball,2026-04-19,Alabama St.,SWAC,19-17,0.23377,237.0,0.23377,999,19-17,0.0619,7,1-seed,7.0,False,,0.6111111111111112
+baseball,2026-04-19,Alcorn,SWAC,8-30,0.01623,304.0,0.01623,999,8-30,0.0,8,1-seed,8.0,False,,0.125
+baseball,2026-04-19,App State,Sun Belt,20-16,0.60065,124.0,0.60065,999,20-16,0.7394,9,1-seed,9.0,False,,0.5
+baseball,2026-04-19,Arizona,Big 12,14-23,0.48052,161.0,0.48052,999,14-23,0.8306,10,1-seed,10.0,False,,0.3333333333333333
+baseball,2026-04-19,Arizona St.,Big 12,27-13,0.8474,48.0,0.8474,999,27-13,0.9577,11,1-seed,11.0,False,,0.5789473684210527
+baseball,2026-04-19,Ark.-Pine Bluff,SWAC,18-22,0.18831,251.0,0.18831,999,18-22,0.2671,12,1-seed,12.0,False,,0.6875
+baseball,2026-04-19,Arkansas,SEC,26-14,0.8961,33.0,0.8961,999,26-14,0.8925,13,1-seed,13.0,False,,0.5294117647058824
+baseball,2026-04-19,Arkansas St.,Sun Belt,23-14,0.86364,43.0,0.86364,999,23-14,0.759,14,1-seed,14.0,False,,0.5
+baseball,2026-04-19,Army West Point,Patriot League,20-15,0.3961,187.0,0.3961,999,20-15,0.2085,15,1-seed,15.0,False,,0.5882352941176471
+baseball,2026-04-19,Auburn,SEC,26-12,0.98052,7.0,0.98052,999,26-12,0.9446,16,1-seed,16.0,False,,0.5294117647058824
+baseball,2026-04-19,Austin Peay,ASUN,19-20,0.51948,149.0,0.51948,999,19-20,0.4397,17,2-seed,,False,,0.5294117647058824
+baseball,2026-04-19,Ball St.,Mid-American,19-18,0.35065,201.0,0.35065,999,19-18,0.1368,18,2-seed,,False,,0.6842105263157895
+baseball,2026-04-19,Baylor,Big 12,22-15,0.89935,32.0,0.89935,999,22-15,0.8046,19,2-seed,,False,,0.5625
+baseball,2026-04-19,Bellarmine,ASUN,16-22,0.30195,216.0,0.30195,999,16-22,0.2801,20,2-seed,,False,,0.5294117647058824
+baseball,2026-04-19,Belmont,Missouri Valley,13-25,0.28896,220.0,0.28896,999,13-25,0.456,21,2-seed,,False,,0.4
+baseball,2026-04-19,Bethune-Cookman,SWAC,27-11,0.42857,177.0,0.42857,999,27-11,0.3746,22,2-seed,,True,,0.8235294117647058
+baseball,2026-04-19,Binghamton,America East,19-13,0.67532,101.0,0.67532,999,19-13,0.2638,23,2-seed,,True,,0.7692307692307693
+baseball,2026-04-19,Boston College,ACC,29-12,0.91558,27.0,0.91558,999,29-12,0.8534,24,2-seed,,False,,0.631578947368421
+baseball,2026-04-19,Bowling Green,Mid-American,15-21,0.55844,137.0,0.55844,999,15-21,0.2052,25,2-seed,,False,,0.42105263157894735
+baseball,2026-04-19,Bradley,Missouri Valley,8-29,0.11039,275.0,0.11039,999,8-29,0.1205,26,2-seed,,False,,0.3333333333333333
+baseball,2026-04-19,Brown,Ivy League,16-13,0.44156,173.0,0.44156,999,16-13,0.3909,27,2-seed,,True,,0.7272727272727273
+baseball,2026-04-19,Bryant,America East,19-16,0.49675,156.0,0.49675,999,19-16,0.5407,28,2-seed,,False,,0.5384615384615384
+baseball,2026-04-19,Bucknell,Patriot League,20-16,0.50325,154.0,0.50325,999,20-16,0.127,29,2-seed,,True,,0.7647058823529411
+baseball,2026-04-19,Butler,Big East,14-23,0.27597,224.0,0.27597,999,14-23,0.1922,30,2-seed,,False,,0.5714285714285714
+baseball,2026-04-19,BYU,Big 12,20-17,0.87338,40.0,0.87338,999,20-17,0.7557,31,2-seed,,False,,0.5294117647058824
+baseball,2026-04-19,Cal Poly,Big West,20-16,0.72727,85.0,0.72727,999,20-16,0.6743,32,2-seed,,False,,0.6875
+baseball,2026-04-19,Cal St. Fullerton,Big West,19-17,0.67857,100.0,0.67857,999,19-17,0.57,33,3-seed,,False,,0.6111111111111112
+baseball,2026-04-19,California,ACC,19-17,0.78247,68.0,0.78247,999,19-17,0.7948,34,3-seed,,False,,0.3125
+baseball,2026-04-19,California Baptist,Western Athletic,30-7,0.85714,45.0,0.85714,999,30-7,0.9055,35,3-seed,,False,,0.6666666666666666
+baseball,2026-04-19,Campbell,Coastal Athletic,24-13,0.77597,70.0,0.77597,999,24-13,0.8078,36,3-seed,,True,,0.8421052631578947
+baseball,2026-04-19,Canisius,MAAC,11-20,0.06818,288.0,0.06818,999,11-20,0.3648,37,3-seed,,False,last_in,0.47058823529411764
+baseball,2026-04-19,Central Ark.,ASUN,20-18,0.52597,147.0,0.52597,999,20-18,0.342,38,3-seed,,False,last_in,0.5
+baseball,2026-04-19,Central Conn. St.,NEC,10-17,0.03571,298.0,0.03571,999,10-17,0.0228,39,3-seed,,False,last_in,0.4444444444444444
+baseball,2026-04-19,Central Mich.,Mid-American,16-19,0.26623,227.0,0.26623,999,16-19,0.2248,40,3-seed,,False,last_in,0.45
+baseball,2026-04-19,Coastal Carolina,Sun Belt,27-10,0.97078,10.0,0.97078,999,27-10,0.772,41,3-seed,,True,,0.875
+baseball,2026-04-19,Evansville,Missouri Valley,14-21,0.46753,165.0,0.46753,999,14-21,0.2997,42,3-seed,,True,,0.7
+baseball,2026-04-19,FDU,NEC,22-14,0.12338,271.0,0.12338,999,22-14,0.1694,43,3-seed,,True,,0.7894736842105263
+baseball,2026-04-19,Georgia,SEC,31-9,0.94156,19.0,0.94156,999,31-9,0.9837,44,3-seed,,True,,0.7058823529411765
+baseball,2026-04-19,Georgia Tech,ACC,31-6,0.99351,3.0,0.99351,999,31-6,0.9967,45,3-seed,,True,,0.7894736842105263
+baseball,2026-04-19,Gonzaga,West Coast,21-14,0.84416,49.0,0.84416,999,21-14,0.8795,46,3-seed,,True,,0.7692307692307693
+baseball,2026-04-19,Jacksonville St.,Conference USA,31-8,0.90584,30.0,0.90584,999,31-8,0.9381,47,3-seed,,True,,0.875
+baseball,2026-04-19,Kansas,Big 12,27-10,0.92857,23.0,0.92857,999,27-10,0.8176,48,3-seed,,True,,0.8
+baseball,2026-04-19,Miami (OH),MAC,24-12,0.83442,52.0,0.83442,999,24-12,0.4202,49,4-seed,,True,,0.6842105263157895
+baseball,2026-04-19,Nevada,Mountain West,20-14,0.60714,122.0,0.60714,999,20-14,0.4723,50,4-seed,,True,,0.6923076923076923
+baseball,2026-04-19,North Florida,ASUN,22-15,0.52922,146.0,0.52922,999,22-15,0.5179,51,4-seed,,True,,0.8125
+baseball,2026-04-19,Northwestern St.,Southland,23-15,0.65584,107.0,0.65584,999,23-15,0.6352,52,4-seed,,True,,0.6363636363636364
+baseball,2026-04-19,Oral Roberts,The Summit League,21-14,0.56494,135.0,0.56494,999,21-14,0.1661,53,4-seed,,True,,0.9230769230769231
+baseball,2026-04-19,Rider,MAAC,21-12,0.50649,153.0,0.50649,999,21-12,0.1759,54,4-seed,,True,,0.7894736842105263
+baseball,2026-04-19,Saint Joseph's,Atlantic 10,23-13,0.83117,53.0,0.83117,999,23-13,0.557,55,4-seed,,True,,0.875
+baseball,2026-04-19,SIUE,Ohio Valley,21-17,0.45779,168.0,0.45779,999,21-17,0.645,56,4-seed,,True,,0.8461538461538461
+baseball,2026-04-19,St. John's (NY),Big East,19-18,0.64286,111.0,0.64286,999,19-18,0.4625,57,4-seed,,True,,0.8571428571428571
+baseball,2026-04-19,UC Santa Barbara,Big West,24-11,0.91883,26.0,0.91883,999,24-11,0.8469,58,4-seed,,True,,0.6875
+baseball,2026-04-19,UCLA,Big Ten,34-3,1.0,1.0,1.0,999,34-3,0.9707,59,4-seed,,True,,1.0
+baseball,2026-04-19,Utah Tech,Western Athletic,24-14,0.39286,188.0,0.39286,999,24-14,0.1336,60,4-seed,,True,,0.75
+baseball,2026-04-19,UTSA,American,26-12,0.89286,34.0,0.89286,999,26-12,0.6906,61,4-seed,,True,,0.6923076923076923
+baseball,2026-04-19,Winthrop,Big South,25-13,0.71104,90.0,0.71104,999,25-13,0.316,62,4-seed,,True,,0.8
+baseball,2026-04-19,Wofford,Southern,27-11,0.71753,88.0,0.71753,999,27-11,0.6026,63,4-seed,,True,,0.8888888888888888
+baseball,2026-04-19,Wright St.,Horizon League,17-18,0.59091,127.0,0.59091,999,17-18,0.5993,64,4-seed,,True,,0.9166666666666666
+baseball,2026-04-19,Charleston So.,Big South,21-15,0.57143,133.0,0.57143,999,21-15,0.4039,65,first_four_out,,False,first_out,0.46153846153846156
+baseball,2026-04-19,Charlotte,American,18-19,0.68831,97.0,0.68831,999,18-19,0.7655,66,first_four_out,,False,first_out,0.23076923076923078
+baseball,2026-04-19,Cincinnati,Big 12,25-15,0.90909,29.0,0.90909,999,25-15,0.8502,67,first_four_out,,False,first_out,0.375
+baseball,2026-04-19,Clemson,ACC,25-15,0.88636,36.0,0.88636,999,25-15,0.9153,68,first_four_out,,False,first_out,0.35294117647058826
