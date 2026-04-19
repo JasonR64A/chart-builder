@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Series Deep Dive</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --a:#C41230; --a-soft:#E4788A;
+    --b:#29335C; --b-soft:#8B93B3;
+    --bg:#FAF8F2; --ink:#2D2926; --gray:#888888; --gray-2:#B5B0A3;
+    --line:#E2DED2; --line-strong:#CFCABA;
+    --card:#FFFFFF; --card-border:#D9D5CC;
+    --p-green:#2D8A4E; --p-gold:#E8A735; --p-orange:#D97030; --p-red:#C41230;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:#EFEAE0;font-family:'Inter',system-ui,sans-serif;color:var(--ink);min-height:100vh}
+  body{display:flex;align-items:center;justify-content:center;padding:12px}
+  .stage{width:100%;display:flex;justify-content:center;overflow:hidden}
+  .card-wrap{width:1400px;height:860px;transform-origin:top center;position:relative}
+  .card{
+    width:1400px;height:860px;background:var(--bg);position:relative;
+    padding:18px 22px;display:flex;flex-direction:column;
+    font-feature-settings:"tnum" 1;
+    box-shadow:0 30px 80px -30px rgba(0,0,0,.35),0 6px 20px -8px rgba(0,0,0,.15);
+    border-radius:6px;overflow:hidden;
+  }
+  .card::before{
+    content:"";position:absolute;inset:0;pointer-events:none;z-index:0;opacity:.55;
+    background:
+      radial-gradient(ellipse 900px 480px at -10% -10%, rgba(196,18,48,.07), transparent 60%),
+      radial-gradient(ellipse 900px 480px at 110% 110%, rgba(41,51,92,.07), transparent 60%);
+  }
+  .card > *{position:relative;z-index:1}
+
+  .kicker{display:flex;justify-content:space-between;align-items:baseline;padding-bottom:8px;border-bottom:1px solid var(--line);margin-bottom:12px}
+  .kicker .title{font-size:14px;font-weight:800;letter-spacing:.28em;text-transform:uppercase}
+  .kicker .sub{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--gray);font-weight:700}
+
+  /* BODY */
+  .body{flex:1;display:grid;grid-template-columns:1.9fr 1fr;grid-template-rows:1fr 1fr;gap:14px;min-height:0}
+
+  .panel{
+    background:rgba(255,252,244,.82);
+    border:1px solid var(--line);border-radius:8px;
+    padding:12px 14px;
+    display:flex;flex-direction:column;min-height:0;position:relative;overflow:hidden;
+    box-shadow:0 1px 2px rgba(45,41,38,.06), 0 0 0 1px rgba(255,255,255,.5) inset;
+  }
+  .panel-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
+  .panel-title{font-weight:800;font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--ink)}
+  .panel-sub{font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--gray);font-weight:700}
+
+  /* PREDICTIONS */
+  .predictions{grid-column:1;grid-row:1}
+  .games{display:flex;flex-direction:column;gap:10px;flex:1;min-height:0}
+  .game-card{
+    background:rgba(255,255,255,.75);
+    border:1px solid var(--line);border-radius:6px;
+    padding:10px 16px;display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:18px;align-items:center;
+    flex:1;min-height:0;
+  }
+  .sp-side{display:flex;flex-direction:column;gap:3px;min-width:0}
+  .sp-side.a{text-align:left;align-items:flex-start}
+  .sp-side.b{text-align:right;align-items:flex-end}
+  .sp-row{display:flex;align-items:baseline;gap:8px;flex-wrap:nowrap;white-space:nowrap}
+  .sp-side.b .sp-row{flex-direction:row-reverse}
+  .game-lbl{font-size:10px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--gray)}
+  .team-tag{font-weight:800;font-size:15px;letter-spacing:-.01em;white-space:nowrap;line-height:1.1}
+  .sp-side.a .team-tag{color:var(--a)}
+  .sp-side.b .team-tag{color:var(--b)}
+  .sp-name{font-weight:700;font-size:14px;color:var(--ink);white-space:nowrap}
+  .sp-meta{font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--gray);letter-spacing:.02em;white-space:nowrap;font-weight:600}
+  .sp-pct-chip{
+    font-family:'JetBrains Mono',monospace;font-weight:800;font-size:11px;
+    padding:2px 7px;border-radius:3px;color:#fff;background:var(--p-green);letter-spacing:.02em;
+  }
+  .sp-pct-chip.mid{background:var(--p-gold)}
+  .sp-pct-chip.low{background:var(--p-orange)}
+
+  .win-prob{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:280px;flex:0 0 280px}
+  .wp-head{font-size:9px;letter-spacing:.26em;text-transform:uppercase;color:var(--gray);font-weight:800;white-space:nowrap}
+  .wp-main{display:flex;align-items:center;gap:14px;justify-content:center}
+  .wp-edge{display:flex;flex-direction:column;align-items:center;gap:2px;min-width:90px}
+  .wp-edge .tag{font-size:9px;letter-spacing:.26em;text-transform:uppercase;color:var(--gray);font-weight:800}
+  .wp-edge .pct{font-family:'JetBrains Mono',monospace;font-weight:800;font-size:30px;letter-spacing:-.03em;line-height:1;font-variant-numeric:tabular-nums}
+  .wp-edge.win .tag{color:#fff;padding:1px 6px;border-radius:2px;letter-spacing:.22em}
+  .wp-edge.win.a .tag{background:var(--a)}
+  .wp-edge.win.b .tag{background:var(--b)}
+  .wp-edge.a .pct{color:var(--a)}
+  .wp-edge.b .pct{color:var(--b)}
+  .wp-vs{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--gray-2);font-weight:700;letter-spacing:.15em}
+  .wp-spark{display:flex;width:260px;height:6px;border-radius:3px;overflow:hidden;background:#EFEAE0;border:1px solid var(--line)}
+  .wp-spark .sa{background:var(--a);height:100%}
+  .wp-spark .sb{background:var(--b);height:100%}
+
+  /* OUTCOMES */
+  .outcomes{grid-column:2;grid-row:1}
+  .outcome-wrap{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:center;flex:1;min-height:0;padding:4px 2px}
+  .donut-box{position:relative;width:170px;height:170px;flex-shrink:0}
+  .donut-box svg{width:100%;height:100%;transform:rotate(-90deg)}
+  .donut-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:1px}
+  .donut-center .lbl{font-size:8.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gray);font-weight:800}
+  .donut-center .big{font-family:'JetBrains Mono',monospace;font-weight:800;font-size:20px;letter-spacing:-.02em;line-height:1;font-variant-numeric:tabular-nums;color:var(--a)}
+  .donut-center .sub{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:800;margin-top:3px;letter-spacing:.02em}
+  .donut-center .sub .a{color:var(--a)}
+  .donut-center .sub2{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;color:var(--gray);margin-top:1px;letter-spacing:.02em}
+  .donut-center .sub2 .b{color:var(--b)}
+  .legend{display:flex;flex-direction:column;gap:5px;min-width:0}
+  .lg-row{display:grid;grid-template-columns:12px 1fr auto;align-items:center;gap:8px;font-size:11px}
+  .lg-sw{width:12px;height:12px;border-radius:2px}
+  .lg-lbl{font-weight:700;color:var(--ink);letter-spacing:.02em;text-transform:uppercase;font-size:10px}
+  .lg-pct{font-family:'JetBrains Mono',monospace;font-weight:800;font-size:11px;font-variant-numeric:tabular-nums}
+  .out-summary{margin-top:8px;padding-top:8px;border-top:1px dashed var(--line-strong);font-size:10px;color:var(--gray);letter-spacing:.06em;font-weight:700;text-transform:uppercase;text-align:center}
+  .out-summary .a{color:var(--a)} .out-summary .b{color:var(--b)}
+  .out-summary .big{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:800;letter-spacing:.02em}
+
+  /* HOT */
+  .hot{grid-column:1;grid-row:2}
+  .hot-grid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:8px;flex:1;min-height:0}
+  .hot-cell{
+    background:rgba(255,255,255,.75);border:1px solid var(--line);border-radius:6px;padding:8px 10px;
+    display:flex;flex-direction:column;gap:3px;min-width:0;
+  }
+  .hot-head{display:flex;align-items:baseline;justify-content:space-between;gap:8px;padding-bottom:4px;border-bottom:1px dashed var(--line-strong);margin-bottom:4px}
+  .hot-team{font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;white-space:nowrap}
+  .hot-cell.a .hot-team{color:var(--a)}
+  .hot-cell.b .hot-team{color:var(--b)}
+  .hot-kind{font-size:9px;color:var(--gray);letter-spacing:.18em;text-transform:uppercase;font-weight:700;white-space:nowrap}
+  .hot-list{display:flex;flex-direction:column;gap:4px}
+  .hot-player{display:grid;grid-template-columns:10px 1fr auto;align-items:center;gap:8px;font-size:11px}
+  .hot-dot{width:6px;height:6px;border-radius:50%;background:var(--p-red);align-self:center;justify-self:center;box-shadow:0 0 6px rgba(196,18,48,.5)}
+  .hot-name{font-weight:700;color:var(--ink)}
+  .hot-stats{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:10px;color:var(--gray);letter-spacing:.02em;text-align:right;white-space:nowrap}
+  .hot-pitcher .hot-stats{color:var(--ink)}
+
+  /* BULLPEN */
+  .bullpen{grid-column:2;grid-row:2}
+  .bp-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;flex:1;min-height:0}
+  .bp-card{
+    background:rgba(255,255,255,.75);border:1px solid var(--line);border-radius:6px;
+    padding:10px;display:flex;flex-direction:column;gap:4px;position:relative;overflow:hidden;
+  }
+  .bp-card > *{position:relative;z-index:1}
+  .bp-team{font-size:10px;font-weight:800;letter-spacing:.22em;text-transform:uppercase}
+  .bp-card.a .bp-team{color:var(--a)}
+  .bp-card.b .bp-team{color:var(--b)}
+  .bp-sub{font-size:9px;color:var(--gray);letter-spacing:.1em;text-transform:uppercase;font-weight:600}
+  .bp-mean{display:flex;align-items:baseline;gap:6px;padding:4px 0 6px;border-bottom:1px dashed var(--line-strong);margin-bottom:6px}
+  .bp-mean .big{font-family:'JetBrains Mono',monospace;font-weight:800;font-size:20px;letter-spacing:-.02em;line-height:1;font-variant-numeric:tabular-nums}
+  .bp-card.a .bp-mean .big{color:var(--a)}
+  .bp-card.b .bp-mean .big{color:var(--b)}
+  .bp-mean .lbl{font-size:8px;color:var(--gray);letter-spacing:.18em;text-transform:uppercase;font-weight:700}
+  .bp-arms-list{display:flex;flex-direction:column;gap:3px;flex:1;min-height:0;justify-content:space-between}
+  .bp-arm{display:grid;grid-template-columns:minmax(0,1fr) minmax(60px,1fr) auto;align-items:center;gap:6px;font-size:10px}
+  .bp-arm .nm{font-weight:700;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .bp-arm .trk{position:relative;height:4px;background:#EFEAE0;border:1px solid var(--line);border-radius:2px;overflow:hidden}
+  .bp-arm .fill{position:absolute;top:0;bottom:0;left:0}
+  .bp-card.a .bp-arm .fill{background:var(--a)}
+  .bp-card.b .bp-arm .fill{background:var(--b)}
+  .bp-arm .pct{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:10px;font-variant-numeric:tabular-nums;color:var(--ink);min-width:34px;text-align:right}
+</style>
+</head>
+<body>
+
+<div class="stage">
+  <div class="card-wrap" id="cardWrap">
+    <div class="card" data-screen-label="02 Series Deep Dive">
+
+      <div class="kicker">
+        <div class="title">Series Deep Dive</div>
+        <div class="sub" id="ddSub">Game predictions · Bullpen · Who's Hot · Series outcome</div>
+      </div>
+
+      <div class="body">
+        <section class="panel predictions">
+          <div class="panel-head">
+            <div class="panel-title">Game-by-Game Predictions</div>
+            <div class="panel-sub">Win probability · SP percentile</div>
+          </div>
+          <div class="games" id="games"></div>
+        </section>
+
+        <section class="panel outcomes">
+          <div class="panel-head">
+            <div class="panel-title">Series Outcome</div>
+            <div class="panel-sub">5,000 simulations</div>
+          </div>
+          <div class="outcome-wrap">
+            <div class="donut-box" id="donutBox"></div>
+            <div class="legend" id="legend"></div>
+          </div>
+          <div class="out-summary" id="outSummary"></div>
+        </section>
+
+        <section class="panel hot">
+          <div class="panel-head">
+            <div class="panel-title">Who's Hot</div>
+            <div class="panel-sub">Last 14 days</div>
+          </div>
+          <div class="hot-grid" id="hotGrid"></div>
+        </section>
+
+        <section class="panel bullpen">
+          <div class="panel-head">
+            <div class="panel-title">Bullpen Comparison</div>
+            <div class="panel-sub">Arms 4–12 · Mean wRAE %</div>
+          </div>
+          <div class="bp-row" id="bpRow"></div>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* Placeholders — Python overrides via window._ORIG_* rename */
+window.TEAMS = { a: "Team A", b: "Team B" };
+window.GAMES = [];
+window.OUTCOMES = [];
+window.BULLPEN = { a: { mean: 0, arms: [] }, b: { mean: 0, arms: [] } };
+window.HOT = { aHitters: [], aPitchers: [], bHitters: [], bPitchers: [] };
+</script>
+
+<script>
+const $ = s => document.querySelector(s);
+const pctChipClass = p => p == null ? "low" : (p >= 85 ? "" : p >= 65 ? "mid" : "low");
+function fmtPct(p) { return p == null ? "—" : p.toFixed(1) + "%"; }
+
+function renderGames() {
+  if (!GAMES || !GAMES.length) { $('#games').innerHTML = '<div style="text-align:center;color:var(--gray);padding:20px;font-size:11px">No game data available.</div>'; return; }
+  $('#games').innerHTML = GAMES.map(g => {
+    const aWin = g.a.win, bWin = g.b.win;
+    return `
+      <div class="game-card">
+        <div class="sp-side a">
+          <div class="game-lbl">Game ${g.n}</div>
+          <div class="team-tag">${g.a.team}</div>
+          <div class="sp-row"><span class="sp-name">${g.a.sp || "TBD"}</span>${g.a.pct!=null?`<span class="sp-pct-chip ${pctChipClass(g.a.pct)}">${g.a.pct.toFixed(1)}%</span>`:''}</div>
+          ${g.a.line?`<div class="sp-meta">${g.a.line}</div>`:''}
+        </div>
+        <div class="win-prob">
+          <div class="wp-head">Win Probability</div>
+          <div class="wp-main">
+            <div class="wp-edge ${aWin>bWin?'win a':'a'}">
+              <span class="tag">${aWin>bWin?'Edge':TEAMS.a.toUpperCase()}</span>
+              <span class="pct">${aWin.toFixed(0)}%</span>
+            </div>
+            <span class="wp-vs">VS</span>
+            <div class="wp-edge ${bWin>aWin?'win b':'b'}">
+              <span class="tag">${bWin>aWin?'Edge':TEAMS.b.toUpperCase()}</span>
+              <span class="pct">${bWin.toFixed(0)}%</span>
+            </div>
+          </div>
+          <div class="wp-spark">
+            <div class="sa" style="width:${aWin}%"></div>
+            <div class="sb" style="width:${bWin}%"></div>
+          </div>
+        </div>
+        <div class="sp-side b">
+          <div class="game-lbl">Game ${g.n}</div>
+          <div class="team-tag">${g.b.team}</div>
+          <div class="sp-row"><span class="sp-name">${g.b.sp || "TBD"}</span>${g.b.pct!=null?`<span class="sp-pct-chip ${pctChipClass(g.b.pct)}">${g.b.pct.toFixed(1)}%</span>`:''}</div>
+          ${g.b.line?`<div class="sp-meta">${g.b.line}</div>`:''}
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function renderOutcomes() {
+  if (!OUTCOMES || !OUTCOMES.length) { return; }
+  const cx=85, cy=85, r=62, sw=24;
+  const C = 2 * Math.PI * r;
+  let acc = 0;
+  const segs = OUTCOMES.map(o => {
+    const len = (o.pct / 100) * C;
+    const off = -acc;
+    acc += len;
+    return `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${o.swatch}" stroke-width="${sw}" stroke-dasharray="${len} ${C - len}" stroke-dashoffset="${off}"></circle>`;
+  }).join('');
+
+  const aTotal = OUTCOMES.filter(o=>o.team==='a').reduce((s,o)=>s+o.pct,0);
+  const bTotal = OUTCOMES.filter(o=>o.team==='b').reduce((s,o)=>s+o.pct,0);
+
+  document.getElementById('donutBox').innerHTML = `
+    <svg viewBox="0 0 170 170">
+      <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#EFEAE0" stroke-width="${sw}"></circle>
+      ${segs}
+    </svg>
+    <div class="donut-center">
+      <div class="lbl">Series Win</div>
+      <div class="big">${aTotal.toFixed(1)}%</div>
+      <div class="sub"><span class="a">${TEAMS.a.toUpperCase()}</span></div>
+      <div class="sub2"><span class="b">${TEAMS.b.toUpperCase()} ${bTotal.toFixed(1)}%</span></div>
+    </div>`;
+
+  document.getElementById('legend').innerHTML = OUTCOMES.map(o => `
+    <div class="lg-row">
+      <span class="lg-sw" style="background:${o.swatch}"></span>
+      <span class="lg-lbl">${o.lbl}</span>
+      <span class="lg-pct" style="color:${o.swatch}">${o.pct.toFixed(1)}%</span>
+    </div>`).join('');
+
+  document.getElementById('outSummary').innerHTML =
+    `Series win &nbsp;·&nbsp; <span class="a big">${TEAMS.a.toUpperCase()} ${aTotal.toFixed(1)}%</span> &nbsp;—&nbsp; <span class="b big">${TEAMS.b.toUpperCase()} ${bTotal.toFixed(1)}%</span>`;
+}
+
+function renderHot() {
+  const cell = (team, kind, items, isPitcher=false) => `
+    <div class="hot-cell ${team} ${isPitcher?'hot-pitcher':''}">
+      <div class="hot-head">
+        <span class="hot-team">${team==='a'?TEAMS.a:TEAMS.b}</span>
+        <span class="hot-kind">${kind}</span>
+      </div>
+      <div class="hot-list">
+        ${items && items.length ? items.map(p => `
+          <div class="hot-player">
+            <span class="hot-dot"></span>
+            <span class="hot-name">${p.n}</span>
+            <span class="hot-stats">${p.s}</span>
+          </div>`).join('') : '<div style="color:var(--gray);font-size:10px;padding:4px 0">No recent data.</div>'}
+      </div>
+    </div>`;
+
+  $('#hotGrid').innerHTML =
+    cell('a', 'Hot Hitters',  HOT.aHitters) +
+    cell('b', 'Hot Hitters',  HOT.bHitters) +
+    cell('a', 'Hot Pitchers', HOT.aPitchers, true) +
+    cell('b', 'Hot Pitchers', HOT.bPitchers, true);
+}
+
+function renderBullpen() {
+  const card = (team, d, label) => {
+    if (!d || !d.arms || !d.arms.length) return `<div class="bp-card ${team}"><div class="bp-team">${label}</div><div style="color:var(--gray);font-size:11px;padding:10px 0">Insufficient data.</div></div>`;
+    return `
+      <div class="bp-card ${team}">
+        <div class="bp-team">${label}</div>
+        <div class="bp-sub">Arms 4–12</div>
+        <div class="bp-mean">
+          <span class="big">${d.mean.toFixed(1)}<span style="font-size:12px">%</span></span>
+          <span class="lbl">Mean wRAE %</span>
+        </div>
+        <div class="bp-arms-list">
+          ${d.arms.map(a => `
+            <div class="bp-arm">
+              <span class="nm">${a.n}</span>
+              <span class="trk"><span class="fill" style="width:${a.p}%"></span></span>
+              <span class="pct">${a.p.toFixed(1)}%</span>
+            </div>`).join('')}
+        </div>
+      </div>`;
+  };
+  document.getElementById('bpRow').innerHTML = card('a', BULLPEN.a, TEAMS.a) + card('b', BULLPEN.b, TEAMS.b);
+}
+
+renderGames(); renderOutcomes(); renderHot(); renderBullpen();
+
+/* ===== FIT ===== */
+function fit(){
+  const wrap = document.getElementById('cardWrap');
+  if (!wrap) return;
+  const pad = 8;
+  const s = Math.min((window.innerWidth-pad)/1400, (window.innerHeight-pad)/860, 1);
+  wrap.style.transformOrigin = 'top center';
+  wrap.style.transform = `scale(${s})`;
+  wrap.style.margin = `0 ${((1400*s - 1400)/2)}px ${(860*s - 860)}px`;
+}
+fit();
+window.addEventListener('resize', fit);
+window.addEventListener('load', fit);
+</script>
+</body>
+</html>

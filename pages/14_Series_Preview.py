@@ -190,13 +190,14 @@ def get_bullpen(team_id, player_rank_df, players_df):
     pitchers = pitchers[pitchers['pit_pct'] > 0].sort_values('pit_pct', ascending=False)
     bp = pitchers.iloc[3:12]
     if bp.empty:
-        return {'mean_pct': 0, 'count': 0, 'names': []}
-    names = []
+        return {'mean_pct': 0, 'count': 0, 'names': [], 'arms': []}
+    names, arms = [], []
     for _, r in bp.iterrows():
         p_row = players_df[players_df['id_int'] == int(r['player_id'])]
         n = p_row.iloc[0]['player_name'] if len(p_row) else '?'
         names.append(n)
-    return {'mean_pct': float(bp['pit_pct'].mean()), 'count': len(bp), 'names': names}
+        arms.append({'n': n, 'p': float(r['pit_pct']) * 100})
+    return {'mean_pct': float(bp['pit_pct'].mean()), 'count': len(bp), 'names': names, 'arms': arms}
 
 
 def get_hot_hitters(team_name, hitting_pbp, n=3, days=14):
@@ -265,15 +266,15 @@ def get_last_5(team_name, schedules_df):
     return results
 
 
-def get_hot_pitcher(team_name, pitching_pbp, days=14):
-    """Top pitcher by IP in last `days` days."""
+def get_hot_pitchers(team_name, pitching_pbp, n=3, days=14):
+    """Top N pitchers by ERA (lower is better) in last `days` days, min 3 IP."""
     if pitching_pbp.empty:
-        return None
+        return []
     cutoff = pitching_pbp['date'].max() - pd.Timedelta(days=days)
     recent = pitching_pbp[(pitching_pbp['date'] >= cutoff) &
                            (pitching_pbp['teamName'] == team_name)]
     if recent.empty:
-        return None
+        return []
     stats = recent.groupby(['playerId', 'playerName']).agg(
         games=('gameId', 'nunique'),
         ip=('ip', 'sum'),
@@ -286,15 +287,44 @@ def get_hot_pitcher(team_name, pitching_pbp, days=14):
         stats[c] = pd.to_numeric(stats[c], errors='coerce').fillna(0)
     stats = stats[stats['ip'] >= 3]
     if stats.empty:
-        return None
-    stats['era'] = (stats['er'] / stats['ip']) * 9 if stats['ip'].sum() > 0 else 99
+        return []
     stats['era'] = stats.apply(lambda r: (r['er'] / r['ip']) * 9 if r['ip'] > 0 else 99, axis=1)
-    best = stats.sort_values('era').iloc[0]
-    return {
-        'name': best['playerName'], 'games': int(best['games']),
-        'ip': f"{best['ip']:.1f}", 'era': f"{best['era']:.2f}",
-        'so': int(best['so']), 'bb': int(best['bb']),
-    }
+    stats = stats.sort_values('era').head(n)
+    result = []
+    for _, r in stats.iterrows():
+        result.append({
+            'name': r['playerName'], 'games': int(r['games']),
+            'ip': f"{r['ip']:.1f}", 'era': f"{r['era']:.2f}",
+            'so': int(r['so']), 'bb': int(r['bb']),
+        })
+    return result
+
+
+def get_hot_pitcher(team_name, pitching_pbp, days=14):
+    """Top pitcher (legacy single-item shim — now calls get_hot_pitchers)."""
+    res = get_hot_pitchers(team_name, pitching_pbp, n=1, days=days)
+    return res[0] if res else None
+
+
+def get_pitcher_season_line(player_id, pitching_pbp):
+    """Season stat line for a pitcher: 'ERA · WHIP · K · BB · IP'."""
+    if pitching_pbp.empty or player_id is None:
+        return ""
+    try:
+        pid = int(player_id)
+    except (TypeError, ValueError):
+        return ""
+    rows = pitching_pbp[pitching_pbp['playerId'] == pid]
+    if rows.empty:
+        return ""
+    s = {}
+    for c in ['ip', 'h', 'er', 'so', 'bb']:
+        s[c] = pd.to_numeric(rows[c], errors='coerce').fillna(0).sum() if c in rows.columns else 0
+    if s['ip'] <= 0:
+        return ""
+    era = (s['er'] / s['ip']) * 9
+    whip = (s['h'] + s['bb']) / s['ip']
+    return f"{era:.2f} ERA · {whip:.2f} WHIP · {int(s['so'])} K · {int(s['bb'])} BB · {s['ip']:.1f} IP"
 
 
 def compute_team_stats(team_name, hitting_pbp, pitching_pbp):
@@ -1158,159 +1188,146 @@ else:
     st.warning('Series preview template not found. Run the design build first.')
 
 
-# ── Game-by-Game Predictions ─────────────────────────────────────────────────
-st.markdown('---')
-st.markdown('### Game-by-Game Predictions')
+# ── Deep Dive Panel (replaces the old text sections) ────────────────────────
+# Build data for predictions, outcomes, bullpen, who's hot — render via HTML template.
 
 starters_a = get_starters(team_a_id, pr, players, n=3)
 starters_b = get_starters(team_b_id, pr, players, n=3)
 bp_a = get_bullpen(team_a_id, pr, players)
 bp_b = get_bullpen(team_b_id, pr, players)
 
-for game_num in [1, 2, 3]:
-    g1, g2, g3 = st.columns([2, 1, 2])
-    sp_a = starters_a[game_num - 1] if len(starters_a) >= game_num else None
-    sp_b = starters_b[game_num - 1] if len(starters_b) >= game_num else None
+a_static = rank_pct_map.get(team_a, 0.5)
+b_static = rank_pct_map.get(team_b, 0.5)
 
-    # Compute WP for this game
-    a_static = rank_pct_map.get(team_a, 0.5)
-    b_static = rank_pct_map.get(team_b, 0.5)
-    a_player = adjusted_team_pct(team_a, profiles, 'Weekend', game_num, a_static, sport=sel_sport)
-    b_player = adjusted_team_pct(team_b, profiles, 'Weekend', game_num, b_static, sport=sel_sport)
-    a_p = blend_with_static(a_player, a_static)
-    b_p = blend_with_static(b_player, b_static)
-    # team_b is home
-    wp_home = pre_game_wp(b_p, a_p)
-    wp_away = 1 - wp_home
-
-    with g1:
-        st.markdown(f'**Game {game_num} — {team_a} ({wp_away*100:.1f}%)**')
-        if sp_a:
-            st.write(f'SP: {sp_a["name"]} ({sp_a["position"]})')
-            st.caption(f'Pitcher percentile: {sp_a["pit_pct"]:.1%}')
-        else:
-            st.write('SP: TBD')
-    with g2:
-        # Visual WP bar
-        st.markdown(f'<div style="text-align:center; font-size:1.5em; font-weight:bold; margin-top:10px;">'
-                    f'{wp_away*100:.0f}% — {wp_home*100:.0f}%</div>',
-                    unsafe_allow_html=True)
-    with g3:
-        st.markdown(f'**Game {game_num} — {team_b} ({wp_home*100:.1f}%)**')
-        if sp_b:
-            st.write(f'SP: {sp_b["name"]} ({sp_b["position"]})')
-            st.caption(f'Pitcher percentile: {sp_b["pit_pct"]:.1%}')
-        else:
-            st.write('SP: TBD')
-
-# Bullpen comparison
-st.markdown('---')
-st.markdown('### Bullpen Comparison')
-bp1, bp2 = st.columns(2)
-with bp1:
-    st.markdown(f'**{team_a} Bullpen** (arms 4-10)')
-    if bp_a['count']:
-        st.metric('Mean Percentile', f"{bp_a['mean_pct']:.1%}")
-        st.caption(', '.join(bp_a['names'][:5]))
-    else:
-        st.write('Insufficient data')
-with bp2:
-    st.markdown(f'**{team_b} Bullpen** (arms 4-10)')
-    if bp_b['count']:
-        st.metric('Mean Percentile', f"{bp_b['mean_pct']:.1%}")
-        st.caption(', '.join(bp_b['names'][:5]))
-    else:
-        st.write('Insufficient data')
-
-
-# ── Who's Hot (last 14 days) ─────────────────────────────────────────────────
-st.markdown('---')
-st.markdown("### Who's Hot (last 14 days)")
-
-# Need to map team names to PBP team names (PBP has mascot suffix)
-# Build reverse map: short name -> PBP full name
-if not hitting_pbp.empty:
-    pbp_names = set(hitting_pbp['teamName'].dropna())
-    def find_pbp_name(short):
-        cands = sorted([n for n in pbp_names if isinstance(n, str) and n.startswith(short)], key=len)
-        return cands[0] if cands else short
-    pbp_a = find_pbp_name(team_a)
-    pbp_b = find_pbp_name(team_b)
-else:
-    pbp_a = team_a
-    pbp_b = team_b
-
-hot1, hot2 = st.columns(2)
-with hot1:
-    st.markdown(f'**{team_a} — Hot Hitters**')
-    hot_h_a = get_hot_hitters(pbp_a, hitting_pbp)
-    if hot_h_a:
-        for h in hot_h_a:
-            st.write(f"**{h['name']}** — {h['avg']} AVG, {h['hr']} HR, {h['rbi']} RBI ({h['games']}G)")
-    else:
-        st.caption('No recent data')
-
-    st.markdown(f'**{team_a} — Hot Pitcher**')
-    hot_p_a = get_hot_pitcher(pbp_a, pitching_pbp)
-    if hot_p_a:
-        st.write(f"**{hot_p_a['name']}** — {hot_p_a['era']} ERA, {hot_p_a['so']} K, {hot_p_a['bb']} BB ({hot_p_a['ip']} IP, {hot_p_a['games']}G)")
-    else:
-        st.caption('No recent data')
-
-with hot2:
-    st.markdown(f'**{team_b} — Hot Hitters**')
-    hot_h_b = get_hot_hitters(pbp_b, hitting_pbp)
-    if hot_h_b:
-        for h in hot_h_b:
-            st.write(f"**{h['name']}** — {h['avg']} AVG, {h['hr']} HR, {h['rbi']} RBI ({h['games']}G)")
-    else:
-        st.caption('No recent data')
-
-    st.markdown(f'**{team_b} — Hot Pitcher**')
-    hot_p_b = get_hot_pitcher(pbp_b, pitching_pbp)
-    if hot_p_b:
-        st.write(f"**{hot_p_b['name']}** — {hot_p_b['era']} ERA, {hot_p_b['so']} K, {hot_p_b['bb']} BB ({hot_p_b['ip']} IP, {hot_p_b['games']}G)")
-    else:
-        st.caption('No recent data')
-
-
-# ── Series Win Probability ───────────────────────────────────────────────────
-st.markdown('---')
-st.markdown('### Series Outcome Probabilities')
-# Monte Carlo: probability of sweeping, winning 2-1, etc.
-n_sims = 5000
+# Per-game win probs
 game_wps = []
+games_data = []
 for gn in [1, 2, 3]:
     a_pl = adjusted_team_pct(team_a, profiles, 'Weekend', gn, a_static, sport=sel_sport)
     b_pl = adjusted_team_pct(team_b, profiles, 'Weekend', gn, b_static, sport=sel_sport)
     a_bl = blend_with_static(a_pl, a_static)
     b_bl = blend_with_static(b_pl, b_static)
-    game_wps.append(pre_game_wp(b_bl, a_bl))  # P(home=team_b wins)
+    wp_home = pre_game_wp(b_bl, a_bl)  # team_b is home
+    wp_away = 1 - wp_home
+    game_wps.append(wp_home)
 
+    sp_a = starters_a[gn - 1] if len(starters_a) >= gn else None
+    sp_b = starters_b[gn - 1] if len(starters_b) >= gn else None
+
+    games_data.append({
+        'n': gn,
+        'a': {
+            'team': team_a,
+            'sp': sp_a['name'] if sp_a else None,
+            'pct': round(sp_a['pit_pct'] * 100, 1) if sp_a else None,
+            'win': round(wp_away * 100, 1),
+            'line': get_pitcher_season_line(sp_a['player_id'], pitching_pbp) if sp_a else '',
+        },
+        'b': {
+            'team': team_b,
+            'sp': sp_b['name'] if sp_b else None,
+            'pct': round(sp_b['pit_pct'] * 100, 1) if sp_b else None,
+            'win': round(wp_home * 100, 1),
+            'line': get_pitcher_season_line(sp_b['player_id'], pitching_pbp) if sp_b else '',
+        },
+    })
+
+# Monte Carlo: sweep / 2-1 / 2-1 / sweep
+n_sims = 5000
 rng = np.random.default_rng(42)
 a_series_wins = 0
 b_series_wins = 0
-outcomes = {'3-0 away': 0, '2-1 away': 0, '2-1 home': 0, '3-0 home': 0}
+outcome_counts = {'3-0 away': 0, '2-1 away': 0, '2-1 home': 0, '3-0 home': 0}
 for _ in range(n_sims):
-    a_w = sum(1 for gw in game_wps if rng.random() > gw)  # away wins when home loses
+    a_w = sum(1 for gw in game_wps if rng.random() > gw)
     b_w = 3 - a_w
-    if a_w >= 2:
-        a_series_wins += 1
-    else:
-        b_series_wins += 1
-    if a_w == 3:
-        outcomes['3-0 away'] += 1
-    elif a_w == 2:
-        outcomes['2-1 away'] += 1
-    elif b_w == 2:
-        outcomes['2-1 home'] += 1
-    else:
-        outcomes['3-0 home'] += 1
+    if a_w >= 2: a_series_wins += 1
+    else:        b_series_wins += 1
+    if a_w == 3:   outcome_counts['3-0 away'] += 1
+    elif a_w == 2: outcome_counts['2-1 away'] += 1
+    elif b_w == 2: outcome_counts['2-1 home'] += 1
+    else:          outcome_counts['3-0 home'] += 1
 
-s1, s2, s3, s4 = st.columns(4)
-s1.metric(f'{team_a} sweep', f"{outcomes['3-0 away']/n_sims:.1%}")
-s2.metric(f'{team_a} 2-1', f"{outcomes['2-1 away']/n_sims:.1%}")
-s3.metric(f'{team_b} 2-1', f"{outcomes['2-1 home']/n_sims:.1%}")
-s4.metric(f'{team_b} sweep', f"{outcomes['3-0 home']/n_sims:.1%}")
+# Resolve team colors (falls back to #C41230 / #29335C)
+try:
+    dd_color_a = color_a  # defined above in the main-template injection block
+    dd_color_b = color_b
+except NameError:
+    dd_color_a = '#C41230'
+    dd_color_b = '#29335C'
 
-st.caption(f'Series win: **{team_a} {a_series_wins/n_sims:.1%}** — **{team_b} {b_series_wins/n_sims:.1%}** ({n_sims:,} simulations)')
+outcomes_data = [
+    {'lbl': f'{team_a.upper()} sweep', 'team': 'a', 'pct': round(outcome_counts['3-0 away'] / n_sims * 100, 1), 'swatch': dd_color_a},
+    {'lbl': f'{team_a.upper()} 2-1',   'team': 'a', 'pct': round(outcome_counts['2-1 away'] / n_sims * 100, 1), 'swatch': dd_color_a + '88'},
+    {'lbl': f'{team_b.upper()} 2-1',   'team': 'b', 'pct': round(outcome_counts['2-1 home'] / n_sims * 100, 1), 'swatch': dd_color_b + '88'},
+    {'lbl': f'{team_b.upper()} sweep', 'team': 'b', 'pct': round(outcome_counts['3-0 home'] / n_sims * 100, 1), 'swatch': dd_color_b},
+]
+
+# PBP team name map (Series Preview already resolves this below, but we need it here too)
+if not hitting_pbp.empty:
+    _pbp_names = set(hitting_pbp['teamName'].dropna())
+    def _find_pbp_name(short):
+        cands = sorted([n for n in _pbp_names if isinstance(n, str) and n.startswith(short)], key=len)
+        return cands[0] if cands else short
+    pbp_a_name = _find_pbp_name(team_a)
+    pbp_b_name = _find_pbp_name(team_b)
+else:
+    pbp_a_name = team_a
+    pbp_b_name = team_b
+
+hot_h_a = get_hot_hitters(pbp_a_name, hitting_pbp)
+hot_h_b = get_hot_hitters(pbp_b_name, hitting_pbp)
+hot_p_a = get_hot_pitchers(pbp_a_name, pitching_pbp, n=3)
+hot_p_b = get_hot_pitchers(pbp_b_name, pitching_pbp, n=3)
+
+def _hit_line(h):
+    return f"{h['avg']} AVG · {h['hr']} HR · {h['rbi']} RBI · {h['games']}G"
+def _pit_line(p):
+    return f"{p['era']} ERA · {p['so']} K · {p['bb']} BB · {p['ip']} IP · {p['games']}G"
+
+hot_data = {
+    'aHitters':  [{'n': h['name'], 's': _hit_line(h)} for h in hot_h_a],
+    'bHitters':  [{'n': h['name'], 's': _hit_line(h)} for h in hot_h_b],
+    'aPitchers': [{'n': p['name'], 's': _pit_line(p)} for p in hot_p_a],
+    'bPitchers': [{'n': p['name'], 's': _pit_line(p)} for p in hot_p_b],
+}
+
+bullpen_data = {
+    'a': {'mean': round(bp_a['mean_pct'] * 100, 1) if bp_a['count'] else 0, 'arms': bp_a.get('arms', [])},
+    'b': {'mean': round(bp_b['mean_pct'] * 100, 1) if bp_b['count'] else 0, 'arms': bp_b.get('arms', [])},
+}
+
+teams_data = {'a': team_a, 'b': team_b}
+
+# Load the deep-dive template and inject data
+dd_template_path = _APP_DIR / 'assets' / 'series-preview' / 'deep_dive_template.html'
+if dd_template_path.exists():
+    dd_html = dd_template_path.read_text(encoding='utf-8')
+
+    # Rename template's placeholder assignments so our real data doesn't get overwritten
+    dd_html = dd_html.replace('window.TEAMS =', 'window._ORIG_TEAMS =')
+    dd_html = dd_html.replace('window.GAMES =', 'window._ORIG_GAMES =')
+    dd_html = dd_html.replace('window.OUTCOMES =', 'window._ORIG_OUTCOMES =')
+    dd_html = dd_html.replace('window.BULLPEN =', 'window._ORIG_BULLPEN =')
+    dd_html = dd_html.replace('window.HOT =', 'window._ORIG_HOT =')
+
+    # Inject team color CSS overrides
+    dd_color_css = f"""
+    :root {{ --a: {dd_color_a}; --b: {dd_color_b}; }}
+    """
+    dd_html = dd_html.replace('</style>', f'{dd_color_css}</style>')
+
+    dd_data_js = f"""
+<script>
+window.TEAMS = {json.dumps(teams_data)};
+window.GAMES = {json.dumps(games_data)};
+window.OUTCOMES = {json.dumps(outcomes_data)};
+window.BULLPEN = {json.dumps(bullpen_data)};
+window.HOT = {json.dumps(hot_data)};
+</script>
+"""
+    dd_html = dd_html.replace('</head>', f'{dd_data_js}\n</head>')
+
+    components.html(dd_html, height=900, scrolling=False)
+else:
+    st.warning('Deep Dive template not found.')
