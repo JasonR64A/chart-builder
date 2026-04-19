@@ -306,15 +306,21 @@ def get_hot_pitcher(team_name, pitching_pbp, days=14):
     return res[0] if res else None
 
 
-def get_pitcher_season_line(player_id, pitching_pbp):
-    """Season stat line for a pitcher: 'ERA · WHIP · K · BB · IP'."""
+def get_pitcher_season_line(player_id, pitching_pbp, player_name=None):
+    """Season stat line for a pitcher: 'ERA · WHIP · K · BB · IP'.
+    Tries numeric playerId match first; falls back to exact playerName if that misses."""
     if pitching_pbp.empty or player_id is None:
         return ""
     try:
         pid = int(player_id)
     except (TypeError, ValueError):
-        return ""
-    rows = pitching_pbp[pitching_pbp['playerId'] == pid]
+        pid = None
+    rows = pd.DataFrame()
+    if pid is not None and 'playerId' in pitching_pbp.columns:
+        pid_numeric = pd.to_numeric(pitching_pbp['playerId'], errors='coerce')
+        rows = pitching_pbp[pid_numeric == pid]
+    if rows.empty and player_name and 'playerName' in pitching_pbp.columns:
+        rows = pitching_pbp[pitching_pbp['playerName'] == player_name]
     if rows.empty:
         return ""
     s = {}
@@ -1221,14 +1227,14 @@ for gn in [1, 2, 3]:
             'sp': sp_a['name'] if sp_a else None,
             'pct': round(sp_a['pit_pct'] * 100, 1) if sp_a else None,
             'win': round(wp_away * 100, 1),
-            'line': get_pitcher_season_line(sp_a['player_id'], pitching_pbp) if sp_a else '',
+            'line': get_pitcher_season_line(sp_a['player_id'], pitching_pbp, sp_a['name']) if sp_a else '',
         },
         'b': {
             'team': team_b,
             'sp': sp_b['name'] if sp_b else None,
             'pct': round(sp_b['pit_pct'] * 100, 1) if sp_b else None,
             'win': round(wp_home * 100, 1),
-            'line': get_pitcher_season_line(sp_b['player_id'], pitching_pbp) if sp_b else '',
+            'line': get_pitcher_season_line(sp_b['player_id'], pitching_pbp, sp_b['name']) if sp_b else '',
         },
     })
 
@@ -1328,6 +1334,36 @@ window.HOT = {json.dumps(hot_data)};
 """
     dd_html = dd_html.replace('</head>', f'{dd_data_js}\n</head>')
 
-    components.html(dd_html, height=900, scrolling=False)
+    # Inject html2canvas + PNG download button (mirrors the head-to-head card above)
+    dd_png_script = """
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script>
+window.downloadCardPNG = function() {
+  var card = document.querySelector('.card');
+  if (!card) return;
+  html2canvas(card, { scale: 2, backgroundColor: '#FAF8F2', useCORS: true, allowTaint: true }).then(function(canvas) {
+    var a = document.createElement('a');
+    a.download = 'series_deep_dive.png';
+    a.href = canvas.toDataURL('image/png');
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  });
+};
+</script>
+"""
+    dd_png_btn = """
+<div style="text-align:center;margin-top:12px;">
+  <button onclick="window.downloadCardPNG()" style="
+    padding:8px 20px;background:#C41230;color:#fff;border:none;border-radius:4px;
+    font-family:'Inter',sans-serif;font-weight:700;font-size:12px;letter-spacing:.15em;
+    text-transform:uppercase;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.15);">
+    Download PNG
+  </button>
+</div>
+"""
+    dd_html = dd_html.replace('</body>', f'{dd_png_script}{dd_png_btn}</body>')
+
+    components.html(dd_html, height=960, scrolling=False)
 else:
     st.warning('Deep Dive template not found.')
