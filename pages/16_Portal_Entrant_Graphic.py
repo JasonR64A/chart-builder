@@ -203,6 +203,8 @@ if prec is not None:
                 'hr': hr, 'rbi': rbi,
                 'hAb': f'{h}/{ab}',
                 'bbK': f'{bb}/{k}',
+                # Hidden raw fields used to recompute OBP/SLG/OPS in the totals row:
+                '_tb': tb, '_hbp': hbp, '_sf': sf,
             })
             for key, val in zip(('g','ab','h','bb','k','hr','rbi','tb','hbp','sf'),
                                   (g, ab, h, bb, k, hr, rbi, tb, hbp, sf)):
@@ -283,10 +285,19 @@ with st.expander('Career by year (editable)', expanded=False):
         [{'year': season_year, 'g': season_gp,
           'avg': s_avg, 'obp': s_obp, 'slg': s_slg, 'ops': s_ops,
           'hr': s_hr, 'rbi': s_rbi,
-          'hAb': f'{s_h}/{s_ab}', 'bbK': f'{s_bb}/{s_so}'}]
+          'hAb': f'{s_h}/{s_ab}', 'bbK': f'{s_bb}/{s_so}',
+          '_tb': s_tb, '_hbp': s_hbp, '_sf': 0}]
     )
-    edited = st.data_editor(default_df, num_rows='dynamic', use_container_width=True,
-                              key='career_editor')
+    edited = st.data_editor(
+        default_df, num_rows='dynamic', use_container_width=True,
+        key='career_editor',
+        column_config={
+            # Hidden raw fields used to recompute OBP/SLG/OPS totals
+            '_tb': st.column_config.NumberColumn('TB', help='Total bases — used for SLG/OPS totals'),
+            '_hbp': st.column_config.NumberColumn('HBP', help='Hit by pitch — used for OBP totals'),
+            '_sf': st.column_config.NumberColumn('SF', help='Sac fly — used for OBP totals'),
+        },
+    )
     career_subtitle = st.text_input('Career section subtitle',
                                       value=defaults['career_subtitle'] or f"{len(edited)} SEASON{'S' if len(edited) != 1 else ''} AT {school.upper()}")
     career_slash_override = st.text_input('Career slash (top-right header)',
@@ -316,36 +327,49 @@ def build_career_rows_html(rows_df: pd.DataFrame) -> str:
             f'<td>{r.get("hr","")}</td><td>{r.get("rbi","")}</td>'
             f'<td>{r.get("hAb","")}</td><td>{r.get("bbK","")}</td></tr>'
         )
-    # Totals: recompute from H/AB, BB/K, HR, RBI, G
-    tot_g = tot_hr = tot_rbi = 0
-    tot_h = tot_ab = tot_bb = tot_k = 0
+    # Totals: recompute from per-year raw fields
+    tot = {'g': 0, 'hr': 0, 'rbi': 0, 'h': 0, 'ab': 0, 'bb': 0, 'k': 0,
+           'tb': 0, 'hbp': 0, 'sf': 0}
+
+    def _int(v):
+        try: return int(v)
+        except Exception:
+            try: return int(float(v))
+            except Exception: return 0
+
     for _, r in rows_df.iterrows():
-        try: tot_g += int(r.get('g') or 0)
-        except Exception: pass
-        try: tot_hr += int(r.get('hr') or 0)
-        except Exception: pass
-        try: tot_rbi += int(r.get('rbi') or 0)
-        except Exception: pass
+        tot['g']   += _int(r.get('g'))
+        tot['hr']  += _int(r.get('hr'))
+        tot['rbi'] += _int(r.get('rbi'))
         hAb = str(r.get('hAb') or '0/0')
         bbK = str(r.get('bbK') or '0/0')
         try:
             h, ab = [int(x) for x in hAb.split('/')]
-            tot_h += h; tot_ab += ab
+            tot['h'] += h; tot['ab'] += ab
         except Exception: pass
         try:
             bb, k = [int(x) for x in bbK.split('/')]
-            tot_bb += bb; tot_k += k
+            tot['bb'] += bb; tot['k'] += k
         except Exception: pass
-    if tot_ab > 0:
-        avg = tot_h / tot_ab
-        slg_num = sum(int(r.get('g') or 0) for _, r in rows_df.iterrows()) and 0  # unused safety
-        # Approx OBP/SLG for totals — we don't have TB/HBP/SF per year exactly, so approximate
+        tot['tb']  += _int(r.get('_tb'))
+        tot['hbp'] += _int(r.get('_hbp'))
+        tot['sf']  += _int(r.get('_sf'))
+
+    if tot['ab'] > 0:
+        avg = tot['h'] / tot['ab']
+        pa_est = tot['ab'] + tot['bb'] + tot['hbp'] + tot['sf']
+        obp = (tot['h'] + tot['bb'] + tot['hbp']) / pa_est if pa_est else 0
+        slg = tot['tb'] / tot['ab'] if tot['tb'] else 0
+        ops = obp + slg
         avg_s = fmt_slash(avg)
+        obp_s = fmt_slash(obp) if tot['tb'] or tot['hbp'] else '—'
+        slg_s = fmt_slash(slg) if tot['tb'] else '—'
+        ops_s = fmt_slash(ops) if tot['tb'] else '—'
         html.append(
-            f'<tr class="totals"><td>TOTAL</td><td>{tot_g}</td>'
-            f'<td>{avg_s}</td><td>—</td><td>—</td><td>—</td>'
-            f'<td>{tot_hr}</td><td>{tot_rbi}</td>'
-            f'<td>{tot_h}/{tot_ab}</td><td>{tot_bb}/{tot_k}</td></tr>'
+            f'<tr class="totals"><td>TOTAL</td><td>{tot["g"]}</td>'
+            f'<td>{avg_s}</td><td>{obp_s}</td><td>{slg_s}</td><td>{ops_s}</td>'
+            f'<td>{tot["hr"]}</td><td>{tot["rbi"]}</td>'
+            f'<td>{tot["h"]}/{tot["ab"]}</td><td>{tot["bb"]}/{tot["k"]}</td></tr>'
         )
     return '\n'.join(html)
 
