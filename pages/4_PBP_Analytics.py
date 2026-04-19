@@ -2051,9 +2051,12 @@ elif view == 'Pace Chart':
     grouped = pace_pbp.groupby([group_key, 'gameId', 'date_parsed'], sort=False)
     per_game = grouped[agg_cols].sum().reset_index()
 
-    # Get team name per (entity, gameId) — first occurrence
-    team_lookup = pace_pbp.groupby([group_key, 'gameId'], sort=False)['teamName'].first().reset_index()
-    per_game = per_game.merge(team_lookup, on=[group_key, 'gameId'], how='left')
+    # Get team name per (entity, gameId) — first occurrence.
+    # When group_key IS 'teamName', per_game already has the column from reset_index
+    # above; skip the self-merge to avoid a ValueError (cannot insert teamName).
+    if group_key != 'teamName':
+        team_lookup = pace_pbp.groupby([group_key, 'gameId'], sort=False)['teamName'].first().reset_index()
+        per_game = per_game.merge(team_lookup, on=[group_key, 'gameId'], how='left')
 
     # Step 2: Sort by date within each entity, assign game numbers, compute cumsums
     per_game = per_game.sort_values([group_key, 'date_parsed']).reset_index(drop=True)
