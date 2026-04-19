@@ -167,37 +167,88 @@ def get_team_id(team_name, teams_df, sport_label):
     return None
 
 
-def get_starters(team_id, player_rank_df, players_df, n=3):
-    """Top N pitchers by pitching percentile for a team."""
+def _team_weekend_starts(team_name, pitching_pbp, days=21):
+    """Return {player_id (int) -> weekend_start_count} for a team in last `days` days.
+
+    Starter of each game = pitcher with max IP for that (gameId, teamName).
+    Weekend = Thursday through Sunday (weekday 3-6).
+    """
+    if pitching_pbp is None or pitching_pbp.empty or not team_name:
+        return {}
+    if 'date' not in pitching_pbp.columns:
+        return {}
+    max_date = pitching_pbp['date'].max()
+    if pd.isna(max_date):
+        return {}
+    cutoff = max_date - pd.Timedelta(days=days)
+    recent = pitching_pbp[(pitching_pbp['date'] >= cutoff) &
+                           (pitching_pbp['teamName'] == team_name)].copy()
+    if recent.empty:
+        return {}
+    recent['_dow'] = recent['date'].dt.weekday
+    recent = recent[recent['_dow'].isin([3, 4, 5, 6])]
+    if recent.empty:
+        return {}
+    recent['_ip'] = pd.to_numeric(recent['ip'], errors='coerce').fillna(0)
+    # For each gameId, starter = row with max IP
+    idx = recent.groupby('gameId')['_ip'].idxmax()
+    starters = recent.loc[idx]
+    counts = starters.groupby('playerId').size()
+    out = {}
+    for pid, cnt in counts.items():
+        try:
+            out[int(pid)] = int(cnt)
+        except (TypeError, ValueError):
+            continue
+    return out
+
+
+def get_sorted_pitchers(team_id, player_rank_df, players_df, pitching_pbp=None, team_name=None):
+    """Return full sorted pitcher list for a team.
+
+    Sort key: (weekend_starts DESC, pit_pct DESC).
+    Weekend starts = last 21 days, Thursday-Sunday games, starter = max-IP pitcher per game.
+    Falls back to pit_pct-only ordering if pitching_pbp/team_name unavailable.
+    """
     team_pr = player_rank_df[player_rank_df['team_id'] == team_id].copy()
     pitchers = team_pr.dropna(subset=['pit_pct'])
-    pitchers = pitchers[pitchers['pit_pct'] > 0].sort_values('pit_pct', ascending=False)
-    result = []
-    for _, r in pitchers.head(n).iterrows():
+    pitchers = pitchers[pitchers['pit_pct'] > 0]
+    if pitchers.empty:
+        return []
+    ws_map = _team_weekend_starts(team_name, pitching_pbp)
+    rows = []
+    for _, r in pitchers.iterrows():
         pid = int(r['player_id'])
-        p_row = players_df[players_df['id_int'] == pid]
-        name = p_row.iloc[0]['player_name'] if len(p_row) else f'Player {pid}'
-        pos = p_row.iloc[0].get('position', '') if len(p_row) else ''
-        result.append({'player_id': pid, 'name': name, 'position': pos,
-                       'pit_pct': float(r['pit_pct'])})
-    return result
+        rows.append({
+            'player_id': pid,
+            'pit_pct': float(r['pit_pct']),
+            'weekend_starts': ws_map.get(pid, 0),
+        })
+    rows.sort(key=lambda x: (-x['weekend_starts'], -x['pit_pct']))
+    for row in rows:
+        p_row = players_df[players_df['id_int'] == row['player_id']]
+        row['name'] = p_row.iloc[0]['player_name'] if len(p_row) else f"Player {row['player_id']}"
+        row['position'] = p_row.iloc[0].get('position', '') if len(p_row) else ''
+    return rows
 
 
-def get_bullpen(team_id, player_rank_df, players_df):
-    """Pitchers 4-12 by pitching percentile."""
-    team_pr = player_rank_df[player_rank_df['team_id'] == team_id].copy()
-    pitchers = team_pr.dropna(subset=['pit_pct'])
-    pitchers = pitchers[pitchers['pit_pct'] > 0].sort_values('pit_pct', ascending=False)
-    bp = pitchers.iloc[3:12]
-    if bp.empty:
+def get_starters(team_id, player_rank_df, players_df, n=3, pitching_pbp=None, team_name=None):
+    """Top N pitchers by (weekend starts DESC, pit_pct DESC) over last 21 days.
+    If pitching_pbp/team_name unavailable, falls back to pit_pct-only order.
+    """
+    return get_sorted_pitchers(team_id, player_rank_df, players_df, pitching_pbp, team_name)[:n]
+
+
+def get_bullpen(team_id, player_rank_df, players_df, pitching_pbp=None, team_name=None):
+    """Bullpen = positions 4-12 of the same rotation sort (weekend_starts + pit_pct)."""
+    ordered = get_sorted_pitchers(team_id, player_rank_df, players_df, pitching_pbp, team_name)
+    bp = ordered[3:12]
+    if not bp:
         return {'mean_pct': 0, 'count': 0, 'names': [], 'arms': []}
-    names, arms = [], []
-    for _, r in bp.iterrows():
-        p_row = players_df[players_df['id_int'] == int(r['player_id'])]
-        n = p_row.iloc[0]['player_name'] if len(p_row) else '?'
-        names.append(n)
-        arms.append({'n': n, 'p': float(r['pit_pct']) * 100})
-    return {'mean_pct': float(bp['pit_pct'].mean()), 'count': len(bp), 'names': names, 'arms': arms}
+    names = [p['name'] for p in bp]
+    arms = [{'n': p['name'], 'p': p['pit_pct'] * 100} for p in bp]
+    mean_pct = sum(p['pit_pct'] for p in bp) / len(bp)
+    return {'mean_pct': mean_pct, 'count': len(bp), 'names': names, 'arms': arms}
 
 
 def get_hot_hitters(team_name, hitting_pbp, n=3, days=14):
@@ -882,13 +933,23 @@ if template_path.exists():
     cum_rank_a = f"#{int(ranks_a['True Rank'])}" if ranks_a.get('True Rank') else '—'
     cum_rank_b = f"#{int(ranks_b['True Rank'])}" if ranks_b.get('True Rank') else '—'
 
-    # Rotation (top 3) + Bullpen (pitchers 4-12) wRAE mean + division rank
+    # Rotation (top 3 by weekend starts + pit_pct) + Bullpen (4-12 same sort)
+    # Build team_id -> PBP team name map once so all teams get the new sort
+    if not pitching_pbp.empty:
+        _pp_names = set(pitching_pbp['teamName'].dropna())
+        def _resolve_pbp_name(short):
+            cands = sorted([n for n in _pp_names if isinstance(n, str) and n.startswith(short)], key=len)
+            return cands[0] if cands else short
+        tid_to_pbp = {int(r['id']): _resolve_pbp_name(r['name']) for _, r in sport_teams.iterrows()}
+    else:
+        tid_to_pbp = {}
+
     def _team_rot_mean(tid):
-        s = get_starters(tid, pr, players, n=3)
+        s = get_starters(tid, pr, players, n=3, pitching_pbp=pitching_pbp, team_name=tid_to_pbp.get(tid))
         return (sum(x['pit_pct'] for x in s) / len(s)) if s else None
 
     def _team_bp_mean(tid):
-        b = get_bullpen(tid, pr, players)
+        b = get_bullpen(tid, pr, players, pitching_pbp=pitching_pbp, team_name=tid_to_pbp.get(tid))
         return b['mean_pct'] if b['count'] > 0 else None
 
     div_team_ids = sport_teams['id'].astype(int).tolist()
@@ -1197,10 +1258,22 @@ else:
 # ── Deep Dive Panel (replaces the old text sections) ────────────────────────
 # Build data for predictions, outcomes, bullpen, who's hot — render via HTML template.
 
-starters_a = get_starters(team_a_id, pr, players, n=3)
-starters_b = get_starters(team_b_id, pr, players, n=3)
-bp_a = get_bullpen(team_a_id, pr, players)
-bp_b = get_bullpen(team_b_id, pr, players)
+# Resolve PBP team names (needed for weekend-starts sort in get_starters/get_bullpen)
+if not pitching_pbp.empty:
+    _pbp_team_names = set(pitching_pbp['teamName'].dropna())
+    def _dd_resolve_pbp(short):
+        cands = sorted([n for n in _pbp_team_names if isinstance(n, str) and n.startswith(short)], key=len)
+        return cands[0] if cands else short
+    pbp_team_a_name = _dd_resolve_pbp(team_a)
+    pbp_team_b_name = _dd_resolve_pbp(team_b)
+else:
+    pbp_team_a_name = team_a
+    pbp_team_b_name = team_b
+
+starters_a = get_starters(team_a_id, pr, players, n=3, pitching_pbp=pitching_pbp, team_name=pbp_team_a_name)
+starters_b = get_starters(team_b_id, pr, players, n=3, pitching_pbp=pitching_pbp, team_name=pbp_team_b_name)
+bp_a = get_bullpen(team_a_id, pr, players, pitching_pbp=pitching_pbp, team_name=pbp_team_a_name)
+bp_b = get_bullpen(team_b_id, pr, players, pitching_pbp=pitching_pbp, team_name=pbp_team_b_name)
 
 a_static = rank_pct_map.get(team_a, 0.5)
 b_static = rank_pct_map.get(team_b, 0.5)
