@@ -773,6 +773,43 @@ for date, winner, score_w, score_l, loser in game_results:
 
 st.markdown('---')
 
+# ── Win Probability charts per game ─────────────────────────────────────────
+# Static (non-interactive) snapshots of each game's WP curve using the same
+# model the Win Probability page uses.
+try:
+    from pages._wp_render import (
+        load_wp_pbp, load_wp_lookup, load_wp_teams,
+        compute_wp_for_game, build_wp_figure,
+    )
+    from pages._win_prob_model import build_team_profiles as _wp_build_profiles
+
+    _wp_sport = sport.title()  # 'Baseball' | 'Softball'
+    _pbp_events = load_wp_pbp(_wp_sport, division)
+    if _pbp_events is not None and not _pbp_events.empty:
+        st.markdown('#### Win Probability')
+        _lookup  = load_wp_lookup()
+        _tp, _tr = load_wp_teams(_wp_sport, division)
+        _profiles= _wp_build_profiles(_wp_sport, division)
+
+        _wp_cols = st.columns(min(3, len(game_ids)))
+        for _i, _gid in enumerate(sorted(game_ids)):
+            _slot = _wp_cols[_i % len(_wp_cols)]
+            _wp_data = compute_wp_for_game(_pbp_events, int(_gid),
+                                             _tp, _tr, _profiles, _lookup,
+                                             sport=_wp_sport)
+            if _wp_data is None:
+                _slot.caption(f'Game {_i+1}: no play-by-play available')
+                continue
+            _fig = build_wp_figure(_wp_data, height=320)
+            if _fig is None:
+                continue
+            _slot.plotly_chart(_fig, use_container_width=True,
+                               config={'staticPlot': True,
+                                       'displayModeBar': False})
+        st.markdown('---')
+except Exception as _wp_err:
+    st.caption(f'WP charts unavailable: {_wp_err}')
+
 # Player of the Series
 st.markdown('#### Player of the Series')
 
