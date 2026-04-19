@@ -830,6 +830,19 @@ if template_path.exists():
     rank_a_pct = div_pct(tr_metrics_a['rank'], 'rank', False)
     rank_b_pct = div_pct(tr_metrics_b['rank'], 'rank', False)
 
+    def div_rank(val, col, higher_better=True):
+        vals = all_tr[col].dropna().tolist()
+        if not vals or val is None:
+            return None
+        if higher_better:
+            return sum(1 for v in vals if v > val) + 1
+        return sum(1 for v in vals if v < val) + 1
+
+    wrce_a_rank = div_rank(tr_metrics_a['wRCE'], 'wRCE', True)
+    wrce_b_rank = div_rank(tr_metrics_b['wRCE'], 'wRCE', True)
+    wrae_a_rank = div_rank(tr_metrics_a['wRAE'], 'wRAE', False)
+    wrae_b_rank = div_rank(tr_metrics_b['wRAE'], 'wRAE', False)
+
     cum_rank_a = f"#{int(ranks_a['True Rank'])}" if ranks_a.get('True Rank') else '—'
     cum_rank_b = f"#{int(ranks_b['True Rank'])}" if ranks_b.get('True Rank') else '—'
 
@@ -866,8 +879,8 @@ if template_path.exists():
         return f"#{r}" if r else "—"
 
     bullets_data = [
-        {"label": "wRCE", "a": {"v": fmt_val(tr_metrics_a['wRCE']), "pct": wrce_a_pct}, "b": {"v": fmt_val(tr_metrics_b['wRCE']), "pct": wrce_b_pct}},
-        {"label": "wRAE", "a": {"v": fmt_val(tr_metrics_a['wRAE']), "pct": wrae_a_pct}, "b": {"v": fmt_val(tr_metrics_b['wRAE']), "pct": wrae_b_pct}},
+        {"label": "wRCE", "a": {"v": _rank_display(wrce_a_rank), "pct": wrce_a_pct}, "b": {"v": _rank_display(wrce_b_rank), "pct": wrce_b_pct}},
+        {"label": "wRAE", "a": {"v": _rank_display(wrae_a_rank), "pct": wrae_a_pct}, "b": {"v": _rank_display(wrae_b_rank), "pct": wrae_b_pct}},
         {"label": "STARTING ROTATION", "a": {"v": _rank_display(rot_a_rank), "pct": rot_a_pct}, "b": {"v": _rank_display(rot_b_rank), "pct": rot_b_pct}},
         {"label": "BULLPEN", "a": {"v": _rank_display(bp_a_rank), "pct": bp_a_pct}, "b": {"v": _rank_display(bp_b_rank), "pct": bp_b_pct}},
         {"label": "CUMULATIVE RANK", "a": {"v": cum_rank_a, "pct": rank_a_pct}, "b": {"v": cum_rank_b, "pct": rank_b_pct}},
