@@ -1,409 +1,975 @@
-team_id,team_name,sport,ncaa_school,gsr,fgr,gsr_percentile,fgr_percentile,education_percentile
-938,Yale,Baseball,Yale University,99.0,,0.9865,0.9865,0.9865
-1237,Yale,Softball,Yale University,99.0,,0.9865,0.9865,0.9865
-1220,Cornell,Softball,Cornell University,99.0,,0.9865,0.9865,0.9865
-173,Columbia,Baseball,Columbia University-Barnard College,99.0,,0.9865,0.9865,0.9865
-1256,Columbia,Softball,Columbia University-Barnard College,99.0,,0.9865,0.9865,0.9865
-182,Cornell,Baseball,Cornell University,99.0,,0.9865,0.9865,0.9865
-1110,Harvard,Softball,Harvard University,99.0,,0.9865,0.9865,0.9865
-318,Harvard,Baseball,Harvard University,99.0,,0.9865,0.9865,0.9865
-1158,Notre Dame,Softball,University of Notre Dame,99.0,90.0,0.9865,0.9832,0.9848
-565,Notre Dame,Baseball,University of Notre Dame,99.0,90.0,0.9865,0.9832,0.9848
-198,Davidson,Baseball,Davidson College,98.0,92.0,0.9557,0.9936,0.9746
-1266,Colgate,Softball,Colgate University,98.0,92.0,0.9557,0.9936,0.9746
-623,Princeton,Baseball,Princeton University,98.0,,0.9557,0.9557,0.9557
-1186,Princeton,Softball,Princeton University,98.0,,0.9557,0.9557,0.9557
-599,Penn,Baseball,University of Pennsylvania,98.0,,0.9557,0.9557,0.9557
-1265,Penn,Softball,University of Pennsylvania,98.0,,0.9557,0.9557,0.9557
-855,Villanova,Baseball,Villanova University,98.0,84.0,0.9557,0.9459,0.9508
-1254,Villanova,Softball,Villanova University,98.0,84.0,0.9557,0.9459,0.9508
-1221,Stanford,Softball,Stanford University,97.0,94.0,0.8916,0.9987,0.9452
-753,Stanford,Baseball,Stanford University,97.0,94.0,0.8916,0.9987,0.9452
-644,Richmond,Baseball,University of Richmond,98.0,81.0,0.9557,0.9188,0.9372
-1306,Holy Cross,Softball,College of the Holy Cross,97.0,87.0,0.8916,0.9691,0.9304
-1344,Bucknell,Softball,Bucknell University,97.0,87.0,0.8916,0.9691,0.9304
-98,Bucknell,Baseball,Bucknell University,97.0,87.0,0.8916,0.9691,0.9304
-332,Holy Cross,Baseball,College of the Holy Cross,97.0,87.0,0.8916,0.9691,0.9304
-217,Duke,Baseball,Duke University,97.0,86.0,0.8916,0.9601,0.9258
-1098,Duke,Softball,Duke University,97.0,86.0,0.8916,0.9601,0.9258
-291,Georgetown,Baseball,Georgetown University,97.0,85.0,0.8916,0.9549,0.9232
-1353,Georgetown,Softball,Georgetown University,97.0,85.0,0.8916,0.9549,0.9232
-299,Gonzaga,Baseball,Gonzaga University,97.0,84.0,0.8916,0.9459,0.9188
-438,Marist,Baseball,Marist University,97.0,84.0,0.8916,0.9459,0.9188
-1111,Marist,Softball,Marist University,97.0,84.0,0.8916,0.9459,0.9188
-270,Fordham,Baseball,Fordham University,97.0,81.0,0.8916,0.9188,0.9052
-1184,Fordham,Softball,Fordham University,97.0,81.0,0.8916,0.9188,0.9052
-551,Northeastern,Baseball,Northeastern University,97.0,81.0,0.8916,0.9188,0.9052
-1379,Lafayette,Softball,Lafayette College,97.0,81.0,0.8916,0.9188,0.9052
-384,Lafayette,Baseball,Lafayette College,97.0,81.0,0.8916,0.9188,0.9052
-397,Lehigh,Baseball,Lehigh University,96.0,91.0,0.803,0.9884,0.8957
-1131,Lehigh,Softball,Lehigh University,96.0,91.0,0.803,0.9884,0.8957
-694,Seton Hall,Baseball,Seton Hall University,98.0,76.0,0.9557,0.8312,0.8934
-1197,Seton Hall,Softball,Seton Hall University,98.0,76.0,0.9557,0.8312,0.8934
-1239,Elon,Softball,Elon University,97.0,80.0,0.8916,0.8943,0.893
-239,Elon,Baseball,Elon University,97.0,80.0,0.8916,0.8943,0.893
-196,Dartmouth,Baseball,Dartmouth College,97.0,,0.8916,0.8916,0.8916
-96,Brown,Baseball,Brown University,97.0,,0.8916,0.8916,0.8916
-1257,Brown,Softball,Brown University,97.0,,0.8916,0.8916,0.8916
-1198,Dartmouth,Softball,Dartmouth College,97.0,,0.8916,0.8916,0.8916
-810,UC San Diego,Baseball,"University of California, San Diego",96.0,89.0,0.803,0.9781,0.8906
-2064,UC San Diego,Softball,"University of California, San Diego",96.0,89.0,0.803,0.9781,0.8906
-910,William & Mary,Baseball,William & Mary,96.0,87.0,0.803,0.9691,0.886
-290,George Washington,Baseball,George Washington University,97.0,76.0,0.8916,0.8312,0.8614
-1136,George Washington,Softball,George Washington University,97.0,76.0,0.8916,0.8312,0.8614
-87,Boston College,Baseball,Boston College,97.0,76.0,0.8916,0.8312,0.8614
-1324,Boston College,Softball,Boston College,97.0,76.0,0.8916,0.8312,0.8614
-251,Fairfield,Baseball,Fairfield University,96.0,81.0,0.803,0.9188,0.8609
-1310,Fairfield,Softball,Fairfield University,96.0,81.0,0.803,0.9188,0.8609
-1289,Quinnipiac,Softball,Quinnipiac University,96.0,80.0,0.803,0.8943,0.8486
-633,Quinnipiac,Baseball,Quinnipiac University,96.0,80.0,0.803,0.8943,0.8486
-1200,Maryland,Softball,Loyola University Maryland,96.0,80.0,0.803,0.8943,0.8486
-446,Maryland,Baseball,Loyola University Maryland,96.0,80.0,0.803,0.8943,0.8486
-97,Bryant,Baseball,Bryant University,96.0,78.0,0.803,0.8673,0.8352
-1135,Bryant,Softball,Bryant University,96.0,78.0,0.803,0.8673,0.8352
-1269,Belmont,Softball,Belmont University,97.0,74.0,0.8916,0.7771,0.8344
-65,Belmont,Baseball,Belmont University,97.0,74.0,0.8916,0.7771,0.8344
-536,Niagara,Baseball,Niagara University,96.0,77.0,0.803,0.8518,0.8274
-1145,Niagara,Softball,Niagara University,96.0,77.0,0.803,0.8518,0.8274
-852,Vanderbilt,Baseball,Vanderbilt University,95.0,79.0,0.7352,0.8802,0.8077
-1283,Canisius,Softball,Canisius University,97.0,72.0,0.8916,0.7126,0.8021
-152,Cincinnati,Baseball,University of Cincinnati,97.0,72.0,0.8916,0.7126,0.8021
-121,Canisius,Baseball,Canisius University,97.0,72.0,0.8916,0.7126,0.8021
-331,Hofstra,Baseball,Hofstra University,98.0,70.0,0.9557,0.6456,0.8006
-1341,Hofstra,Softball,Hofstra University,98.0,70.0,0.9557,0.6456,0.8006
-607,Pepperdine,Baseball,Pepperdine University,95.0,77.0,0.7352,0.8518,0.7935
-1280,Furman,Softball,Furman University,96.0,74.0,0.803,0.7771,0.79
-1336,Drexel,Softball,Drexel University,94.0,80.0,0.6798,0.8943,0.787
-1214,Butler,Softball,Butler University,94.0,79.0,0.6798,0.8802,0.78
-100,Butler,Baseball,Butler University,94.0,79.0,0.6798,0.8802,0.78
-1262,Wisconsin,Softball,University of Wisconsin-Madison,94.0,79.0,0.6798,0.8802,0.78
-1202,Ohio,Softball,Miami University (Ohio),95.0,75.0,0.7352,0.8054,0.7703
-573,Ohio,Baseball,Miami University (Ohio),95.0,75.0,0.7352,0.8054,0.7703
-1300,Bradley,Softball,Bradley University,97.0,70.0,0.8916,0.6456,0.7686
-90,Bradley,Baseball,Bradley University,97.0,70.0,0.8916,0.6456,0.7686
-78,Binghamton,Baseball,Binghamton University,93.0,81.0,0.6108,0.9188,0.7648
-851,Valparaiso,Baseball,Valparaiso University,93.0,81.0,0.6108,0.9188,0.7648
-1363,Valparaiso,Softball,Valparaiso University,93.0,81.0,0.6108,0.9188,0.7648
-1211,Binghamton,Softball,Binghamton University,93.0,81.0,0.6108,0.9188,0.7648
-1212,Saint Louis,Softball,Saint Louis University,96.0,72.0,0.803,0.7126,0.7578
-670,Saint Louis,Baseball,Saint Louis University,96.0,72.0,0.803,0.7126,0.7578
-160,Clemson,Baseball,Clemson University,96.0,72.0,0.803,0.7126,0.7578
-1144,Clemson,Softball,Clemson University,96.0,72.0,0.803,0.7126,0.7578
-937,Xavier,Baseball,Xavier University,96.0,72.0,0.803,0.7126,0.7578
-250,Evansville,Baseball,University of Evansville,95.0,74.0,0.7352,0.7771,0.7562
-1313,Evansville,Softball,University of Evansville,95.0,74.0,0.7352,0.7771,0.7562
-717,Southern California,Baseball,University of Southern California,94.0,76.0,0.6798,0.8312,0.7555
-683,Samford,Baseball,Samford University,97.0,69.0,0.8916,0.6121,0.7518
-1179,Samford,Softball,Samford University,97.0,69.0,0.8916,0.6121,0.7518
-62,Baylor,Baseball,Baylor University,94.0,75.0,0.6798,0.8054,0.7426
-1170,Baylor,Softball,Baylor University,94.0,75.0,0.6798,0.8054,0.7426
-1201,Providence,Softball,Providence College,95.0,73.0,0.7352,0.7474,0.7413
-643,Rice,Baseball,Rice University,93.0,77.0,0.6108,0.8518,0.7313
-601,Penn St.,Baseball,Pennsylvania State University,93.0,77.0,0.6108,0.8518,0.7313
-1187,Penn St.,Softball,Pennsylvania State University,93.0,77.0,0.6108,0.8518,0.7313
-1308,Alabama,Softball,University of Alabama,96.0,70.0,0.803,0.6456,0.7243
-8,Alabama,Baseball,University of Alabama,96.0,70.0,0.803,0.6456,0.7243
-1192,Drake,Softball,Drake University,93.0,76.0,0.6108,0.8312,0.721
-1329,Rhode Island,Softball,University of Rhode Island,94.0,73.0,0.6798,0.7474,0.7136
-1277,Liberty,Softball,Liberty University,94.0,73.0,0.6798,0.7474,0.7136
-405,Liberty,Baseball,Liberty University,94.0,73.0,0.6798,0.7474,0.7136
-640,Rhode Island,Baseball,University of Rhode Island,94.0,73.0,0.6798,0.7474,0.7136
-1618,Mary,Softball,Loyola Marymount University,93.0,75.0,0.6108,0.8054,0.7081
-442,Mary,Baseball,Loyola Marymount University,93.0,75.0,0.6108,0.8054,0.7081
-1137,Minnesota,Softball,"University of Minnesota, Twin Cities",93.0,75.0,0.6108,0.8054,0.7081
-483,Minnesota,Baseball,"University of Minnesota, Twin Cities",93.0,75.0,0.6108,0.8054,0.7081
-864,Wake Forest,Baseball,Wake Forest University,96.0,69.0,0.803,0.6121,0.7076
-1238,Saint Joseph's,Softball,Saint Joseph's University,92.0,78.0,0.5308,0.8673,0.699
-668,Saint Joseph's,Baseball,Saint Joseph's University,92.0,78.0,0.5308,0.8673,0.699
-807,UC Davis,Baseball,"University of California, Davis",91.0,83.0,0.4544,0.9369,0.6956
-1338,UC Davis,Softball,"University of California, Davis",91.0,83.0,0.4544,0.9369,0.6956
-1352,Manhattan,Softball,Manhattan University,93.0,74.0,0.6108,0.7771,0.694
-432,Manhattan,Baseball,Manhattan University,93.0,74.0,0.6108,0.7771,0.694
-353,Iowa,Baseball,Iowa State University,95.0,70.0,0.7352,0.6456,0.6904
-1285,Iowa,Softball,Iowa State University,95.0,70.0,0.7352,0.6456,0.6904
-1380,St. Bonaventure,Softball,St. Bonaventure University,96.0,68.0,0.803,0.5709,0.6869
-736,St. Bonaventure,Baseball,St. Bonaventure University,96.0,68.0,0.803,0.5709,0.6869
-1190,Creighton,Softball,Creighton University,97.0,66.0,0.8916,0.4716,0.6816
-186,Creighton,Baseball,Creighton University,97.0,66.0,0.8916,0.4716,0.6816
-815,UCLA,Baseball,"University of California, Los Angeles",92.0,76.0,0.5308,0.8312,0.681
-1104,UCLA,Softball,"University of California, Los Angeles",92.0,76.0,0.5308,0.8312,0.681
-522,Navy,Baseball,U.S. Naval Academy,94.0,,0.6798,0.6798,0.6798
-854,VCU,Baseball,Virginia Commonwealth University,95.0,69.0,0.7352,0.6121,0.6736
-811,UC Santa Barbara,Baseball,"University of California, Santa Barbara",92.0,75.0,0.5308,0.8054,0.6681
-1157,UC Santa Barbara,Softball,"University of California, Santa Barbara",92.0,75.0,0.5308,0.8054,0.6681
-1264,Siena,Softball,Siena University,94.0,70.0,0.6798,0.6456,0.6627
-702,Siena,Baseball,Siena University,94.0,70.0,0.6798,0.6456,0.6627
-1208,Louisville,Softball,University of Louisville,96.0,67.0,0.803,0.5206,0.6618
-421,Louisville,Baseball,University of Louisville,96.0,67.0,0.803,0.5206,0.6618
-540,NJIT,Baseball,New Jersey Institute of Technology,93.0,72.0,0.6108,0.7126,0.6617
-302,Grand Canyon,Baseball,Grand Canyon University,94.0,69.0,0.6798,0.6121,0.646
-1092,Grand Canyon,Softball,Grand Canyon University,94.0,69.0,0.6798,0.6121,0.646
-1358,Wofford,Softball,Wofford College,93.0,71.0,0.6108,0.6778,0.6443
-932,Wofford,Baseball,Wofford College,93.0,71.0,0.6108,0.6778,0.6443
-1373,North Dakota,Softball,North Dakota State University,92.0,73.0,0.5308,0.7474,0.6391
-1366,Wagner,Softball,Wagner College,96.0,66.0,0.803,0.4716,0.6373
-863,Wagner,Baseball,Wagner College,96.0,66.0,0.803,0.4716,0.6373
-1281,FGCU,Softball,Florida Gulf Coast University,95.0,67.0,0.7352,0.5206,0.6279
-1189,Dayton,Softball,University of Dayton,95.0,67.0,0.7352,0.5206,0.6279
-200,Dayton,Baseball,University of Dayton,95.0,67.0,0.7352,0.5206,0.6279
-452,Massachusetts,Baseball,University of Massachusetts Lowell,95.0,67.0,0.7352,0.5206,0.6279
-1351,Massachusetts,Softball,University of Massachusetts Lowell,95.0,67.0,0.7352,0.5206,0.6279
-258,FGCU,Baseball,Florida Gulf Coast University,95.0,67.0,0.7352,0.5206,0.6279
-114,California,Baseball,California Polytechnic State University,90.0,78.0,0.3879,0.8673,0.6276
-1118,California,Softball,California Polytechnic State University,90.0,78.0,0.3879,0.8673,0.6276
-1127,Seattle U,Softball,Seattle University,94.0,68.0,0.6798,0.5709,0.6254
-693,Seattle U,Baseball,Seattle University,94.0,68.0,0.6798,0.5709,0.6254
-2067,West Virginia,Softball,West Virginia University,96.0,65.0,0.803,0.4227,0.6128
-888,West Virginia,Baseball,West Virginia University,96.0,65.0,0.803,0.4227,0.6128
-1255,North Florida,Softball,University of North Florida,95.0,66.0,0.7352,0.4716,0.6034
-547,North Florida,Baseball,University of North Florida,95.0,66.0,0.7352,0.4716,0.6034
-664,Sacred Heart,Baseball,Sacred Heart University,91.0,73.0,0.4544,0.7474,0.6009
-1311,Sacred Heart,Softball,Sacred Heart University,91.0,73.0,0.4544,0.7474,0.6009
-326,High Point,Baseball,High Point University,94.0,67.0,0.6798,0.5206,0.6002
-802,Tulane,Baseball,Tulane University,96.0,63.0,0.803,0.3647,0.5838
-689,Santa Clara,Baseball,Santa Clara University,90.0,74.0,0.3879,0.7771,0.5825
-1215,Santa Clara,Softball,Santa Clara University,90.0,74.0,0.3879,0.7771,0.5825
-479,Milwaukee,Baseball,University of Wisconsin-Milwaukee,90.0,74.0,0.3879,0.7771,0.5825
-2089,San Francisco,Softball,University of San Francisco,99.0,59.0,0.9865,0.1765,0.5815
-687,San Francisco,Baseball,University of San Francisco,99.0,59.0,0.9865,0.1765,0.5815
-1232,Rider,Softball,Rider University,95.0,65.0,0.7352,0.4227,0.579
-645,Rider,Baseball,Rider University,95.0,65.0,0.7352,0.4227,0.579
-1180,Syracuse,Softball,Syracuse University,92.0,69.0,0.5308,0.6121,0.5714
-1134,Rutgers,Softball,"Rutgers, The State University of New Jersey, New Brunswick",92.0,69.0,0.5308,0.6121,0.5714
-660,Rutgers,Baseball,"Rutgers, The State University of New Jersey, New Brunswick",92.0,69.0,0.5308,0.6121,0.5714
-352,Iona,Baseball,Iona University,90.0,73.0,0.3879,0.7474,0.5676
-1314,Iona,Softball,Iona University,90.0,73.0,0.3879,0.7474,0.5676
-1342,Lipscomb,Softball,Lipscomb University,91.0,71.0,0.4544,0.6778,0.5661
-411,Lipscomb,Baseball,Lipscomb University,91.0,71.0,0.4544,0.6778,0.5661
-569,Oakland,Baseball,Oakland University,91.0,71.0,0.4544,0.6778,0.5661
-1245,Oakland,Softball,Oakland University,91.0,71.0,0.4544,0.6778,0.5661
-1361,Green Bay,Softball,University of Wisconsin-Green Bay,93.0,67.0,0.6108,0.5206,0.5657
-949,La Salle,Baseball,La Salle University,93.0,67.0,0.6108,0.5206,0.5657
-1121,Toledo,Softball,University of Toledo,93.0,67.0,0.6108,0.5206,0.5657
-792,Toledo,Baseball,University of Toledo,93.0,67.0,0.6108,0.5206,0.5657
-525,Nebraska,Baseball,University of Nebraska-Lincoln,92.0,68.0,0.5308,0.5709,0.5509
-761,Stony Brook,Baseball,Stony Brook University,92.0,68.0,0.5308,0.5709,0.5509
-1167,Stony Brook,Softball,Stony Brook University,92.0,68.0,0.5308,0.5709,0.5509
-1089,Virginia Tech,Softball,Virginia Polytechnic Institute and State University,92.0,68.0,0.5308,0.5709,0.5509
-858,Virginia Tech,Baseball,Virginia Polytechnic Institute and State University,92.0,68.0,0.5308,0.5709,0.5509
-2,Abilene Christian,Baseball,Abilene Christian University,92.0,68.0,0.5308,0.5709,0.5509
-805,UAB,Baseball,University of Alabama at Birmingham,92.0,68.0,0.5308,0.5709,0.5509
-1146,Nebraska,Softball,University of Nebraska-Lincoln,92.0,68.0,0.5308,0.5709,0.5509
-1183,Abilene Christian,Softball,Abilene Christian University,92.0,68.0,0.5308,0.5709,0.5509
-1327,UAB,Softball,University of Alabama at Birmingham,92.0,68.0,0.5308,0.5709,0.5509
-816,UConn,Baseball,University of Connecticut,91.0,70.0,0.4544,0.6456,0.55
-1260,UConn,Softball,University of Connecticut,91.0,70.0,0.4544,0.6456,0.55
-509,Mount St. Mary's,Baseball,Mount St. Mary's University,93.0,66.0,0.6108,0.4716,0.5412
-1370,Mount St. Mary's,Softball,Mount St. Mary's University,93.0,66.0,0.6108,0.4716,0.5412
-499,Monmouth,Baseball,Monmouth University,89.0,72.0,0.3313,0.7126,0.522
-1335,Monmouth,Softball,Monmouth University,89.0,72.0,0.3313,0.7126,0.522
-1371,Merrimack,Softball,Merrimack College,89.0,72.0,0.3313,0.7126,0.522
-466,Merrimack,Baseball,Merrimack College,89.0,72.0,0.3313,0.7126,0.522
-358,James Madison,Baseball,James Madison University,90.0,70.0,0.3879,0.6456,0.5168
-1114,James Madison,Softball,James Madison University,90.0,70.0,0.3879,0.6456,0.5168
-462,Mercer,Baseball,Mercer University,93.0,65.0,0.6108,0.4227,0.5168
-1234,Mercer,Softball,Mercer University,93.0,65.0,0.6108,0.4227,0.5168
-31,Arizona,Baseball,Arizona State University,93.0,65.0,0.6108,0.4227,0.5168
-1096,Arizona,Softball,Arizona State University,93.0,65.0,0.6108,0.4227,0.5168
-808,UC Irvine,Baseball,"University of California, Irvine",88.0,73.0,0.282,0.7474,0.5147
-64,Bellarmine,Baseball,Bellarmine University,87.0,74.0,0.2352,0.7771,0.5062
-2051,Bellarmine,Softball,Bellarmine University,87.0,74.0,0.2352,0.7771,0.5062
-1196,Saint Peter's,Softball,Saint Peter's University,95.0,61.0,0.7352,0.2693,0.5022
-675,Saint Peter's,Baseball,Saint Peter's University,95.0,61.0,0.7352,0.2693,0.5022
-1303,Auburn,Softball,Auburn University,92.0,66.0,0.5308,0.4716,0.5012
-1088,North Carolina,Softball,University of North Carolina Asheville,92.0,66.0,0.5308,0.4716,0.5012
-43,Auburn,Baseball,Auburn University,92.0,66.0,0.5308,0.4716,0.5012
-543,North Carolina,Baseball,University of North Carolina Asheville,92.0,66.0,0.5308,0.4716,0.5012
-366,Kansas,Baseball,Kansas State University,93.0,63.0,0.6108,0.3647,0.4878
-120,Campbell,Baseball,Campbell University,93.0,63.0,0.6108,0.3647,0.4878
-1206,Kansas,Softball,Kansas State University,93.0,63.0,0.6108,0.3647,0.4878
-1156,Campbell,Softball,Campbell University,93.0,63.0,0.6108,0.3647,0.4878
-1247,Austin Peay,Softball,Austin Peay State University,91.0,67.0,0.4544,0.5206,0.4875
-1369,Bowling Green,Softball,Bowling Green State University,91.0,67.0,0.4544,0.5206,0.4875
-1124,Saint Francis,Softball,Saint Francis University,91.0,67.0,0.4544,0.5206,0.4875
-89,Bowling Green,Baseball,Bowling Green State University,91.0,67.0,0.4544,0.5206,0.4875
-51,Austin Peay,Baseball,Austin Peay State University,91.0,67.0,0.4544,0.5206,0.4875
-684,San Diego,Baseball,San Diego State University,88.0,71.0,0.282,0.6778,0.4799
-1246,San Diego,Softball,San Diego State University,88.0,71.0,0.282,0.6778,0.4799
-1271,UNI,Softball,University at Albany,88.0,71.0,0.282,0.6778,0.4799
-793,Towson,Baseball,Towson University,90.0,68.0,0.3879,0.5709,0.4794
-1326,Towson,Softball,Towson University,90.0,68.0,0.3879,0.5709,0.4794
-1374,UTSA,Softball,University of Texas at San Antonio,92.0,65.0,0.5308,0.4227,0.4768
-846,UTSA,Baseball,University of Texas at San Antonio,92.0,65.0,0.5308,0.4227,0.4768
-471,Michigan,Baseball,Central Michigan University,89.0,69.0,0.3313,0.6121,0.4717
-1222,Michigan,Softball,Central Michigan University,89.0,69.0,0.3313,0.6121,0.4717
-1377,Detroit Mercy,Softball,University of Detroit Mercy,91.0,66.0,0.4544,0.4716,0.463
-1357,DePaul,Softball,DePaul University,86.0,72.0,0.197,0.7126,0.4548
-39,Army West Point,Baseball,U.S. Military Academy,91.0,,0.4544,0.4544,0.4544
-6,Air Force,Baseball,U.S. Air Force Academy,91.0,,0.4544,0.4544,0.4544
-1330,Army West Point,Softball,U.S. Military Academy,91.0,,0.4544,0.4544,0.4544
-813,UCF,Baseball,University of Central Florida,94.0,60.0,0.6798,0.2216,0.4507
-1130,UCF,Softball,University of Central Florida,94.0,60.0,0.6798,0.2216,0.4507
-1328,Pittsburgh,Softball,University of Pittsburgh,94.0,60.0,0.6798,0.2216,0.4507
-614,Pittsburgh,Baseball,University of Pittsburgh,94.0,60.0,0.6798,0.2216,0.4507
-1323,Pacific,Softball,University of the Pacific,93.0,61.0,0.6108,0.2693,0.44
-595,Pacific,Baseball,University of the Pacific,93.0,61.0,0.6108,0.2693,0.44
-1095,Florida,Softball,Florida State University,91.0,65.0,0.4544,0.4227,0.4386
-265,Florida,Baseball,Florida State University,91.0,65.0,0.4544,0.4227,0.4386
-580,Oklahoma,Baseball,Oklahoma State University,92.0,62.0,0.5308,0.3196,0.4252
-1086,Oklahoma,Softball,Oklahoma State University,92.0,62.0,0.5308,0.3196,0.4252
-1261,Robert Morris,Softball,Robert Morris University,91.0,63.0,0.4544,0.3647,0.4096
-856,Virginia,Baseball,Virginia Military Institute,84.0,71.0,0.133,0.6778,0.4054
-1321,Virginia,Softball,Virginia Military Institute,84.0,71.0,0.133,0.6778,0.4054
-788,The Citadel,Baseball,The Citadel,86.0,69.0,0.197,0.6121,0.4045
-775,TCU,Baseball,Texas Christian University,87.0,68.0,0.2352,0.5709,0.403
-101,BYU,Baseball,Brigham Young University,80.0,72.0,0.0702,0.7126,0.3914
-1100,BYU,Softball,Brigham Young University,80.0,72.0,0.0702,0.7126,0.3914
-1312,Buffalo,Softball,"University at Buffalo, the State University of New York",90.0,64.0,0.3879,0.3918,0.3899
-1325,Stetson,Softball,Stetson University,91.0,62.0,0.4544,0.3196,0.387
-756,Stetson,Baseball,Stetson University,91.0,62.0,0.4544,0.3196,0.387
-1343,South Dakota,Softball,South Dakota State University,87.0,67.0,0.2352,0.5206,0.3779
-588,Oregon,Baseball,Oregon State University,89.0,65.0,0.3313,0.4227,0.377
-1230,UT Arlington,Softball,University of Texas at Arlington,89.0,65.0,0.3313,0.4227,0.377
-1117,Oregon,Softball,Oregon State University,89.0,65.0,0.3313,0.4227,0.377
-838,UT Arlington,Baseball,University of Texas at Arlington,89.0,65.0,0.3313,0.4227,0.377
-338,Houston Christian,Baseball,Houston Christian University,88.0,66.0,0.282,0.4716,0.3768
-1286,Houston Christian,Softball,Houston Christian University,88.0,66.0,0.282,0.4716,0.3768
-1133,Tulsa,Softball,The University of Tulsa,90.0,63.0,0.3879,0.3647,0.3763
-211,Dickinson,Baseball,"Fairleigh Dickinson University, Metropolitan Campus",92.0,60.0,0.5308,0.2216,0.3762
-1953,Dickinson,Softball,"Fairleigh Dickinson University, Metropolitan Campus",92.0,60.0,0.5308,0.2216,0.3762
-1106,Marshall,Softball,Marshall University,92.0,60.0,0.5308,0.2216,0.3762
-440,Marshall,Baseball,Marshall University,92.0,60.0,0.5308,0.2216,0.3762
-429,Maine,Baseball,University of Maine,84.0,68.0,0.133,0.5709,0.352
-1378,Maine,Softball,University of Maine,84.0,68.0,0.133,0.5709,0.352
-1316,South Alabama,Softball,University of South Alabama,89.0,63.0,0.3313,0.3647,0.348
-709,South Alabama,Baseball,University of South Alabama,89.0,63.0,0.3313,0.3647,0.348
-1093,Howard,Softball,Howard University,83.0,68.0,0.1084,0.5709,0.3396
-782,Texas A&M,Baseball,"Texas A&M University, College Station",86.0,66.0,0.197,0.4716,0.3343
-1120,Texas A&M,Softball,"Texas A&M University, College Station",86.0,66.0,0.197,0.4716,0.3343
-824,UMBC,Baseball,"University of Maryland, Baltimore County",87.0,65.0,0.2352,0.4227,0.329
-1217,UMBC,Softball,"University of Maryland, Baltimore County",87.0,65.0,0.2352,0.4227,0.329
-843,Utah Valley,Baseball,Utah Valley University,90.0,61.0,0.3879,0.2693,0.3286
-1165,Utah Valley,Softball,Utah Valley University,90.0,61.0,0.3879,0.2693,0.3286
-345,Illinois,Baseball,Eastern Illinois University,89.0,62.0,0.3313,0.3196,0.3254
-1148,Illinois,Softball,Eastern Illinois University,89.0,62.0,0.3313,0.3196,0.3254
-582,Old Dominion,Baseball,Old Dominion University,88.0,63.0,0.282,0.3647,0.3234
-1348,Presbyterian,Softball,Presbyterian College,91.0,59.0,0.4544,0.1765,0.3154
-1376,Memphis,Softball,University of Memphis,91.0,59.0,0.4544,0.1765,0.3154
-622,Presbyterian,Baseball,Presbyterian College,91.0,59.0,0.4544,0.1765,0.3154
-461,Memphis,Baseball,University of Memphis,91.0,59.0,0.4544,0.1765,0.3154
-349,Indiana,Baseball,Indiana State University,87.0,64.0,0.2352,0.3918,0.3135
-417,Longwood,Baseball,Longwood University,87.0,64.0,0.2352,0.3918,0.3135
-1112,Indiana,Softball,Indiana State University,87.0,64.0,0.2352,0.3918,0.3135
-1268,Longwood,Softball,Longwood University,87.0,64.0,0.2352,0.3918,0.3135
-1141,Fla. Atlantic,Softball,Florida Atlantic University,90.0,60.0,0.3879,0.2216,0.3048
-262,Fla. Atlantic,Baseball,Florida Atlantic University,90.0,60.0,0.3879,0.2216,0.3048
-1105,California Baptist,Softball,California Baptist University,90.0,60.0,0.3879,0.2216,0.3048
-116,California Baptist,Baseball,California Baptist University,90.0,60.0,0.3879,0.2216,0.3048
-1123,Utah,Softball,Utah State University,88.0,62.0,0.282,0.3196,0.3008
-841,Utah,Baseball,Utah State University,88.0,62.0,0.282,0.3196,0.3008
-490,Missouri,Baseball,Southeast Missouri State University,88.0,62.0,0.282,0.3196,0.3008
-1282,Missouri,Softball,Southeast Missouri State University,88.0,62.0,0.282,0.3196,0.3008
-289,George Mason,Baseball,George Mason University,88.0,62.0,0.282,0.3196,0.3008
-1318,George Mason,Softball,George Mason University,88.0,62.0,0.282,0.3196,0.3008
-220,East Carolina,Baseball,East Carolina University,89.0,61.0,0.3313,0.2693,0.3003
-1122,East Carolina,Softball,East Carolina University,89.0,61.0,0.3313,0.2693,0.3003
-1195,Arkansas,Softball,Arkansas State University,87.0,63.0,0.2352,0.3647,0.3
-919,Winthrop,Baseball,Winthrop University,87.0,63.0,0.2352,0.3647,0.3
-1307,Winthrop,Softball,Winthrop University,87.0,63.0,0.2352,0.3647,0.3
-36,Arkansas,Baseball,Arkansas State University,87.0,63.0,0.2352,0.3647,0.3
-1267,Montana,Softball,Montana State University-Bozeman,85.0,65.0,0.1663,0.4227,0.2945
-286,Gardner-Webb,Baseball,Gardner-Webb University,90.0,59.0,0.3879,0.1765,0.2822
-1205,Gardner-Webb,Softball,Gardner-Webb University,90.0,59.0,0.3879,0.1765,0.2822
-634,Radford,Baseball,Radford University,91.0,57.0,0.4544,0.107,0.2807
-1290,Radford,Softball,Radford University,91.0,57.0,0.4544,0.107,0.2807
-1159,LSU,Softball,Louisiana State University,88.0,61.0,0.282,0.2693,0.2756
-422,LSU,Baseball,Louisiana State University,88.0,61.0,0.282,0.2693,0.2756
-1270,Hawaii,Softball,"University of Hawaii, Manoa",87.0,61.0,0.2352,0.2693,0.2522
-320,Hawaii,Baseball,"University of Hawaii, Manoa",87.0,61.0,0.2352,0.2693,0.2522
-682,Sam Houston,Baseball,Sam Houston State University,85.0,62.0,0.1663,0.3196,0.243
-1284,Sam Houston,Softball,Sam Houston State University,85.0,62.0,0.1663,0.3196,0.243
-776,Tennessee,Baseball,East Tennessee State University,85.0,62.0,0.1663,0.3196,0.243
-1161,Tennessee,Softball,East Tennessee State University,85.0,62.0,0.1663,0.3196,0.243
-372,Kentucky,Baseball,Eastern Kentucky University,90.0,56.0,0.3879,0.0876,0.2378
-1194,Kentucky,Softball,Eastern Kentucky University,90.0,56.0,0.3879,0.0876,0.2378
-317,Hartford,Baseball,University of Hartford,,66.0,,0.4716,0.2358
-2055,Hartford,Softball,University of Hartford,,66.0,,0.4716,0.2358
-627,Purdue,Baseball,Purdue University Fort Wayne,89.0,58.0,0.3313,0.1353,0.2333
-1298,Purdue,Softball,Purdue University Fort Wayne,89.0,58.0,0.3313,0.1353,0.2333
-337,Houston,Baseball,University of Houston,82.0,63.0,0.0973,0.3647,0.231
-1149,Houston,Softball,University of Houston,82.0,63.0,0.0973,0.3647,0.231
-619,Portland,Baseball,Portland State University,90.0,55.0,0.3879,0.0709,0.2294
-1319,Hampton,Softball,Hampton University,83.0,62.0,0.1084,0.3196,0.214
-1176,Coastal Carolina,Softball,Coastal Carolina University,89.0,56.0,0.3313,0.0876,0.2094
-163,Coastal Carolina,Baseball,Coastal Carolina University,89.0,56.0,0.3313,0.0876,0.2094
-1129,Troy,Softball,Troy University,86.0,60.0,0.197,0.2216,0.2093
-799,Troy,Baseball,Troy University,86.0,60.0,0.197,0.2216,0.2093
-1169,FIU,Softball,Florida International University,88.0,58.0,0.282,0.1353,0.2086
-261,FIU,Baseball,Florida International University,88.0,58.0,0.282,0.1353,0.2086
-7,Akron,Baseball,University of Akron,84.0,61.0,0.133,0.2693,0.2012
-1218,Akron,Softball,University of Akron,84.0,61.0,0.133,0.2693,0.2012
-412,Little Rock,Baseball,University of Arkansas at Little Rock,89.0,55.0,0.3313,0.0709,0.2011
-457,McNeese,Baseball,McNeese State University,83.0,61.0,0.1084,0.2693,0.1888
-1229,McNeese,Softball,McNeese State University,83.0,61.0,0.1084,0.2693,0.1888
-356,Jacksonville,Baseball,Jacksonville State University,86.0,59.0,0.197,0.1765,0.1868
-1334,Jacksonville,Softball,Jacksonville State University,86.0,59.0,0.197,0.1765,0.1868
-587,Oral Roberts,Baseball,Oral Roberts University,89.0,53.0,0.3313,0.0412,0.1862
-1166,Tennessee Tech,Softball,Tennessee Technological University,87.0,58.0,0.2352,0.1353,0.1852
-777,Tennessee Tech,Baseball,Tennessee Technological University,87.0,58.0,0.2352,0.1353,0.1852
-1322,Kansas City,Softball,University of Missouri-Kansas City,88.0,56.0,0.282,0.0876,0.1848
-136,Central Conn. St.,Baseball,Central Connecticut State University,81.0,61.0,0.0874,0.2693,0.1784
-1278,Central Conn. St.,Softball,Central Connecticut State University,81.0,61.0,0.0874,0.2693,0.1784
-1132,Chattanooga,Softball,University of Tennessee at Chattanooga,84.0,60.0,0.133,0.2216,0.1773
-1128,Prairie View,Softball,Prairie View A&M University,76.0,62.0,0.0259,0.3196,0.1727
-621,Prairie View,Baseball,Prairie View A&M University,76.0,62.0,0.0259,0.3196,0.1727
-809,UC Riverside,Baseball,"University of California, Riverside",85.0,59.0,0.1663,0.1765,0.1714
-1236,UC Riverside,Softball,"University of California, Riverside",85.0,59.0,0.1663,0.1765,0.1714
-16,Alcorn,Baseball,Alcorn State University,80.0,61.0,0.0702,0.2693,0.1697
-1362,Alcorn,Softball,Alcorn State University,80.0,61.0,0.0702,0.2693,0.1697
-1085,Texas,Softball,The University of Texas Rio Grande Valley,86.0,58.0,0.197,0.1353,0.1662
-781,Texas,Baseball,The University of Texas Rio Grande Valley,86.0,58.0,0.197,0.1353,0.1662
-527,Nevada,Baseball,"University of Nevada, Reno",87.0,56.0,0.2352,0.0876,0.1614
-1091,Nevada,Softball,"University of Nevada, Reno",87.0,56.0,0.2352,0.0876,0.1614
-531,New Mexico,Baseball,New Mexico State University,84.0,59.0,0.133,0.1765,0.1548
-1101,Washington,Softball,Eastern Washington University,84.0,59.0,0.133,0.1765,0.1548
-870,Washington,Baseball,Eastern Washington University,84.0,59.0,0.133,0.1765,0.1548
-1288,New Mexico,Softball,New Mexico State University,84.0,59.0,0.133,0.1765,0.1548
-1213,Southern Utah,Softball,Southern Utah University,85.0,58.0,0.1663,0.1353,0.1508
-1225,Northwestern,Softball,Northwestern State University,85.0,57.0,0.1663,0.107,0.1366
-559,Northwestern,Baseball,Northwestern State University,85.0,57.0,0.1663,0.107,0.1366
-419,Louisiana,Baseball,University of Louisiana Monroe,81.0,59.0,0.0874,0.1765,0.132
-1102,Louisiana,Softball,University of Louisiana Monroe,81.0,59.0,0.0874,0.1765,0.132
-1287,Southern U.,Softball,"Southern University, Baton Rouge",78.0,60.0,0.0406,0.2216,0.1311
-725,Southern U.,Baseball,"Southern University, Baton Rouge",78.0,60.0,0.0406,0.2216,0.1311
-292,Georgia,Baseball,Georgia Southern University,83.0,58.0,0.1084,0.1353,0.1218
-1151,Georgia,Softball,Georgia Southern University,83.0,58.0,0.1084,0.1353,0.1218
-1273,North Texas,Softball,University of North Texas,83.0,58.0,0.1084,0.1353,0.1218
-1244,Nicholls,Softball,Nicholls State University,84.0,57.0,0.133,0.107,0.12
-537,Nicholls,Baseball,Nicholls State University,84.0,57.0,0.133,0.107,0.12
-533,New Orleans,Baseball,University of New Orleans,86.0,51.0,0.197,0.0335,0.1152
-1259,Louisiana Tech,Softball,Louisiana Tech University,85.0,54.0,0.1663,0.0528,0.1096
-420,Louisiana Tech,Baseball,Louisiana Tech University,85.0,54.0,0.1663,0.0528,0.1096
-786,Texas Tech,Baseball,Texas Tech University,85.0,54.0,0.1663,0.0528,0.1096
-1113,Texas Tech,Softball,Texas Tech University,85.0,54.0,0.1663,0.0528,0.1096
-1347,Grambling,Softball,Grambling State University,80.0,58.0,0.0702,0.1353,0.1028
-301,Grambling,Baseball,Grambling State University,80.0,58.0,0.0702,0.1353,0.1028
-832,UNLV,Baseball,"University of Nevada, Las Vegas",80.0,57.0,0.0702,0.107,0.0886
-1103,UNLV,Softball,"University of Nevada, Las Vegas",80.0,57.0,0.0702,0.107,0.0886
-1210,Texas Southern,Softball,Texas Southern University,81.0,52.0,0.0874,0.0374,0.0624
-784,Texas Southern,Baseball,Texas Southern University,81.0,52.0,0.0874,0.0374,0.0624
-50,Austin,Baseball,Stephen F. Austin State University,79.0,55.0,0.053,0.0709,0.062
-1772,Austin,Softball,Stephen F. Austin State University,79.0,55.0,0.053,0.0709,0.062
-388,Lamar,Baseball,Lamar University,79.0,54.0,0.053,0.0528,0.0529
-1299,Lamar,Softball,Lamar University,79.0,54.0,0.053,0.0528,0.0529
-11,Alabama St.,Baseball,Alabama State University,79.0,54.0,0.053,0.0528,0.0529
-1164,Alabama St.,Softball,Alabama State University,79.0,54.0,0.053,0.0528,0.0529
-1115,Florida A&M,Softball,Florida A&M University,70.0,55.0,0.0086,0.0709,0.0398
-266,Florida A&M,Baseball,Florida A&M University,70.0,55.0,0.0086,0.0709,0.0398
-9,Alabama A&M,Baseball,Alabama A&M University,77.0,48.0,0.0333,0.0219,0.0276
-1295,Alabama A&M,Softball,Alabama A&M University,77.0,48.0,0.0333,0.0219,0.0276
-1340,South Carolina,Softball,South Carolina State University,76.0,48.0,0.0259,0.0219,0.0239
-710,South Carolina,Baseball,South Carolina State University,76.0,48.0,0.0259,0.0219,0.0239
-204,Delaware,Baseball,Delaware State University,74.0,50.0,0.016,0.0296,0.0228
-1153,Delaware,Softball,Delaware State University,74.0,50.0,0.016,0.0296,0.0228
-77,Bethune-Cookman,Baseball,Bethune-Cookman University,78.0,39.0,0.0406,0.0039,0.0222
-1203,Bethune-Cookman,Softball,Bethune-Cookman University,78.0,39.0,0.0406,0.0039,0.0222
-489,Mississippi Val.,Baseball,Mississippi Valley State University,74.0,41.0,0.016,0.009,0.0125
-1375,Mississippi Val.,Softball,Mississippi Valley State University,74.0,41.0,0.016,0.009,0.0125
-2066,Utah Tech,Softball,Utah Tech University,69.0,46.0,0.0037,0.0142,0.009
-842,Utah Tech,Baseball,Utah Tech University,69.0,46.0,0.0037,0.0142,0.009
+team_id,team_name,sport,division,ncaa_school,primary_metric_name,primary_metric_value,fgr,primary_percentile,fgr_percentile,education_percentile
+559,Northwestern,Baseball,D1,Northwestern University,GSR,99.0,94.0,0.9877551020408163,0.997872340425532,0.9928137212331741
+173,Columbia,Baseball,D1,Columbia University-Barnard College,GSR,99.0,,0.9877551020408163,,0.9877551020408163
+182,Cornell,Baseball,D1,Cornell University,GSR,99.0,,0.9877551020408163,,0.9877551020408163
+318,Harvard,Baseball,D1,Harvard University,GSR,99.0,,0.9877551020408163,,0.9877551020408163
+938,Yale,Baseball,D1,Yale University,GSR,99.0,,0.9877551020408163,,0.9877551020408163
+565,Notre Dame,Baseball,D1,University of Notre Dame,GSR,99.0,90.0,0.9877551020408163,0.9829787234042553,0.9853669127225357
+198,Davidson,Baseball,D1,Davidson College,GSR,98.0,92.0,0.9612244897959183,0.9914893617021276,0.976356925749023
+623,Princeton,Baseball,D1,Princeton University,GSR,98.0,,0.9612244897959183,,0.9612244897959183
+855,Villanova,Baseball,D1,Villanova University,GSR,98.0,84.0,0.9612244897959183,0.948936170212766,0.9550803300043422
+753,Stanford,Baseball,D1,Stanford University,GSR,97.0,94.0,0.9040816326530612,0.997872340425532,0.9509769865392965
+644,Richmond,Baseball,D1,University of Richmond,GSR,98.0,81.0,0.9612244897959183,0.9212765957446809,0.9412505427702996
+98,Bucknell,Baseball,D1,Bucknell University,GSR,97.0,87.0,0.9040816326530612,0.9702127659574468,0.937147199305254
+332,Holy Cross,Baseball,D1,College of the Holy Cross,GSR,97.0,87.0,0.9040816326530612,0.9702127659574468,0.937147199305254
+217,Duke,Baseball,D1,Duke University,GSR,97.0,86.0,0.9040816326530612,0.9617021276595744,0.9328918801563177
+291,Georgetown,Baseball,D1,Georgetown University,GSR,97.0,85.0,0.9040816326530612,0.9574468085106383,0.9307642205818498
+299,Gonzaga,Baseball,D1,Gonzaga University,GSR,97.0,84.0,0.9040816326530612,0.948936170212766,0.9265089014329135
+438,Marist,Baseball,D1,Marist University,GSR,97.0,84.0,0.9040816326530612,0.948936170212766,0.9265089014329135
+270,Fordham,Baseball,D1,Fordham University,GSR,97.0,81.0,0.9040816326530612,0.9212765957446809,0.912679114198871
+384,Lafayette,Baseball,D1,Lafayette College,GSR,97.0,81.0,0.9040816326530612,0.9212765957446809,0.912679114198871
+551,Northeastern,Baseball,D1,Northeastern University,GSR,97.0,81.0,0.9040816326530612,0.9212765957446809,0.912679114198871
+96,Brown,Baseball,D1,Brown University,GSR,97.0,,0.9040816326530612,,0.9040816326530612
+196,Dartmouth,Baseball,D1,Dartmouth College,GSR,97.0,,0.9040816326530612,,0.9040816326530612
+397,Lehigh,Baseball,D1,Lehigh University,GSR,96.0,91.0,0.8204081632653061,0.9872340425531915,0.9038211029092488
+239,Elon,Baseball,D1,Elon University,GSR,97.0,80.0,0.9040816326530612,0.8978723404255319,0.9009769865392965
+810,UC San Diego,Baseball,D1,"University of California, San Diego",GSR,96.0,89.0,0.8204081632653061,0.9787234042553191,0.8995657837603126
+694,Seton Hall,Baseball,D1,Seton Hall University,GSR,98.0,76.0,0.9612244897959183,0.8319148936170213,0.8965696917064698
+910,William & Mary,Baseball,D1,William & Mary,GSR,96.0,87.0,0.8204081632653061,0.9702127659574468,0.8953104646113764
+251,Fairfield,Baseball,D1,Fairfield University,GSR,96.0,81.0,0.8204081632653061,0.9212765957446809,0.8708423795049935
+87,Boston College,Baseball,D1,Boston College,GSR,97.0,76.0,0.9040816326530612,0.8319148936170213,0.8679982631350412
+290,George Washington,Baseball,D1,George Washington University,GSR,97.0,76.0,0.9040816326530612,0.8319148936170213,0.8679982631350412
+446,Maryland,Baseball,D1,Loyola University Maryland,GSR,96.0,80.0,0.8204081632653061,0.8978723404255319,0.859140251845419
+633,Quinnipiac,Baseball,D1,Quinnipiac University,GSR,96.0,80.0,0.8204081632653061,0.8978723404255319,0.859140251845419
+97,Bryant,Baseball,D1,Bryant University,GSR,96.0,78.0,0.8204081632653061,0.8723404255319149,0.8463742943986106
+65,Belmont,Baseball,D1,Belmont University,GSR,97.0,74.0,0.9040816326530612,0.7872340425531915,0.8456578376031263
+536,Niagara,Baseball,D1,Niagara University,GSR,96.0,77.0,0.8204081632653061,0.8553191489361702,0.8378636561007382
+852,Vanderbilt,Baseball,D1,Vanderbilt University,GSR,95.0,79.0,0.7571428571428571,0.8851063829787233,0.8211246200607902
+121,Canisius,Baseball,D1,Canisius University,GSR,97.0,72.0,0.9040816326530612,0.7212765957446808,0.812679114198871
+152,Cincinnati,Baseball,D1,University of Cincinnati,GSR,97.0,72.0,0.9040816326530612,0.7212765957446808,0.812679114198871
+607,Pepperdine,Baseball,D1,Pepperdine University,GSR,95.0,77.0,0.7571428571428571,0.8553191489361702,0.8062310030395137
+331,Hofstra,Baseball,D1,Hofstra University,GSR,98.0,70.0,0.9612244897959183,0.6468085106382979,0.8040165002171081
+100,Butler,Baseball,D1,Butler University,GSR,94.0,79.0,0.7020408163265306,0.8851063829787233,0.793573599652627
+470,Miami (OH),Baseball,D1,Miami University (Ohio),GSR,95.0,75.0,0.7571428571428571,0.8106382978723404,0.7838905775075988
+78,Binghamton,Baseball,D1,Binghamton University,GSR,93.0,81.0,0.6326530612244898,0.9212765957446809,0.7769648284845854
+851,Valparaiso,Baseball,D1,Valparaiso University,GSR,93.0,81.0,0.6326530612244898,0.9212765957446809,0.7769648284845854
+90,Bradley,Baseball,D1,Bradley University,GSR,97.0,70.0,0.9040816326530612,0.6468085106382979,0.7754450716456796
+250,Evansville,Baseball,D1,University of Evansville,GSR,95.0,74.0,0.7571428571428571,0.7872340425531915,0.7721884498480243
+160,Clemson,Baseball,D1,Clemson University,GSR,96.0,72.0,0.8204081632653061,0.7212765957446808,0.7708423795049935
+670,Saint Louis,Baseball,D1,Saint Louis University,GSR,96.0,72.0,0.8204081632653061,0.7212765957446808,0.7708423795049935
+937,Xavier,Baseball,D1,Xavier University,GSR,96.0,72.0,0.8204081632653061,0.7212765957446808,0.7708423795049935
+717,Southern California,Baseball,D1,University of Southern California,GSR,94.0,76.0,0.7020408163265306,0.8319148936170213,0.766977854971776
+204,Delaware,Baseball,D1,University of Delaware,GSR,93.0,79.0,0.6326530612244898,0.8851063829787233,0.7588797221016066
+683,Samford,Baseball,D1,Samford University,GSR,97.0,69.0,0.9040816326530612,0.6106382978723405,0.7573599652627008
+62,Baylor,Baseball,D1,Baylor University,GSR,94.0,75.0,0.7020408163265306,0.8106382978723404,0.7563395570994356
+56,Ball St.,Baseball,D1,Ball State University,GSR,94.0,74.0,0.7020408163265306,0.7872340425531915,0.744637429439861
+576,Ohio St.,Baseball,D1,The Ohio State University,GSR,93.0,77.0,0.6326530612244898,0.8553191489361702,0.74398610508033
+599,Penn,Baseball,D1,Pennsylvania State University,GSR,93.0,77.0,0.6326530612244898,0.8553191489361702,0.74398610508033
+643,Rice,Baseball,D1,Rice University,GSR,93.0,77.0,0.6326530612244898,0.8553191489361702,0.74398610508033
+8,Alabama,Baseball,D1,University of Alabama,GSR,96.0,70.0,0.8204081632653061,0.6468085106382979,0.733608336951802
+405,Liberty,Baseball,D1,Liberty University,GSR,94.0,73.0,0.7020408163265306,0.7574468085106383,0.7297438124185844
+640,Rhode Island,Baseball,D1,University of Rhode Island,GSR,94.0,73.0,0.7020408163265306,0.7574468085106383,0.7297438124185844
+684,San Diego,Baseball,D1,University of San Diego,GSR,94.0,73.0,0.7020408163265306,0.7574468085106383,0.7297438124185844
+483,Minnesota,Baseball,D1,"University of Minnesota, Twin Cities",GSR,93.0,75.0,0.6326530612244898,0.8106382978723404,0.7216456795484152
+864,Wake Forest,Baseball,D1,Wake Forest University,GSR,96.0,69.0,0.8204081632653061,0.6106382978723405,0.7155232305688233
+668,Saint Joseph's,Baseball,D1,Saint Joseph's University,GSR,92.0,78.0,0.5551020408163265,0.8723404255319149,0.7137212331741207
+807,UC Davis,Baseball,D1,"University of California, Davis",GSR,91.0,83.0,0.47959183673469385,0.9404255319148936,0.7100086843247937
+432,Manhattan,Baseball,D1,Manhattan University,GSR,93.0,74.0,0.6326530612244898,0.7872340425531915,0.7099435518888406
+522,Navy,Baseball,D1,U.S. Naval Academy,GSR,94.0,,0.7020408163265306,,0.7020408163265306
+353,Iowa,Baseball,D1,Iowa State University,GSR,95.0,70.0,0.7571428571428571,0.6468085106382979,0.7019756838905775
+186,Creighton,Baseball,D1,Creighton University,GSR,97.0,66.0,0.9040816326530612,0.49361702127659574,0.6988493269648285
+736,St. Bonaventure,Baseball,D1,St. Bonaventure University,GSR,96.0,68.0,0.8204081632653061,0.574468085106383,0.6974381241858445
+815,UCLA,Baseball,D1,"University of California, Los Angeles",GSR,92.0,76.0,0.5551020408163265,0.8319148936170213,0.6935084672166739
+573,Ohio,Baseball,D1,Ohio University,GSR,92.0,76.0,0.5551020408163265,0.8319148936170213,0.6935084672166739
+854,VCU,Baseball,D1,Virginia Commonwealth University,GSR,95.0,69.0,0.7571428571428571,0.6106382978723405,0.6838905775075987
+811,UC Santa Barbara,Baseball,D1,"University of California, Santa Barbara",GSR,92.0,75.0,0.5551020408163265,0.8106382978723404,0.6828701693443335
+413,LIU,Baseball,D1,Long Island University,GSR,97.0,65.0,0.9040816326530612,0.4531914893617021,0.6786365610073817
+421,Louisville,Baseball,D1,University of Louisville,GSR,96.0,67.0,0.8204081632653061,0.5340425531914894,0.6772253582283978
+540,NJIT,Baseball,D1,New Jersey Institute of Technology,GSR,93.0,72.0,0.6326530612244898,0.7212765957446808,0.6769648284845853
+702,Siena,Baseball,D1,Siena University,GSR,94.0,70.0,0.7020408163265306,0.6468085106382979,0.6744246634824143
+472,Michigan St.,Baseball,D1,Michigan State University,GSR,90.0,81.0,0.41020408163265304,0.9212765957446809,0.665740338688667
+932,Wofford,Baseball,D1,Wofford College,GSR,93.0,71.0,0.6326530612244898,0.6829787234042554,0.6578158923143727
+863,Wagner,Baseball,D1,Wagner College,GSR,96.0,66.0,0.8204081632653061,0.49361702127659574,0.6570125922709509
+302,Grand Canyon,Baseball,D1,Grand Canyon University,GSR,94.0,69.0,0.7020408163265306,0.6106382978723405,0.6563395570994355
+546,North Dakota St.,Baseball,D1,North Dakota State University,GSR,92.0,73.0,0.5551020408163265,0.7574468085106383,0.6562744246634824
+200,Dayton,Baseball,D1,University of Dayton,GSR,95.0,67.0,0.7571428571428571,0.5340425531914894,0.6455927051671733
+452,Massachusetts,Baseball,D1,University of Massachusetts Lowell,GSR,95.0,67.0,0.7571428571428571,0.5340425531914894,0.6455927051671733
+114,California,Baseball,D1,California Polytechnic State University,GSR,90.0,78.0,0.41020408163265304,0.8723404255319149,0.641272253582284
+693,Seattle U,Baseball,D1,Seattle University,GSR,94.0,68.0,0.7020408163265306,0.574468085106383,0.6382544507164568
+349,Indiana,Baseball,D1,"Indiana University, Bloomington",GSR,92.0,72.0,0.5551020408163265,0.7212765957446808,0.6381893182805036
+888,West Virginia,Baseball,D1,West Virginia University,GSR,96.0,65.0,0.8204081632653061,0.4531914893617021,0.6367998263135041
+547,North Florida,Baseball,D1,University of North Florida,GSR,95.0,66.0,0.7571428571428571,0.49361702127659574,0.6253799392097265
+664,Sacred Heart,Baseball,D1,Sacred Heart University,GSR,91.0,73.0,0.47959183673469385,0.7574468085106383,0.6185193226226661
+326,High Point,Baseball,D1,High Point University,GSR,94.0,67.0,0.7020408163265306,0.5340425531914894,0.61804168475901
+802,Tulane,Baseball,D1,Tulane University,GSR,96.0,63.0,0.8204081632653061,0.39787234042553193,0.609140251845419
+645,Rider,Baseball,D1,Rider University,GSR,95.0,65.0,0.7571428571428571,0.4531914893617021,0.6051671732522796
+347,Illinois St.,Baseball,D1,Illinois State University,GSR,92.0,70.0,0.5551020408163265,0.6468085106382979,0.6009552757273122
+687,San Francisco,Baseball,D1,University of San Francisco,GSR,99.0,59.0,0.9877551020408163,0.21063829787234042,0.5991966999565783
+689,Santa Clara,Baseball,D1,Santa Clara University,GSR,90.0,74.0,0.41020408163265304,0.7872340425531915,0.5987190620929222
+479,Milwaukee,Baseball,D1,University of Wisconsin-Milwaukee,GSR,90.0,74.0,0.41020408163265304,0.7872340425531915,0.5987190620929222
+352,Iona,Baseball,D1,Iona University,GSR,90.0,73.0,0.41020408163265304,0.7574468085106383,0.5838254450716457
+949,La Salle,Baseball,D1,La Salle University,GSR,93.0,67.0,0.6326530612244898,0.5340425531914894,0.5833478072079896
+792,Toledo,Baseball,D1,University of Toledo,GSR,93.0,67.0,0.6326530612244898,0.5340425531914894,0.5833478072079896
+660,Rutgers,Baseball,D1,"Rutgers, The State University of New Jersey, New Brunswick",GSR,92.0,69.0,0.5551020408163265,0.6106382978723405,0.5828701693443334
+817,UIC,Baseball,D1,University of Illinois Chicago,GSR,91.0,71.0,0.47959183673469385,0.6829787234042554,0.5812852800694746
+569,Oakland,Baseball,D1,Oakland University,GSR,91.0,71.0,0.47959183673469385,0.6829787234042554,0.5812852800694746
+411,Lipscomb,Baseball,D1,Lipscomb University,GSR,91.0,71.0,0.47959183673469385,0.6829787234042554,0.5812852800694746
+2,Abilene Christian,Baseball,D1,Abilene Christian University,GSR,92.0,68.0,0.5551020408163265,0.574468085106383,0.5647850629613548
+805,UAB,Baseball,D1,University of Alabama at Birmingham,GSR,92.0,68.0,0.5551020408163265,0.574468085106383,0.5647850629613548
+525,Nebraska,Baseball,D1,University of Nebraska-Lincoln,GSR,92.0,68.0,0.5551020408163265,0.574468085106383,0.5647850629613548
+761,Stony Brook,Baseball,D1,Stony Brook University,GSR,92.0,68.0,0.5551020408163265,0.574468085106383,0.5647850629613548
+816,UConn,Baseball,D1,University of Connecticut,GSR,91.0,70.0,0.47959183673469385,0.6468085106382979,0.5632001736864959
+509,Mount St. Mary's,Baseball,D1,Mount St. Mary's University,GSR,93.0,66.0,0.6326530612244898,0.49361702127659574,0.5631350412505428
+356,Jacksonville,Baseball,D1,Jacksonville University,GSR,95.0,62.0,0.7571428571428571,0.34893617021276596,0.5530395136778116
+371,Kent St.,Baseball,D1,Kent State University,GSR,90.0,71.0,0.41020408163265304,0.6829787234042554,0.5465914025184542
+32,Arizona St.,Baseball,D1,Arizona State University,GSR,93.0,65.0,0.6326530612244898,0.4531914893617021,0.542922275293096
+462,Mercer,Baseball,D1,Mercer University,GSR,93.0,65.0,0.6326530612244898,0.4531914893617021,0.542922275293096
+466,Merrimack,Baseball,D1,Merrimack College,GSR,89.0,72.0,0.3510204081632653,0.7212765957446808,0.5361485019539731
+499,Monmouth,Baseball,D1,Monmouth University,GSR,89.0,72.0,0.3510204081632653,0.7212765957446808,0.5361485019539731
+675,Saint Peter's,Baseball,D1,Saint Peter's University,GSR,95.0,61.0,0.7571428571428571,0.3,0.5285714285714286
+358,James Madison,Baseball,D1,James Madison University,GSR,90.0,70.0,0.41020408163265304,0.6468085106382979,0.5285062961354755
+627,Purdue,Baseball,D1,Purdue University,GSR,90.0,70.0,0.41020408163265304,0.6468085106382979,0.5285062961354755
+808,UC Irvine,Baseball,D1,"University of California, Irvine",GSR,88.0,73.0,0.29591836734693877,0.7574468085106383,0.5266825879287885
+469,Miami (FL),Baseball,D1,University of Miami (Florida),GSR,94.0,62.0,0.7020408163265306,0.34893617021276596,0.5254884932696483
+43,Auburn,Baseball,D1,Auburn University,GSR,92.0,66.0,0.5551020408163265,0.49361702127659574,0.5243595310464612
+543,North Carolina,Baseball,D1,University of North Carolina Asheville,GSR,92.0,66.0,0.5551020408163265,0.49361702127659574,0.5243595310464612
+488,Mississippi St.,Baseball,D1,Mississippi State University,GSR,96.0,59.0,0.8204081632653061,0.21063829787234042,0.5155232305688232
+120,Campbell,Baseball,D1,Campbell University,GSR,93.0,63.0,0.6326530612244898,0.39787234042553193,0.5152627008250109
+367,Kansas St.,Baseball,D1,Kansas State University,GSR,93.0,63.0,0.6326530612244898,0.39787234042553193,0.5152627008250109
+64,Bellarmine,Baseball,D1,Bellarmine University,GSR,87.0,74.0,0.24285714285714285,0.7872340425531915,0.5150455927051671
+366,Kansas,Baseball,D1,University of Kansas,GSR,90.0,69.0,0.41020408163265304,0.6106382978723405,0.5104211897524967
+51,Austin Peay,Baseball,D1,Austin Peay State University,GSR,91.0,67.0,0.47959183673469385,0.5340425531914894,0.5068171949630916
+89,Bowling Green,Baseball,D1,Bowling Green State University,GSR,91.0,67.0,0.47959183673469385,0.5340425531914894,0.5068171949630916
+846,UTSA,Baseball,D1,University of Texas at San Antonio,GSR,92.0,65.0,0.5551020408163265,0.4531914893617021,0.5041467650890143
+793,Towson,Baseball,D1,Towson University,GSR,90.0,68.0,0.41020408163265304,0.574468085106383,0.49233608336951806
+740,St. John's (NY),Baseball,D1,St. John's University (New York),GSR,93.0,62.0,0.6326530612244898,0.34893617021276596,0.4907946157186279
+806,UAlbany,Baseball,D1,University at Albany,GSR,88.0,71.0,0.29591836734693877,0.6829787234042554,0.48944854537559707
+685,San Diego St.,Baseball,D1,San Diego State University,GSR,88.0,71.0,0.29591836734693877,0.6829787234042554,0.48944854537559707
+29,App State,Baseball,D1,Appalachian State University,GSR,91.0,66.0,0.47959183673469385,0.49361702127659574,0.4866044290056448
+471,Michigan,Baseball,D1,Central Michigan University,GSR,89.0,69.0,0.3510204081632653,0.6106382978723405,0.4808293530178029
+813,UCF,Baseball,D1,University of Central Florida,GSR,94.0,60.0,0.7020408163265306,0.2574468085106383,0.47974381241858444
+614,Pittsburgh,Baseball,D1,University of Pittsburgh,GSR,94.0,60.0,0.7020408163265306,0.2574468085106383,0.47974381241858444
+6,Air Force,Baseball,D1,U.S. Air Force Academy,GSR,91.0,,0.47959183673469385,,0.47959183673469385
+39,Army West Point,Baseball,D1,U.S. Military Academy,GSR,91.0,,0.47959183673469385,,0.47959183673469385
+267,Florida St.,Baseball,D1,Florida State University,GSR,91.0,65.0,0.47959183673469385,0.4531914893617021,0.466391663048198
+595,Pacific,Baseball,D1,University of the Pacific,GSR,93.0,61.0,0.6326530612244898,0.3,0.46632653061224494
+581,Oklahoma St.,Baseball,D1,Oklahoma State University,GSR,92.0,62.0,0.5551020408163265,0.34893617021276596,0.45201910551454627
+936,Wright St.,Baseball,D1,Wright State University,GSR,91.0,63.0,0.47959183673469385,0.39787234042553193,0.4387320885801129
+756,Stetson,Baseball,D1,Stetson University,GSR,91.0,62.0,0.47959183673469385,0.34893617021276596,0.41426400347372994
+856,Virginia,Baseball,D1,Virginia Military Institute,GSR,84.0,71.0,0.13877551020408163,0.6829787234042554,0.4108771168041685
+775,TCU,Baseball,D1,Texas Christian University,GSR,87.0,68.0,0.24285714285714285,0.574468085106383,0.40866261398176296
+788,The Citadel,Baseball,D1,The Citadel,GSR,86.0,69.0,0.20408163265306123,0.6106382978723405,0.40735996526270085
+440,Marshall,Baseball,D1,Marshall University,GSR,92.0,60.0,0.5551020408163265,0.2574468085106383,0.4062744246634824
+516,Murray St.,Baseball,D1,Murray State University,GSR,92.0,60.0,0.5551020408163265,0.2574468085106383,0.4062744246634824
+589,Oregon St.,Baseball,D1,Oregon State University,GSR,89.0,65.0,0.3510204081632653,0.4531914893617021,0.40210594876248373
+838,UT Arlington,Baseball,D1,University of Texas at Arlington,GSR,89.0,65.0,0.3510204081632653,0.4531914893617021,0.40210594876248373
+101,BYU,Baseball,D1,Brigham Young University,GSR,80.0,72.0,0.07346938775510205,0.7212765957446808,0.39737299174989144
+338,Houston Christian,Baseball,D1,Houston Christian University,GSR,88.0,66.0,0.29591836734693877,0.49361702127659574,0.3947676943117673
+711,South Dakota St.,Baseball,D1,South Dakota State University,GSR,87.0,67.0,0.24285714285714285,0.5340425531914894,0.38844984802431615
+709,South Alabama,Baseball,D1,University of South Alabama,GSR,89.0,63.0,0.3510204081632653,0.39787234042553193,0.37444637429439864
+294,Georgia St.,Baseball,D1,Georgia State University,GSR,88.0,64.0,0.29591836734693877,0.425531914893617,0.36072514112027787
+429,Maine,Baseball,D1,University of Maine,GSR,84.0,68.0,0.13877551020408163,0.574468085106383,0.35662179765523233
+843,Utah Valley,Baseball,D1,Utah Valley University,GSR,90.0,61.0,0.41020408163265304,0.3,0.3551020408163265
+345,Illinois,Baseball,D1,Eastern Illinois University,GSR,89.0,62.0,0.3510204081632653,0.34893617021276596,0.34997828918801566
+782,Texas A&M,Baseball,D1,"Texas A&M University, College Station",GSR,86.0,66.0,0.20408163265306123,0.49361702127659574,0.3488493269648285
+824,UMBC,Baseball,D1,"University of Maryland, Baltimore County",GSR,87.0,65.0,0.24285714285714285,0.4531914893617021,0.34802431610942247
+582,Old Dominion,Baseball,D1,Old Dominion University,GSR,88.0,63.0,0.29591836734693877,0.39787234042553193,0.3468953538862354
+31,Arizona,Baseball,D1,University of Arizona,GSR,92.0,57.0,0.5551020408163265,0.13617021276595745,0.345636126791142
+461,Memphis,Baseball,D1,University of Memphis,GSR,91.0,59.0,0.47959183673469385,0.21063829787234042,0.34511506730351715
+622,Presbyterian,Baseball,D1,Presbyterian College,GSR,91.0,59.0,0.47959183673469385,0.21063829787234042,0.34511506730351715
+351,Indiana St.,Baseball,D1,Indiana State University,GSR,87.0,64.0,0.24285714285714285,0.425531914893617,0.3341945288753799
+417,Longwood,Baseball,D1,Longwood University,GSR,87.0,64.0,0.24285714285714285,0.425531914893617,0.3341945288753799
+265,Florida,Baseball,D1,Florida Atlantic University,GSR,90.0,60.0,0.41020408163265304,0.2574468085106383,0.3338254450716457
+116,California Baptist,Baseball,D1,California Baptist University,GSR,90.0,60.0,0.41020408163265304,0.2574468085106383,0.3338254450716457
+220,East Carolina,Baseball,D1,East Carolina University,GSR,89.0,61.0,0.3510204081632653,0.3,0.32551020408163267
+942,Youngstown St.,Baseball,D1,Youngstown State University,GSR,83.0,67.0,0.11224489795918367,0.5340425531914894,0.32314372557533655
+289,George Mason,Baseball,D1,George Mason University,GSR,88.0,62.0,0.29591836734693877,0.34893617021276596,0.3224272687798524
+492,Missouri St.,Baseball,D1,Southeast Missouri State University,GSR,88.0,62.0,0.29591836734693877,0.34893617021276596,0.3224272687798524
+37,Arkansas St.,Baseball,D1,Arkansas State University,GSR,87.0,63.0,0.24285714285714285,0.39787234042553193,0.3203647416413374
+919,Winthrop,Baseball,D1,Winthrop University,GSR,87.0,63.0,0.24285714285714285,0.39787234042553193,0.3203647416413374
+286,Gardner-Webb,Baseball,D1,Gardner-Webb University,GSR,90.0,59.0,0.41020408163265304,0.21063829787234042,0.3104211897524967
+634,Radford,Baseball,D1,Radford University,GSR,91.0,57.0,0.47959183673469385,0.13617021276595745,0.30788102475032564
+819,UIW,Baseball,D1,University of the Incarnate Word,GSR,86.0,63.0,0.20408163265306123,0.39787234042553193,0.3009769865392966
+419,Louisiana,Baseball,D1,Louisiana State University,GSR,88.0,61.0,0.29591836734693877,0.3,0.2979591836734694
+580,Oklahoma,Baseball,D1,University of Oklahoma,GSR,86.0,62.0,0.20408163265306123,0.34893617021276596,0.2765089014329136
+320,Hawaii,Baseball,D1,"University of Hawaii, Manoa",GSR,87.0,61.0,0.24285714285714285,0.3,0.2714285714285714
+1,A&M-Corpus Christi,Baseball,D1,Texas A&M University-Corpus Christi,GSR,91.0,53.0,0.47959183673469385,0.05319148936170213,0.266391663048198
+776,Tennessee,Baseball,D1,East Tennessee State University,GSR,85.0,62.0,0.17346938775510204,0.34893617021276596,0.261202778983934
+682,Sam Houston,Baseball,D1,Sam Houston State University,GSR,85.0,62.0,0.17346938775510204,0.34893617021276596,0.261202778983934
+785,Texas St.,Baseball,D1,Texas State University,GSR,85.0,62.0,0.17346938775510204,0.34893617021276596,0.261202778983934
+628,Purdue Fort Wayne,Baseball,D1,Purdue University Fort Wayne,GSR,89.0,58.0,0.3510204081632653,0.1702127659574468,0.26061658706035606
+906,Wichita St.,Baseball,D1,Wichita State University,GSR,89.0,58.0,0.3510204081632653,0.1702127659574468,0.26061658706035606
+372,Kentucky,Baseball,D1,Eastern Kentucky University,GSR,90.0,56.0,0.41020408163265304,0.10638297872340426,0.25829353017802864
+370,Kennesaw St.,Baseball,D1,Kennesaw State University,GSR,87.0,60.0,0.24285714285714285,0.2574468085106383,0.2501519756838906
+337,Houston,Baseball,D1,University of Houston,GSR,82.0,63.0,0.10204081632653061,0.39787234042553193,0.24995657837603127
+619,Portland,Baseball,D1,Portland State University,GSR,90.0,55.0,0.41020408163265304,0.0851063829787234,0.24765523230568823
+355,Jackson St.,Baseball,D1,Jackson State University,GSR,88.0,58.0,0.29591836734693877,0.1702127659574468,0.2330655666521928
+799,Troy,Baseball,D1,Troy University,GSR,86.0,60.0,0.20408163265306123,0.2574468085106383,0.23076422058184975
+163,Coastal Carolina,Baseball,D1,Coastal Carolina University,GSR,89.0,56.0,0.3510204081632653,0.10638297872340426,0.22870169344333477
+872,Washington St.,Baseball,D1,Washington State University,GSR,87.0,59.0,0.24285714285714285,0.21063829787234042,0.22674772036474164
+7,Akron,Baseball,D1,University of Akron,GSR,84.0,61.0,0.13877551020408163,0.3,0.2193877551020408
+412,Little Rock,Baseball,D1,University of Arkansas at Little Rock,GSR,89.0,55.0,0.3510204081632653,0.0851063829787234,0.21806339557099436
+36,Arkansas,Baseball,D1,"University of Arkansas, Fayetteville",GSR,88.0,57.0,0.29591836734693877,0.13617021276595745,0.2160442900564481
+588,Oregon,Baseball,D1,University of Oregon,GSR,88.0,57.0,0.29591836734693877,0.13617021276595745,0.2160442900564481
+357,Jacksonville St.,Baseball,D1,Jacksonville State University,GSR,86.0,59.0,0.20408163265306123,0.21063829787234042,0.20735996526270084
+457,McNeese,Baseball,D1,McNeese State University,GSR,83.0,61.0,0.11224489795918367,0.3,0.20612244897959184
+587,Oral Roberts,Baseball,D1,Oral Roberts University,GSR,89.0,53.0,0.3510204081632653,0.05319148936170213,0.20210594876248372
+490,Missouri,Baseball,D1,University of Missouri-Kansas City,GSR,88.0,56.0,0.29591836734693877,0.10638297872340426,0.2011506730351715
+891,Western Caro.,Baseball,D1,Western Carolina University,GSR,84.0,60.0,0.13877551020408163,0.2574468085106383,0.19811115935735996
+136,Central Conn. St.,Baseball,D1,Central Connecticut State University,GSR,81.0,61.0,0.09183673469387756,0.3,0.19591836734693877
+809,UC Riverside,Baseball,D1,"University of California, Riverside",GSR,85.0,59.0,0.17346938775510204,0.21063829787234042,0.19205384281372123
+621,Prairie View,Baseball,D1,Prairie View A&M University,GSR,76.0,62.0,0.026530612244897958,0.34893617021276596,0.18773339122883195
+16,Alcorn,Baseball,D1,Alcorn State University,GSR,80.0,61.0,0.07346938775510205,0.3,0.186734693877551
+416,Long Beach St.,Baseball,D1,Long Beach State University,GSR,84.0,59.0,0.13877551020408163,0.21063829787234042,0.17470690403821104
+870,Washington,Baseball,D1,Eastern Washington University,GSR,84.0,59.0,0.13877551020408163,0.21063829787234042,0.17470690403821104
+532,New Mexico St.,Baseball,D1,New Mexico State University,GSR,84.0,59.0,0.13877551020408163,0.21063829787234042,0.17470690403821104
+527,Nevada,Baseball,D1,"University of Nevada, Reno",GSR,87.0,56.0,0.24285714285714285,0.10638297872340426,0.17462006079027356
+841,Utah,Baseball,D1,Southern Utah University,GSR,85.0,58.0,0.17346938775510204,0.1702127659574468,0.17184107685627442
+531,New Mexico,Baseball,D1,University of New Mexico,GSR,88.0,50.0,0.29591836734693877,0.031914893617021274,0.16391663048198002
+561,Northwestern St.,Baseball,D1,Northwestern State University,GSR,85.0,57.0,0.17346938775510204,0.13617021276595745,0.15481980026052974
+725,Southern U.,Baseball,D1,"Southern University, Baton Rouge",GSR,78.0,60.0,0.03877551020408163,0.2574468085106383,0.14811115935735997
+292,Georgia,Baseball,D1,Georgia Southern University,GSR,83.0,58.0,0.11224489795918367,0.1702127659574468,0.14122883195831523
+781,Texas,Baseball,D1,University of North Texas,GSR,83.0,58.0,0.11224489795918367,0.1702127659574468,0.14122883195831523
+537,Nicholls,Baseball,D1,Nicholls State University,GSR,84.0,57.0,0.13877551020408163,0.13617021276595745,0.13747286148501953
+505,Morehead St.,Baseball,D1,Morehead State University,GSR,79.0,59.0,0.053061224489795916,0.21063829787234042,0.13184976118106817
+722,Southern Miss.,Baseball,D1,The University of Southern Mississippi,GSR,84.0,56.0,0.13877551020408163,0.10638297872340426,0.12257924446374294
+533,New Orleans,Baseball,D1,University of New Orleans,GSR,86.0,51.0,0.20408163265306123,0.04042553191489362,0.12225358228397742
+301,Grambling,Baseball,D1,Grambling State University,GSR,80.0,58.0,0.07346938775510205,0.1702127659574468,0.12184107685627443
+420,Louisiana Tech,Baseball,D1,Louisiana Tech University,GSR,85.0,54.0,0.17346938775510204,0.06595744680851064,0.11971341728180634
+786,Texas Tech,Baseball,D1,Texas Tech University,GSR,85.0,54.0,0.17346938775510204,0.06595744680851064,0.11971341728180634
+144,Charleston So.,Baseball,D1,Charleston Southern University,GSR,81.0,57.0,0.09183673469387756,0.13617021276595745,0.11400347372991751
+832,UNLV,Baseball,D1,"University of Nevada, Las Vegas",GSR,80.0,57.0,0.07346938775510205,0.13617021276595745,0.10481980026052976
+541,Norfolk St.,Baseball,D1,Norfolk State University,GSR,79.0,57.0,0.053061224489795916,0.13617021276595745,0.09461571862787668
+688,San Jose St.,Baseball,D1,San Jose State University,GSR,80.0,55.0,0.07346938775510205,0.0851063829787234,0.07928788536691272
+784,Texas Southern,Baseball,D1,Texas Southern University,GSR,81.0,52.0,0.09183673469387756,0.04680851063829787,0.06932262266608771
+697,SFA,Baseball,D1,Stephen F. Austin State University,GSR,79.0,55.0,0.053061224489795916,0.0851063829787234,0.06908380373425965
+11,Alabama St.,Baseball,D1,Alabama State University,GSR,79.0,54.0,0.053061224489795916,0.06595744680851064,0.059509335649153276
+388,Lamar,Baseball,D1,Lamar University,GSR,79.0,54.0,0.053061224489795916,0.06595744680851064,0.059509335649153276
+181,Coppin St.,Baseball,D1,Coppin State University,GSR,81.0,43.0,0.09183673469387756,0.01276595744680851,0.052301346070343036
+266,Florida A&M,Baseball,D1,Florida A&M University,GSR,70.0,55.0,0.00816326530612245,0.0851063829787234,0.046634824142422926
+9,Alabama A&M,Baseball,D1,Alabama A&M University,GSR,77.0,48.0,0.0326530612244898,0.023404255319148935,0.028028658271819367
+773,Tarleton St.,Baseball,D1,Tarleton State University,GSR,73.0,51.0,0.012244897959183673,0.04042553191489362,0.026335214937038647
+205,Delaware St.,Baseball,D1,Delaware State University,GSR,74.0,50.0,0.018367346938775512,0.031914893617021274,0.025141120277898395
+710,South Carolina,Baseball,D1,South Carolina State University,GSR,76.0,48.0,0.026530612244897958,0.023404255319148935,0.024967433782023447
+77,Bethune-Cookman,Baseball,D1,Bethune-Cookman University,GSR,78.0,39.0,0.03877551020408163,0.00425531914893617,0.0215154146765089
+489,Mississippi Val.,Baseball,D1,Mississippi Valley State University,GSR,74.0,41.0,0.018367346938775512,0.00851063829787234,0.013438992618323927
+842,Utah Tech,Baseball,D1,Utah Tech University,GSR,69.0,46.0,0.004081632653061225,0.01702127659574468,0.010551454624402953
+1225,Northwestern,Softball,D1,Northwestern University,GSR,99.0,94.0,0.9879032258064516,0.9979166666666667,0.9929099462365591
+1256,Columbia,Softball,D1,Columbia University-Barnard College,GSR,99.0,,0.9879032258064516,,0.9879032258064516
+1220,Cornell,Softball,D1,Cornell University,GSR,99.0,,0.9879032258064516,,0.9879032258064516
+1110,Harvard,Softball,D1,Harvard University,GSR,99.0,,0.9879032258064516,,0.9879032258064516
+1237,Yale,Softball,D1,Yale University,GSR,99.0,,0.9879032258064516,,0.9879032258064516
+1158,Notre Dame,Softball,D1,University of Notre Dame,GSR,99.0,90.0,0.9879032258064516,0.9833333333333333,0.9856182795698925
+1266,Colgate,Softball,D1,Colgate University,GSR,98.0,92.0,0.9637096774193549,0.9916666666666667,0.9776881720430108
+1186,Princeton,Softball,D1,Princeton University,GSR,98.0,,0.9637096774193549,,0.9637096774193549
+1254,Villanova,Softball,D1,Villanova University,GSR,98.0,84.0,0.9637096774193549,0.95625,0.9599798387096774
+1221,Stanford,Softball,D1,Stanford University,GSR,97.0,94.0,0.9153225806451613,0.9979166666666667,0.9566196236559139
+1344,Bucknell,Softball,D1,Bucknell University,GSR,97.0,87.0,0.9153225806451613,0.9729166666666667,0.944119623655914
+1306,Holy Cross,Softball,D1,College of the Holy Cross,GSR,97.0,87.0,0.9153225806451613,0.9729166666666667,0.944119623655914
+1098,Duke,Softball,D1,Duke University,GSR,97.0,86.0,0.9153225806451613,0.9666666666666667,0.9409946236559139
+1353,Georgetown,Softball,D1,Georgetown University,GSR,97.0,85.0,0.9153225806451613,0.9625,0.9389112903225807
+1111,Marist,Softball,D1,Marist University,GSR,97.0,84.0,0.9153225806451613,0.95625,0.9357862903225806
+1184,Fordham,Softball,D1,Fordham University,GSR,97.0,81.0,0.9153225806451613,0.9354166666666667,0.9253696236559139
+1379,Lafayette,Softball,D1,Lafayette College,GSR,97.0,81.0,0.9153225806451613,0.9354166666666667,0.9253696236559139
+1257,Brown,Softball,D1,Brown University,GSR,97.0,,0.9153225806451613,,0.9153225806451613
+1198,Dartmouth,Softball,D1,Dartmouth College,GSR,97.0,,0.9153225806451613,,0.9153225806451613
+1131,Lehigh,Softball,D1,Lehigh University,GSR,96.0,91.0,0.842741935483871,0.9875,0.9151209677419355
+1239,Elon,Softball,D1,Elon University,GSR,97.0,80.0,0.9153225806451613,0.9145833333333333,0.9149529569892473
+2064,UC San Diego,Softball,D1,"University of California, San Diego",GSR,96.0,89.0,0.842741935483871,0.9791666666666666,0.9109543010752688
+1197,Seton Hall,Softball,D1,Seton Hall University,GSR,98.0,76.0,0.9637096774193549,0.8541666666666666,0.9089381720430108
+1310,Fairfield,Softball,D1,Fairfield University,GSR,96.0,81.0,0.842741935483871,0.9354166666666667,0.8890793010752689
+1324,Boston College,Softball,D1,Boston College,GSR,97.0,76.0,0.9153225806451613,0.8541666666666666,0.884744623655914
+1136,George Washington,Softball,D1,George Washington University,GSR,97.0,76.0,0.9153225806451613,0.8541666666666666,0.884744623655914
+1200,Maryland,Softball,D1,Loyola University Maryland,GSR,96.0,80.0,0.842741935483871,0.9145833333333333,0.8786626344086022
+1289,Quinnipiac,Softball,D1,Quinnipiac University,GSR,96.0,80.0,0.842741935483871,0.9145833333333333,0.8786626344086022
+1135,Bryant,Softball,D1,Bryant University,GSR,96.0,78.0,0.842741935483871,0.8875,0.8651209677419355
+1269,Belmont,Softball,D1,Belmont University,GSR,97.0,74.0,0.9153225806451613,0.8083333333333333,0.8618279569892473
+1145,Niagara,Softball,D1,Niagara University,GSR,96.0,77.0,0.842741935483871,0.875,0.8588709677419355
+1283,Canisius,Softball,D1,Canisius University,GSR,97.0,72.0,0.9153225806451613,0.7458333333333333,0.8305779569892473
+1280,Furman,Softball,D1,Furman University,GSR,96.0,74.0,0.842741935483871,0.8083333333333333,0.8255376344086022
+1336,Drexel,Softball,D1,Drexel University,GSR,94.0,80.0,0.7318548387096774,0.9145833333333333,0.8232190860215054
+1294,Loyola Chicago,Softball,D1,Loyola University Chicago,GSR,95.0,76.0,0.7842741935483871,0.8541666666666666,0.8192204301075269
+1214,Butler,Softball,D1,Butler University,GSR,94.0,79.0,0.7318548387096774,0.9,0.8159274193548387
+1262,Wisconsin,Softball,D1,University of Wisconsin-Madison,GSR,94.0,79.0,0.7318548387096774,0.9,0.8159274193548387
+1341,Hofstra,Softball,D1,Hofstra University,GSR,98.0,70.0,0.9637096774193549,0.6666666666666666,0.8151881720430108
+1087,Miami (OH),Softball,D1,Miami University (Ohio),GSR,95.0,75.0,0.7842741935483871,0.83125,0.8077620967741936
+1211,Binghamton,Softball,D1,Binghamton University,GSR,93.0,81.0,0.6633064516129032,0.9354166666666667,0.7993615591397849
+1363,Valparaiso,Softball,D1,Valparaiso University,GSR,93.0,81.0,0.6633064516129032,0.9354166666666667,0.7993615591397849
+1313,Evansville,Softball,D1,University of Evansville,GSR,95.0,74.0,0.7842741935483871,0.8083333333333333,0.7963037634408603
+1144,Clemson,Softball,D1,Clemson University,GSR,96.0,72.0,0.842741935483871,0.7458333333333333,0.7942876344086022
+1212,Saint Louis,Softball,D1,Saint Louis University,GSR,96.0,72.0,0.842741935483871,0.7458333333333333,0.7942876344086022
+1300,Bradley,Softball,D1,Bradley University,GSR,97.0,70.0,0.9153225806451613,0.6666666666666666,0.790994623655914
+1201,Providence,Softball,D1,Providence College,GSR,95.0,73.0,0.7842741935483871,0.7791666666666667,0.7817204301075269
+1153,Delaware,Softball,D1,University of Delaware,GSR,93.0,79.0,0.6633064516129032,0.9,0.7816532258064517
+1170,Baylor,Softball,D1,Baylor University,GSR,94.0,75.0,0.7318548387096774,0.83125,0.7815524193548387
+1179,Samford,Softball,D1,Samford University,GSR,97.0,69.0,0.9153225806451613,0.6354166666666666,0.775369623655914
+1228,Ball St.,Softball,D1,Ball State University,GSR,94.0,74.0,0.7318548387096774,0.8083333333333333,0.7700940860215053
+1139,Ohio St.,Softball,D1,The Ohio State University,GSR,93.0,77.0,0.6633064516129032,0.875,0.7691532258064516
+1265,Penn,Softball,D1,Pennsylvania State University,GSR,93.0,77.0,0.6633064516129032,0.875,0.7691532258064516
+1192,Drake,Softball,D1,Drake University,GSR,93.0,76.0,0.6633064516129032,0.8541666666666666,0.758736559139785
+1277,Liberty,Softball,D1,Liberty University,GSR,94.0,73.0,0.7318548387096774,0.7791666666666667,0.755510752688172
+1329,Rhode Island,Softball,D1,University of Rhode Island,GSR,94.0,73.0,0.7318548387096774,0.7791666666666667,0.755510752688172
+1246,San Diego,Softball,D1,University of San Diego,GSR,94.0,73.0,0.7318548387096774,0.7791666666666667,0.755510752688172
+1308,Alabama,Softball,D1,University of Alabama,GSR,96.0,70.0,0.842741935483871,0.6666666666666666,0.7547043010752688
+1137,Minnesota,Softball,D1,"University of Minnesota, Twin Cities",GSR,93.0,75.0,0.6633064516129032,0.83125,0.7472782258064516
+1352,Manhattan,Softball,D1,Manhattan University,GSR,93.0,74.0,0.6633064516129032,0.8083333333333333,0.7358198924731183
+1238,Saint Joseph's,Softball,D1,Saint Joseph's University,GSR,92.0,78.0,0.5826612903225806,0.8875,0.7350806451612903
+1338,UC Davis,Softball,D1,"University of California, Davis",GSR,91.0,83.0,0.5020161290322581,0.95,0.7260080645161291
+1227,Iowa St.,Softball,D1,Iowa State University,GSR,95.0,70.0,0.7842741935483871,0.6666666666666666,0.7254704301075269
+1380,St. Bonaventure,Softball,D1,St. Bonaventure University,GSR,96.0,68.0,0.842741935483871,0.6020833333333333,0.7224126344086022
+1104,UCLA,Softball,D1,"University of California, Los Angeles",GSR,92.0,76.0,0.5826612903225806,0.8541666666666666,0.7184139784946236
+1202,Ohio,Softball,D1,Ohio University,GSR,92.0,76.0,0.5826612903225806,0.8541666666666666,0.7184139784946236
+1190,Creighton,Softball,D1,Creighton University,GSR,97.0,66.0,0.9153225806451613,0.51875,0.7170362903225806
+1123,Utah,Softball,D1,University of Utah,GSR,95.0,69.0,0.7842741935483871,0.6354166666666666,0.7098454301075269
+1157,UC Santa Barbara,Softball,D1,"University of California, Santa Barbara",GSR,92.0,75.0,0.5826612903225806,0.83125,0.7069556451612904
+1208,Louisville,Softball,D1,University of Louisville,GSR,96.0,67.0,0.842741935483871,0.5604166666666667,0.7015793010752689
+1264,Siena,Softball,D1,Siena University,GSR,94.0,70.0,0.7318548387096774,0.6666666666666666,0.699260752688172
+1253,LIU,Softball,D1,Long Island University,GSR,97.0,65.0,0.9153225806451613,0.46875,0.6920362903225806
+1271,UNI,Softball,D1,American University,GSR,93.0,71.0,0.6633064516129032,0.70625,0.6847782258064516
+1358,Wofford,Softball,D1,Wofford College,GSR,93.0,71.0,0.6633064516129032,0.70625,0.6847782258064516
+1092,Grand Canyon,Softball,D1,Grand Canyon University,GSR,94.0,69.0,0.7318548387096774,0.6354166666666666,0.683635752688172
+1320,Michigan St.,Softball,D1,Michigan State University,GSR,90.0,81.0,0.4274193548387097,0.9354166666666667,0.6814180107526882
+1350,North Dakota St.,Softball,D1,North Dakota State University,GSR,92.0,73.0,0.5826612903225806,0.7791666666666667,0.6809139784946237
+1366,Wagner,Softball,D1,Wagner College,GSR,96.0,66.0,0.842741935483871,0.51875,0.6807459677419355
+1189,Dayton,Softball,D1,University of Dayton,GSR,95.0,67.0,0.7842741935483871,0.5604166666666667,0.6723454301075269
+1351,Massachusetts,Softball,D1,University of Massachusetts Lowell,GSR,95.0,67.0,0.7842741935483871,0.5604166666666667,0.6723454301075269
+1127,Seattle U,Softball,D1,Seattle University,GSR,94.0,68.0,0.7318548387096774,0.6020833333333333,0.6669690860215054
+1112,Indiana,Softball,D1,"Indiana University, Bloomington",GSR,92.0,72.0,0.5826612903225806,0.7458333333333333,0.664247311827957
+1118,California,Softball,D1,California Polytechnic State University,GSR,90.0,78.0,0.4274193548387097,0.8875,0.6574596774193548
+2067,West Virginia,Softball,D1,West Virginia University,GSR,96.0,65.0,0.842741935483871,0.46875,0.6557459677419355
+1255,North Florida,Softball,D1,University of North Florida,GSR,95.0,66.0,0.7842741935483871,0.51875,0.6515120967741936
+1311,Sacred Heart,Softball,D1,Sacred Heart University,GSR,91.0,73.0,0.5020161290322581,0.7791666666666667,0.6405913978494624
+1232,Rider,Softball,D1,Rider University,GSR,95.0,65.0,0.7842741935483871,0.46875,0.6265120967741935
+1258,Illinois St.,Softball,D1,Illinois State University,GSR,92.0,70.0,0.5826612903225806,0.6666666666666666,0.6246639784946236
+1125,Boise St.,Softball,D1,Boise State University,GSR,96.0,63.0,0.842741935483871,0.40208333333333335,0.6224126344086022
+1215,Santa Clara,Softball,D1,Santa Clara University,GSR,90.0,74.0,0.4274193548387097,0.8083333333333333,0.6178763440860215
+1121,Toledo,Softball,D1,University of Toledo,GSR,93.0,67.0,0.6633064516129032,0.5604166666666667,0.6118615591397849
+1361,Green Bay,Softball,D1,University of Wisconsin-Green Bay,GSR,93.0,67.0,0.6633064516129032,0.5604166666666667,0.6118615591397849
+1134,Rutgers,Softball,D1,"Rutgers, The State University of New Jersey, New Brunswick",GSR,92.0,69.0,0.5826612903225806,0.6354166666666666,0.6090389784946236
+1180,Syracuse,Softball,D1,Syracuse University,GSR,92.0,69.0,0.5826612903225806,0.6354166666666666,0.6090389784946236
+1339,UIC,Softball,D1,University of Illinois Chicago,GSR,91.0,71.0,0.5020161290322581,0.70625,0.6041330645161291
+1245,Oakland,Softball,D1,Oakland University,GSR,91.0,71.0,0.5020161290322581,0.70625,0.6041330645161291
+1342,Lipscomb,Softball,D1,Lipscomb University,GSR,91.0,71.0,0.5020161290322581,0.70625,0.6041330645161291
+1314,Iona,Softball,D1,Iona University,GSR,90.0,73.0,0.4274193548387097,0.7791666666666667,0.6032930107526882
+1340,South Carolina,Softball,D1,"University of South Carolina, Columbia",GSR,94.0,65.0,0.7318548387096774,0.46875,0.6003024193548387
+2089,San Francisco,Softball,D1,University of San Francisco,GSR,99.0,59.0,0.9879032258064516,0.20416666666666666,0.5960349462365592
+1183,Abilene Christian,Softball,D1,Abilene Christian University,GSR,92.0,68.0,0.5826612903225806,0.6020833333333333,0.5923723118279569
+1327,UAB,Softball,D1,University of Alabama at Birmingham,GSR,92.0,68.0,0.5826612903225806,0.6020833333333333,0.5923723118279569
+1146,Nebraska,Softball,D1,University of Nebraska-Lincoln,GSR,92.0,68.0,0.5826612903225806,0.6020833333333333,0.5923723118279569
+1167,Stony Brook,Softball,D1,Stony Brook University,GSR,92.0,68.0,0.5826612903225806,0.6020833333333333,0.5923723118279569
+1370,Mount St. Mary's,Softball,D1,Mount St. Mary's University,GSR,93.0,66.0,0.6633064516129032,0.51875,0.5910282258064516
+1343,South Dakota,Softball,D1,University of South Dakota,GSR,90.0,72.0,0.4274193548387097,0.7458333333333333,0.5866263440860215
+1260,UConn,Softball,D1,University of Connecticut,GSR,91.0,70.0,0.5020161290322581,0.6666666666666666,0.5843413978494624
+1334,Jacksonville,Softball,D1,Jacksonville University,GSR,95.0,62.0,0.7842741935483871,0.35,0.5671370967741935
+1126,Kent St.,Softball,D1,Kent State University,GSR,90.0,71.0,0.4274193548387097,0.70625,0.5668346774193549
+1191,Arizona St.,Softball,D1,Arizona State University,GSR,93.0,65.0,0.6633064516129032,0.46875,0.5660282258064516
+1226,Cleveland St.,Softball,D1,Cleveland State University,GSR,93.0,65.0,0.6633064516129032,0.46875,0.5660282258064516
+1234,Mercer,Softball,D1,Mercer University,GSR,93.0,65.0,0.6633064516129032,0.46875,0.5660282258064516
+1371,Merrimack,Softball,D1,Merrimack College,GSR,89.0,72.0,0.36693548387096775,0.7458333333333333,0.5563844086021505
+1335,Monmouth,Softball,D1,Monmouth University,GSR,89.0,72.0,0.36693548387096775,0.7458333333333333,0.5563844086021505
+1303,Auburn,Softball,D1,Auburn University,GSR,92.0,66.0,0.5826612903225806,0.51875,0.5507056451612904
+1088,North Carolina,Softball,D1,University of North Carolina Asheville,GSR,92.0,66.0,0.5826612903225806,0.51875,0.5507056451612904
+1114,James Madison,Softball,D1,James Madison University,GSR,90.0,70.0,0.4274193548387097,0.6666666666666666,0.5470430107526881
+1298,Purdue,Softball,D1,Purdue University,GSR,90.0,70.0,0.4274193548387097,0.6666666666666666,0.5470430107526881
+1196,Saint Peter's,Softball,D1,Saint Peter's University,GSR,95.0,61.0,0.7842741935483871,0.29791666666666666,0.5410954301075269
+2051,Bellarmine,Softball,D1,Bellarmine University,GSR,87.0,74.0,0.2661290322580645,0.8083333333333333,0.5372311827956989
+1285,Iowa,Softball,D1,University of Iowa,GSR,89.0,71.0,0.36693548387096775,0.70625,0.5365927419354839
+1156,Campbell,Softball,D1,Campbell University,GSR,93.0,63.0,0.6633064516129032,0.40208333333333335,0.5326948924731183
+1206,Kansas,Softball,D1,Kansas State University,GSR,93.0,63.0,0.6633064516129032,0.40208333333333335,0.5326948924731183
+1247,Austin Peay,Softball,D1,Austin Peay State University,GSR,91.0,67.0,0.5020161290322581,0.5604166666666667,0.5312163978494624
+1369,Bowling Green,Softball,D1,Bowling Green State University,GSR,91.0,67.0,0.5020161290322581,0.5604166666666667,0.5312163978494624
+1124,Saint Francis,Softball,D1,Saint Francis University,GSR,91.0,67.0,0.5020161290322581,0.5604166666666667,0.5312163978494624
+1374,UTSA,Softball,D1,University of Texas at San Antonio,GSR,92.0,65.0,0.5826612903225806,0.46875,0.5257056451612903
+1138,Mississippi St.,Softball,D1,Mississippi State University,GSR,96.0,59.0,0.842741935483871,0.20416666666666666,0.5234543010752688
+1326,Towson,Softball,D1,Towson University,GSR,90.0,68.0,0.4274193548387097,0.6020833333333333,0.5147513440860215
+1171,UAlbany,Softball,D1,University at Albany,GSR,88.0,71.0,0.3165322580645161,0.70625,0.5113911290322581
+1168,San Diego St.,Softball,D1,San Diego State University,GSR,88.0,71.0,0.3165322580645161,0.70625,0.5113911290322581
+1150,App State,Softball,D1,Appalachian State University,GSR,91.0,66.0,0.5020161290322581,0.51875,0.5103830645161291
+1377,Detroit Mercy,Softball,D1,University of Detroit Mercy,GSR,91.0,66.0,0.5020161290322581,0.51875,0.5103830645161291
+1297,St. John's (NY),Softball,D1,St. John's University (New York),GSR,93.0,62.0,0.6633064516129032,0.35,0.5066532258064516
+1330,Army West Point,Softball,D1,U.S. Military Academy,GSR,91.0,,0.5020161290322581,,0.5020161290322581
+1222,Michigan,Softball,D1,Central Michigan University,GSR,89.0,69.0,0.36693548387096775,0.6354166666666666,0.5011760752688172
+1130,UCF,Softball,D1,University of Central Florida,GSR,94.0,60.0,0.7318548387096774,0.2520833333333333,0.49196908602150535
+1328,Pittsburgh,Softball,D1,University of Pittsburgh,GSR,94.0,60.0,0.7318548387096774,0.2520833333333333,0.49196908602150535
+1357,DePaul,Softball,D1,DePaul University,GSR,86.0,72.0,0.22580645161290322,0.7458333333333333,0.4858198924731183
+1094,Florida St.,Softball,D1,Florida State University,GSR,91.0,65.0,0.5020161290322581,0.46875,0.48538306451612906
+1373,North Dakota,Softball,D1,University of North Dakota,GSR,91.0,65.0,0.5020161290322581,0.46875,0.48538306451612906
+1097,Colorado St.,Softball,D1,Colorado State University,GSR,89.0,68.0,0.36693548387096775,0.6020833333333333,0.4845094086021505
+1323,Pacific,Softball,D1,University of the Pacific,GSR,93.0,61.0,0.6633064516129032,0.29791666666666666,0.4806115591397849
+1119,Oklahoma St.,Softball,D1,Oklahoma State University,GSR,92.0,62.0,0.5826612903225806,0.35,0.4663306451612903
+1261,Robert Morris,Softball,D1,Robert Morris University,GSR,91.0,63.0,0.5020161290322581,0.40208333333333335,0.45204973118279573
+1321,Virginia,Softball,D1,Virginia Military Institute,GSR,84.0,71.0,0.15524193548387097,0.70625,0.4307459677419355
+1312,Buffalo,Softball,D1,"University at Buffalo, the State University of New York",GSR,90.0,64.0,0.4274193548387097,0.43125,0.4293346774193548
+1325,Stetson,Softball,D1,Stetson University,GSR,91.0,62.0,0.5020161290322581,0.35,0.42600806451612905
+1356,Oregon St.,Softball,D1,Oregon State University,GSR,89.0,65.0,0.36693548387096775,0.46875,0.4178427419354839
+1230,UT Arlington,Softball,D1,University of Texas at Arlington,GSR,89.0,65.0,0.36693548387096775,0.46875,0.4178427419354839
+1286,Houston Christian,Softball,D1,Houston Christian University,GSR,88.0,66.0,0.3165322580645161,0.51875,0.4176411290322581
+1106,Marshall,Softball,D1,Marshall University,GSR,92.0,60.0,0.5826612903225806,0.2520833333333333,0.417372311827957
+1355,Murray St.,Softball,D1,Murray State University,GSR,92.0,60.0,0.5826612903225806,0.2520833333333333,0.417372311827957
+1133,Tulsa,Softball,D1,The University of Tulsa,GSR,90.0,63.0,0.4274193548387097,0.40208333333333335,0.41475134408602155
+1204,South Dakota St.,Softball,D1,South Dakota State University,GSR,87.0,67.0,0.2661290322580645,0.5604166666666667,0.4132728494623656
+1100,BYU,Softball,D1,Brigham Young University,GSR,80.0,72.0,0.07661290322580645,0.7458333333333333,0.4112231182795699
+1316,South Alabama,Softball,D1,University of South Alabama,GSR,89.0,63.0,0.36693548387096775,0.40208333333333335,0.38450940860215055
+1378,Maine,Softball,D1,University of Maine,GSR,84.0,68.0,0.15524193548387097,0.6020833333333333,0.37866263440860215
+1332,Georgia St.,Softball,D1,Georgia State University,GSR,88.0,64.0,0.3165322580645161,0.43125,0.3738911290322581
+1120,Texas A&M,Softball,D1,"Texas A&M University, College Station",GSR,86.0,66.0,0.22580645161290322,0.51875,0.37227822580645165
+1217,UMBC,Softball,D1,"University of Maryland, Baltimore County",GSR,87.0,65.0,0.2661290322580645,0.46875,0.36743951612903225
+1267,Montana,Softball,D1,University of Montana,GSR,87.0,65.0,0.2661290322580645,0.46875,0.36743951612903225
+1165,Utah Valley,Softball,D1,Utah Valley University,GSR,90.0,61.0,0.4274193548387097,0.29791666666666666,0.3626680107526882
+1093,Howard,Softball,D1,Howard University,GSR,83.0,68.0,0.11895161290322581,0.6020833333333333,0.36051747311827953
+1148,Illinois,Softball,D1,Eastern Illinois University,GSR,89.0,62.0,0.36693548387096775,0.35,0.35846774193548386
+1096,Arizona,Softball,D1,University of Arizona,GSR,92.0,57.0,0.5826612903225806,0.12708333333333333,0.354872311827957
+1376,Memphis,Softball,D1,University of Memphis,GSR,91.0,59.0,0.5020161290322581,0.20416666666666666,0.3530913978494624
+1348,Presbyterian,Softball,D1,Presbyterian College,GSR,91.0,59.0,0.5020161290322581,0.20416666666666666,0.3530913978494624
+1276,Indiana St.,Softball,D1,Indiana State University,GSR,87.0,64.0,0.2661290322580645,0.43125,0.34868951612903226
+1268,Longwood,Softball,D1,Longwood University,GSR,87.0,64.0,0.2661290322580645,0.43125,0.34868951612903226
+1095,Florida,Softball,D1,Florida Atlantic University,GSR,90.0,60.0,0.4274193548387097,0.2520833333333333,0.3397513440860215
+1105,California Baptist,Softball,D1,California Baptist University,GSR,90.0,60.0,0.4274193548387097,0.2520833333333333,0.3397513440860215
+1173,Youngstown St.,Softball,D1,Youngstown State University,GSR,83.0,67.0,0.11895161290322581,0.5604166666666667,0.33968413978494627
+1195,Arkansas,Softball,D1,Arkansas State University,GSR,87.0,63.0,0.2661290322580645,0.40208333333333335,0.3341061827956989
+1307,Winthrop,Softball,D1,Winthrop University,GSR,87.0,63.0,0.2661290322580645,0.40208333333333335,0.3341061827956989
+1318,George Mason,Softball,D1,George Mason University,GSR,88.0,62.0,0.3165322580645161,0.35,0.33326612903225805
+1296,Missouri St.,Softball,D1,Southeast Missouri State University,GSR,88.0,62.0,0.3165322580645161,0.35,0.33326612903225805
+1152,Utah St.,Softball,D1,Utah State University,GSR,88.0,62.0,0.3165322580645161,0.35,0.33326612903225805
+1122,East Carolina,Softball,D1,East Carolina University,GSR,89.0,61.0,0.36693548387096775,0.29791666666666666,0.3324260752688172
+1205,Gardner-Webb,Softball,D1,Gardner-Webb University,GSR,90.0,59.0,0.4274193548387097,0.20416666666666666,0.3157930107526882
+1290,Radford,Softball,D1,Radford University,GSR,91.0,57.0,0.5020161290322581,0.12708333333333333,0.3145497311827957
+1109,UIW,Softball,D1,University of the Incarnate Word,GSR,86.0,63.0,0.22580645161290322,0.40208333333333335,0.3139448924731183
+1102,Louisiana,Softball,D1,Louisiana State University,GSR,88.0,61.0,0.3165322580645161,0.29791666666666666,0.3072244623655914
+1086,Oklahoma,Softball,D1,University of Oklahoma,GSR,86.0,62.0,0.22580645161290322,0.35,0.2879032258064516
+1270,Hawaii,Softball,D1,"University of Hawaii, Manoa",GSR,87.0,61.0,0.2661290322580645,0.29791666666666666,0.28202284946236555
+1301,A&M-Corpus Christi,Softball,D1,Texas A&M University-Corpus Christi,GSR,91.0,53.0,0.5020161290322581,0.04791666666666667,0.2749663978494624
+1219,Tennessee St.,Softball,D1,East Tennessee State University,GSR,85.0,62.0,0.19556451612903225,0.35,0.2727822580645161
+1284,Sam Houston,Softball,D1,Sam Houston State University,GSR,85.0,62.0,0.19556451612903225,0.35,0.2727822580645161
+1154,Texas St.,Softball,D1,Texas State University,GSR,85.0,62.0,0.19556451612903225,0.35,0.2727822580645161
+1252,Purdue Fort Wayne,Softball,D1,Purdue University Fort Wayne,GSR,89.0,58.0,0.36693548387096775,0.1625,0.26471774193548386
+1172,Wichita St.,Softball,D1,Wichita State University,GSR,89.0,58.0,0.36693548387096775,0.1625,0.26471774193548386
+1194,Kentucky,Softball,D1,Eastern Kentucky University,GSR,90.0,56.0,0.4274193548387097,0.1,0.26370967741935486
+1155,Idaho St.,Softball,D1,Idaho State University,GSR,87.0,60.0,0.2661290322580645,0.2520833333333333,0.2591061827956989
+1360,Kennesaw St.,Softball,D1,Kennesaw State University,GSR,87.0,60.0,0.2661290322580645,0.2520833333333333,0.2591061827956989
+1209,Portland St.,Softball,D1,Portland State University,GSR,90.0,55.0,0.4274193548387097,0.08125,0.25433467741935484
+1149,Houston,Softball,D1,University of Houston,GSR,82.0,63.0,0.10483870967741936,0.40208333333333335,0.25346102150537636
+1216,Weber St.,Softball,D1,Weber State University,GSR,84.0,62.0,0.15524193548387097,0.35,0.2526209677419355
+1233,Jackson St.,Softball,D1,Jackson State University,GSR,88.0,58.0,0.3165322580645161,0.1625,0.23951612903225805
+1129,Troy,Softball,D1,Troy University,GSR,86.0,60.0,0.22580645161290322,0.2520833333333333,0.2389448924731183
+1319,Hampton,Softball,D1,Hampton University,GSR,83.0,62.0,0.11895161290322581,0.35,0.2344758064516129
+1176,Coastal Carolina,Softball,D1,Coastal Carolina University,GSR,89.0,56.0,0.36693548387096775,0.1,0.23346774193548386
+1218,Akron,Softball,D1,University of Akron,GSR,84.0,61.0,0.15524193548387097,0.29791666666666666,0.2265793010752688
+1117,Oregon,Softball,D1,University of Oregon,GSR,88.0,57.0,0.3165322580645161,0.12708333333333333,0.22180779569892473
+1274,Jacksonville St.,Softball,D1,Jacksonville State University,GSR,86.0,59.0,0.22580645161290322,0.20416666666666666,0.21498655913978493
+1161,Tennessee,Softball,D1,Tennessee Technological University,GSR,87.0,58.0,0.2661290322580645,0.1625,0.21431451612903224
+1229,McNeese,Softball,D1,McNeese State University,GSR,83.0,61.0,0.11895161290322581,0.29791666666666666,0.20843413978494624
+1322,Kansas City,Softball,D1,University of Missouri-Kansas City,GSR,88.0,56.0,0.3165322580645161,0.1,0.20826612903225805
+1132,Chattanooga,Softball,D1,University of Tennessee at Chattanooga,GSR,84.0,60.0,0.15524193548387097,0.2520833333333333,0.20366263440860216
+1193,Western Caro.,Softball,D1,Western Carolina University,GSR,84.0,60.0,0.15524193548387097,0.2520833333333333,0.20366263440860216
+1236,UC Riverside,Softball,D1,"University of California, Riverside",GSR,85.0,59.0,0.19556451612903225,0.20416666666666666,0.19986559139784946
+1278,Central Conn. St.,Softball,D1,Central Connecticut State University,GSR,81.0,61.0,0.09475806451612903,0.29791666666666666,0.19633736559139786
+1085,Texas,Softball,D1,The University of Texas Rio Grande Valley,GSR,86.0,58.0,0.22580645161290322,0.1625,0.1941532258064516
+1128,Prairie View,Softball,D1,Prairie View A&M University,GSR,76.0,62.0,0.028225806451612902,0.35,0.18911290322580643
+1362,Alcorn,Softball,D1,Alcorn State University,GSR,80.0,61.0,0.07661290322580645,0.29791666666666666,0.18726478494623655
+1091,Nevada,Softball,D1,"University of Nevada, Reno",GSR,87.0,56.0,0.2661290322580645,0.1,0.18306451612903224
+1315,Long Beach St.,Softball,D1,Long Beach State University,GSR,84.0,59.0,0.15524193548387097,0.20416666666666666,0.1797043010752688
+1101,Washington,Softball,D1,Eastern Washington University,GSR,84.0,59.0,0.15524193548387097,0.20416666666666666,0.1797043010752688
+1142,New Mexico St.,Softball,D1,New Mexico State University,GSR,84.0,59.0,0.15524193548387097,0.20416666666666666,0.1797043010752688
+1213,Southern Utah,Softball,D1,Southern Utah University,GSR,85.0,58.0,0.19556451612903225,0.1625,0.17903225806451611
+1288,New Mexico,Softball,D1,University of New Mexico,GSR,88.0,50.0,0.3165322580645161,0.03125,0.17389112903225806
+1333,Northwestern St.,Softball,D1,Northwestern State University,GSR,85.0,57.0,0.19556451612903225,0.12708333333333333,0.1613239247311828
+1287,Southern U.,Softball,D1,"Southern University, Baton Rouge",GSR,78.0,60.0,0.04233870967741935,0.2520833333333333,0.14721102150537635
+1244,Nicholls,Softball,D1,Nicholls State University,GSR,84.0,57.0,0.15524193548387097,0.12708333333333333,0.14116263440860216
+1151,Georgia,Softball,D1,Georgia Southern University,GSR,83.0,58.0,0.11895161290322581,0.1625,0.14072580645161292
+1273,North Texas,Softball,D1,University of North Texas,GSR,83.0,58.0,0.11895161290322581,0.1625,0.14072580645161292
+1365,Morehead St.,Softball,D1,Morehead State University,GSR,79.0,59.0,0.056451612903225805,0.20416666666666666,0.13030913978494624
+1259,Louisiana Tech,Softball,D1,Louisiana Tech University,GSR,85.0,54.0,0.19556451612903225,0.0625,0.12903225806451613
+1113,Texas Tech,Softball,D1,Texas Tech University,GSR,85.0,54.0,0.19556451612903225,0.0625,0.12903225806451613
+1292,Southern Miss.,Softball,D1,The University of Southern Mississippi,GSR,84.0,56.0,0.15524193548387097,0.1,0.1276209677419355
+1347,Grambling,Softball,D1,Grambling State University,GSR,80.0,58.0,0.07661290322580645,0.1625,0.11955645161290324
+1349,Charleston So.,Softball,D1,Charleston Southern University,GSR,81.0,57.0,0.09475806451612903,0.12708333333333333,0.11092069892473118
+1175,UTEP,Softball,D1,University of Texas at El Paso,GSR,84.0,54.0,0.15524193548387097,0.0625,0.10887096774193548
+1103,UNLV,Softball,D1,"University of Nevada, Las Vegas",GSR,80.0,57.0,0.07661290322580645,0.12708333333333333,0.10184811827956988
+1372,Norfolk St.,Softball,D1,Norfolk State University,GSR,79.0,57.0,0.056451612903225805,0.12708333333333333,0.09176747311827957
+1240,San Jose St.,Softball,D1,San Jose State University,GSR,80.0,55.0,0.07661290322580645,0.08125,0.07893145161290323
+1354,SFA,Softball,D1,Stephen F. Austin State University,GSR,79.0,55.0,0.056451612903225805,0.08125,0.0688508064516129
+1210,Texas Southern,Softball,D1,Texas Southern University,GSR,81.0,52.0,0.09475806451612903,0.041666666666666664,0.06821236559139784
+1164,Alabama St.,Softball,D1,Alabama State University,GSR,79.0,54.0,0.056451612903225805,0.0625,0.059475806451612906
+1299,Lamar,Softball,D1,Lamar University,GSR,79.0,54.0,0.056451612903225805,0.0625,0.059475806451612906
+1242,Coppin St.,Softball,D1,Coppin State University,GSR,81.0,43.0,0.09475806451612903,0.0125,0.053629032258064514
+1115,Florida A&M,Softball,D1,Florida A&M University,GSR,70.0,55.0,0.008064516129032258,0.08125,0.044657258064516134
+1250,Morgan St.,Softball,D1,Morgan State University,GSR,76.0,53.0,0.028225806451612902,0.04791666666666667,0.038071236559139784
+1295,Alabama A&M,Softball,D1,Alabama A&M University,GSR,77.0,48.0,0.036290322580645164,0.022916666666666665,0.029603494623655913
+1364,South Carolina St.,Softball,D1,South Carolina State University,GSR,76.0,48.0,0.028225806451612902,0.022916666666666665,0.025571236559139784
+2063,Tarleton St.,Softball,D1,Tarleton State University,GSR,73.0,51.0,0.012096774193548387,0.0375,0.02479838709677419
+1251,Delaware St.,Softball,D1,Delaware State University,GSR,74.0,50.0,0.018145161290322582,0.03125,0.02469758064516129
+1203,Bethune-Cookman,Softball,D1,Bethune-Cookman University,GSR,78.0,39.0,0.04233870967741935,0.004166666666666667,0.02325268817204301
+1375,Mississippi Val.,Softball,D1,Mississippi Valley State University,GSR,74.0,41.0,0.018145161290322582,0.008333333333333333,0.013239247311827958
+2066,Utah Tech,Softball,D1,Utah Tech University,GSR,69.0,46.0,0.004032258064516129,0.016666666666666666,0.010349462365591398
+71,Bentley,Baseball,D2,Bentley University,ASR,100.0,100.0,0.9869565217391304,0.9955156950672646,0.9912361084031975
+963,Jessup,Baseball,D2,Jessup University,ASR,100.0,100.0,0.9869565217391304,0.9955156950672646,0.9912361084031975
+155,Clarion,Baseball,D2,"Pennsylvania Western University, Clarion",ASR,100.0,91.0,0.9869565217391304,0.9708520179372198,0.9789042698381751
+328,Hillsdale,Baseball,D2,Hillsdale College,ASR,100.0,91.0,0.9869565217391304,0.9708520179372198,0.9789042698381751
+476,Millersville,Baseball,D2,Millersville University of Pennsylvania,ASR,100.0,88.0,0.9869565217391304,0.9573991031390134,0.9721778124390719
+498,Molloy,Baseball,D2,Molloy University,ASR,95.0,95.0,0.9391304347826087,0.9865470852017937,0.9628387599922013
+707,Slippery Rock,Baseball,D2,Slippery Rock University of Pennsylvania,ASR,95.0,89.0,0.9391304347826087,0.9641255605381166,0.9516279976603627
+180,Concordia-St. Paul,Baseball,D2,"Concordia University, St. Paul",ASR,98.0,83.0,0.9652173913043478,0.9304932735426009,0.9478553324234744
+403,Lewis,Baseball,D2,Lewis University,ASR,100.0,80.0,0.9869565217391304,0.9080717488789237,0.9475141353090271
+83,Bloomsburg,Baseball,D2,Bloomsburg University of Pennsylvania,ASR,94.0,80.0,0.908695652173913,0.9080717488789237,0.9083837005264184
+735,St. Anselm,Baseball,D2,Saint Anselm College,ASR,92.0,83.0,0.8717391304347826,0.9304932735426009,0.9011162019886918
+695,Seton Hill,Baseball,D2,Seton Hill University,ASR,98.0,73.0,0.9652173913043478,0.8363228699551569,0.9007701306297524
+480,Minn. Duluth,Baseball,D2,University of Minnesota Duluth,ASR,92.0,81.0,0.8717391304347826,0.9192825112107623,0.8955108208227724
+481,Minn.-Crookston,Baseball,D2,"University of Minnesota, Crookston",ASR,95.0,74.0,0.9391304347826087,0.8452914798206278,0.8922109573016183
+171,Colo. Sch. of Mines,Baseball,D2,Colorado School of Mines,ASR,90.0,92.0,0.8043478260869565,0.9775784753363229,0.8909631507116398
+4,Adelphi,Baseball,D2,Adelphi University,ASR,92.0,79.0,0.8717391304347826,0.8923766816143498,0.8820579060245661
+268,Florida Tech,Baseball,D2,Florida Institute of Technology,ASR,94.0,75.0,0.908695652173913,0.852017937219731,0.880356794696822
+612,Pitt.-Johnstown,Baseball,D2,"University of Pittsburgh, Johnstown",ASR,92.0,78.0,0.8717391304347826,0.8811659192825112,0.8764525248586469
+874,Wayne St. (MI),Baseball,D2,Wayne State University (Michigan),ASR,90.0,85.0,0.8043478260869565,0.9394618834080718,0.8719048547475141
+563,Northwood,Baseball,D2,Northwood University,ASR,95.0,70.0,0.9391304347826087,0.7892376681614349,0.8641840514720218
+746,St. Mary's (TX),Baseball,D2,St. Mary's University (Texas),ASR,90.0,82.0,0.8043478260869565,0.9237668161434978,0.8640573211152272
+655,Rollins,Baseball,D2,Rollins College,ASR,98.0,68.0,0.9652173913043478,0.7623318385650224,0.8637746149346851
+917,Wingate,Baseball,D2,Wingate University,ASR,91.0,77.0,0.8391304347826087,0.8699551569506726,0.8545427958666407
+882,West Chester,Baseball,D2,West Chester University of Pennsylvania,ASR,88.0,93.0,0.7260869565217392,0.9820627802690582,0.8540748683953987
+359,Jefferson,Baseball,D2,Thomas Jefferson University,ASR,94.0,69.0,0.908695652173913,0.7780269058295964,0.8433612790017547
+218,D'Youville,Baseball,D2,D'Youville University,ASR,91.0,,0.8391304347826087,,0.8391304347826087
+840,UT Tyler,Baseball,D2,The University of Texas at Tyler,ASR,91.0,,0.8391304347826087,,0.8391304347826087
+259,Findlay,Baseball,D2,University of Findlay,ASR,89.0,80.0,0.7673913043478261,0.9080717488789237,0.8377315266133749
+215,Drury,Baseball,D2,Drury University,ASR,94.0,68.0,0.908695652173913,0.7623318385650224,0.8355137453694677
+252,Fairmont St.,Baseball,D2,Fairmont State University,ASR,94.0,68.0,0.908695652173913,0.7623318385650224,0.8355137453694677
+951,Westmont,Baseball,D2,Westmont College,ASR,91.0,71.0,0.8391304347826087,0.8139013452914798,0.8265158900370443
+555,Northern St.,Baseball,D2,Northern State University,ASR,90.0,74.0,0.8043478260869565,0.8452914798206278,0.8248196529537921
+652,Rockhurst,Baseball,D2,Rockhurst University,ASR,87.0,88.0,0.6891304347826087,0.9573991031390134,0.823264768960811
+918,Winona St.,Baseball,D2,Winona State University,ASR,89.0,76.0,0.7673913043478261,0.8587443946188341,0.8130678494833301
+487,Mississippi Col.,Baseball,D2,Mississippi College,ASR,90.0,71.0,0.8043478260869565,0.8139013452914798,0.8091245856892182
+558,Northwest Nazarene,Baseball,D2,Northwest Nazarene University,ASR,92.0,67.0,0.8717391304347826,0.7331838565022422,0.8024614934685124
+674,Saint Michael's,Baseball,D2,Saint Michael's College,ASR,85.0,100.0,0.6086956521739131,0.9955156950672646,0.8021056736205888
+27,Angelo St.,Baseball,D2,Angelo State University,ASR,91.0,67.0,0.8391304347826087,0.7331838565022422,0.7861571456424254
+298,Goldey-Beacom,Baseball,D2,Goldey-Beacom College,ASR,91.0,67.0,0.8391304347826087,0.7331838565022422,0.7861571456424254
+42,Assumption,Baseball,D2,Assumption University,ASR,97.0,60.0,0.9565217391304348,0.5964125560538116,0.7764671475921232
+240,Embry-Riddle (FL),Baseball,D2,Embry-Riddle Aeronautical University (Florida),ASR,85.0,85.0,0.6086956521739131,0.9394618834080718,0.7740787677909924
+875,Wayne St. (NE),Baseball,D2,Wayne State College (Nebraska),ASR,90.0,67.0,0.8043478260869565,0.7331838565022422,0.7687658412945994
+727,Southern Wesleyan,Baseball,D2,Southern Wesleyan University,ASR,95.0,60.0,0.9391304347826087,0.5964125560538116,0.7677714954182102
+911,William Jewell,Baseball,D2,William Jewell College,ASR,92.0,63.0,0.8717391304347826,0.6412556053811659,0.7564973679079743
+232,Eckerd,Baseball,D2,Eckerd College,ASR,95.0,59.0,0.9391304347826087,0.5717488789237668,0.7554396568531878
+512,MSU Denver,Baseball,D2,Metropolitan State University of Denver,ASR,87.0,71.0,0.6891304347826087,0.8139013452914798,0.7515158900370442
+79,Biola,Baseball,D2,Biola University,ASR,89.0,67.0,0.7673913043478261,0.7331838565022422,0.7502875804250342
+955,Roosevelt,Baseball,D2,Roosevelt University,ASR,85.0,78.0,0.6086956521739131,0.8811659192825112,0.7449307857282121
+293,Georgia College,Baseball,D2,Georgia College,ASR,89.0,66.0,0.7673913043478261,0.7107623318385651,0.7390768180931956
+638,Regis (CO),Baseball,D2,Regis University (Colorado),ASR,86.0,71.0,0.6630434782608695,0.8139013452914798,0.7384724117761747
+671,Saint Martin's,Baseball,D2,Saint Martin's University,ASR,89.0,64.0,0.7673913043478261,0.6704035874439462,0.7188974458958861
+147,Chestnut Hill,Baseball,D2,Chestnut Hill College,ASR,89.0,64.0,0.7673913043478261,0.6704035874439462,0.7188974458958861
+138,Central Mo.,Baseball,D2,University of Central Missouri,ASR,88.0,65.0,0.7260869565217392,0.6973094170403588,0.711698186781049
+58,Barry,Baseball,D2,Barry University,ASR,85.0,71.0,0.6086956521739131,0.8139013452914798,0.7112984987326965
+484,Minnesota St.,Baseball,D2,"Minnesota State University, Mankato",ASR,91.0,59.0,0.8391304347826087,0.5717488789237668,0.7054396568531878
+207,Delta St.,Baseball,D2,Delta State University,ASR,89.0,63.0,0.7673913043478261,0.6412556053811659,0.704323454864496
+285,Gannon,Baseball,D2,Gannon University,ASR,88.0,64.0,0.7260869565217392,0.6704035874439462,0.6982452719828427
+728,Southwest Baptist,Baseball,D2,Southwest Baptist University,ASR,90.0,58.0,0.8043478260869565,0.5515695067264574,0.677958666406707
+534,Newberry,Baseball,D2,Newberry College,ASR,94.0,52.0,0.908695652173913,0.4461883408071749,0.6774419964905439
+699,Shepherd,Baseball,D2,Shepherd University,ASR,85.0,67.0,0.6086956521739131,0.7331838565022422,0.6709397543380776
+567,Nova Southeastern,Baseball,D2,Nova Southeastern University,ASR,83.0,71.0,0.5239130434782608,0.8139013452914798,0.6689071943848703
+53,Azusa Pacific,Baseball,D2,Azusa Pacific University,ASR,83.0,71.0,0.5239130434782608,0.8139013452914798,0.6689071943848703
+350,Indiana (PA),Baseball,D2,Indiana University of Pennsylvania,ASR,81.0,76.0,0.47391304347826085,0.8587443946188341,0.6663287190485475
+390,Lander,Baseball,D2,Lander University,ASR,84.0,69.0,0.55,0.7780269058295964,0.6640134529147983
+113,Caldwell,Baseball,D2,Caldwell University,ASR,84.0,68.0,0.55,0.7623318385650224,0.6561659192825112
+157,Clark Atlanta,Baseball,D2,Clark Atlanta University,ASR,94.0,50.0,0.908695652173913,0.3991031390134529,0.6538993955936829
+592,Ouachita Baptist,Baseball,D2,Ouachita Baptist University,ASR,90.0,55.0,0.8043478260869565,0.4977578475336323,0.6510528368102944
+415,Lock Haven,Baseball,D2,Lock Haven University of Pennsylvania,ASR,93.0,50.0,0.8913043478260869,0.3991031390134529,0.6452037434197699
+733,Spring Hill,Baseball,D2,Spring Hill College,ASR,85.0,64.0,0.6086956521739131,0.6704035874439462,0.6395496198089297
+885,West Liberty,Baseball,D2,West Liberty University,ASR,78.0,79.0,0.3760869565217391,0.8923766816143498,0.6342318190680445
+654,Rogers St.,Baseball,D2,Rogers State University,ASR,86.0,60.0,0.6630434782608695,0.5964125560538116,0.6297280171573405
+896,Western Ore.,Baseball,D2,Western Oregon University,ASR,88.0,57.0,0.7260869565217392,0.531390134529148,0.6287385455254435
+535,Newman,Baseball,D2,Newman University,ASR,88.0,57.0,0.7260869565217392,0.531390134529148,0.6287385455254435
+303,Grand Valley St.,Baseball,D2,Grand Valley State University,ASR,85.0,63.0,0.6086956521739131,0.6412556053811659,0.6249756287775394
+881,West Ala.,Baseball,D2,University of West Alabama,ASR,78.0,77.0,0.3760869565217391,0.8699551569506726,0.6230210567362059
+795,Trevecca Nazarene,Baseball,D2,Trevecca Nazarene University,ASR,92.0,48.0,0.8717391304347826,0.3609865470852018,0.6163628387599922
+865,Walsh,Baseball,D2,Walsh University,ASR,76.0,79.0,0.33043478260869563,0.8923766816143498,0.6114057321115227
+127,Catawba,Baseball,D2,Catawba College,ASR,84.0,64.0,0.55,0.6704035874439462,0.6102017937219731
+464,Mercy,Baseball,D2,Mercy University,ASR,95.0,44.0,0.9391304347826087,0.2802690582959641,0.6096997465392864
+613,Pittsburg St.,Baseball,D2,Pittsburg State University,ASR,86.0,58.0,0.6630434782608695,0.5515695067264574,0.6073064924936635
+41,Ashland,Baseball,D2,Ashland University,ASR,78.0,73.0,0.3760869565217391,0.8363228699551569,0.606204913238448
+831,Union (TN),Baseball,D2,Union University,ASR,81.0,67.0,0.47391304347826085,0.7331838565022422,0.6035484499902515
+106,Cal Poly Pomona,Baseball,D2,"California State Polytechnic University, Pomona",ASR,85.0,60.0,0.6086956521739131,0.5964125560538116,0.6025541041138623
+889,West Virginia St.,Baseball,D2,West Virginia State University,ASR,85.0,60.0,0.6086956521739131,0.5964125560538116,0.6025541041138623
+68,Bemidji St.,Baseball,D2,Bemidji State University,ASR,79.0,70.0,0.4108695652173913,0.7892376681614349,0.6000536166894131
+800,Truman St.,Baseball,D2,Truman State University,ASR,85.0,59.0,0.6086956521739131,0.5717488789237668,0.5902222655488399
+143,Charleston (WV),Baseball,D2,University of Charleston (West Virginia),ASR,79.0,68.0,0.4108695652173913,0.7623318385650224,0.5866007018912068
+700,Shippensburg,Baseball,D2,Shippensburg University of Pennsylvania,ASR,88.0,52.0,0.7260869565217392,0.4461883408071749,0.5861376486644571
+485,Minot St.,Baseball,D2,Minot State University,ASR,82.0,64.0,0.5,0.6704035874439462,0.5852017937219731
+506,Morehouse,Baseball,D2,Morehouse College,ASR,75.0,77.0,0.2956521739130435,0.8699551569506726,0.582803665431858
+491,Missouri S&T,Baseball,D2,Missouri University of Science and Technology,ASR,85.0,58.0,0.6086956521739131,0.5515695067264574,0.5801325794501853
+153,Claflin,Baseball,D2,Claflin University,ASR,85.0,58.0,0.6086956521739131,0.5515695067264574,0.5801325794501853
+222,East Stroudsburg,Baseball,D2,East Stroudsburg University of Pennsylvania,ASR,87.0,53.0,0.6891304347826087,0.47085201793721976,0.5799912263599143
+738,St. Edward's,Baseball,D2,St. Edward's University,ASR,84.0,60.0,0.55,0.5964125560538116,0.5732062780269058
+496,Mo. Southern St.,Baseball,D2,Missouri Southern State University,ASR,80.0,65.0,0.44565217391304346,0.6973094170403588,0.5714807954767012
+139,Central Okla.,Baseball,D2,University of Central Oklahoma,ASR,72.0,80.0,0.2326086956521739,0.9080717488789237,0.5703402222655488
+263,Fla. Southern,Baseball,D2,Florida Southern College,ASR,87.0,52.0,0.6891304347826087,0.4461883408071749,0.5676593877948918
+454,McKendree,Baseball,D2,McKendree University,ASR,89.0,48.0,0.7673913043478261,0.3609865470852018,0.5641889257165139
+442,Mary,Baseball,D2,Maryville University of Saint Louis,ASR,88.0,50.0,0.7260869565217392,0.3991031390134529,0.5625950477675961
+386,Lake Erie,Baseball,D2,Lake Erie College,ASR,85.0,56.0,0.6086956521739131,0.5134529147982063,0.5610742834860597
+548,North Georgia,Baseball,D2,University of North Georgia,ASR,85.0,56.0,0.6086956521739131,0.5134529147982063,0.5610742834860597
+10,Alabama Huntsville,Baseball,D2,University of Alabama in Huntsville,ASR,75.0,71.0,0.2956521739130435,0.8139013452914798,0.5547767596022617
+131,Cedarville,Baseball,D2,Cedarville University,ASR,79.0,65.0,0.4108695652173913,0.6973094170403588,0.5540894911288751
+244,Emory & Henry,Baseball,D2,Emory & Henry University,ASR,84.0,,0.55,,0.55
+112,Cal State LA,Baseball,D2,"California State University, Los Angeles",ASR,82.0,60.0,0.5,0.5964125560538116,0.5482062780269058
+197,Davenport,Baseball,D2,Davenport University,ASR,88.0,48.0,0.7260869565217392,0.3609865470852018,0.5435367518034705
+598,Palm Beach Atl.,Baseball,D2,Palm Beach Atlantic University,ASR,75.0,70.0,0.2956521739130435,0.7892376681614349,0.5424449210372392
+315,Harding,Baseball,D2,Harding University,ASR,90.0,44.0,0.8043478260869565,0.2802690582959641,0.5423084421914603
+82,Bloomfield,Baseball,D2,Bloomfield College,ASR,83.0,58.0,0.5239130434782608,0.5515695067264574,0.5377412751023591
+151,Christian Brothers,Baseball,D2,Christian Brothers University,ASR,80.0,61.0,0.44565217391304346,0.6210762331838565,0.53336420354845
+26,Anderson (SC),Baseball,D2,Anderson University (South Carolina),ASR,80.0,61.0,0.44565217391304346,0.6210762331838565,0.53336420354845
+772,Tampa,Baseball,D2,University of Tampa,ASR,65.0,86.0,0.11739130434782609,0.9484304932735426,0.5329108988106843
+264,Flagler,Baseball,D2,Flagler College,ASR,88.0,47.0,0.7260869565217392,0.33856502242152464,0.5323259894716319
+847,UVA Wise,Baseball,D2,The University of Virginia's College at Wise,ASR,85.0,51.0,0.6086956521739131,0.4282511210762332,0.5184733866250731
+617,Point Loma,Baseball,D2,Point Loma Nazarene University,ASR,92.0,36.0,0.8717391304347826,0.16367713004484305,0.5177081302398128
+242,Emmanuel (GA),Baseball,D2,Emmanuel University (Georgia),ASR,100.0,22.0,0.9869565217391304,0.04708520179372197,0.5170208617664261
+140,Central Wash.,Baseball,D2,Central Washington University,ASR,82.0,57.0,0.5,0.531390134529148,0.5156950672645739
+107,Cal St. Dom. Hills,Baseball,D2,"California State University, Dominguez Hills",ASR,62.0,86.0,0.07608695652173914,0.9484304932735426,0.5122587248976409
+271,Fort Hays St.,Baseball,D2,Fort Hays State University,ASR,75.0,65.0,0.2956521739130435,0.6973094170403588,0.4964807954767011
+380,Kutztown,Baseball,D2,Kutztown University of Pennsylvania,ASR,82.0,54.0,0.5,0.48654708520179374,0.49327354260089684
+381,Ky. Wesleyan,Baseball,D2,Kentucky Wesleyan College,ASR,86.0,46.0,0.6630434782608695,0.32286995515695066,0.49295671670891006
+430,Malone,Baseball,D2,Malone University,ASR,73.0,66.0,0.25869565217391305,0.7107623318385651,0.4847289920062391
+434,Mansfield,Baseball,D2,Mansfield University of Pennsylvania,ASR,84.0,50.0,0.55,0.3991031390134529,0.4745515695067265
+669,Saint Leo,Baseball,D2,Saint Leo University,ASR,86.0,44.0,0.6630434782608695,0.2802690582959641,0.4716562682784168
+560,Northwestern Okla.,Baseball,D2,Northwestern Oklahoma State University,ASR,87.0,43.0,0.6891304347826087,0.25112107623318386,0.47012575550789626
+791,Tiffin,Baseball,D2,Tiffin University,ASR,75.0,63.0,0.2956521739130435,0.6412556053811659,0.46845388964710466
+1010,Vanguard,Baseball,D2,Vanguard University,ASR,87.0,42.0,0.6891304347826087,0.23318385650224216,0.46115714564242544
+175,Concord,Baseball,D2,Concord University,ASR,81.0,52.0,0.47391304347826085,0.4461883408071749,0.4600506921427179
+632,Quincy,Baseball,D2,Quincy University,ASR,80.0,53.0,0.44565217391304346,0.47085201793721976,0.4582520959251316
+256,Felician,Baseball,D2,Felician University,ASR,80.0,53.0,0.44565217391304346,0.47085201793721976,0.4582520959251316
+704,Sioux Falls,Baseball,D2,University of Sioux Falls,ASR,80.0,53.0,0.44565217391304346,0.47085201793721976,0.4582520959251316
+883,West Florida,Baseball,D2,University of West Florida,ASR,86.0,43.0,0.6630434782608695,0.25112107623318386,0.45708227724702666
+439,Mars Hill,Baseball,D2,Mars Hill University,ASR,85.0,44.0,0.6086956521739131,0.2802690582959641,0.4444823552349386
+833,Upper Iowa,Baseball,D2,Upper Iowa University,ASR,79.0,53.0,0.4108695652173913,0.47085201793721976,0.4408607915773055
+324,Henderson St.,Baseball,D2,Henderson State University,ASR,67.0,67.0,0.14782608695652175,0.7331838565022422,0.44050497172938197
+108,Cal St. East Bay,Baseball,D2,"California State University, East Bay",ASR,81.0,50.0,0.47391304347826085,0.3991031390134529,0.4365080912458569
+174,Columbus St.,Baseball,D2,Columbus State University,ASR,70.0,64.0,0.2,0.6704035874439462,0.4352017937219731
+836,USC Beaufort,Baseball,D2,University of South Carolina Beaufort,ASR,76.0,57.0,0.33043478260869563,0.531390134529148,0.4309124585689218
+279,Fresno Pacific,Baseball,D2,Fresno Pacific University,ASR,71.0,63.0,0.21304347826086956,0.6412556053811659,0.4271495418210177
+594,Pace,Baseball,D2,Pace University,ASR,84.0,44.0,0.55,0.2802690582959641,0.4151345291479821
+549,North Greenville,Baseball,D2,North Greenville University,ASR,84.0,44.0,0.55,0.2802690582959641,0.4151345291479821
+111,Cal St. San Marcos,Baseball,D2,"California State University, San Marcos",ASR,76.0,55.0,0.33043478260869563,0.4977578475336323,0.41409631507116396
+399,LeMoyne-Owen,Baseball,D2,LeMoyne-Owen College,ASR,79.0,50.0,0.4108695652173913,0.3991031390134529,0.4049863521154221
+803,Tusculum,Baseball,D2,Tusculum University,ASR,79.0,50.0,0.4108695652173913,0.3991031390134529,0.4049863521154221
+574,Ohio Dominican,Baseball,D2,Ohio Dominican University,ASR,82.0,45.0,0.5,0.3071748878923767,0.40358744394618834
+245,Emporia St.,Baseball,D2,Emporia State University,ASR,88.0,29.0,0.7260869565217392,0.07847533632286996,0.40228114642230456
+718,Southern Conn. St.,Baseball,D2,Southern Connecticut State University,ASR,68.0,61.0,0.16956521739130434,0.6210762331838565,0.39532072528758044
+493,Missouri Western,Baseball,D2,Missouri Western State University,ASR,88.0,25.0,0.7260869565217392,0.06278026905829596,0.39443361279001754
+396,Lee,Baseball,D2,Lee University,ASR,82.0,44.0,0.5,0.2802690582959641,0.3901345291479821
+407,Lincoln (PA),Baseball,D2,Lincoln University (Pennsylvania),ASR,73.0,56.0,0.25869565217391305,0.5134529147982063,0.38607428348605966
+172,Colorado Mesa,Baseball,D2,Colorado Mesa University,ASR,73.0,56.0,0.25869565217391305,0.5134529147982063,0.38607428348605966
+779,Tex. A&M-Kingsville,Baseball,D2,Texas A&M University-Kingsville,ASR,67.0,61.0,0.14782608695652175,0.6210762331838565,0.38445116007018915
+828,UNC Pembroke,Baseball,D2,University of North Carolina at Pembroke,ASR,69.0,59.0,0.18478260869565216,0.5717488789237668,0.37826574380970945
+886,West Tex. A&M,Baseball,D2,West Texas A&M University,ASR,80.0,45.0,0.44565217391304346,0.3071748878923767,0.37641353090271007
+475,Miles,Baseball,D2,Miles College,ASR,62.0,64.0,0.07608695652173914,0.6704035874439462,0.3732452719828427
+66,Belmont Abbey,Baseball,D2,Belmont Abbey College,ASR,73.0,54.0,0.25869565217391305,0.48654708520179374,0.3726213686878534
+552,Northeastern St.,Baseball,D2,Northeastern State University,ASR,75.0,52.0,0.2956521739130435,0.4461883408071749,0.3709202573601092
+423,Lubbock Christian,Baseball,D2,Lubbock Christian University,ASR,76.0,50.0,0.33043478260869563,0.3991031390134529,0.36476896081107424
+924,Wis.-Parkside,Baseball,D2,University of Wisconsin-Parkside,ASR,79.0,45.0,0.4108695652173913,0.3071748878923767,0.359022226554884
+400,Lenoir-Rhyne,Baseball,D2,Lenoir-Rhyne University,ASR,78.0,47.0,0.3760869565217391,0.33856502242152464,0.35732598947163186
+690,Savannah St.,Baseball,D2,Savannah State University,ASR,83.0,38.0,0.5239130434782608,0.1905829596412556,0.3572480015597582
+125,Carson-Newman,Baseball,D2,Carson-Newman University,ASR,73.0,52.0,0.25869565217391305,0.4461883408071749,0.352441996490544
+281,Frostburg St.,Baseball,D2,Frostburg State University,ASR,77.0,,0.3521739130434783,,0.3521739130434783
+110,Cal St. Monterey Bay,Baseball,D2,"California State University, Monterey Bay",ASR,82.0,38.0,0.5,0.1905829596412556,0.3452914798206278
+715,Southeastern Okla.,Baseball,D2,Southeastern Oklahoma State University,ASR,85.0,29.0,0.6086956521739131,0.07847533632286996,0.3435854942483915
+941,Young Harris,Baseball,D2,Young Harris College,ASR,78.0,45.0,0.3760869565217391,0.3071748878923767,0.34163092220705793
+93,Bridgeport,Baseball,D2,University of Bridgeport,ASR,85.0,24.0,0.6086956521739131,0.05605381165919283,0.332374731916553
+902,Wheeling,Baseball,D2,Wheeling University,ASR,85.0,24.0,0.6086956521739131,0.05605381165919283,0.332374731916553
+408,Lincoln Memorial,Baseball,D2,Lincoln Memorial University,ASR,72.0,51.0,0.2326086956521739,0.4282511210762332,0.33042990836420355
+708,Sonoma St.,Baseball,D2,Sonoma State University,ASR,75.0,48.0,0.2956521739130435,0.3609865470852018,0.32831936049912264
+508,Mount Olive,Baseball,D2,University of Mount Olive,ASR,76.0,46.0,0.33043478260869563,0.32286995515695066,0.3266523688828231
+620,Post,Baseball,D2,Post University,ASR,76.0,46.0,0.33043478260869563,0.32286995515695066,0.3266523688828231
+835,USC Aiken,Baseball,D2,University of South Carolina Aiken,ASR,67.0,55.0,0.14782608695652175,0.4977578475336323,0.322791967245077
+724,Southern Nazarene,Baseball,D2,Southern Nazarene University,ASR,72.0,50.0,0.2326086956521739,0.3991031390134529,0.3158559173328134
+752,St. Thomas Aquinas,Baseball,D2,St. Thomas Aquinas College,ASR,78.0,43.0,0.3760869565217391,0.25112107623318386,0.3136040163774615
+557,Northwest Mo. St.,Baseball,D2,Northwest Missouri State University,ASR,74.0,47.0,0.27391304347826084,0.33856502242152464,0.30623903294989274
+427,Lynn,Baseball,D2,Lynn University,ASR,81.0,33.0,0.47391304347826085,0.13228699551569506,0.30310001949697796
+503,Montevallo,Baseball,D2,University of Montevallo,ASR,78.0,41.0,0.3760869565217391,0.2219730941704036,0.29903002534607137
+33,Ark.-Fort Smith,Baseball,D2,"University of Arkansas, Fort Smith",ASR,75.0,44.0,0.2956521739130435,0.2802690582959641,0.2879606161045038
+391,Lane,Baseball,D2,Lane College,ASR,68.0,50.0,0.16956521739130434,0.3991031390134529,0.2843341782023786
+59,Barton,Baseball,D2,Barton College,ASR,70.0,48.0,0.2,0.3609865470852018,0.2804932735426009
+804,Tuskegee,Baseball,D2,Tuskegee University,ASR,69.0,48.0,0.18478260869565216,0.3609865470852018,0.27288457789042697
+701,Shorter,Baseball,D2,Shorter University,ASR,77.0,37.0,0.3521739130434783,0.17713004484304934,0.2646519789432638
+914,Wilmington (DE),Baseball,D2,Wilmington University (Delaware),ASR,66.0,50.0,0.1282608695652174,0.3991031390134529,0.26368200428933514
+737,St. Cloud St.,Baseball,D2,St. Cloud State University,ASR,79.0,32.0,0.4108695652173913,0.10762331838565023,0.2592464418015208
+277,Franklin Pierce,Baseball,D2,Franklin Pierce University,ASR,77.0,36.0,0.3521739130434783,0.16367713004484305,0.25792552154416065
+69,Benedict,Baseball,D2,Benedict College,ASR,67.0,47.0,0.14782608695652175,0.33856502242152464,0.2431955546890232
+501,Mont. St. Billings,Baseball,D2,Montana State University Billings,ASR,76.0,33.0,0.33043478260869563,0.13228699551569506,0.23136088906219535
+149,Chowan,Baseball,D2,Chowan University,ASR,78.0,29.0,0.3760869565217391,0.07847533632286996,0.22728114642230454
+953,Menlo,Baseball,D2,Menlo College,ASR,80.0,0.0,0.44565217391304346,0.006726457399103139,0.2261893156560733
+321,Hawaii Hilo,Baseball,D2,University of Hawaii at Hilo,ASR,70.0,43.0,0.2,0.25112107623318386,0.22556053811659194
+273,Francis Marion,Baseball,D2,Francis Marion University,ASR,75.0,35.0,0.2956521739130435,0.15022421524663676,0.22293819457984013
+948,Thomas More,Baseball,D2,Thomas More University,ASR,71.0,,0.21304347826086956,,0.21304347826086956
+629,Purdue Northwest,Baseball,D2,Purdue University Northwest,ASR,71.0,40.0,0.21304347826086956,0.21300448430493274,0.21302398128290115
+12,Albany St. (GA),Baseball,D2,Albany State University (Georgia),ASR,69.0,42.0,0.18478260869565216,0.23318385650224216,0.20898323259894716
+716,Southern Ark.,Baseball,D2,Southern Arkansas University,ASR,69.0,39.0,0.18478260869565216,0.2040358744394619,0.194409241567557
+38,Arkansas Tech,Baseball,D2,Arkansas Tech University,ASR,67.0,41.0,0.14782608695652175,0.2219730941704036,0.18489959056346267
+731,Southwestern Okla.,Baseball,D2,Southwestern Oklahoma State University,ASR,72.0,33.0,0.2326086956521739,0.13228699551569506,0.18244784558393448
+45,Augusta,Baseball,D2,Augusta University,ASR,63.0,43.0,0.0891304347826087,0.25112107623318386,0.17012575550789627
+377,King (TN),Baseball,D2,King University,ASR,67.0,37.0,0.14782608695652175,0.17713004484304934,0.16247806589978553
+234,Edward Waters,Baseball,D2,Edward Waters University,ASR,63.0,42.0,0.0891304347826087,0.23318385650224216,0.16115714564242542
+34,Ark.-Monticello,Baseball,D2,"University of Arkansas, Monticello",ASR,65.0,39.0,0.11739130434782609,0.2040358744394619,0.160713589393644
+665,Saginaw Valley,Baseball,D2,Saginaw Valley State University,ASR,64.0,40.0,0.10434782608695652,0.21300448430493274,0.15867615519594463
+189,CSU Pueblo,Baseball,D2,Colorado State University Pueblo,ASR,68.0,33.0,0.16956521739130434,0.13228699551569506,0.1509261064534997
+23,American Int'l,Baseball,D2,American International College,ASR,72.0,27.0,0.2326086956521739,0.06726457399103139,0.14993663482160263
+119,Cameron,Baseball,D2,Cameron University,ASR,67.0,35.0,0.14782608695652175,0.15022421524663676,0.14902515110157927
+166,Coker,Baseball,D2,Coker University,ASR,73.0,20.0,0.25869565217391305,0.033632286995515695,0.14616396958471436
+755,Staten Island,Baseball,D2,College of Staten Island,ASR,66.0,,0.1282608695652174,,0.1282608695652174
+148,Chico St.,Baseball,D2,"California State University, Chico",ASR,72.0,11.0,0.2326086956521739,0.013452914798206279,0.1230308052251901
+213,Dominican (NY),Baseball,D2,Dominican University New York,ASR,55.0,38.0,0.04565217391304348,0.1905829596412556,0.11811756677714955
+857,Virginia St.,Baseball,D2,Virginia State University,ASR,59.0,36.0,0.05217391304347826,0.16367713004484305,0.10792552154416066
+869,Washburn,Baseball,D2,Washburn University,ASR,64.0,32.0,0.10434782608695652,0.10762331838565023,0.10598557223630337
+373,Kentucky St.,Baseball,D2,Kentucky State University,ASR,48.0,38.0,0.015217391304347827,0.1905829596412556,0.10290017547280171
+3,Adams St.,Baseball,D2,Adams State University,ASR,61.0,33.0,0.06304347826086956,0.13228699551569506,0.09766523688828231
+631,Queens (NY),Baseball,D2,Queens College (New York),ASR,52.0,36.0,0.02826086956521739,0.16367713004484305,0.09596899980503022
+778,Tex. A&M Int'l,Baseball,D2,Texas A&M International University,ASR,63.0,31.0,0.0891304347826087,0.09417040358744394,0.09165041918502631
+297,Glenville St.,Baseball,D2,Glenville State University,ASR,61.0,32.0,0.06304347826086956,0.10762331838565023,0.0853333983232599
+247,Erskine,Baseball,D2,Erskine College,ASR,63.0,29.0,0.0891304347826087,0.07847533632286996,0.08380288555273932
+84,Bluefield St.,Baseball,D2,Bluefield State University,ASR,55.0,32.0,0.04565217391304348,0.10762331838565023,0.07663774614934685
+678,Salem (WV),Baseball,D2,Salem University (West Virginia),ASR,64.0,21.0,0.10434782608695652,0.04035874439461883,0.07235328524078767
+322,Hawaii Pacific,Baseball,D2,Hawaii Pacific University,ASR,65.0,19.0,0.11739130434782609,0.026905829596412557,0.07214856697211933
+230,Eastern N.M.,Baseball,D2,Eastern New Mexico University,ASR,43.0,33.0,0.008695652173913044,0.13228699551569506,0.07049132384480405
+199,Davis & Elkins,Baseball,D2,Davis & Elkins College,ASR,50.0,32.0,0.021739130434782608,0.10762331838565023,0.06468122441021643
+849,Valdosta St.,Baseball,D2,Valdosta State University,ASR,53.0,30.0,0.03695652173913044,0.08968609865470852,0.06332131019691947
+2242,UT Permian Basin,Baseball,D2,The University of Texas Permian Basin,ASR,61.0,22.0,0.06304347826086956,0.04708520179372197,0.055064340027295766
+221,East Central,Baseball,D2,East Central University,ASR,61.0,20.0,0.06304347826086956,0.033632286995515695,0.04833788262819263
+406,Limestone,Baseball,D2,Limestone University,ASR,53.0,14.0,0.03695652173913044,0.020179372197309416,0.028567946968219925
+763,Sul Ross St.,Baseball,D2,Sul Ross State University,ASR,52.0,,0.02826086956521739,,0.02826086956521739
+754,Stanislaus St.,Baseball,D2,"California State University, Stanislaus",ASR,48.0,14.0,0.015217391304347827,0.020179372197309416,0.01769838175082862
+1083,Lincoln (MO),Baseball,D2,Lincoln University (Missouri),ASR,20.0,0.0,0.004347826086956522,0.006726457399103139,0.005537141743029831
+1485,Grand Valley St.,Softball,D2,Grand Valley State University,ASR,100.0,100.0,0.9023904382470119,0.9958847736625515,0.9491376059547817
+1592,Saint Michael's,Softball,D2,Saint Michael's College,ASR,100.0,100.0,0.9023904382470119,0.9958847736625515,0.9491376059547817
+1472,Bloomsburg,Softball,D2,Bloomsburg University of Pennsylvania,ASR,100.0,94.0,0.9023904382470119,0.9650205761316872,0.9337055071893496
+1496,Clarion,Softball,D2,"Pennsylvania Western University, Clarion",ASR,100.0,94.0,0.9023904382470119,0.9650205761316872,0.9337055071893496
+1429,Saint Leo,Softball,D2,Saint Leo University,ASR,100.0,94.0,0.9023904382470119,0.9650205761316872,0.9337055071893496
+1432,Northern St.,Softball,D2,Northern State University,ASR,100.0,94.0,0.9023904382470119,0.9650205761316872,0.9337055071893496
+1401,Gannon,Softball,D2,Gannon University,ASR,100.0,93.0,0.9023904382470119,0.9382716049382716,0.9203310215926417
+1572,Jefferson,Softball,D2,Thomas Jefferson University,ASR,100.0,93.0,0.9023904382470119,0.9382716049382716,0.9203310215926417
+1602,Upper Iowa,Softball,D2,Upper Iowa University,ASR,100.0,93.0,0.9023904382470119,0.9382716049382716,0.9203310215926417
+1531,Fayetteville St.,Softball,D2,Fayetteville State University,ASR,100.0,92.0,0.9023904382470119,0.9218106995884774,0.9121005689177446
+1590,Pitt.-Johnstown,Softball,D2,"University of Pittsburgh, Johnstown",ASR,100.0,92.0,0.9023904382470119,0.9218106995884774,0.9121005689177446
+1502,St. Thomas Aquinas,Softball,D2,St. Thomas Aquinas College,ASR,100.0,90.0,0.9023904382470119,0.9094650205761317,0.9059277294115717
+1641,Chestnut Hill,Softball,D2,Chestnut Hill College,ASR,100.0,90.0,0.9023904382470119,0.9094650205761317,0.9059277294115717
+2053,Emory & Henry,Softball,D2,Emory & Henry University,ASR,100.0,,0.9023904382470119,,0.9023904382470119
+1475,Staten Island,Softball,D2,College of Staten Island,ASR,100.0,,0.9023904382470119,,0.9023904382470119
+1604,Bentley,Softball,D2,Bentley University,ASR,100.0,89.0,0.9023904382470119,0.8868312757201646,0.8946108569835882
+1493,Hillsdale,Softball,D2,Hillsdale College,ASR,100.0,89.0,0.9023904382470119,0.8868312757201646,0.8946108569835882
+1587,Dominican (CA),Softball,D2,Dominican University of California,ASR,100.0,89.0,0.9023904382470119,0.8868312757201646,0.8946108569835882
+1424,Newberry,Softball,D2,Newberry College,ASR,97.0,95.0,0.7888446215139442,0.98559670781893,0.8872206646664371
+1562,Florida Tech,Softball,D2,Florida Institute of Technology,ASR,100.0,86.0,0.9023904382470119,0.8395061728395061,0.870948305543259
+1405,Winona St.,Softball,D2,Winona State University,ASR,100.0,85.0,0.9023904382470119,0.8209876543209876,0.8616890462839998
+1617,Mansfield,Softball,D2,Mansfield University of Pennsylvania,ASR,96.0,95.0,0.7350597609561753,0.98559670781893,0.8603282343875527
+1469,Kutztown,Softball,D2,Kutztown University of Pennsylvania,ASR,100.0,83.0,0.9023904382470119,0.8106995884773662,0.856545013362189
+1556,Lock Haven,Softball,D2,Lock Haven University of Pennsylvania,ASR,100.0,83.0,0.9023904382470119,0.8106995884773662,0.856545013362189
+1554,American Int'l,Softball,D2,American International College,ASR,100.0,82.0,0.9023904382470119,0.7983539094650206,0.8503721738560163
+1396,Concordia-St. Paul,Softball,D2,"Concordia University, St. Paul",ASR,100.0,82.0,0.9023904382470119,0.7983539094650206,0.8503721738560163
+1559,Biola,Softball,D2,Biola University,ASR,96.0,94.0,0.7350597609561753,0.9650205761316872,0.8500401685439313
+1464,Goldey-Beacom,Softball,D2,Goldey-Beacom College,ASR,100.0,81.0,0.9023904382470119,0.7880658436213992,0.8452281409342055
+1402,Indiana (PA),Softball,D2,Indiana University of Pennsylvania,ASR,96.0,93.0,0.7350597609561753,0.9382716049382716,0.8366656829472234
+1527,Embry-Riddle (FL),Softball,D2,Embry-Riddle Aeronautical University (Florida),ASR,96.0,93.0,0.7350597609561753,0.9382716049382716,0.8366656829472234
+1480,West Ala.,Softball,D2,University of West Alabama,ASR,100.0,79.0,0.9023904382470119,0.7654320987654321,0.833911268506222
+1517,Bridgeport,Softball,D2,University of Bridgeport,ASR,100.0,78.0,0.9023904382470119,0.7469135802469136,0.8246520092469627
+1532,Fort Hays St.,Softball,D2,Fort Hays State University,ASR,100.0,78.0,0.9023904382470119,0.7469135802469136,0.8246520092469627
+1570,Northwood,Softball,D2,Northwood University,ASR,97.0,86.0,0.7888446215139442,0.8395061728395061,0.8141753971767252
+1628,Central Mo.,Softball,D2,University of Central Missouri,ASR,100.0,77.0,0.9023904382470119,0.720164609053498,0.811277523650255
+1595,Western Ore.,Softball,D2,Western Oregon University,ASR,100.0,77.0,0.9023904382470119,0.720164609053498,0.811277523650255
+1634,Central Wash.,Softball,D2,Central Washington University,ASR,96.0,89.0,0.7350597609561753,0.8868312757201646,0.81094551833817
+1406,Claflin,Softball,D2,Claflin University,ASR,96.0,89.0,0.7350597609561753,0.8868312757201646,0.81094551833817
+1564,Adelphi,Softball,D2,Adelphi University,ASR,100.0,76.0,0.9023904382470119,0.7016460905349794,0.8020182643909957
+1569,Bemidji St.,Softball,D2,Bemidji State University,ASR,96.0,88.0,0.7350597609561753,0.8662551440329218,0.8006574524945486
+1440,Wingate,Softball,D2,Wingate University,ASR,94.0,100.0,0.599601593625498,0.9958847736625515,0.7977431836440247
+1482,St. Mary's (TX),Softball,D2,St. Mary's University (Texas),ASR,100.0,75.0,0.9023904382470119,0.6831275720164609,0.7927590051317364
+1576,Ky. Wesleyan,Softball,D2,Kentucky Wesleyan College,ASR,95.0,92.0,0.6573705179282868,0.9218106995884774,0.7895906087583822
+1510,Rollins,Softball,D2,Rollins College,ASR,97.0,81.0,0.7888446215139442,0.7880658436213992,0.7884552325676717
+1544,Truman St.,Softball,D2,Truman State University,ASR,94.0,94.0,0.599601593625498,0.9650205761316872,0.7823110848785926
+1639,Quincy,Softball,D2,Quincy University,ASR,100.0,74.0,0.9023904382470119,0.6604938271604939,0.7814421327037528
+1409,Lee,Softball,D2,Lee University,ASR,100.0,74.0,0.9023904382470119,0.6604938271604939,0.7814421327037528
+1584,UVA Wise,Softball,D2,The University of Virginia's College at Wise,ASR,96.0,83.0,0.7350597609561753,0.8106995884773662,0.7728796747167708
+1633,Eckerd,Softball,D2,Eckerd College,ASR,95.0,89.0,0.6573705179282868,0.8868312757201646,0.7721008968242258
+1492,Tampa,Softball,D2,University of Tampa,ASR,95.0,89.0,0.6573705179282868,0.8868312757201646,0.7721008968242258
+1491,Southern Wesleyan,Softball,D2,Southern Wesleyan University,ASR,95.0,89.0,0.6573705179282868,0.8868312757201646,0.7721008968242258
+1437,Trevecca Nazarene,Softball,D2,Trevecca Nazarene University,ASR,95.0,87.0,0.6573705179282868,0.8580246913580247,0.7576976046431558
+1501,Western Wash.,Softball,D2,Western Washington University,ASR,92.0,94.0,0.5338645418326693,0.9650205761316872,0.7494425589821783
+1580,Clark Atlanta,Softball,D2,Clark Atlanta University,ASR,100.0,71.0,0.9023904382470119,0.5946502057613169,0.7485203220041644
+1427,Emporia St.,Softball,D2,Emporia State University,ASR,100.0,71.0,0.9023904382470119,0.5946502057613169,0.7485203220041644
+1425,Lincoln Memorial,Softball,D2,Lincoln Memorial University,ASR,96.0,78.0,0.7350597609561753,0.7469135802469136,0.7409866706015444
+1465,Mo. Southern St.,Softball,D2,Missouri Southern State University,ASR,96.0,78.0,0.7350597609561753,0.7469135802469136,0.7409866706015444
+1390,Pittsburg St.,Softball,D2,Pittsburg State University,ASR,97.0,75.0,0.7888446215139442,0.6831275720164609,0.7359860967652025
+1522,Assumption,Softball,D2,Assumption University,ASR,100.0,70.0,0.9023904382470119,0.5576131687242798,0.7300018034856459
+1552,Davenport,Softball,D2,Davenport University,ASR,100.0,70.0,0.9023904382470119,0.5576131687242798,0.7300018034856459
+1486,Millersville,Softball,D2,Millersville University of Pennsylvania,ASR,100.0,69.0,0.9023904382470119,0.5349794238683128,0.7186849310576624
+1631,Ouachita Baptist,Softball,D2,Ouachita Baptist University,ASR,100.0,69.0,0.9023904382470119,0.5349794238683128,0.7186849310576624
+1398,Mount Olive,Softball,D2,University of Mount Olive,ASR,96.0,76.0,0.7350597609561753,0.7016460905349794,0.7183529257455774
+1488,Molloy,Softball,D2,Molloy University,ASR,94.0,85.0,0.599601593625498,0.8209876543209876,0.7102946239732428
+1384,Seton Hill,Softball,D2,Seton Hill University,ASR,97.0,72.0,0.7888446215139442,0.6296296296296297,0.7092371255717869
+1549,St. Cloud St.,Softball,D2,St. Cloud State University,ASR,96.0,75.0,0.7350597609561753,0.6831275720164609,0.7090936664863181
+1439,Flagler,Softball,D2,Flagler College,ASR,96.0,75.0,0.7350597609561753,0.6831275720164609,0.7090936664863181
+1623,Rockhurst,Softball,D2,Rockhurst University,ASR,100.0,68.0,0.9023904382470119,0.5061728395061729,0.7042816388765925
+1416,Catawba,Softball,D2,Catawba College,ASR,93.0,86.0,0.5657370517928287,0.8395061728395061,0.7026216123161675
+1441,Coker,Softball,D2,Coker University,ASR,93.0,86.0,0.5657370517928287,0.8395061728395061,0.7026216123161675
+1632,LeMoyne-Owen,Softball,D2,LeMoyne-Owen College,ASR,95.0,78.0,0.6573705179282868,0.7469135802469136,0.7021420490876003
+1442,Colo. Sch. of Mines,Softball,D2,Colorado School of Mines,ASR,91.0,90.0,0.4900398406374502,0.9094650205761317,0.6997524306067909
+1452,West Chester,Softball,D2,West Chester University of Pennsylvania,ASR,94.0,82.0,0.599601593625498,0.7983539094650206,0.6989777515452593
+1434,King (TN),Softball,D2,King University,ASR,97.0,71.0,0.7888446215139442,0.5946502057613169,0.6917474136376305
+1525,Barton,Softball,D2,Barton College,ASR,95.0,77.0,0.6573705179282868,0.720164609053498,0.6887675634908924
+1608,Missouri S&T,Softball,D2,Missouri University of Science and Technology,ASR,89.0,94.0,0.40836653386454186,0.9650205761316872,0.6866935549981146
+1444,Mars Hill,Softball,D2,Mars Hill University,ASR,96.0,72.0,0.7350597609561753,0.6296296296296297,0.6823446952929024
+1383,North Greenville,Softball,D2,North Greenville University,ASR,96.0,71.0,0.7350597609561753,0.5946502057613169,0.664854983358746
+1511,Wis.-Parkside,Softball,D2,University of Wisconsin-Parkside,ASR,100.0,65.0,0.9023904382470119,0.4156378600823045,0.6590141491646582
+1407,Caldwell,Softball,D2,Caldwell University,ASR,100.0,65.0,0.9023904382470119,0.4156378600823045,0.6590141491646582
+1640,Shorter,Softball,D2,Shorter University,ASR,100.0,65.0,0.9023904382470119,0.4156378600823045,0.6590141491646582
+1403,UT Tyler,Softball,D2,The University of Texas at Tyler,ASR,95.0,,0.6573705179282868,,0.6573705179282868
+1394,West Florida,Softball,D2,University of West Florida,ASR,90.0,87.0,0.44223107569721115,0.8580246913580247,0.650127883527618
+1467,Northwest Mo. St.,Softball,D2,Northwest Missouri State University,ASR,93.0,76.0,0.5657370517928287,0.7016460905349794,0.6336915711639041
+1503,Ohio Dominican,Softball,D2,Ohio Dominican University,ASR,91.0,80.0,0.4900398406374502,0.7757201646090535,0.6328800026232518
+1619,Fla. Southern,Softball,D2,Florida Southern College,ASR,95.0,71.0,0.6573705179282868,0.5946502057613169,0.6260103618448019
+1454,Drury,Softball,D2,Drury University,ASR,95.0,71.0,0.6573705179282868,0.5946502057613169,0.6260103618448019
+1614,Holy Family,Softball,D2,Holy Family University,ASR,95.0,71.0,0.6573705179282868,0.5946502057613169,0.6260103618448019
+1435,East Stroudsburg,Softball,D2,East Stroudsburg University of Pennsylvania,ASR,89.0,86.0,0.40836653386454186,0.8395061728395061,0.623936353352024
+1458,Winston-Salem,Softball,D2,Winston-Salem State University,ASR,91.0,77.0,0.4900398406374502,0.720164609053498,0.605102224845474
+1537,Slippery Rock,Softball,D2,Slippery Rock University of Pennsylvania,ASR,93.0,73.0,0.5657370517928287,0.6419753086419753,0.6038561802174021
+1636,St. Edward's,Softball,D2,St. Edward's University,ASR,96.0,67.0,0.7350597609561753,0.46502057613168724,0.6000401685439313
+1585,Lynn,Softball,D2,Lynn University,ASR,96.0,67.0,0.7350597609561753,0.46502057613168724,0.6000401685439313
+1598,Chowan,Softball,D2,Chowan University,ASR,100.0,60.0,0.9023904382470119,0.2962962962962963,0.5993433672716542
+2228,Vanguard,Softball,D2,Vanguard University,ASR,100.0,60.0,0.9023904382470119,0.2962962962962963,0.5993433672716542
+1603,Ashland,Softball,D2,Ashland University,ASR,93.0,72.0,0.5657370517928287,0.6296296296296297,0.5976833407112292
+1560,Dominican (NY),Softball,D2,Dominican University New York,ASR,94.0,71.0,0.599601593625498,0.5946502057613169,0.5971258996934075
+1410,Alabama Huntsville,Softball,D2,University of Alabama in Huntsville,ASR,90.0,78.0,0.44223107569721115,0.7469135802469136,0.5945723279720624
+1618,Mary,Softball,D2,Maryville University of Saint Louis,ASR,90.0,78.0,0.44223107569721115,0.7469135802469136,0.5945723279720624
+1577,Felician,Softball,D2,Felician University,ASR,100.0,59.0,0.9023904382470119,0.2716049382716049,0.5869976882593084
+1474,Montevallo,Softball,D2,University of Montevallo,ASR,97.0,64.0,0.7888446215139442,0.3786008230452675,0.5837227222796059
+1627,Cedarville,Softball,D2,Cedarville University,ASR,95.0,68.0,0.6573705179282868,0.5061728395061729,0.5817716787172298
+1597,St. Anselm,Softball,D2,Saint Anselm College,ASR,93.0,71.0,0.5657370517928287,0.5946502057613169,0.5801936287770728
+1413,Regis (CO),Softball,D2,Regis University (Colorado),ASR,94.0,70.0,0.599601593625498,0.5576131687242798,0.5786073811748889
+1582,Ark.-Monticello,Softball,D2,"University of Arkansas, Monticello",ASR,96.0,65.0,0.7350597609561753,0.4156378600823045,0.5753488105192399
+1470,Wayne St. (MI),Softball,D2,Wayne State University (Michigan),ASR,90.0,76.0,0.44223107569721115,0.7016460905349794,0.5719385831160952
+1534,Edinboro,Softball,D2,"Pennsylvania Western University, Edinboro",ASR,85.0,86.0,0.29880478087649404,0.8395061728395061,0.569155476858
+1451,Lubbock Christian,Softball,D2,Lubbock Christian University,ASR,85.0,86.0,0.29880478087649404,0.8395061728395061,0.569155476858
+1415,Lane,Softball,D2,Lane College,ASR,84.0,88.0,0.26095617529880477,0.8662551440329218,0.5636056596658633
+1423,Minnesota St.,Softball,D2,"Minnesota State University, Mankato",ASR,94.0,68.0,0.599601593625498,0.5061728395061729,0.5528872165658354
+1389,Colorado Mesa,Softball,D2,Colorado Mesa University,ASR,90.0,74.0,0.44223107569721115,0.6604938271604939,0.5513624514288525
+1473,Minn. Duluth,Softball,D2,University of Minnesota Duluth,ASR,93.0,69.0,0.5657370517928287,0.5349794238683128,0.5503582378305707
+1616,Virginia Union,Softball,D2,Virginia Union University,ASR,85.0,80.0,0.29880478087649404,0.7757201646090535,0.5372624727427737
+1519,Lewis,Softball,D2,Lewis University,ASR,95.0,65.0,0.6573705179282868,0.4156378600823045,0.5365041890052957
+1578,West Liberty,Softball,D2,West Liberty University,ASR,92.0,69.0,0.5338645418326693,0.5349794238683128,0.534421982850491
+1498,Elizabeth City St.,Softball,D2,Elizabeth City State University,ASR,94.0,67.0,0.599601593625498,0.46502057613168724,0.5323110848785926
+1588,Cal St. Monterey Bay,Softball,D2,"California State University, Monterey Bay",ASR,92.0,68.0,0.5338645418326693,0.5061728395061729,0.5200186906694211
+1489,CSU Pueblo,Softball,D2,Colorado State University Pueblo,ASR,90.0,71.0,0.44223107569721115,0.5946502057613169,0.518440640729264
+1418,Georgia College,Softball,D2,Georgia College,ASR,95.0,64.0,0.6573705179282868,0.3786008230452675,0.5179856704867771
+1497,McKendree,Softball,D2,McKendree University,ASR,95.0,64.0,0.6573705179282868,0.3786008230452675,0.5179856704867771
+1514,Cameron,Softball,D2,Cameron University,ASR,100.0,50.0,0.9023904382470119,0.12551440329218108,0.5139524207695965
+1448,Findlay,Softball,D2,University of Findlay,ASR,91.0,69.0,0.4900398406374502,0.5349794238683128,0.5125096322528815
+1579,Barry,Softball,D2,Barry University,ASR,91.0,68.0,0.4900398406374502,0.5061728395061729,0.49810634007181154
+1550,Sioux Falls,Softball,D2,University of Sioux Falls,ASR,91.0,68.0,0.4900398406374502,0.5061728395061729,0.49810634007181154
+1551,Simon Fraser,Softball,D2,Simon Fraser University,ASR,86.0,74.0,0.32270916334661354,0.6604938271604939,0.4916014952535537
+1555,D'Youville,Softball,D2,D'Youville University,ASR,91.0,,0.4900398406374502,,0.4900398406374502
+2068,Thomas More,Softball,D2,Thomas More University,ASR,91.0,,0.4900398406374502,,0.4900398406374502
+1558,Salem (WV),Softball,D2,Salem University (West Virginia),ASR,95.0,61.0,0.6573705179282868,0.3168724279835391,0.48712147295591296
+1571,Northwestern Okla.,Softball,D2,Northwestern Oklahoma State University,ASR,96.0,57.0,0.7350597609561753,0.22839506172839505,0.4817274113422852
+1456,Anderson (SC),Softball,D2,Anderson University (South Carolina),ASR,88.0,71.0,0.36852589641434264,0.5946502057613169,0.48158805108782976
+1490,Tiffin,Softball,D2,Tiffin University,ASR,85.0,74.0,0.29880478087649404,0.6604938271604939,0.4796493040184939
+1386,Emmanuel (GA),Softball,D2,Emmanuel University (Georgia),ASR,100.0,42.0,0.9023904382470119,0.051440329218107,0.4769153837325595
+1487,Fort Lewis,Softball,D2,Fort Lewis College,ASR,94.0,63.0,0.599601593625498,0.35390946502057613,0.4767555293230371
+1420,Fairmont St.,Softball,D2,Fairmont State University,ASR,92.0,65.0,0.5338645418326693,0.4156378600823045,0.4747512009574869
+1591,Southern Conn. St.,Softball,D2,Southern Connecticut State University,ASR,83.0,77.0,0.22310756972111553,0.720164609053498,0.4716360893873068
+1436,Nova Southeastern,Softball,D2,Nova Southeastern University,ASR,100.0,40.0,0.9023904382470119,0.03292181069958848,0.4676561244733002
+1397,Mississippi Col.,Softball,D2,Mississippi College,ASR,90.0,67.0,0.44223107569721115,0.46502057613168724,0.4536258259144492
+1408,Bluefield St.,Softball,D2,Bluefield State University,ASR,90.0,67.0,0.44223107569721115,0.46502057613168724,0.4536258259144492
+1605,Shepherd,Softball,D2,Shepherd University,ASR,88.0,69.0,0.36852589641434264,0.5349794238683128,0.4517526601413277
+1505,USC Aiken,Softball,D2,University of South Carolina Aiken,ASR,77.0,80.0,0.12151394422310757,0.7757201646090535,0.4486170544160805
+1543,Mont. St. Billings,Softball,D2,Montana State University Billings,ASR,94.0,60.0,0.599601593625498,0.2962962962962963,0.44794894496089716
+1600,Neb.-Kearney,Softball,D2,University of Nebraska at Kearney,ASR,87.0,70.0,0.33665338645418325,0.5576131687242798,0.4471332775892315
+1629,Wheeling,Softball,D2,Wheeling University,ASR,92.0,63.0,0.5338645418326693,0.35390946502057613,0.4438870034266227
+1414,Columbus St.,Softball,D2,Columbus State University,ASR,95.0,57.0,0.6573705179282868,0.22839506172839505,0.44288278982834095
+1553,Ferris St.,Softball,D2,Ferris State University,ASR,83.0,74.0,0.22310756972111553,0.6604938271604939,0.4418006984408047
+1471,Southwest Baptist,Softball,D2,Southwest Baptist University,ASR,92.0,62.0,0.5338645418326693,0.33127572016460904,0.43257013099863917
+1601,Chico St.,Softball,D2,"California State University, Chico",ASR,83.0,73.0,0.22310756972111553,0.6419753086419753,0.4325414391815454
+1462,Mercy,Softball,D2,Mercy University,ASR,96.0,50.0,0.7350597609561753,0.12551440329218108,0.4302870821241782
+1513,Azusa Pacific,Softball,D2,Azusa Pacific University,ASR,86.0,69.0,0.32270916334661354,0.5349794238683128,0.4288442936074631
+1644,Lake Erie,Softball,D2,Lake Erie College,ASR,84.0,71.0,0.26095617529880477,0.5946502057613169,0.42780319053006083
+1607,Minn.-Crookston,Softball,D2,"University of Minnesota, Crookston",ASR,84.0,71.0,0.26095617529880477,0.5946502057613169,0.42780319053006083
+2081,St. Augustine's,Softball,D2,Saint Augustine's University,ASR,73.0,80.0,0.0697211155378486,0.7757201646090535,0.422720640073451
+1611,William Jewell,Softball,D2,William Jewell College,ASR,82.0,73.0,0.19721115537848605,0.6419753086419753,0.4195932320102307
+1483,Saginaw Valley,Softball,D2,Saginaw Valley State University,ASR,88.0,67.0,0.36852589641434264,0.46502057613168724,0.41677323627301494
+1526,Davis & Elkins,Softball,D2,Davis & Elkins College,ASR,79.0,75.0,0.14940239043824702,0.6831275720164609,0.41626498122735395
+1593,Cal St. East Bay,Softball,D2,"California State University, East Bay",ASR,92.0,60.0,0.5338645418326693,0.2962962962962963,0.4150804190644828
+1563,Erskine,Softball,D2,Erskine College,ASR,92.0,60.0,0.5338645418326693,0.2962962962962963,0.4150804190644828
+1539,Glenville St.,Softball,D2,Glenville State University,ASR,91.0,62.0,0.4900398406374502,0.33127572016460904,0.4106577804010296
+1438,Frostburg St.,Softball,D2,Frostburg State University,ASR,89.0,,0.40836653386454186,,0.40836653386454186
+1637,Wayne St. (NE),Softball,D2,Wayne State College (Nebraska),ASR,87.0,67.0,0.33665338645418325,0.46502057613168724,0.4008369812929352
+1500,Tex. A&M-Kingsville,Softball,D2,Texas A&M University-Kingsville,ASR,69.0,78.0,0.053784860557768925,0.7469135802469136,0.4003492204023412
+1635,West Virginia St.,Softball,D2,West Virginia State University,ASR,90.0,63.0,0.44223107569721115,0.35390946502057613,0.39807027035889364
+1626,Post,Softball,D2,Post University,ASR,92.0,58.0,0.5338645418326693,0.25308641975308643,0.39347548079287786
+1477,Georgian Court,Softball,D2,Georgian Court University,ASR,88.0,65.0,0.36852589641434264,0.4156378600823045,0.3920818782483236
+1625,Texas Woman's,Softball,D2,Texas Woman's University,ASR,95.0,50.0,0.6573705179282868,0.12551440329218108,0.39144246061023397
+1622,Ursuline,Softball,D2,Ursuline College,ASR,88.0,64.0,0.36852589641434264,0.3786008230452675,0.37356335972980503
+1538,Saint Martin's,Softball,D2,Saint Martin's University,ASR,91.0,58.0,0.4900398406374502,0.25308641975308643,0.3715631301952683
+1581,Lees-McRae,Softball,D2,Lees-McRae College,ASR,91.0,58.0,0.4900398406374502,0.25308641975308643,0.3715631301952683
+1530,Sonoma St.,Softball,D2,Sonoma State University,ASR,89.0,62.0,0.40836653386454186,0.33127572016460904,0.3698211270145755
+1836,Sul Ross St.,Softball,D2,Sul Ross State University,ASR,88.0,,0.36852589641434264,,0.36852589641434264
+1468,Purdue Northwest,Softball,D2,Purdue University Northwest,ASR,84.0,67.0,0.26095617529880477,0.46502057613168724,0.362988375715246
+1478,Pace,Softball,D2,Pace University,ASR,95.0,43.0,0.6573705179282868,0.06172839506172839,0.3595494564950076
+1545,Missouri Western,Softball,D2,Missouri Western State University,ASR,90.0,59.0,0.44223107569721115,0.2716049382716049,0.356918006984408
+1404,Shippensburg,Softball,D2,Shippensburg University of Pennsylvania,ASR,82.0,68.0,0.19721115537848605,0.5061728395061729,0.3516919974423295
+1561,Northwest Nazarene,Softball,D2,Northwest Nazarene University,ASR,88.0,62.0,0.36852589641434264,0.33127572016460904,0.34990080828947584
+1494,Union (TN),Softball,D2,Union University,ASR,91.0,56.0,0.4900398406374502,0.20781893004115226,0.34892938533930123
+1567,Queens (NY),Softball,D2,Queens College (New York),ASR,74.0,71.0,0.08764940239043825,0.5946502057613169,0.3411498040758776
+1412,Lenoir-Rhyne,Softball,D2,Lenoir-Rhyne University,ASR,89.0,59.0,0.40836653386454186,0.2716049382716049,0.33998573606807336
+2065,USC Beaufort,Softball,D2,University of South Carolina Beaufort,ASR,86.0,63.0,0.32270916334661354,0.35390946502057613,0.33830931418359483
+1574,Chaminade,Softball,D2,Chaminade University,ASR,84.0,65.0,0.26095617529880477,0.4156378600823045,0.33829701769055465
+1565,Augusta,Softball,D2,Augusta University,ASR,88.0,60.0,0.36852589641434264,0.2962962962962963,0.33241109635531946
+1646,Palm Beach Atl.,Softball,D2,Palm Beach Atlantic University,ASR,89.0,58.0,0.40836653386454186,0.25308641975308643,0.3307264768088142
+1479,Southeastern Okla.,Softball,D2,Southeastern Oklahoma State University,ASR,91.0,53.0,0.4900398406374502,0.17078189300411523,0.3304108668207827
+1449,Belmont Abbey,Softball,D2,Belmont Abbey College,ASR,84.0,64.0,0.26095617529880477,0.3786008230452675,0.31977849917203616
+1459,Malone,Softball,D2,Malone University,ASR,84.0,64.0,0.26095617529880477,0.3786008230452675,0.31977849917203616
+1388,Virginia St.,Softball,D2,Virginia State University,ASR,80.0,67.0,0.16733067729083664,0.46502057613168724,0.3161756267112619
+1546,Savannah St.,Softball,D2,Savannah State University,ASR,82.0,65.0,0.19721115537848605,0.4156378600823045,0.3064245077303953
+1411,Tusculum,Softball,D2,Tusculum University,ASR,90.0,52.0,0.44223107569721115,0.15843621399176955,0.3003336448444903
+1453,Cal St. Dom. Hills,Softball,D2,"California State University, Dominguez Hills",ASR,78.0,67.0,0.13346613545816732,0.46502057613168724,0.2992433557949273
+1455,Franklin Pierce,Softball,D2,Franklin Pierce University,ASR,88.0,57.0,0.36852589641434264,0.22839506172839505,0.29846047907136886
+1506,Spring Hill,Softball,D2,Spring Hill College,ASR,88.0,57.0,0.36852589641434264,0.22839506172839505,0.29846047907136886
+1516,Angelo St.,Softball,D2,Angelo State University,ASR,80.0,65.0,0.16733067729083664,0.4156378600823045,0.29148426868657057
+1610,Bloomfield,Softball,D2,Bloomfield College,ASR,88.0,56.0,0.36852589641434264,0.20781893004115226,0.28817241322774745
+1495,Rogers St.,Softball,D2,Rogers State University,ASR,84.0,60.0,0.26095617529880477,0.2962962962962963,0.2786262357975505
+1466,Cal St. San Marcos,Softball,D2,"California State University, San Marcos",ASR,84.0,60.0,0.26095617529880477,0.2962962962962963,0.2786262357975505
+1557,Stanislaus St.,Softball,D2,"California State University, Stanislaus",ASR,74.0,67.0,0.08764940239043825,0.46502057613168724,0.27633498926106276
+1624,Hawaii Pacific,Softball,D2,Hawaii Pacific University,ASR,72.0,67.0,0.05976095617529881,0.46502057613168724,0.262390766153493
+1457,Bowie St.,Softball,D2,Bowie State University,ASR,68.0,67.0,0.043824701195219126,0.46502057613168724,0.25442263866345316
+1638,Northeastern St.,Softball,D2,Northeastern State University,ASR,86.0,54.0,0.32270916334661354,0.18106995884773663,0.2518895610971751
+1533,Walsh,Softball,D2,Walsh University,ASR,79.0,63.0,0.14940239043824702,0.35390946502057613,0.2516559277294116
+1612,Tex. A&M Int'l,Softball,D2,Texas A&M International University,ASR,80.0,62.0,0.16733067729083664,0.33127572016460904,0.24930319872772283
+1445,Washburn,Softball,D2,Washburn University,ASR,88.0,50.0,0.36852589641434264,0.12551440329218108,0.24702014985326187
+1521,Christian Brothers,Softball,D2,Christian Brothers University,ASR,73.0,65.0,0.0697211155378486,0.4156378600823045,0.24267948781007656
+1620,Benedict,Softball,D2,Benedict College,ASR,75.0,64.0,0.10557768924302789,0.3786008230452675,0.2420892561441477
+1528,UNC Pembroke,Softball,D2,University of North Carolina at Pembroke,ASR,85.0,54.0,0.29880478087649404,0.18106995884773663,0.23993736986211534
+1399,North Georgia,Softball,D2,University of North Georgia,ASR,88.0,46.0,0.36852589641434264,0.09053497942386832,0.2295304379191055
+1573,Cal Poly Humboldt,Softball,D2,"California State Polytechnic University, Humboldt",ASR,77.0,62.0,0.12151394422310757,0.33127572016460904,0.2263948321938583
+1450,Harding,Softball,D2,Harding University,ASR,88.0,44.0,0.36852589641434264,0.07407407407407407,0.22129998524420835
+1541,Southwestern Okla.,Softball,D2,Southwestern Oklahoma State University,ASR,85.0,50.0,0.29880478087649404,0.12551440329218108,0.21215959208433754
+1395,Charleston (WV),Softball,D2,University of Charleston (West Virginia),ASR,84.0,52.0,0.26095617529880477,0.15843621399176955,0.20969619464528716
+1547,Newman,Softball,D2,Newman University,ASR,83.0,55.0,0.22310756972111553,0.1934156378600823,0.20826160379059894
+1515,Delta St.,Softball,D2,Delta State University,ASR,86.0,45.0,0.32270916334661354,0.0823045267489712,0.20250684504779237
+1621,Miles,Softball,D2,Miles College,ASR,79.0,58.0,0.14940239043824702,0.25308641975308643,0.2012444050956667
+1446,Limestone,Softball,D2,Limestone University,ASR,75.0,60.0,0.10557768924302789,0.2962962962962963,0.2009369927696621
+1428,Central Okla.,Softball,D2,University of Central Oklahoma,ASR,83.0,53.0,0.22310756972111553,0.17078189300411523,0.19694473136261537
+1400,Carson-Newman,Softball,D2,Carson-Newman University,ASR,82.0,55.0,0.19721115537848605,0.1934156378600823,0.19531339661928418
+1509,Henderson St.,Softball,D2,Henderson State University,ASR,81.0,56.0,0.18127490039840638,0.20781893004115226,0.19454691521977932
+1536,Chadron St.,Softball,D2,Chadron State College,ASR,82.0,54.0,0.19721115537848605,0.18106995884773663,0.18914055711311134
+2070,Roosevelt,Softball,D2,Roosevelt University,ASR,80.0,56.0,0.16733067729083664,0.20781893004115226,0.18757480366599444
+1417,Southern Nazarene,Softball,D2,Southern Nazarene University,ASR,78.0,57.0,0.13346613545816732,0.22839506172839505,0.1809305985932812
+1643,Midwestern St.,Softball,D2,Midwestern State University,ASR,80.0,55.0,0.16733067729083664,0.1934156378600823,0.18037315757545946
+1586,East Central,Softball,D2,East Central University,ASR,85.0,42.0,0.29880478087649404,0.051440329218107,0.1751225550473005
+1524,Adams St.,Softball,D2,Adams State University,ASR,74.0,58.0,0.08764940239043825,0.25308641975308643,0.17036791107176236
+1426,Francis Marion,Softball,D2,Francis Marion University,ASR,84.0,44.0,0.26095617529880477,0.07407407407407407,0.16751512468643942
+1523,Kentucky St.,Softball,D2,Kentucky State University,ASR,83.0,46.0,0.22310756972111553,0.09053497942386832,0.15682127457249193
+1596,Arkansas Tech,Softball,D2,Arkansas Tech University,ASR,81.0,50.0,0.18127490039840638,0.12551440329218108,0.15339465184529372
+1507,Concord,Softball,D2,Concord University,ASR,78.0,52.0,0.13346613545816732,0.15843621399176955,0.14595117472496844
+1512,Southern Ark.,Softball,D2,Southern Arkansas University,ASR,78.0,52.0,0.13346613545816732,0.15843621399176955,0.14595117472496844
+1419,Young Harris,Softball,D2,Young Harris College,ASR,84.0,33.0,0.26095617529880477,0.012345679012345678,0.13665092715557522
+1430,Valdosta St.,Softball,D2,Valdosta State University,ASR,65.0,57.0,0.03187250996015936,0.22839506172839505,0.1301337858442772
+1589,Lincoln (PA),Softball,D2,Lincoln University (Pennsylvania),ASR,75.0,50.0,0.10557768924302789,0.12551440329218108,0.11554604626760448
+1575,Johnson C. Smith,Softball,D2,Johnson C. Smith University,ASR,83.0,0.0,0.22310756972111553,0.00411522633744856,0.11361139802928205
+1392,West Tex. A&M,Softball,D2,West Texas A&M University,ASR,82.0,37.0,0.19721115537848605,0.01646090534979424,0.10683603036414015
+1422,Lander,Softball,D2,Lander University,ASR,74.0,50.0,0.08764940239043825,0.12551440329218108,0.10658190284130967
+1391,Wilmington (DE),Softball,D2,Wilmington University (Delaware),ASR,79.0,41.0,0.14940239043824702,0.04526748971193416,0.09733494007509058
+1460,Converse,Softball,D2,Converse University,ASR,76.0,44.0,0.11553784860557768,0.07407407407407407,0.09480596133982588
+1594,Hawaii Hilo,Softball,D2,University of Hawaii at Hilo,ASR,68.0,50.0,0.043824701195219126,0.12551440329218108,0.0846695522437001
+1476,Fort Valley St.,Softball,D2,Fort Valley State University,ASR,73.0,46.0,0.0697211155378486,0.09053497942386832,0.08012804748085846
+1642,Shaw,Softball,D2,Shaw University,ASR,65.0,50.0,0.03187250996015936,0.12551440329218108,0.07869345662617022
+1508,Minot St.,Softball,D2,Minot State University,ASR,69.0,47.0,0.053784860557768925,0.09876543209876543,0.07627514632826718
+1613,Academy of Art,Softball,D2,Academy of Art University,ASR,54.0,50.0,0.01593625498007968,0.12551440329218108,0.07072532913613039
+1504,Black Hills St.,Softball,D2,Black Hills State University,ASR,75.0,40.0,0.10557768924302789,0.03292181069958848,0.06924974997130819
+2052,Edward Waters,Softball,D2,Edward Waters University,ASR,50.0,50.0,0.01195219123505976,0.12551440329218108,0.06873329726362042
+1385,MSU Denver,Softball,D2,Metropolitan State University of Denver,ASR,74.0,40.0,0.08764940239043825,0.03292181069958848,0.060285606545013366
+1540,Tuskegee,Softball,D2,Tuskegee University,ASR,68.0,43.0,0.043824701195219126,0.06172839506172839,0.05277654812847376
+1630,Lincoln (MO),Softball,D2,Lincoln University (Missouri),ASR,73.0,40.0,0.0697211155378486,0.03292181069958848,0.05132146311871854
+1648,Livingstone,Softball,D2,Livingstone College,ASR,60.0,43.0,0.02390438247011952,0.06172839506172839,0.04281638876592396
+1431,Eastern N.M.,Softball,D2,Eastern New Mexico University,ASR,59.0,40.0,0.0199203187250996,0.03292181069958848,0.02642106471234404
+1381,Albany St. (GA),Softball,D2,Albany State University (Georgia),ASR,65.0,38.0,0.03187250996015936,0.0205761316872428,0.026224320823701082
+2086,Allen,Softball,D2,Allen University,ASR,15.0,18.0,0.00796812749003984,0.00823045267489712,0.00809929008246848
+2074,Jessup,Softball,D2,Jessup University,ASR,0.0,,0.00398406374501992,,0.00398406374501992
