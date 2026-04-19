@@ -35,20 +35,8 @@ st.caption('Build a shareable transfer-portal graphic for a single player.')
 
 # ── Data loading ────────────────────────────────────────────────────────────
 @st.cache_data
-def load_portal_archive() -> pd.DataFrame:
-    frames = []
-    for fname in ('baseball_full_archive.csv', 'softball_full_archive.csv'):
-        p = DATA_DIR / 'portal_archive' / fname
-        if p.exists():
-            d = pd.read_csv(p, dtype=str).fillna('')
-            frames.append(d)
-    return pd.concat(frames, ignore_index=True) if frames else pd.DataFrame()
-
-
-@st.cache_data
 def load_players() -> pd.DataFrame:
-    p = pd.read_csv(DATA_DIR / 'players.csv', encoding='latin1', dtype=str).fillna('')
-    return p
+    return pd.read_csv(DATA_DIR / 'players.csv', encoding='latin1', dtype=str).fillna('')
 
 
 @st.cache_data
@@ -61,74 +49,41 @@ def load_hitting() -> pd.DataFrame:
     return pd.read_csv(DATA_DIR / 'hitting.csv', low_memory=False)
 
 
-portal = load_portal_archive()
 players = load_players()
 teams = load_teams()
 hitting = load_hitting()
 
+# Join team name + sport onto players for display
+team_lookup = teams[['id', 'name', 'sport']].rename(
+    columns={'id': 'team_id', 'name': 'team_name', 'sport': 'sport'}
+)
+players_ext = players.merge(team_lookup, on='team_id', how='left').fillna('')
+
 
 # ── Player picker ───────────────────────────────────────────────────────────
 st.subheader('1. Pick a player')
+query = st.text_input('Search players by name',
+                        placeholder='Start typing a name...',
+                        key='player_search')
 
-pc1, pc2 = st.columns([1, 3])
-with pc1:
-    sport_pick = st.radio('Sport', ['Baseball', 'Softball'], horizontal=True)
-with pc2:
-    query = st.text_input('Search portal entrants by name or school',
-                           placeholder='Naulivou, Oregon, ...')
-
-sport_filter = sport_pick.lower()
-p_filtered = portal[portal['sport'].str.lower() == sport_filter] if not portal.empty else pd.DataFrame()
-if query and not p_filtered.empty:
-    q = query.lower()
-    mask = (p_filtered['first_name'].str.lower().str.contains(q, na=False)
-            | p_filtered['last_name'].str.lower().str.contains(q, na=False)
-            | p_filtered['institution'].str.lower().str.contains(q, na=False))
-    p_filtered = p_filtered[mask]
-
-p_filtered = p_filtered.sort_values('transfer_date', ascending=False).head(50)
-
-sel_row = None
-if not p_filtered.empty:
-    opts = p_filtered.apply(
-        lambda r: f"{r['first_name']} {r['last_name']} — {r['institution']} ({r['year']}, {r['status']})",
-        axis=1
-    ).tolist()
-    opts = ['(none — fill manually)'] + opts
-    pick = st.selectbox('Match', opts)
-    if pick != '(none — fill manually)':
-        sel_row = p_filtered.iloc[opts.index(pick) - 1]
-
-
-# ── Field lookups ───────────────────────────────────────────────────────────
-def find_player_record(ncaa_id: str, last: str, first: str, institution: str):
-    """Try ncaa_id join first, fall back to (last, school) per portal fuzzy rules."""
-    if not players.empty and ncaa_id:
-        hit = players[players['player_id_ncaa'] == str(ncaa_id)]
-        if not hit.empty:
-            return hit.iloc[0]
-    # Fallback: last name + institution (shortest-match per feedback memory)
-    if not players.empty and last:
-        teams_sport = teams[teams['sport'].str.lower() == sport_filter] if not teams.empty else teams
-        sorted_teams = teams_sport.assign(
-            _len=teams_sport['name'].str.len()
-        ).sort_values('_len')
-        team_row = None
-        for _, tr in sorted_teams.iterrows():
-            if institution and (tr['name'].lower() == institution.lower()
-                                or institution.lower().startswith(tr['name'].lower())):
-                team_row = tr
-                break
-        if team_row is not None:
-            cands = players[
-                (players['team_id'] == team_row['id'])
-                & (players['player_name'].str.lower().str.contains(last.lower(), na=False))
-            ]
-            if first:
-                cands = cands[cands['player_name'].str.lower().str.contains(first.lower(), na=False)]
-            if len(cands) == 1:
-                return cands.iloc[0]
-    return None
+prec = None
+school_name = ''
+sport_filter = ''
+if query:
+    q = query.lower().strip()
+    hits = players_ext[players_ext['player_name'].str.lower().str.contains(q, na=False)]
+    hits = hits.head(50)
+    if hits.empty:
+        st.info('No matches — type more of the name.')
+    else:
+        opts = hits.apply(
+            lambda r: f"{r['player_name']} — {r['team_name']} ({r['position'] or '—'}, {r['classification'] or '—'})",
+            axis=1
+        ).tolist()
+        pick = st.selectbox(f'Matches ({len(hits)})', opts, key='player_pick')
+        prec = hits.iloc[opts.index(pick)]
+        school_name = prec.get('team_name', '')
+        sport_filter = (prec.get('sport') or '').lower()
 
 
 def career_stats(player_id: str):
@@ -183,97 +138,93 @@ defaults = {
     'photo_src_override': None,  # bytes for uploaded photo
 }
 
-if sel_row is not None:
-    defaults['name'] = f"{sel_row['first_name']} {sel_row['last_name']}".strip()
-    defaults['school'] = sel_row['institution']
-    defaults['school_abbr'] = ''.join(w[0] for w in sel_row['institution'].split()[:3]).upper() if sel_row['institution'] else ''
+if prec is not None:
+    defaults['name'] = prec.get('player_name', '')
+    defaults['school'] = school_name
+    defaults['school_abbr'] = ''.join(w[0] for w in school_name.split()[:3]).upper() if school_name else ''
+    defaults['pos'] = (prec.get('position') or '').upper()
+    cls = prec.get('classification') or ''
+    defaults['class_short'] = CLASS_SHORT.get(cls, cls.upper()[:3]+'.' if cls else '')
+    defaults['class_long'] = CLASS_LONG.get(defaults['class_short'], cls.upper())
+    defaults['bat'] = (prec.get('bat') or '').upper()
+    defaults['throw'] = (prec.get('throw') or '').upper()
 
-    prec = find_player_record(sel_row.get('ncaa_id', ''), sel_row['last_name'],
-                                sel_row['first_name'], sel_row['institution'])
-    if prec is not None:
-        defaults['pos'] = (prec.get('position') or '').upper()
-        cls = prec.get('classification') or ''
-        defaults['class_short'] = CLASS_SHORT.get(cls, cls.upper()[:3]+'.' if cls else '')
-        defaults['class_long'] = CLASS_LONG.get(defaults['class_short'], cls.upper())
-        defaults['bat'] = (prec.get('bat') or '').upper()
-        defaults['throw'] = (prec.get('throw') or '').upper()
+    # Career stats
+    try:
+        pid = int(prec.get('id') or 0)
+    except Exception:
+        pid = 0
+    hist = career_stats(pid) if pid else pd.DataFrame()
+    if not hist.empty:
+        cur = hist[hist['year'] == 2026]
+        cur_row = cur.iloc[0] if not cur.empty else None
+        if cur_row is not None:
+            defaults['season_gp'] = season_stat(cur_row, 'games_played', 0)
+            defaults['season_pa'] = season_stat(cur_row, 'plate_appearances', 0)
+            defaults['s_avg'] = fmt_slash(cur_row.get('batting_average'))
+            defaults['s_obp'] = fmt_slash(cur_row.get('on_base_percentage'))
+            defaults['s_slg'] = fmt_slash(cur_row.get('slugging_percentage'))
+            defaults['s_ops'] = fmt_slash(cur_row.get('on_base_plus_slugging'))
+            defaults['s_hr'] = season_stat(cur_row, 'home_runs')
+            defaults['s_rbi'] = season_stat(cur_row, 'runs_batted_in')
+            defaults['s_r'] = season_stat(cur_row, 'runs_scored')
+            defaults['s_sb'] = season_stat(cur_row, 'stolen_bases')
+            defaults['s_h'] = season_stat(cur_row, 'hits')
+            defaults['s_ab'] = season_stat(cur_row, 'at_bats')
+            defaults['s_2b'] = season_stat(cur_row, 'doubles')
+            defaults['s_3b'] = season_stat(cur_row, 'triples')
+            defaults['s_tb'] = season_stat(cur_row, 'total_bases')
+            defaults['s_bb'] = season_stat(cur_row, 'walks')
+            defaults['s_hbp'] = season_stat(cur_row, 'hit_by_pitch')
+            defaults['s_so'] = season_stat(cur_row, 'strikeouts')
 
-        # Career stats
-        try:
-            pid = int(prec.get('id') or 0)
-        except Exception:
-            pid = 0
-        hist = career_stats(pid) if pid else pd.DataFrame()
-        if not hist.empty:
-            cur = hist[hist['year'] == 2026]
-            cur_row = cur.iloc[0] if not cur.empty else None
-            if cur_row is not None:
-                defaults['season_gp'] = season_stat(cur_row, 'games_played', 0)
-                defaults['season_pa'] = season_stat(cur_row, 'plate_appearances', 0)
-                defaults['s_avg'] = fmt_slash(cur_row.get('batting_average'))
-                defaults['s_obp'] = fmt_slash(cur_row.get('on_base_percentage'))
-                defaults['s_slg'] = fmt_slash(cur_row.get('slugging_percentage'))
-                defaults['s_ops'] = fmt_slash(cur_row.get('on_base_plus_slugging'))
-                defaults['s_hr'] = season_stat(cur_row, 'home_runs')
-                defaults['s_rbi'] = season_stat(cur_row, 'runs_batted_in')
-                defaults['s_r'] = season_stat(cur_row, 'runs_scored')
-                defaults['s_sb'] = season_stat(cur_row, 'stolen_bases')
-                defaults['s_h'] = season_stat(cur_row, 'hits')
-                defaults['s_ab'] = season_stat(cur_row, 'at_bats')
-                defaults['s_2b'] = season_stat(cur_row, 'doubles')
-                defaults['s_3b'] = season_stat(cur_row, 'triples')
-                defaults['s_tb'] = season_stat(cur_row, 'total_bases')
-                defaults['s_bb'] = season_stat(cur_row, 'walks')
-                defaults['s_hbp'] = season_stat(cur_row, 'hit_by_pitch')
-                defaults['s_so'] = season_stat(cur_row, 'strikeouts')
-
-            # Career rows + totals
-            tot = {'ab': 0, 'h': 0, 'bb': 0, 'k': 0, 'hr': 0, 'rbi': 0, 'g': 0,
-                     'hbp': 0, 'sf': 0, 'tb': 0, 'pa': 0}
-            rows = []
-            for _, yr in hist.iterrows():
-                g = season_stat(yr, 'games_played')
-                ab = season_stat(yr, 'at_bats')
-                h  = season_stat(yr, 'hits')
-                bb = season_stat(yr, 'walks')
-                k  = season_stat(yr, 'strikeouts')
-                hr = season_stat(yr, 'home_runs')
-                rbi = season_stat(yr, 'runs_batted_in')
-                tb = season_stat(yr, 'total_bases')
-                hbp = season_stat(yr, 'hit_by_pitch')
-                sf = season_stat(yr, 'sac_fly')
-                rows.append({
-                    'year': int(yr['year']) if not pd.isna(yr['year']) else '',
-                    'g': g,
-                    'avg': fmt_slash(yr.get('batting_average')),
-                    'obp': fmt_slash(yr.get('on_base_percentage')),
-                    'slg': fmt_slash(yr.get('slugging_percentage')),
-                    'ops': fmt_slash(yr.get('on_base_plus_slugging')),
-                    'hr': hr, 'rbi': rbi,
-                    'hAb': f'{h}/{ab}',
-                    'bbK': f'{bb}/{k}',
-                })
-                for key, val in zip(('g','ab','h','bb','k','hr','rbi','tb','hbp','sf'),
-                                      (g, ab, h, bb, k, hr, rbi, tb, hbp, sf)):
-                    tot[key] += val
-            defaults['career_rows'] = rows
-            # Totals
-            if tot['ab'] > 0:
-                avg = tot['h'] / tot['ab'] if tot['ab'] else 0
-                pa_est = tot['ab'] + tot['bb'] + tot['hbp'] + tot['sf']
-                obp = (tot['h'] + tot['bb'] + tot['hbp']) / pa_est if pa_est else 0
-                slg = tot['tb'] / tot['ab'] if tot['ab'] else 0
-                ops = obp + slg
-                defaults['career_total'] = {
-                    'year': 'TOTAL', 'g': tot['g'],
-                    'avg': fmt_slash(avg), 'obp': fmt_slash(obp),
-                    'slg': fmt_slash(slg), 'ops': fmt_slash(ops),
-                    'hr': tot['hr'], 'rbi': tot['rbi'],
-                    'hAb': f"{tot['h']}/{tot['ab']}",
-                    'bbK': f"{tot['bb']}/{tot['k']}",
-                }
-                defaults['career_slash'] = f"{defaults['career_total']['avg']} / {defaults['career_total']['obp']} / {defaults['career_total']['slg']}"
-                defaults['career_subtitle'] = f"{len(rows)} {'SEASON' if len(rows)==1 else 'SEASONS'} AT {defaults['school'].upper()}"
+        # Career rows + totals
+        tot = {'ab': 0, 'h': 0, 'bb': 0, 'k': 0, 'hr': 0, 'rbi': 0, 'g': 0,
+                 'hbp': 0, 'sf': 0, 'tb': 0, 'pa': 0}
+        rows = []
+        for _, yr in hist.iterrows():
+            g = season_stat(yr, 'games_played')
+            ab = season_stat(yr, 'at_bats')
+            h  = season_stat(yr, 'hits')
+            bb = season_stat(yr, 'walks')
+            k  = season_stat(yr, 'strikeouts')
+            hr = season_stat(yr, 'home_runs')
+            rbi = season_stat(yr, 'runs_batted_in')
+            tb = season_stat(yr, 'total_bases')
+            hbp = season_stat(yr, 'hit_by_pitch')
+            sf = season_stat(yr, 'sac_fly')
+            rows.append({
+                'year': int(yr['year']) if not pd.isna(yr['year']) else '',
+                'g': g,
+                'avg': fmt_slash(yr.get('batting_average')),
+                'obp': fmt_slash(yr.get('on_base_percentage')),
+                'slg': fmt_slash(yr.get('slugging_percentage')),
+                'ops': fmt_slash(yr.get('on_base_plus_slugging')),
+                'hr': hr, 'rbi': rbi,
+                'hAb': f'{h}/{ab}',
+                'bbK': f'{bb}/{k}',
+            })
+            for key, val in zip(('g','ab','h','bb','k','hr','rbi','tb','hbp','sf'),
+                                  (g, ab, h, bb, k, hr, rbi, tb, hbp, sf)):
+                tot[key] += val
+        defaults['career_rows'] = rows
+        # Totals
+        if tot['ab'] > 0:
+            avg = tot['h'] / tot['ab'] if tot['ab'] else 0
+            pa_est = tot['ab'] + tot['bb'] + tot['hbp'] + tot['sf']
+            obp = (tot['h'] + tot['bb'] + tot['hbp']) / pa_est if pa_est else 0
+            slg = tot['tb'] / tot['ab'] if tot['ab'] else 0
+            ops = obp + slg
+            defaults['career_total'] = {
+                'year': 'TOTAL', 'g': tot['g'],
+                'avg': fmt_slash(avg), 'obp': fmt_slash(obp),
+                'slg': fmt_slash(slg), 'ops': fmt_slash(ops),
+                'hr': tot['hr'], 'rbi': tot['rbi'],
+                'hAb': f"{tot['h']}/{tot['ab']}",
+                'bbK': f"{tot['bb']}/{tot['k']}",
+            }
+            defaults['career_slash'] = f"{defaults['career_total']['avg']} / {defaults['career_total']['obp']} / {defaults['career_total']['slg']}"
+            defaults['career_subtitle'] = f"{len(rows)} {'SEASON' if len(rows)==1 else 'SEASONS'} AT {defaults['school'].upper()}"
 
 
 # ── Editable form ───────────────────────────────────────────────────────────
