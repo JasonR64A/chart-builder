@@ -1335,6 +1335,35 @@ except NameError:
     dd_color_a = '#C41230'
     dd_color_b = '#29335C'
 
+def _hex_to_rgb(h):
+    h = h.lstrip('#')
+    if len(h) < 6:
+        return (0, 0, 0)
+    try:
+        return (int(h[0:2], 16), int(h[2:4], 16), int(h[4:6], 16))
+    except ValueError:
+        return (0, 0, 0)
+
+def _color_distance(c1, c2):
+    r1, g1, b1 = _hex_to_rgb(c1)
+    r2, g2, b2 = _hex_to_rgb(c2)
+    return abs(r1 - r2) + abs(g1 - g2) + abs(b1 - b2)
+
+def _ensure_b_contrast(a, b, min_dist=180):
+    """If team B color is too close to team A's, swap B for a contrasting fallback."""
+    if _color_distance(a, b) >= min_dist:
+        return b
+    # Try fallbacks in order; prefer whichever is furthest from A
+    fallbacks = ['#29335C', '#1B5E20', '#2D2926', '#0D4F4F', '#4A148C', '#BF360C', '#004D40']
+    best, best_d = b, _color_distance(a, b)
+    for fb in fallbacks:
+        d = _color_distance(a, fb)
+        if d > best_d:
+            best, best_d = fb, d
+    return best
+
+dd_color_b = _ensure_b_contrast(dd_color_a, dd_color_b)
+
 outcomes_data = [
     {'lbl': f'{team_a.upper()} sweep', 'team': 'a', 'pct': round(outcome_counts['3-0 away'] / n_sims * 100, 1), 'swatch': dd_color_a},
     {'lbl': f'{team_a.upper()} 2-1',   'team': 'a', 'pct': round(outcome_counts['2-1 away'] / n_sims * 100, 1), 'swatch': dd_color_a + '88'},
