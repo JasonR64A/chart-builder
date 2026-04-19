@@ -2,6 +2,12 @@
 # Update chart builder data and push to Streamlit Cloud
 # Run: bash update_data.sh
 
+# Ensure Unix tools are on PATH even when invoked from Task Scheduler's
+# stripped-down environment (which otherwise gives us only bash.exe and
+# no mkdir/gzip/tail/date/cp/git). 2026-04-19: the nightly was silently
+# failing on all cp/mkdir calls because of this.
+export PATH="/usr/bin:/mingw64/bin:/c/Program Files/Git/usr/bin:/c/Program Files/Git/mingw64/bin:/c/Program Files/Git/cmd:$PATH"
+
 SOURCE="C:/Users/sixty/OneDrive/Desktop/64Analytics/Website_Data/Zip Uploads/Zips"
 DEST="C:/Users/sixty/OneDrive/Desktop/chart-builder-app/data"
 
