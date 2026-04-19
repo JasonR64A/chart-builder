@@ -41,7 +41,18 @@ d1_box_mask = h_pbp['teamName'].apply(lambda t: resolve_pbp_to_64a(t) is not Non
 d1_box = h_pbp[d1_box_mask].copy()
 d1_box['team_64a'] = d1_box['teamName'].apply(resolve_pbp_to_64a)
 
-box = d1_box.groupby(['playerName','team_64a'])['hr'].sum().reset_index(name='box_hr').astype({'box_hr':int})
+# Group box-score data by playerId (the ONLY reliable identity within a source).
+# Same player can appear under multiple spellings ("Nate" / "Nathan", "Longo" / "Longo II",
+# "Pena" / "Pena-Edwards") — grouping by name splits them and produces false Bucket C gaps.
+# After grouping, pick the LONGEST name variant seen for each playerId as canonical.
+_box_by_id = d1_box.groupby(['playerId','team_64a']).agg(
+    box_hr=('hr','sum'),
+    _names=('playerName', lambda s: sorted(set(x for x in s.dropna().tolist() if isinstance(x, str)), key=len, reverse=True)),
+).reset_index()
+_box_by_id['box_hr'] = _box_by_id['box_hr'].astype(int)
+_box_by_id['playerName'] = _box_by_id['_names'].apply(lambda xs: xs[0] if xs else '')
+_box_by_id['name_variants'] = _box_by_id['_names'].apply(lambda xs: '; '.join(xs) if len(xs) > 1 else '')
+box = _box_by_id[['playerName','team_64a','box_hr','playerId','name_variants']].copy()
 
 hit_full_d1 = hit_full[hit_full['team_64a'].isin(d1_rpi_teams)].copy()
 season = hit_full_d1.groupby(['player_name','team_64a'])['home_runs'].sum().reset_index()
