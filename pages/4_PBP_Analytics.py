@@ -2218,8 +2218,12 @@ elif view == 'Pace Chart':
         st.warning('No entities meet the minimum games threshold.')
         st.stop()
 
-    # Sort by final value for highlight selection
-    all_games = all_games.sort_values('date_parsed')
+    # Sort within each entity by date + game_num. The game_num tiebreaker is
+    # essential for doubleheaders: both games share a date, so a date-only sort
+    # can flip them and make the line look like cum_HR drops (impossible).
+    # game_num was assigned in cumsum order above, so sorting by it matches
+    # the cumulative order.
+    all_games = all_games.sort_values(['_key', 'date_parsed', 'game_num'])
     final_stats = all_games.groupby(['_key', 'entity', 'team']).agg(
         total=('cum_stat', 'last'), games=('game_num', 'max')).reset_index()
     # For pitching rate stats, lower is better (sort ascending so best = first).
