@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>NCAAT Resume — Infographic</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300..800;1,300..800&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
+<style>
+  :root {
+    --paper: #F4EFE6;
+    --paper-2: #EBE4D6;
+    --paper-3: #E0D8C4;
+    --ink: #0A0A0A;
+    --ink-2: #2A2620;
+    --muted: #6B645A;
+    --rule: #CCC2AC;
+    --rule-strong: #0A0A0A;
+    --gold: #CFAE70;
+    --gold-deep: #8B6F3E;
+    --win: #3E6B4D;
+    --loss: #A3413A;
+  }
+
+  body[data-theme="broadcast"] {
+    --paper: #0C0C0E;
+    --paper-2: #17171B;
+    --paper-3: #1E1E24;
+    --ink: #F5EFE0;
+    --ink-2: #D9D1C0;
+    --muted: #8A8578;
+    --rule: #2E2E34;
+    --rule-strong: #F5EFE0;
+    --gold: #E6C485;
+    --gold-deep: #E6C485;
+    --win: #6BAE7E;
+    --loss: #D96A63;
+    --logo-filter: invert(1) brightness(1.15) contrast(0.95);
+  }
+
+  body[data-theme="clinical"] {
+    --paper: #FBFBF9;
+    --paper-2: #F1F1ED;
+    --paper-3: #E6E6E0;
+    --ink: #111111;
+    --ink-2: #333333;
+    --muted: #7A7A75;
+    --rule: #D8D6D0;
+    --rule-strong: #111111;
+    --gold: #B8933F;
+    --gold-deep: #8A6A2A;
+    --win: #2E6B44;
+    --loss: #9A2F2A;
+  }
+
+  html, body { margin: 0; padding: 0; background: #2A2620; color: var(--ink); font-family: 'Inter', system-ui, sans-serif; font-feature-settings: "cv11", "ss01", "ss03"; -webkit-font-smoothing: antialiased; }
+  * { box-sizing: border-box; }
+  body[data-theme="clinical"] { background: #CFCDC6; }
+  body[data-theme="broadcast"] { background: #000; }
+
+  .serif { font-family: 'Inter', system-ui, sans-serif; font-feature-settings: "cv11", "ss01", "ss03"; letter-spacing: -0.015em; }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+  .eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+
+  .page {
+    width: 1000px;
+    min-height: 1400px;
+    margin: 30px auto;
+    background: var(--paper);
+    color: var(--ink);
+    padding: 36px 40px 28px;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+    position: relative;
+  }
+
+  .grid { display: grid; gap: 14px; }
+
+  .card {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    padding: 14px 16px;
+  }
+  .card-filled {
+    background: var(--paper-2);
+  }
+
+  hr.thick { border: 0; border-top: 3px solid var(--rule-strong); margin: 0; }
+  hr.thin { border: 0; border-top: 1px solid var(--rule); margin: 0; }
+
+  .section-num {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-style: italic;
+    font-weight: 500;
+    color: var(--gold-deep);
+    font-size: 20px;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  .module-title {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin: 0;
+  }
+</style>
+</head>
+<body data-theme="editorial">
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+
+  <script type="text/babel">
+// === data.jsx ===
+const TEAMS = /*TEAMS_DATA_BEGIN*/{
+  vanderbilt: {
+    name: "Vanderbilt",
+    nickname: "Commodores",
+    year: 2026,
+    conf: "SEC",
+    record: "38-14",
+    confRecord: "17-10",
+    colors: { primary: "#000000", secondary: "#CFAE70", accent: "#8B6F3E" },
+    location: "Nashville, TN",
+    coach: "Tim Corbin",
+    resumeScore: 87,
+    grade: "A-",
+    seedProjection: "3 seed",
+    bubbleVerdict: "In",
+    stats: {
+      ops: { value: 0.878, natAvg: 0.782, pct: 91 },
+      woba: { value: 0.401, natAvg: 0.358, pct: 89 },
+      runsPerGame: { value: 7.8, natAvg: 6.1, pct: 86 },
+      fip: { value: 3.64, natAvg: 5.12, pct: 93, inverted: true },
+      whip: { value: 1.21, natAvg: 1.44, pct: 88, inverted: true },
+      k9: { value: 10.2, natAvg: 8.6, pct: 84 },
+      bb9: { value: 3.1, natAvg: 4.1, pct: 78, inverted: true },
+      fieldingPct: { value: 0.978, natAvg: 0.968, pct: 82 },
+      wrcPlus: { value: 132, natAvg: 100, pct: 90 },
+    },
+    sos: { value: 12, natRank: 12, of: 301, tier: "Elite" },
+    nonConSos: { value: 44, natRank: 44, of: 301, tier: "Strong" },
+    rankings: { rpi: 9, sor: 11, massey: 8, d1baseball: 10, "64a": 7 },
+    last10: [
+      { opp: "Florida", home: true, rs: 8, ra: 4, result: "W", oppRank: 6 },
+      { opp: "Florida", home: true, rs: 3, ra: 7, result: "L", oppRank: 6 },
+      { opp: "Florida", home: true, rs: 12, ra: 5, result: "W", oppRank: 6 },
+      { opp: "Lipscomb", home: false, rs: 9, ra: 2, result: "W", oppRank: 84 },
+      { opp: "Arkansas", home: false, rs: 4, ra: 6, result: "L", oppRank: 3 },
+      { opp: "Arkansas", home: false, rs: 11, ra: 8, result: "W", oppRank: 3 },
+      { opp: "Arkansas", home: false, rs: 5, ra: 2, result: "W", oppRank: 3 },
+      { opp: "Belmont", home: true, rs: 15, ra: 3, result: "W", oppRank: 142 },
+      { opp: "Texas A&M", home: true, rs: 6, ra: 4, result: "W", oppRank: 14 },
+      { opp: "Texas A&M", home: true, rs: 2, ra: 5, result: "L", oppRank: 14 },
+    ],
+    quadRecord: { q1: "11-7", q2: "9-5", q3: "12-2", q4: "6-0" },
+    bigWins: [
+      { opp: "Arkansas", score: "11-8", note: "Road sweep clincher" },
+      { opp: "Florida", score: "12-5", note: "Home series opener" },
+      { opp: "LSU", score: "5-3", note: "Neutral (Hoover)" },
+    ],
+    badLosses: [
+      { opp: "Belmont", score: "6-7", note: "Mid-week, home" },
+    ],
+    nearestByScore: [
+      { team: "North Carolina", conf: "ACC", score: 88, diff: +1 },
+      { team: "Oregon State", conf: "Pac-12", score: 86, diff: -1 },
+      { team: "Clemson", conf: "ACC", score: 86, diff: -1 },
+      { team: "Virginia", conf: "ACC", score: 89, diff: +2 },
+      { team: "Oklahoma State", conf: "Big 12", score: 85, diff: -2 },
+    ],
+    analogs: [
+      { team: "Oregon State", year: 2018, score: 86, seed: 3, result: "CWS Champion", similarity: 94 },
+      { team: "Vanderbilt", year: 2019, score: 88, seed: 2, result: "CWS Champion", similarity: 92 },
+      { team: "Arkansas", year: 2022, score: 85, seed: 3, result: "Super Regional", similarity: 89 },
+      { team: "Mississippi St.", year: 2021, score: 84, seed: 7, result: "CWS Champion", similarity: 86 },
+      { team: "Florida", year: 2017, score: 87, seed: 3, result: "CWS Champion", similarity: 85 },
+    ],
+  },
+
+  tennessee: {
+    name: "Tennessee",
+    nickname: "Volunteers",
+    year: 2026,
+    conf: "SEC",
+    record: "42-11",
+    confRecord: "20-7",
+    colors: { primary: "#FF8200", secondary: "#FFFFFF", accent: "#58595B" },
+    location: "Knoxville, TN",
+    coach: "Tony Vitello",
+    resumeScore: 94,
+    grade: "A+",
+    seedProjection: "1 seed",
+    bubbleVerdict: "Lock",
+    stats: {
+      ops: { value: 0.921, natAvg: 0.782, pct: 98 },
+      woba: { value: 0.421, natAvg: 0.358, pct: 97 },
+      runsPerGame: { value: 9.1, natAvg: 6.1, pct: 99 },
+      fip: { value: 3.22, natAvg: 5.12, pct: 97, inverted: true },
+      whip: { value: 1.14, natAvg: 1.44, pct: 95, inverted: true },
+      k9: { value: 11.4, natAvg: 8.6, pct: 94 },
+      bb9: { value: 2.8, natAvg: 4.1, pct: 88, inverted: true },
+      fieldingPct: { value: 0.981, natAvg: 0.968, pct: 91 },
+      wrcPlus: { value: 148, natAvg: 100, pct: 98 },
+    },
+    sos: { value: 4, natRank: 4, of: 301, tier: "Elite" },
+    nonConSos: { value: 28, natRank: 28, of: 301, tier: "Strong" },
+    rankings: { rpi: 2, sor: 1, massey: 2, d1baseball: 1, "64a": 2 },
+    last10: [
+      { opp: "Kentucky", home: true, rs: 14, ra: 3, result: "W", oppRank: 22 },
+      { opp: "Kentucky", home: true, rs: 8, ra: 2, result: "W", oppRank: 22 },
+      { opp: "Kentucky", home: true, rs: 9, ra: 5, result: "W", oppRank: 22 },
+      { opp: "East Tenn St", home: true, rs: 12, ra: 4, result: "W", oppRank: 98 },
+      { opp: "Georgia", home: false, rs: 7, ra: 10, result: "L", oppRank: 18 },
+      { opp: "Georgia", home: false, rs: 11, ra: 6, result: "W", oppRank: 18 },
+      { opp: "Georgia", home: false, rs: 15, ra: 4, result: "W", oppRank: 18 },
+      { opp: "Tennessee Tech", home: true, rs: 18, ra: 2, result: "W", oppRank: 156 },
+      { opp: "Alabama", home: true, rs: 6, ra: 3, result: "W", oppRank: 31 },
+      { opp: "Alabama", home: true, rs: 4, ra: 7, result: "L", oppRank: 31 },
+    ],
+    quadRecord: { q1: "14-6", q2: "11-4", q3: "11-1", q4: "6-0" },
+    bigWins: [
+      { opp: "Texas A&M", score: "9-4", note: "Road series win" },
+      { opp: "LSU", score: "7-2", note: "Home sweep" },
+      { opp: "Arkansas", score: "10-6", note: "Neutral (Hoover)" },
+    ],
+    badLosses: [],
+    nearestByScore: [
+      { team: "Arkansas", conf: "SEC", score: 93, diff: -1 },
+      { team: "Florida", conf: "SEC", score: 92, diff: -2 },
+      { team: "Texas", conf: "SEC", score: 95, diff: +1 },
+      { team: "Wake Forest", conf: "ACC", score: 91, diff: -3 },
+      { team: "North Carolina", conf: "ACC", score: 96, diff: +2 },
+    ],
+    analogs: [
+      { team: "LSU", year: 2023, score: 95, seed: 1, result: "CWS Champion", similarity: 96 },
+      { team: "Arkansas", year: 2021, score: 93, seed: 1, result: "Super Regional", similarity: 90 },
+      { team: "Tennessee", year: 2024, score: 92, seed: 1, result: "CWS Champion", similarity: 95 },
+      { team: "Florida", year: 2023, score: 91, seed: 2, result: "CWS Finalist", similarity: 87 },
+      { team: "Vanderbilt", year: 2015, score: 93, seed: 2, result: "CWS Finalist", similarity: 85 },
+    ],
+  },
+
+  lsu: {
+    name: "LSU",
+    nickname: "Tigers",
+    year: 2026,
+    conf: "SEC",
+    record: "36-17",
+    confRecord: "15-12",
+    colors: { primary: "#461D7C", secondary: "#FDD023", accent: "#231F20" },
+    location: "Baton Rouge, LA",
+    coach: "Jay Johnson",
+    resumeScore: 78,
+    grade: "B+",
+    seedProjection: "2 seed",
+    bubbleVerdict: "In",
+    stats: {
+      ops: { value: 0.842, natAvg: 0.782, pct: 82 },
+      woba: { value: 0.378, natAvg: 0.358, pct: 74 },
+      runsPerGame: { value: 7.1, natAvg: 6.1, pct: 76 },
+      fip: { value: 4.12, natAvg: 5.12, pct: 80, inverted: true },
+      whip: { value: 1.32, natAvg: 1.44, pct: 72, inverted: true },
+      k9: { value: 9.8, natAvg: 8.6, pct: 78 },
+      bb9: { value: 3.6, natAvg: 4.1, pct: 66, inverted: true },
+      fieldingPct: { value: 0.972, natAvg: 0.968, pct: 64 },
+      wrcPlus: { value: 118, natAvg: 100, pct: 78 },
+    },
+    sos: { value: 8, natRank: 8, of: 301, tier: "Elite" },
+    nonConSos: { value: 62, natRank: 62, of: 301, tier: "Moderate" },
+    rankings: { rpi: 14, sor: 18, massey: 13, d1baseball: 15, "64a": 12 },
+    last10: [
+      { opp: "Mississippi St", home: false, rs: 5, ra: 8, result: "L", oppRank: 26 },
+      { opp: "Mississippi St", home: false, rs: 9, ra: 6, result: "W", oppRank: 26 },
+      { opp: "Mississippi St", home: false, rs: 7, ra: 4, result: "W", oppRank: 26 },
+      { opp: "Nicholls", home: true, rs: 11, ra: 3, result: "W", oppRank: 134 },
+      { opp: "Auburn", home: true, rs: 6, ra: 5, result: "W", oppRank: 19 },
+      { opp: "Auburn", home: true, rs: 4, ra: 7, result: "L", oppRank: 19 },
+      { opp: "Auburn", home: true, rs: 8, ra: 3, result: "W", oppRank: 19 },
+      { opp: "Tulane", home: false, rs: 10, ra: 4, result: "W", oppRank: 68 },
+      { opp: "Ole Miss", home: false, rs: 3, ra: 9, result: "L", oppRank: 24 },
+      { opp: "Ole Miss", home: false, rs: 8, ra: 6, result: "W", oppRank: 24 },
+    ],
+    quadRecord: { q1: "9-9", q2: "8-6", q3: "12-2", q4: "7-0" },
+    bigWins: [
+      { opp: "Mississippi State", score: "9-6", note: "Road series win" },
+      { opp: "Auburn", score: "8-3", note: "Home series win" },
+    ],
+    badLosses: [
+      { opp: "Southern Miss", score: "4-9", note: "Non-conference" },
+      { opp: "McNeese", score: "5-6", note: "Mid-week" },
+    ],
+    nearestByScore: [
+      { team: "Auburn", conf: "SEC", score: 79, diff: +1 },
+      { team: "Ole Miss", conf: "SEC", score: 77, diff: -1 },
+      { team: "NC State", conf: "ACC", score: 76, diff: -2 },
+      { team: "Oregon", conf: "Big 10", score: 80, diff: +2 },
+      { team: "TCU", conf: "Big 12", score: 75, diff: -3 },
+    ],
+    analogs: [
+      { team: "Florida", year: 2018, score: 79, seed: 5, result: "Super Regional", similarity: 91 },
+      { team: "Auburn", year: 2019, score: 77, seed: 14, result: "CWS Semifinal", similarity: 88 },
+      { team: "Stanford", year: 2022, score: 80, seed: 2, result: "CWS Semifinal", similarity: 84 },
+      { team: "Virginia", year: 2021, score: 76, seed: 13, result: "CWS Semifinal", similarity: 82 },
+      { team: "Arizona", year: 2016, score: 78, seed: 8, result: "CWS Finalist", similarity: 80 },
+    ],
+  },
+
+  texasam: {
+    name: "Texas A&M",
+    nickname: "Aggies",
+    year: 2026,
+    conf: "SEC",
+    record: "32-20",
+    confRecord: "13-14",
+    colors: { primary: "#500000", secondary: "#FFFFFF", accent: "#998542" },
+    location: "College Station, TX",
+    coach: "Michael Earley",
+    resumeScore: 64,
+    grade: "B-",
+    seedProjection: "Last Four In",
+    bubbleVerdict: "Bubble",
+    stats: {
+      ops: { value: 0.801, natAvg: 0.782, pct: 58 },
+      woba: { value: 0.362, natAvg: 0.358, pct: 54 },
+      runsPerGame: { value: 6.4, natAvg: 6.1, pct: 56 },
+      fip: { value: 4.68, natAvg: 5.12, pct: 62, inverted: true },
+      whip: { value: 1.41, natAvg: 1.44, pct: 52, inverted: true },
+      k9: { value: 8.9, natAvg: 8.6, pct: 58 },
+      bb9: { value: 4.2, natAvg: 4.1, pct: 48, inverted: true },
+      fieldingPct: { value: 0.969, natAvg: 0.968, pct: 52 },
+      wrcPlus: { value: 104, natAvg: 100, pct: 54 },
+    },
+    sos: { value: 22, natRank: 22, of: 301, tier: "Strong" },
+    nonConSos: { value: 118, natRank: 118, of: 301, tier: "Weak" },
+    rankings: { rpi: 38, sor: 44, massey: 35, d1baseball: 41, "64a": 36 },
+    last10: [
+      { opp: "South Carolina", home: true, rs: 4, ra: 7, result: "L", oppRank: 44 },
+      { opp: "South Carolina", home: true, rs: 6, ra: 5, result: "W", oppRank: 44 },
+      { opp: "South Carolina", home: true, rs: 3, ra: 8, result: "L", oppRank: 44 },
+      { opp: "Houston", home: false, rs: 8, ra: 4, result: "W", oppRank: 88 },
+      { opp: "Missouri", home: true, rs: 10, ra: 2, result: "W", oppRank: 172 },
+      { opp: "Missouri", home: true, rs: 4, ra: 6, result: "L", oppRank: 172 },
+      { opp: "Missouri", home: true, rs: 7, ra: 3, result: "W", oppRank: 172 },
+      { opp: "Rice", home: false, rs: 2, ra: 5, result: "L", oppRank: 76 },
+      { opp: "Vanderbilt", home: false, rs: 4, ra: 6, result: "L", oppRank: 10 },
+      { opp: "Vanderbilt", home: false, rs: 5, ra: 2, result: "W", oppRank: 10 },
+    ],
+    quadRecord: { q1: "5-11", q2: "7-8", q3: "11-1", q4: "9-0" },
+    bigWins: [
+      { opp: "South Carolina", score: "6-5", note: "Home, series split" },
+      { opp: "Vanderbilt", score: "5-2", note: "Road series" },
+    ],
+    badLosses: [
+      { opp: "Rice", score: "2-5", note: "Mid-week" },
+      { opp: "Missouri", score: "4-6", note: "Home series" },
+      { opp: "Sam Houston", score: "3-8", note: "Non-conference" },
+    ],
+    nearestByScore: [
+      { team: "Dallas Baptist", conf: "C-USA", score: 65, diff: +1 },
+      { team: "UConn", conf: "Big East", score: 63, diff: -1 },
+      { team: "Coastal Carolina", conf: "Sun Belt", score: 66, diff: +2 },
+      { team: "Indiana", conf: "Big 10", score: 62, diff: -2 },
+      { team: "Louisiana", conf: "Sun Belt", score: 67, diff: +3 },
+    ],
+    analogs: [
+      { team: "Indiana State", year: 2023, score: 65, seed: 13, result: "Regional", similarity: 89 },
+      { team: "West Virginia", year: 2019, score: 63, seed: 15, result: "Regional", similarity: 86 },
+      { team: "UConn", year: 2022, score: 66, seed: 11, result: "Super Regional", similarity: 83 },
+      { team: "Auburn", year: 2018, score: 64, seed: 14, result: "Super Regional", similarity: 81 },
+      { team: "ECU", year: 2021, score: 62, seed: 14, result: "Super Regional", similarity: 78 },
+    ],
+  },
+}/*TEAMS_DATA_END*/;
+window.TEAMS = TEAMS;
+  </script>
+
+  <script type="text/babel">
+// === infographic.jsx ===
+const STAT_LABELS = {
+  ops: { label: "OPS", fmt: (v) => v.toFixed(3) },
+  woba: { label: "wOBA", fmt: (v) => v.toFixed(3) },
+  runsPerGame: { label: "R/G", fmt: (v) => v.toFixed(1) },
+  fip: { label: "FIP", fmt: (v) => v.toFixed(2) },
+  whip: { label: "WHIP", fmt: (v) => v.toFixed(2) },
+  k9: { label: "K/9", fmt: (v) => v.toFixed(1) },
+  bb9: { label: "BB/9", fmt: (v) => v.toFixed(1) },
+  fieldingPct: { label: "FLD%", fmt: (v) => v.toFixed(3).replace(/^0/, "") },
+  wrcPlus: { label: "wRC+", fmt: (v) => Math.round(v).toString() },
+};
+
+function Masthead({ team }) {
+  return (
+    <div>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingBottom: 10 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <img src="__LOGO_WORDMARK__" alt="64 Analytics" style={{ height: 22, display: "block", filter: "var(--logo-filter, none)" }} />
+          <div style={{ width: 1, height: 16, background: "var(--rule)" }}></div>
+          <div className="eyebrow" style={{ fontSize: 10 }}>NCAAT Resume Dossier</div>
+        </div>
+        <div className="eyebrow">Vol. {team.year} · Issue {Math.abs(team.name.charCodeAt(0) - 60)}</div>
+      </div>
+      <hr className="thick" />
+      <div style={{ display: "grid", gridTemplateColumns: "auto 1fr auto", gap: 20, alignItems: "end", padding: "18px 0 12px" }}>
+        <div style={{ width: 72, height: 72, borderRadius: "50%", background: team.colors.primary, display: "grid", placeItems: "center", border: `2px solid ${team.colors.secondary}` }}>
+          <div className="serif" style={{ color: team.colors.secondary, fontWeight: 700, fontSize: 34, lineHeight: 1, fontStyle: "italic" }}>{team.name[0]}</div>
+        </div>
+        <div>
+          <div className="eyebrow" style={{ marginBottom: 6 }}>{team.conf} · {team.location} · HC {team.coach}</div>
+          <h1 className="serif" style={{ fontSize: 56, fontWeight: 500, lineHeight: 0.92, margin: 0, letterSpacing: "-0.03em" }}>
+            Do the <span style={{ fontStyle: "italic", color: "var(--gold-deep)" }}>{team.nickname}</span> belong?
+          </h1>
+          <div className="serif" style={{ fontSize: 15, color: "var(--ink-2)", marginTop: 8, fontStyle: "italic", maxWidth: 640 }}>
+            A one-page dossier on {team.name} baseball's {team.year} NCAA Tournament case — by the numbers.
+          </div>
+        </div>
+        <div style={{ textAlign: "right" }}>
+          <div className="eyebrow" style={{ marginBottom: 4 }}>Overall · {team.conf}</div>
+          <div className="serif" style={{ fontSize: 28, fontWeight: 600, lineHeight: 1, fontVariantNumeric: "tabular-nums" }}>{team.record}</div>
+          <div className="mono" style={{ fontSize: 12, color: "var(--muted)", marginTop: 4 }}>{team.confRecord} in conf.</div>
+        </div>
+      </div>
+      <hr className="thin" />
+    </div>
+  );
+}
+
+function ResumeScore({ team }) {
+  const size = 140;
+  const r = (size - 10) / 2;
+  const c = 2 * Math.PI * r;
+  const dash = (team.resumeScore / 100) * c;
+
+  const of = 301;
+  const totals = ["q1","q2","q3","q4"].map(k => { const [w,l] = team.quadRecord[k].split("-").map(Number); return {w, l, t: w+l}; });
+  const qWins = totals[0].w * 3 + totals[1].w * 2 + totals[2].w + totals[3].w * 0.5;
+  const qLoss = totals[0].l * 0.5 + totals[1].l + totals[2].l * 2 + totals[3].l * 3;
+  const qWinsPct = Math.max(0, Math.min(100, Math.round((qWins / (qWins + qLoss)) * 130)));
+  const sosPct = Math.round((1 - (team.sos.natRank * 0.6 + team.nonConSos.natRank * 0.4) / of) * 100);
+  const statsPct = Math.round(Object.values(team.stats).reduce((s, v) => s + v.pct, 0) / Object.keys(team.stats).length);
+  const ranks = Object.values(team.rankings);
+  const rankAvg = ranks.reduce((a,b)=>a+b,0) / ranks.length;
+  const rankingsPct = Math.round((1 - rankAvg / of) * 100);
+  const games = team.last10;
+  const wins = games.filter(g=>g.result==="W").length;
+  const rd = games.reduce((s,g)=>s+(g.rs-g.ra),0);
+  const formPct = Math.max(0, Math.min(100, Math.round((wins / 10) * 70 + Math.max(-30, Math.min(30, rd)) + 15)));
+
+  const comps = [
+    { label: "Quality Wins", weight: 0.15, pct: qWinsPct, desc: "Weighted by quadrant" },
+    { label: "Efficiency", weight: 0.15, pct: statsPct, desc: "Avg. stat percentile" },
+    { label: "Schedule", weight: 0.20, pct: sosPct, desc: "Overall & non-con SOS" },
+    { label: "Rankings", weight: 0.40, pct: rankingsPct, desc: "Computer consensus" },
+    { label: "Recent Form", weight: 0.10, pct: formPct, desc: "Last 10 games" },
+  ];
+  const computed = Math.round(comps.reduce((s, c) => s + c.pct * c.weight, 0));
+  const scale = team.resumeScore / (computed || 1);
+  const scaled = comps.map(c => ({ ...c, contrib: c.pct * c.weight * scale }));
+  const runningTotals = [];
+  scaled.reduce((acc, c) => { const next = acc + c.contrib; runningTotals.push(next); return next; }, 0);
+
+  return (
+    <div className="card card-filled" style={{ padding: "14px 16px" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "auto 1fr auto", gap: 20, alignItems: "center", paddingBottom: 10, borderBottom: "1px solid var(--rule)" }}>
+        <div style={{ position: "relative", width: size, height: size }}>
+          <svg width={size} height={size}>
+            <circle cx={size/2} cy={size/2} r={r} stroke="var(--rule)" strokeWidth="9" fill="none" />
+            <circle cx={size/2} cy={size/2} r={r} stroke="var(--gold-deep)" strokeWidth="9" fill="none"
+              strokeDasharray={`${dash} ${c}`} transform={`rotate(-90 ${size/2} ${size/2})`} strokeLinecap="butt" />
+          </svg>
+          <div style={{ position: "absolute", inset: 0, display: "grid", placeItems: "center" }}>
+            <div className="serif" style={{ fontSize: 42, fontWeight: 600, lineHeight: 1, fontVariantNumeric: "tabular-nums" }}>{team.resumeScore}</div>
+          </div>
+        </div>
+        <div>
+          <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 4 }}>
+            <img src="__LOGO_EMBLEM__" alt="64A" style={{ height: 14, width: 14, display: "block" }} />
+            <div className="eyebrow">Resume Score · 64A Composite</div>
+          </div>
+          <div className="serif" style={{ fontSize: 22, fontWeight: 500, lineHeight: 1.15, letterSpacing: "-0.01em", marginBottom: 8, maxWidth: 380 }}>
+            Five weighted inputs combine to one composite — the sum of the parts.
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6 }}>
+            <MiniStat label="Projected" value={team.seedProjection} />
+            <MiniStat label="Verdict" value={team.bubbleVerdict} accent />
+          </div>
+        </div>
+        <div style={{ textAlign: "center", borderLeft: "1px solid var(--rule)", paddingLeft: 20 }}>
+          <div className="eyebrow" style={{ marginBottom: 2 }}>Grade</div>
+          <div className="serif" style={{ fontSize: 68, fontWeight: 500, lineHeight: 0.85, color: "var(--gold-deep)", fontStyle: "italic" }}>{team.grade}</div>
+        </div>
+      </div>
+
+      <div style={{ display: "grid", gridTemplateColumns: "128px 1fr 36px 50px 44px 44px", gap: 8, padding: "6px 0 4px", borderBottom: "1px solid var(--rule)" }}>
+        <div className="eyebrow" style={{ fontSize: 8 }}>Category</div>
+        <div className="eyebrow" style={{ fontSize: 8 }}>Raw Percentile</div>
+        <div className="eyebrow" style={{ fontSize: 8, textAlign: "right" }}>%ILE</div>
+        <div className="eyebrow" style={{ fontSize: 8, textAlign: "right" }}>× Wt</div>
+        <div className="eyebrow" style={{ fontSize: 8, textAlign: "right" }}>= Pts</div>
+        <div className="eyebrow" style={{ fontSize: 8, textAlign: "right" }}>Total</div>
+      </div>
+      {scaled.map((c, i) => (
+        <div key={i} style={{ display: "grid", gridTemplateColumns: "128px 1fr 36px 50px 44px 44px", gap: 8, alignItems: "center", padding: "5px 0", borderBottom: "1px solid var(--rule)" }}>
+          <div>
+            <div className="serif" style={{ fontSize: 13, fontWeight: 600, lineHeight: 1.1 }}>{c.label}</div>
+            <div className="mono" style={{ fontSize: 8, color: "var(--muted)", marginTop: 1 }}>{c.desc}</div>
+          </div>
+          <div style={{ position: "relative", height: 10, background: "var(--paper)" }}>
+            <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: `${c.pct}%`, background: "var(--gold-deep)" }}></div>
+            {[0.25, 0.5, 0.75].map(t => <div key={t} style={{ position: "absolute", left: `${t*100}%`, top: -1, bottom: -1, width: 1, background: "var(--rule)" }}></div>)}
+          </div>
+          <div className="mono" style={{ fontSize: 11, fontWeight: 700, textAlign: "right", color: c.pct >= 80 ? "var(--win)" : c.pct >= 50 ? "var(--ink)" : "var(--loss)" }}>{c.pct}</div>
+          <div className="mono" style={{ fontSize: 11, textAlign: "right", color: "var(--muted)", fontWeight: 600 }}>{Math.round(c.weight*100)}%</div>
+          <div className="serif" style={{ fontSize: 14, fontWeight: 600, textAlign: "right", fontVariantNumeric: "tabular-nums" }}>{c.contrib.toFixed(1)}</div>
+          <div className="mono" style={{ fontSize: 10, textAlign: "right", color: "var(--muted)", fontWeight: 600, fontVariantNumeric: "tabular-nums" }}>{runningTotals[i].toFixed(1)}</div>
+        </div>
+      ))}
+      <div style={{ display: "grid", gridTemplateColumns: "128px 1fr 36px 50px 44px 44px", gap: 8, alignItems: "baseline", padding: "6px 0 2px", borderTop: "2px solid var(--rule-strong)" }}>
+        <div className="mono" style={{ fontSize: 9, fontWeight: 700, letterSpacing: "0.1em", color: "var(--ink)" }}>FINAL SCORE</div>
+        <div></div>
+        <div></div>
+        <div className="mono" style={{ fontSize: 10, textAlign: "right", color: "var(--muted)", fontWeight: 700 }}>100%</div>
+        <div className="serif" style={{ fontSize: 18, fontWeight: 700, textAlign: "right", color: "var(--gold-deep)", fontVariantNumeric: "tabular-nums" }}>{team.resumeScore}</div>
+        <div className="mono" style={{ fontSize: 9, textAlign: "right", color: "var(--muted)", fontWeight: 600 }}>/ 100</div>
+      </div>
+    </div>
+  );
+}
+
+function MiniStat({ label, value, accent }) {
+  return (
+    <div style={{ padding: "6px 8px", background: "var(--paper)", border: "1px solid var(--rule)" }}>
+      <div className="eyebrow" style={{ marginBottom: 2, fontSize: 8 }}>{label}</div>
+      <div className="serif" style={{ fontSize: 14, fontWeight: 600, color: accent ? "var(--gold-deep)" : "var(--ink)", lineHeight: 1.1 }}>{value}</div>
+    </div>
+  );
+}
+
+function SpiderChart({ team, size = 240 }) {
+  const stats = team.stats;
+  const keys = Object.keys(stats);
+  const cx = size/2, cy = size/2, r = size * 0.36;
+  const angleFor = (i) => (Math.PI * 2 * i) / keys.length - Math.PI / 2;
+
+  const teamPts = keys.map((k, i) => {
+    const a = angleFor(i);
+    const rr = (stats[k].pct / 100) * r;
+    return [cx + Math.cos(a) * rr, cy + Math.sin(a) * rr];
+  });
+
+  return (
+    <svg viewBox={`0 0 ${size} ${size}`} width="100%" style={{ display: "block", maxWidth: size + 60 }}>
+      {[0.25, 0.5, 0.75, 1].map((g, gi) => {
+        const pts = keys.map((_, i) => {
+          const a = angleFor(i);
+          return [cx + Math.cos(a)*r*g, cy + Math.sin(a)*r*g];
+        });
+        return <polygon key={gi} points={pts.map(p=>p.join(",")).join(" ")} fill="none" stroke="var(--rule)" strokeWidth={g===1?1:0.6} />;
+      })}
+      {keys.map((_, i) => {
+        const a = angleFor(i);
+        return <line key={i} x1={cx} y1={cy} x2={cx+Math.cos(a)*r} y2={cy+Math.sin(a)*r} stroke="var(--rule)" strokeWidth="0.5" />;
+      })}
+      <polygon points={teamPts.map(p=>p.join(",")).join(" ")} fill="var(--gold-deep)" fillOpacity="0.25" stroke="var(--gold-deep)" strokeWidth="1.75" />
+      {teamPts.map((p, i) => <circle key={i} cx={p[0]} cy={p[1]} r="2.5" fill="var(--gold-deep)" stroke="var(--paper)" strokeWidth="1" />)}
+      {keys.map((k, i) => {
+        const a = angleFor(i);
+        const lr = r + 14;
+        const lx = cx + Math.cos(a)*lr;
+        const ly = cy + Math.sin(a)*lr;
+        let anchor = "middle";
+        if (Math.cos(a) > 0.25) anchor = "start";
+        else if (Math.cos(a) < -0.25) anchor = "end";
+        return (
+          <text key={k} x={lx} y={ly} textAnchor={anchor} dominantBaseline="middle"
+            fontFamily="JetBrains Mono" fontSize="8" fontWeight="600" fill="var(--ink)" letterSpacing="0.06em">
+            {STAT_LABELS[k].label.toUpperCase()}
+          </text>
+        );
+      })}
+    </svg>
+  );
+}
+
+function SpiderModule({ team }) {
+  const neighbors = (team.nearestByScore || []).slice().sort((a,b) => Math.abs(a.diff) - Math.abs(b.diff));
+  return (
+    <Module num="01" title="Statistical Profile" eyebrow="Percentile Ranks vs. D-I">
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, alignItems: "start" }}>
+        <div>
+          <SpiderChart team={team} size={200} />
+          <div style={{ marginTop: 6, paddingTop: 6, borderTop: "1px solid var(--rule)" }}>
+            <div className="eyebrow" style={{ marginBottom: 4 }}>Nearest by Resume Score</div>
+            {neighbors.map((n, i) => (
+              <div key={i} style={{ display: "grid", gridTemplateColumns: "1fr auto auto", gap: 6, padding: "2px 0", alignItems: "baseline" }}>
+                <div className="serif" style={{ fontSize: 11, fontWeight: 600, lineHeight: 1.15 }}>{n.team} <span className="mono" style={{ fontSize: 8, color: "var(--muted)", fontWeight: 500 }}>· {n.conf}</span></div>
+                <div className="mono" style={{ fontSize: 9, fontWeight: 700, color: n.diff > 0 ? "var(--win)" : "var(--loss)" }}>{n.diff > 0 ? "+" : ""}{n.diff}</div>
+                <div className="serif" style={{ fontSize: 12, fontWeight: 600, fontVariantNumeric: "tabular-nums", minWidth: 22, textAlign: "right" }}>{n.score}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div style={{ fontSize: 11 }}>
+          {Object.keys(team.stats).map((k) => {
+            const s = team.stats[k];
+            return (
+              <div key={k} style={{ display: "grid", gridTemplateColumns: "42px 1fr 32px", gap: 6, padding: "3px 0", borderBottom: "1px solid var(--rule)", alignItems: "center" }}>
+                <div className="mono" style={{ fontSize: 9, fontWeight: 700, color: "var(--ink-2)" }}>{STAT_LABELS[k].label}</div>
+                <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                  <div className="serif" style={{ fontSize: 12, fontWeight: 600, fontVariantNumeric: "tabular-nums", minWidth: 42 }}>{STAT_LABELS[k].fmt(s.value)}</div>
+                  <div style={{ flex: 1, height: 4, background: "var(--paper-2)", position: "relative" }}>
+                    <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: `${s.pct}%`, background: "var(--gold-deep)" }}></div>
+                  </div>
+                </div>
+                <div className="mono" style={{ fontSize: 10, fontWeight: 700, textAlign: "right", color: s.pct >= 80 ? "var(--win)" : s.pct >= 50 ? "var(--ink)" : "var(--loss)" }}>{s.pct}</div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </Module>
+  );
+}
+
+function Module({ num, title, eyebrow, children, fill, style }) {
+  return (
+    <div className={`card ${fill ? "card-filled" : ""}`} style={{ padding: "12px 14px", ...style }}>
+      <div style={{ display: "flex", alignItems: "baseline", gap: 8, marginBottom: 8, paddingBottom: 6, borderBottom: "1px solid var(--rule)" }}>
+        <div className="section-num">{num}</div>
+        <div>
+          <h3 className="module-title">{title}</h3>
+          <div className="eyebrow" style={{ marginTop: 1 }}>{eyebrow}</div>
+        </div>
+      </div>
+      {children}
+    </div>
+  );
+}
+
+function SOSModule({ team }) {
+  const quads = [
+    { k: "q1", desc: "Top 30 / rd Top 50", accent: 1.0 },
+    { k: "q2", desc: "31-75 / rd 51-100", accent: 0.75 },
+    { k: "q3", desc: "76-160 / rd 101-200", accent: 0.5 },
+    { k: "q4", desc: "161+ / rd 201+", accent: 0.3 },
+  ];
+  const totals = ["q1","q2","q3","q4"].map(k => { const [w,l] = team.quadRecord[k].split("-").map(Number); return {w, l, t: w+l}; });
+  const totalG = totals.reduce((s,t) => s + t.t, 0);
+  const top2W = totals[0].w + totals[1].w;
+  const top2G = totals[0].t + totals[1].t;
+  const top2Pct = top2G ? Math.round(top2W/top2G*100) : 0;
+
+  return (
+    <Module num="02" title="Strength of Schedule" eyebrow="Overall & Non-Conference">
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginBottom: 8 }}>
+        <SOSPanel label="Overall" rank={team.sos.natRank} of={team.sos.of} tier={team.sos.tier} />
+        <SOSPanel label="Non-Con" rank={team.nonConSos.natRank} of={team.nonConSos.of} tier={team.nonConSos.tier} />
+      </div>
+      <div className="eyebrow" style={{ marginBottom: 5 }}>Quadrant Record · Win-Loss Distribution</div>
+      <div style={{ display: "grid", gap: 3 }}>
+        {quads.map((q, i) => {
+          const rec = team.quadRecord[q.k];
+          const [w, l] = rec.split("-").map(Number);
+          const tot = w + l || 1;
+          const wPct = (w/tot) * 100;
+          const max = Math.max(...totals.map(t=>t.t));
+          const widthPct = (tot / max) * 100;
+          return (
+            <div key={q.k} style={{ display: "grid", gridTemplateColumns: "20px 1fr 58px", gap: 6, alignItems: "center" }}>
+              <div className="mono" style={{ fontSize: 9, fontWeight: 700, color: `rgba(139,111,62,${q.accent})`, letterSpacing: "0.08em" }}>Q{i+1}</div>
+              <div style={{ position: "relative", height: 16, background: "var(--paper-2)", width: `${widthPct}%` }}>
+                <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: `${wPct}%`, background: "var(--win)", opacity: 0.85 }}></div>
+                <div style={{ position: "absolute", left: `${wPct}%`, top: 0, bottom: 0, right: 0, background: "var(--loss)", opacity: 0.8 }}></div>
+                <div style={{ position: "absolute", inset: 0, display: "flex", justifyContent: "space-between", padding: "0 5px", alignItems: "center" }}>
+                  <span className="mono" style={{ fontSize: 9, color: "white", fontWeight: 700 }}>{w > 0 ? w : ""}</span>
+                  <span className="mono" style={{ fontSize: 9, color: "white", fontWeight: 700 }}>{l > 0 ? l : ""}</span>
+                </div>
+              </div>
+              <div style={{ textAlign: "right" }}>
+                <span className="serif" style={{ fontSize: 12, fontWeight: 600, fontVariantNumeric: "tabular-nums" }}>{rec}</span>
+                <span className="mono" style={{ fontSize: 8, color: "var(--muted)", marginLeft: 3 }}>{Math.round(wPct)}%</span>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 6, marginTop: 8 }}>
+        <div style={{ padding: "5px 7px", background: "var(--paper-2)", border: "1px solid var(--rule)", textAlign: "center" }}>
+          <div className="eyebrow" style={{ fontSize: 8 }}>Games</div>
+          <div className="serif" style={{ fontSize: 18, fontWeight: 600, fontVariantNumeric: "tabular-nums", lineHeight: 1 }}>{totalG}</div>
+        </div>
+        <div style={{ padding: "5px 7px", background: "var(--paper-2)", border: "1px solid var(--rule)", textAlign: "center" }}>
+          <div className="eyebrow" style={{ fontSize: 8 }}>Q1+Q2 W%</div>
+          <div className="serif" style={{ fontSize: 18, fontWeight: 600, color: "var(--gold-deep)", fontVariantNumeric: "tabular-nums", lineHeight: 1 }}>{top2Pct}%</div>
+        </div>
+        <div style={{ padding: "5px 7px", background: "var(--paper-2)", border: "1px solid var(--rule)", textAlign: "center" }}>
+          <div className="eyebrow" style={{ fontSize: 8 }}>Top-25 Wins</div>
+          <div className="serif" style={{ fontSize: 18, fontWeight: 600, fontVariantNumeric: "tabular-nums", lineHeight: 1 }}>{totals[0].w}</div>
+        </div>
+      </div>
+      <div className="serif" style={{ marginTop: 6, paddingTop: 5, borderTop: "1px solid var(--rule)", fontSize: 10, color: "var(--muted)", lineHeight: 1.4, fontStyle: "italic" }}>
+        {team.sos.natRank <= 15 && team.nonConSos.natRank <= 50
+          ? `Elite both ways — ${team.name} earned every win against a top-tier slate.`
+          : team.nonConSos.natRank > 100
+            ? `Strong in conference, but the soft non-con will cost seed-line points.`
+            : `Solid, if unspectacular, across the board.`}
+      </div>
+    </Module>
+  );
+}
+
+function SOSPanel({ label, rank, of, tier }) {
+  const pct = 1 - rank / of;
+  return (
+    <div style={{ padding: 8, background: "var(--paper-2)", border: "1px solid var(--rule)" }}>
+      <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between" }}>
+        <div className="eyebrow">{label}</div>
+        <div className="mono" style={{ fontSize: 8, padding: "1px 5px", border: "1px solid var(--gold-deep)", color: "var(--gold-deep)", fontWeight: 600 }}>{tier.toUpperCase()}</div>
+      </div>
+      <div style={{ display: "flex", alignItems: "baseline", gap: 6, margin: "4px 0 6px" }}>
+        <div className="serif" style={{ fontSize: 30, fontWeight: 500, lineHeight: 1, fontVariantNumeric: "tabular-nums" }}>#{rank}</div>
+        <div className="mono" style={{ fontSize: 9, color: "var(--muted)" }}>of {of}</div>
+      </div>
+      <div style={{ height: 4, background: "var(--paper)" }}>
+        <div style={{ width: `${pct*100}%`, height: "100%", background: "var(--gold-deep)" }}></div>
+      </div>
+    </div>
+  );
+}
+
+function RankingsModule({ team }) {
+  const systems = [
+    { key: "rpi", label: "RPI", desc: "Traditional" },
+    { key: "sor", label: "SOR", desc: "Resume-based" },
+    { key: "massey", label: "MASSEY", desc: "Predictive" },
+    { key: "d1baseball", label: "D1BASEBALL", desc: "Publication" },
+    { key: "64a", label: "64A", desc: "Our composite" },
+  ];
+  const ranks = systems.map(s => team.rankings[s.key]);
+  const avg = Math.round(ranks.reduce((a,b)=>a+b,0) / ranks.length);
+  const hi = Math.min(...ranks), lo = Math.max(...ranks);
+  const of = 301;
+  return (
+    <Module num="03" title="Computer Consensus" eyebrow="Five systems, one opinion">
+      {systems.map((s) => {
+        const rank = team.rankings[s.key];
+        const pct = 1 - rank/of;
+        return (
+          <div key={s.key} style={{ display: "grid", gridTemplateColumns: "74px 1fr 32px", gap: 8, alignItems: "center", padding: "4px 0", borderBottom: "1px solid var(--rule)" }}>
+            <div>
+              <div className="mono" style={{ fontSize: 9, letterSpacing: "0.1em", color: "var(--ink-2)", fontWeight: 700, lineHeight: 1.1 }}>{s.label}</div>
+              <div className="mono" style={{ fontSize: 7.5, color: "var(--muted)", letterSpacing: "0.05em", marginTop: 1 }}>{s.desc}</div>
+            </div>
+            <div style={{ position: "relative", height: 6, background: "var(--paper-2)" }}>
+              <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: `${pct*100}%`, background: "var(--gold-deep)" }}></div>
+              {[0.25, 0.5, 0.75].map(t => <div key={t} style={{ position: "absolute", left: `${t*100}%`, top: -1, bottom: -1, width: 1, background: "var(--rule)" }}></div>)}
+            </div>
+            <div className="serif" style={{ fontSize: 14, fontWeight: 600, textAlign: "right", fontVariantNumeric: "tabular-nums", lineHeight: 1 }}>#{rank}</div>
+          </div>
+        );
+      })}
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 6, marginTop: 8 }}>
+        <div style={{ padding: "6px 8px", background: "var(--paper-2)", border: "1px solid var(--rule)", textAlign: "center" }}>
+          <div className="eyebrow" style={{ fontSize: 8 }}>Avg</div>
+          <div className="serif" style={{ fontSize: 20, fontWeight: 600, color: "var(--gold-deep)", fontVariantNumeric: "tabular-nums", lineHeight: 1 }}>#{avg}</div>
+        </div>
+        <div style={{ padding: "6px 8px", background: "var(--paper-2)", border: "1px solid var(--rule)", textAlign: "center" }}>
+          <div className="eyebrow" style={{ fontSize: 8 }}>Best</div>
+          <div className="serif" style={{ fontSize: 20, fontWeight: 600, fontVariantNumeric: "tabular-nums", lineHeight: 1 }}>#{hi}</div>
+        </div>
+        <div style={{ padding: "6px 8px", background: "var(--paper-2)", border: "1px solid var(--rule)", textAlign: "center" }}>
+          <div className="eyebrow" style={{ fontSize: 8 }}>Worst</div>
+          <div className="serif" style={{ fontSize: 20, fontWeight: 600, fontVariantNumeric: "tabular-nums", lineHeight: 1 }}>#{lo}</div>
+        </div>
+      </div>
+      <div className="serif" style={{ marginTop: 8, paddingTop: 6, borderTop: "1px solid var(--rule)", fontSize: 10, color: "var(--muted)", lineHeight: 1.45, fontStyle: "italic" }}>
+        {lo - hi <= 4
+          ? `Tight consensus — all five systems agree within a ${lo - hi}-spot band. No outlier propping this team up.`
+          : lo - hi <= 8
+            ? `Moderate spread. The ${lo - hi}-spot gap suggests the predictive and resume-based views diverge.`
+            : `Wide ${lo - hi}-spot spread — systems disagree sharply on where this team belongs.`}
+      </div>
+    </Module>
+  );
+}
+
+function PaceModule({ team }) {
+  const games = team.last10;
+  const width = 480, height = 200, padL = 30, padR = 10, padT = 14, padB = 38;
+  const maxR = Math.max(...games.flatMap(g=>[g.rs,g.ra])) + 1;
+  const stepX = (width-padL-padR)/games.length;
+  const y = (v) => padT + (1 - v/maxR)*(height-padT-padB);
+  const rs = games.reduce((s,g)=>s+g.rs,0);
+  const ra = games.reduce((s,g)=>s+g.ra,0);
+  const wins = games.filter(g=>g.result==="W").length;
+
+  let cum = 0;
+  const cumPts = games.map((g, i) => { cum += (g.rs - g.ra); return { i, val: cum }; });
+  const cumMax = Math.max(...cumPts.map(p=>Math.abs(p.val))) || 1;
+  const diffH = 42;
+  const diffY = (v) => diffH/2 - (v / cumMax) * (diffH/2 - 4);
+
+  return (
+    <Module num="04" title="Last 10 Games" eyebrow="Runs scored vs. allowed · cumulative run differential">
+      <svg viewBox={`0 0 ${width} ${height}`} width="100%" style={{ display: "block" }}>
+        {[0, 3, 6, 9, 12, 15].filter(v => v <= maxR).map(v => (
+          <g key={v}>
+            <line x1={padL} x2={width-padR} y1={y(v)} y2={y(v)} stroke="var(--rule)" strokeWidth="0.5" strokeDasharray={v===0?"0":"2,3"} />
+            <text x={padL-4} y={y(v)} textAnchor="end" dominantBaseline="middle" fontFamily="JetBrains Mono" fontSize="8" fill="var(--muted)">{v}</text>
+          </g>
+        ))}
+        {games.map((g, i) => {
+          const cx = padL + stepX*(i+0.5);
+          const w = Math.min(18, stepX*0.42);
+          const hi = Math.max(g.rs, g.ra), lo = Math.min(g.rs, g.ra);
+          const win = g.result==="W";
+          const fill = win ? "var(--win)" : "var(--loss)";
+          return (
+            <g key={i}>
+              <line x1={cx} x2={cx} y1={y(0)} y2={y(hi)} stroke="var(--ink)" strokeOpacity="0.15" strokeWidth="0.8" />
+              <rect x={cx-w/2} y={y(hi)} width={w} height={y(lo)-y(hi)} fill={fill} fillOpacity="0.85" stroke={fill} />
+              <line x1={cx-w/2-3} x2={cx-w/2} y1={y(g.rs)} y2={y(g.rs)} stroke="var(--ink)" strokeWidth="1.2" />
+              <line x1={cx+w/2} x2={cx+w/2+3} y1={y(g.ra)} y2={y(g.ra)} stroke="var(--ink)" strokeWidth="1.2" />
+              <text x={cx} y={y(hi)-4} textAnchor="middle" fontFamily="JetBrains Mono" fontSize="8" fontWeight="700" fill={fill}>{g.result}</text>
+              <text x={cx} y={height-padB+10} textAnchor="middle" fontFamily="JetBrains Mono" fontSize="7.5" fill="var(--ink-2)">{(g.home?"v ":"@ ")+g.opp.slice(0,9)}</text>
+              <text x={cx} y={height-padB+19} textAnchor="middle" fontFamily="JetBrains Mono" fontSize="7" fill="var(--muted)">#{g.oppRank}</text>
+            </g>
+          );
+        })}
+        <text x={padL-4} y={padT} textAnchor="end" fontFamily="JetBrains Mono" fontSize="8" fill="var(--muted)" letterSpacing="0.1em">R</text>
+      </svg>
+
+      <div style={{ marginTop: 6, paddingTop: 6, borderTop: "1px solid var(--rule)" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 3 }}>
+          <div className="eyebrow">Cumulative Run Differential</div>
+          <div className="mono" style={{ fontSize: 9, color: "var(--muted)" }}>final: <span style={{ color: cumPts[cumPts.length-1].val>=0?"var(--win)":"var(--loss)", fontWeight: 700 }}>{cumPts[cumPts.length-1].val>=0?"+":""}{cumPts[cumPts.length-1].val}</span></div>
+        </div>
+        <svg viewBox={`0 0 ${width} ${diffH}`} width="100%" style={{ display: "block" }}>
+          <line x1={padL} x2={width-padR} y1={diffH/2} y2={diffH/2} stroke="var(--rule)" strokeWidth="0.75" strokeDasharray="2,2" />
+          <polyline
+            fill="none"
+            stroke="var(--gold-deep)"
+            strokeWidth="1.75"
+            points={cumPts.map((p,i) => `${padL + stepX*(i+0.5)},${diffY(p.val)}`).join(" ")}
+          />
+          {cumPts.map((p,i) => (
+            <circle key={i} cx={padL + stepX*(i+0.5)} cy={diffY(p.val)} r="2" fill="var(--gold-deep)" stroke="var(--paper)" strokeWidth="1" />
+          ))}
+        </svg>
+      </div>
+
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 6, marginTop: 6 }}>
+        <PaceStat label="Record" val={`${wins}-${games.length-wins}`} />
+        <PaceStat label="RS" val={rs} sub={`${(rs/games.length).toFixed(1)}/g`} />
+        <PaceStat label="RA" val={ra} sub={`${(ra/games.length).toFixed(1)}/g`} />
+        <PaceStat label="Diff" val={(rs-ra>=0?"+":"")+(rs-ra)} accent={rs-ra>=0?"var(--win)":"var(--loss)"} />
+      </div>
+    </Module>
+  );
+}
+
+function PaceStat({ label, val, sub, accent }) {
+  return (
+    <div style={{ padding: "4px 6px", background: "var(--paper-2)", border: "1px solid var(--rule)" }}>
+      <div className="eyebrow" style={{ fontSize: 8 }}>{label}</div>
+      <div className="serif" style={{ fontSize: 17, fontWeight: 600, lineHeight: 1, color: accent || "var(--ink)", fontVariantNumeric: "tabular-nums" }}>{val}</div>
+      {sub && <div className="mono" style={{ fontSize: 8, color: "var(--muted)", marginTop: 1 }}>{sub}</div>}
+    </div>
+  );
+}
+
+function AnalogsModule({ team }) {
+  return (
+    <Module num="05" title="Historical Analogs" eyebrow="Nearest neighbors, past 15 years">
+      <div style={{ display: "grid", gridTemplateColumns: "14px 1fr 40px 60px 1fr 40px", gap: 6, padding: "3px 0", borderBottom: "1px solid var(--rule)" }}>
+        <div className="eyebrow" style={{ fontSize: 8 }}>#</div>
+        <div className="eyebrow" style={{ fontSize: 8 }}>TEAM</div>
+        <div className="eyebrow" style={{ fontSize: 8 }}>SCORE</div>
+        <div className="eyebrow" style={{ fontSize: 8 }}>SEED</div>
+        <div className="eyebrow" style={{ fontSize: 8 }}>FINISH</div>
+        <div className="eyebrow" style={{ fontSize: 8, textAlign: "right" }}>SIM</div>
+      </div>
+      {team.analogs.map((a, i) => (
+        <div key={i} style={{ display: "grid", gridTemplateColumns: "14px 1fr 40px 60px 1fr 40px", gap: 6, padding: "5px 0", borderBottom: i===team.analogs.length-1?"none":"1px solid var(--rule)", alignItems: "center" }}>
+          <div className="serif" style={{ fontSize: 13, fontStyle: "italic", color: "var(--gold-deep)" }}>{i+1}</div>
+          <div>
+            <div className="serif" style={{ fontSize: 13, fontWeight: 600, lineHeight: 1.1 }}>{a.team}</div>
+            <div className="mono" style={{ fontSize: 8, color: "var(--muted)" }}>{a.year}</div>
+          </div>
+          <div className="serif" style={{ fontSize: 14, fontWeight: 600, fontVariantNumeric: "tabular-nums" }}>{a.score}</div>
+          <div className="mono" style={{ fontSize: 10, fontWeight: 600 }}>{a.seed <= 16 ? `#${a.seed}` : "-"}</div>
+          <div className="serif" style={{ fontSize: 11, fontWeight: 600, color: a.result.includes("Champion")?"var(--win)":"var(--ink-2)", lineHeight: 1.1 }}>{a.result}</div>
+          <div style={{ textAlign: "right" }}>
+            <div className="mono" style={{ fontSize: 11, fontWeight: 700 }}>{a.similarity}</div>
+            <div style={{ height: 2, background: "var(--paper-2)", marginTop: 2 }}>
+              <div style={{ height: "100%", width: `${a.similarity}%`, background: "var(--gold-deep)", marginLeft: "auto" }}></div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </Module>
+  );
+}
+
+function VerdictModule({ team }) {
+  const verdict = team.bubbleVerdict === "Lock"
+    ? `A national seed case. Every committee checkbox, with the underlying profile to back it up.`
+    : team.bubbleVerdict === "In"
+      ? `Comfortably in. The question is seed line, not inclusion.`
+      : `A genuine bubble team — a conference run away from clarity either way.`;
+  return (
+    <Module num="06" title="The Verdict" eyebrow="Quality wins & resume drags" fill>
+      <p className="serif" style={{ fontSize: 15, fontStyle: "italic", lineHeight: 1.4, margin: "0 0 10px", color: "var(--ink)" }}>
+        "{verdict}"
+      </p>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+        <div>
+          <div className="eyebrow" style={{ color: "var(--win)", marginBottom: 4 }}>Signature Wins</div>
+          {team.bigWins.map((w, i) => (
+            <div key={i} style={{ fontSize: 11, padding: "3px 0", borderBottom: i===team.bigWins.length-1?"none":"1px dotted var(--rule)" }}>
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <span className="serif" style={{ fontWeight: 600 }}>{w.opp}</span>
+                <span className="mono" style={{ fontWeight: 600, color: "var(--win)" }}>{w.score}</span>
+              </div>
+              <div className="mono" style={{ fontSize: 8, color: "var(--muted)" }}>{w.note}</div>
+            </div>
+          ))}
+        </div>
+        <div>
+          <div className="eyebrow" style={{ color: "var(--loss)", marginBottom: 4 }}>Resume Drags</div>
+          {team.badLosses.length === 0 ? (
+            <div className="serif" style={{ fontSize: 11, fontStyle: "italic", color: "var(--muted)" }}>None of note.</div>
+          ) : team.badLosses.map((w, i) => (
+            <div key={i} style={{ fontSize: 11, padding: "3px 0", borderBottom: i===team.badLosses.length-1?"none":"1px dotted var(--rule)" }}>
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <span className="serif" style={{ fontWeight: 600 }}>{w.opp}</span>
+                <span className="mono" style={{ fontWeight: 600, color: "var(--loss)" }}>{w.score}</span>
+              </div>
+              <div className="mono" style={{ fontSize: 8, color: "var(--muted)" }}>{w.note}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </Module>
+  );
+}
+
+function Footer({ team }) {
+  return (
+    <div style={{ marginTop: 12 }}>
+      <hr className="thick" />
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingTop: 8, gap: 16 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <img src="__LOGO_EMBLEM__" alt="64A" style={{ height: 20, width: 20, display: "block" }} />
+          <div className="eyebrow" style={{ fontSize: 9 }}>64 Analytics · Published {team.year}</div>
+        </div>
+        <div className="eyebrow" style={{ fontSize: 9, textAlign: "center", flex: 1 }}>Methodology: weighted composite of Q-wins (15%), efficiency (15%), SOS (20%), rankings (40%), form (10%)</div>
+        <div className="eyebrow" style={{ fontSize: 9 }}>64analytics.com</div>
+      </div>
+    </div>
+  );
+}
+
+function Infographic({ team }) {
+  return (
+    <div className="page">
+      <Masthead team={team} />
+      <div style={{ marginTop: 14 }}>
+        <ResumeScore team={team} />
+      </div>
+      <div style={{ display: "grid", gridTemplateColumns: "1.25fr 1fr", gap: 12, marginTop: 12 }}>
+        <SpiderModule team={team} />
+        <div style={{ display: "grid", gap: 12 }}>
+          <SOSModule team={team} />
+        </div>
+      </div>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1.4fr", gap: 12, marginTop: 12 }}>
+        <RankingsModule team={team} />
+        <PaceModule team={team} />
+      </div>
+      <div style={{ display: "grid", gridTemplateColumns: "1.3fr 1fr", gap: 12, marginTop: 12 }}>
+        <AnalogsModule team={team} />
+        <VerdictModule team={team} />
+      </div>
+      <Footer team={team} />
+    </div>
+  );
+}
+
+window.Infographic = Infographic;
+  </script>
+
+  <script type="text/babel">
+// === app.jsx ===
+const TWEAK_DEFAULTS = {
+  "team": "__INITIAL_TEAM__",
+  "theme": "__INITIAL_THEME__"
+};
+
+function App() {
+  const state = TWEAK_DEFAULTS;
+  React.useEffect(() => {
+    document.body.setAttribute("data-theme", state.theme);
+  }, [state.theme]);
+  const team = window.TEAMS[state.team] || window.TEAMS.vanderbilt;
+  return <Infographic team={team} />;
+}
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<App />);
+  </script>
+</body>
+</html>

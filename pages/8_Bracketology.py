@@ -6,10 +6,12 @@ NCAA Tournament field prediction with seeding, regional placement, and super reg
 import streamlit as st
 import pandas as pd
 import numpy as np
+import base64
 from pathlib import Path
 from math import radians, sin, cos, sqrt, atan2
 from collections import Counter
 from PIL import Image
+from streamlit.components.v1 import html as _components_html
 
 # ── Path setup ───────────────────────────────────────────────────────────────
 _APP_DIR = Path(__file__).resolve().parent.parent
@@ -1103,6 +1105,52 @@ def render_bubble_card(team_row, label_prefix='', previous_snapshot=None, curren
     '''
 
 
+# ── NCAAT Resume helpers ─────────────────────────────────────────────────────
+NCAAT_ASSETS = _APP_DIR / 'assets' / 'ncaat-resume'
+
+import json as _json
+import re as _re
+from pages._ncaat_resume_data import build_resume_team, list_d1_teams
+
+
+def _data_uri(path: Path) -> str:
+    b = base64.b64encode(path.read_bytes()).decode('ascii')
+    return f'data:image/png;base64,{b}'
+
+
+@st.cache_data(show_spinner=False)
+def _load_ncaat_template() -> str:
+    tpl = (NCAAT_ASSETS / 'template.html').read_text(encoding='utf-8')
+    wordmark_uri = _data_uri(NCAAT_ASSETS / 'logo-wordmark-black.png')
+    emblem_uri = _data_uri(NCAAT_ASSETS / 'logo-emblem.png')
+    tpl = tpl.replace('__LOGO_WORDMARK__', wordmark_uri)
+    tpl = tpl.replace('__LOGO_EMBLEM__', emblem_uri)
+    return tpl
+
+
+_TEAMS_BLOCK_RE = _re.compile(
+    r'/\*TEAMS_DATA_BEGIN\*/.*?/\*TEAMS_DATA_END\*/',
+    _re.DOTALL,
+)
+
+
+def render_ncaat_resume(team_name: str, sport_key: str, theme: str):
+    team_dict = build_resume_team(team_name, sport_key)
+    if team_dict is None:
+        st.warning(f'Could not build resume data for {team_name} (missing in CSVs).')
+        return
+    payload = {'selected': team_dict}
+    payload_js = _json.dumps(payload)
+    html = _load_ncaat_template()
+    html = _TEAMS_BLOCK_RE.sub(
+        '/*TEAMS_DATA_BEGIN*/' + payload_js + '/*TEAMS_DATA_END*/',
+        html,
+    )
+    html = html.replace('__INITIAL_TEAM__', 'selected')
+    html = html.replace('__INITIAL_THEME__', theme)
+    _components_html(html, height=1620, scrolling=True)
+
+
 # ── Sidebar ──────────────────────────────────────────────────────────────────
 with st.sidebar:
     if BRAND_LOGO.exists():
@@ -1110,8 +1158,33 @@ with st.sidebar:
     st.markdown('---')
     st.markdown('### Bracketology Settings')
 
+    view_mode = st.radio(
+        'View',
+        ['Bracket', 'Team Resume'],
+        index=0,
+        horizontal=True,
+        help='Bracket: full field projection. Team Resume: single-team dossier infographic.',
+    )
+
     sport = st.selectbox('Sport', ['Baseball', 'Softball'], index=0)
     sport_key = sport.lower()
+
+    if view_mode == 'Team Resume':
+        st.markdown('---')
+        st.markdown('### Resume Dossier')
+        _d1_teams = list_d1_teams(sport_key)
+        _default_team = 'Vanderbilt' if 'Vanderbilt' in _d1_teams else (_d1_teams[0] if _d1_teams else '')
+        resume_team = st.selectbox(
+            'Team',
+            _d1_teams,
+            index=_d1_teams.index(_default_team) if _default_team in _d1_teams else 0,
+        )
+        resume_theme = st.radio(
+            'Theme',
+            ['editorial', 'broadcast', 'clinical'],
+            index=0,
+            format_func=lambda t: {'editorial': 'Editorial Paper', 'broadcast': 'Broadcast Dark', 'clinical': 'Clinical White'}[t],
+        )
 
     scenario_mode = st.toggle('Scenario Mode', value=False, help='Override model predictions with custom field selections.')
 
@@ -1133,6 +1206,15 @@ with st.sidebar:
 
 
 # ── Main content ─────────────────────────────────────────────────────────────
+if view_mode == 'Team Resume':
+    st.markdown(
+        f'<h1 style="text-align:center;margin-bottom:0;">NCAAT Resume Dossier</h1>'
+        f'<p style="text-align:center;color:#888;margin-top:4px;">{resume_team} · one-page infographic</p>',
+        unsafe_allow_html=True,
+    )
+    render_ncaat_resume(resume_team, sport_key, resume_theme)
+    st.stop()
+
 st.markdown(
     f'<h1 style="text-align:center;margin-bottom:0;">NCAA {sport} Bracketology</h1>'
     f'<p style="text-align:center;color:#888;margin-top:4px;">2026 Tournament Field Projection</p>',
