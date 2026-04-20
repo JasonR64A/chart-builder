@@ -1772,56 +1772,6 @@ if weekday_filter != 'All' and 'date_parsed' in pbp.columns:
             hitting_pbp = hitting_pbp[~hitting_pbp['date_parsed'].dt.weekday.isin(weekend_days)]
             pitching_pbp = pitching_pbp[~pitching_pbp['date_parsed'].dt.weekday.isin(weekend_days)]
 
-# Run Differential filter — bucket games by final margin (each team's 'r' summed per gameId)
-run_diff_filter = st.sidebar.selectbox(
-    'Run Differential',
-    ['All', 'One-Run Games (|diff|=1)', 'Close (|diff| <= 3)', 'Blowouts (|diff| >= 5)', 'Team Won', 'Team Lost'],
-    key='run_diff_filter',
-    help='Filter to games by final scoring margin. "Team Won/Lost" applies to the selected Team or, if no team picked, every team in each game.',
-)
-if run_diff_filter != 'All' and 'gameId' in pbp.columns and 'r' in pbp.columns and 'teamName' in pbp.columns:
-    team_runs = pbp.groupby(['gameId', 'teamName'])['r'].sum().reset_index()
-    game_ids_to_keep = set()
-    abs_diffs = {}
-    game_winner = {}  # gameId -> team that scored more (None if tied)
-    for gid, chunk in team_runs.groupby('gameId'):
-        runs = chunk.set_index('teamName')['r'].to_dict()
-        if len(runs) != 2:
-            continue
-        t1, t2 = list(runs.keys())
-        r1, r2 = int(runs[t1]), int(runs[t2])
-        abs_diffs[gid] = abs(r1 - r2)
-        if r1 > r2:
-            game_winner[gid] = t1
-        elif r2 > r1:
-            game_winner[gid] = t2
-        else:
-            game_winner[gid] = None
-    if run_diff_filter == 'One-Run Games (|diff|=1)':
-        game_ids_to_keep = {gid for gid, d in abs_diffs.items() if d == 1}
-    elif run_diff_filter == 'Close (|diff| <= 3)':
-        game_ids_to_keep = {gid for gid, d in abs_diffs.items() if d <= 3}
-    elif run_diff_filter == 'Blowouts (|diff| >= 5)':
-        game_ids_to_keep = {gid for gid, d in abs_diffs.items() if d >= 5}
-    elif run_diff_filter == 'Team Won':
-        # Keep rows for the team that scored more in each game
-        pbp = pbp[pbp.apply(lambda r: game_winner.get(r['gameId']) == r['teamName'], axis=1)]
-        if view == 'Lineup Card':
-            hitting_pbp = hitting_pbp[hitting_pbp.apply(lambda r: game_winner.get(r['gameId']) == r['teamName'], axis=1)]
-            pitching_pbp = pitching_pbp[pitching_pbp.apply(lambda r: game_winner.get(r['gameId']) == r['teamName'], axis=1)]
-        game_ids_to_keep = None  # already filtered
-    elif run_diff_filter == 'Team Lost':
-        pbp = pbp[pbp.apply(lambda r: game_winner.get(r['gameId']) not in (None, r['teamName']), axis=1)]
-        if view == 'Lineup Card':
-            hitting_pbp = hitting_pbp[hitting_pbp.apply(lambda r: game_winner.get(r['gameId']) not in (None, r['teamName']), axis=1)]
-            pitching_pbp = pitching_pbp[pitching_pbp.apply(lambda r: game_winner.get(r['gameId']) not in (None, r['teamName']), axis=1)]
-        game_ids_to_keep = None
-    if game_ids_to_keep is not None:
-        pbp = pbp[pbp['gameId'].isin(game_ids_to_keep)]
-        if view == 'Lineup Card':
-            hitting_pbp = hitting_pbp[hitting_pbp['gameId'].isin(game_ids_to_keep)]
-            pitching_pbp = pitching_pbp[pitching_pbp['gameId'].isin(game_ids_to_keep)]
-
 # Conference filter (applies to all views)
 if conf_map and 'teamName' in pbp.columns:
     pbp_conferences = pbp['teamName'].map(conf_map).dropna().unique()
@@ -2150,6 +2100,10 @@ elif view == 'Pace Chart':
         all_stat_options = list(cum_stats.keys()) + advanced_hitting
     else:
         all_stat_options = list(cum_stats.keys()) + advanced_pitching
+    # Run Diff is a team-level-only stat: cumulative (runs scored - runs allowed).
+    # Offer it for both Hitting and Pitching tabs when viewing Team data.
+    if pace_level == 'Team':
+        all_stat_options.append('Run Diff')
 
     stat_choice = st.sidebar.selectbox('Stat to Track', all_stat_options)
     is_advanced = stat_choice not in cum_stats
@@ -2215,7 +2169,41 @@ elif view == 'Pace Chart':
     per_game = pd.concat([per_game, cum_df], axis=1)
 
     # Step 3: Compute the cum_stat for the requested stat
-    if not is_advanced:
+    if stat_choice == 'Run Diff':
+        # Team-level Run Differential = cumulative (runs scored - runs allowed).
+        # Need both teams' per-game runs, so reload the HITTING file (full dataset)
+        # and apply only the date / conference filters — the team filter would
+        # strip the opponent and make the diff impossible to compute.
+        full_hit = load_pbp(sport, division, 'hitting')
+        if full_hit is None or 'r' not in full_hit.columns:
+            st.warning('Run Diff requires hitting data.')
+            st.stop()
+        fh = full_hit
+        if date_start and date_end and 'date_parsed' in fh.columns:
+            fh = fh[(fh['date_parsed'].dt.date >= date_start) & (fh['date_parsed'].dt.date <= date_end)]
+        try:
+            if conf_map and selected_conferences:
+                c_teams = {t for t, c in conf_map.items() if c in selected_conferences}
+                fh = fh[fh['teamName'].isin(c_teams) | fh['gameId'].isin(fh[fh['teamName'].isin(c_teams)]['gameId'])]
+        except NameError:
+            pass
+        # Per-game per-team runs scored (hitting 'r' is runs scored)
+        tr = fh.groupby(['gameId', 'teamName', 'date_parsed'], sort=False)['r'].sum().reset_index()
+        game_totals = tr.groupby('gameId')['r'].sum().to_dict()
+        tr['opp_r'] = tr['gameId'].map(game_totals).fillna(0).astype(int) - tr['r'].astype(int)
+        tr['run_diff_per_game'] = tr['r'].astype(int) - tr['opp_r']
+        # Restrict to the teams currently in per_game (applies team filter)
+        wanted_teams = set(per_game['teamName'].unique())
+        tr = tr[tr['teamName'].isin(wanted_teams)].copy()
+        tr = tr.sort_values(['teamName', 'date_parsed']).reset_index(drop=True)
+        tr['game_num'] = tr.groupby('teamName', sort=False).cumcount() + 1
+        tr['cum_stat'] = tr.groupby('teamName', sort=False)['run_diff_per_game'].cumsum()
+        # Replace per_game with the run-diff frame so the downstream chart
+        # render uses these cum values. Ensure all columns the renderer
+        # expects exist.
+        per_game = tr.rename(columns={})
+        per_game[group_key] = per_game['teamName']
+    elif not is_advanced:
         stat_col = cum_stats[stat_choice]
         if stat_col not in pace_pbp.columns:
             st.warning(f'{stat_choice} not in data.')
