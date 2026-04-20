@@ -388,6 +388,13 @@ def _nearest_by_score(team_name: str, score: int, score_lookup: dict, teams_df: 
             continue
         candidates.append((other, other_score, abs(other_score - score)))
     candidates.sort(key=lambda t: t[2])
+    # We need the primary team's stat percentiles to compute similarity. Resolve its team_id.
+    primary_tid = team_id_by_name.get(team_name)
+    primary_stats = None
+    if primary_tid is not None:
+        ps = _team_stats(int(primary_tid))
+        if ps:
+            primary_stats = {k: v['pct'] for k, v in ps.items()}
     out = []
     for other, other_score, _ in candidates[:limit]:
         conf_abbrev = conf_map.get(team_conf.get(other, ''), '')
@@ -401,7 +408,12 @@ def _nearest_by_score(team_name: str, score: int, score_lookup: dict, teams_df: 
         if tid is not None:
             stats = _team_stats(int(tid))
             if stats:
-                entry['stats'] = {k: v['pct'] for k, v in stats.items()}
+                pct_map = {k: v['pct'] for k, v in stats.items()}
+                entry['stats'] = pct_map
+                if primary_stats:
+                    diffs = [abs(pct_map.get(k, 50) - primary_stats.get(k, 50)) for k in primary_stats.keys()]
+                    avg_diff = sum(diffs) / max(len(diffs), 1)
+                    entry['statSim'] = int(round(max(0, 100 - avg_diff)))
         out.append(entry)
     return out
 
