@@ -28,12 +28,20 @@ DATA_DIR = _APP_DIR / 'data'
 
 
 def _norm(name: str) -> str:
+    """Normalize a team name for cross-file matching.
+    - Strip " @Location, ST" / " vs X" suffixes (schedules_full convention)
+    - Lowercase
+    - Collapse "State" and "Saint" to "st" so "Mississippi St." (teams.csv),
+      "Mississippi State" (DSR), and "Saint Mary's" / "St. Mary's" variants
+      all share one normalized form.
+    - Strip non-alphanumeric.
+    """
     if not isinstance(name, str):
         return ''
-    # Opponent names in schedules_full_*.csv include "Team @Arlington, TX" style
-    # location suffixes — strip after the first " @" or " vs " marker.
     n = re.split(r'\s+@|\s+vs\s+', name, maxsplit=1)[0]
     n = n.lower().strip()
+    n = re.sub(r'\bsaint\b', 'st', n)
+    n = re.sub(r'\bstate\b', 'st', n)
     n = re.sub(r'[^a-z0-9]+', '', n)
     return n
 
