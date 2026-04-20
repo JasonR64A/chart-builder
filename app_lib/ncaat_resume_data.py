@@ -10,11 +10,18 @@ bracketology/team_locations.csv.
 from __future__ import annotations
 
 from pathlib import Path
+import base64
 import re
+from collections import Counter
 
 import numpy as np
 import pandas as pd
 import streamlit as st
+
+try:
+    from PIL import Image  # for dominant-color extraction
+except ImportError:
+    Image = None
 
 _APP_DIR = Path(__file__).resolve().parent.parent
 DATA_DIR = _APP_DIR / 'data'
@@ -126,6 +133,93 @@ def _resume_score_lookup(sport_key: str, year: int = 2026) -> dict:
         r64 = rank64.get(int(r['id']), 301)
         out[name] = _resume_score_from_ranks(rpi_r, r64)
     return out
+
+
+_LOGO_DIR = _APP_DIR / 'team_logos_512'
+
+
+@st.cache_data(show_spinner=False)
+def _team_logo_map(sport_key: str) -> dict:
+    """team_name -> logo_id (the team_id in teams.csv, used as logo filename stem)."""
+    teams = _load_csv('teams.csv')
+    if teams.empty:
+        return {}
+    sport_label = 'Baseball' if sport_key == 'baseball' else 'Softball'
+    sport_col = teams['sport'] == sport_label
+    sub = teams[sport_col][['name', 'id']].drop_duplicates('name')
+    return {n: int(i) for n, i in zip(sub['name'], sub['id']) if pd.notna(i)}
+
+
+def _team_logo_data_uri(team_name: str, sport_key: str) -> str:
+    """Base64 data URI for team_logos_512/{id}.png; '' if missing."""
+    logo_id = _team_logo_map(sport_key).get(team_name)
+    if not logo_id:
+        return ''
+    for ext in ('png', 'webp'):
+        p = _LOGO_DIR / f'{logo_id}.{ext}'
+        if p.exists():
+            try:
+                data = p.read_bytes()
+                mime = 'image/png' if ext == 'png' else 'image/webp'
+                return f'data:{mime};base64,{base64.b64encode(data).decode()}'
+            except Exception:
+                return ''
+    return ''
+
+
+def _lum(hex_color: str) -> float:
+    """Relative luminance 0-1 from a '#rrggbb' string."""
+    h = hex_color.lstrip('#')
+    if len(h) != 6:
+        return 0.5
+    try:
+        r, g, b = int(h[0:2], 16), int(h[2:4], 16), int(h[4:6], 16)
+    except ValueError:
+        return 0.5
+    return (0.299 * r + 0.587 * g + 0.114 * b) / 255
+
+
+def _contrast_on(hex_color: str) -> str:
+    """Return a readable text color (#000 or #fff) for text placed over hex_color."""
+    return '#ffffff' if _lum(hex_color) < 0.55 else '#0a0a0a'
+
+
+@st.cache_data(show_spinner=False)
+def _team_primary_color(team_name: str, sport_key: str) -> str:
+    """Extract a dominant color from the team logo. Returns a hex string.
+    Falls back to 64A brand red if the logo is missing or unusable."""
+    fallback = '#C41230'
+    if Image is None:
+        return fallback
+    logo_id = _team_logo_map(sport_key).get(team_name)
+    if not logo_id:
+        return fallback
+    for ext in ('png', 'webp'):
+        p = _LOGO_DIR / f'{logo_id}.{ext}'
+        if not p.exists():
+            continue
+        try:
+            img = Image.open(p).convert('RGBA')
+            img.thumbnail((64, 64))
+            pixels = np.array(img)
+            mask = pixels[:, :, 3] > 128
+            rgb = pixels[mask][:, :3]
+            if not len(rgb):
+                return fallback
+            filtered = []
+            for r, g, b in rgb:
+                brightness = (int(r) + int(g) + int(b)) / 3
+                if brightness > 220 or brightness < 35:
+                    continue
+                filtered.append((int(r), int(g), int(b)))
+            if not filtered:
+                return fallback
+            quantized = [(r // 16 * 16, g // 16 * 16, b // 16 * 16) for r, g, b in filtered]
+            most_common = Counter(quantized).most_common(1)[0][0]
+            return f'#{most_common[0]:02x}{most_common[1]:02x}{most_common[2]:02x}'
+        except Exception:
+            return fallback
+    return fallback
 
 
 @st.cache_data(show_spinner=False)
@@ -879,6 +973,10 @@ def build_resume_team(team_name: str, sport_key: str, year: int = 2026) -> dict 
     # Nickname: use team name if no better source
     nickname = team_name
 
+    primary = _team_primary_color(team_name, sport_key)
+    secondary = _contrast_on(primary)
+    logo_uri = _team_logo_data_uri(team_name, sport_key)
+
     return {
         'name': team_name,
         'nickname': nickname,
@@ -886,7 +984,8 @@ def build_resume_team(team_name: str, sport_key: str, year: int = 2026) -> dict 
         'conf': conf_abbrev or conf_name or '',
         'record': record,
         'confRecord': conf_record,
-        'colors': {'primary': '#0A0A0A', 'secondary': '#CFAE70', 'accent': '#8B6F3E'},
+        'colors': {'primary': primary, 'secondary': secondary, 'accent': '#8B6F3E'},
+        'logoDataUri': logo_uri,
         'location': location,
         'coach': coach,
         'resumeScore': resume_score,

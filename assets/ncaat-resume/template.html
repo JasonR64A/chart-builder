@@ -441,13 +441,16 @@ function Masthead({ team }) {
       </div>
       <hr className="thick" />
       <div style={{ display: "grid", gridTemplateColumns: "auto 1fr auto", gap: 20, alignItems: "end", padding: "18px 0 12px" }}>
-        <div style={{ width: 72, height: 72, borderRadius: "50%", background: team.colors.primary, display: "grid", placeItems: "center", border: `2px solid ${team.colors.secondary}` }}>
-          <div className="serif" style={{ color: team.colors.secondary, fontWeight: 700, fontSize: 34, lineHeight: 1, fontStyle: "italic" }}>{team.name[0]}</div>
+        <div style={{ width: 78, height: 78, borderRadius: "50%", background: team.colors.primary, display: "grid", placeItems: "center", border: `2px solid ${team.colors.primary}`, overflow: "hidden", boxShadow: "0 2px 8px rgba(0,0,0,0.15)" }}>
+          {team.logoDataUri
+            ? <img src={team.logoDataUri} alt={team.name} style={{ width: 66, height: 66, objectFit: "contain", display: "block" }} />
+            : <div className="serif" style={{ color: team.colors.secondary, fontWeight: 700, fontSize: 34, lineHeight: 1, fontStyle: "italic" }}>{team.name[0]}</div>
+          }
         </div>
         <div>
           <div className="eyebrow" style={{ marginBottom: 6 }}>{team.conf} · {team.location} · HC {team.coach}</div>
           <h1 className="serif" style={{ fontSize: 56, fontWeight: 500, lineHeight: 0.92, margin: 0, letterSpacing: "-0.03em" }}>
-            Do the <span style={{ fontStyle: "italic", color: "var(--gold-deep)" }}>{team.nickname}</span> belong?
+            Does <span style={{ fontStyle: "italic", color: team.colors.primary }}>{team.name}</span> belong?
           </h1>
           <div className="serif" style={{ fontSize: 15, color: "var(--ink-2)", marginTop: 8, fontStyle: "italic", maxWidth: 640 }}>
             A one-page dossier on {team.name} baseball's {team.year} NCAA Tournament case — by the numbers.
@@ -504,7 +507,7 @@ function ResumeScore({ team }) {
         <div style={{ position: "relative", width: size, height: size }}>
           <svg width={size} height={size}>
             <circle cx={size/2} cy={size/2} r={r} stroke="var(--rule)" strokeWidth="9" fill="none" />
-            <circle cx={size/2} cy={size/2} r={r} stroke="var(--gold-deep)" strokeWidth="9" fill="none"
+            <circle cx={size/2} cy={size/2} r={r} stroke={team.colors.primary} strokeWidth="9" fill="none"
               strokeDasharray={`${dash} ${c}`} transform={`rotate(-90 ${size/2} ${size/2})`} strokeLinecap="butt" />
           </svg>
           <div style={{ position: "absolute", inset: 0, display: "grid", placeItems: "center" }}>
@@ -526,7 +529,7 @@ function ResumeScore({ team }) {
         </div>
         <div style={{ textAlign: "center", borderLeft: "1px solid var(--rule)", paddingLeft: 20 }}>
           <div className="eyebrow" style={{ marginBottom: 2 }}>Grade</div>
-          <div className="serif" style={{ fontSize: 68, fontWeight: 500, lineHeight: 0.85, color: "var(--gold-deep)", fontStyle: "italic" }}>{team.grade}</div>
+          <div className="serif" style={{ fontSize: 68, fontWeight: 500, lineHeight: 0.85, color: team.colors.primary, fontStyle: "italic" }}>{team.grade}</div>
         </div>
       </div>
 
