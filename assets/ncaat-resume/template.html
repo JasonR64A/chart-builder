@@ -684,10 +684,10 @@ function Module({ num, title, eyebrow, children, fill, style }) {
 
 function SOSModule({ team }) {
   const quads = [
-    { k: "q1", desc: "Top 30 / rd Top 50", accent: 1.0 },
-    { k: "q2", desc: "31-75 / rd 51-100", accent: 0.75 },
-    { k: "q3", desc: "76-160 / rd 101-200", accent: 0.5 },
-    { k: "q4", desc: "161+ / rd 201+", accent: 0.3 },
+    { k: "q1", desc: "H 1-25 · N 1-40 · A 1-60", accent: 1.0 },
+    { k: "q2", desc: "H 26-50 · N 41-80 · A 61-120", accent: 0.75 },
+    { k: "q3", desc: "H 51-100 · N 81-160 · A 121-240", accent: 0.5 },
+    { k: "q4", desc: "H 101+ · N 161+ · A 241+", accent: 0.3 },
   ];
   const totals = ["q1","q2","q3","q4"].map(k => { const [w,l] = team.quadRecord[k].split("-").map(Number); return {w, l, t: w+l}; });
   const totalG = totals.reduce((s,t) => s + t.t, 0);

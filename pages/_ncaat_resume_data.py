@@ -349,16 +349,34 @@ def _head_coach_lookup() -> dict:
     return out
 
 
-def _quad_bucket(opp_rank: int, home: bool) -> str:
-    if home:
-        if opp_rank <= 30:  return 'q1'
-        if opp_rank <= 75:  return 'q2'
+def _venue(g) -> str:
+    """Return 'away' | 'neutral' | 'home' for a schedules_full row."""
+    is_away = g.get('isAway')
+    if is_away is True or is_away == 1 or is_away == 1.0:
+        return 'away'
+    opp = g.get('opponentName')
+    if isinstance(opp, str) and '@' in opp:
+        return 'neutral'
+    return 'home'
+
+
+def _quad_bucket(opp_rank: int, venue: str) -> str:
+    """NCAA quadrant thresholds: Q1 H1-25 N1-40 A1-60; Q2 H26-50 N41-80 A61-120;
+    Q3 H51-100 N81-160 A121-240; Q4 H101+ N161+ A241+."""
+    if venue == 'home':
+        if opp_rank <= 25:  return 'q1'
+        if opp_rank <= 50:  return 'q2'
+        if opp_rank <= 100: return 'q3'
+        return 'q4'
+    elif venue == 'neutral':
+        if opp_rank <= 40:  return 'q1'
+        if opp_rank <= 80:  return 'q2'
         if opp_rank <= 160: return 'q3'
         return 'q4'
-    else:
-        if opp_rank <= 50:  return 'q1'
-        if opp_rank <= 100: return 'q2'
-        if opp_rank <= 200: return 'q3'
+    else:  # away
+        if opp_rank <= 60:  return 'q1'
+        if opp_rank <= 120: return 'q2'
+        if opp_rank <= 240: return 'q3'
         return 'q4'
 
 
@@ -399,10 +417,9 @@ def _compute_quad_record(sched_full: pd.DataFrame, team_name: str, rpi_lookup: d
         opp = g.get('opponentName')
         if not isinstance(opp, str):
             continue
-        is_away = g.get('isAway')
-        home = not (is_away is True or is_away == 1)
+        venue = _venue(g)
         opp_rank = rpi_lookup.get(_norm(opp), 999)
-        q = _quad_bucket(opp_rank, home)
+        q = _quad_bucket(opp_rank, venue)
         if _is_win(g):
             quads[q][0] += 1
         else:
@@ -425,8 +442,8 @@ def _last_10_games(sched_full: pd.DataFrame, team_name: str, rpi_lookup: dict) -
         opp = _clean_opp(opp_raw)
         rs = int(g['runsFor']) if pd.notna(g.get('runsFor')) else 0
         ra = int(g['runsAgainst']) if pd.notna(g.get('runsAgainst')) else 0
-        is_away = g.get('isAway')
-        home = not (is_away is True or is_away == 1)
+        venue = _venue(g)
+        home = venue == 'home'
         out.append({
             'opp': opp,
             'home': home,
@@ -451,12 +468,12 @@ def _big_wins(sched_full: pd.DataFrame, team_name: str, rpi_lookup: dict, top_n:
     for _, g in m.iterrows():
         rs = int(g['runsFor']) if pd.notna(g.get('runsFor')) else 0
         ra = int(g['runsAgainst']) if pd.notna(g.get('runsAgainst')) else 0
-        is_away = g.get('isAway')
-        home = not (is_away is True or is_away == 1)
+        venue = _venue(g)
+        home = venue == 'home'
         out.append({
             'opp': _clean_opp(g['opponentName']),
             'score': f'{rs}-{ra}',
-            'note': f'{"Home" if home else "Road"} · opp #{int(g["opp_rank"])}',
+            'note': f'{"Home" if venue == "home" else "Neutral" if venue == "neutral" else "Road"} · opp #{int(g["opp_rank"])}',
         })
     return out
 
@@ -474,12 +491,12 @@ def _bad_losses(sched_full: pd.DataFrame, team_name: str, rpi_lookup: dict, thre
     for _, g in m.iterrows():
         rs = int(g['runsFor']) if pd.notna(g.get('runsFor')) else 0
         ra = int(g['runsAgainst']) if pd.notna(g.get('runsAgainst')) else 0
-        is_away = g.get('isAway')
-        home = not (is_away is True or is_away == 1)
+        venue = _venue(g)
+        home = venue == 'home'
         out.append({
             'opp': _clean_opp(g['opponentName']),
             'score': f'{rs}-{ra}',
-            'note': f'{"Home" if home else "Road"} · opp #{int(g["opp_rank"])}',
+            'note': f'{"Home" if venue == "home" else "Neutral" if venue == "neutral" else "Road"} · opp #{int(g["opp_rank"])}',
         })
     return out
 
