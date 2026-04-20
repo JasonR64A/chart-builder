@@ -616,6 +616,7 @@ function Legend({ color, label, dashed }) {
 
 function SpiderModule({ team }) {
   const neighbors = (team.nearestByScore || []).slice().sort((a,b) => Math.abs(a.diff) - Math.abs(b.diff));
+  const teamArea = team.statArea != null ? team.statArea : null;
   return (
     <Module num="01" title="Statistical Profile" eyebrow="Percentile Ranks vs. D-I">
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, alignItems: "start" }}>
@@ -625,24 +626,34 @@ function SpiderModule({ team }) {
             <Legend color="var(--gold-deep)" label={team.name} />
             <Legend color="var(--ink-2)" label="Neighbors" dashed />
           </div>
-          <div style={{ marginTop: 6, paddingTop: 6, borderTop: "1px solid var(--rule)" }}>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr auto auto auto", gap: 6, paddingBottom: 2, borderBottom: "1px dotted var(--rule)" }}>
-              <div className="eyebrow">Nearest by Resume Score</div>
-              <div className="eyebrow" style={{ fontSize: 8, textAlign: "right" }}>DIFF</div>
-              <div className="eyebrow" style={{ fontSize: 8, textAlign: "right", minWidth: 24 }}>SCORE</div>
-              <div className="eyebrow" style={{ fontSize: 8, textAlign: "right", minWidth: 28 }}>STAT SIM</div>
+          {teamArea != null && (
+            <div style={{ display: "grid", gridTemplateColumns: "1fr auto", gap: 6, alignItems: "baseline", marginTop: 6, padding: "4px 6px", background: "var(--paper-2)", border: "1px solid var(--rule)" }}>
+              <div className="eyebrow" style={{ fontSize: 8 }}>Radar Area · overall stat index</div>
+              <div className="serif" style={{ fontSize: 16, fontWeight: 700, color: "var(--gold-deep)", fontVariantNumeric: "tabular-nums" }}>{teamArea}</div>
             </div>
-            {neighbors.map((n, i) => (
-              <div key={i} style={{ display: "grid", gridTemplateColumns: "1fr auto auto auto", gap: 6, padding: "2px 0", alignItems: "baseline" }}>
-                <div className="serif" style={{ fontSize: 11, fontWeight: 600, lineHeight: 1.15 }}>{n.team} <span className="mono" style={{ fontSize: 8, color: "var(--muted)", fontWeight: 500 }}>· {n.conf}</span></div>
-                <div className="mono" style={{ fontSize: 9, fontWeight: 700, color: n.diff > 0 ? "var(--win)" : "var(--loss)", textAlign: "right" }}>{n.diff > 0 ? "+" : ""}{n.diff}</div>
-                <div className="serif" style={{ fontSize: 12, fontWeight: 600, fontVariantNumeric: "tabular-nums", minWidth: 24, textAlign: "right" }}>{n.score}</div>
-                <div className="mono" style={{ fontSize: 10, fontWeight: 700, textAlign: "right", minWidth: 28,
-                    color: (n.statSim != null ? (n.statSim >= 85 ? "var(--win)" : n.statSim >= 70 ? "var(--ink)" : "var(--loss)") : "var(--muted)") }}>
-                  {n.statSim != null ? `${n.statSim}%` : "-"}
+          )}
+          <div style={{ marginTop: 6, paddingTop: 6, borderTop: "1px solid var(--rule)" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr auto auto auto auto", gap: 6, paddingBottom: 2, borderBottom: "1px dotted var(--rule)" }}>
+              <div className="eyebrow">Nearest by Resume Score</div>
+              <div className="eyebrow" style={{ fontSize: 8, textAlign: "right" }}>SCORE</div>
+              <div className="eyebrow" style={{ fontSize: 8, textAlign: "right" }}>Δ</div>
+              <div className="eyebrow" style={{ fontSize: 8, textAlign: "right", minWidth: 24 }}>AREA</div>
+              <div className="eyebrow" style={{ fontSize: 8, textAlign: "right", minWidth: 28 }}>Δ-AREA</div>
+            </div>
+            {neighbors.map((n, i) => {
+              const area = n.statArea != null ? n.statArea : null;
+              const areaDiff = (area != null && teamArea != null) ? (area - teamArea) : null;
+              const areaColor = areaDiff == null ? "var(--muted)" : areaDiff > 0 ? "var(--win)" : areaDiff < 0 ? "var(--loss)" : "var(--muted)";
+              return (
+                <div key={i} style={{ display: "grid", gridTemplateColumns: "1fr auto auto auto auto", gap: 6, padding: "2px 0", alignItems: "baseline" }}>
+                  <div className="serif" style={{ fontSize: 11, fontWeight: 600, lineHeight: 1.15 }}>{n.team} <span className="mono" style={{ fontSize: 8, color: "var(--muted)", fontWeight: 500 }}>· {n.conf}</span></div>
+                  <div className="serif" style={{ fontSize: 12, fontWeight: 600, fontVariantNumeric: "tabular-nums", textAlign: "right" }}>{n.score}</div>
+                  <div className="mono" style={{ fontSize: 9, fontWeight: 700, color: n.diff > 0 ? "var(--win)" : n.diff < 0 ? "var(--loss)" : "var(--muted)", textAlign: "right" }}>{n.diff > 0 ? "+" : ""}{n.diff}</div>
+                  <div className="mono" style={{ fontSize: 10, fontWeight: 700, textAlign: "right" }}>{area != null ? area : "-"}</div>
+                  <div className="mono" style={{ fontSize: 10, fontWeight: 700, textAlign: "right", color: areaColor, fontVariantNumeric: "tabular-nums" }}>{areaDiff == null ? "-" : (areaDiff > 0 ? `+${areaDiff}` : `${areaDiff}`)}</div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
         <div style={{ fontSize: 11 }}>
@@ -750,6 +761,23 @@ function SOSModule({ team }) {
             ? `Strong in conference, but the soft non-con will cost seed-line points.`
             : `Solid, if unspectacular, across the board.`}
       </div>
+      {team.remainingQuadSchedule && (
+        <div style={{ marginTop: 6, paddingTop: 5, borderTop: "1px solid var(--rule)" }}>
+          <div className="eyebrow" style={{ marginBottom: 4 }}>Remaining Schedule · By Quadrant</div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 4 }}>
+            {["q1","q2","q3","q4"].map((k, i) => {
+              const count = team.remainingQuadSchedule[k] || 0;
+              const accents = [1.0, 0.75, 0.5, 0.3];
+              return (
+                <div key={k} style={{ padding: "4px 6px", background: "var(--paper-2)", border: "1px solid var(--rule)", textAlign: "center" }}>
+                  <div className="mono" style={{ fontSize: 9, fontWeight: 700, color: `rgba(139,111,62,${accents[i]})`, letterSpacing: "0.08em" }}>Q{i+1}</div>
+                  <div className="serif" style={{ fontSize: 16, fontWeight: 600, lineHeight: 1, fontVariantNumeric: "tabular-nums" }}>{count}</div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
     </Module>
   );
 }
@@ -917,32 +945,32 @@ function PaceStat({ label, val, sub, accent }) {
 function AnalogsModule({ team }) {
   return (
     <Module num="05" title="Historical Analogs" eyebrow="Nearest neighbors, 2021-2025">
-      <div style={{ display: "grid", gridTemplateColumns: "14px 1fr 40px 60px 1fr 40px", gap: 6, padding: "3px 0", borderBottom: "1px solid var(--rule)" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "14px 1fr 44px 50px 1fr 44px", gap: 6, padding: "3px 0", borderBottom: "1px solid var(--rule)" }}>
         <div className="eyebrow" style={{ fontSize: 8 }}>#</div>
         <div className="eyebrow" style={{ fontSize: 8 }}>TEAM</div>
-        <div className="eyebrow" style={{ fontSize: 8 }}>SCORE</div>
-        <div className="eyebrow" style={{ fontSize: 8 }}>SEED</div>
+        <div className="eyebrow" style={{ fontSize: 8, textAlign: "right" }}>SCORE</div>
+        <div className="eyebrow" style={{ fontSize: 8 }}>NAT. SEED</div>
         <div className="eyebrow" style={{ fontSize: 8 }}>FINISH</div>
-        <div className="eyebrow" style={{ fontSize: 8, textAlign: "right" }}>SIM</div>
+        <div className="eyebrow" style={{ fontSize: 8, textAlign: "right" }}>Δ</div>
       </div>
-      {team.analogs.map((a, i) => (
-        <div key={i} style={{ display: "grid", gridTemplateColumns: "14px 1fr 40px 60px 1fr 40px", gap: 6, padding: "5px 0", borderBottom: i===team.analogs.length-1?"none":"1px solid var(--rule)", alignItems: "center" }}>
-          <div className="serif" style={{ fontSize: 13, fontStyle: "italic", color: "var(--gold-deep)" }}>{i+1}</div>
-          <div>
-            <div className="serif" style={{ fontSize: 13, fontWeight: 600, lineHeight: 1.1 }}>{a.team}</div>
-            <div className="mono" style={{ fontSize: 8, color: "var(--muted)" }}>{a.year}</div>
-          </div>
-          <div className="serif" style={{ fontSize: 14, fontWeight: 600, fontVariantNumeric: "tabular-nums" }}>{a.score}</div>
-          <div className="mono" style={{ fontSize: 10, fontWeight: 600 }}>{a.seed <= 16 ? `#${a.seed}` : "-"}</div>
-          <div className="serif" style={{ fontSize: 11, fontWeight: 600, color: a.result.includes("Champion")?"var(--win)":"var(--ink-2)", lineHeight: 1.1 }}>{a.result}</div>
-          <div style={{ textAlign: "right" }}>
-            <div className="mono" style={{ fontSize: 11, fontWeight: 700 }}>{a.similarity}</div>
-            <div style={{ height: 2, background: "var(--paper-2)", marginTop: 2 }}>
-              <div style={{ height: "100%", width: `${a.similarity}%`, background: "var(--gold-deep)", marginLeft: "auto" }}></div>
+      {team.analogs.map((a, i) => {
+        const delta = a.scoreDelta != null ? a.scoreDelta : 0;
+        const deltaText = delta === 0 ? "0" : (delta > 0 ? `+${delta}` : `${delta}`);
+        const deltaColor = delta > 0 ? "var(--win)" : delta < 0 ? "var(--loss)" : "var(--muted)";
+        return (
+          <div key={i} style={{ display: "grid", gridTemplateColumns: "14px 1fr 44px 50px 1fr 44px", gap: 6, padding: "5px 0", borderBottom: i===team.analogs.length-1?"none":"1px solid var(--rule)", alignItems: "center" }}>
+            <div className="serif" style={{ fontSize: 13, fontStyle: "italic", color: "var(--gold-deep)" }}>{i+1}</div>
+            <div>
+              <div className="serif" style={{ fontSize: 13, fontWeight: 600, lineHeight: 1.1 }}>{a.team}</div>
+              <div className="mono" style={{ fontSize: 8, color: "var(--muted)" }}>{a.year}</div>
             </div>
+            <div className="serif" style={{ fontSize: 14, fontWeight: 600, fontVariantNumeric: "tabular-nums", textAlign: "right" }}>{a.score}</div>
+            <div className="mono" style={{ fontSize: 10, fontWeight: 600 }}>{a.seed <= 16 ? `#${a.seed}` : "-"}</div>
+            <div className="serif" style={{ fontSize: 11, fontWeight: 600, color: a.result.includes("Champion") || a.result.includes("Finalist") ? "var(--win)" : "var(--ink-2)", lineHeight: 1.1 }}>{a.result}</div>
+            <div className="mono" style={{ fontSize: 11, fontWeight: 700, textAlign: "right", color: deltaColor, fontVariantNumeric: "tabular-nums" }}>{deltaText}</div>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </Module>
   );
 }

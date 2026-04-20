@@ -284,10 +284,15 @@ def _historical_analog_pool(sport_key: str) -> pd.DataFrame:
     )
     brackets_bb = brackets[brackets['sport'] == 'baseball'].copy()
     brackets_bb['name_norm'] = brackets_bb['team'].apply(_norm)
-    # Highest (lowest-numbered) national seed per team (most teams are unseeded regional 2-4)
-    nat_seed = brackets_bb.groupby(['year', 'name_norm'], as_index=False)['national_seed'].min()
-    nat_seed = nat_seed.rename(columns={'national_seed': 'nat_seed'})
-    out = rpi_hist.merge(nat_seed, on=['year', 'name_norm'], how='left')
+    # A team is a "national seed" only if they hosted a regional AND were the 1-seed
+    # of that regional. The national_seed column in the CSV is actually the regional
+    # NUMBER (1-16), not the team's national seeding — mapping it to every team in
+    # that regional (like I did originally) is wrong.
+    host_rows = brackets_bb[
+        (brackets_bb['team'] == brackets_bb['host_team']) &
+        (brackets_bb['regional_seed'] == 1)
+    ][['year', 'name_norm', 'national_seed']].rename(columns={'national_seed': 'nat_seed'})
+    out = rpi_hist.merge(host_rows, on=['year', 'name_norm'], how='left')
     # Attach result if available
     if not results.empty:
         results_c = results.copy()
@@ -306,33 +311,65 @@ def _historical_analog_pool(sport_key: str) -> pd.DataFrame:
 
 
 def _compute_analogs(team_name: str, score: int, sport_key: str, limit: int = 5) -> list:
-    """Return up to `limit` historical teams closest in resume score to `score`."""
+    """Return up to `limit` historical teams closest in resume score to `score`.
+    Each analog ships with scoreDelta (positive = historical team scored higher).
+    """
     pool = _historical_analog_pool(sport_key)
     if pool.empty:
         return []
     pool = pool.copy()
-    pool['diff'] = (pool['score'] - score).abs()
-    # Avoid matching the same team name in the same division multiple times by year.
-    pool = pool.sort_values(['diff', 'nat_seed']).head(limit)
+    pool['abs_diff'] = (pool['score'] - score).abs()
+    pool = pool.sort_values(['abs_diff', 'nat_seed']).head(limit)
     out = []
     for _, row in pool.iterrows():
         result = row['result']
         if not isinstance(result, str) or not result:
-            seed = row.get('nat_seed')
-            result = f'Seed #{int(seed)}' if pd.notna(seed) else 'Regional'
+            result = 'Regional'
         seed_val = row.get('nat_seed')
         seed_int = int(seed_val) if pd.notna(seed_val) else 99
-        diff = int(row['diff'])
-        similarity = max(50, 100 - diff * 2)
+        score_delta = int(row['score']) - int(score)
         out.append({
             'team': row['team'],
             'year': int(row['year']),
             'score': int(row['score']),
             'seed': seed_int,
             'result': result,
-            'similarity': similarity,
+            'scoreDelta': score_delta,
         })
     return out
+
+
+def _radar_area_pct(stat_pcts: dict) -> int:
+    """Return 0-100 representing the polygon area on the radar chart as a
+    percentage of the maximum possible area (all 9 stats at 100th percentile).
+    For a regular N-gon with radial lengths r_i (0-1), area = 0.5*sin(2pi/N)*sum(r_i*r_{i+1}).
+    Max area when all r_i = 1.
+    """
+    keys = list(stat_pcts.keys())
+    n = len(keys)
+    if n < 3:
+        return 0
+    rs = [max(0.0, min(1.0, (stat_pcts[k] or 0) / 100.0)) for k in keys]
+    pair_sum = sum(rs[i] * rs[(i + 1) % n] for i in range(n))
+    max_pair_sum = n  # when all r=1
+    return int(round(100 * pair_sum / max_pair_sum))
+
+
+def _compute_remaining_quadrants(sched_full: pd.DataFrame, team_name: str, rpi_lookup: dict) -> dict:
+    """Count upcoming (not-yet-completed) games per quadrant, using current
+    opponent RPI ranks. Games without a ranked opponent bucket as Q4."""
+    m = sched_full[sched_full['teamName'] == team_name]
+    quads = {'q1': 0, 'q2': 0, 'q3': 0, 'q4': 0}
+    for _, g in m.iterrows():
+        if _is_completed(g):
+            continue
+        opp = g.get('opponentName')
+        if not isinstance(opp, str):
+            continue
+        venue = _venue(g)
+        opp_rank = rpi_lookup.get(_norm(opp), 999)
+        quads[_quad_bucket(opp_rank, venue)] += 1
+    return quads
 
 
 @st.cache_data(show_spinner=False)
@@ -537,6 +574,7 @@ def _nearest_by_score(team_name: str, score: int, score_lookup: dict, teams_df: 
             if stats:
                 pct_map = {k: v['pct'] for k, v in stats.items()}
                 entry['stats'] = pct_map
+                entry['statArea'] = _radar_area_pct(pct_map)
                 if primary_stats:
                     diffs = [abs(pct_map.get(k, 50) - primary_stats.get(k, 50)) for k in primary_stats.keys()]
                     avg_diff = sum(diffs) / max(len(diffs), 1)
@@ -719,6 +757,7 @@ def build_resume_team(team_name: str, sport_key: str, year: int = 2026) -> dict 
     sched_full = _load_csv(f'schedules_full_{sport_key}.csv')
     rpi_lookup = _opponent_rpi_lookup(sport_key)
     quad_record = _compute_quad_record(sched_full, team_name, rpi_lookup) if not sched_full.empty else {'q1': '0-0', 'q2': '0-0', 'q3': '0-0', 'q4': '0-0'}
+    remaining_quads = _compute_remaining_quadrants(sched_full, team_name, rpi_lookup) if not sched_full.empty else {'q1': 0, 'q2': 0, 'q3': 0, 'q4': 0}
     last10 = _last_10_games(sched_full, team_name, rpi_lookup) if not sched_full.empty else []
     big_wins = _big_wins(sched_full, team_name, rpi_lookup) if not sched_full.empty else []
     bad_losses = _bad_losses(sched_full, team_name, rpi_lookup) if not sched_full.empty else []
@@ -735,6 +774,8 @@ def build_resume_team(team_name: str, sport_key: str, year: int = 2026) -> dict 
             k: {'value': 0.0, 'natAvg': 0.0, 'pct': 50}
             for k in ('ops', 'woba', 'runsPerGame', 'fip', 'whip', 'k9', 'bb9', 'fieldingPct', 'wrcPlus')
         }
+    stat_pcts = {k: v['pct'] for k, v in stats.items()}
+    stat_area = _radar_area_pct(stat_pcts)
 
     location = _team_locations().get(team_name, '')
     coach = _head_coach_lookup().get(team_id, '')
@@ -757,11 +798,13 @@ def build_resume_team(team_name: str, sport_key: str, year: int = 2026) -> dict 
         'seedProjection': seed_proj,
         'bubbleVerdict': bubble_verdict,
         'stats': stats,
+        'statArea': stat_area,
         'sos': {'value': sos_rank, 'natRank': sos_rank, 'of': of, 'tier': _tier(sos_rank)},
         'nonConSos': {'value': non_con_rank, 'natRank': non_con_rank, 'of': of, 'tier': _tier(non_con_rank)},
         'rankings': rankings,
         'last10': last10,
         'quadRecord': quad_record,
+        'remainingQuadSchedule': remaining_quads,
         'bigWins': big_wins,
         'badLosses': bad_losses,
         'nearestByScore': nearest,
