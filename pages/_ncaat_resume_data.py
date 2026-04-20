@@ -374,11 +374,14 @@ def _bad_losses(sched_full: pd.DataFrame, team_name: str, rpi_lookup: dict, thre
     return out
 
 
-def _nearest_by_score(team_name: str, score: int, score_lookup: dict, teams_df: pd.DataFrame, conferences_df: pd.DataFrame, limit: int = 5) -> list:
+def _nearest_by_score(team_name: str, score: int, score_lookup: dict, teams_df: pd.DataFrame, conferences_df: pd.DataFrame, sport_key: str, limit: int = 5) -> list:
     if not score_lookup:
         return []
     conf_map = dict(zip(conferences_df['id'], conferences_df['abbreviation']))
-    team_conf = dict(zip(teams_df['name'], teams_df['conference_id']))
+    sport_label = 'Baseball' if sport_key == 'baseball' else 'Softball'
+    sport_teams = teams_df[teams_df['sport'] == sport_label]
+    team_conf = dict(zip(sport_teams['name'], sport_teams['conference_id']))
+    team_id_by_name = dict(zip(sport_teams['name'], sport_teams['id']))
     candidates = []
     for other, other_score in score_lookup.items():
         if other == team_name:
@@ -388,12 +391,18 @@ def _nearest_by_score(team_name: str, score: int, score_lookup: dict, teams_df: 
     out = []
     for other, other_score, _ in candidates[:limit]:
         conf_abbrev = conf_map.get(team_conf.get(other, ''), '')
-        out.append({
+        entry = {
             'team': other,
             'conf': conf_abbrev or '',
             'score': int(other_score),
             'diff': int(other_score - score),
-        })
+        }
+        tid = team_id_by_name.get(other)
+        if tid is not None:
+            stats = _team_stats(int(tid))
+            if stats:
+                entry['stats'] = {k: v['pct'] for k, v in stats.items()}
+        out.append(entry)
     return out
 
 
@@ -570,7 +579,7 @@ def build_resume_team(team_name: str, sport_key: str, year: int = 2026) -> dict 
 
     # Nearest by resume score
     score_lookup = _resume_score_lookup(sport_key, year)
-    nearest = _nearest_by_score(team_name, resume_score, score_lookup, teams, conferences)
+    nearest = _nearest_by_score(team_name, resume_score, score_lookup, teams, conferences, sport_key)
 
     # Stats module
     stats = _team_stats(team_id, year)

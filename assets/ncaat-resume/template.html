@@ -547,11 +547,17 @@ function SpiderChart({ team, size = 240 }) {
   const cx = size/2, cy = size/2, r = size * 0.36;
   const angleFor = (i) => (Math.PI * 2 * i) / keys.length - Math.PI / 2;
 
-  const teamPts = keys.map((k, i) => {
+  const pointsFor = (pctMap) => keys.map((k, i) => {
     const a = angleFor(i);
-    const rr = (stats[k].pct / 100) * r;
+    const pct = pctMap[k];
+    const rr = ((typeof pct === "number" ? pct : 0) / 100) * r;
     return [cx + Math.cos(a) * rr, cy + Math.sin(a) * rr];
   });
+
+  const teamPctMap = Object.fromEntries(keys.map(k => [k, stats[k].pct]));
+  const teamPts = pointsFor(teamPctMap);
+
+  const neighbors = (team.nearestByScore || []).filter(n => n && n.stats);
 
   return (
     <svg viewBox={`0 0 ${size} ${size}`} width="100%" style={{ display: "block", maxWidth: size + 60 }}>
@@ -565,6 +571,18 @@ function SpiderChart({ team, size = 240 }) {
       {keys.map((_, i) => {
         const a = angleFor(i);
         return <line key={i} x1={cx} y1={cy} x2={cx+Math.cos(a)*r} y2={cy+Math.sin(a)*r} stroke="var(--rule)" strokeWidth="0.5" />;
+      })}
+      {neighbors.map((n, ni) => {
+        const pts = pointsFor(n.stats);
+        return (
+          <polygon key={`n-${ni}`}
+            points={pts.map(p=>p.join(",")).join(" ")}
+            fill="none"
+            stroke="var(--ink-2)"
+            strokeOpacity="0.28"
+            strokeWidth="1"
+            strokeDasharray="2,2" />
+        );
       })}
       <polygon points={teamPts.map(p=>p.join(",")).join(" ")} fill="var(--gold-deep)" fillOpacity="0.25" stroke="var(--gold-deep)" strokeWidth="1.75" />
       {teamPts.map((p, i) => <circle key={i} cx={p[0]} cy={p[1]} r="2.5" fill="var(--gold-deep)" stroke="var(--paper)" strokeWidth="1" />)}
@@ -587,6 +605,15 @@ function SpiderChart({ team, size = 240 }) {
   );
 }
 
+function Legend({ color, label, dashed }) {
+  return (
+    <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
+      <div style={{ width: 16, height: 6, background: dashed ? "transparent" : color, border: dashed ? `1px dashed ${color}` : "none", opacity: dashed ? 1 : 0.7 }}></div>
+      <div className="mono" style={{ fontSize: 8, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--ink-2)" }}>{label}</div>
+    </div>
+  );
+}
+
 function SpiderModule({ team }) {
   const neighbors = (team.nearestByScore || []).slice().sort((a,b) => Math.abs(a.diff) - Math.abs(b.diff));
   return (
@@ -594,6 +621,10 @@ function SpiderModule({ team }) {
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, alignItems: "start" }}>
         <div>
           <SpiderChart team={team} size={200} />
+          <div style={{ display: "flex", gap: 12, justifyContent: "center", marginTop: 4 }}>
+            <Legend color="var(--gold-deep)" label={team.name} />
+            <Legend color="var(--ink-2)" label="Neighbors" dashed />
+          </div>
           <div style={{ marginTop: 6, paddingTop: 6, borderTop: "1px solid var(--rule)" }}>
             <div className="eyebrow" style={{ marginBottom: 4 }}>Nearest by Resume Score</div>
             {neighbors.map((n, i) => (
