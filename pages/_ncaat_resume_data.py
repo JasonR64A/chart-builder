@@ -293,13 +293,19 @@ def _historical_analog_pool(sport_key: str) -> pd.DataFrame:
     reg_seed_rows = brackets_bb[['year', 'name_norm', 'regional_seed']].drop_duplicates(['year', 'name_norm'])
     out = rpi_hist.merge(host_rows, on=['year', 'name_norm'], how='left')
     out = out.merge(reg_seed_rows, on=['year', 'name_norm'], how='left')
-    # Attach result if available
+    # Attach result + tournament W-L if available
     if not results.empty:
         results_c = results.copy()
         results_c['name_norm'] = results_c['team'].apply(_norm)
-        out = out.merge(results_c[['year', 'name_norm', 'result']], on=['year', 'name_norm'], how='left')
+        merge_cols = ['year', 'name_norm', 'result']
+        if 'ncaat_wins' in results_c.columns:
+            merge_cols += ['ncaat_wins', 'ncaat_losses']
+        out = out.merge(results_c[merge_cols], on=['year', 'name_norm'], how='left')
     else:
         out['result'] = None
+    if 'ncaat_wins' not in out.columns:
+        out['ncaat_wins'] = None
+        out['ncaat_losses'] = None
     # Compute historical resume score from RPI rank (same formula as current season's,
     # with nat_seed giving a secondary bump for seeded teams).
     of = 301
@@ -307,7 +313,13 @@ def _historical_analog_pool(sport_key: str) -> pd.DataFrame:
     seed_bonus = out['nat_seed'].apply(lambda s: 0 if pd.isna(s) else max(0, 17 - int(s))) * 0.5
     out['score'] = (100 * (1 - out['rpi_rank_num'].clip(1, of) / of)) + seed_bonus
     out['score'] = out['score'].clip(0, 100).round().astype(int)
-    return out[['year', 'team', 'name_norm', 'rpi_rank_num', 'nat_seed', 'result', 'score', 'conference']]
+    # Restrict to teams that actually played in the tournament (have a regional_seed).
+    # Non-tournament teams stay out of the analog pool so we don't surface random #70 RPI misses.
+    out = out[out['regional_seed'].notna()].copy()
+    return out[[
+        'year', 'team', 'name_norm', 'rpi_rank_num', 'nat_seed', 'regional_seed',
+        'result', 'ncaat_wins', 'ncaat_losses', 'score', 'conference',
+    ]]
 
 
 def _compute_analogs(team_name: str, score: int, sport_key: str, limit: int = 5) -> list:
@@ -333,6 +345,10 @@ def _compute_analogs(team_name: str, score: int, sport_key: str, limit: int = 5)
         # so flip: positive = current team is stronger than analog.
         score_delta = int(score) - int(row['score'])
         rpi_rank = int(row['rpi_rank_num']) if pd.notna(row.get('rpi_rank_num')) else None
+        wins = row.get('ncaat_wins')
+        losses = row.get('ncaat_losses')
+        wins_int = int(wins) if pd.notna(wins) else None
+        losses_int = int(losses) if pd.notna(losses) else None
         out.append({
             'team': row['team'],
             'year': int(row['year']),
@@ -342,6 +358,8 @@ def _compute_analogs(team_name: str, score: int, sport_key: str, limit: int = 5)
             'result': result,
             'scoreDelta': score_delta,
             'rpi': rpi_rank,
+            'ncaatWins': wins_int,
+            'ncaatLosses': losses_int,
         })
     return out
 

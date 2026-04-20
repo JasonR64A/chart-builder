@@ -1011,35 +1011,37 @@ function PaceStat({ label, val, sub, accent }) {
 function AnalogsModule({ team }) {
   return (
     <Module num="05" title="Historical Analogs" eyebrow="Nearest neighbors, 2021-2025">
-      <div style={{ display: "grid", gridTemplateColumns: "14px 1fr 36px 44px 40px 1fr 46px", gap: 6, padding: "3px 0", borderBottom: "1px solid var(--rule)" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "14px 1fr 36px 40px 54px 1fr 40px 40px", gap: 6, padding: "3px 0", borderBottom: "1px solid var(--rule)" }}>
         <div className="eyebrow" style={{ fontSize: 8 }}>#</div>
         <div className="eyebrow" style={{ fontSize: 8 }}>TEAM</div>
         <div className="eyebrow" style={{ fontSize: 8, textAlign: "right" }}>RPI</div>
         <div className="eyebrow" style={{ fontSize: 8, textAlign: "right" }}>SCORE</div>
         <div className="eyebrow" style={{ fontSize: 8 }}>SEED</div>
         <div className="eyebrow" style={{ fontSize: 8 }}>FINISH</div>
+        <div className="eyebrow" style={{ fontSize: 8, textAlign: "right" }}>NCAAT</div>
         <div className="eyebrow" style={{ fontSize: 8, textAlign: "right" }}>SCORE Δ</div>
       </div>
       {team.analogs.map((a, i) => {
         const delta = a.scoreDelta != null ? a.scoreDelta : 0;
         const deltaText = delta === 0 ? "0" : (delta > 0 ? `+${delta}` : `${delta}`);
-        // + means CURRENT team is stronger (good) — but in the analogs context this
-        // still reads as neutral info, so keep the green/red cue per sign.
         const deltaColor = delta > 0 ? "var(--win)" : delta < 0 ? "var(--loss)" : "var(--muted)";
         const seedText = a.seed != null && a.seed <= 16
           ? `#${a.seed}`
-          : a.regionalSeed != null ? `R${a.regionalSeed}` : "-";
+          : (a.regionalSeed != null ? `${a.regionalSeed}-seed` : "-");
+        const wlText = (a.ncaatWins != null && a.ncaatLosses != null)
+          ? `${a.ncaatWins}-${a.ncaatLosses}` : "-";
         return (
-          <div key={i} style={{ display: "grid", gridTemplateColumns: "14px 1fr 36px 44px 40px 1fr 46px", gap: 6, padding: "5px 0", borderBottom: i===team.analogs.length-1?"none":"1px solid var(--rule)", alignItems: "center" }}>
+          <div key={i} style={{ display: "grid", gridTemplateColumns: "14px 1fr 36px 40px 54px 1fr 40px 40px", gap: 6, padding: "5px 0", borderBottom: i===team.analogs.length-1?"none":"1px solid var(--rule)", alignItems: "center" }}>
             <div className="serif" style={{ fontSize: 13, fontStyle: "italic", color: "var(--gold-deep)" }}>{i+1}</div>
             <div>
               <div className="serif" style={{ fontSize: 13, fontWeight: 600, lineHeight: 1.1 }}>{a.team}</div>
               <div className="mono" style={{ fontSize: 8, color: "var(--muted)" }}>{a.year}</div>
             </div>
             <div className="mono" style={{ fontSize: 10, fontWeight: 700, textAlign: "right", color: "var(--ink-2)" }}>{a.rpi != null ? `#${a.rpi}` : "-"}</div>
-            <div className="serif" style={{ fontSize: 14, fontWeight: 600, fontVariantNumeric: "tabular-nums", textAlign: "right" }}>{a.score}</div>
+            <div className="serif" style={{ fontSize: 13, fontWeight: 600, fontVariantNumeric: "tabular-nums", textAlign: "right" }}>{a.score}</div>
             <div className="mono" style={{ fontSize: 10, fontWeight: 600 }}>{seedText}</div>
             <div className="serif" style={{ fontSize: 11, fontWeight: 600, color: a.result.includes("Champion") || a.result.includes("Finalist") ? "var(--win)" : "var(--ink-2)", lineHeight: 1.1 }}>{a.result}</div>
+            <div className="mono" style={{ fontSize: 10, fontWeight: 700, textAlign: "right", fontVariantNumeric: "tabular-nums" }}>{wlText}</div>
             <div className="mono" style={{ fontSize: 11, fontWeight: 700, textAlign: "right", color: deltaColor, fontVariantNumeric: "tabular-nums" }}>{deltaText}</div>
           </div>
         );
