@@ -34,6 +34,8 @@ def _norm(name: str) -> str:
     - Collapse "State" and "Saint" to "st" so "Mississippi St." (teams.csv),
       "Mississippi State" (DSR), and "Saint Mary's" / "St. Mary's" variants
       all share one normalized form.
+    - Drop "University" / "Univ." suffixes so "Lamar" (teams.csv / RPI) and
+      "Lamar University" (schedules_full / PBP) collapse to one form.
     - Strip non-alphanumeric.
     """
     if not isinstance(name, str):
@@ -42,6 +44,7 @@ def _norm(name: str) -> str:
     n = n.lower().strip()
     n = re.sub(r'\bsaint\b', 'st', n)
     n = re.sub(r'\bstate\b', 'st', n)
+    n = re.sub(r'\buniversity\b|\buniv\.?\b', '', n)
     n = re.sub(r'[^a-z0-9]+', '', n)
     return n
 
@@ -259,15 +262,41 @@ def _dsr_rank_lookup(sport_key: str) -> dict:
 
 
 @st.cache_data(show_spinner=False)
+def _team_year_id_lookup(sport_key: str) -> dict:
+    """Map 64A team name (teams.csv) -> NCAA teamYearId used by
+    schedules_full_*.csv. Built once so every downstream schedule filter can
+    use the ID instead of re-matching on names (which breaks for Lamar and
+    similar suffix drift).
+    """
+    sched = _load_csv(f'schedules_full_{sport_key}.csv')
+    teams = _load_csv('teams.csv')
+    if sched.empty or teams.empty:
+        return {}
+    sport_label = 'Baseball' if sport_key == 'baseball' else 'Softball'
+    # First teamYearId per schedule teamName (a single value per team-season)
+    sched_id_by_name = sched.groupby('teamName')['teamYearId'].first().to_dict()
+    # Normalize schedule names once
+    sched_by_norm = {_norm(k): int(v) for k, v in sched_id_by_name.items() if pd.notna(v)}
+    # Map 64A team name -> teamYearId via the normalized bridge
+    out = {}
+    for _, r in teams[teams['sport'] == sport_label].iterrows():
+        name = r.get('name')
+        if not isinstance(name, str):
+            continue
+        tid = sched_by_norm.get(_norm(name))
+        if tid is not None:
+            out[name] = tid
+    return out
+
+
+@st.cache_data(show_spinner=False)
 def _sos_lookup(sport_key: str) -> dict:
-    """Compute NCAA-style SOS for every team with completed games, and return
-    {team_name: (sos_rank_overall, sos_rank_nonCon)}.
+    """Compute NCAA-style SOS for every team with completed games and return
+    {teamYearId: {overall_rank, noncon_rank, overall_score, noncon_score, of}}.
+    Keying by NCAA teamYearId (not team name) eliminates name-drift bugs
+    like "Lamar" vs "Lamar University" between teams.csv and schedules_full.
 
     NCAA SOS = 2/3 * OWP + 1/3 * OOWP.
-    OWP: average winning pct of a team's opponents (each opponent counted once
-    per meeting; opponent WP is computed over ALL their games).
-    OOWP: average of each opponent's OWP.
-    Non-con SOS uses only games where opponent conference != team conference.
     """
     sched_full = _load_csv(f'schedules_full_{sport_key}.csv')
     if sched_full.empty:
@@ -275,67 +304,72 @@ def _sos_lookup(sport_key: str) -> dict:
     teams_df = _load_csv('teams.csv')
     conferences_df = _load_csv('conferences.csv')
     sport_label = 'Baseball' if sport_key == 'baseball' else 'Softball'
-    conf_by_team = dict(zip(
+
+    # teamYearId <-> conference_id. Built via the schedule teamName -> 64A name
+    # bridge using the normalized form so suffix variants collapse.
+    conf_by_64a_name = dict(zip(
         teams_df[teams_df['sport'] == sport_label]['name'],
         teams_df[teams_df['sport'] == sport_label]['conference_id'],
     ))
+    norm_to_conf = {_norm(n): c for n, c in conf_by_64a_name.items()}
+    sched_first = sched_full.groupby('teamYearId')['teamName'].first().to_dict()
+    conf_by_year_id = {int(tyid): norm_to_conf.get(_norm(n))
+                       for tyid, n in sched_first.items() if pd.notna(tyid)}
 
-    # Normalize opponent names once
+    # Build the D-I team-year-id set for ranking restriction.
+    di_confs = set(conferences_df[conferences_df['division'] == 'D-I']['id'].tolist())
+    di_year_ids = {tyid for tyid, c in conf_by_year_id.items() if c in di_confs}
+
     df = sched_full.copy()
     df = df[df.apply(_is_completed, axis=1)]
-    df['opp_clean'] = df['opponentName'].apply(_clean_opp)
     df['is_win_flag'] = df.apply(_is_win, axis=1)
+    # Drop rows without a usable opponentYearId — those games can't join.
+    df = df[df['teamYearId'].notna() & df['opponentYearId'].notna()].copy()
+    df['teamYearId'] = df['teamYearId'].astype(int)
+    df['opponentYearId'] = df['opponentYearId'].astype(int)
 
-    # Team WP over all completed games
-    grouped = df.groupby('teamName')['is_win_flag'].agg(['sum', 'count'])
+    # Team WP over all completed games (keyed on teamYearId)
+    grouped = df.groupby('teamYearId')['is_win_flag'].agg(['sum', 'count'])
     grouped['wp'] = grouped['sum'] / grouped['count'].clip(lower=1)
-    wp_by_team = grouped['wp'].to_dict()
-    games_by_team = grouped['count'].to_dict()
+    wp_by_tid = grouped['wp'].to_dict()
 
-    # Per-team opponent lists (and per-team opponent lists filtered by non-con)
+    # Per-team opponent lists (overall + non-con), keyed on teamYearId
     team_opps = {}
     team_opps_nc = {}
-    for team, chunk in df.groupby('teamName'):
-        opps = chunk['opp_clean'].tolist()
-        team_opps[team] = opps
-        team_conf = conf_by_team.get(team)
+    for tid, chunk in df.groupby('teamYearId'):
+        opps = chunk['opponentYearId'].tolist()
+        team_opps[tid] = opps
+        team_conf = conf_by_year_id.get(int(tid))
         nc = []
-        for _, row in chunk.iterrows():
-            opp = row['opp_clean']
-            opp_conf = conf_by_team.get(opp)
+        for opp_tid in opps:
+            opp_conf = conf_by_year_id.get(int(opp_tid))
             if team_conf is None or opp_conf is None or opp_conf != team_conf:
-                nc.append(opp)
-        team_opps_nc[team] = nc
+                nc.append(opp_tid)
+        team_opps_nc[tid] = nc
 
-    # OWP and OOWP
     def _owp_for(opps):
-        vals = [wp_by_team.get(o) for o in opps if o in wp_by_team]
+        vals = [wp_by_tid.get(o) for o in opps if o in wp_by_tid]
         return sum(vals) / len(vals) if vals else 0.0
 
-    owp_by_team = {t: _owp_for(os) for t, os in team_opps.items()}
-    owp_nc_by_team = {t: _owp_for(os) for t, os in team_opps_nc.items()}
+    owp_by_tid = {t: _owp_for(os) for t, os in team_opps.items()}
+    owp_nc_by_tid = {t: _owp_for(os) for t, os in team_opps_nc.items()}
 
     sos_overall = {}
     sos_noncon = {}
-    for team, opps in team_opps.items():
-        # OOWP = mean of each opponent's OWP
-        oo_vals = [owp_by_team.get(o) for o in opps if o in owp_by_team]
+    for tid, opps in team_opps.items():
+        oo_vals = [owp_by_tid.get(o) for o in opps if o in owp_by_tid]
         oowp = sum(oo_vals) / len(oo_vals) if oo_vals else 0.0
-        sos_overall[team] = (2/3) * owp_by_team.get(team, 0) + (1/3) * oowp
+        sos_overall[tid] = (2/3) * owp_by_tid.get(tid, 0) + (1/3) * oowp
 
-        opps_nc = team_opps_nc.get(team, [])
-        oo_nc_vals = [owp_by_team.get(o) for o in opps_nc if o in owp_by_team]
+        opps_nc = team_opps_nc.get(tid, [])
+        oo_nc_vals = [owp_by_tid.get(o) for o in opps_nc if o in owp_by_tid]
         oowp_nc = sum(oo_nc_vals) / len(oo_nc_vals) if oo_nc_vals else 0.0
-        sos_noncon[team] = (2/3) * owp_nc_by_team.get(team, 0) + (1/3) * oowp_nc
-
-    # Rank teams — restrict ranking to D-I teams so ranks are 1..N within division.
-    di_ids = set(conferences_df[conferences_df['division'] == 'D-I']['id'].tolist())
-    di_names = set(teams_df[(teams_df['sport'] == sport_label) & (teams_df['conference_id'].isin(di_ids))]['name'])
+        sos_noncon[tid] = (2/3) * owp_nc_by_tid.get(tid, 0) + (1/3) * oowp_nc
 
     def _rank(scores: dict) -> dict:
-        di_scores = [(n, s) for n, s in scores.items() if n in di_names]
+        di_scores = [(t, s) for t, s in scores.items() if int(t) in di_year_ids]
         di_scores.sort(key=lambda t: -t[1])
-        return {n: i + 1 for i, (n, _) in enumerate(di_scores)}
+        return {int(t): i + 1 for i, (t, _) in enumerate(di_scores)}
 
     rank_overall = _rank(sos_overall)
     rank_noncon = _rank(sos_noncon)
@@ -479,13 +513,15 @@ def _radar_area_pct(stat_pcts: dict) -> int:
     return int(round(100 * pair_sum / max_pair_sum))
 
 
-def _compute_remaining_quadrants(sched_full: pd.DataFrame, team_name: str, rpi_lookup: dict) -> dict:
+def _compute_remaining_quadrants(sched_full: pd.DataFrame, team_year_id, rpi_lookup: dict) -> dict:
     """Return a list of upcoming games per quadrant:
       {'q1': [{opp, venue, date, oppRank}, ...], 'q2': [...], ...}
     Venue: 'home' | 'neutral' | 'away'.
     Games without a ranked opponent bucket as Q4.
     """
-    m = sched_full[sched_full['teamName'] == team_name].copy()
+    if team_year_id is None:
+        return {'q1': [], 'q2': [], 'q3': [], 'q4': []}
+    m = sched_full[sched_full['teamYearId'] == team_year_id].copy()
     if not m.empty:
         m['_d'] = pd.to_datetime(m['date'], errors='coerce')
         m = m.sort_values('_d')
@@ -639,8 +675,8 @@ def _clean_opp(name: str) -> str:
     return re.split(r'\s+@|\s+vs\s+', name, maxsplit=1)[0].strip()
 
 
-def _compute_quad_record(sched_full: pd.DataFrame, team_name: str, rpi_lookup: dict) -> dict:
-    m = sched_full[sched_full['teamName'] == team_name]
+def _compute_quad_record(sched_full: pd.DataFrame, team_year_id, rpi_lookup: dict) -> dict:
+    m = sched_full[sched_full['teamYearId'] == team_year_id] if team_year_id is not None else sched_full.iloc[0:0]
     quads = {'q1': [0, 0], 'q2': [0, 0], 'q3': [0, 0], 'q4': [0, 0]}
     for _, g in m.iterrows():
         if not _is_completed(g):
@@ -658,8 +694,10 @@ def _compute_quad_record(sched_full: pd.DataFrame, team_name: str, rpi_lookup: d
     return {k: f'{v[0]}-{v[1]}' for k, v in quads.items()}
 
 
-def _last_10_games(sched_full: pd.DataFrame, team_name: str, rpi_lookup: dict) -> list:
-    m = sched_full[sched_full['teamName'] == team_name].copy()
+def _last_10_games(sched_full: pd.DataFrame, team_year_id, rpi_lookup: dict) -> list:
+    if team_year_id is None:
+        return []
+    m = sched_full[sched_full['teamYearId'] == team_year_id].copy()
     if m.empty:
         return []
     m = m[m.apply(_is_completed, axis=1)]
@@ -686,8 +724,10 @@ def _last_10_games(sched_full: pd.DataFrame, team_name: str, rpi_lookup: dict) -
     return out
 
 
-def _big_wins(sched_full: pd.DataFrame, team_name: str, rpi_lookup: dict, top_n: int = 3) -> list:
-    m = sched_full[sched_full['teamName'] == team_name].copy()
+def _big_wins(sched_full: pd.DataFrame, team_year_id, rpi_lookup: dict, top_n: int = 3) -> list:
+    if team_year_id is None:
+        return []
+    m = sched_full[sched_full['teamYearId'] == team_year_id].copy()
     if m.empty:
         return []
     m = m[m.apply(lambda g: _is_completed(g) and _is_win(g), axis=1)]
@@ -709,8 +749,10 @@ def _big_wins(sched_full: pd.DataFrame, team_name: str, rpi_lookup: dict, top_n:
     return out
 
 
-def _bad_losses(sched_full: pd.DataFrame, team_name: str, rpi_lookup: dict, threshold: int = 100, max_n: int = 3) -> list:
-    m = sched_full[sched_full['teamName'] == team_name].copy()
+def _bad_losses(sched_full: pd.DataFrame, team_year_id, rpi_lookup: dict, threshold: int = 100, max_n: int = 3) -> list:
+    if team_year_id is None:
+        return []
+    m = sched_full[sched_full['teamYearId'] == team_year_id].copy()
     if m.empty:
         return []
     m = m[m.apply(lambda g: _is_completed(g) and not _is_win(g), axis=1)]
@@ -941,7 +983,9 @@ def build_resume_team(team_name: str, sport_key: str, year: int = 2026) -> dict 
         if rank <= 75:  return 'Strong'
         if rank <= 150: return 'Moderate'
         return 'Weak'
-    sos_map = _sos_lookup(sport_key).get(team_name)
+    # Resolve team_year_id up front so all schedule-based helpers key on the ID.
+    team_year_id = _team_year_id_lookup(sport_key).get(team_name)
+    sos_map = _sos_lookup(sport_key).get(team_year_id) if team_year_id is not None else None
     if sos_map:
         sos_rank = int(sos_map['overall_rank'])
         non_con_rank = int(sos_map['noncon_rank'])
@@ -949,16 +993,18 @@ def build_resume_team(team_name: str, sport_key: str, year: int = 2026) -> dict 
         sos_rank = of
         non_con_rank = of
 
-    # Schedule-derived blocks
+    # Schedule-derived blocks — all keyed on NCAA teamYearId rather than the
+    # string team name, so "Lamar" vs "Lamar University" (and similar suffix
+    # drift) stops silently returning empty schedules. team_year_id resolved above.
     sched_full = _load_csv(f'schedules_full_{sport_key}.csv')
     rpi_lookup = _opponent_rpi_lookup(sport_key)
-    quad_record = _compute_quad_record(sched_full, team_name, rpi_lookup) if not sched_full.empty else {'q1': '0-0', 'q2': '0-0', 'q3': '0-0', 'q4': '0-0'}
-    remaining_quads = _compute_remaining_quadrants(sched_full, team_name, rpi_lookup) if not sched_full.empty else {'q1': [], 'q2': [], 'q3': [], 'q4': []}
+    quad_record = _compute_quad_record(sched_full, team_year_id, rpi_lookup) if not sched_full.empty else {'q1': '0-0', 'q2': '0-0', 'q3': '0-0', 'q4': '0-0'}
+    remaining_quads = _compute_remaining_quadrants(sched_full, team_year_id, rpi_lookup) if not sched_full.empty else {'q1': [], 'q2': [], 'q3': [], 'q4': []}
     remaining_count = sum(len(v) for v in remaining_quads.values())
     projected_rpi_range = _project_rpi_range(rpi_rank, remaining_count)
-    last10 = _last_10_games(sched_full, team_name, rpi_lookup) if not sched_full.empty else []
-    big_wins = _big_wins(sched_full, team_name, rpi_lookup) if not sched_full.empty else []
-    bad_losses = _bad_losses(sched_full, team_name, rpi_lookup) if not sched_full.empty else []
+    last10 = _last_10_games(sched_full, team_year_id, rpi_lookup) if not sched_full.empty else []
+    big_wins = _big_wins(sched_full, team_year_id, rpi_lookup) if not sched_full.empty else []
+    bad_losses = _bad_losses(sched_full, team_year_id, rpi_lookup) if not sched_full.empty else []
 
     # Nearest by resume score
     score_lookup = _resume_score_lookup(sport_key, year)
