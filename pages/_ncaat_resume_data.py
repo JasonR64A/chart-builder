@@ -146,6 +146,86 @@ def _team_locations() -> dict:
 
 
 @st.cache_data(show_spinner=False)
+def _historical_analog_pool(sport_key: str) -> pd.DataFrame:
+    """Build a per-(year, team) table of selection RPI + national seed + final result
+    that we can use to find historical analogs. Only baseball is wired today.
+    """
+    if sport_key != 'baseball':
+        return pd.DataFrame()
+    rpi_hist = _load_csv('bracketology/historical_selection_rpi.csv')
+    brackets = _load_csv('bracketology/historical_brackets.csv')
+    results = _load_csv('bracketology/historical_results.csv')
+    if rpi_hist.empty or brackets.empty:
+        return pd.DataFrame()
+    rpi_hist = rpi_hist[rpi_hist['sport'] == 'baseball'].copy()
+    # Convert "2024-25" year label to integer year (the tournament year)
+    def _parse_year(y):
+        s = str(y)
+        if '-' in s:
+            parts = s.split('-')
+            return int(parts[0]) + 1
+        return int(s)
+    rpi_hist['year_int'] = rpi_hist['year'].apply(_parse_year)
+    # Strip "(AQ)" / " (AQ)" suffixes from teamName
+    rpi_hist['team_clean'] = rpi_hist['teamName'].astype(str).str.replace(r'\s*\(AQ\)\s*', '', regex=True).str.strip()
+    rpi_hist['name_norm'] = rpi_hist['team_clean'].apply(_norm)
+    rpi_hist = rpi_hist[['year_int', 'team_clean', 'name_norm', 'rank', 'rpi', 'conference']].rename(
+        columns={'year_int': 'year', 'team_clean': 'team', 'rank': 'rpi_rank'}
+    )
+    brackets_bb = brackets[brackets['sport'] == 'baseball'].copy()
+    brackets_bb['name_norm'] = brackets_bb['team'].apply(_norm)
+    # Highest (lowest-numbered) national seed per team (most teams are unseeded regional 2-4)
+    nat_seed = brackets_bb.groupby(['year', 'name_norm'], as_index=False)['national_seed'].min()
+    nat_seed = nat_seed.rename(columns={'national_seed': 'nat_seed'})
+    out = rpi_hist.merge(nat_seed, on=['year', 'name_norm'], how='left')
+    # Attach result if available
+    if not results.empty:
+        results_c = results.copy()
+        results_c['name_norm'] = results_c['team'].apply(_norm)
+        out = out.merge(results_c[['year', 'name_norm', 'result']], on=['year', 'name_norm'], how='left')
+    else:
+        out['result'] = None
+    # Compute historical resume score from RPI rank (same formula as current season's,
+    # with nat_seed giving a secondary bump for seeded teams).
+    of = 301
+    out['rpi_rank_num'] = pd.to_numeric(out['rpi_rank'], errors='coerce').fillna(of).astype(int)
+    seed_bonus = out['nat_seed'].apply(lambda s: 0 if pd.isna(s) else max(0, 17 - int(s))) * 0.5
+    out['score'] = (100 * (1 - out['rpi_rank_num'].clip(1, of) / of)) + seed_bonus
+    out['score'] = out['score'].clip(0, 100).round().astype(int)
+    return out[['year', 'team', 'name_norm', 'rpi_rank_num', 'nat_seed', 'result', 'score', 'conference']]
+
+
+def _compute_analogs(team_name: str, score: int, sport_key: str, limit: int = 5) -> list:
+    """Return up to `limit` historical teams closest in resume score to `score`."""
+    pool = _historical_analog_pool(sport_key)
+    if pool.empty:
+        return []
+    pool = pool.copy()
+    pool['diff'] = (pool['score'] - score).abs()
+    # Avoid matching the same team name in the same division multiple times by year.
+    pool = pool.sort_values(['diff', 'nat_seed']).head(limit)
+    out = []
+    for _, row in pool.iterrows():
+        result = row['result']
+        if not isinstance(result, str) or not result:
+            seed = row.get('nat_seed')
+            result = f'Seed #{int(seed)}' if pd.notna(seed) else 'Regional'
+        seed_val = row.get('nat_seed')
+        seed_int = int(seed_val) if pd.notna(seed_val) else 99
+        diff = int(row['diff'])
+        similarity = max(50, 100 - diff * 2)
+        out.append({
+            'team': row['team'],
+            'year': int(row['year']),
+            'score': int(row['score']),
+            'seed': seed_int,
+            'result': result,
+            'similarity': similarity,
+        })
+    return out
+
+
+@st.cache_data(show_spinner=False)
 def _head_coach_lookup() -> dict:
     staff = _load_csv('staff.csv')
     if staff.empty:
@@ -530,5 +610,5 @@ def build_resume_team(team_name: str, sport_key: str, year: int = 2026) -> dict 
         'bigWins': big_wins,
         'badLosses': bad_losses,
         'nearestByScore': nearest,
-        'analogs': [],
+        'analogs': _compute_analogs(team_name, resume_score, sport_key),
     }
