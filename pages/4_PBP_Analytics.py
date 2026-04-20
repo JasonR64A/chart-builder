@@ -635,7 +635,12 @@ FIELD_POSITIONS = ['C', '1B', '2B', '3B', 'SS', 'LF', 'CF', 'RF', 'DH']
 def load_team_logo_map(prefer_sport='baseball'):
     """Build team_name -> logo_id mapping from teams.csv.
     For the preferred sport, use that sport's team ID if a logo file exists.
-    Otherwise fall back to baseball ID (canonical)."""
+    Otherwise fall back to baseball ID (canonical).
+
+    Also registers PBP teamName variants (e.g. "Lamar University" for the
+    canonical "Lamar") so logo lookups against the PBP data find the right
+    logo even when the PBP file spells the team differently than teams.csv.
+    """
     teams_path = DATA_DIR / 'teams.csv'
     if not teams_path.exists():
         return {}
@@ -655,12 +660,35 @@ def load_team_logo_map(prefer_sport='baseball'):
             logo_path = LOGO_DIR / f"{row['id']}.png"
             if logo_path.exists():
                 name_to_id[row['name']] = row['id']
+
+    # Register PBP teamName variants (e.g. "Lamar University" -> "Lamar" logo)
+    # so players like Chris Olivier get their logo even though the PBP files
+    # spell Lamar with the "University" suffix.
+    norm_to_canonical = {_norm_team(k): k for k in name_to_id.keys()}
+    for sport_dir in ('baseball', 'softball'):
+        pbp_path = PBP_DIR / sport_dir / 'hitting_pbp_D1.csv'
+        if not pbp_path.exists():
+            continue
+        try:
+            pbp_names = pd.read_csv(pbp_path, low_memory=False, usecols=['teamName'])['teamName'].dropna().unique()
+            for pn in pbp_names:
+                if pn in name_to_id:
+                    continue  # already canonical
+                norm = _norm_team(pn)
+                canonical = norm_to_canonical.get(norm)
+                if canonical:
+                    name_to_id[pn] = name_to_id[canonical]
+        except Exception:
+            pass
     return name_to_id
 
 
 @st.cache_data
 def load_team_conference_map():
-    """Build team_name -> conference_name mapping from teams.csv + conferences.csv."""
+    """Build team_name -> conference_name mapping from teams.csv + conferences.csv.
+    Also registers PBP teamName variants so conference lookups against PBP data
+    resolve even for suffix-drift cases like "Lamar University".
+    """
     teams_path = DATA_DIR / 'teams.csv'
     confs_path = DATA_DIR / 'conferences.csv'
     if not teams_path.exists() or not confs_path.exists():
@@ -668,7 +696,23 @@ def load_team_conference_map():
     teams = pd.read_csv(teams_path, low_memory=False)
     confs = pd.read_csv(confs_path, low_memory=False)
     merged = teams.merge(confs[['id', 'name']], left_on='conference_id', right_on='id', suffixes=('', '_conf'))
-    return dict(zip(merged['name'], merged['name_conf']))
+    name_to_conf = dict(zip(merged['name'], merged['name_conf']))
+    norm_to_canonical = {_norm_team(k): k for k in name_to_conf.keys()}
+    for sport_dir in ('baseball', 'softball'):
+        pbp_path = PBP_DIR / sport_dir / 'hitting_pbp_D1.csv'
+        if not pbp_path.exists():
+            continue
+        try:
+            pbp_names = pd.read_csv(pbp_path, low_memory=False, usecols=['teamName'])['teamName'].dropna().unique()
+            for pn in pbp_names:
+                if pn in name_to_conf:
+                    continue
+                canonical = norm_to_canonical.get(_norm_team(pn))
+                if canonical:
+                    name_to_conf[pn] = name_to_conf[canonical]
+        except Exception:
+            pass
+    return name_to_conf
 
 
 @st.cache_data
