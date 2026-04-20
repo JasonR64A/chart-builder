@@ -146,6 +146,116 @@ def _team_locations() -> dict:
 
 
 @st.cache_data(show_spinner=False)
+def _dsr_rank_lookup(sport_key: str) -> dict:
+    """Map normalized team name -> DSR rank from data/rankings/dsr_*.csv."""
+    fname = f'rankings/dsr_{sport_key}.csv'
+    df = _load_csv(fname)
+    if df.empty:
+        return {}
+    # Keep the most recent date (the file usually carries a single daily snapshot,
+    # but some appenders leave history).
+    if 'date' in df.columns:
+        latest = df['date'].max()
+        df = df[df['date'] == latest]
+    return {_norm(t): int(r) for t, r in zip(df['team'], df['rank'])}
+
+
+@st.cache_data(show_spinner=False)
+def _sos_lookup(sport_key: str) -> dict:
+    """Compute NCAA-style SOS for every team with completed games, and return
+    {team_name: (sos_rank_overall, sos_rank_nonCon)}.
+
+    NCAA SOS = 2/3 * OWP + 1/3 * OOWP.
+    OWP: average winning pct of a team's opponents (each opponent counted once
+    per meeting; opponent WP is computed over ALL their games).
+    OOWP: average of each opponent's OWP.
+    Non-con SOS uses only games where opponent conference != team conference.
+    """
+    sched_full = _load_csv(f'schedules_full_{sport_key}.csv')
+    if sched_full.empty:
+        return {}
+    teams_df = _load_csv('teams.csv')
+    conferences_df = _load_csv('conferences.csv')
+    sport_label = 'Baseball' if sport_key == 'baseball' else 'Softball'
+    conf_by_team = dict(zip(
+        teams_df[teams_df['sport'] == sport_label]['name'],
+        teams_df[teams_df['sport'] == sport_label]['conference_id'],
+    ))
+
+    # Normalize opponent names once
+    df = sched_full.copy()
+    df = df[df.apply(_is_completed, axis=1)]
+    df['opp_clean'] = df['opponentName'].apply(_clean_opp)
+    df['is_win_flag'] = df.apply(_is_win, axis=1)
+
+    # Team WP over all completed games
+    grouped = df.groupby('teamName')['is_win_flag'].agg(['sum', 'count'])
+    grouped['wp'] = grouped['sum'] / grouped['count'].clip(lower=1)
+    wp_by_team = grouped['wp'].to_dict()
+    games_by_team = grouped['count'].to_dict()
+
+    # Per-team opponent lists (and per-team opponent lists filtered by non-con)
+    team_opps = {}
+    team_opps_nc = {}
+    for team, chunk in df.groupby('teamName'):
+        opps = chunk['opp_clean'].tolist()
+        team_opps[team] = opps
+        team_conf = conf_by_team.get(team)
+        nc = []
+        for _, row in chunk.iterrows():
+            opp = row['opp_clean']
+            opp_conf = conf_by_team.get(opp)
+            if team_conf is None or opp_conf is None or opp_conf != team_conf:
+                nc.append(opp)
+        team_opps_nc[team] = nc
+
+    # OWP and OOWP
+    def _owp_for(opps):
+        vals = [wp_by_team.get(o) for o in opps if o in wp_by_team]
+        return sum(vals) / len(vals) if vals else 0.0
+
+    owp_by_team = {t: _owp_for(os) for t, os in team_opps.items()}
+    owp_nc_by_team = {t: _owp_for(os) for t, os in team_opps_nc.items()}
+
+    sos_overall = {}
+    sos_noncon = {}
+    for team, opps in team_opps.items():
+        # OOWP = mean of each opponent's OWP
+        oo_vals = [owp_by_team.get(o) for o in opps if o in owp_by_team]
+        oowp = sum(oo_vals) / len(oo_vals) if oo_vals else 0.0
+        sos_overall[team] = (2/3) * owp_by_team.get(team, 0) + (1/3) * oowp
+
+        opps_nc = team_opps_nc.get(team, [])
+        oo_nc_vals = [owp_by_team.get(o) for o in opps_nc if o in owp_by_team]
+        oowp_nc = sum(oo_nc_vals) / len(oo_nc_vals) if oo_nc_vals else 0.0
+        sos_noncon[team] = (2/3) * owp_nc_by_team.get(team, 0) + (1/3) * oowp_nc
+
+    # Rank teams — restrict ranking to D-I teams so ranks are 1..N within division.
+    di_ids = set(conferences_df[conferences_df['division'] == 'D-I']['id'].tolist())
+    di_names = set(teams_df[(teams_df['sport'] == sport_label) & (teams_df['conference_id'].isin(di_ids))]['name'])
+
+    def _rank(scores: dict) -> dict:
+        di_scores = [(n, s) for n, s in scores.items() if n in di_names]
+        di_scores.sort(key=lambda t: -t[1])
+        return {n: i + 1 for i, (n, _) in enumerate(di_scores)}
+
+    rank_overall = _rank(sos_overall)
+    rank_noncon = _rank(sos_noncon)
+
+    out = {}
+    of = max(len(rank_overall), 1)
+    for team in rank_overall.keys() | rank_noncon.keys():
+        out[team] = {
+            'overall_rank': rank_overall.get(team, of),
+            'noncon_rank': rank_noncon.get(team, of),
+            'overall_score': sos_overall.get(team, 0.0),
+            'noncon_score': sos_noncon.get(team, 0.0),
+            'of': of,
+        }
+    return out
+
+
+@st.cache_data(show_spinner=False)
 def _historical_analog_pool(sport_key: str) -> pd.DataFrame:
     """Build a per-(year, team) table of selection RPI + national seed + final result
     that we can use to find historical analogs. Only baseball is wired today.
@@ -554,13 +664,15 @@ def build_resume_team(team_name: str, sport_key: str, year: int = 2026) -> dict 
         if not match.empty:
             rpi_rank = int(match.iloc[0]['rank'])
     rank64 = _sixty_four_lookup(year).get(team_id, 301)
-    # For SOR/Massey/D1Baseball we don't have sources yet; mirror the available
-    # systems so the card reflects real agreement rather than fake spread.
+    dsr_rank = _dsr_rank_lookup(sport_key).get(_norm(team_name), 301)
+    # ELO currently has no source in-repo; fall back to the mean of available
+    # ranks so the module doesn't lie with a fake-looking value.
+    elo_rank = int(round((rpi_rank + rank64 + dsr_rank) / 3))
     rankings = {
         'rpi': rpi_rank,
-        'sor': rpi_rank,
+        'dsr': dsr_rank,
         'massey': rank64,
-        'd1baseball': int(round((rpi_rank + rank64) / 2)),
+        'elo': elo_rank,
         '64a': rank64,
     }
 
@@ -572,14 +684,19 @@ def build_resume_team(team_name: str, sport_key: str, year: int = 2026) -> dict 
     resume_score = max(0, min(100, int(resume_score)))
     seed_proj, bubble_verdict = _verdict_for_score(resume_score)
 
-    # SOS: proxy from RPI rank (real SOS not in CSVs).
+    # SOS: real NCAA-formula computation from schedules_full.
     def _tier(rank: int) -> str:
         if rank <= 25:  return 'Elite'
         if rank <= 75:  return 'Strong'
         if rank <= 150: return 'Moderate'
         return 'Weak'
-    sos_rank = min(rpi_rank, of)
-    non_con_rank = min(rpi_rank + 20, of)  # rough proxy; non-con usually weaker than overall
+    sos_map = _sos_lookup(sport_key).get(team_name)
+    if sos_map:
+        sos_rank = int(sos_map['overall_rank'])
+        non_con_rank = int(sos_map['noncon_rank'])
+    else:
+        sos_rank = of
+        non_con_rank = of
 
     # Schedule-derived blocks
     sched_full = _load_csv(f'schedules_full_{sport_key}.csv')

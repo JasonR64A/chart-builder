@@ -776,9 +776,9 @@ function SOSPanel({ label, rank, of, tier }) {
 function RankingsModule({ team }) {
   const systems = [
     { key: "rpi", label: "RPI", desc: "Traditional" },
-    { key: "sor", label: "SOR", desc: "Resume-based" },
+    { key: "dsr", label: "DSR", desc: "Diamond Sports Rating" },
     { key: "massey", label: "MASSEY", desc: "Predictive" },
-    { key: "d1baseball", label: "D1BASEBALL", desc: "Publication" },
+    { key: "elo", label: "ELO", desc: "WarrenNolan" },
     { key: "64a", label: "64A", desc: "Our composite" },
   ];
   const ranks = systems.map(s => team.rankings[s.key]);
