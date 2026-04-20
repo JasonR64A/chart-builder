@@ -262,6 +262,19 @@ def _dsr_rank_lookup(sport_key: str) -> dict:
 
 
 @st.cache_data(show_spinner=False)
+def _massey_rank_lookup(sport_key: str) -> dict:
+    """Map normalized team name -> Massey rank from data/rankings/massey_*.csv."""
+    fname = f'rankings/massey_{sport_key}.csv'
+    df = _load_csv(fname)
+    if df.empty:
+        return {}
+    if 'date' in df.columns:
+        latest = df['date'].max()
+        df = df[df['date'] == latest]
+    return {_norm(t): int(r) for t, r in zip(df['team'], df['rank'])}
+
+
+@st.cache_data(show_spinner=False)
 def _team_year_id_lookup(sport_key: str) -> dict:
     """Map 64A team name (teams.csv) -> NCAA teamYearId used by
     schedules_full_*.csv. Built once so every downstream schedule filter can
@@ -961,13 +974,14 @@ def build_resume_team(team_name: str, sport_key: str, year: int = 2026) -> dict 
             rpi_rank = int(match.iloc[0]['rank'])
     rank64 = _sixty_four_lookup(year).get(team_id, 301)
     dsr_rank = _dsr_rank_lookup(sport_key).get(_norm(team_name), 301)
+    massey_rank = _massey_rank_lookup(sport_key).get(_norm(team_name), 301)
     # ELO currently has no source in-repo; fall back to the mean of available
     # ranks so the module doesn't lie with a fake-looking value.
-    elo_rank = int(round((rpi_rank + rank64 + dsr_rank) / 3))
+    elo_rank = int(round((rpi_rank + rank64 + dsr_rank + massey_rank) / 4))
     rankings = {
         'rpi': rpi_rank,
         'dsr': dsr_rank,
-        'massey': rank64,
+        'massey': massey_rank,
         'elo': elo_rank,
         '64a': rank64,
     }

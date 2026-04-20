@@ -1145,7 +1145,38 @@ def render_ncaat_resume(team_name: str, sport_key: str, theme: str):
         html = html[:i] + _BEGIN_MARK + payload_js + _END_MARK + html[j + len(_END_MARK):]
     html = html.replace('__INITIAL_TEAM__', 'selected')
     html = html.replace('__INITIAL_THEME__', theme)
-    _components_html(html, height=1620, scrolling=True)
+
+    safe_team = _re.sub(r'[^A-Za-z0-9]+', '_', team_name).strip('_') or 'team'
+    png_filename = f'ncaat_resume_{safe_team}_{sport_key}.png'
+    png_inject = f"""
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script>
+window.downloadResumePNG = function() {{
+  var target = document.getElementById('root');
+  if (!target) return;
+  var themeBg = getComputedStyle(document.body).backgroundColor || '#ffffff';
+  html2canvas(target, {{ scale: 2, backgroundColor: themeBg, useCORS: true, allowTaint: true }}).then(function(canvas) {{
+    var a = document.createElement('a');
+    a.download = {_json.dumps(png_filename)};
+    a.href = canvas.toDataURL('image/png');
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }});
+}};
+</script>
+<div style="text-align:center;margin:16px 0 24px;">
+  <button onclick="window.downloadResumePNG()" style="
+    padding:8px 20px;background:#C41230;color:#fff;border:none;border-radius:4px;
+    font-family:'Inter',sans-serif;font-weight:700;font-size:12px;letter-spacing:.15em;
+    text-transform:uppercase;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.15);">
+    Download PNG
+  </button>
+</div>
+"""
+    html = html.replace('</body>', f'{png_inject}</body>')
+
+    _components_html(html, height=1700, scrolling=True)
 
 
 # ── Sidebar ──────────────────────────────────────────────────────────────────
