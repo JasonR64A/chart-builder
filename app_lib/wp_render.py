@@ -5,11 +5,11 @@ gameId using the same model the Win Probability page uses. Designed to be
 imported (not a Streamlit page itself).
 
 Usage:
-    from pages._wp_render import (
+    from app_lib.wp_render import (
         load_wp_pbp, load_wp_lookup, load_wp_teams,
         compute_wp_for_game, build_wp_figure,
     )
-    from pages._win_prob_model import build_team_profiles
+    from app_lib.win_prob_model import build_team_profiles
 
     pbp   = load_wp_pbp('Baseball', 'D1')
     lookup= load_wp_lookup()
@@ -29,7 +29,7 @@ import streamlit as st
 import plotly.graph_objects as go
 from pathlib import Path
 
-from pages._win_prob_model import (
+from app_lib.win_prob_model import (
     pre_game_wp as _shared_pre_game_wp,
     adjusted_team_pct as _shared_adjusted_team_pct,
     blend_with_static as _shared_blend_with_static,

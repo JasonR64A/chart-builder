@@ -18,7 +18,7 @@ from io import BytesIO
 from pathlib import Path
 from datetime import datetime, timedelta
 
-from pages._win_prob_model import (
+from app_lib.win_prob_model import (
     build_team_profiles, adjusted_team_pct, pre_game_wp,
     blend_with_static, build_rank_pct_map, TEAM_RANK_BLEND,
 )

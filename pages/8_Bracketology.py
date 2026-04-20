@@ -462,7 +462,7 @@ def build_field(sport):
 
     # ── Pull Predicted RPI directly from Win Generator computation ──
     try:
-        from pages._shared_rpi import compute_predicted_rpi_for_bracketology
+        from app_lib.shared_rpi import compute_predicted_rpi_for_bracketology
         pred_rpi_df = compute_predicted_rpi_for_bracketology(sport, DATA_DIR)
     except Exception as e:
         st.error(f'Failed to compute predicted RPI: {e}')
@@ -1110,7 +1110,7 @@ NCAAT_ASSETS = _APP_DIR / 'assets' / 'ncaat-resume'
 
 import json as _json
 import re as _re
-from pages._ncaat_resume_data import build_resume_team, list_d1_teams
+from app_lib.ncaat_resume_data import build_resume_team, list_d1_teams
 
 
 def _data_uri(path: Path) -> str:

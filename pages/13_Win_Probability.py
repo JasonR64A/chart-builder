@@ -44,7 +44,7 @@ def hitting_pbp_path(sport, division):
 # Pre-game WP constants + helpers live in the shared model module so every
 # page that projects games (Win Probability, Win Generator, Predicted RPI)
 # uses the exact same math.
-from pages._win_prob_model import (
+from app_lib.win_prob_model import (
     HOME_FIELD_ADVANTAGE, PREGAME_EDGE_SCALE,
     PREGAME_CLAMP_MIN, PREGAME_CLAMP_MAX,
     TEAM_RANK_BLEND, PITCHING_WEIGHT,

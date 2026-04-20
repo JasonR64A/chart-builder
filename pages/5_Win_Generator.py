@@ -10,7 +10,7 @@ from pathlib import Path
 from io import BytesIO
 
 # Shared WP model — single source of truth for every page that projects games
-from pages._win_prob_model import (
+from app_lib.win_prob_model import (
     build_team_profiles, adjusted_team_pct, blend_with_static,
     detect_game_context, compute_matchup_wp, build_rank_pct_map,
     pre_game_wp, log5,
@@ -586,7 +586,7 @@ elif mode == 'Predicted RPI':
     st.markdown('### Predicted RPI Rankings')
     st.caption('Each remaining game predicted W/L using True Rank Log5, then full RPI formula applied to projected records.')
 
-    from pages._shared_rpi import compute_predicted_rpi_for_bracketology
+    from app_lib.shared_rpi import compute_predicted_rpi_for_bracketology
 
     with st.spinner('Computing predicted RPI (all D1 teams)...'):
         pred_rpi_df = compute_predicted_rpi_for_bracketology(sport, DATA_DIR)

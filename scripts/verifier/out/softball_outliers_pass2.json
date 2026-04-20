@@ -1,0 +1,346 @@
+[
+  {
+    "team": "Davis & Elkins",
+    "yearId": 614027,
+    "division": "D2",
+    "sched": 46,
+    "pbp": 22,
+    "missing": 24
+  },
+  {
+    "team": "West Va. Wesleyan",
+    "yearId": 613899,
+    "division": "D2",
+    "sched": 40,
+    "pbp": 18,
+    "missing": 22
+  },
+  {
+    "team": "Lane",
+    "yearId": 614054,
+    "division": "D2",
+    "sched": 30,
+    "pbp": 11,
+    "missing": 19
+  },
+  {
+    "team": "Howard Payne",
+    "yearId": 614480,
+    "division": "D3",
+    "sched": 30,
+    "pbp": 12,
+    "missing": 18
+  },
+  {
+    "team": "Edward Waters",
+    "yearId": 614034,
+    "division": "D2",
+    "sched": 42,
+    "pbp": 25,
+    "missing": 17
+  },
+  {
+    "team": "Fort Valley St.",
+    "yearId": 614042,
+    "division": "D2",
+    "sched": 41,
+    "pbp": 28,
+    "missing": 13
+  },
+  {
+    "team": "Thomas More",
+    "yearId": 614036,
+    "division": "D2",
+    "sched": 42,
+    "pbp": 29,
+    "missing": 13
+  },
+  {
+    "team": "East Tex. Baptist",
+    "yearId": 614445,
+    "division": "D3",
+    "sched": 34,
+    "pbp": 22,
+    "missing": 12
+  },
+  {
+    "team": "LeMoyne-Owen",
+    "yearId": 614055,
+    "division": "D2",
+    "sched": 31,
+    "pbp": 19,
+    "missing": 12
+  },
+  {
+    "team": "Hardin-Simmons",
+    "yearId": 614272,
+    "division": "D3",
+    "sched": 26,
+    "pbp": 15,
+    "missing": 11
+  },
+  {
+    "team": "Kentucky St.",
+    "yearId": 614051,
+    "division": "D2",
+    "sched": 25,
+    "pbp": 14,
+    "missing": 11
+  },
+  {
+    "team": "Schreiner",
+    "yearId": 614470,
+    "division": "D3",
+    "sched": 36,
+    "pbp": 25,
+    "missing": 11
+  },
+  {
+    "team": "Waynesburg",
+    "yearId": 614472,
+    "division": "D3",
+    "sched": 33,
+    "pbp": 22,
+    "missing": 11
+  },
+  {
+    "team": "Wilson",
+    "yearId": 614506,
+    "division": "D3",
+    "sched": 33,
+    "pbp": 23,
+    "missing": 10
+  },
+  {
+    "team": "Gustavus Adolphus",
+    "yearId": 614269,
+    "division": "D3",
+    "sched": 26,
+    "pbp": 17,
+    "missing": 9
+  },
+  {
+    "team": "Johnson C. Smith",
+    "yearId": 614050,
+    "division": "D2",
+    "sched": 38,
+    "pbp": 29,
+    "missing": 9
+  },
+  {
+    "team": "Centenary (LA)",
+    "yearId": 614230,
+    "division": "D3",
+    "sched": 34,
+    "pbp": 26,
+    "missing": 8
+  },
+  {
+    "team": "Middle Georgia",
+    "yearId": 617153,
+    "division": "D2",
+    "sched": 39,
+    "pbp": 31,
+    "missing": 8
+  },
+  {
+    "team": "Spring Hill",
+    "yearId": 614126,
+    "division": "D2",
+    "sched": 45,
+    "pbp": 37,
+    "missing": 8
+  },
+  {
+    "team": "Berry",
+    "yearId": 614441,
+    "division": "D3",
+    "sched": 32,
+    "pbp": 25,
+    "missing": 7
+  },
+  {
+    "team": "Webster",
+    "yearId": 614409,
+    "division": "D3",
+    "sched": 33,
+    "pbp": 26,
+    "missing": 7
+  },
+  {
+    "team": "Belhaven",
+    "yearId": 614187,
+    "division": "D3",
+    "sched": 35,
+    "pbp": 29,
+    "missing": 6
+  },
+  {
+    "team": "Chatham",
+    "yearId": 614499,
+    "division": "D3",
+    "sched": 35,
+    "pbp": 29,
+    "missing": 6
+  },
+  {
+    "team": "Ill. Springfield",
+    "yearId": 613922,
+    "division": "D2",
+    "sched": 42,
+    "pbp": 36,
+    "missing": 6
+  },
+  {
+    "team": "Mary",
+    "yearId": 613928,
+    "division": "D2",
+    "sched": 42,
+    "pbp": 36,
+    "missing": 6
+  },
+  {
+    "team": "McMurry",
+    "yearId": 614188,
+    "division": "D3",
+    "sched": 39,
+    "pbp": 33,
+    "missing": 6
+  },
+  {
+    "team": "Morgan St.",
+    "yearId": 613619,
+    "division": "D1",
+    "sched": 33,
+    "pbp": 27,
+    "missing": 6
+  },
+  {
+    "team": "Piedmont",
+    "yearId": 614144,
+    "division": "D3",
+    "sched": 36,
+    "pbp": 30,
+    "missing": 6
+  },
+  {
+    "team": "UConn",
+    "yearId": 613728,
+    "division": "D1",
+    "sched": 46,
+    "pbp": 40,
+    "missing": 6
+  },
+  {
+    "team": "VTSU-Johnson",
+    "yearId": 614287,
+    "division": "D3",
+    "sched": 23,
+    "pbp": 17,
+    "missing": 6
+  },
+  {
+    "team": "Wesleyan (GA)",
+    "yearId": 614507,
+    "division": "D3",
+    "sched": 24,
+    "pbp": 18,
+    "missing": 6
+  },
+  {
+    "team": "West Ala.",
+    "yearId": 614059,
+    "division": "D2",
+    "sched": 42,
+    "pbp": 36,
+    "missing": 6
+  },
+  {
+    "team": "Fayetteville St.",
+    "yearId": 614038,
+    "division": "D2",
+    "sched": 31,
+    "pbp": 26,
+    "missing": 5
+  },
+  {
+    "team": "Mary Washington",
+    "yearId": 614307,
+    "division": "D3",
+    "sched": 34,
+    "pbp": 29,
+    "missing": 5
+  },
+  {
+    "team": "Maryville (MO)",
+    "yearId": 614064,
+    "division": "D2",
+    "sched": 38,
+    "pbp": 33,
+    "missing": 5
+  },
+  {
+    "team": "Methodist",
+    "yearId": 614315,
+    "division": "D3",
+    "sched": 36,
+    "pbp": 31,
+    "missing": 5
+  },
+  {
+    "team": "New Jersey City",
+    "yearId": 614284,
+    "division": "D3",
+    "sched": 27,
+    "pbp": 22,
+    "missing": 5
+  },
+  {
+    "team": "Roosevelt",
+    "yearId": 614113,
+    "division": "D2",
+    "sched": 38,
+    "pbp": 33,
+    "missing": 5
+  },
+  {
+    "team": "Saint Mary's (MN)",
+    "yearId": 614373,
+    "division": "D3",
+    "sched": 28,
+    "pbp": 23,
+    "missing": 5
+  },
+  {
+    "team": "UMSV",
+    "yearId": 614322,
+    "division": "D3",
+    "sched": 26,
+    "pbp": 21,
+    "missing": 5
+  },
+  {
+    "team": "Valdosta St.",
+    "yearId": 613971,
+    "division": "D2",
+    "sched": 42,
+    "pbp": 37,
+    "missing": 5
+  },
+  {
+    "team": "Walsh",
+    "yearId": 613988,
+    "division": "D2",
+    "sched": 36,
+    "pbp": 31,
+    "missing": 5
+  },
+  {
+    "team": "West Virginia St.",
+    "yearId": 613872,
+    "division": "D2",
+    "sched": 38,
+    "pbp": 33,
+    "missing": 5
+  }
+]

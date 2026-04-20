@@ -15,7 +15,7 @@ import numpy as np
 import pickle
 from pathlib import Path
 
-from pages._win_prob_model import (
+from app_lib.win_prob_model import (
     build_team_profiles, adjusted_team_pct, pre_game_wp,
     TEAM_RANK_BLEND,
 )

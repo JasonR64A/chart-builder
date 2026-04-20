@@ -11,7 +11,7 @@ import pandas as pd
 import numpy as np
 from pathlib import Path
 
-from pages._win_prob_model import (
+from app_lib.win_prob_model import (
     build_team_profiles, detect_game_context, compute_matchup_wp,
     build_rank_pct_map,
 )

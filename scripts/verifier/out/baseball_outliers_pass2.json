@@ -1,0 +1,322 @@
+[
+  {
+    "team": "Howard Payne",
+    "yearId": 615455,
+    "division": "D3",
+    "sched": 33,
+    "pbp": 18,
+    "missing": 15
+  },
+  {
+    "team": "Southern U.",
+    "yearId": 614745,
+    "division": "D1",
+    "sched": 36,
+    "pbp": 21,
+    "missing": 15
+  },
+  {
+    "team": "LeMoyne-Owen",
+    "yearId": 615046,
+    "division": "D2",
+    "sched": 45,
+    "pbp": 32,
+    "missing": 13
+  },
+  {
+    "team": "West Va. Wesleyan",
+    "yearId": 614930,
+    "division": "D2",
+    "sched": 40,
+    "pbp": 28,
+    "missing": 12
+  },
+  {
+    "team": "Muskingum",
+    "yearId": 615286,
+    "division": "D3",
+    "sched": 29,
+    "pbp": 18,
+    "missing": 11
+  },
+  {
+    "team": "Rosemont",
+    "yearId": 615276,
+    "division": "D3",
+    "sched": 29,
+    "pbp": 18,
+    "missing": 11
+  },
+  {
+    "team": "Virginia St.",
+    "yearId": 615092,
+    "division": "D2",
+    "sched": 25,
+    "pbp": 14,
+    "missing": 11
+  },
+  {
+    "team": "Buena Vista",
+    "yearId": 615164,
+    "division": "D3",
+    "sched": 31,
+    "pbp": 21,
+    "missing": 10
+  },
+  {
+    "team": "Cairn",
+    "yearId": 615441,
+    "division": "D3",
+    "sched": 31,
+    "pbp": 21,
+    "missing": 10
+  },
+  {
+    "team": "Davis & Elkins",
+    "yearId": 615028,
+    "division": "D2",
+    "sched": 37,
+    "pbp": 27,
+    "missing": 10
+  },
+  {
+    "team": "Edward Waters",
+    "yearId": 615115,
+    "division": "D2",
+    "sched": 43,
+    "pbp": 33,
+    "missing": 10
+  },
+  {
+    "team": "Regent",
+    "yearId": 615587,
+    "division": "D3",
+    "sched": 29,
+    "pbp": 19,
+    "missing": 10
+  },
+  {
+    "team": "Thomas More",
+    "yearId": 615116,
+    "division": "D2",
+    "sched": 36,
+    "pbp": 26,
+    "missing": 10
+  },
+  {
+    "team": "Wheeling",
+    "yearId": 614938,
+    "division": "D2",
+    "sched": 39,
+    "pbp": 29,
+    "missing": 10
+  },
+  {
+    "team": "Aurora",
+    "yearId": 615149,
+    "division": "D3",
+    "sched": 32,
+    "pbp": 23,
+    "missing": 9
+  },
+  {
+    "team": "Rhodes",
+    "yearId": 615327,
+    "division": "D3",
+    "sched": 32,
+    "pbp": 23,
+    "missing": 9
+  },
+  {
+    "team": "Albany St. (GA)",
+    "yearId": 615001,
+    "division": "D2",
+    "sched": 37,
+    "pbp": 29,
+    "missing": 8
+  },
+  {
+    "team": "Lane",
+    "yearId": 615045,
+    "division": "D2",
+    "sched": 39,
+    "pbp": 31,
+    "missing": 8
+  },
+  {
+    "team": "Lincoln Memorial",
+    "yearId": 614886,
+    "division": "D2",
+    "sched": 46,
+    "pbp": 38,
+    "missing": 8
+  },
+  {
+    "team": "McMurry",
+    "yearId": 615463,
+    "division": "D3",
+    "sched": 36,
+    "pbp": 28,
+    "missing": 8
+  },
+  {
+    "team": "Miles",
+    "yearId": 615056,
+    "division": "D2",
+    "sched": 38,
+    "pbp": 30,
+    "missing": 8
+  },
+  {
+    "team": "Pitt.-Greensburg",
+    "yearId": 615473,
+    "division": "D3",
+    "sched": 25,
+    "pbp": 17,
+    "missing": 8
+  },
+  {
+    "team": "Savannah St.",
+    "yearId": 614997,
+    "division": "D2",
+    "sched": 40,
+    "pbp": 32,
+    "missing": 8
+  },
+  {
+    "team": "Clark Atlanta",
+    "yearId": 615024,
+    "division": "D2",
+    "sched": 36,
+    "pbp": 29,
+    "missing": 7
+  },
+  {
+    "team": "LIU",
+    "yearId": 614772,
+    "division": "D1",
+    "sched": 31,
+    "pbp": 24,
+    "missing": 7
+  },
+  {
+    "team": "Millikin",
+    "yearId": 615264,
+    "division": "D3",
+    "sched": 32,
+    "pbp": 25,
+    "missing": 7
+  },
+  {
+    "team": "Bradley",
+    "yearId": 614866,
+    "division": "D1",
+    "sched": 37,
+    "pbp": 31,
+    "missing": 6
+  },
+  {
+    "team": "Chatham",
+    "yearId": 615471,
+    "division": "D3",
+    "sched": 30,
+    "pbp": 24,
+    "missing": 6
+  },
+  {
+    "team": "Concord",
+    "yearId": 615111,
+    "division": "D2",
+    "sched": 40,
+    "pbp": 34,
+    "missing": 6
+  },
+  {
+    "team": "Hamline",
+    "yearId": 615220,
+    "division": "D3",
+    "sched": 30,
+    "pbp": 24,
+    "missing": 6
+  },
+  {
+    "team": "JWU Charlotte",
+    "yearId": 615586,
+    "division": "D3",
+    "sched": 30,
+    "pbp": 24,
+    "missing": 6
+  },
+  {
+    "team": "Juniata",
+    "yearId": 615237,
+    "division": "D3",
+    "sched": 29,
+    "pbp": 23,
+    "missing": 6
+  },
+  {
+    "team": "Kentucky St.",
+    "yearId": 615042,
+    "division": "D2",
+    "sched": 40,
+    "pbp": 34,
+    "missing": 6
+  },
+  {
+    "team": "Schreiner",
+    "yearId": 615445,
+    "division": "D3",
+    "sched": 37,
+    "pbp": 31,
+    "missing": 6
+  },
+  {
+    "team": "Southern Conn. St.",
+    "yearId": 615086,
+    "division": "D2",
+    "sched": 37,
+    "pbp": 31,
+    "missing": 6
+  },
+  {
+    "team": "Baldwin Wallace",
+    "yearId": 615152,
+    "division": "D3",
+    "sched": 30,
+    "pbp": 25,
+    "missing": 5
+  },
+  {
+    "team": "Carroll (WI)",
+    "yearId": 615170,
+    "division": "D3",
+    "sched": 34,
+    "pbp": 29,
+    "missing": 5
+  },
+  {
+    "team": "Husson",
+    "yearId": 615427,
+    "division": "D3",
+    "sched": 25,
+    "pbp": 20,
+    "missing": 5
+  },
+  {
+    "team": "Penn St.-Abington",
+    "yearId": 615130,
+    "division": "D3",
+    "sched": 36,
+    "pbp": 31,
+    "missing": 5
+  },
+  {
+    "team": "SUNY Cobleskill",
+    "yearId": 615506,
+    "division": "D3",
+    "sched": 27,
+    "pbp": 22,
+    "missing": 5
+  }
+]

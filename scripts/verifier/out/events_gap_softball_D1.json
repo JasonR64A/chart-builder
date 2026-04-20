@@ -1,0 +1,1275 @@
+[
+  {
+    "gameId": "6493886",
+    "date": "2026-03-20",
+    "sport": "softball",
+    "division": "D1",
+    "awayTeam": {
+      "teamYearId": "",
+      "teamName": "Elon Phoenix",
+      "score": 0,
+      "isWinner": false
+    },
+    "homeTeam": {
+      "teamYearId": "",
+      "teamName": "UNCW Seahawks",
+      "score": 0,
+      "isWinner": false
+    },
+    "isFinal": true
+  },
+  {
+    "gameId": "6494013",
+    "date": "2026-02-20",
+    "sport": "softball",
+    "division": "D1",
+    "awayTeam": {
+      "teamYearId": "",
+      "teamName": "Wichita St. Shockers",
+      "score": 0,
+      "isWinner": false
+    },
+    "homeTeam": {
+      "teamYearId": "",
+      "teamName": "UT Arlington Mavericks",
+      "score": 0,
+      "isWinner": false
+    },
+    "isFinal": true
+  },
+  {
+    "gameId": "6495269",
+    "date": "2026-02-21",
+    "sport": "softball",
+    "division": "D1",
+    "awayTeam": {
+      "teamYearId": "",
+      "teamName": "Utah Utes",
+      "score": 0,
+      "isWinner": false
+    },
+    "homeTeam": {
+      "teamYearId": "",
+      "teamName": "LMU (CA) Lions",
+      "score": 0,
+      "isWinner": false
+    },
+    "isFinal": true
+  },
+  {
+    "gameId": "6495629",
+    "date": "2026-03-06",
+    "sport": "softball",
+    "division": "D1",
+    "awayTeam": {
+      "teamYearId": "",
+      "teamName": "LMU (CA) Lions",
+      "score": 0,
+      "isWinner": false
+    },
+    "homeTeam": {
+      "teamYearId": "",
+      "teamName": "Utah Tech Trailblazers",
+      "score": 0,
+      "isWinner": false
+    },
+    "isFinal": true
+  },
+  {
+    "gameId": "6495673",
+    "date": "2026-02-13",
+    "sport": "softball",
+    "division": "D1",
+    "awayTeam": {
+      "teamYearId": "",
+      "teamName": "Western Mich. Broncos",
+      "score": 0,
+      "isWinner": false
+    },
+    "homeTeam": {
+      "teamYearId": "",
+      "teamName": "Jacksonville St. Gamecocks",
+      "score": 0,
+      "isWinner": false
+    },
+    "isFinal": true
+  },
+  {
+    "gameId": "6495881",
+    "date": "2026-02-28",
+    "sport": "softball",
+    "division": "D1",
+    "awayTeam": {
+      "teamYearId": "",
+      "teamName": "Ga. Southern Eagles",
+      "score": 0,
+      "isWinner": false
+    },
+    "homeTeam": {
+      "teamYearId": "",
+      "teamName": "Mississippi St. Bulldogs",
+      "score": 0,
+      "isWinner": false
+    },
+    "isFinal": true
+  },
+  {
+    "gameId": "6496536",
+    "date": "2026-02-06",
+    "sport": "softball",
+    "division": "D1",
+    "awayTeam": {
+      "teamYearId": "",
+      "teamName": "Liberty Lady Flames",
+      "score": 0,
+      "isWinner": false
+    },
+    "homeTeam": {
+      "teamYearId": "",
+      "teamName": "Clemson Tigers",
+      "score": 0,
+      "isWinner": false
+    },
+    "isFinal": true
+  },
+  {
+    "gameId": "6496685",
+    "date": "2026-02-13",
+    "sport": "softball",
+    "division": "D1",
+    "awayTeam": {
+      "teamYearId": "",
+      "teamName": "West Ga. Wolves",
+      "score": 0,
+      "isWinner": false
+    },
+    "homeTeam": {
+      "teamYearId": "",
+      "teamName": "USC Upstate Spartans",
+      "score": 0,
+      "isWinner": false
+    },
+    "isFinal": true
+  },
+  {
+    "gameId": "6497641",
+    "date": "2026-03-14",
+    "sport": "softball",
+    "division": "D1",
+    "awayTeam": {
+      "teamYearId": "",
+      "teamName": "Longwood Lancers",
+      "score": 0,
+      "isWinner": false
+    },
+    "homeTeam": {
+      "teamYearId": "",
+      "teamName": "Wofford Terriers",
+      "score": 0,
+      "isWinner": false
+    },
+    "isFinal": true
+  },
+  {
+    "gameId": "6498228",
+    "date": "2026-03-18",
+    "sport": "softball",
+    "division": "D1",
+    "awayTeam": {
+      "teamYearId": "",
+      "teamName": "UCF Knights",
+      "score": 0,
+      "isWinner": false
+    },
+    "homeTeam": {
+      "teamYearId": "",
+      "teamName": "FIU Panthers",
+      "score": 0,
+      "isWinner": false
+    },
+    "isFinal": true
+  },
+  {
+    "gameId": "6498573",
+    "date": "2026-02-08",
+    "sport": "softball",
+    "division": "D1",
+    "awayTeam": {
+      "teamYearId": "",
+      "teamName": "UAB Blazers",
+      "score": 0,
+      "isWinner": false
+    },
+    "homeTeam": {
+      "teamYearId": "",
+      "teamName": "Lipscomb Bisons",
+      "score": 0,
+      "isWinner": false
+    },
+    "isFinal": true
+  },
+  {
+    "gameId": "6499003",
+    "date": "2026-02-08",
+    "sport": "softball",
+    "division": "D1",
+    "awayTeam": {
+      "teamYearId": "",
+      "teamName": "Winthrop Eagles",
+      "score": 0,
+      "isWinner": false
+    },
+    "homeTeam": {
+      "teamYearId": "",
+      "teamName": "South Carolina Gamecocks",
+      "score": 0,
+      "isWinner": false
+    },
+    "isFinal": true
+  },
+  {
+    "gameId": "6499181",
+    "date": "2026-02-19",
+    "sport": "softball",
+    "division": "D1",
+    "awayTeam": {
+      "teamYearId": "",
+      "teamName": "Texas A&M Aggies",
+      "score": 0,
+      "isWinner": false
+    },
+    "homeTeam": {
+      "teamYearId": "",
+      "teamName": "Oregon Ducks",
+      "score": 0,
+      "isWinner": false
+    },
+    "isFinal": true
+  },
+  {
+    "gameId": "6502198",
+    "date": "2026-02-20",
+    "sport": "softball",
+    "division": "D1",
+    "awayTeam": {
+      "teamYearId": "",
+      "teamName": "Maryland Terrapins, Terps",
+      "score": 0,
+      "isWinner": false
+    },
+    "homeTeam": {
+      "teamYearId": "",
+      "teamName": "Virginia Cavaliers",
+      "score": 0,
+      "isWinner": false
+    },
+    "isFinal": true
+  },
+  {
+    "gameId": "6502368",
+    "date": "2026-02-21",
+    "sport": "softball",
+    "division": "D1",
+    "awayTeam": {
+      "teamYearId": "",
+      "teamName": "Utah Utes",
+      "score": 0,
+      "isWinner": false
+    },
+    "homeTeam": {
+      "teamYearId": "",
+      "teamName": "California Baptist Lancers",
+      "score": 0,
+      "isWinner": false
+    },
+    "isFinal": true
+  },
+  {
+    "gameId": "6502925",
+    "date": "2026-02-13",
+    "sport": "softball",
+    "division": "D1",
+    "awayTeam": {
+      "teamYearId": "",
+      "teamName": "UIC Flames",
+      "score": 0,
+      "isWinner": false
+    },
+    "homeTeam": {
+      "teamYearId": "",
+      "teamName": "Lamar University Cardinals",
+      "score": 0,
+      "isWinner": false
+    },
+    "isFinal": true
+  },
+  {
+    "gameId": "6503064",
+    "date": "2026-02-20",
+    "sport": "softball",
+    "division": "D1",
+    "awayTeam": {
+      "teamYearId": "",
+      "teamName": "Toledo Rockets",
+      "score": 0,
+      "isWinner": false
+    },
+    "homeTeam": {
+      "teamYearId": "",
+      "teamName": "Syracuse Orange",
+      "score": 0,
+      "isWinner": false
+    },
+    "isFinal": true
+  },
+  {
+    "gameId": "6503291",
+    "date": "2026-02-20",
+    "sport": "softball",
+    "division": "D1",
+    "awayTeam": {
+      "teamYearId": "",
+      "teamName": "Alcorn Lady Braves",
+      "score": 0,
+      "isWinner": false
+    },
+    "homeTeam": {
+      "teamYearId": "",
+      "teamName": "Mississippi Val. Devilettes",
+      "score": 0,
+      "isWinner": false
+    },
+    "isFinal": true
+  },
+  {
+    "gameId": "6505545",
+    "date": "2026-04-14",
+    "sport": "softball",
+    "division": "D1",
+    "awayTeam": {
+      "teamYearId": "",
+      "teamName": "Bucknell Bison",
+      "score": 0,
+      "isWinner": false
+    },
+    "homeTeam": {
+      "teamYearId": "",
+      "teamName": "Penn St. Nittany Lions",
+      "score": 0,
+      "isWinner": false
+    },
+    "isFinal": true
+  },
+  {
+    "gameId": "6507018",
+    "date": "2026-03-28",
+    "sport": "softball",
+    "division": "D1",
+    "awayTeam": {
+      "teamYearId": "",
+      "teamName": "Saint Peter's Peacocks",
+      "score": 0,
+      "isWinner": false
+    },
+    "homeTeam": {
+      "teamYearId": "",
+      "teamName": "Siena Saints",
+      "score": 0,
+      "isWinner": false
+    },
+    "isFinal": true
+  },
+  {
+    "gameId": "6507507",
+    "date": "2026-02-13",
+    "sport": "softball",
+    "division": "D1",
+    "awayTeam": {
+      "teamYearId": "",
+      "teamName": "Purdue Boilermakers",
+      "score": 0,
+      "isWinner": false
+    },
+    "homeTeam": {
+      "teamYearId": "",
+      "teamName": "Ga. Southern Eagles",
+      "score": 0,
+      "isWinner": false
+    },
+    "isFinal": true
+  },
+  {
+    "gameId": "6507987",
+    "date": "2026-04-18",
+    "sport": "softball",
+    "division": "D1",
+    "awayTeam": {
+      "teamYearId": "",
+      "teamName": "Lindenwood Lions",
+      "score": 0,
+      "isWinner": false
+    },
+    "homeTeam": {
+      "teamYearId": "",
+      "teamName": "Southeast Mo. St. Redhawks",
+      "score": 0,
+      "isWinner": false
+    },
+    "isFinal": true
+  },
+  {
+    "gameId": "6511123",
+    "date": "2026-02-13",
+    "sport": "softball",
+    "division": "D1",
+    "awayTeam": {
+      "teamYearId": "",
+      "teamName": "Colgate Raiders",
+      "score": 0,
+      "isWinner": false
+    },
+    "homeTeam": {
+      "teamYearId": "",
+      "teamName": "SFA Lumberjacks",
+      "score": 0,
+      "isWinner": false
+    },
+    "isFinal": true
+  },
+  {
+    "gameId": "6511350",
+    "date": "2026-04-14",
+    "sport": "softball",
+    "division": "D1",
+    "awayTeam": {
+      "teamYearId": "",
+      "teamName": "Winthrop Eagles",
+      "score": 0,
+      "isWinner": false
+    },
+    "homeTeam": {
+      "teamYearId": "",
+      "teamName": "Charlotte 49ers",
+      "score": 0,
+      "isWinner": false
+    },
+    "isFinal": true
+  },
+  {
+    "gameId": "6512543",
+    "date": "2026-02-08",
+    "sport": "softball",
+    "division": "D1",
+    "awayTeam": {
+      "teamYearId": "",
+      "teamName": "James Madison Dukes",
+      "score": 0,
+      "isWinner": false
+    },
+    "homeTeam": {
+      "teamYearId": "",
+      "teamName": "North Carolina Tar Heels",
+      "score": 0,
+      "isWinner": false
+    },
+    "isFinal": true
+  },
+  {
+    "gameId": "6512563",
+    "date": "2026-04-14",
+    "sport": "softball",
+    "division": "D1",
+    "awayTeam": {
+      "teamYearId": "",
+      "teamName": "North Carolina Tar Heels",
+      "score": 0,
+      "isWinner": false
+    },
+    "homeTeam": {
+      "teamYearId": "",
+      "teamName": "East Carolina Pirates",
+      "score": 0,
+      "isWinner": false
+    },
+    "isFinal": true
+  },
+  {
+    "gameId": "6513222",
+    "date": "2026-02-19",
+    "sport": "softball",
+    "division": "D1",
+    "awayTeam": {
+      "teamYearId": "",
+      "teamName": "Nevada Wolf Pack",
+      "score": 0,
+      "isWinner": false
+    },
+    "homeTeam": {
+      "teamYearId": "",
+      "teamName": "Oregon St. Beavers",
+      "score": 0,
+      "isWinner": false
+    },
+    "isFinal": true
+  },
+  {
+    "gameId": "6513224",
+    "date": "2026-02-19",
+    "sport": "softball",
+    "division": "D1",
+    "awayTeam": {
+      "teamYearId": "",
+      "teamName": "UC San Diego Tritons",
+      "score": 0,
+      "isWinner": false
+    },
+    "homeTeam": {
+      "teamYearId": "",
+      "teamName": "California Baptist Lancers",
+      "score": 0,
+      "isWinner": false
+    },
+    "isFinal": true
+  },
+  {
+    "gameId": "6513232",
+    "date": "2026-02-20",
+    "sport": "softball",
+    "division": "D1",
+    "awayTeam": {
+      "teamYearId": "",
+      "teamName": "CSUN Matadors",
+      "score": 0,
+      "isWinner": false
+    },
+    "homeTeam": {
+      "teamYearId": "",
+      "teamName": "Seattle U Redhawks",
+      "score": 0,
+      "isWinner": false
+    },
+    "isFinal": true
+  },
+  {
+    "gameId": "6514894",
+    "date": "2026-03-06",
+    "sport": "softball",
+    "division": "D1",
+    "awayTeam": {
+      "teamYearId": "",
+      "teamName": "Michigan St. Spartans",
+      "score": 0,
+      "isWinner": false
+    },
+    "homeTeam": {
+      "teamYearId": "",
+      "teamName": "Mercer Bears",
+      "score": 0,
+      "isWinner": false
+    },
+    "isFinal": true
+  },
+  {
+    "gameId": "6515384",
+    "date": "2026-02-28",
+    "sport": "softball",
+    "division": "D1",
+    "awayTeam": {
+      "teamYearId": "",
+      "teamName": "Virginia Tech Hokies",
+      "score": 0,
+      "isWinner": false
+    },
+    "homeTeam": {
+      "teamYearId": "",
+      "teamName": "Troy Trojans",
+      "score": 0,
+      "isWinner": false
+    },
+    "isFinal": true
+  },
+  {
+    "gameId": "6515501",
+    "date": "2026-02-08",
+    "sport": "softball",
+    "division": "D1",
+    "awayTeam": {
+      "teamYearId": "",
+      "teamName": "Kentucky Wildcats",
+      "score": 0,
+      "isWinner": false
+    },
+    "homeTeam": {
+      "teamYearId": "",
+      "teamName": "Minnesota Golden Gophers",
+      "score": 0,
+      "isWinner": false
+    },
+    "isFinal": true
+  },
+  {
+    "gameId": "6515956",
+    "date": "2026-02-19",
+    "sport": "softball",
+    "division": "D1",
+    "awayTeam": {
+      "teamYearId": "",
+      "teamName": "Oklahoma St. Cowgirls",
+      "score": 0,
+      "isWinner": false
+    },
+    "homeTeam": {
+      "teamYearId": "",
+      "teamName": "Texas St. Bobcats",
+      "score": 0,
+      "isWinner": false
+    },
+    "isFinal": true
+  },
+  {
+    "gameId": "6516024",
+    "date": "2026-03-17",
+    "sport": "softball",
+    "division": "D1",
+    "awayTeam": {
+      "teamYearId": "",
+      "teamName": "Texas St. Bobcats",
+      "score": 0,
+      "isWinner": false
+    },
+    "homeTeam": {
+      "teamYearId": "",
+      "teamName": "Houston Cougars",
+      "score": 0,
+      "isWinner": false
+    },
+    "isFinal": true
+  },
+  {
+    "gameId": "6516361",
+    "date": "2026-03-17",
+    "sport": "softball",
+    "division": "D1",
+    "awayTeam": {
+      "teamYearId": "",
+      "teamName": "Jackson St. Lady Tigers",
+      "score": 0,
+      "isWinner": false
+    },
+    "homeTeam": {
+      "teamYearId": "",
+      "teamName": "Southeastern La. Lady Lions",
+      "score": 0,
+      "isWinner": false
+    },
+    "isFinal": true
+  },
+  {
+    "gameId": "6519051",
+    "date": "2026-04-14",
+    "sport": "softball",
+    "division": "D1",
+    "awayTeam": {
+      "teamYearId": "",
+      "teamName": "Pacific Tigers",
+      "score": 0,
+      "isWinner": false
+    },
+    "homeTeam": {
+      "teamYearId": "",
+      "teamName": "Nevada Wolf Pack",
+      "score": 0,
+      "isWinner": false
+    },
+    "isFinal": true
+  },
+  {
+    "gameId": "6519064",
+    "date": "2026-03-06",
+    "sport": "softball",
+    "division": "D1",
+    "awayTeam": {
+      "teamYearId": "",
+      "teamName": "Texas A&M Aggies",
+      "score": 0,
+      "isWinner": false
+    },
+    "homeTeam": {
+      "teamYearId": "",
+      "teamName": "Tarleton St. Texans",
+      "score": 0,
+      "isWinner": false
+    },
+    "isFinal": true
+  },
+  {
+    "gameId": "6519073",
+    "date": "2026-03-14",
+    "sport": "softball",
+    "division": "D1",
+    "awayTeam": {
+      "teamYearId": "",
+      "teamName": "Tarleton St. Texans",
+      "score": 0,
+      "isWinner": false
+    },
+    "homeTeam": {
+      "teamYearId": "",
+      "teamName": "Lehigh Mountain Hawks",
+      "score": 0,
+      "isWinner": false
+    },
+    "isFinal": true
+  },
+  {
+    "gameId": "6519145",
+    "date": "2026-02-28",
+    "sport": "softball",
+    "division": "D1",
+    "awayTeam": {
+      "teamYearId": "",
+      "teamName": "Southern Utah Thunderbirds",
+      "score": 0,
+      "isWinner": false
+    },
+    "homeTeam": {
+      "teamYearId": "",
+      "teamName": "Utah Utes",
+      "score": 0,
+      "isWinner": false
+    },
+    "isFinal": true
+  },
+  {
+    "gameId": "6519152",
+    "date": "2026-03-06",
+    "sport": "softball",
+    "division": "D1",
+    "awayTeam": {
+      "teamYearId": "",
+      "teamName": "Maine Black Bears",
+      "score": 0,
+      "isWinner": false
+    },
+    "homeTeam": {
+      "teamYearId": "",
+      "teamName": "Southern Utah Thunderbirds",
+      "score": 0,
+      "isWinner": false
+    },
+    "isFinal": true
+  },
+  {
+    "gameId": "6519234",
+    "date": "2026-02-08",
+    "sport": "softball",
+    "division": "D1",
+    "awayTeam": {
+      "teamYearId": "",
+      "teamName": "Alabama A&M Bulldogs",
+      "score": 0,
+      "isWinner": false
+    },
+    "homeTeam": {
+      "teamYearId": "",
+      "teamName": "Grambling Lady Tigers",
+      "score": 0,
+      "isWinner": false
+    },
+    "isFinal": true
+  },
+  {
+    "gameId": "6520382",
+    "date": "2026-02-08",
+    "sport": "softball",
+    "division": "D1",
+    "awayTeam": {
+      "teamYearId": "",
+      "teamName": "Southern Ind. Screaming Eagles",
+      "score": 0,
+      "isWinner": false
+    },
+    "homeTeam": {
+      "teamYearId": "",
+      "teamName": "Alabama St. Lady Hornets",
+      "score": 0,
+      "isWinner": false
+    },
+    "isFinal": true
+  },
+  {
+    "gameId": "6520400",
+    "date": "2026-02-13",
+    "sport": "softball",
+    "division": "D1",
+    "awayTeam": {
+      "teamYearId": "",
+      "teamName": "North Ala. Lions",
+      "score": 0,
+      "isWinner": false
+    },
+    "homeTeam": {
+      "teamYearId": "",
+      "teamName": "Lindenwood Lions",
+      "score": 0,
+      "isWinner": false
+    },
+    "isFinal": true
+  },
+  {
+    "gameId": "6522221",
+    "date": "2026-03-17",
+    "sport": "softball",
+    "division": "D1",
+    "awayTeam": {
+      "teamYearId": "",
+      "teamName": "Boise St. Broncos",
+      "score": 0,
+      "isWinner": false
+    },
+    "homeTeam": {
+      "teamYearId": "",
+      "teamName": "Sacramento St. Hornets",
+      "score": 0,
+      "isWinner": false
+    },
+    "isFinal": true
+  },
+  {
+    "gameId": "6522289",
+    "date": "2026-02-06",
+    "sport": "softball",
+    "division": "D1",
+    "awayTeam": {
+      "teamYearId": "",
+      "teamName": "San Jose St. Spartans",
+      "score": 0,
+      "isWinner": false
+    },
+    "homeTeam": {
+      "teamYearId": "",
+      "teamName": "Stanford Cardinal",
+      "score": 0,
+      "isWinner": false
+    },
+    "isFinal": true
+  },
+  {
+    "gameId": "6523097",
+    "date": "2026-02-13",
+    "sport": "softball",
+    "division": "D1",
+    "awayTeam": {
+      "teamYearId": "",
+      "teamName": "Bryant Bulldogs",
+      "score": 0,
+      "isWinner": false
+    },
+    "homeTeam": {
+      "teamYearId": "",
+      "teamName": "Monmouth Hawks",
+      "score": 0,
+      "isWinner": false
+    },
+    "isFinal": true
+  },
+  {
+    "gameId": "6523481",
+    "date": "2026-02-08",
+    "sport": "softball",
+    "division": "D1",
+    "awayTeam": {
+      "teamYearId": "",
+      "teamName": "Texas Southern Lady Tigers",
+      "score": 0,
+      "isWinner": false
+    },
+    "homeTeam": {
+      "teamYearId": "",
+      "teamName": "East Texas A&M Lions",
+      "score": 0,
+      "isWinner": false
+    },
+    "isFinal": true
+  },
+  {
+    "gameId": "6524223",
+    "date": "2026-02-06",
+    "sport": "softball",
+    "division": "D1",
+    "awayTeam": {
+      "teamYearId": "",
+      "teamName": "Kansas City Roos",
+      "score": 0,
+      "isWinner": false
+    },
+    "homeTeam": {
+      "teamYearId": "",
+      "teamName": "Butler Bulldogs",
+      "score": 0,
+      "isWinner": false
+    },
+    "isFinal": true
+  },
+  {
+    "gameId": "6524450",
+    "date": "2026-02-13",
+    "sport": "softball",
+    "division": "D1",
+    "awayTeam": {
+      "teamYearId": "",
+      "teamName": "Oregon St. Beavers",
+      "score": 0,
+      "isWinner": false
+    },
+    "homeTeam": {
+      "teamYearId": "",
+      "teamName": "Baylor Bears",
+      "score": 0,
+      "isWinner": false
+    },
+    "isFinal": true
+  },
+  {
+    "gameId": "6529510",
+    "date": "2026-02-08",
+    "sport": "softball",
+    "division": "D1",
+    "awayTeam": {
+      "teamYearId": "",
+      "teamName": "Oklahoma Sooners",
+      "score": 0,
+      "isWinner": false
+    },
+    "homeTeam": {
+      "teamYearId": "",
+      "teamName": "Arizona Wildcats",
+      "score": 0,
+      "isWinner": false
+    },
+    "isFinal": true
+  },
+  {
+    "gameId": "6529820",
+    "date": "2026-02-20",
+    "sport": "softball",
+    "division": "D1",
+    "awayTeam": {
+      "teamYearId": "",
+      "teamName": "New Mexico St. Aggies",
+      "score": 0,
+      "isWinner": false
+    },
+    "homeTeam": {
+      "teamYearId": "",
+      "teamName": "Michigan Wolverines",
+      "score": 0,
+      "isWinner": false
+    },
+    "isFinal": true
+  },
+  {
+    "gameId": "6531186",
+    "date": "2026-02-06",
+    "sport": "softball",
+    "division": "D1",
+    "awayTeam": {
+      "teamYearId": "",
+      "teamName": "Ole Miss Rebels",
+      "score": 0,
+      "isWinner": false
+    },
+    "homeTeam": {
+      "teamYearId": "",
+      "teamName": "Boise St. Broncos",
+      "score": 0,
+      "isWinner": false
+    },
+    "isFinal": true
+  },
+  {
+    "gameId": "6531749",
+    "date": "2026-03-18",
+    "sport": "softball",
+    "division": "D1",
+    "awayTeam": {
+      "teamYearId": "",
+      "teamName": "Stonehill Skyhawks",
+      "score": 0,
+      "isWinner": false
+    },
+    "homeTeam": {
+      "teamYearId": "",
+      "teamName": "Boston U. Terriers",
+      "score": 0,
+      "isWinner": false
+    },
+    "isFinal": true
+  },
+  {
+    "gameId": "6531783",
+    "date": "2026-02-13",
+    "sport": "softball",
+    "division": "D1",
+    "awayTeam": {
+      "teamYearId": "",
+      "teamName": "Stony Brook Seawolves",
+      "score": 0,
+      "isWinner": false
+    },
+    "homeTeam": {
+      "teamYearId": "",
+      "teamName": "Jacksonville Dolphins",
+      "score": 0,
+      "isWinner": false
+    },
+    "isFinal": true
+  },
+  {
+    "gameId": "6532188",
+    "date": "2026-04-14",
+    "sport": "softball",
+    "division": "D1",
+    "awayTeam": {
+      "teamYearId": "",
+      "teamName": "Florida A&M Lady Rattlers",
+      "score": 0,
+      "isWinner": false
+    },
+    "homeTeam": {
+      "teamYearId": "",
+      "teamName": "Jacksonville Dolphins",
+      "score": 0,
+      "isWinner": false
+    },
+    "isFinal": true
+  },
+  {
+    "gameId": "6534845",
+    "date": "2026-03-17",
+    "sport": "softball",
+    "division": "D1",
+    "awayTeam": {
+      "teamYearId": "",
+      "teamName": "Utah Tech Trailblazers",
+      "score": 0,
+      "isWinner": false
+    },
+    "homeTeam": {
+      "teamYearId": "",
+      "teamName": "UNLV Rebels",
+      "score": 0,
+      "isWinner": false
+    },
+    "isFinal": true
+  },
+  {
+    "gameId": "6535967",
+    "date": "2026-04-14",
+    "sport": "softball",
+    "division": "D1",
+    "awayTeam": {
+      "teamYearId": "",
+      "teamName": "Bryant Bulldogs",
+      "score": 0,
+      "isWinner": false
+    },
+    "homeTeam": {
+      "teamYearId": "",
+      "teamName": "UConn Huskies",
+      "score": 0,
+      "isWinner": false
+    },
+    "isFinal": true
+  },
+  {
+    "gameId": "6537974",
+    "date": "2026-03-14",
+    "sport": "softball",
+    "division": "D1",
+    "awayTeam": {
+      "teamYearId": "",
+      "teamName": "ETSU Buccaneers (Bucs)",
+      "score": 0,
+      "isWinner": false
+    },
+    "homeTeam": {
+      "teamYearId": "",
+      "teamName": "Lafayette Leopards",
+      "score": 0,
+      "isWinner": false
+    },
+    "isFinal": true
+  },
+  {
+    "gameId": "6539191",
+    "date": "2026-03-14",
+    "sport": "softball",
+    "division": "D1",
+    "awayTeam": {
+      "teamYearId": "",
+      "teamName": "Saint Peter's Peacocks",
+      "score": 0,
+      "isWinner": false
+    },
+    "homeTeam": {
+      "teamYearId": "",
+      "teamName": "Penn Quakers",
+      "score": 0,
+      "isWinner": false
+    },
+    "isFinal": true
+  },
+  {
+    "gameId": "6539604",
+    "date": "2026-03-14",
+    "sport": "softball",
+    "division": "D1",
+    "awayTeam": {
+      "teamYearId": "",
+      "teamName": "Fairfield Stags",
+      "score": 0,
+      "isWinner": false
+    },
+    "homeTeam": {
+      "teamYearId": "",
+      "teamName": "Merrimack Warriors",
+      "score": 0,
+      "isWinner": false
+    },
+    "isFinal": true
+  },
+  {
+    "gameId": "6539894",
+    "date": "2026-03-17",
+    "sport": "softball",
+    "division": "D1",
+    "awayTeam": {
+      "teamYearId": "",
+      "teamName": "Troy Trojans",
+      "score": 0,
+      "isWinner": false
+    },
+    "homeTeam": {
+      "teamYearId": "",
+      "teamName": "Samford Bulldogs",
+      "score": 0,
+      "isWinner": false
+    },
+    "isFinal": true
+  },
+  {
+    "gameId": "6541231",
+    "date": "2026-02-19",
+    "sport": "softball",
+    "division": "D1",
+    "awayTeam": {
+      "teamYearId": "",
+      "teamName": "North Dakota Fighting Hawks",
+      "score": 0,
+      "isWinner": false
+    },
+    "homeTeam": {
+      "teamYearId": "",
+      "teamName": "Green Bay Phoenix",
+      "score": 0,
+      "isWinner": false
+    },
+    "isFinal": true
+  },
+  {
+    "gameId": "6544213",
+    "date": "2026-02-27",
+    "sport": "softball",
+    "division": "D1",
+    "awayTeam": {
+      "teamYearId": "",
+      "teamName": "Wagner Seahawks",
+      "score": 0,
+      "isWinner": false
+    },
+    "homeTeam": {
+      "teamYearId": "",
+      "teamName": "Dartmouth Big Green",
+      "score": 0,
+      "isWinner": false
+    },
+    "isFinal": true
+  },
+  {
+    "gameId": "6545453",
+    "date": "2026-02-08",
+    "sport": "softball",
+    "division": "D1",
+    "awayTeam": {
+      "teamYearId": "",
+      "teamName": "Austin Peay Governors",
+      "score": 0,
+      "isWinner": false
+    },
+    "homeTeam": {
+      "teamYearId": "",
+      "teamName": "West Ga. Wolves",
+      "score": 0,
+      "isWinner": false
+    },
+    "isFinal": true
+  },
+  {
+    "gameId": "6546599",
+    "date": "2026-02-08",
+    "sport": "softball",
+    "division": "D1",
+    "awayTeam": {
+      "teamYearId": "",
+      "teamName": "Morehead St. Eagles",
+      "score": 0,
+      "isWinner": false
+    },
+    "homeTeam": {
+      "teamYearId": "",
+      "teamName": "Presbyterian Blue Hose",
+      "score": 0,
+      "isWinner": false
+    },
+    "isFinal": true
+  },
+  {
+    "gameId": "6573074",
+    "date": "2026-04-11",
+    "sport": "softball",
+    "division": "D1",
+    "awayTeam": {
+      "teamYearId": "",
+      "teamName": "FDU Knights",
+      "score": 0,
+      "isWinner": false
+    },
+    "homeTeam": {
+      "teamYearId": "",
+      "teamName": "Mercyhurst Lakers",
+      "score": 0,
+      "isWinner": false
+    },
+    "isFinal": true
+  },
+  {
+    "gameId": "6573075",
+    "date": "2026-04-11",
+    "sport": "softball",
+    "division": "D1",
+    "awayTeam": {
+      "teamYearId": "",
+      "teamName": "FDU Knights",
+      "score": 0,
+      "isWinner": false
+    },
+    "homeTeam": {
+      "teamYearId": "",
+      "teamName": "Mercyhurst Lakers",
+      "score": 0,
+      "isWinner": false
+    },
+    "isFinal": true
+  }
+]

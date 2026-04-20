@@ -777,11 +777,11 @@ st.markdown('---')
 # Static (non-interactive) snapshots of each game's WP curve using the same
 # model the Win Probability page uses.
 try:
-    from pages._wp_render import (
+    from app_lib.wp_render import (
         load_wp_pbp, load_wp_lookup, load_wp_teams,
         compute_wp_for_game, build_wp_figure,
     )
-    from pages._win_prob_model import build_team_profiles as _wp_build_profiles
+    from app_lib.win_prob_model import build_team_profiles as _wp_build_profiles
 
     _wp_sport = sport.title()  # 'Baseball' | 'Softball'
     _pbp_events = load_wp_pbp(_wp_sport, division)
