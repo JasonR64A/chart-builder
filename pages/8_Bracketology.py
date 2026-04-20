@@ -1128,10 +1128,8 @@ def _load_ncaat_template() -> str:
     return tpl
 
 
-_TEAMS_BLOCK_RE = _re.compile(
-    r'/\*TEAMS_DATA_BEGIN\*/.*?/\*TEAMS_DATA_END\*/',
-    _re.DOTALL,
-)
+_BEGIN_MARK = '/*TEAMS_DATA_BEGIN*/'
+_END_MARK = '/*TEAMS_DATA_END*/'
 
 
 def render_ncaat_resume(team_name: str, sport_key: str, theme: str):
@@ -1139,13 +1137,12 @@ def render_ncaat_resume(team_name: str, sport_key: str, theme: str):
     if team_dict is None:
         st.warning(f'Could not build resume data for {team_name} (missing in CSVs).')
         return
-    payload = {'selected': team_dict}
-    payload_js = _json.dumps(payload)
+    payload_js = _json.dumps({'selected': team_dict})
     html = _load_ncaat_template()
-    html = _TEAMS_BLOCK_RE.sub(
-        '/*TEAMS_DATA_BEGIN*/' + payload_js + '/*TEAMS_DATA_END*/',
-        html,
-    )
+    i = html.find(_BEGIN_MARK)
+    j = html.find(_END_MARK)
+    if i >= 0 and j > i:
+        html = html[:i] + _BEGIN_MARK + payload_js + _END_MARK + html[j + len(_END_MARK):]
     html = html.replace('__INITIAL_TEAM__', 'selected')
     html = html.replace('__INITIAL_THEME__', theme)
     _components_html(html, height=1620, scrolling=True)
