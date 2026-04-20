@@ -484,18 +484,18 @@ def _grade_for_score(score: int) -> str:
 
 
 def _verdict_for_score(score: int) -> tuple[str, str]:
-    """Tier aligned to score curve: 92+ = national seed, 70-77 = at-large
-    bubble, <60 = out."""
-    if score >= 92: return '1 seed', 'Lock'
-    if score >= 85: return '2 seed', 'Lock'
-    if score >= 78: return '3 seed', 'In'
-    if score >= 70: return '4 seed', 'In'
-    if score >= 60: return 'Last 4 In', 'Bubble'
-    if score >= 50: return 'First 4 Out', 'Out'
-    return 'Out', 'Out'
+    """Anchored on the score curve: RPI ~50 -> 70 (last in),
+    RPI ~60 -> 64 (bubble floor), RPI 61+ -> out.
+    """
+    if score >= 88: return '1 seed', 'Lock'       # RPI 1-16
+    if score >= 80: return '2 seed', 'Lock'       # RPI 17-30
+    if score >= 75: return '3 seed', 'In'         # RPI 31-40
+    if score >= 70: return '4 seed', 'In'         # RPI 41-50
+    if score >= 64: return 'Bubble', 'Bubble'     # RPI 51-60
+    return 'Out', 'Out'                           # RPI 61+
 
 
-_SCORE_ANCHORS = [(1, 100), (16, 85), (30, 75), (50, 60), (70, 45), (100, 25), (200, 5), (300, 0)]
+_SCORE_ANCHORS = [(1, 100), (16, 88), (30, 80), (50, 70), (60, 64), (100, 50), (200, 15), (300, 0)]
 
 
 def _rank_to_score(rank) -> float:
