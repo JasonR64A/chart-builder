@@ -2,8 +2,9 @@
 64 Analytics — Series Breakdown
 
 Consolidates Series Preview (upcoming series matchup breakdown) and Series
-Review (weekend recap with AI summary) into one page with tabs. The two
-bodies live in app_lib/ and are executed inside tabs here.
+Review (weekend recap with AI summary) into one sidebar entry. A radio
+toggle at the top selects the active view; only that body executes on each
+rerun (st.tabs() would render both bodies every time, doubling compute).
 """
 from pathlib import Path
 import streamlit as st
@@ -17,15 +18,13 @@ _REVIEW_BODY = _ROOT / 'app_lib' / '_series_review_body.py'
 
 
 def _run_body(path: Path):
-    """Execute a page body in this module's globals so Streamlit renders
-    inside the current tab. Uses compile() with the real path so tracebacks
-    point at the original file.
+    """Execute a page body in a fresh globals dict so module-level names
+    don't leak between Preview and Review on view-switches. __file__ is set
+    to the body path so Path(__file__).parent.parent inside each body
+    resolves to the project root.
     """
     src = path.read_text(encoding='utf-8')
     code = compile(src, str(path), 'exec')
-    # Each tab gets a fresh globals dict so module-level names from Preview don't
-    # leak into Review. __file__ is set to the body so Path(__file__).parent.parent
-    # inside each body resolves to the project root (app_lib/x.py -> root).
     body_globals = {
         '__file__': str(path),
         '__name__': '__main__',
@@ -33,10 +32,15 @@ def _run_body(path: Path):
     exec(code, body_globals)
 
 
-tab_preview, tab_review = st.tabs(['Series Preview', 'Series Review'])
+_view = st.radio(
+    'View',
+    ['Series Preview', 'Series Review'],
+    horizontal=True,
+    label_visibility='collapsed',
+    key='series_breakdown_view',
+)
 
-with tab_preview:
+if _view == 'Series Preview':
     _run_body(_PREVIEW_BODY)
-
-with tab_review:
+else:
     _run_body(_REVIEW_BODY)
