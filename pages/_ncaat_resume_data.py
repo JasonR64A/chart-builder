@@ -284,15 +284,15 @@ def _historical_analog_pool(sport_key: str) -> pd.DataFrame:
     )
     brackets_bb = brackets[brackets['sport'] == 'baseball'].copy()
     brackets_bb['name_norm'] = brackets_bb['team'].apply(_norm)
-    # A team is a "national seed" only if they hosted a regional AND were the 1-seed
-    # of that regional. The national_seed column in the CSV is actually the regional
-    # NUMBER (1-16), not the team's national seeding — mapping it to every team in
-    # that regional (like I did originally) is wrong.
+    # National seed: only for teams that hosted AND were 1-seed in their regional.
     host_rows = brackets_bb[
         (brackets_bb['team'] == brackets_bb['host_team']) &
         (brackets_bb['regional_seed'] == 1)
     ][['year', 'name_norm', 'national_seed']].rename(columns={'national_seed': 'nat_seed'})
+    # Regional seed: each team's 1-4 slot within their regional (everyone has one).
+    reg_seed_rows = brackets_bb[['year', 'name_norm', 'regional_seed']].drop_duplicates(['year', 'name_norm'])
     out = rpi_hist.merge(host_rows, on=['year', 'name_norm'], how='left')
+    out = out.merge(reg_seed_rows, on=['year', 'name_norm'], how='left')
     # Attach result if available
     if not results.empty:
         results_c = results.copy()
@@ -327,14 +327,21 @@ def _compute_analogs(team_name: str, score: int, sport_key: str, limit: int = 5)
             result = 'Regional'
         seed_val = row.get('nat_seed')
         seed_int = int(seed_val) if pd.notna(seed_val) else 99
-        score_delta = int(row['score']) - int(score)
+        reg_seed_val = row.get('regional_seed')
+        reg_seed = int(reg_seed_val) if pd.notna(reg_seed_val) else None
+        # scoreDelta is historical - current; user wants current-oriented perspective,
+        # so flip: positive = current team is stronger than analog.
+        score_delta = int(score) - int(row['score'])
+        rpi_rank = int(row['rpi_rank_num']) if pd.notna(row.get('rpi_rank_num')) else None
         out.append({
             'team': row['team'],
             'year': int(row['year']),
             'score': int(row['score']),
             'seed': seed_int,
+            'regionalSeed': reg_seed,
             'result': result,
             'scoreDelta': score_delta,
+            'rpi': rpi_rank,
         })
     return out
 
@@ -356,20 +363,47 @@ def _radar_area_pct(stat_pcts: dict) -> int:
 
 
 def _compute_remaining_quadrants(sched_full: pd.DataFrame, team_name: str, rpi_lookup: dict) -> dict:
-    """Count upcoming (not-yet-completed) games per quadrant, using current
-    opponent RPI ranks. Games without a ranked opponent bucket as Q4."""
-    m = sched_full[sched_full['teamName'] == team_name]
-    quads = {'q1': 0, 'q2': 0, 'q3': 0, 'q4': 0}
+    """Return a list of upcoming games per quadrant:
+      {'q1': [{opp, venue, date, oppRank}, ...], 'q2': [...], ...}
+    Venue: 'home' | 'neutral' | 'away'.
+    Games without a ranked opponent bucket as Q4.
+    """
+    m = sched_full[sched_full['teamName'] == team_name].copy()
+    if not m.empty:
+        m['_d'] = pd.to_datetime(m['date'], errors='coerce')
+        m = m.sort_values('_d')
+    quads = {'q1': [], 'q2': [], 'q3': [], 'q4': []}
     for _, g in m.iterrows():
         if _is_completed(g):
             continue
-        opp = g.get('opponentName')
-        if not isinstance(opp, str):
+        opp_raw = g.get('opponentName')
+        if not isinstance(opp_raw, str):
             continue
         venue = _venue(g)
-        opp_rank = rpi_lookup.get(_norm(opp), 999)
-        quads[_quad_bucket(opp_rank, venue)] += 1
+        opp_rank = rpi_lookup.get(_norm(opp_raw), 999)
+        q = _quad_bucket(opp_rank, venue)
+        quads[q].append({
+            'opp': _clean_opp(opp_raw),
+            'venue': venue,
+            'date': g.get('date'),
+            'oppRank': int(opp_rank) if opp_rank < 999 else None,
+        })
     return quads
+
+
+def _project_rpi_range(current_rpi_rank: int, remaining_games: int) -> list:
+    """Return [low_rank, high_rank] band for projected final RPI based on how many
+    games are left. Tighter band late in the season.
+    Heuristic: band width scales with sqrt(games_remaining).
+    """
+    if current_rpi_rank >= 301:
+        return [301, 301]
+    if remaining_games <= 0:
+        return [current_rpi_rank, current_rpi_rank]
+    width = int(round(1.5 * (remaining_games ** 0.5)))
+    low = max(1, current_rpi_rank - width)
+    high = min(301, current_rpi_rank + int(round(width * 1.4)))
+    return [low, high]
 
 
 @st.cache_data(show_spinner=False)
@@ -614,15 +648,15 @@ def _team_stats(team_id: int, year: int = 2026) -> dict | None:
     ip = float(p.get('innings_pitched') or 0)
     bb = float(p.get('walks_issued') or 0)
     bb9 = (bb * 9.0 / ip) if ip > 0 else 0.0
-    # rough rpg percentile among 2026 D-I: use OPS percentile as proxy (correlated)
     rpg_pct = _stat_pct(h, 'percentile_rank_weighted_runs_created_plus')
-    fld_pct = 50
+    rf_pct = 50
+    rf_value = 0.0
     if f_row is not None and not fielding.empty:
-        # Compute fielding pct percentile from the 2026 distribution
-        f2026 = fielding[fielding['year'] == year]['fielding_percentage'].dropna()
-        if len(f2026):
-            rank = (f2026 < float(f_row.get('fielding_percentage') or 0)).sum()
-            fld_pct = int(round(100 * rank / max(len(f2026) - 1, 1)))
+        rf_value = float(f_row.get('range_factor') or 0)
+        rf2026 = fielding[fielding['year'] == year]['range_factor'].dropna()
+        if len(rf2026):
+            rank = (rf2026 < rf_value).sum()
+            rf_pct = int(round(100 * rank / max(len(rf2026) - 1, 1)))
     k9 = float(p.get('strikeouts_per_9_innings') or 0)
     return {
         'ops': {
@@ -663,10 +697,10 @@ def _team_stats(team_id: int, year: int = 2026) -> dict | None:
             'pct': _stat_pct(p, 'percentile_rank_walk_percentage', invert=True),
             'inverted': True,
         },
-        'fieldingPct': {
-            'value': float(f_row.get('fielding_percentage') or 0.968) if f_row is not None else 0.968,
-            'natAvg': 0.968,
-            'pct': fld_pct,
+        'rangeFactor': {
+            'value': round(rf_value, 2),
+            'natAvg': 4.3,
+            'pct': rf_pct,
         },
         'wrcPlus': {
             'value': float(h.get('weighted_runs_created_plus') or 100),
@@ -757,7 +791,9 @@ def build_resume_team(team_name: str, sport_key: str, year: int = 2026) -> dict 
     sched_full = _load_csv(f'schedules_full_{sport_key}.csv')
     rpi_lookup = _opponent_rpi_lookup(sport_key)
     quad_record = _compute_quad_record(sched_full, team_name, rpi_lookup) if not sched_full.empty else {'q1': '0-0', 'q2': '0-0', 'q3': '0-0', 'q4': '0-0'}
-    remaining_quads = _compute_remaining_quadrants(sched_full, team_name, rpi_lookup) if not sched_full.empty else {'q1': 0, 'q2': 0, 'q3': 0, 'q4': 0}
+    remaining_quads = _compute_remaining_quadrants(sched_full, team_name, rpi_lookup) if not sched_full.empty else {'q1': [], 'q2': [], 'q3': [], 'q4': []}
+    remaining_count = sum(len(v) for v in remaining_quads.values())
+    projected_rpi_range = _project_rpi_range(rpi_rank, remaining_count)
     last10 = _last_10_games(sched_full, team_name, rpi_lookup) if not sched_full.empty else []
     big_wins = _big_wins(sched_full, team_name, rpi_lookup) if not sched_full.empty else []
     bad_losses = _bad_losses(sched_full, team_name, rpi_lookup) if not sched_full.empty else []
@@ -802,6 +838,7 @@ def build_resume_team(team_name: str, sport_key: str, year: int = 2026) -> dict 
         'sos': {'value': sos_rank, 'natRank': sos_rank, 'of': of, 'tier': _tier(sos_rank)},
         'nonConSos': {'value': non_con_rank, 'natRank': non_con_rank, 'of': of, 'tier': _tier(non_con_rank)},
         'rankings': rankings,
+        'projectedRpiRange': projected_rpi_range,
         'last10': last10,
         'quadRecord': quad_record,
         'remainingQuadSchedule': remaining_quads,

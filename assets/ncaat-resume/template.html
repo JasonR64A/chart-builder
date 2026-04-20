@@ -390,9 +390,43 @@ const STAT_LABELS = {
   whip: { label: "WHIP", fmt: (v) => v.toFixed(2) },
   k9: { label: "K/9", fmt: (v) => v.toFixed(1) },
   bb9: { label: "BB/9", fmt: (v) => v.toFixed(1) },
-  fieldingPct: { label: "FLD%", fmt: (v) => v.toFixed(3).replace(/^0/, "") },
+  rangeFactor: { label: "RF", fmt: (v) => v.toFixed(2) },
   wrcPlus: { label: "wRC+", fmt: (v) => Math.round(v).toString() },
 };
+
+const PILLARS = {
+  hitting: { label: "Hitting", keys: ["ops", "woba", "runsPerGame", "wrcPlus"] },
+  pitching: { label: "Pitching", keys: ["fip", "whip", "k9", "bb9"] },
+  fielding: { label: "Fielding", keys: ["rangeFactor"] },
+};
+
+function pillarPct(stats, keys) {
+  const vals = keys.map(k => stats[k] != null ? stats[k].pct : null).filter(v => v != null);
+  if (!vals.length) return 0;
+  return Math.round(vals.reduce((a, b) => a + b, 0) / vals.length);
+}
+
+function MiniDonut({ pct, label, size = 58 }) {
+  const sw = 7;
+  const r = (size - sw) / 2;
+  const c = 2 * Math.PI * r;
+  const dash = ((pct || 0) / 100) * c;
+  return (
+    <div style={{ textAlign: "center" }}>
+      <div style={{ position: "relative", width: size, height: size, margin: "0 auto" }}>
+        <svg width={size} height={size}>
+          <circle cx={size/2} cy={size/2} r={r} stroke="var(--rule)" strokeWidth={sw} fill="none" />
+          <circle cx={size/2} cy={size/2} r={r} stroke="var(--gold-deep)" strokeWidth={sw} fill="none"
+            strokeDasharray={`${dash} ${c}`} transform={`rotate(-90 ${size/2} ${size/2})`} strokeLinecap="butt" />
+        </svg>
+        <div style={{ position: "absolute", inset: 0, display: "grid", placeItems: "center" }}>
+          <div className="serif" style={{ fontSize: 15, fontWeight: 700, lineHeight: 1, fontVariantNumeric: "tabular-nums" }}>{pct}</div>
+        </div>
+      </div>
+      <div className="eyebrow" style={{ fontSize: 8, marginTop: 3 }}>{label}</div>
+    </div>
+  );
+}
 
 function Masthead({ team }) {
   return (
@@ -642,13 +676,15 @@ function SpiderModule({ team }) {
             </div>
             {neighbors.map((n, i) => {
               const area = n.statArea != null ? n.statArea : null;
-              const areaDiff = (area != null && teamArea != null) ? (area - teamArea) : null;
+              // Flip perspective: positive = current team stronger than neighbor.
+              const areaDiff = (area != null && teamArea != null) ? (teamArea - area) : null;
               const areaColor = areaDiff == null ? "var(--muted)" : areaDiff > 0 ? "var(--win)" : areaDiff < 0 ? "var(--loss)" : "var(--muted)";
+              const diffTeamPerspective = -n.diff;  // same flip: + = current team scores higher
               return (
                 <div key={i} style={{ display: "grid", gridTemplateColumns: "1fr auto auto auto auto", gap: 6, padding: "2px 0", alignItems: "baseline" }}>
                   <div className="serif" style={{ fontSize: 11, fontWeight: 600, lineHeight: 1.15 }}>{n.team} <span className="mono" style={{ fontSize: 8, color: "var(--muted)", fontWeight: 500 }}>· {n.conf}</span></div>
                   <div className="serif" style={{ fontSize: 12, fontWeight: 600, fontVariantNumeric: "tabular-nums", textAlign: "right" }}>{n.score}</div>
-                  <div className="mono" style={{ fontSize: 9, fontWeight: 700, color: n.diff > 0 ? "var(--win)" : n.diff < 0 ? "var(--loss)" : "var(--muted)", textAlign: "right" }}>{n.diff > 0 ? "+" : ""}{n.diff}</div>
+                  <div className="mono" style={{ fontSize: 9, fontWeight: 700, color: diffTeamPerspective > 0 ? "var(--win)" : diffTeamPerspective < 0 ? "var(--loss)" : "var(--muted)", textAlign: "right" }}>{diffTeamPerspective > 0 ? "+" : ""}{diffTeamPerspective}</div>
                   <div className="mono" style={{ fontSize: 10, fontWeight: 700, textAlign: "right" }}>{area != null ? area : "-"}</div>
                   <div className="mono" style={{ fontSize: 10, fontWeight: 700, textAlign: "right", color: areaColor, fontVariantNumeric: "tabular-nums" }}>{areaDiff == null ? "-" : (areaDiff > 0 ? `+${areaDiff}` : `${areaDiff}`)}</div>
                 </div>
@@ -672,6 +708,14 @@ function SpiderModule({ team }) {
               </div>
             );
           })}
+          <div style={{ marginTop: 10, paddingTop: 8, borderTop: "1px solid var(--rule)" }}>
+            <div className="eyebrow" style={{ marginBottom: 6 }}>Pillar Breakdown · Avg Percentile</div>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 6 }}>
+              {Object.entries(PILLARS).map(([k, p]) => (
+                <MiniDonut key={k} pct={pillarPct(team.stats, p.keys)} label={p.label} />
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </Module>
@@ -764,17 +808,31 @@ function SOSModule({ team }) {
       {team.remainingQuadSchedule && (
         <div style={{ marginTop: 6, paddingTop: 5, borderTop: "1px solid var(--rule)" }}>
           <div className="eyebrow" style={{ marginBottom: 4 }}>Remaining Schedule · By Quadrant</div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 4 }}>
+          <div style={{ display: "grid", gap: 4 }}>
             {["q1","q2","q3","q4"].map((k, i) => {
-              const count = team.remainingQuadSchedule[k] || 0;
+              const games = team.remainingQuadSchedule[k] || [];
               const accents = [1.0, 0.75, 0.5, 0.3];
+              if (!games.length) return null;
               return (
-                <div key={k} style={{ padding: "4px 6px", background: "var(--paper-2)", border: "1px solid var(--rule)", textAlign: "center" }}>
+                <div key={k} style={{ display: "grid", gridTemplateColumns: "18px 1fr", gap: 6, alignItems: "baseline", padding: "2px 0", borderBottom: "1px dotted var(--rule)" }}>
                   <div className="mono" style={{ fontSize: 9, fontWeight: 700, color: `rgba(139,111,62,${accents[i]})`, letterSpacing: "0.08em" }}>Q{i+1}</div>
-                  <div className="serif" style={{ fontSize: 16, fontWeight: 600, lineHeight: 1, fontVariantNumeric: "tabular-nums" }}>{count}</div>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+                    {games.map((g, gi) => {
+                      const prefix = g.venue === "home" ? "vs" : g.venue === "neutral" ? "n" : "@";
+                      return (
+                        <span key={gi} className="mono" style={{ fontSize: 9, color: "var(--ink-2)", fontWeight: 600 }}>
+                          {prefix} {g.opp}
+                          {g.oppRank != null && <span style={{ color: "var(--muted)", fontWeight: 500 }}> #{g.oppRank}</span>}
+                        </span>
+                      );
+                    })}
+                  </div>
                 </div>
               );
             })}
+            {["q1","q2","q3","q4"].every(k => !(team.remainingQuadSchedule[k] && team.remainingQuadSchedule[k].length)) && (
+              <div className="mono" style={{ fontSize: 9, color: "var(--muted)", fontStyle: "italic" }}>No remaining games on the schedule.</div>
+            )}
           </div>
         </div>
       )}
@@ -853,6 +911,14 @@ function RankingsModule({ team }) {
             ? `Moderate spread. The ${lo - hi}-spot gap suggests the predictive and resume-based views diverge.`
             : `Wide ${lo - hi}-spot spread — systems disagree sharply on where this team belongs.`}
       </div>
+      {team.projectedRpiRange && (
+        <div style={{ marginTop: 6, paddingTop: 6, borderTop: "1px solid var(--rule)", display: "grid", gridTemplateColumns: "1fr auto", gap: 6, alignItems: "baseline" }}>
+          <div className="eyebrow">Projected Final RPI · Band</div>
+          <div className="serif" style={{ fontSize: 15, fontWeight: 700, color: "var(--gold-deep)", fontVariantNumeric: "tabular-nums" }}>
+            #{team.projectedRpiRange[0]} – #{team.projectedRpiRange[1]}
+          </div>
+        </div>
+      )}
     </Module>
   );
 }
@@ -945,27 +1011,34 @@ function PaceStat({ label, val, sub, accent }) {
 function AnalogsModule({ team }) {
   return (
     <Module num="05" title="Historical Analogs" eyebrow="Nearest neighbors, 2021-2025">
-      <div style={{ display: "grid", gridTemplateColumns: "14px 1fr 44px 50px 1fr 44px", gap: 6, padding: "3px 0", borderBottom: "1px solid var(--rule)" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "14px 1fr 36px 44px 40px 1fr 46px", gap: 6, padding: "3px 0", borderBottom: "1px solid var(--rule)" }}>
         <div className="eyebrow" style={{ fontSize: 8 }}>#</div>
         <div className="eyebrow" style={{ fontSize: 8 }}>TEAM</div>
+        <div className="eyebrow" style={{ fontSize: 8, textAlign: "right" }}>RPI</div>
         <div className="eyebrow" style={{ fontSize: 8, textAlign: "right" }}>SCORE</div>
-        <div className="eyebrow" style={{ fontSize: 8 }}>NAT. SEED</div>
+        <div className="eyebrow" style={{ fontSize: 8 }}>SEED</div>
         <div className="eyebrow" style={{ fontSize: 8 }}>FINISH</div>
-        <div className="eyebrow" style={{ fontSize: 8, textAlign: "right" }}>Δ</div>
+        <div className="eyebrow" style={{ fontSize: 8, textAlign: "right" }}>SCORE Δ</div>
       </div>
       {team.analogs.map((a, i) => {
         const delta = a.scoreDelta != null ? a.scoreDelta : 0;
         const deltaText = delta === 0 ? "0" : (delta > 0 ? `+${delta}` : `${delta}`);
+        // + means CURRENT team is stronger (good) — but in the analogs context this
+        // still reads as neutral info, so keep the green/red cue per sign.
         const deltaColor = delta > 0 ? "var(--win)" : delta < 0 ? "var(--loss)" : "var(--muted)";
+        const seedText = a.seed != null && a.seed <= 16
+          ? `#${a.seed}`
+          : a.regionalSeed != null ? `R${a.regionalSeed}` : "-";
         return (
-          <div key={i} style={{ display: "grid", gridTemplateColumns: "14px 1fr 44px 50px 1fr 44px", gap: 6, padding: "5px 0", borderBottom: i===team.analogs.length-1?"none":"1px solid var(--rule)", alignItems: "center" }}>
+          <div key={i} style={{ display: "grid", gridTemplateColumns: "14px 1fr 36px 44px 40px 1fr 46px", gap: 6, padding: "5px 0", borderBottom: i===team.analogs.length-1?"none":"1px solid var(--rule)", alignItems: "center" }}>
             <div className="serif" style={{ fontSize: 13, fontStyle: "italic", color: "var(--gold-deep)" }}>{i+1}</div>
             <div>
               <div className="serif" style={{ fontSize: 13, fontWeight: 600, lineHeight: 1.1 }}>{a.team}</div>
               <div className="mono" style={{ fontSize: 8, color: "var(--muted)" }}>{a.year}</div>
             </div>
+            <div className="mono" style={{ fontSize: 10, fontWeight: 700, textAlign: "right", color: "var(--ink-2)" }}>{a.rpi != null ? `#${a.rpi}` : "-"}</div>
             <div className="serif" style={{ fontSize: 14, fontWeight: 600, fontVariantNumeric: "tabular-nums", textAlign: "right" }}>{a.score}</div>
-            <div className="mono" style={{ fontSize: 10, fontWeight: 600 }}>{a.seed <= 16 ? `#${a.seed}` : "-"}</div>
+            <div className="mono" style={{ fontSize: 10, fontWeight: 600 }}>{seedText}</div>
             <div className="serif" style={{ fontSize: 11, fontWeight: 600, color: a.result.includes("Champion") || a.result.includes("Finalist") ? "var(--win)" : "var(--ink-2)", lineHeight: 1.1 }}>{a.result}</div>
             <div className="mono" style={{ fontSize: 11, fontWeight: 700, textAlign: "right", color: deltaColor, fontVariantNumeric: "tabular-nums" }}>{deltaText}</div>
           </div>
@@ -976,16 +1049,8 @@ function AnalogsModule({ team }) {
 }
 
 function VerdictModule({ team }) {
-  const verdict = team.bubbleVerdict === "Lock"
-    ? `A national seed case. Every committee checkbox, with the underlying profile to back it up.`
-    : team.bubbleVerdict === "In"
-      ? `Comfortably in. The question is seed line, not inclusion.`
-      : `A genuine bubble team — a conference run away from clarity either way.`;
   return (
     <Module num="06" title="The Verdict" eyebrow="Quality wins & resume drags" fill>
-      <p className="serif" style={{ fontSize: 15, fontStyle: "italic", lineHeight: 1.4, margin: "0 0 10px", color: "var(--ink)" }}>
-        "{verdict}"
-      </p>
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
         <div>
           <div className="eyebrow" style={{ color: "var(--win)", marginBottom: 4 }}>Signature Wins</div>
@@ -1027,7 +1092,7 @@ function Footer({ team }) {
           <img src="__LOGO_EMBLEM__" alt="64A" style={{ height: 20, width: 20, display: "block" }} />
           <div className="eyebrow" style={{ fontSize: 9 }}>64 Analytics · Published {team.year}</div>
         </div>
-        <div className="eyebrow" style={{ fontSize: 9, textAlign: "center", flex: 1 }}>Methodology: weighted composite of Q-wins (15%), efficiency (15%), SOS (20%), rankings (40%), form (10%)</div>
+        <div style={{ flex: 1 }}></div>
         <div className="eyebrow" style={{ fontSize: 9 }}>64analytics.com</div>
       </div>
     </div>
