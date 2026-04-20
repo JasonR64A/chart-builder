@@ -925,7 +925,7 @@ function RankingsModule({ team }) {
 
 function PaceModule({ team }) {
   const games = team.last10;
-  const width = 480, height = 200, padL = 30, padR = 10, padT = 14, padB = 38;
+  const width = 480, height = 230, padL = 30, padR = 10, padT = 14, padB = 68;
   const maxR = Math.max(...games.flatMap(g=>[g.rs,g.ra])) + 1;
   const stepX = (width-padL-padR)/games.length;
   const y = (v) => padT + (1 - v/maxR)*(height-padT-padB);
@@ -961,8 +961,9 @@ function PaceModule({ team }) {
               <line x1={cx-w/2-3} x2={cx-w/2} y1={y(g.rs)} y2={y(g.rs)} stroke="var(--ink)" strokeWidth="1.2" />
               <line x1={cx+w/2} x2={cx+w/2+3} y1={y(g.ra)} y2={y(g.ra)} stroke="var(--ink)" strokeWidth="1.2" />
               <text x={cx} y={y(hi)-4} textAnchor="middle" fontFamily="JetBrains Mono" fontSize="8" fontWeight="700" fill={fill}>{g.result}</text>
-              <text x={cx} y={height-padB+10} textAnchor="middle" fontFamily="JetBrains Mono" fontSize="7.5" fill="var(--ink-2)">{(g.home?"v ":"@ ")+g.opp.slice(0,9)}</text>
-              <text x={cx} y={height-padB+19} textAnchor="middle" fontFamily="JetBrains Mono" fontSize="7" fill="var(--muted)">#{g.oppRank}</text>
+              <text x={cx} y={height-padB+8} textAnchor="end" fontFamily="JetBrains Mono" fontSize="8" fontWeight="600" fill="var(--ink-2)"
+                    transform={`rotate(-45 ${cx} ${height-padB+8})`}>{(g.home?"vs ":g.oppRank===0?"n ":"@ ")+g.opp}</text>
+              <text x={cx} y={height-12} textAnchor="middle" fontFamily="JetBrains Mono" fontSize="7" fill="var(--muted)">#{g.oppRank}</text>
             </g>
           );
         })}
