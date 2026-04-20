@@ -1752,6 +1752,76 @@ if game_type_filter != 'All' and conf_map and 'teamName' in pbp.columns and 'gam
             hitting_pbp = hitting_pbp[hitting_pbp['gameId'].isin(non_conf_games)]
             pitching_pbp = pitching_pbp[pitching_pbp['gameId'].isin(non_conf_games)]
 
+# Weekend / Midweek filter (Fri-Sun vs Mon-Thu)
+weekday_filter = st.sidebar.selectbox(
+    'Day of Week',
+    ['All', 'Weekend (Fri-Sun)', 'Midweek (Mon-Thu)'],
+    key='weekday_filter',
+    help='Weekend is conference-series games; midweek is typically non-con single games.',
+)
+if weekday_filter != 'All' and 'date_parsed' in pbp.columns:
+    weekend_days = {4, 5, 6}  # Fri=4, Sat=5, Sun=6
+    if weekday_filter == 'Weekend (Fri-Sun)':
+        pbp = pbp[pbp['date_parsed'].dt.weekday.isin(weekend_days)]
+        if view == 'Lineup Card':
+            hitting_pbp = hitting_pbp[hitting_pbp['date_parsed'].dt.weekday.isin(weekend_days)]
+            pitching_pbp = pitching_pbp[pitching_pbp['date_parsed'].dt.weekday.isin(weekend_days)]
+    else:
+        pbp = pbp[~pbp['date_parsed'].dt.weekday.isin(weekend_days)]
+        if view == 'Lineup Card':
+            hitting_pbp = hitting_pbp[~hitting_pbp['date_parsed'].dt.weekday.isin(weekend_days)]
+            pitching_pbp = pitching_pbp[~pitching_pbp['date_parsed'].dt.weekday.isin(weekend_days)]
+
+# Run Differential filter — bucket games by final margin (each team's 'r' summed per gameId)
+run_diff_filter = st.sidebar.selectbox(
+    'Run Differential',
+    ['All', 'One-Run Games (|diff|=1)', 'Close (|diff| <= 3)', 'Blowouts (|diff| >= 5)', 'Team Won', 'Team Lost'],
+    key='run_diff_filter',
+    help='Filter to games by final scoring margin. "Team Won/Lost" applies to the selected Team or, if no team picked, every team in each game.',
+)
+if run_diff_filter != 'All' and 'gameId' in pbp.columns and 'r' in pbp.columns and 'teamName' in pbp.columns:
+    team_runs = pbp.groupby(['gameId', 'teamName'])['r'].sum().reset_index()
+    game_ids_to_keep = set()
+    abs_diffs = {}
+    game_winner = {}  # gameId -> team that scored more (None if tied)
+    for gid, chunk in team_runs.groupby('gameId'):
+        runs = chunk.set_index('teamName')['r'].to_dict()
+        if len(runs) != 2:
+            continue
+        t1, t2 = list(runs.keys())
+        r1, r2 = int(runs[t1]), int(runs[t2])
+        abs_diffs[gid] = abs(r1 - r2)
+        if r1 > r2:
+            game_winner[gid] = t1
+        elif r2 > r1:
+            game_winner[gid] = t2
+        else:
+            game_winner[gid] = None
+    if run_diff_filter == 'One-Run Games (|diff|=1)':
+        game_ids_to_keep = {gid for gid, d in abs_diffs.items() if d == 1}
+    elif run_diff_filter == 'Close (|diff| <= 3)':
+        game_ids_to_keep = {gid for gid, d in abs_diffs.items() if d <= 3}
+    elif run_diff_filter == 'Blowouts (|diff| >= 5)':
+        game_ids_to_keep = {gid for gid, d in abs_diffs.items() if d >= 5}
+    elif run_diff_filter == 'Team Won':
+        # Keep rows for the team that scored more in each game
+        pbp = pbp[pbp.apply(lambda r: game_winner.get(r['gameId']) == r['teamName'], axis=1)]
+        if view == 'Lineup Card':
+            hitting_pbp = hitting_pbp[hitting_pbp.apply(lambda r: game_winner.get(r['gameId']) == r['teamName'], axis=1)]
+            pitching_pbp = pitching_pbp[pitching_pbp.apply(lambda r: game_winner.get(r['gameId']) == r['teamName'], axis=1)]
+        game_ids_to_keep = None  # already filtered
+    elif run_diff_filter == 'Team Lost':
+        pbp = pbp[pbp.apply(lambda r: game_winner.get(r['gameId']) not in (None, r['teamName']), axis=1)]
+        if view == 'Lineup Card':
+            hitting_pbp = hitting_pbp[hitting_pbp.apply(lambda r: game_winner.get(r['gameId']) not in (None, r['teamName']), axis=1)]
+            pitching_pbp = pitching_pbp[pitching_pbp.apply(lambda r: game_winner.get(r['gameId']) not in (None, r['teamName']), axis=1)]
+        game_ids_to_keep = None
+    if game_ids_to_keep is not None:
+        pbp = pbp[pbp['gameId'].isin(game_ids_to_keep)]
+        if view == 'Lineup Card':
+            hitting_pbp = hitting_pbp[hitting_pbp['gameId'].isin(game_ids_to_keep)]
+            pitching_pbp = pitching_pbp[pitching_pbp['gameId'].isin(game_ids_to_keep)]
+
 # Conference filter (applies to all views)
 if conf_map and 'teamName' in pbp.columns:
     pbp_conferences = pbp['teamName'].map(conf_map).dropna().unique()
