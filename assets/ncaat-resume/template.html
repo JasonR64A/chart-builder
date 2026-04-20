@@ -770,7 +770,7 @@ function SOSModule({ team }) {
           const widthPct = (tot / max) * 100;
           return (
             <div key={q.k} style={{ display: "grid", gridTemplateColumns: "20px 1fr 58px", gap: 6, alignItems: "center" }}>
-              <div className="mono" style={{ fontSize: 9, fontWeight: 700, color: `rgba(139,111,62,${q.accent})`, letterSpacing: "0.08em" }}>Q{i+1}</div>
+              <div className="mono" style={{ fontSize: 9, fontWeight: 700, color: hexToRgba(team.colors.primary, q.accent), letterSpacing: "0.08em" }}>Q{i+1}</div>
               <div style={{ position: "relative", height: 16, background: "var(--paper-2)", width: `${widthPct}%` }}>
                 <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: `${wPct}%`, background: "var(--win)", opacity: 0.85 }}></div>
                 <div style={{ position: "absolute", left: `${wPct}%`, top: 0, bottom: 0, right: 0, background: "var(--loss)", opacity: 0.8 }}></div>
@@ -818,7 +818,7 @@ function SOSModule({ team }) {
               if (!games.length) return null;
               return (
                 <div key={k} style={{ display: "grid", gridTemplateColumns: "18px 1fr", gap: 6, alignItems: "baseline", padding: "2px 0", borderBottom: "1px dotted var(--rule)" }}>
-                  <div className="mono" style={{ fontSize: 9, fontWeight: 700, color: `rgba(139,111,62,${accents[i]})`, letterSpacing: "0.08em" }}>Q{i+1}</div>
+                  <div className="mono" style={{ fontSize: 9, fontWeight: 700, color: hexToRgba(team.colors.primary, accents[i]), letterSpacing: "0.08em" }}>Q{i+1}</div>
                   <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
                     {games.map((g, gi) => {
                       const prefix = g.venue === "home" ? "vs" : g.venue === "neutral" ? "n" : "@";
@@ -1105,9 +1105,26 @@ function Footer({ team }) {
   );
 }
 
+function hexToRgba(hex, alpha) {
+  const h = (hex || '').replace('#', '');
+  if (h.length !== 6) return `rgba(139,111,62,${alpha})`;
+  const r = parseInt(h.slice(0, 2), 16);
+  const g = parseInt(h.slice(2, 4), 16);
+  const b = parseInt(h.slice(4, 6), 16);
+  return `rgba(${r},${g},${b},${alpha})`;
+}
+
 function Infographic({ team }) {
+  // Override the gold palette with the team's primary color so every
+  // accent (radar, bars, ring, section nums, pace line, etc.) picks up
+  // the team hue. Gold values from the original mockup were Vanderbilt's
+  // team gold; now they render in whichever team's palette is selected.
+  const teamPaletteStyle = {
+    '--gold': team.colors.primary,
+    '--gold-deep': team.colors.primary,
+  };
   return (
-    <div className="page">
+    <div className="page" style={teamPaletteStyle}>
       <Masthead team={team} />
       <div style={{ marginTop: 14 }}>
         <ResumeScore team={team} />
