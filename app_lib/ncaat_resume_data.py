@@ -119,16 +119,12 @@ def _resume_score_lookup(sport_key: str, year: int = 2026) -> dict:
     rpi = _rpi_frame(sport_key)
     rpi_by_name = dict(zip(rpi['name_norm'], rpi['rank'].astype(int))) if not rpi.empty else {}
     rank64 = _sixty_four_lookup(year)
-    of = 301
     out = {}
     for _, r in d1.iterrows():
         name = r['name']
         rpi_r = rpi_by_name.get(_norm(name), 301)
         r64 = rank64.get(int(r['id']), 301)
-        rpi_pct = min(rpi_r / of, 1.0)
-        r64_pct = min(r64 / of, 1.0)
-        score = round(100 * (1 - 0.6 * rpi_pct - 0.4 * r64_pct))
-        out[name] = max(0, min(100, score))
+        out[name] = _resume_score_from_ranks(rpi_r, r64)
     return out
 
 
@@ -306,13 +302,14 @@ def _historical_analog_pool(sport_key: str) -> pd.DataFrame:
     if 'ncaat_wins' not in out.columns:
         out['ncaat_wins'] = None
         out['ncaat_losses'] = None
-    # Compute historical resume score from RPI rank (same formula as current season's,
-    # with nat_seed giving a secondary bump for seeded teams).
+    # Historical resume score uses the same rank-to-score curve as the current
+    # season, with a small bonus for national seeds (1-16). We don't have the
+    # 64A composite for historical teams, so this is RPI-only.
     of = 301
     out['rpi_rank_num'] = pd.to_numeric(out['rpi_rank'], errors='coerce').fillna(of).astype(int)
-    seed_bonus = out['nat_seed'].apply(lambda s: 0 if pd.isna(s) else max(0, 17 - int(s))) * 0.5
-    out['score'] = (100 * (1 - out['rpi_rank_num'].clip(1, of) / of)) + seed_bonus
-    out['score'] = out['score'].clip(0, 100).round().astype(int)
+    rpi_score_series = out['rpi_rank_num'].apply(_rank_to_score)
+    seed_bonus = out['nat_seed'].apply(lambda s: 0 if pd.isna(s) else max(0, 17 - int(s))) * 0.4
+    out['score'] = (rpi_score_series + seed_bonus).clip(0, 100).round().astype(int)
     # Restrict to teams that actually played in the tournament (have a regional_seed).
     # Non-tournament teams stay out of the analog pool so we don't surface random #70 RPI misses.
     out = out[out['regional_seed'].notna()].copy()
@@ -470,24 +467,67 @@ def _quad_bucket(opp_rank: int, venue: str) -> str:
 
 
 def _grade_for_score(score: int) -> str:
-    if score >= 93: return 'A+'
-    if score >= 88: return 'A'
-    if score >= 83: return 'A-'
-    if score >= 78: return 'B+'
-    if score >= 73: return 'B'
-    if score >= 68: return 'B-'
-    if score >= 63: return 'C+'
-    if score >= 58: return 'C'
-    if score >= 53: return 'C-'
-    return 'D'
+    """Academic 100-point scale with a 76 landing on C+ per user spec."""
+    if score >= 97: return 'A+'
+    if score >= 93: return 'A'
+    if score >= 90: return 'A-'
+    if score >= 87: return 'B+'
+    if score >= 83: return 'B'
+    if score >= 80: return 'B-'
+    if score >= 76: return 'C+'
+    if score >= 73: return 'C'
+    if score >= 70: return 'C-'
+    if score >= 67: return 'D+'
+    if score >= 63: return 'D'
+    if score >= 60: return 'D-'
+    return 'F'
 
 
 def _verdict_for_score(score: int) -> tuple[str, str]:
-    if score >= 85: return '1 seed', 'Lock'
-    if score >= 75: return '2 seed', 'Lock'
-    if score >= 65: return '3 seed', 'In'
-    if score >= 55: return '4 seed', 'Bubble'
+    """Tier aligned to score curve: 92+ = national seed, 70-77 = at-large
+    bubble, <60 = out."""
+    if score >= 92: return '1 seed', 'Lock'
+    if score >= 85: return '2 seed', 'Lock'
+    if score >= 78: return '3 seed', 'In'
+    if score >= 70: return '4 seed', 'In'
+    if score >= 60: return 'Last 4 In', 'Bubble'
+    if score >= 50: return 'First 4 Out', 'Out'
     return 'Out', 'Out'
+
+
+_SCORE_ANCHORS = [(1, 100), (16, 85), (30, 75), (50, 60), (70, 45), (100, 25), (200, 5), (300, 0)]
+
+
+def _rank_to_score(rank) -> float:
+    """Piecewise-linear map from ranking (1-300) to 0-100 score.
+    Anchored on NCAA tournament reality: top-16 national seeds score 85+,
+    RPI ~50 (bubble) scores 60, RPI ~100 (clearly out) scores 25.
+    """
+    if rank is None:
+        return 0.0
+    try:
+        r = float(rank)
+    except (TypeError, ValueError):
+        return 0.0
+    if pd.isna(r):
+        return 0.0
+    if r <= _SCORE_ANCHORS[0][0]:
+        return float(_SCORE_ANCHORS[0][1])
+    if r >= _SCORE_ANCHORS[-1][0]:
+        return float(_SCORE_ANCHORS[-1][1])
+    for (r1, s1), (r2, s2) in zip(_SCORE_ANCHORS, _SCORE_ANCHORS[1:]):
+        if r1 <= r <= r2:
+            t = (r - r1) / (r2 - r1)
+            return s1 + t * (s2 - s1)
+    return 0.0
+
+
+def _resume_score_from_ranks(rpi_rank, rank64) -> int:
+    """Blended resume score (60% RPI, 40% 64A rank), bounded 0-100."""
+    rpi_score = _rank_to_score(rpi_rank)
+    r64_score = _rank_to_score(rank64)
+    blended = 0.6 * rpi_score + 0.4 * r64_score
+    return max(0, min(100, int(round(blended))))
 
 
 def _clean_opp(name: str) -> str:
@@ -783,12 +823,9 @@ def build_resume_team(team_name: str, sport_key: str, year: int = 2026) -> dict 
         '64a': rank64,
     }
 
-    # Resume score = same formula as _resume_score_lookup
+    # Resume score: same piecewise rank-to-score curve as _resume_score_lookup.
     of = 301
-    rpi_pct = min(rpi_rank / of, 1.0)
-    r64_pct = min(rank64 / of, 1.0)
-    resume_score = round(100 * (1 - 0.6 * rpi_pct - 0.4 * r64_pct))
-    resume_score = max(0, min(100, int(resume_score)))
+    resume_score = _resume_score_from_ranks(rpi_rank, rank64)
     seed_proj, bubble_verdict = _verdict_for_score(resume_score)
 
     # SOS: real NCAA-formula computation from schedules_full.
