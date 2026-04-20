@@ -741,6 +741,8 @@ def _team_stats(team_id: int, year: int = 2026) -> dict | None:
         'whip': {
             'value': float(p.get('walks_plus_hits_per_inning_pitched') or 0),
             'natAvg': 1.45,
+            # percentile_rank_* columns in pitching_team.csv are already "higher = better"
+            # (goodness percentile), so don't invert even though lower raw WHIP is better.
             'pct': _stat_pct(p, 'percentile_rank_walks_plus_hits_per_inning_pitched'),
             'inverted': True,
         },
@@ -752,7 +754,10 @@ def _team_stats(team_id: int, year: int = 2026) -> dict | None:
         'bb9': {
             'value': round(bb9, 2),
             'natAvg': 4.1,
-            'pct': _stat_pct(p, 'percentile_rank_walk_percentage', invert=True),
+            # Same as WHIP: percentile_rank_walk_percentage is already goodness-oriented
+            # (low BB% -> high percentile). Previously I had invert=True, which flipped it
+            # so elite control teams like Ole Miss showed up as worst-in-class. Fixed.
+            'pct': _stat_pct(p, 'percentile_rank_walk_percentage'),
             'inverted': True,
         },
         'rangeFactor': {
