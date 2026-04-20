@@ -2088,6 +2088,19 @@ elif view == 'Pace Chart':
     except NameError:
         pass
 
+    # Apply Day of Week filter (sidebar Game Context) — pace_pbp is a fresh
+    # load of the hitting file and doesn't automatically inherit the global
+    # sidebar filter applied to `pbp` earlier, so re-apply here.
+    try:
+        if weekday_filter != 'All' and 'date_parsed' in pace_pbp.columns:
+            _weekend_days = {4, 5, 6}
+            if weekday_filter == 'Weekend (Fri-Sun)':
+                pace_pbp = pace_pbp[pace_pbp['date_parsed'].dt.weekday.isin(_weekend_days)]
+            else:
+                pace_pbp = pace_pbp[~pace_pbp['date_parsed'].dt.weekday.isin(_weekend_days)]
+    except NameError:
+        pass
+
     # Apply team filter
     try:
         if selected_team and selected_team != 'All':
@@ -2185,6 +2198,17 @@ elif view == 'Pace Chart':
             if conf_map and selected_conferences:
                 c_teams = {t for t, c in conf_map.items() if c in selected_conferences}
                 fh = fh[fh['teamName'].isin(c_teams) | fh['gameId'].isin(fh[fh['teamName'].isin(c_teams)]['gameId'])]
+        except NameError:
+            pass
+        # Apply Day of Week filter so weekend-only Run Diff excludes midweek
+        # games (and midweek-only excludes weekends). Same rule as pace_pbp.
+        try:
+            if weekday_filter != 'All' and 'date_parsed' in fh.columns:
+                _rd_weekend_days = {4, 5, 6}
+                if weekday_filter == 'Weekend (Fri-Sun)':
+                    fh = fh[fh['date_parsed'].dt.weekday.isin(_rd_weekend_days)]
+                else:
+                    fh = fh[~fh['date_parsed'].dt.weekday.isin(_rd_weekend_days)]
         except NameError:
             pass
         # Per-game per-team runs scored (hitting 'r' is runs scored)
