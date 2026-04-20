@@ -1502,9 +1502,28 @@ def load_player_lookup():
     }
 
 
+def _norm_team(name):
+    """Normalize a team name for cross-file matching: strip Saint/State/
+    Univ. suffix variants so "Lamar" and "Lamar University" collapse to
+    the same key. Kept local to this page to avoid cross-page imports.
+    """
+    import re as _re
+    if not isinstance(name, str):
+        return ''
+    n = name.lower().strip()
+    n = _re.sub(r'\bsaint\b', 'st', n)
+    n = _re.sub(r'\bstate\b', 'st', n)
+    n = _re.sub(r'\buniversity\b|\buniv\.?\b', '', n)
+    return _re.sub(r'[^a-z0-9]+', '', n)
+
+
 @st.cache_data
 def load_division_teams(sport, division):
-    """Get set of team names belonging to a specific division via conferences."""
+    """Get set of team names belonging to a specific division via conferences.
+    Returns the union of teams.csv names AND any PBP-file teamName variants
+    that normalize to a canonical teams.csv name (handles "Lamar" vs
+    "Lamar University" style suffix drift).
+    """
     teams_path = DATA_DIR / 'teams.csv'
     confs_path = DATA_DIR / 'conferences.csv'
     if not teams_path.exists() or not confs_path.exists():
@@ -1517,7 +1536,22 @@ def load_division_teams(sport, division):
     div_conf_ids = set(confs[(confs['division'] == div_label) & (confs['name'] != 'Big Sky Conference')]['id'])
     sport_teams = teams[teams['sport'] == sport_label]
     div_teams = sport_teams[sport_teams['conference_id'].isin(div_conf_ids)]
-    return set(div_teams['name'].dropna())
+    canonical = set(div_teams['name'].dropna())
+
+    # Also include any PBP teamName variants that normalize to a canonical
+    # name. Without this, teams like Lamar ("Lamar" in teams.csv, "Lamar
+    # University" in PBP files) get filtered out of the whole PBP dataset.
+    norm_canonical = {_norm_team(n) for n in canonical}
+    pbp_path = PBP_DIR / sport / 'hitting_pbp_D1.csv'
+    if pbp_path.exists():
+        try:
+            pbp_names = pd.read_csv(pbp_path, low_memory=False, usecols=['teamName'])['teamName'].dropna().unique()
+            for pn in pbp_names:
+                if _norm_team(pn) in norm_canonical:
+                    canonical.add(pn)
+        except Exception:
+            pass
+    return canonical
 
 
 @st.cache_data
