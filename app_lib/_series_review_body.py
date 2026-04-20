@@ -655,8 +655,8 @@ def get_game_results(hitting_df, game_ids, team_a, team_b):
 
 
 # ── Main ──────────────────────────────────────────────────────────────────────
-st.set_page_config(page_title='64 Analytics — Series Review', layout='wide',
-                   initial_sidebar_state='expanded')
+# st.set_page_config called by pages/7_Series_Breakdown.py; this body runs inside a tab.
+st.header('Series Review')
 
 st.markdown("""
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet">

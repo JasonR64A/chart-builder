@@ -35,8 +35,8 @@ CARD_RED = '#C41230'
 NAVY = '#29335c'
 TEXT_COLOR = '#2D2926'
 
-st.set_page_config(page_title='Series Preview', layout='wide')
-st.title('Weekend Series Preview')
+# st.set_page_config called by pages/7_Series_Breakdown.py; this body runs inside a tab.
+st.header('Weekend Series Preview')
 
 
 # ── Data Loading ─────────────────────────────────────────────────────────────
