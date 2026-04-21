@@ -265,27 +265,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6572773,4/10/26,baseball,Sacramento St.,1.0,Nikhil Beasley,13,C,9691245.0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0
 6572773,4/10/26,baseball,Sacramento St.,1.0,Ayden Hadley,34,C,11224544.0,2,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,1,0
 6572773,4/10/26,baseball,Sacramento St.,1.0,Michael Perazzo,35,SS,9690589.0,2,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0
-6573244,4/11/26,baseball,Alcorn,,Kanious Davis,2,LF,9680730.0,3,1,1,1,0,2,0,1,3,0,0,0,0,0,0,0,0,0,0,0
-6573244,4/11/26,baseball,Alcorn,,Jaylyn Bennett,19,2B,11230698.0,3,0,0,0,0,0,0,0,1,1,0,1,1,0,0,0,0,0,0,0
-6573244,4/11/26,baseball,Alcorn,,Jullian Jarrett,8,2B,11213828.0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-6573244,4/11/26,baseball,Alcorn,,Reyfield Adams,3,CF,9701966.0,5,2,1,0,0,1,0,1,1,0,0,0,1,0,0,0,0,0,0,0
-6573244,4/11/26,baseball,Alcorn,,Cooper Harris,25,1B,11213843.0,3,2,1,0,0,1,0,2,2,1,0,0,0,0,0,0,0,0,0,0
-6573244,4/11/26,baseball,Alcorn,,Keaten Hawk,11,RF,11213831.0,5,1,3,0,0,3,0,2,0,0,0,1,1,0,0,0,0,0,0,0
-6573244,4/11/26,baseball,Alcorn,,Asher Friedman,9,SS,11213830.0,3,0,0,0,0,0,0,0,1,1,0,1,0,0,0,0,0,0,0,0
-6573244,4/11/26,baseball,Alcorn,,Nico Garcia,20,C,11213840.0,4,1,1,0,0,1,0,2,0,1,0,0,1,0,0,0,0,0,0,0
-6573244,4/11/26,baseball,Alcorn,,Clayvonje Wright,26,DH,11213859.0,3,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,1,0
-6573244,4/11/26,baseball,Alcorn,,Michael Bonelli,27,PH,11213844.0,2,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0
-6573244,4/11/26,baseball,Alcorn,,Chase Moore,15,3B,11213835.0,4,2,2,0,0,2,0,1,1,0,0,0,2,0,0,0,0,0,1,0
-6573244,4/11/26,baseball,Texas Southern,1.0,Zachari Pace,20,LF,11246987.0,3,0,0,0,0,0,0,0,0,0,0,1,2,0,0,0,0,0,0,0
-6573244,4/11/26,baseball,Texas Southern,1.0,Anthony Ruiz,22,RF,11247000.0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0
-6573244,4/11/26,baseball,Texas Southern,1.0,Christopher Chavez,15,RF/LF,11246969.0,4,1,1,1,0,2,0,1,1,0,0,0,0,0,1,0,0,0,0,0
-6573244,4/11/26,baseball,Texas Southern,1.0,Jonathan Trejo,5,SS,9694198.0,4,1,1,0,0,4,1,1,1,0,0,0,1,0,0,0,0,0,0,0
-6573244,4/11/26,baseball,Texas Southern,1.0,Byron Robinson,35,DH,11246998.0,3,1,2,0,1,4,0,0,2,0,0,0,0,0,0,0,0,0,0,0
-6573244,4/11/26,baseball,Texas Southern,1.0,Evan Joubert,9,3B,9682463.0,3,1,0,0,0,0,0,0,2,0,0,0,2,0,1,0,0,0,0,0
-6573244,4/11/26,baseball,Texas Southern,1.0,Miguel Morales,29,1B,9678098.0,4,1,1,0,0,1,0,1,1,0,0,0,0,0,0,0,0,0,0,0
-6573244,4/11/26,baseball,Texas Southern,1.0,Shaun Williams,34,CF,11247006.0,2,0,0,0,0,0,0,0,3,0,0,0,1,0,0,0,0,0,0,0
-6573244,4/11/26,baseball,Texas Southern,1.0,Elijah Rodriguez,16,C,9692920.0,3,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0
-6573244,4/11/26,baseball,Texas Southern,1.0,Nate Lopez,24,2B,9696261.0,3,1,0,0,0,0,0,1,1,0,0,0,1,0,0,0,0,0,0,0
 6534306,4/06/26,baseball,Bucknell,,Billy Fluharty,11,CF,9685643.0,5,1,2,1,0,3,0,1,0,1,0,0,0,0,0,0,0,0,0,0
 6534306,4/06/26,baseball,Bucknell,,Michael Trommer,32,LF,9687203.0,4,2,2,0,0,5,1,3,1,0,1,0,0,0,0,0,0,0,0,0
 6534306,4/06/26,baseball,Bucknell,,Ty Lagoni,3,SS,11225496.0,6,2,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0
