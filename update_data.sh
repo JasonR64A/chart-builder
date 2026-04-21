@@ -147,6 +147,12 @@ for sport in ['baseball', 'softball']:
                 pass
 "
 
+# Cross-gameId phantom-game dedup (catches the case where NCAA re-lists the
+# same game under a second gameId; stat lines are byte-identical but gameIds
+# differ, so the per-gameId dedup above can't see it).
+echo "Removing phantom duplicate gameIds..."
+python scripts/dedup_phantom_games.py
+
 # Refresh thrill scores (uses current PBP data to compute per-game excitement ratings)
 echo "Computing thrill scores..."
 python scripts/compute_thrill_scores.py 2>&1 | tail -3
