@@ -246,9 +246,40 @@ def _team_locations() -> dict:
     return out
 
 
+# Sources use their own team-name conventions that simple suffix normalization
+# can't reconcile (e.g. DSR/Massey use acronyms like "USC" for schools that
+# teams.csv spells out as "Southern California"). Each entry maps a
+# SOURCE-specific team name to the canonical teams.csv name so both forms
+# resolve to the same rank in every ranking lookup.
+_SOURCE_TEAM_ALIASES = {
+    'USC': 'Southern California',                   # DSR, Massey, ELO all use "USC"
+    'South Carolina Upstate': 'USC Upstate',        # ELO spells it out; teams.csv = "USC Upstate"
+}
+
+
+def _register_ranks_with_aliases(df, team_col, rank_col) -> dict:
+    """Build {_norm(name): rank} from a ranking df, registering both the
+    source's spelling AND any canonical teams.csv alias so either form
+    resolves to the same rank.
+    """
+    out = {}
+    for t, r in zip(df[team_col], df[rank_col]):
+        try:
+            rank = int(r)
+        except (TypeError, ValueError):
+            continue
+        out[_norm(t)] = rank
+        canonical = _SOURCE_TEAM_ALIASES.get(t)
+        if canonical:
+            out[_norm(canonical)] = rank
+    return out
+
+
 @st.cache_data(show_spinner=False)
 def _dsr_rank_lookup(sport_key: str) -> dict:
-    """Map normalized team name -> DSR rank from data/rankings/dsr_*.csv."""
+    """Map normalized team name -> DSR rank from data/rankings/dsr_*.csv.
+    Handles the USC/Southern California mismatch via _SOURCE_TEAM_ALIASES.
+    """
     fname = f'rankings/dsr_{sport_key}.csv'
     df = _load_csv(fname)
     if df.empty:
@@ -258,12 +289,15 @@ def _dsr_rank_lookup(sport_key: str) -> dict:
     if 'date' in df.columns:
         latest = df['date'].max()
         df = df[df['date'] == latest]
-    return {_norm(t): int(r) for t, r in zip(df['team'], df['rank'])}
+    return _register_ranks_with_aliases(df, 'team', 'rank')
 
 
 @st.cache_data(show_spinner=False)
 def _massey_rank_lookup(sport_key: str) -> dict:
-    """Map normalized team name -> Massey rank from data/rankings/massey_*.csv."""
+    """Map normalized team name -> Massey rank from data/rankings/massey_*.csv.
+    Routes through _SOURCE_TEAM_ALIASES so e.g. Massey's "USC" resolves for
+    the teams.csv "Southern California" lookup key.
+    """
     fname = f'rankings/massey_{sport_key}.csv'
     df = _load_csv(fname)
     if df.empty:
@@ -271,12 +305,15 @@ def _massey_rank_lookup(sport_key: str) -> dict:
     if 'date' in df.columns:
         latest = df['date'].max()
         df = df[df['date'] == latest]
-    return {_norm(t): int(r) for t, r in zip(df['team'], df['rank'])}
+    return _register_ranks_with_aliases(df, 'team', 'rank')
 
 
 @st.cache_data(show_spinner=False)
 def _elo_rank_lookup(sport_key: str) -> dict:
-    """Map normalized team name -> ELO rank from data/rankings/elo_*.csv (Warren Nolan)."""
+    """Map normalized team name -> ELO rank from data/rankings/elo_*.csv (Warren Nolan).
+    Aliases via _SOURCE_TEAM_ALIASES so "USC" -> "Southern California" and
+    "South Carolina Upstate" -> "USC Upstate" resolve correctly.
+    """
     fname = f'rankings/elo_{sport_key}.csv'
     df = _load_csv(fname)
     if df.empty:
@@ -284,7 +321,7 @@ def _elo_rank_lookup(sport_key: str) -> dict:
     if 'date' in df.columns:
         latest = df['date'].max()
         df = df[df['date'] == latest]
-    return {_norm(t): int(r) for t, r in zip(df['team'], df['rank'])}
+    return _register_ranks_with_aliases(df, 'team', 'rank')
 
 
 @st.cache_data(show_spinner=False)
