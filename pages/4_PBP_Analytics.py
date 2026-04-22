@@ -716,6 +716,39 @@ def load_team_conference_map():
 
 
 @st.cache_data
+def load_team_classification_map():
+    """Build team_name -> conference classification (upper/middle/lower) map.
+    Only D-I conferences carry a classification; teams without one are omitted,
+    so the tier filter naturally excludes D-II / D-III teams.
+    """
+    teams_path = DATA_DIR / 'teams.csv'
+    confs_path = DATA_DIR / 'conferences.csv'
+    if not teams_path.exists() or not confs_path.exists():
+        return {}
+    teams = pd.read_csv(teams_path, low_memory=False)
+    confs = pd.read_csv(confs_path, low_memory=False)
+    merged = teams.merge(confs[['id', 'classification']], left_on='conference_id', right_on='id')
+    merged = merged[merged['classification'].notna()]
+    name_to_class = dict(zip(merged['name'], merged['classification']))
+    norm_to_canonical = {_norm_team(k): k for k in name_to_class.keys()}
+    for sport_dir in ('baseball', 'softball'):
+        pbp_path = PBP_DIR / sport_dir / 'hitting_pbp_D1.csv'
+        if not pbp_path.exists():
+            continue
+        try:
+            pbp_names = pd.read_csv(pbp_path, low_memory=False, usecols=['teamName'])['teamName'].dropna().unique()
+            for pn in pbp_names:
+                if pn in name_to_class:
+                    continue
+                canonical = norm_to_canonical.get(_norm_team(pn))
+                if canonical:
+                    name_to_class[pn] = name_to_class[canonical]
+        except Exception:
+            pass
+    return name_to_class
+
+
+@st.cache_data
 def get_logo_base64(logo_id):
     """Load a team logo as base64 string for SVG embedding."""
     # Try png first, then webp
@@ -1784,6 +1817,22 @@ if conf_map and 'teamName' in pbp.columns:
         if view == 'Lineup Card':
             hitting_pbp = hitting_pbp[hitting_pbp['teamName'].isin(conf_teams)]
             pitching_pbp = pitching_pbp[pitching_pbp['teamName'].isin(conf_teams)]
+
+# Conference Strength filter (D-I only: Upper / Middle / Lower)
+class_map = load_team_classification_map()
+if class_map and 'teamName' in pbp.columns:
+    strength_filter = st.sidebar.selectbox(
+        'Conference Strength',
+        ['All', 'Upper', 'Middle', 'Lower'],
+        help='D-I conference tier from conferences.csv. D-II / D-III teams have no tier and will be excluded when a specific tier is selected.',
+    )
+    if strength_filter != 'All':
+        target = strength_filter.lower()
+        strength_teams = {t for t, c in class_map.items() if c == target}
+        pbp = pbp[pbp['teamName'].isin(strength_teams)]
+        if view == 'Lineup Card':
+            hitting_pbp = hitting_pbp[hitting_pbp['teamName'].isin(strength_teams)]
+            pitching_pbp = pitching_pbp[pitching_pbp['teamName'].isin(strength_teams)]
 
 # Team / Position / Player filters — not shown for Lineup Card or Who's Hot
 if view != 'Lineup Card':
