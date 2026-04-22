@@ -1,321 +1,633 @@
-year,team,result,ncaat_wins,ncaat_losses
-2021,Arkansas,Super Regional,3,2
-2021,Nebraska,Regional,1,2
-2021,Northeastern,Regional,1,2
-2021,NJIT,Regional,1,2
-2021,Texas,CWS,8,2
-2021,Arizona State,Regional,1,2
-2021,Fairfield,Regional,1,2
-2021,Southern,Regional,1,2
-2021,Tennessee,CWS,5,2
-2021,Duke,Regional,1,2
-2021,Liberty,Regional,1,2
-2021,Wright State,Regional,1,2
-2021,Vanderbilt,CWS Finalist,9,3
-2021,Georgia Tech,Regional,1,2
-2021,Indiana State,Regional,1,2
-2021,Presbyterian,Regional,1,2
-2021,Arizona,CWS,5,3
-2021,Oklahoma State,Regional,1,2
-2021,UC Santa Barbara,Regional,1,2
-2021,Grand Canyon,Regional,1,2
-2021,TCU,Regional,1,2
-2021,Oregon State,Regional,1,2
-2021,Dallas Baptist,Super Regional,3,2
-2021,McNeese State,Regional,1,2
-2021,Mississippi State,CWS Champion,10,3
-2021,Campbell,Regional,1,2
-2021,VCU,Regional,1,2
-2021,Samford,Regional,1,2
-2021,Texas Tech,Super Regional,3,2
-2021,UCLA,Regional,1,2
-2021,North Carolina,Regional,1,2
-2021,Army,Regional,1,2
-2021,Stanford,CWS,6,3
-2021,UC Irvine,Regional,1,2
-2021,Nevada,Regional,1,2
-2021,North Dakota State,Regional,1,2
-2021,Notre Dame,Super Regional,3,2
-2021,UConn,Regional,1,2
-2021,Michigan,Regional,1,2
-2021,Central Michigan,Regional,1,2
-2021,Old Dominion,Regional,1,2
-2021,South Carolina,Regional,1,2
-2021,Virginia,CWS,7,4
-2021,Jacksonville,Regional,1,2
-2021,Ole Miss,Super Regional,3,2
-2021,Southern Miss,Regional,1,2
-2021,Florida State,Regional,1,2
-2021,Southeast Missouri State,Regional,1,2
-2021,East Carolina,Super Regional,3,2
-2021,Charlotte,Regional,1,2
-2021,Maryland,Regional,1,2
-2021,Norfolk State,Regional,1,2
-2021,Oregon,Regional,1,2
-2021,Gonzaga,Regional,1,2
-2021,LSU,Super Regional,3,2
-2021,Central Connecticut,Regional,1,2
-2021,Florida,Regional,1,2
-2021,Miami (FL),Regional,1,2
-2021,South Alabama,Regional,1,2
-2021,South Florida,Super Regional,3,2
-2021,Louisiana Tech,Regional,1,2
-2021,NC State,CWS,7,2
-2021,Alabama,Regional,1,2
-2021,Rider,Regional,1,2
-2022,Tennessee,Super Regional,3,2
-2022,Georgia Tech,Regional,1,2
-2022,Campbell,Regional,1,2
-2022,Alabama State,Regional,1,2
-2022,Stanford,CWS,6,4
-2022,Texas State,Regional,1,2
-2022,UC Santa Barbara,Regional,1,2
-2022,Binghamton,Regional,1,2
-2022,Oregon State,Super Regional,3,2
-2022,Vanderbilt,Regional,1,2
-2022,San Diego,Regional,1,2
-2022,New Mexico State,Regional,1,2
-2022,Virginia Tech,Super Regional,3,2
-2022,Gonzaga,Regional,1,2
-2022,Columbia,Regional,1,2
-2022,Wright State,Regional,1,2
-2022,Texas A&M,CWS,7,2
-2022,TCU,Regional,1,2
-2022,Louisiana,Regional,1,2
-2022,Oral Roberts,Regional,1,2
-2022,Miami (FL),Regional,1,2
-2022,Arizona,Regional,1,2
-2022,Ole Miss,CWS Champion,10,1
-2022,Canisius,Regional,1,2
-2022,Oklahoma State,Regional,1,2
-2022,Arkansas,CWS,8,3
-2022,Grand Canyon,Regional,1,2
-2022,Missouri State,Regional,1,2
-2022,East Carolina,Super Regional,3,2
-2022,Virginia,Regional,1,2
-2022,Coastal Carolina,Regional,1,2
-2022,Coppin State,Regional,1,2
-2022,Texas,CWS,5,3
-2022,Louisiana Tech,Regional,1,2
-2022,Dallas Baptist,Regional,1,2
-2022,Air Force,Regional,1,2
-2022,North Carolina,Super Regional,3,2
-2022,Georgia,Regional,1,2
-2022,VCU,Regional,1,2
-2022,Hofstra,Regional,1,2
-2022,Southern Miss,Super Regional,3,2
-2022,LSU,Regional,1,2
-2022,Kennesaw State,Regional,1,2
-2022,Army,Regional,1,2
-2022,Louisville,Super Regional,3,2
-2022,Oregon,Regional,1,2
-2022,Michigan,Regional,1,2
-2022,Southeast Missouri State,Regional,1,2
-2022,Florida,Regional,1,2
-2022,Oregon,Regional,1,2
-2022,Liberty,Regional,1,2
-2022,Central Michigan,Regional,1,2
-2022,Auburn,CWS,6,3
-2022,UCLA,Regional,1,2
-2022,Florida State,Regional,1,2
-2022,Southeastern Louisiana,Regional,1,2
-2022,Maryland,Regional,1,2
-2022,Wake Forest,Regional,1,2
-2022,UConn,Super Regional,3,2
-2022,LIU,Regional,1,2
-2022,Georgia Southern,Regional,1,2
-2022,Notre Dame,CWS,6,3
-2022,Texas Tech,Regional,1,2
-2022,UNC Greensboro,Regional,1,2
-2023,Wake Forest,CWS,7,2
-2023,Maryland,Regional,1,2
-2023,Northeastern,Regional,1,2
-2023,George Mason,Regional,1,2
-2023,Florida,CWS Finalist,10,3
-2023,UConn,Regional,1,2
-2023,Texas Tech,Regional,1,2
-2023,Florida A&M,Regional,1,2
-2023,Arkansas,Regional,1,2
-2023,TCU,CWS,7,2
-2023,Arizona,Regional,1,2
-2023,Santa Clara,Regional,1,2
-2023,Clemson,Regional,1,2
-2023,Tennessee,CWS,6,3
-2023,Charlotte,Regional,1,2
-2023,Lipscomb,Regional,1,2
-2023,LSU,CWS Champion,11,2
-2023,Oregon State,Regional,1,2
-2023,Sam Houston,Regional,1,2
-2023,Tulane,Regional,1,2
-2023,Vanderbilt,Regional,1,2
-2023,Xavier,Regional,1,2
-2023,Eastern Illinois,Regional,1,2
-2023,Belmont,Regional,1,2
-2023,Virginia,CWS,5,3
-2023,East Carolina,Regional,1,2
-2023,Oklahoma,Regional,1,2
-2023,Army,Regional,1,2
-2023,Stanford,CWS,6,4
-2023,Texas A&M,Regional,1,2
-2023,Cal State Fullerton,Regional,1,2
-2023,San Jose State,Regional,1,2
-2023,Miami (FL),Regional,1,2
-2023,Texas,Super Regional,3,2
-2023,Louisiana,Regional,1,2
-2023,Maine,Regional,1,2
-2023,Coastal Carolina,Regional,1,2
-2023,Duke,Super Regional,3,2
-2023,UNC Wilmington,Regional,1,2
-2023,Rider,Regional,1,2
-2023,Oklahoma State,Regional,1,2
-2023,Dallas Baptist,Regional,1,2
-2023,Washington,Regional,1,2
-2023,Oral Roberts,CWS,6,3
-2023,Kentucky,Super Regional,3,2
-2023,Indiana,Regional,1,2
-2023,West Virginia,Regional,1,2
-2023,Ball State,Regional,1,2
-2023,Auburn,Regional,1,2
-2023,Florida A&M,Regional,1,2
-2023,Sam Houston,Regional,1,2
-2023,Tulane,Regional,1,2
-2023,Indiana State,Super Regional,3,2
-2023,Iowa,Regional,1,2
-2023,North Carolina,Regional,1,2
-2023,Wright State,Regional,1,2
-2023,South Carolina,Super Regional,3,2
-2023,Campbell,Regional,1,2
-2023,NC State,Regional,1,2
-2023,Central Connecticut,Regional,1,2
-2023,Alabama,Super Regional,3,2
-2023,Boston College,Regional,1,2
-2023,Troy,Regional,1,2
-2023,Nicholls,Regional,1,2
-2024,Tennessee,CWS Champion,10,2
-2024,Southern Miss,Regional,1,2
-2024,Indiana,Regional,1,2
-2024,Northern Kentucky,Regional,1,2
-2024,Kentucky,CWS,6,2
-2024,Indiana State,Regional,1,2
-2024,Illinois,Regional,1,2
-2024,Western Michigan,Regional,1,2
-2024,Texas A&M,CWS Finalist,9,2
-2024,Louisiana,Regional,1,2
-2024,Texas,Regional,1,2
-2024,Grambling State,Regional,1,2
-2024,North Carolina,CWS,6,3
-2024,LSU,Regional,1,2
-2024,Wofford,Regional,1,2
-2024,LIU,Regional,1,2
-2024,Arkansas,Regional,1,2
-2024,Louisiana Tech,Regional,1,2
-2024,Kansas State,Super Regional,3,2
-2024,Southeast Missouri State,Regional,1,2
-2024,Georgia,Super Regional,3,2
-2024,UNC Wilmington,Regional,1,2
-2024,Georgia Tech,Regional,1,2
-2024,Army,Regional,1,2
-2024,Oregon State,Super Regional,3,2
-2024,UC Irvine,Regional,1,2
-2024,Nicholls,Regional,1,2
-2024,Tulane,Regional,1,2
-2024,Florida State,CWS,7,2
-2024,Alabama,Regional,1,2
-2024,UCF,Regional,1,2
-2024,Stetson,Regional,1,2
-2024,Oklahoma,Regional,1,2
-2024,Duke,Regional,1,2
-2024,UConn,Super Regional,3,2
-2024,Oral Roberts,Regional,1,2
-2024,NC State,CWS,5,3
-2024,South Carolina,Regional,1,2
-2024,James Madison,Regional,1,2
-2024,Bryant,Regional,1,2
-2024,Oklahoma State,Regional,1,2
-2024,Nebraska,Regional,1,2
-2024,Florida,CWS,8,3
-2024,Niagara,Regional,1,2
-2024,Virginia,CWS,5,2
-2024,Mississippi State,Regional,1,2
-2024,St. John's,Regional,1,2
-2024,Penn,Regional,1,2
-2024,Arizona,Regional,1,2
-2024,Dallas Baptist,Regional,1,2
-2024,West Virginia,Super Regional,3,2
-2024,Grand Canyon,Regional,1,2
-2024,UC Santa Barbara,Regional,1,2
-2024,San Diego,Regional,1,2
-2024,Oregon,Super Regional,3,2
-2024,Fresno State,Regional,1,2
-2024,East Carolina,Regional,1,2
-2024,Wake Forest,Regional,1,2
-2024,VCU,Regional,1,2
-2024,Evansville,Super Regional,3,2
-2024,Clemson,Super Regional,3,2
-2024,Vanderbilt,Regional,1,2
-2024,Coastal Carolina,Regional,1,2
-2024,High Point,Regional,1,2
-2025,Vanderbilt,Regional,1,2
-2025,Louisville,CWS,7,3
-2025,East Tennessee State,Regional,1,2
-2025,Wright State,Regional,1,2
-2025,Texas,Regional,1,2
-2025,UTSA,Super Regional,3,2
-2025,Kansas State,Regional,1,2
-2025,Houston Christian,Regional,1,2
-2025,Arkansas,CWS,7,2
-2025,Kansas,Regional,1,2
-2025,Creighton,Regional,1,2
-2025,North Dakota State,Regional,1,2
-2025,Auburn,Super Regional,3,2
-2025,NC State,Regional,1,2
-2025,Stetson,Regional,1,2
-2025,Central Connecticut,Regional,1,2
-2025,North Carolina,Super Regional,3,2
-2025,Oklahoma,Regional,1,2
-2025,Nebraska,Regional,1,2
-2025,Holy Cross,Regional,1,2
-2025,LSU,CWS Champion,10,1
-2025,Dallas Baptist,Regional,1,2
-2025,Rhode Island,Regional,1,2
-2025,Little Rock,Regional,1,2
-2025,Georgia,Regional,1,2
-2025,Duke,Super Regional,3,2
-2025,Oklahoma State,Regional,1,2
-2025,Binghamton,Regional,1,2
-2025,Oregon State,CWS,7,4
-2025,TCU,Regional,1,2
-2025,USC,Regional,1,2
-2025,Saint Mary's (CA),Regional,1,2
-2025,Florida State,Super Regional,3,2
-2025,Northeastern,Regional,1,2
-2025,Mississippi State,Regional,1,2
-2025,Bethune-Cookman,Regional,1,2
-2025,Ole Miss,Regional,1,2
-2025,Georgia Tech,Regional,1,2
-2025,Western Kentucky,Regional,1,2
-2025,Murray State,CWS,5,3
-2025,Clemson,Regional,1,2
-2025,West Virginia,Super Regional,3,2
-2025,Kentucky,Regional,1,2
-2025,USC Upstate,Regional,1,2
-2025,Oregon,Regional,1,2
-2025,Arizona,CWS,5,3
-2025,Cal Poly,Regional,1,2
-2025,Utah Valley,Regional,1,2
-2025,Coastal Carolina,CWS Finalist,8,2
-2025,Florida,Regional,1,2
-2025,East Carolina,Regional,1,2
-2025,Fairfield,Regional,1,2
-2025,Tennessee,Super Regional,3,2
-2025,Wake Forest,Regional,1,2
-2025,Cincinnati,Regional,1,2
-2025,Miami (OH),Regional,1,2
-2025,UCLA,CWS,6,2
-2025,UC Irvine,Regional,1,2
-2025,Arizona State,Regional,1,2
-2025,Fresno State,Regional,1,2
-2025,Southern Miss,Regional,1,2
-2025,Alabama,Regional,1,2
-2025,Miami (FL),Super Regional,3,2
-2025,Columbia,Regional,1,2
+year,sport,team,result,ncaat_wins,ncaat_losses
+2021,baseball,Arkansas,Super Regional,3,2
+2021,baseball,Nebraska,Regional,1,2
+2021,baseball,Northeastern,Regional,1,2
+2021,baseball,NJIT,Regional,1,2
+2021,baseball,Texas,CWS,8,2
+2021,baseball,Arizona State,Regional,1,2
+2021,baseball,Fairfield,Regional,1,2
+2021,baseball,Southern,Regional,1,2
+2021,baseball,Tennessee,CWS,5,2
+2021,baseball,Duke,Regional,1,2
+2021,baseball,Liberty,Regional,1,2
+2021,baseball,Wright State,Regional,1,2
+2021,baseball,Vanderbilt,CWS Finalist,9,3
+2021,baseball,Georgia Tech,Regional,1,2
+2021,baseball,Indiana State,Regional,1,2
+2021,baseball,Presbyterian,Regional,1,2
+2021,baseball,Arizona,CWS,5,3
+2021,baseball,Oklahoma State,Regional,1,2
+2021,baseball,UC Santa Barbara,Regional,1,2
+2021,baseball,Grand Canyon,Regional,1,2
+2021,baseball,TCU,Regional,1,2
+2021,baseball,Oregon State,Regional,1,2
+2021,baseball,Dallas Baptist,Super Regional,3,2
+2021,baseball,McNeese State,Regional,1,2
+2021,baseball,Mississippi State,CWS Champion,10,3
+2021,baseball,Campbell,Regional,1,2
+2021,baseball,VCU,Regional,1,2
+2021,baseball,Samford,Regional,1,2
+2021,baseball,Texas Tech,Super Regional,3,2
+2021,baseball,UCLA,Regional,1,2
+2021,baseball,North Carolina,Regional,1,2
+2021,baseball,Army,Regional,1,2
+2021,baseball,Stanford,CWS,6,3
+2021,baseball,UC Irvine,Regional,1,2
+2021,baseball,Nevada,Regional,1,2
+2021,baseball,North Dakota State,Regional,1,2
+2021,baseball,Notre Dame,Super Regional,3,2
+2021,baseball,UConn,Regional,1,2
+2021,baseball,Michigan,Regional,1,2
+2021,baseball,Central Michigan,Regional,1,2
+2021,baseball,Old Dominion,Regional,1,2
+2021,baseball,South Carolina,Regional,1,2
+2021,baseball,Virginia,CWS,7,4
+2021,baseball,Jacksonville,Regional,1,2
+2021,baseball,Ole Miss,Super Regional,3,2
+2021,baseball,Southern Miss,Regional,1,2
+2021,baseball,Florida State,Regional,1,2
+2021,baseball,Southeast Missouri State,Regional,1,2
+2021,baseball,East Carolina,Super Regional,3,2
+2021,baseball,Charlotte,Regional,1,2
+2021,baseball,Maryland,Regional,1,2
+2021,baseball,Norfolk State,Regional,1,2
+2021,baseball,Oregon,Regional,1,2
+2021,baseball,Gonzaga,Regional,1,2
+2021,baseball,LSU,Super Regional,3,2
+2021,baseball,Central Connecticut,Regional,1,2
+2021,baseball,Florida,Regional,1,2
+2021,baseball,Miami (FL),Regional,1,2
+2021,baseball,South Alabama,Regional,1,2
+2021,baseball,South Florida,Super Regional,3,2
+2021,baseball,Louisiana Tech,Regional,1,2
+2021,baseball,NC State,CWS,7,2
+2021,baseball,Alabama,Regional,1,2
+2021,baseball,Rider,Regional,1,2
+2022,baseball,Tennessee,Super Regional,3,2
+2022,baseball,Georgia Tech,Regional,1,2
+2022,baseball,Campbell,Regional,1,2
+2022,baseball,Alabama State,Regional,1,2
+2022,baseball,Stanford,CWS,6,4
+2022,baseball,Texas State,Regional,1,2
+2022,baseball,UC Santa Barbara,Regional,1,2
+2022,baseball,Binghamton,Regional,1,2
+2022,baseball,Oregon State,Super Regional,3,2
+2022,baseball,Vanderbilt,Regional,1,2
+2022,baseball,San Diego,Regional,1,2
+2022,baseball,New Mexico State,Regional,1,2
+2022,baseball,Virginia Tech,Super Regional,3,2
+2022,baseball,Gonzaga,Regional,1,2
+2022,baseball,Columbia,Regional,1,2
+2022,baseball,Wright State,Regional,1,2
+2022,baseball,Texas A&M,CWS,7,2
+2022,baseball,TCU,Regional,1,2
+2022,baseball,Louisiana,Regional,1,2
+2022,baseball,Oral Roberts,Regional,1,2
+2022,baseball,Miami (FL),Regional,1,2
+2022,baseball,Arizona,Regional,1,2
+2022,baseball,Ole Miss,CWS Champion,10,1
+2022,baseball,Canisius,Regional,1,2
+2022,baseball,Oklahoma State,Regional,1,2
+2022,baseball,Arkansas,CWS,8,3
+2022,baseball,Grand Canyon,Regional,1,2
+2022,baseball,Missouri State,Regional,1,2
+2022,baseball,East Carolina,Super Regional,3,2
+2022,baseball,Virginia,Regional,1,2
+2022,baseball,Coastal Carolina,Regional,1,2
+2022,baseball,Coppin State,Regional,1,2
+2022,baseball,Texas,CWS,5,3
+2022,baseball,Louisiana Tech,Regional,1,2
+2022,baseball,Dallas Baptist,Regional,1,2
+2022,baseball,Air Force,Regional,1,2
+2022,baseball,North Carolina,Super Regional,3,2
+2022,baseball,Georgia,Regional,1,2
+2022,baseball,VCU,Regional,1,2
+2022,baseball,Hofstra,Regional,1,2
+2022,baseball,Southern Miss,Super Regional,3,2
+2022,baseball,LSU,Regional,1,2
+2022,baseball,Kennesaw State,Regional,1,2
+2022,baseball,Army,Regional,1,2
+2022,baseball,Louisville,Super Regional,3,2
+2022,baseball,Oregon,Regional,1,2
+2022,baseball,Michigan,Regional,1,2
+2022,baseball,Southeast Missouri State,Regional,1,2
+2022,baseball,Florida,Regional,1,2
+2022,baseball,Oregon,Regional,1,2
+2022,baseball,Liberty,Regional,1,2
+2022,baseball,Central Michigan,Regional,1,2
+2022,baseball,Auburn,CWS,6,3
+2022,baseball,UCLA,Regional,1,2
+2022,baseball,Florida State,Regional,1,2
+2022,baseball,Southeastern Louisiana,Regional,1,2
+2022,baseball,Maryland,Regional,1,2
+2022,baseball,Wake Forest,Regional,1,2
+2022,baseball,UConn,Super Regional,3,2
+2022,baseball,LIU,Regional,1,2
+2022,baseball,Georgia Southern,Regional,1,2
+2022,baseball,Notre Dame,CWS,6,3
+2022,baseball,Texas Tech,Regional,1,2
+2022,baseball,UNC Greensboro,Regional,1,2
+2023,baseball,Wake Forest,CWS,7,2
+2023,baseball,Maryland,Regional,1,2
+2023,baseball,Northeastern,Regional,1,2
+2023,baseball,George Mason,Regional,1,2
+2023,baseball,Florida,CWS Finalist,10,3
+2023,baseball,UConn,Regional,1,2
+2023,baseball,Texas Tech,Regional,1,2
+2023,baseball,Florida A&M,Regional,1,2
+2023,baseball,Arkansas,Regional,1,2
+2023,baseball,TCU,CWS,7,2
+2023,baseball,Arizona,Regional,1,2
+2023,baseball,Santa Clara,Regional,1,2
+2023,baseball,Clemson,Regional,1,2
+2023,baseball,Tennessee,CWS,6,3
+2023,baseball,Charlotte,Regional,1,2
+2023,baseball,Lipscomb,Regional,1,2
+2023,baseball,LSU,CWS Champion,11,2
+2023,baseball,Oregon State,Regional,1,2
+2023,baseball,Sam Houston,Regional,1,2
+2023,baseball,Tulane,Regional,1,2
+2023,baseball,Vanderbilt,Regional,1,2
+2023,baseball,Xavier,Regional,1,2
+2023,baseball,Eastern Illinois,Regional,1,2
+2023,baseball,Belmont,Regional,1,2
+2023,baseball,Virginia,CWS,5,3
+2023,baseball,East Carolina,Regional,1,2
+2023,baseball,Oklahoma,Regional,1,2
+2023,baseball,Army,Regional,1,2
+2023,baseball,Stanford,CWS,6,4
+2023,baseball,Texas A&M,Regional,1,2
+2023,baseball,Cal State Fullerton,Regional,1,2
+2023,baseball,San Jose State,Regional,1,2
+2023,baseball,Miami (FL),Regional,1,2
+2023,baseball,Texas,Super Regional,3,2
+2023,baseball,Louisiana,Regional,1,2
+2023,baseball,Maine,Regional,1,2
+2023,baseball,Coastal Carolina,Regional,1,2
+2023,baseball,Duke,Super Regional,3,2
+2023,baseball,UNC Wilmington,Regional,1,2
+2023,baseball,Rider,Regional,1,2
+2023,baseball,Oklahoma State,Regional,1,2
+2023,baseball,Dallas Baptist,Regional,1,2
+2023,baseball,Washington,Regional,1,2
+2023,baseball,Oral Roberts,CWS,6,3
+2023,baseball,Kentucky,Super Regional,3,2
+2023,baseball,Indiana,Regional,1,2
+2023,baseball,West Virginia,Regional,1,2
+2023,baseball,Ball State,Regional,1,2
+2023,baseball,Auburn,Regional,1,2
+2023,baseball,Florida A&M,Regional,1,2
+2023,baseball,Sam Houston,Regional,1,2
+2023,baseball,Tulane,Regional,1,2
+2023,baseball,Indiana State,Super Regional,3,2
+2023,baseball,Iowa,Regional,1,2
+2023,baseball,North Carolina,Regional,1,2
+2023,baseball,Wright State,Regional,1,2
+2023,baseball,South Carolina,Super Regional,3,2
+2023,baseball,Campbell,Regional,1,2
+2023,baseball,NC State,Regional,1,2
+2023,baseball,Central Connecticut,Regional,1,2
+2023,baseball,Alabama,Super Regional,3,2
+2023,baseball,Boston College,Regional,1,2
+2023,baseball,Troy,Regional,1,2
+2023,baseball,Nicholls,Regional,1,2
+2024,baseball,Tennessee,CWS Champion,10,2
+2024,baseball,Southern Miss,Regional,1,2
+2024,baseball,Indiana,Regional,1,2
+2024,baseball,Northern Kentucky,Regional,1,2
+2024,baseball,Kentucky,CWS,6,2
+2024,baseball,Indiana State,Regional,1,2
+2024,baseball,Illinois,Regional,1,2
+2024,baseball,Western Michigan,Regional,1,2
+2024,baseball,Texas A&M,CWS Finalist,9,2
+2024,baseball,Louisiana,Regional,1,2
+2024,baseball,Texas,Regional,1,2
+2024,baseball,Grambling State,Regional,1,2
+2024,baseball,North Carolina,CWS,6,3
+2024,baseball,LSU,Regional,1,2
+2024,baseball,Wofford,Regional,1,2
+2024,baseball,LIU,Regional,1,2
+2024,baseball,Arkansas,Regional,1,2
+2024,baseball,Louisiana Tech,Regional,1,2
+2024,baseball,Kansas State,Super Regional,3,2
+2024,baseball,Southeast Missouri State,Regional,1,2
+2024,baseball,Georgia,Super Regional,3,2
+2024,baseball,UNC Wilmington,Regional,1,2
+2024,baseball,Georgia Tech,Regional,1,2
+2024,baseball,Army,Regional,1,2
+2024,baseball,Oregon State,Super Regional,3,2
+2024,baseball,UC Irvine,Regional,1,2
+2024,baseball,Nicholls,Regional,1,2
+2024,baseball,Tulane,Regional,1,2
+2024,baseball,Florida State,CWS,7,2
+2024,baseball,Alabama,Regional,1,2
+2024,baseball,UCF,Regional,1,2
+2024,baseball,Stetson,Regional,1,2
+2024,baseball,Oklahoma,Regional,1,2
+2024,baseball,Duke,Regional,1,2
+2024,baseball,UConn,Super Regional,3,2
+2024,baseball,Oral Roberts,Regional,1,2
+2024,baseball,NC State,CWS,5,3
+2024,baseball,South Carolina,Regional,1,2
+2024,baseball,James Madison,Regional,1,2
+2024,baseball,Bryant,Regional,1,2
+2024,baseball,Oklahoma State,Regional,1,2
+2024,baseball,Nebraska,Regional,1,2
+2024,baseball,Florida,CWS,8,3
+2024,baseball,Niagara,Regional,1,2
+2024,baseball,Virginia,CWS,5,2
+2024,baseball,Mississippi State,Regional,1,2
+2024,baseball,St. John's,Regional,1,2
+2024,baseball,Penn,Regional,1,2
+2024,baseball,Arizona,Regional,1,2
+2024,baseball,Dallas Baptist,Regional,1,2
+2024,baseball,West Virginia,Super Regional,3,2
+2024,baseball,Grand Canyon,Regional,1,2
+2024,baseball,UC Santa Barbara,Regional,1,2
+2024,baseball,San Diego,Regional,1,2
+2024,baseball,Oregon,Super Regional,3,2
+2024,baseball,Fresno State,Regional,1,2
+2024,baseball,East Carolina,Regional,1,2
+2024,baseball,Wake Forest,Regional,1,2
+2024,baseball,VCU,Regional,1,2
+2024,baseball,Evansville,Super Regional,3,2
+2024,baseball,Clemson,Super Regional,3,2
+2024,baseball,Vanderbilt,Regional,1,2
+2024,baseball,Coastal Carolina,Regional,1,2
+2024,baseball,High Point,Regional,1,2
+2025,baseball,Vanderbilt,Regional,1,2
+2025,baseball,Louisville,CWS,7,3
+2025,baseball,East Tennessee State,Regional,1,2
+2025,baseball,Wright State,Regional,1,2
+2025,baseball,Texas,Regional,1,2
+2025,baseball,UTSA,Super Regional,3,2
+2025,baseball,Kansas State,Regional,1,2
+2025,baseball,Houston Christian,Regional,1,2
+2025,baseball,Arkansas,CWS,7,2
+2025,baseball,Kansas,Regional,1,2
+2025,baseball,Creighton,Regional,1,2
+2025,baseball,North Dakota State,Regional,1,2
+2025,baseball,Auburn,Super Regional,3,2
+2025,baseball,NC State,Regional,1,2
+2025,baseball,Stetson,Regional,1,2
+2025,baseball,Central Connecticut,Regional,1,2
+2025,baseball,North Carolina,Super Regional,3,2
+2025,baseball,Oklahoma,Regional,1,2
+2025,baseball,Nebraska,Regional,1,2
+2025,baseball,Holy Cross,Regional,1,2
+2025,baseball,LSU,CWS Champion,10,1
+2025,baseball,Dallas Baptist,Regional,1,2
+2025,baseball,Rhode Island,Regional,1,2
+2025,baseball,Little Rock,Regional,1,2
+2025,baseball,Georgia,Regional,1,2
+2025,baseball,Duke,Super Regional,3,2
+2025,baseball,Oklahoma State,Regional,1,2
+2025,baseball,Binghamton,Regional,1,2
+2025,baseball,Oregon State,CWS,7,4
+2025,baseball,TCU,Regional,1,2
+2025,baseball,USC,Regional,1,2
+2025,baseball,Saint Mary's (CA),Regional,1,2
+2025,baseball,Florida State,Super Regional,3,2
+2025,baseball,Northeastern,Regional,1,2
+2025,baseball,Mississippi State,Regional,1,2
+2025,baseball,Bethune-Cookman,Regional,1,2
+2025,baseball,Ole Miss,Regional,1,2
+2025,baseball,Georgia Tech,Regional,1,2
+2025,baseball,Western Kentucky,Regional,1,2
+2025,baseball,Murray State,CWS,5,3
+2025,baseball,Clemson,Regional,1,2
+2025,baseball,West Virginia,Super Regional,3,2
+2025,baseball,Kentucky,Regional,1,2
+2025,baseball,USC Upstate,Regional,1,2
+2025,baseball,Oregon,Regional,1,2
+2025,baseball,Arizona,CWS,5,3
+2025,baseball,Cal Poly,Regional,1,2
+2025,baseball,Utah Valley,Regional,1,2
+2025,baseball,Coastal Carolina,CWS Finalist,8,2
+2025,baseball,Florida,Regional,1,2
+2025,baseball,East Carolina,Regional,1,2
+2025,baseball,Fairfield,Regional,1,2
+2025,baseball,Tennessee,Super Regional,3,2
+2025,baseball,Wake Forest,Regional,1,2
+2025,baseball,Cincinnati,Regional,1,2
+2025,baseball,Miami (OH),Regional,1,2
+2025,baseball,UCLA,CWS,6,2
+2025,baseball,UC Irvine,Regional,1,2
+2025,baseball,Arizona State,Regional,1,2
+2025,baseball,Fresno State,Regional,1,2
+2025,baseball,Southern Miss,Regional,1,2
+2025,baseball,Alabama,Regional,1,2
+2025,baseball,Miami (FL),Super Regional,3,2
+2025,baseball,Columbia,Regional,1,2
+2021,softball,Oklahoma,Champion,6,0
+2021,softball,Wichita State,Regional,1,2
+2021,softball,Texas A&M,Regional,1,2
+2021,softball,Morgan State,Regional,1,2
+2021,softball,UCLA,WCWS,2,2
+2021,softball,Fresno State,Regional,1,2
+2021,softball,Minnesota,Regional,1,2
+2021,softball,Long Beach State,Regional,1,2
+2021,softball,Alabama,WCWS,3,2
+2021,softball,Clemson,Regional,1,2
+2021,softball,Troy,Regional,1,2
+2021,softball,Alabama State,Regional,1,2
+2021,softball,Florida,Super Regional,2,2
+2021,softball,South Alabama,Regional,1,2
+2021,softball,Baylor,Regional,1,2
+2021,softball,South Florida,Regional,1,2
+2021,softball,Oklahoma State,WCWS,2,2
+2021,softball,Mississippi State,Regional,1,2
+2021,softball,Campbell,Regional,1,2
+2021,softball,Boston University,Regional,1,2
+2021,softball,Arkansas,Super Regional,3,2
+2021,softball,Stanford,Regional,1,2
+2021,softball,South Dakota State,Regional,1,2
+2021,softball,Manhattan,Regional,1,2
+2021,softball,LSU,Super Regional,2,2
+2021,softball,Louisiana,Regional,1,2
+2021,softball,McNeese State,Regional,1,2
+2021,softball,George Washington,Regional,1,2
+2021,softball,Missouri,Super Regional,2,2
+2021,softball,Iowa State,Regional,1,2
+2021,softball,Northern Iowa,Regional,1,2
+2021,softball,UIC,Regional,1,2
+2021,softball,Tennessee,Regional,1,2
+2021,softball,James Madison,WCWS,3,2
+2021,softball,Liberty,Regional,1,2
+2021,softball,Eastern Kentucky,Regional,1,2
+2021,softball,Florida State,WCWS Finalist,5,1
+2021,softball,UCF,Regional,1,2
+2021,softball,Auburn,Regional,1,2
+2021,softball,Kennesaw State,Regional,1,2
+2021,softball,Arizona,WCWS,2,2
+2021,softball,Ole Miss,Regional,1,2
+2021,softball,Villanova,Regional,1,2
+2021,softball,UMBC,Regional,1,2
+2021,softball,Texas,Super Regional,3,2
+2021,softball,Texas State,Regional,1,2
+2021,softball,Oregon,Super Regional,3,2
+2021,softball,Saint Francis (PA),Regional,1,2
+2021,softball,Duke,Regional,1,2
+2021,softball,Georgia,WCWS,1,2
+2021,softball,Western Kentucky,Regional,1,2
+2021,softball,UNC Greensboro,Regional,1,2
+2021,softball,Kentucky,Super Regional,3,2
+2021,softball,Northwestern,Regional,1,2
+2021,softball,Notre Dame,Regional,1,2
+2021,softball,Miami (OH),Regional,1,2
+2021,softball,Arizona State,Regional,1,2
+2021,softball,Virginia Tech,Regional,1,2
+2021,softball,BYU,Regional,1,2
+2021,softball,Southern Illinois,Regional,1,2
+2021,softball,Washington,Super Regional,3,2
+2021,softball,Michigan,Regional,1,2
+2021,softball,Seattle,Regional,1,2
+2021,softball,Portland State,Regional,1,2
+2022,softball,Oklahoma,Champion,6,0
+2022,softball,Texas A&M,Regional,1,2
+2022,softball,Minnesota,Regional,1,2
+2022,softball,UCF,Regional,1,2
+2022,softball,Florida State,Regional,1,2
+2022,softball,Mississippi State,Super Regional,2,2
+2022,softball,South Florida,Regional,1,2
+2022,softball,Arizona,WCWS,1,2
+2022,softball,Virginia Tech,Super Regional,3,2
+2022,softball,Kentucky,Regional,1,2
+2022,softball,Miami (OH),Regional,1,2
+2022,softball,Florida,WCWS,1,2
+2022,softball,Arkansas,Super Regional,3,2
+2022,softball,Oregon,Regional,1,2
+2022,softball,Wichita State,Regional,1,2
+2022,softball,Texas,WCWS Finalist,5,2
+2022,softball,UCLA,WCWS,3,2
+2022,softball,Ole Miss,Regional,1,2
+2022,softball,Loyola Marymount,Regional,1,2
+2022,softball,Duke,Super Regional,3,2
+2022,softball,Alabama,Regional,1,2
+2022,softball,Stanford,Super Regional,2,2
+2022,softball,Tennessee,Regional,1,2
+2022,softball,Oregon State,WCWS,0,2
+2022,softball,Oklahoma State,WCWS,0,2
+2022,softball,Nebraska,Regional,1,2
+2022,softball,North Texas,Regional,1,2
+2022,softball,Clemson,Super Regional,3,2
+2022,softball,Arizona State,Super Regional,3,2
+2022,softball,San Diego State,Regional,1,2
+2022,softball,Cal State Fullerton,Regional,1,2
+2022,softball,Northwestern,WCWS,0,2
+2022,softball,Indiana,Regional,1,2
+2022,softball,Ohio State,Regional,1,2
+2022,softball,Campbell,Regional,1,2
+2022,softball,Georgia Tech,Regional,1,2
+2022,softball,Wisconsin,Regional,1,2
+2022,softball,Canisius,Regional,1,2
+2022,softball,LSU,Regional,1,2
+2022,softball,Louisiana,Regional,1,2
+2022,softball,McNeese,Regional,1,2
+2022,softball,UL Monroe,Regional,1,2
+2022,softball,Baylor,Regional,1,2
+2022,softball,Texas State,Regional,1,2
+2022,softball,Saint Francis (PA),Regional,1,2
+2022,softball,Washington,Super Regional,2,2
+2022,softball,Michigan,Regional,1,2
+2022,softball,Portland State,Regional,1,2
+2022,softball,Weber State,Regional,1,2
+2022,softball,Georgia,Regional,1,2
+2022,softball,UMBC,Regional,1,2
+2022,softball,South Carolina,Regional,1,2
+2022,softball,Auburn,Regional,1,2
+2022,softball,Monmouth,Regional,1,2
+2022,softball,BYU,Regional,1,2
+2022,softball,UTEP,Regional,1,2
+2023,softball,Oklahoma,Champion,8,0
+2023,softball,Missouri,Regional,1,2
+2023,softball,California,Regional,1,2
+2023,softball,Hofstra,Regional,1,2
+2023,softball,UCLA,Regional,1,2
+2023,softball,Grand Canyon,Regional,1,2
+2023,softball,San Diego State,Regional,1,2
+2023,softball,Liberty,Super Regional,2,2
+2023,softball,Florida State,WCWS Finalist,7,2
+2023,softball,UCF,Regional,1,2
+2023,softball,South Carolina,Regional,1,2
+2023,softball,Marist,Regional,1,2
+2023,softball,Tennessee,WCWS,2,2
+2023,softball,Indiana,Regional,1,2
+2023,softball,Louisville,Regional,1,2
+2023,softball,Northern Kentucky,Regional,1,2
+2023,softball,Alabama,WCWS,3,2
+2023,softball,Middle Tennessee,Regional,1,2
+2023,softball,Central Arkansas,Regional,1,2
+2023,softball,LIU,Regional,1,2
+2023,softball,Oklahoma State,WCWS,1,2
+2023,softball,Wichita State,Regional,1,2
+2023,softball,Nebraska,Regional,1,2
+2023,softball,UMBC,Regional,1,2
+2023,softball,Washington,WCWS,1,2
+2023,softball,McNeese,Regional,1,2
+2023,softball,Minnesota,Regional,1,2
+2023,softball,Northern Colorado,Regional,1,2
+2023,softball,Duke,Super Regional,3,2
+2023,softball,Charlotte,Regional,1,2
+2023,softball,Campbell,Regional,1,2
+2023,softball,George Mason,Regional,1,2
+2023,softball,Stanford,WCWS,3,2
+2023,softball,Florida,Regional,1,2
+2023,softball,Loyola Marymount,Regional,1,2
+2023,softball,Long Beach State,Regional,1,2
+2023,softball,LSU,Regional,1,2
+2023,softball,Louisiana,Super Regional,3,2
+2023,softball,Omaha,Regional,1,2
+2023,softball,Prairie View A&M,Regional,1,2
+2023,softball,Arkansas,Super Regional,2,2
+2023,softball,Notre Dame,Regional,1,2
+2023,softball,Oregon,Regional,1,2
+2023,softball,Harvard,Regional,1,2
+2023,softball,Northwestern,Super Regional,2,2
+2023,softball,Kentucky,Regional,1,2
+2023,softball,Miami (OH),Regional,1,2
+2023,softball,Eastern Illinois,Regional,1,2
+2023,softball,Texas,Super Regional,2,2
+2023,softball,Texas A&M,Regional,1,2
+2023,softball,Texas State,Regional,1,2
+2023,softball,Seton Hall,Regional,1,2
+2023,softball,Georgia,Super Regional,2,2
+2023,softball,Virginia Tech,Regional,1,2
+2023,softball,Boston University,Regional,1,2
+2023,softball,North Carolina Central,Regional,1,2
+2023,softball,Utah,WCWS,0,2
+2023,softball,Ole Miss,Super Regional,2,2
+2023,softball,Baylor,Regional,1,2
+2023,softball,Southern Illinois,Regional,1,2
+2023,softball,Clemson,Regional,1,2
+2023,softball,Auburn,Regional,1,2
+2023,softball,Cal State Fullerton,Regional,1,2
+2023,softball,UNC Greensboro,Regional,1,2
+2024,softball,Texas,WCWS Finalist,6,2
+2024,softball,Northwestern,Regional,1,2
+2024,softball,Siena,Regional,1,2
+2024,softball,Saint Francis (PA),Regional,1,2
+2024,softball,Oklahoma,Champion,7,0
+2024,softball,Oregon,Regional,1,2
+2024,softball,Boston University,Regional,1,2
+2024,softball,Cleveland State,Regional,1,2
+2024,softball,Tennessee,Super Regional,2,2
+2024,softball,Virginia,Regional,1,2
+2024,softball,Miami (OH),Regional,1,2
+2024,softball,Dayton,Regional,1,2
+2024,softball,Florida,WCWS,3,2
+2024,softball,South Alabama,Regional,1,2
+2024,softball,Florida Atlantic,Regional,1,2
+2024,softball,Florida Gulf Coast,Regional,1,2
+2024,softball,Oklahoma State,WCWS,1,2
+2024,softball,Kentucky,Regional,1,2
+2024,softball,Michigan,Regional,1,2
+2024,softball,Northern Colorado,Regional,1,2
+2024,softball,UCLA,WCWS,1,2
+2024,softball,Virginia Tech,Regional,1,2
+2024,softball,San Diego State,Regional,1,2
+2024,softball,Grand Canyon,Regional,1,2
+2024,softball,Missouri,Super Regional,2,2
+2024,softball,Washington,Regional,1,2
+2024,softball,Indiana,Regional,1,2
+2024,softball,Omaha,Regional,1,2
+2024,softball,Stanford,WCWS,2,2
+2024,softball,Mississippi State,Regional,1,2
+2024,softball,Cal State Fullerton,Regional,1,2
+2024,softball,Saint Mary's (CA),Regional,1,2
+2024,softball,LSU,Super Regional,2,2
+2024,softball,California,Regional,1,2
+2024,softball,Southern Illinois,Regional,1,2
+2024,softball,Jackson State,Regional,1,2
+2024,softball,Duke,WCWS,3,2
+2024,softball,South Carolina,Regional,1,2
+2024,softball,Utah,Regional,1,2
+2024,softball,Morgan State,Regional,1,2
+2024,softball,Georgia,Super Regional,2,2
+2024,softball,Charlotte,Regional,1,2
+2024,softball,Liberty,Regional,1,2
+2024,softball,UNC Wilmington,Regional,1,2
+2024,softball,Arkansas,Regional,1,2
+2024,softball,Arizona,Super Regional,2,2
+2024,softball,Villanova,Regional,1,2
+2024,softball,Southeast Missouri,Regional,1,2
+2024,softball,Louisiana,Regional,1,2
+2024,softball,Baylor,Super Regional,2,2
+2024,softball,Ole Miss,Regional,1,2
+2024,softball,Princeton,Regional,1,2
+2024,softball,Alabama,WCWS,2,2
+2024,softball,Clemson,Regional,1,2
+2024,softball,Southeastern Louisiana,Regional,1,2
+2024,softball,USC Upstate,Regional,1,2
+2024,softball,Florida State,Super Regional,2,2
+2024,softball,Auburn,Regional,1,2
+2024,softball,UCF,Regional,1,2
+2024,softball,Chattanooga,Regional,1,2
+2024,softball,Texas A&M,Super Regional,2,2
+2024,softball,Texas State,Regional,1,2
+2024,softball,Penn State,Regional,1,2
+2024,softball,UAlbany,Regional,1,2
+2025,softball,Texas A&M,Regional,1,2
+2025,softball,Marist,Regional,1,2
+2025,softball,Saint Francis,Regional,1,2
+2025,softball,Liberty,Regional,1,2
+2025,softball,Oklahoma,WCWS,3,2
+2025,softball,California,Regional,1,2
+2025,softball,Omaha,Regional,1,2
+2025,softball,Boston University,Regional,1,2
+2025,softball,Florida,WCWS,1,2
+2025,softball,Mercer,Regional,1,2
+2025,softball,Georgia Tech,Regional,1,2
+2025,softball,Florida Atlantic,Regional,1,2
+2025,softball,Arkansas,Super Regional,2,2
+2025,softball,Oklahoma State,Regional,1,2
+2025,softball,Indiana,Regional,1,2
+2025,softball,Saint Louis,Regional,1,2
+2025,softball,Florida State,Super Regional,2,2
+2025,softball,Auburn,Regional,1,2
+2025,softball,South Florida,Regional,1,2
+2025,softball,Robert Morris,Regional,1,2
+2025,softball,Texas,Champion,7,1
+2025,softball,Michigan,Regional,1,2
+2025,softball,UCF,Regional,1,2
+2025,softball,Eastern Illinois,Regional,1,2
+2025,softball,Tennessee,WCWS,3,2
+2025,softball,Ohio State,Regional,1,2
+2025,softball,North Carolina,Regional,1,2
+2025,softball,Miami (OH),Regional,1,2
+2025,softball,South Carolina,Super Regional,2,2
+2025,softball,Virginia,Regional,1,2
+2025,softball,North Florida,Regional,1,2
+2025,softball,Elon,Regional,1,2
+2025,softball,UCLA,WCWS,2,2
+2025,softball,UC Santa Barbara,Super Regional,2,2
+2025,softball,San Diego State,Regional,1,2
+2025,softball,Arizona State,Regional,1,2
+2025,softball,LSU,Regional,1,2
+2025,softball,Nebraska,Super Regional,2,2
+2025,softball,UConn,Regional,1,2
+2025,softball,Southeastern Louisiana,Regional,1,2
+2025,softball,Clemson,Super Regional,2,2
+2025,softball,Northwestern,Regional,1,2
+2025,softball,Kentucky,Regional,1,2
+2025,softball,USC Upstate,Regional,1,2
+2025,softball,Texas Tech,WCWS Finalist,6,2
+2025,softball,Mississippi State,Regional,1,2
+2025,softball,Washington,Regional,1,2
+2025,softball,Brown,Regional,1,2
+2025,softball,Arizona,Regional,1,2
+2025,softball,Ole Miss,WCWS,1,2
+2025,softball,Grand Canyon,Regional,1,2
+2025,softball,Santa Clara,Regional,1,2
+2025,softball,Duke,Regional,1,2
+2025,softball,Georgia,Regional,1,2
+2025,softball,Coastal Carolina,Regional,1,2
+2025,softball,Howard,Regional,1,2
+2025,softball,Alabama,Super Regional,2,2
+2025,softball,Virginia Tech,Regional,1,2
+2025,softball,Belmont,Regional,1,2
+2025,softball,Jackson State,Regional,1,2
+2025,softball,Oregon,WCWS,2,2
+2025,softball,Stanford,Super Regional,2,2
+2025,softball,Weber State,Regional,1,2
+2025,softball,Binghamton,Regional,1,2

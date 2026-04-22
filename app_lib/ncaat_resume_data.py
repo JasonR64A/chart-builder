@@ -453,16 +453,14 @@ def _sos_lookup(sport_key: str) -> dict:
 @st.cache_data(show_spinner=False)
 def _historical_analog_pool(sport_key: str) -> pd.DataFrame:
     """Build a per-(year, team) table of selection RPI + national seed + final result
-    that we can use to find historical analogs. Only baseball is wired today.
+    that we can use to find historical analogs. Supports baseball and softball.
     """
-    if sport_key != 'baseball':
-        return pd.DataFrame()
     rpi_hist = _load_csv('bracketology/historical_selection_rpi.csv')
     brackets = _load_csv('bracketology/historical_brackets.csv')
     results = _load_csv('bracketology/historical_results.csv')
     if rpi_hist.empty or brackets.empty:
         return pd.DataFrame()
-    rpi_hist = rpi_hist[rpi_hist['sport'] == 'baseball'].copy()
+    rpi_hist = rpi_hist[rpi_hist['sport'] == sport_key].copy()
     # Convert "2024-25" year label to integer year (the tournament year)
     def _parse_year(y):
         s = str(y)
@@ -477,20 +475,22 @@ def _historical_analog_pool(sport_key: str) -> pd.DataFrame:
     rpi_hist = rpi_hist[['year_int', 'team_clean', 'name_norm', 'rank', 'rpi', 'conference']].rename(
         columns={'year_int': 'year', 'team_clean': 'team', 'rank': 'rpi_rank'}
     )
-    brackets_bb = brackets[brackets['sport'] == 'baseball'].copy()
-    brackets_bb['name_norm'] = brackets_bb['team'].apply(_norm)
+    brackets_sport = brackets[brackets['sport'] == sport_key].copy()
+    brackets_sport['name_norm'] = brackets_sport['team'].apply(_norm)
     # National seed: only for teams that hosted AND were 1-seed in their regional.
-    host_rows = brackets_bb[
-        (brackets_bb['team'] == brackets_bb['host_team']) &
-        (brackets_bb['regional_seed'] == 1)
+    host_rows = brackets_sport[
+        (brackets_sport['team'] == brackets_sport['host_team']) &
+        (brackets_sport['regional_seed'] == 1)
     ][['year', 'name_norm', 'national_seed']].rename(columns={'national_seed': 'nat_seed'})
     # Regional seed: each team's 1-4 slot within their regional (everyone has one).
-    reg_seed_rows = brackets_bb[['year', 'name_norm', 'regional_seed']].drop_duplicates(['year', 'name_norm'])
+    reg_seed_rows = brackets_sport[['year', 'name_norm', 'regional_seed']].drop_duplicates(['year', 'name_norm'])
     out = rpi_hist.merge(host_rows, on=['year', 'name_norm'], how='left')
     out = out.merge(reg_seed_rows, on=['year', 'name_norm'], how='left')
-    # Attach result + tournament W-L if available
+    # Attach result + tournament W-L if available, filtered by sport when the column exists
     if not results.empty:
         results_c = results.copy()
+        if 'sport' in results_c.columns:
+            results_c = results_c[results_c['sport'] == sport_key]
         results_c['name_norm'] = results_c['team'].apply(_norm)
         merge_cols = ['year', 'name_norm', 'result']
         if 'ncaat_wins' in results_c.columns:
@@ -855,7 +855,7 @@ def _nearest_by_score(team_name: str, score: int, score_lookup: dict, teams_df: 
     primary_tid = team_id_by_name.get(team_name)
     primary_stats = None
     if primary_tid is not None:
-        ps = _team_stats(int(primary_tid))
+        ps = _team_stats(int(primary_tid), sport_key=sport_key)
         if ps:
             primary_stats = {k: v['pct'] for k, v in ps.items()}
     out = []
@@ -869,7 +869,7 @@ def _nearest_by_score(team_name: str, score: int, score_lookup: dict, teams_df: 
         }
         tid = team_id_by_name.get(other)
         if tid is not None:
-            stats = _team_stats(int(tid))
+            stats = _team_stats(int(tid), sport_key=sport_key)
             if stats:
                 pct_map = {k: v['pct'] for k, v in stats.items()}
                 entry['stats'] = pct_map
@@ -893,7 +893,15 @@ def _stat_pct(row, col: str, invert: bool = False, default: float = 0.5) -> int:
     return int(round(max(0, min(1, v)) * 100))
 
 
-def _team_stats(team_id: int, year: int = 2026) -> dict | None:
+_STAT_NAT_AVG = {
+    'baseball': {'ops': 0.82, 'woba': 0.37, 'rpg': 6.8, 'fip': 4.95, 'whip': 1.69,
+                 'k9': 7.6, 'bb9': 4.9, 'rf': 3.73, 'wrcPlus': 100},
+    'softball': {'ops': 0.79, 'woba': 0.35, 'rpg': 5.0, 'fip': 4.59, 'whip': 1.65,
+                 'k9': 5.4, 'bb9': 4.0, 'rf': 2.93, 'wrcPlus': 100},
+}
+
+
+def _team_stats(team_id: int, year: int = 2026, sport_key: str = 'baseball') -> dict | None:
     hitting = _load_csv('hitting_team.csv')
     pitching = _load_csv('pitching_team.csv')
     fielding = _load_csv('fielding_team.csv')
@@ -918,36 +926,44 @@ def _team_stats(team_id: int, year: int = 2026) -> dict | None:
     rf_value = 0.0
     if f_row is not None and not fielding.empty:
         rf_value = float(f_row.get('range_factor') or 0)
-        rf2026 = fielding[fielding['year'] == year]['range_factor'].dropna()
-        if len(rf2026):
-            rank = (rf2026 < rf_value).sum()
-            rf_pct = int(round(100 * rank / max(len(rf2026) - 1, 1)))
+        # Restrict percentile pool to teams of the same sport — baseball and softball
+        # have structurally different range_factor distributions, so a mixed pool
+        # would always put softball teams near the bottom.
+        teams_df = _load_csv('teams.csv')
+        sport_label = 'Baseball' if sport_key == 'baseball' else 'Softball'
+        sport_team_ids = set(teams_df[teams_df['sport'] == sport_label]['id']) if not teams_df.empty else set()
+        f_sport = fielding[(fielding['year'] == year) & (fielding['team_id'].isin(sport_team_ids))]
+        rf_pool = f_sport['range_factor'].dropna()
+        if len(rf_pool):
+            rank = (rf_pool < rf_value).sum()
+            rf_pct = int(round(100 * rank / max(len(rf_pool) - 1, 1)))
     k9 = float(p.get('strikeouts_per_9_innings') or 0)
+    nat = _STAT_NAT_AVG.get(sport_key, _STAT_NAT_AVG['baseball'])
     return {
         'ops': {
             'value': float(h.get('on_base_plus_slugging') or 0),
-            'natAvg': 0.78,
+            'natAvg': nat['ops'],
             'pct': _stat_pct(h, 'percentile_rank_on_base_plus_slugging'),
         },
         'woba': {
             'value': float(h.get('weighted_on_base_average') or 0),
-            'natAvg': 0.36,
+            'natAvg': nat['woba'],
             'pct': _stat_pct(h, 'percentile_rank_weighted_on_base_average'),
         },
         'runsPerGame': {
             'value': round(rpg, 2),
-            'natAvg': 6.1,
+            'natAvg': nat['rpg'],
             'pct': rpg_pct,
         },
         'fip': {
             'value': float(p.get('fielding_independent_pitching') or 0),
-            'natAvg': 5.0,
+            'natAvg': nat['fip'],
             'pct': _stat_pct(p, 'percentile_rank_fielding_independent_pitching'),
             'inverted': True,
         },
         'whip': {
             'value': float(p.get('walks_plus_hits_per_inning_pitched') or 0),
-            'natAvg': 1.45,
+            'natAvg': nat['whip'],
             # percentile_rank_* columns in pitching_team.csv are already "higher = better"
             # (goodness percentile), so don't invert even though lower raw WHIP is better.
             'pct': _stat_pct(p, 'percentile_rank_walks_plus_hits_per_inning_pitched'),
@@ -955,12 +971,12 @@ def _team_stats(team_id: int, year: int = 2026) -> dict | None:
         },
         'k9': {
             'value': round(k9, 2),
-            'natAvg': 8.5,
+            'natAvg': nat['k9'],
             'pct': _stat_pct(p, 'percentile_rank_strikeout_percentage'),
         },
         'bb9': {
             'value': round(bb9, 2),
-            'natAvg': 4.1,
+            'natAvg': nat['bb9'],
             # Same as WHIP: percentile_rank_walk_percentage is already goodness-oriented
             # (low BB% -> high percentile). Previously I had invert=True, which flipped it
             # so elite control teams like Ole Miss showed up as worst-in-class. Fixed.
@@ -969,12 +985,12 @@ def _team_stats(team_id: int, year: int = 2026) -> dict | None:
         },
         'rangeFactor': {
             'value': round(rf_value, 2),
-            'natAvg': 4.3,
+            'natAvg': nat['rf'],
             'pct': rf_pct,
         },
         'wrcPlus': {
             'value': float(h.get('weighted_runs_created_plus') or 100),
-            'natAvg': 100,
+            'natAvg': nat['wrcPlus'],
             'pct': _stat_pct(h, 'percentile_rank_weighted_runs_created_plus'),
         },
     }
@@ -1078,7 +1094,7 @@ def build_resume_team(team_name: str, sport_key: str, year: int = 2026) -> dict 
     nearest = _nearest_by_score(team_name, resume_score, score_lookup, teams, conferences, sport_key)
 
     # Stats module
-    stats = _team_stats(team_id, year)
+    stats = _team_stats(team_id, year, sport_key=sport_key)
     if stats is None:
         # Safe fallback so the component still renders
         stats = {
