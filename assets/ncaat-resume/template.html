@@ -634,7 +634,7 @@ function SpiderChart({ team, size = 240 }) {
         return (
           <text key={k} x={lx} y={ly} textAnchor={anchor} dominantBaseline="middle"
             fontFamily="JetBrains Mono" fontSize="8" fontWeight="600" fill="var(--ink)" letterSpacing="0.06em">
-            {STAT_LABELS[k].label.toUpperCase()}
+            {((stats[k] && stats[k].label) || STAT_LABELS[k].label).toUpperCase()}
           </text>
         );
       })}
@@ -700,7 +700,7 @@ function SpiderModule({ team }) {
             const s = team.stats[k];
             return (
               <div key={k} style={{ display: "grid", gridTemplateColumns: "42px 1fr 32px", gap: 6, padding: "3px 0", borderBottom: "1px solid var(--rule)", alignItems: "center" }}>
-                <div className="mono" style={{ fontSize: 9, fontWeight: 700, color: "var(--ink-2)" }}>{STAT_LABELS[k].label}</div>
+                <div className="mono" style={{ fontSize: 9, fontWeight: 700, color: "var(--ink-2)" }}>{(s && s.label) || STAT_LABELS[k].label}</div>
                 <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
                   <div className="serif" style={{ fontSize: 12, fontWeight: 600, fontVariantNumeric: "tabular-nums", minWidth: 42 }}>{STAT_LABELS[k].fmt(s.value)}</div>
                   <div style={{ flex: 1, height: 4, background: "var(--paper-2)", position: "relative" }}>
