@@ -895,9 +895,9 @@ def _stat_pct(row, col: str, invert: bool = False, default: float = 0.5) -> int:
 
 _STAT_NAT_AVG = {
     'baseball': {'ops': 0.82, 'woba': 0.37, 'rpg': 6.8, 'fip': 4.95, 'whip': 1.69,
-                 'k_rate': 7.6, 'bb_rate': 4.9, 'rf': 3.73, 'wrcPlus': 100},
+                 'k_rate': 7.6, 'bb_rate': 4.9, 'defense': 3.73, 'wrcPlus': 100},
     'softball': {'ops': 0.79, 'woba': 0.35, 'rpg': 5.0, 'fip': 4.59, 'whip': 1.65,
-                 'k_rate': 4.2, 'bb_rate': 3.1, 'rf': 2.93, 'wrcPlus': 100},
+                 'k_rate': 4.2, 'bb_rate': 3.1, 'defense': 0.957, 'wrcPlus': 100},
 }
 
 
@@ -924,21 +924,26 @@ def _team_stats(team_id: int, year: int = 2026, sport_key: str = 'baseball') -> 
     inn_len = 7 if sport_key == 'softball' else 9
     bb_rate = (bb * inn_len / ip) if ip > 0 else 0.0
     rpg_pct = _stat_pct(h, 'percentile_rank_weighted_runs_created_plus')
-    rf_pct = 50
-    rf_value = 0.0
+    # Defensive metric: baseball uses range_factor, softball uses fielding_percentage.
+    # Range factor distributions are noisy for softball (different positional splits
+    # and scoring conventions), so we show fielding percentage there instead.
+    defense_col = 'fielding_percentage' if sport_key == 'softball' else 'range_factor'
+    defense_label = 'FPCT' if sport_key == 'softball' else 'RF'
+    defense_fmt = 'pct3' if sport_key == 'softball' else 'num2'
+    defense_pct = 50
+    defense_value = 0.0
     if f_row is not None and not fielding.empty:
-        rf_value = float(f_row.get('range_factor') or 0)
-        # Restrict percentile pool to teams of the same sport — baseball and softball
-        # have structurally different range_factor distributions, so a mixed pool
-        # would always put softball teams near the bottom.
+        defense_value = float(f_row.get(defense_col) or 0)
+        # Restrict percentile pool to teams of the same sport — the two sports have
+        # structurally different distributions, so a mixed pool would skew results.
         teams_df = _load_csv('teams.csv')
         sport_label = 'Baseball' if sport_key == 'baseball' else 'Softball'
         sport_team_ids = set(teams_df[teams_df['sport'] == sport_label]['id']) if not teams_df.empty else set()
         f_sport = fielding[(fielding['year'] == year) & (fielding['team_id'].isin(sport_team_ids))]
-        rf_pool = f_sport['range_factor'].dropna()
-        if len(rf_pool):
-            rank = (rf_pool < rf_value).sum()
-            rf_pct = int(round(100 * rank / max(len(rf_pool) - 1, 1)))
+        pool = f_sport[defense_col].dropna()
+        if len(pool):
+            rank = (pool < defense_value).sum()
+            defense_pct = int(round(100 * rank / max(len(pool) - 1, 1)))
     # K rate: compute from raw for softball (strikeouts_per_7_innings is NaN for many teams);
     # baseball uses the precomputed strikeouts_per_9_innings.
     if sport_key == 'softball':
@@ -996,9 +1001,11 @@ def _team_stats(team_id: int, year: int = 2026, sport_key: str = 'baseball') -> 
             'label': bb_label,
         },
         'rangeFactor': {
-            'value': round(rf_value, 2),
-            'natAvg': nat['rf'],
-            'pct': rf_pct,
+            'value': round(defense_value, 3),
+            'natAvg': nat['defense'],
+            'pct': defense_pct,
+            'label': defense_label,
+            'fmt': defense_fmt,
         },
         'wrcPlus': {
             'value': float(h.get('weighted_runs_created_plus') or 100),
