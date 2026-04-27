@@ -1,0 +1,69 @@
+sport,snapshot_date,name,display_conference,record_str,rpi,rpi_rank,projected_rpi,projected_rpi_rank,proj_record_str,sixty_four_rank,overall_seed,seed_tier,national_seed,is_auto_bid,bubble_status,conf_win_pct
+softball,2026-04-27,Texas,SEC,37-8,0.69896,3,0.69896,999,37-8,0.9349,1,1-seed,1.0,False,,0.7
+softball,2026-04-27,Oklahoma,SEC,45-6,0.67883,6,0.67883,999,45-6,0.9935,2,1-seed,2.0,True,,0.85
+softball,2026-04-27,Miami (OH),MAC,34-15,0.54818,72,0.54818,999,34-15,0.899,3,1-seed,3.0,False,,0.6521739130434783
+softball,2026-04-27,North Carolina,ACC,31-17,0.57731,50,0.57731,999,31-17,0.8827,4,1-seed,4.0,False,,0.391304347826087
+softball,2026-04-27,Virginia Tech,ACC,40-9,0.62846,23,0.62846,999,40-9,0.987,5,1-seed,5.0,False,,0.7
+softball,2026-04-27,Southeastern La.,Southland,44-12,0.59756,32,0.59756,999,44-12,0.9251,6,1-seed,6.0,True,,0.8888888888888888
+softball,2026-04-27,Nevada,Mountain West,36-14,0.57937,48,0.57937,999,36-14,0.8762,7,1-seed,7.0,False,,0.7619047619047619
+softball,2026-04-27,Grand Canyon,Mountain West,44-7,0.60078,31,0.60078,999,44-7,0.9381,8,1-seed,8.0,True,,0.8095238095238095
+softball,2026-04-27,Howard,MEAC,25-16,0.47932,176,0.47932,999,25-16,0.4235,9,1-seed,9.0,True,,0.9
+softball,2026-04-27,Florida St.,ACC,42-7,0.65917,10,0.65917,999,42-7,0.9837,10,1-seed,10.0,True,,0.85
+softball,2026-04-27,Florida,SEC,44-7,0.69228,5,0.69228,999,44-7,1.0,11,1-seed,11.0,False,,0.7619047619047619
+softball,2026-04-27,Arizona,Big 12,33-13,0.64129,19,0.64129,999,33-13,0.9088,12,1-seed,12.0,False,,0.7
+softball,2026-04-27,Colorado St.,Mountain West,23-24,0.48685,163,0.48685,999,23-24,0.5179,13,1-seed,13.0,False,,0.5
+softball,2026-04-27,Duke,ACC,37-13,0.65345,14,0.65345,999,37-13,0.9577,14,1-seed,14.0,False,,0.8260869565217391
+softball,2026-04-27,Boston U.,Patriot,39-13,0.56315,58,0.56315,999,39-13,0.8274,15,1-seed,15.0,True,,0.8823529411764706
+softball,2026-04-27,BYU,Big 12,18-30,0.53113,89,0.53113,999,18-30,0.5635,16,1-seed,16.0,False,,0.3333333333333333
+softball,2026-04-27,Washington,Big Ten,34-14,0.61491,26,0.61491,999,34-14,0.9446,17,2-seed,,False,,0.75
+softball,2026-04-27,Louisiana,Sun Belt,27-23,0.57626,52,0.57626,999,27-23,0.8208,18,2-seed,,False,,0.5
+softball,2026-04-27,UNLV,Mountain West,28-19,0.52188,105,0.52188,999,28-19,0.6808,19,2-seed,,False,,0.7142857142857143
+softball,2026-04-27,UCLA,Big Ten,43-5,0.67272,7,0.67272,999,43-5,0.9707,20,2-seed,,False,,0.9
+softball,2026-04-27,California Baptist,WAC,38-15,0.52739,96,0.52739,999,38-15,0.6319,21,2-seed,,True,,0.8666666666666667
+softball,2026-04-27,Marshall,Sun Belt,35-14,0.61304,27,0.61304,999,35-14,0.9544,22,2-seed,,False,,0.75
+softball,2026-04-27,Cal St. Fullerton,Big West,35-12,0.56449,57,0.56449,999,35-12,0.785,23,2-seed,,True,,0.9166666666666666
+softball,2026-04-27,Fresno St.,Mountain West,20-22,0.5211,106,0.5211,999,20-22,0.5603,24,2-seed,,False,,0.42857142857142855
+softball,2026-04-27,UIW,Southland,32-19,0.52476,99,0.52476,999,32-19,0.7036,25,2-seed,,False,,0.6296296296296297
+softball,2026-04-27,Harvard,Ivy League,19-19,0.4741,182,0.4741,999,19-19,0.5961,26,2-seed,,False,,0.5882352941176471
+softball,2026-04-27,Marist,MAAC,29-19,0.47936,175,0.47936,999,29-19,0.4853,27,2-seed,,True,,0.875
+softball,2026-04-27,Indiana,Big Ten,36-13,0.58827,37,0.58827,999,36-13,0.9609,28,2-seed,,False,,0.65
+softball,2026-04-27,Texas Tech,Big 12,46-4,0.65507,11,0.65507,999,46-4,0.9967,29,2-seed,,True,,0.9
+softball,2026-04-27,James Madison,Sun Belt,24-22,0.53351,86,0.53351,999,24-22,0.9023,30,2-seed,,False,,0.5
+softball,2026-04-27,Florida A&M,SWAC,28-20,0.46644,194,0.46644,999,28-20,0.5375,31,2-seed,,False,,0.76
+softball,2026-04-27,Georgia Tech,ACC,29-25,0.58308,42,0.58308,999,29-25,0.9316,32,2-seed,,False,,0.43478260869565216
+softball,2026-04-27,Oregon,Big Ten,37-10,0.66181,9,0.66181,999,37-10,0.9055,33,3-seed,,False,,0.85
+softball,2026-04-27,California,ACC,13-35,0.50561,135,0.50561,999,13-35,0.3681,34,3-seed,,False,,0.15
+softball,2026-04-27,Oklahoma St.,Big 12,33-13,0.6485,16,0.6485,999,33-13,0.8664,35,3-seed,,False,,0.65
+softball,2026-04-27,Texas A&M,SEC,35-13,0.6535,13,0.6535,999,35-13,0.9902,36,3-seed,,False,,0.75
+softball,2026-04-27,Toledo,MAC,14-33,0.45525,219,0.45525,999,14-33,0.1205,37,3-seed,,False,,0.4166666666666667
+softball,2026-04-27,East Carolina,American,28-23,0.5377,82,0.5377,999,28-23,0.6971,38,3-seed,,False,,0.5217391304347826
+softball,2026-04-27,Utah,Big 12,32-18,0.55059,70,0.55059,999,32-18,0.8436,39,3-seed,,False,last_in,0.4
+softball,2026-04-27,Saint Francis,NEC,4-38,0.32233,304,0.32233,999,4-38,0.013,40,3-seed,,False,last_in,0.21052631578947367
+softball,2026-04-27,Boise St.,Mountain West,21-29,0.51849,111,0.51849,999,21-29,0.5212,41,3-seed,,False,last_in,0.35
+softball,2026-04-27,Kent St.,MAC,19-28,0.47248,187,0.47248,999,19-28,0.1954,42,3-seed,,False,last_in,0.2916666666666667
+softball,2026-04-27,Prairie View,SWAC,25-17,0.49285,152,0.49285,999,25-17,0.4528,43,3-seed,,True,,0.8095238095238095
+softball,2026-04-27,Bryant,America East,19-21,0.46626,195,0.46626,999,19-21,0.2476,44,3-seed,,True,,0.7142857142857143
+softball,2026-04-27,Nebraska,Big Ten,40-6,0.6942,4,0.6942,999,40-6,0.9283,45,3-seed,,True,,0.9523809523809523
+softball,2026-04-27,Eastern Ill.,OVC,29-20,0.51168,126,0.51168,999,29-20,0.671,46,3-seed,,True,,0.8636363636363636
+softball,2026-04-27,Idaho St.,Big Sky,33-18,0.50808,130,0.50808,999,33-18,0.7622,47,3-seed,,True,,0.6428571428571429
+softball,2026-04-27,Saint Mary's (CA),WCC,34-12,0.56048,62,0.56048,999,34-12,0.658,48,3-seed,,True,,0.9
+softball,2026-04-27,Youngstown St.,Horizon,28-17,0.439,243,0.439,999,28-17,0.5505,49,4-seed,,True,,0.7857142857142857
+softball,2026-04-27,ULM,Sun Belt,34-18,0.577,51,0.577,999,34-18,0.772,50,4-seed,,True,,0.8
+softball,2026-04-27,Princeton,Ivy League,28-11,0.53782,81,0.53782,999,28-11,0.7459,51,4-seed,,True,,0.9411764705882353
+softball,2026-04-27,Providence,Big East,25-15,0.52833,94,0.52833,999,25-15,0.5831,52,4-seed,,True,,0.8235294117647058
+softball,2026-04-27,Akron,MAC,29-22,0.52223,104,0.52223,999,29-22,0.645,53,4-seed,,True,,0.7916666666666666
+softball,2026-04-27,Omaha,Summit League,31-9,0.58688,38,0.58688,999,31-9,0.8241,54,4-seed,,True,,0.9285714285714286
+softball,2026-04-27,UNC Greensboro,SoCon,37-15,0.552,68,0.552,999,37-15,0.7915,55,4-seed,,True,,0.8823529411764706
+softball,2026-04-27,Belmont,MVC,35-11,0.58109,44,0.58109,999,35-11,0.8599,56,4-seed,,True,,0.8076923076923077
+softball,2026-04-27,Jacksonville St.,CUSA,39-12,0.58829,36,0.58829,999,39-12,0.8078,57,4-seed,,True,,0.9130434782608695
+softball,2026-04-27,Central Conn. St.,NEC,24-16,0.44249,236,0.44249,999,24-16,0.3974,58,4-seed,,True,,0.8571428571428571
+softball,2026-04-27,Loyola Chicago,Atlantic 10,24-20,0.50656,134,0.50656,999,24-20,0.3094,59,4-seed,,True,,0.8
+softball,2026-04-27,South Fla.,American,36-15,0.59094,35,0.59094,999,36-15,0.8013,60,4-seed,,True,,0.7391304347826086
+softball,2026-04-27,Winthrop,Big South,28-21,0.49997,146,0.49997,999,28-21,0.4365,61,4-seed,,True,,0.7647058823529411
+softball,2026-04-27,Stetson,ASUN,30-19,0.54358,76,0.54358,999,30-19,0.5733,62,4-seed,,True,,0.75
+softball,2026-04-27,Hofstra,CAA,26-19,0.49188,153,0.49188,999,26-19,0.8143,63,4-seed,,True,,0.8571428571428571
+softball,2026-04-27,Oregon St.,WCC,18-31,0.4858,164,0.4858,999,18-31,0.4397,64,4-seed,,True,,0.42857142857142855
+softball,2026-04-27,Seattle U,WCC,19-25,0.49042,154,0.49042,999,19-25,0.6091,65,first_four_out,,False,first_out,0.45454545454545453
+softball,2026-04-27,Troy,Sun Belt,30-19,0.54303,79,0.54303,999,30-19,0.8176,66,first_four_out,,False,first_out,0.4
+softball,2026-04-27,UCF,Big 12,36-13,0.63123,21,0.63123,999,36-13,0.9479,67,first_four_out,,False,first_out,0.6
+softball,2026-04-27,Lehigh,Patriot,22-26,0.46795,193,0.46795,999,22-26,0.4137,68,first_four_out,,False,first_out,0.26666666666666666
