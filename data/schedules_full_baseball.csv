@@ -1,4 +1,44 @@
 teamYearId,teamName,date,opponentName,opponentYearId,isAway,result,isFuture,runsFor,runsAgainst,isWin,sport,gameId
+615477,William Peace,02/13/2026,East. Mennonite,615200,,W 3-2,,3,2,1,baseball,6514282
+615477,William Peace,02/14/2026,East. Mennonite,615200,,L 9-10,,9,10,,baseball,6514280
+615477,William Peace,02/14/2026,East. Mennonite,615200,,L 4-14,,4,14,,baseball,6514281
+615477,William Peace,02/21/2026,Gettysburg,615213,,L 0-16,,0,16,,baseball,6514283
+615477,William Peace,02/21/2026,Widener,615391,,L 4-8,,4,8,,baseball,6514284
+615477,William Peace,02/22/2026,Gettysburg,615213,,L 5-10,,5,10,,baseball,6514286
+615477,William Peace,02/25/2026,Hampden-Sydney,615221,,L 12-15,,12,15,,baseball,6514287
+615477,William Peace,02/28/2026,Roanoke,615329,1,L 4-13,,4,13,,baseball,6482994
+615477,William Peace,02/28/2026,Roanoke,615329,1,L 0-9,,0,9,,baseball,6482996
+615477,William Peace,03/05/2026,JWU (Providence),615483,,W 9-4,,9,4,1,baseball,6514288
+615477,William Peace,03/06/2026,JWU (Providence),615483,,W 6-2,,6,2,1,baseball,6514289
+615477,William Peace,03/06/2026,JWU (Providence),615483,,L 5-14,,5,14,,baseball,6514290
+615477,William Peace,03/07/2026,Rhode Island Col.,615326,,W 13-3,,13,3,1,baseball,6514291
+615477,William Peace,03/08/2026,Rhode Island Col.,615326,,W 7-3,,7,3,1,baseball,6514292
+615477,William Peace,03/08/2026,Rhode Island Col.,615326,,W 6-5 (9),,6,5,1,baseball,6514293
+615477,William Peace,03/09/2026,Rhode Island Col.,615326,,L 3-8,,3,8,,baseball,6514294
+615477,William Peace,03/13/2026,Pfeiffer,615280,,L 0-7,,0,7,,baseball,6502522
+615477,William Peace,03/14/2026,Pfeiffer,615280,,L 4-7,,4,7,,baseball,6502523
+615477,William Peace,03/14/2026,Pfeiffer,615280,,L 2-5,,2,5,,baseball,6502524
+615477,William Peace,03/20/2026,N.C. Wesleyan,615302,1,L 6-14,,6,14,,baseball,6514295
+615477,William Peace,03/21/2026,N.C. Wesleyan,615302,1,W 14-6,,14,6,1,baseball,6514296
+615477,William Peace,03/22/2026,N.C. Wesleyan,615302,1,W 12-9,,12,9,1,baseball,6514297
+615477,William Peace,03/27/2026,Greensboro,615215,1,W 11-10 (10),,11,10,1,baseball,6514298
+615477,William Peace,03/28/2026,Greensboro,615215,1,L 6-7,,6,7,,baseball,6514299
+615477,William Peace,03/29/2026,Greensboro,615215,1,L 0-10,,0,10,,baseball,6514300
+615477,William Peace,03/31/2026,Roanoke,615329,,W 8-2,,8,2,1,baseball,6483029
+615477,William Peace,04/03/2026,Mary Baldwin,615275,,W 8-7,,8,7,1,baseball,6491236
+615477,William Peace,04/04/2026,Mary Baldwin,615275,,W 10-8,,10,8,1,baseball,6491238
+615477,William Peace,04/04/2026,Mary Baldwin,615275,,L 1-10,,1,10,,baseball,6491239
+615477,William Peace,04/10/2026,Methodist,615262,1,L 4-6,,4,6,,baseball,6491305
+615477,William Peace,04/11/2026,Methodist,615262,1,L 9-13,,9,13,,baseball,6491306
+615477,William Peace,04/11/2026,Methodist,615262,1,L 1-8,,1,8,,baseball,6491307
+615477,William Peace,04/14/2026,Chowan,614922,,W 20-7,,20,7,1,baseball,6514301
+615477,William Peace,04/18/2026,Brevard,615281,1,Canceled,,,,,baseball,
+615477,William Peace,04/18/2026,Brevard,615281,1,L 1-6,,1,6,,baseball,6514302
+615477,William Peace,04/19/2026,Brevard,615281,1,W 8-5,,8,5,1,baseball,6514304
+615477,William Peace,04/19/2026,Brevard,615281,1,W 8-6 (11),,8,6,1,baseball,6514305
+615477,William Peace,04/24/2026,Southern Va.,615132,,L 6-9,,6,9,,baseball,6514306
+615477,William Peace,04/25/2026,Southern Va.,615132,,W 11-9,,11,9,1,baseball,6514307
+615477,William Peace,04/25/2026,Southern Va.,615132,,W 9-5,,9,5,1,baseball,6514308
 614853,Arizona St.,02/13/2026,Omaha,614679,,W 7-2,,7,2,1,baseball,6545218
 614853,Arizona St.,02/14/2026,Omaha,614679,,W 11-5,,11,5,1,baseball,6545222
 614853,Arizona St.,02/15/2026,Omaha,614679,,W 6-4,,6,4,1,baseball,6545223
@@ -36391,46 +36431,6 @@ teamYearId,teamName,date,opponentName,opponentYearId,isAway,result,isFuture,runs
 614652,Marshall,05/16/2026,Texas St.,614747,1,,1,,,,baseball,
 616264,Morris,25,25,,,25,,,,,baseball,
 616264,Morris,19,19,,,18,,,,,baseball,
-615477,William Peace,02/13/2026,East. Mennonite,615200,,W 3-2,,3,2,1,baseball,6514282
-615477,William Peace,02/14/2026,East. Mennonite,615200,,L 9-10,,9,10,,baseball,6514280
-615477,William Peace,02/14/2026,East. Mennonite,615200,,L 4-14,,4,14,,baseball,6514281
-615477,William Peace,02/21/2026,Gettysburg,615213,,L 0-16,,0,16,,baseball,6514283
-615477,William Peace,02/21/2026,Widener,615391,,L 4-8,,4,8,,baseball,6514284
-615477,William Peace,02/22/2026,Gettysburg,615213,,L 5-10,,5,10,,baseball,6514286
-615477,William Peace,02/25/2026,Hampden-Sydney,615221,,L 12-15,,12,15,,baseball,6514287
-615477,William Peace,02/28/2026,Roanoke,615329,1,L 4-13,,4,13,,baseball,6482994
-615477,William Peace,02/28/2026,Roanoke,615329,1,L 0-9,,0,9,,baseball,6482996
-615477,William Peace,03/05/2026,JWU (Providence),615483,,W 9-4,,9,4,1,baseball,6514288
-615477,William Peace,03/06/2026,JWU (Providence),615483,,W 6-2,,6,2,1,baseball,6514289
-615477,William Peace,03/06/2026,JWU (Providence),615483,,L 5-14,,5,14,,baseball,6514290
-615477,William Peace,03/07/2026,Rhode Island Col.,615326,,W 13-3,,13,3,1,baseball,6514291
-615477,William Peace,03/08/2026,Rhode Island Col.,615326,,W 7-3,,7,3,1,baseball,6514292
-615477,William Peace,03/08/2026,Rhode Island Col.,615326,,W 6-5 (9),,6,5,1,baseball,6514293
-615477,William Peace,03/09/2026,Rhode Island Col.,615326,,L 3-8,,3,8,,baseball,6514294
-615477,William Peace,03/13/2026,Pfeiffer,615280,,L 0-7,,0,7,,baseball,6502522
-615477,William Peace,03/14/2026,Pfeiffer,615280,,L 4-7,,4,7,,baseball,6502523
-615477,William Peace,03/14/2026,Pfeiffer,615280,,L 2-5,,2,5,,baseball,6502524
-615477,William Peace,03/20/2026,N.C. Wesleyan,615302,1,L 6-14,,6,14,,baseball,6514295
-615477,William Peace,03/21/2026,N.C. Wesleyan,615302,1,W 14-6,,14,6,1,baseball,6514296
-615477,William Peace,03/22/2026,N.C. Wesleyan,615302,1,W 12-9,,12,9,1,baseball,6514297
-615477,William Peace,03/27/2026,Greensboro,615215,1,W 11-10 (10),,11,10,1,baseball,6514298
-615477,William Peace,03/28/2026,Greensboro,615215,1,L 6-7,,6,7,,baseball,6514299
-615477,William Peace,03/29/2026,Greensboro,615215,1,L 0-10,,0,10,,baseball,6514300
-615477,William Peace,03/31/2026,Roanoke,615329,,W 8-2,,8,2,1,baseball,6483029
-615477,William Peace,04/03/2026,Mary Baldwin,615275,,W 8-7,,8,7,1,baseball,6491236
-615477,William Peace,04/04/2026,Mary Baldwin,615275,,W 10-8,,10,8,1,baseball,6491238
-615477,William Peace,04/04/2026,Mary Baldwin,615275,,L 1-10,,1,10,,baseball,6491239
-615477,William Peace,04/10/2026,Methodist,615262,1,L 4-6,,4,6,,baseball,6491305
-615477,William Peace,04/11/2026,Methodist,615262,1,L 9-13,,9,13,,baseball,6491306
-615477,William Peace,04/11/2026,Methodist,615262,1,L 1-8,,1,8,,baseball,6491307
-615477,William Peace,04/14/2026,Chowan,614922,,W 20-7,,20,7,1,baseball,6514301
-615477,William Peace,04/18/2026,Brevard,615281,1,Canceled,,,,,baseball,
-615477,William Peace,04/18/2026,Brevard,615281,1,L 1-6,,1,6,,baseball,6514302
-615477,William Peace,04/19/2026,Brevard,615281,1,W 8-5,,8,5,1,baseball,6514304
-615477,William Peace,04/19/2026,Brevard,615281,1,W 8-6 (11),,8,6,1,baseball,6514305
-615477,William Peace,04/24/2026,Southern Va.,615132,,L 6-9,,6,9,,baseball,6514306
-615477,William Peace,04/25/2026,Southern Va.,615132,,W 11-9,,11,9,1,baseball,6514307
-615477,William Peace,04/25/2026,Southern Va.,615132,,W 9-5,,9,5,1,baseball,6514308
 615394,Wm. Paterson,02/15/2026,Stevens,615357,1,L 3-5,,3,5,,baseball,6542496
 615394,Wm. Paterson,02/21/2026,Mount Aloysius,615494,,W 6-0,,6,0,1,baseball,6542730
 615394,Wm. Paterson,02/21/2026,Mount Aloysius,615494,,W 3-0,,3,0,1,baseball,6542731
