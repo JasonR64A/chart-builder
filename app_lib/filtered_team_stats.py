@@ -412,7 +412,11 @@ def derive_team_stats(sport: str, stat_kind: str, game_type: str = 'All', day_fi
 
 
 def merge_with_historical(historical_df: pd.DataFrame, derived_2026: pd.DataFrame) -> pd.DataFrame:
-    """Replace year-2026 rows in historical_df with derived rows; preserve all other years."""
+    """Replace year-2026 rows in historical_df with derived rows; preserve all other years.
+    Column union: keep historical_df's columns AND any new derived columns
+    (wOBA, wRC, wRAA, FIP, A-OPS, percentile_rank_*) so chart-builder dropdowns
+    can offer the new stats when filter is active.
+    """
     if derived_2026.empty:
         return historical_df
     historical_df = historical_df.copy()
@@ -420,9 +424,16 @@ def merge_with_historical(historical_df: pd.DataFrame, derived_2026: pd.DataFram
         kept = historical_df[historical_df['year'].astype(str) != '2026']
     else:
         kept = historical_df
-    # Align columns: keep everything historical_df expects; fill missing with 0/NaN
+    # Union of columns. Any column in historical_df missing from derived gets NaN
+    # in derived rows. Any new column in derived gets NaN in historical rows.
+    all_cols = list(historical_df.columns) + [c for c in derived_2026.columns if c not in historical_df.columns]
     for col in historical_df.columns:
         if col not in derived_2026.columns:
             derived_2026[col] = pd.NA
-    derived_2026 = derived_2026[historical_df.columns]
+    kept = kept.copy()
+    for col in derived_2026.columns:
+        if col not in kept.columns:
+            kept[col] = pd.NA
+    derived_2026 = derived_2026[all_cols]
+    kept = kept[all_cols]
     return pd.concat([kept, derived_2026], ignore_index=True)
