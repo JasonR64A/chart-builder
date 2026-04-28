@@ -1163,7 +1163,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6568788,4/06/26,baseball,Kean,,Noah Rivera,28.0,P,9687160,0.2,4,4,4,0,0,8,1,0,0,0,0,2,0,0,0,0,1,0,0,0
 6568788,4/06/26,baseball,Ramapo,1.0,Thomas Schlaline,34.0,P,11240218,5.0,7,4,4,4,4,26,3,0,0,0,1,0,0,0,0,0,1,1,0,0
 6568788,4/06/26,baseball,Ramapo,1.0,Kevin Penny,31.0,P,11240214,2.0,4,2,2,2,0,12,1,0,0,0,0,0,0,0,0,0,1,0,0,0
-6568788,4/06/26,baseball,Ramapo,1.0,"Carlo Lalomia, Jr.",39.0,P,9685325,1.0,0,0,0,1,0,4,0,0,0,0,1,1,0,0,0,0,0,0,0,0
 6568788,4/06/26,baseball,Ramapo,1.0,James Kahn,11.0,P,11240104,1.0,2,1,1,1,1,6,1,0,0,0,0,0,0,0,0,0,1,1,0,0
 6568797,4/06/26,baseball,Hartford,,Jeffrey Blake,20.0,P,9704838,6.0,3,0,0,1,8,23,1,0,0,0,0,1,0,0,0,0,0,1,0,0
 6568797,4/06/26,baseball,Hartford,,Evan Gentile,37.0,P,9694146,0.1,4,3,3,1,0,5,0,1,0,0,0,0,0,0,0,0,0,0,0,0
@@ -2180,7 +2179,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6508584,4/04/26,baseball,TCNJ,,Jack Reardon,24.0,P,9700796,3.0,3,3,3,3,1,14,0,0,0,0,0,0,0,0,0,0,0,1,0,0
 6508584,4/04/26,baseball,TCNJ,,Jesse Beer,16.0,P,9700569,5.0,6,4,4,2,4,24,1,0,0,0,0,0,0,0,0,1,0,1,0,0
 6508584,4/04/26,baseball,Ramapo,1.0,Michael Zalinkanskas,7.0,P,9691567,6.0,2,3,3,6,7,25,0,0,0,0,0,0,0,0,0,1,0,3,0,1
-6508584,4/04/26,baseball,Ramapo,1.0,"Carlo Lalomia, Jr.",39.0,P,9685325,3.0,1,0,0,1,2,11,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6495620,4/04/26,baseball,Allegheny,,Ben Shields,30.0,P,9704617,5.1,12,9,8,1,2,29,2,0,0,4,0,1,0,0,0,1,0,1,0,0
 6495620,4/04/26,baseball,Allegheny,,Johnny Hughes,35.0,P,9677222,1.0,3,3,3,0,0,6,1,0,0,2,0,0,0,0,0,0,0,0,0,0
 6495620,4/04/26,baseball,Allegheny,,Ashton Reidy,29.0,P,9699844,0.0,4,4,4,0,0,5,1,1,0,0,0,1,0,0,0,0,0,0,0,0
@@ -2734,7 +2732,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6532317,4/04/26,baseball,Russell Sage,,Reece Jantzi,25.0,P,11332444,0.1,0,0,0,1,0,3,0,0,0,0,0,1,0,0,0,0,0,0,0,0
 6532317,4/04/26,baseball,Russell Sage,,Paul Roesel,50.0,P,11332485,0.2,0,0,0,1,2,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6532317,4/04/26,baseball,Russell Sage,,Eric Zelezniak,20.0,P,11379235,1.0,0,0,0,1,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-6532317,4/04/26,baseball,Keuka,1.0,"Ryan Schur, Jr.",19.0,P,11251449,3.1,10,11,8,3,2,25,0,0,0,1,0,1,0,0,0,0,1,1,0,0
 6532317,4/04/26,baseball,Keuka,1.0,Hunter Corkran,15.0,P,9689193,3.2,4,1,1,0,3,15,0,0,0,0,0,1,0,0,0,0,0,1,0,0
 6505310,4/04/26,baseball,Cornell College,,Lucas Brutsche,16.0,P,9696807,5.0,9,5,3,1,4,25,0,0,0,0,1,0,0,0,0,0,0,1,0,0
 6505310,4/04/26,baseball,Cornell College,,Thomas Hunt,15.0,DH/P,9694798,4.0,6,3,1,0,6,19,0,1,0,0,0,0,0,0,0,0,0,2,0,0
@@ -4917,7 +4914,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6527285,3/31/26,baseball,Gordon,1.0,Colby Galipeau,4.0,P,9682689,1.1,7,6,6,2,0,15,2,0,0,0,0,2,0,0,0,0,0,0,0,0
 6527285,3/31/26,baseball,Gordon,1.0,Brayden Seaman,30.0,P,9700039,2.0,1,2,2,1,0,10,1,0,0,0,0,2,0,0,0,0,3,0,0,0
 6532300,3/31/26,baseball,Keuka,,Luis Rivera,35.0,P,11251461,6.0,7,5,4,1,3,26,1,0,0,0,0,1,0,0,0,0,0,1,0,0
-6532300,3/31/26,baseball,Keuka,,"Ryan Schur, Jr.",19.0,P,11251449,3.0,3,3,3,1,3,13,1,0,0,0,1,0,1,0,0,0,1,1,0,0
 6532300,3/31/26,baseball,Keuka,,Liam Eshelman,31.0,P,11251457,1.0,0,0,0,1,1,3,0,0,0,0,0,0,0,0,0,0,0,1,0,0
 6532300,3/31/26,baseball,Elmira,1.0,Devin Sullivan,20.0,P,11253674,2.2,4,5,5,5,1,16,1,1,0,1,1,0,0,0,0,0,1,0,0,1
 6532300,3/31/26,baseball,Elmira,1.0,Nate Lowry,12.0,P,9690086,3.0,2,1,1,1,3,13,1,0,0,0,1,1,0,0,0,0,0,0,0,0
@@ -7131,7 +7127,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6504616,3/28/26,baseball,New Jersey City,1.0,David Solomon,14.0,P,11329364,2.2,2,1,1,2,2,12,1,0,0,0,0,0,0,0,0,0,1,2,0,0
 6504616,3/28/26,baseball,New Jersey City,1.0,Yannid Narvaez,27.0,P,9693404,1.1,2,2,2,2,1,9,0,1,0,0,0,1,0,0,0,0,0,1,0,0
 6508580,3/28/26,baseball,Ramapo,,John Hacker,14.0,P,11240105,5.1,5,4,3,4,6,29,1,0,0,0,1,2,0,0,0,1,0,1,0,0
-6508580,3/28/26,baseball,Ramapo,,"Carlo Lalomia, Jr.",39.0,P,9685325,1.0,1,2,2,3,1,7,0,0,0,0,0,0,0,0,0,0,0,1,0,0
 6508580,3/28/26,baseball,Ramapo,,James Kahn,11.0,P,11240104,2.1,1,1,1,5,2,13,0,0,2,0,0,0,1,0,0,2,0,0,0,0
 6508580,3/28/26,baseball,Rowan,1.0,Zach Coluccio,12.0,P,11251917,4.1,5,3,2,4,3,25,0,0,0,0,1,1,0,0,0,0,0,0,0,0
 6508580,3/28/26,baseball,Rowan,1.0,Christian Rice,10.0,P,9705342,3.2,3,3,3,2,3,18,0,0,2,1,0,2,0,0,0,0,0,0,0,0
@@ -9763,7 +9758,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6537086,3/25/26,baseball,DeSales,1.0,Owen Geng,43.0,P,9681278,1.0,2,1,0,0,0,5,0,0,0,0,0,0,0,0,0,0,1,0,0,0
 6537086,3/25/26,baseball,DeSales,1.0,Danny Kirk,36.0,P,9692984,0.1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6532295,3/25/26,baseball,Keuka,,Lucas Gilbert,21.0,P,9678701,2.1,1,1,1,3,3,11,0,0,0,0,1,0,0,0,0,0,0,1,0,0
-6532295,3/25/26,baseball,Keuka,,"Ryan Schur, Jr.",19.0,P,11251449,1.2,3,1,1,0,1,9,0,0,0,0,0,1,0,1,0,0,0,0,0,0
 6532295,3/25/26,baseball,Keuka,,Luis Rivera,35.0,P,11251461,2.0,4,2,1,0,0,10,0,0,0,0,0,0,0,0,0,0,1,0,0,0
 6532295,3/25/26,baseball,Keuka,,Liam Eshelman,31.0,P,11251457,1.0,0,1,1,1,2,5,0,0,0,0,2,1,0,0,0,0,1,1,0,0
 6532295,3/25/26,baseball,Keuka,,Brandon Wilson,17.0,P,11251445,2.0,2,1,1,1,0,9,0,0,0,0,0,1,0,0,0,1,0,0,0,0
@@ -13402,7 +13396,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6518066,3/20/26,baseball,Grace Christian (MI),,R. Mullins,41.0,P,11329159,1.1,3,5,5,1,0,9,0,0,0,1,0,2,0,0,0,0,0,0,0,0
 6518066,3/20/26,baseball,Grace Christian (MI),,F. Mahoney,17.0,P,11329150,0.2,2,0,0,1,1,5,1,0,0,0,0,0,0,0,0,0,0,1,0,0
 6518066,3/20/26,baseball,Albion,1.0,Quinn Lewis,38.0,P,9679379,7.0,1,0,0,0,9,22,0,0,0,0,0,0,0,0,0,0,0,3,0,0
-6532284,3/20/26,baseball,Keuka,,"Ryan Schur, Jr.",19.0,P,11251449,5.0,8,5,5,1,0,24,1,0,0,2,0,0,0,0,0,0,1,0,0,0
 6532284,3/20/26,baseball,Keuka,,Mason Smith,8.0,P,9702466,0.1,3,4,4,1,0,5,0,1,0,0,0,0,0,0,0,1,0,0,0,0
 6532284,3/20/26,baseball,Keuka,,DJ Bruni,10.0,P,9682273,2.0,0,2,2,3,1,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6532284,3/20/26,baseball,Keuka,,Trey Bova,24.0,P,11251453,0.2,1,0,0,0,1,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -13905,7 +13898,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6516210,3/19/26,baseball,Ramapo,1.0,Eldon Lempa,48.0,P,11240223,1.0,1,2,2,2,0,6,0,0,1,0,1,0,0,0,0,0,1,0,0,0
 6516210,3/19/26,baseball,Ramapo,1.0,Kevin Penny,31.0,P,11240214,1.2,2,0,0,1,2,7,0,0,0,0,1,0,1,0,0,0,0,0,0,0
 6516210,3/19/26,baseball,Ramapo,1.0,Joe Micchio,12.0,P,11240696,0.0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-6516210,3/19/26,baseball,Ramapo,1.0,"Carlo Lalomia, Jr.",39.0,P,9685325,1.0,0,0,0,1,2,3,0,0,0,0,0,0,0,0,0,0,0,1,0,0
 6542794,3/19/26,baseball,Bethel (MN),,Jackson Hunter,7.0,P,9703169,5.0,14,7,5,1,3,30,4,0,0,0,0,1,0,0,0,0,1,0,0,0
 6542794,3/19/26,baseball,Bethel (MN),,Jacob Tobritzhofer,40.0,P,11245045,1.2,4,4,3,1,3,12,0,0,0,0,0,2,0,0,0,0,0,2,0,0
 6542794,3/19/26,baseball,Salve Regina,1.0,Nolan Romanowski,44.0,P,9694357,7.0,5,1,1,2,4,26,1,0,0,0,0,0,0,0,0,0,0,3,0,0
@@ -14670,7 +14662,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6532278,3/18/26,baseball,Keuka,1.0,Mason Smith,8.0,P,9702466,2.0,3,7,2,1,2,14,0,0,0,1,0,3,0,0,0,1,0,0,0,0
 6532278,3/18/26,baseball,Keuka,1.0,DJ Bruni,10.0,P,9682273,0.1,0,2,2,2,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6532278,3/18/26,baseball,Keuka,1.0,Liam Eshelman,31.0,P,11251457,0.2,3,3,2,1,0,7,0,0,0,0,0,1,0,0,0,0,0,0,0,0
-6532278,3/18/26,baseball,Keuka,1.0,"Ryan Schur, Jr.",19.0,P,11251449,0.2,0,1,0,2,1,5,0,0,0,0,0,0,0,0,0,0,1,1,0,0
 6532278,3/18/26,baseball,Keuka,1.0,Trey Bova,24.0,P,11251453,1.1,4,4,3,0,0,8,2,0,0,0,0,0,0,0,0,0,0,0,0,0
 6532278,3/18/26,baseball,Keuka,1.0,Jimmy Stewart,26.0,P,11251454,2.0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6526881,3/18/26,baseball,Rowan,,Zach Coluccio,12.0,P,11251917,5.0,7,4,3,3,6,26,2,0,0,0,0,1,0,0,0,2,0,2,0,1
@@ -14923,7 +14914,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6529439,3/17/26,baseball,Southern Me.,,Hayden Strout,35.0,P,11330248,5.0,5,2,0,3,3,24,0,0,0,0,1,1,0,0,0,2,0,0,0,0
 6529439,3/17/26,baseball,Southern Me.,,Jackson Emery,20.0,P,9699100,1.0,3,2,2,1,2,7,2,0,0,0,0,0,0,0,0,0,0,1,0,0
 6529439,3/17/26,baseball,Ramapo,1.0,Michael Zalinkanskas,7.0,P,9691567,5.2,2,1,1,7,10,25,0,0,0,0,0,0,0,0,0,0,0,3,0,0
-6529439,3/17/26,baseball,Ramapo,1.0,"Carlo Lalomia, Jr.",39.0,P,9685325,1.1,0,0,0,1,3,5,0,0,0,0,0,0,0,0,0,0,0,3,0,0
 6529218,3/17/26,baseball,Piedmont,,Landon May,21.0,P,11226582,4.0,3,3,3,3,1,18,1,0,0,0,1,0,0,0,0,0,0,0,0,0
 6529218,3/17/26,baseball,Piedmont,,Ben Homansky,31.0,P,11226480,0.0,2,5,4,2,0,5,1,0,0,0,0,0,0,0,0,1,0,0,0,0
 6529218,3/17/26,baseball,Piedmont,,Averett Thompson,10.0,P,9697079,0.2,3,5,1,0,1,7,1,0,0,0,0,0,0,0,0,0,0,1,0,0
@@ -16703,7 +16693,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6533980,3/14/26,baseball,Ramapo,1.0,James Kahn,11.0,P,11240104,4.2,5,5,3,5,3,25,1,0,0,0,3,0,0,0,0,1,2,0,0,2
 6533980,3/14/26,baseball,Ramapo,1.0,Greg Guzman,8.0,P,11240183,1.1,1,1,1,1,0,7,0,0,0,0,0,2,0,0,0,0,0,0,0,0
 6533980,3/14/26,baseball,Ramapo,1.0,Kevin Penny,31.0,P,11240214,0.1,3,6,6,2,0,7,1,0,0,0,0,1,0,0,0,1,0,0,0,0
-6533980,3/14/26,baseball,Ramapo,1.0,"Carlo Lalomia, Jr.",39.0,P,9685325,1.1,5,4,4,1,3,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6533980,3/14/26,baseball,Ramapo,1.0,Joe Micchio,12.0,P,11240696,1.1,3,0,0,1,0,8,0,0,0,0,1,0,0,0,0,0,0,0,0,0
 6529853,3/14/26,baseball,Manchester,,Tyler Layson,39.0,P,9678600,7.2,7,5,4,3,5,31,0,0,0,0,0,0,0,0,0,0,0,1,0,1
 6529853,3/14/26,baseball,Manchester,,Cody Ryden,38.0,P,11234550,1.1,0,0,0,1,1,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -17194,7 +17183,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6532253,3/14/26,baseball,St. Norbert,,Trey Parsons,9.0,P,9687086,0.0,1,1,1,1,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6532253,3/14/26,baseball,St. Norbert,,Zac Wotruba,12.0,P,9680013,0.2,1,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6532253,3/14/26,baseball,Keuka,1.0,Lucas Gilbert,21.0,P,9678701,0.2,1,1,1,2,1,6,0,1,1,0,1,1,0,0,0,0,0,0,0,0
-6532253,3/14/26,baseball,Keuka,1.0,"Ryan Schur, Jr.",19.0,P,11251449,5.0,5,2,2,0,2,21,0,0,0,0,0,1,0,0,0,0,0,2,0,0
 6532253,3/14/26,baseball,Keuka,1.0,Liam Eshelman,31.0,P,11251457,1.1,0,0,0,0,0,5,0,0,0,0,0,1,0,0,0,0,0,0,0,0
 6543158,3/14/26,baseball,LaGrange,,Trystin Merson,30.0,P,9685675,7.0,8,4,4,1,3,30,1,0,0,1,1,3,0,0,0,0,1,1,0,2
 6543158,3/14/26,baseball,LaGrange,,Ben Atkinson,49.0,P,11231054,1.1,2,4,4,1,0,8,0,0,0,0,0,2,0,0,0,0,0,0,0,0
@@ -20962,7 +20950,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6520409,3/08/26,baseball,St. Lawrence,,Liam Hickey,19.0,P,9705241,2.0,1,1,0,3,1,12,0,0,0,0,0,1,0,0,0,0,0,0,0,0
 6520409,3/08/26,baseball,St. Lawrence,,Noah Clausen,34.0,P,11219505,5.0,2,0,0,0,2,18,0,0,0,0,0,1,0,0,0,0,0,0,0,0
 6520409,3/08/26,baseball,Keuka,1.0,Lucas Gilbert,21.0,P,9678701,3.0,2,0,0,1,3,12,2,0,0,0,0,0,0,0,0,0,0,1,0,0
-6520409,3/08/26,baseball,Keuka,1.0,"Ryan Schur, Jr.",19.0,P,11251449,4.0,2,2,1,0,3,14,0,1,0,0,0,0,0,0,0,0,1,1,0,0
 6522728,3/08/26,baseball,Wabash,,Aidan McConnell,4.0,P,9683271,6.0,7,4,3,1,3,28,0,0,0,1,1,1,0,0,0,0,0,0,0,0
 6522728,3/08/26,baseball,Wabash,,Bryce Haney,39.0,P,11240573,2.2,2,1,1,1,2,11,0,0,1,0,0,0,0,0,0,0,0,0,0,0
 6522728,3/08/26,baseball,Centre,1.0,Andrew Zimmerman,26.0,P,9694291,6.1,7,4,3,1,5,28,2,0,0,0,0,0,0,0,0,1,0,1,0,0
@@ -21249,7 +21236,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6513484,3/08/26,baseball,Purchase,1.0,Anthony Ciccone,32.0,P,9696992,1.0,1,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6508576,3/08/26,baseball,Ramapo,,James Kahn,11.0,P,11240104,5.2,4,2,2,3,5,23,2,0,0,0,0,0,0,0,0,0,1,1,0,0
 6508576,3/08/26,baseball,Ramapo,,Kevin Penny,31.0,P,11240214,1.1,3,1,1,1,2,8,0,0,0,0,0,1,0,0,0,0,0,0,0,0
-6508576,3/08/26,baseball,Ramapo,,"Carlo Lalomia, Jr.",39.0,P,9685325,1.2,5,2,2,0,0,9,0,0,0,0,1,0,0,0,0,0,0,0,0,0
 6508576,3/08/26,baseball,Amherst,1.0,Saahi Jetti,23.0,P,11241494,6.0,3,2,2,2,3,25,1,0,0,0,0,2,0,0,0,0,0,0,0,0
 6508576,3/08/26,baseball,Amherst,1.0,Yoon Chae,3.0,P,9684029,1.0,2,1,1,2,0,7,1,0,0,0,0,0,0,0,0,1,0,0,0,0
 6508576,3/08/26,baseball,Amherst,1.0,Weslley De Oliveira,0.0,P,9685870,1.0,1,1,1,0,0,5,0,0,0,0,0,1,0,0,0,2,0,0,0,0
@@ -23875,7 +23861,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6498835,3/04/26,baseball,Va. Wesleyan,1.0,Levi Fear,40.0,P,11236462,1.1,0,0,0,2,0,8,0,0,0,0,0,2,0,0,0,0,0,0,0,0
 6506254,3/04/26,baseball,Ramapo,,Thomas Schlaline,34.0,P,11240218,6.0,6,1,1,0,3,24,1,0,0,0,0,1,0,0,0,0,0,0,0,0
 6506254,3/04/26,baseball,Ramapo,,Will Kennedy,9.0,P,9699863,0.1,0,3,3,3,0,6,0,0,0,0,1,2,0,0,0,0,0,0,0,0
-6506254,3/04/26,baseball,Ramapo,,"Carlo Lalomia, Jr.",39.0,P,9685325,1.2,0,0,0,0,2,5,0,0,0,0,0,0,0,0,0,0,0,1,0,0
 6506254,3/04/26,baseball,Ramapo,,Greg Guzman,8.0,P,11240183,1.0,1,0,0,0,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6506254,3/04/26,baseball,FDU-Florham,1.0,Alex Hart,34.0,P,11239476,3.2,5,7,5,2,3,22,1,0,0,0,0,4,0,0,0,0,0,0,0,0
 6506254,3/04/26,baseball,FDU-Florham,1.0,Noah Mednick,26.0,P,11239473,1.1,4,5,5,3,0,10,0,0,0,1,0,0,0,0,0,0,0,0,0,0
@@ -24053,7 +24038,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6558016,3/04/26,baseball,Keuka,,Brandon Wilson,17.0,P,11251445,2.0,6,3,3,0,1,13,1,0,0,0,0,1,0,0,0,1,0,0,0,0
 6558016,3/04/26,baseball,Keuka,,Mason Smith,8.0,P,9702466,1.0,3,1,1,1,1,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6558016,3/04/26,baseball,Keuka,,Wyatt Ernst,27.0,P,9693328,1.0,3,4,2,2,0,8,1,0,0,0,0,0,0,0,0,0,0,0,0,0
-6558016,3/04/26,baseball,Keuka,,"Ryan Schur, Jr.",19.0,P,11251449,1.0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6558016,3/04/26,baseball,Keuka,,Liam Eshelman,31.0,P,11251457,1.0,1,0,0,1,1,5,0,0,0,0,0,0,0,0,0,0,0,1,0,0
 6558016,3/04/26,baseball,Cortland,1.0,Joe Yovino,12.0,P,11249763,3.0,1,0,0,1,3,12,0,0,0,0,1,1,0,0,0,0,0,0,0,0
 6558016,3/04/26,baseball,Cortland,1.0,Xander Payne,17.0,P,9698931,1.0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -26942,7 +26926,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6557051,2/27/26,baseball,Penn St.-Scranton,1.0,UNKNOWN Mabey,28.0,P,11331023,1.2,1,0,0,0,0,5,0,0,0,0,0,1,0,0,0,0,0,0,0,0
 6508572,2/27/26,baseball,Ramapo,,Michael Zalinkanskas,7.0,P,9691567,5.0,5,3,3,1,6,25,3,1,0,0,0,4,0,0,0,0,0,2,0,0
 6508572,2/27/26,baseball,Ramapo,,Thomas Schlaline,34.0,P,11240218,2.2,8,5,5,1,4,17,2,0,0,0,0,0,0,0,0,0,0,2,0,0
-6508572,2/27/26,baseball,Ramapo,,"Carlo Lalomia, Jr.",39.0,P,9685325,0.1,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0
 6508572,2/27/26,baseball,Centenary (NJ),1.0,Louie Vassalo,7.0,P,9684869,3.2,5,4,2,1,6,21,3,0,0,0,0,3,0,0,0,0,0,2,0,0
 6508572,2/27/26,baseball,Centenary (NJ),1.0,Anthony Frasier,2.0,P,9699395,0.1,1,1,1,3,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6508572,2/27/26,baseball,Centenary (NJ),1.0,Anthony Aguilera,17.0,P,9690765,1.0,3,3,3,2,2,7,1,0,0,0,0,0,0,0,0,0,0,1,0,0
@@ -34508,7 +34491,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6534165,4/10/26,baseball,MCLA,1.0,John Arnott,27.0,P,11234594,2.1,1,2,2,1,0,10,0,0,0,0,0,1,0,0,0,0,0,0,0,0
 6534165,4/10/26,baseball,MCLA,1.0,Roshan Warriar,3.0,SS/P,9694126,1.0,4,3,3,0,1,7,0,0,0,0,0,0,0,0,0,1,0,0,0,0
 6532326,4/10/26,baseball,Keuka,,Luis Rivera,35.0,P,11251461,5.1,7,3,3,3,3,24,4,0,0,0,0,0,1,0,0,0,1,2,0,0
-6532326,4/10/26,baseball,Keuka,,"Ryan Schur, Jr.",19.0,P,11251449,2.2,4,1,1,0,2,12,1,0,0,0,0,0,0,0,0,1,0,0,0,0
 6532326,4/10/26,baseball,Keuka,,Brandon Wilson,17.0,P,11251445,3.0,0,0,0,0,1,9,0,0,0,0,0,1,0,0,0,0,0,0,0,0
 6532326,4/10/26,baseball,Keuka,,Liam Eshelman,31.0,P,11251457,0.0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6532326,4/10/26,baseball,Keuka,,Mason Smith,8.0,P,9702466,2.0,1,1,1,2,5,11,0,0,0,0,0,2,0,0,0,0,0,2,0,0
@@ -34667,7 +34649,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6509357,4/10/26,baseball,Ithaca,1.0,Ryan Kane,35.0,P,9692847,1.0,1,0,0,0,2,4,1,0,0,0,1,0,0,0,0,0,0,2,0,0
 6508587,4/10/26,baseball,New Jersey City,,Phil Kramer,21.0,P,9699532,8.0,9,4,1,4,1,39,2,0,0,0,1,1,0,0,0,2,2,0,0,0
 6508587,4/10/26,baseball,Ramapo,1.0,Michael Zalinkanskas,7.0,P,9691567,7.0,2,1,1,4,12,27,0,0,0,0,1,1,0,0,0,2,0,3,0,0
-6508587,4/10/26,baseball,Ramapo,1.0,"Carlo Lalomia, Jr.",39.0,P,9685325,1.2,3,1,1,2,3,10,0,0,0,0,0,0,0,0,0,0,0,1,0,0
 6508587,4/10/26,baseball,Ramapo,1.0,Kevin Penny,31.0,P,11240214,0.1,0,0,0,1,1,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6503264,4/10/26,baseball,Lebanon Valley,,Trey Dianna,8.0,P,9678370,1.1,3,5,5,2,1,10,1,0,0,0,2,1,0,0,0,0,0,0,0,0
 6503264,4/10/26,baseball,Lebanon Valley,,Nate Savage,34.0,P,11251969,3.2,6,2,2,1,2,18,0,0,0,0,2,0,0,0,0,1,0,1,0,0
@@ -36518,7 +36499,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6512028,4/11/26,baseball,Franciscan,1.0,Peter Schwindt,41.0,P,11231006,2.0,3,4,3,0,1,12,0,0,0,1,0,0,0,0,0,0,0,0,0,0
 6512028,4/11/26,baseball,Franciscan,1.0,Dax Clifton,29.0,P,9686145,1.1,0,0,0,0,2,4,0,0,0,0,0,1,0,0,0,0,0,0,0,0
 6512028,4/11/26,baseball,Franciscan,1.0,Josiah Bodie,12.0,CF/P,9688676,1.0,0,0,0,1,1,5,0,0,0,0,0,1,0,0,0,0,0,0,0,0
-6532333,4/11/26,baseball,Keuka,,"Ryan Schur, Jr.",19.0,P,11251449,5.0,2,1,1,3,6,21,0,0,0,0,0,1,0,0,0,0,0,2,0,0
 6532333,4/11/26,baseball,Keuka,,Wyatt Ernst,27.0,P,9693328,1.2,0,1,1,3,0,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6532333,4/11/26,baseball,Keuka,,Trey Bova,24.0,P,11251453,2.1,3,1,1,0,1,10,2,0,0,0,0,0,0,0,0,0,0,0,0,0
 6532333,4/11/26,baseball,Houghton,1.0,Aiden Talcott,16.0,P,9692038,7.0,6,5,2,3,4,30,0,0,0,0,0,1,0,0,0,1,0,2,0,0
@@ -37453,7 +37433,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6543967,4/12/26,baseball,Mary Washington,1.0,AJ Pritchard,48.0,P,11378641,1.0,0,0,0,2,2,6,0,0,0,0,1,1,0,0,0,0,0,0,0,0
 6544431,4/12/26,baseball,Olivet,,Kyle Lockwood,18.0,P,11247726,0.0,0,3,0,3,0,3,0,0,0,0,2,0,0,0,0,0,0,0,0,0
 6544431,4/12/26,baseball,Olivet,,Charlie Qulliam,31.0,P,9701842,1.2,4,5,3,4,2,13,1,0,0,0,0,0,0,0,0,1,0,0,0,0
-6544431,4/12/26,baseball,Olivet,,"Emilio Garcia, Jr.",7.0,P,11247711,7.1,2,0,0,1,2,26,1,0,0,0,0,0,0,0,0,0,0,0,0,0
 6544431,4/12/26,baseball,Trine,1.0,Drew Basso,18.0,P,9695072,2.1,1,3,3,5,1,11,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6544431,4/12/26,baseball,Trine,1.0,Brody Bond,26.0,P,9703711,1.2,4,3,3,2,0,10,2,0,0,0,0,0,0,0,0,1,0,0,0,0
 6544431,4/12/26,baseball,Trine,1.0,Joseph Closson,11.0,P,9676950,1.0,2,3,3,2,2,7,1,0,0,0,0,0,0,0,0,0,0,1,0,0
@@ -40585,7 +40564,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6508784,4/25/26,baseball,Adrian,,Amrbose Horwath,10.0,P,9694142,5.2,8,1,1,1,2,27,1,0,0,0,0,0,0,0,0,0,1,0,0,0
 6508784,4/25/26,baseball,Adrian,,Sean Parker,41.0,P,9682111,3.1,3,0,0,1,2,14,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6508784,4/25/26,baseball,Olivet,1.0,Dawson Sherman,17.0,P,11247738,6.0,5,3,3,4,4,27,0,0,0,0,2,0,0,0,0,0,0,2,0,0
-6508784,4/25/26,baseball,Olivet,1.0,"Emilio Garcia, Jr.",7.0,P,11247711,2.1,3,3,1,2,1,15,0,0,0,0,0,2,1,0,0,2,0,1,0,0
 6508784,4/25/26,baseball,Olivet,1.0,Gavin Azzopardi,21.0,P,11247690,0.2,1,0,0,0,1,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6504633,4/25/26,baseball,Hope,,Avery McEwen,21.0,P,9686362,8.0,6,1,1,1,8,33,2,0,0,0,0,0,0,0,0,0,0,4,0,0
 6504633,4/25/26,baseball,Hope,,Roman Bovelsky,20.0,P,11251425,0.1,2,4,3,1,0,5,1,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -43748,7 +43726,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6508778,4/20/26,baseball,Albion,,Brendan Schultz,16.0,P,9684069,7.0,4,2,2,2,5,26,1,0,0,0,1,1,0,0,0,0,0,2,0,0
 6508778,4/20/26,baseball,Albion,,Tyler Murphy,12.0,LF/P,9692992,2.0,0,0,0,0,1,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6508778,4/20/26,baseball,Olivet,1.0,Wyatt Ball,4.0,P,11247692,4.0,3,2,1,6,2,21,0,0,2,0,1,0,0,0,0,0,0,2,0,0
-6508778,4/20/26,baseball,Olivet,1.0,"Emilio Garcia, Jr.",7.0,P,11247711,4.0,3,4,2,2,2,19,3,0,0,0,0,0,0,0,0,0,0,1,0,0
 6508778,4/20/26,baseball,Olivet,1.0,Logan Lewis,15.0,P,9705174,1.0,5,5,4,1,0,10,2,0,0,0,2,0,0,0,0,0,0,0,0,0
 6467729,4/20/26,baseball,Bethany Lutheran,,Adryen Tietz,26.0,P,9682350,4.0,8,4,4,2,3,21,2,0,0,1,0,0,0,0,0,0,0,1,0,0
 6467729,4/20/26,baseball,Bethany Lutheran,,Mitchell Cox,18.0,P,11254985,0.1,1,1,1,2,0,4,0,0,0,0,1,0,0,0,0,0,0,0,0,0

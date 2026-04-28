@@ -214,7 +214,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6548130,1/30/26,baseball,Barry,1.0,Blake Opie,15.0,RF,11209017,0,0,0,0,0,0,0,0,0,0,0.0
 6548130,1/30/26,baseball,Barry,1.0,Anthony Tralongo,7.0,3B,9678573,3,3,6,0,0,0,0,0,1,0,0.0
 6548130,1/30/26,baseball,Barry,1.0,Josh Hungler,19.0,C,11209014,10,1,11,0,0,0,5,1,1,0,0.833
-6548130,1/30/26,baseball,Barry,1.0,"Aramis Ramirez, Jr.",16.0,2B,9683717,2,1,3,0,0,0,0,0,0,0,0.0
 6548130,1/30/26,baseball,Barry,1.0,Dyson Joseph,2.0,SS,9686716,2,1,3,0,0,0,0,0,1,0,0.0
 6548036,1/30/26,baseball,Erskine,,Drew Potts,5.0,CF,11228994,0,0,0,0,0,0,0,0,0,0,0.0
 6548036,1/30/26,baseball,Erskine,,Thomas Kuhn,4.0,2B,11228992,2,3,5,0,0,0,0,0,0,0,0.0
@@ -1861,7 +1860,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6548229,1/31/26,baseball,Barry,1.0,Josh Hungler,19.0,C,11209014,5,1,6,0,0,0,1,0,0,0,1.0
 6548229,1/31/26,baseball,Barry,1.0,Aidan Heffner,30.0,PR,11209013,0,0,0,0,0,0,0,0,0,0,0.0
 6548229,1/31/26,baseball,Barry,1.0,Christian Perez,8.0,C,11209018,7,0,7,0,0,0,0,0,0,0,0.0
-6548229,1/31/26,baseball,Barry,1.0,"Aramis Ramirez, Jr.",16.0,2B,9683717,1,0,1,0,0,0,0,0,0,0,0.0
 6548229,1/31/26,baseball,Barry,1.0,Lee-Anthony Santiago,21.0,PH/2B,9704006,0,1,1,0,0,0,0,0,0,0,0.0
 6548229,1/31/26,baseball,Barry,1.0,Dyson Joseph,2.0,SS,9686716,2,3,7,2,0,0,0,0,0,0,0.0
 6548344,1/31/26,baseball,Valdosta St.,,Luca Maberry,3.0,CF,11230559,2,0,2,0,0,0,0,0,0,0,0.0
@@ -4912,7 +4910,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6523931,4/07/26,baseball,Emory & Henry,1.0,Drew Park,5.0,3B,9680313,0,1,2,1,0,0,0,0,0,0,0.0
 6523931,4/07/26,baseball,Emory & Henry,1.0,J.D. James,17.0,1B,11221113,6,2,8,0,0,0,0,0,0,0,0.0
 6523931,4/07/26,baseball,Emory & Henry,1.0,Ryan Paynton,3.0,2B,11221124,0,1,1,0,0,0,0,0,0,0,0.0
-6523931,4/07/26,baseball,Emory & Henry,1.0,"Stuart Callahan, III",6.0,RF,9691655,8,0,8,0,0,0,0,0,0,0,0.0
 6521461,4/07/26,baseball,Felician,,Jose David Medrano,17.0,LF/RF,9702201,2,0,2,0,0,0,0,0,0,0,0.0
 6521461,4/07/26,baseball,Felician,,Gunnar Smith,20.0,RF,9698876,2,0,2,0,0,0,0,0,0,0,0.0
 6521461,4/07/26,baseball,Felician,,Haiden Walters,4.0,SS,9697893,1,3,4,0,0,0,0,0,0,0,0.0
@@ -4999,7 +4996,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6517636,4/07/26,baseball,Tuskegee,,Jabari Johnson,10.0,LF,9678404,1,0,1,0,0,0,0,0,0,0,0.0
 6517636,4/07/26,baseball,Tuskegee,,Jacobi Brooks,0.0,RF,9685554,3,0,3,0,0,0,0,0,0,0,0.0
 6517636,4/07/26,baseball,Tuskegee,,Chris Smith,12.0,3B,9677412,4,1,5,0,0,0,0,0,0,0,0.0
-6517636,4/07/26,baseball,Tuskegee,,"Christopher Mayo, Jr.",34.0,1B,11226602,5,0,5,0,0,0,0,0,0,0,0.0
 6517636,4/07/26,baseball,Tuskegee,,Willie Relliford III,28.0,C,11226627,4,3,8,1,0,1,8,1,0,0,0.889
 6517636,4/07/26,baseball,Tuskegee,,Mehki Smith,3.0,SS,9686880,1,1,2,0,0,0,0,0,0,0,0.0
 6517636,4/07/26,baseball,Alabama A&M,1.0,Miles Jackson,7.0,LF,9702682,0,0,0,0,0,0,0,0,0,0,0.0
@@ -6545,7 +6541,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6527391,4/04/26,baseball,Catawba,,Parker Styborski,20.0,LF,9698646,0,0,0,0,0,0,0,0,0,0,0.0
 6527391,4/04/26,baseball,Catawba,,Ty Hubbard,9.0,2B,9702712,0,0,0,0,0,0,0,0,0,0,0.0
 6527391,4/04/26,baseball,Catawba,,Matthew Connolly,13.0,C,9679128,7,1,8,0,0,0,0,0,0,0,0.0
-6527391,4/04/26,baseball,Catawba,,"Hartley Rahman, Jr.",8.0,PH,11233419,0,0,0,0,0,0,0,0,0,0,0.0
 6527391,4/04/26,baseball,Catawba,,Cameron Burleyson,44.0,C,9689571,0,0,0,0,0,0,0,0,0,0,0.0
 6527391,4/04/26,baseball,Catawba,,Malachi Cloud,19.0,CF,11233426,5,0,5,0,0,0,0,0,0,0,0.0
 6527391,4/04/26,baseball,Catawba,,Nathan Chrismon,1.0,SS,9687123,0,3,3,0,0,0,0,0,0,0,0.0
@@ -6775,7 +6770,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6519827,4/04/26,baseball,Wayne St. (MI),1.0,Tony Hatzigeorgiou,9.0,3B,9681261,0,0,0,0,0,0,0,0,0,0,0.0
 6519827,4/04/26,baseball,Wayne St. (MI),1.0,Caleb Sanders,6.0,RF,9703618,1,0,1,0,0,0,0,0,0,0,0.0
 6519827,4/04/26,baseball,Wayne St. (MI),1.0,Drew Hill,13.0,DH,9688940,0,0,0,0,0,0,0,0,0,0,0.0
-6519827,4/04/26,baseball,Wayne St. (MI),1.0,"Nick Sandiha, Jr.",14.0,3B/2B,11230785,0,1,1,0,0,0,0,0,0,0,0.0
 6519827,4/04/26,baseball,Wayne St. (MI),1.0,Alfredo Velazquez,31.0,CF,11230791,4,0,4,0,0,0,0,0,0,0,0.0
 6519827,4/04/26,baseball,Wayne St. (MI),1.0,Bennett Hitzelberger,24.0,LF/1B,9699638,2,0,2,0,0,0,0,0,0,0,0.0
 6519827,4/04/26,baseball,Wayne St. (MI),1.0,Owen Tuccinardi,2.0,1B,9682124,10,0,10,0,0,0,0,0,0,0,0.0
@@ -6847,7 +6841,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6499968,4/04/26,baseball,Emory & Henry,1.0,Drew Park,5.0,3B,9680313,0,2,2,0,0,0,0,0,0,0,0.0
 6499968,4/04/26,baseball,Emory & Henry,1.0,Jacob Nestor,34.0,DH,9688317,0,0,0,0,0,0,0,0,0,0,0.0
 6499968,4/04/26,baseball,Emory & Henry,1.0,Jeriel Lamboy,20.0,2B,11221121,3,6,9,0,0,0,0,0,1,0,0.0
-6499968,4/04/26,baseball,Emory & Henry,1.0,"Stuart Callahan, III",6.0,RF,9691655,2,0,2,0,0,0,0,0,0,0,0.0
 6513596,4/04/26,baseball,Assumption,,Tommy Ocasal,10.0,LF,9699367,1,0,1,0,0,0,0,0,0,0,0.0
 6513596,4/04/26,baseball,Assumption,,Will Novak,11.0,RF,11219566,4,0,4,0,0,0,0,0,0,0,0.0
 6513596,4/04/26,baseball,Assumption,,Tony Salvatelli,22.0,1B,9702656,2,0,2,0,0,0,0,0,1,0,0.0
@@ -7281,7 +7274,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6539667,4/04/26,baseball,Benedict,,Lefrederick Wooten,40.0,LF,11249500,0,0,0,0,0,0,0,0,0,0,0.0
 6539667,4/04/26,baseball,Benedict,,Colin Jones,10.0,LF,11247477,1,0,1,0,0,0,0,0,0,0,0.0
 6539667,4/04/26,baseball,Benedict,,Lewis Brown,51.0,PH,11247512,0,0,0,0,0,0,0,0,0,0,0.0
-6539667,4/04/26,baseball,Benedict,,"Milton Herring, III",17.0,C,11247484,7,0,7,0,0,0,7,0,0,0,1.0
 6539667,4/04/26,baseball,Benedict,,Christopher Trujillo Ruiz,9.0,SS,11249499,1,3,4,0,0,0,0,0,1,0,0.0
 6539667,4/04/26,baseball,Clark Atlanta,1.0,Andrew Leonard,5.0,CF,9701115,4,0,4,0,0,0,0,0,0,0,0.0
 6539667,4/04/26,baseball,Clark Atlanta,1.0,Aaron Salazar,13.0,RF,11237083,3,0,3,0,0,0,0,0,0,0,0.0
@@ -9790,7 +9782,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6499967,4/03/26,baseball,Emory & Henry,1.0,Ryan Paynton,3.0,2B,11221124,0,0,1,1,0,0,0,0,0,0,0.0
 6499967,4/03/26,baseball,Emory & Henry,1.0,J.D. James,17.0,1B,11221113,8,1,9,0,0,0,0,0,1,0,0.0
 6499967,4/03/26,baseball,Emory & Henry,1.0,Jeriel Lamboy,20.0,2B/3B,11221121,4,4,9,1,0,0,0,0,1,0,0.0
-6499967,4/03/26,baseball,Emory & Henry,1.0,"Stuart Callahan, III",6.0,RF,9691655,3,0,4,1,0,0,0,0,0,0,0.0
 6486207,4/03/26,baseball,Savannah St.,,Jayden Clark,21.0,CF,11247830,1,0,1,0,0,0,0,0,0,0,0.0
 6486207,4/03/26,baseball,Savannah St.,,Noah Rodriguez,28.0,PH,11224308,0,0,0,0,0,0,0,0,0,0,0.0
 6486207,4/03/26,baseball,Savannah St.,,Julian Grier,1.0,LF,11224213,0,0,0,0,0,0,0,0,0,0,0.0
@@ -9950,7 +9941,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6485245,4/03/26,baseball,Barry,,Aidan Heffner,30.0,LF,11209013,6,0,6,0,0,0,0,0,0,0,0.0
 6485245,4/03/26,baseball,Barry,,Lee-Anthony Santiago,21.0,2B,9704006,1,3,4,0,0,0,0,0,0,0,0.0
 6485245,4/03/26,baseball,Barry,,Christian Perez,8.0,C,11209018,9,1,11,1,0,0,3,1,0,0,0.75
-6485245,4/03/26,baseball,Barry,,"Aramis Ramirez, Jr.",16.0,SS,9683717,2,1,3,0,0,0,0,0,0,0,0.0
 6485245,4/03/26,baseball,Lynn,1.0,Justin Lopez,6.0,SS,11221592,1,3,4,0,0,0,0,0,2,0,0.0
 6485245,4/03/26,baseball,Lynn,1.0,Bryant Zayas,12.0,2B,9686998,2,3,7,2,0,0,0,0,1,0,0.0
 6485245,4/03/26,baseball,Lynn,1.0,Scout Simpson,20.0,1B,11221622,4,2,6,0,0,0,0,0,2,0,0.0
@@ -10172,7 +10162,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6519823,4/03/26,baseball,Wayne St. (MI),1.0,Drew Hill,13.0,RF,9688940,0,0,0,0,0,0,0,0,0,0,0.0
 6519823,4/03/26,baseball,Wayne St. (MI),1.0,Bennett Hitzelberger,24.0,1B,9699638,7,0,7,0,0,0,0,0,0,0,0.0
 6519823,4/03/26,baseball,Wayne St. (MI),1.0,Rhett Roeser,32.0,3B,9681631,3,3,6,0,0,0,0,0,0,0,0.0
-6519823,4/03/26,baseball,Wayne St. (MI),1.0,"Nick Sandiha, Jr.",14.0,2B,11230785,1,2,3,0,0,0,0,0,0,0,0.0
 6519823,4/03/26,baseball,Wayne St. (MI),1.0,Alfredo Velazquez,31.0,CF,11230791,1,0,1,0,0,0,0,0,0,0,0.0
 6519823,4/03/26,baseball,Wayne St. (MI),1.0,Ty Garza,7.0,SS,9701734,0,1,1,0,0,0,0,0,0,0,0.0
 6519823,4/03/26,baseball,Wayne St. (MI),1.0,Brayden Crowe,23.0,C,11230763,7,2,9,0,0,0,0,1,0,0,0.0
@@ -10229,7 +10218,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6539669,4/03/26,baseball,Benedict,,Lewis Brown,51.0,LF,11247512,1,0,1,0,0,0,0,0,0,0,0.0
 6539669,4/03/26,baseball,Benedict,,Curtis Lindsey,4.0,RF,11249501,1,0,1,0,0,0,0,0,0,0,0.0
 6539669,4/03/26,baseball,Benedict,,Michael Belcher,7.0,C,11247475,0,0,0,0,0,0,3,0,0,0,1.0
-6539669,4/03/26,baseball,Benedict,,"Milton Herring, III",17.0,C,11247484,1,0,1,0,0,0,2,0,0,0,1.0
 6539669,4/03/26,baseball,Clark Atlanta,1.0,Andrew Leonard,5.0,CF,9701115,1,0,1,0,0,0,0,0,0,0,0.0
 6539669,4/03/26,baseball,Clark Atlanta,1.0,Jaylon Johnson,0.0,2B,11237019,1,1,2,0,0,0,0,0,0,0,0.0
 6539669,4/03/26,baseball,Clark Atlanta,1.0,Dareon Adkins,2.0,1B/3B,11237024,11,1,12,0,0,0,0,0,0,0,0.0
@@ -11458,7 +11446,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6499969,4/03/26,baseball,Emory & Henry,1.0,Drew Park,5.0,3B,9680313,0,0,0,0,0,0,0,0,0,0,0.0
 6499969,4/03/26,baseball,Emory & Henry,1.0,Jaxon Ehret,35.0,C,11221106,2,0,2,0,0,0,0,0,0,0,0.0
 6499969,4/03/26,baseball,Emory & Henry,1.0,Jeriel Lamboy,20.0,2B,11221121,2,4,6,0,0,0,0,0,2,0,0.0
-6499969,4/03/26,baseball,Emory & Henry,1.0,"Stuart Callahan, III",6.0,RF,9691655,2,0,2,0,0,0,0,0,0,0,0.0
 6525839,4/03/26,baseball,Young Harris,,Drew Bray,17.0,3B,9685866,1,3,4,0,0,0,0,0,0,0,0.0
 6525839,4/03/26,baseball,Young Harris,,Carlos Martans,7.0,SS,9700802,3,3,6,0,0,0,0,0,2,0,0.0
 6525839,4/03/26,baseball,Young Harris,,Kade Smallwood,34.0,DH,9681468,0,0,0,0,0,0,0,0,0,0,0.0
@@ -11946,7 +11933,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6519825,4/03/26,baseball,Wayne St. (MI),1.0,Brady Blakita,5.0,DH,9681330,0,0,0,0,0,0,0,0,0,0,0.0
 6519825,4/03/26,baseball,Wayne St. (MI),1.0,Drew Hill,13.0,RF,9688940,3,0,3,0,0,0,0,0,0,0,0.0
 6519825,4/03/26,baseball,Wayne St. (MI),1.0,Drew Dawson,4.0,PH,9692333,0,0,0,0,0,0,0,0,0,0,0.0
-6519825,4/03/26,baseball,Wayne St. (MI),1.0,"Nick Sandiha, Jr.",14.0,2B/SS,11230785,2,4,6,0,0,0,0,0,0,0,0.0
 6519825,4/03/26,baseball,Wayne St. (MI),1.0,Bennett Hitzelberger,24.0,1B,9699638,8,0,8,0,0,0,0,0,0,0,0.0
 6519825,4/03/26,baseball,Wayne St. (MI),1.0,Owen Tuccinardi,2.0,PH/1B,9682124,0,0,0,0,0,0,0,0,0,0,0.0
 6519825,4/03/26,baseball,Wayne St. (MI),1.0,Rhett Roeser,32.0,3B/2B,9681631,1,2,4,1,0,0,0,0,0,0,0.0
@@ -12200,7 +12186,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6539670,4/03/26,baseball,Benedict,,Cameron Haley,25.0,DH,11247497,0,0,0,0,0,0,0,0,0,0,0.0
 6539670,4/03/26,baseball,Benedict,,Kenyan Conner Jr.,1.0,2B,9704584,1,2,3,0,0,0,0,0,0,0,0.0
 6539670,4/03/26,baseball,Benedict,,Lewis Brown,51.0,LF,11247512,0,0,0,0,0,0,0,0,0,0,0.0
-6539670,4/03/26,baseball,Benedict,,"Milton Herring, III",17.0,C,11247484,8,1,9,0,0,0,0,1,0,0,0.0
 6539670,4/03/26,baseball,Clark Atlanta,1.0,Andrew Leonard,5.0,CF,9701115,2,0,2,0,0,0,0,0,0,0,0.0
 6539670,4/03/26,baseball,Clark Atlanta,1.0,Jaylon Johnson,0.0,2B,11237019,1,5,6,0,0,0,0,0,0,0,0.0
 6539670,4/03/26,baseball,Clark Atlanta,1.0,Dareon Adkins,2.0,1B,11237024,8,0,8,0,0,0,0,0,0,0,0.0
@@ -12723,7 +12708,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6527383,4/03/26,baseball,Catawba,,Matthew Connolly,13.0,C,9679128,8,1,9,0,0,0,0,0,0,0,0.0
 6527383,4/03/26,baseball,Catawba,,Nathan Chrismon,1.0,SS,9687123,0,3,4,1,0,0,0,0,0,0,0.0
 6527383,4/03/26,baseball,Catawba,,Ty Hubbard,9.0,2B,9702712,3,2,5,0,0,0,0,0,0,0,0.0
-6527383,4/03/26,baseball,Catawba,,"Hartley Rahman, Jr.",8.0,DH,11233419,0,0,0,0,0,0,0,0,0,0,0.0
 6527383,4/03/26,baseball,Catawba,,Malachi Cloud,19.0,CF,11233426,4,0,4,0,0,0,0,0,0,0,0.0
 6527383,4/03/26,baseball,Anderson (SC),1.0,Braeden Harrison,16.0,RF,9701328,0,0,0,0,0,0,0,0,0,0,0.0
 6527383,4/03/26,baseball,Anderson (SC),1.0,Gray Wells,26.0,1B,9684433,10,0,10,0,0,0,0,0,0,0,0.0
@@ -13640,7 +13624,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6519822,4/02/26,baseball,Wayne St. (MI),1.0,Bennett Hitzelberger,24.0,1B,9699638,6,1,7,0,0,0,0,0,1,0,0.0
 6519822,4/02/26,baseball,Wayne St. (MI),1.0,Drew Hill,13.0,RF,9688940,5,0,5,0,0,0,0,0,0,0,0.0
 6519822,4/02/26,baseball,Wayne St. (MI),1.0,Owen Tuccinardi,2.0,DH,9682124,0,0,0,0,0,0,0,0,0,0,0.0
-6519822,4/02/26,baseball,Wayne St. (MI),1.0,"Nick Sandiha, Jr.",14.0,2B,11230785,3,2,5,0,0,0,0,0,1,0,0.0
 6519822,4/02/26,baseball,Wayne St. (MI),1.0,Rhett Roeser,32.0,LF,9681631,2,0,2,0,0,0,0,0,0,0,0.0
 6519822,4/02/26,baseball,Wayne St. (MI),1.0,Tony Hatzigeorgiou,9.0,3B,9681261,0,0,0,0,0,0,0,0,0,0,0.0
 6519822,4/02/26,baseball,Wayne St. (MI),1.0,Brady Blakita,5.0,PH,9681330,0,0,0,0,0,0,0,0,0,0,0.0
@@ -14857,7 +14840,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6567780,3/31/26,baseball,Morehouse,,Jordan Bibbs-Walker,38.0,2B,11243718,1,3,4,0,0,0,0,0,1,0,0.0
 6567780,3/31/26,baseball,Morehouse,,Satchel Hamilton,17.0,C,9690739,2,0,2,0,0,0,0,0,0,0,0.0
 6567780,3/31/26,baseball,Morehouse,,Josiah Smith,15.0,C,9680591,0,1,1,0,0,0,1,1,0,0,0.5
-6567780,3/31/26,baseball,Morehouse,,"Princeton Hawks, II",14.0,PR,9687054,0,0,0,0,0,0,0,0,0,0,0.0
 6567780,3/31/26,baseball,Morehouse,,Chase Williams,35.0,C,11243736,1,0,1,0,0,0,0,0,0,0,0.0
 6567780,3/31/26,baseball,Stillman,1.0,Kameran BELSER,8.0,2B,9978340,0,1,2,1,0,0,0,0,0,0,0.0
 6567780,3/31/26,baseball,Stillman,1.0,E. Butler,32.0,2B,11239714,2,1,3,0,0,0,0,0,0,0,0.0
@@ -15481,7 +15463,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6523927,3/31/26,baseball,Emory & Henry,1.0,Jase Kotwicki,40.0,LF,11221117,0,0,0,0,0,0,0,0,0,0,0.0
 6523927,3/31/26,baseball,Emory & Henry,1.0,Brady Halstead,24.0,P,9695368,0,0,0,0,0,0,1,0,0,0,1.0
 6523927,3/31/26,baseball,Emory & Henry,1.0,Ryan Paynton,3.0,2B,11221124,0,3,3,0,0,0,0,0,1,0,0.0
-6523927,3/31/26,baseball,Emory & Henry,1.0,"Stuart Callahan, III",6.0,RF,9691655,1,0,1,0,0,0,0,0,0,0,0.0
 6510960,3/31/26,baseball,Saint Michael's,,Jack Pattison,7.0,DH,9695412,0,0,0,0,0,0,0,0,0,0,0.0
 6510960,3/31/26,baseball,Saint Michael's,,Jacob Smith,16.0,RF,9705367,0,0,0,0,0,0,0,0,0,0,0.0
 6510960,3/31/26,baseball,Saint Michael's,,Richard Gilboy,3.0,C,9694131,5,1,6,0,0,0,7,1,0,0,0.875
@@ -17103,7 +17084,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6539725,3/29/26,baseball,Benedict,1.0,Jaquez Akins,5.0,RF,9689311,1,0,1,0,0,0,0,0,0,0,0.0
 6539725,3/29/26,baseball,Benedict,1.0,Cameron Haley,25.0,DH,11247497,0,0,0,0,0,0,0,0,0,0,0.0
 6539725,3/29/26,baseball,Benedict,1.0,Kenyan Conner Jr.,1.0,2B,9704584,2,0,2,0,0,0,0,0,0,0,0.0
-6539725,3/29/26,baseball,Benedict,1.0,"Milton Herring, III",17.0,C,11247484,8,3,11,0,0,1,0,0,1,0,0.0
 6539725,3/29/26,baseball,Benedict,1.0,Colin Jones,10.0,LF,11247477,0,0,0,0,0,0,0,0,0,0,0.0
 6539725,3/29/26,baseball,Benedict,1.0,Lewis Brown,51.0,LF,11247512,1,0,1,0,0,0,0,0,0,0,0.0
 6486204,3/29/26,baseball,Miles,,Trace Spann,2.0,LF,9687862,2,0,2,0,0,0,0,0,0,0,0.0
@@ -17261,7 +17241,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6512279,3/29/26,baseball,Wayne St. (MI),,Owen Tuccinardi,2.0,DH,9682124,0,0,0,0,0,0,0,0,0,0,0.0
 6512279,3/29/26,baseball,Wayne St. (MI),,Drew Hill,13.0,CF,9688940,2,0,2,0,0,0,0,0,0,0,0.0
 6512279,3/29/26,baseball,Wayne St. (MI),,Tony Hatzigeorgiou,9.0,3B,9681261,0,0,0,0,0,0,0,0,0,0,0.0
-6512279,3/29/26,baseball,Wayne St. (MI),,"Nick Sandiha, Jr.",14.0,2B,11230785,2,1,3,0,0,0,0,0,0,0,0.0
 6512279,3/29/26,baseball,Wayne St. (MI),,Landon Ide,42.0,1B,11230766,4,1,5,0,0,0,0,0,0,0,0.0
 6512279,3/29/26,baseball,Wayne St. (MI),,Alfredo Velazquez,31.0,PR,11230791,0,0,0,0,0,0,0,0,0,0,0.0
 6512279,3/29/26,baseball,Wayne St. (MI),,Brayden Crowe,23.0,C,11230763,5,1,6,0,0,0,0,1,0,0,0.0
@@ -18474,7 +18453,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6535557,3/29/26,baseball,Fairmont St.,1.0,Gunner Riley,1.0,DH,9684248,0,0,0,0,0,0,0,0,0,0,0.0
 6535557,3/29/26,baseball,Fairmont St.,1.0,Connor Bailey,9.0,RF,9690707,2,0,2,0,0,0,0,0,0,0,0.0
 6512280,3/29/26,baseball,Wayne St. (MI),,Alfredo Velazquez,31.0,CF,11230791,2,0,2,0,0,0,0,0,0,0,0.0
-6512280,3/29/26,baseball,Wayne St. (MI),,"Nick Sandiha, Jr.",14.0,2B,11230785,1,0,1,0,0,0,0,0,0,0,0.0
 6512280,3/29/26,baseball,Wayne St. (MI),,Brady Blakita,5.0,2B,9681330,2,4,6,0,0,0,0,0,2,0,0.0
 6512280,3/29/26,baseball,Wayne St. (MI),,Bennett Hitzelberger,24.0,1B,9699638,11,0,11,0,0,0,0,0,2,0,0.0
 6512280,3/29/26,baseball,Wayne St. (MI),,Drew Hill,13.0,RF,9688940,3,1,4,0,0,0,0,0,0,0,0.0
@@ -19049,7 +19027,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6510652,3/28/26,baseball,D'Youville,1.0,H. White,22.0,PH,11252844,0,0,0,0,0,0,0,0,0,0,0.0
 6499963,3/28/26,baseball,Catawba,,Logan Dyer,2.0,1B,9690663,6,0,6,0,0,0,0,0,1,0,0.0
 6499963,3/28/26,baseball,Catawba,,Brandon Crabtree,4.0,DH,11233413,0,0,0,0,0,0,0,0,0,0,0.0
-6499963,3/28/26,baseball,Catawba,,"Hartley Rahman, Jr.",8.0,DH,11233419,0,0,0,0,0,0,0,0,0,0,0.0
 6499963,3/28/26,baseball,Catawba,,Sam Hunter,3.0,RF,9699448,1,0,1,0,0,0,0,0,0,0,0.0
 6499963,3/28/26,baseball,Catawba,,Hunter Atkins,23.0,3B,9680046,2,3,5,0,0,0,0,0,1,0,0.0
 6499963,3/28/26,baseball,Catawba,,Matthew Connolly,13.0,C,9679128,6,0,6,0,0,0,0,0,0,0,0.0
@@ -19273,7 +19250,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6539729,3/28/26,baseball,Morehouse,,Theodore Braswell,7.0,3B,11243719,4,3,8,1,0,0,0,0,0,0,0.0
 6539729,3/28/26,baseball,Morehouse,,Caleb Harley,4.0,2B,11243721,2,2,4,0,0,0,0,0,0,0,0.0
 6539729,3/28/26,baseball,Morehouse,,Mariano McLean,23.0,PH,9679727,0,0,0,0,0,0,0,0,0,0,0.0
-6539729,3/28/26,baseball,Morehouse,,"Princeton Hawks, II",14.0,PR,9687054,0,0,0,0,0,0,0,0,0,0,0.0
 6539729,3/28/26,baseball,Benedict,1.0,Christopher Trujillo Ruiz,9.0,SS,11249499,3,1,4,0,0,0,0,0,0,0,0.0
 6539729,3/28/26,baseball,Benedict,1.0,Jonathan Olmedo,27.0,3B,9691375,1,4,7,2,0,0,0,0,0,0,0.0
 6539729,3/28/26,baseball,Benedict,1.0,Kent Johnson,24.0,CF,11247473,8,0,8,0,0,0,0,0,0,0,0.0
@@ -19285,7 +19261,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6539729,3/28/26,baseball,Benedict,1.0,Colin Jones,10.0,LF,11247477,1,0,1,0,0,0,0,0,0,0,0.0
 6539729,3/28/26,baseball,Benedict,1.0,Michael Belcher,7.0,C,11247475,3,0,3,0,0,0,3,0,0,0,1.0
 6539729,3/28/26,baseball,Benedict,1.0,Malcolm Bates,18.0,PH,11247485,0,0,0,0,0,0,0,0,0,0,0.0
-6539729,3/28/26,baseball,Benedict,1.0,"Milton Herring, III",17.0,C,11247484,0,0,0,0,0,0,0,0,0,0,0.0
 6486201,3/28/26,baseball,Miles,,Myles Wessels,19.0,CF,9690121,3,0,5,2,0,0,0,0,0,0,0.0
 6486201,3/28/26,baseball,Miles,,Landon Whitehead,15.0,2B,9681122,0,0,0,0,0,0,0,0,0,0,0.0
 6486201,3/28/26,baseball,Miles,,Michael Smith,3.0,LF,9677874,1,0,1,0,0,0,0,0,0,0,0.0
@@ -19774,7 +19749,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6523922,3/28/26,baseball,Emory & Henry,,Jack Ferguson,8.0,2B,9681925,2,1,4,1,0,0,0,0,1,0,0.0
 6523922,3/28/26,baseball,Emory & Henry,,Clay Caldwell,12.0,PH,9693435,0,0,0,0,0,0,0,0,0,0,0.0
 6523922,3/28/26,baseball,Emory & Henry,,Jeriel Lamboy,20.0,2B,11221121,0,1,1,0,0,0,0,0,0,0,0.0
-6523922,3/28/26,baseball,Emory & Henry,,"Stuart Callahan, III",6.0,RF,9691655,4,0,4,0,0,0,0,0,0,0,0.0
 6523922,3/28/26,baseball,Wingate,1.0,Gavin Groppuso,13.0,RF,9681412,5,0,5,0,0,0,0,0,0,0,0.0
 6523922,3/28/26,baseball,Wingate,1.0,Bowen Powell,39.0,1B,11227975,5,0,5,0,0,0,0,0,0,0,0.0
 6523922,3/28/26,baseball,Wingate,1.0,Tanner McCammon,10.0,3B,11227956,0,2,2,0,0,0,0,0,0,0,0.0
@@ -20093,7 +20067,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6485241,3/28/26,baseball,Barry,1.0,Zavier Hatfield,1.0,CF,9698707,8,0,8,0,0,0,0,0,0,0,0.0
 6485241,3/28/26,baseball,Barry,1.0,Anthony Tralongo,7.0,3B,9678573,1,2,3,0,0,0,0,0,0,0,0.0
 6485241,3/28/26,baseball,Barry,1.0,Ben Rhode,38.0,PR,11237211,0,0,0,0,0,0,0,0,0,0,0.0
-6485241,3/28/26,baseball,Barry,1.0,"Aramis Ramirez, Jr.",16.0,2B,9683717,0,1,1,0,0,0,0,0,0,0,0.0
 6485241,3/28/26,baseball,Barry,1.0,Jalen Smith,13.0,1B,11209020,8,1,9,0,0,0,0,0,0,0,0.0
 6485241,3/28/26,baseball,Barry,1.0,Erik Blair,4.0,DH,11209004,0,0,0,0,0,0,0,0,0,0,0.0
 6485241,3/28/26,baseball,Barry,1.0,Aidan Heffner,30.0,PH/DH,11209013,0,0,0,0,0,0,0,0,0,0,0.0
@@ -20325,7 +20298,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6537027,3/28/26,baseball,Tuskegee,,Chris Smith,12.0,3B,9677412,1,1,2,0,0,0,0,0,0,0,0.0
 6537027,3/28/26,baseball,Tuskegee,,TJ Neal,31.0,DH,11226634,0,0,0,0,0,0,0,0,0,0,0.0
 6537027,3/28/26,baseball,Tuskegee,,Jeremiah Francis,21.0,C,11226495,6,1,7,0,0,0,0,1,0,0,0.0
-6537027,3/28/26,baseball,Tuskegee,,"Christopher Mayo, Jr.",34.0,1B,11226602,7,0,8,1,0,0,0,0,0,0,0.0
 6537027,3/28/26,baseball,Tuskegee,,Terry Ware,7.0,2B,9677100,2,4,6,0,0,0,0,0,0,0,0.0
 6537027,3/28/26,baseball,Tuskegee,,Zion Ashby,25.0,PH,11226487,0,0,0,0,0,0,0,0,0,0,0.0
 6537027,3/28/26,baseball,Edward Waters,1.0,Daniel Donaldson-Fountain,7.0,CF,11237443,0,0,0,0,0,0,0,0,0,0,0.0
@@ -20944,7 +20916,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6512277,3/28/26,baseball,Wayne St. (MI),,Drew Hill,13.0,RF,9688940,1,0,1,0,0,0,0,0,0,0,0.0
 6512277,3/28/26,baseball,Wayne St. (MI),,Rhett Roeser,32.0,LF,9681631,0,0,0,0,0,0,0,0,0,0,0.0
 6512277,3/28/26,baseball,Wayne St. (MI),,Tony Hatzigeorgiou,9.0,3B,9681261,0,6,6,0,0,0,0,0,1,0,0.0
-6512277,3/28/26,baseball,Wayne St. (MI),,"Nick Sandiha, Jr.",14.0,2B,11230785,4,3,7,0,0,0,0,0,2,0,0.0
 6512277,3/28/26,baseball,Wayne St. (MI),,Brayden Crowe,23.0,C,11230763,2,0,2,0,0,1,0,0,0,0,0.0
 6512277,3/28/26,baseball,Wayne St. (MI),,Ty Garza,7.0,SS,9701734,1,6,9,2,0,0,0,0,1,0,0.0
 6512277,3/28/26,baseball,Davenport,1.0,Sam Clay,4.0,2B,9698477,2,4,6,0,0,0,0,0,1,0,0.0
@@ -21248,7 +21219,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6539727,3/28/26,baseball,Benedict,1.0,Jaquez Akins,5.0,RF,9689311,1,0,1,0,0,0,0,0,0,0,0.0
 6539727,3/28/26,baseball,Benedict,1.0,Cameron Haley,25.0,DH,11247497,0,0,0,0,0,0,0,0,0,0,0.0
 6539727,3/28/26,baseball,Benedict,1.0,Kenyan Conner Jr.,1.0,2B,9704584,0,1,1,0,0,0,0,0,0,0,0.0
-6539727,3/28/26,baseball,Benedict,1.0,"Milton Herring, III",17.0,C,11247484,4,0,4,0,0,0,2,0,0,0,1.0
 6539727,3/28/26,baseball,Benedict,1.0,Colin Jones,10.0,LF,11247477,1,0,1,0,0,0,0,0,0,0,0.0
 6539727,3/28/26,baseball,Benedict,1.0,Curtis Lindsey,4.0,LF,11249501,2,0,2,0,0,0,0,0,0,0,0.0
 6519966,3/28/26,baseball,Lock Haven,,Braden Cummings,2.0,CF,11253954,3,0,3,0,0,0,0,0,0,0,0.0
@@ -21766,7 +21736,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6523926,3/28/26,baseball,Emory & Henry,,Drew Park,5.0,3B,9680313,1,0,1,0,0,0,0,0,0,0,0.0
 6523926,3/28/26,baseball,Emory & Henry,,J.D. James,17.0,1B,11221113,7,0,8,1,0,0,0,0,0,0,0.0
 6523926,3/28/26,baseball,Emory & Henry,,Jeriel Lamboy,20.0,2B,11221121,0,1,1,0,0,0,0,0,0,0,0.0
-6523926,3/28/26,baseball,Emory & Henry,,"Stuart Callahan, III",6.0,RF,9691655,1,0,1,0,0,0,0,0,0,0,0.0
 6523926,3/28/26,baseball,Wingate,1.0,Gavin Groppuso,13.0,RF,9681412,1,0,1,0,0,0,0,0,0,0,0.0
 6523926,3/28/26,baseball,Wingate,1.0,Bowen Powell,39.0,1B,11227975,6,1,7,0,0,0,0,0,0,0,0.0
 6523926,3/28/26,baseball,Wingate,1.0,Tanner McCammon,10.0,3B,11227956,1,0,1,0,0,0,0,0,0,0,0.0
@@ -21913,7 +21882,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6485242,3/28/26,baseball,Barry,1.0,Brady Blanks,44.0,LF,11209005,3,0,3,0,0,0,0,0,0,0,0.0
 6485242,3/28/26,baseball,Barry,1.0,Lee-Anthony Santiago,21.0,2B,9704006,2,1,3,0,0,0,0,0,0,0,0.0
 6485242,3/28/26,baseball,Barry,1.0,Shawn Flynn Jr,9.0,1B,11209012,5,0,6,1,0,0,0,0,1,0,0.0
-6485242,3/28/26,baseball,Barry,1.0,"Aramis Ramirez, Jr.",16.0,SS,9683717,2,2,5,1,0,0,0,0,0,0,0.0
 6486203,3/28/26,baseball,Miles,,Myles Wessels,19.0,CF,9690121,2,0,2,0,0,0,0,0,0,0,0.0
 6486203,3/28/26,baseball,Miles,,Trace Spann,2.0,LF,9687862,0,0,0,0,0,0,0,0,0,0,0.0
 6486203,3/28/26,baseball,Miles,,Michael Smith,3.0,DH,9677874,0,0,0,0,0,0,0,0,0,0,0.0
@@ -23616,7 +23584,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6537019,3/27/26,baseball,Tuskegee,,Mario Craig,29.0,RF,11226601,3,0,3,0,0,0,0,0,0,0,0.0
 6537019,3/27/26,baseball,Tuskegee,,Jaiden Brown,32.0,LF,11226630,5,0,5,0,0,0,0,0,0,0,0.0
 6537019,3/27/26,baseball,Tuskegee,,De'Sean Williams,33.0,1B,11226624,1,1,2,0,0,0,0,0,0,0,0.0
-6537019,3/27/26,baseball,Tuskegee,,"Christopher Mayo, Jr.",34.0,1B,11226602,4,0,4,0,0,0,0,0,0,0,0.0
 6537019,3/27/26,baseball,Edward Waters,1.0,Daniel Donaldson-Fountain,7.0,CF,11237443,4,0,4,0,0,0,0,0,0,0,0.0
 6537019,3/27/26,baseball,Edward Waters,1.0,Dannon Smith,2.0,SS,9698116,1,2,3,0,0,0,0,0,0,0,0.0
 6537019,3/27/26,baseball,Edward Waters,1.0,Louis Rodriguez,19.0,1B,11237525,11,0,11,0,0,0,0,0,0,0,0.0
@@ -23804,7 +23771,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6512275,3/27/26,baseball,Wayne St. (MI),,Drew Hill,13.0,RF,9688940,3,0,3,0,0,0,0,0,0,0,0.0
 6512275,3/27/26,baseball,Wayne St. (MI),,Rhett Roeser,32.0,LF,9681631,0,0,0,0,0,0,0,0,0,0,0.0
 6512275,3/27/26,baseball,Wayne St. (MI),,Tony Hatzigeorgiou,9.0,3B,9681261,0,5,6,1,0,0,0,0,0,0,0.0
-6512275,3/27/26,baseball,Wayne St. (MI),,"Nick Sandiha, Jr.",14.0,2B,11230785,0,4,4,0,0,0,0,0,0,0,0.0
 6512275,3/27/26,baseball,Wayne St. (MI),,Brayden Crowe,23.0,C,11230763,8,0,8,0,0,0,2,0,0,0,1.0
 6512275,3/27/26,baseball,Wayne St. (MI),,Landon Ide,42.0,PH,11230766,0,0,0,0,0,0,0,0,0,0,0.0
 6512275,3/27/26,baseball,Wayne St. (MI),,Steven Whitted,36.0,PR,9699686,0,0,0,0,0,0,0,0,0,0,0.0
@@ -24655,7 +24621,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6537022,3/27/26,baseball,Tuskegee,,Mario Craig,29.0,RF,11226601,3,0,3,0,0,0,0,0,0,0,0.0
 6537022,3/27/26,baseball,Tuskegee,,Jeremiah Francis,21.0,C,11226495,2,0,2,0,0,0,2,1,0,0,0.667
 6537022,3/27/26,baseball,Tuskegee,,Willie Relliford III,28.0,C,11226627,3,0,3,0,0,0,1,0,0,0,1.0
-6537022,3/27/26,baseball,Tuskegee,,"Christopher Mayo, Jr.",34.0,1B,11226602,4,0,4,0,0,0,0,0,0,0,0.0
 6537022,3/27/26,baseball,Edward Waters,1.0,Daniel Donaldson-Fountain,7.0,CF,11237443,2,0,2,0,0,0,0,0,0,0,0.0
 6537022,3/27/26,baseball,Edward Waters,1.0,Dannon Smith,2.0,SS,9698116,1,2,3,0,0,0,0,0,0,0,0.0
 6537022,3/27/26,baseball,Edward Waters,1.0,Calvin Scott,28.0,DH,11237581,0,0,0,0,0,0,0,0,0,0,0.0
@@ -24712,7 +24677,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6485240,3/27/26,baseball,Barry,1.0,Blake Opie,15.0,RF,11209017,1,0,1,0,0,0,0,0,0,0,0.0
 6485240,3/27/26,baseball,Barry,1.0,Josh Hungler,19.0,C,11209014,7,0,7,0,0,0,2,0,0,0,1.0
 6485240,3/27/26,baseball,Barry,1.0,Brady Blanks,44.0,LF,11209005,2,0,2,0,0,0,0,0,0,0,0.0
-6485240,3/27/26,baseball,Barry,1.0,"Aramis Ramirez, Jr.",16.0,2B,9683717,3,2,5,0,0,0,0,0,1,0,0.0
 6485240,3/27/26,baseball,Barry,1.0,Dyson Joseph,2.0,SS,9686716,0,5,6,1,0,0,0,0,0,0,0.0
 6499962,3/27/26,baseball,Catawba,,Logan Dyer,2.0,LF,9690663,0,0,0,0,0,0,0,0,0,0,0.0
 6499962,3/27/26,baseball,Catawba,,Brandon Crabtree,4.0,1B,11233413,5,0,5,0,0,0,0,0,1,0,0.0
@@ -24744,7 +24708,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6523919,3/27/26,baseball,Emory & Henry,,Drew Park,5.0,3B,9680313,1,0,1,0,0,0,0,0,0,0,0.0
 6523919,3/27/26,baseball,Emory & Henry,,J.D. James,17.0,1B,11221113,3,0,3,0,0,0,0,0,0,0,0.0
 6523919,3/27/26,baseball,Emory & Henry,,Jeriel Lamboy,20.0,2B,11221121,1,1,2,0,0,0,0,0,0,0,0.0
-6523919,3/27/26,baseball,Emory & Henry,,"Stuart Callahan, III",6.0,RF,9691655,2,0,2,0,0,0,0,0,0,0,0.0
 6523919,3/27/26,baseball,Wingate,1.0,Gavin Groppuso,13.0,RF,9681412,1,0,1,0,0,0,0,0,0,0,0.0
 6523919,3/27/26,baseball,Wingate,1.0,Will Farrell,29.0,RF/LF,9703702,0,0,0,0,0,0,0,0,0,0,0.0
 6523919,3/27/26,baseball,Wingate,1.0,Bowen Powell,39.0,1B,11227975,5,0,5,0,0,0,0,0,1,0,0.0
@@ -26671,7 +26634,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6523914,3/24/26,baseball,Emory & Henry,1.0,Jacob Nestor,34.0,DH,9688317,0,0,0,0,0,0,0,0,0,0,0.0
 6523914,3/24/26,baseball,Emory & Henry,1.0,Clay Caldwell,12.0,LF,9693435,0,0,0,0,0,0,0,0,0,0,0.0
 6523914,3/24/26,baseball,Emory & Henry,1.0,Luke Roberts,2.0,2B,9690633,6,2,8,0,0,0,0,0,1,0,0.0
-6523914,3/24/26,baseball,Emory & Henry,1.0,"Stuart Callahan, III",6.0,RF,9691655,5,0,5,0,0,0,0,0,0,0,0.0
 6527361,3/24/26,baseball,Middle Georgia,,Teonis Pimentel,11.0,CF,11232019,4,0,4,0,0,0,0,0,0,0,0.0
 6527361,3/24/26,baseball,Middle Georgia,,Justin Aponte,2.0,RF,11232003,6,0,6,0,0,0,0,0,0,0,0.0
 6527361,3/24/26,baseball,Middle Georgia,,Mikal Ashley,32.0,DH,11232011,0,0,0,0,0,0,0,0,0,0,0.0
@@ -27363,7 +27325,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6518722,3/24/26,baseball,Tuskegee,,TJ Neal,31.0,C,11226634,2,0,2,0,0,0,5,0,0,0,1.0
 6518722,3/24/26,baseball,Tuskegee,,Willie Relliford III,28.0,C,11226627,1,0,1,0,0,0,2,0,0,0,1.0
 6518722,3/24/26,baseball,Tuskegee,,Stephon Wright,6.0,DH,9696336,0,0,0,0,0,0,0,0,0,0,0.0
-6518722,3/24/26,baseball,Tuskegee,,"Christopher Mayo, Jr.",34.0,1B,11226602,9,0,9,0,0,0,0,0,0,0,0.0
 6518722,3/24/26,baseball,Tuskegee,,Jaiden Brown,32.0,LF,11226630,2,0,3,1,0,0,0,0,0,0,0.0
 6518722,3/24/26,baseball,Tuskegee,,Zion Ashby,25.0,2B,11226487,1,1,2,0,0,0,0,0,0,0,0.0
 6518722,3/24/26,baseball,UAH,1.0,CJ Carson,37.0,CF/RF,9703878,2,0,2,0,0,0,0,0,0,0,0.0
@@ -27577,7 +27538,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6485239,3/24/26,baseball,Barry,1.0,Josh Hungler,19.0,C,11209014,7,1,8,0,0,0,2,0,0,0,1.0
 6485239,3/24/26,baseball,Barry,1.0,Brady Blanks,44.0,LF,11209005,0,0,1,1,0,0,0,0,0,0,0.0
 6485239,3/24/26,baseball,Barry,1.0,Lee-Anthony Santiago,21.0,2B,9704006,2,7,10,1,0,0,0,0,2,0,0.0
-6485239,3/24/26,baseball,Barry,1.0,"Aramis Ramirez, Jr.",16.0,SS,9683717,2,4,6,0,0,0,0,0,2,0,0.0
 6493241,3/24/26,baseball,Lee,,Landon Franklin,8.0,SS,11210183,1,2,4,1,0,0,0,0,1,0,0.0
 6493241,3/24/26,baseball,Lee,,Luke Collier,6.0,2B,9694855,3,4,7,0,0,0,0,0,2,0,0.0
 6493241,3/24/26,baseball,Lee,,Isaiah French,18.0,C,9689285,4,0,4,0,0,1,0,0,0,0,0.0
@@ -28299,7 +28259,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6495504,3/22/26,baseball,USC Beaufort,1.0,Tanner Wagnon,33.0,RF,9701740,2,1,3,0,0,0,0,0,0,0,0.0
 6495504,3/22/26,baseball,USC Beaufort,1.0,Terry Dean,24.0,C,9679877,5,1,6,0,0,0,2,0,0,0,1.0
 6495504,3/22/26,baseball,USC Beaufort,1.0,Kristians Levensteins,5.0,1B,11236501,6,0,6,0,0,0,0,0,0,0,0.0
-6495504,3/22/26,baseball,USC Beaufort,1.0,"Tavaris McCluney, Jr",42.0,CF,11236518,7,0,7,0,0,0,0,0,0,0,0.0
 6541616,3/22/26,baseball,Lander,,Zach Cowart,5.0,2B,9677594,1,3,4,0,0,0,0,0,1,0,0.0
 6541616,3/22/26,baseball,Lander,,Ryan Hansen,28.0,LF,9695806,1,0,1,0,0,0,0,0,0,0,0.0
 6541616,3/22/26,baseball,Lander,,Oliver Zohn,2.0,CF,11223224,2,0,2,0,0,0,0,0,0,0,0.0
@@ -28524,7 +28483,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6507592,3/22/26,baseball,McKendree,1.0,Quest Hull,25.0,LF,11215414,2,0,2,0,0,0,0,0,0,0,0.0
 6507592,3/22/26,baseball,McKendree,1.0,Kyle Richardson,2.0,C,11215421,3,2,5,0,0,1,0,2,0,0,0.0
 6507592,3/22/26,baseball,McKendree,1.0,Noah Shuman,14.0,2B,9677940,3,2,5,0,0,0,0,0,1,0,0.0
-6519817,3/22/26,baseball,Wayne St. (MI),,"Nick Sandiha, Jr.",14.0,2B,11230785,0,3,4,1,0,0,0,0,0,0,0.0
 6519817,3/22/26,baseball,Wayne St. (MI),,Bennett Hitzelberger,24.0,1B,9699638,9,3,12,0,0,0,0,0,1,0,0.0
 6519817,3/22/26,baseball,Wayne St. (MI),,Owen Tuccinardi,2.0,DH,9682124,0,0,0,0,0,0,0,0,0,0,0.0
 6519817,3/22/26,baseball,Wayne St. (MI),,Drew Hill,13.0,RF,9688940,1,0,1,0,0,0,0,0,0,0,0.0
@@ -28833,7 +28791,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6539786,3/22/26,baseball,Benedict,,Kenyan Conner Jr.,1.0,2B,9704584,1,1,2,0,0,0,0,0,0,0,0.0
 6539786,3/22/26,baseball,Benedict,,Cameron Haley,25.0,DH,11247497,0,0,0,0,0,0,0,0,0,0,0.0
 6539786,3/22/26,baseball,Benedict,,Jim Johnson,22.0,RF,11247572,0,0,0,0,0,0,0,0,0,0,0.0
-6539786,3/22/26,baseball,Benedict,,"Milton Herring, III",17.0,C,11247484,10,1,11,0,0,0,2,0,0,0,1.0
 6539786,3/22/26,baseball,Benedict,,Colin Jones,10.0,LF,11247477,0,0,0,0,0,0,0,0,0,0,0.0
 6539786,3/22/26,baseball,LeMoyne-Owen,1.0,S. Lozano,11.0,SS,11249034,0,4,7,3,0,0,0,0,0,0,0.0
 6539786,3/22/26,baseball,LeMoyne-Owen,1.0,Ryan Meglis,20.0,LF,9693689,2,0,2,0,0,0,0,0,0,0,0.0
@@ -30773,7 +30730,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6523906,3/21/26,baseball,Emory & Henry,,Ryan Paynton,3.0,3B,11221124,0,1,1,0,0,0,0,0,0,0,0.0
 6523906,3/21/26,baseball,Emory & Henry,,Jacob Nestor,34.0,DH,9688317,0,0,0,0,0,0,0,0,0,0,0.0
 6523906,3/21/26,baseball,Emory & Henry,,Jaxon Ehret,35.0,C,11221106,5,1,6,0,0,0,4,1,1,0,0.8
-6523906,3/21/26,baseball,Emory & Henry,,"Stuart Callahan, III",6.0,RF,9691655,7,0,7,0,0,0,0,0,0,0,0.0
 6523906,3/21/26,baseball,Emory & Henry,,Jeriel Lamboy,20.0,2B/3B,11221121,3,2,6,1,0,0,0,0,0,0,0.0
 6523906,3/21/26,baseball,Emory & Henry,,Jack Ferguson,8.0,2B,9681925,0,0,0,0,0,0,0,0,0,0,0.0
 6523906,3/21/26,baseball,Anderson (SC),1.0,Braeden Harrison,16.0,RF,9701328,4,0,4,0,0,0,0,0,0,0,0.0
@@ -31215,7 +31171,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6485237,3/21/26,baseball,Barry,,Josh Hungler,19.0,C,11209014,9,1,10,0,0,1,1,1,0,0,0.5
 6485237,3/21/26,baseball,Barry,,Brady Blanks,44.0,DH,11209005,0,0,0,0,0,0,0,0,0,0,0.0
 6485237,3/21/26,baseball,Barry,,Erik Blair,4.0,DH,11209004,0,0,0,0,0,0,0,0,0,0,0.0
-6485237,3/21/26,baseball,Barry,,"Aramis Ramirez, Jr.",16.0,2B,9683717,0,1,2,1,0,0,0,0,1,0,0.0
 6485237,3/21/26,baseball,Barry,,Dyson Joseph,2.0,SS,9686716,3,1,4,0,0,0,0,0,1,0,0.0
 6485237,3/21/26,baseball,Saint Leo,1.0,Thomas DeBrower,8.0,LF,9682248,3,0,3,0,0,0,0,0,0,0,0.0
 6485237,3/21/26,baseball,Saint Leo,1.0,Dylan Mass,5.0,CF,9702574,2,0,2,0,0,0,0,0,0,0,0.0
@@ -31629,7 +31584,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6519812,3/21/26,baseball,Wayne St. (MI),,Drew Hill,13.0,RF,9688940,0,0,0,0,0,0,0,0,0,0,0.0
 6519812,3/21/26,baseball,Wayne St. (MI),,Tony Hatzigeorgiou,9.0,3B,9681261,0,0,0,0,0,0,0,0,0,0,0.0
 6519812,3/21/26,baseball,Wayne St. (MI),,Rhett Roeser,32.0,2B,9681631,2,1,3,0,0,0,0,0,1,0,0.0
-6519812,3/21/26,baseball,Wayne St. (MI),,"Nick Sandiha, Jr.",14.0,PR/2B,11230785,0,1,1,0,0,0,0,0,0,0,0.0
 6519812,3/21/26,baseball,Wayne St. (MI),,Brady Blakita,5.0,DH,9681330,0,0,0,0,0,0,0,0,0,0,0.0
 6519812,3/21/26,baseball,Wayne St. (MI),,Brayden Crowe,23.0,C,11230763,3,1,4,0,0,0,0,0,0,0,0.0
 6519812,3/21/26,baseball,Wayne St. (MI),,Caleb Sanders,6.0,CF,9703618,1,0,1,0,0,0,0,0,0,0,0.0
@@ -33096,7 +33050,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6539788,3/21/26,baseball,Benedict,,Colin Jones,10.0,LF,11247477,0,0,0,0,0,0,0,0,0,0,0.0
 6539788,3/21/26,baseball,Benedict,,Curtis Lindsey,4.0,RF,11249501,1,0,1,0,0,0,0,0,0,0,0.0
 6539788,3/21/26,baseball,Benedict,,Lewis Brown,51.0,RF,11247512,0,0,0,0,0,0,0,0,0,0,0.0
-6539788,3/21/26,baseball,Benedict,,"Milton Herring, III",17.0,C,11247484,4,0,5,1,0,0,3,0,0,0,1.0
 6539788,3/21/26,baseball,LeMoyne-Owen,1.0,S. Lozano,11.0,SS,11249034,1,0,2,1,0,0,0,0,0,0,0.0
 6539788,3/21/26,baseball,LeMoyne-Owen,1.0,Ryan Meglis,20.0,LF,9693689,1,0,1,0,0,0,0,0,0,0,0.0
 6539788,3/21/26,baseball,LeMoyne-Owen,1.0,S. Terrell,12.0,RF,11249037,2,0,2,0,0,0,0,0,0,0,0.0
@@ -33366,7 +33319,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6523908,3/21/26,baseball,Emory & Henry,,Drew Park,5.0,3B,9680313,0,3,3,0,0,0,0,0,1,0,0.0
 6523908,3/21/26,baseball,Emory & Henry,,J.D. James,17.0,1B,11221113,10,0,10,0,0,0,0,0,2,0,0.0
 6523908,3/21/26,baseball,Emory & Henry,,Ryan Paynton,3.0,2B,11221124,3,1,4,0,0,0,0,0,0,0,0.0
-6523908,3/21/26,baseball,Emory & Henry,,"Stuart Callahan, III",6.0,RF,9691655,3,0,3,0,0,0,0,0,0,0,0.0
 6523908,3/21/26,baseball,Anderson (SC),1.0,Braeden Harrison,16.0,RF,9701328,1,0,1,0,0,0,0,0,0,0,0.0
 6523908,3/21/26,baseball,Anderson (SC),1.0,Brooks Mauro,7.0,SS,9677473,0,2,2,0,0,0,0,0,0,0,0.0
 6523908,3/21/26,baseball,Anderson (SC),1.0,Gray Wells,26.0,1B,9684433,9,0,9,0,0,0,0,0,0,0,0.0
@@ -33976,7 +33928,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6536982,3/21/26,baseball,Tuskegee,,Chris Smith,12.0,3B,9677412,1,0,1,0,0,0,0,0,0,0,0.0
 6536982,3/21/26,baseball,Tuskegee,,Jabari Johnson,10.0,LF,9678404,0,0,0,0,0,0,0,0,0,0,0.0
 6536982,3/21/26,baseball,Tuskegee,,Stephon Wright,6.0,DH,9696336,0,0,0,0,0,0,0,0,0,0,0.0
-6536982,3/21/26,baseball,Tuskegee,,"Christopher Mayo, Jr.",34.0,1B,11226602,3,0,3,0,0,0,0,0,0,0,0.0
 6536982,3/21/26,baseball,Tuskegee,,Jeremiah Francis,21.0,C,11226495,5,2,7,0,0,0,4,2,0,0,0.667
 6536982,3/21/26,baseball,Tuskegee,,Zion Ashby,25.0,2B,11226487,2,0,2,0,0,0,0,0,0,0,0.0
 6536982,3/21/26,baseball,Clark Atlanta,1.0,Andrew Leonard,5.0,CF,9701115,1,0,1,0,0,0,0,0,0,0,0.0
@@ -34088,7 +34039,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6519814,3/21/26,baseball,Wayne St. (MI),,Tony Hatzigeorgiou,9.0,3B,9681261,0,1,1,0,0,0,0,0,0,0,0.0
 6519814,3/21/26,baseball,Wayne St. (MI),,Rhett Roeser,32.0,LF,9681631,0,0,0,0,0,0,0,0,0,0,0.0
 6519814,3/21/26,baseball,Wayne St. (MI),,Gabe Zeldes,29.0,LF,9683442,0,0,0,0,0,0,0,0,0,0,0.0
-6519814,3/21/26,baseball,Wayne St. (MI),,"Nick Sandiha, Jr.",14.0,2B,11230785,2,2,4,0,0,0,0,0,1,0,0.0
 6519814,3/21/26,baseball,Wayne St. (MI),,Cooper Clark,47.0,C,11230760,7,0,7,0,0,1,0,0,0,0,0.0
 6519814,3/21/26,baseball,Wayne St. (MI),,Caleb Sanders,6.0,CF,9703618,1,0,1,0,0,0,0,0,0,0,0.0
 6519814,3/21/26,baseball,Wis.-Parkside,1.0,Ben Loyd,6.0,2B,11234766,0,1,1,0,0,0,0,0,0,0,0.0
@@ -36418,7 +36368,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6495499,3/20/26,baseball,USC Beaufort,1.0,Luke Doty,1.0,DH,9700091,0,0,0,0,0,0,0,0,0,0,0.0
 6495499,3/20/26,baseball,USC Beaufort,1.0,T. Gundelfin,43.0,3B,11241390,2,2,4,0,0,0,0,0,0,0,0.0
 6495499,3/20/26,baseball,USC Beaufort,1.0,Tanner Wagnon,33.0,RF,9701740,3,1,4,0,0,0,0,0,0,0,0.0
-6495499,3/20/26,baseball,USC Beaufort,1.0,"Tavaris McCluney, Jr",42.0,CF,11236518,3,0,3,0,0,0,0,0,0,0,0.0
 6495499,3/20/26,baseball,USC Beaufort,1.0,Mack Cromer,14.0,1B,9677816,5,3,9,1,0,0,0,0,0,0,0.0
 6495499,3/20/26,baseball,USC Beaufort,1.0,Terry Dean,24.0,C,9679877,6,1,7,0,0,3,15,2,0,0,0.882
 6485235,3/20/26,baseball,Barry,,Zavier Hatfield,1.0,CF,9698707,4,0,4,0,0,0,0,0,0,0,0.0
@@ -36430,7 +36379,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6485235,3/20/26,baseball,Barry,,Josh Hungler,19.0,C,11209014,12,1,13,0,0,0,1,2,1,0,0.333
 6485235,3/20/26,baseball,Barry,,Ben Rhode,38.0,PR,11237211,0,0,0,0,0,0,0,0,0,0,0.0
 6485235,3/20/26,baseball,Barry,,Aquiles Arzeno,10.0,C,11254663,0,0,0,0,0,0,0,0,0,0,0.0
-6485235,3/20/26,baseball,Barry,,"Aramis Ramirez, Jr.",16.0,2B,9683717,0,1,1,0,0,0,0,0,1,0,0.0
 6485235,3/20/26,baseball,Barry,,Dyson Joseph,2.0,SS,9686716,4,1,5,0,0,0,0,0,2,0,0.0
 6485235,3/20/26,baseball,Saint Leo,1.0,Thomas DeBrower,8.0,LF,9682248,3,0,3,0,0,0,0,0,0,0,0.0
 6485235,3/20/26,baseball,Saint Leo,1.0,Dylan Mass,5.0,CF,9702574,2,0,2,0,0,0,0,0,0,0,0.0
@@ -37289,7 +37237,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6493847,3/18/26,baseball,USC Beaufort,1.0,Justin Brink,36.0,3B,11236514,0,0,0,0,0,0,0,0,0,0,0.0
 6493847,3/18/26,baseball,USC Beaufort,1.0,Tanner Wagnon,33.0,RF,9701740,3,0,3,0,0,0,0,0,0,0,0.0
 6493847,3/18/26,baseball,USC Beaufort,1.0,Colby Reynolds,21.0,C,9679110,7,0,7,0,0,0,0,0,0,0,0.0
-6493847,3/18/26,baseball,USC Beaufort,1.0,"Tavaris McCluney, Jr",42.0,CF,11236518,7,0,7,0,0,0,0,0,0,0,0.0
 6493235,3/18/26,baseball,Tusculum,,Ryan Ortega,21.0,3B,9699316,1,3,5,1,0,0,0,0,2,0,0.0
 6493235,3/18/26,baseball,Tusculum,,Evan Goins,18.0,3B,11236283,0,0,0,0,0,0,0,0,0,0,0.0
 6493235,3/18/26,baseball,Tusculum,,Evan Cage,15.0,CF,11236186,3,0,3,0,0,0,0,0,0,0,0.0
@@ -38791,7 +38738,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6486196,3/15/26,baseball,Benedict,,Jonathan Olmedo,27.0,3B,9691375,0,5,6,1,0,0,0,0,0,0,0.0
 6486196,3/15/26,baseball,Benedict,,Cameron Haley,25.0,DH,11247497,0,0,0,0,0,0,0,0,0,0,0.0
 6486196,3/15/26,baseball,Benedict,,Curtis Lindsey,4.0,RF,11249501,2,0,2,0,0,0,0,0,0,0,0.0
-6486196,3/15/26,baseball,Benedict,,"Milton Herring, III",17.0,C,11247484,4,1,5,0,0,0,6,1,0,0,0.857
 6486196,3/15/26,baseball,Benedict,,Michael Belcher,7.0,C,11247475,0,0,0,0,0,0,0,0,0,0,0.0
 6486196,3/15/26,baseball,Benedict,,Lewis Brown,51.0,PH,11247512,0,0,0,0,0,0,0,0,0,0,0.0
 6486196,3/15/26,baseball,Savannah St.,1.0,Gabe Breckenridge,4.0,SS,11224226,1,2,3,0,0,0,0,0,0,0,0.0
@@ -40570,7 +40516,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6519800,3/14/26,baseball,California (PA),,Charlie Nigut,42.0,CF,11230346,3,0,3,0,0,0,0,0,0,0,0.0
 6519800,3/14/26,baseball,California (PA),,Colin Patterson,20.0,PH,9684203,0,0,0,0,0,0,0,0,0,0,0.0
 6519800,3/14/26,baseball,California (PA),,Jason Nuttridge,1.0,2B,9689217,0,0,0,0,0,0,0,0,0,0,0.0
-6519800,3/14/26,baseball,Wayne St. (MI),1.0,"Nick Sandiha, Jr.",14.0,2B,11230785,2,3,5,0,0,0,0,0,1,0,0.0
 6519800,3/14/26,baseball,Wayne St. (MI),1.0,Bennett Hitzelberger,24.0,LF/1B,9699638,6,0,6,0,0,0,0,0,0,0,0.0
 6519800,3/14/26,baseball,Wayne St. (MI),1.0,Owen Tuccinardi,2.0,1B,9682124,6,2,8,0,0,0,0,0,1,0,0.0
 6519800,3/14/26,baseball,Wayne St. (MI),1.0,Gabe Zeldes,29.0,LF,9683442,0,0,0,0,0,0,0,0,0,0,0.0
@@ -40691,7 +40636,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6523889,3/14/26,baseball,Emory & Henry,1.0,Ky Gregoire,99.0,C,9692147,3,0,3,0,0,0,1,0,0,0,1.0
 6523889,3/14/26,baseball,Emory & Henry,1.0,Drew Park,5.0,3B,9680313,0,2,2,0,0,0,0,0,0,0,0.0
 6523889,3/14/26,baseball,Emory & Henry,1.0,J.D. James,17.0,DH,11221113,0,0,0,0,0,0,0,0,0,0,0.0
-6523889,3/14/26,baseball,Emory & Henry,1.0,"Stuart Callahan, III",6.0,RF,9691655,5,0,5,0,0,0,0,0,0,0,0.0
 6523889,3/14/26,baseball,Emory & Henry,1.0,Jase Kotwicki,40.0,CF,11221117,3,0,3,0,0,0,0,0,0,0,0.0
 6523889,3/14/26,baseball,Emory & Henry,1.0,Ryan Paynton,3.0,2B,11221124,3,2,6,1,0,0,0,0,1,0,0.0
 6565267,3/14/26,baseball,American Int'l,,Yeudy Ramirez,2.0,SS,9684729,2,1,4,1,0,0,0,0,0,0,0.0
@@ -40769,7 +40713,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6486194,3/14/26,baseball,Benedict,,Lewis Brown,51.0,PH,11247512,0,0,0,0,0,0,0,0,0,0,0.0
 6486194,3/14/26,baseball,Benedict,,Jonathan Olmedo,27.0,3B,9691375,3,1,4,0,0,0,0,0,0,0,0.0
 6486194,3/14/26,baseball,Benedict,,Kenyan Conner Jr.,1.0,2B,9704584,2,0,2,0,0,0,0,0,0,0,0.0
-6486194,3/14/26,baseball,Benedict,,"Milton Herring, III",17.0,C,11247484,3,1,4,0,0,0,1,0,0,0,1.0
 6486194,3/14/26,baseball,Benedict,,Johnny Barrow,26.0,PH,11332539,0,0,0,0,0,0,0,0,0,0,0.0
 6486194,3/14/26,baseball,Benedict,,Christopher Trujillo Ruiz,9.0,SS,11249499,1,1,2,0,0,0,0,0,0,0,0.0
 6486194,3/14/26,baseball,Benedict,,Curtis Lindsey,4.0,LF,11249501,0,1,1,0,0,0,0,0,0,0,0.0
@@ -41383,7 +41326,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6534614,3/14/26,baseball,Tuskegee,1.0,TJ Neal,31.0,DH,11226634,0,0,0,0,0,0,0,0,0,0,0.0
 6534614,3/14/26,baseball,Tuskegee,1.0,Rodney Mudd II,2.0,RF,9680614,1,0,1,0,0,0,0,0,0,0,0.0
 6534614,3/14/26,baseball,Tuskegee,1.0,Jabari Johnson,10.0,LF,9678404,0,0,0,0,0,0,0,0,0,0,0.0
-6534614,3/14/26,baseball,Tuskegee,1.0,"Christopher Mayo, Jr.",34.0,1B,11226602,6,1,7,0,0,0,0,0,1,0,0.0
 6534614,3/14/26,baseball,Tuskegee,1.0,Jordan Spencer,30.0,1B,11226619,4,0,4,0,0,0,0,0,0,0,0.0
 6534614,3/14/26,baseball,Tuskegee,1.0,Jeremiah Francis,21.0,C,11226495,5,3,9,1,0,1,7,3,0,0,0.7
 6534614,3/14/26,baseball,Tuskegee,1.0,Mario Craig,29.0,CF,11226601,1,0,1,0,0,0,0,0,0,0,0.0
@@ -44896,7 +44838,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6485232,3/13/26,baseball,Barry,1.0,Anthony Tralongo,7.0,3B,9678573,0,0,0,0,0,0,0,0,0,0,0.0
 6485232,3/13/26,baseball,Barry,1.0,Brady Benevides,29.0,3B,11209003,0,1,1,0,0,0,0,0,0,0,0.0
 6485232,3/13/26,baseball,Barry,1.0,Josh Hungler,19.0,C,11209014,7,1,8,0,0,1,4,0,0,0,1.0
-6485232,3/13/26,baseball,Barry,1.0,"Aramis Ramirez, Jr.",16.0,2B/SS,9683717,2,2,5,1,0,0,0,0,0,0,0.0
 6485232,3/13/26,baseball,Barry,1.0,Dyson Joseph,2.0,SS,9686716,1,1,3,1,0,0,0,0,0,0,0.0
 6485232,3/13/26,baseball,Barry,1.0,Hector Villorio,33.0,2B,11209025,1,1,2,0,0,0,0,0,0,0,0.0
 6503900,3/13/26,baseball,Flagler,,Taylor Shultz,2.0,SS,9679625,3,1,5,1,0,0,0,0,0,0,0.0
@@ -45736,7 +45677,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6523882,3/13/26,baseball,Emory & Henry,1.0,J.D. James,17.0,1B,11221113,3,2,5,0,0,0,0,0,0,0,0.0
 6523882,3/13/26,baseball,Emory & Henry,1.0,Jack Ferguson,8.0,2B,9681925,1,0,1,0,0,0,0,0,0,0,0.0
 6523882,3/13/26,baseball,Emory & Henry,1.0,Isaiah Bracy,10.0,RF,9696563,1,0,1,0,0,0,0,0,0,0,0.0
-6523882,3/13/26,baseball,Emory & Henry,1.0,"Stuart Callahan, III",6.0,CF,9691655,2,0,2,0,0,0,0,0,0,0,0.0
 6526259,3/13/26,baseball,Harding,,Collin Helms,12.0,C,9701957,9,0,9,0,0,0,1,0,0,0,1.0
 6526259,3/13/26,baseball,Harding,,Phoenix West,17.0,1B,11224661,7,0,7,0,0,0,0,0,1,0,0.0
 6526259,3/13/26,baseball,Harding,,Logan Lacey,10.0,3B,9700456,0,2,2,0,0,0,0,0,0,0,0.0
@@ -46355,7 +46295,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6511813,3/13/26,baseball,Ashland,1.0,Chris Franks,21.0,RF,9695321,1,0,1,0,0,0,0,0,0,0,0.0
 6511813,3/13/26,baseball,Ashland,1.0,Mason Reckner,47.0,1B,11231860,6,1,7,0,0,0,0,0,0,0,0.0
 6511813,3/13/26,baseball,Ashland,1.0,Max Albert,39.0,2B,11231856,0,1,1,0,0,0,0,0,0,0,0.0
-6519799,3/13/26,baseball,Wayne St. (MI),,"Nick Sandiha, Jr.",14.0,SS/PR,11230785,1,0,1,0,0,0,0,0,0,0,0.0
 6519799,3/13/26,baseball,Wayne St. (MI),,Rhett Roeser,32.0,LF,9681631,0,0,0,0,0,0,0,0,0,0,0.0
 6519799,3/13/26,baseball,Wayne St. (MI),,Bennett Hitzelberger,24.0,LF,9699638,1,0,1,0,0,0,0,0,0,0,0.0
 6519799,3/13/26,baseball,Wayne St. (MI),,Owen Tuccinardi,2.0,1B,9682124,1,0,1,0,0,0,0,0,0,0,0.0
@@ -47282,7 +47221,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6519796,3/12/26,baseball,Minn. Duluth,,Nikhil Kandi,21.0,PH,11229168,0,0,0,0,0,0,0,0,0,0,0.0
 6519796,3/12/26,baseball,Minn. Duluth,,Michael Gabbard,3.0,LF,9701959,2,0,2,0,0,0,0,0,0,0,0.0
 6519796,3/12/26,baseball,Wayne St. (MI),1.0,Ty Garza,7.0,SS,9701734,3,3,8,2,0,0,0,0,1,0,0.0
-6519796,3/12/26,baseball,Wayne St. (MI),1.0,"Nick Sandiha, Jr.",14.0,2B,11230785,2,2,4,0,0,0,0,0,0,0,0.0
 6519796,3/12/26,baseball,Wayne St. (MI),1.0,Drew Hill,13.0,LF,9688940,1,0,1,0,0,0,0,0,0,0,0.0
 6519796,3/12/26,baseball,Wayne St. (MI),1.0,Rhett Roeser,32.0,DH,9681631,0,0,0,0,0,0,0,0,0,0,0.0
 6519796,3/12/26,baseball,Wayne St. (MI),1.0,Tony Hatzigeorgiou,9.0,3B,9681261,1,2,3,0,0,0,0,0,1,0,0.0
@@ -47396,7 +47334,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6562747,3/11/26,baseball,Emory & Henry,1.0,J.D. James,17.0,1B,11221113,4,0,4,0,0,0,0,0,0,0,0.0
 6562747,3/11/26,baseball,Emory & Henry,1.0,Ky Gregoire,99.0,DH,9692147,0,0,0,0,0,0,0,0,0,0,0.0
 6562747,3/11/26,baseball,Emory & Henry,1.0,Jacob Nestor,34.0,DH,9688317,0,0,0,0,0,0,0,0,0,0,0.0
-6562747,3/11/26,baseball,Emory & Henry,1.0,"Stuart Callahan, III",6.0,PR,9691655,0,0,0,0,0,0,0,0,0,0,0.0
 6562747,3/11/26,baseball,Emory & Henry,1.0,Drew Park,5.0,3B,9680313,1,0,1,0,0,0,0,0,0,0,0.0
 6562747,3/11/26,baseball,Emory & Henry,1.0,Jeriel Lamboy,20.0,3B,11221121,1,1,2,0,0,0,0,0,0,0,0.0
 6562747,3/11/26,baseball,Emory & Henry,1.0,Jack Ferguson,8.0,2B,9681925,2,3,5,0,0,0,0,0,1,0,0.0
@@ -47490,7 +47427,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6519794,3/11/26,baseball,Wayne St. (MI),1.0,Caleb Sanders,6.0,CF,9703618,1,0,1,0,0,0,0,0,0,0,0.0
 6519794,3/11/26,baseball,Wayne St. (MI),1.0,Gabe Zeldes,29.0,CF/LF,9683442,0,0,0,0,0,0,0,0,0,0,0.0
 6519794,3/11/26,baseball,Wayne St. (MI),1.0,Cooper Clark,47.0,C,11230760,12,1,13,0,0,0,0,0,0,0,0.0
-6519794,3/11/26,baseball,Wayne St. (MI),1.0,"Nick Sandiha, Jr.",14.0,2B,11230785,2,1,3,0,0,0,0,0,0,0,0.0
 6537007,3/11/26,baseball,Trevecca Nazarene,,Rylan Moses,0.0,CF,11243851,2,0,2,0,0,0,0,0,0,0,0.0
 6537007,3/11/26,baseball,Trevecca Nazarene,,Caleb Webster,1.0,2B,11242028,3,1,5,1,0,0,0,0,0,0,0.0
 6537007,3/11/26,baseball,Trevecca Nazarene,,Noah Boughton,9.0,LF,11238634,0,1,2,1,0,0,0,0,0,0,0.0
@@ -48243,7 +48179,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6519792,3/10/26,baseball,Wayne St. (MI),,Brady Blakita,5.0,PR,9681330,0,0,0,0,0,0,0,0,0,0,0.0
 6519792,3/10/26,baseball,Wayne St. (MI),,Drew Hill,13.0,RF,9688940,5,1,6,0,0,0,0,0,0,0,0.0
 6519792,3/10/26,baseball,Wayne St. (MI),,Tony Hatzigeorgiou,9.0,3B,9681261,4,3,8,1,0,0,0,0,0,0,0.0
-6519792,3/10/26,baseball,Wayne St. (MI),,"Nick Sandiha, Jr.",14.0,PR/2B,11230785,1,1,2,0,0,0,0,0,0,0,0.0
 6519792,3/10/26,baseball,Wayne St. (MI),,Caleb Sanders,6.0,CF,9703618,5,0,5,0,0,0,0,0,0,0,0.0
 6519792,3/10/26,baseball,Wayne St. (MI),,Brayden Crowe,23.0,C,11230763,14,1,15,0,0,2,0,1,0,0,0.0
 6519792,3/10/26,baseball,Wayne St. (MI),,Gabe Zeldes,29.0,LF,9683442,0,0,0,0,0,0,0,0,0,0,0.0
@@ -48289,7 +48224,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6539751,3/10/26,baseball,Morehouse,1.0,Josiah Smith,15.0,C,9680591,2,0,2,0,0,0,2,0,0,0,1.0
 6539751,3/10/26,baseball,Morehouse,1.0,Vernon Clay,2.0,PH,9690076,0,0,0,0,0,0,0,0,0,0,0.0
 6539751,3/10/26,baseball,Morehouse,1.0,Kendal Sellers,5.0,2B,11243731,0,0,0,0,0,0,0,0,0,0,0.0
-6480135,3/10/26,baseball,Newberry,,"Aaron Bolick, Jr",35.0,P,11229494,0,0,0,0,0,0,0,0,0,0,0.0
 6480135,3/10/26,baseball,Newberry,,Luke Compton,6.0,CF,9683892,3,0,3,0,0,0,0,0,0,0,0.0
 6480135,3/10/26,baseball,Newberry,,Bryson Nuckols,1.0,LF,9683527,0,0,0,0,0,0,0,0,0,0,0.0
 6480135,3/10/26,baseball,Newberry,,Keillor Osbon,15.0,1B,9692496,8,0,8,0,0,0,0,0,0,0,0.0
@@ -48489,7 +48423,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6495519,3/10/26,baseball,Emory & Henry,1.0,David Rodriguez,37.0,C,11221130,2,0,2,0,0,0,0,0,0,0,0.0
 6495519,3/10/26,baseball,Emory & Henry,1.0,J.D. James,17.0,DH,11221113,0,0,0,0,0,0,0,0,0,0,0.0
 6495519,3/10/26,baseball,Emory & Henry,1.0,Jacob Nestor,34.0,DH,9688317,0,0,0,0,0,0,0,0,0,0,0.0
-6495519,3/10/26,baseball,Emory & Henry,1.0,"Stuart Callahan, III",6.0,CF,9691655,1,0,1,0,0,0,0,0,0,0,0.0
 6495519,3/10/26,baseball,Emory & Henry,1.0,Maddox Harwood,13.0,CF,11221111,1,0,1,0,0,0,0,0,0,0,0.0
 6495519,3/10/26,baseball,Emory & Henry,1.0,Isaiah Bracy,10.0,RF,9696563,1,0,1,0,0,0,0,0,0,0,0.0
 6495519,3/10/26,baseball,Emory & Henry,1.0,Clay Caldwell,12.0,RF,9693435,0,0,0,0,0,0,0,0,0,0,0.0
@@ -48687,7 +48620,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6559737,3/10/26,baseball,USC Beaufort,1.0,Justin Brink,36.0,3B,11236514,0,1,1,0,0,0,0,0,0,0,0.0
 6559737,3/10/26,baseball,USC Beaufort,1.0,Mitchell Singletary,17.0,C,9679339,3,0,4,1,0,0,2,0,0,0,1.0
 6559737,3/10/26,baseball,USC Beaufort,1.0,T. Gundelfin,43.0,1B,11241390,9,0,9,0,0,0,0,0,0,0,0.0
-6559737,3/10/26,baseball,USC Beaufort,1.0,"Tavaris McCluney, Jr",42.0,CF,11236518,4,0,4,0,0,0,0,0,0,0,0.0
 6528408,3/10/26,baseball,Central Mo.,,Cole Kreisel,11.0,2B,9683511,3,1,4,0,0,0,0,0,0,0,0.0
 6528408,3/10/26,baseball,Central Mo.,,Grant Hollister,13.0,DH,9679300,0,0,0,0,0,0,0,0,0,0,0.0
 6528408,3/10/26,baseball,Central Mo.,,Brock Kobel,23.0,RF,11230141,0,0,0,0,0,0,0,0,0,0,0.0
@@ -48842,7 +48774,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6485230,3/10/26,baseball,Barry,1.0,Josh Hungler,19.0,C,11209014,8,1,9,0,0,0,1,1,0,0,0.5
 6485230,3/10/26,baseball,Barry,1.0,Ben Rhode,38.0,PR,11237211,0,0,0,0,0,0,0,0,0,0,0.0
 6485230,3/10/26,baseball,Barry,1.0,Aquiles Arzeno,10.0,C,11254663,4,0,4,0,0,0,0,0,0,0,0.0
-6485230,3/10/26,baseball,Barry,1.0,"Aramis Ramirez, Jr.",16.0,2B,9683717,3,0,3,0,0,0,0,0,0,0,0.0
 6485230,3/10/26,baseball,Barry,1.0,Aidan Heffner,30.0,PR,11209013,0,0,0,0,0,0,0,0,0,0,0.0
 6485230,3/10/26,baseball,Barry,1.0,Lee-Anthony Santiago,21.0,2B,9704006,1,0,1,0,0,0,0,0,0,0,0.0
 6485230,3/10/26,baseball,Barry,1.0,Dyson Joseph,2.0,SS,9686716,4,3,7,0,0,0,0,0,0,0,0.0
@@ -50682,7 +50613,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6503617,3/08/26,baseball,USC Beaufort,,Andrew Walters,4.0,3B,9703046,0,0,1,1,0,0,0,0,0,0,0.0
 6503617,3/08/26,baseball,USC Beaufort,,Jon Davis,0.0,RF,9677162,5,0,5,0,0,0,0,0,0,0,0.0
 6503617,3/08/26,baseball,USC Beaufort,,Joe Turner,2.0,DH,9685802,0,0,0,0,0,0,0,0,0,0,0.0
-6503617,3/08/26,baseball,USC Beaufort,,"Tavaris McCluney, Jr",42.0,CF,11236518,3,0,3,0,0,0,0,0,0,0,0.0
 6503617,3/08/26,baseball,USC Beaufort,,T. Gundelfin,43.0,1B,11241390,3,1,4,0,0,0,0,0,0,0,0.0
 6503617,3/08/26,baseball,USC Beaufort,,Terry Dean,24.0,C,9679877,5,0,5,0,0,0,8,0,0,0,1.0
 6503617,3/08/26,baseball,Flagler,1.0,Taylor Shultz,2.0,SS,9679625,1,7,8,0,0,0,0,0,1,0,0.0
@@ -50713,7 +50643,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6546250,3/08/26,baseball,Benedict,1.0,Branden Caballero,16.0,PR,11247481,0,0,0,0,0,0,0,0,0,0,0.0
 6546250,3/08/26,baseball,Benedict,1.0,Jonathan Olmedo,27.0,3B,9691375,0,2,2,0,0,0,0,0,0,0,0.0
 6546250,3/08/26,baseball,Benedict,1.0,Kenyan Conner Jr.,1.0,2B,9704584,3,3,6,0,0,0,0,0,0,0,0.0
-6546250,3/08/26,baseball,Benedict,1.0,"Milton Herring, III",17.0,C,11247484,7,3,10,0,0,2,3,0,1,0,1.0
 6546250,3/08/26,baseball,Benedict,1.0,Christopher Trujillo Ruiz,9.0,SS,11249499,2,1,5,2,0,0,0,0,0,0,0.0
 6546250,3/08/26,baseball,Benedict,1.0,Curtis Lindsey,4.0,LF,11249501,3,0,3,0,0,0,0,0,0,0,0.0
 6528676,3/08/26,baseball,Bluefield St.,,Nate Rollins,5.0,SS,11227813,2,1,3,0,0,0,0,0,0,0,0.0
@@ -52482,7 +52411,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6493229,3/07/26,baseball,Emory & Henry,1.0,Ky Gregoire,99.0,C,9692147,4,0,4,0,0,0,4,0,0,0,1.0
 6493229,3/07/26,baseball,Emory & Henry,1.0,Drew Park,5.0,3B,9680313,1,2,3,0,0,0,0,0,0,0,0.0
 6493229,3/07/26,baseball,Emory & Henry,1.0,J.D. James,17.0,1B,11221113,3,0,3,0,0,0,0,0,0,0,0.0
-6493229,3/07/26,baseball,Emory & Henry,1.0,"Stuart Callahan, III",6.0,CF,9691655,2,1,3,0,0,0,0,0,0,0,0.0
 6493229,3/07/26,baseball,Emory & Henry,1.0,Clay Caldwell,12.0,RF,9693435,1,0,1,0,0,0,0,0,0,0,0.0
 6493229,3/07/26,baseball,Emory & Henry,1.0,Ryan Paynton,3.0,2B,11221124,3,2,7,2,0,0,0,0,0,0,0.0
 6495508,3/07/26,baseball,Ferrum,,Tyler Mason,1.0,CF,9686378,3,0,3,0,0,0,0,0,0,0,0.0
@@ -52684,7 +52612,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6537050,3/07/26,baseball,Benedict,1.0,Branden Caballero,16.0,3B,11247481,0,1,2,1,0,0,0,0,0,0,0.0
 6537050,3/07/26,baseball,Benedict,1.0,Kenyan Conner Jr.,1.0,2B,9704584,3,1,4,0,0,0,0,0,0,0,0.0
 6537050,3/07/26,baseball,Benedict,1.0,David Ortiz,19.0,2B,11247492,0,0,1,1,0,0,0,0,0,0,0.0
-6537050,3/07/26,baseball,Benedict,1.0,"Milton Herring, III",17.0,C,11247484,6,1,7,0,0,0,3,0,0,0,1.0
 6537050,3/07/26,baseball,Benedict,1.0,Christopher Trujillo Ruiz,9.0,SS,11249499,0,2,2,0,0,0,0,0,0,0,0.0
 6537050,3/07/26,baseball,Benedict,1.0,Colin Jones,10.0,RF/PH,11247477,2,0,3,1,0,0,0,0,0,0,0.0
 6537050,3/07/26,baseball,Benedict,1.0,Curtis Lindsey,4.0,RF,11249501,0,0,0,0,0,0,0,0,0,0,0.0
@@ -52872,7 +52799,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6485264,3/07/26,baseball,Barry,1.0,John Perozzi,12.0,P,9697535,0,0,0,0,0,0,0,0,0,0,0.0
 6485264,3/07/26,baseball,Barry,1.0,Anthony Tralongo,7.0,3B,9678573,0,1,2,1,0,0,0,0,0,0,0.0
 6485264,3/07/26,baseball,Barry,1.0,Josh Hungler,19.0,C,11209014,10,2,12,0,0,0,6,1,0,0,0.857
-6485264,3/07/26,baseball,Barry,1.0,"Aramis Ramirez, Jr.",16.0,2B,9683717,6,5,12,1,0,0,0,0,1,0,0.0
 6485264,3/07/26,baseball,Barry,1.0,Dyson Joseph,2.0,SS,9686716,1,5,6,0,0,0,0,0,1,0,0.0
 6532973,3/07/26,baseball,Saint Michael's,,Jack Pattison,7.0,DH,9695412,0,0,0,0,0,0,0,0,0,0,0.0
 6532973,3/07/26,baseball,Saint Michael's,,Sam Cavossa,12.0,C,9698674,10,2,12,0,0,0,2,2,0,0,0.5
@@ -53327,7 +53253,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6503613,3/07/26,baseball,USC Beaufort,,Jon Davis,0.0,RF,9677162,2,1,4,1,0,0,0,0,0,0,0.0
 6503613,3/07/26,baseball,USC Beaufort,,Kristians Levensteins,5.0,DH,11236501,0,0,0,0,0,0,0,0,0,0,0.0
 6503613,3/07/26,baseball,USC Beaufort,,Mack Cromer,14.0,1B,9677816,9,0,9,0,0,0,0,0,0,0,0.0
-6503613,3/07/26,baseball,USC Beaufort,,"Tavaris McCluney, Jr",42.0,CF,11236518,2,0,2,0,0,0,0,0,0,0,0.0
 6503613,3/07/26,baseball,USC Beaufort,,Cade Sikoski,8.0,C,11236504,3,1,5,1,0,1,5,0,0,0,1.0
 6503613,3/07/26,baseball,Flagler,1.0,Taylor Shultz,2.0,SS,9679625,1,6,7,0,0,0,0,0,1,0,0.0
 6503613,3/07/26,baseball,Flagler,1.0,AJ Hunerberg,17.0,CF,9699892,3,0,3,0,0,0,0,0,0,0,0.0
@@ -53503,7 +53428,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6536937,3/07/26,baseball,Tuskegee,,TJ Neal,31.0,C,11226634,2,1,3,0,0,0,0,0,0,0,0.0
 6536937,3/07/26,baseball,Tuskegee,,Jeremiah Francis,21.0,C,11226495,2,0,2,0,0,1,0,0,0,0,0.0
 6536937,3/07/26,baseball,Tuskegee,,Austin Evans,5.0,RF,9678157,4,0,4,0,0,0,0,0,0,0,0.0
-6536937,3/07/26,baseball,Tuskegee,,"Christopher Mayo, Jr.",34.0,1B,11226602,7,0,7,0,0,0,0,0,0,0,0.0
 6536937,3/07/26,baseball,Tuskegee,,Mehki Smith,3.0,SS,9686880,1,1,3,1,0,0,0,0,0,0,0.0
 6536937,3/07/26,baseball,Spring Hill,1.0,Jatnier Torres,37.0,SS,11238611,0,2,2,0,0,0,0,0,0,0,0.0
 6536937,3/07/26,baseball,Spring Hill,1.0,Jordan Black,21.0,DH,11241624,0,0,0,0,0,0,0,0,0,0,0.0
@@ -54855,7 +54779,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6536942,3/07/26,baseball,Tuskegee,,Chris Smith,12.0,3B,9677412,1,2,3,0,0,0,0,0,0,0,0.0
 6536942,3/07/26,baseball,Tuskegee,,TJ Neal,31.0,DH,11226634,0,0,0,0,0,0,0,0,0,0,0.0
 6536942,3/07/26,baseball,Tuskegee,,Rodney Mudd II,2.0,RF,9680614,3,0,3,0,0,0,0,0,0,0,0.0
-6536942,3/07/26,baseball,Tuskegee,,"Christopher Mayo, Jr.",34.0,1B,11226602,5,0,5,0,0,0,0,0,0,0,0.0
 6536942,3/07/26,baseball,Tuskegee,,Jahsha Stevens,14.0,C,9690255,6,0,6,0,0,0,11,0,0,0,1.0
 6536942,3/07/26,baseball,Tuskegee,,Mario Craig,29.0,CF,11226601,4,0,4,0,0,0,0,0,0,0,0.0
 6536942,3/07/26,baseball,Spring Hill,1.0,Jatnier Torres,37.0,SS,11238611,0,2,2,0,0,0,0,0,0,0,0.0
@@ -56062,7 +55985,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6485263,3/06/26,baseball,Barry,,Shawn Flynn Jr,9.0,PH/1B,11209012,2,0,2,0,0,0,0,0,1,0,0.0
 6485263,3/06/26,baseball,Barry,,Aquiles Arzeno,10.0,C,11254663,12,0,12,0,0,0,0,0,0,0,0.0
 6485263,3/06/26,baseball,Barry,,Lee-Anthony Santiago,21.0,2B,9704006,2,2,4,0,0,0,0,0,1,0,0.0
-6485263,3/06/26,baseball,Barry,,"Aramis Ramirez, Jr.",16.0,SS,9683717,1,0,1,0,0,0,0,0,0,0,0.0
 6485263,3/06/26,baseball,Saint Michael's,1.0,Jack Pattison,7.0,DH,9695412,0,0,0,0,0,0,0,0,0,0,0.0
 6485263,3/06/26,baseball,Saint Michael's,1.0,Sam Cavossa,12.0,C,9698674,2,1,3,0,0,0,3,0,0,0,1.0
 6485263,3/06/26,baseball,Saint Michael's,1.0,Ben Caristi,20.0,C,10003942,4,0,4,0,0,0,1,0,0,0,1.0
@@ -56994,7 +56916,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6493230,3/06/26,baseball,Emory & Henry,1.0,J.D. James,17.0,DH,11221113,0,0,0,0,0,0,0,0,0,0,0.0
 6493230,3/06/26,baseball,Emory & Henry,1.0,Kyle Fields,27.0,1B,11221110,8,1,10,1,0,0,0,0,1,0,0.0
 6493230,3/06/26,baseball,Emory & Henry,1.0,Ky Gregoire,99.0,C,9692147,6,0,6,0,0,0,0,0,0,0,0.0
-6493230,3/06/26,baseball,Emory & Henry,1.0,"Stuart Callahan, III",6.0,CF,9691655,0,0,0,0,0,0,0,0,0,0,0.0
 6493230,3/06/26,baseball,Emory & Henry,1.0,Isaiah Bracy,10.0,RF,9696563,2,0,2,0,0,0,0,0,0,0,0.0
 6493230,3/06/26,baseball,Emory & Henry,1.0,Maddox Harwood,13.0,LF,11221111,2,0,2,0,0,0,0,0,0,0,0.0
 6493230,3/06/26,baseball,Emory & Henry,1.0,Ryan Paynton,3.0,2B,11221124,1,3,4,0,0,0,0,0,1,0,0.0
@@ -57558,7 +57479,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6503609,3/06/26,baseball,USC Beaufort,,Kristians Levensteins,5.0,1B,11236501,8,0,8,0,0,0,0,0,0,0,0.0
 6503609,3/06/26,baseball,USC Beaufort,,Terry Dean,24.0,C,9679877,2,1,3,0,0,0,1,0,0,0,1.0
 6503609,3/06/26,baseball,USC Beaufort,,T. Gundelfin,43.0,3B,11241390,1,0,2,1,0,0,0,0,0,0,0.0
-6503609,3/06/26,baseball,USC Beaufort,,"Tavaris McCluney, Jr",42.0,CF,11236518,4,0,4,0,0,0,0,0,0,0,0.0
 6503609,3/06/26,baseball,Flagler,1.0,Taylor Shultz,2.0,SS,9679625,2,1,4,1,0,0,0,0,1,0,0.0
 6503609,3/06/26,baseball,Flagler,1.0,AJ Hunerberg,17.0,CF,9699892,1,0,1,0,0,0,0,0,0,0,0.0
 6503609,3/06/26,baseball,Flagler,1.0,George Gilson,25.0,1B,9683690,4,0,4,0,0,0,0,0,1,0,0.0
@@ -58587,7 +58507,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6485261,3/05/26,baseball,Barry,,Blake Opie,15.0,RF,11209017,3,0,3,0,0,0,0,0,0,0,0.0
 6485261,3/05/26,baseball,Barry,,Anthony Tralongo,7.0,3B,9678573,1,0,1,0,0,0,0,0,0,0,0.0
 6485261,3/05/26,baseball,Barry,,Josh Hungler,19.0,C,11209014,7,1,8,0,0,0,0,0,0,0,0.0
-6485261,3/05/26,baseball,Barry,,"Aramis Ramirez, Jr.",16.0,2B,9683717,1,2,3,0,0,0,0,0,0,0,0.0
 6485261,3/05/26,baseball,Barry,,Dyson Joseph,2.0,SS,9686716,0,3,3,0,0,0,0,0,0,0,0.0
 6485261,3/05/26,baseball,St. Cloud St.,1.0,Hayden Frank,7.0,CF,11228219,1,0,1,0,0,0,0,0,0,0,0.0
 6485261,3/05/26,baseball,St. Cloud St.,1.0,Liam Moreno,27.0,3B,9689411,1,1,3,1,0,0,0,0,0,0,0.0
@@ -59260,7 +59179,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6558237,3/03/26,baseball,USC Beaufort,1.0,Justin Brink,36.0,PR,11236514,0,0,0,0,0,0,0,0,0,0,0.0
 6558237,3/03/26,baseball,USC Beaufort,1.0,Terry Dean,24.0,C,9679877,3,0,3,0,0,0,0,0,0,0,0.0
 6558237,3/03/26,baseball,USC Beaufort,1.0,Maddox Robinson,22.0,PH,11236507,0,0,0,0,0,0,0,0,0,0,0.0
-6558237,3/03/26,baseball,USC Beaufort,1.0,"Tavaris McCluney, Jr",42.0,CF,11236518,4,0,4,0,0,0,0,0,0,0,0.0
 6518670,3/03/26,baseball,UAH,,Jayce Upton,22.0,CF,9688042,2,0,2,0,0,0,0,0,0,0,0.0
 6518670,3/03/26,baseball,UAH,,Seth Staggs,46.0,3B/SS,11218825,1,0,1,0,0,0,0,0,0,0,0.0
 6518670,3/03/26,baseball,UAH,,Gavin Galenza,33.0,1B,11218776,2,0,2,0,0,0,0,0,1,0,0.0
@@ -59855,7 +59773,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6523877,3/03/26,baseball,Emory & Henry,,Jack Ferguson,8.0,2B,9681925,1,0,2,1,0,0,0,0,0,0,0.0
 6523877,3/03/26,baseball,Emory & Henry,,Ryan Paynton,3.0,2B,11221124,0,0,0,0,0,0,0,0,0,0,0.0
 6523877,3/03/26,baseball,Emory & Henry,,Isaiah Bracy,10.0,RF,9696563,1,0,1,0,0,0,0,0,0,0,0.0
-6523877,3/03/26,baseball,Emory & Henry,,"Stuart Callahan, III",6.0,RF,9691655,1,0,1,0,0,0,0,0,0,0,0.0
 6523877,3/03/26,baseball,Emory & Henry,,Maddox Harwood,13.0,RF,11221111,1,0,2,1,0,0,0,0,0,0,0.0
 6523877,3/03/26,baseball,Emory & Henry,,Jeriel Lamboy,20.0,SS,11221121,0,2,3,1,0,0,0,0,0,0,0.0
 6523877,3/03/26,baseball,Emory & Henry,,Rhett Barker,9.0,CF,9689541,2,0,2,0,0,0,0,0,0,0,0.0
@@ -60639,7 +60556,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6502758,3/01/26,baseball,Salem (WV),1.0,Jared Layfield,47.0,DH,9691415,0,0,0,0,0,0,0,0,0,0,0.0
 6502758,3/01/26,baseball,Salem (WV),1.0,Max Castro,24.0,C,9692123,7,0,7,0,0,0,1,0,0,0,1.0
 6502758,3/01/26,baseball,Salem (WV),1.0,Joe Wintermute,8.0,SS,9698453,1,4,5,0,0,0,0,0,2,0,0.0
-6519787,3/01/26,baseball,Wayne St. (MI),,"Nick Sandiha, Jr.",14.0,2B,11230785,0,0,0,0,0,0,0,0,0,0,0.0
 6519787,3/01/26,baseball,Wayne St. (MI),,Brady Blakita,5.0,PH/2B,9681330,0,0,0,0,0,0,0,0,0,0,0.0
 6519787,3/01/26,baseball,Wayne St. (MI),,Bennett Hitzelberger,24.0,LF/1B,9699638,2,0,2,0,0,0,0,0,0,0,0.0
 6519787,3/01/26,baseball,Wayne St. (MI),,Drew Dawson,4.0,PH,9692333,0,0,0,0,0,0,0,0,0,0,0.0
@@ -60930,7 +60846,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6536896,3/01/26,baseball,Tuskegee,,Chris Smith,12.0,3B,9677412,2,2,5,1,0,0,0,0,0,0,0.0
 6536896,3/01/26,baseball,Tuskegee,,TJ Neal,31.0,C,11226634,9,1,10,0,0,0,0,0,0,0,0.0
 6536896,3/01/26,baseball,Tuskegee,,Rashid McLeod,1.0,SS,11226498,0,3,3,0,0,0,0,0,0,0,0.0
-6536896,3/01/26,baseball,Tuskegee,,"Christopher Mayo, Jr.",34.0,1B,11226602,6,0,6,0,0,0,0,0,0,0,0.0
 6536896,3/01/26,baseball,Tuskegee,,Rodney Mudd II,2.0,RF,9680614,0,0,0,0,0,0,0,0,0,0,0.0
 6536896,3/01/26,baseball,Tuskegee,,Mario Craig,29.0,LF,11226601,1,0,1,0,0,0,0,0,0,0,0.0
 6536896,3/01/26,baseball,LeMoyne-Owen,1.0,Onterrio Sealie,3.0,CF,9678432,5,0,5,0,0,0,0,0,0,0,0.0
@@ -60988,7 +60903,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6527346,3/01/26,baseball,Anderson (SC),1.0,Ben Bullard,5.0,1B,9679427,7,0,7,0,0,0,0,0,1,0,0.0
 6527346,3/01/26,baseball,Anderson (SC),1.0,Dylan Dampier,27.0,1B,11223309,2,0,2,0,0,0,0,0,0,0,0.0
 6527346,3/01/26,baseball,Anderson (SC),1.0,Riley Matthews,21.0,2B,11223319,2,2,4,0,0,0,0,0,1,0,0.0
-6510906,3/01/26,baseball,USC Beaufort,,"Tavaris McCluney, Jr",42.0,CF,11236518,0,0,0,0,0,0,0,0,0,0,0.0
 6510906,3/01/26,baseball,USC Beaufort,,R. McIntire,37.0,2B,11241391,5,6,12,1,0,0,0,0,2,0,0.0
 6510906,3/01/26,baseball,USC Beaufort,,Noah Campbell,3.0,SS,9697220,3,1,4,0,0,0,0,0,1,0,0.0
 6510906,3/01/26,baseball,USC Beaufort,,Cooper McDaniel,9.0,LF,9701224,1,0,2,1,0,0,0,0,0,0,0.0
@@ -62467,7 +62381,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6534545,2/28/26,baseball,Benedict,,Jonathan Olmedo,27.0,3B,9691375,1,4,5,0,0,0,0,0,0,0,0.0
 6534545,2/28/26,baseball,Benedict,,Kenyan Conner Jr.,1.0,2B,9704584,1,1,3,1,0,0,0,0,1,0,0.0
 6534545,2/28/26,baseball,Benedict,,Curtis Lindsey,4.0,RF,11249501,1,0,2,1,0,0,0,0,0,0,0.0
-6534545,2/28/26,baseball,Benedict,,"Milton Herring, III",17.0,C,11247484,9,0,9,0,0,0,6,0,0,0,1.0
 6534545,2/28/26,baseball,Benedict,,Christopher Trujillo Ruiz,9.0,SS,11249499,1,5,6,0,0,0,0,0,1,0,0.0
 6534545,2/28/26,baseball,Benedict,,Elijah Banks,6.0,RF,9704781,1,0,1,0,0,0,0,0,0,0,0.0
 6534545,2/28/26,baseball,Benedict,,Colin Jones,10.0,2B,11247477,0,2,2,0,0,0,0,0,0,0,0.0
@@ -62559,7 +62472,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6519780,2/28/26,baseball,Findlay,,Isaac Ramos,6.0,C,9701487,7,0,7,0,0,0,1,0,0,0,1.0
 6519780,2/28/26,baseball,Findlay,,Mike Sciortino,5.0,3B,9704865,0,1,1,0,0,0,0,0,0,0,0.0
 6519780,2/28/26,baseball,Findlay,,Drew Tucker,13.0,2B,11246503,2,3,5,0,0,0,0,0,0,0,0.0
-6519780,2/28/26,baseball,Wayne St. (MI),1.0,"Nick Sandiha, Jr.",14.0,2B,11230785,1,1,2,0,0,0,0,0,0,0,0.0
 6519780,2/28/26,baseball,Wayne St. (MI),1.0,Bennett Hitzelberger,24.0,LF,9699638,1,0,1,0,0,0,0,0,0,0,0.0
 6519780,2/28/26,baseball,Wayne St. (MI),1.0,Owen Tuccinardi,2.0,1B,9682124,6,0,6,0,0,0,0,0,0,0,0.0
 6519780,2/28/26,baseball,Wayne St. (MI),1.0,Drew Hill,13.0,RF,9688940,0,0,0,0,0,0,0,0,0,0,0.0
@@ -63100,7 +63012,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6510904,2/28/26,baseball,USC Beaufort,,Mack Cromer,14.0,1B,9677816,4,0,4,0,0,0,0,0,0,0,0.0
 6510904,2/28/26,baseball,USC Beaufort,,Jon Davis,0.0,DH,9677162,0,0,0,0,0,0,0,0,0,0,0.0
 6510904,2/28/26,baseball,USC Beaufort,,Terry Dean,24.0,C,9679877,7,1,8,0,0,0,5,0,0,0,1.0
-6510904,2/28/26,baseball,USC Beaufort,,"Tavaris McCluney, Jr",42.0,CF,11236518,3,0,3,0,0,0,0,0,0,0,0.0
 6510904,2/28/26,baseball,Georgia College,1.0,Evan Cowan,29.0,CF,9683163,0,0,0,0,0,0,0,0,0,0,0.0
 6510904,2/28/26,baseball,Georgia College,1.0,Carson Vick,22.0,C,11237310,8,0,8,0,0,0,1,0,0,0,1.0
 6510904,2/28/26,baseball,Georgia College,1.0,Luke Boone,8.0,RF,11237242,3,0,3,0,0,0,0,0,0,0,0.0
@@ -64544,7 +64455,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6519783,2/28/26,baseball,Wayne St. (MI),1.0,Bennett Hitzelberger,24.0,1B,9699638,5,1,6,0,0,0,0,0,0,0,0.0
 6519783,2/28/26,baseball,Wayne St. (MI),1.0,Owen Tuccinardi,2.0,DH,9682124,0,0,0,0,0,0,0,0,0,0,0.0
 6519783,2/28/26,baseball,Wayne St. (MI),1.0,Drew Hill,13.0,RF,9688940,1,0,1,0,0,0,0,0,0,0,0.0
-6519783,2/28/26,baseball,Wayne St. (MI),1.0,"Nick Sandiha, Jr.",14.0,2B,11230785,0,1,1,0,0,0,0,0,0,0,0.0
 6519783,2/28/26,baseball,Wayne St. (MI),1.0,Caleb Sanders,6.0,CF,9703618,1,0,1,0,0,0,0,0,0,0,0.0
 6519783,2/28/26,baseball,Wayne St. (MI),1.0,Ty Garza,7.0,SS,9701734,3,1,4,0,0,0,0,0,0,0,0.0
 6519783,2/28/26,baseball,Wayne St. (MI),1.0,Bryce Neitzel,37.0,C,11230780,8,2,10,0,0,0,0,2,0,0,0.0
@@ -64831,7 +64741,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6510905,2/28/26,baseball,USC Beaufort,,Mack Cromer,14.0,1B,9677816,5,0,5,0,0,0,0,0,0,0,0.0
 6510905,2/28/26,baseball,USC Beaufort,,Tanner Wagnon,33.0,LF/RF,9701740,1,0,1,0,0,0,0,0,0,0,0.0
 6510905,2/28/26,baseball,USC Beaufort,,Cade Sikoski,8.0,C,11236504,4,0,4,0,0,1,7,0,0,0,1.0
-6510905,2/28/26,baseball,USC Beaufort,,"Tavaris McCluney, Jr",42.0,CF,11236518,6,0,6,0,0,0,0,0,0,0,0.0
 6510905,2/28/26,baseball,Georgia College,1.0,Evan Cowan,29.0,CF,9683163,1,0,2,1,0,0,0,0,0,0,0.0
 6510905,2/28/26,baseball,Georgia College,1.0,Carson Vick,22.0,DH,11237310,0,0,0,0,0,0,0,0,0,0,0.0
 6510905,2/28/26,baseball,Georgia College,1.0,Bryson Whited,17.0,PR,9691280,0,0,0,0,0,0,0,0,0,0,0.0
@@ -64990,7 +64899,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6485228,2/28/26,baseball,Barry,,Blake Opie,15.0,RF,11209017,1,0,1,0,0,0,0,0,0,0,0.0
 6485228,2/28/26,baseball,Barry,,Brandon Delapenha,23.0,LF,9703228,1,0,1,0,0,0,0,0,0,0,0.0
 6485228,2/28/26,baseball,Barry,,Josh Hungler,19.0,C,11209014,5,1,6,0,0,0,2,0,0,0,1.0
-6485228,2/28/26,baseball,Barry,,"Aramis Ramirez, Jr.",16.0,2B,9683717,1,6,8,1,0,0,0,0,2,0,0.0
 6485228,2/28/26,baseball,Barry,,Luca Mendez,27.0,PH,11209016,0,0,0,0,0,0,0,0,0,0,0.0
 6485228,2/28/26,baseball,Barry,,Dyson Joseph,2.0,SS,9686716,2,2,4,0,0,0,0,0,2,0,0.0
 6485228,2/28/26,baseball,Embry-Riddle (FL),1.0,Aiden Schmidt,2.0,2B,9702801,1,3,4,0,0,0,0,0,1,0,0.0
@@ -66723,7 +66631,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6525354,2/27/26,baseball,Lynn,1.0,Willie Kimbler,57.0,DH,11221590,0,0,0,0,0,0,0,0,0,0,0.0
 6525354,2/27/26,baseball,Lynn,1.0,Charles Devito,7.0,RF,11221578,7,0,7,0,0,0,0,0,0,0,0.0
 6525354,2/27/26,baseball,Lynn,1.0,Jackson Tyer,23.0,CF,11221630,2,1,3,0,0,0,0,0,0,0,0.0
-6519777,2/27/26,baseball,Wayne St. (MI),,"Nick Sandiha, Jr.",14.0,2B,11230785,2,3,5,0,0,0,0,0,1,0,0.0
 6519777,2/27/26,baseball,Wayne St. (MI),,Bennett Hitzelberger,24.0,LF/1B,9699638,2,0,2,0,0,0,0,0,0,0,0.0
 6519777,2/27/26,baseball,Wayne St. (MI),,Landon Ide,42.0,1B,11230766,1,0,1,0,0,0,0,0,0,0,0.0
 6519777,2/27/26,baseball,Wayne St. (MI),,Owen Tuccinardi,2.0,1B,9682124,4,1,5,0,0,0,0,0,1,0,0.0
@@ -68045,7 +67952,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6485226,2/27/26,baseball,Barry,,Blake Opie,15.0,RF,11209017,3,0,3,0,0,0,0,0,0,0,0.0
 6485226,2/27/26,baseball,Barry,,Anthony Tralongo,7.0,3B,9678573,1,3,4,0,0,0,0,0,0,0,0.0
 6485226,2/27/26,baseball,Barry,,Josh Hungler,19.0,C,11209014,6,2,8,0,0,0,2,2,0,0,0.5
-6485226,2/27/26,baseball,Barry,,"Aramis Ramirez, Jr.",16.0,2B,9683717,3,1,4,0,0,0,0,0,1,0,0.0
 6485226,2/27/26,baseball,Barry,,Dyson Joseph,2.0,SS,9686716,1,2,3,0,0,0,0,0,1,0,0.0
 6485226,2/27/26,baseball,Embry-Riddle (FL),1.0,Aiden Schmidt,2.0,2B,9702801,2,1,3,0,0,0,0,0,1,0,0.0
 6485226,2/27/26,baseball,Embry-Riddle (FL),1.0,Cole Bullen,6.0,C,11210684,11,1,12,0,0,0,0,1,1,0,0.0
@@ -68593,7 +68499,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6539800,2/24/26,baseball,Benedict,1.0,Joshua Medina,50.0,1B,11249498,5,0,5,0,0,0,0,0,0,0,0.0
 6539800,2/24/26,baseball,Benedict,1.0,Cameron Haley,25.0,DH,11247497,0,0,0,0,0,0,0,0,0,0,0.0
 6539800,2/24/26,baseball,Benedict,1.0,Kenyan Conner Jr.,1.0,2B,9704584,2,0,2,0,0,0,0,0,0,0,0.0
-6539800,2/24/26,baseball,Benedict,1.0,"Milton Herring, III",17.0,C,11247484,5,1,6,0,0,0,1,0,0,0,1.0
 6539800,2/24/26,baseball,Benedict,1.0,Jonathan Olmedo,27.0,3B,9691375,0,2,4,2,0,0,0,0,0,0,0.0
 6539800,2/24/26,baseball,Benedict,1.0,Elijah Banks,6.0,RF,9704781,3,0,3,0,0,0,0,0,0,0,0.0
 6539800,2/24/26,baseball,Benedict,1.0,Christopher Trujillo Ruiz,9.0,SS,11249499,1,1,2,0,0,0,0,0,0,0,0.0
@@ -69050,7 +68955,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6510903,2/24/26,baseball,USC Beaufort,1.0,Jon Davis,0.0,2B,9677162,0,0,0,0,0,0,0,0,0,0,0.0
 6510903,2/24/26,baseball,USC Beaufort,1.0,Maddox Robinson,22.0,RF,11236507,0,0,0,0,0,0,0,0,0,0,0.0
 6510903,2/24/26,baseball,USC Beaufort,1.0,Terry Dean,24.0,C,9679877,10,1,11,0,0,1,2,1,0,0,0.667
-6510903,2/24/26,baseball,USC Beaufort,1.0,"Tavaris McCluney, Jr",42.0,CF,11236518,2,0,2,0,0,0,0,0,0,0,0.0
 6527344,2/24/26,baseball,Abraham Baldwin,,Q. Rawls,1.0,SS,11254406,0,1,1,0,0,0,0,0,1,0,0.0
 6527344,2/24/26,baseball,Abraham Baldwin,,C. Campbell,2.0,CF,11254407,1,0,1,0,0,0,0,0,0,0,0.0
 6527344,2/24/26,baseball,Abraham Baldwin,,C. Cash,10.0,1B,11254408,4,1,5,0,0,0,0,0,1,0,0.0
@@ -69695,7 +69599,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6538821,2/23/26,baseball,Benedict,1.0,Cameron Haley,25.0,DH,11247497,0,0,0,0,0,0,0,0,0,0,0.0
 6538821,2/23/26,baseball,Benedict,1.0,Kenyan Conner Jr.,1.0,2B,9704584,1,1,4,2,0,0,0,0,0,0,0.0
 6538821,2/23/26,baseball,Benedict,1.0,Jonathan Olmedo,27.0,3B,9691375,2,1,3,0,0,0,0,0,0,0,0.0
-6538821,2/23/26,baseball,Benedict,1.0,"Milton Herring, III",17.0,C,11247484,5,1,6,0,0,1,2,1,0,0,0.667
 6538821,2/23/26,baseball,Benedict,1.0,Elijah Banks,6.0,RF,9704781,1,0,1,0,0,0,0,0,0,0,0.0
 6538821,2/23/26,baseball,Benedict,1.0,Curtis Lindsey,4.0,LF,11249501,6,0,6,0,0,0,0,0,0,0,0.0
 6556422,2/23/26,baseball,Minnesota St.,,Ethan Bowers,1.0,2B,11240111,1,0,1,0,0,0,0,0,0,0,0.0
@@ -69852,7 +69755,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6538817,2/22/26,baseball,Benedict,1.0,Jonathan Olmedo,27.0,2B/SS,9691375,1,2,3,0,0,0,0,0,0,0,0.0
 6538817,2/22/26,baseball,Benedict,1.0,Kenyan Conner Jr.,1.0,3B,9704584,3,0,4,1,0,0,0,0,0,0,0.0
 6538817,2/22/26,baseball,Benedict,1.0,Christopher Trujillo Ruiz,9.0,SS/P,11249499,1,1,2,0,0,0,0,0,0,0,0.0
-6538817,2/22/26,baseball,Benedict,1.0,"Milton Herring, III",17.0,C,11247484,11,1,12,0,0,3,4,0,0,0,1.0
 6525328,2/22/26,baseball,Georgian Court,,Larry Rodriguez,25.0,CF,9701901,3,1,4,0,0,0,0,0,0,0,0.0
 6525328,2/22/26,baseball,Georgian Court,,Frank Marra,2.0,2B,9681337,0,3,3,0,0,0,0,0,0,0,0.0
 6525328,2/22/26,baseball,Georgian Court,,Jack Greenspan,44.0,LF,9680918,0,0,0,0,0,0,0,0,0,0,0.0
@@ -70107,7 +70009,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6485225,2/22/26,baseball,Barry,1.0,Luca Mendez,27.0,DH,11209016,0,0,0,0,0,0,0,0,0,0,0.0
 6485225,2/22/26,baseball,Barry,1.0,Josh Hungler,19.0,C,11209014,9,0,10,1,0,0,3,0,0,0,1.0
 6485225,2/22/26,baseball,Barry,1.0,Aidan Heffner,30.0,PH/LF,11209013,1,0,1,0,0,0,0,0,0,0,0.0
-6485225,2/22/26,baseball,Barry,1.0,"Aramis Ramirez, Jr.",16.0,2B,9683717,2,0,2,0,0,0,0,0,0,0,0.0
 6485225,2/22/26,baseball,Barry,1.0,Dyson Joseph,2.0,SS,9686716,1,3,5,1,0,0,0,0,1,0,0.0
 6484343,2/22/26,baseball,USC Aiken,,Evan Harding,1.0,CF,11223885,1,0,1,0,0,0,0,0,0,0,0.0
 6484343,2/22/26,baseball,USC Aiken,,Chancellor Jennings,2.0,RF,11223887,3,0,3,0,0,0,0,0,0,0,0.0
@@ -70150,7 +70051,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6510902,2/22/26,baseball,USC Beaufort,1.0,T. Gundelfin,43.0,3B,11241390,1,2,3,0,0,0,0,0,1,0,0.0
 6510902,2/22/26,baseball,USC Beaufort,1.0,Terry Dean,24.0,C,9679877,9,1,10,0,0,0,1,1,0,0,0.5
 6510902,2/22/26,baseball,USC Beaufort,1.0,Mitchell Singletary,17.0,C,9679339,0,0,0,0,0,0,0,0,0,0,0.0
-6510902,2/22/26,baseball,USC Beaufort,1.0,"Tavaris McCluney, Jr",42.0,RF,11236518,1,0,1,0,0,0,0,0,0,0,0.0
 6541595,2/22/26,baseball,Claflin,,Devin Tallington,13.0,CF,9686545,3,0,3,0,0,0,0,0,0,0,0.0
 6541595,2/22/26,baseball,Claflin,,Xavier Terrell,29.0,RF,11229854,2,0,2,0,0,0,0,0,0,0,0.0
 6541595,2/22/26,baseball,Claflin,,Devon Whitehead,5.0,LF,11229635,4,0,4,0,0,0,0,0,0,0,0.0
@@ -73972,7 +73872,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6485223,2/21/26,baseball,Barry,1.0,Aidan Heffner,30.0,PR,11209013,0,0,0,0,0,0,0,0,0,0,0.0
 6485223,2/21/26,baseball,Barry,1.0,Josh Hungler,19.0,C,11209014,0,0,0,0,0,0,0,0,0,0,0.0
 6485223,2/21/26,baseball,Barry,1.0,Lee-Anthony Santiago,21.0,2B,9704006,1,7,8,0,0,0,0,0,0,0,0.0
-6485223,2/21/26,baseball,Barry,1.0,"Aramis Ramirez, Jr.",16.0,SS,9683717,1,1,3,1,0,0,0,0,0,0,0.0
 6485223,2/21/26,baseball,Barry,1.0,Ben Rhode,38.0,PR,11237211,0,0,0,0,0,0,0,0,0,0,0.0
 6485223,2/21/26,baseball,Barry,1.0,Dyson Joseph,2.0,SS,9686716,0,0,0,0,0,0,0,0,0,0,0.0
 6524760,2/21/26,baseball,Fresno Pacific,,Darryl Dilworth Jr.,24.0,CF,9704072,1,0,1,0,0,0,0,0,0,0,0.0
@@ -76634,7 +76533,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6485222,2/20/26,baseball,Barry,1.0,Blake Opie,15.0,RF,11209017,1,0,1,0,0,0,0,0,0,0,0.0
 6485222,2/20/26,baseball,Barry,1.0,Anthony Tralongo,7.0,3B,9678573,0,1,1,0,0,0,0,0,0,0,0.0
 6485222,2/20/26,baseball,Barry,1.0,Josh Hungler,19.0,C,11209014,18,0,18,0,0,0,1,0,0,0,1.0
-6485222,2/20/26,baseball,Barry,1.0,"Aramis Ramirez, Jr.",16.0,2B,9683717,1,0,1,0,0,0,0,0,0,0,0.0
 6485222,2/20/26,baseball,Barry,1.0,Ben Rhode,38.0,PR,11237211,0,0,0,0,0,0,0,0,0,0,0.0
 6485222,2/20/26,baseball,Barry,1.0,Lee-Anthony Santiago,21.0,2B,9704006,0,0,0,0,0,0,0,0,0,0,0.0
 6485222,2/20/26,baseball,Barry,1.0,Dyson Joseph,2.0,SS,9686716,0,1,2,1,0,0,0,0,0,0,0.0
@@ -78898,7 +78796,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6526167,2/15/26,baseball,Wayland Baptist,1.0,B. Kasparie,26.0,CF,11249255,7,0,7,0,0,0,0,0,0,0,0.0
 6526167,2/15/26,baseball,Wayland Baptist,1.0,Adrian Lara,30.0,PH,9978882,0,0,0,0,0,0,0,0,0,0,0.0
 6526167,2/15/26,baseball,Wayland Baptist,1.0,Cesar Ibarra,4.0,DH,9978880,0,0,0,0,0,0,0,0,0,0,0.0
-6494602,2/15/26,baseball,Wayne St. (MI),,"Nick Sandiha, Jr.",14.0,2B,11230785,0,2,2,0,0,0,0,0,0,0,0.0
 6494602,2/15/26,baseball,Wayne St. (MI),,Bennett Hitzelberger,24.0,1B,9699638,7,1,8,0,0,0,0,0,0,0,0.0
 6494602,2/15/26,baseball,Wayne St. (MI),,Owen Tuccinardi,2.0,DH,9682124,0,0,0,0,0,0,0,0,0,0,0.0
 6494602,2/15/26,baseball,Wayne St. (MI),,Steven Whitted,36.0,PR,9699686,0,0,0,0,0,0,0,0,0,0,0.0
@@ -80683,7 +80580,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6538339,2/14/26,baseball,Benedict,1.0,Adam Zendejas,12.0,P,11247479,0,1,1,0,0,0,0,2,0,0,0.0
 6538339,2/14/26,baseball,Benedict,1.0,Kenyan Conner Jr.,1.0,3B,9704584,0,0,1,1,0,0,0,0,0,0,0.0
 6538339,2/14/26,baseball,Benedict,1.0,David Ortiz,19.0,2B,11247492,1,0,1,0,0,0,0,0,0,0,0.0
-6538339,2/14/26,baseball,Benedict,1.0,"Milton Herring, III",17.0,C,11247484,10,2,12,0,0,3,0,3,0,0,0.0
 6553805,2/14/26,baseball,Saginaw Valley,,Ethan Scheib,44.0,LF,9701699,1,0,1,0,0,0,0,0,0,0,0.0
 6553805,2/14/26,baseball,Saginaw Valley,,Ryan Jarvis,21.0,1B,9689458,10,0,10,0,0,0,0,0,2,0,0.0
 6553805,2/14/26,baseball,Saginaw Valley,,Austin Cicerone,11.0,3B,9681747,1,1,2,0,0,0,0,0,1,0,0.0
@@ -81592,7 +81488,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6494600,2/14/26,baseball,Tiffin,,Luke Westerman,5.0,3B,9703463,0,2,2,0,0,0,0,0,0,0,0.0
 6494600,2/14/26,baseball,Tiffin,,Gavin Marceric,6.0,SS,11228304,0,0,1,1,0,0,0,0,0,0,0.0
 6494600,2/14/26,baseball,Tiffin,,Brody Puchmajer,25.0,2B,11228317,2,1,3,0,0,0,0,0,0,0,0.0
-6494600,2/14/26,baseball,Wayne St. (MI),1.0,"Nick Sandiha, Jr.",14.0,2B,11230785,2,0,3,1,0,0,0,0,0,0,0.0
 6494600,2/14/26,baseball,Wayne St. (MI),1.0,Brady Blakita,5.0,2B,9681330,0,0,0,0,0,0,0,0,0,0,0.0
 6494600,2/14/26,baseball,Wayne St. (MI),1.0,Bennett Hitzelberger,24.0,1B,9699638,4,0,4,0,0,0,0,0,0,0,0.0
 6494600,2/14/26,baseball,Wayne St. (MI),1.0,Landon Ide,42.0,1B,11230766,1,0,1,0,0,0,0,0,1,0,0.0
@@ -82534,7 +82429,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6523715,2/14/26,baseball,Sul Ross St.,1.0,Corbin Montayne,17.0,C,9684476,7,1,8,0,0,1,2,0,0,0,1.0
 6523715,2/14/26,baseball,Sul Ross St.,1.0,Juan Garcia,33.0,PH,11233337,0,0,0,0,0,0,0,0,0,0,0.0
 6523715,2/14/26,baseball,Sul Ross St.,1.0,Adan Velasquez,3.0,LF,9696796,1,0,1,0,0,0,0,0,0,0,0.0
-6494601,2/14/26,baseball,Wayne St. (MI),,"Nick Sandiha, Jr.",14.0,2B/SS,11230785,1,0,1,0,0,0,0,0,0,0,0.0
 6494601,2/14/26,baseball,Wayne St. (MI),,Bennett Hitzelberger,24.0,1B,9699638,6,1,7,0,0,0,0,0,0,0,0.0
 6494601,2/14/26,baseball,Wayne St. (MI),,Owen Tuccinardi,2.0,DH,9682124,0,0,0,0,0,0,0,0,0,0,0.0
 6494601,2/14/26,baseball,Wayne St. (MI),,Drew Hill,13.0,RF,9688940,0,0,0,0,0,0,0,0,0,0,0.0
@@ -84079,7 +83973,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6538341,2/13/26,baseball,Benedict,1.0,Kenyan Conner Jr.,1.0,3B,9704584,0,3,4,1,0,0,0,0,0,0,0.0
 6538341,2/13/26,baseball,Benedict,1.0,Elijah Banks,6.0,RF,9704781,2,1,3,0,0,0,0,0,0,0,0.0
 6538341,2/13/26,baseball,Benedict,1.0,J. Medina,50.0,1B,11249498,6,1,7,0,0,0,0,0,0,0,0.0
-6538341,2/13/26,baseball,Benedict,1.0,"Milton Herring, III",17.0,C,11247484,11,2,14,1,0,1,6,3,0,0,0.667
 6545407,2/13/26,baseball,Barton,,Isaiah White,14.0,CF,11233177,1,0,1,0,0,0,0,0,0,0,0.0
 6545407,2/13/26,baseball,Barton,,Tyler Hughesman,1.0,SS,11233182,1,4,5,0,0,0,0,0,0,0,0.0
 6545407,2/13/26,baseball,Barton,,Vince Santostefano,16.0,LF,11233161,3,0,3,0,0,0,0,0,0,0,0.0
@@ -84429,7 +84322,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6536844,2/13/26,baseball,Tuskegee,1.0,Ryan Morrow,20.0,2B,9686999,1,2,3,0,0,0,0,0,0,0,0.0
 6536844,2/13/26,baseball,Tuskegee,1.0,Jabari Johnson,10.0,LF,9678404,3,0,3,0,0,0,0,0,0,0,0.0
 6536844,2/13/26,baseball,Tuskegee,1.0,Jeremiah Francis,21.0,C,11226495,9,2,11,0,0,0,6,2,0,0,0.75
-6536844,2/13/26,baseball,Tuskegee,1.0,"Christopher Mayo, Jr.",34.0,1B,11226602,3,0,3,0,0,0,0,0,0,0,0.0
 6536844,2/13/26,baseball,Tuskegee,1.0,Stephon Wright,6.0,PH,9696336,0,0,0,0,0,0,0,0,0,0,0.0
 6536844,2/13/26,baseball,Tuskegee,1.0,Austin Evans,5.0,1B,9678157,1,0,1,0,0,0,0,0,0,0,0.0
 6536844,2/13/26,baseball,Tuskegee,1.0,Rashid McLeod,1.0,3B,11226498,1,2,5,2,0,0,0,0,0,0,0.0
@@ -84566,7 +84458,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6494599,2/13/26,baseball,Tiffin,,Gavin Marceric,6.0,SS,11228304,2,1,3,0,0,0,0,0,0,0,0.0
 6494599,2/13/26,baseball,Tiffin,,Julian Hernandez,3.0,2B,9701275,2,3,6,1,0,0,0,0,0,0,0.0
 6494599,2/13/26,baseball,Tiffin,,Jayden Leach,11.0,2B,11228310,0,0,0,0,0,0,0,0,0,0,0.0
-6494599,2/13/26,baseball,Wayne St. (MI),1.0,"Nick Sandiha, Jr.",14.0,2B,11230785,4,3,7,0,0,0,0,0,2,0,0.0
 6494599,2/13/26,baseball,Wayne St. (MI),1.0,Brady Blakita,5.0,PH/2B,9681330,0,0,0,0,0,0,0,0,0,0,0.0
 6494599,2/13/26,baseball,Wayne St. (MI),1.0,Bennett Hitzelberger,24.0,1B,9699638,10,2,12,0,0,0,0,0,1,0,0.0
 6494599,2/13/26,baseball,Wayne St. (MI),1.0,Owen Tuccinardi,2.0,DH,9682124,0,0,0,0,0,0,0,0,0,0,0.0
@@ -85689,7 +85580,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6485219,2/13/26,baseball,Barry,1.0,Anthony Tralongo,7.0,3B,9678573,0,4,5,1,0,0,0,0,0,0,0.0
 6485219,2/13/26,baseball,Barry,1.0,Josh Hungler,19.0,C,11209014,5,0,7,2,0,0,3,0,0,0,1.0
 6485219,2/13/26,baseball,Barry,1.0,Christian Perez,8.0,C,11209018,3,0,3,0,0,0,0,0,0,0,0.0
-6485219,2/13/26,baseball,Barry,1.0,"Aramis Ramirez, Jr.",16.0,2B,9683717,0,4,5,1,0,0,0,0,1,0,0.0
 6485219,2/13/26,baseball,Barry,1.0,Brandon Delapenha,23.0,PH,9703228,0,0,0,0,0,0,0,0,0,0,0.0
 6485219,2/13/26,baseball,Barry,1.0,Lee-Anthony Santiago,21.0,2B,9704006,0,0,0,0,0,0,0,0,0,0,0.0
 6485219,2/13/26,baseball,Barry,1.0,Dyson Joseph,2.0,SS,9686716,1,5,6,0,0,0,0,0,1,0,0.0
@@ -86952,7 +86842,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6525703,2/10/26,baseball,Tuskegee,,Stephon Wright,6.0,DH,9696336,0,0,0,0,0,0,0,0,0,0,0.0
 6525703,2/10/26,baseball,Tuskegee,,Jahsha Stevens,11.0,C/1B,9690255,2,2,4,0,0,0,4,0,0,0,1.0
 6525703,2/10/26,baseball,Tuskegee,,Devon Lee,1.0,INF,9696940,0,0,0,0,0,0,0,0,0,0,0.0
-6525703,2/10/26,baseball,Tuskegee,,"Christopher Mayo, Jr.",24.0,1B/C,11226602,3,0,3,0,0,0,0,0,0,0,0.0
 6525703,2/10/26,baseball,Tuskegee,,TJ Neal,31.0,C,11226634,4,0,4,0,0,1,0,0,0,0,0.0
 6525703,2/10/26,baseball,Tuskegee,,Collin McLain,23.0,CF,9687421,3,0,3,0,0,0,0,0,0,0,0.0
 6525703,2/10/26,baseball,West Ala.,1.0,Rashad Robinson,42.0,CF,11222116,1,0,1,0,0,0,0,0,0,0,0.0
@@ -87113,7 +87002,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6485218,2/09/26,baseball,Barry,1.0,Alejandro Simo,14.0,C,11209023,2,0,2,0,0,0,0,0,0,0,0.0
 6485218,2/09/26,baseball,Barry,1.0,Lee-Anthony Santiago,21.0,2B,9704006,3,3,6,0,0,0,0,0,0,0,0.0
 6485218,2/09/26,baseball,Barry,1.0,Dyson Joseph,2.0,SS,9686716,0,2,2,0,0,0,0,0,0,0,0.0
-6485218,2/09/26,baseball,Barry,1.0,"Aramis Ramirez, Jr.",16.0,SS,9683717,0,0,0,0,0,0,0,0,0,0,0.0
 6487729,2/09/26,baseball,Mo.-St. Louis,,Justin Terhaar,17.0,SS,10802050,0,2,2,0,0,0,0,0,1,0,0.0
 6487729,2/09/26,baseball,Mo.-St. Louis,,Owen Faith,23.0,RF/CF,10802020,2,0,3,1,0,0,0,0,0,0,0.0
 6487729,2/09/26,baseball,Mo.-St. Louis,,Mitch Bonczkowski,3.0,1B,10802015,5,0,5,0,0,0,0,0,1,0,0.0
@@ -89690,7 +89578,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6485217,2/07/26,baseball,Barry,1.0,Blake Opie,15.0,RF,11209017,3,0,3,0,0,0,0,0,0,0,0.0
 6485217,2/07/26,baseball,Barry,1.0,Anthony Tralongo,7.0,3B,9678573,0,6,6,0,0,0,0,0,0,0,0.0
 6485217,2/07/26,baseball,Barry,1.0,Josh Hungler,19.0,C,11209014,6,0,6,0,0,1,1,0,0,0,1.0
-6485217,2/07/26,baseball,Barry,1.0,"Aramis Ramirez, Jr.",16.0,2B/SS,9683717,1,2,3,0,0,0,0,0,0,0,0.0
 6485217,2/07/26,baseball,Barry,1.0,Dyson Joseph,2.0,SS,9686716,1,2,3,0,0,0,0,0,0,0,0.0
 6485217,2/07/26,baseball,Barry,1.0,Lee-Anthony Santiago,21.0,PH/2B,9704006,0,0,0,0,0,0,0,0,0,0,0.0
 6511151,2/07/26,baseball,Mississippi Col.,,Ty Murphy,11.0,CF,11219123,2,0,2,0,0,0,0,0,0,0,0.0
@@ -91325,7 +91212,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6485214,2/06/26,baseball,Barry,1.0,Josh Hungler,19.0,C,11209014,11,1,12,0,0,1,3,0,0,0,1.0
 6485214,2/06/26,baseball,Barry,1.0,Lee-Anthony Santiago,21.0,2B,9704006,2,4,6,0,0,0,0,0,0,0,0.0
 6485214,2/06/26,baseball,Barry,1.0,Ben Rhode,38.0,PR,11237211,0,0,0,0,0,0,0,0,0,0,0.0
-6485214,2/06/26,baseball,Barry,1.0,"Aramis Ramirez, Jr.",16.0,2B,9683717,0,0,0,0,0,0,0,0,0,0,0.0
 6485214,2/06/26,baseball,Barry,1.0,Dyson Joseph,2.0,SS,9686716,1,2,5,2,0,0,0,0,0,0,0.0
 6484328,2/06/26,baseball,Eckerd,,Ean Gimson,4.0,SS,11237113,1,3,4,0,0,0,0,0,1,0,0.0
 6484328,2/06/26,baseball,Eckerd,,Corey Hodierne,1.0,CF,11237107,5,0,5,0,0,0,0,0,0,0,0.0
@@ -91803,7 +91689,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6539767,2/06/26,baseball,Morehouse,,Elijah James,3.0,CF/RF,9703995,1,0,1,0,0,0,0,0,0,0,0.0
 6539767,2/06/26,baseball,Morehouse,,TJ Whiteman,24.0,3B,9686542,0,1,2,1,0,0,0,0,0,0,0.0
 6539767,2/06/26,baseball,Morehouse,,Kendyn Fredieu,12.0,RF/PR,9692981,1,0,1,0,0,0,0,0,0,0,0.0
-6539767,2/06/26,baseball,Morehouse,,"Princeton Hawks, II",14.0,OF,9687054,0,0,0,0,0,0,0,0,0,0,0.0
 6539767,2/06/26,baseball,Morehouse,,Quenton Mitchell Jr,22.0,1B,9694724,2,1,3,0,0,0,0,0,0,0,0.0
 6539767,2/06/26,baseball,Morehouse,,Nicholas Pittman,27.0,LF,9697727,0,0,0,0,0,0,0,0,0,0,0.0
 6539767,2/06/26,baseball,Morehouse,,Raymond Jenkins,1.0,LF,9678195,0,0,0,0,0,0,0,0,0,0,0.0
@@ -92734,7 +92619,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6485216,2/06/26,baseball,Barry,1.0,Erik Blair,4.0,PH/DH,11209004,0,0,0,0,0,0,0,0,0,0,0.0
 6485216,2/06/26,baseball,Barry,1.0,Josh Hungler,19.0,C,11209014,8,2,10,0,0,1,0,0,0,0,0.0
 6485216,2/06/26,baseball,Barry,1.0,Lee-Anthony Santiago,21.0,2B,9704006,3,3,6,0,0,0,0,0,0,0,0.0
-6485216,2/06/26,baseball,Barry,1.0,"Aramis Ramirez, Jr.",16.0,SS,9683717,0,1,2,1,0,0,0,0,0,0,0.0
 6506791,2/06/26,baseball,Young Harris,,Drew Bray,17.0,3B,9685866,0,3,3,0,0,0,0,0,0,0,0.0
 6506791,2/06/26,baseball,Young Harris,,Keypher Contreras De Leon,40.0,RF,11224861,2,0,2,0,0,0,0,0,0,0,0.0
 6506791,2/06/26,baseball,Young Harris,,Kade Smallwood,34.0,1B,9681468,10,1,11,0,0,0,0,0,1,0,0.0
@@ -93984,7 +93868,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6548773,2/02/26,baseball,Barry,1.0,Anthony Tralongo,7.0,3B,9678573,2,0,2,0,0,0,0,0,0,0,0.0
 6548773,2/02/26,baseball,Barry,1.0,Josh Hungler,19.0,C,11209014,6,0,6,0,0,0,0,0,0,0,0.0
 6548773,2/02/26,baseball,Barry,1.0,Aidan Heffner,30.0,PH,11209013,0,0,0,0,0,0,0,0,0,0,0.0
-6548773,2/02/26,baseball,Barry,1.0,"Aramis Ramirez, Jr.",16.0,2B,9683717,3,1,5,1,0,0,0,0,0,0,0.0
 6548773,2/02/26,baseball,Barry,1.0,Dyson Joseph,2.0,SS,9686716,2,3,7,2,0,0,0,0,0,0,0.0
 6494130,2/02/26,baseball,Northwest Mo. St.,,Frank Gall,7.0,CF,11210647,1,0,1,0,0,0,0,0,0,0,0.0
 6494130,2/02/26,baseball,Northwest Mo. St.,,Wilmer Jimenez,5.0,SS,11210650,1,2,3,0,0,0,0,0,0,0,0.0
@@ -96507,7 +96390,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6538336,3/01/26,baseball,Benedict,,Cameron Haley,25.0,DH,11247497,0,0,0,0,0,0,0,0,0,0,0.0
 6538336,3/01/26,baseball,Benedict,,Jonathan Olmedo,27.0,3B,9691375,1,1,2,0,0,0,0,0,0,0,0.0
 6538336,3/01/26,baseball,Benedict,,Kenyan Conner Jr.,1.0,2B,9704584,1,4,5,0,0,0,0,0,1,0,0.0
-6538336,3/01/26,baseball,Benedict,,"Milton Herring, III",17.0,C,11247484,6,0,7,1,0,0,2,0,0,0,1.0
 6538336,3/01/26,baseball,Benedict,,Christopher Trujillo Ruiz,9.0,SS,11249499,2,2,4,0,0,0,0,0,0,0,0.0
 6538336,3/01/26,baseball,Benedict,,Colin Jones,10.0,RF,11247477,3,0,3,0,0,0,0,0,0,0,0.0
 6538336,3/01/26,baseball,Kentucky St.,1.0,H. Endo,8.0,LF,11249027,2,2,4,0,0,0,0,0,1,0,0.0
@@ -98388,7 +98270,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6519833,4/10/26,baseball,Saginaw Valley,,Austin Cicerone,11.0,3B,9681747,2,1,3,0,0,0,0,0,0,0,0.0
 6519833,4/10/26,baseball,Saginaw Valley,,Chase Miller,3.0,SS,9682167,1,3,4,0,0,0,0,0,0,0,0.0
 6519833,4/10/26,baseball,Wayne St. (MI),1.0,Brady Blakita,5.0,2B,9681330,0,1,1,0,0,0,0,0,0,0,0.0
-6519833,4/10/26,baseball,Wayne St. (MI),1.0,"Nick Sandiha, Jr.",14.0,2B,11230785,0,3,3,0,0,0,0,0,0,0,0.0
 6519833,4/10/26,baseball,Wayne St. (MI),1.0,Caleb Sanders,6.0,CF,9703618,3,0,3,0,0,0,0,0,0,0,0.0
 6519833,4/10/26,baseball,Wayne St. (MI),1.0,Drew Hill,13.0,DH,9688940,0,0,0,0,0,0,0,0,0,0,0.0
 6519833,4/10/26,baseball,Wayne St. (MI),1.0,Steven Whitted,36.0,PR,9699686,0,0,0,0,0,0,0,0,0,0,0.0
@@ -99538,7 +99419,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6511476,4/10/26,baseball,Emory & Henry,,Drew Park,5.0,3B,9680313,1,1,2,0,0,0,0,0,0,0,0.0
 6511476,4/10/26,baseball,Emory & Henry,,J.D. James,17.0,DH,11221113,0,0,0,0,0,0,0,0,0,0,0.0
 6511476,4/10/26,baseball,Emory & Henry,,Ryan Paynton,3.0,2B,11221124,2,3,6,1,0,0,0,0,1,0,0.0
-6511476,4/10/26,baseball,Emory & Henry,,"Stuart Callahan, III",6.0,RF,9691655,1,0,1,0,0,0,0,0,0,0,0.0
 6511476,4/10/26,baseball,Lenoir-Rhyne,1.0,Mackenzie Wainwright,5.0,CF,9688541,2,0,2,0,0,0,0,0,0,0,0.0
 6511476,4/10/26,baseball,Lenoir-Rhyne,1.0,Andrew Muraco,26.0,2B,11210384,1,0,1,0,0,0,0,0,0,0,0.0
 6511476,4/10/26,baseball,Lenoir-Rhyne,1.0,Seth Christmas,3.0,1B,11210316,2,1,3,0,0,0,0,0,0,0,0.0
@@ -100126,7 +100006,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6545090,4/11/26,baseball,Lincoln Memorial,,Kevin Fernandez,3.0,CF,9692769,1,0,1,0,0,0,0,0,0,0,0.0
 6545090,4/11/26,baseball,Catawba,1.0,Logan Dyer,2.0,LF/1B,9690663,3,0,3,0,0,0,0,0,0,0,0.0
 6545090,4/11/26,baseball,Catawba,1.0,Brandon Crabtree,4.0,1B,11233413,4,1,5,0,0,0,0,0,1,0,0.0
-6545090,4/11/26,baseball,Catawba,1.0,"Hartley Rahman, Jr.",8.0,PR,11233419,0,0,0,0,0,0,0,0,0,0,0.0
 6545090,4/11/26,baseball,Catawba,1.0,Parker Styborski,20.0,LF,9698646,0,0,0,0,0,0,0,0,0,0,0.0
 6545090,4/11/26,baseball,Catawba,1.0,Sam Hunter,3.0,RF,9699448,1,0,1,0,0,0,0,0,0,0,0.0
 6545090,4/11/26,baseball,Catawba,1.0,Jack Cuba,39.0,PH/RF,9688878,0,0,0,0,0,0,0,0,0,0,0.0
@@ -100346,7 +100225,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6572983,4/11/26,baseball,Harding,1.0,Dom Davis,4.0,DH,11224599,0,0,0,0,0,0,0,0,0,0,0.0
 6572983,4/11/26,baseball,Harding,1.0,Bo Solley,1.0,2B,9693565,2,3,5,0,0,0,0,0,1,0,0.0
 6537031,4/11/26,baseball,Tuskegee,,Collin McLain,23.0,CF,9687421,1,0,1,0,0,0,0,0,0,0,0.0
-6537031,4/11/26,baseball,Tuskegee,,"Christopher Mayo, Jr.",34.0,1B,11226602,2,0,2,0,0,0,0,0,1,0,0.0
 6537031,4/11/26,baseball,Tuskegee,,Austin Evans,5.0,1B/RF,9678157,5,0,5,0,0,0,0,0,1,0,0.0
 6537031,4/11/26,baseball,Tuskegee,,Ryan Morrow,20.0,2B,9686999,3,1,4,0,0,0,0,0,1,0,0.0
 6537031,4/11/26,baseball,Tuskegee,,Jabari Johnson,10.0,DH,9678404,0,0,0,0,0,0,0,0,0,0,0.0
@@ -100376,7 +100254,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6573037,4/11/26,baseball,Tuskegee,,Jeremiah Francis,21.0,C,11226495,7,1,11,3,0,2,7,1,0,0,0.875
 6573037,4/11/26,baseball,Tuskegee,,Chris Smith,12.0,3B,9677412,0,0,0,0,0,0,0,0,0,0,0.0
 6573037,4/11/26,baseball,Tuskegee,,Mehki Smith,3.0,SS,9686880,2,1,3,0,0,0,0,0,0,0,0.0
-6573037,4/11/26,baseball,Tuskegee,,"Christopher Mayo, Jr.",34.0,1B,11226602,1,1,2,0,0,0,0,0,0,0,0.0
 6573037,4/11/26,baseball,Tuskegee,,Mario Craig,29.0,CF,11226601,1,0,1,0,0,0,0,0,0,0,0.0
 6573037,4/11/26,baseball,Miles,1.0,Myles Wessels,19.0,RF/CF,9690121,0,0,0,0,0,0,0,0,0,0,0.0
 6573037,4/11/26,baseball,Miles,1.0,Michael Smith,3.0,CF/LF,9677874,0,0,0,0,0,0,0,0,0,0,0.0
@@ -101284,7 +101161,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6511478,4/11/26,baseball,Emory & Henry,,Drew Park,5.0,3B,9680313,0,1,1,0,0,0,0,0,0,0,0.0
 6511478,4/11/26,baseball,Emory & Henry,,J.D. James,17.0,1B,11221113,11,0,11,0,0,0,0,0,0,0,0.0
 6511478,4/11/26,baseball,Emory & Henry,,Jeriel Lamboy,20.0,2B,11221121,1,2,3,0,0,0,0,0,1,0,0.0
-6511478,4/11/26,baseball,Emory & Henry,,"Stuart Callahan, III",6.0,RF,9691655,0,0,0,0,0,0,0,0,0,0,0.0
 6511478,4/11/26,baseball,Lenoir-Rhyne,1.0,Mackenzie Wainwright,5.0,1B,9688541,7,0,7,0,0,0,0,0,1,0,0.0
 6511478,4/11/26,baseball,Lenoir-Rhyne,1.0,Andrew Muraco,26.0,2B,11210384,3,1,4,0,0,0,0,0,0,0,0.0
 6511478,4/11/26,baseball,Lenoir-Rhyne,1.0,Seth Christmas,3.0,C,11210316,7,2,9,0,0,0,0,0,0,0,0.0
@@ -101444,7 +101320,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6519836,4/11/26,baseball,Wayne St. (MI),1.0,Bennett Hitzelberger,24.0,LF/1B,9699638,2,0,2,0,0,0,0,0,1,0,0.0
 6519836,4/11/26,baseball,Wayne St. (MI),1.0,Owen Tuccinardi,2.0,1B,9682124,9,0,10,1,0,0,0,0,0,0,0.0
 6519836,4/11/26,baseball,Wayne St. (MI),1.0,Alfredo Velazquez,31.0,LF,11230791,1,0,1,0,0,0,0,0,0,0,0.0
-6519836,4/11/26,baseball,Wayne St. (MI),1.0,"Nick Sandiha, Jr.",14.0,2B,11230785,2,2,4,0,0,0,0,0,1,0,0.0
 6519836,4/11/26,baseball,Wayne St. (MI),1.0,Tony Hatzigeorgiou,9.0,3B,9681261,0,3,3,0,0,0,0,0,0,0,0.0
 6519836,4/11/26,baseball,Wayne St. (MI),1.0,Ty Garza,7.0,SS,9701734,0,4,4,0,0,0,0,0,1,0,0.0
 6519836,4/11/26,baseball,Wayne St. (MI),1.0,Brayden Crowe,23.0,C,11230763,3,0,3,0,0,0,1,0,0,0,1.0
@@ -101773,7 +101648,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6485249,4/11/26,baseball,Barry,1.0,Brandon Delapenha,23.0,LF,9703228,3,0,3,0,0,0,0,0,0,0,0.0
 6485249,4/11/26,baseball,Barry,1.0,Lee-Anthony Santiago,21.0,2B,9704006,2,3,5,0,0,0,0,0,0,0,0.0
 6485249,4/11/26,baseball,Barry,1.0,Aquiles Arzeno,10.0,C,11254663,5,1,6,0,0,0,1,1,0,0,0.5
-6485249,4/11/26,baseball,Barry,1.0,"Aramis Ramirez, Jr.",16.0,SS,9683717,1,3,4,0,0,0,0,0,0,0,0.0
 6520471,4/11/26,baseball,Lander,,Lowndes Still,12.0,RF,9694942,0,0,0,0,0,0,0,0,0,0,0.0
 6520471,4/11/26,baseball,Lander,,Ryan Hansen,28.0,DH,9695806,0,0,0,0,0,0,0,0,0,0,0.0
 6520471,4/11/26,baseball,Lander,,Oliver Zohn,2.0,CF,11223224,1,0,1,0,0,0,0,0,0,0,0.0
@@ -103510,7 +103384,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6511479,4/11/26,baseball,Emory & Henry,,Drew Park,5.0,3B,9680313,0,1,1,0,0,0,0,0,0,0,0.0
 6511479,4/11/26,baseball,Emory & Henry,,Jack Ferguson,8.0,2B,9681925,3,1,4,0,0,0,0,0,1,0,0.0
 6511479,4/11/26,baseball,Emory & Henry,,Jaxon Ehret,35.0,C,11221106,5,0,5,0,0,0,1,0,0,0,1.0
-6511479,4/11/26,baseball,Emory & Henry,,"Stuart Callahan, III",6.0,RF,9691655,4,0,4,0,0,0,0,0,0,0,0.0
 6511479,4/11/26,baseball,Lenoir-Rhyne,1.0,Mackenzie Wainwright,5.0,CF,9688541,3,0,3,0,0,0,0,0,0,0,0.0
 6511479,4/11/26,baseball,Lenoir-Rhyne,1.0,Andrew Muraco,26.0,2B,11210384,2,5,7,0,0,0,0,0,1,0,0.0
 6511479,4/11/26,baseball,Lenoir-Rhyne,1.0,Seth Christmas,3.0,1B,11210316,8,1,9,0,0,0,0,0,0,0,0.0
@@ -103598,7 +103471,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6519838,4/11/26,baseball,Wayne St. (MI),1.0,Bennett Hitzelberger,24.0,LF,9699638,1,0,1,0,0,0,0,0,0,0,0.0
 6519838,4/11/26,baseball,Wayne St. (MI),1.0,Owen Tuccinardi,2.0,1B,9682124,10,0,10,0,0,0,0,0,0,0,0.0
 6519838,4/11/26,baseball,Wayne St. (MI),1.0,Ty Garza,7.0,SS,9701734,2,4,6,0,0,0,0,0,1,0,0.0
-6519838,4/11/26,baseball,Wayne St. (MI),1.0,"Nick Sandiha, Jr.",14.0,2B,11230785,1,1,4,2,0,0,0,0,0,0,0.0
 6519838,4/11/26,baseball,Wayne St. (MI),1.0,Tony Hatzigeorgiou,9.0,PH/3B,9681261,0,1,1,0,0,0,0,0,0,0,0.0
 6519838,4/11/26,baseball,Wayne St. (MI),1.0,Rhett Roeser,32.0,3B/2B,9681631,1,0,1,0,0,0,0,0,0,0,0.0
 6519838,4/11/26,baseball,Wayne St. (MI),1.0,Cooper Clark,47.0,C,11230760,6,1,7,0,0,2,3,0,0,0,1.0
@@ -104784,7 +104656,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6537035,4/12/26,baseball,Tuskegee,,TJ Neal,31.0,C,11226634,0,1,1,0,0,0,0,1,0,0,0.0
 6537035,4/12/26,baseball,Tuskegee,,Willie Relliford III,28.0,C,11226627,6,0,7,1,0,0,6,0,0,0,1.0
 6537035,4/12/26,baseball,Tuskegee,,Mario Craig,29.0,CF,11226601,4,0,4,0,0,0,0,0,0,0,0.0
-6537035,4/12/26,baseball,Tuskegee,,"Christopher Mayo, Jr.",34.0,1B,11226602,3,0,3,0,0,0,0,0,1,0,0.0
 6537035,4/12/26,baseball,Tuskegee,,Mehki Smith,3.0,SS,9686880,1,1,2,0,0,0,0,0,0,0,0.0
 6537035,4/12/26,baseball,Miles,1.0,Michael Smith,3.0,CF,9677874,0,0,0,0,0,0,0,0,0,0,0.0
 6537035,4/12/26,baseball,Miles,1.0,Landon Whitehead,15.0,2B,9681122,3,3,6,0,0,0,0,0,1,0,0.0
@@ -106556,7 +106427,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6534426,2/15/26,baseball,N.M. Highlands,,Rainer Gahagan,21.0,RF,11235378,0,0,0,0,0,0,0,0,0,0,0.0
 6534426,2/15/26,baseball,N.M. Highlands,,Anthony Carrillo,25.0,C,9692159,0,0,0,0,0,0,0,0,0,0,0.0
 6534426,2/15/26,baseball,N.M. Highlands,,Tamden Webb-Tate,28.0,,11235414,0,0,0,0,0,0,0,0,0,0,0.0
-6534426,2/15/26,baseball,N.M. Highlands,,"Barry Miller, Jr",16.0,RF,11235395,1,0,1,0,0,0,0,0,0,0,0.0
 6534426,2/15/26,baseball,N.M. Highlands,,Seth Galfano,55.0,1B,9695303,9,0,9,0,0,0,0,0,0,0,0.0
 6534426,2/15/26,baseball,N.M. Highlands,,Lubby Marujo,2.0,SS,11235385,0,3,4,1,0,0,0,0,0,0,0.0
 6534426,2/15/26,baseball,N.M. Highlands,,Adrian Castaneda,4.0,2B,11235370,2,3,5,0,0,0,0,0,0,0,0.0
@@ -108082,7 +107952,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6519860,4/26/26,baseball,Wayne St. (MI),1.0,Caleb Sanders,6.0,LF,9703618,2,0,2,0,0,0,0,0,0,0,0.0
 6519860,4/26/26,baseball,Wayne St. (MI),1.0,Tony Hatzigeorgiou,9.0,3B,9681261,0,2,2,0,0,0,0,0,0,0,0.0
 6519860,4/26/26,baseball,Wayne St. (MI),1.0,Brayden Crowe,23.0,C,11230763,8,2,10,0,0,0,2,1,0,0,0.667
-6519860,4/26/26,baseball,Wayne St. (MI),1.0,"Nick Sandiha, Jr.",14.0,PH,11230785,0,0,0,0,0,0,0,0,0,0,0.0
 6519860,4/26/26,baseball,Wayne St. (MI),1.0,Cooper Clark,47.0,C,11230760,0,0,0,0,0,0,0,0,0,0,0.0
 6519860,4/26/26,baseball,Wayne St. (MI),1.0,Rhett Roeser,32.0,PH,9681631,0,0,0,0,0,0,0,0,0,0,0.0
 6519860,4/26/26,baseball,Wayne St. (MI),1.0,Alfredo Velazquez,31.0,CF,11230791,3,1,4,0,0,0,0,0,0,0,0.0
@@ -109735,7 +109604,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6576863,4/25/26,baseball,Emory & Henry,,Drew Park,5.0,3B,9680313,1,0,1,0,0,0,0,0,0,0,0.0
 6576863,4/25/26,baseball,Emory & Henry,,J.D. James,17.0,1B,11221113,4,0,4,0,0,0,0,0,1,0,0.0
 6576863,4/25/26,baseball,Emory & Henry,,Ryan Paynton,3.0,2B,11221124,2,0,2,0,0,0,0,0,0,0,0.0
-6576863,4/25/26,baseball,Emory & Henry,,"Stuart Callahan, III",6.0,RF,9691655,1,0,1,0,0,0,0,0,0,0,0.0
 6576863,4/25/26,baseball,Emory & Henry,,Jase Kotwicki,40.0,CF,11221117,0,0,1,1,0,0,0,0,0,0,0.0
 6576863,4/25/26,baseball,Catawba,1.0,Logan Dyer,2.0,LF,9690663,1,0,1,0,0,0,0,0,0,0,0.0
 6576863,4/25/26,baseball,Catawba,1.0,Brandon Crabtree,4.0,1B,11233413,6,1,7,0,0,0,0,0,1,0,0.0
@@ -110647,7 +110515,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6485253,4/25/26,baseball,Barry,1.0,Ben Rhode,38.0,PR,11237211,0,0,0,0,0,0,0,0,0,0,0.0
 6485253,4/25/26,baseball,Barry,1.0,Brandon Delapenha,23.0,LF,9703228,5,0,5,0,0,0,0,0,0,0,0.0
 6485253,4/25/26,baseball,Barry,1.0,Aquiles Arzeno,10.0,C,11254663,8,2,10,0,0,0,5,2,1,0,0.714
-6485253,4/25/26,baseball,Barry,1.0,"Aramis Ramirez, Jr.",16.0,SS,9683717,1,0,1,0,0,0,0,0,1,0,0.0
 6497844,4/25/26,baseball,Davis & Elkins,,Kenny Capria,13.0,CF,11211660,2,0,2,0,0,0,0,0,0,0,0.0
 6497844,4/25/26,baseball,Davis & Elkins,,Zach Calef-Boring,5.0,LF,9686411,2,0,2,0,0,0,0,0,0,0,0.0
 6497844,4/25/26,baseball,Davis & Elkins,,Carsan Strolla,31.0,SS,11211681,3,0,3,0,0,0,0,0,0,0,0.0
@@ -110927,7 +110794,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6539780,4/25/26,baseball,Benedict,,Joshua Medina,50.0,1B,11249498,9,0,9,0,0,0,0,0,1,0,0.0
 6539780,4/25/26,baseball,Benedict,,Kenyan Conner Jr.,1.0,2B,9704584,0,0,0,0,0,0,0,0,0,0,0.0
 6539780,4/25/26,baseball,Benedict,,Cameron Haley,25.0,LF,11247497,0,0,0,0,0,0,0,0,0,0,0.0
-6539780,4/25/26,baseball,Benedict,,"Milton Herring, III",17.0,C,11247484,5,1,6,0,0,0,1,0,0,0,1.0
 6539780,4/25/26,baseball,Benedict,,Kent Johnson,24.0,RF,11247473,2,0,2,0,0,0,0,0,0,0,0.0
 6539780,4/25/26,baseball,Benedict,,Jaquez Akins,5.0,CF,9689311,4,0,4,0,0,0,0,0,0,0,0.0
 6539780,4/25/26,baseball,Benedict,,Lewis Brown,51.0,DH,11247512,0,0,0,0,0,0,0,0,0,0,0.0
@@ -112360,7 +112226,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6519856,4/25/26,baseball,Wayne St. (MI),1.0,Caleb Sanders,6.0,LF,9703618,0,0,0,0,0,0,0,0,0,0,0.0
 6519856,4/25/26,baseball,Wayne St. (MI),1.0,Tony Hatzigeorgiou,9.0,3B,9681261,0,2,2,0,0,0,0,0,1,0,0.0
 6519856,4/25/26,baseball,Wayne St. (MI),1.0,Cooper Clark,47.0,C,11230760,7,1,8,0,0,0,1,1,0,0,0.5
-6519856,4/25/26,baseball,Wayne St. (MI),1.0,"Nick Sandiha, Jr.",14.0,PH,11230785,0,0,0,0,0,0,0,0,0,0,0.0
 6519856,4/25/26,baseball,Wayne St. (MI),1.0,Brayden Crowe,23.0,C,11230763,4,1,5,0,0,1,0,0,0,0,0.0
 6519856,4/25/26,baseball,Wayne St. (MI),1.0,Alfredo Velazquez,31.0,CF,11230791,1,0,1,0,0,0,0,0,0,0,0.0
 6520513,4/25/26,baseball,Georgia College,,Evan Cowan,29.0,CF,9683163,2,0,2,0,0,0,0,0,0,0,0.0
@@ -114064,7 +113929,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6539784,4/24/26,baseball,Benedict,,Kenyan Conner Jr.,1.0,2B,9704584,1,1,2,0,0,0,0,0,0,0,0.0
 6539784,4/24/26,baseball,Benedict,,Cameron Haley,25.0,DH,11247497,0,0,0,0,0,0,0,0,0,0,0.0
 6539784,4/24/26,baseball,Benedict,,Christopher Trujillo Ruiz,9.0,SS,11249499,0,2,2,0,0,0,0,0,0,0,0.0
-6539784,4/24/26,baseball,Benedict,,"Milton Herring, III",17.0,C,11247484,12,0,12,0,0,0,2,0,0,0,1.0
 6539784,4/24/26,baseball,Benedict,,Lewis Brown,51.0,LF,11247512,0,0,0,0,0,0,0,0,0,0,0.0
 6539784,4/24/26,baseball,Benedict,,Colin Jones,10.0,PR,11247477,0,0,0,0,0,0,0,0,0,0,0.0
 6539784,4/24/26,baseball,Benedict,,Curtis Lindsey,4.0,LF,11249501,2,0,2,0,0,0,0,0,0,0,0.0
@@ -114347,7 +114211,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6519850,4/24/26,baseball,Wayne St. (MI),1.0,Bennett Hitzelberger,24.0,1B,9699638,10,0,10,0,0,0,0,0,1,0,0.0
 6519850,4/24/26,baseball,Wayne St. (MI),1.0,Landon Ide,42.0,1B,11230766,1,0,1,0,0,0,0,0,0,0,0.0
 6519850,4/24/26,baseball,Wayne St. (MI),1.0,Caleb Sanders,6.0,LF,9703618,1,0,1,0,0,0,0,0,0,0,0.0
-6519850,4/24/26,baseball,Wayne St. (MI),1.0,"Nick Sandiha, Jr.",14.0,PH/SS,11230785,0,0,0,0,0,0,0,0,0,0,0.0
 6519850,4/24/26,baseball,Wayne St. (MI),1.0,Tony Hatzigeorgiou,9.0,3B,9681261,0,2,2,0,0,0,0,0,0,0,0.0
 6519850,4/24/26,baseball,Wayne St. (MI),1.0,Brayden Crowe,23.0,C,11230763,4,1,5,0,0,0,0,1,0,0,0.0
 6519850,4/24/26,baseball,Wayne St. (MI),1.0,Gabe Zeldes,29.0,PR/RF,9683442,1,0,1,0,0,0,0,0,0,0,0.0
@@ -115027,7 +114890,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6523946,4/24/26,baseball,Emory & Henry,,J.D. James,17.0,DH,11221113,0,0,0,0,0,0,0,0,0,0,0.0
 6523946,4/24/26,baseball,Emory & Henry,,Jeriel Lamboy,20.0,2B,11221121,1,5,6,0,0,0,0,0,0,0,0.0
 6523946,4/24/26,baseball,Emory & Henry,,Clay Caldwell,12.0,PH,9693435,0,0,0,0,0,0,0,0,0,0,0.0
-6523946,4/24/26,baseball,Emory & Henry,,"Stuart Callahan, III",6.0,RF,9691655,3,0,3,0,0,0,0,0,0,0,0.0
 6523946,4/24/26,baseball,Catawba,1.0,Logan Dyer,2.0,LF,9690663,0,0,0,0,0,0,0,0,0,0,0.0
 6523946,4/24/26,baseball,Catawba,1.0,Parker Styborski,20.0,LF,9698646,0,0,0,0,0,0,0,0,0,0,0.0
 6523946,4/24/26,baseball,Catawba,1.0,Brandon Crabtree,4.0,1B,11233413,10,0,10,0,0,0,0,0,0,0,0.0
@@ -117333,7 +117195,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6523938,4/21/26,baseball,Emory & Henry,1.0,Jaxon Ehret,35.0,C,11221106,1,2,3,0,0,0,0,3,0,0,0.0
 6523938,4/21/26,baseball,Emory & Henry,1.0,Jeriel Lamboy,20.0,3B,11221121,1,0,1,0,0,0,0,0,0,0,0.0
 6523938,4/21/26,baseball,Emory & Henry,1.0,Ryan Paynton,3.0,2B,11221124,5,6,11,0,0,0,0,0,1,0,0.0
-6523938,4/21/26,baseball,Emory & Henry,1.0,"Stuart Callahan, III",6.0,RF,9691655,2,0,2,0,0,0,0,0,0,0,0.0
 6574037,4/21/26,baseball,Wis.-Parkside,,Angel Rades,2.0,CF,11234761,5,0,5,0,0,0,0,0,0,0,0.0
 6574037,4/21/26,baseball,Wis.-Parkside,,Ben Loyd,6.0,2B,11234766,1,1,2,0,0,0,0,0,0,0,0.0
 6574037,4/21/26,baseball,Wis.-Parkside,,Josh Wicker,1.0,SS,9681116,1,2,4,1,0,0,0,0,0,0,0.0
@@ -117399,7 +117260,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6505086,4/21/26,baseball,Wayne St. (MI),1.0,Bennett Hitzelberger,24.0,1B,9699638,7,0,7,0,0,0,0,0,0,0,0.0
 6505086,4/21/26,baseball,Wayne St. (MI),1.0,Caleb Sanders,6.0,LF,9703618,0,0,0,0,0,0,0,0,0,0,0.0
 6505086,4/21/26,baseball,Wayne St. (MI),1.0,Gabe Zeldes,29.0,LF,9683442,0,0,0,0,0,0,0,0,0,0,0.0
-6505086,4/21/26,baseball,Wayne St. (MI),1.0,"Nick Sandiha, Jr.",14.0,3B,11230785,0,0,0,0,0,0,0,0,0,0,0.0
 6505086,4/21/26,baseball,Wayne St. (MI),1.0,Tony Hatzigeorgiou,9.0,3B,9681261,0,1,1,0,0,0,0,0,0,0,0.0
 6505086,4/21/26,baseball,Wayne St. (MI),1.0,Brayden Crowe,23.0,C,11230763,12,0,12,0,0,0,0,0,0,0,0.0
 6505086,4/21/26,baseball,Wayne St. (MI),1.0,Alfredo Velazquez,31.0,CF,11230791,4,1,5,0,0,0,0,0,0,0,0.0
@@ -117795,7 +117655,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6523943,4/21/26,baseball,Emory & Henry,1.0,David Rodriguez,37.0,C,11221130,4,1,5,0,0,1,1,1,0,0,0.5
 6523943,4/21/26,baseball,Emory & Henry,1.0,Jase Kotwicki,40.0,RF,11221117,0,0,0,0,0,0,0,0,0,0,0.0
 6523943,4/21/26,baseball,Emory & Henry,1.0,Ryan Paynton,3.0,2B,11221124,0,1,1,0,0,0,0,0,0,0,0.0
-6523943,4/21/26,baseball,Emory & Henry,1.0,"Stuart Callahan, III",6.0,RF,9691655,0,0,0,0,0,0,0,0,0,0,0.0
 6523943,4/21/26,baseball,Emory & Henry,1.0,Clay Caldwell,12.0,RF,9693435,0,0,0,0,0,0,0,0,0,0,0.0
 6523943,4/21/26,baseball,Emory & Henry,1.0,Jacob Nestor,34.0,PH,9688317,0,0,0,0,0,0,0,0,0,0,0.0
 6523943,4/21/26,baseball,Emory & Henry,1.0,Jeriel Lamboy,20.0,PR,11221121,0,0,0,0,0,0,0,0,0,0,0.0
@@ -118949,7 +118808,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6537048,4/19/26,baseball,Tuskegee,,Ryan Morrow,20.0,2B,9686999,0,0,0,0,0,0,0,0,0,0,0.0
 6537048,4/19/26,baseball,Tuskegee,,Jabari Johnson,10.0,LF,9678404,1,0,1,0,0,0,0,0,0,0,0.0
 6537048,4/19/26,baseball,Tuskegee,,Jacobi Brooks,0.0,RF,9685554,2,0,2,0,0,0,0,0,0,0,0.0
-6537048,4/19/26,baseball,Tuskegee,,"Christopher Mayo, Jr.",34.0,1B,11226602,6,0,7,1,0,0,0,0,0,0,0.0
 6537048,4/19/26,baseball,Tuskegee,,Stephon Wright,6.0,DH,9696336,0,0,0,0,0,0,0,0,0,0,0.0
 6537048,4/19/26,baseball,Tuskegee,,Willie Relliford III,28.0,C,11226627,4,0,5,1,0,11,2,0,0,0,1.0
 6537048,4/19/26,baseball,Tuskegee,,Mehki Smith,3.0,SS,9686880,1,2,4,1,0,0,0,0,0,0,0.0
@@ -118963,7 +118821,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6537048,4/19/26,baseball,Benedict,1.0,Cameron Haley,25.0,LF,11247497,1,0,1,0,0,0,0,0,0,0,0.0
 6537048,4/19/26,baseball,Benedict,1.0,Jonathan Olmedo,27.0,3B,9691375,1,0,1,0,0,0,3,0,0,0,1.0
 6537048,4/19/26,baseball,Benedict,1.0,Christopher Trujillo Ruiz,9.0,SS,11249499,1,4,5,0,0,0,0,0,0,0,0.0
-6537048,4/19/26,baseball,Benedict,1.0,"Milton Herring, III",17.0,C,11247484,8,0,8,0,0,3,5,0,0,0,1.0
 6503007,4/19/26,baseball,West Liberty,,Lucas Marsh,0.0,DH,9692083,0,0,0,0,0,0,0,0,0,0,0.0
 6503007,4/19/26,baseball,West Liberty,,Charles Tice,55.0,PH,11233208,0,0,0,0,0,0,0,0,0,0,0.0
 6503007,4/19/26,baseball,West Liberty,,Giacomo Dolce,18.0,SS,11233179,1,1,3,1,0,0,0,0,1,0,0.0
@@ -119342,7 +119199,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6519381,4/19/26,baseball,Wayne St. (MI),,Caleb Sanders,6.0,CF,9703618,3,0,4,1,0,0,0,0,0,0,0.0
 6519381,4/19/26,baseball,Wayne St. (MI),,Alfredo Velazquez,31.0,LF,11230791,1,0,1,0,0,0,0,0,0,0,0.0
 6519381,4/19/26,baseball,Wayne St. (MI),,Brayden Crowe,23.0,C,11230763,6,1,7,0,0,0,0,1,0,0,0.0
-6519381,4/19/26,baseball,Wayne St. (MI),,"Nick Sandiha, Jr.",14.0,3B,11230785,3,1,4,0,0,0,0,0,0,0,0.0
 6519381,4/19/26,baseball,Wayne St. (MI),,Tony Hatzigeorgiou,9.0,3B,9681261,0,0,0,0,0,0,0,0,0,0,0.0
 6519381,4/19/26,baseball,Roosevelt,1.0,Quinn O'Bryan,7.0,SS,9691769,1,1,2,0,0,0,0,0,0,0,0.0
 6519381,4/19/26,baseball,Roosevelt,1.0,Maxwell Bowers,1.0,LF,11251809,1,0,1,0,0,0,0,0,0,0,0.0
@@ -121089,7 +120945,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6486219,4/18/26,baseball,Savannah St.,1.0,Jason Ramos,6.0,3B,11224230,1,3,4,0,0,0,0,0,0,0,0.0
 6537044,4/18/26,baseball,Tuskegee,,Collin McLain,23.0,CF,9687421,7,0,7,0,0,0,0,0,0,0,0.0
 6537044,4/18/26,baseball,Tuskegee,,Austin Evans,5.0,1B,9678157,0,0,1,1,0,0,0,0,0,0,0.0
-6537044,4/18/26,baseball,Tuskegee,,"Christopher Mayo, Jr.",34.0,1B,11226602,6,0,6,0,0,0,0,0,0,0,0.0
 6537044,4/18/26,baseball,Tuskegee,,Ryan Morrow,20.0,2B,9686999,3,4,7,0,0,0,0,0,1,0,0.0
 6537044,4/18/26,baseball,Tuskegee,,Jabari Johnson,10.0,LF,9678404,0,0,0,0,0,0,0,0,0,0,0.0
 6537044,4/18/26,baseball,Tuskegee,,Jacobi Brooks,0.0,RF,9685554,1,0,1,0,0,0,0,0,0,0,0.0
@@ -121107,7 +120962,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6537044,4/18/26,baseball,Benedict,1.0,Cameron Haley,25.0,DH,11247497,0,0,0,0,0,0,0,0,0,0,0.0
 6537044,4/18/26,baseball,Benedict,1.0,Kenyan Conner Jr.,1.0,2B,9704584,0,2,2,0,0,0,0,0,0,0,0.0
 6537044,4/18/26,baseball,Benedict,1.0,Christopher Trujillo Ruiz,9.0,SS,11249499,1,4,5,0,0,0,0,0,0,0,0.0
-6537044,4/18/26,baseball,Benedict,1.0,"Milton Herring, III",17.0,C,11247484,9,1,10,0,0,0,0,1,0,0,0.0
 6536310,4/18/26,baseball,Bridgeport,,Vincenzo Della Porta,9.0,2B,11252539,2,2,4,0,0,0,0,0,0,0,0.0
 6536310,4/18/26,baseball,Bridgeport,,Patrick Krempasky,11.0,LF,9697597,3,0,3,0,0,0,0,0,0,0,0.0
 6536310,4/18/26,baseball,Bridgeport,,Anthony Matturro,13.0,1B,9695726,6,0,6,0,0,0,0,0,0,0,0.0
@@ -123052,7 +122906,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6520333,4/18/26,baseball,Emory & Henry,1.0,Jaxon Ehret,35.0,C,11221106,3,1,4,0,0,0,2,1,0,0,0.667
 6520333,4/18/26,baseball,Emory & Henry,1.0,Ky Gregoire,99.0,C,9692147,1,0,1,0,0,0,0,0,0,0,0.0
 6520333,4/18/26,baseball,Emory & Henry,1.0,Luke Roberts,2.0,2B,9690633,2,1,3,0,0,0,0,0,0,0,0.0
-6520333,4/18/26,baseball,Emory & Henry,1.0,"Stuart Callahan, III",6.0,RF,9691655,0,1,1,0,0,0,0,0,0,0,0.0
 6499934,4/18/26,baseball,Francis Marion,,Jimmy Koza,2.0,2B,9691933,3,3,6,0,0,0,0,0,2,0,0.0
 6499934,4/18/26,baseball,Francis Marion,,Myles Proffitt,29.0,2B,9699841,0,2,2,0,0,0,0,0,0,0,0.0
 6499934,4/18/26,baseball,Francis Marion,,Charlie Bussey III,9.0,RF/1B,9704664,3,0,3,0,0,0,0,0,0,0,0.0
@@ -123794,7 +123647,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6537046,4/18/26,baseball,Tuskegee,,Ryan Morrow,20.0,2B,9686999,1,3,4,0,0,0,0,0,1,0,0.0
 6537046,4/18/26,baseball,Tuskegee,,Jabari Johnson,10.0,DH,9678404,0,0,0,0,0,0,0,0,0,0,0.0
 6537046,4/18/26,baseball,Tuskegee,,Jacobi Brooks,0.0,RF,9685554,1,0,1,0,0,0,0,0,0,0,0.0
-6537046,4/18/26,baseball,Tuskegee,,"Christopher Mayo, Jr.",34.0,1B,11226602,8,0,8,0,0,0,0,0,1,0,0.0
 6537046,4/18/26,baseball,Tuskegee,,Zion Ashby,25.0,3B,11226487,0,3,4,1,0,0,0,0,0,0,0.0
 6537046,4/18/26,baseball,Tuskegee,,Willie Relliford III,28.0,C,11226627,5,1,6,0,0,0,1,0,0,0,1.0
 6537046,4/18/26,baseball,Tuskegee,,Mehki Smith,3.0,SS,9686880,2,2,4,0,0,0,0,0,1,0,0.0
@@ -125451,7 +125303,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6520328,4/17/26,baseball,Emory & Henry,1.0,Drew Park,5.0,3B,9680313,0,2,2,0,0,0,0,0,0,0,0.0
 6520328,4/17/26,baseball,Emory & Henry,1.0,J.D. James,17.0,DH,11221113,0,0,0,0,0,0,0,0,0,0,0.0
 6520328,4/17/26,baseball,Emory & Henry,1.0,Ryan Paynton,3.0,2B,11221124,2,2,4,0,0,0,0,0,0,0,0.0
-6520328,4/17/26,baseball,Emory & Henry,1.0,"Stuart Callahan, III",6.0,RF,9691655,3,1,4,0,0,0,0,0,0,0,0.0
 6499911,4/17/26,baseball,Francis Marion,,Jimmy Koza,2.0,RF/3B,9691933,1,0,1,0,0,0,0,0,0,0,0.0
 6499911,4/17/26,baseball,Francis Marion,,Charlie Bussey III,9.0,CF/RF,9704664,4,0,4,0,0,0,0,0,0,0,0.0
 6499911,4/17/26,baseball,Francis Marion,,Ethan McAnally,18.0,DH,11222499,0,0,0,0,0,0,0,0,0,0,0.0
@@ -126103,7 +125954,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6519377,4/17/26,baseball,Wayne St. (MI),,Bennett Hitzelberger,24.0,1B,9699638,5,0,7,2,0,0,0,0,0,0,0.0
 6519377,4/17/26,baseball,Wayne St. (MI),,Landon Ide,42.0,1B,11230766,1,0,1,0,0,0,0,0,0,0,0.0
 6519377,4/17/26,baseball,Wayne St. (MI),,Caleb Sanders,6.0,CF,9703618,2,0,3,1,0,0,0,0,0,0,0.0
-6519377,4/17/26,baseball,Wayne St. (MI),,"Nick Sandiha, Jr.",14.0,3B,11230785,0,1,1,0,0,0,0,0,0,0,0.0
 6519377,4/17/26,baseball,Wayne St. (MI),,Tony Hatzigeorgiou,9.0,3B,9681261,1,2,3,0,0,0,0,0,0,0,0.0
 6519377,4/17/26,baseball,Wayne St. (MI),,Alfredo Velazquez,31.0,LF,11230791,5,0,5,0,0,0,0,0,0,0,0.0
 6519377,4/17/26,baseball,Wayne St. (MI),,Brayden Crowe,23.0,C,11230763,7,1,8,0,0,0,0,0,0,0,0.0
@@ -128295,7 +128145,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6523934,4/14/26,baseball,Emory & Henry,,Drew Park,5.0,3B,9680313,0,0,0,0,0,0,0,0,0,0,0.0
 6523934,4/14/26,baseball,Emory & Henry,,Jeriel Lamboy,20.0,3B,11221121,0,3,3,0,0,0,0,0,0,0,0.0
 6523934,4/14/26,baseball,Emory & Henry,,J.D. James,17.0,1B,11221113,12,1,13,0,0,0,0,0,0,0,0.0
-6523934,4/14/26,baseball,Emory & Henry,,"Stuart Callahan, III",6.0,RF,9691655,2,0,2,0,0,0,0,0,0,0,0.0
 6523934,4/14/26,baseball,Emory & Henry,,Jase Kotwicki,40.0,CF,11221117,4,0,4,0,0,0,0,0,0,0,0.0
 6523934,4/14/26,baseball,Emory & Henry,,Ryan Paynton,3.0,2B,11221124,0,3,3,0,0,0,0,0,0,0,0.0
 6523934,4/14/26,baseball,Concord,1.0,Nick DiSanti,14.0,SS,9693830,3,1,4,0,0,0,0,0,0,0,0.0
@@ -128903,7 +128752,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6505085,4/14/26,baseball,Wayne St. (MI),,Bennett Hitzelberger,24.0,1B,9699638,6,0,6,0,0,0,0,0,0,0,0.0
 6505085,4/14/26,baseball,Wayne St. (MI),,Caleb Sanders,6.0,CF,9703618,3,0,3,0,0,0,0,0,0,0,0.0
 6505085,4/14/26,baseball,Wayne St. (MI),,Alfredo Velazquez,31.0,LF,11230791,4,0,4,0,0,0,0,0,0,0,0.0
-6505085,4/14/26,baseball,Wayne St. (MI),,"Nick Sandiha, Jr.",14.0,3B,11230785,1,1,2,0,0,0,0,0,0,0,0.0
 6505085,4/14/26,baseball,Wayne St. (MI),,Cooper Clark,47.0,C,11230760,6,0,6,0,0,1,2,0,0,0,1.0
 6505085,4/14/26,baseball,Wayne St. (MI),,Rhett Roeser,32.0,PH,9681631,0,0,0,0,0,0,0,0,0,0,0.0
 6505085,4/14/26,baseball,Wayne St. (MI),,Brayden Crowe,23.0,C,11230763,1,0,1,0,0,0,0,0,0,0,0.0

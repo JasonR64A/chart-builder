@@ -127,6 +127,33 @@ for sport in ['baseball', 'softball']:
                 fix_csv(path)
 "
 
+# Drop rows with wrong field counts (e.g. baseball-format team-totals row leaked
+# into a softball file, or batting-totals footer that the box-score scraper
+# scraped as if it were a player). Reported 2026-04-28: pandas blew up on
+# softball/hitting_pbp_D2.csv line 143724 with "Expected 27 fields, saw 29".
+echo "Dropping wrong-field-count PBP rows..."
+python3 -c "
+import os
+total_dropped = 0
+for sport in ['baseball', 'softball']:
+    for stat in ['hitting', 'pitching', 'fielding']:
+        for div in ['D1', 'D2', 'D3']:
+            path = f'C:/Users/sixty/OneDrive/Desktop/chart-builder-app/pbp_data/{sport}/{stat}_pbp_{div}.csv'
+            if not os.path.exists(path): continue
+            with open(path, 'r', encoding='utf-8', errors='replace') as f:
+                lines = f.readlines()
+            if not lines: continue
+            expected = lines[0].count(',') + 1
+            clean = [lines[0]] + [l for l in lines[1:] if l.strip() == '' or l.count(',') + 1 == expected]
+            dropped = len(lines) - len(clean)
+            if dropped > 0:
+                with open(path, 'w', encoding='utf-8', newline='') as f:
+                    f.writelines(clean)
+                print(f'  {sport}/{stat}_{div}: dropped {dropped} wrong-count rows')
+                total_dropped += dropped
+print(f'  TOTAL wrong-count dropped: {total_dropped}')
+"
+
 # Deduplicate PBP files (cross-division scrapes can produce duplicate game rows)
 echo "Deduplicating PBP files..."
 python3 -c "

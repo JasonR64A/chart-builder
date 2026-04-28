@@ -663,7 +663,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6495042,1/31/2026,baseball,N.M. Highlands,1.0,Matt Board,23,P,9702480,0.0,0,1,0,0,0,1,0,0,0,0,1,1,0,0,0,0,0,0,0,0
 6495042,1/31/2026,baseball,N.M. Highlands,1.0,Jimi Welsher,3,P,9686438,0.2,3,3,1,1,0,7,0,0,0,0,0,1,0,0,0,0,0,0,0,0
 6495042,1/31/2026,baseball,N.M. Highlands,1.0,Dominick Gonzales,44,P,11235380,1.0,6,8,2,1,2,12,1,0,0,1,0,1,0,0,0,0,1,0,0,0
-6495042,1/31/2026,baseball,N.M. Highlands,1.0,"Barry Miller, Jr",16,P,11235395,1.0,2,1,1,0,2,5,1,0,0,0,0,0,0,0,0,0,0,1,0,0
 6495042,1/31/2026,baseball,N.M. Highlands,1.0,Brin Osterman,9,CF/P,11235400,1.0,0,1,0,0,2,4,0,0,0,0,2,1,0,0,0,0,0,2,0,0
 6532378,1/31/2026,baseball,Northwestern Okla.,,Kaden Spray,25,P,9681805,3.1,5,6,4,2,3,18,1,0,0,1,0,0,0,0,0,1,0,1,0,0
 6532378,1/31/2026,baseball,Northwestern Okla.,,Alex Figueroa,23,P,11235891,1.2,7,5,5,0,2,14,1,1,0,1,0,2,0,0,0,0,0,0,0,0
@@ -1492,7 +1491,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6493005,4/08/26,baseball,Post,1.0,Logan Pulitano,27,P,9700508,4.2,0,2,1,4,3,18,0,0,0,0,0,1,0,0,0,1,1,1,0,1
 6493005,4/08/26,baseball,Post,1.0,Andrew Hardin,17,P,10809563,0.0,2,2,0,1,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6493005,4/08/26,baseball,Post,1.0,JJ Roberts,53,P,10809593,1.0,9,10,9,4,0,15,2,0,0,0,1,2,0,0,0,0,0,0,0,0
-6493005,4/08/26,baseball,Post,1.0,"Michael Fletcher, Jr.",43,P,11224190,0.1,0,0,0,0,0,2,0,0,0,0,0,1,0,0,0,0,0,0,0,0
 6507567,4/08/26,baseball,Goldey-Beacom,,Nate Miller,0,P,9701011,6.0,7,2,2,1,4,27,1,0,0,0,0,1,0,0,0,0,0,3,0,0
 6507567,4/08/26,baseball,Goldey-Beacom,,Britton Wildasin,36,P,9686559,3.0,3,1,1,0,3,13,1,0,0,0,0,0,0,0,0,0,0,1,0,0
 6507567,4/08/26,baseball,Holy Family,1.0,Jelle Bing,23,P,11247957,2.0,4,5,5,3,2,13,1,0,0,0,2,0,0,0,0,0,1,2,0,0
@@ -2785,7 +2783,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6524088,4/04/26,baseball,Morehouse,1.0,Jackson Edington,26,P,11243720,0.2,5,7,7,2,0,9,2,0,0,0,1,0,0,0,0,1,0,0,0,0
 6524088,4/04/26,baseball,Morehouse,1.0,Ian Makle,16,P,9693588,0.1,2,1,1,2,0,5,1,0,0,0,0,0,0,0,0,0,0,0,0,0
 6524088,4/04/26,baseball,Morehouse,1.0,Noah Grayson,18,P,9693663,1.0,1,0,0,2,1,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-6524088,4/04/26,baseball,Morehouse,1.0,"Princeton Hawks, II",14,P,9687054,1.0,4,8,4,3,0,12,0,0,0,2,1,1,0,0,0,0,0,0,0,0
 6525840,4/04/26,baseball,Young Harris,,Barrett Eldridge,31,P,11224844,6.0,7,4,4,1,4,26,2,0,0,0,0,0,0,0,0,0,1,0,0,0
 6525840,4/04/26,baseball,Young Harris,,Brock Parker,49,P,11224872,2.0,0,1,1,1,1,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6525840,4/04/26,baseball,Young Harris,,Tommy Dowd,28,P,11224835,0.2,0,0,0,1,0,3,0,0,0,0,0,0,0,0,0,1,1,0,0,0
@@ -3024,7 +3021,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6530420,4/04/26,baseball,N.M. Highlands,1.0,Cadin Gates,35,P,11235383,1.0,3,3,3,0,0,8,1,1,0,1,0,1,0,0,0,0,1,0,0,0
 6530420,4/04/26,baseball,N.M. Highlands,1.0,Alex Gilliam,30,P,11235381,0.1,1,3,3,2,0,4,0,1,0,0,0,0,0,0,0,0,0,0,0,0
 6530420,4/04/26,baseball,N.M. Highlands,1.0,Reece Harney,17,P,11235388,0.0,3,4,4,0,0,4,1,0,0,1,0,1,0,0,0,0,0,0,0,0
-6530420,4/04/26,baseball,N.M. Highlands,1.0,"Barry Miller, Jr",16,P,11235395,0.0,2,5,5,1,1,5,0,0,0,0,1,1,0,0,0,0,0,0,0,0
 6530420,4/04/26,baseball,N.M. Highlands,1.0,Dominick Gonzales,44,P,11235380,0.1,2,1,1,0,1,4,1,0,0,0,0,1,0,0,0,0,0,1,0,0
 6507134,4/04/26,baseball,CSU Pueblo,,Tyler Clementz,5,P,9696021,5.1,9,5,5,0,4,26,2,0,0,1,1,1,0,0,0,0,0,0,0,0
 6507134,4/04/26,baseball,CSU Pueblo,,Cole Bloomer,43,P,9697920,3.1,3,1,1,2,3,14,1,0,0,1,0,0,0,0,0,0,0,2,0,0
@@ -4378,7 +4374,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6530419,4/03/26,baseball,N.M. Highlands,1.0,Jimi Welsher,3,P,9686438,2.2,8,3,3,0,1,15,3,1,0,0,0,0,0,0,0,0,0,1,0,0
 6530419,4/03/26,baseball,N.M. Highlands,1.0,Alex Gilliam,30,P,11235381,1.0,0,0,0,1,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6530419,4/03/26,baseball,N.M. Highlands,1.0,Brin Osterman,9,P,11235400,1.0,6,5,5,1,1,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-6530419,4/03/26,baseball,N.M. Highlands,1.0,"Barry Miller, Jr",16,P,11235395,1.0,1,0,0,1,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6530419,4/03/26,baseball,N.M. Highlands,1.0,Matt Board,23,P,9702480,0.2,2,3,3,2,0,7,1,0,0,0,0,1,0,0,0,0,0,0,0,0
 6530419,4/03/26,baseball,N.M. Highlands,1.0,Cruz Lopez,29,P,11235391,0.1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6507133,4/03/26,baseball,CSU Pueblo,,Luke Ruby,12,P,9705137,4.0,6,4,4,5,2,22,1,0,0,0,0,1,0,0,0,1,0,2,0,0
@@ -7092,7 +7087,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6525939,3/28/26,baseball,Maryville (MO),1.0,Ryan Hoshaw,34,P,11225345,5.0,4,2,2,3,2,22,1,0,1,0,1,0,0,0,0,0,0,0,0,0
 6525939,3/28/26,baseball,Maryville (MO),1.0,Collin Greiner,29,P,11224666,2.0,1,0,0,0,2,7,1,0,0,0,0,0,0,0,0,0,0,0,0,0
 6521019,3/28/26,baseball,N.M. Highlands,,Ramon Brion,22,P,9702176,5.0,6,5,5,1,3,22,2,0,0,0,0,0,0,0,0,1,0,2,0,0
-6521019,3/28/26,baseball,N.M. Highlands,,"Barry Miller, Jr",16,P,11235395,0.0,0,3,2,1,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6521019,3/28/26,baseball,N.M. Highlands,,Brin Osterman,9,P,11235400,1.0,0,1,0,1,0,5,0,0,0,0,1,0,0,0,0,0,1,0,0,0
 6521019,3/28/26,baseball,UCCS,1.0,Ryder Mancuso,42,P,9683250,7.0,8,6,5,2,4,31,1,0,0,0,1,1,0,0,0,0,0,3,0,1
 6533479,3/28/26,baseball,Colo. Christian,,Brady Ritzmann,5,P,11221737,4.0,8,4,4,0,0,20,2,0,0,0,0,2,0,0,0,0,0,0,0,0
@@ -7258,7 +7252,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6539727,3/28/26,baseball,Morehouse,,Walter Nunnally,47,P,11243726,0.1,2,4,3,2,1,5,1,0,0,0,0,0,0,0,0,0,0,1,0,0
 6539727,3/28/26,baseball,Morehouse,,Reago Hutson,19,P,11243723,1.0,2,3,3,2,0,7,0,0,0,0,1,0,0,0,0,0,1,0,0,0
 6539727,3/28/26,baseball,Morehouse,,Mason Sly,9,P,11243734,0.2,1,0,0,1,0,5,0,0,0,0,0,1,0,0,0,0,0,0,0,0
-6539727,3/28/26,baseball,Morehouse,,"Princeton Hawks, II",14,P,9687054,1.0,3,3,3,1,2,8,2,1,0,0,1,1,0,0,0,0,1,0,0,0
 6539727,3/28/26,baseball,Benedict,1.0,Lefrederick Wooten,40,P,11249500,7.0,6,3,3,4,3,30,0,1,0,0,0,0,0,0,0,2,0,1,0,0
 6519966,3/28/26,baseball,Lock Haven,,Michael Jr.,19,P,11253963,4.0,7,6,6,3,1,25,1,0,0,0,1,2,0,0,0,0,2,0,0,0
 6519966,3/28/26,baseball,Lock Haven,,Holden Ward,12,P,11253958,1.0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -11336,7 +11329,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6536982,3/21/26,baseball,Clark Atlanta,1.0,Jaden Coleman,8,P,11237072,3.0,4,4,4,5,3,17,1,0,1,1,0,1,0,0,0,0,0,1,0,2
 6536982,3/21/26,baseball,Clark Atlanta,1.0,Dareon Adkins,2,1B/P,11237024,4.0,5,3,2,4,6,23,1,0,0,0,1,1,0,0,0,0,0,0,0,0
 6533263,3/21/26,baseball,N.M. Highlands,,Andrew Baltazar,33,P,11235387,4.1,13,12,12,2,3,30,3,0,0,3,2,3,0,0,0,0,0,0,0,0
-6533263,3/21/26,baseball,N.M. Highlands,,"Barry Miller, Jr",16,P,11235395,1.0,2,1,1,1,3,7,1,0,0,0,0,1,0,0,0,0,0,1,0,0
 6533263,3/21/26,baseball,N.M. Highlands,,Reece Harney,17,P,11235388,0.2,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6533263,3/21/26,baseball,Emporia St.,1.0,Jake Khasaempanth,9,P,11235847,2.0,2,0,0,0,1,8,0,0,0,0,0,1,0,0,0,0,0,1,0,0
 6533263,3/21/26,baseball,Emporia St.,1.0,Graeme Rios,20,P,9693597,1.0,2,0,0,0,0,5,1,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -14672,7 +14664,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6507106,3/14/26,baseball,N.M. Highlands,1.0,Matt Board,23,P,9702480,1.2,4,4,4,2,0,13,2,1,0,0,0,1,0,0,0,0,0,0,0,0
 6507106,3/14/26,baseball,N.M. Highlands,1.0,Jimi Welsher,3,P,9686438,1.0,0,0,0,0,1,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6507106,3/14/26,baseball,N.M. Highlands,1.0,Cruz Lopez,29,P,11235391,1.0,1,2,1,0,1,5,0,1,0,0,1,0,0,0,0,0,0,0,0,0
-6507106,3/14/26,baseball,N.M. Highlands,1.0,"Barry Miller, Jr",16,P,11235395,1.0,1,1,1,0,0,6,0,0,0,0,0,1,0,0,0,0,0,0,0,0
 6564560,3/14/26,baseball,Lewis,,Jackson Kottmeyer,14,P,9679099,3.1,7,4,4,0,4,18,1,0,0,1,0,1,0,0,0,0,0,1,0,0
 6564560,3/14/26,baseball,Lewis,,Carter Endisch,34,P,11249049,1.2,4,2,2,0,0,10,1,0,0,0,0,1,0,0,0,0,0,0,0,0
 6564560,3/14/26,baseball,Lewis,,Ben Catrambone,18,P,11251562,0.1,3,4,3,0,1,5,2,0,0,0,1,0,0,0,0,0,0,0,0,0
@@ -16950,7 +16941,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6549874,3/08/26,baseball,East Stroudsburg,1.0,Patrick Yoder,39,P,9677097,1.0,0,0,0,0,2,3,0,0,0,0,0,0,0,0,0,0,0,1,0,0
 6534394,3/08/26,baseball,N.M. Highlands,,Andrew Baltazar,33,P,11235387,8.0,6,3,2,1,2,32,1,0,0,0,0,2,0,0,0,1,0,0,0,0
 6534394,3/08/26,baseball,N.M. Highlands,,Cadin Gates,35,P,11235383,0.0,1,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-6534394,3/08/26,baseball,N.M. Highlands,,"Barry Miller, Jr",16,P,11235395,0.0,1,0,0,1,0,2,0,0,0,0,0,0,0,1,1,0,0,0,0,0
 6534394,3/08/26,baseball,Colorado Mesa,1.0,Jackson Eisenhauer,21,P,11235175,4.0,4,2,2,1,6,17,1,0,0,1,0,0,0,0,0,1,0,2,0,0
 6534394,3/08/26,baseball,Colorado Mesa,1.0,Bridger Clontz,32,P,9698293,1.0,1,0,0,0,1,4,0,0,0,0,0,0,0,0,0,1,0,0,0,0
 6534394,3/08/26,baseball,Colorado Mesa,1.0,Simon Lunsford,31,P,11235187,1.0,1,0,0,0,1,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -18856,7 +18846,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6495490,3/06/26,baseball,USC Aiken,1.0,Joe Rauscher,15,P,11223896,7.0,13,5,5,1,5,35,3,0,0,0,0,0,0,0,0,0,1,0,0,0
 6495490,3/06/26,baseball,USC Aiken,1.0,C.J. Lincoln,19,P,11223890,2.0,1,0,0,1,1,7,0,0,0,0,0,0,0,0,0,1,0,0,0,0
 6534404,3/06/26,baseball,N.M. Highlands,,Anthony Reyes,1,P,9689990,6.0,8,6,5,2,4,28,0,0,1,2,1,1,0,0,0,1,0,1,0,1
-6534404,3/06/26,baseball,N.M. Highlands,,"Barry Miller, Jr",16,P,11235395,2.0,2,2,2,0,1,8,0,1,0,0,0,0,0,0,0,0,1,0,0,0
 6534404,3/06/26,baseball,N.M. Highlands,,Cadin Gates,35,P,11235383,1.2,3,2,1,2,1,11,1,0,0,0,0,0,1,0,0,0,0,0,0,0
 6534404,3/06/26,baseball,Colorado Mesa,1.0,Liam Hohenstein,37,P,9692715,3.0,3,2,2,5,3,16,0,0,0,0,0,0,0,0,0,0,0,1,0,0
 6534404,3/06/26,baseball,Colorado Mesa,1.0,Brenden Morris,16,P,9693141,0.1,2,3,3,1,0,4,1,0,0,0,0,0,0,1,1,1,0,0,0,0
@@ -28060,7 +28049,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6536985,2/13/26,baseball,Morehouse,,Mason Sly,9,P,11243734,1.2,1,2,1,1,0,7,0,0,0,0,3,0,0,0,0,0,0,0,0,0
 6536985,2/13/26,baseball,Morehouse,,Dejorryn Pettis,39,P,9693397,1.0,1,0,0,1,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6536985,2/13/26,baseball,Morehouse,,Reago Hutson,19,P,11243723,1.0,1,1,0,2,0,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-6536985,2/13/26,baseball,Morehouse,,"Princeton Hawks, II",14,P,9687054,0.2,2,2,2,1,1,6,2,0,0,0,2,1,0,0,0,0,0,0,0,0
 6536985,2/13/26,baseball,Edward Waters,1.0,Tyler Pfirrmann,21,P,11237535,5.0,2,2,2,5,5,24,1,0,0,0,0,2,0,0,0,0,0,1,0,0
 6536985,2/13/26,baseball,Edward Waters,1.0,Jeremyah Martinez,22,P,9678529,2.0,0,0,0,2,1,8,0,0,0,0,0,0,0,0,0,0,0,1,0,0
 6536985,2/13/26,baseball,Edward Waters,1.0,Dylan McNeil,20,P,11245777,1.0,0,0,0,0,1,3,0,0,0,0,0,0,0,0,0,0,0,1,0,0
@@ -28921,7 +28909,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6523837,2/08/26,baseball,Augustana (SD),1.0,Ashton Michek,8,P,9686573,5.0,3,0,0,0,6,18,2,0,0,0,0,0,0,0,0,0,0,2,0,1
 6523837,2/08/26,baseball,Augustana (SD),1.0,Mariano Gomez,49,P,11225752,2.0,1,1,1,1,3,7,1,0,0,0,0,0,0,0,0,0,0,1,0,0
 6532374,2/08/26,baseball,N.M. Highlands,,Damon McRee,19,P,11235394,4.0,5,3,3,3,2,19,0,0,2,0,0,1,0,0,0,1,1,0,0,2
-6532374,2/08/26,baseball,N.M. Highlands,,"Barry Miller, Jr",16,P,11235395,2.1,0,1,1,1,4,9,0,0,0,0,0,1,0,0,0,0,0,1,0,0
 6532374,2/08/26,baseball,N.M. Highlands,,Matt Board,23,P,9702480,0.2,1,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6532374,2/08/26,baseball,N.M. Highlands,,Cadin Gates,35,P,11235383,0.1,2,1,1,0,0,3,0,1,0,0,0,0,0,0,0,0,0,0,0,0
 6532374,2/08/26,baseball,N.M. Highlands,,Alex Gilliam,30,P,11235381,0.2,1,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -33962,7 +33949,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6501101,4/11/26,baseball,Caldwell,1.0,Vinny Sangataldo,29,P,11215591,7.0,4,0,0,1,8,26,0,0,0,0,1,0,0,0,0,0,0,5,0,0
 6533501,4/11/26,baseball,N.M. Highlands,,Damon McRee,19,P,11235394,1.0,0,3,1,3,0,8,0,0,0,0,1,1,0,0,0,1,0,0,0,0
 6533501,4/11/26,baseball,N.M. Highlands,,Reece Harney,17,P,11235388,0.2,3,4,0,1,0,8,0,0,0,0,1,1,0,0,1,1,0,0,0,0
-6533501,4/11/26,baseball,N.M. Highlands,,"Barry Miller, Jr",16,P,11235395,0.1,5,5,5,1,0,8,3,1,0,0,0,1,0,0,1,0,0,0,0,0
 6533501,4/11/26,baseball,N.M. Highlands,,Matt Board,23,P,9702480,3.0,3,2,2,2,0,13,0,0,0,1,0,0,0,1,0,0,0,0,0,0
 6533501,4/11/26,baseball,N.M. Highlands,,Cruz Lopez,29,P,11235391,0.1,0,0,0,3,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6533501,4/11/26,baseball,N.M. Highlands,,Dominick Gonzales,44,P,11235380,0.2,0,0,0,0,2,2,0,0,0,0,0,0,0,3,0,0,0,0,0,0
@@ -34929,7 +34915,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6575793,4/21/26,baseball,Morris,,J McKnight,28,P,11331302,1.0,1,1,1,1,0,7,0,0,0,0,0,1,0,0,0,0,1,0,0,0
 6575793,4/21/26,baseball,Morehouse,1.0,Jackson Edington,26,P,11243720,1.2,0,0,0,3,2,10,0,0,0,0,1,1,0,0,0,0,0,2,0,0
 6575793,4/21/26,baseball,Morehouse,1.0,Noah Grayson,18,P,9693663,3.0,9,9,9,4,1,22,5,0,2,0,0,0,0,0,0,0,0,0,0,0
-6575793,4/21/26,baseball,Morehouse,1.0,"Princeton Hawks, II",14,P,9687054,2.0,2,1,1,1,0,9,0,0,0,1,0,0,0,0,0,0,0,0,0,0
 6575793,4/21/26,baseball,Morehouse,1.0,Holden Lane,31,P,11243724,0.2,4,6,4,3,1,10,1,0,0,1,0,0,0,0,0,0,0,0,0,0
 6575793,4/21/26,baseball,Morehouse,1.0,Mason Sly,9,P,11243734,1.1,1,0,0,3,3,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6512720,4/21/26,baseball,Miami-Hamilton,,J. Harris,32,P,9976710,5.0,4,3,3,1,0,20,1,0,0,1,0,1,0,0,0,0,0,0,0,0
@@ -35657,7 +35642,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6530056,4/26/26,baseball,Regis (CO),,Colter Wilson,37,P,9692427,0.0,3,3,2,0,0,4,1,0,0,0,0,0,0,0,0,0,0,0,0,0
 6530056,4/26/26,baseball,Regis (CO),,Pierce Stone,32,P,9692604,0.2,1,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6530056,4/26/26,baseball,Regis (CO),,Grant Belcher,34,P,11220922,1.0,4,2,2,0,0,7,0,1,0,0,0,0,0,0,0,0,0,0,0,0
-6530056,4/26/26,baseball,N.M. Highlands,1.0,"Barry Miller, Jr",16,P,11235395,2.2,4,6,5,1,1,16,0,0,0,2,0,3,1,0,0,0,0,1,0,0
 6530056,4/26/26,baseball,N.M. Highlands,1.0,Matt Board,23,P,9702480,3.1,3,1,1,2,0,15,0,0,0,0,0,1,0,0,0,0,1,0,0,0
 6530056,4/26/26,baseball,N.M. Highlands,1.0,Dominick Gonzales,44,P,11235380,0.2,4,3,3,0,0,6,0,0,0,0,1,0,0,0,0,0,0,0,0,0
 6530056,4/26/26,baseball,N.M. Highlands,1.0,Brin Osterman,9,P,11235400,0.1,1,2,2,1,0,4,0,0,0,0,0,1,0,0,0,0,0,0,0,0
@@ -36364,7 +36348,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6493028,4/25/26,baseball,Post,1.0,Dalton Wright,9,P,9702669,1.0,3,3,3,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6493028,4/25/26,baseball,Post,1.0,JJ Roberts,53,P,10809593,1.1,2,2,2,1,1,7,0,0,0,0,0,0,0,0,0,0,0,1,0,0
 6493028,4/25/26,baseball,Post,1.0,Kyle Connolly,62,P,10809594,0.0,0,3,3,2,0,3,0,0,0,0,0,1,0,0,0,0,0,0,0,0
-6493028,4/25/26,baseball,Post,1.0,"Michael Fletcher, Jr.",43,P,11224190,1.0,1,2,2,1,1,6,1,0,1,0,1,1,0,0,0,0,0,0,0,0
 6518879,4/25/26,baseball,Rogers St.,,Dillon Dibrell,4,P,11241180,3.2,5,5,3,4,1,21,0,0,0,0,0,0,0,0,0,0,1,0,0,0
 6518879,4/25/26,baseball,Rogers St.,,Dylan Weddle,25,P,9694112,0.1,2,5,5,2,0,6,0,0,0,0,0,1,0,0,0,0,0,0,0,0
 6518879,4/25/26,baseball,Rogers St.,,Cole Abbott,16,P,9684815,2.0,3,3,2,2,0,11,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -36718,7 +36701,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6530055,4/25/26,baseball,Regis (CO),,Samuel Fisher,28,P,11220946,1.0,0,0,0,0,1,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6530055,4/25/26,baseball,N.M. Highlands,1.0,Damon McRee,19,P,11235394,6.2,13,8,8,3,2,35,4,0,0,2,0,1,0,0,0,0,0,1,0,0
 6530055,4/25/26,baseball,N.M. Highlands,1.0,Reece Harney,17,P,11235388,0.1,1,0,0,0,0,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0
-6530055,4/25/26,baseball,N.M. Highlands,1.0,"Barry Miller, Jr",16,P,11235395,2.0,3,1,1,1,0,10,0,0,0,0,0,0,1,0,0,0,0,0,0,0
 6526115,4/25/26,baseball,CSU Pueblo,,Frank Flores,26,P,9676782,6.0,3,1,1,1,7,21,0,0,0,1,0,0,0,0,0,0,0,3,0,0
 6526115,4/25/26,baseball,CSU Pueblo,,Casey Clair,33,P,11203220,1.0,3,0,0,0,1,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6526115,4/25/26,baseball,Adams St.,1.0,Joseph Marek,12,P,9697167,2.0,6,6,6,3,0,15,3,0,0,0,2,0,0,0,0,0,0,0,0,0
@@ -40978,7 +40960,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6538360,4/17/26,baseball,Morehouse,1.0,Cameron Simmons,10,P,11243733,4.0,5,7,4,8,5,25,0,0,0,0,0,0,0,0,0,0,0,1,0,0
 6538360,4/17/26,baseball,Morehouse,1.0,Walter Nunnally,47,P,11243726,3.0,4,3,3,2,3,14,0,0,0,1,0,0,0,0,0,0,1,0,0,0
 6538360,4/17/26,baseball,Morehouse,1.0,Reago Hutson,19,P,11243723,1.0,4,4,4,1,0,10,1,0,0,1,0,2,0,0,0,0,0,0,0,0
-6538360,4/17/26,baseball,Morehouse,1.0,"Princeton Hawks, II",14,P,9687054,0.1,3,5,5,2,0,6,2,0,0,0,0,0,0,0,0,0,1,0,0,0
 6538360,4/17/26,baseball,Morehouse,1.0,Dejorryn Pettis,39,P,9693397,0.2,5,5,4,0,1,8,2,0,0,1,0,0,0,0,0,0,0,1,0,0
 6484379,4/17/26,baseball,Ga. Southwestern,,Evan Koehler,30,P,11237640,5.0,7,5,4,2,9,26,1,0,0,0,0,1,0,0,0,0,1,2,0,0
 6484379,4/17/26,baseball,Ga. Southwestern,,Rem Maxwell,21,P,9682382,2.0,3,0,0,1,1,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0

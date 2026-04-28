@@ -6442,7 +6442,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6549422,4/03/26,baseball,Rice,1.0,Lorenzo Rios,12,C,9677324.0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0
 6549422,4/03/26,baseball,Rice,1.0,Mason Ashlock,27,RF,11241227.0,3,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,1,0
 6549422,4/03/26,baseball,Rice,1.0,Jacob Devenny,24,LF,9699691.0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-6549422,4/03/26,baseball,Rice,1.0,"Hiram Bocachica, Jr.",44,SS,9688254.0,3,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0
 6531771,4/03/26,baseball,South Alabama,,Brennon Wright,26,2B,11220223.0,4,2,2,0,0,2,0,1,0,0,1,1,1,0,0,0,0,0,0,0
 6531771,4/03/26,baseball,South Alabama,,Duncan Mathews,22,C,9699793.0,4,1,1,0,0,1,0,1,0,2,0,0,2,0,0,0,0,0,1,0
 6531771,4/03/26,baseball,South Alabama,,Stewart Puckett,7,3B,11220179.0,5,3,4,0,0,7,1,4,1,0,0,0,0,0,0,0,0,0,0,0
@@ -8515,7 +8514,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6549423,4/04/26,baseball,Rice,1.0,Aric Anderson,18,C,9692926.0,1,0,1,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0
 6549423,4/04/26,baseball,Rice,1.0,Lorenzo Rios,12,C,9677324.0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6549423,4/04/26,baseball,Rice,1.0,Landis Davila,5,CF,11241235.0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0
-6549423,4/04/26,baseball,Rice,1.0,"Hiram Bocachica, Jr.",44,PH,9688254.0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6549423,4/04/26,baseball,Rice,1.0,Zachary Daigre,4,CF,11241234.0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6503415,4/04/26,baseball,Oregon St.,,Easton Talt,6,CF,9702655.0,5,1,4,0,0,4,0,3,0,0,0,0,0,0,0,0,0,0,0,0
 6503415,4/04/26,baseball,Oregon St.,,Nyan Hayes,2,PH/CF,11217429.0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0
@@ -22828,7 +22826,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6486776,3/25/26,baseball,Tulane,1.0,Hugh Pinkney,23,C,9700290.0,2,2,1,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0
 6486776,3/25/26,baseball,Tulane,1.0,Brett Rowell,13,PH/C,10268696.0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6529925,3/25/26,baseball,Rice,,Zachary Daigre,4,PR,11241234.0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-6529925,3/25/26,baseball,Rice,,"Hiram Bocachica, Jr.",44,SS,9688254.0,1,1,1,0,0,1,0,0,0,2,0,0,0,0,0,0,0,0,0,0
 6529925,3/25/26,baseball,Rice,,Landon West,28,1B,9682679.0,3,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0
 6529925,3/25/26,baseball,Rice,,Jacob Devenny,24,LF,9699691.0,4,1,2,0,0,2,0,1,0,0,1,0,0,0,0,0,0,0,0,0
 6529925,3/25/26,baseball,Rice,,JC Davis,3,2B,11241236.0,5,1,2,0,0,2,0,2,0,0,0,0,0,0,0,0,0,0,0,0
@@ -28176,7 +28173,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6519307,3/22/26,baseball,Oregon,1.0,Naulivou Lauaki Jr,18,PH/1B,11213053.0,1,0,1,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0
 6519307,3/22/26,baseball,Oregon,1.0,Jack Brooks,6,CF,9683213.0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0
 6519307,3/22/26,baseball,Oregon,1.0,Josh Schleichardt,25,PH/LF,11213022.0,5,1,1,0,0,1,0,1,0,0,0,0,1,2,0,0,0,0,0,0
-6548772,3/22/26,baseball,Rice,,"Hiram Bocachica, Jr.",44,SS,9688254.0,4,0,1,1,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6548772,3/22/26,baseball,Rice,,JC Davis,3,2B,11241236.0,4,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0
 6548772,3/22/26,baseball,Rice,,Cole Green,2,CF,9704694.0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6548772,3/22/26,baseball,Rice,,Landon West,28,1B,9682679.0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -31166,7 +31162,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6539064,3/21/26,baseball,UIC,1.0,Ashton Kampa,16,DH,11247723.0,3,0,0,0,0,0,0,1,0,0,1,0,2,0,0,0,0,0,1,0
 6539064,3/21/26,baseball,UIC,1.0,Colin Husko,3,2B,9692725.0,4,0,1,1,0,2,0,1,0,0,0,0,1,0,0,0,0,0,1,0
 6539064,3/21/26,baseball,UIC,1.0,Sean Cody,32,SS,11247708.0,3,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,1,0
-6548771,3/21/26,baseball,Rice,,"Hiram Bocachica, Jr.",44,SS,9688254.0,4,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0
 6548771,3/21/26,baseball,Rice,,Colin Robson,10,LF,9697008.0,3,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0
 6548771,3/21/26,baseball,Rice,,Jacob Devenny,24,PH,9699691.0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6548771,3/21/26,baseball,Rice,,JC Davis,3,2B,11241236.0,4,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -34999,7 +34994,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6486773,3/20/26,baseball,Tulane,1.0,Bryson Ayala,21,2B,10268587.0,2,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0
 6486773,3/20/26,baseball,Tulane,1.0,Brett Rowell,13,PH,10268696.0,1,0,1,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0
 6486773,3/20/26,baseball,Tulane,1.0,James Agabedis,1,PR/2B/3B,9695268.0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-6548769,3/20/26,baseball,Rice,,"Hiram Bocachica, Jr.",44,SS,9688254.0,4,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6548769,3/20/26,baseball,Rice,,Colin Robson,10,LF,9697008.0,3,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,1,0
 6548769,3/20/26,baseball,Rice,,Landon West,28,PH,9682679.0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0
 6548769,3/20/26,baseball,Rice,,Zachary Daigre,4,LF,11241234.0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -37871,7 +37865,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6525702,3/17/26,baseball,UTRGV,,Diego Villescas,4,SS,11231945.0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0
 6525702,3/17/26,baseball,UTRGV,,Ethan Edinger,7,PH/LF,11231903.0,2,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0
 6525702,3/17/26,baseball,UTRGV,,Austin Stracener,8,LF/SS,9695189.0,2,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0
-6525702,3/17/26,baseball,Rice,1.0,"Hiram Bocachica, Jr.",44,SS,9688254.0,3,2,2,0,1,4,0,1,1,0,0,0,1,0,0,0,0,0,0,0
 6525702,3/17/26,baseball,Rice,1.0,Colin Robson,10,LF,9697008.0,2,0,1,0,0,1,0,1,1,0,1,0,0,0,0,0,1,0,0,0
 6525702,3/17/26,baseball,Rice,1.0,Zachary Daigre,4,LF,11241234.0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6525702,3/17/26,baseball,Rice,1.0,JC Davis,3,2B,11241236.0,4,2,2,0,0,2,0,1,0,0,0,0,0,0,0,0,0,0,0,0
@@ -39962,7 +39955,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6483552,3/15/26,baseball,Troy,1.0,Sean Darnell,37,2B,9695114.0,4,1,1,1,0,2,0,0,0,0,0,0,1,0,0,0,0,0,0,0
 6483552,3/15/26,baseball,Troy,1.0,Nico Azpilcueta,40,PR,10204694.0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6483552,3/15/26,baseball,Troy,1.0,Nolan Book,4,SS,10204697.0,3,1,1,1,0,2,0,1,0,1,0,0,2,0,0,0,0,0,0,0
-6507208,3/15/26,baseball,Rice,,"Hiram Bocachica, Jr.",44,SS,9688254.0,2,1,1,0,0,1,0,0,2,0,0,1,0,0,0,0,1,0,0,0
 6507208,3/15/26,baseball,Rice,,Colin Robson,10,LF,9697008.0,3,1,1,1,0,2,0,0,0,1,0,1,0,0,0,0,0,0,0,0
 6507208,3/15/26,baseball,Rice,,JC Davis,3,2B,11241236.0,5,2,2,1,0,3,0,1,0,0,0,0,0,0,0,0,0,0,0,0
 6507208,3/15/26,baseball,Rice,,Paul Smith,16,DH,9699047.0,4,1,1,0,0,1,0,1,0,1,0,0,0,0,0,0,0,0,0,0
@@ -44566,7 +44558,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6437839,3/14/26,baseball,Cal St. Fullerton,1.0,Andrew Kirchner,19,1B,9683615.0,2,2,1,0,0,4,1,1,1,0,0,1,1,0,0,0,0,0,1,0
 6437839,3/14/26,baseball,Cal St. Fullerton,1.0,Bren Wilkinson,39,DH,11232697.0,4,0,1,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0
 6437839,3/14/26,baseball,Cal St. Fullerton,1.0,Cam Burdick,2,CF,9699663.0,3,1,1,1,0,2,0,1,0,1,0,0,0,0,0,0,0,0,0,0
-6482807,3/14/26,baseball,Rice,,"Hiram Bocachica, Jr.",44,SS,9688254.0,5,1,1,1,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6482807,3/14/26,baseball,Rice,,Colin Robson,10,LF,9697008.0,4,1,0,0,0,0,0,0,0,1,0,0,2,0,0,0,1,0,0,0
 6482807,3/14/26,baseball,Rice,,Zachary Daigre,4,LF,11241234.0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6482807,3/14/26,baseball,Rice,,JC Davis,3,2B,11241236.0,3,1,0,0,0,0,0,1,1,0,1,0,1,0,0,0,0,0,0,0
@@ -45841,7 +45832,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6507203,3/13/26,baseball,Saint Mary's (CA),,Brett Williams,19,DH,9705242.0,3,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0
 6507203,3/13/26,baseball,Saint Mary's (CA),,Jared Mettam,45,SS,9681962.0,4,0,3,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6507203,3/13/26,baseball,Saint Mary's (CA),,Cody Kashimoto,4,2B,9683204.0,4,1,2,1,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-6507203,3/13/26,baseball,Rice,1.0,"Hiram Bocachica, Jr.",44,SS,9688254.0,4,0,1,1,0,2,0,0,0,1,0,0,1,0,0,0,0,0,1,0
 6507203,3/13/26,baseball,Rice,1.0,Colin Robson,10,LF,9697008.0,4,0,1,1,0,2,0,0,0,0,0,0,2,0,0,0,0,0,2,0
 6507203,3/13/26,baseball,Rice,1.0,Landon West,28,PH,9682679.0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0
 6507203,3/13/26,baseball,Rice,1.0,Zachary Daigre,4,PR,11241234.0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -47581,7 +47571,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6491900,3/13/26,baseball,California Baptist,1.0,Cole Howarth,12,1B,11212973.0,2,1,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0
 6491900,3/13/26,baseball,California Baptist,1.0,Carter Eberhard,2,1B,9686656.0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6491900,3/13/26,baseball,California Baptist,1.0,Ryder Dykstra,5,DH,11212950.0,2,0,2,1,0,3,0,4,1,0,1,0,0,0,0,0,1,0,0,0
-6482805,3/13/26,baseball,Rice,,"Hiram Bocachica, Jr.",44,SS,9688254.0,5,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0
 6482805,3/13/26,baseball,Rice,,Colin Robson,10,LF/RF,9697008.0,4,3,3,2,0,5,0,0,0,1,0,0,0,0,1,0,0,0,0,0
 6482805,3/13/26,baseball,Rice,,Landis Davila,5,PH/CF,11241235.0,1,1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6482805,3/13/26,baseball,Rice,,Cole Green,2,CF,9704694.0,3,3,1,0,0,1,0,0,2,0,0,0,2,0,0,0,0,0,0,0
@@ -53765,7 +53754,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6512750,3/08/26,baseball,Rice,,Landon West,28,PH/1B,9682679.0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0
 6512750,3/08/26,baseball,Rice,,Garet Boehm,21,1B/3B,11241230.0,3,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0
 6512750,3/08/26,baseball,Rice,,Lorenzo Rios,12,C,9677324.0,3,0,1,1,0,2,0,0,1,0,0,0,0,0,0,0,0,0,0,0
-6512750,3/08/26,baseball,Rice,,"Hiram Bocachica, Jr.",44,SS,9688254.0,4,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0
 6512750,3/08/26,baseball,Rice,,Jacob Devenny,24,LF,9699691.0,2,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0
 6512750,3/08/26,baseball,Rice,,Mason Ashlock,27,PH,11241227.0,1,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6512750,3/08/26,baseball,Rice,,Masa Chilcutt,1,2B,11241233.0,3,1,1,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0
@@ -57199,7 +57187,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6512748,3/07/26,baseball,Rice,,Garet Boehm,21,1B,11241230.0,4,1,1,1,0,2,0,3,0,0,1,0,1,0,0,0,0,0,0,0
 6512748,3/07/26,baseball,Rice,,Lorenzo Rios,12,C,9677324.0,2,0,0,0,0,0,0,0,1,1,0,0,1,0,0,0,1,0,0,0
 6512748,3/07/26,baseball,Rice,,Zachary Daigre,4,PR/LF,11241234.0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0
-6512748,3/07/26,baseball,Rice,,"Hiram Bocachica, Jr.",44,SS,9688254.0,3,1,0,0,0,0,0,0,2,0,0,0,1,0,0,0,0,0,0,0
 6512748,3/07/26,baseball,Rice,,Jacob Devenny,24,LF,9699691.0,2,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0
 6512748,3/07/26,baseball,Rice,,Landon West,28,PH/C,9682679.0,1,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0
 6512748,3/07/26,baseball,Rice,,Masa Chilcutt,1,2B,11241233.0,2,1,0,0,0,0,0,1,0,1,1,0,0,0,0,0,0,0,0,0
@@ -60652,7 +60639,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6512746,3/06/26,baseball,Rice,,Kutter-Gage Webb,8,3B,11241245.0,3,0,1,0,0,1,0,0,0,0,0,1,1,0,0,0,0,0,0,0
 6512746,3/06/26,baseball,Rice,,Cole Green,2,CF,9704694.0,3,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0
 6512746,3/06/26,baseball,Rice,,Garet Boehm,21,1B,11241230.0,4,0,1,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0
-6512746,3/06/26,baseball,Rice,,"Hiram Bocachica, Jr.",44,SS,9688254.0,4,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0
 6512746,3/06/26,baseball,Rice,,Lorenzo Rios,12,C,9677324.0,3,0,2,1,0,3,0,0,0,0,0,0,1,0,0,0,0,0,0,0
 6512746,3/06/26,baseball,Rice,,Zachary Daigre,4,PR,11241234.0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0
 6512746,3/06/26,baseball,Rice,,Landon West,28,C,9682679.0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0
@@ -62697,7 +62683,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6503369,3/04/26,baseball,Rice,,Kutter-Gage Webb,8,3B,11241245.0,3,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0
 6503369,3/04/26,baseball,Rice,,Cole Green,2,CF,9704694.0,5,0,2,0,0,2,0,0,0,0,0,0,0,0,0,0,1,0,0,0
 6503369,3/04/26,baseball,Rice,,Lorenzo Rios,12,C,9677324.0,3,0,1,0,0,1,0,0,0,2,0,0,1,0,0,0,0,0,0,0
-6503369,3/04/26,baseball,Rice,,"Hiram Bocachica, Jr.",44,SS,9688254.0,3,1,0,0,0,0,0,0,2,0,0,0,1,0,0,0,0,0,0,0
 6503369,3/04/26,baseball,Rice,,Garet Boehm,21,1B,11241230.0,2,0,0,0,0,0,0,0,1,0,0,1,1,0,0,0,0,0,0,0
 6503369,3/04/26,baseball,Rice,,Masa Chilcutt,1,LF,11241233.0,1,1,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0
 6503369,3/04/26,baseball,Rice,,Zachary Daigre,4,LF,11241234.0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0
@@ -65492,7 +65477,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6491894,3/01/26,baseball,Rice,1.0,Kutter-Gage Webb,8,3B,11241245.0,3,1,1,1,0,2,0,2,0,0,1,0,0,0,0,0,0,0,0,0
 6491894,3/01/26,baseball,Rice,1.0,Garet Boehm,21,1B,11241230.0,4,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6491894,3/01/26,baseball,Rice,1.0,Lorenzo Rios,12,C,9677324.0,3,1,1,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0
-6491894,3/01/26,baseball,Rice,1.0,"Hiram Bocachica, Jr.",44,SS,9688254.0,3,0,0,0,0,0,0,1,1,0,0,0,1,1,0,0,0,0,0,0
 6491894,3/01/26,baseball,Rice,1.0,Landis Davila,5,RF,11241235.0,3,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0
 6491894,3/01/26,baseball,Rice,1.0,Jacob Devenny,24,PH,9699691.0,1,0,1,0,0,1,0,2,0,0,0,0,0,0,0,0,0,0,0,0
 6491894,3/01/26,baseball,Rice,1.0,Zachary Daigre,4,LF,11241234.0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -71008,7 +70992,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6491893,2/28/26,baseball,Rice,1.0,Kutter-Gage Webb,8,3B,11241245.0,2,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0
 6491893,2/28/26,baseball,Rice,1.0,Masa Chilcutt,1,PH,11241233.0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0
 6491893,2/28/26,baseball,Rice,1.0,Aric Anderson,18,C,9692926.0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-6491893,2/28/26,baseball,Rice,1.0,"Hiram Bocachica, Jr.",44,SS,9688254.0,2,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0
 6491893,2/28/26,baseball,Rice,1.0,Mason Ashlock,27,RF,11241227.0,3,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6491893,2/28/26,baseball,Rice,1.0,Garet Boehm,21,1B,11241230.0,3,1,1,0,0,4,1,1,0,0,0,0,1,0,0,0,0,0,0,0
 6486629,2/28/26,baseball,Eastern Ky.,,Pedro Moreno,1,SS,11221989.0,5,1,1,0,0,1,0,1,1,0,0,0,1,0,1,0,1,0,0,0
@@ -74463,7 +74446,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6491891,2/27/26,baseball,Rice,1.0,Landis Davila,5,RF,11241235.0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6491891,2/27/26,baseball,Rice,1.0,Cole Green,2,3B,9704694.0,4,1,2,0,0,5,1,3,0,1,0,0,0,0,0,0,0,0,0,0
 6491891,2/27/26,baseball,Rice,1.0,Kutter-Gage Webb,8,1B,11241245.0,3,0,0,0,0,0,0,0,2,0,0,0,2,0,0,0,1,0,0,0
-6491891,2/27/26,baseball,Rice,1.0,"Hiram Bocachica, Jr.",44,SS,9688254.0,4,1,1,0,0,1,0,0,1,0,0,0,1,0,0,0,1,0,0,0
 6491891,2/27/26,baseball,Rice,1.0,Jacob Devenny,24,LF,9699691.0,4,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0
 6491891,2/27/26,baseball,Rice,1.0,Zachary Daigre,4,CF,11241234.0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6491891,2/27/26,baseball,Rice,1.0,Aric Anderson,18,C,9692926.0,3,1,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0
@@ -77504,7 +77486,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6529363,2/24/26,baseball,Houston Christian,,Nico Defazio,1,SS,11236322.0,2,1,0,0,0,0,0,0,0,1,0,1,1,0,0,0,0,0,0,0
 6529363,2/24/26,baseball,Houston Christian,,Zach Munton,4,PH/C,11236331.0,0,1,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0
 6529363,2/24/26,baseball,Houston Christian,,Tyree Jackson,14,CF,11236326.0,5,2,2,0,0,5,1,4,1,0,0,0,2,0,0,0,0,0,0,0
-6529363,2/24/26,baseball,Rice,1.0,"Hiram Bocachica, Jr.",44,SS,9688254.0,4,2,1,0,0,1,0,0,2,0,0,0,0,0,0,0,0,0,0,0
 6529363,2/24/26,baseball,Rice,1.0,JC Davis,3,2B,11241236.0,4,2,3,1,0,7,1,4,2,0,0,0,0,0,0,0,0,0,0,0
 6529363,2/24/26,baseball,Rice,1.0,Cole Green,2,3B,9704694.0,5,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0
 6529363,2/24/26,baseball,Rice,1.0,Michael Zito,7,DH,9698952.0,3,1,1,0,0,1,0,1,0,1,0,0,0,0,0,0,1,0,0,0
@@ -80050,7 +80031,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6536068,2/22/26,baseball,Florida St.,1.0,John Stuetzer,9,RF,11248162.0,3,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0
 6536068,2/22/26,baseball,Florida St.,1.0,Chase Williams,1,CF,9702164.0,2,0,0,0,0,0,0,0,1,0,0,0,1,0,1,0,1,0,0,0
 6536068,2/22/26,baseball,Florida St.,1.0,Carter McCulley,2,2B,9688672.0,3,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0
-6539453,2/22/26,baseball,Rice,,"Hiram Bocachica, Jr.",44,SS,9688254.0,5,0,1,0,0,1,0,1,0,0,0,0,2,0,0,0,0,0,0,0
 6539453,2/22/26,baseball,Rice,,Kutter-Gage Webb,8,1B/3B,11241245.0,3,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0
 6539453,2/22/26,baseball,Rice,,Masa Chilcutt,1,PH,11241233.0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0
 6539453,2/22/26,baseball,Rice,,JC Davis,3,2B,11241236.0,5,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -84566,7 +84546,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6512608,2/21/26,baseball,Nebraska,1.0,Devin Nunez,16,CF,9678966.0,2,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0
 6512608,2/21/26,baseball,Nebraska,1.0,Max Buettenback,11,PH/RF,9679046.0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0
 6512608,2/21/26,baseball,Nebraska,1.0,Jeter Worthley,0,C,11236993.0,4,1,1,1,0,2,0,0,0,0,0,0,1,0,0,0,0,0,0,0
-6539451,2/21/26,baseball,Rice,,"Hiram Bocachica, Jr.",44,SS,9688254.0,4,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,2,0
 6539451,2/21/26,baseball,Rice,,Kutter-Gage Webb,8,1B,11241245.0,4,0,0,0,0,0,0,0,0,0,0,0,3,0,0,0,0,0,2,0
 6539451,2/21/26,baseball,Rice,,JC Davis,3,2B,11241236.0,3,1,2,0,0,2,0,0,1,0,0,0,0,0,0,0,0,0,0,0
 6539451,2/21/26,baseball,Rice,,Cole Green,2,3B,9704694.0,3,0,0,0,0,0,0,0,0,0,0,1,2,0,0,0,0,0,1,0
@@ -87843,7 +87822,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6527092,2/20/26,baseball,Santa Clara,1.0,Luke Devine,24,LF/RF,9700049.0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0
 6527092,2/20/26,baseball,Santa Clara,1.0,Camden Sos,54,3B,11239653.0,4,0,0,0,0,0,0,0,0,0,0,0,2,1,0,0,0,0,1,0
 6527092,2/20/26,baseball,Santa Clara,1.0,Andrew Rayment,27,CF,9702030.0,2,1,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0
-6539449,2/20/26,baseball,Rice,,"Hiram Bocachica, Jr.",44,SS,9688254.0,2,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0
 6539449,2/20/26,baseball,Rice,,JC Davis,3,2B,11241236.0,4,0,1,0,0,1,0,0,0,0,0,0,2,0,0,0,0,0,1,0
 6539449,2/20/26,baseball,Rice,,Cole Green,2,3B,9704694.0,4,0,1,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0
 6539449,2/20/26,baseball,Rice,,Paul Smith,16,DH,9699047.0,3,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0
@@ -88959,7 +88937,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6496624,2/18/26,baseball,Rice,1.0,JC Davis,3,2B,11241236.0,3,0,2,2,0,4,0,0,1,0,0,0,0,0,0,0,0,0,0,0
 6496624,2/18/26,baseball,Rice,1.0,Cole Green,2,3B,9704694.0,4,1,3,0,0,6,1,1,0,0,0,0,0,0,0,0,0,0,0,0
 6496624,2/18/26,baseball,Rice,1.0,Paul Smith,16,DH,9699047.0,4,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,0
-6496624,2/18/26,baseball,Rice,1.0,"Hiram Bocachica, Jr.",44,SS,9688254.0,4,1,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,0
 6496624,2/18/26,baseball,Rice,1.0,Kutter-Gage Webb,8,1B,11241245.0,4,1,2,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6496624,2/18/26,baseball,Rice,1.0,Jacob Devenny,24,LF,9699691.0,4,0,1,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0
 6496624,2/18/26,baseball,Rice,1.0,Lorenzo Rios,12,C,9677324.0,3,0,1,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0
@@ -90454,7 +90431,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6515473,2/17/26,baseball,Rice,1.0,Mason Ashlock,27,RF,11241227.0,2,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,1,0
 6515473,2/17/26,baseball,Rice,1.0,Landis Davila,5,PR/CF,11241235.0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0
 6515473,2/17/26,baseball,Rice,1.0,Kutter-Gage Webb,8,1B,11241245.0,4,0,1,0,0,1,0,0,0,0,0,0,2,0,0,0,0,0,0,0
-6515473,2/17/26,baseball,Rice,1.0,"Hiram Bocachica, Jr.",44,SS,9688254.0,3,0,1,0,0,1,0,0,1,0,0,0,1,0,0,0,0,0,1,0
 6515473,2/17/26,baseball,Rice,1.0,Aric Anderson,18,C,9692926.0,3,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6515473,2/17/26,baseball,Rice,1.0,Zachary Daigre,4,CF,11241234.0,1,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0
 6515473,2/17/26,baseball,Rice,1.0,Garet Boehm,21,PH,11241230.0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0
@@ -92123,7 +92099,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6519174,2/15/26,baseball,Rice,1.0,Cole Green,2,CF,9704694.0,3,1,1,1,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6519174,2/15/26,baseball,Rice,1.0,Kutter-Gage Webb,8,3B,11241245.0,2,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0
 6519174,2/15/26,baseball,Rice,1.0,Landon West,28,C,9682679.0,3,0,1,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0
-6519174,2/15/26,baseball,Rice,1.0,"Hiram Bocachica, Jr.",44,SS,9688254.0,1,0,0,0,0,0,0,1,0,1,1,0,0,0,0,0,0,0,0,0
 6519174,2/15/26,baseball,Rice,1.0,Garet Boehm,21,1B,11241230.0,3,1,1,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0
 6508867,2/15/26,baseball,Toledo,,Cade Baker,7,RF,11229479.0,5,1,2,1,0,3,0,0,0,0,0,0,1,0,0,0,0,0,0,0
 6508867,2/15/26,baseball,Toledo,,Charlie Scholvin,5,SS,9685665.0,3,0,1,0,0,1,0,1,0,0,0,1,0,0,0,0,0,0,0,0
@@ -98715,7 +98690,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6519134,2/13/26,baseball,Rice,1.0,Landis Davila,5,RF,11241235.0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6519134,2/13/26,baseball,Rice,1.0,Cole Green,2,3B,9704694.0,4,1,1,1,0,2,0,1,0,0,0,0,0,0,0,0,0,0,0,0
 6519134,2/13/26,baseball,Rice,1.0,Kutter-Gage Webb,8,1B,11241245.0,4,1,2,0,0,5,1,2,0,0,0,0,0,0,0,0,0,0,0,0
-6519134,2/13/26,baseball,Rice,1.0,"Hiram Bocachica, Jr.",44,SS,9688254.0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6519134,2/13/26,baseball,Rice,1.0,Lorenzo Rios,12,C,9677324.0,2,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6519134,2/13/26,baseball,Rice,1.0,Garet Boehm,21,PH,11241230.0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6519134,2/13/26,baseball,Rice,1.0,Landon West,28,C,9682679.0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0
@@ -100575,7 +100549,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6519137,2/13/26,baseball,Rice,1.0,Tobias Motley,13,PR/RF,9677766.0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6519137,2/13/26,baseball,Rice,1.0,Cole Green,2,3B,9704694.0,3,1,1,0,0,1,0,0,0,1,0,0,0,0,0,0,2,0,0,0
 6519137,2/13/26,baseball,Rice,1.0,Kutter-Gage Webb,8,1B,11241245.0,3,0,1,0,0,1,0,2,0,0,0,1,0,0,0,0,0,0,0,0
-6519137,2/13/26,baseball,Rice,1.0,"Hiram Bocachica, Jr.",44,SS,9688254.0,3,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0
 6519137,2/13/26,baseball,Rice,1.0,Aric Anderson,18,C,9692926.0,2,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0
 6519137,2/13/26,baseball,Rice,1.0,Garet Boehm,21,PH,11241230.0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0
 6519137,2/13/26,baseball,Rice,1.0,Michael Zito,7,PR,9698952.0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -103750,7 +103723,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6517636,4/07/26,baseball,Tuskegee,,Jabari Johnson,10,LF,9678404.0,4,0,1,0,0,1,0,1,0,1,0,0,1,1,0,0,0,0,0,0
 6517636,4/07/26,baseball,Tuskegee,,Jacobi Brooks,0,RF,9685554.0,4,2,2,0,0,2,0,2,1,0,0,0,2,0,0,0,2,0,1,0
 6517636,4/07/26,baseball,Tuskegee,,Chris Smith,12,3B,9677412.0,3,1,0,0,0,0,0,0,1,0,0,1,2,1,0,0,0,0,1,0
-6517636,4/07/26,baseball,Tuskegee,,"Christopher Mayo, Jr.",34,1B,11226602.0,4,0,2,1,0,3,0,3,1,0,0,0,1,0,0,0,0,0,0,0
 6517636,4/07/26,baseball,Tuskegee,,Willie Relliford III,28,C,11226627.0,5,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0
 6517636,4/07/26,baseball,Tuskegee,,Mehki Smith,3,SS,9686880.0,1,1,0,0,0,0,0,0,3,0,0,0,1,0,0,0,1,0,0,0
 6517636,4/07/26,baseball,Alabama A&M,1.0,Miles Jackson,7,LF,9702682.0,5,1,1,0,0,1,0,2,1,0,0,0,0,1,0,0,1,0,0,0
@@ -105336,7 +105308,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6549424,4/07/26,baseball,Rice,1.0,JC Davis,3,2B/3B,11241236.0,6,3,5,2,0,7,0,2,0,0,0,0,0,0,0,0,0,0,0,0
 6549424,4/07/26,baseball,Rice,1.0,Paul Smith,16,DH,9699047.0,3,2,2,0,0,5,1,2,2,0,0,0,1,0,0,0,0,0,1,0
 6549424,4/07/26,baseball,Rice,1.0,Zachary Daigre,4,PH/DH,11241234.0,1,1,1,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0
-6549424,4/07/26,baseball,Rice,1.0,"Hiram Bocachica, Jr.",44,SS,9688254.0,6,2,3,0,0,3,0,2,0,0,0,0,0,1,0,0,0,0,0,0
 6549424,4/07/26,baseball,Rice,1.0,Kutter-Gage Webb,8,1B,11241245.0,3,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6549424,4/07/26,baseball,Rice,1.0,Garet Boehm,21,PH/1B,11241230.0,3,0,1,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0
 6549424,4/07/26,baseball,Rice,1.0,Lorenzo Rios,12,C,9677324.0,1,3,1,1,0,2,0,0,2,0,0,0,0,0,0,0,0,0,0,0
@@ -107570,7 +107541,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6536446,4/10/26,baseball,Rice,,Colin Robson,10,LF/RF,9697008.0,3,2,2,0,0,2,0,0,2,0,0,0,0,0,1,0,0,0,0,0
 6536446,4/10/26,baseball,Rice,,JC Davis,3,2B,11241236.0,5,1,3,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6536446,4/10/26,baseball,Rice,,Paul Smith,16,DH,9699047.0,3,1,1,0,0,1,0,2,1,0,1,0,1,0,0,0,0,0,1,0
-6536446,4/10/26,baseball,Rice,,"Hiram Bocachica, Jr.",44,SS,9688254.0,5,1,2,1,0,6,1,3,0,0,0,0,1,1,0,0,0,0,1,0
 6536446,4/10/26,baseball,Rice,,Kutter-Gage Webb,8,1B,11241245.0,3,1,0,0,0,0,0,1,1,1,0,0,2,0,0,0,0,0,1,0
 6536446,4/10/26,baseball,Rice,,Lorenzo Rios,12,C,9677324.0,3,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0
 6536446,4/10/26,baseball,Rice,,Trey Duffield,9,RF,9681156.0,3,0,0,0,0,0,0,0,0,0,0,0,3,0,0,0,0,0,2,0
@@ -111449,7 +111419,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6536451,4/11/26,baseball,Rice,,Colin Robson,10,RF,9697008.0,5,1,3,0,1,5,0,1,0,0,0,0,1,0,1,0,0,0,1,0
 6536451,4/11/26,baseball,Rice,,JC Davis,3,2B,11241236.0,3,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0
 6536451,4/11/26,baseball,Rice,,Paul Smith,16,DH,9699047.0,4,1,1,0,0,4,1,1,1,0,0,0,0,0,0,0,0,1,0,0
-6536451,4/11/26,baseball,Rice,,"Hiram Bocachica, Jr.",44,SS,9688254.0,3,1,2,0,0,2,0,1,2,0,0,0,0,0,0,0,1,0,0,0
 6536451,4/11/26,baseball,Rice,,Kutter-Gage Webb,8,1B,11241245.0,5,0,1,1,0,2,0,0,0,0,0,0,1,0,0,0,0,0,1,0
 6536451,4/11/26,baseball,Rice,,Jacob Devenny,24,LF,9699691.0,5,0,1,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0
 6536451,4/11/26,baseball,Rice,,Zachary Daigre,4,LF,11241234.0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -113807,7 +113776,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6536455,4/12/26,baseball,Rice,,Colin Robson,10,RF/LF,9697008.0,4,2,1,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0
 6536455,4/12/26,baseball,Rice,,JC Davis,3,2B,11241236.0,5,0,2,0,0,2,0,1,0,0,0,0,0,0,0,0,0,0,0,0
 6536455,4/12/26,baseball,Rice,,Paul Smith,16,DH,9699047.0,4,0,2,0,0,2,0,2,0,0,0,0,0,1,0,0,0,0,0,0
-6536455,4/12/26,baseball,Rice,,"Hiram Bocachica, Jr.",44,SS,9688254.0,3,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0
 6536455,4/12/26,baseball,Rice,,Kutter-Gage Webb,8,1B,11241245.0,4,0,0,0,0,0,0,0,0,0,0,0,3,0,0,0,0,0,1,0
 6536455,4/12/26,baseball,Rice,,Jacob Devenny,24,LF,9699691.0,2,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,2,0
 6536455,4/12/26,baseball,Rice,,Masa Chilcutt,1,PH,11241233.0,1,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -124840,7 +124808,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6495353,4/24/26,baseball,Rice,,Lorenzo Rios,12,C,9677324.0,3,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0
 6495353,4/24/26,baseball,Rice,,Aric Anderson,18,PH,9692926.0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0
 6495353,4/24/26,baseball,Rice,,JC Davis,3,2B,11241236.0,2,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-6495353,4/24/26,baseball,Rice,,"Hiram Bocachica, Jr.",44,PH,9688254.0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6495353,4/24/26,baseball,Rice,,Masa Chilcutt,1,2B,11241233.0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6495353,4/24/26,baseball,Rice,,Garet Boehm,21,PH,11241230.0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6495353,4/24/26,baseball,Rice,,Zachary Daigre,4,LF,11241234.0,4,1,3,0,0,3,0,0,0,0,0,0,0,0,0,0,1,0,0,0
@@ -128506,7 +128473,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6526954,4/21/26,baseball,Rice,1.0,Landon West,28,PH,9682679.0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6526954,4/21/26,baseball,Rice,1.0,Paul Smith,16,DH,9699047.0,3,0,1,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0
 6526954,4/21/26,baseball,Rice,1.0,Aric Anderson,18,C,9692926.0,3,0,0,0,0,0,0,0,1,0,0,0,2,0,0,0,0,0,2,0
-6526954,4/21/26,baseball,Rice,1.0,"Hiram Bocachica, Jr.",44,SS,9688254.0,4,1,2,1,0,3,0,0,0,0,0,0,1,0,0,0,0,0,0,0
 6526954,4/21/26,baseball,Rice,1.0,Kutter-Gage Webb,8,1B,11241245.0,4,1,1,0,0,1,0,1,0,0,0,0,2,0,0,0,0,0,0,0
 6526954,4/21/26,baseball,Rice,1.0,Jacob Devenny,24,LF,9699691.0,2,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0
 6526954,4/21/26,baseball,Rice,1.0,Garet Boehm,21,PH,11241230.0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0
@@ -131049,7 +131015,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6508904,4/19/26,baseball,Rice,1.0,Garet Boehm,21,1B,11241230.0,3,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0
 6508904,4/19/26,baseball,Rice,1.0,Masa Chilcutt,1,2B,11241233.0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0
 6508904,4/19/26,baseball,Rice,1.0,Landon West,28,PH,9682679.0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-6508904,4/19/26,baseball,Rice,1.0,"Hiram Bocachica, Jr.",44,SS,9688254.0,5,1,1,0,1,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6508904,4/19/26,baseball,Rice,1.0,Kutter-Gage Webb,8,2B/1B,11241245.0,4,1,1,1,0,2,0,1,0,0,0,0,0,0,0,0,0,0,0,0
 6508904,4/19/26,baseball,Rice,1.0,Michael Zito,7,LF,9698952.0,3,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0
 6508904,4/19/26,baseball,Rice,1.0,Zachary Daigre,4,LF,11241234.0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0
@@ -132474,7 +132439,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6508902,4/18/26,baseball,Rice,1.0,Michael Zito,7,LF,9698952.0,5,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0
 6508902,4/18/26,baseball,Rice,1.0,Zachary Daigre,4,LF,11241234.0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6508902,4/18/26,baseball,Rice,1.0,Paul Smith,16,1B,9699047.0,3,2,1,0,0,4,1,1,2,0,0,0,1,0,0,0,0,0,1,0
-6508902,4/18/26,baseball,Rice,1.0,"Hiram Bocachica, Jr.",44,SS,9688254.0,4,0,3,1,0,4,0,0,0,1,0,0,0,0,0,0,0,0,0,0
 6508902,4/18/26,baseball,Rice,1.0,Landon West,28,DH,9682679.0,4,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0
 6508902,4/18/26,baseball,Rice,1.0,Aric Anderson,18,C,9692926.0,2,1,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0
 6508902,4/18/26,baseball,Rice,1.0,Jacob Devenny,24,PH,9699691.0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0
@@ -137840,7 +137804,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6508901,4/17/26,baseball,Rice,1.0,Colin Robson,10,RF,9697008.0,3,1,2,2,0,4,0,0,1,0,0,0,0,0,0,0,1,0,0,0
 6508901,4/17/26,baseball,Rice,1.0,JC Davis,3,2B,11241236.0,4,0,1,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0
 6508901,4/17/26,baseball,Rice,1.0,Paul Smith,16,DH,9699047.0,3,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0
-6508901,4/17/26,baseball,Rice,1.0,"Hiram Bocachica, Jr.",44,SS,9688254.0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6508901,4/17/26,baseball,Rice,1.0,Kutter-Gage Webb,8,1B/3B,11241245.0,3,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0
 6508901,4/17/26,baseball,Rice,1.0,Jacob Devenny,24,LF,9699691.0,4,0,1,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0
 6508901,4/17/26,baseball,Rice,1.0,Lorenzo Rios,12,C,9677324.0,2,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0
@@ -139033,7 +138996,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6547529,4/15/26,baseball,Rice,1.0,Colin Robson,10,RF,9697008.0,1,0,0,0,0,0,0,0,2,0,0,1,0,0,0,0,0,0,0,0
 6547529,4/15/26,baseball,Rice,1.0,JC Davis,3,2B,11241236.0,3,1,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0
 6547529,4/15/26,baseball,Rice,1.0,Paul Smith,16,DH,9699047.0,4,1,2,0,0,2,0,1,0,0,0,0,0,0,0,0,0,0,0,0
-6547529,4/15/26,baseball,Rice,1.0,"Hiram Bocachica, Jr.",44,SS,9688254.0,4,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0
 6547529,4/15/26,baseball,Rice,1.0,Kutter-Gage Webb,8,1B,11241245.0,3,1,1,0,0,4,1,3,0,0,0,0,0,0,0,0,0,0,0,0
 6547529,4/15/26,baseball,Rice,1.0,Mason Ashlock,27,PH,11241227.0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0
 6547529,4/15/26,baseball,Rice,1.0,Zachary Daigre,4,LF,11241234.0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0

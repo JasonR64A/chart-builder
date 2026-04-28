@@ -1932,7 +1932,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6526055,4/16/26,baseball,Mary Hardin-Baylor,,Nolan Williams,6.0,LF,9703662,5,0,5,0,0,0,0,0,0,0,0.0
 6526055,4/16/26,baseball,Mary Hardin-Baylor,,Landon Pyles,13.0,2B,11220117,0,1,1,0,0,0,0,0,0,0,0.0
 6526055,4/16/26,baseball,Mary Hardin-Baylor,,Austin Birkhoff,2.0,DH,9680220,0,0,0,0,0,0,0,0,0,0,0.0
-6526055,4/16/26,baseball,Mary Hardin-Baylor,,"Jasson Hemmerling, Jr.",0.0,C,11220106,4,1,5,0,0,0,2,1,0,0,0.667
 6526055,4/16/26,baseball,Mary Hardin-Baylor,,Braden Fuentes,45.0,PH,11220140,0,0,0,0,0,0,0,0,0,0,0.0
 6526055,4/16/26,baseball,Mary Hardin-Baylor,,Jacob Newland,12.0,C,11220115,1,0,1,0,0,0,0,0,0,0,0.0
 6526055,4/16/26,baseball,Mary Hardin-Baylor,,Tyler Martin,3.0,RF,11220108,1,0,1,0,0,0,0,0,0,0,0.0
@@ -9361,7 +9360,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6526048,4/03/26,baseball,Mary Hardin-Baylor,,Austin Birkhoff,2.0,2B,9680220,1,2,3,0,0,0,0,0,0,0,0.0
 6526048,4/03/26,baseball,Mary Hardin-Baylor,,Chris Perez,5.0,2B,11220109,0,1,1,0,0,0,0,0,0,0,0.0
 6526048,4/03/26,baseball,Mary Hardin-Baylor,,Tyler Martin,3.0,DH,11220108,0,0,0,0,0,0,0,0,0,0,0.0
-6526048,4/03/26,baseball,Mary Hardin-Baylor,,"Jasson Hemmerling, Jr.",0.0,C,11220106,6,0,6,0,0,1,0,0,0,0,0.0
 6526048,4/03/26,baseball,Mary Hardin-Baylor,,Jacob Newland,12.0,C,11220115,1,0,1,0,0,0,0,0,0,0,0.0
 6526048,4/03/26,baseball,Mary Hardin-Baylor,,Tyler Betts,51.0,LF,9681361,2,0,2,0,0,0,0,0,0,0,0.0
 6526048,4/03/26,baseball,Mary Hardin-Baylor,,John Van Huis,15.0,CF,9697527,0,0,0,0,0,0,0,0,0,0,0.0
@@ -35366,7 +35364,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6523204,3/21/26,baseball,Mary Hardin-Baylor,,Nolan Williams,6.0,LF,9703662,1,0,1,0,0,0,0,0,0,0,0.0
 6523204,3/21/26,baseball,Mary Hardin-Baylor,,Braden Fuentes,45.0,RF,11220140,2,0,2,0,0,0,0,0,0,0,0.0
 6523204,3/21/26,baseball,Mary Hardin-Baylor,,Austin Birkhoff,2.0,2B,9680220,3,2,5,0,0,0,0,0,0,0,0.0
-6523204,3/21/26,baseball,Mary Hardin-Baylor,,"Jasson Hemmerling, Jr.",0.0,C,11220106,8,2,10,0,0,2,3,1,0,0,0.75
 6523204,3/21/26,baseball,Mary Hardin-Baylor,,Tyler Martin,3.0,DH,11220108,0,0,0,0,0,0,0,0,0,0,0.0
 6523204,3/21/26,baseball,Texas Lutheran,1.0,Chase Bourgeois,3.0,SS,9693134,3,2,5,0,0,0,0,0,0,0,0.0
 6523204,3/21/26,baseball,Texas Lutheran,1.0,Cooper Jen,2.0,2B,9698054,2,1,3,0,0,0,0,0,0,0,0.0
@@ -52160,7 +52157,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6526040,3/14/26,baseball,Mary Hardin-Baylor,1.0,Austin Birkhoff,2.0,2B,9680220,4,2,7,1,0,0,0,0,0,0,0.0
 6526040,3/14/26,baseball,Mary Hardin-Baylor,1.0,Chris Perez,5.0,2B,11220109,0,0,0,0,0,0,0,0,0,0,0.0
 6526040,3/14/26,baseball,Mary Hardin-Baylor,1.0,Braden Fuentes,45.0,PH,11220140,0,0,0,0,0,0,0,0,0,0,0.0
-6526040,3/14/26,baseball,Mary Hardin-Baylor,1.0,"Jasson Hemmerling, Jr.",0.0,C,11220106,4,0,4,0,0,0,1,0,0,0,1.0
 6526040,3/14/26,baseball,Mary Hardin-Baylor,1.0,Jesse Hemmerling,1.0,PR,9704010,0,0,0,0,0,0,0,0,0,0,0.0
 6526040,3/14/26,baseball,Mary Hardin-Baylor,1.0,Josh O'Malley,42.0,C,11220137,1,0,2,1,0,0,0,0,0,0,0.0
 6526040,3/14/26,baseball,Mary Hardin-Baylor,1.0,Landon Pyles,13.0,PH,11220117,0,0,0,0,0,0,0,0,0,0,0.0
@@ -54877,7 +54873,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6542117,3/13/26,baseball,JWU (Providence),1.0,Jeff Valdez Jimenez,2.0,3B,9692703,0,2,3,1,0,0,0,0,0,0,0.0
 6542117,3/13/26,baseball,JWU (Providence),1.0,Justin Hernandez,48.0,1B,11254150,11,0,12,1,0,0,0,0,0,0,0.0
 6542117,3/13/26,baseball,JWU (Providence),1.0,Chris Rosales,40.0,LF,11254164,1,0,1,0,0,0,0,0,0,0,0.0
-6542117,3/13/26,baseball,JWU (Providence),1.0,"Carlo Acquisto, Jr.",12.0,PH,9703359,0,0,0,0,0,0,0,0,0,0,0.0
 6542117,3/13/26,baseball,JWU (Providence),1.0,Jeremy Auren,3.0,RF,9702120,1,0,1,0,0,0,0,0,0,0,0.0
 6542117,3/13/26,baseball,JWU (Providence),1.0,Jack Dwyer,21.0,DH,11254178,0,0,0,0,0,0,0,0,0,0,0.0
 6542117,3/13/26,baseball,JWU (Providence),1.0,Diego Taveras,7.0,C,9703870,9,3,12,0,0,1,3,2,0,0,0.6
@@ -55516,7 +55511,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6547019,3/13/26,baseball,JWU (Providence),,Diego Taveras,7.0,C,9703870,1,1,2,0,0,0,2,1,0,0,0.667
 6547019,3/13/26,baseball,JWU (Providence),,Jeremy Auren,3.0,RF,9702120,3,0,3,0,0,0,0,0,0,0,0.0
 6547019,3/13/26,baseball,JWU (Providence),,Corey Magill,23.0,1B,9701022,11,0,11,0,0,0,0,0,0,0,0.0
-6547019,3/13/26,baseball,JWU (Providence),,"Carlo Acquisto, Jr.",12.0,LF,9703359,0,0,0,0,0,0,0,0,0,0,0.0
 6547019,3/13/26,baseball,JWU (Providence),,Sam Schoenberg,19.0,SS,11254174,3,6,9,0,0,0,0,0,1,0,0.0
 6547019,3/13/26,baseball,CWRU,1.0,James O'Connor,5.0,2B,11244669,1,2,3,0,0,0,0,0,0,0,0.0
 6547019,3/13/26,baseball,CWRU,1.0,Calvin Gelle,21.0,3B,9703252,0,0,0,0,0,0,0,0,0,0,0.0
@@ -56769,7 +56763,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6526038,3/13/26,baseball,Mary Hardin-Baylor,1.0,Austin Birkhoff,2.0,2B,9680220,1,3,4,0,0,0,0,0,0,0,0.0
 6526038,3/13/26,baseball,Mary Hardin-Baylor,1.0,Jesse Hemmerling,1.0,PR,9704010,0,0,0,0,0,0,0,0,0,0,0.0
 6526038,3/13/26,baseball,Mary Hardin-Baylor,1.0,Chris Perez,5.0,2B,11220109,1,0,1,0,0,0,0,0,0,0,0.0
-6526038,3/13/26,baseball,Mary Hardin-Baylor,1.0,"Jasson Hemmerling, Jr.",0.0,C,11220106,7,0,7,0,0,0,1,0,0,0,1.0
 6526038,3/13/26,baseball,Mary Hardin-Baylor,1.0,Josh O'Malley,42.0,C,11220137,0,0,0,0,0,0,0,0,0,0,0.0
 6526038,3/13/26,baseball,Mary Hardin-Baylor,1.0,Tyler Martin,3.0,CF,11220108,2,0,2,0,0,0,0,0,0,0,0.0
 6526038,3/13/26,baseball,Mary Hardin-Baylor,1.0,John Van Huis,15.0,CF,9697527,0,0,0,0,0,0,0,0,0,0,0.0
@@ -61453,7 +61446,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6514773,3/10/26,baseball,Mary Hardin-Baylor,,Braden Fuentes,45.0,DH,11220140,0,0,0,0,0,0,0,0,0,0,0.0
 6514773,3/10/26,baseball,Mary Hardin-Baylor,,Clayton McDonald,40.0,DH,11220134,0,0,0,0,0,0,0,0,0,0,0.0
 6514773,3/10/26,baseball,Mary Hardin-Baylor,,Jacob Newland,12.0,C,11220115,5,1,6,0,0,0,1,0,0,0,1.0
-6514773,3/10/26,baseball,Mary Hardin-Baylor,,"Jasson Hemmerling, Jr.",0.0,C,11220106,1,0,1,0,0,0,0,0,0,0,0.0
 6514773,3/10/26,baseball,Mary Hardin-Baylor,,Austin Birkhoff,2.0,2B,9680220,2,6,9,1,0,0,0,0,0,0,0.0
 6514773,3/10/26,baseball,Mary Hardin-Baylor,,Tyler Martin,3.0,CF,11220108,1,1,2,0,0,0,0,0,0,0,0.0
 6514773,3/10/26,baseball,Mary Hardin-Baylor,,John Van Huis,15.0,CF,9697527,0,0,0,0,0,0,0,0,0,0,0.0
@@ -72162,7 +72154,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6513064,3/06/26,baseball,Mary Hardin-Baylor,1.0,Taylor McDaniel,27.0,1B,11220128,3,1,4,0,0,0,0,0,0,0,0.0
 6513064,3/06/26,baseball,Mary Hardin-Baylor,1.0,Nolan Williams,6.0,CF,9703662,2,0,3,1,0,0,0,0,0,0,0.0
 6513064,3/06/26,baseball,Mary Hardin-Baylor,1.0,Tyler Martin,3.0,DH,11220108,0,0,0,0,0,0,0,0,0,0,0.0
-6513064,3/06/26,baseball,Mary Hardin-Baylor,1.0,"Jasson Hemmerling, Jr.",0.0,C,11220106,12,2,15,1,0,0,1,1,0,0,0.5
 6513064,3/06/26,baseball,Mary Hardin-Baylor,1.0,Jacob Newland,12.0,C,11220115,1,0,1,0,0,0,0,0,0,0,0.0
 6513064,3/06/26,baseball,Mary Hardin-Baylor,1.0,Austin Birkhoff,2.0,2B,9680220,1,1,2,0,0,0,0,0,0,0,0.0
 6513064,3/06/26,baseball,Mary Hardin-Baylor,1.0,Tyler Betts,51.0,LF,9681361,3,1,4,0,0,0,0,0,0,0,0.0
@@ -73277,7 +73268,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6514290,3/06/26,baseball,JWU (Providence),,Jeff Valdez Jimenez,2.0,3B,9692703,0,4,5,1,0,0,0,0,0,0,0.0
 6514290,3/06/26,baseball,JWU (Providence),,Justin Hernandez,48.0,1B,11254150,6,2,8,0,0,0,0,0,0,0,0.0
 6514290,3/06/26,baseball,JWU (Providence),,Chris Rosales,40.0,LF,11254164,2,0,2,0,0,0,0,0,0,0,0.0
-6514290,3/06/26,baseball,JWU (Providence),,"Carlo Acquisto, Jr.",12.0,LF,9703359,0,0,0,0,0,0,0,0,0,0,0.0
 6514290,3/06/26,baseball,JWU (Providence),,Jeremy Auren,3.0,RF,9702120,1,0,1,0,0,0,0,0,0,0,0.0
 6514290,3/06/26,baseball,JWU (Providence),,Diego Taveras,7.0,C,9703870,7,1,8,0,0,0,1,0,0,0,1.0
 6514290,3/06/26,baseball,JWU (Providence),,Dimitri Staphos,36.0,DH,11254166,0,0,0,0,0,0,0,0,0,0,0.0
@@ -74275,7 +74265,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6513062,3/05/26,baseball,Mary Hardin-Baylor,1.0,Trae Deck III,17.0,DH,9678378,0,0,0,0,0,0,0,0,0,0,0.0
 6513062,3/05/26,baseball,Mary Hardin-Baylor,1.0,Braden Fuentes,45.0,PH,11220140,0,0,0,0,0,0,0,0,0,0,0.0
 6513062,3/05/26,baseball,Mary Hardin-Baylor,1.0,Clayton McDonald,40.0,PH,11220134,0,0,0,0,0,0,0,0,0,0,0.0
-6513062,3/05/26,baseball,Mary Hardin-Baylor,1.0,"Jasson Hemmerling, Jr.",0.0,C,11220106,9,1,10,0,0,0,1,0,0,0,1.0
 6513062,3/05/26,baseball,Mary Hardin-Baylor,1.0,Josh O'Malley,42.0,C,11220137,0,0,0,0,0,0,0,0,0,0,0.0
 6513062,3/05/26,baseball,Mary Hardin-Baylor,1.0,Austin Birkhoff,2.0,1B,9680220,5,0,5,0,0,0,0,0,1,0,0.0
 6513062,3/05/26,baseball,Mary Hardin-Baylor,1.0,Jeffrey Hughes,28.0,1B,9691340,1,0,1,0,0,0,0,0,0,0,0.0
@@ -74995,7 +74984,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6545553,3/04/26,baseball,JWU (Providence),,Justin Hernandez,48.0,1B,11254150,8,0,9,1,0,0,0,0,2,0,0.0
 6545553,3/04/26,baseball,JWU (Providence),,Corey Magill,23.0,1B,9701022,0,0,0,0,0,0,0,0,0,0,0.0
 6545553,3/04/26,baseball,JWU (Providence),,Henry Melanson,50.0,RF,9681157,1,0,1,0,0,0,0,0,0,0,0.0
-6545553,3/04/26,baseball,JWU (Providence),,"Carlo Acquisto, Jr.",12.0,RF,9703359,1,0,1,0,0,0,0,0,0,0,0.0
 6545553,3/04/26,baseball,JWU (Providence),,Jeremy Auren,3.0,LF,9702120,0,0,0,0,0,0,0,0,0,0,0.0
 6545553,3/04/26,baseball,JWU (Providence),,Bryce Larco,39.0,LF,11254165,1,0,1,0,0,0,0,0,0,0,0.0
 6545553,3/04/26,baseball,JWU (Providence),,Diego Taveras,7.0,C,9703870,6,0,6,0,0,0,5,0,0,0,1.0
@@ -80885,7 +80873,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6526026,2/28/26,baseball,Mary Hardin-Baylor,1.0,Taylor McDaniel,27.0,1B,11220128,7,1,8,0,0,0,0,0,0,0,0.0
 6526026,2/28/26,baseball,Mary Hardin-Baylor,1.0,Nolan Williams,6.0,LF,9703662,0,1,1,0,0,0,0,0,0,0,0.0
 6526026,2/28/26,baseball,Mary Hardin-Baylor,1.0,Braden Fuentes,45.0,RF,11220140,3,0,3,0,0,0,0,0,0,0,0.0
-6526026,2/28/26,baseball,Mary Hardin-Baylor,1.0,"Jasson Hemmerling, Jr.",0.0,C,11220106,11,0,11,0,0,1,1,0,0,0,1.0
 6526026,2/28/26,baseball,Mary Hardin-Baylor,1.0,Trae Deck III,17.0,DH,9678378,0,0,0,0,0,0,0,0,0,0,0.0
 6526026,2/28/26,baseball,Mary Hardin-Baylor,1.0,Chris Perez,5.0,2B,11220109,2,2,5,1,0,0,0,0,0,0,0.0
 6533895,2/28/26,baseball,Illinois Tech,,Ryan Fostiak,6.0,LF,11254928,1,0,1,0,0,0,0,0,0,0,0.0
@@ -84838,7 +84825,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6526025,2/27/26,baseball,Mary Hardin-Baylor,1.0,Jacob Newland,12.0,C,11220115,2,0,2,0,0,1,0,0,0,0,0.0
 6526025,2/27/26,baseball,Mary Hardin-Baylor,1.0,Tyler Betts,51.0,PH,9681361,0,0,0,0,0,0,0,0,0,0,0.0
 6526025,2/27/26,baseball,Mary Hardin-Baylor,1.0,Chris Perez,5.0,2B,11220109,0,4,5,1,0,0,0,0,1,0,0.0
-6526025,2/27/26,baseball,Mary Hardin-Baylor,1.0,"Jasson Hemmerling, Jr.",0.0,C,11220106,9,0,9,0,0,0,1,0,0,0,1.0
 6526025,2/27/26,baseball,Mary Hardin-Baylor,1.0,John Van Huis,15.0,PR,9697527,0,0,0,0,0,0,0,0,0,0,0.0
 6526025,2/27/26,baseball,Mary Hardin-Baylor,1.0,Tyler Martin,3.0,CF,11220108,2,0,2,0,0,0,0,0,0,0,0.0
 6520038,2/27/26,baseball,Muskingum,,Grant Mellerson,3.0,3B,9679794,0,2,2,0,0,0,0,0,0,0,0.0
@@ -86775,7 +86761,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6524593,2/22/26,baseball,Mary Hardin-Baylor,,John Van Huis,15.0,1B,9697527,1,0,1,0,0,0,0,0,0,0,0.0
 6524593,2/22/26,baseball,Mary Hardin-Baylor,,Jesse Hemmerling,1.0,C,9704010,0,0,0,0,0,0,0,0,0,0,0.0
 6524593,2/22/26,baseball,Mary Hardin-Baylor,,Rylland Anders,38.0,PH,11220132,0,0,0,0,0,0,0,0,0,0,0.0
-6524593,2/22/26,baseball,Mary Hardin-Baylor,,"Jasson Hemmerling, Jr.",0.0,C,11220106,2,0,2,0,0,0,0,0,0,0,0.0
 6524593,2/22/26,baseball,Mary Hardin-Baylor,,Jeffrey Hughes,28.0,1B,9691340,7,0,7,0,0,0,0,0,1,0,0.0
 6524593,2/22/26,baseball,Mary Hardin-Baylor,,Austin Birkhoff,2.0,1B,9680220,0,0,0,0,0,0,0,0,0,0,0.0
 6524593,2/22/26,baseball,Mary Hardin-Baylor,,Chris Perez,5.0,2B,11220109,4,3,7,0,0,0,0,0,1,0,0.0
@@ -92065,7 +92050,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6524590,2/20/26,baseball,Mary Hardin-Baylor,,Braden Fuentes,45.0,DH,11220140,0,0,0,0,0,0,0,0,0,0,0.0
 6524590,2/20/26,baseball,Mary Hardin-Baylor,,Jeffrey Hughes,28.0,DH,9691340,0,0,0,0,0,0,0,0,0,0,0.0
 6524590,2/20/26,baseball,Mary Hardin-Baylor,,Jesse Hemmerling,1.0,PR,9704010,0,0,0,0,0,0,0,0,0,0,0.0
-6524590,2/20/26,baseball,Mary Hardin-Baylor,,"Jasson Hemmerling, Jr.",0.0,C,11220106,12,0,12,0,0,0,0,0,0,0,0.0
 6524590,2/20/26,baseball,Mary Hardin-Baylor,,Jacob Newland,12.0,C,11220115,2,0,2,0,0,0,0,0,0,0,0.0
 6524590,2/20/26,baseball,Mary Hardin-Baylor,,Easton Cline,34.0,SS,9681401,1,1,2,0,0,0,0,0,0,0,0.0
 6524590,2/20/26,baseball,Mary Hardin-Baylor,,Tyler Betts,51.0,LF,9681361,0,0,0,0,0,0,0,0,0,0,0.0
@@ -92921,7 +92905,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6514758,2/17/26,baseball,Mary Hardin-Baylor,1.0,Nolan Williams,6.0,LF,9703662,0,0,0,0,0,0,0,0,0,0,0.0
 6514758,2/17/26,baseball,Mary Hardin-Baylor,1.0,Braden Fuentes,45.0,RF,11220140,2,0,2,0,0,0,0,0,0,0,0.0
 6514758,2/17/26,baseball,Mary Hardin-Baylor,1.0,Jeffrey Hughes,28.0,1B,9691340,0,0,0,0,0,0,0,0,0,0,0.0
-6514758,2/17/26,baseball,Mary Hardin-Baylor,1.0,"Jasson Hemmerling, Jr.",0.0,C,11220106,9,0,9,0,0,0,2,0,0,0,1.0
 6514758,2/17/26,baseball,Mary Hardin-Baylor,1.0,Austin Birkhoff,2.0,PR,9680220,0,0,0,0,0,0,0,0,0,0,0.0
 6514758,2/17/26,baseball,Mary Hardin-Baylor,1.0,Trae Deck III,17.0,C,9678378,0,0,0,0,0,0,0,0,0,0,0.0
 6514758,2/17/26,baseball,Mary Hardin-Baylor,1.0,Easton Cline,34.0,SS,9681401,0,4,5,1,0,0,0,0,0,0,0.0
@@ -95897,7 +95880,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6526021,2/13/26,baseball,Mary Hardin-Baylor,1.0,Nolan Williams,6.0,CF,9703662,2,0,2,0,0,0,0,0,0,0,0.0
 6526021,2/13/26,baseball,Mary Hardin-Baylor,1.0,Chris Perez,5.0,2B,11220109,2,1,3,0,0,0,0,0,0,0,0.0
 6526021,2/13/26,baseball,Mary Hardin-Baylor,1.0,Easton Cline,34.0,SS,9681401,0,1,1,0,0,0,0,0,0,0,0.0
-6526021,2/13/26,baseball,Mary Hardin-Baylor,1.0,"Jasson Hemmerling, Jr.",0.0,C,11220106,12,1,13,0,0,0,1,1,0,0,0.5
 6526021,2/13/26,baseball,Mary Hardin-Baylor,1.0,Tyler Betts,51.0,LF,9681361,1,0,1,0,0,0,0,0,0,0,0.0
 6527768,2/13/26,baseball,LeTourneau,,Austin Wiederhold,3.0,2B,9702870,1,0,1,0,0,0,0,0,0,0,0.0
 6527768,2/13/26,baseball,LeTourneau,,Chris Savage,24.0,1B,11231040,6,3,9,0,0,0,0,0,1,0,0.0
@@ -96600,7 +96582,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6526019,2/07/26,baseball,Mary Hardin-Baylor,1.0,Cameron Talburt,18.0,RF,11220107,4,0,4,0,0,0,0,0,0,0,0.0
 6526019,2/07/26,baseball,Mary Hardin-Baylor,1.0,Riley Bender,16.0,3B,11220104,1,2,3,0,0,0,0,0,0,0,0.0
 6526019,2/07/26,baseball,Mary Hardin-Baylor,1.0,Taylor McDaniel,27.0,1B,11220128,4,0,4,0,0,0,0,0,0,0,0.0
-6526019,2/07/26,baseball,Mary Hardin-Baylor,1.0,"Jasson Hemmerling, Jr.",0.0,C,11220106,14,1,15,0,0,0,3,1,0,0,0.75
 6526019,2/07/26,baseball,Mary Hardin-Baylor,1.0,Chris Perez,5.0,2B,11220109,1,0,1,0,0,0,0,0,0,0,0.0
 6526019,2/07/26,baseball,Mary Hardin-Baylor,1.0,Tyler Martin,3.0,DH,11220108,0,0,0,0,0,0,0,0,0,0,0.0
 6526019,2/07/26,baseball,Mary Hardin-Baylor,1.0,Easton Cline,34.0,SS,9681401,0,2,2,0,0,0,0,0,0,0,0.0
@@ -111427,7 +111408,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6526054,4/11/26,baseball,Mary Hardin-Baylor,1.0,Nolan Williams,6.0,LF/CF,9703662,4,0,4,0,0,0,0,0,0,0,0.0
 6526054,4/11/26,baseball,Mary Hardin-Baylor,1.0,Landon Pyles,13.0,2B/SS,11220117,2,3,5,0,0,0,0,0,0,0,0.0
 6526054,4/11/26,baseball,Mary Hardin-Baylor,1.0,Austin Birkhoff,2.0,DH,9680220,0,0,0,0,0,0,0,0,0,0,0.0
-6526054,4/11/26,baseball,Mary Hardin-Baylor,1.0,"Jasson Hemmerling, Jr.",0.0,C,11220106,5,0,5,0,0,0,0,0,0,0,0.0
 6526054,4/11/26,baseball,Mary Hardin-Baylor,1.0,Trae Deck III,17.0,C,9678378,1,1,2,0,0,0,0,1,0,0,0.0
 6526054,4/11/26,baseball,Mary Hardin-Baylor,1.0,Tyler Martin,3.0,RF,11220108,1,0,1,0,0,0,0,0,0,0,0.0
 6526054,4/11/26,baseball,Mary Hardin-Baylor,1.0,Tyler Betts,51.0,LF,9681361,1,0,1,0,0,0,0,0,0,0,0.0
@@ -116863,7 +116843,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6514683,4/12/26,baseball,Eastern Conn. St.,,Chad Byrd,2.0,RF/CF,11217111,3,0,3,0,0,0,0,0,0,0,0.0
 6514683,4/12/26,baseball,Eastern Conn. St.,,David Braun,23.0,PH/CF,9693614,1,0,1,0,0,0,0,0,0,0,0.0
 6514683,4/12/26,baseball,JWU (Providence),1.0,Ryan Ducey,5.0,LF,9686937,1,0,1,0,0,0,0,0,0,0,0.0
-6514683,4/12/26,baseball,JWU (Providence),1.0,"Carlo Acquisto, Jr.",12.0,PH/LF,9703359,1,0,1,0,0,0,0,0,0,0,0.0
 6514683,4/12/26,baseball,JWU (Providence),1.0,Yedan Diaz,1.0,2B,9692682,2,0,2,0,0,0,0,0,0,0,0.0
 6514683,4/12/26,baseball,JWU (Providence),1.0,Jake Obert,6.0,CF,9690929,1,0,1,0,0,0,0,0,0,0,0.0
 6514683,4/12/26,baseball,JWU (Providence),1.0,Bryce Larco,39.0,CF,11254165,1,0,1,0,0,0,0,0,0,0,0.0
@@ -130040,7 +130019,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6526061,4/24/26,baseball,Mary Hardin-Baylor,,Riley Bender,16.0,3B,11220104,3,2,5,0,0,0,0,0,0,0,0.0
 6526061,4/24/26,baseball,Mary Hardin-Baylor,,Tyler Martin,3.0,RF,11220108,2,0,2,0,0,0,0,0,0,0,0.0
 6526061,4/24/26,baseball,Mary Hardin-Baylor,,John Van Huis,15.0,CF,9697527,0,0,0,0,0,0,0,0,0,0,0.0
-6526061,4/24/26,baseball,Mary Hardin-Baylor,,"Jasson Hemmerling, Jr.",0.0,C,11220106,2,0,2,0,0,0,2,1,0,0,0.667
 6526061,4/24/26,baseball,Mary Hardin-Baylor,,Jesse Hemmerling,1.0,PR,9704010,0,0,0,0,0,0,0,0,0,0,0.0
 6526061,4/24/26,baseball,Mary Hardin-Baylor,,Jacob Newland,12.0,C,11220115,1,0,1,0,0,0,0,0,0,0,0.0
 6526061,4/24/26,baseball,Mary Hardin-Baylor,,Chris Perez,5.0,2B,11220109,1,2,3,0,0,0,0,0,0,0,0.0
@@ -146814,7 +146792,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6526057,4/17/26,baseball,Mary Hardin-Baylor,,Trae Deck III,17.0,DH,9678378,0,0,0,0,0,0,0,0,0,0,0.0
 6526057,4/17/26,baseball,Mary Hardin-Baylor,,Riley Bender,16.0,3B,11220104,2,1,3,0,0,0,0,0,0,0,0.0
 6526057,4/17/26,baseball,Mary Hardin-Baylor,,Chris Perez,5.0,2B,11220109,5,1,6,0,0,0,0,0,0,0,0.0
-6526057,4/17/26,baseball,Mary Hardin-Baylor,,"Jasson Hemmerling, Jr.",0.0,C,11220106,3,1,4,0,0,0,1,0,0,0,1.0
 6526057,4/17/26,baseball,Mary Hardin-Baylor,,Tyler Martin,3.0,RF,11220108,2,0,2,0,0,0,0,0,0,0,0.0
 6526057,4/17/26,baseball,East Tex. Baptist,1.0,Carson Livesay,25.0,LF,9693267,1,0,1,0,0,0,0,0,0,0,0.0
 6526057,4/17/26,baseball,East Tex. Baptist,1.0,Connor Massimini,2.0,RF,9700949,2,0,2,0,0,0,0,0,0,0,0.0
