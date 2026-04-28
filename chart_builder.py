@@ -298,12 +298,23 @@ def load_logo_thumbnail(logo_path, size=128):
 
 
 @st.cache_data
-def get_plottable_columns(csv_name):
-    """Return numeric columns suitable for plotting."""
+def _get_plottable_columns_keyed(csv_name, game_type, day_filter, sport):
+    """Cached lookup keyed on csv_name AND filter state. The filter args
+    are part of the cache key so flipping Game Type / Day of Week busts
+    the cache and returns the correct column list including derived stats
+    (wOBA, wRC, wRAA, FIP, A-OPS, division percentile ranks)."""
     df = load_csv(csv_name)
     numeric = df.select_dtypes(include=[np.number]).columns.tolist()
     return [c for c in numeric if c not in ID_COLS and c.lower() not in
             {x.lower() for x in ID_COLS}]
+
+
+def get_plottable_columns(csv_name):
+    """Return numeric columns suitable for plotting (filter-aware)."""
+    game_type = st.session_state.get('_chart_game_type', 'All')
+    day_filter = st.session_state.get('_chart_day_filter', 'All')
+    sport = st.session_state.get('_chart_sport', 'Baseball')
+    return _get_plottable_columns_keyed(csv_name, game_type, day_filter, sport)
 
 
 def add_schedule_derived(df):
