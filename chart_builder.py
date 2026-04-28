@@ -20,10 +20,24 @@ try:
     import os
     import base64
     import matplotlib.font_manager as fm
+    from app_lib.filtered_team_stats import (
+        derive_team_stats,
+        merge_with_historical,
+        is_active as _filter_is_active,
+        GAME_TYPE_OPTIONS,
+        DAY_OPTIONS,
+    )
 except Exception as e:
     st.error(f"Import failed: {e}")
     st.code(traceback.format_exc())
     st.stop()
+
+# Files that support PBP-derived game-context filtering. The filter only
+# overrides the 2026 rows; pre-2026 history stays from the on-disk CSV.
+_FILTERABLE_CSVS = {
+    'hitting_team.csv': 'hitting',
+    'pitching_team.csv': 'pitching',
+}
 
 # ── Path setup (works locally and on Streamlit Cloud) ─────────────────────────
 _APP_DIR = Path(__file__).resolve().parent
@@ -196,7 +210,13 @@ def _inject_team_id(df, filename=None):
 
 
 def load_csv(filename):
-    """Load a CSV and normalize column names."""
+    """Load a CSV and normalize column names.
+
+    For team-level stat files (hitting_team.csv, pitching_team.csv): if the
+    user has set a game-context filter (Conference/Non-Conf, Weekend/Midweek)
+    via the sidebar, the 2026 rows are re-derived from PBP data with that
+    filter applied; pre-2026 rows are preserved from disk.
+    """
     df = pd.read_csv(DATA_DIR / filename, low_memory=False, encoding='utf-8-sig')
     # Strip BOM and whitespace from column names
     df.columns = [c.strip().lstrip('\ufeff') for c in df.columns]
@@ -212,6 +232,23 @@ def load_csv(filename):
         if col in df.columns:
             numeric = pd.to_numeric(df[col], errors='coerce')
             df[col] = np.where(numeric.notna(), numeric.fillna(0).astype(int).astype(str), df[col])
+
+    # ── Game-context filter override (2026 only, team-level stat files) ──
+    if filename in _FILTERABLE_CSVS:
+        game_type = st.session_state.get('_chart_game_type', 'All')
+        day_filter = st.session_state.get('_chart_day_filter', 'All')
+        sport = st.session_state.get('_chart_sport', 'Baseball')
+        if _filter_is_active(game_type, day_filter):
+            stat_kind = _FILTERABLE_CSVS[filename]
+            derived = derive_team_stats(sport.lower(), stat_kind, game_type, day_filter)
+            if not derived.empty:
+                # Re-run team_id injection on derived rows so they match
+                derived['year'] = derived['year'].astype(str)
+                for col in ['team_id', 'player_id']:
+                    if col in derived.columns:
+                        numeric = pd.to_numeric(derived[col], errors='coerce')
+                        derived[col] = np.where(numeric.notna(), numeric.fillna(0).astype(int).astype(str), derived[col])
+                df = merge_with_historical(df, derived)
     return df
 
 
@@ -336,6 +373,24 @@ def sidebar():
 
     year_list = ['2026', '2025', '2024', '2023', '2022', '2021']
     cfg['year'] = st.sidebar.selectbox('Year', year_list)
+
+    # ── Game-context filter (PBP-derived; only applies to current year + team-level stat CSVs) ──
+    cfg['game_type'] = st.sidebar.selectbox(
+        'Game Type', GAME_TYPE_OPTIONS, key='_chart_game_type',
+        help='Filters team stats to conference-only or non-conference-only games. '
+             'Only applies to current-year team stats (hitting_team.csv / pitching_team.csv); '
+             'historical years stay from the season aggregate.',
+    )
+    cfg['day_filter'] = st.sidebar.selectbox(
+        'Day of Week', DAY_OPTIONS, key='_chart_day_filter',
+        help='Weekend = Fri-Sun (typically conference series). Midweek = Mon-Thu (typically non-con singles). '
+             'Same scope as Game Type filter.',
+    )
+    # Mirror sport into session_state so load_csv can read it
+    st.session_state['_chart_sport'] = cfg['sport']
+    if _filter_is_active(cfg['game_type'], cfg['day_filter']):
+        st.sidebar.caption(f"⚠️ {cfg['year']} team stats are PBP-derived ({cfg['game_type']} · {cfg['day_filter']}). "
+                          "Advanced metrics (wOBA percentiles, etc.) are blank under this filter.")
 
     cfg['portal_only'] = st.sidebar.checkbox('Portal transfers only', key='portal_only')
     if cfg['portal_only']:
