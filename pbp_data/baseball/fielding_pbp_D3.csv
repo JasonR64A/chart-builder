@@ -497,27 +497,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6568537,4/04/26,baseball,Delaware Valley,1.0,John Dzielawa,15.0,PR,9686155,0,0,0,0,0,0,0,0,0,0,0.0
 6568537,4/04/26,baseball,Delaware Valley,1.0,Lachlan Segedy,48.0,C,11221182,0,0,0,0,0,0,0,0,0,0,0.0
 6568537,4/04/26,baseball,Delaware Valley,1.0,Daniel Murphy,3.0,SS,9693671,0,0,1,1,0,0,0,0,0,0,0.0
-6568560,4/04/26,baseball,Alma,,Grady Pieratt,1.0,CF,11218710,4,0,4,0,0,0,0,0,0,0,0.0
-6568560,4/04/26,baseball,Alma,,Alexander Kavalick,47.0,1B,9688819,6,0,6,0,0,0,0,0,0,0,0.0
-6568560,4/04/26,baseball,Alma,,Cameron Bleasdale,15.0,DH,9687751,0,0,0,0,0,0,0,0,0,0,0.0
-6568560,4/04/26,baseball,Alma,,Cole Grunwald,6.0,LF,9700814,2,1,3,0,0,0,0,0,0,0,0.0
-6568560,4/04/26,baseball,Alma,,Braylon Ryan,2.0,RF,11218713,1,0,1,0,0,0,0,0,0,0,0.0
-6568560,4/04/26,baseball,Alma,,Kyler Warren,7.0,3B,11218714,2,1,5,2,0,0,0,0,0,0,0.0
-6568560,4/04/26,baseball,Alma,,Justin Diaz,23.0,SS,11218732,1,1,2,0,0,0,0,0,0,0,0.0
-6568560,4/04/26,baseball,Alma,,Charlie Martyn,12.0,C,9696315,6,1,7,0,0,0,1,0,0,0,1.0
-6568560,4/04/26,baseball,Alma,,Brant Goodpaster,5.0,2B,9700229,2,1,3,0,0,0,0,0,0,0,0.0
-6568560,4/04/26,baseball,Alma,,B. Vannest,35.0,PH,11249395,0,0,0,0,0,0,0,0,0,0,0.0
-6568560,4/04/26,baseball,Alma,,Preston Schroyer,14.0,PR,9687012,0,0,0,0,0,0,0,0,0,0,0.0
-6568560,4/04/26,baseball,Alma,,Charlie Chmielewski,3.0,2B,9693440,0,0,0,0,0,0,0,0,0,0,0.0
-6568560,4/04/26,baseball,Olivet,1.0,Brody Parten,11.0,3B,9688359,1,2,3,0,0,0,0,0,0,0,0.0
-6568560,4/04/26,baseball,Olivet,1.0,Owen Smith,14.0,LF,9684167,3,0,3,0,0,0,0,0,0,0,0.0
-6568560,4/04/26,baseball,Olivet,1.0,Braden Abbott,8.0,SS,9705144,1,4,5,0,0,0,0,0,0,0,0.0
-6568560,4/04/26,baseball,Olivet,1.0,EJ Suggitt,47.0,1B,9703311,8,1,9,0,0,0,0,0,1,0,0.0
-6568560,4/04/26,baseball,Olivet,1.0,Nate Droste,6.0,2B,9698440,0,0,0,0,0,0,0,0,0,0,0.0
-6568560,4/04/26,baseball,Olivet,1.0,Austin Alflen,2.0,DH,9687004,0,0,0,0,0,0,0,0,0,0,0.0
-6568560,4/04/26,baseball,Olivet,1.0,Mikey Kuzara,10.0,C,9700292,7,1,8,0,0,2,3,1,0,0,0.75
-6568560,4/04/26,baseball,Olivet,1.0,Will Myrick,19.0,RF,9697452,3,0,3,0,0,0,0,0,0,0,0.0
-6568560,4/04/26,baseball,Olivet,1.0,Tyler Duncan,5.0,CF,9703859,3,1,5,1,0,0,0,0,0,0,0.0
 6568538,4/04/26,baseball,Eastern,,Landon Petty,30.0,P,11213952,0,0,0,0,0,0,0,0,0,0,0.0
 6568538,4/04/26,baseball,Eastern,,Trent MacDougall,5.0,CF,9682120,3,0,3,0,0,0,0,0,0,0,0.0
 6568538,4/04/26,baseball,Eastern,,Thomas Kozlusky,3.0,LF,9696247,3,0,3,0,0,0,0,0,0,0,0.0
@@ -155393,3 +155372,470 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6492119,4/16/26,baseball,Edgewood,1.0,Charlie Tompach,33.0,RF,11246519,1,0,1,0,0,0,0,0,0,0,0.0
 6492119,4/16/26,baseball,Edgewood,1.0,Ryan Harris,7.0,PH,9679029,0,0,0,0,0,0,0,0,0,0,0.0
 6492119,4/16/26,baseball,Edgewood,1.0,Carter Kelley,10.0,CF,9695913,3,0,3,0,0,0,0,0,0,0,0.0
+6467047,3/05/26,baseball,Hampden-Sydney,,Sam Vick,3.0,LF,9700300,2,0,2,0,0,0,0,0,0,0,0.0
+6467047,3/05/26,baseball,Hampden-Sydney,,Kennen Lewis,21.0,3B,11246981,2,2,4,0,0,0,0,0,0,0,0.0
+6467047,3/05/26,baseball,Hampden-Sydney,,Connor Powell,30.0,1B,11247007,7,0,7,0,0,0,0,0,0,0,0.0
+6467047,3/05/26,baseball,Hampden-Sydney,,Seth Truesdale,20.0,DH,11246949,0,0,0,0,0,0,0,0,0,0,0.0
+6467047,3/05/26,baseball,Hampden-Sydney,,Sawyer Whitmore,16.0,PR,11246945,0,0,0,0,0,0,0,0,0,0,0.0
+6467047,3/05/26,baseball,Hampden-Sydney,,Jase Howell,14.0,PH,9698726,0,0,0,0,0,0,0,0,0,0,0.0
+6467047,3/05/26,baseball,Hampden-Sydney,,Matthew Kim,1.0,PR,11246937,0,0,0,0,0,0,0,0,0,0,0.0
+6467047,3/05/26,baseball,Hampden-Sydney,,Greer Farr,26.0,CF,9703839,4,0,4,0,0,0,0,0,0,0,0.0
+6467047,3/05/26,baseball,Hampden-Sydney,,Gavin Smith,6.0,2B,9702052,0,0,0,0,0,0,0,0,0,0,0.0
+6467047,3/05/26,baseball,Hampden-Sydney,,Mason Lester,52.0,2B,11247024,0,0,0,0,0,0,0,0,0,0,0.0
+6467047,3/05/26,baseball,Hampden-Sydney,,Jack Wells,56.0,RF,9690153,1,0,1,0,0,0,0,0,0,0,0.0
+6467047,3/05/26,baseball,Hampden-Sydney,,Gib Wirt,34.0,RF,11247012,2,0,2,0,0,0,0,0,0,0,0.0
+6467047,3/05/26,baseball,Hampden-Sydney,,Robert Chapman,45.0,C,9700148,8,0,8,0,0,0,2,0,0,0,1.0
+6467047,3/05/26,baseball,Hampden-Sydney,,Hunter Langston,27.0,SS,11247004,0,3,3,0,0,0,0,0,0,0,0.0
+6467047,3/05/26,baseball,Regent,1.0,Nathan Vaughan,6.0,2B,10809205,1,3,4,0,0,0,0,0,1,0,0.0
+6467047,3/05/26,baseball,Regent,1.0,Jordan Hunt,2.0,SS,10809172,0,3,5,2,0,0,0,0,0,0,0.0
+6467047,3/05/26,baseball,Regent,1.0,Jayden Alvarez,11.0,CF,10809220,5,0,5,0,0,0,0,0,0,0,0.0
+6467047,3/05/26,baseball,Regent,1.0,Maddox German,13.0,1B,10809228,12,0,12,0,0,0,0,0,1,0,0.0
+6467047,3/05/26,baseball,Regent,1.0,Dylan Oblepias,28.0,DH,10809182,0,0,0,0,0,0,0,0,0,0,0.0
+6467047,3/05/26,baseball,Regent,1.0,Colton Sandiford,12.0,RF,10809208,3,0,3,0,0,0,0,0,0,0,0.0
+6467047,3/05/26,baseball,Regent,1.0,Ethan Loucks,31.0,3B,11217892,0,4,4,0,0,0,0,0,1,0,0.0
+6467047,3/05/26,baseball,Regent,1.0,Ben Tweedy,9.0,PH,10809204,0,0,0,0,0,0,0,0,0,0,0.0
+6467047,3/05/26,baseball,Regent,1.0,Raz Kolakovsky,23.0,C,10809175,3,0,3,0,0,0,3,0,0,0,1.0
+6467047,3/05/26,baseball,Regent,1.0,Caleb Wood,17.0,LF,10809207,2,0,2,0,0,0,0,0,0,0,0.0
+6478140,4/04/26,baseball,Penn St.-Berks,,Cade Baumgardner,3.0,SS,9698516,0,0,0,0,0,0,0,0,0,0,0.0
+6478140,4/04/26,baseball,Penn St.-Berks,,Colby Crills,2.0,3B,11250397,1,3,4,0,0,0,0,0,0,0,0.0
+6478140,4/04/26,baseball,Penn St.-Berks,,Bryce Kelly,13.0,LF,11250413,0,0,0,0,0,0,0,0,0,0,0.0
+6478140,4/04/26,baseball,Penn St.-Berks,,Andrew Seibert,7.0,DH,11249971,0,0,0,0,0,0,0,0,0,0,0.0
+6478140,4/04/26,baseball,Penn St.-Berks,,Michael DeRichie,37.0,2B,11250428,3,1,4,0,0,0,0,0,0,0,0.0
+6478140,4/04/26,baseball,Penn St.-Berks,,Lucas Bacher,4.0,C,11250399,7,1,8,0,0,0,0,0,0,0,0.0
+6478140,4/04/26,baseball,Penn St.-Berks,,Michael Thalassinos,21.0,1B,11250418,7,0,7,0,0,0,0,0,0,0,0.0
+6478140,4/04/26,baseball,Penn St.-Berks,,Jackson Brancato,10.0,RF,11250411,7,0,7,0,0,0,0,0,0,0,0.0
+6478140,4/04/26,baseball,Penn St.-Berks,,Owen Grove,1.0,CF,11250394,2,0,2,0,0,0,0,0,0,0,0.0
+6478140,4/04/26,baseball,Valley Forge,1.0,Zack Haines,1.0,1B,9703729,10,0,10,0,0,0,0,0,0,0,0.0
+6478140,4/04/26,baseball,Valley Forge,1.0,Gabriel Murphy,9.0,CF,11250687,3,0,3,0,0,0,0,0,0,0,0.0
+6478140,4/04/26,baseball,Valley Forge,1.0,Joey Demirjian,6.0,RF,9679119,3,0,3,0,0,0,0,0,0,0,0.0
+6478140,4/04/26,baseball,Valley Forge,1.0,Asijan Evelyn,2.0,3B,9679216,1,4,7,2,0,0,0,0,0,0,0.0
+6478140,4/04/26,baseball,Valley Forge,1.0,Chase Timmons,17.0,DH,11250694,0,0,0,0,0,0,0,0,0,0,0.0
+6478140,4/04/26,baseball,Valley Forge,1.0,Preston Blum,22.0,PR,11250661,0,0,0,0,0,0,0,0,0,0,0.0
+6478140,4/04/26,baseball,Valley Forge,1.0,Juan Lopez,19.0,SS,9685869,1,5,6,0,0,0,0,0,0,0,0.0
+6478140,4/04/26,baseball,Valley Forge,1.0,Brayden Tunnell,18.0,LF,9692611,3,1,4,0,0,0,0,0,0,0,0.0
+6478140,4/04/26,baseball,Valley Forge,1.0,Mickey Tolentino,27.0,LF,9701315,0,0,0,0,0,0,0,0,0,0,0.0
+6478140,4/04/26,baseball,Valley Forge,1.0,Tyler Stwarka,10.0,C,9688164,5,1,6,0,0,0,1,0,0,0,1.0
+6478140,4/04/26,baseball,Valley Forge,1.0,Ryan Olmo,15.0,C,11250652,0,0,0,0,0,0,0,0,0,0,0.0
+6478140,4/04/26,baseball,Valley Forge,1.0,CJ Fernandez,23.0,2B,9702825,1,1,2,0,0,0,0,0,0,0,0.0
+6483031,4/04/26,baseball,Wash. & Lee,,Nathan DeWitte,35.0,1B,9682799,5,0,6,1,0,0,0,0,0,0,0.0
+6483031,4/04/26,baseball,Wash. & Lee,,Alex Caywood,4.0,SS,11224948,0,2,2,0,0,0,0,0,0,0,0.0
+6483031,4/04/26,baseball,Wash. & Lee,,Andrew Thornton,22.0,3B,9698143,0,1,1,0,0,0,0,0,0,0,0.0
+6483031,4/04/26,baseball,Wash. & Lee,,Camdyn Teague,10.0,LF,9684264,1,0,1,0,0,0,0,0,0,0,0.0
+6483031,4/04/26,baseball,Wash. & Lee,,Jackson Rogish,8.0,CF,11224949,5,0,5,0,0,0,0,0,0,0,0.0
+6483031,4/04/26,baseball,Wash. & Lee,,Ian Weber,32.0,C,11224956,5,1,6,0,0,1,1,0,0,0,1.0
+6483031,4/04/26,baseball,Wash. & Lee,,Landen Rucker,6.0,DH,9698759,0,0,0,0,0,0,0,0,0,0,0.0
+6483031,4/04/26,baseball,Wash. & Lee,,Jonathan French,2.0,RF,9688294,1,0,1,0,0,0,0,0,0,0,0.0
+6483031,4/04/26,baseball,Wash. & Lee,,Ryan McGovern,1.0,2B,9704563,3,3,6,0,0,0,0,0,0,0,0.0
+6483031,4/04/26,baseball,Roanoke,1.0,Nate Prince,7.0,CF,9696192,1,0,1,0,0,0,0,0,0,0,0.0
+6483031,4/04/26,baseball,Roanoke,1.0,Noah Donaho,19.0,SS,11220217,2,2,4,0,0,0,0,0,1,0,0.0
+6483031,4/04/26,baseball,Roanoke,1.0,Michael Hetzel,45.0,DH,11220278,0,0,0,0,0,0,0,0,0,0,0.0
+6483031,4/04/26,baseball,Roanoke,1.0,Hayden Giordano,30.0,3B,9699380,1,1,2,0,0,0,0,0,0,0,0.0
+6483031,4/04/26,baseball,Roanoke,1.0,Tyler Galloway,8.0,RF,9677672,3,0,3,0,0,0,0,0,0,0,0.0
+6483031,4/04/26,baseball,Roanoke,1.0,Hector Orozco,39.0,RF,11220272,1,0,1,0,0,0,0,0,0,0,0.0
+6483031,4/04/26,baseball,Roanoke,1.0,Liam Murphy,27.0,1B,9696728,7,0,7,0,0,0,0,0,1,0,0.0
+6483031,4/04/26,baseball,Roanoke,1.0,Kyle Tyrrell,2.0,2B,11220192,1,3,5,1,0,0,0,0,1,0,0.0
+6483031,4/04/26,baseball,Roanoke,1.0,Ethan Sargent,4.0,PH,9682289,0,0,0,0,0,0,0,0,0,0,0.0
+6483031,4/04/26,baseball,Roanoke,1.0,Christian Dart,29.0,PR,11220236,0,0,0,0,0,0,0,0,0,0,0.0
+6483031,4/04/26,baseball,Roanoke,1.0,Dylan Bonzon,3.0,LF,9694430,1,0,2,1,0,0,0,0,0,0,0.0
+6483031,4/04/26,baseball,Roanoke,1.0,Alec Jones,1.0,LF,9676997,1,0,1,0,0,0,0,0,0,0,0.0
+6483031,4/04/26,baseball,Roanoke,1.0,Danny Ferguson,23.0,C,9703512,3,1,4,0,0,0,0,1,0,0,0.0
+6483874,4/04/26,baseball,Swarthmore,,Aidan Sullivan,20.0,RF,9692170,0,0,0,0,0,0,0,0,0,0,0.0
+6483874,4/04/26,baseball,Swarthmore,,Zac Kahn,31.0,1B,9679830,7,2,9,0,0,0,0,0,1,0,0.0
+6483874,4/04/26,baseball,Swarthmore,,Deven Peterson,7.0,3B,11243663,0,2,2,0,0,0,0,0,0,0,0.0
+6483874,4/04/26,baseball,Swarthmore,,Nathaniel Kittredge,2.0,SS,9696669,4,2,6,0,0,0,0,0,1,0,0.0
+6483874,4/04/26,baseball,Swarthmore,,Alessandro Propper-Bowring,23.0,DH,11243670,0,0,0,0,0,0,0,0,0,0,0.0
+6483874,4/04/26,baseball,Swarthmore,,Noam AuYeung,25.0,LF,9688354,3,0,3,0,0,0,0,0,0,0,0.0
+6483874,4/04/26,baseball,Swarthmore,,Andrew Firko,1.0,2B,9692974,1,1,2,0,0,0,0,0,1,0,0.0
+6483874,4/04/26,baseball,Swarthmore,,Brad Johnston,40.0,PH,9701995,0,0,0,0,0,0,0,0,0,0,0.0
+6483874,4/04/26,baseball,Swarthmore,,Aaron Williams,6.0,PR,11243661,0,0,0,0,0,0,0,0,0,0,0.0
+6483874,4/04/26,baseball,Swarthmore,,Evan Hawkes,3.0,CF,11243657,0,1,1,0,0,0,0,0,0,0,0.0
+6483874,4/04/26,baseball,Swarthmore,,Wilson Henze,27.0,C,9687651,7,1,8,0,0,0,1,1,0,0,0.5
+6483874,4/04/26,baseball,Franklin & Marshall,1.0,Owen Woodward,30.0,2B,11195727,3,1,4,0,0,0,0,0,0,0,0.0
+6483874,4/04/26,baseball,Franklin & Marshall,1.0,Michael von Zuben,13.0,CF,9700396,5,0,5,0,0,0,0,0,0,0,0.0
+6483874,4/04/26,baseball,Franklin & Marshall,1.0,Tanner Wolpert,29.0,1B,9696421,6,0,6,0,0,0,0,0,0,0,0.0
+6483874,4/04/26,baseball,Franklin & Marshall,1.0,Matt Hollender,27.0,DH,9688300,0,0,0,0,0,0,0,0,0,0,0.0
+6483874,4/04/26,baseball,Franklin & Marshall,1.0,Nick DiGiacomo,9.0,RF,9699059,0,0,0,0,0,0,0,0,0,0,0.0
+6483874,4/04/26,baseball,Franklin & Marshall,1.0,Nick Lorenzo,2.0,3B,9683020,2,3,5,0,0,0,0,0,0,0,0.0
+6483874,4/04/26,baseball,Franklin & Marshall,1.0,Gideon Schwartz,20.0,C,9687443,8,1,9,0,0,0,0,0,0,0,0.0
+6483874,4/04/26,baseball,Franklin & Marshall,1.0,Landon Hallett,6.0,SS,11195736,1,1,2,0,0,0,0,0,0,0,0.0
+6483874,4/04/26,baseball,Franklin & Marshall,1.0,Vincent Mariniello,5.0,LF,9677676,0,0,0,0,0,0,0,0,0,0,0.0
+6483874,4/04/26,baseball,Franklin & Marshall,1.0,Ethan Conklin,8.0,LF,9688231,1,0,1,0,0,0,0,0,0,0,0.0
+6483874,4/04/26,baseball,Franklin & Marshall,1.0,Zac Fuscaldo,17.0,PH,11195729,0,0,0,0,0,0,0,0,0,0,0.0
+6483874,4/04/26,baseball,Franklin & Marshall,1.0,Colin Mackenzie,7.0,LF,9698908,0,0,0,0,0,0,0,0,0,0,0.0
+6486718,3/25/26,baseball,Susquehanna,,Michael Girardi,20.0,LF,11332487,1,0,1,0,0,0,0,0,0,0,0.0
+6486718,3/25/26,baseball,Susquehanna,,Dylan Heyduk,33.0,RF,11227883,2,1,3,0,0,0,0,0,0,0,0.0
+6486718,3/25/26,baseball,Susquehanna,,Michael Gagliardi,14.0,SS,11332486,2,3,5,0,0,0,0,0,0,0,0.0
+6486718,3/25/26,baseball,Susquehanna,,Andrew Haussman,18.0,1B,11227810,8,2,11,1,0,0,0,0,0,0,0.0
+6486718,3/25/26,baseball,Susquehanna,,Paul Daly,1.0,DH,11227804,0,0,0,0,0,0,0,0,0,0,0.0
+6486718,3/25/26,baseball,Susquehanna,,Lucas Zachesky,2.0,2B,9688031,1,2,3,0,0,0,0,0,0,0,0.0
+6486718,3/25/26,baseball,Susquehanna,,Jaden Buechler,37.0,3B,9696257,2,3,5,0,0,0,0,0,0,0,0.0
+6486718,3/25/26,baseball,Susquehanna,,CJ Orrego,3.0,C,11227814,4,2,6,0,0,1,1,1,0,0,0.5
+6486718,3/25/26,baseball,Susquehanna,,Lincoln Hower,9.0,CF,11227825,2,0,2,0,0,0,0,0,0,0,0.0
+6486718,3/25/26,baseball,Lycoming,1.0,Sean Perkins,7.0,SS,9705313,0,4,4,0,0,0,0,0,0,0,0.0
+6486718,3/25/26,baseball,Lycoming,1.0,Nick Reeder,22.0,CF,11245443,1,0,1,0,0,0,0,0,0,0,0.0
+6486718,3/25/26,baseball,Lycoming,1.0,A.J. Llorente,23.0,1B,9699081,13,0,13,0,0,0,0,0,1,0,0.0
+6486718,3/25/26,baseball,Lycoming,1.0,Brody Lindsey,35.0,3B,9696919,2,3,5,0,0,0,0,0,1,0,0.0
+6486718,3/25/26,baseball,Lycoming,1.0,Josh Bottger,17.0,LF,9684452,1,0,1,0,0,0,0,0,0,0,0.0
+6486718,3/25/26,baseball,Lycoming,1.0,Anthony Guzman,5.0,DH,11245429,0,0,0,0,0,0,0,0,0,0,0.0
+6486718,3/25/26,baseball,Lycoming,1.0,Eric MacCluen,44.0,RF,9692419,0,0,0,0,0,0,0,0,0,0,0.0
+6486718,3/25/26,baseball,Lycoming,1.0,Nick Hoheb,30.0,C,9697623,6,2,8,0,0,0,0,2,0,0,0.0
+6486718,3/25/26,baseball,Lycoming,1.0,Kaden Shay,24.0,2B,9697397,4,2,6,0,0,0,0,0,1,0,0.0
+6486724,4/04/26,baseball,Susquehanna,,Michael Girardi,20.0,LF,11332487,2,0,2,0,0,0,0,0,0,0,0.0
+6486724,4/04/26,baseball,Susquehanna,,Dylan Heyduk,33.0,RF/CF,11227883,2,0,2,0,0,0,0,0,0,0,0.0
+6486724,4/04/26,baseball,Susquehanna,,Michael Gagliardi,14.0,SS,11332486,4,3,7,0,0,0,0,0,2,0,0.0
+6486724,4/04/26,baseball,Susquehanna,,Andrew Haussman,18.0,1B,11227810,2,1,3,0,0,0,0,0,2,0,0.0
+6486724,4/04/26,baseball,Susquehanna,,Derek Asche,31.0,PR,9690632,0,0,0,0,0,0,0,0,0,0,0.0
+6486724,4/04/26,baseball,Susquehanna,,Aidan Proctor,26.0,1B,9697093,2,0,2,0,0,0,0,0,0,0,0.0
+6486724,4/04/26,baseball,Susquehanna,,Luke Goodwin,17.0,DH,11227850,0,0,0,0,0,0,0,0,0,0,0.0
+6486724,4/04/26,baseball,Susquehanna,,Jaden Buechler,37.0,PR,9696257,0,0,0,0,0,0,0,0,0,0,0.0
+6486724,4/04/26,baseball,Susquehanna,,Lucas Zachesky,2.0,2B/3B,9688031,0,2,3,1,0,0,0,0,2,0,0.0
+6486724,4/04/26,baseball,Susquehanna,,Robert Cangelosi,77.0,C,11227894,15,0,15,0,0,0,0,1,0,0,0.0
+6486724,4/04/26,baseball,Susquehanna,,Jacob Klotz,15.0,3B,11227844,0,0,0,0,0,0,0,0,0,0,0.0
+6486724,4/04/26,baseball,Susquehanna,,Caden Breault,5.0,2B,11227815,0,0,0,0,0,0,0,0,0,0,0.0
+6486724,4/04/26,baseball,Susquehanna,,Owen Ayers,7.0,2B,11227819,0,1,1,0,0,0,0,0,0,0,0.0
+6486724,4/04/26,baseball,Susquehanna,,Lincoln Hower,9.0,CF,11227825,0,0,0,0,0,0,0,0,0,0,0.0
+6486724,4/04/26,baseball,Susquehanna,,Rocco Scarpitti,30.0,RF,11227877,0,0,0,0,0,0,0,0,0,0,0.0
+6486724,4/04/26,baseball,Moravian,1.0,John Phillips,34.0,RF,11241612,2,0,2,0,0,0,0,0,0,0,0.0
+6486724,4/04/26,baseball,Moravian,1.0,David Vozzo,2.0,SS,9680675,0,5,5,0,0,0,0,0,0,0,0.0
+6486724,4/04/26,baseball,Moravian,1.0,Troy Rabosky,4.0,LF,9682850,0,0,0,0,0,0,0,0,0,0,0.0
+6486724,4/04/26,baseball,Moravian,1.0,Sean Superka,24.0,1B,9677072,14,0,14,0,0,0,0,0,0,0,0.0
+6486724,4/04/26,baseball,Moravian,1.0,Luke Keitsock,19.0,CF,9699203,2,0,2,0,0,0,0,0,0,0,0.0
+6486724,4/04/26,baseball,Moravian,1.0,Jack Cappo,44.0,2B,11241621,2,5,7,0,0,0,0,0,0,0,0.0
+6486724,4/04/26,baseball,Moravian,1.0,Ryan Hoffman,16.0,DH,9703563,0,0,0,0,0,0,0,0,0,0,0.0
+6486724,4/04/26,baseball,Moravian,1.0,Matt Westcott,27.0,PH,9684079,0,0,0,0,0,0,0,0,0,0,0.0
+6486724,4/04/26,baseball,Moravian,1.0,Ryan Kessler,50.0,C,9689146,5,1,7,1,0,0,2,1,0,0,0.667
+6486724,4/04/26,baseball,Moravian,1.0,Owen Ness,1.0,3B,11241585,2,2,4,0,0,0,0,0,0,0,0.0
+6498242,3/06/26,baseball,Alvernia,,Quincy Esannason,9.0,RF,9700064,2,0,2,0,0,0,0,0,0,0,0.0
+6498242,3/06/26,baseball,Alvernia,,Mike Pulcini,19.0,2B,9692627,2,3,5,0,0,0,0,0,1,0,0.0
+6498242,3/06/26,baseball,Alvernia,,Timmy Hitchcock,4.0,3B,9681964,2,1,3,0,0,0,0,0,0,0,0.0
+6498242,3/06/26,baseball,Alvernia,,Bobby Hansen,17.0,SS,11248529,0,5,5,0,0,0,0,0,1,0,0.0
+6498242,3/06/26,baseball,Alvernia,,Jack Zabarsky,2.0,DH,9684619,0,0,0,0,0,0,0,0,0,0,0.0
+6498242,3/06/26,baseball,Alvernia,,Harold Ivery,24.0,1B,9701266,8,0,8,0,0,0,0,0,1,0,0.0
+6498242,3/06/26,baseball,Alvernia,,Will Woodring,40.0,C,11248555,9,0,9,0,0,1,1,0,0,0,1.0
+6498242,3/06/26,baseball,Alvernia,,Logan Nelson,27.0,CF,9703019,1,0,1,0,0,0,0,0,0,0,0.0
+6498242,3/06/26,baseball,Alvernia,,Joe Glass,5.0,LF,9691243,2,0,2,0,0,0,0,0,0,0,0.0
+6498242,3/06/26,baseball,Alvernia,,Christopher Babkowski,16.0,PH,9703789,0,0,0,0,0,0,0,0,0,0,0.0
+6498242,3/06/26,baseball,Alvernia,,Jake Chapman,6.0,LF,9686810,1,0,1,0,0,0,0,0,0,0,0.0
+6498242,3/06/26,baseball,Wilkes,1.0,Nathan Loch,14.0,SS,9702372,1,3,5,1,0,0,0,0,1,0,0.0
+6498242,3/06/26,baseball,Wilkes,1.0,Jack Smale,1.0,RF,11241532,1,0,1,0,0,0,0,0,0,0,0.0
+6498242,3/06/26,baseball,Wilkes,1.0,Andres Cruz,9.0,LF,9702247,0,0,0,0,0,0,0,0,0,0,0.0
+6498242,3/06/26,baseball,Wilkes,1.0,Mike Show,10.0,LF,11241544,0,1,1,0,0,0,0,0,0,0,0.0
+6498242,3/06/26,baseball,Wilkes,1.0,Devin Markert,39.0,1B,9682490,9,0,10,1,0,0,0,0,1,0,0.0
+6498242,3/06/26,baseball,Wilkes,1.0,Michael Sabella,32.0,DH,9682959,0,0,0,0,0,0,0,0,0,0,0.0
+6498242,3/06/26,baseball,Wilkes,1.0,Luke Kraszewski,26.0,PR,9704494,0,0,0,0,0,0,0,0,0,0,0.0
+6498242,3/06/26,baseball,Wilkes,1.0,Matthew Show,5.0,3B,9695708,1,4,5,0,0,0,0,0,1,0,0.0
+6498242,3/06/26,baseball,Wilkes,1.0,Gavin Lacoe,18.0,C,9704003,12,1,13,0,0,1,0,0,0,0,0.0
+6498242,3/06/26,baseball,Wilkes,1.0,Brian McDermott,2.0,2B,11241536,1,0,1,0,0,0,0,0,0,0,0.0
+6498242,3/06/26,baseball,Wilkes,1.0,Tyler Uram,16.0,PH,9681784,0,0,0,0,0,0,0,0,0,0,0.0
+6498242,3/06/26,baseball,Wilkes,1.0,Richie Rossi,30.0,PR,9703997,0,0,0,0,0,0,0,0,0,0,0.0
+6498242,3/06/26,baseball,Wilkes,1.0,Evan Melberger,3.0,CF,9691539,0,0,0,0,0,0,0,0,0,0,0.0
+6498242,3/06/26,baseball,Wilkes,1.0,Jacob Cambria,22.0,CF/2B,9681269,0,0,1,1,0,0,0,0,0,0,0.0
+6504139,3/28/26,baseball,UW-River Falls,,Tanner Hraby,7.0,2B,9703767,1,1,2,0,0,0,0,0,0,0,0.0
+6504139,3/28/26,baseball,UW-River Falls,,Andrew Athmann,24.0,C,9702580,3,1,5,1,0,1,3,1,0,0,0.75
+6504139,3/28/26,baseball,UW-River Falls,,Pablo Soto,18.0,C,9704619,2,0,2,0,0,1,2,0,0,0,1.0
+6504139,3/28/26,baseball,UW-River Falls,,Max Krebs,4.0,3B,9691146,3,1,7,3,0,0,0,0,0,0,0.0
+6504139,3/28/26,baseball,UW-River Falls,,Carter Klein,34.0,DH,9699205,0,0,0,0,0,0,0,0,0,0,0.0
+6504139,3/28/26,baseball,UW-River Falls,,JV Castillo,27.0,CF,9685220,2,0,2,0,0,0,0,0,0,0,0.0
+6504139,3/28/26,baseball,UW-River Falls,,Kaleb Zabielski,15.0,LF,9679874,0,1,1,0,0,0,0,0,0,0,0.0
+6504139,3/28/26,baseball,UW-River Falls,,Eddie Peine,3.0,RF,11229751,8,0,8,0,0,0,0,0,0,0,0.0
+6504139,3/28/26,baseball,UW-River Falls,,Colton Skoglund,28.0,PH,9679606,0,0,0,0,0,0,0,0,0,0,0.0
+6504139,3/28/26,baseball,UW-River Falls,,John Santelman,2.0,SS,9683335,0,2,3,1,0,0,0,0,0,0,0.0
+6504139,3/28/26,baseball,UW-River Falls,,David Olson,37.0,PH,9692256,0,0,0,0,0,0,0,0,0,0,0.0
+6504139,3/28/26,baseball,UW-River Falls,,Teagun Ahrens,9.0,1B,11229763,5,0,5,0,0,0,0,0,0,0,0.0
+6504139,3/28/26,baseball,Wis.-La Crosse,1.0,Chris Calico,4.0,CF,11330410,1,0,1,0,0,0,0,0,0,0,0.0
+6504139,3/28/26,baseball,Wis.-La Crosse,1.0,Charley Rowan,9.0,3B,9685703,1,0,2,1,0,0,0,0,0,0,0.0
+6504139,3/28/26,baseball,Wis.-La Crosse,1.0,Matthew Sonnenschein,5.0,3B,11330411,1,0,1,0,0,0,0,0,0,0,0.0
+6504139,3/28/26,baseball,Wis.-La Crosse,1.0,Brady Lash,7.0,LF,9689476,2,0,2,0,0,0,0,0,0,0,0.0
+6504139,3/28/26,baseball,Wis.-La Crosse,1.0,AJ Levy,6.0,LF,11330412,0,0,0,0,0,0,0,0,0,0,0.0
+6504139,3/28/26,baseball,Wis.-La Crosse,1.0,Andrew Palm,11.0,RF,9697622,0,0,0,0,0,0,0,0,0,0,0.0
+6504139,3/28/26,baseball,Wis.-La Crosse,1.0,Carter Gilhausen,14.0,RF,11330414,0,0,0,0,0,0,0,0,0,0,0.0
+6504139,3/28/26,baseball,Wis.-La Crosse,1.0,Sam Viniard,45.0,1B,9703319,5,0,5,0,0,0,0,0,0,0,0.0
+6504139,3/28/26,baseball,Wis.-La Crosse,1.0,K. Fleischman,2.0,SS,9677619,1,2,3,0,0,0,0,0,0,0,0.0
+6504139,3/28/26,baseball,Wis.-La Crosse,1.0,Mark Manders,18.0,SS,9693126,0,0,0,0,0,0,0,0,0,0,0.0
+6504139,3/28/26,baseball,Wis.-La Crosse,1.0,Luke Walton,21.0,DH,9701296,0,0,0,0,0,0,0,0,0,0,0.0
+6504139,3/28/26,baseball,Wis.-La Crosse,1.0,Evan Schmidt,44.0,DH,11330422,0,0,0,0,0,0,0,0,0,0,0.0
+6504139,3/28/26,baseball,Wis.-La Crosse,1.0,Calvin Hargrove,36.0,C,9690129,13,3,16,0,0,0,1,1,0,0,0.5
+6504139,3/28/26,baseball,Wis.-La Crosse,1.0,Emiliano Ramos,3.0,2B,9681105,3,0,3,0,0,0,0,0,0,0,0.0
+6508768,4/04/26,baseball,Alma,,Grady Pieratt,1.0,CF,11218710,4,0,4,0,0,0,0,0,0,0,0.0
+6508768,4/04/26,baseball,Alma,,Alexander Kavalick,47.0,1B,9688819,6,0,6,0,0,0,0,0,0,0,0.0
+6508768,4/04/26,baseball,Alma,,Cameron Bleasdale,15.0,DH,9687751,0,0,0,0,0,0,0,0,0,0,0.0
+6508768,4/04/26,baseball,Alma,,Cole Grunwald,6.0,LF,9700814,2,1,3,0,0,0,0,0,0,0,0.0
+6508768,4/04/26,baseball,Alma,,Braylon Ryan,2.0,RF,11218713,1,0,1,0,0,0,0,0,0,0,0.0
+6508768,4/04/26,baseball,Alma,,Kyler Warren,7.0,3B,11218714,2,1,5,2,0,0,0,0,0,0,0.0
+6508768,4/04/26,baseball,Alma,,Justin Diaz,23.0,SS,11218732,1,1,2,0,0,0,0,0,0,0,0.0
+6508768,4/04/26,baseball,Alma,,Charlie Martyn,12.0,C,9696315,6,1,7,0,0,0,1,0,0,0,1.0
+6508768,4/04/26,baseball,Alma,,Brant Goodpaster,5.0,2B,9700229,2,1,3,0,0,0,0,0,0,0,0.0
+6508768,4/04/26,baseball,Alma,,B. Vannest,35.0,PH,11249395,0,0,0,0,0,0,0,0,0,0,0.0
+6508768,4/04/26,baseball,Alma,,Preston Schroyer,14.0,PR,9687012,0,0,0,0,0,0,0,0,0,0,0.0
+6508768,4/04/26,baseball,Alma,,Charlie Chmielewski,3.0,2B,9693440,0,0,0,0,0,0,0,0,0,0,0.0
+6508768,4/04/26,baseball,Olivet,1.0,Brody Parten,11.0,3B,9688359,1,2,3,0,0,0,0,0,0,0,0.0
+6508768,4/04/26,baseball,Olivet,1.0,Owen Smith,14.0,LF,9684167,3,0,3,0,0,0,0,0,0,0,0.0
+6508768,4/04/26,baseball,Olivet,1.0,Braden Abbott,8.0,SS,9705144,1,4,5,0,0,0,0,0,0,0,0.0
+6508768,4/04/26,baseball,Olivet,1.0,EJ Suggitt,47.0,1B,9703311,8,1,9,0,0,0,0,0,1,0,0.0
+6508768,4/04/26,baseball,Olivet,1.0,Nate Droste,6.0,2B,9698440,0,0,0,0,0,0,0,0,0,0,0.0
+6508768,4/04/26,baseball,Olivet,1.0,Austin Alflen,2.0,DH,9687004,0,0,0,0,0,0,0,0,0,0,0.0
+6508768,4/04/26,baseball,Olivet,1.0,Mikey Kuzara,10.0,C,9700292,7,1,8,0,0,2,3,1,0,0,0.75
+6508768,4/04/26,baseball,Olivet,1.0,Will Myrick,19.0,RF,9697452,3,0,3,0,0,0,0,0,0,0,0.0
+6508768,4/04/26,baseball,Olivet,1.0,Tyler Duncan,5.0,CF,9703859,3,1,5,1,0,0,0,0,0,0,0.0
+6518352,2/28/26,baseball,Ill. Wesleyan,,Matt Hudik,19.0,CF,9690279,3,0,3,0,0,0,0,0,0,0,0.0
+6518352,2/28/26,baseball,Ill. Wesleyan,,Ben Ford,3.0,DH,9691557,0,0,0,0,0,0,0,0,0,0,0.0
+6518352,2/28/26,baseball,Ill. Wesleyan,,John Philip Ferraro,32.0,1B,9684505,2,0,2,0,0,0,0,0,0,0,0.0
+6518352,2/28/26,baseball,Ill. Wesleyan,,Jack Flagg,41.0,LF,9689850,2,0,2,0,0,0,0,0,0,0,0.0
+6518352,2/28/26,baseball,Ill. Wesleyan,,AJ Weller,1.0,SS,11218574,1,1,2,0,0,0,0,0,0,0,0.0
+6518352,2/28/26,baseball,Ill. Wesleyan,,Luca Morelli,23.0,C,9704118,9,2,12,1,0,0,2,2,0,0,0.5
+6518352,2/28/26,baseball,Ill. Wesleyan,,Jack Novak,10.0,RF,9685086,1,0,1,0,0,0,0,0,0,0,0.0
+6518352,2/28/26,baseball,Ill. Wesleyan,,Gage Wolfe,7.0,2B,9682736,2,2,4,0,0,0,0,0,0,0,0.0
+6518352,2/28/26,baseball,Ill. Wesleyan,,Derek Ittner,5.0,3B,9705196,3,0,3,0,0,0,0,0,0,0,0.0
+6518352,2/28/26,baseball,DePauw,1.0,Max Bond,2.0,SS,9686033,2,5,7,0,0,0,0,0,1,0,0.0
+6518352,2/28/26,baseball,DePauw,1.0,Aidan Howard,1.0,RF,9701189,4,0,4,0,0,0,0,0,0,0,0.0
+6518352,2/28/26,baseball,DePauw,1.0,Grady Johnson,3.0,3B,9704226,0,1,1,0,0,0,0,0,0,0,0.0
+6518352,2/28/26,baseball,DePauw,1.0,Cuinn Morrow,27.0,CF,9684230,2,0,3,1,0,0,0,0,0,0,0.0
+6518352,2/28/26,baseball,DePauw,1.0,Nolan Whitehead,8.0,1B,9693405,12,0,12,0,0,0,0,0,1,0,0.0
+6518352,2/28/26,baseball,DePauw,1.0,Zach O'Connell,12.0,DH,9688197,0,0,0,0,0,0,0,0,0,0,0.0
+6518352,2/28/26,baseball,DePauw,1.0,Luke Thompson,7.0,PH,9694935,0,0,0,0,0,0,0,0,0,0,0.0
+6518352,2/28/26,baseball,DePauw,1.0,Louis Florida,42.0,LF,9704128,1,0,1,0,0,0,0,0,0,0,0.0
+6518352,2/28/26,baseball,DePauw,1.0,Cooper Davis,6.0,C,9680787,5,2,7,0,0,0,1,0,0,0,1.0
+6518352,2/28/26,baseball,DePauw,1.0,Tyler Walkey,9.0,2B,9681249,1,6,7,0,0,0,0,0,1,0,0.0
+6519684,3/29/26,baseball,Farmingdale St.,,John Francisco,7.0,DH,11245960,0,0,0,0,0,0,0,0,0,0,0.0
+6519684,3/29/26,baseball,Farmingdale St.,,Richie Heyder,34.0,RF,9697941,1,0,1,0,0,0,0,0,0,0,0.0
+6519684,3/29/26,baseball,Farmingdale St.,,Ryan Wasserman,11.0,2B,9696853,3,1,5,1,0,0,0,0,1,0,0.0
+6519684,3/29/26,baseball,Farmingdale St.,,Dom LaFroscia,39.0,1B,11246216,3,2,5,0,0,0,0,0,0,0,0.0
+6519684,3/29/26,baseball,Farmingdale St.,,Kaolis Delacruz,3.0,SS,9703884,1,1,3,1,0,0,0,0,0,0,0.0
+6519684,3/29/26,baseball,Farmingdale St.,,Jimmy Manzella,19.0,3B,9698407,1,0,2,1,0,0,0,0,0,0,0.0
+6519684,3/29/26,baseball,Farmingdale St.,,Tyler Diez,1.0,3B,9695987,0,0,0,0,0,0,0,0,0,0,0.0
+6519684,3/29/26,baseball,Farmingdale St.,,Vincent Deiosso,5.0,PH,9703855,0,0,0,0,0,0,0,0,0,0,0.0
+6519684,3/29/26,baseball,Farmingdale St.,,Mike D'Angelo,32.0,LF,11246211,0,0,0,0,0,0,0,0,0,0,0.0
+6519684,3/29/26,baseball,Farmingdale St.,,Matt Faraone,27.0,CF,11246206,4,1,5,0,0,0,0,0,1,0,0.0
+6519684,3/29/26,baseball,Farmingdale St.,,Ryan Plocker,22.0,C,9689847,4,1,5,0,0,0,4,1,0,0,0.8
+6519684,3/29/26,baseball,UMSV,1.0,Zach Turko,1.0,2B,9685117,6,3,9,0,0,0,0,0,1,0,0.0
+6519684,3/29/26,baseball,UMSV,1.0,Will Granata,17.0,1B,9684227,4,0,5,1,0,0,0,0,1,0,0.0
+6519684,3/29/26,baseball,UMSV,1.0,John Anthony Spanoudakis,34.0,C,9694912,5,0,5,0,0,0,4,0,0,0,1.0
+6519684,3/29/26,baseball,UMSV,1.0,Stephen Marinez,25.0,RF,11250417,2,0,2,0,0,0,0,0,0,0,0.0
+6519684,3/29/26,baseball,UMSV,1.0,Michael Vascellaro,9.0,RF,9699054,0,0,0,0,0,0,0,0,0,0,0.0
+6519684,3/29/26,baseball,UMSV,1.0,Kyle Brindisi,23.0,LF,11250395,0,0,0,0,0,0,0,0,0,0,0.0
+6519684,3/29/26,baseball,UMSV,1.0,Pablo Austin,13.0,3B,9690744,2,0,3,1,0,0,0,0,0,0,0.0
+6519684,3/29/26,baseball,UMSV,1.0,Michael Akalski,3.0,DH,11250387,0,0,0,0,0,0,0,0,0,0,0.0
+6519684,3/29/26,baseball,UMSV,1.0,Andrew Farina,2.0,SS,9696496,1,4,5,0,0,0,0,0,1,0,0.0
+6519684,3/29/26,baseball,UMSV,1.0,Tyler Margolis,7.0,CF,9695136,1,0,1,0,0,0,0,0,0,0,0.0
+6519684,3/29/26,baseball,UMSV,1.0,Evan Dutzer,71.0,CF,9703549,0,0,0,0,0,0,0,0,0,0,0.0
+6521055,4/04/26,baseball,Williams,,Ryan Nakajima,5.0,DH,9687605,0,0,0,0,0,0,0,0,0,0,0.0
+6521055,4/04/26,baseball,Williams,,Sasha Palma,3.0,2B,9684721,1,0,1,0,0,0,0,0,0,0,0.0
+6521055,4/04/26,baseball,Williams,,Marcus Burrell II,4.0,CF,9678795,2,0,2,0,0,0,0,0,0,0,0.0
+6521055,4/04/26,baseball,Williams,,Oliver Rey,21.0,RF,9694828,2,0,2,0,0,0,0,0,0,0,0.0
+6521055,4/04/26,baseball,Williams,,Quinn Carlesimo,17.0,SS,11237399,4,2,6,0,0,0,0,0,0,0,0.0
+6521055,4/04/26,baseball,Williams,,Lucas Asanovic,15.0,3B,9697516,0,0,1,1,0,0,0,0,0,0,0.0
+6521055,4/04/26,baseball,Williams,,Will Scott,13.0,LF,9703361,0,0,0,0,0,0,0,0,0,0,0.0
+6521055,4/04/26,baseball,Williams,,Anthony Lods,8.0,C,9687823,7,1,8,0,0,0,5,1,0,0,0.833
+6521055,4/04/26,baseball,Williams,,Hank Jacobus,11.0,1B,9703831,6,1,7,0,0,0,0,0,0,0,0.0
+6521055,4/04/26,baseball,Trinity (CT),1.0,Tyler Bernstein,5.0,3B,9703244,1,1,2,0,0,0,0,0,1,0,0.0
+6521055,4/04/26,baseball,Trinity (CT),1.0,Theodore McLaughlin,33.0,PH,11331262,0,0,0,0,0,0,0,0,0,0,0.0
+6521055,4/04/26,baseball,Trinity (CT),1.0,Timothy Domizio,4.0,2B,9681858,2,2,5,1,0,0,0,0,1,0,0.0
+6521055,4/04/26,baseball,Trinity (CT),1.0,Aidan Stevenson,30.0,1B,9683779,6,1,7,0,0,0,0,0,1,0,0.0
+6521055,4/04/26,baseball,Trinity (CT),1.0,Andrew Thomas Park,8.0,RF,9702368,3,0,4,1,0,0,0,0,0,0,0.0
+6521055,4/04/26,baseball,Trinity (CT),1.0,Adam Niman,27.0,RF,9678229,1,0,1,0,0,0,0,0,0,0,0.0
+6521055,4/04/26,baseball,Trinity (CT),1.0,Dylan Schnitzer,16.0,LF,9680673,1,0,1,0,0,0,0,0,0,0,0.0
+6521055,4/04/26,baseball,Trinity (CT),1.0,Luis Saldivia,6.0,SS,9693249,1,1,2,0,0,0,0,0,0,0,0.0
+6521055,4/04/26,baseball,Trinity (CT),1.0,Cole Mascolo,22.0,CF,9690473,3,0,3,0,0,0,0,0,0,0,0.0
+6521055,4/04/26,baseball,Trinity (CT),1.0,Brett Stone,18.0,DH,9677909,0,0,0,0,0,0,0,0,0,0,0.0
+6521055,4/04/26,baseball,Trinity (CT),1.0,Jake Goldshore,32.0,C,11329657,5,0,5,0,0,0,2,0,0,0,1.0
+6545950,3/12/26,baseball,Albertus Magnus,,Adriel Espada,11.0,SS,11236120,1,2,4,1,0,0,0,0,0,0,0.0
+6545950,3/12/26,baseball,Albertus Magnus,,Mark Whittington,6.0,CF,11236966,4,0,4,0,0,0,0,0,0,0,0.0
+6545950,3/12/26,baseball,Albertus Magnus,,Eric Galarza,2.0,1B,11236117,8,0,8,0,0,0,0,0,0,0,0.0
+6545950,3/12/26,baseball,Albertus Magnus,,Joey O'Hara,15.0,DH,11236949,0,0,0,0,0,0,0,0,0,0,0.0
+6545950,3/12/26,baseball,Albertus Magnus,,Gio Morales,23.0,RF,9683377,4,0,4,0,0,0,0,0,0,0,0.0
+6545950,3/12/26,baseball,Albertus Magnus,,Baltazar Mesa,5.0,LF,11236925,3,0,3,0,0,0,0,0,0,0,0.0
+6545950,3/12/26,baseball,Albertus Magnus,,Robert Anton,3.0,2B,9683692,1,1,2,0,0,0,0,0,0,0,0.0
+6545950,3/12/26,baseball,Albertus Magnus,,Hunter Sincovic,10.0,C,11236962,2,1,4,1,0,0,3,0,0,0,1.0
+6545950,3/12/26,baseball,Albertus Magnus,,Anthony Abate,4.0,3B,9702471,1,1,3,1,0,0,0,0,0,0,0.0
+6545950,3/12/26,baseball,Lakeland,1.0,J.T. Cortinas,1.0,2B,11253705,2,3,5,0,0,0,0,0,1,0,0.0
+6545950,3/12/26,baseball,Lakeland,1.0,Jordan Domingue,8.0,CF,11253706,1,0,1,0,0,0,0,0,0,0,0.0
+6545950,3/12/26,baseball,Lakeland,1.0,Sean Gregorius,25.0,RF,9690131,4,1,5,0,0,0,0,0,0,0,0.0
+6545950,3/12/26,baseball,Lakeland,1.0,Dylan Costello,42.0,DH,9686328,0,0,0,0,0,0,0,0,0,0,0.0
+6545950,3/12/26,baseball,Lakeland,1.0,Chris Finn,19.0,3B,11253709,0,1,2,1,0,0,0,0,0,0,0.0
+6545950,3/12/26,baseball,Lakeland,1.0,Logan South,4.0,C,9679351,9,0,9,0,0,0,3,0,0,0,1.0
+6545950,3/12/26,baseball,Lakeland,1.0,Mikey Hernandez,7.0,1B,11253716,7,1,8,0,0,0,0,0,1,0,0.0
+6545950,3/12/26,baseball,Lakeland,1.0,Hayden Smith,12.0,SS,11253733,3,3,7,1,0,0,0,0,1,0,0.0
+6545950,3/12/26,baseball,Lakeland,1.0,Chris Day,14.0,LF,9678820,1,1,2,0,0,0,0,0,0,0,0.0
+6545383,4/09/26,baseball,Waynesburg,,Jose Lopez,26.0,LF,11233914,1,0,1,0,0,0,0,0,0,0,0.0
+6545383,4/09/26,baseball,Waynesburg,,Eli Boring,32.0,RF,11233903,0,0,0,0,0,0,0,0,0,0,0.0
+6545383,4/09/26,baseball,Waynesburg,,Hunter Hamilton,10.0,CF,9696286,2,0,2,0,0,0,0,0,0,0,0.0
+6545383,4/09/26,baseball,Waynesburg,,Luke Buckner,30.0,DH,11233907,0,0,0,0,0,0,0,0,0,0,0.0
+6545383,4/09/26,baseball,Waynesburg,,Brayden Krebbs,18.0,3B,11233912,0,3,3,0,0,0,0,0,0,0,0.0
+6545383,4/09/26,baseball,Waynesburg,,Noah Gabriel,7.0,2B,9683109,2,3,6,1,0,0,0,0,0,0,0.0
+6545383,4/09/26,baseball,Waynesburg,,Kaden Flambard,12.0,SS,9692983,2,2,4,0,0,0,0,0,0,0,0.0
+6545383,4/09/26,baseball,Waynesburg,,Sam Watson,33.0,C,11233930,8,0,9,1,0,0,1,0,0,0,1.0
+6545383,4/09/26,baseball,Waynesburg,,Ian Trott,27.0,1B,9682892,8,0,8,0,0,0,0,0,0,0,0.0
+6545383,4/09/26,baseball,Grove City,1.0,David Chandler,17.0,CF,9701376,4,0,4,0,0,0,0,0,0,0,0.0
+6545383,4/09/26,baseball,Grove City,1.0,Nick Sampson,3.0,2B,9679739,2,0,3,1,0,0,0,0,0,0,0.0
+6545383,4/09/26,baseball,Grove City,1.0,Colin Marinpetro,26.0,1B,9686589,6,0,6,0,0,0,0,0,0,0,0.0
+6545383,4/09/26,baseball,Grove City,1.0,Caleb Backos,32.0,RF,9692330,3,0,3,0,0,0,0,0,0,0,0.0
+6545383,4/09/26,baseball,Grove City,1.0,Dan Luko,10.0,LF,9700472,3,0,3,0,0,0,0,0,0,0,0.0
+6545383,4/09/26,baseball,Grove City,1.0,Nick Remish,4.0,3B,11242143,0,0,0,0,0,0,0,0,0,0,0.0
+6545383,4/09/26,baseball,Grove City,1.0,Johnny Reyes,47.0,DH,11242218,0,0,0,0,0,0,0,0,0,0,0.0
+6545383,4/09/26,baseball,Grove City,1.0,Adam Weber,5.0,C,9677662,6,1,7,0,0,0,1,1,0,0,0.5
+6545383,4/09/26,baseball,Grove City,1.0,Kyle Rhineberger,1.0,SS,11242104,3,2,5,0,0,0,0,0,0,0,0.0
+6558771,3/06/26,baseball,Delaware Valley,,Gavin Migliori,16.0,LF,9689585,1,0,1,0,0,0,0,0,0,0,0.0
+6558771,3/06/26,baseball,Delaware Valley,,Liam Martin,47.0,RF,9703547,1,0,1,0,0,0,0,0,0,0,0.0
+6558771,3/06/26,baseball,Delaware Valley,,Aidan Devlin,22.0,1B,9705275,4,0,4,0,0,0,0,0,0,0,0.0
+6558771,3/06/26,baseball,Delaware Valley,,Ben Boyer,6.0,1B/RF,11221084,2,0,2,0,0,0,0,0,0,0,0.0
+6558771,3/06/26,baseball,Delaware Valley,,Mick Brunelli,37.0,RF,9702149,0,0,0,0,0,0,0,0,0,0,0.0
+6558771,3/06/26,baseball,Delaware Valley,,Damian Pipitone,8.0,RF,11221178,2,0,2,0,0,0,0,0,0,0,0.0
+6558771,3/06/26,baseball,Delaware Valley,,Jared Ecenroad,12.0,3B,9681733,0,0,0,0,0,0,0,0,0,0,0.0
+6558771,3/06/26,baseball,Delaware Valley,,Jakob Koenig,42.0,3B,9686218,0,2,2,0,0,0,0,0,0,0,0.0
+6558771,3/06/26,baseball,Delaware Valley,,Jake Seibert,28.0,3B,9704241,0,0,0,0,0,0,0,0,0,0,0.0
+6558771,3/06/26,baseball,Delaware Valley,,Lucas Santise,14.0,DH,9686353,0,0,0,0,0,0,0,0,0,0,0.0
+6558771,3/06/26,baseball,Delaware Valley,,Kody Boyer,45.0,CF,9694737,5,0,5,0,0,0,0,0,0,0,0.0
+6558771,3/06/26,baseball,Delaware Valley,,Eli Scott,34.0,C,11221181,4,0,4,0,0,0,2,0,0,0,1.0
+6558771,3/06/26,baseball,Delaware Valley,,Aiden Walsh,44.0,C,11221186,0,0,0,0,0,0,0,0,0,0,0.0
+6558771,3/06/26,baseball,Delaware Valley,,Lachlan Segedy,48.0,C,11221182,4,0,4,0,0,0,0,0,0,0,0.0
+6558771,3/06/26,baseball,Delaware Valley,,Daniel Murphy,3.0,SS,9693671,0,0,1,1,0,0,0,0,0,0,0.0
+6558771,3/06/26,baseball,Delaware Valley,,Matteo Viola,2.0,2B,9701267,0,0,1,1,0,0,0,0,0,0,0.0
+6558771,3/06/26,baseball,Delaware Valley,,Patrick Higgins,1.0,2B/SS,9693935,1,2,3,0,0,0,0,0,0,0,0.0
+6558771,3/06/26,baseball,Neumann,1.0,Anthony Rakotz,8.0,SS,9689542,2,2,4,0,0,0,0,0,0,0,0.0
+6558771,3/06/26,baseball,Neumann,1.0,Nick Ciesielka,5.0,LF,11248610,0,0,0,0,0,0,0,0,0,0,0.0
+6558771,3/06/26,baseball,Neumann,1.0,Cody Rullo,6.0,LF,11248611,1,0,1,0,0,0,0,0,0,0,0.0
+6558771,3/06/26,baseball,Neumann,1.0,Andrew Brown,29.0,DH,9689164,0,0,0,0,0,0,0,0,0,0,0.0
+6558771,3/06/26,baseball,Neumann,1.0,Jordan Tocci,15.0,DH,9678374,0,0,0,0,0,0,0,0,0,0,0.0
+6558771,3/06/26,baseball,Neumann,1.0,JerVal Shuler,11.0,CF,9684062,2,0,2,0,0,0,0,0,0,0,0.0
+6558771,3/06/26,baseball,Neumann,1.0,Jackson Armiger,22.0,3B,11248620,1,0,1,0,0,0,0,0,0,0,0.0
+6558771,3/06/26,baseball,Neumann,1.0,Yoan Feliz,21.0,1B,11248605,5,1,6,0,0,0,0,0,0,0,0.0
+6558771,3/06/26,baseball,Neumann,1.0,Brayden Fields,4.0,RF,11248608,2,0,2,0,0,0,0,0,0,0,0.0
+6558771,3/06/26,baseball,Neumann,1.0,Brody Foltz,24.0,C,11248622,11,0,12,1,0,4,5,0,0,0,1.0
+6558771,3/06/26,baseball,Neumann,1.0,Blake Decker,20.0,2B,9688987,2,5,7,0,0,0,0,0,0,0,0.0
+6467745,4/25/26,baseball,Wis.-Superior,,Noah Dagostino,10.0,2B,9684617,1,3,4,0,0,0,0,0,0,0,0.0
+6467745,4/25/26,baseball,Wis.-Superior,,Carter Thielke,15.0,CF,11194570,2,0,2,0,0,0,0,0,0,0,0.0
+6467745,4/25/26,baseball,Wis.-Superior,,Trey Sybrant,28.0,LF,9691355,0,0,0,0,0,0,0,0,0,0,0.0
+6467745,4/25/26,baseball,Wis.-Superior,,Tanner Voight,34.0,DH,9687851,0,0,0,0,0,0,0,0,0,0,0.0
+6467745,4/25/26,baseball,Wis.-Superior,,Brian O'Dwyer,23.0,3B,9696187,2,3,5,0,0,0,0,0,0,0,0.0
+6467745,4/25/26,baseball,Wis.-Superior,,Mason McKellar,21.0,1B,9693885,11,0,11,0,0,0,0,0,0,0,0.0
+6467745,4/25/26,baseball,Wis.-Superior,,Isaac Johnson,5.0,RF,11194566,6,0,6,0,0,0,0,0,0,0,0.0
+6467745,4/25/26,baseball,Wis.-Superior,,Chase Oxborough,19.0,SS,9685559,2,5,8,1,0,0,0,0,0,0,0.0
+6467745,4/25/26,baseball,Wis.-Superior,,Tyler Fitzgerald,41.0,C,11194579,3,0,3,0,0,0,0,0,0,0,0.0
+6467745,4/25/26,baseball,Crown (MN),1.0,Blayke Reyburn,37.0,RF,11215311,2,0,2,0,0,0,0,0,0,0,0.0
+6467745,4/25/26,baseball,Crown (MN),1.0,Michael Escalante,3.0,SS,9696712,0,2,3,1,0,0,0,0,0,0,0.0
+6467745,4/25/26,baseball,Crown (MN),1.0,Easton McKenzie,22.0,1B,9700652,8,1,9,0,0,0,0,0,0,0,0.0
+6467745,4/25/26,baseball,Crown (MN),1.0,Tyler Hakes,30.0,C,9691040,8,0,8,0,0,0,2,0,0,0,1.0
+6467745,4/25/26,baseball,Crown (MN),1.0,Tyler Shamrock,13.0,DH,9699436,0,0,0,0,0,0,0,0,0,0,0.0
+6467745,4/25/26,baseball,Crown (MN),1.0,Zach Adams,4.0,2B,9701808,3,3,6,0,0,0,0,0,0,0,0.0
+6467745,4/25/26,baseball,Crown (MN),1.0,Brayden Anderson,55.0,3B,11215325,0,2,3,1,0,0,0,0,0,0,0.0
+6467745,4/25/26,baseball,Crown (MN),1.0,Blake Morgan,18.0,LF,9702515,1,0,1,0,0,0,0,0,0,0,0.0
+6467745,4/25/26,baseball,Crown (MN),1.0,Charlie Joyce,8.0,CF,9684777,5,0,5,0,0,0,0,0,0,0,0.0
+6499468,4/25/26,baseball,Wilmington (OH),,J.C. Calhoun,3.0,LF,9697887,2,0,3,1,0,0,0,0,0,0,0.0
+6499468,4/25/26,baseball,Wilmington (OH),,Brody Julian,4.0,2B,11204783,1,1,2,0,0,0,0,0,0,0,0.0
+6499468,4/25/26,baseball,Wilmington (OH),,Braden Chambers,38.0,CF,9695734,8,0,8,0,0,0,0,0,0,0,0.0
+6499468,4/25/26,baseball,Wilmington (OH),,Dominic Depa,8.0,3B,11204204,0,0,0,0,0,0,0,0,0,0,0.0
+6499468,4/25/26,baseball,Wilmington (OH),,Kyle Jennings,2.0,SS,9686860,1,1,3,1,0,0,0,0,0,0,0.0
+6499468,4/25/26,baseball,Wilmington (OH),,Jake Stephens,34.0,C,11204216,5,0,6,1,0,1,4,0,0,0,1.0
+6499468,4/25/26,baseball,Wilmington (OH),,Bobby Fleming,9.0,RF,11204782,1,0,1,0,0,0,0,0,0,0,0.0
+6499468,4/25/26,baseball,Wilmington (OH),,Max Gildea,45.0,1B,9686371,6,0,6,0,0,0,0,0,0,0,0.0
+6499468,4/25/26,baseball,Wilmington (OH),,Avery Battle,5.0,DH,9691419,0,0,0,0,0,0,0,0,0,0,0.0
+6499468,4/25/26,baseball,Wilmington (OH),,Eli Hollingsworth,16.0,PH,9679323,0,0,0,0,0,0,0,0,0,0,0.0
+6499468,4/25/26,baseball,Muskingum,1.0,Grant Mellerson,3.0,3B,9679794,2,0,3,1,0,0,0,0,0,0,0.0
+6499468,4/25/26,baseball,Muskingum,1.0,Joey Eurez,2.0,2B,9699545,2,0,2,0,0,0,0,0,0,0,0.0
+6499468,4/25/26,baseball,Muskingum,1.0,Sam Palmieri,24.0,2B/3B,9682545,3,5,8,0,0,0,0,0,1,0,0.0
+6499468,4/25/26,baseball,Muskingum,1.0,Lex Castañeda,8.0,1B,9677566,8,2,10,0,0,0,0,0,1,0,0.0
+6499468,4/25/26,baseball,Muskingum,1.0,Josh Beavon,27.0,C,11236824,5,0,5,0,0,0,0,0,0,0,0.0
+6499468,4/25/26,baseball,Muskingum,1.0,Aiden Reis,13.0,RF,9700698,2,0,2,0,0,0,0,0,0,0,0.0
+6499468,4/25/26,baseball,Muskingum,1.0,Jackson Duchesne,22.0,LF,9703932,0,0,0,0,0,0,0,0,0,0,0.0
+6499468,4/25/26,baseball,Muskingum,1.0,Conner Thamann,23.0,SS,9704841,2,4,8,2,0,0,0,0,1,0,0.0
+6499468,4/25/26,baseball,Muskingum,1.0,Jasper Owens,0.0,DH,9688167,0,0,0,0,0,0,0,0,0,0,0.0
+6499468,4/25/26,baseball,Muskingum,1.0,Nate Fuerstman,16.0,DH,9680920,0,0,0,0,0,0,0,0,0,0,0.0
+6499468,4/25/26,baseball,Muskingum,1.0,Daelyn Jarman,4.0,CF,9694832,2,0,2,0,0,0,0,0,0,0,0.0
+6499468,4/25/26,baseball,Muskingum,1.0,Kade Whitman,19.0,PH,9682565,0,0,0,0,0,0,0,0,0,0,0.0
+6499468,4/25/26,baseball,Muskingum,1.0,Olly Schrader,30.0,CF,9691902,0,0,0,0,0,0,0,0,0,0,0.0
+6544435,4/16/26,baseball,Trine,,Luke Burford,5.0,SS,9701946,2,1,3,0,0,0,0,0,0,0,0.0
+6544435,4/16/26,baseball,Trine,,William Taczak,2.0,2B,9681674,3,1,4,0,0,0,0,0,0,0,0.0
+6544435,4/16/26,baseball,Trine,,Cole Temple,4.0,3B,9698527,2,1,3,0,0,0,0,0,0,0,0.0
+6544435,4/16/26,baseball,Trine,,Nathan Gilmet,29.0,C,9700614,5,2,9,2,0,0,7,2,0,0,0.778
+6544435,4/16/26,baseball,Trine,,Colton Rinehart,30.0,DH,11253152,0,0,0,0,0,0,0,0,0,0,0.0
+6544435,4/16/26,baseball,Trine,,Sam Beckham,20.0,1B,9692634,3,0,3,0,0,0,0,0,0,0,0.0
+6544435,4/16/26,baseball,Trine,,Justin Hamberg,15.0,LF,9686617,2,0,2,0,0,0,0,0,0,0,0.0
+6544435,4/16/26,baseball,Trine,,L. Metzler,7.0,RF,11253081,5,0,5,0,0,0,0,0,0,0,0.0
+6544435,4/16/26,baseball,Trine,,Cole Schmidthuber,3.0,CF,9679314,2,0,2,0,0,0,0,0,0,0,0.0
+6544435,4/16/26,baseball,Adrian,1.0,Brendan Willadsen,14.0,1B,9695920,4,0,4,0,0,0,0,0,0,0,0.0
+6544435,4/16/26,baseball,Adrian,1.0,Nic Bruder,5.0,SS,9681286,0,3,3,0,0,0,0,0,0,0,0.0
+6544435,4/16/26,baseball,Adrian,1.0,Gabe Jones,17.0,C,11251071,10,0,10,0,0,0,0,0,0,0,0.0
+6544435,4/16/26,baseball,Adrian,1.0,Jake Burns,23.0,LF,9704540,2,1,3,0,0,0,0,0,0,0,0.0
+6544435,4/16/26,baseball,Adrian,1.0,Jaxon McGuigan,19.0,RF,9695304,5,0,5,0,0,0,0,0,0,0,0.0
+6544435,4/16/26,baseball,Adrian,1.0,Braxton Bermes,25.0,DH,11251048,0,0,0,0,0,0,0,0,0,0,0.0
+6544435,4/16/26,baseball,Adrian,1.0,Casey Finn,3.0,2B/3B,9678781,0,2,2,0,0,0,0,0,0,0,0.0
+6544435,4/16/26,baseball,Adrian,1.0,Rolando Jimenez,8.0,3B,9693917,1,0,1,0,0,0,0,0,0,0,0.0
+6544435,4/16/26,baseball,Adrian,1.0,Logan Klotz,7.0,2B,9681604,1,0,1,0,0,0,0,0,0,0,0.0
+6544435,4/16/26,baseball,Adrian,1.0,Jack Boike,9.0,CF,9687978,4,0,4,0,0,0,0,0,0,0,0.0
+6509131,4/22/26,baseball,Penn St. Brandywine,,Ryan Snyder,20.0,2B,9681533,6,4,10,0,0,0,0,0,2,0,0.0
+6509131,4/22/26,baseball,Penn St. Brandywine,,Ryan Brown,4.0,RF,9683365,2,0,3,1,0,0,0,0,0,0,0.0
+6509131,4/22/26,baseball,Penn St. Brandywine,,Ivano Romaniello,3.0,1B,9679888,7,1,8,0,0,0,0,0,2,0,0.0
+6509131,4/22/26,baseball,Penn St. Brandywine,,Will Collison,8.0,DH,11250307,0,0,0,0,0,0,0,0,0,0,0.0
+6509131,4/22/26,baseball,Penn St. Brandywine,,Mason Coursey,2.0,PR,9697389,0,0,0,0,0,0,0,0,0,0,0.0
+6509131,4/22/26,baseball,Penn St. Brandywine,,Jason Hankins,17.0,3B,11250314,0,0,0,0,0,0,0,0,0,0,0.0
+6509131,4/22/26,baseball,Penn St. Brandywine,,Luke DeVita,22.0,SS,11250295,0,2,3,1,0,0,0,0,1,0,0.0
+6509131,4/22/26,baseball,Penn St. Brandywine,,Miguel Rodriguez,15.0,C,9692478,4,2,6,0,0,0,1,1,0,0,0.5
+6509131,4/22/26,baseball,Penn St. Brandywine,,David Kursman,7.0,LF,9682158,0,0,0,0,0,0,0,0,0,0,0.0
+6509131,4/22/26,baseball,Penn St. Brandywine,,Daniel Rohlsen,35.0,SS/3B,9699836,6,1,9,2,0,0,0,0,0,0,0.0
+6509131,4/22/26,baseball,Penn St. Brandywine,,Noah Currier,9.0,CF,11250309,1,0,1,0,0,0,0,0,0,0,0.0
+6509131,4/22/26,baseball,Penn St. Brandywine,,Brody Oyloe,25.0,LF,9684022,1,0,1,0,0,0,0,0,0,0,0.0
+6509131,4/22/26,baseball,Penn St. Brandywine,,Ryan Koman,1.0,CF,9696059,0,0,0,0,0,0,0,0,0,0,0.0
+6509131,4/22/26,baseball,Ursinus,1.0,Brandon Sullivan,4.0,CF,9698107,2,0,2,0,0,0,0,0,0,0,0.0
+6509131,4/22/26,baseball,Ursinus,1.0,Devin Fogg,6.0,CF,9676774,1,0,1,0,0,0,0,0,0,0,0.0
+6509131,4/22/26,baseball,Ursinus,1.0,Matthew Callahan,2.0,SS,9685735,0,3,3,0,0,0,0,0,1,0,0.0
+6509131,4/22/26,baseball,Ursinus,1.0,John DiLello,19.0,SS,9701149,2,0,3,1,0,0,0,0,0,0,0.0
+6509131,4/22/26,baseball,Ursinus,1.0,Luke Kopec,29.0,LF,11250997,2,0,2,0,0,0,0,0,0,0,0.0
+6509131,4/22/26,baseball,Ursinus,1.0,Tyler Dinan,3.0,LF,9704102,2,0,2,0,0,0,0,0,0,0,0.0
+6509131,4/22/26,baseball,Ursinus,1.0,Brett Barrett,9.0,3B,11250986,1,1,4,2,0,0,0,0,0,0,0.0
+6509131,4/22/26,baseball,Ursinus,1.0,Isaac Gesford,26.0,RF,9697864,0,0,1,1,0,0,0,0,0,0,0.0
+6509131,4/22/26,baseball,Ursinus,1.0,Nolan Carroll,1.0,RF,11250985,0,0,0,0,0,0,0,0,0,0,0.0
+6509131,4/22/26,baseball,Ursinus,1.0,Mitchell Garber,20.0,RF,9701796,1,0,1,0,0,0,0,0,0,0,0.0
+6509131,4/22/26,baseball,Ursinus,1.0,Jamie O'Neill,14.0,DH,11250988,0,0,0,0,0,0,0,0,0,0,0.0
+6509131,4/22/26,baseball,Ursinus,1.0,Leo Wagner,31.0,DH,9693334,0,0,0,0,0,0,0,0,0,0,0.0
+6509131,4/22/26,baseball,Ursinus,1.0,Barritt Ross,28.0,PH,9690737,0,0,0,0,0,0,0,0,0,0,0.0
+6509131,4/22/26,baseball,Ursinus,1.0,Patrick Collins,23.0,C,9689200,2,1,3,0,0,0,7,1,0,0,0.875
+6509131,4/22/26,baseball,Ursinus,1.0,Mark Jungers,35.0,C,11250999,2,0,2,0,0,1,3,0,0,0,1.0
+6509131,4/22/26,baseball,Ursinus,1.0,Marco Maiuolo,22.0,PH,9680983,0,0,0,0,0,0,0,0,0,0,0.0
+6509131,4/22/26,baseball,Ursinus,1.0,George Nestor,11.0,C,9699138,1,0,1,0,0,0,1,0,0,0,1.0
+6509131,4/22/26,baseball,Ursinus,1.0,Shane Beaver,12.0,1B,9701360,5,0,5,0,0,0,0,0,1,0,0.0
+6509131,4/22/26,baseball,Ursinus,1.0,Kyle Rosenfeld,8.0,2B,9688065,3,1,5,1,0,0,0,0,0,0,0.0
+6509131,4/22/26,baseball,Ursinus,1.0,Ryder Tootell,15.0,2B,11250989,3,2,5,0,0,0,0,0,1,0,0.0
+6575787,4/21/26,baseball,Mount Aloysius,,Sidric Grove,3.0,CF,9682488,7,1,8,0,0,0,0,0,0,0,0.0
+6575787,4/21/26,baseball,Mount Aloysius,,Michael Todd,42.0,3B,9698450,1,3,4,0,0,0,0,0,0,0,0.0
+6575787,4/21/26,baseball,Mount Aloysius,,Dimitri Spagnola,1.0,SS,11252674,1,2,4,1,0,0,0,0,0,0,0.0
+6575787,4/21/26,baseball,Mount Aloysius,,Andrew Scalia,20.0,1B,9681019,9,0,9,0,0,0,0,0,0,0,0.0
+6575787,4/21/26,baseball,Mount Aloysius,,Leo Bazala,36.0,LF,9683691,0,0,0,0,0,0,0,0,0,0,0.0
+6575787,4/21/26,baseball,Mount Aloysius,,Ryan Gamble,16.0,C,11252682,3,0,3,0,0,1,10,0,0,0,1.0
+6575787,4/21/26,baseball,Mount Aloysius,,Tyler Weber,32.0,DH,9688853,0,0,0,0,0,0,0,0,0,0,0.0
+6575787,4/21/26,baseball,Mount Aloysius,,Elijah Metzger,45.0,PH,9687149,0,0,0,0,0,0,0,0,0,0,0.0
+6575787,4/21/26,baseball,Mount Aloysius,,Nick Palmiotti,39.0,PR,9700783,0,0,0,0,0,0,0,0,0,0,0.0
+6575787,4/21/26,baseball,Mount Aloysius,,Connor James,37.0,PH,11252689,0,0,0,0,0,0,0,0,0,0,0.0
+6575787,4/21/26,baseball,Mount Aloysius,,Jack Foster,31.0,RF,9697722,3,0,3,0,0,0,0,0,0,0,0.0
+6575787,4/21/26,baseball,Mount Aloysius,,Greg Schilling,17.0,2B,11252683,0,3,3,0,0,0,0,0,0,0,0.0
+6575787,4/21/26,baseball,Mount Aloysius,,Aidan Collins,38.0,PH,11252690,0,0,0,0,0,0,0,0,0,0,0.0
+6575787,4/21/26,baseball,Juniata,1.0,Connor Blough,3.0,CF,9684175,2,0,2,0,0,0,0,0,0,0,0.0
+6575787,4/21/26,baseball,Juniata,1.0,Jace Irvin,34.0,C,9681712,10,1,11,0,0,0,0,0,0,0,0.0
+6575787,4/21/26,baseball,Juniata,1.0,Ayden Thelen,8.0,C,9692027,1,0,1,0,0,0,0,0,0,0,0.0
+6575787,4/21/26,baseball,Juniata,1.0,Zach Johnston,6.0,SS,9683662,3,2,6,1,0,0,0,0,2,0,0.0
+6575787,4/21/26,baseball,Juniata,1.0,Matthew Koehler,11.0,3B,11223557,0,1,1,0,0,0,0,0,0,0,0.0
+6575787,4/21/26,baseball,Juniata,1.0,Jackson Cunnane,22.0,DH,9704933,0,0,0,0,0,0,0,0,0,0,0.0
+6575787,4/21/26,baseball,Juniata,1.0,Jace Collins,12.0,PR,11380287,0,0,0,0,0,0,0,0,0,0,0.0
+6575787,4/21/26,baseball,Juniata,1.0,Tyler Mack,50.0,PH,9696318,0,0,0,0,0,0,0,0,0,0,0.0
+6575787,4/21/26,baseball,Juniata,1.0,Landon Blank,40.0,1B,11223556,6,0,6,0,0,0,0,0,2,0,0.0
+6575787,4/21/26,baseball,Juniata,1.0,Jordan Chui,5.0,2B,9705244,1,3,4,0,0,0,0,0,2,0,0.0
+6575787,4/21/26,baseball,Juniata,1.0,Charlie Bakken,14.0,LF,9702156,3,0,3,0,0,0,0,0,0,0,0.0
+6575787,4/21/26,baseball,Juniata,1.0,Ty Vickers,23.0,RF,9695293,1,0,1,0,0,0,0,0,0,0,0.0
+6575787,4/21/26,baseball,Juniata,1.0,Nathan Epstein,19.0,RF,11223559,0,0,0,0,0,0,0,0,0,0,0.0
+6576427,4/24/26,baseball,Penn St. Brandywine,,Ryan Snyder,20.0,2B,9681533,4,1,5,0,0,0,0,0,0,0,0.0
+6576427,4/24/26,baseball,Penn St. Brandywine,,Ryan Brown,4.0,RF,9683365,2,0,2,0,0,0,0,0,0,0,0.0
+6576427,4/24/26,baseball,Penn St. Brandywine,,Ivano Romaniello,3.0,1B,9679888,3,0,3,0,0,0,0,0,0,0,0.0
+6576427,4/24/26,baseball,Penn St. Brandywine,,Will Collison,8.0,C,11250307,3,0,3,0,0,0,4,0,0,0,1.0
+6576427,4/24/26,baseball,Penn St. Brandywine,,Jason Hankins,17.0,3B,11250314,1,3,4,0,0,0,0,0,0,0,0.0
+6576427,4/24/26,baseball,Penn St. Brandywine,,Miguel Rodriguez,15.0,DH,9692478,0,0,0,0,0,0,0,0,0,0,0.0
+6576427,4/24/26,baseball,Penn St. Brandywine,,Daniel Rohlsen,35.0,SS,9699836,0,0,0,0,0,0,0,0,0,0,0.0
+6576427,4/24/26,baseball,Penn St. Brandywine,,David Kursman,7.0,LF,9682158,1,0,1,0,0,0,0,0,0,0,0.0
+6576427,4/24/26,baseball,Penn St. Brandywine,,Noah Currier,9.0,CF,11250309,4,1,5,0,0,0,0,0,0,0,0.0
+6576427,4/24/26,baseball,St. Mary's (MD),1.0,Eli Shafer,9.0,CF,9699993,2,0,2,0,0,0,0,0,0,0,0.0
+6576427,4/24/26,baseball,St. Mary's (MD),1.0,Rhett Fletcher,24.0,LF,9688601,2,0,2,0,0,0,0,0,0,0,0.0
+6576427,4/24/26,baseball,St. Mary's (MD),1.0,Connor Wilkerson,33.0,DH,11252395,0,0,0,0,0,0,0,0,0,0,0.0
+6576427,4/24/26,baseball,St. Mary's (MD),1.0,DJ Sifford,1.0,RF,9690177,1,0,2,1,0,0,0,0,0,0,0.0
+6576427,4/24/26,baseball,St. Mary's (MD),1.0,Aaron Wathen,15.0,2B,9688611,0,2,2,0,0,0,0,0,0,0,0.0
+6576427,4/24/26,baseball,St. Mary's (MD),1.0,Kyle Catanzaro,27.0,C,9692012,1,0,1,0,0,0,6,0,0,0,1.0
+6576427,4/24/26,baseball,St. Mary's (MD),1.0,Corey Brown,5.0,1B,9699037,9,0,10,1,0,0,0,0,0,0,0.0
+6576427,4/24/26,baseball,St. Mary's (MD),1.0,Will Wilson,8.0,SS,9699927,2,1,4,1,0,0,0,0,1,0,0.0
+6576427,4/24/26,baseball,St. Mary's (MD),1.0,Layne Lesko,34.0,3B,9682823,1,3,4,0,0,0,0,0,0,0,0.0

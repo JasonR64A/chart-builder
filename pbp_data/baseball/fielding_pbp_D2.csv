@@ -130456,3 +130456,258 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6524889,4/16/26,baseball,Jessup,1.0,Cole Hazel,9.0,2B,9703761,0,1,1,0,0,0,0,0,0,0,0.0
 6524889,4/16/26,baseball,Jessup,1.0,Gabe Harris,1.0,DH,9691263,0,0,0,0,0,0,0,0,0,0,0.0
 6524889,4/16/26,baseball,Jessup,1.0,Andrew Longaker,37.0,PH,11222436,0,0,0,0,0,0,0,0,0,0,0.0
+6494608,3/06/26,baseball,Tiffin,,Julian Hernandez,3.0,DH,9701275,0,0,0,0,0,0,0,0,0,0,0.0
+6494608,3/06/26,baseball,Tiffin,,Dylan Ruhe,30.0,PH,11229191,0,0,0,0,0,0,0,0,0,0,0.0
+6494608,3/06/26,baseball,Tiffin,,Jovanny Skrelja,8.0,CF,11228306,2,0,2,0,0,0,0,0,0,0,0.0
+6494608,3/06/26,baseball,Tiffin,,Brayden Clark,14.0,1B,9682541,6,1,7,0,0,0,0,0,0,0,0.0
+6494608,3/06/26,baseball,Tiffin,,Adam Deitschel,4.0,LF,9686397,2,0,2,0,0,0,0,0,0,0,0.0
+6494608,3/06/26,baseball,Tiffin,,Michael Patellis,22.0,C,9690837,11,0,11,0,0,0,4,0,0,0,1.0
+6494608,3/06/26,baseball,Tiffin,,Griff Cady,33.0,RF,9677706,1,0,1,0,0,0,0,0,0,0,0.0
+6494608,3/06/26,baseball,Tiffin,,Cameron Jantz,9.0,RF,11228309,0,0,0,0,0,0,0,0,0,0,0.0
+6494608,3/06/26,baseball,Tiffin,,Jayden Leach,11.0,3B,11228310,0,1,1,0,0,0,0,0,0,0,0.0
+6494608,3/06/26,baseball,Tiffin,,Luke Westerman,5.0,2B,9703463,0,1,1,0,0,0,0,0,0,0,0.0
+6494608,3/06/26,baseball,Tiffin,,Gavin Marceric,6.0,SS,11228304,2,2,4,0,0,0,0,0,0,0,0.0
+6494608,3/06/26,baseball,Thomas More,1.0,Ty Cunningham,6.0,CF,9690175,1,0,1,0,0,0,0,0,0,0,0.0
+6494608,3/06/26,baseball,Thomas More,1.0,Jack Geers,23.0,SS,11212935,4,0,5,1,0,0,0,0,0,0,0.0
+6494608,3/06/26,baseball,Thomas More,1.0,Nolan Krekeler,34.0,3B,9703753,0,0,0,0,0,0,0,0,0,0,0.0
+6494608,3/06/26,baseball,Thomas More,1.0,Gunner Kalkhoff,16.0,1B,9683430,4,0,4,0,0,0,0,0,0,0,0.0
+6494608,3/06/26,baseball,Thomas More,1.0,Ayden Holden,18.0,DH,11212933,0,0,0,0,0,0,0,0,0,0,0.0
+6494608,3/06/26,baseball,Thomas More,1.0,Drew Barth,7.0,C,9688290,11,2,13,0,0,0,4,2,0,0,0.667
+6494608,3/06/26,baseball,Thomas More,1.0,Theodore Bosio,9.0,2B,11212930,1,2,3,0,0,0,0,0,0,0,0.0
+6494608,3/06/26,baseball,Thomas More,1.0,Ian Mann,15.0,LF,11212932,2,0,2,0,0,0,0,0,0,0,0.0
+6494608,3/06/26,baseball,Thomas More,1.0,Sean O'Donnell,36.0,RF,11220875,3,1,4,0,0,0,0,0,0,0,0.0
+6501919,3/01/26,baseball,Minn.-Crookston,,Tori Uhlich,4.0,CF,11214497,4,0,4,0,0,0,0,0,0,0,0.0
+6501919,3/01/26,baseball,Minn.-Crookston,,Connor Bushbaum,21.0,RF,9697215,1,0,1,0,0,0,0,0,0,0,0.0
+6501919,3/01/26,baseball,Minn.-Crookston,,Cole Hebl,24.0,1B,9696483,6,1,7,0,0,0,0,0,0,0,0.0
+6501919,3/01/26,baseball,Minn.-Crookston,,Terrence Moody,33.0,3B,11214492,0,0,0,0,0,0,0,0,0,0,0.0
+6501919,3/01/26,baseball,Minn.-Crookston,,Americo Sculati,6.0,DH,9700397,0,0,0,0,0,0,0,0,0,0,0.0
+6501919,3/01/26,baseball,Minn.-Crookston,,Nate Heymann,20.0,PH,11214489,0,0,0,0,0,0,0,0,0,0,0.0
+6501919,3/01/26,baseball,Minn.-Crookston,,Aaron Wensloff,17.0,3B/1B,9677679,0,1,1,0,0,0,0,0,0,0,0.0
+6501919,3/01/26,baseball,Minn.-Crookston,,Noah Jensen,28.0,1B,11214490,2,0,2,0,0,0,0,0,0,0,0.0
+6501919,3/01/26,baseball,Minn.-Crookston,,Elias Leach,29.0,LF,11214491,1,0,1,0,0,0,0,0,0,0,0.0
+6501919,3/01/26,baseball,Minn.-Crookston,,Cameron Dean,42.0,PH,11214484,0,0,0,0,0,0,0,0,0,0,0.0
+6501919,3/01/26,baseball,Minn.-Crookston,,Jackson Fliflet,23.0,C,9679240,3,0,3,0,0,0,0,1,0,0,0.0
+6501919,3/01/26,baseball,Minn.-Crookston,,Jonah Norman,13.0,C,9694103,2,0,2,0,0,0,0,0,0,0,0.0
+6501919,3/01/26,baseball,Minn.-Crookston,,Kyler Miller,5.0,SS,9703367,1,3,4,0,0,0,0,0,0,0,0.0
+6501919,3/01/26,baseball,Minn.-Crookston,,Thomas Schumacher,2.0,2B,11214496,1,2,3,0,0,0,0,0,0,0,0.0
+6501919,3/01/26,baseball,Davis & Elkins,1.0,Kenny Capria,13.0,CF,11211660,1,0,1,0,0,0,0,0,0,0,0.0
+6501919,3/01/26,baseball,Davis & Elkins,1.0,Zach Calef-Boring,5.0,2B,9686411,3,2,5,0,0,0,0,0,1,0,0.0
+6501919,3/01/26,baseball,Davis & Elkins,1.0,Mason Brenneman,3.0,1B,9699154,8,0,8,0,0,0,0,0,1,0,0.0
+6501919,3/01/26,baseball,Davis & Elkins,1.0,Grant Mealey,28.0,DH,9680051,0,0,0,0,0,0,0,0,0,0,0.0
+6501919,3/01/26,baseball,Davis & Elkins,1.0,Carsan Strolla,31.0,3B,11211681,1,0,1,0,0,0,0,0,0,0,0.0
+6501919,3/01/26,baseball,Davis & Elkins,1.0,Joel Wise,17.0,RF,11211662,1,0,2,1,0,0,0,0,0,0,0.0
+6501919,3/01/26,baseball,Davis & Elkins,1.0,Nate Silvus,16.0,SS,11211661,0,5,5,0,0,0,0,0,1,0,0.0
+6501919,3/01/26,baseball,Davis & Elkins,1.0,Aiden Morey,12.0,LF,11211659,0,0,0,0,0,0,0,0,0,0,0.0
+6501919,3/01/26,baseball,Davis & Elkins,1.0,Dylan Leadbetter,41.0,C,11211684,7,2,9,0,0,1,5,1,0,0,0.833
+6504917,3/14/26,baseball,Hillsdale,,Gaard Swenson,16.0,CF,9680015,0,0,0,0,0,0,0,0,0,0,0.0
+6504917,3/14/26,baseball,Hillsdale,,Rocco Tenuta,32.0,3B,9677210,1,0,1,0,0,0,0,0,0,0,0.0
+6504917,3/14/26,baseball,Hillsdale,,Nolan Coppens,11.0,DH,10239818,0,0,0,0,0,0,0,0,0,0,0.0
+6504917,3/14/26,baseball,Hillsdale,,Will Lehman,33.0,1B,9700795,2,0,2,0,0,0,0,0,0,0,0.0
+6504917,3/14/26,baseball,Hillsdale,,Tyler Sowers,21.0,LF,9696357,0,0,0,0,0,0,0,0,0,0,0.0
+6504917,3/14/26,baseball,Hillsdale,,Tyler Turner,23.0,RF,9680463,0,0,0,0,0,0,0,0,0,0,0.0
+6504917,3/14/26,baseball,Hillsdale,,Ryan Wiehe,26.0,C,10239819,10,0,10,0,0,1,0,0,0,0,0.0
+6504917,3/14/26,baseball,Hillsdale,,Billy Porotsky,18.0,2B,9693203,4,0,4,0,0,0,0,0,0,0,0.0
+6504917,3/14/26,baseball,Hillsdale,,Aaron Jasiak,9.0,SS,9683062,0,4,4,0,0,0,0,0,0,0,0.0
+6504917,3/14/26,baseball,Thomas More,1.0,Ty Cunningham,6.0,RF,9690175,4,0,4,0,0,0,0,0,0,0,0.0
+6504917,3/14/26,baseball,Thomas More,1.0,Jack Geers,23.0,SS,11212935,2,3,5,0,0,0,0,0,1,0,0.0
+6504917,3/14/26,baseball,Thomas More,1.0,Nolan Krekeler,34.0,3B,9703753,0,0,0,0,0,0,0,0,0,0,0.0
+6504917,3/14/26,baseball,Thomas More,1.0,Gunner Kalkhoff,16.0,1B,9683430,7,0,7,0,0,0,0,0,1,0,0.0
+6504917,3/14/26,baseball,Thomas More,1.0,Matt Resing,12.0,CF,9690339,1,0,1,0,0,0,0,0,0,0,0.0
+6504917,3/14/26,baseball,Thomas More,1.0,Ian Mann,15.0,DH,11212932,0,0,0,0,0,0,0,0,0,0,0.0
+6504917,3/14/26,baseball,Thomas More,1.0,Chad Atchley,5.0,C,9695822,2,1,3,0,0,1,3,1,0,0,0.75
+6504917,3/14/26,baseball,Thomas More,1.0,Theodore Bosio,9.0,2B,11212930,3,1,4,0,0,0,0,0,0,0,0.0
+6504917,3/14/26,baseball,Thomas More,1.0,Sean O'Donnell,36.0,LF,11220875,2,0,2,0,0,0,0,0,0,0,0.0
+6509238,2/28/26,baseball,Caldwell,,Christian Rinick,7.0,SS,9701790,2,5,7,0,0,0,0,0,1,0,0.0
+6509238,2/28/26,baseball,Caldwell,,Stephen Young Jr.,2.0,DH,9678244,0,0,0,0,0,0,0,0,0,0,0.0
+6509238,2/28/26,baseball,Caldwell,,Jimmy Turchi,28.0,CF,11215599,0,0,0,0,0,0,0,0,0,0,0.0
+6509238,2/28/26,baseball,Caldwell,,Jimmy Kurtz,3.0,RF,9686474,3,0,3,0,0,0,0,0,0,0,0.0
+6509238,2/28/26,baseball,Caldwell,,Reymundo Gonzalez,30.0,LF,9681345,0,0,0,0,0,0,0,0,0,0,0.0
+6509238,2/28/26,baseball,Caldwell,,Ethan Arter,19.0,1B,11215560,6,0,6,0,0,0,0,0,1,0,0.0
+6509238,2/28/26,baseball,Caldwell,,Alan Hernandez,27.0,2B,9686194,1,0,1,0,0,0,0,0,0,0,0.0
+6509238,2/28/26,baseball,Caldwell,,Donny Gomez,6.0,C,11215573,6,0,7,1,0,0,2,0,0,0,1.0
+6509238,2/28/26,baseball,Caldwell,,Devon Cass,22.0,3B,9692349,1,2,5,2,0,0,0,0,0,0,0.0
+6509238,2/28/26,baseball,West Virginia St.,1.0,Cameron Peschl,30.0,LF,11249052,3,0,3,0,0,0,0,0,0,0,0.0
+6509238,2/28/26,baseball,West Virginia St.,1.0,Michael Bittinger,18.0,3B,9684443,2,1,3,0,0,0,0,0,0,0,0.0
+6509238,2/28/26,baseball,West Virginia St.,1.0,Brodie Guenther,17.0,SS,9700437,1,4,5,0,0,0,0,0,0,0,0.0
+6509238,2/28/26,baseball,West Virginia St.,1.0,Angel Oquendo,24.0,2B,11248708,1,2,4,1,0,0,0,0,0,0,0.0
+6509238,2/28/26,baseball,West Virginia St.,1.0,Garrett Wagoner,19.0,RF,11248702,1,1,2,0,0,0,0,0,0,0,0.0
+6509238,2/28/26,baseball,West Virginia St.,1.0,Aidan Paulsen,7.0,CF,9699658,1,1,2,0,0,0,0,0,0,0,0.0
+6509238,2/28/26,baseball,West Virginia St.,1.0,Ethan Spolarich,6.0,1B,9704876,6,1,7,0,0,0,0,0,0,0,0.0
+6509238,2/28/26,baseball,West Virginia St.,1.0,Ethyn Barnitz,4.0,C,9689939,4,2,6,0,0,0,2,3,0,0,0.4
+6509238,2/28/26,baseball,West Virginia St.,1.0,Preston Keiffer,37.0,PR,11249053,0,0,0,0,0,0,0,0,0,0,0.0
+6509238,2/28/26,baseball,West Virginia St.,1.0,Evan Weaver,15.0,C,9688793,2,0,2,0,0,0,0,0,0,0,0.0
+6509238,2/28/26,baseball,West Virginia St.,1.0,Samuel Booth,8.0,DH,11248700,0,0,0,0,0,0,0,0,0,0,0.0
+6516662,2/25/26,baseball,Bluefield St.,,Kevin Rodriguez,12.0,RF,9685924,0,0,0,0,0,0,0,0,0,0,0.0
+6516662,2/25/26,baseball,Bluefield St.,,Nate Rollins,5.0,SS,11227813,0,0,0,0,0,0,0,0,0,0,0.0
+6516662,2/25/26,baseball,Bluefield St.,,Angel Martinez,14.0,CF,9680374,3,0,3,0,0,0,0,0,0,0,0.0
+6516662,2/25/26,baseball,Bluefield St.,,Curtis Ball,11.0,DH,9701383,0,0,0,0,0,0,0,0,0,0,0.0
+6516662,2/25/26,baseball,Bluefield St.,,Edwin Hernandez,9.0,2B,9692385,3,0,4,1,0,0,0,0,0,0,0.0
+6516662,2/25/26,baseball,Bluefield St.,,Adriel Martinez,4.0,C,11227812,8,0,8,0,0,0,1,0,0,0,1.0
+6516662,2/25/26,baseball,Bluefield St.,,James Germosen,23.0,3B,9702382,0,0,0,0,0,0,0,0,0,0,0.0
+6516662,2/25/26,baseball,Bluefield St.,,Nick Diaz,7.0,1B,9686587,3,0,3,0,0,0,0,0,0,0,0.0
+6516662,2/25/26,baseball,Bluefield St.,,Anderson Moreno,1.0,LF,11227793,2,0,2,0,0,0,0,0,0,0,0.0
+6516662,2/25/26,baseball,UVA Wise,1.0,Jake Smith,21.0,1B,9696252,4,1,5,0,0,0,0,0,0,0,0.0
+6516662,2/25/26,baseball,UVA Wise,1.0,Joshua Morgan,45.0,RF,9685903,1,0,1,0,0,0,0,0,0,0,0.0
+6516662,2/25/26,baseball,UVA Wise,1.0,Dane Frellick,34.0,DH,11230807,0,0,0,0,0,0,0,0,0,0,0.0
+6516662,2/25/26,baseball,UVA Wise,1.0,Drew Knight,9.0,3B,11230770,1,1,2,0,0,0,0,0,0,0,0.0
+6516662,2/25/26,baseball,UVA Wise,1.0,Derrick Hall,5.0,LF,9702421,1,0,1,0,0,0,0,0,0,0,0.0
+6516662,2/25/26,baseball,UVA Wise,1.0,Dylan Foster,25.0,2B,9698412,2,1,3,0,0,0,0,0,0,0,0.0
+6516662,2/25/26,baseball,UVA Wise,1.0,Luke Johnson,26.0,PH,11230776,0,0,0,0,0,0,0,0,0,0,0.0
+6516662,2/25/26,baseball,UVA Wise,1.0,Andrew Hardy,16.0,C,11230784,6,0,6,0,0,0,5,0,0,0,1.0
+6516662,2/25/26,baseball,UVA Wise,1.0,Hayden Stasuk,40.0,SS,11230757,1,0,1,0,0,0,0,0,0,0,0.0
+6516662,2/25/26,baseball,UVA Wise,1.0,Jaden Ruehling,7.0,PH,9693913,0,0,0,0,0,0,0,0,0,0,0.0
+6516662,2/25/26,baseball,UVA Wise,1.0,Dalton Chapman,4.0,CF,9701488,4,0,4,0,0,0,0,0,0,0,0.0
+6516662,2/25/26,baseball,UVA Wise,1.0,Carter Babb,18.0,PH,9689108,0,0,0,0,0,0,0,0,0,0,0.0
+6520229,2/25/26,baseball,Mars Hill,,Alejandro Aguilar,47.0,1B,9696104,6,0,7,1,0,0,0,0,0,0,0.0
+6520229,2/25/26,baseball,Mars Hill,,Carter Potts,10.0,SS,9679211,2,2,4,0,0,0,0,0,0,0,0.0
+6520229,2/25/26,baseball,Mars Hill,,Mel Rubiera,1.0,LF,11219377,2,2,4,0,0,0,0,0,0,0,0.0
+6520229,2/25/26,baseball,Mars Hill,,Ezra Taylor,14.0,LF,9686162,1,0,1,0,0,0,0,0,0,0,0.0
+6520229,2/25/26,baseball,Mars Hill,,Chapel Matson,22.0,2B,11219342,2,0,2,0,0,0,0,0,0,0,0.0
+6520229,2/25/26,baseball,Mars Hill,,Max LaLime,20.0,DH,9698386,0,0,0,0,0,0,0,0,0,0,0.0
+6520229,2/25/26,baseball,Mars Hill,,Von Pelow,25.0,C,11219417,5,1,6,0,0,3,1,1,0,0,0.5
+6520229,2/25/26,baseball,Mars Hill,,Jack Davis,17.0,PH,11219409,0,0,0,0,0,0,0,0,0,0,0.0
+6520229,2/25/26,baseball,Mars Hill,,Dawson Anderson,44.0,C,9698741,6,0,6,0,0,0,0,0,0,0,0.0
+6520229,2/25/26,baseball,Mars Hill,,Ayden Hines,33.0,RF,9677502,3,0,3,0,0,0,0,0,0,0,0.0
+6520229,2/25/26,baseball,Mars Hill,,Colin Holmes,23.0,3B,11219414,0,1,1,0,0,0,0,0,0,0,0.0
+6520229,2/25/26,baseball,Mars Hill,,Yuriel Pastrana,7.0,CF,11219394,3,0,3,0,0,0,0,0,0,0,0.0
+6520229,2/25/26,baseball,King (TN),1.0,Logan Janney,3.0,CF,11224474,2,0,2,0,0,0,0,0,0,0,0.0
+6520229,2/25/26,baseball,King (TN),1.0,Josh Nuno,9.0,DH,11224505,0,0,0,0,0,0,0,0,0,0,0.0
+6520229,2/25/26,baseball,King (TN),1.0,Misael Garcia,38.0,3B,11224540,0,3,4,1,0,0,0,0,0,0,0.0
+6520229,2/25/26,baseball,King (TN),1.0,Kale Richardson,4.0,LF,9681811,3,0,3,0,0,0,0,0,0,0,0.0
+6520229,2/25/26,baseball,King (TN),1.0,Jake Witcher,60.0,PR,9688927,0,0,0,0,0,0,0,0,0,0,0.0
+6520229,2/25/26,baseball,King (TN),1.0,Mason Meinke,18.0,RF,11224481,1,0,1,0,0,0,0,0,0,0,0.0
+6520229,2/25/26,baseball,King (TN),1.0,Tommy Regan,35.0,1B,11224513,9,0,9,0,0,0,0,0,2,0,0.0
+6520229,2/25/26,baseball,King (TN),1.0,Adrian Vidal,8.0,SS,11224491,1,1,3,1,0,0,0,0,0,0,0.0
+6520229,2/25/26,baseball,King (TN),1.0,Justin Smith,25.0,PH,11224318,0,0,0,0,0,0,0,0,0,0,0.0
+6520229,2/25/26,baseball,King (TN),1.0,Christopher Rosario,26.0,PR,11224525,0,0,0,0,0,0,0,0,0,0,0.0
+6520229,2/25/26,baseball,King (TN),1.0,Mitchell Victor,17.0,C,11224489,12,1,13,0,0,0,2,1,0,0,0.667
+6520229,2/25/26,baseball,King (TN),1.0,Joseph Ruiz,5.0,2B,9694892,2,1,3,0,0,0,0,0,1,0,0.0
+6540348,2/25/26,baseball,Lander,,Ryan Hansen,28.0,RF,9695806,1,0,1,0,0,0,0,0,0,0,0.0
+6540348,2/25/26,baseball,Lander,,Zach Cowart,5.0,2B,9677594,4,3,7,0,0,0,0,0,1,0,0.0
+6540348,2/25/26,baseball,Lander,,Pip Smalley,8.0,DH,11223232,0,0,0,0,0,0,0,0,0,0,0.0
+6540348,2/25/26,baseball,Lander,,Brody Winter,29.0,CF/LF,9681079,4,0,4,0,0,0,0,0,0,0,0.0
+6540348,2/25/26,baseball,Lander,,Mason Salisbury,14.0,C,9704339,6,0,6,0,0,0,4,0,0,0,1.0
+6540348,2/25/26,baseball,Lander,,Dalton Stroud,13.0,PR,9679103,0,0,0,0,0,0,0,0,0,0,0.0
+6540348,2/25/26,baseball,Lander,,Will McClellan,1.0,LF,9689648,2,0,3,1,0,0,0,0,0,0,0.0
+6540348,2/25/26,baseball,Lander,,Oliver Zohn,2.0,CF,11223224,0,0,0,0,0,0,0,0,0,0,0.0
+6540348,2/25/26,baseball,Lander,,Riley Hood,4.0,1B,11223226,6,0,6,0,0,0,0,0,1,0,0.0
+6540348,2/25/26,baseball,Lander,,Cooper Backman,15.0,SS,9687866,1,1,4,2,0,0,0,0,1,0,0.0
+6540348,2/25/26,baseball,Lander,,Caden Crews,3.0,3B,9682881,0,4,4,0,0,0,0,0,0,0,0.0
+6540348,2/25/26,baseball,Erskine,1.0,Drew Potts,5.0,CF,11228994,5,0,5,0,0,0,0,0,0,0,0.0
+6540348,2/25/26,baseball,Erskine,1.0,Mason McManus,20.0,DH,9687418,0,0,0,0,0,0,0,0,0,0,0.0
+6540348,2/25/26,baseball,Erskine,1.0,Pierce Radke,12.0,2B,9699610,3,5,8,0,0,0,0,0,1,0,0.0
+6540348,2/25/26,baseball,Erskine,1.0,Ricky Dober,14.0,3B,11229002,1,3,6,2,0,0,0,0,0,0,0.0
+6540348,2/25/26,baseball,Erskine,1.0,Danny Villafane,13.0,SS,11229001,2,1,3,0,0,0,0,0,1,0,0.0
+6540348,2/25/26,baseball,Erskine,1.0,Jacob Lott,9.0,LF,11228998,0,0,0,0,0,0,0,0,0,0,0.0
+6540348,2/25/26,baseball,Erskine,1.0,Stephen Kriner,38.0,RF,11229020,2,0,2,0,0,0,0,0,0,0,0.0
+6540348,2/25/26,baseball,Erskine,1.0,Jacob Platt,3.0,RF/LF,9685453,2,0,2,0,0,0,0,0,0,0,0.0
+6540348,2/25/26,baseball,Erskine,1.0,Quinn Allen,34.0,1B,9702968,7,1,8,0,0,0,0,0,1,0,0.0
+6540348,2/25/26,baseball,Erskine,1.0,Carson Yates,11.0,PR,11229000,0,0,0,0,0,0,0,0,0,0,0.0
+6540348,2/25/26,baseball,Erskine,1.0,Jack Luthren,24.0,1B,11229009,1,0,1,0,0,0,0,0,0,0,0.0
+6540348,2/25/26,baseball,Erskine,1.0,Gio Lopez,51.0,C,11229030,3,0,3,0,0,0,2,0,0,0,1.0
+6540348,2/25/26,baseball,Erskine,1.0,Evan Rodriguez,6.0,PR,11228995,0,0,0,0,0,0,0,0,0,0,0.0
+6540348,2/25/26,baseball,Erskine,1.0,Brock Donnelly,25.0,C,11229011,1,0,1,0,0,0,0,0,0,0,0.0
+6537026,2/21/26,baseball,Spring Hill,,Jatnier Torres,37.0,SS,11238611,0,0,0,0,0,0,0,0,0,0,0.0
+6537026,2/21/26,baseball,Spring Hill,,Jordan Black,32.0,1B,11241624,8,0,8,0,0,0,0,0,0,0,0.0
+6537026,2/21/26,baseball,Spring Hill,,John Webb,9.0,DH,9697176,0,0,0,0,0,0,0,0,0,0,0.0
+6537026,2/21/26,baseball,Spring Hill,,Jaylen Jones,26.0,3B,11238608,0,3,3,0,0,0,0,0,0,0,0.0
+6537026,2/21/26,baseball,Spring Hill,,Ethan Davis,6.0,2B,9677460,0,3,5,2,0,0,0,0,0,0,0.0
+6537026,2/21/26,baseball,Spring Hill,,Walker Guillot,4.0,LF,9701202,0,0,0,0,0,0,0,0,0,0,0.0
+6537026,2/21/26,baseball,Spring Hill,,C. Spikes,27.0,CF,11244168,4,0,4,0,0,0,0,0,0,0,0.0
+6537026,2/21/26,baseball,Spring Hill,,David King,17.0,PH,9699141,0,0,0,0,0,0,0,0,0,0,0.0
+6537026,2/21/26,baseball,Spring Hill,,Reggie Cooper,2.0,CF,9693484,0,0,0,0,0,0,0,0,0,0,0.0
+6537026,2/21/26,baseball,Spring Hill,,Weston Kirk,5.0,RF,9681464,0,0,0,0,0,0,0,0,0,0,0.0
+6537026,2/21/26,baseball,Spring Hill,,Evan Kirk,30.0,C,11241631,5,0,7,2,0,0,4,0,0,0,1.0
+6537026,2/21/26,baseball,Spring Hill,,Eli Benoit,16.0,PH,9680826,0,0,0,0,0,0,0,0,0,0,0.0
+6537026,2/21/26,baseball,Spring Hill,,Angel Rivera,1.0,C,11241647,0,0,0,0,0,0,0,0,0,0,0.0
+6537026,2/21/26,baseball,Edward Waters,1.0,Daniel Donaldson-Fountain,7.0,CF,11237443,3,0,3,0,0,0,0,0,0,0,0.0
+6537026,2/21/26,baseball,Edward Waters,1.0,Dannon Smith,2.0,SS,9698116,1,4,6,1,0,0,0,0,0,0,0.0
+6537026,2/21/26,baseball,Edward Waters,1.0,Leggarius Johnson,4.0,RF,11237435,2,0,2,0,0,0,0,0,0,0,0.0
+6537026,2/21/26,baseball,Edward Waters,1.0,Louis Rodriguez,19.0,1B,11237525,7,0,7,0,0,0,0,0,0,0,0.0
+6537026,2/21/26,baseball,Edward Waters,1.0,Calvin Scott,28.0,DH,11237581,0,0,0,0,0,0,0,0,0,0,0.0
+6537026,2/21/26,baseball,Edward Waters,1.0,Angelo Prieto,14.0,LF,11237459,0,0,0,0,0,0,0,0,0,0,0.0
+6537026,2/21/26,baseball,Edward Waters,1.0,Luis Nunez,13.0,2B,9695738,2,2,4,0,0,0,0,0,0,0,0.0
+6537026,2/21/26,baseball,Edward Waters,1.0,Sebastian Rosado,9.0,3B,9678622,1,0,2,1,0,0,0,0,0,0,0.0
+6537026,2/21/26,baseball,Edward Waters,1.0,Vladimir Blanco,12.0,C,11237453,5,0,5,0,0,0,0,0,0,0,0.0
+6497834,4/18/26,baseball,Glenville St.,,Jacob Meadows,1.0,CF,9694465,2,0,2,0,0,0,0,0,0,0,0.0
+6497834,4/18/26,baseball,Glenville St.,,James Ford,52.0,LF,11243402,1,0,1,0,0,0,0,0,0,0,0.0
+6497834,4/18/26,baseball,Glenville St.,,Adam Bright,16.0,SS,9695350,0,2,3,1,0,0,0,0,0,0,0.0
+6497834,4/18/26,baseball,Glenville St.,,Jesus Del Valle,21.0,SS,9687491,0,0,0,0,0,0,0,0,0,0,0.0
+6497834,4/18/26,baseball,Glenville St.,,Ashton Crace,45.0,RF,9680310,0,0,0,0,0,0,0,0,0,0,0.0
+6497834,4/18/26,baseball,Glenville St.,,Hunter Thomas,22.0,RF,9703048,1,0,1,0,0,0,0,0,0,0,0.0
+6497834,4/18/26,baseball,Glenville St.,,Colby Guy,19.0,1B,9696194,2,0,2,0,0,0,0,0,0,0,0.0
+6497834,4/18/26,baseball,Glenville St.,,Conner Keys,26.0,1B,9704691,0,0,0,0,0,0,0,0,0,0,0.0
+6497834,4/18/26,baseball,Glenville St.,,Luke Sweigart,20.0,C,9681109,7,0,7,0,0,0,1,0,0,0,1.0
+6497834,4/18/26,baseball,Glenville St.,,David Arroyo,17.0,C,9685919,4,0,4,0,0,0,0,0,0,0,0.0
+6497834,4/18/26,baseball,Glenville St.,,Greyson Mcneill,3.0,LF/CF,11243353,2,0,2,0,0,0,0,0,0,0,0.0
+6497834,4/18/26,baseball,Glenville St.,,Carlos De Jesus,27.0,3B,9702166,0,0,0,0,0,0,0,0,0,0,0.0
+6497834,4/18/26,baseball,Glenville St.,,Jetsel Cajigas-Martinez,2.0,2B,9698899,2,0,2,0,0,0,0,0,0,0,0.0
+6497834,4/18/26,baseball,Glenville St.,,Austin Carter,11.0,2B,9688174,0,0,0,0,0,0,0,0,0,0,0.0
+6497834,4/18/26,baseball,Glenville St.,,Zach Laurie,8.0,DH,11243356,0,0,0,0,0,0,0,0,0,0,0.0
+6497834,4/18/26,baseball,Glenville St.,,Marlon Bravo Jr,24.0,DH,11243377,0,0,0,0,0,0,0,0,0,0,0.0
+6497834,4/18/26,baseball,Davis & Elkins,1.0,Kenny Capria,13.0,CF,11211660,3,0,3,0,0,0,0,0,0,0,0.0
+6497834,4/18/26,baseball,Davis & Elkins,1.0,Zach Calef-Boring,5.0,LF,9686411,0,0,0,0,0,0,0,0,0,0,0.0
+6497834,4/18/26,baseball,Davis & Elkins,1.0,Carsan Strolla,31.0,3B,11211681,0,0,1,1,0,0,0,0,0,0,0.0
+6497834,4/18/26,baseball,Davis & Elkins,1.0,Mason Brenneman,3.0,DH,9699154,0,0,0,0,0,0,0,0,0,0,0.0
+6497834,4/18/26,baseball,Davis & Elkins,1.0,Grant Mealey,28.0,1B,9680051,5,0,7,2,0,0,0,0,1,0,0.0
+6497834,4/18/26,baseball,Davis & Elkins,1.0,Jett Walters,11.0,2B,9685527,2,2,4,0,0,0,0,0,1,0,0.0
+6497834,4/18/26,baseball,Davis & Elkins,1.0,Nate Silvus,16.0,SS,11211661,4,3,10,3,0,0,0,0,1,0,0.0
+6497834,4/18/26,baseball,Davis & Elkins,1.0,Nick Colarossi,27.0,RF,11211679,4,0,4,0,0,0,0,0,0,0,0.0
+6497834,4/18/26,baseball,Davis & Elkins,1.0,Kyle Thomas,10.0,PH,9678888,0,0,0,0,0,0,0,0,0,0,0.0
+6497834,4/18/26,baseball,Davis & Elkins,1.0,Dylan Leadbetter,41.0,C,11211684,3,0,3,0,0,0,0,0,0,0,0.0
+6497834,4/18/26,baseball,Davis & Elkins,1.0,Logan Short,18.0,PH,11211671,0,0,0,0,0,0,0,0,0,0,0.0
+6497836,4/18/26,baseball,Glenville St.,,Jacob Meadows,1.0,CF,9694465,3,0,3,0,0,0,0,0,0,0,0.0
+6497836,4/18/26,baseball,Glenville St.,,Adam Bright,16.0,SS,9695350,2,3,6,1,0,0,0,0,0,0,0.0
+6497836,4/18/26,baseball,Glenville St.,,Ashton Crace,45.0,RF,9680310,2,0,3,1,0,0,0,0,0,0,0.0
+6497836,4/18/26,baseball,Glenville St.,,David Arroyo,17.0,C,9685919,4,0,4,0,0,3,1,0,0,0,1.0
+6497836,4/18/26,baseball,Glenville St.,,Greyson Mcneill,3.0,LF,11243353,2,0,2,0,0,0,0,0,0,0,0.0
+6497836,4/18/26,baseball,Glenville St.,,Colby Guy,19.0,1B,9696194,6,0,6,0,0,0,0,0,0,0,0.0
+6497836,4/18/26,baseball,Glenville St.,,Carlos De Jesus,27.0,3B,9702166,0,0,1,1,0,0,0,0,0,0,0.0
+6497836,4/18/26,baseball,Glenville St.,,Jetsel Cajigas-Martinez,2.0,2B,9698899,1,2,4,1,0,0,0,0,0,0,0.0
+6497836,4/18/26,baseball,Glenville St.,,Zach Laurie,8.0,DH,11243356,0,0,0,0,0,0,0,0,0,0,0.0
+6497836,4/18/26,baseball,Davis & Elkins,1.0,Kenny Capria,13.0,DH,11211660,0,0,0,0,0,0,0,0,0,0,0.0
+6497836,4/18/26,baseball,Davis & Elkins,1.0,Zach Calef-Boring,5.0,2B,9686411,2,3,7,2,0,0,0,0,0,0,0.0
+6497836,4/18/26,baseball,Davis & Elkins,1.0,Carsan Strolla,31.0,SS,11211681,0,4,4,0,0,0,0,0,0,0,0.0
+6497836,4/18/26,baseball,Davis & Elkins,1.0,Grant Mealey,28.0,1B,9680051,7,0,9,2,0,0,0,0,0,0,0.0
+6497836,4/18/26,baseball,Davis & Elkins,1.0,Jett Walters,11.0,3B,9685527,1,2,3,0,0,0,0,0,0,0,0.0
+6497836,4/18/26,baseball,Davis & Elkins,1.0,Aiden Morey,12.0,RF,11211659,0,0,0,0,0,0,0,0,0,0,0.0
+6497836,4/18/26,baseball,Davis & Elkins,1.0,Connor Hyde,44.0,C,9691488,2,1,3,0,0,0,2,0,0,0,1.0
+6497836,4/18/26,baseball,Davis & Elkins,1.0,Brody Rumon,43.0,CF,11211685,1,0,1,0,0,0,0,0,0,0,0.0
+6497836,4/18/26,baseball,Davis & Elkins,1.0,Jesus Dejesus,9.0,PH,11211658,0,0,0,0,0,0,0,0,0,0,0.0
+6497836,4/18/26,baseball,Davis & Elkins,1.0,Nick Colarossi,27.0,LF,11211679,4,1,5,0,0,0,0,0,0,0,0.0
+6497836,4/18/26,baseball,Davis & Elkins,1.0,Dylan Leadbetter,41.0,CF/C,11211684,4,0,4,0,0,0,1,0,0,0,1.0
+6534799,4/25/26,baseball,Morehouse,,Robert Robinson,32.0,DH,9679288,0,0,0,0,0,0,0,0,0,0,0.0
+6534799,4/25/26,baseball,Morehouse,,Cameron Simmons,10.0,DH,11243733,0,0,0,0,0,0,0,0,0,0,0.0
+6534799,4/25/26,baseball,Morehouse,,Prince Zion Odom,31.0,P,11243727,0,0,0,0,0,0,0,0,0,0,0.0
+6534799,4/25/26,baseball,Morehouse,,Walter Nunnally,47.0,P,11243726,0,0,0,0,0,0,4,1,0,0,0.8
+6534799,4/25/26,baseball,Morehouse,,Elijah Pinckney,6.0,SS,9703253,0,1,1,0,0,0,0,0,0,0,0.0
+6534799,4/25/26,baseball,Morehouse,,Kendal Sellers,5.0,SS,11243731,0,2,2,0,0,0,0,0,0,0,0.0
+6534799,4/25/26,baseball,Morehouse,,Mariano McLean,23.0,1B,9679727,4,0,4,0,0,0,0,0,0,0,0.0
+6534799,4/25/26,baseball,Morehouse,,Chase Williams,35.0,1B,11243736,4,2,6,0,0,2,6,0,0,0,1.0
+6534799,4/25/26,baseball,Morehouse,,Theodore Braswell,7.0,3B,11243719,0,0,0,0,0,0,0,0,0,0,0.0
+6534799,4/25/26,baseball,Morehouse,,Elijah James,3.0,CF,9703995,2,0,2,0,0,0,0,0,0,0,0.0
+6534799,4/25/26,baseball,Morehouse,,Kendyn Fredieu,12.0,CF,9692981,0,0,0,0,0,0,0,0,0,0,0.0
+6534799,4/25/26,baseball,Morehouse,,Raymond Jenkins,1.0,RF,9678195,2,0,2,0,0,0,0,0,0,0,0.0
+6534799,4/25/26,baseball,Morehouse,,Vernon Clay,2.0,RF,9690076,1,0,1,0,0,0,0,0,0,0,0.0
+6534799,4/25/26,baseball,Morehouse,,Nicholas Pittman,27.0,LF,9697727,0,0,0,0,0,0,0,0,0,0,0.0
+6534799,4/25/26,baseball,Morehouse,,James Wyllie,43.0,LF,11243737,4,0,4,0,0,0,0,0,0,0,0.0
+6534799,4/25/26,baseball,Morehouse,,Caleb Harley,4.0,2B,11243721,4,2,7,1,0,0,0,0,0,0,0.0
+6534799,4/25/26,baseball,Morehouse,,Satchel Hamilton,17.0,C,9690739,4,1,5,0,0,1,4,1,0,0,0.8
+6534799,4/25/26,baseball,Morehouse,,TJ Whiteman,24.0,1B/C,9686542,2,1,3,0,0,0,0,1,0,0,0.0
+6534799,4/25/26,baseball,Kentucky St.,1.0,Harrison Barnes,17.0,LF,11248437,0,0,0,0,0,0,0,0,0,0,0.0
+6534799,4/25/26,baseball,Kentucky St.,1.0,Tyler Cansler,19.0,LF,11244896,1,0,1,0,0,0,0,0,0,0,0.0
+6534799,4/25/26,baseball,Kentucky St.,1.0,Brad Dossett,2.0,DH,9684137,0,0,0,0,0,0,0,0,0,0,0.0
+6534799,4/25/26,baseball,Kentucky St.,1.0,Brady Wooldridge,22.0,1B,9704197,0,0,0,0,0,0,0,0,0,0,0.0
+6534799,4/25/26,baseball,Kentucky St.,1.0,Ryan Campbell,11.0,RF,9686794,2,0,2,0,0,0,0,0,0,0,0.0
+6534799,4/25/26,baseball,Kentucky St.,1.0,Jayden Walter,34.0,RF,11244158,0,0,0,0,0,0,0,0,0,0,0.0
+6534799,4/25/26,baseball,Kentucky St.,1.0,Kendall Garland,21.0,C,9697546,5,0,6,1,0,1,1,0,0,0,1.0
+6534799,4/25/26,baseball,Kentucky St.,1.0,Aiden Mundy,16.0,C,11244900,2,0,2,0,0,2,2,0,0,0,1.0
+6534799,4/25/26,baseball,Kentucky St.,1.0,Connor Sauss,29.0,C,11244157,3,0,3,0,0,0,0,0,0,0,0.0
+6534799,4/25/26,baseball,Kentucky St.,1.0,Bailey Hawkins,31.0,C,11243855,0,0,0,0,0,0,3,0,0,0,1.0
+6534799,4/25/26,baseball,Kentucky St.,1.0,Logan Christophel,5.0,2B,9683192,1,2,3,0,0,0,0,0,0,0,0.0
+6534799,4/25/26,baseball,Kentucky St.,1.0,Braylen Duncan,18.0,2B,11331572,0,3,4,1,0,0,0,0,0,0,0.0
+6534799,4/25/26,baseball,Kentucky St.,1.0,Gavyn Minyard,32.0,3B,9703126,2,1,3,0,0,0,0,0,0,0,0.0
+6534799,4/25/26,baseball,Kentucky St.,1.0,Zion Lewis,12.0,CF,9677801,2,0,2,0,0,0,0,0,0,0,0.0
+6534799,4/25/26,baseball,Kentucky St.,1.0,Anthony Holt,6.0,1B/P,9692681,9,0,9,0,0,0,3,0,0,0,1.0
+6534799,4/25/26,baseball,Kentucky St.,1.0,Preston Jones,1.0,SS,9692576,0,2,2,0,0,0,0,0,0,0,0.0
+6534799,4/25/26,baseball,Kentucky St.,1.0,Harry Major,3.0,SS,9696136,0,1,2,1,0,0,0,0,0,0,0.0
