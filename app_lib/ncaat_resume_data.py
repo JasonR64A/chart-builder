@@ -151,14 +151,34 @@ _LOGO_DIR = _APP_DIR / 'team_logos_512'
 
 @st.cache_data(show_spinner=False)
 def _team_logo_map(sport_key: str) -> dict:
-    """team_name -> logo_id (the team_id in teams.csv, used as logo filename stem)."""
+    """team_name -> logo_id. Logos in team_logos_512/ are named by BASEBALL
+    team_id; softball entries don't have their own logo file. So for softball
+    teams, fall back to the baseball ID for the same school name. (Same
+    pattern chart_builder.py uses, originally missed in this module — that's
+    why softball Team Resume cards had no logos. Fixed 2026-04-29.)"""
     teams = _load_csv('teams.csv')
     if teams.empty:
         return {}
-    sport_label = 'Baseball' if sport_key == 'baseball' else 'Softball'
-    sport_col = teams['sport'] == sport_label
-    sub = teams[sport_col][['name', 'id']].drop_duplicates('name')
-    return {n: int(i) for n, i in zip(sub['name'], sub['id']) if pd.notna(i)}
+    bb_map = {n: int(i) for n, i in zip(
+        teams[teams['sport']=='Baseball']['name'],
+        teams[teams['sport']=='Baseball']['id'],
+    ) if pd.notna(i)}
+    if sport_key == 'baseball':
+        return bb_map
+    # Softball: prefer SB team_id only if that file exists; otherwise fall back
+    # to the baseball ID for the same school name.
+    sb_rows = teams[teams['sport']=='Softball']
+    out = {}
+    for n, i in zip(sb_rows['name'], sb_rows['id']):
+        if pd.isna(i):
+            continue
+        sb_id = int(i)
+        # Prefer SB-specific logo if file exists
+        if (_LOGO_DIR / f'{sb_id}.png').exists() or (_LOGO_DIR / f'{sb_id}.webp').exists():
+            out[n] = sb_id
+        elif n in bb_map:
+            out[n] = bb_map[n]
+    return out
 
 
 def _team_logo_data_uri(team_name: str, sport_key: str) -> str:
