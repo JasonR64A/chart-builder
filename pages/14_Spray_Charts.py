@@ -39,7 +39,8 @@ with st.sidebar:
     teams = list_teams(sport, division)
     if not teams:
         st.error(f'No PBP data found for {sport} {division}. '
-                 f'Expected pbp_data/play_by_play/{sport}_play_by_play_{division}.csv')
+                 f'Expected pbp_data/play_by_play/{sport}_play_by_play_{division}.csv '
+                 f'(or .csv.gz on Render).')
         st.stop()
 
     selected_team = st.selectbox('Team', ['(all teams)'] + teams)

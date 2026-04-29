@@ -68,14 +68,18 @@ def categorize_result(r: str) -> str:
 @st.cache_data(show_spinner=False)
 def _load_pbp(sport: str, division: str) -> pd.DataFrame:
     """Load events PBP for sport+division. Schema is the chart-builder
-    naming: {sport}_play_by_play_{division}.csv."""
-    p = PBP_DIR / f'{sport}_play_by_play_{division}.csv'
-    if not p.exists():
-        return pd.DataFrame()
+    naming: {sport}_play_by_play_{division}.csv (or .csv.gz on Render —
+    raw .csv is gitignored at ~330MB; only .gz reaches Streamlit Cloud)."""
     cols = ['gameId', 'date', 'battingTeam', 'fieldingTeam',
             'player', 'playerId', 'playResult', 'hitLocation', 'inning']
-    df = pd.read_csv(p, usecols=lambda c: c in cols, low_memory=False)
-    return df
+    # Prefer raw .csv (faster), fall back to .gz which is what Render has
+    csv_p = PBP_DIR / f'{sport}_play_by_play_{division}.csv'
+    gz_p  = PBP_DIR / f'{sport}_play_by_play_{division}.csv.gz'
+    if csv_p.exists():
+        return pd.read_csv(csv_p, usecols=lambda c: c in cols, low_memory=False)
+    if gz_p.exists():
+        return pd.read_csv(gz_p, usecols=lambda c: c in cols, low_memory=False, compression='gzip')
+    return pd.DataFrame()
 
 
 def compute_spray_distribution(
