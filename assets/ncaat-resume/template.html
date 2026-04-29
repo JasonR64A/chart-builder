@@ -444,10 +444,13 @@ function Masthead({ team }) {
       </div>
       <hr className="thick" />
       <div style={{ display: "grid", gridTemplateColumns: "auto 1fr auto", gap: 20, alignItems: "end", padding: "18px 0 12px" }}>
-        <div style={{ width: 78, height: 78, borderRadius: "50%", background: team.colors.primary, display: "grid", placeItems: "center", border: `2px solid ${team.colors.primary}`, overflow: "hidden", boxShadow: "0 2px 8px rgba(0,0,0,0.15)" }}>
+        {/* Logo circle: eggshell background + team-color ring. Was using
+            team.colors.primary for the fill, which made monochromatic logos
+            (Arkansas red on red, etc.) disappear. Per user 2026-04-29. */}
+        <div style={{ width: 78, height: 78, borderRadius: "50%", background: "var(--paper)", display: "grid", placeItems: "center", border: `3px solid ${team.colors.primary}`, overflow: "hidden", boxShadow: "0 2px 8px rgba(0,0,0,0.15)" }}>
           {team.logoDataUri
             ? <img src={team.logoDataUri} alt={team.name} style={{ width: 66, height: 66, objectFit: "contain", display: "block" }} />
-            : <div className="serif" style={{ color: team.colors.secondary, fontWeight: 700, fontSize: 34, lineHeight: 1, fontStyle: "italic" }}>{team.name[0]}</div>
+            : <div className="serif" style={{ color: team.colors.primary, fontWeight: 700, fontSize: 34, lineHeight: 1, fontStyle: "italic" }}>{team.name[0]}</div>
           }
         </div>
         <div>
