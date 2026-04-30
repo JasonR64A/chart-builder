@@ -24,7 +24,8 @@ from app_lib.spray_data import (
     ZONE_NAMES,
 )
 
-BRAND_LOGO = _APP_DIR / 'assets' / 'logo-circle-black.png'
+BRAND_LOGO    = _APP_DIR / 'assets' / 'logo-circle-black.png'
+BRAND_64A_RED = _APP_DIR / 'assets' / 'logo-64a-circle-red.png'
 
 st.set_page_config(page_title='Spray Charts — 64 Analytics', layout='wide')
 
@@ -57,15 +58,20 @@ with st.sidebar:
     selected_label = st.selectbox('Team', options)
     team_filter = None if selected_label == '(all teams)' else name_by_label.get(selected_label)
 
-    # Resolve team_id for selected team (used for logo overlay + filename)
+    # Resolve team_id and the short teams.csv name for the selected team
     selected_team_id = None
+    selected_team_short = team_filter   # fallback to PBP name if no match
     if team_filter is not None:
         match = teams_df[teams_df['ncaa_team'] == team_filter]
-        if not match.empty and pd.notna(match.iloc[0]['team_id']):
-            selected_team_id = int(match.iloc[0]['team_id'])
+        if not match.empty:
+            row = match.iloc[0]
+            if pd.notna(row['team_id']):
+                selected_team_id = int(row['team_id'])
+            if 'short_name' in match.columns and pd.notna(row.get('short_name')):
+                selected_team_short = str(row['short_name'])
 
     selected_player_id = None
-    selected_player_name = None
+    selected_player_name = None         # display name (full from players.csv if available)
     selected_player_position = None
     selected_player_class = None
     if view_mode == 'Player':
@@ -73,12 +79,18 @@ with st.sidebar:
         if plist.empty:
             st.warning('No players with batted balls found for this scope.')
             st.stop()
-        labels = [f"{r['player']}  ({r['balls_in_play']} BIP)"
-                  for _, r in plist.head(80).iterrows()]
         head = plist.head(80).reset_index(drop=True)
+        # Prefer the full name from players.csv; fall back to PBP last-name spelling
+        def _disp_name(r):
+            full = r.get('player_name')
+            if isinstance(full, str) and full.strip():
+                return full
+            return str(r['player'])
+        labels = [f"{_disp_name(r)}  ({r['balls_in_play']} BIP)"
+                  for _, r in head.iterrows()]
         choice = st.selectbox('Player', range(len(labels)), format_func=lambda i: labels[i])
         selected_player_id = head.loc[choice, 'playerId']
-        selected_player_name = head.loc[choice, 'player']
+        selected_player_name = _disp_name(head.loc[choice])
         selected_player_position = head.loc[choice, 'position'] if 'position' in head.columns else None
         selected_player_class = head.loc[choice, 'classification'] if 'classification' in head.columns else None
 
@@ -107,7 +119,7 @@ buckets = compute_field_side_buckets(spray)
 # ── Header ───────────────────────────────────────────────────────────────────
 title_scope = (
     f"Player: {selected_player_name}" if view_mode == 'Player'
-    else (f"Team: {team_filter}" if team_filter else f"All {division} {sport}")
+    else (f"Team: {selected_team_short}" if selected_team_short else f"All {division} {sport}")
 )
 st.markdown(f"## {sport.title()} {division} — Spray Chart")
 st.caption(title_scope + f" · {buckets['total']:,} balls in play")
@@ -295,24 +307,37 @@ with col_field:
         return max((val_by_zone.get(zc[0], 0) for zc, *_ in zones), default=1.0) or 1.0
     fair_max = max_val(OUTFIELD + INFIELD + LINE)
 
-    parts = ['''<svg viewBox="0 0 100 72" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;background:#F0EAD6;border-radius:8px;">''']
+    # Helper: embed a PNG file into the SVG as an <image> element. Uses
+    # BOTH href and xlink:href for cross-renderer reliability (cairosvg
+    # and some browsers require xlink:href; modern browsers prefer href).
+    def _embed_image(path: Path, x: float, y: float, w: float, h: float,
+                     opacity: float = 1.0) -> str:
+        if not path.exists():
+            return ''
+        try:
+            b64 = base64.b64encode(path.read_bytes()).decode('ascii')
+        except Exception:
+            return ''
+        href = f'data:image/png;base64,{b64}'
+        return (f'<image href="{href}" xlink:href="{href}" '
+                f'x="{x}" y="{y}" width="{w}" height="{h}" '
+                f'opacity="{opacity}" preserveAspectRatio="xMidYMid meet" '
+                f'pointer-events="none"/>')
+
+    parts = ['<svg viewBox="0 0 100 72" xmlns="http://www.w3.org/2000/svg" '
+             'xmlns:xlink="http://www.w3.org/1999/xlink" '
+             'style="width:100%;height:auto;background:#F0EAD6;border-radius:8px;">']
+
+    # 64 Analytics brand logo, centered above the diamond.
+    parts.append(_embed_image(BRAND_64A_RED, x=38, y=0, w=24, h=10))
 
     # Team logo at 50% opacity in the centroid of fair territory (Team mode only)
     if view_mode == 'Team' and selected_team_id is not None:
         logo_path = _APP_DIR / 'team_logos_512' / f'{selected_team_id}.png'
-        if logo_path.exists():
-            try:
-                b64 = base64.b64encode(logo_path.read_bytes()).decode('ascii')
-                logo_size = 26
-                lx, ly = 50 - logo_size/2, 36 - logo_size/2
-                parts.append(
-                    f'<image href="data:image/png;base64,{b64}" '
-                    f'x="{lx}" y="{ly}" width="{logo_size}" height="{logo_size}" '
-                    f'opacity="0.5" preserveAspectRatio="xMidYMid meet" '
-                    f'pointer-events="none"/>'
-                )
-            except Exception:
-                pass  # logo is decorative; skip silently if anything fails
+        logo_size = 26
+        parts.append(_embed_image(logo_path,
+                                  x=50 - logo_size/2, y=36 - logo_size/2,
+                                  w=logo_size, h=logo_size, opacity=0.5))
 
     # Player header in upper-left (Player mode only): name / position / class
     if view_mode == 'Player' and selected_player_name:
@@ -389,10 +414,12 @@ with col_field:
     sport_label = 'Baseball' if sport.lower() == 'baseball' else 'Softball'
     if view_mode == 'Player' and selected_player_name:
         scope_txt = str(selected_player_name)
+    elif selected_team_short:
+        scope_txt = str(selected_team_short)
     elif team_filter:
         scope_txt = str(team_filter)
     else:
-        scope_txt = f'All teams'
+        scope_txt = 'All teams'
     filter_bits = []
     if vs_hand: filter_bits.append('vs LHP' if vs_hand == 'L' else 'vs RHP')
     if f_two_strikes: filter_bits.append('2 strikes')

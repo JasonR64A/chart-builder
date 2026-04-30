@@ -329,11 +329,13 @@ def list_teams(sport: str, division: str) -> pd.DataFrame:
     sport_label = 'Baseball' if sport.lower() == 'baseball' else 'Softball'
     cb = teams_csv[teams_csv['sport'] == sport_label][['id','name']].copy() if not teams_csv.empty else pd.DataFrame()
     name_to_id = {}
+    id_to_short = {}
     if not cb.empty:
         # Sort by name length DESC so "Texas A&M" matches before "Texas"
         cb_sorted = cb.assign(_len=cb['name'].str.len()).sort_values('_len', ascending=False)
         for _, r in cb_sorted.iterrows():
             name_to_id[str(r['name'])] = int(r['id'])
+            id_to_short[int(r['id'])] = str(r['name'])
 
     def find_id(ncaa: str) -> int | None:
         # Exact prefix match — pick the longest short-name that prefixes the NCAA full name
@@ -343,6 +345,9 @@ def list_teams(sport: str, division: str) -> pd.DataFrame:
         return None
 
     bip['team_id'] = bip['ncaa_team'].apply(find_id)
+    bip['short_name'] = bip['team_id'].apply(
+        lambda tid: id_to_short.get(int(tid)) if pd.notna(tid) else None
+    )
     return bip.sort_values('ncaa_team').reset_index(drop=True)
 
 
@@ -378,15 +383,14 @@ def list_players(sport: str, division: str, team_name: str | None = None) -> pd.
     if not bridge.empty:
         b = bridge.dropna(subset=['ncaa_pid']).copy()
         b['playerId'] = b['ncaa_pid'].astype(int).astype(str)
-        keep = ['playerId'] + [c for c in ['position', 'classification']
+        keep = ['playerId'] + [c for c in ['player_name', 'position', 'classification']
                                 if c in b.columns]
         b = b[keep].drop_duplicates('playerId')
         out = out.merge(b, on='playerId', how='left')
-    if 'position' not in out.columns:
-        out['position'] = pd.NA
-    if 'classification' not in out.columns:
-        out['classification'] = pd.NA
+    for col in ('player_name', 'position', 'classification'):
+        if col not in out.columns:
+            out[col] = pd.NA
 
     return out.sort_values('balls_in_play', ascending=False)[
-        ['playerId','player','balls_in_play','position','classification']
+        ['playerId','player','player_name','balls_in_play','position','classification']
     ].reset_index(drop=True)
