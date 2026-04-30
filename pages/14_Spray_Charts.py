@@ -115,24 +115,23 @@ with col_field:
     R_OUTER = 48   # field edge
     # Angles are in degrees from straight up (toward CF). Negative = left.
     OUTFIELD = [   # (zone, ang_start, ang_end, label)
-        (7,  -45, -27, '7. LF'),
-        (10, -27,  -9, '10. LCF'),
-        (8,   -9,   9, '8. CF'),
-        (11,   9,  27, '11. RCF'),
-        (9,   27,  45, '9. RF'),
+        (7,  -45, -27, 'LF'),
+        (10, -27,  -9, 'LCF'),
+        (8,   -9,   9, 'CF'),
+        (11,   9,  27, 'RCF'),
+        (9,   27,  45, 'RF'),
     ]
     INFIELD = [
-        (5,  -45, -27, '5. 3B'),
-        (6,  -27,  -9, '6. SS'),
-        (14,  -9,   9, '14. UTM'),
-        (4,    9,  27, '4. 2B'),
-        (3,   27,  45, '3. 1B'),
+        (5,  -45, -27, '3B'),
+        (6,  -27,  -9, 'SS'),
+        (14,  -9,   9, 'UTM'),
+        (4,    9,  27, '2B'),
+        (3,   27,  45, '1B'),
     ]
     FOUL = [
-        # Wider angle range so the foul wedges form the diamond corners
-        # (45° foul line out to 90° = the field horizontal at home plate).
-        (12, -90, -45, '12. L FOUL'),
-        (13,  45,  90, '13. R FOUL'),
+        # Narrower foul wedges per reference design — 30° each, not 45°.
+        (12, -75, -45, 'L FOUL'),
+        (13,  45,  75, 'R FOUL'),
     ]
 
     def polar(angle_deg, radius):
@@ -231,28 +230,27 @@ with col_field:
         parts.append(f'<text x="{lx:.1f}" y="{ly-1.0:.1f}" text-anchor="middle" font-family="Inter,sans-serif" font-size="2.8" font-weight="700" fill="{tc}">{label}</text>')
         parts.append(f'<text x="{lx:.1f}" y="{ly+2.5:.1f}" text-anchor="middle" font-family="Inter,sans-serif" font-size="3.6" font-weight="800" fill="{tc}">{pct:.0f}%</text>')
 
-    # Pitcher (zone 1) — circle on the centerline above the apex,
-    # tucked inside the infield ring's apex (between the infield wedges
-    # and the catcher).
+    # Pitcher (zone 1) — circle on the centerline, sized so its bottom edge
+    # meets the catcher's top edge for a clean stacked diamond apex.
     p_pct = pct_by_zone.get(1, 0)
-    px, py = HOME[0], HOME[1] - 4   # 4 units above HOME on centerline
-    parts.append(f'<circle cx="{px}" cy="{py}" r="3.8" fill="#F8E8E2" stroke="#0F2A4D" stroke-width="0.5"/>')
-    parts.append(f'<text x="{px}" y="{py-0.6:.1f}" text-anchor="middle" font-family="Inter,sans-serif" font-size="1.9" font-weight="700" fill="#0F2A4D">1. P</text>')
-    parts.append(f'<text x="{px}" y="{py+2.0:.1f}" text-anchor="middle" font-family="Inter,sans-serif" font-size="2.3" font-weight="800" fill="#0F2A4D">{p_pct:.0f}%</text>')
+    r_p = 3.0
+    px, py = HOME[0], HOME[1] - 5   # center 5 units above HOME → bottom at y=63
+    parts.append(f'<circle cx="{px}" cy="{py}" r="{r_p}" fill="#F8E8E2" stroke="#0F2A4D" stroke-width="0.5"/>')
+    parts.append(f'<text x="{px}" y="{py-0.4:.1f}" text-anchor="middle" font-family="Inter,sans-serif" font-size="1.8" font-weight="700" fill="#0F2A4D">P</text>')
+    parts.append(f'<text x="{px}" y="{py+1.9:.1f}" text-anchor="middle" font-family="Inter,sans-serif" font-size="2.2" font-weight="800" fill="#0F2A4D">{p_pct:.0f}%</text>')
 
-    # Catcher (zone 2) — small octagon AT the apex (home plate).
-    # The foul lines (the inner edges of the L FOUL / R FOUL wedges)
-    # converge here, so the V meets the catcher.
+    # Catcher (zone 2) — small octagon at the apex (home plate). The foul
+    # lines converge here and the pitcher sits directly above with no gap.
     c_pct = pct_by_zone.get(2, 0)
     cx, cy = HOME
-    r_c = 2.6
+    r_c = 2.0
     pts = []
     for i in range(8):
         ang = math.radians(22.5 + i * 45)
         pts.append(f'{cx + r_c*math.cos(ang):.1f},{cy + r_c*math.sin(ang):.1f}')
     parts.append(f'<polygon points="{" ".join(pts)}" fill="#F8E8E2" stroke="#0F2A4D" stroke-width="0.4"/>')
-    parts.append(f'<text x="{cx}" y="{cy-0.3:.1f}" text-anchor="middle" font-family="Inter,sans-serif" font-size="1.3" font-weight="700" fill="#0F2A4D">2. C</text>')
-    parts.append(f'<text x="{cx}" y="{cy+1.6:.1f}" text-anchor="middle" font-family="Inter,sans-serif" font-size="1.6" font-weight="800" fill="#0F2A4D">{c_pct:.0f}%</text>')
+    parts.append(f'<text x="{cx}" y="{cy-0.1:.1f}" text-anchor="middle" font-family="Inter,sans-serif" font-size="1.2" font-weight="700" fill="#0F2A4D">C</text>')
+    parts.append(f'<text x="{cx}" y="{cy+1.5:.1f}" text-anchor="middle" font-family="Inter,sans-serif" font-size="1.5" font-weight="800" fill="#0F2A4D">{c_pct:.0f}%</text>')
 
     # Outer field-outline arc — connects the L FOUL outer corner to the
     # R FOUL outer corner with the outfield arc in between.
