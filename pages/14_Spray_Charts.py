@@ -155,7 +155,8 @@ with col_field:
     HOME = (50, 65)
     R_INNER = 8    # pitcher / inner apex
     R_MID   = 25   # infield / outfield boundary
-    R_OUTER = 48   # field edge
+    R_OUTER = 48   # field edge (warning track)
+    R_DEEP  = 54   # over-the-fence / deep-CF outer edge
     # Angles are in degrees from straight up (toward CF). Negative = left.
     OUTFIELD = [   # (zone, ang_start, ang_end)
         (7,  -45, -27),
@@ -164,20 +165,25 @@ with col_field:
         (11,   9,  27),
         (9,   27,  45),
     ]
+    # Infield is 4 wedges across the 90° fair arc (22.5° each). Zone 14 is
+    # NOT here — NCAA's "14" is deep CF, not up-the-middle infield.
     INFIELD = [
-        (5,  -45, -27),
-        (6,  -27,  -9),
-        (14,  -9,   9),
-        (4,    9,  27),
-        (3,   27,  45),
+        (5,  -45,   -22.5),
+        (6,  -22.5,   0),
+        (4,    0,    22.5),
+        (3,   22.5,  45),
     ]
-    # Foul wedges — slim 20° slivers. Their outer edges coincide with the
-    # field-outline foul lines, so the boundary is one continuous outline.
-    FOUL_HALF = 20  # degrees outside each foul line
-    FOUL = [
-        (12, -45 - FOUL_HALF, -45),
-        (13,  45,  45 + FOUL_HALF),
+    # "Down the line" wedges — NCAA codes 12/13 are FAIR balls that landed
+    # close to the foul line (often XBH), not actual foul balls. Slim 20°
+    # slivers just outside the foul line; their outer edges align with the
+    # field-outline foul lines.
+    LINE_HALF = 20  # degrees outside each foul line
+    LINE = [
+        (12, -45 - LINE_HALF, -45),
+        (13,  45,  45 + LINE_HALF),
     ]
+    # Deep CF — slim wedge BEYOND the OF arc, directly above zone 8.
+    DEEP = [(14, -9, 9)]
 
     def polar(angle_deg, radius):
         # angle 0 = straight up; positive = clockwise (right)
@@ -209,36 +215,22 @@ with col_field:
         radius = (r_in + r_out) / 2
         return polar(ang, radius)
 
-    # Color helpers — 0..1 intensity blends from a soft tint to a deep base
+    # Single fair-territory color ramp: light orange → deep red.
     def red_orange(intensity):
-        # Light orange (#FFE0CC) → deep red (#C62828)
         i = max(0.05, min(1.0, intensity))
         r = int(255 - (255 - 198) * i)
         g = int(224 - (224 - 40)  * i)
         b = int(204 - (204 - 40)  * i)
         return f'#{r:02X}{g:02X}{b:02X}'
-    def pink(intensity):
-        i = max(0.05, min(1.0, intensity))
-        r = int(252 - (252 - 230) * i)
-        g = int(228 - (228 - 170) * i)
-        b = int(228 - (228 - 170) * i)
-        return f'#{r:02X}{g:02X}{b:02X}'
-    def blue(intensity):
-        i = max(0.05, min(1.0, intensity))
-        r = int(220 - (220 - 130) * i)
-        g = int(232 - (232 - 175) * i)
-        b = int(248 - (248 - 220) * i)
-        return f'#{r:02X}{g:02X}{b:02X}'
     def text_color(intensity):
         return '#FFFFFF' if intensity > 0.55 else '#0F2A4D'
 
-    # Single intensity scale across ALL fair-territory zones (infield +
-    # outfield) so identical metric values render identical shades. Foul
-    # territory keeps its own scale because it's a separate color family.
+    # Single intensity scale across ALL fair-territory zones — infield,
+    # outfield, down-the-line, and deep CF — so identical metric values
+    # render identical shades. Everything in fair territory shares one ramp.
     def max_val(zones):
         return max((val_by_zone.get(z, 0) for z, *_ in zones), default=1.0) or 1.0
-    fair_max = max_val(OUTFIELD + INFIELD)
-    foul_max = max_val(FOUL)
+    fair_max = max_val(OUTFIELD + INFIELD + LINE + DEEP)
 
     parts = ['''<svg viewBox="0 0 100 72" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;background:#F0EAD6;border-radius:8px;">''']
     parts.append('<text x="50" y="7" text-anchor="middle" font-family="Inter,sans-serif" font-size="5" font-weight="800" fill="#0F2A4D">Spray Chart</text>')
@@ -253,15 +245,28 @@ with col_field:
         tc = text_color(intensity)
         parts.append(f'<text x="{lx:.1f}" y="{ly+1.5:.1f}" text-anchor="middle" font-family="Inter,sans-serif" font-size="4.5" font-weight="800" fill="{tc}" pointer-events="none">{fmt_by_zone.get(z,"")}</text>')
 
-    # Foul wedges — pie wedges from the apex (true diamond corners)
-    for z, a1, a2 in FOUL:
+    # Down-the-line wedges (zones 12/13) — FAIR territory, pie wedges from
+    # the apex. Use the fair red/orange ramp so SLG/wOBA shading matches
+    # other fair zones at the same value.
+    for z, a1, a2 in LINE:
         v = val_by_zone.get(z, 0)
-        intensity = v / foul_max if foul_max else 0
-        fill = blue(intensity)
+        intensity = v / fair_max if fair_max else 0
+        fill = red_orange(intensity)
         parts.append(f'<path d="{pie_path(a1, a2, R_OUTER)}" fill="{fill}" stroke="#FFFFFF" stroke-width="0.6"><title>{_tooltip_for(z)}</title></path>')
         lx, ly = label_pos(a1, a2, R_INNER, R_OUTER)
-        tc = text_color(intensity * 0.7)
+        tc = text_color(intensity)
         parts.append(f'<text x="{lx:.1f}" y="{ly+1.0:.1f}" text-anchor="middle" font-family="Inter,sans-serif" font-size="3.5" font-weight="800" fill="{tc}" pointer-events="none">{fmt_by_zone.get(z,"")}</text>')
+
+    # Deep CF (zone 14) — fair-territory wedge BEYOND the OF arc, sitting
+    # directly above zone 8 (CF). This is over-the-fence / wall territory.
+    for z, a1, a2 in DEEP:
+        v = val_by_zone.get(z, 0)
+        intensity = v / fair_max if fair_max else 0
+        fill = red_orange(intensity)
+        parts.append(f'<path d="{wedge_path(a1, a2, R_OUTER, R_DEEP)}" fill="{fill}" stroke="#FFFFFF" stroke-width="0.6"><title>{_tooltip_for(z)}</title></path>')
+        lx, ly = label_pos(a1, a2, R_OUTER, R_DEEP)
+        tc = text_color(intensity)
+        parts.append(f'<text x="{lx:.1f}" y="{ly+1.0:.1f}" text-anchor="middle" font-family="Inter,sans-serif" font-size="2.6" font-weight="800" fill="{tc}" pointer-events="none">{fmt_by_zone.get(z,"")}</text>')
 
     # Infield wedges — same red/orange ramp + max as outfield so identical
     # metric values render identical shades.
@@ -315,10 +320,10 @@ with col_field:
 with col_summary:
     st.markdown('### Field-side splits')
     side_df = pd.DataFrame([
-        ['Left side',  '5/6/7/LCF', buckets['left'],   f"{buckets['left_pct']}%"],
-        ['Middle',     'P/2B/CF',   buckets['middle'], f"{buckets['middle_pct']}%"],
-        ['Right side', '1B/9/RCF',  buckets['right'],  f"{buckets['right_pct']}%"],
-        ['Other',      'C / foul',  buckets['other'],  f"{buckets['other_pct']}%"],
+        ['Left side',  '3B/SS/LF/LCF/L Line', buckets['left'],   f"{buckets['left_pct']}%"],
+        ['Middle',     'P/2B/CF/Deep CF',     buckets['middle'], f"{buckets['middle_pct']}%"],
+        ['Right side', '1B/RF/RCF/R Line',    buckets['right'],  f"{buckets['right_pct']}%"],
+        ['Other (C)',  '2',                   buckets['other'],  f"{buckets['other_pct']}%"],
     ], columns=['Side', 'Zones', 'Count', 'Share'])
     st.dataframe(side_df, hide_index=True, use_container_width=True)
 
@@ -371,7 +376,8 @@ st.bar_chart(chart_df, x='Zone', y='Count', height=240)
 # ── Footer note ─────────────────────────────────────────────────────────────
 st.caption(
     'Zone codes: 1=P, 2=C, 3=1B, 4=2B, 5=3B, 6=SS, 7=LF, 8=CF, 9=RF, '
-    '10=LCF gap, 11=RCF gap, 12-14=foul/deep zones. '
-    'Without batter handedness in the data we can\'t classify Pull/Oppo; '
-    'Left/Middle/Right is the unbiased field-side split.'
+    '10=LCF gap, 11=RCF gap, 12=L Line, 13=R Line, 14=Deep CF. '
+    'Zones 12 / 13 are FAIR (down-the-line hits), not foul; zone 14 is '
+    'over-the-fence / deep CF. Without batter handedness we can\'t '
+    'classify Pull/Oppo, so Left/Middle/Right is the unbiased split.'
 )

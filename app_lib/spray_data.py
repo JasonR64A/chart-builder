@@ -3,7 +3,12 @@ Spray-chart data layer.
 
 PBP rows have a `hitLocation` column with a baseball position code:
   1=P, 2=C, 3=1B, 4=2B, 5=3B, 6=SS, 7=LF, 8=CF, 9=RF
-  10=LCF gap, 11=RCF gap, 12-14 = various foul / extra zones (rare)
+  10=LCF gap, 11=RCF gap
+  12=down the LF line (FAIR — not foul; NCAA scorebook quirk)
+  13=down the RF line (FAIR)
+  14=deep CF / over-the-fence CF (FAIR)
+The names "L-Foul" / "R-Foul" some scorebooks use for 12/13 are misleading
+— they're balls that stayed fair but landed close to the line, often XBH.
 
 This module provides:
   - compute_spray_distribution(sport, division, team=None, player_id=None)
@@ -35,7 +40,8 @@ def _load_csv(name: str) -> pd.DataFrame:
 ZONE_NAMES = {
     1: 'P', 2: 'C', 3: '1B', 4: '2B', 5: '3B', 6: 'SS',
     7: 'LF', 8: 'CF', 9: 'RF',
-    10: 'LCF', 11: 'RCF', 12: 'LF-Foul', 13: 'RF-Foul', 14: 'CF-Deep',
+    10: 'LCF', 11: 'RCF',
+    12: 'L Line', 13: 'R Line', 14: 'Deep CF',
 }
 
 # (x, y) center positions for each zone on a 100x120 baseball field SVG.
@@ -188,19 +194,19 @@ def compute_field_side_buckets(spray_df: pd.DataFrame) -> dict:
     Without batter handedness we can't call this Pull/Center/Oppo; field-side
     is the unbiased label.
 
-    Left side  (3B/SS/LF + LCF):  zones 5, 6, 7, 10
-    Middle     (P/2B/CF + deep CF): zones 1, 4, 8, 14
-    Right side (1B/RF + RCF):       zones 3, 9, 11
-    Other / foul:                   zones 2, 12, 13
+    Left side  (3B/SS/LF/LCF/L Line):   zones 5, 6, 7, 10, 12
+    Middle     (P/2B/CF/Deep CF):       zones 1, 4, 8, 14
+    Right side (1B/RF/RCF/R Line):      zones 3, 9, 11, 13
+    Other      (catcher only):          zone 2
     """
     if spray_df.empty:
         return {'left': 0, 'middle': 0, 'right': 0, 'other': 0,
                 'left_pct': 0, 'middle_pct': 0, 'right_pct': 0, 'other_pct': 0,
                 'total': 0}
-    LEFT  = {5, 6, 7, 10}
+    LEFT  = {5, 6, 7, 10, 12}
     MID   = {1, 4, 8, 14}
-    RIGHT = {3, 9, 11}
-    OTHER = {2, 12, 13}
+    RIGHT = {3, 9, 11, 13}
+    OTHER = {2}
     s = spray_df.set_index('hitLocation')['total']
     left = int(s[s.index.isin(LEFT)].sum())
     middle = int(s[s.index.isin(MID)].sum())
