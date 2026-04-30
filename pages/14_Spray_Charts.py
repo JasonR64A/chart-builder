@@ -609,7 +609,7 @@ if view_mode == 'Team Grid':
             present = '✓ photo on file' if target.exists() else '— no photo yet'
             up = st.file_uploader(
                 f"{c['name']}  (cb_id {cb_id})  {present}",
-                type=['png', 'jpg', 'jpeg'],
+                type=['png', 'jpg', 'jpeg', 'webp'],
                 key=f'photo_{cb_id}',
             )
             if up is not None:
