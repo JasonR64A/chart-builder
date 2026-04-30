@@ -443,7 +443,7 @@ with col_field:
         _draw_wedge(zc, a1, a2, R_INNER, R_OUTER, 3.5, pie=True)
     # Infield
     for zc, a1, a2 in INFIELD:
-        _draw_wedge(zc, a1, a2, R_INNER, R_MID, 2.8)
+        _draw_wedge(zc, a1, a2, R_INNER, R_MID, 2.3)
 
     # Pitcher (zone 1) — circle on the centerline, sized so its bottom edge
     # meets the catcher's top edge for a clean stacked diamond apex.
