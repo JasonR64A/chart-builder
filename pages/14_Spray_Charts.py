@@ -348,51 +348,78 @@ with col_field:
         if abs(n) >= 10_000:    return f'{n/1_000:.0f}K'
         return f'{n:,}'
 
-    # Top-left corner: hit-type breakdown (counts of 1B / 2B / 3B / HR).
-    # Tells the SHAPE of the contact — complements the bottom-left slash
-    # line, which tells the QUALITY.
-    def _all_top(c): return int(spray[c].sum()) if c in spray.columns else 0
-    hit_types = [
-        ('1B', _all_top('1B')),
-        ('2B', _all_top('2B')),
-        ('3B', _all_top('3B')),
-        ('HR', _all_top('HR')),
+    # Top-left corner: mini-diamond echoing the main field, split into
+    # Left / Center / Right wedges with the same red/orange heatmap
+    # ramp. Intensity is per-side percent normalized to the max side
+    # so the dominant side reads as deep red.
+    MINI_HOME = (16, 11)
+    MINI_R    = 8.0
+    side_pcts = {
+        'L': float(buckets['left_pct']),
+        'C': float(buckets['middle_pct']),
+        'R': float(buckets['right_pct']),
+    }
+    side_max_pct = max(side_pcts.values()) or 1.0
+    SIDE_WEDGES = [   # (key, ang_start, ang_end, label_x_offset)
+        ('L', -45, -15),
+        ('C', -15,  15),
+        ('R',  15,  45),
     ]
-    tl_block_w = 8.0
-    tl_x0 = 2
-    for i, (lab, val) in enumerate(hit_types):
-        cx = tl_x0 + tl_block_w/2 + i * tl_block_w
+    def _mini_pie_path(a1, a2, r):
+        rad1, rad2 = math.radians(a1), math.radians(a2)
+        x1 = MINI_HOME[0] + r * math.sin(rad1)
+        y1 = MINI_HOME[1] - r * math.cos(rad1)
+        x2 = MINI_HOME[0] + r * math.sin(rad2)
+        y2 = MINI_HOME[1] - r * math.cos(rad2)
+        large = 1 if (a2 - a1) > 180 else 0
+        return (f"M {MINI_HOME[0]},{MINI_HOME[1]} L {x1:.2f},{y1:.2f} "
+                f"A {r},{r} 0 {large} 1 {x2:.2f},{y2:.2f} Z")
+    for key, a1, a2 in SIDE_WEDGES:
+        pct = side_pcts[key]
+        intensity = pct / side_max_pct
+        fill = red_orange(intensity)
         parts.append(
-            f'<text x="{cx:.1f}" y="3.5" text-anchor="middle" '
-            f'font-family="Inter,sans-serif" font-size="1.5" font-weight="600" '
-            f'fill="#0F2A4D" letter-spacing="0.3">{lab}</text>'
+            f'<path d="{_mini_pie_path(a1, a2, MINI_R)}" fill="{fill}" '
+            f'stroke="#FFFFFF" stroke-width="0.4"/>'
         )
+        # Label inside each wedge
+        ang_mid = math.radians((a1 + a2) / 2)
+        lx = MINI_HOME[0] + (MINI_R * 0.6) * math.sin(ang_mid)
+        ly = MINI_HOME[1] - (MINI_R * 0.6) * math.cos(ang_mid)
+        tc = text_color(intensity)
         parts.append(
-            f'<text x="{cx:.1f}" y="7.5" text-anchor="middle" '
+            f'<text x="{lx:.1f}" y="{ly+0.7:.1f}" text-anchor="middle" '
             f'font-family="Inter,sans-serif" font-size="2.2" font-weight="800" '
-            f'fill="#0F2A4D">{_compact(val)}</text>'
+            f'fill="{tc}">{pct:.0f}%</text>'
         )
+    # Diamond outline (matches the main field's V + arc)
+    out_L = _mini_pie_path(-45, 45, MINI_R)
+    parts.append(
+        f'<path d="{out_L}" fill="none" stroke="#0F2A4D" stroke-width="0.4"/>'
+    )
 
-    # Top-right corner: field-side splits (Left / Center / Right %).
-    side_splits = [
-        ('LEFT',   f"{buckets['left_pct']:.0f}%"),
-        ('CENTER', f"{buckets['middle_pct']:.0f}%"),
-        ('RIGHT',  f"{buckets['right_pct']:.0f}%"),
+    # Top-right corner: hit-type 2x2 grid (1B/2B on top, 3B/HR on bottom).
+    def _all_top(c): return int(spray[c].sum()) if c in spray.columns else 0
+    hit_grid = [
+        [('1B', _all_top('1B')), ('2B', _all_top('2B'))],
+        [('3B', _all_top('3B')), ('HR', _all_top('HR'))],
     ]
-    tr_block_w = 9.0
-    tr_x0 = 71
-    for i, (lab, val) in enumerate(side_splits):
-        cx = tr_x0 + tr_block_w/2 + i * tr_block_w
-        parts.append(
-            f'<text x="{cx:.1f}" y="3.5" text-anchor="middle" '
-            f'font-family="Inter,sans-serif" font-size="1.5" font-weight="600" '
-            f'fill="#0F2A4D" letter-spacing="0.3">{lab}</text>'
-        )
-        parts.append(
-            f'<text x="{cx:.1f}" y="7.5" text-anchor="middle" '
-            f'font-family="Inter,sans-serif" font-size="2.2" font-weight="800" '
-            f'fill="#0F2A4D">{val}</text>'
-        )
+    tr_x0, tr_y0 = 72, 1.5
+    cell_w, cell_h = 12, 4.5
+    for ri, row in enumerate(hit_grid):
+        for ci, (lab, val) in enumerate(row):
+            cx = tr_x0 + cell_w/2 + ci * cell_w
+            cy = tr_y0 + cell_h/2 + ri * cell_h
+            parts.append(
+                f'<text x="{cx:.1f}" y="{cy-0.4:.1f}" text-anchor="middle" '
+                f'font-family="Inter,sans-serif" font-size="1.5" font-weight="600" '
+                f'fill="#0F2A4D" letter-spacing="0.3">{lab}</text>'
+            )
+            parts.append(
+                f'<text x="{cx:.1f}" y="{cy+2.1:.1f}" text-anchor="middle" '
+                f'font-family="Inter,sans-serif" font-size="2.2" font-weight="800" '
+                f'fill="#0F2A4D">{_compact(val)}</text>'
+            )
 
     def _draw_wedge(zone_codes, a1, a2, r_in, r_out, label_font, *, pie=False):
         primary = zone_codes[0]
@@ -481,15 +508,17 @@ with col_field:
     ]
     block_w = 9.5
     x0 = 1.5
+    # Baselines are matched to the bottom-right caption (label y=66.5,
+    # value y=70) so the two bottom blocks sit on the same plane.
     for i, (lab, val) in enumerate(overall):
         cx = x0 + block_w/2 + i * block_w
         parts.append(
-            f'<text x="{cx:.1f}" y="66.7" text-anchor="middle" '
+            f'<text x="{cx:.1f}" y="66.5" text-anchor="middle" '
             f'font-family="Inter,sans-serif" font-size="1.5" font-weight="600" '
             f'fill="#0F2A4D" letter-spacing="0.3">{lab}</text>'
         )
         parts.append(
-            f'<text x="{cx:.1f}" y="70.2" text-anchor="middle" '
+            f'<text x="{cx:.1f}" y="70" text-anchor="middle" '
             f'font-family="Inter,sans-serif" font-size="2.2" font-weight="800" '
             f'fill="#0F2A4D">{val}</text>'
         )
