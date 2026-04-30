@@ -118,13 +118,11 @@ col_field, col_summary = st.columns([3, 2])
 
 with col_field:
     # ── Wedge-based spray-chart heatmap ────────────────────────────────────
-    # Layout (matches the reference design provided 2026-04-29):
-    #   Home plate at apex (bottom). Fair territory = 90° wedge from -45° to +45°.
-    #   Outer ring (outfield): 5 slices LF/LCF/CF/RCF/RF — red gradient
-    #   Inner ring (infield):  5 slices 3B/SS/14-UTM/2B/1B — pink gradient
-    #   Foul wedges (12,13):   outside the foul lines — blue gradient
-    #   Pitcher (1):           circle on the mound
-    #   Catcher (2):           octagon at home plate
+    # Layout: home plate at apex (bottom). Fair territory = 90° wedge from
+    # -45° to +45°. Outer ring = 5 outfield wedges (CF merges 8+14). Inner
+    # ring = 4 infield wedges (3B/SS/2B/1B). Slim down-the-line wedges sit
+    # just outside ±45°. Pitcher = centerline circle, catcher = home-plate
+    # pentagon at the apex. Single red/orange ramp across all fair zones.
     import math
 
     def _combined(zone_codes):
@@ -174,22 +172,6 @@ with col_field:
                     f"TB {bd['TB']}")
         return '\n'.join(bits)
 
-    # Build value/format lookups for every wedge group + pitcher + catcher
-    breakdowns = {}    # primary_zone -> breakdown dict
-    val_by_zone = {}
-    fmt_by_zone = {}
-    for zone_codes, *_ in OUTFIELD + INFIELD + LINE + [((1,), 0, 0), ((2,), 0, 0)]:
-        bd = _combined(zone_codes)
-        primary = zone_codes[0]
-        breakdowns[primary] = (zone_codes, bd)
-        if bd is None:
-            val_by_zone[primary] = 0.0
-            fmt_by_zone[primary] = '–'
-        else:
-            v = _value_for(bd, metric_choice)
-            val_by_zone[primary] = v
-            fmt_by_zone[primary] = _metric_fmt(v, metric_choice)
-
     # SVG geometry — viewBox 0 0 100 72 leaves the line wedges' outer
     # corners (at polar(-65°, 48)) just inside the left/right edges.
     HOME = (50, 65)
@@ -224,6 +206,23 @@ with col_field:
         ((12,), -45 - LINE_HALF, -45),
         ((13,),  45,  45 + LINE_HALF),
     ]
+
+    # Build value/format lookups for every wedge group + pitcher + catcher.
+    # Must come AFTER the geometry (OUTFIELD/INFIELD/LINE) is defined.
+    breakdowns = {}
+    val_by_zone = {}
+    fmt_by_zone = {}
+    for zone_codes, *_ in OUTFIELD + INFIELD + LINE + [((1,), 0, 0), ((2,), 0, 0)]:
+        bd = _combined(zone_codes)
+        primary = zone_codes[0]
+        breakdowns[primary] = (zone_codes, bd)
+        if bd is None:
+            val_by_zone[primary] = 0.0
+            fmt_by_zone[primary] = '–'
+        else:
+            v = _value_for(bd, metric_choice)
+            val_by_zone[primary] = v
+            fmt_by_zone[primary] = _metric_fmt(v, metric_choice)
 
     def polar(angle_deg, radius):
         # angle 0 = straight up; positive = clockwise (right)
