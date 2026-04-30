@@ -321,7 +321,7 @@ with col_field:
     # Single continuous field outline — foul line L, outfield arc, foul line R,
     # all sharing the same endpoints as the foul-wedge outer corners. This is
     # the merged diamond/semi-circle outline the design calls for.
-    foul_outer = 45 + FOUL_HALF
+    foul_outer = 45 + LINE_HALF
     fxL, fyL = polar(-foul_outer, R_OUTER)
     fxR, fyR = polar( foul_outer, R_OUTER)
     parts.append(
