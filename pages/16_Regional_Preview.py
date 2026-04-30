@@ -592,5 +592,288 @@ for i, (team, seed) in enumerate(zip(teams, seeds)):
 
 
 st.markdown('---')
+st.markdown('### Shareable graphic')
+
+# ── Build a single-image SVG summary for sharing ────────────────────────────
+import base64
+import math
+
+BRAND_64A_WIDE = _APP_DIR / 'assets' / 'logo-64a-wide.png'
+
+
+def _xe(s):
+    if s is None: return ''
+    return (str(s).replace('&', '&amp;')
+                  .replace('<', '&lt;')
+                  .replace('>', '&gt;'))
+
+
+def _embed_png(path, x, y, w, h, opacity=1.0):
+    if not Path(path).exists():
+        return ''
+    try:
+        b64 = base64.b64encode(Path(path).read_bytes()).decode('ascii')
+    except Exception:
+        return ''
+    href = f'data:image/png;base64,{b64}'
+    return (f'<image href="{href}" xlink:href="{href}" '
+            f'x="{x}" y="{y}" width="{w}" height="{h}" '
+            f'opacity="{opacity}" preserveAspectRatio="xMidYMid meet" '
+            f'pointer-events="none"/>')
+
+
+def _donut_arc(cx, cy, r_outer, r_inner, start_deg, end_deg, fill):
+    """SVG path for an annular sector (donut slice)."""
+    s = math.radians(start_deg - 90)
+    e = math.radians(end_deg - 90)
+    x1o = cx + r_outer * math.cos(s); y1o = cy + r_outer * math.sin(s)
+    x2o = cx + r_outer * math.cos(e); y2o = cy + r_outer * math.sin(e)
+    x1i = cx + r_inner * math.cos(s); y1i = cy + r_inner * math.sin(s)
+    x2i = cx + r_inner * math.cos(e); y2i = cy + r_inner * math.sin(e)
+    large = 1 if (end_deg - start_deg) > 180 else 0
+    return (f'<path d="M {x1o:.2f},{y1o:.2f} '
+            f'A {r_outer},{r_outer} 0 {large} 1 {x2o:.2f},{y2o:.2f} '
+            f'L {x2i:.2f},{y2i:.2f} '
+            f'A {r_inner},{r_inner} 0 {large} 0 {x1i:.2f},{y1i:.2f} Z" '
+            f'fill="{fill}"/>')
+
+
+# Build the SVG. viewBox 1200x1000 — fits nicely on social.
+VB_W, VB_H = 1200, 1000
+parts = [
+    f'<svg viewBox="0 0 {VB_W} {VB_H}" width="{VB_W}" height="{VB_H}" '
+    f'xmlns="http://www.w3.org/2000/svg" '
+    f'xmlns:xlink="http://www.w3.org/1999/xlink">'
+    f'<rect x="0" y="0" width="{VB_W}" height="{VB_H}" fill="#F0EAD6"/>'
+]
+
+# Header band — 64A logo + regional name + sport/division
+parts.append(_embed_png(BRAND_64A_WIDE, x=VB_W/2 - 200, y=20, w=400, h=70))
+parts.append(
+    f'<text x="{VB_W/2}" y="130" text-anchor="middle" font-family="Inter,sans-serif" '
+    f'font-size="36" font-weight="800" fill="#0F2A4D">{_xe(regional_name)}</text>'
+)
+parts.append(
+    f'<text x="{VB_W/2}" y="160" text-anchor="middle" font-family="Inter,sans-serif" '
+    f'font-size="18" font-weight="600" fill="#0F2A4D" opacity="0.7">'
+    f'{_xe(sport.title())} {_xe(division)} · 4-Team Double-Elimination Regional</text>'
+)
+
+# 4 team cards — top row at y=200..420, each 280 wide centered
+CARD_W = 270
+CARD_H = 220
+GAP = 20
+total_w = 4 * CARD_W + 3 * GAP
+x_start = (VB_W - total_w) / 2
+DONUT_COLORS = ['#C41230', '#29335c', '#F5A623', '#0F8A5F']
+
+for i, (team, seed) in enumerate(zip(teams, seeds)):
+    x = x_start + i * (CARD_W + GAP)
+    y = 200
+    # Card with team accent color
+    accent = DONUT_COLORS[i]
+    parts.append(
+        f'<rect x="{x}" y="{y}" width="{CARD_W}" height="{CARD_H}" rx="10" ry="10" '
+        f'fill="#FFFFFF" stroke="{accent}" stroke-width="3"/>'
+    )
+    # Seed badge
+    parts.append(
+        f'<circle cx="{x + 28}" cy="{y + 28}" r="22" fill="{accent}"/>'
+        f'<text x="{x + 28}" y="{y + 36}" text-anchor="middle" font-family="Inter,sans-serif" '
+        f'font-size="22" font-weight="800" fill="#FFFFFF">{seed}</text>'
+    )
+    # Team logo
+    tid = team_ids[team]
+    if tid is not None:
+        logo_path = LOGOS / f'{tid}.png'
+        parts.append(_embed_png(logo_path, x=x + (CARD_W - 110)/2, y=y + 50, w=110, h=110))
+    # Team name
+    parts.append(
+        f'<text x="{x + CARD_W/2}" y="{y + 185}" text-anchor="middle" '
+        f'font-family="Inter,sans-serif" font-size="20" font-weight="800" '
+        f'fill="#0F2A4D">{_xe(team)}</text>'
+    )
+    # RPI + win probability
+    rpi_val = team_rpi[team]
+    rpi_txt = f"RPI #{int(float(rpi_val))}" if rpi_val and str(rpi_val).strip() else 'RPI —'
+    wp_pct = win_p[team] * 100
+    parts.append(
+        f'<text x="{x + CARD_W/2}" y="{y + 207}" text-anchor="middle" '
+        f'font-family="Inter,sans-serif" font-size="14" font-weight="600" '
+        f'fill="#0F2A4D" opacity="0.7">{_xe(rpi_txt)} · {wp_pct:.1f}% to win</text>'
+    )
+
+# Donut — center band
+DONUT_CX = 350
+DONUT_CY = 620
+DONUT_RO = 130
+DONUT_RI = 75
+
+# Sort teams by win-prob descending for label clarity, but keep original draw order
+total = sum(win_p[t] for t in teams) or 1.0
+start = 0.0
+for i, team in enumerate(teams):
+    pct = win_p[team] / total
+    end = start + pct * 360
+    parts.append(_donut_arc(DONUT_CX, DONUT_CY, DONUT_RO, DONUT_RI, start, end, DONUT_COLORS[i]))
+    # Label inside the slice if big enough
+    if pct > 0.06:
+        mid_deg = (start + end) / 2
+        label_r = (DONUT_RO + DONUT_RI) / 2
+        lx = DONUT_CX + label_r * math.cos(math.radians(mid_deg - 90))
+        ly = DONUT_CY + label_r * math.sin(math.radians(mid_deg - 90))
+        parts.append(
+            f'<text x="{lx:.1f}" y="{ly+5:.1f}" text-anchor="middle" '
+            f'font-family="Inter,sans-serif" font-size="18" font-weight="800" '
+            f'fill="#FFFFFF">{pct*100:.0f}%</text>'
+        )
+    start = end
+
+# Donut center text
+parts.append(
+    f'<text x="{DONUT_CX}" y="{DONUT_CY - 6}" text-anchor="middle" '
+    f'font-family="Inter,sans-serif" font-size="14" font-weight="600" '
+    f'fill="#0F2A4D" opacity="0.7">WIN-THE-REGIONAL</text>'
+)
+parts.append(
+    f'<text x="{DONUT_CX}" y="{DONUT_CY + 18}" text-anchor="middle" '
+    f'font-family="Inter,sans-serif" font-size="14" font-weight="600" '
+    f'fill="#0F2A4D" opacity="0.7">PROBABILITY</text>'
+)
+
+# Stats summary table — right side, 4 rows × 5 cols (team / AVG / OPS / ERA / K9)
+TABLE_X = 540
+TABLE_Y = 480
+TABLE_W = VB_W - TABLE_X - 40
+ROW_H = 50
+
+# Header row
+header_cols = [('Team', 240), ('AVG', 100), ('OPS', 100), ('ERA', 100), ('K/9', 100)]
+hx = TABLE_X
+for label, w in header_cols:
+    parts.append(
+        f'<text x="{hx + (w if label == "Team" else w/2)}" y="{TABLE_Y + 25}" '
+        f'text-anchor="{"end" if label == "Team" else "middle"}" '
+        f'font-family="Inter,sans-serif" font-size="14" font-weight="700" '
+        f'fill="#0F2A4D" opacity="0.6" letter-spacing="0.5">{label.upper()}</text>'
+    )
+    hx += w
+# Underline
+parts.append(
+    f'<line x1="{TABLE_X}" y1="{TABLE_Y + 35}" x2="{TABLE_X + TABLE_W}" y2="{TABLE_Y + 35}" '
+    f'stroke="#0F2A4D" stroke-width="1" opacity="0.2"/>'
+)
+
+# Data rows
+for i, (team, seed) in enumerate(zip(teams, seeds)):
+    rh = team_h_stats.get(team, {})
+    rp = team_p_stats.get(team, {})
+    row_y = TABLE_Y + 50 + i * ROW_H
+    # Seed dot
+    parts.append(
+        f'<circle cx="{TABLE_X + 18}" cy="{row_y + 12}" r="14" fill="{DONUT_COLORS[i]}"/>'
+        f'<text x="{TABLE_X + 18}" y="{row_y + 18}" text-anchor="middle" '
+        f'font-family="Inter,sans-serif" font-size="14" font-weight="800" fill="#FFFFFF">{seed}</text>'
+    )
+    # Team name
+    parts.append(
+        f'<text x="{TABLE_X + 240}" y="{row_y + 18}" text-anchor="end" '
+        f'font-family="Inter,sans-serif" font-size="18" font-weight="700" '
+        f'fill="#0F2A4D">{_xe(team)}</text>'
+    )
+    # Stats
+    cells = [
+        (TABLE_X + 240 + 50,  f"{rh.get('BA', 0):.3f}"  if rh.get('BA')  is not None else '—'),
+        (TABLE_X + 240 + 150, f"{rh.get('OPS', 0):.3f}" if rh.get('OPS') is not None else '—'),
+        (TABLE_X + 240 + 250, f"{rp.get('ERA', 0):.2f}" if rp.get('ERA') is not None else '—'),
+        (TABLE_X + 240 + 350, f"{rp.get('K/9', 0):.1f}" if rp.get('K/9') is not None else '—'),
+    ]
+    for cx_t, cv in cells:
+        parts.append(
+            f'<text x="{cx_t}" y="{row_y + 18}" text-anchor="middle" '
+            f'font-family="Inter,sans-serif" font-size="20" font-weight="700" '
+            f'fill="#0F2A4D">{cv}</text>'
+        )
+
+# Bottom band — top hot hitter per team in 4 columns
+HOT_Y = 800
+HOT_H = 150
+parts.append(
+    f'<text x="{VB_W/2}" y="{HOT_Y - 12}" text-anchor="middle" '
+    f'font-family="Inter,sans-serif" font-size="16" font-weight="800" '
+    f'fill="#0F2A4D" opacity="0.7" letter-spacing="0.5">HOTTEST HITTER (LAST {lookback_days}D)</text>'
+)
+hot_w = (VB_W - 80) / 4
+for i, (team, seed) in enumerate(zip(teams, seeds)):
+    hx = 40 + i * hot_w
+    hh_df = _hot_hitters(team, sport, division, lookback_days, n=1)
+    parts.append(
+        f'<rect x="{hx + 10}" y="{HOT_Y}" width="{hot_w - 20}" height="{HOT_H}" '
+        f'rx="8" ry="8" fill="#FFFFFF" stroke="{DONUT_COLORS[i]}" stroke-width="2"/>'
+    )
+    if hh_df.empty:
+        parts.append(
+            f'<text x="{hx + hot_w/2}" y="{HOT_Y + HOT_H/2}" text-anchor="middle" '
+            f'font-family="Inter,sans-serif" font-size="14" font-weight="600" '
+            f'fill="#0F2A4D" opacity="0.5">No qualifying hitter</text>'
+        )
+        continue
+    r = hh_df.iloc[0]
+    parts.append(
+        f'<text x="{hx + hot_w/2}" y="{HOT_Y + 30}" text-anchor="middle" '
+        f'font-family="Inter,sans-serif" font-size="20" font-weight="800" '
+        f'fill="#0F2A4D">{_xe(r["playerName"])}</text>'
+    )
+    parts.append(
+        f'<text x="{hx + hot_w/2}" y="{HOT_Y + 50}" text-anchor="middle" '
+        f'font-family="Inter,sans-serif" font-size="12" font-weight="600" '
+        f'fill="#0F2A4D" opacity="0.6">#{seed} {_xe(team)}</text>'
+    )
+    # Big triple slash
+    slash = f"{r['AVG']:.3f} / {r['OBP']:.3f} / {r['SLG']:.3f}"
+    parts.append(
+        f'<text x="{hx + hot_w/2}" y="{HOT_Y + 90}" text-anchor="middle" '
+        f'font-family="Inter,sans-serif" font-size="22" font-weight="800" '
+        f'fill="{DONUT_COLORS[i]}">{slash}</text>'
+    )
+    # Counts
+    parts.append(
+        f'<text x="{hx + hot_w/2}" y="{HOT_Y + 120}" text-anchor="middle" '
+        f'font-family="Inter,sans-serif" font-size="14" font-weight="600" '
+        f'fill="#0F2A4D">{r["AB"]} AB · {r["HR"]} HR · {r["RBI"]} RBI</text>'
+    )
+
+# Footer caption
+parts.append(
+    f'<text x="{VB_W - 30}" y="{VB_H - 20}" text-anchor="end" '
+    f'font-family="Inter,sans-serif" font-size="11" font-weight="500" '
+    f'fill="#0F2A4D" opacity="0.5">'
+    f'64 Analytics · Bradley-Terry on RPI · 20k bracket sims · {lookback_days}d hot list</text>'
+)
+
+parts.append('</svg>')
+graphic_svg = ''.join(parts)
+
+# Render in page (display version with responsive sizing)
+display_svg = graphic_svg.replace(
+    '<svg ',
+    '<svg style="width:100%;max-width:1100px;height:auto;display:block;'
+    'margin:0 auto;border-radius:8px;" ', 1,
+)
+st.markdown(display_svg, unsafe_allow_html=True)
+
+# PNG download
+try:
+    import cairosvg
+    png_bytes = cairosvg.svg2png(bytestring=graphic_svg.encode('utf-8'), output_width=2400)
+    safe_name = ''.join(c if c.isalnum() else '_' for c in str(regional_name))[:40]
+    fname = f'regional_preview_{sport}_{division}_{safe_name}.png'
+    st.download_button('Download PNG', data=png_bytes, file_name=fname,
+                       mime='image/png', use_container_width=False)
+except Exception as e:
+    st.caption(f'PNG export unavailable in this environment ({type(e).__name__}: {str(e)[:80]}).')
+
+
+st.markdown('---')
 st.caption('v1 — RPI-driven Bradley-Terry sim, 21d hot lists, weekend-cadence starter detection. '
            'Stats pulled from chart-builder PBP box scores. Iterate on inputs and visualization to taste.')
