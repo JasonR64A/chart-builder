@@ -414,9 +414,8 @@ with col_field:
                                   w=logo_size, h=logo_size, opacity=0.4))
 
     # Bottom-left overall stats block — aggregate across the entire selection.
-    # AVG/SLG/wOBA are BIP-conditional (denominator = total BIP). BABIP is
-    # the standard form (H-HR)/(BIP-HR), with strikeouts already excluded
-    # since SOs have no hitLocation and never enter our BIP universe.
+    # AVG/SLG/wOBA are BIP-conditional (denominator = total BIP); strikeouts
+    # never enter the universe because SOs have no hitLocation.
     def _all(c): return int(spray[c].sum()) if c in spray.columns else 0
     n_bip = int(spray['total'].sum())
     a1, a2, a3, ahr = _all('1B'), _all('2B'), _all('3B'), _all('HR')
@@ -424,31 +423,27 @@ with col_field:
     a_tb = a1 + 2*a2 + 3*a3 + 4*ahr
     a_woba_num = 0.888*a1 + 1.271*a2 + 1.616*a3 + 2.101*ahr
     if n_bip > 0:
-        agg_avg = a_hits / n_bip
-        agg_slg = a_tb / n_bip
-        agg_woba = a_woba_num / n_bip
-        agg_babip = (a_hits - ahr) / (n_bip - ahr) if (n_bip - ahr) > 0 else 0.0
+        agg_avg, agg_slg, agg_woba = a_hits / n_bip, a_tb / n_bip, a_woba_num / n_bip
     else:
-        agg_avg = agg_slg = agg_woba = agg_babip = 0.0
+        agg_avg = agg_slg = agg_woba = 0.0
     overall = [
-        ('AVG',   _metric_fmt(agg_avg, 'AVG')),
-        ('SLG',   _metric_fmt(agg_slg, 'SLG')),
-        ('wOBA',  _metric_fmt(agg_woba, 'wOBA')),
-        ('BABIP', _metric_fmt(agg_babip, 'AVG')),
-        ('TB',    f'{a_tb:,}'),
+        ('AVG',  _metric_fmt(agg_avg,  'AVG')),
+        ('SLG',  _metric_fmt(agg_slg,  'SLG')),
+        ('wOBA', _metric_fmt(agg_woba, 'wOBA')),
+        ('TB',   f'{a_tb:,}'),
     ]
-    block_w = 7
+    block_w = 8.5
     x0 = 2
     for i, (lab, val) in enumerate(overall):
         cx = x0 + block_w/2 + i * block_w
         parts.append(
-            f'<text x="{cx:.1f}" y="66.5" text-anchor="middle" '
-            f'font-family="Inter,sans-serif" font-size="2.0" font-weight="600" '
+            f'<text x="{cx:.1f}" y="66.7" text-anchor="middle" '
+            f'font-family="Inter,sans-serif" font-size="1.7" font-weight="600" '
             f'fill="#0F2A4D" letter-spacing="0.3">{lab}</text>'
         )
         parts.append(
             f'<text x="{cx:.1f}" y="70.2" text-anchor="middle" '
-            f'font-family="Inter,sans-serif" font-size="3.2" font-weight="800" '
+            f'font-family="Inter,sans-serif" font-size="2.6" font-weight="800" '
             f'fill="#0F2A4D">{val}</text>'
         )
 
