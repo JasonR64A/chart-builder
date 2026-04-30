@@ -189,20 +189,21 @@ with col_field:
     def text_color(intensity):
         return '#FFFFFF' if intensity > 0.55 else '#0F2A4D'
 
-    # Compute intensity per ring relative to that ring's max
+    # Single intensity scale across ALL fair-territory zones (infield +
+    # outfield) so identical percentages render identical shades. Foul
+    # territory keeps its own scale because it's a separate color family.
     def max_pct(zones):
         return max((pct_by_zone.get(z, 0) for z, *_ in zones), default=1.0) or 1.0
-    of_max = max_pct(OUTFIELD)
-    if_max = max_pct(INFIELD)
+    fair_max = max_pct(OUTFIELD + INFIELD)
     foul_max = max_pct(FOUL)
 
     parts = ['''<svg viewBox="0 0 100 72" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;background:#F0EAD6;border-radius:8px;">''']
     parts.append('<text x="50" y="7" text-anchor="middle" font-family="Inter,sans-serif" font-size="5" font-weight="800" fill="#0F2A4D">Spray Chart</text>')
 
-    # Outfield wedges
+    # Outfield wedges — share the fair-territory color ramp + max with infield
     for z, a1, a2 in OUTFIELD:
         pct = pct_by_zone.get(z, 0)
-        intensity = pct / of_max if of_max else 0
+        intensity = pct / fair_max if fair_max else 0
         fill = red_orange(intensity)
         parts.append(f'<path d="{wedge_path(a1, a2, R_MID, R_OUTER)}" fill="{fill}" stroke="#FFFFFF" stroke-width="0.6"/>')
         lx, ly = label_pos(a1, a2, R_MID, R_OUTER)
@@ -219,14 +220,15 @@ with col_field:
         tc = text_color(intensity * 0.7)
         parts.append(f'<text x="{lx:.1f}" y="{ly+1.0:.1f}" text-anchor="middle" font-family="Inter,sans-serif" font-size="3.5" font-weight="800" fill="{tc}">{pct:.0f}%</text>')
 
-    # Infield wedges
+    # Infield wedges — same red/orange ramp + max as outfield so 12% in
+    # the IF reads as the same shade as 12% in the OF.
     for z, a1, a2 in INFIELD:
         pct = pct_by_zone.get(z, 0)
-        intensity = pct / if_max if if_max else 0
-        fill = pink(intensity)
+        intensity = pct / fair_max if fair_max else 0
+        fill = red_orange(intensity)
         parts.append(f'<path d="{wedge_path(a1, a2, R_INNER, R_MID)}" fill="{fill}" stroke="#FFFFFF" stroke-width="0.6"/>')
         lx, ly = label_pos(a1, a2, R_INNER, R_MID)
-        tc = '#0F2A4D'
+        tc = text_color(intensity)
         parts.append(f'<text x="{lx:.1f}" y="{ly+0.9:.1f}" text-anchor="middle" font-family="Inter,sans-serif" font-size="2.6" font-weight="800" fill="{tc}">{pct:.0f}%</text>')
 
     # Pitcher (zone 1) — circle on the centerline, sized so its bottom edge
