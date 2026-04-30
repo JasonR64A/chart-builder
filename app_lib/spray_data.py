@@ -78,6 +78,39 @@ def categorize_result(r: str) -> str:
     return 'Other'
 
 
+# Linear weights for wOBA on contact (BIP-only). Standard FanGraphs values
+# rounded to three decimals — walks/HBP excluded since they have no
+# hitLocation. This is wOBAcon, the contact-quality complement to xwOBA.
+WOBA_WEIGHTS = {'1B': 0.888, '2B': 1.271, '3B': 1.616, 'HR': 2.101}
+
+
+def add_zone_metrics(df: pd.DataFrame) -> pd.DataFrame:
+    """Add per-zone rate stats to a spray distribution DataFrame.
+
+    Columns added: AVG, SLG, wOBA (BIP-denominator versions), TB (raw count).
+    Denominator is the per-zone total BIP. AVG/SLG/wOBA are NOT the standard
+    PA-denominator versions — they're conditional on putting the ball in
+    the zone, which is the right framing for a spray chart.
+    """
+    if df.empty:
+        return df
+    out = df.copy()
+    for col in ['1B', '2B', '3B', 'HR']:
+        if col not in out.columns:
+            out[col] = 0
+    hits = out['1B'] + out['2B'] + out['3B'] + out['HR']
+    tb = out['1B'] + 2*out['2B'] + 3*out['3B'] + 4*out['HR']
+    woba_num = (WOBA_WEIGHTS['1B']*out['1B'] + WOBA_WEIGHTS['2B']*out['2B']
+                + WOBA_WEIGHTS['3B']*out['3B'] + WOBA_WEIGHTS['HR']*out['HR'])
+    n = out['total'].where(out['total'] > 0, other=1)
+    out['AVG']  = (hits / n).round(3)
+    out['SLG']  = (tb / n).round(3)
+    out['wOBA'] = (woba_num / n).round(3)
+    out['TB']   = tb.astype(int)
+    out.loc[out['total'] == 0, ['AVG', 'SLG', 'wOBA']] = 0.0
+    return out
+
+
 @st.cache_data(show_spinner=False)
 def _load_pbp(sport: str, division: str) -> pd.DataFrame:
     """Load events PBP for sport+division. Schema is the chart-builder

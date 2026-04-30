@@ -15,6 +15,7 @@ sys.path.insert(0, str(_APP_DIR))
 from app_lib.spray_data import (
     compute_spray_distribution,
     compute_field_side_buckets,
+    add_zone_metrics,
     list_teams,
     list_players,
     ZONE_COORDS,
@@ -76,6 +77,7 @@ spray = compute_spray_distribution(
     team_name=team_filter if view_mode == 'Team' else None,
     player_id=selected_player_id if view_mode == 'Player' else None,
 )
+spray = add_zone_metrics(spray)
 buckets = compute_field_side_buckets(spray)
 
 # ── Header ───────────────────────────────────────────────────────────────────
@@ -89,6 +91,27 @@ st.caption(title_scope + f" · {buckets['total']:,} balls in play")
 if spray.empty:
     st.warning('No batted-ball data for this selection.')
     st.stop()
+
+# ── Metric toggle ───────────────────────────────────────────────────────────
+METRIC_OPTIONS = ['% of BIP', 'AVG', 'SLG', 'wOBA', 'TB']
+metric_choice = st.radio(
+    'Color & label by:', METRIC_OPTIONS, horizontal=True,
+    help=('% of BIP = share of balls in play landing in that zone. '
+          'AVG/SLG/wOBA are conditional on the ball reaching that zone '
+          '(denominator = zone BIP). TB = raw total bases.'),
+)
+
+def _metric_value(row, choice: str) -> float:
+    if choice == '% of BIP': return float(row['pct'])
+    if choice == 'TB':       return float(row['TB'])
+    return float(row[choice])  # AVG / SLG / wOBA
+
+def _metric_fmt(v: float, choice: str) -> str:
+    if choice == '% of BIP': return f"{v:.0f}%"
+    if choice == 'TB':       return f"{int(v)}"
+    # AVG/SLG/wOBA — drop the leading zero baseball-style (.350 not 0.350)
+    if 0 <= v < 1:           return f".{int(round(v*1000)):03d}"
+    return f"{v:.3f}"
 
 # ── Field-diagram SVG (heatmap) + summary side-by-side ──────────────────────
 col_field, col_summary = st.columns([3, 2])
@@ -104,6 +127,26 @@ with col_field:
     #   Catcher (2):           octagon at home plate
     import math
     pct_by_zone = dict(zip(spray['hitLocation'], spray['pct']))
+    # Selected-metric lookups for label + color intensity
+    val_by_zone = {row['hitLocation']: _metric_value(row, metric_choice)
+                   for _, row in spray.iterrows()}
+    fmt_by_zone = {z: _metric_fmt(v, metric_choice) for z, v in val_by_zone.items()}
+    # Per-zone hover tooltip: full breakdown regardless of selected metric
+    def _tooltip_for(z: int) -> str:
+        sub = spray[spray['hitLocation'] == z]
+        if sub.empty:
+            return f"{ZONE_NAMES.get(z, z)}: no BIP"
+        r = sub.iloc[0]
+        bits = [f"{ZONE_NAMES.get(z, z)} (zone {z})",
+                f"BIP: {int(r['total'])}  ({r['pct']:.1f}%)"]
+        for c in ['1B','2B','3B','HR','Out','FC/Err']:
+            if c in spray.columns and int(r.get(c, 0)) > 0:
+                bits.append(f"{c}: {int(r[c])}")
+        bits.append(f"AVG {_metric_fmt(r['AVG'], 'AVG')} · "
+                    f"SLG {_metric_fmt(r['SLG'], 'SLG')} · "
+                    f"wOBA {_metric_fmt(r['wOBA'], 'wOBA')} · "
+                    f"TB {int(r['TB'])}")
+        return '\n'.join(bits)
 
     # SVG geometry — viewBox 0 0 100 72 so the field fits horizontally:
     # the foul wedges extend from -90° to -45°, which means the leftmost
@@ -190,59 +233,57 @@ with col_field:
         return '#FFFFFF' if intensity > 0.55 else '#0F2A4D'
 
     # Single intensity scale across ALL fair-territory zones (infield +
-    # outfield) so identical percentages render identical shades. Foul
+    # outfield) so identical metric values render identical shades. Foul
     # territory keeps its own scale because it's a separate color family.
-    def max_pct(zones):
-        return max((pct_by_zone.get(z, 0) for z, *_ in zones), default=1.0) or 1.0
-    fair_max = max_pct(OUTFIELD + INFIELD)
-    foul_max = max_pct(FOUL)
+    def max_val(zones):
+        return max((val_by_zone.get(z, 0) for z, *_ in zones), default=1.0) or 1.0
+    fair_max = max_val(OUTFIELD + INFIELD)
+    foul_max = max_val(FOUL)
 
     parts = ['''<svg viewBox="0 0 100 72" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;background:#F0EAD6;border-radius:8px;">''']
     parts.append('<text x="50" y="7" text-anchor="middle" font-family="Inter,sans-serif" font-size="5" font-weight="800" fill="#0F2A4D">Spray Chart</text>')
 
     # Outfield wedges — share the fair-territory color ramp + max with infield
     for z, a1, a2 in OUTFIELD:
-        pct = pct_by_zone.get(z, 0)
-        intensity = pct / fair_max if fair_max else 0
+        v = val_by_zone.get(z, 0)
+        intensity = v / fair_max if fair_max else 0
         fill = red_orange(intensity)
-        parts.append(f'<path d="{wedge_path(a1, a2, R_MID, R_OUTER)}" fill="{fill}" stroke="#FFFFFF" stroke-width="0.6"/>')
+        parts.append(f'<path d="{wedge_path(a1, a2, R_MID, R_OUTER)}" fill="{fill}" stroke="#FFFFFF" stroke-width="0.6"><title>{_tooltip_for(z)}</title></path>')
         lx, ly = label_pos(a1, a2, R_MID, R_OUTER)
         tc = text_color(intensity)
-        parts.append(f'<text x="{lx:.1f}" y="{ly+1.5:.1f}" text-anchor="middle" font-family="Inter,sans-serif" font-size="4.5" font-weight="800" fill="{tc}">{pct:.0f}%</text>')
+        parts.append(f'<text x="{lx:.1f}" y="{ly+1.5:.1f}" text-anchor="middle" font-family="Inter,sans-serif" font-size="4.5" font-weight="800" fill="{tc}" pointer-events="none">{fmt_by_zone.get(z,"")}</text>')
 
     # Foul wedges — pie wedges from the apex (true diamond corners)
     for z, a1, a2 in FOUL:
-        pct = pct_by_zone.get(z, 0)
-        intensity = pct / foul_max if foul_max else 0
+        v = val_by_zone.get(z, 0)
+        intensity = v / foul_max if foul_max else 0
         fill = blue(intensity)
-        parts.append(f'<path d="{pie_path(a1, a2, R_OUTER)}" fill="{fill}" stroke="#FFFFFF" stroke-width="0.6"/>')
+        parts.append(f'<path d="{pie_path(a1, a2, R_OUTER)}" fill="{fill}" stroke="#FFFFFF" stroke-width="0.6"><title>{_tooltip_for(z)}</title></path>')
         lx, ly = label_pos(a1, a2, R_INNER, R_OUTER)
         tc = text_color(intensity * 0.7)
-        parts.append(f'<text x="{lx:.1f}" y="{ly+1.0:.1f}" text-anchor="middle" font-family="Inter,sans-serif" font-size="3.5" font-weight="800" fill="{tc}">{pct:.0f}%</text>')
+        parts.append(f'<text x="{lx:.1f}" y="{ly+1.0:.1f}" text-anchor="middle" font-family="Inter,sans-serif" font-size="3.5" font-weight="800" fill="{tc}" pointer-events="none">{fmt_by_zone.get(z,"")}</text>')
 
-    # Infield wedges — same red/orange ramp + max as outfield so 12% in
-    # the IF reads as the same shade as 12% in the OF.
+    # Infield wedges — same red/orange ramp + max as outfield so identical
+    # metric values render identical shades.
     for z, a1, a2 in INFIELD:
-        pct = pct_by_zone.get(z, 0)
-        intensity = pct / fair_max if fair_max else 0
+        v = val_by_zone.get(z, 0)
+        intensity = v / fair_max if fair_max else 0
         fill = red_orange(intensity)
-        parts.append(f'<path d="{wedge_path(a1, a2, R_INNER, R_MID)}" fill="{fill}" stroke="#FFFFFF" stroke-width="0.6"/>')
+        parts.append(f'<path d="{wedge_path(a1, a2, R_INNER, R_MID)}" fill="{fill}" stroke="#FFFFFF" stroke-width="0.6"><title>{_tooltip_for(z)}</title></path>')
         lx, ly = label_pos(a1, a2, R_INNER, R_MID)
         tc = text_color(intensity)
-        parts.append(f'<text x="{lx:.1f}" y="{ly+0.9:.1f}" text-anchor="middle" font-family="Inter,sans-serif" font-size="2.6" font-weight="800" fill="{tc}">{pct:.0f}%</text>')
+        parts.append(f'<text x="{lx:.1f}" y="{ly+0.9:.1f}" text-anchor="middle" font-family="Inter,sans-serif" font-size="2.6" font-weight="800" fill="{tc}" pointer-events="none">{fmt_by_zone.get(z,"")}</text>')
 
     # Pitcher (zone 1) — circle on the centerline, sized so its bottom edge
     # meets the catcher's top edge for a clean stacked diamond apex.
-    p_pct = pct_by_zone.get(1, 0)
     r_p = 3.0
     px, py = HOME[0], HOME[1] - 5   # center 5 units above HOME → bottom at y=63
-    parts.append(f'<circle cx="{px}" cy="{py}" r="{r_p}" fill="#F8E8E2" stroke="#0F2A4D" stroke-width="0.5"/>')
-    parts.append(f'<text x="{px}" y="{py+0.9:.1f}" text-anchor="middle" font-family="Inter,sans-serif" font-size="2.4" font-weight="800" fill="#0F2A4D">{p_pct:.0f}%</text>')
+    parts.append(f'<circle cx="{px}" cy="{py}" r="{r_p}" fill="#F8E8E2" stroke="#0F2A4D" stroke-width="0.5"><title>{_tooltip_for(1)}</title></circle>')
+    parts.append(f'<text x="{px}" y="{py+0.9:.1f}" text-anchor="middle" font-family="Inter,sans-serif" font-size="2.4" font-weight="800" fill="#0F2A4D" pointer-events="none">{fmt_by_zone.get(1,"")}</text>')
 
     # Catcher (zone 2) — home-plate pentagon, positioned ENTIRELY BELOW the
     # foul-line apex so its number stays clear of the V where the foul
     # wedges meet. Front (flat) edge sits at HOME, point extends downward.
-    c_pct = pct_by_zone.get(2, 0)
     pw, ph = 2.8, 2.6   # half-width, half-height
     cx, cy = HOME[0], HOME[1] + ph   # top of plate aligns with HOME y
     plate_pts = [
@@ -253,8 +294,8 @@ with col_field:
         (cx - pw, cy + ph * 0.10),  # left shoulder
     ]
     pts_str = ' '.join(f'{x:.2f},{y:.2f}' for x, y in plate_pts)
-    parts.append(f'<polygon points="{pts_str}" fill="#F8E8E2" stroke="#0F2A4D" stroke-width="0.4"/>')
-    parts.append(f'<text x="{cx}" y="{cy+0.4:.1f}" text-anchor="middle" font-family="Inter,sans-serif" font-size="2.2" font-weight="800" fill="#0F2A4D">{c_pct:.0f}%</text>')
+    parts.append(f'<polygon points="{pts_str}" fill="#F8E8E2" stroke="#0F2A4D" stroke-width="0.4"><title>{_tooltip_for(2)}</title></polygon>')
+    parts.append(f'<text x="{cx}" y="{cy+0.4:.1f}" text-anchor="middle" font-family="Inter,sans-serif" font-size="2.2" font-weight="800" fill="#0F2A4D" pointer-events="none">{fmt_by_zone.get(2,"")}</text>')
 
     # Single continuous field outline — foul line L, outfield arc, foul line R,
     # all sharing the same endpoints as the foul-wedge outer corners. This is
@@ -287,11 +328,39 @@ with col_summary:
     ].rename(columns={'zone_name': 'Zone', 'total': 'Count', 'pct': '%'})
     st.dataframe(top, hide_index=True, use_container_width=True)
 
+# ── Zone drill-down card ────────────────────────────────────────────────────
+st.markdown('### Zone detail')
+zone_options = spray.sort_values('total', ascending=False)
+zone_labels = [f"{r['zone_name']} (zone {int(r['hitLocation'])}) — {int(r['total'])} BIP"
+               for _, r in zone_options.iterrows()]
+zone_ids = zone_options['hitLocation'].tolist()
+if zone_labels:
+    pick = st.selectbox('Show details for:', range(len(zone_labels)),
+                        format_func=lambda i: zone_labels[i], key='zone_drill')
+    z = int(zone_ids[pick])
+    row = spray[spray['hitLocation'] == z].iloc[0]
+    cols = st.columns(8)
+    metrics = [
+        ('BIP',  f"{int(row['total'])}", f"{row['pct']:.1f}% of all"),
+        ('1B',   f"{int(row.get('1B', 0))}", ''),
+        ('2B',   f"{int(row.get('2B', 0))}", ''),
+        ('3B',   f"{int(row.get('3B', 0))}", ''),
+        ('HR',   f"{int(row.get('HR', 0))}", ''),
+        ('AVG',  _metric_fmt(float(row['AVG']),  'AVG'),  ''),
+        ('SLG',  _metric_fmt(float(row['SLG']),  'SLG'),  ''),
+        ('wOBA', _metric_fmt(float(row['wOBA']), 'wOBA'), f"TB {int(row['TB'])}"),
+    ]
+    for col, (label, val, sub) in zip(cols, metrics):
+        col.metric(label, val, sub if sub else None, delta_color='off')
+
 # ── Result-by-zone matrix ────────────────────────────────────────────────────
 st.markdown('### Hit results by zone')
 matrix_cols = [c for c in ['1B', '2B', '3B', 'HR', 'Out', 'FC/Err', 'Other'] if c in spray.columns]
 if matrix_cols:
-    display = spray[['zone_name', 'total'] + matrix_cols].rename(columns={'zone_name': 'Zone', 'total': 'Total'})
+    display = spray[['zone_name', 'total'] + matrix_cols + ['AVG', 'SLG', 'wOBA', 'TB']].copy()
+    display = display.rename(columns={'zone_name': 'Zone', 'total': 'BIP'})
+    for c in ['AVG', 'SLG', 'wOBA']:
+        display[c] = display[c].apply(lambda v: _metric_fmt(float(v), c))
     st.dataframe(display, hide_index=True, use_container_width=True)
 
 # ── Bar chart of zone distribution ──────────────────────────────────────────
