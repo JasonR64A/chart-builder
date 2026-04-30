@@ -332,20 +332,55 @@ with col_field:
     # ratio ≈ 4.3:1, so 38×9 fits the top band cleanly.
     parts.append(_embed_image(BRAND_64A_WIDE, x=31, y=0.5, w=38, h=9))
 
-    # Player header in upper-left (Player mode only): name / position / class
-    if view_mode == 'Player' and selected_player_name:
-        pos = str(selected_player_position) if pd.notna(selected_player_position) else ''
-        cls = str(selected_player_class) if pd.notna(selected_player_class) else ''
-        sub_bits = ' · '.join(b for b in [pos, cls] if b)
+    # Player identity (when in Player mode) is already shown in the
+    # bottom-right scope caption — no separate header needed.
+
+    # Top-left corner: hit-type breakdown (counts of 1B / 2B / 3B / HR).
+    # Tells the SHAPE of the contact (singles vs power) — complements the
+    # bottom-left slash line, which tells the QUALITY.
+    def _all_top(c): return int(spray[c].sum()) if c in spray.columns else 0
+    hit_types = [
+        ('1B', _all_top('1B')),
+        ('2B', _all_top('2B')),
+        ('3B', _all_top('3B')),
+        ('HR', _all_top('HR')),
+    ]
+    tl_block_w = 7.0
+    tl_x0 = 2
+    for i, (lab, val) in enumerate(hit_types):
+        cx = tl_x0 + tl_block_w/2 + i * tl_block_w
         parts.append(
-            f'<text x="2.5" y="6" font-family="Inter,sans-serif" font-size="4.2" '
-            f'font-weight="800" fill="#0F2A4D">{selected_player_name}</text>'
+            f'<text x="{cx:.1f}" y="3.5" text-anchor="middle" '
+            f'font-family="Inter,sans-serif" font-size="1.6" font-weight="600" '
+            f'fill="#0F2A4D" letter-spacing="0.3">{lab}</text>'
         )
-        if sub_bits:
-            parts.append(
-                f'<text x="2.5" y="10" font-family="Inter,sans-serif" font-size="2.6" '
-                f'font-weight="600" fill="#0F2A4D">{sub_bits}</text>'
-            )
+        parts.append(
+            f'<text x="{cx:.1f}" y="7.5" text-anchor="middle" '
+            f'font-family="Inter,sans-serif" font-size="2.6" font-weight="800" '
+            f'fill="#0F2A4D">{val:,}</text>'
+        )
+
+    # Top-right corner: field-side splits (Left / Center / Right percentages).
+    # Reuses the buckets dict already computed by compute_field_side_buckets.
+    side_splits = [
+        ('LEFT',   f"{buckets['left_pct']:.0f}%"),
+        ('CENTER', f"{buckets['middle_pct']:.0f}%"),
+        ('RIGHT',  f"{buckets['right_pct']:.0f}%"),
+    ]
+    tr_block_w = 9.0
+    tr_x0 = 71
+    for i, (lab, val) in enumerate(side_splits):
+        cx = tr_x0 + tr_block_w/2 + i * tr_block_w
+        parts.append(
+            f'<text x="{cx:.1f}" y="3.5" text-anchor="middle" '
+            f'font-family="Inter,sans-serif" font-size="1.6" font-weight="600" '
+            f'fill="#0F2A4D" letter-spacing="0.3">{lab}</text>'
+        )
+        parts.append(
+            f'<text x="{cx:.1f}" y="7.5" text-anchor="middle" '
+            f'font-family="Inter,sans-serif" font-size="2.6" font-weight="800" '
+            f'fill="#0F2A4D">{val}</text>'
+        )
 
     def _draw_wedge(zone_codes, a1, a2, r_in, r_out, label_font, *, pie=False):
         primary = zone_codes[0]
