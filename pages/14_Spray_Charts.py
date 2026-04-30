@@ -86,49 +86,155 @@ if spray.empty:
 col_field, col_summary = st.columns([3, 2])
 
 with col_field:
-    # Build SVG: baseball field with a colored circle at each zone whose
-    # radius + opacity scale with the zone's % of total balls in play.
-    max_pct = spray['pct'].max() if not spray.empty else 1.0
-    svg_parts = ['''
-    <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;background:#0a3d0a;border-radius:8px;">
-      <!-- Outfield arc -->
-      <path d="M 5,55 Q 50,-5 95,55" fill="#0e5a0e" stroke="#1a8a1a" stroke-width="0.4"/>
-      <!-- Infield diamond -->
-      <polygon points="50,108 76,82 50,56 24,82" fill="#8B6F3E" stroke="#aa8c4f" stroke-width="0.5"/>
-      <!-- Pitcher's mound circle -->
-      <circle cx="50" cy="80" r="3" fill="#aa8c4f"/>
-      <!-- Bases -->
-      <rect x="48" y="106" width="4" height="4" fill="#fff"/>
-      <rect x="74" y="80" width="4" height="4" fill="#fff" transform="rotate(45 76 82)"/>
-      <rect x="48" y="54" width="4" height="4" fill="#fff" transform="rotate(45 50 56)"/>
-      <rect x="22" y="80" width="4" height="4" fill="#fff" transform="rotate(45 24 82)"/>
-      <!-- Foul lines -->
-      <line x1="50" y1="110" x2="5" y2="55" stroke="#fff" stroke-width="0.4"/>
-      <line x1="50" y1="110" x2="95" y2="55" stroke="#fff" stroke-width="0.4"/>
-    ''']
-    for _, row in spray.iterrows():
-        z = int(row['hitLocation'])
-        if z not in ZONE_COORDS:
-            continue
-        x, y = ZONE_COORDS[z]
-        pct = row['pct']
-        # Bubble radius scales 2 (min) → 12 (max) by pct ratio
-        rad = 2 + (pct / max_pct) * 10 if max_pct > 0 else 2
-        opacity = 0.4 + 0.55 * (pct / max_pct) if max_pct > 0 else 0.4
-        svg_parts.append(
-            f'<circle cx="{x}" cy="{y}" r="{rad:.2f}" fill="#FFD93D" opacity="{opacity:.2f}" stroke="#fff" stroke-width="0.3"/>'
-        )
-        # Label inside the bubble
-        svg_parts.append(
-            f'<text x="{x}" y="{y+1}" font-family="Inter,sans-serif" font-size="3" fill="#000" '
-            f'text-anchor="middle" font-weight="700">{row["zone_name"]}</text>'
-        )
-        svg_parts.append(
-            f'<text x="{x}" y="{y+5}" font-family="Inter,sans-serif" font-size="2.5" fill="#222" '
-            f'text-anchor="middle">{pct:.1f}%</text>'
-        )
-    svg_parts.append('</svg>')
-    st.markdown(''.join(svg_parts), unsafe_allow_html=True)
+    # ── Wedge-based spray-chart heatmap ────────────────────────────────────
+    # Layout (matches the reference design provided 2026-04-29):
+    #   Home plate at apex (bottom). Fair territory = 90° wedge from -45° to +45°.
+    #   Outer ring (outfield): 5 slices LF/LCF/CF/RCF/RF — red gradient
+    #   Inner ring (infield):  5 slices 3B/SS/14-UTM/2B/1B — pink gradient
+    #   Foul wedges (12,13):   outside the foul lines — blue gradient
+    #   Pitcher (1):           circle on the mound
+    #   Catcher (2):           octagon at home plate
+    import math
+    pct_by_zone = dict(zip(spray['hitLocation'], spray['pct']))
+
+    # SVG geometry — viewBox 0 0 100 100, home plate at (50, 92)
+    HOME = (50, 92)
+    R_INNER = 14   # pitcher circle radius — inside this is "P / catcher" zone
+    R_MID   = 38   # boundary between infield ring and outfield ring
+    R_OUTER = 78   # outfield wall arc
+    # Angles are in degrees from straight up (toward CF). Negative = left.
+    OUTFIELD = [   # (zone, ang_start, ang_end, label)
+        (7,  -45, -27, '7. LF'),
+        (10, -27,  -9, '10. LCF'),
+        (8,   -9,   9, '8. CF'),
+        (11,   9,  27, '11. RCF'),
+        (9,   27,  45, '9. RF'),
+    ]
+    INFIELD = [
+        (5,  -45, -27, '5. 3B'),
+        (6,  -27,  -9, '6. SS'),
+        (14,  -9,   9, '14. UTM'),
+        (4,    9,  27, '4. 2B'),
+        (3,   27,  45, '3. 1B'),
+    ]
+    FOUL = [
+        (12, -75, -45, '12. L FOUL'),
+        (13,  45,  75, '13. R FOUL'),
+    ]
+
+    def polar(angle_deg, radius):
+        # angle 0 = straight up; positive = clockwise (right)
+        rad = math.radians(angle_deg)
+        return (HOME[0] + radius * math.sin(rad), HOME[1] - radius * math.cos(rad))
+
+    def wedge_path(a1, a2, r_in, r_out):
+        x1i, y1i = polar(a1, r_in)
+        x1o, y1o = polar(a1, r_out)
+        x2i, y2i = polar(a2, r_in)
+        x2o, y2o = polar(a2, r_out)
+        large = 1 if (a2 - a1) > 180 else 0
+        return (f"M {x1i:.2f},{y1i:.2f} L {x1o:.2f},{y1o:.2f} "
+                f"A {r_out},{r_out} 0 {large} 1 {x2o:.2f},{y2o:.2f} "
+                f"L {x2i:.2f},{y2i:.2f} A {r_in},{r_in} 0 {large} 0 {x1i:.2f},{y1i:.2f} Z")
+
+    def label_pos(a1, a2, r_in, r_out):
+        ang = (a1 + a2) / 2
+        radius = (r_in + r_out) / 2
+        return polar(ang, radius)
+
+    # Color helpers — 0..1 intensity blends from a soft tint to a deep base
+    def red_orange(intensity):
+        # Light orange (#FFE0CC) → deep red (#C62828)
+        i = max(0.05, min(1.0, intensity))
+        r = int(255 - (255 - 198) * i)
+        g = int(224 - (224 - 40)  * i)
+        b = int(204 - (204 - 40)  * i)
+        return f'#{r:02X}{g:02X}{b:02X}'
+    def pink(intensity):
+        i = max(0.05, min(1.0, intensity))
+        r = int(252 - (252 - 230) * i)
+        g = int(228 - (228 - 170) * i)
+        b = int(228 - (228 - 170) * i)
+        return f'#{r:02X}{g:02X}{b:02X}'
+    def blue(intensity):
+        i = max(0.05, min(1.0, intensity))
+        r = int(220 - (220 - 130) * i)
+        g = int(232 - (232 - 175) * i)
+        b = int(248 - (248 - 220) * i)
+        return f'#{r:02X}{g:02X}{b:02X}'
+    def text_color(intensity):
+        return '#FFFFFF' if intensity > 0.55 else '#0F2A4D'
+
+    # Compute intensity per ring relative to that ring's max
+    def max_pct(zones):
+        return max((pct_by_zone.get(z, 0) for z, *_ in zones), default=1.0) or 1.0
+    of_max = max_pct(OUTFIELD)
+    if_max = max_pct(INFIELD)
+    foul_max = max_pct(FOUL)
+
+    parts = ['''<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;background:#F0EAD6;border-radius:8px;">''']
+    parts.append('<text x="50" y="9" text-anchor="middle" font-family="Inter,sans-serif" font-size="6" font-weight="800" fill="#0F2A4D">Spray Chart</text>')
+
+    # Outfield wedges
+    for z, a1, a2, label in OUTFIELD:
+        pct = pct_by_zone.get(z, 0)
+        intensity = pct / of_max if of_max else 0
+        fill = red_orange(intensity)
+        parts.append(f'<path d="{wedge_path(a1, a2, R_MID, R_OUTER)}" fill="{fill}" stroke="#FFFFFF" stroke-width="0.6"/>')
+        lx, ly = label_pos(a1, a2, R_MID, R_OUTER)
+        tc = text_color(intensity)
+        parts.append(f'<text x="{lx:.1f}" y="{ly-1.5:.1f}" text-anchor="middle" font-family="Inter,sans-serif" font-size="3.3" font-weight="700" fill="{tc}">{label}</text>')
+        parts.append(f'<text x="{lx:.1f}" y="{ly+3.0:.1f}" text-anchor="middle" font-family="Inter,sans-serif" font-size="4.5" font-weight="800" fill="{tc}">{pct:.0f}%</text>')
+
+    # Foul wedges
+    for z, a1, a2, label in FOUL:
+        pct = pct_by_zone.get(z, 0)
+        intensity = pct / foul_max if foul_max else 0
+        fill = blue(intensity)
+        parts.append(f'<path d="{wedge_path(a1, a2, R_INNER, R_OUTER)}" fill="{fill}" stroke="#FFFFFF" stroke-width="0.6"/>')
+        lx, ly = label_pos(a1, a2, R_INNER, R_OUTER)
+        tc = text_color(intensity * 0.7)  # blue tints stay readable longer
+        parts.append(f'<text x="{lx:.1f}" y="{ly-1.5:.1f}" text-anchor="middle" font-family="Inter,sans-serif" font-size="3" font-weight="700" fill="{tc}">{label}</text>')
+        parts.append(f'<text x="{lx:.1f}" y="{ly+2.5:.1f}" text-anchor="middle" font-family="Inter,sans-serif" font-size="4" font-weight="800" fill="{tc}">{pct:.0f}%</text>')
+
+    # Infield wedges
+    for z, a1, a2, label in INFIELD:
+        pct = pct_by_zone.get(z, 0)
+        intensity = pct / if_max if if_max else 0
+        fill = pink(intensity)
+        parts.append(f'<path d="{wedge_path(a1, a2, R_INNER, R_MID)}" fill="{fill}" stroke="#FFFFFF" stroke-width="0.6"/>')
+        lx, ly = label_pos(a1, a2, R_INNER, R_MID)
+        tc = '#0F2A4D'
+        parts.append(f'<text x="{lx:.1f}" y="{ly-1.0:.1f}" text-anchor="middle" font-family="Inter,sans-serif" font-size="2.8" font-weight="700" fill="{tc}">{label}</text>')
+        parts.append(f'<text x="{lx:.1f}" y="{ly+2.5:.1f}" text-anchor="middle" font-family="Inter,sans-serif" font-size="3.6" font-weight="800" fill="{tc}">{pct:.0f}%</text>')
+
+    # Pitcher (zone 1) — circle inside the infield apex
+    p_pct = pct_by_zone.get(1, 0)
+    px, py = polar(0, R_INNER - 6)
+    parts.append(f'<circle cx="{px:.1f}" cy="{py:.1f}" r="6" fill="#F8E8E2" stroke="#FFFFFF" stroke-width="0.6"/>')
+    parts.append(f'<text x="{px:.1f}" y="{py-0.5:.1f}" text-anchor="middle" font-family="Inter,sans-serif" font-size="2.4" font-weight="700" fill="#0F2A4D">1. P</text>')
+    parts.append(f'<text x="{px:.1f}" y="{py+3:.1f}" text-anchor="middle" font-family="Inter,sans-serif" font-size="3" font-weight="800" fill="#0F2A4D">{p_pct:.0f}%</text>')
+
+    # Catcher (zone 2) — small octagon at home plate
+    c_pct = pct_by_zone.get(2, 0)
+    cx, cy = HOME[0], HOME[1] - 0.5
+    pts = []
+    for i in range(8):
+        ang = math.radians(22.5 + i * 45)
+        pts.append(f'{cx + 4*math.cos(ang):.1f},{cy + 4*math.sin(ang):.1f}')
+    parts.append(f'<polygon points="{" ".join(pts)}" fill="#F8E8E2" stroke="#0F2A4D" stroke-width="0.5"/>')
+    parts.append(f'<text x="{cx:.1f}" y="{cy-0.5:.1f}" text-anchor="middle" font-family="Inter,sans-serif" font-size="1.8" font-weight="700" fill="#0F2A4D">2. C</text>')
+    parts.append(f'<text x="{cx:.1f}" y="{cy+2:.1f}" text-anchor="middle" font-family="Inter,sans-serif" font-size="2.2" font-weight="800" fill="#0F2A4D">{c_pct:.0f}%</text>')
+
+    # Outer foul-line border
+    fxL, fyL = polar(-75, R_OUTER)
+    fxR, fyR = polar( 75, R_OUTER)
+    parts.append(f'<path d="M {fxL:.1f},{fyL:.1f} A {R_OUTER},{R_OUTER} 0 0 1 {fxR:.1f},{fyR:.1f}" fill="none" stroke="#0F2A4D" stroke-width="0.7"/>')
+    parts.append(f'<line x1="{HOME[0]}" y1="{HOME[1]}" x2="{fxL:.1f}" y2="{fyL:.1f}" stroke="#0F2A4D" stroke-width="0.5"/>')
+    parts.append(f'<line x1="{HOME[0]}" y1="{HOME[1]}" x2="{fxR:.1f}" y2="{fyR:.1f}" stroke="#0F2A4D" stroke-width="0.5"/>')
+
+    parts.append('</svg>')
+    st.markdown(''.join(parts), unsafe_allow_html=True)
 
 with col_summary:
     st.markdown('### Field-side splits')

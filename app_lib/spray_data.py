@@ -180,7 +180,11 @@ def list_teams(sport: str, division: str) -> list[str]:
 
 @st.cache_data(show_spinner=False)
 def list_players(sport: str, division: str, team_name: str | None = None) -> pd.DataFrame:
-    """Distinct (player, playerId, balls_in_play) per team. Sorted by BIP desc."""
+    """Distinct (playerId, player, balls_in_play) per team. Sorted by BIP desc.
+
+    Dedup by playerId only — NCAA play descriptions sometimes spell the same
+    player two ways ('Kozeal' vs 'Kozeal,cam'). Pick the most-common spelling
+    for the dropdown label and sum balls_in_play across all spellings."""
     df = _load_pbp(sport, division)
     if df.empty:
         return pd.DataFrame()
@@ -189,6 +193,13 @@ def list_players(sport: str, division: str, team_name: str | None = None) -> pd.
     df = df.dropna(subset=['hitLocation', 'playerId']).copy()
     if df.empty:
         return pd.DataFrame()
-    g = df.groupby(['playerId', 'player']).size().reset_index(name='balls_in_play')
-    g['playerId'] = g['playerId'].astype(int).astype(str)
-    return g.sort_values('balls_in_play', ascending=False).reset_index(drop=True)
+    df['playerId'] = pd.to_numeric(df['playerId'], errors='coerce').astype('Int64')
+    df = df.dropna(subset=['playerId'])
+    df['playerId'] = df['playerId'].astype(int).astype(str)
+
+    # For each playerId, pick the most-frequent player-name string
+    name_counts = df.groupby(['playerId','player']).size().reset_index(name='n')
+    best_name = name_counts.sort_values('n', ascending=False).drop_duplicates('playerId')[['playerId','player']]
+    bip = df.groupby('playerId').size().reset_index(name='balls_in_play')
+    out = bip.merge(best_name, on='playerId', how='left')
+    return out.sort_values('balls_in_play', ascending=False)[['playerId','player','balls_in_play']].reset_index(drop=True)
