@@ -1692,6 +1692,13 @@ st.sidebar.markdown('### Data Source')
 sport = st.sidebar.selectbox('Sport', ['baseball', 'softball'])
 division = st.sidebar.selectbox('Division', ['D1', 'D2', 'D3'])
 view = st.sidebar.radio('Mode', ['Hitter Stats', 'Pitcher Stats', 'Fielding Stats', 'Pace Chart', 'Lineup Card'], horizontal=True)
+# Team aggregation toggle for the three stat-table views (Pace Chart has its
+# own Player/Team selector built in; Lineup Card is per-team by definition).
+if view in ('Hitter Stats', 'Pitcher Stats', 'Fielding Stats'):
+    group_by = st.sidebar.radio('Group by', ['Player', 'Team'], horizontal=True,
+                                help='Team aggregates all players on each team — use it to compare team-level wRC+, ERA, FPCT, etc.')
+else:
+    group_by = 'Player'
 
 # Load data — Lineup Card and Who's Hot need both hitting + pitching
 if view == 'Lineup Card':
@@ -1843,29 +1850,35 @@ if view != 'Lineup Card':
     if selected_team != 'All':
         pbp = pbp[pbp['teamName'] == selected_team]
 
-    # Position filter
-    if 'playerPosition' in pbp.columns:
+    # Position filter — only meaningful when grouping by Player
+    if group_by == 'Player' and 'playerPosition' in pbp.columns:
         all_positions = sorted(pbp['playerPosition'].dropna().unique())
         selected_positions = st.sidebar.multiselect('Position', all_positions,
                                                      help='Leave empty for all positions')
         if selected_positions:
             pbp = pbp[pbp['playerPosition'].isin(selected_positions)]
 
-    # Min PA/BF
+    # Min PA/BF — defaults shift up in Team mode where aggregates are larger
     st.sidebar.markdown('---')
     if view == 'Hitter Stats':
-        min_threshold = st.sidebar.number_input('Min PA', value=10, min_value=1, step=5)
+        default_min = 200 if group_by == 'Team' else 10
+        min_threshold = st.sidebar.number_input('Min PA', value=default_min, min_value=1, step=5)
     elif view == 'Pitcher Stats':
-        min_threshold = st.sidebar.number_input('Min BF', value=10, min_value=1, step=5)
+        default_min = 100 if group_by == 'Team' else 10
+        min_threshold = st.sidebar.number_input('Min BF', value=default_min, min_value=1, step=5)
         min_ip = st.sidebar.number_input('Min IP', value=0.0, min_value=0.0, step=5.0, format='%.1f')
 
-    # Player filter (UI uses names, computation groups by playerId)
-    player_col = 'playerId' if 'playerId' in pbp.columns else 'playerName'
-    available_players = sorted(pbp['playerName'].dropna().unique()) if 'playerName' in pbp.columns else []
-    selected_players = st.sidebar.multiselect('Filter players', available_players,
-                                               help='Leave empty for all')
-    if selected_players:
-        pbp = pbp[pbp['playerName'].isin(selected_players)]
+    # Player filter only meaningful in Player mode; teamName grouping in Team mode
+    if group_by == 'Team':
+        player_col = 'teamName'
+        selected_players = []
+    else:
+        player_col = 'playerId' if 'playerId' in pbp.columns else 'playerName'
+        available_players = sorted(pbp['playerName'].dropna().unique()) if 'playerName' in pbp.columns else []
+        selected_players = st.sidebar.multiselect('Filter players', available_players,
+                                                   help='Leave empty for all')
+        if selected_players:
+            pbp = pbp[pbp['playerName'].isin(selected_players)]
 
     if len(pbp) == 0:
         st.warning('No events match your filters.')
@@ -1936,20 +1949,29 @@ if view == 'Hitter Stats':
     player_stats = compute_grouped_hitting(pbp, player_col, league_woba, league_r_pa=league_r_pa, min_pa=min_threshold)
 
     if len(player_stats) == 0:
-        st.info(f'No players meet the {min_threshold} PA minimum.')
+        st.info(f'No {"teams" if group_by == "Team" else "players"} meet the {min_threshold} PA minimum.')
     else:
-        display_col = 'playerName' if 'playerName' in player_stats.columns else player_col
-        show_cols = ['Rank', display_col, 'School', 'Pos', 'PA', 'AB', 'H', '1B', '2B', '3B', 'HR', 'TB',
-                     'R', 'RBI', 'BB', 'HBP', 'SF', 'SH', 'IBB', 'K', 'SB', 'CS', 'GDP',
-                     'BA', 'OBP', 'SLG', 'OPS', 'ISO', 'BABIP',
-                     'K%', 'BB%', 'K/BB', 'R/PA',
-                     'wOBA', 'wRAA', 'wRC', 'wRC+']
+        if group_by == 'Team':
+            display_col = 'teamName'
+            show_cols = ['Rank', 'teamName', 'PA', 'AB', 'H', '1B', '2B', '3B', 'HR', 'TB',
+                         'R', 'RBI', 'BB', 'HBP', 'SF', 'SH', 'IBB', 'K', 'SB', 'CS', 'GDP',
+                         'BA', 'OBP', 'SLG', 'OPS', 'ISO', 'BABIP',
+                         'K%', 'BB%', 'K/BB', 'R/PA',
+                         'wOBA', 'wRAA', 'wRC', 'wRC+']
+        else:
+            display_col = 'playerName' if 'playerName' in player_stats.columns else player_col
+            show_cols = ['Rank', display_col, 'School', 'Pos', 'PA', 'AB', 'H', '1B', '2B', '3B', 'HR', 'TB',
+                         'R', 'RBI', 'BB', 'HBP', 'SF', 'SH', 'IBB', 'K', 'SB', 'CS', 'GDP',
+                         'BA', 'OBP', 'SLG', 'OPS', 'ISO', 'BABIP',
+                         'K%', 'BB%', 'K/BB', 'R/PA',
+                         'wOBA', 'wRAA', 'wRC', 'wRC+']
         show_cols = [c for c in show_cols if c in player_stats.columns]
         st.dataframe(player_stats[show_cols], use_container_width=True, hide_index=True, height=1050)
 
         csv_buf = player_stats[show_cols].to_csv(index=False)
+        scope_label = 'team' if group_by == 'Team' else 'player'
         st.download_button('Download CSV', data=csv_buf,
-                          file_name=f'pbp_hitting_{sport}_{division}.csv', mime='text/csv')
+                          file_name=f'pbp_hitting_{scope_label}_{sport}_{division}.csv', mime='text/csv')
 
     # Single player deep dive
     if selected_players and len(selected_players) == 1:
@@ -2029,19 +2051,28 @@ elif view == 'Pitcher Stats':
         st.info(f'No pitchers meet the minimum filters.')
     else:
         k_col = 'K/7' if sport == 'softball' else 'K/9'
-        pit_display_col = 'playerName' if 'playerName' in pitcher_stats.columns else player_col
-        show_cols = ['Rank', pit_display_col, 'School', 'Pos', 'App', 'GS', 'IP', 'BF', 'OAB',
-                     'H', 'R', 'ER', 'BB', 'HB', 'SO',
-                     'HR', '2B-A', '3B-A', 'Bk', 'IBB', 'SHA', 'SFA',
-                     'ERA', 'FIP', 'GmSc', 'BAA', 'BABIP',
-                     'OBP Against', 'SLG Against', 'OPS Against',
-                     'K%', 'BB%', k_col, 'K/BB', 'WHIP']
+        if group_by == 'Team':
+            show_cols = ['Rank', 'teamName', 'App', 'GS', 'IP', 'BF', 'OAB',
+                         'H', 'R', 'ER', 'BB', 'HB', 'SO',
+                         'HR', '2B-A', '3B-A', 'Bk', 'IBB', 'SHA', 'SFA',
+                         'ERA', 'FIP', 'GmSc', 'BAA', 'BABIP',
+                         'OBP Against', 'SLG Against', 'OPS Against',
+                         'K%', 'BB%', k_col, 'K/BB', 'WHIP']
+        else:
+            pit_display_col = 'playerName' if 'playerName' in pitcher_stats.columns else player_col
+            show_cols = ['Rank', pit_display_col, 'School', 'Pos', 'App', 'GS', 'IP', 'BF', 'OAB',
+                         'H', 'R', 'ER', 'BB', 'HB', 'SO',
+                         'HR', '2B-A', '3B-A', 'Bk', 'IBB', 'SHA', 'SFA',
+                         'ERA', 'FIP', 'GmSc', 'BAA', 'BABIP',
+                         'OBP Against', 'SLG Against', 'OPS Against',
+                         'K%', 'BB%', k_col, 'K/BB', 'WHIP']
         show_cols = [c for c in show_cols if c in pitcher_stats.columns]
         st.dataframe(pitcher_stats[show_cols], use_container_width=True, hide_index=True, height=1050)
 
         csv_buf = pitcher_stats[show_cols].to_csv(index=False)
+        scope_label = 'team' if group_by == 'Team' else 'player'
         st.download_button('Download CSV', data=csv_buf,
-                          file_name=f'pbp_pitching_{sport}_{division}.csv', mime='text/csv')
+                          file_name=f'pbp_pitching_{scope_label}_{sport}_{division}.csv', mime='text/csv')
 
     # Single pitcher deep dive
     if selected_players and len(selected_players) == 1:
@@ -2090,15 +2121,20 @@ elif view == 'Fielding Stats':
     if len(fielding_stats) == 0:
         st.info('No fielding data available.')
     else:
-        fld_display_col = 'playerName' if 'playerName' in fielding_stats.columns else player_col
-        show_cols = [fld_display_col, 'School', 'Pos', 'PO', 'A', 'TC', 'E', 'FPCT',
-                     'PB', 'SBA', 'CSB', 'CS%', 'IDP', 'TP']
+        if group_by == 'Team':
+            show_cols = ['teamName', 'PO', 'A', 'TC', 'E', 'FPCT',
+                         'PB', 'SBA', 'CSB', 'CS%', 'IDP', 'TP']
+        else:
+            fld_display_col = 'playerName' if 'playerName' in fielding_stats.columns else player_col
+            show_cols = [fld_display_col, 'School', 'Pos', 'PO', 'A', 'TC', 'E', 'FPCT',
+                         'PB', 'SBA', 'CSB', 'CS%', 'IDP', 'TP']
         show_cols = [c for c in show_cols if c in fielding_stats.columns]
         st.dataframe(fielding_stats[show_cols], use_container_width=True, hide_index=True, height=1050)
 
         csv_buf = fielding_stats[show_cols].to_csv(index=False)
+        scope_label = 'team' if group_by == 'Team' else 'player'
         st.download_button('Download CSV', data=csv_buf,
-                          file_name=f'pbp_fielding_{sport}_{division}.csv', mime='text/csv')
+                          file_name=f'pbp_fielding_{scope_label}_{sport}_{division}.csv', mime='text/csv')
 
 elif view == 'Pace Chart':
     st.markdown(f'### Pace Chart — {sport.title()} {division}')
