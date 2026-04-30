@@ -308,16 +308,24 @@ if view_mode == 'Team Grid':
         b = c['buckets']
         parts_c = []
 
+        # Cell frame — eggshell background + border so each cell reads as
+        # its own card. The 2-unit inset on each side leaves a thin gutter
+        # between cells when the parent grid lays them out flush.
+        parts_c.append(
+            '<rect x="2" y="2" width="96" height="91" rx="3" ry="3" '
+            'fill="#F0EAD6" stroke="#0F2A4D" stroke-width="0.4"/>'
+        )
+
         # Header strip — name on left, pos · class on right
         full_label = c['name']
         sub_bits = ' · '.join(x for x in [c['pos'], c['cls']] if x)
         parts_c.append(
-            f'<text x="2" y="6" font-family="Inter,sans-serif" font-size="4.2" '
+            f'<text x="5" y="8" font-family="Inter,sans-serif" font-size="4.2" '
             f'font-weight="800" fill="#0F2A4D">{full_label}</text>'
         )
         if sub_bits:
             parts_c.append(
-                f'<text x="98" y="6" text-anchor="end" font-family="Inter,sans-serif" '
+                f'<text x="95" y="8" text-anchor="end" font-family="Inter,sans-serif" '
                 f'font-size="2.8" font-weight="600" fill="#0F2A4D">{sub_bits}</text>'
             )
 
@@ -342,8 +350,9 @@ if view_mode == 'Team Grid':
         fair_max = max((val_by.get(zc[0], 0) for zc, *_ in C_OF + C_IF + C_LN),
                        default=1.0) or 1.0
 
-        # Top-left mini-diamond (L/M/R splits)
-        m_home = (12, 18); m_r = 8.5
+        # Top-left mini-diamond (L/M/R splits) — sized 2.5x larger so the
+        # split percentages are readable even on the team-grid page.
+        m_home = (22, 33); m_r = 21.0
         side_pcts = {'L': float(b['left_pct']),
                      'C': float(b['middle_pct']),
                      'R': float(b['right_pct'])}
@@ -359,17 +368,17 @@ if view_mode == 'Team Grid':
             pct = side_pcts[k]
             inten = pct / side_max
             parts_c.append(f'<path d="{_mp(a1, a2, m_r)}" fill="{_ro(inten)}" '
-                           f'stroke="#FFFFFF" stroke-width="0.4"/>')
+                           f'stroke="#FFFFFF" stroke-width="0.5"/>')
             mid = math.radians((a1 + a2) / 2)
-            lx = m_home[0] + (m_r * 0.7) * math.sin(mid)
-            ly = m_home[1] - (m_r * 0.7) * math.cos(mid)
+            lx = m_home[0] + (m_r * 0.72) * math.sin(mid)
+            ly = m_home[1] - (m_r * 0.72) * math.cos(mid)
             parts_c.append(
-                f'<text x="{lx:.1f}" y="{ly+0.4:.1f}" text-anchor="middle" '
-                f'font-family="Inter,sans-serif" font-size="1.4" font-weight="800" '
+                f'<text x="{lx:.1f}" y="{ly+0.6:.1f}" text-anchor="middle" '
+                f'font-family="Inter,sans-serif" font-size="2.4" font-weight="800" '
                 f'fill="{_tc(inten)}">{pct:.0f}%</text>'
             )
         parts_c.append(f'<path d="{_mp(-45, 45, m_r)}" fill="none" '
-                       f'stroke="#0F2A4D" stroke-width="0.4"/>')
+                       f'stroke="#0F2A4D" stroke-width="0.5"/>')
 
         # Top-right hit-type 2x2 grid (1B/2B top, 3B/HR bottom)
         get = lambda col: int(spray[col].sum()) if col in spray.columns else 0
@@ -437,7 +446,8 @@ if view_mode == 'Team Grid':
                        f'A {C_ROUTER},{C_ROUTER} 0 0 1 {fxR:.2f},{fyR:.2f} Z" '
                        f'fill="none" stroke="#0F2A4D" stroke-width="0.5"/>')
 
-        # Bottom-left aggregate stats (AVG / SLG / wOBA / TB)
+        # Bottom-left aggregate stats — 2x2 grid mirroring the upper-right
+        # hit-type layout. AVG/SLG on the top row, wOBA/TB on the bottom.
         n_bip = int(spray['total'].sum())
         c1 = get('1B'); c2 = get('2B'); c3 = get('3B'); chh = get('HR')
         hits = c1 + c2 + c3 + chh
@@ -450,28 +460,32 @@ if view_mode == 'Team Grid':
                    ('SLG', _metric_fmt(slg, 'SLG')),
                    ('wOBA', _metric_fmt(woba, 'wOBA')),
                    ('TB', _compact(tb_t))]
-        bl_x0 = 1; bl_w = 13
+        bl_x0 = 4
+        bl_cell_w, bl_cell_h = 22, 6
+        bl_y0 = 80
         for i, (lab, val) in enumerate(overall):
-            cxv = bl_x0 + bl_w/2 + i * bl_w
+            row, col = divmod(i, 2)
+            cxv = bl_x0 + bl_cell_w/2 + col * bl_cell_w
+            cyv = bl_y0 + row * bl_cell_h
             parts_c.append(
-                f'<text x="{cxv:.1f}" y="84" text-anchor="middle" '
-                f'font-family="Inter,sans-serif" font-size="1.4" font-weight="600" '
+                f'<text x="{cxv:.1f}" y="{cyv + 1.6:.1f}" text-anchor="middle" '
+                f'font-family="Inter,sans-serif" font-size="2.8" font-weight="600" '
                 f'fill="#0F2A4D">{lab}</text>'
             )
             parts_c.append(
-                f'<text x="{cxv:.1f}" y="88.5" text-anchor="middle" '
-                f'font-family="Inter,sans-serif" font-size="2.1" font-weight="800" '
+                f'<text x="{cxv:.1f}" y="{cyv + 5.1:.1f}" text-anchor="middle" '
+                f'font-family="Inter,sans-serif" font-size="4.2" font-weight="800" '
                 f'fill="#0F2A4D">{val}</text>'
             )
 
         # Bottom-right profile bubble
-        parts_c.append(_embed_headshot_circle(c['cb_id'], cx=88, cy=85, r=5.5))
+        parts_c.append(_embed_headshot_circle(c['cb_id'], cx=85, cy=85, r=7.0))
 
         return ''.join(parts_c)
 
     # ── Build parent SVG ─────────────────────────────────────────────────────
     HDR_H = 20
-    CELL_W, CELL_H = 100, 90
+    CELL_W, CELL_H = 100, 95
     COLS, ROWS = 3, 3
     GRID_W = COLS * CELL_W
     GRID_H = ROWS * CELL_H
@@ -529,8 +543,8 @@ if view_mode == 'Team Grid':
         ox = GRID_X0 + col * CELL_W
         oy = HDR_H + row * CELL_H
         parts_g.append(
-            f'<rect x="{ox+2}" y="{oy+9}" width="96" height="74" '
-            f'rx="2" ry="2" fill="#F8F8F8" stroke="#E0E0E0" stroke-width="0.3"/>'
+            f'<rect x="{ox+2}" y="{oy+2}" width="96" height="91" '
+            f'rx="3" ry="3" fill="#F8F8F8" stroke="#D0C9B0" stroke-width="0.3"/>'
         )
 
     parts_g.append('</svg>')
