@@ -24,8 +24,8 @@ from app_lib.spray_data import (
     ZONE_NAMES,
 )
 
-BRAND_LOGO    = _APP_DIR / 'assets' / 'logo-circle-black.png'
-BRAND_64A_RED = _APP_DIR / 'assets' / 'logo-64a-circle-red.png'
+BRAND_LOGO     = _APP_DIR / 'assets' / 'logo-circle-black.png'
+BRAND_64A_WIDE = _APP_DIR / 'assets' / 'logo-64a-wide.png'
 
 st.set_page_config(page_title='Spray Charts — 64 Analytics', layout='wide')
 
@@ -328,16 +328,9 @@ with col_field:
              'xmlns:xlink="http://www.w3.org/1999/xlink" '
              'style="width:100%;height:auto;background:#F0EAD6;border-radius:8px;">']
 
-    # 64 Analytics brand logo, centered above the diamond.
-    parts.append(_embed_image(BRAND_64A_RED, x=38, y=0, w=24, h=10))
-
-    # Team logo at 50% opacity in the centroid of fair territory (Team mode only)
-    if view_mode == 'Team' and selected_team_id is not None:
-        logo_path = _APP_DIR / 'team_logos_512' / f'{selected_team_id}.png'
-        logo_size = 26
-        parts.append(_embed_image(logo_path,
-                                  x=50 - logo_size/2, y=36 - logo_size/2,
-                                  w=logo_size, h=logo_size, opacity=0.5))
+    # 64 Analytics wide brand logo, centered above the diamond. Native
+    # ratio ≈ 4.3:1, so 38×9 fits the top band cleanly.
+    parts.append(_embed_image(BRAND_64A_WIDE, x=31, y=0.5, w=38, h=9))
 
     # Player header in upper-left (Player mode only): name / position / class
     if view_mode == 'Player' and selected_player_name:
@@ -409,6 +402,16 @@ with col_field:
         f'A {R_OUTER},{R_OUTER} 0 0 1 {fxR:.2f},{fyR:.2f} Z" '
         f'fill="none" stroke="#0F2A4D" stroke-width="0.7"/>'
     )
+
+    # Team logo at 50% opacity overlaid on the diamond (Team mode only).
+    # Drawn AFTER the wedges so it sits on top — otherwise the opaque
+    # wedge fills cover it completely.
+    if view_mode == 'Team' and selected_team_id is not None:
+        logo_path = _APP_DIR / 'team_logos_512' / f'{selected_team_id}.png'
+        logo_size = 28
+        parts.append(_embed_image(logo_path,
+                                  x=50 - logo_size/2, y=36 - logo_size/2,
+                                  w=logo_size, h=logo_size, opacity=0.5))
 
     # Bottom-right caption — what the chart depicts.
     sport_label = 'Baseball' if sport.lower() == 'baseball' else 'Softball'
