@@ -411,7 +411,7 @@ with col_field:
         logo_size = 28
         parts.append(_embed_image(logo_path,
                                   x=50 - logo_size/2, y=36 - logo_size/2,
-                                  w=logo_size, h=logo_size, opacity=0.5))
+                                  w=logo_size, h=logo_size, opacity=0.4))
 
     # Bottom-right caption — what the chart depicts.
     sport_label = 'Baseball' if sport.lower() == 'baseball' else 'Softball'
