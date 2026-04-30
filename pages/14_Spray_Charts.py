@@ -324,13 +324,15 @@ with col_field:
                 f'opacity="{opacity}" preserveAspectRatio="xMidYMid meet" '
                 f'pointer-events="none"/>')
 
-    # Explicit width/height so cairosvg can size the PNG; the CSS style
-    # keeps the browser display responsive. Background is rendered as a
-    # full-viewport <rect> because cairosvg ignores CSS `background:`.
+    # Numeric width/height + viewBox give cairosvg a clean intrinsic size.
+    # NO inline style on the <svg> — cairosvg can mis-parse `width:100%`
+    # in the style and compute a zero-sized canvas (blank PNG). Browser
+    # responsiveness is handled by a wrapper <div> at render time.
+    # Background is a full-viewport <rect> since cairosvg ignores CSS
+    # `background:`.
     parts = ['<svg viewBox="0 0 100 72" width="100" height="72" '
              'xmlns="http://www.w3.org/2000/svg" '
-             'xmlns:xlink="http://www.w3.org/1999/xlink" '
-             'style="width:100%;height:auto;border-radius:8px;">'
+             'xmlns:xlink="http://www.w3.org/1999/xlink">'
              '<rect x="0" y="0" width="100" height="72" fill="#F0EAD6"/>']
 
     # 64 Analytics wide brand logo, centered above the diamond. Native
@@ -349,18 +351,19 @@ with col_field:
         return f'{n:,}'
 
     # Top-left corner: mini-diamond echoing the main field, split into
-    # Left / Center / Right wedges with the same red/orange heatmap
-    # ramp. Intensity is per-side percent normalized to the max side
-    # so the dominant side reads as deep red.
-    MINI_HOME = (16, 11)
-    MINI_R    = 8.0
+    # Left / Center / Right wedges with the same red/orange heatmap ramp.
+    # Intensity is per-side percent normalized to the dominant side so
+    # the pull/oppo skew reads at a glance.
+    MINI_HOME = (14, 13)
+    MINI_R    = 11.5      # bigger so labels don't crowd
+    LBL_FRAC  = 0.72      # label radius as fraction of MINI_R (further out = more separation between adjacent labels)
     side_pcts = {
         'L': float(buckets['left_pct']),
         'C': float(buckets['middle_pct']),
         'R': float(buckets['right_pct']),
     }
     side_max_pct = max(side_pcts.values()) or 1.0
-    SIDE_WEDGES = [   # (key, ang_start, ang_end, label_x_offset)
+    SIDE_WEDGES = [
         ('L', -45, -15),
         ('C', -15,  15),
         ('R',  15,  45),
@@ -380,22 +383,20 @@ with col_field:
         fill = red_orange(intensity)
         parts.append(
             f'<path d="{_mini_pie_path(a1, a2, MINI_R)}" fill="{fill}" '
-            f'stroke="#FFFFFF" stroke-width="0.4"/>'
+            f'stroke="#FFFFFF" stroke-width="0.5"/>'
         )
-        # Label inside each wedge
         ang_mid = math.radians((a1 + a2) / 2)
-        lx = MINI_HOME[0] + (MINI_R * 0.6) * math.sin(ang_mid)
-        ly = MINI_HOME[1] - (MINI_R * 0.6) * math.cos(ang_mid)
+        lx = MINI_HOME[0] + (MINI_R * LBL_FRAC) * math.sin(ang_mid)
+        ly = MINI_HOME[1] - (MINI_R * LBL_FRAC) * math.cos(ang_mid)
         tc = text_color(intensity)
         parts.append(
-            f'<text x="{lx:.1f}" y="{ly+0.7:.1f}" text-anchor="middle" '
-            f'font-family="Inter,sans-serif" font-size="2.2" font-weight="800" '
+            f'<text x="{lx:.1f}" y="{ly+0.6:.1f}" text-anchor="middle" '
+            f'font-family="Inter,sans-serif" font-size="1.9" font-weight="800" '
             f'fill="{tc}">{pct:.0f}%</text>'
         )
-    # Diamond outline (matches the main field's V + arc)
-    out_L = _mini_pie_path(-45, 45, MINI_R)
     parts.append(
-        f'<path d="{out_L}" fill="none" stroke="#0F2A4D" stroke-width="0.4"/>'
+        f'<path d="{_mini_pie_path(-45, 45, MINI_R)}" '
+        f'fill="none" stroke="#0F2A4D" stroke-width="0.5"/>'
     )
 
     # Top-right corner: hit-type 2x2 grid (1B/2B on top, 3B/HR on bottom).
@@ -552,7 +553,13 @@ with col_field:
 
     parts.append('</svg>')
     svg_str = ''.join(parts)
-    st.markdown(svg_str, unsafe_allow_html=True)
+    # For browser display: inject a style on the <svg> so it scales to
+    # the container. For PNG export below: use svg_str unchanged so
+    # cairosvg sees clean numeric width/height with no CSS overrides.
+    display_svg = svg_str.replace(
+        '<svg ', '<svg style="width:100%;height:auto;display:block;border-radius:8px;" ', 1
+    )
+    st.markdown(display_svg, unsafe_allow_html=True)
 
     # PNG download — convert the SVG to a 1600px-wide PNG via cairosvg.
     try:
