@@ -104,7 +104,12 @@ def compute_spray_distribution(
 
     # Filter scope
     if player_id:
-        df = df[df['playerId'].astype(str) == str(player_id)]
+        # Normalize both sides to plain int-string ('11247533'), since the
+        # raw csv has float ids ('11247533.0') and list_players returns ints.
+        target = str(int(float(player_id))) if player_id else ''
+        df_pid = pd.to_numeric(df['playerId'], errors='coerce')
+        df_pid_str = df_pid.where(df_pid.notna(), other=pd.NA).astype('Int64').astype(str)
+        df = df[df_pid_str == target]
     elif team_name:
         df = df[df['battingTeam'].astype(str).str.contains(team_name, case=False, na=False)]
 
