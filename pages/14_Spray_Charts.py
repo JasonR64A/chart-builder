@@ -114,24 +114,26 @@ with col_field:
     R_MID   = 25   # infield / outfield boundary
     R_OUTER = 48   # field edge
     # Angles are in degrees from straight up (toward CF). Negative = left.
-    OUTFIELD = [   # (zone, ang_start, ang_end, label)
-        (7,  -45, -27, 'LF'),
-        (10, -27,  -9, 'LCF'),
-        (8,   -9,   9, 'CF'),
-        (11,   9,  27, 'RCF'),
-        (9,   27,  45, 'RF'),
+    OUTFIELD = [   # (zone, ang_start, ang_end)
+        (7,  -45, -27),
+        (10, -27,  -9),
+        (8,   -9,   9),
+        (11,   9,  27),
+        (9,   27,  45),
     ]
     INFIELD = [
-        (5,  -45, -27, '3B'),
-        (6,  -27,  -9, 'SS'),
-        (14,  -9,   9, 'UTM'),
-        (4,    9,  27, '2B'),
-        (3,   27,  45, '1B'),
+        (5,  -45, -27),
+        (6,  -27,  -9),
+        (14,  -9,   9),
+        (4,    9,  27),
+        (3,   27,  45),
     ]
+    # Foul wedges — slim 20° slivers. Their outer edges coincide with the
+    # field-outline foul lines, so the boundary is one continuous outline.
+    FOUL_HALF = 20  # degrees outside each foul line
     FOUL = [
-        # Narrower foul wedges per reference design — 30° each, not 45°.
-        (12, -75, -45, 'L FOUL'),
-        (13,  45,  75, 'R FOUL'),
+        (12, -45 - FOUL_HALF, -45),
+        (13,  45,  45 + FOUL_HALF),
     ]
 
     def polar(angle_deg, radius):
@@ -198,37 +200,34 @@ with col_field:
     parts.append('<text x="50" y="7" text-anchor="middle" font-family="Inter,sans-serif" font-size="5" font-weight="800" fill="#0F2A4D">Spray Chart</text>')
 
     # Outfield wedges
-    for z, a1, a2, label in OUTFIELD:
+    for z, a1, a2 in OUTFIELD:
         pct = pct_by_zone.get(z, 0)
         intensity = pct / of_max if of_max else 0
         fill = red_orange(intensity)
         parts.append(f'<path d="{wedge_path(a1, a2, R_MID, R_OUTER)}" fill="{fill}" stroke="#FFFFFF" stroke-width="0.6"/>')
         lx, ly = label_pos(a1, a2, R_MID, R_OUTER)
         tc = text_color(intensity)
-        parts.append(f'<text x="{lx:.1f}" y="{ly-1.5:.1f}" text-anchor="middle" font-family="Inter,sans-serif" font-size="3.3" font-weight="700" fill="{tc}">{label}</text>')
-        parts.append(f'<text x="{lx:.1f}" y="{ly+3.0:.1f}" text-anchor="middle" font-family="Inter,sans-serif" font-size="4.5" font-weight="800" fill="{tc}">{pct:.0f}%</text>')
+        parts.append(f'<text x="{lx:.1f}" y="{ly+1.5:.1f}" text-anchor="middle" font-family="Inter,sans-serif" font-size="4.5" font-weight="800" fill="{tc}">{pct:.0f}%</text>')
 
     # Foul wedges — pie wedges from the apex (true diamond corners)
-    for z, a1, a2, label in FOUL:
+    for z, a1, a2 in FOUL:
         pct = pct_by_zone.get(z, 0)
         intensity = pct / foul_max if foul_max else 0
         fill = blue(intensity)
         parts.append(f'<path d="{pie_path(a1, a2, R_OUTER)}" fill="{fill}" stroke="#FFFFFF" stroke-width="0.6"/>')
         lx, ly = label_pos(a1, a2, R_INNER, R_OUTER)
         tc = text_color(intensity * 0.7)
-        parts.append(f'<text x="{lx:.1f}" y="{ly-1.5:.1f}" text-anchor="middle" font-family="Inter,sans-serif" font-size="3" font-weight="700" fill="{tc}">{label}</text>')
-        parts.append(f'<text x="{lx:.1f}" y="{ly+2.5:.1f}" text-anchor="middle" font-family="Inter,sans-serif" font-size="4" font-weight="800" fill="{tc}">{pct:.0f}%</text>')
+        parts.append(f'<text x="{lx:.1f}" y="{ly+1.0:.1f}" text-anchor="middle" font-family="Inter,sans-serif" font-size="3.5" font-weight="800" fill="{tc}">{pct:.0f}%</text>')
 
     # Infield wedges
-    for z, a1, a2, label in INFIELD:
+    for z, a1, a2 in INFIELD:
         pct = pct_by_zone.get(z, 0)
         intensity = pct / if_max if if_max else 0
         fill = pink(intensity)
         parts.append(f'<path d="{wedge_path(a1, a2, R_INNER, R_MID)}" fill="{fill}" stroke="#FFFFFF" stroke-width="0.6"/>')
         lx, ly = label_pos(a1, a2, R_INNER, R_MID)
         tc = '#0F2A4D'
-        parts.append(f'<text x="{lx:.1f}" y="{ly-1.0:.1f}" text-anchor="middle" font-family="Inter,sans-serif" font-size="2.8" font-weight="700" fill="{tc}">{label}</text>')
-        parts.append(f'<text x="{lx:.1f}" y="{ly+2.5:.1f}" text-anchor="middle" font-family="Inter,sans-serif" font-size="3.6" font-weight="800" fill="{tc}">{pct:.0f}%</text>')
+        parts.append(f'<text x="{lx:.1f}" y="{ly+1.2:.1f}" text-anchor="middle" font-family="Inter,sans-serif" font-size="3.6" font-weight="800" fill="{tc}">{pct:.0f}%</text>')
 
     # Pitcher (zone 1) — circle on the centerline, sized so its bottom edge
     # meets the catcher's top edge for a clean stacked diamond apex.
@@ -236,8 +235,7 @@ with col_field:
     r_p = 3.0
     px, py = HOME[0], HOME[1] - 5   # center 5 units above HOME → bottom at y=63
     parts.append(f'<circle cx="{px}" cy="{py}" r="{r_p}" fill="#F8E8E2" stroke="#0F2A4D" stroke-width="0.5"/>')
-    parts.append(f'<text x="{px}" y="{py-0.4:.1f}" text-anchor="middle" font-family="Inter,sans-serif" font-size="1.8" font-weight="700" fill="#0F2A4D">P</text>')
-    parts.append(f'<text x="{px}" y="{py+1.9:.1f}" text-anchor="middle" font-family="Inter,sans-serif" font-size="2.2" font-weight="800" fill="#0F2A4D">{p_pct:.0f}%</text>')
+    parts.append(f'<text x="{px}" y="{py+0.9:.1f}" text-anchor="middle" font-family="Inter,sans-serif" font-size="2.4" font-weight="800" fill="#0F2A4D">{p_pct:.0f}%</text>')
 
     # Catcher (zone 2) — small octagon at the apex (home plate). The foul
     # lines converge here and the pitcher sits directly above with no gap.
@@ -249,18 +247,19 @@ with col_field:
         ang = math.radians(22.5 + i * 45)
         pts.append(f'{cx + r_c*math.cos(ang):.1f},{cy + r_c*math.sin(ang):.1f}')
     parts.append(f'<polygon points="{" ".join(pts)}" fill="#F8E8E2" stroke="#0F2A4D" stroke-width="0.4"/>')
-    parts.append(f'<text x="{cx}" y="{cy-0.1:.1f}" text-anchor="middle" font-family="Inter,sans-serif" font-size="1.2" font-weight="700" fill="#0F2A4D">C</text>')
-    parts.append(f'<text x="{cx}" y="{cy+1.5:.1f}" text-anchor="middle" font-family="Inter,sans-serif" font-size="1.5" font-weight="800" fill="#0F2A4D">{c_pct:.0f}%</text>')
+    parts.append(f'<text x="{cx}" y="{cy+0.7:.1f}" text-anchor="middle" font-family="Inter,sans-serif" font-size="1.7" font-weight="800" fill="#0F2A4D">{c_pct:.0f}%</text>')
 
-    # Outer field-outline arc — connects the L FOUL outer corner to the
-    # R FOUL outer corner with the outfield arc in between.
-    fxL, fyL = polar(-90, R_OUTER)
-    fxR, fyR = polar( 90, R_OUTER)
-    parts.append(f'<path d="M {fxL:.2f},{fyL:.2f} A {R_OUTER},{R_OUTER} 0 0 1 {fxR:.2f},{fyR:.2f}" fill="none" stroke="#0F2A4D" stroke-width="0.7"/>')
-    # Bottom edge of the field (along the horizontal at HOME y) connects
-    # the foul outer corners back through HOME — forming the diamond base.
-    parts.append(f'<line x1="{fxL:.2f}" y1="{fyL:.2f}" x2="{HOME[0]}" y2="{HOME[1]}" stroke="#0F2A4D" stroke-width="0.5"/>')
-    parts.append(f'<line x1="{fxR:.2f}" y1="{fyR:.2f}" x2="{HOME[0]}" y2="{HOME[1]}" stroke="#0F2A4D" stroke-width="0.5"/>')
+    # Single continuous field outline — foul line L, outfield arc, foul line R,
+    # all sharing the same endpoints as the foul-wedge outer corners. This is
+    # the merged diamond/semi-circle outline the design calls for.
+    foul_outer = 45 + FOUL_HALF
+    fxL, fyL = polar(-foul_outer, R_OUTER)
+    fxR, fyR = polar( foul_outer, R_OUTER)
+    parts.append(
+        f'<path d="M {HOME[0]},{HOME[1]} L {fxL:.2f},{fyL:.2f} '
+        f'A {R_OUTER},{R_OUTER} 0 0 1 {fxR:.2f},{fyR:.2f} Z" '
+        f'fill="none" stroke="#0F2A4D" stroke-width="0.7"/>'
+    )
 
     parts.append('</svg>')
     st.markdown(''.join(parts), unsafe_allow_html=True)
