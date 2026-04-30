@@ -38,7 +38,10 @@ with st.sidebar:
     sport = st.selectbox('Sport', ['baseball', 'softball'], format_func=str.title)
     division = st.selectbox('Division', ['D1', 'D2', 'D3'])
 
-    view_mode = st.radio('View', ['Team', 'Player'], horizontal=True)
+    view_mode = st.radio('View', ['Team', 'Player', 'Team Grid'], horizontal=True,
+                         help='Team / Player render a single chart. '
+                              'Team Grid renders a 3x3 array of the team\'s nine '
+                              'highest-BIP batters with the same single 64A logo on top.')
 
     teams_df = list_teams(sport, division)
     if teams_df.empty:
@@ -69,6 +72,11 @@ with st.sidebar:
                 selected_team_id = int(row['team_id'])
             if 'short_name' in match.columns and pd.notna(row.get('short_name')):
                 selected_team_short = str(row['short_name'])
+
+    # Team Grid mode requires a team selection
+    if view_mode == 'Team Grid' and team_filter is None:
+        st.warning('Pick a team to see the 3x3 grid of its top 9 batters.')
+        st.stop()
 
     selected_player_id = None
     selected_player_name = None         # display name (full from players.csv if available)
@@ -148,6 +156,433 @@ def _metric_fmt(v: float, choice: str) -> str:
     # AVG/SLG/wOBA — drop the leading zero baseball-style (.350 not 0.350)
     if 0 <= v < 1:           return f".{int(round(v*1000)):03d}"
     return f"{v:.3f}"
+
+
+# ── Team Grid mode ──────────────────────────────────────────────────────────
+if view_mode == 'Team Grid':
+    import math, base64
+    HEADSHOT_DIR = _APP_DIR / 'assets' / 'player_headshots'
+
+    plist = list_players(sport, division, team_filter)
+    if plist.empty:
+        st.error(f'No players with batted balls found for {selected_team_short}.')
+        st.stop()
+    top9 = plist.head(9).reset_index(drop=True)
+
+    def _disp_name(r):
+        full = r.get('player_name')
+        if isinstance(full, str) and full.strip():
+            return full
+        return str(r['player'])
+
+    # Compute each player's spray with the same filter set
+    cells = []
+    for _, p in top9.iterrows():
+        sp = compute_spray_distribution(
+            sport, division,
+            team_name=team_filter, player_id=p['playerId'],
+            vs_hand=vs_hand, two_strikes=f_two_strikes,
+            two_outs=f_two_outs, risp=f_risp,
+        )
+        sp = add_zone_metrics(sp)
+        from app_lib.spray_data import compute_field_side_buckets as _cfsb
+        b = _cfsb(sp)
+        cells.append({
+            'name': _disp_name(p),
+            'pos':  p.get('position') if isinstance(p.get('position'), str) else '',
+            'cls':  p.get('classification') if isinstance(p.get('classification'), str) else '',
+            'cb_id': int(p['cb_id']) if pd.notna(p.get('cb_id')) else None,
+            'spray': sp,
+            'buckets': b,
+        })
+
+    # ── Cell renderer ────────────────────────────────────────────────────────
+    # Cell viewBox 0..100 × 0..90, with all geometry in cell-local coords. The
+    # parent SVG translates each cell to its grid position.
+    C_HOME    = (50, 76)
+    C_RINNER  = 7
+    C_RMID    = 22
+    C_ROUTER  = 42
+    C_LINE_HALF = 15
+    C_OF = [
+        ((7, 10),  -45, -9),
+        ((8, 14),   -9,  9),
+        ((9, 11),    9, 45),
+    ]
+    C_IF = [
+        ((5,), -45,   -22.5),
+        ((6,), -22.5,   0),
+        ((4,),   0,    22.5),
+        ((3,),  22.5,  45),
+    ]
+    C_LN = [
+        ((12,), -45 - C_LINE_HALF, -45),
+        ((13,),  45,  45 + C_LINE_HALF),
+    ]
+
+    def _cpolar(a, r):
+        rad = math.radians(a)
+        return (C_HOME[0] + r * math.sin(rad), C_HOME[1] - r * math.cos(rad))
+
+    def _cwedge(a1, a2, ri, ro):
+        x1i, y1i = _cpolar(a1, ri); x1o, y1o = _cpolar(a1, ro)
+        x2i, y2i = _cpolar(a2, ri); x2o, y2o = _cpolar(a2, ro)
+        return (f"M {x1i:.2f},{y1i:.2f} L {x1o:.2f},{y1o:.2f} "
+                f"A {ro},{ro} 0 0 1 {x2o:.2f},{y2o:.2f} "
+                f"L {x2i:.2f},{y2i:.2f} A {ri},{ri} 0 0 0 {x1i:.2f},{y1i:.2f} Z")
+
+    def _cpie(a1, a2, ro):
+        x1, y1 = _cpolar(a1, ro); x2, y2 = _cpolar(a2, ro)
+        return (f"M {C_HOME[0]:.2f},{C_HOME[1]:.2f} L {x1:.2f},{y1:.2f} "
+                f"A {ro},{ro} 0 0 1 {x2:.2f},{y2:.2f} Z")
+
+    def _clabelpos(a1, a2, ri, ro):
+        ang = (a1 + a2) / 2; r = (ri + ro) / 2
+        return _cpolar(ang, r)
+
+    def _ro(intensity):
+        i = max(0.05, min(1.0, intensity))
+        r = int(255 - (255 - 198) * i)
+        g = int(224 - (224 - 40)  * i)
+        b = int(204 - (204 - 40)  * i)
+        return f'#{r:02X}{g:02X}{b:02X}'
+    def _tc(intensity):
+        return '#FFFFFF' if intensity > 0.55 else '#0F2A4D'
+
+    def _ccombined(spray, codes):
+        sub = spray[spray['hitLocation'].isin(codes)]
+        if sub.empty: return None
+        n = int(sub['total'].sum())
+        if n == 0: return None
+        get = lambda c: int(sub[c].sum()) if c in sub.columns else 0
+        c1, c2, c3, ch = get('1B'), get('2B'), get('3B'), get('HR')
+        hits = c1 + c2 + c3 + ch
+        tb = c1 + 2*c2 + 3*c3 + 4*ch
+        woba = 0.888*c1 + 1.271*c2 + 1.616*c3 + 2.101*ch
+        return {'BIP': n, 'pct': float(sub['pct'].sum()),
+                '1B': c1, '2B': c2, '3B': c3, 'HR': ch,
+                'AVG': hits/n, 'SLG': tb/n, 'wOBA': woba/n, 'TB': tb}
+
+    def _compact(n):
+        n = int(n)
+        if abs(n) >= 1_000_000: return f'{n/1_000_000:.1f}M'
+        if abs(n) >= 10_000:    return f'{n/1_000:.0f}K'
+        return f'{n:,}'
+
+    def _initials(name: str) -> str:
+        parts = [w for w in str(name).split() if w]
+        if not parts: return '?'
+        if len(parts) == 1: return parts[0][:2].upper()
+        return (parts[0][0] + parts[-1][0]).upper()
+
+    def _embed_headshot_circle(cb_id, cx, cy, r):
+        """Profile bubble: PNG from assets/player_headshots/{cb_id}.png if it
+        exists, otherwise a styled circle with the player's initials."""
+        if cb_id is not None:
+            path = HEADSHOT_DIR / f'{cb_id}.png'
+            if path.exists():
+                try:
+                    b64 = base64.b64encode(path.read_bytes()).decode('ascii')
+                    href = f'data:image/png;base64,{b64}'
+                    clip_id = f'clip_p_{cb_id}'
+                    return (
+                        f'<defs><clipPath id="{clip_id}">'
+                        f'<circle cx="{cx}" cy="{cy}" r="{r}"/></clipPath></defs>'
+                        f'<image href="{href}" xlink:href="{href}" '
+                        f'x="{cx - r}" y="{cy - r}" width="{r*2}" height="{r*2}" '
+                        f'preserveAspectRatio="xMidYMid slice" '
+                        f'clip-path="url(#{clip_id})"/>'
+                        f'<circle cx="{cx}" cy="{cy}" r="{r}" fill="none" '
+                        f'stroke="#0F2A4D" stroke-width="0.5"/>'
+                    )
+                except Exception:
+                    pass
+        return (f'<circle cx="{cx}" cy="{cy}" r="{r}" fill="#F0EAD6" '
+                f'stroke="#0F2A4D" stroke-width="0.5"/>'
+                f'<text x="{cx}" y="{cy + r*0.3:.2f}" text-anchor="middle" '
+                f'font-family="Inter,sans-serif" font-size="{r*0.9:.1f}" '
+                f'font-weight="800" fill="#0F2A4D" opacity="0.5"></text>')
+
+    def _build_cell(c) -> str:
+        spray = c['spray']
+        b = c['buckets']
+        parts_c = []
+
+        # Header strip — name on left, pos · class on right
+        full_label = c['name']
+        sub_bits = ' · '.join(x for x in [c['pos'], c['cls']] if x)
+        parts_c.append(
+            f'<text x="2" y="6" font-family="Inter,sans-serif" font-size="4.2" '
+            f'font-weight="800" fill="#0F2A4D">{full_label}</text>'
+        )
+        if sub_bits:
+            parts_c.append(
+                f'<text x="98" y="6" text-anchor="end" font-family="Inter,sans-serif" '
+                f'font-size="2.8" font-weight="600" fill="#0F2A4D">{sub_bits}</text>'
+            )
+
+        if spray is None or spray.empty:
+            parts_c.append('<text x="50" y="50" text-anchor="middle" '
+                           'font-family="Inter,sans-serif" font-size="3" '
+                           'font-weight="600" fill="#0F2A4D">No batted-ball data</text>')
+            return ''.join(parts_c)
+
+        # Per-zone metric values
+        val_by, fmt_by = {}, {}
+        for zc, *_ in C_OF + C_IF + C_LN + [((1,),0,0), ((2,),0,0)]:
+            bd = _ccombined(spray, zc)
+            primary = zc[0]
+            if bd is None:
+                val_by[primary] = 0.0; fmt_by[primary] = '–'
+            else:
+                v = bd['pct'] if metric_choice == '% of BIP' else (
+                    float(bd['TB']) if metric_choice == 'TB' else bd[metric_choice])
+                val_by[primary] = v
+                fmt_by[primary] = _metric_fmt(v, metric_choice)
+        fair_max = max((val_by.get(zc[0], 0) for zc, *_ in C_OF + C_IF + C_LN),
+                       default=1.0) or 1.0
+
+        # Top-left mini-diamond (L/M/R splits)
+        m_home = (12, 18); m_r = 8.5
+        side_pcts = {'L': float(b['left_pct']),
+                     'C': float(b['middle_pct']),
+                     'R': float(b['right_pct'])}
+        side_max = max(side_pcts.values()) or 1.0
+        SIDE = [('L', -45, -15), ('C', -15, 15), ('R', 15, 45)]
+        def _mp(a1, a2, r):
+            r1, r2 = math.radians(a1), math.radians(a2)
+            x1 = m_home[0] + r * math.sin(r1); y1 = m_home[1] - r * math.cos(r1)
+            x2 = m_home[0] + r * math.sin(r2); y2 = m_home[1] - r * math.cos(r2)
+            return (f"M {m_home[0]},{m_home[1]} L {x1:.2f},{y1:.2f} "
+                    f"A {r},{r} 0 0 1 {x2:.2f},{y2:.2f} Z")
+        for k, a1, a2 in SIDE:
+            pct = side_pcts[k]
+            inten = pct / side_max
+            parts_c.append(f'<path d="{_mp(a1, a2, m_r)}" fill="{_ro(inten)}" '
+                           f'stroke="#FFFFFF" stroke-width="0.4"/>')
+            mid = math.radians((a1 + a2) / 2)
+            lx = m_home[0] + (m_r * 0.7) * math.sin(mid)
+            ly = m_home[1] - (m_r * 0.7) * math.cos(mid)
+            parts_c.append(
+                f'<text x="{lx:.1f}" y="{ly+0.4:.1f}" text-anchor="middle" '
+                f'font-family="Inter,sans-serif" font-size="1.4" font-weight="800" '
+                f'fill="{_tc(inten)}">{pct:.0f}%</text>'
+            )
+        parts_c.append(f'<path d="{_mp(-45, 45, m_r)}" fill="none" '
+                       f'stroke="#0F2A4D" stroke-width="0.4"/>')
+
+        # Top-right hit-type 2x2 grid (1B/2B top, 3B/HR bottom)
+        get = lambda col: int(spray[col].sum()) if col in spray.columns else 0
+        ht = [[('1B', get('1B')), ('2B', get('2B'))],
+              [('3B', get('3B')), ('HR', get('HR'))]]
+        tr_x0, tr_y0 = 75, 11; cw, ch = 11.5, 5.5
+        for ri, row in enumerate(ht):
+            for ci, (lab, val) in enumerate(row):
+                cx = tr_x0 + cw/2 + ci * cw
+                cy = tr_y0 + ri * ch
+                parts_c.append(
+                    f'<text x="{cx:.1f}" y="{cy+1.5:.1f}" text-anchor="middle" '
+                    f'font-family="Inter,sans-serif" font-size="1.3" font-weight="600" '
+                    f'fill="#0F2A4D">{lab}</text>'
+                )
+                parts_c.append(
+                    f'<text x="{cx:.1f}" y="{cy+4.7:.1f}" text-anchor="middle" '
+                    f'font-family="Inter,sans-serif" font-size="2.4" font-weight="800" '
+                    f'fill="#0F2A4D">{_compact(val)}</text>'
+                )
+
+        # Main diamond wedges
+        def _draw(zc, a1, a2, ri, ro, lf, *, pie=False):
+            primary = zc[0]
+            v = val_by.get(primary, 0)
+            inten = v / fair_max if fair_max else 0
+            d = _cpie(a1, a2, ro) if pie else _cwedge(a1, a2, ri, ro)
+            parts_c.append(f'<path d="{d}" fill="{_ro(inten)}" '
+                           f'stroke="#FFFFFF" stroke-width="0.4"/>')
+            lx, ly = _clabelpos(a1, a2, ri, ro)
+            parts_c.append(
+                f'<text x="{lx:.1f}" y="{ly+0.7:.1f}" text-anchor="middle" '
+                f'font-family="Inter,sans-serif" font-size="{lf}" font-weight="800" '
+                f'fill="{_tc(inten)}">{fmt_by.get(primary, "")}</text>'
+            )
+        for zc, a1, a2 in C_OF: _draw(zc, a1, a2, C_RMID, C_ROUTER, 3.5)
+        for zc, a1, a2 in C_LN: _draw(zc, a1, a2, C_RINNER, C_ROUTER, 2.6, pie=True)
+        for zc, a1, a2 in C_IF: _draw(zc, a1, a2, C_RINNER, C_RMID, 2.0)
+
+        # Pitcher circle + label
+        p_pct = fmt_by.get(1, '')
+        px, py = C_HOME[0], C_HOME[1] - 4.5
+        parts_c.append(f'<circle cx="{px}" cy="{py}" r="2.6" fill="#F8E8E2" '
+                       f'stroke="#0F2A4D" stroke-width="0.4"/>')
+        parts_c.append(f'<text x="{px}" y="{py+0.8:.1f}" text-anchor="middle" '
+                       f'font-family="Inter,sans-serif" font-size="2.0" font-weight="800" '
+                       f'fill="#0F2A4D">{p_pct}</text>')
+
+        # Catcher pentagon at apex
+        c_pct = fmt_by.get(2, '')
+        pw, ph = 2.5, 2.3
+        cx, cy = C_HOME[0], C_HOME[1] + ph
+        plate = [(cx-pw, cy-ph), (cx+pw, cy-ph),
+                 (cx+pw, cy+ph*0.10), (cx, cy+ph), (cx-pw, cy+ph*0.10)]
+        parts_c.append('<polygon points="' + ' '.join(f'{x:.2f},{y:.2f}' for x,y in plate)
+                       + '" fill="#F8E8E2" stroke="#0F2A4D" stroke-width="0.3"/>')
+        parts_c.append(f'<text x="{cx}" y="{cy+0.4:.1f}" text-anchor="middle" '
+                       f'font-family="Inter,sans-serif" font-size="1.4" font-weight="800" '
+                       f'fill="#0F2A4D">{c_pct}</text>')
+
+        # Field outline
+        fo = 45 + C_LINE_HALF
+        fxL, fyL = _cpolar(-fo, C_ROUTER); fxR, fyR = _cpolar(fo, C_ROUTER)
+        parts_c.append(f'<path d="M {C_HOME[0]},{C_HOME[1]} L {fxL:.2f},{fyL:.2f} '
+                       f'A {C_ROUTER},{C_ROUTER} 0 0 1 {fxR:.2f},{fyR:.2f} Z" '
+                       f'fill="none" stroke="#0F2A4D" stroke-width="0.5"/>')
+
+        # Bottom-left aggregate stats (AVG / SLG / wOBA / TB)
+        n_bip = int(spray['total'].sum())
+        c1 = get('1B'); c2 = get('2B'); c3 = get('3B'); chh = get('HR')
+        hits = c1 + c2 + c3 + chh
+        tb_t = c1 + 2*c2 + 3*c3 + 4*chh
+        woba_n = 0.888*c1 + 1.271*c2 + 1.616*c3 + 2.101*chh
+        avg = hits/n_bip if n_bip else 0
+        slg = tb_t/n_bip if n_bip else 0
+        woba = woba_n/n_bip if n_bip else 0
+        overall = [('AVG', _metric_fmt(avg, 'AVG')),
+                   ('SLG', _metric_fmt(slg, 'SLG')),
+                   ('wOBA', _metric_fmt(woba, 'wOBA')),
+                   ('TB', _compact(tb_t))]
+        bl_x0 = 1; bl_w = 13
+        for i, (lab, val) in enumerate(overall):
+            cxv = bl_x0 + bl_w/2 + i * bl_w
+            parts_c.append(
+                f'<text x="{cxv:.1f}" y="84" text-anchor="middle" '
+                f'font-family="Inter,sans-serif" font-size="1.4" font-weight="600" '
+                f'fill="#0F2A4D">{lab}</text>'
+            )
+            parts_c.append(
+                f'<text x="{cxv:.1f}" y="88.5" text-anchor="middle" '
+                f'font-family="Inter,sans-serif" font-size="2.1" font-weight="800" '
+                f'fill="#0F2A4D">{val}</text>'
+            )
+
+        # Bottom-right profile bubble
+        parts_c.append(_embed_headshot_circle(c['cb_id'], cx=88, cy=85, r=5.5))
+
+        return ''.join(parts_c)
+
+    # ── Build parent SVG ─────────────────────────────────────────────────────
+    HDR_H = 20
+    CELL_W, CELL_H = 100, 90
+    COLS, ROWS = 3, 3
+    GRID_W = COLS * CELL_W
+    GRID_H = ROWS * CELL_H
+    VB_W = GRID_W + 4
+    VB_H = HDR_H + GRID_H + 4
+
+    parts_g = [
+        f'<svg viewBox="0 0 {VB_W} {VB_H}" width="{VB_W}" height="{VB_H}" '
+        f'xmlns="http://www.w3.org/2000/svg" '
+        f'xmlns:xlink="http://www.w3.org/1999/xlink">'
+        f'<rect x="0" y="0" width="{VB_W}" height="{VB_H}" fill="#FFFFFF"/>'
+    ]
+
+    def _embed(path, x, y, w, h, opacity=1.0):
+        if not path.exists(): return ''
+        try:
+            b64 = base64.b64encode(path.read_bytes()).decode('ascii')
+        except Exception:
+            return ''
+        href = f'data:image/png;base64,{b64}'
+        return (f'<image href="{href}" xlink:href="{href}" '
+                f'x="{x}" y="{y}" width="{w}" height="{h}" opacity="{opacity}" '
+                f'preserveAspectRatio="xMidYMid meet"/>')
+
+    # 64A logo top-center
+    parts_g.append(_embed(BRAND_64A_WIDE, x=VB_W/2 - 18, y=2, w=36, h=8.5))
+
+    # Team name + scope below logo
+    sport_label = 'Baseball' if sport.lower() == 'baseball' else 'Softball'
+    fb = []
+    if vs_hand: fb.append('vs LHP' if vs_hand == 'L' else 'vs RHP')
+    if f_two_strikes: fb.append('2 strikes')
+    if f_two_outs:    fb.append('2 outs')
+    if f_risp:        fb.append('RISP')
+    fbtxt = ' · ' + ', '.join(fb) if fb else ''
+    parts_g.append(
+        f'<text x="{VB_W/2}" y="16" text-anchor="middle" font-family="Inter,sans-serif" '
+        f'font-size="3.3" font-weight="700" fill="#0F2A4D">'
+        f'{selected_team_short} · {sport_label} {division}{fbtxt} · '
+        f'Top 9 by BIP · Coloring by {metric_choice}</text>'
+    )
+
+    # 3x3 grid
+    GRID_X0 = (VB_W - GRID_W) / 2
+    for i, c in enumerate(cells):
+        row, col = divmod(i, COLS)
+        ox = GRID_X0 + col * CELL_W
+        oy = HDR_H + row * CELL_H
+        parts_g.append(f'<g transform="translate({ox},{oy})">')
+        parts_g.append(_build_cell(c))
+        parts_g.append('</g>')
+    # pad empty cells
+    for i in range(len(cells), 9):
+        row, col = divmod(i, COLS)
+        ox = GRID_X0 + col * CELL_W
+        oy = HDR_H + row * CELL_H
+        parts_g.append(
+            f'<rect x="{ox+2}" y="{oy+9}" width="96" height="74" '
+            f'rx="2" ry="2" fill="#F8F8F8" stroke="#E0E0E0" stroke-width="0.3"/>'
+        )
+
+    parts_g.append('</svg>')
+    grid_svg = ''.join(parts_g)
+
+    display_grid = grid_svg.replace(
+        '<svg ',
+        '<svg style="width:100%;max-width:1200px;height:auto;display:block;'
+        'margin:0 auto;border-radius:8px;" ', 1,
+    )
+    st.markdown(display_grid, unsafe_allow_html=True)
+
+    try:
+        import cairosvg
+        png_bytes = cairosvg.svg2png(bytestring=grid_svg.encode('utf-8'), output_width=2200)
+        safe_team = ''.join(ch if ch.isalnum() else '_' for ch in str(selected_team_short))[:40]
+        st.download_button('Download PNG', data=png_bytes,
+                           file_name=f'spray_team_{sport}_{division}_{safe_team}.png',
+                           mime='image/png', use_container_width=False)
+    except Exception as e:
+        st.caption(f'PNG export unavailable in this environment ({type(e).__name__}).')
+
+    st.markdown('---')
+    st.markdown('### Top 9 batters by balls in play')
+    rows_t = []
+    for c in cells:
+        sp = c['spray']
+        if sp is None or sp.empty:
+            rows_t.append({'Player': c['name'], 'Pos': c['pos'], 'Class': c['cls'],
+                           'BIP': 0, 'AVG': '-', 'SLG': '-', 'wOBA': '-', 'TB': 0})
+            continue
+        get = lambda col: int(sp[col].sum()) if col in sp.columns else 0
+        n = int(sp['total'].sum())
+        c1 = get('1B'); c2 = get('2B'); c3 = get('3B'); ch = get('HR')
+        hits = c1 + c2 + c3 + ch; tb = c1 + 2*c2 + 3*c3 + 4*ch
+        wn = 0.888*c1 + 1.271*c2 + 1.616*c3 + 2.101*ch
+        rows_t.append({
+            'Player': c['name'], 'Pos': c['pos'], 'Class': c['cls'],
+            'BIP': n,
+            'AVG': _metric_fmt(hits/n if n else 0, 'AVG'),
+            'SLG': _metric_fmt(tb/n if n else 0, 'SLG'),
+            'wOBA': _metric_fmt(wn/n if n else 0, 'wOBA'),
+            'TB': tb,
+        })
+    st.dataframe(pd.DataFrame(rows_t), hide_index=True, use_container_width=True)
+    st.caption(
+        f'Headshots: drop a PNG named `{{cb_id}}.png` into '
+        f'`assets/player_headshots/` (size ~256×256, square crop). '
+        f'When the PNG exists for a cb_id, it replaces the placeholder circle.'
+    )
+    st.stop()
+
 
 # ── Field-diagram SVG (heatmap) + summary side-by-side ──────────────────────
 col_field, col_summary = st.columns([3, 2])

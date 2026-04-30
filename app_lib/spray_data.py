@@ -384,14 +384,14 @@ def list_players(sport: str, division: str, team_name: str | None = None) -> pd.
     if not bridge.empty:
         b = bridge.dropna(subset=['ncaa_pid']).copy()
         b['playerId'] = b['ncaa_pid'].astype(int).astype(str)
-        keep = ['playerId'] + [c for c in ['player_name', 'position', 'classification']
-                                if c in b.columns]
+        keep = ['playerId', 'cb_id'] + [c for c in ['player_name', 'position', 'classification']
+                                         if c in b.columns]
         b = b[keep].drop_duplicates('playerId')
         out = out.merge(b, on='playerId', how='left')
-    for col in ('player_name', 'position', 'classification'):
+    for col in ('cb_id', 'player_name', 'position', 'classification'):
         if col not in out.columns:
             out[col] = pd.NA
 
     return out.sort_values('balls_in_play', ascending=False)[
-        ['playerId','player','player_name','balls_in_play','position','classification']
+        ['playerId','cb_id','player','player_name','balls_in_play','position','classification']
     ].reset_index(drop=True)
