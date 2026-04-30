@@ -308,12 +308,12 @@ if view_mode == 'Team Grid':
         b = c['buckets']
         parts_c = []
 
-        # Cell frame — eggshell background + border so each cell reads as
-        # its own card. The 2-unit inset on each side leaves a thin gutter
+        # Cell frame — WHITE card on the eggshell page background so each
+        # cell pops. The 2-unit inset on each side leaves a thin gutter
         # between cells when the parent grid lays them out flush.
         parts_c.append(
             '<rect x="2" y="2" width="96" height="91" rx="3" ry="3" '
-            'fill="#F0EAD6" stroke="#0F2A4D" stroke-width="0.4"/>'
+            'fill="#FFFFFF" stroke="#0F2A4D" stroke-width="0.4"/>'
         )
 
         # Header strip — name on left, pos · class on right
@@ -380,23 +380,25 @@ if view_mode == 'Team Grid':
         parts_c.append(f'<path d="{_mp(-45, 45, m_r)}" fill="none" '
                        f'stroke="#0F2A4D" stroke-width="0.5"/>')
 
-        # Top-right hit-type 2x2 grid (1B/2B top, 3B/HR bottom)
+        # Top-right hit-type 2x2 grid — styled identically to the bottom-left
+        # stats grid (same cell w/h, same label/value font sizes).
         get = lambda col: int(spray[col].sum()) if col in spray.columns else 0
         ht = [[('1B', get('1B')), ('2B', get('2B'))],
               [('3B', get('3B')), ('HR', get('HR'))]]
-        tr_x0, tr_y0 = 75, 11; cw, ch = 11.5, 5.5
+        tr_x0, tr_y0 = 52, 10
+        tr_cw, tr_ch = 22, 6
         for ri, row in enumerate(ht):
             for ci, (lab, val) in enumerate(row):
-                cx = tr_x0 + cw/2 + ci * cw
-                cy = tr_y0 + ri * ch
+                cxv = tr_x0 + tr_cw/2 + ci * tr_cw
+                cyv = tr_y0 + ri * tr_ch
                 parts_c.append(
-                    f'<text x="{cx:.1f}" y="{cy+1.5:.1f}" text-anchor="middle" '
-                    f'font-family="Inter,sans-serif" font-size="1.3" font-weight="600" '
+                    f'<text x="{cxv:.1f}" y="{cyv+1.6:.1f}" text-anchor="middle" '
+                    f'font-family="Inter,sans-serif" font-size="2.8" font-weight="600" '
                     f'fill="#0F2A4D">{lab}</text>'
                 )
                 parts_c.append(
-                    f'<text x="{cx:.1f}" y="{cy+4.7:.1f}" text-anchor="middle" '
-                    f'font-family="Inter,sans-serif" font-size="2.4" font-weight="800" '
+                    f'<text x="{cxv:.1f}" y="{cyv+5.1:.1f}" text-anchor="middle" '
+                    f'font-family="Inter,sans-serif" font-size="4.2" font-weight="800" '
                     f'fill="#0F2A4D">{_compact(val)}</text>'
                 )
 
@@ -496,7 +498,7 @@ if view_mode == 'Team Grid':
         f'<svg viewBox="0 0 {VB_W} {VB_H}" width="{VB_W}" height="{VB_H}" '
         f'xmlns="http://www.w3.org/2000/svg" '
         f'xmlns:xlink="http://www.w3.org/1999/xlink">'
-        f'<rect x="0" y="0" width="{VB_W}" height="{VB_H}" fill="#FFFFFF"/>'
+        f'<rect x="0" y="0" width="{VB_W}" height="{VB_H}" fill="#F0EAD6"/>'
     ]
 
     def _embed(path, x, y, w, h, opacity=1.0):
@@ -544,8 +546,31 @@ if view_mode == 'Team Grid':
         oy = HDR_H + row * CELL_H
         parts_g.append(
             f'<rect x="{ox+2}" y="{oy+2}" width="96" height="91" '
-            f'rx="3" ry="3" fill="#F8F8F8" stroke="#D0C9B0" stroke-width="0.3"/>'
+            f'rx="3" ry="3" fill="#FFFFFF" stroke="#D0C9B0" stroke-width="0.3"/>'
         )
+
+    # Team logo as a translucent watermark in the geometric center of the
+    # entire grid. Drawn AFTER the cells so it sits on top — opacity 0.3
+    # keeps it from obscuring the per-cell content while still anchoring
+    # the team identity visually.
+    if selected_team_id is not None:
+        team_logo_path = _APP_DIR / 'team_logos_512' / f'{selected_team_id}.png'
+        if team_logo_path.exists():
+            try:
+                tlb64 = base64.b64encode(team_logo_path.read_bytes()).decode('ascii')
+                tlhref = f'data:image/png;base64,{tlb64}'
+                tlw = 140
+                tlh = 140
+                tlx = VB_W/2 - tlw/2
+                tly = HDR_H + GRID_H/2 - tlh/2
+                parts_g.append(
+                    f'<image href="{tlhref}" xlink:href="{tlhref}" '
+                    f'x="{tlx}" y="{tly}" width="{tlw}" height="{tlh}" '
+                    f'opacity="0.3" preserveAspectRatio="xMidYMid meet" '
+                    f'pointer-events="none"/>'
+                )
+            except Exception:
+                pass
 
     parts_g.append('</svg>')
     grid_svg = ''.join(parts_g)
@@ -567,7 +592,40 @@ if view_mode == 'Team Grid':
     except Exception as e:
         st.caption(f'PNG export unavailable in this environment ({type(e).__name__}).')
 
+    # ── Per-player image upload ─────────────────────────────────────────────
     st.markdown('---')
+    with st.expander('Upload player photos', expanded=False):
+        st.caption(
+            'Pick a square PNG / JPG for any player; it\'s saved as '
+            f'`assets/player_headshots/{{cb_id}}.png` and the bubble in '
+            f'their tile becomes that photo on the next render.'
+        )
+        for c in cells:
+            cb_id = c['cb_id']
+            if cb_id is None:
+                st.caption(f"`{c['name']}` — no chart-builder id (rosters bridge missed); upload disabled.")
+                continue
+            target = HEADSHOT_DIR / f'{cb_id}.png'
+            present = '✓ photo on file' if target.exists() else '— no photo yet'
+            up = st.file_uploader(
+                f"{c['name']}  (cb_id {cb_id})  {present}",
+                type=['png', 'jpg', 'jpeg'],
+                key=f'photo_{cb_id}',
+            )
+            if up is not None:
+                new_bytes = up.getvalue()
+                existing = target.read_bytes() if target.exists() else None
+                if existing != new_bytes:
+                    try:
+                        from PIL import Image
+                        import io as _io
+                        img = Image.open(_io.BytesIO(new_bytes)).convert('RGBA')
+                        target.parent.mkdir(parents=True, exist_ok=True)
+                        img.save(target, 'PNG')
+                        st.success(f"Saved `{target.name}` — re-render to see the bubble update.")
+                    except Exception as e:
+                        st.error(f'Could not save image: {e}')
+
     st.markdown('### Top 9 batters by balls in play')
     rows_t = []
     for c in cells:
