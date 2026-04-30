@@ -566,7 +566,7 @@ if view_mode == 'Team Grid':
                 parts_g.append(
                     f'<image href="{tlhref}" xlink:href="{tlhref}" '
                     f'x="{tlx}" y="{tly}" width="{tlw}" height="{tlh}" '
-                    f'opacity="0.3" preserveAspectRatio="xMidYMid meet" '
+                    f'opacity="0.1" preserveAspectRatio="xMidYMid meet" '
                     f'pointer-events="none"/>'
                 )
             except Exception:
