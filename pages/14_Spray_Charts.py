@@ -126,64 +126,104 @@ with col_field:
     #   Pitcher (1):           circle on the mound
     #   Catcher (2):           octagon at home plate
     import math
-    pct_by_zone = dict(zip(spray['hitLocation'], spray['pct']))
-    # Selected-metric lookups for label + color intensity
-    val_by_zone = {row['hitLocation']: _metric_value(row, metric_choice)
-                   for _, row in spray.iterrows()}
-    fmt_by_zone = {z: _metric_fmt(v, metric_choice) for z, v in val_by_zone.items()}
-    # Per-zone hover tooltip: full breakdown regardless of selected metric
-    def _tooltip_for(z: int) -> str:
-        sub = spray[spray['hitLocation'] == z]
+
+    def _combined(zone_codes):
+        """Sum raw counts across one or more zones and recompute rate stats
+        from the totals. Returns None if no BIP."""
+        sub = spray[spray['hitLocation'].isin(zone_codes)]
         if sub.empty:
-            return f"{ZONE_NAMES.get(z, z)}: no BIP"
-        r = sub.iloc[0]
-        bits = [f"{ZONE_NAMES.get(z, z)} (zone {z})",
-                f"BIP: {int(r['total'])}  ({r['pct']:.1f}%)"]
+            return None
+        n = int(sub['total'].sum())
+        if n == 0:
+            return None
+        get = lambda c: int(sub[c].sum()) if c in sub.columns else 0
+        c1, c2, c3, ch = get('1B'), get('2B'), get('3B'), get('HR')
+        hits = c1 + c2 + c3 + ch
+        tb = c1 + 2*c2 + 3*c3 + 4*ch
+        woba = 0.888*c1 + 1.271*c2 + 1.616*c3 + 2.101*ch
+        return {
+            'BIP': n, 'pct': float(sub['pct'].sum()),
+            '1B': c1, '2B': c2, '3B': c3, 'HR': ch,
+            'Out': get('Out'), 'FC/Err': get('FC/Err'),
+            'AVG': hits / n, 'SLG': tb / n, 'wOBA': woba / n, 'TB': tb,
+        }
+
+    def _value_for(bd, choice):
+        if choice == '% of BIP': return bd['pct']
+        if choice == 'TB':       return float(bd['TB'])
+        return bd[choice]
+
+    def _label_for(zone_codes):
+        if zone_codes == (8, 14):
+            return 'CF + Deep CF'
+        return ZONE_NAMES.get(zone_codes[0], str(zone_codes[0]))
+
+    def _tooltip_for(zone_codes) -> str:
+        bd = _combined(zone_codes)
+        if bd is None:
+            return f"{_label_for(zone_codes)}: no BIP"
+        zlist = '+'.join(str(z) for z in zone_codes)
+        bits = [f"{_label_for(zone_codes)} (zone {zlist})",
+                f"BIP: {bd['BIP']}  ({bd['pct']:.1f}%)"]
         for c in ['1B','2B','3B','HR','Out','FC/Err']:
-            if c in spray.columns and int(r.get(c, 0)) > 0:
-                bits.append(f"{c}: {int(r[c])}")
-        bits.append(f"AVG {_metric_fmt(r['AVG'], 'AVG')} · "
-                    f"SLG {_metric_fmt(r['SLG'], 'SLG')} · "
-                    f"wOBA {_metric_fmt(r['wOBA'], 'wOBA')} · "
-                    f"TB {int(r['TB'])}")
+            if bd.get(c, 0) > 0:
+                bits.append(f"{c}: {bd[c]}")
+        bits.append(f"AVG {_metric_fmt(bd['AVG'],'AVG')} · "
+                    f"SLG {_metric_fmt(bd['SLG'],'SLG')} · "
+                    f"wOBA {_metric_fmt(bd['wOBA'],'wOBA')} · "
+                    f"TB {bd['TB']}")
         return '\n'.join(bits)
 
-    # SVG geometry — viewBox 0 0 100 72 so the field fits horizontally:
-    # the foul wedges extend from -90° to -45°, which means the leftmost
-    # outer corner of L FOUL is at polar(-90°, R_OUTER). Setting R_OUTER=48
-    # puts that corner at x=2 (just inside the left edge).
+    # Build value/format lookups for every wedge group + pitcher + catcher
+    breakdowns = {}    # primary_zone -> breakdown dict
+    val_by_zone = {}
+    fmt_by_zone = {}
+    for zone_codes, *_ in OUTFIELD + INFIELD + LINE + [((1,), 0, 0), ((2,), 0, 0)]:
+        bd = _combined(zone_codes)
+        primary = zone_codes[0]
+        breakdowns[primary] = (zone_codes, bd)
+        if bd is None:
+            val_by_zone[primary] = 0.0
+            fmt_by_zone[primary] = '–'
+        else:
+            v = _value_for(bd, metric_choice)
+            val_by_zone[primary] = v
+            fmt_by_zone[primary] = _metric_fmt(v, metric_choice)
+
+    # SVG geometry — viewBox 0 0 100 72 leaves the line wedges' outer
+    # corners (at polar(-65°, 48)) just inside the left/right edges.
     HOME = (50, 65)
     R_INNER = 8    # pitcher / inner apex
     R_MID   = 25   # infield / outfield boundary
-    R_OUTER = 48   # field edge (warning track)
-    R_DEEP  = 54   # over-the-fence / deep-CF outer edge
+    R_OUTER = 48   # field edge
     # Angles are in degrees from straight up (toward CF). Negative = left.
-    OUTFIELD = [   # (zone, ang_start, ang_end)
-        (7,  -45, -27),
-        (10, -27,  -9),
-        (8,   -9,   9),
-        (11,   9,  27),
-        (9,   27,  45),
+    # Zone 14 (Deep CF) is merged INTO zone 8 (CF) for the chart — they
+    # describe the same line of sight and zone 14 is too small (<2% BIP)
+    # to read as its own wedge. The combined CF wedge sums both zones'
+    # raw counts; zone 14 still appears separately in the tables and the
+    # drill-down so granular detail isn't lost.
+    OUTFIELD = [   # (zone_codes, ang_start, ang_end)
+        ((7,),     -45, -27),
+        ((10,),    -27,  -9),
+        ((8, 14),   -9,   9),   # CF + Deep CF merged
+        ((11,),      9,  27),
+        ((9,),      27,  45),
     ]
-    # Infield is 4 wedges across the 90° fair arc (22.5° each). Zone 14 is
-    # NOT here — NCAA's "14" is deep CF, not up-the-middle infield.
     INFIELD = [
-        (5,  -45,   -22.5),
-        (6,  -22.5,   0),
-        (4,    0,    22.5),
-        (3,   22.5,  45),
+        ((5,), -45,   -22.5),
+        ((6,), -22.5,   0),
+        ((4,),   0,    22.5),
+        ((3,),  22.5,  45),
     ]
     # "Down the line" wedges — NCAA codes 12/13 are FAIR balls that landed
     # close to the foul line (often XBH), not actual foul balls. Slim 20°
     # slivers just outside the foul line; their outer edges align with the
     # field-outline foul lines.
-    LINE_HALF = 20  # degrees outside each foul line
+    LINE_HALF = 20
     LINE = [
-        (12, -45 - LINE_HALF, -45),
-        (13,  45,  45 + LINE_HALF),
+        ((12,), -45 - LINE_HALF, -45),
+        ((13,),  45,  45 + LINE_HALF),
     ]
-    # Deep CF — slim wedge BEYOND the OF arc, directly above zone 8.
-    DEEP = [(14, -9, 9)]
 
     def polar(angle_deg, radius):
         # angle 0 = straight up; positive = clockwise (right)
@@ -225,65 +265,42 @@ with col_field:
     def text_color(intensity):
         return '#FFFFFF' if intensity > 0.55 else '#0F2A4D'
 
-    # Single intensity scale across ALL fair-territory zones — infield,
-    # outfield, down-the-line, and deep CF — so identical metric values
-    # render identical shades. Everything in fair territory shares one ramp.
+    # Single intensity scale across ALL fair-territory zones (infield,
+    # outfield, down-the-line) so identical metric values render identical
+    # shades.
     def max_val(zones):
-        return max((val_by_zone.get(z, 0) for z, *_ in zones), default=1.0) or 1.0
-    fair_max = max_val(OUTFIELD + INFIELD + LINE + DEEP)
+        return max((val_by_zone.get(zc[0], 0) for zc, *_ in zones), default=1.0) or 1.0
+    fair_max = max_val(OUTFIELD + INFIELD + LINE)
 
     parts = ['''<svg viewBox="0 0 100 72" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;background:#F0EAD6;border-radius:8px;">''']
     parts.append('<text x="50" y="7" text-anchor="middle" font-family="Inter,sans-serif" font-size="5" font-weight="800" fill="#0F2A4D">Spray Chart</text>')
 
-    # Outfield wedges — share the fair-territory color ramp + max with infield
-    for z, a1, a2 in OUTFIELD:
-        v = val_by_zone.get(z, 0)
+    def _draw_wedge(zone_codes, a1, a2, r_in, r_out, label_font, *, pie=False):
+        primary = zone_codes[0]
+        v = val_by_zone.get(primary, 0)
         intensity = v / fair_max if fair_max else 0
         fill = red_orange(intensity)
-        parts.append(f'<path d="{wedge_path(a1, a2, R_MID, R_OUTER)}" fill="{fill}" stroke="#FFFFFF" stroke-width="0.6"><title>{_tooltip_for(z)}</title></path>')
-        lx, ly = label_pos(a1, a2, R_MID, R_OUTER)
+        path_d = pie_path(a1, a2, r_out) if pie else wedge_path(a1, a2, r_in, r_out)
+        parts.append(f'<path d="{path_d}" fill="{fill}" stroke="#FFFFFF" stroke-width="0.6"><title>{_tooltip_for(zone_codes)}</title></path>')
+        lx, ly = label_pos(a1, a2, r_in, r_out)
         tc = text_color(intensity)
-        parts.append(f'<text x="{lx:.1f}" y="{ly+1.5:.1f}" text-anchor="middle" font-family="Inter,sans-serif" font-size="4.5" font-weight="800" fill="{tc}" pointer-events="none">{fmt_by_zone.get(z,"")}</text>')
+        parts.append(f'<text x="{lx:.1f}" y="{ly+1.0:.1f}" text-anchor="middle" font-family="Inter,sans-serif" font-size="{label_font}" font-weight="800" fill="{tc}" pointer-events="none">{fmt_by_zone.get(primary, "")}</text>')
 
-    # Down-the-line wedges (zones 12/13) — FAIR territory, pie wedges from
-    # the apex. Use the fair red/orange ramp so SLG/wOBA shading matches
-    # other fair zones at the same value.
-    for z, a1, a2 in LINE:
-        v = val_by_zone.get(z, 0)
-        intensity = v / fair_max if fair_max else 0
-        fill = red_orange(intensity)
-        parts.append(f'<path d="{pie_path(a1, a2, R_OUTER)}" fill="{fill}" stroke="#FFFFFF" stroke-width="0.6"><title>{_tooltip_for(z)}</title></path>')
-        lx, ly = label_pos(a1, a2, R_INNER, R_OUTER)
-        tc = text_color(intensity)
-        parts.append(f'<text x="{lx:.1f}" y="{ly+1.0:.1f}" text-anchor="middle" font-family="Inter,sans-serif" font-size="3.5" font-weight="800" fill="{tc}" pointer-events="none">{fmt_by_zone.get(z,"")}</text>')
-
-    # Deep CF (zone 14) — fair-territory wedge BEYOND the OF arc, sitting
-    # directly above zone 8 (CF). This is over-the-fence / wall territory.
-    for z, a1, a2 in DEEP:
-        v = val_by_zone.get(z, 0)
-        intensity = v / fair_max if fair_max else 0
-        fill = red_orange(intensity)
-        parts.append(f'<path d="{wedge_path(a1, a2, R_OUTER, R_DEEP)}" fill="{fill}" stroke="#FFFFFF" stroke-width="0.6"><title>{_tooltip_for(z)}</title></path>')
-        lx, ly = label_pos(a1, a2, R_OUTER, R_DEEP)
-        tc = text_color(intensity)
-        parts.append(f'<text x="{lx:.1f}" y="{ly+1.0:.1f}" text-anchor="middle" font-family="Inter,sans-serif" font-size="2.6" font-weight="800" fill="{tc}" pointer-events="none">{fmt_by_zone.get(z,"")}</text>')
-
-    # Infield wedges — same red/orange ramp + max as outfield so identical
-    # metric values render identical shades.
-    for z, a1, a2 in INFIELD:
-        v = val_by_zone.get(z, 0)
-        intensity = v / fair_max if fair_max else 0
-        fill = red_orange(intensity)
-        parts.append(f'<path d="{wedge_path(a1, a2, R_INNER, R_MID)}" fill="{fill}" stroke="#FFFFFF" stroke-width="0.6"><title>{_tooltip_for(z)}</title></path>')
-        lx, ly = label_pos(a1, a2, R_INNER, R_MID)
-        tc = text_color(intensity)
-        parts.append(f'<text x="{lx:.1f}" y="{ly+0.9:.1f}" text-anchor="middle" font-family="Inter,sans-serif" font-size="2.6" font-weight="800" fill="{tc}" pointer-events="none">{fmt_by_zone.get(z,"")}</text>')
+    # Outfield (CF wedge spans 8+14)
+    for zc, a1, a2 in OUTFIELD:
+        _draw_wedge(zc, a1, a2, R_MID, R_OUTER, 4.5)
+    # Down-the-line wedges (zones 12/13) — fair territory, pie wedges from apex
+    for zc, a1, a2 in LINE:
+        _draw_wedge(zc, a1, a2, R_INNER, R_OUTER, 3.5, pie=True)
+    # Infield
+    for zc, a1, a2 in INFIELD:
+        _draw_wedge(zc, a1, a2, R_INNER, R_MID, 2.8)
 
     # Pitcher (zone 1) — circle on the centerline, sized so its bottom edge
     # meets the catcher's top edge for a clean stacked diamond apex.
     r_p = 3.0
     px, py = HOME[0], HOME[1] - 5   # center 5 units above HOME → bottom at y=63
-    parts.append(f'<circle cx="{px}" cy="{py}" r="{r_p}" fill="#F8E8E2" stroke="#0F2A4D" stroke-width="0.5"><title>{_tooltip_for(1)}</title></circle>')
+    parts.append(f'<circle cx="{px}" cy="{py}" r="{r_p}" fill="#F8E8E2" stroke="#0F2A4D" stroke-width="0.5"><title>{_tooltip_for((1,))}</title></circle>')
     parts.append(f'<text x="{px}" y="{py+0.9:.1f}" text-anchor="middle" font-family="Inter,sans-serif" font-size="2.4" font-weight="800" fill="#0F2A4D" pointer-events="none">{fmt_by_zone.get(1,"")}</text>')
 
     # Catcher (zone 2) — home-plate pentagon, positioned ENTIRELY BELOW the
@@ -299,7 +316,7 @@ with col_field:
         (cx - pw, cy + ph * 0.10),  # left shoulder
     ]
     pts_str = ' '.join(f'{x:.2f},{y:.2f}' for x, y in plate_pts)
-    parts.append(f'<polygon points="{pts_str}" fill="#F8E8E2" stroke="#0F2A4D" stroke-width="0.4"><title>{_tooltip_for(2)}</title></polygon>')
+    parts.append(f'<polygon points="{pts_str}" fill="#F8E8E2" stroke="#0F2A4D" stroke-width="0.4"><title>{_tooltip_for((2,))}</title></polygon>')
     parts.append(f'<text x="{cx}" y="{cy+0.4:.1f}" text-anchor="middle" font-family="Inter,sans-serif" font-size="2.2" font-weight="800" fill="#0F2A4D" pointer-events="none">{fmt_by_zone.get(2,"")}</text>')
 
     # Single continuous field outline — foul line L, outfield arc, foul line R,
