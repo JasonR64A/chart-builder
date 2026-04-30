@@ -580,9 +580,8 @@ with col_summary:
     st.markdown('### Field-side splits')
     side_df = pd.DataFrame([
         ['Left side',  '3B/SS/LF/L Line',  buckets['left'],   f"{buckets['left_pct']}%"],
-        ['Middle',     'P/2B/CF',          buckets['middle'], f"{buckets['middle_pct']}%"],
+        ['Middle',     'P/C/2B/CF',        buckets['middle'], f"{buckets['middle_pct']}%"],
         ['Right side', '1B/RF/R Line',     buckets['right'],  f"{buckets['right_pct']}%"],
-        ['Other (C)',  '2',                buckets['other'],  f"{buckets['other_pct']}%"],
     ], columns=['Side', 'Zones', 'Count', 'Share'])
     st.dataframe(side_df, hide_index=True, use_container_width=True)
 

@@ -282,18 +282,19 @@ def compute_field_side_buckets(spray_df: pd.DataFrame) -> dict:
     is the unbiased label.
 
     Left side  (3B/SS/LF/LCF/L Line):   zones 5, 6, 7, 10, 12
-    Middle     (P/2B/CF/Deep CF):       zones 1, 4, 8, 14
+    Middle     (P/C/2B/CF/Deep CF):     zones 1, 2, 4, 8, 14
     Right side (1B/RF/RCF/R Line):      zones 3, 9, 11, 13
-    Other      (catcher only):          zone 2
+    Catcher (zone 2) is folded into Middle so the L/M/R splits add up
+    to 100%. Other stays empty as a reserved bucket.
     """
     if spray_df.empty:
         return {'left': 0, 'middle': 0, 'right': 0, 'other': 0,
                 'left_pct': 0, 'middle_pct': 0, 'right_pct': 0, 'other_pct': 0,
                 'total': 0}
     LEFT  = {5, 6, 7, 10, 12}
-    MID   = {1, 4, 8, 14}
+    MID   = {1, 2, 4, 8, 14}
     RIGHT = {3, 9, 11, 13}
-    OTHER = {2}
+    OTHER = set()
     s = spray_df.set_index('hitLocation')['total']
     left = int(s[s.index.isin(LEFT)].sum())
     middle = int(s[s.index.isin(MID)].sum())
