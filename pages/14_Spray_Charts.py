@@ -188,8 +188,9 @@ with col_field:
         return bd[choice]
 
     def _label_for(zone_codes):
-        if zone_codes == (8, 14):
-            return 'CF + Deep CF'
+        if zone_codes == (8, 14): return 'CF + Deep CF'
+        if zone_codes == (7, 10): return 'LF + LCF'
+        if zone_codes == (9, 11): return 'RF + RCF'
         return ZONE_NAMES.get(zone_codes[0], str(zone_codes[0]))
 
     def _tooltip_for(zone_codes) -> str:
@@ -215,17 +216,16 @@ with col_field:
     R_MID   = 25   # infield / outfield boundary
     R_OUTER = 48   # field edge
     # Angles are in degrees from straight up (toward CF). Negative = left.
-    # Zone 14 (Deep CF) is merged INTO zone 8 (CF) for the chart — they
-    # describe the same line of sight and zone 14 is too small (<2% BIP)
-    # to read as its own wedge. The combined CF wedge sums both zones'
-    # raw counts; zone 14 still appears separately in the tables and the
-    # drill-down so granular detail isn't lost.
+    # Zones 10 (LCF) and 11 (RCF) are infrequently scored independently
+    # of LF/RF, so they're merged into the corresponding flank wedges:
+    # LF wedge = zones 7+10, RF wedge = zones 9+11. CF wedge already
+    # combines 8 (CF) + 14 (Deep CF). The three merged outfield wedges
+    # give a more honest read on the chart at the cost of one less zone
+    # of granularity — granular zone detail still lives in the tables.
     OUTFIELD = [   # (zone_codes, ang_start, ang_end)
-        ((7,),     -45, -27),
-        ((10,),    -27,  -9),
-        ((8, 14),   -9,   9),   # CF + Deep CF merged
-        ((11,),      9,  27),
-        ((9,),      27,  45),
+        ((7, 10),  -45, -9),    # LF + LCF
+        ((8, 14),   -9,  9),    # CF + Deep CF
+        ((9, 11),    9, 45),    # RF + RCF
     ]
     INFIELD = [
         ((5,), -45,   -22.5),
@@ -579,10 +579,10 @@ with col_field:
 with col_summary:
     st.markdown('### Field-side splits')
     side_df = pd.DataFrame([
-        ['Left side',  '3B/SS/LF/LCF/L Line', buckets['left'],   f"{buckets['left_pct']}%"],
-        ['Middle',     'P/2B/CF/Deep CF',     buckets['middle'], f"{buckets['middle_pct']}%"],
-        ['Right side', '1B/RF/RCF/R Line',    buckets['right'],  f"{buckets['right_pct']}%"],
-        ['Other (C)',  '2',                   buckets['other'],  f"{buckets['other_pct']}%"],
+        ['Left side',  '3B/SS/LF/L Line',  buckets['left'],   f"{buckets['left_pct']}%"],
+        ['Middle',     'P/2B/CF',          buckets['middle'], f"{buckets['middle_pct']}%"],
+        ['Right side', '1B/RF/R Line',     buckets['right'],  f"{buckets['right_pct']}%"],
+        ['Other (C)',  '2',                buckets['other'],  f"{buckets['other_pct']}%"],
     ], columns=['Side', 'Zones', 'Count', 'Share'])
     st.dataframe(side_df, hide_index=True, use_container_width=True)
 
