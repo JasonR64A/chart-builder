@@ -390,8 +390,8 @@ with col_field:
         ly = MINI_HOME[1] - (MINI_R * LBL_FRAC) * math.cos(ang_mid)
         tc = text_color(intensity)
         parts.append(
-            f'<text x="{lx:.1f}" y="{ly+0.6:.1f}" text-anchor="middle" '
-            f'font-family="Inter,sans-serif" font-size="1.9" font-weight="800" '
+            f'<text x="{lx:.1f}" y="{ly+0.5:.1f}" text-anchor="middle" '
+            f'font-family="Inter,sans-serif" font-size="1.6" font-weight="800" '
             f'fill="{tc}">{pct:.0f}%</text>'
         )
     parts.append(
@@ -400,25 +400,27 @@ with col_field:
     )
 
     # Top-right corner: hit-type 2x2 grid (1B/2B on top, 3B/HR on bottom).
+    # Sized to match the mini-diamond's vertical bounds (y=1.5 to y=13)
+    # for visual symmetry across the top of the chart.
     def _all_top(c): return int(spray[c].sum()) if c in spray.columns else 0
     hit_grid = [
         [('1B', _all_top('1B')), ('2B', _all_top('2B'))],
         [('3B', _all_top('3B')), ('HR', _all_top('HR'))],
     ]
     tr_x0, tr_y0 = 72, 1.5
-    cell_w, cell_h = 12, 4.5
+    cell_w, cell_h = 13, 5.75      # 2 rows × 5.75 = 11.5, matches MINI_R
     for ri, row in enumerate(hit_grid):
         for ci, (lab, val) in enumerate(row):
             cx = tr_x0 + cell_w/2 + ci * cell_w
-            cy = tr_y0 + cell_h/2 + ri * cell_h
+            cy = tr_y0 + ri * cell_h
             parts.append(
-                f'<text x="{cx:.1f}" y="{cy-0.4:.1f}" text-anchor="middle" '
-                f'font-family="Inter,sans-serif" font-size="1.5" font-weight="600" '
+                f'<text x="{cx:.1f}" y="{cy+1.7:.1f}" text-anchor="middle" '
+                f'font-family="Inter,sans-serif" font-size="1.7" font-weight="600" '
                 f'fill="#0F2A4D" letter-spacing="0.3">{lab}</text>'
             )
             parts.append(
-                f'<text x="{cx:.1f}" y="{cy+2.1:.1f}" text-anchor="middle" '
-                f'font-family="Inter,sans-serif" font-size="2.2" font-weight="800" '
+                f'<text x="{cx:.1f}" y="{cy+5.0:.1f}" text-anchor="middle" '
+                f'font-family="Inter,sans-serif" font-size="3.0" font-weight="800" '
                 f'fill="#0F2A4D">{_compact(val)}</text>'
             )
 
@@ -509,18 +511,18 @@ with col_field:
     ]
     block_w = 9.5
     x0 = 1.5
-    # Baselines are matched to the bottom-right caption (label y=66.5,
-    # value y=70) so the two bottom blocks sit on the same plane.
+    # Font sizes match the bottom-right caption rows (label 2.0 / value 2.4)
+    # at identical baselines so the two bottom blocks sit on the same plane.
     for i, (lab, val) in enumerate(overall):
         cx = x0 + block_w/2 + i * block_w
         parts.append(
             f'<text x="{cx:.1f}" y="66.5" text-anchor="middle" '
-            f'font-family="Inter,sans-serif" font-size="1.5" font-weight="600" '
+            f'font-family="Inter,sans-serif" font-size="2.0" font-weight="600" '
             f'fill="#0F2A4D" letter-spacing="0.3">{lab}</text>'
         )
         parts.append(
             f'<text x="{cx:.1f}" y="70" text-anchor="middle" '
-            f'font-family="Inter,sans-serif" font-size="2.2" font-weight="800" '
+            f'font-family="Inter,sans-serif" font-size="2.4" font-weight="800" '
             f'fill="#0F2A4D">{val}</text>'
         )
 
@@ -544,11 +546,11 @@ with col_field:
     caption_line2 = f'{metric_choice} · {buckets["total"]:,} balls in play'
     parts.append(
         f'<text x="98" y="66.5" text-anchor="end" font-family="Inter,sans-serif" '
-        f'font-size="2.4" font-weight="700" fill="#0F2A4D">{caption_line1}</text>'
+        f'font-size="2.0" font-weight="600" fill="#0F2A4D">{caption_line1}</text>'
     )
     parts.append(
         f'<text x="98" y="70" text-anchor="end" font-family="Inter,sans-serif" '
-        f'font-size="2.2" font-weight="500" fill="#0F2A4D">{caption_line2}</text>'
+        f'font-size="2.4" font-weight="800" fill="#0F2A4D">{caption_line2}</text>'
     )
 
     parts.append('</svg>')
