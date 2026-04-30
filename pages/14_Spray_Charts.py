@@ -7,6 +7,8 @@ and a Left/Middle/Right side-split summary.
 """
 import streamlit as st
 import pandas as pd
+import base64
+import io
 from pathlib import Path
 
 import sys
@@ -55,27 +57,49 @@ with st.sidebar:
     selected_label = st.selectbox('Team', options)
     team_filter = None if selected_label == '(all teams)' else name_by_label.get(selected_label)
 
+    # Resolve team_id for selected team (used for logo overlay + filename)
+    selected_team_id = None
+    if team_filter is not None:
+        match = teams_df[teams_df['ncaa_team'] == team_filter]
+        if not match.empty and pd.notna(match.iloc[0]['team_id']):
+            selected_team_id = int(match.iloc[0]['team_id'])
+
     selected_player_id = None
     selected_player_name = None
+    selected_player_position = None
+    selected_player_class = None
     if view_mode == 'Player':
         plist = list_players(sport, division, team_filter)
         if plist.empty:
             st.warning('No players with batted balls found for this scope.')
             st.stop()
-        # Show top 50 by BIP volume
         labels = [f"{r['player']}  ({r['balls_in_play']} BIP)"
                   for _, r in plist.head(80).iterrows()]
-        ids = plist.head(80)['playerId'].tolist()
-        names = plist.head(80)['player'].tolist()
+        head = plist.head(80).reset_index(drop=True)
         choice = st.selectbox('Player', range(len(labels)), format_func=lambda i: labels[i])
-        selected_player_id = ids[choice]
-        selected_player_name = names[choice]
+        selected_player_id = head.loc[choice, 'playerId']
+        selected_player_name = head.loc[choice, 'player']
+        selected_player_position = head.loc[choice, 'position'] if 'position' in head.columns else None
+        selected_player_class = head.loc[choice, 'classification'] if 'classification' in head.columns else None
+
+    st.markdown('---')
+    st.markdown('### Filters')
+    f_hand = st.radio('Pitcher hand', ['Any', 'vs LHP', 'vs RHP'], horizontal=True)
+    f_two_strikes = st.checkbox('2-strike counts only')
+    f_two_outs = st.checkbox('2-out situations only')
+    f_risp = st.checkbox('Runners in scoring position')
+
+vs_hand = {'vs LHP': 'L', 'vs RHP': 'R'}.get(f_hand)
 
 # ── Compute ──────────────────────────────────────────────────────────────────
 spray = compute_spray_distribution(
     sport, division,
     team_name=team_filter if view_mode == 'Team' else None,
     player_id=selected_player_id if view_mode == 'Player' else None,
+    vs_hand=vs_hand,
+    two_strikes=f_two_strikes,
+    two_outs=f_two_outs,
+    risp=f_risp,
 )
 spray = add_zone_metrics(spray)
 buckets = compute_field_side_buckets(spray)
@@ -201,7 +225,7 @@ with col_field:
     # close to the foul line (often XBH), not actual foul balls. Slim 20°
     # slivers just outside the foul line; their outer edges align with the
     # field-outline foul lines.
-    LINE_HALF = 20
+    LINE_HALF = 15
     LINE = [
         ((12,), -45 - LINE_HALF, -45),
         ((13,),  45,  45 + LINE_HALF),
@@ -272,7 +296,38 @@ with col_field:
     fair_max = max_val(OUTFIELD + INFIELD + LINE)
 
     parts = ['''<svg viewBox="0 0 100 72" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;background:#F0EAD6;border-radius:8px;">''']
-    parts.append('<text x="50" y="7" text-anchor="middle" font-family="Inter,sans-serif" font-size="5" font-weight="800" fill="#0F2A4D">Spray Chart</text>')
+
+    # Team logo at 50% opacity in the centroid of fair territory (Team mode only)
+    if view_mode == 'Team' and selected_team_id is not None:
+        logo_path = _APP_DIR / 'team_logos_512' / f'{selected_team_id}.png'
+        if logo_path.exists():
+            try:
+                b64 = base64.b64encode(logo_path.read_bytes()).decode('ascii')
+                logo_size = 26
+                lx, ly = 50 - logo_size/2, 36 - logo_size/2
+                parts.append(
+                    f'<image href="data:image/png;base64,{b64}" '
+                    f'x="{lx}" y="{ly}" width="{logo_size}" height="{logo_size}" '
+                    f'opacity="0.5" preserveAspectRatio="xMidYMid meet" '
+                    f'pointer-events="none"/>'
+                )
+            except Exception:
+                pass  # logo is decorative; skip silently if anything fails
+
+    # Player header in upper-left (Player mode only): name / position / class
+    if view_mode == 'Player' and selected_player_name:
+        pos = str(selected_player_position) if pd.notna(selected_player_position) else ''
+        cls = str(selected_player_class) if pd.notna(selected_player_class) else ''
+        sub_bits = ' · '.join(b for b in [pos, cls] if b)
+        parts.append(
+            f'<text x="2.5" y="6" font-family="Inter,sans-serif" font-size="4.2" '
+            f'font-weight="800" fill="#0F2A4D">{selected_player_name}</text>'
+        )
+        if sub_bits:
+            parts.append(
+                f'<text x="2.5" y="10" font-family="Inter,sans-serif" font-size="2.6" '
+                f'font-weight="600" fill="#0F2A4D">{sub_bits}</text>'
+            )
 
     def _draw_wedge(zone_codes, a1, a2, r_in, r_out, label_font, *, pie=False):
         primary = zone_codes[0]
@@ -330,8 +385,47 @@ with col_field:
         f'fill="none" stroke="#0F2A4D" stroke-width="0.7"/>'
     )
 
+    # Bottom-right caption — what the chart depicts.
+    sport_label = 'Baseball' if sport.lower() == 'baseball' else 'Softball'
+    if view_mode == 'Player' and selected_player_name:
+        scope_txt = str(selected_player_name)
+    elif team_filter:
+        scope_txt = str(team_filter)
+    else:
+        scope_txt = f'All teams'
+    filter_bits = []
+    if vs_hand: filter_bits.append('vs LHP' if vs_hand == 'L' else 'vs RHP')
+    if f_two_strikes: filter_bits.append('2 strikes')
+    if f_two_outs: filter_bits.append('2 outs')
+    if f_risp: filter_bits.append('RISP')
+    filter_txt = (' · ' + ', '.join(filter_bits)) if filter_bits else ''
+    caption_line1 = f'{scope_txt} · {sport_label} {division}{filter_txt}'
+    caption_line2 = f'{metric_choice} · {buckets["total"]:,} balls in play'
+    parts.append(
+        f'<text x="98" y="66.5" text-anchor="end" font-family="Inter,sans-serif" '
+        f'font-size="2.4" font-weight="700" fill="#0F2A4D">{caption_line1}</text>'
+    )
+    parts.append(
+        f'<text x="98" y="70" text-anchor="end" font-family="Inter,sans-serif" '
+        f'font-size="2.2" font-weight="500" fill="#0F2A4D">{caption_line2}</text>'
+    )
+
     parts.append('</svg>')
-    st.markdown(''.join(parts), unsafe_allow_html=True)
+    svg_str = ''.join(parts)
+    st.markdown(svg_str, unsafe_allow_html=True)
+
+    # PNG download — convert the SVG to a 1600px-wide PNG via cairosvg.
+    try:
+        import cairosvg
+        png_bytes = cairosvg.svg2png(bytestring=svg_str.encode('utf-8'), output_width=1600)
+        fname_scope = (selected_player_name if view_mode == 'Player' and selected_player_name
+                       else (team_filter or 'all'))
+        fname_scope = ''.join(c if c.isalnum() else '_' for c in str(fname_scope))[:40]
+        fname = f'spray_{sport}_{division}_{fname_scope}.png'
+        st.download_button('Download PNG', data=png_bytes, file_name=fname,
+                           mime='image/png', use_container_width=False)
+    except Exception as e:
+        st.caption(f'PNG export unavailable in this environment ({type(e).__name__}).')
 
 with col_summary:
     st.markdown('### Field-side splits')

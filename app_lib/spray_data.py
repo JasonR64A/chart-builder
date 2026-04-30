@@ -121,10 +121,16 @@ def add_zone_metrics(df: pd.DataFrame) -> pd.DataFrame:
 def _load_pbp(sport: str, division: str) -> pd.DataFrame:
     """Load events PBP for sport+division. Schema is the chart-builder
     naming: {sport}_play_by_play_{division}.csv (or .csv.gz on Render —
-    raw .csv is gitignored at ~330MB; only .gz reaches Streamlit Cloud)."""
-    cols = ['gameId', 'date', 'battingTeam', 'fieldingTeam',
-            'player', 'playerId', 'playResult', 'hitLocation', 'inning']
-    # Prefer raw .csv (faster), fall back to .gz which is what Render has
+    raw .csv is gitignored at ~330MB; only .gz reaches Streamlit Cloud).
+
+    Loads enough columns to support the filter set: pitcher handedness
+    join key (pitcherId), 2-out (outs), RISP (runner2B/3B), and 2-strike
+    counts (strikes1..15)."""
+    base_cols = ['gameId', 'date', 'battingTeam', 'fieldingTeam',
+                 'player', 'playerId', 'pitcherId', 'playResult',
+                 'hitLocation', 'inning', 'outs', 'runner2B', 'runner3B']
+    strikes_cols = [f'strikes{i}' for i in range(1, 16)]
+    cols = set(base_cols + strikes_cols)
     csv_p = PBP_DIR / f'{sport}_play_by_play_{division}.csv'
     gz_p  = PBP_DIR / f'{sport}_play_by_play_{division}.csv.gz'
     if csv_p.exists():
@@ -134,17 +140,78 @@ def _load_pbp(sport: str, division: str) -> pd.DataFrame:
     return pd.DataFrame()
 
 
+@st.cache_data(show_spinner=False)
+def _ncaa_pid_to_cb_player() -> pd.DataFrame:
+    """Bridge from PBP playerId (NCAA season-specific) to chart-builder
+    player record. PBP uses NCAA's season ID (8-9 digit), players.csv
+    uses CB's own integer PK; rosters.csv carries both columns. Returns
+    a DataFrame with [ncaa_pid, cb_id, position, classification, throw,
+    bat, player_name] for the latest roster year."""
+    rosters = _load_csv('rosters.csv')
+    players = _load_csv('players.csv')
+    if rosters.empty or players.empty:
+        return pd.DataFrame(columns=['ncaa_pid', 'cb_id', 'position',
+                                     'classification', 'throw', 'bat', 'player_name'])
+    rosters['Year'] = pd.to_numeric(rosters['Year'], errors='coerce')
+    current_year = int(rosters['Year'].max())
+    r = rosters[rosters['Year'] == current_year][['player_id', 'player_ncaa_season_id']].copy()
+    r['ncaa_pid'] = pd.to_numeric(r['player_ncaa_season_id'], errors='coerce').astype('Int64')
+    r = r.dropna(subset=['ncaa_pid', 'player_id'])
+    keep = ['id'] + [c for c in ['player_name', 'position', 'classification',
+                                  'throw', 'bat'] if c in players.columns]
+    j = r.merge(players[keep], left_on='player_id', right_on='id', how='left')
+    j = j.rename(columns={'id': 'cb_id'})
+    return j[['ncaa_pid', 'cb_id'] + keep[1:]]
+
+
+@st.cache_data(show_spinner=False)
+def _pitcher_throw_lookup(sport: str) -> dict:
+    """{ncaa_pid (int): 'L'|'R'|'B'} for vs-LHP / vs-RHP filtering."""
+    bridge = _ncaa_pid_to_cb_player()
+    if bridge.empty or 'throw' not in bridge.columns:
+        return {}
+    sub = bridge[bridge['throw'].isin(['L', 'R', 'B'])].dropna(subset=['ncaa_pid'])
+    return dict(zip(sub['ncaa_pid'].astype(int), sub['throw']))
+
+
+def _strikes_at_contact(df: pd.DataFrame) -> pd.Series:
+    """For each row, the strikes count immediately before the contact pitch
+    (i.e., the strikes value at the highest non-null pitch index). Vectorized
+    by walking the strikesN columns from 15 down to 1."""
+    out = pd.Series(pd.NA, index=df.index, dtype='Int64')
+    for n in range(15, 0, -1):
+        col = f'strikes{n}'
+        if col not in df.columns:
+            continue
+        vals = pd.to_numeric(df[col], errors='coerce')
+        mask = out.isna() & vals.notna()
+        if mask.any():
+            out.loc[mask] = vals.loc[mask].astype('Int64')
+    return out
+
+
 def compute_spray_distribution(
     sport: str,
     division: str,
     team_name: str | None = None,
     player_id: str | None = None,
+    *,
+    vs_hand: str | None = None,    # 'L', 'R', or None
+    two_strikes: bool = False,
+    two_outs: bool = False,
+    risp: bool = False,
 ) -> pd.DataFrame:
     """Return a per-zone count table for the selected scope.
 
-    Filters:
-      team_name (optional): restrict to plays where battingTeam matches
-      player_id (optional): restrict to plays by this batter (overrides team)
+    Scope filters (mutually exclusive):
+      team_name: restrict to plays where battingTeam matches
+      player_id: restrict to plays by this batter (overrides team)
+
+    Situational filters (compose):
+      vs_hand     'L' or 'R' to keep only plays vs that pitcher hand
+      two_strikes True keeps only plays where the contact pitch was at 2 strikes
+      two_outs    True keeps only plays where the play started with 2 outs
+      risp        True keeps only plays with a runner on 2B and/or 3B
 
     Output columns: hitLocation, zone_name, total, plus one column per
     HIT_RESULT_BUCKETS bucket (1B, 2B, 3B, HR, Out, FC/Err, Other) and a
@@ -167,6 +234,26 @@ def compute_spray_distribution(
 
     # Restrict to balls in play (hitLocation populated)
     df = df.dropna(subset=['hitLocation']).copy()
+    if df.empty:
+        return pd.DataFrame()
+
+    # Situational filters — applied AFTER scope to keep the BIP universe stable
+    if vs_hand in ('L', 'R') and 'pitcherId' in df.columns:
+        throws = _pitcher_throw_lookup(sport)
+        if throws:
+            pid = pd.to_numeric(df['pitcherId'], errors='coerce').astype('Int64')
+            mapped = pid.map(throws)
+            df = df[mapped == vs_hand]
+    if two_outs and 'outs' in df.columns:
+        df = df[pd.to_numeric(df['outs'], errors='coerce') == 2]
+    if risp:
+        # runner2B / runner3B are 0.0 / 1.0 floats — empty bases are 0, not NaN.
+        on_2b = pd.to_numeric(df['runner2B'], errors='coerce') > 0 if 'runner2B' in df.columns else False
+        on_3b = pd.to_numeric(df['runner3B'], errors='coerce') > 0 if 'runner3B' in df.columns else False
+        df = df[on_2b | on_3b]
+    if two_strikes:
+        df = df.assign(_strk=_strikes_at_contact(df))
+        df = df[df['_strk'] == 2].drop(columns=['_strk'])
     if df.empty:
         return pd.DataFrame()
 
@@ -283,4 +370,23 @@ def list_players(sport: str, division: str, team_name: str | None = None) -> pd.
     best_name = name_counts.sort_values('n', ascending=False).drop_duplicates('playerId')[['playerId','player']]
     bip = df.groupby('playerId').size().reset_index(name='balls_in_play')
     out = bip.merge(best_name, on='playerId', how='left')
-    return out.sort_values('balls_in_play', ascending=False)[['playerId','player','balls_in_play']].reset_index(drop=True)
+
+    # Join through rosters.csv (PBP playerId -> NCAA season ID -> CB id ->
+    # players.csv position/classification). PBP and players.csv use
+    # different ID systems — rosters.csv is the bridge.
+    bridge = _ncaa_pid_to_cb_player()
+    if not bridge.empty:
+        b = bridge.dropna(subset=['ncaa_pid']).copy()
+        b['playerId'] = b['ncaa_pid'].astype(int).astype(str)
+        keep = ['playerId'] + [c for c in ['position', 'classification']
+                                if c in b.columns]
+        b = b[keep].drop_duplicates('playerId')
+        out = out.merge(b, on='playerId', how='left')
+    if 'position' not in out.columns:
+        out['position'] = pd.NA
+    if 'classification' not in out.columns:
+        out['classification'] = pd.NA
+
+    return out.sort_values('balls_in_play', ascending=False)[
+        ['playerId','player','balls_in_play','position','classification']
+    ].reset_index(drop=True)
