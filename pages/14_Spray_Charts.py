@@ -227,7 +227,7 @@ with col_field:
         parts.append(f'<path d="{wedge_path(a1, a2, R_INNER, R_MID)}" fill="{fill}" stroke="#FFFFFF" stroke-width="0.6"/>')
         lx, ly = label_pos(a1, a2, R_INNER, R_MID)
         tc = '#0F2A4D'
-        parts.append(f'<text x="{lx:.1f}" y="{ly+1.2:.1f}" text-anchor="middle" font-family="Inter,sans-serif" font-size="3.6" font-weight="800" fill="{tc}">{pct:.0f}%</text>')
+        parts.append(f'<text x="{lx:.1f}" y="{ly+0.9:.1f}" text-anchor="middle" font-family="Inter,sans-serif" font-size="2.6" font-weight="800" fill="{tc}">{pct:.0f}%</text>')
 
     # Pitcher (zone 1) — circle on the centerline, sized so its bottom edge
     # meets the catcher's top edge for a clean stacked diamond apex.
@@ -237,17 +237,22 @@ with col_field:
     parts.append(f'<circle cx="{px}" cy="{py}" r="{r_p}" fill="#F8E8E2" stroke="#0F2A4D" stroke-width="0.5"/>')
     parts.append(f'<text x="{px}" y="{py+0.9:.1f}" text-anchor="middle" font-family="Inter,sans-serif" font-size="2.4" font-weight="800" fill="#0F2A4D">{p_pct:.0f}%</text>')
 
-    # Catcher (zone 2) — small octagon at the apex (home plate). The foul
-    # lines converge here and the pitcher sits directly above with no gap.
+    # Catcher (zone 2) — home-plate pentagon, positioned ENTIRELY BELOW the
+    # foul-line apex so its number stays clear of the V where the foul
+    # wedges meet. Front (flat) edge sits at HOME, point extends downward.
     c_pct = pct_by_zone.get(2, 0)
-    cx, cy = HOME
-    r_c = 2.0
-    pts = []
-    for i in range(8):
-        ang = math.radians(22.5 + i * 45)
-        pts.append(f'{cx + r_c*math.cos(ang):.1f},{cy + r_c*math.sin(ang):.1f}')
-    parts.append(f'<polygon points="{" ".join(pts)}" fill="#F8E8E2" stroke="#0F2A4D" stroke-width="0.4"/>')
-    parts.append(f'<text x="{cx}" y="{cy+0.7:.1f}" text-anchor="middle" font-family="Inter,sans-serif" font-size="1.7" font-weight="800" fill="#0F2A4D">{c_pct:.0f}%</text>')
+    pw, ph = 2.8, 2.6   # half-width, half-height
+    cx, cy = HOME[0], HOME[1] + ph   # top of plate aligns with HOME y
+    plate_pts = [
+        (cx - pw, cy - ph),         # front-left (flat edge facing pitcher)
+        (cx + pw, cy - ph),         # front-right
+        (cx + pw, cy + ph * 0.10),  # right shoulder
+        (cx,      cy + ph),         # back point (toward catcher)
+        (cx - pw, cy + ph * 0.10),  # left shoulder
+    ]
+    pts_str = ' '.join(f'{x:.2f},{y:.2f}' for x, y in plate_pts)
+    parts.append(f'<polygon points="{pts_str}" fill="#F8E8E2" stroke="#0F2A4D" stroke-width="0.4"/>')
+    parts.append(f'<text x="{cx}" y="{cy+0.4:.1f}" text-anchor="middle" font-family="Inter,sans-serif" font-size="2.2" font-weight="800" fill="#0F2A4D">{c_pct:.0f}%</text>')
 
     # Single continuous field outline — foul line L, outfield arc, foul line R,
     # all sharing the same endpoints as the foul-wedge outer corners. This is
