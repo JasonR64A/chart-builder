@@ -324,9 +324,14 @@ with col_field:
                 f'opacity="{opacity}" preserveAspectRatio="xMidYMid meet" '
                 f'pointer-events="none"/>')
 
-    parts = ['<svg viewBox="0 0 100 72" xmlns="http://www.w3.org/2000/svg" '
+    # Explicit width/height so cairosvg can size the PNG; the CSS style
+    # keeps the browser display responsive. Background is rendered as a
+    # full-viewport <rect> because cairosvg ignores CSS `background:`.
+    parts = ['<svg viewBox="0 0 100 72" width="100" height="72" '
+             'xmlns="http://www.w3.org/2000/svg" '
              'xmlns:xlink="http://www.w3.org/1999/xlink" '
-             'style="width:100%;height:auto;background:#F0EAD6;border-radius:8px;">']
+             'style="width:100%;height:auto;border-radius:8px;">'
+             '<rect x="0" y="0" width="100" height="72" fill="#F0EAD6"/>']
 
     # 64 Analytics wide brand logo, centered above the diamond. Native
     # ratio ≈ 4.3:1, so 38×9 fits the top band cleanly.
@@ -335,9 +340,17 @@ with col_field:
     # Player identity (when in Player mode) is already shown in the
     # bottom-right scope caption — no separate header needed.
 
+    # Compact integer format — keeps wide blocks readable for "All teams"
+    # views where totals run into the hundreds of thousands.
+    def _compact(n):
+        n = int(n)
+        if abs(n) >= 1_000_000: return f'{n/1_000_000:.1f}M'
+        if abs(n) >= 10_000:    return f'{n/1_000:.0f}K'
+        return f'{n:,}'
+
     # Top-left corner: hit-type breakdown (counts of 1B / 2B / 3B / HR).
-    # Tells the SHAPE of the contact (singles vs power) — complements the
-    # bottom-left slash line, which tells the QUALITY.
+    # Tells the SHAPE of the contact — complements the bottom-left slash
+    # line, which tells the QUALITY.
     def _all_top(c): return int(spray[c].sum()) if c in spray.columns else 0
     hit_types = [
         ('1B', _all_top('1B')),
@@ -345,23 +358,22 @@ with col_field:
         ('3B', _all_top('3B')),
         ('HR', _all_top('HR')),
     ]
-    tl_block_w = 7.0
+    tl_block_w = 8.0
     tl_x0 = 2
     for i, (lab, val) in enumerate(hit_types):
         cx = tl_x0 + tl_block_w/2 + i * tl_block_w
         parts.append(
             f'<text x="{cx:.1f}" y="3.5" text-anchor="middle" '
-            f'font-family="Inter,sans-serif" font-size="1.6" font-weight="600" '
+            f'font-family="Inter,sans-serif" font-size="1.5" font-weight="600" '
             f'fill="#0F2A4D" letter-spacing="0.3">{lab}</text>'
         )
         parts.append(
             f'<text x="{cx:.1f}" y="7.5" text-anchor="middle" '
-            f'font-family="Inter,sans-serif" font-size="2.6" font-weight="800" '
-            f'fill="#0F2A4D">{val:,}</text>'
+            f'font-family="Inter,sans-serif" font-size="2.2" font-weight="800" '
+            f'fill="#0F2A4D">{_compact(val)}</text>'
         )
 
-    # Top-right corner: field-side splits (Left / Center / Right percentages).
-    # Reuses the buckets dict already computed by compute_field_side_buckets.
+    # Top-right corner: field-side splits (Left / Center / Right %).
     side_splits = [
         ('LEFT',   f"{buckets['left_pct']:.0f}%"),
         ('CENTER', f"{buckets['middle_pct']:.0f}%"),
@@ -373,12 +385,12 @@ with col_field:
         cx = tr_x0 + tr_block_w/2 + i * tr_block_w
         parts.append(
             f'<text x="{cx:.1f}" y="3.5" text-anchor="middle" '
-            f'font-family="Inter,sans-serif" font-size="1.6" font-weight="600" '
+            f'font-family="Inter,sans-serif" font-size="1.5" font-weight="600" '
             f'fill="#0F2A4D" letter-spacing="0.3">{lab}</text>'
         )
         parts.append(
             f'<text x="{cx:.1f}" y="7.5" text-anchor="middle" '
-            f'font-family="Inter,sans-serif" font-size="2.6" font-weight="800" '
+            f'font-family="Inter,sans-serif" font-size="2.2" font-weight="800" '
             f'fill="#0F2A4D">{val}</text>'
         )
 
@@ -465,20 +477,20 @@ with col_field:
         ('AVG',  _metric_fmt(agg_avg,  'AVG')),
         ('SLG',  _metric_fmt(agg_slg,  'SLG')),
         ('wOBA', _metric_fmt(agg_woba, 'wOBA')),
-        ('TB',   f'{a_tb:,}'),
+        ('TB',   _compact(a_tb)),
     ]
-    block_w = 8.5
-    x0 = 2
+    block_w = 9.5
+    x0 = 1.5
     for i, (lab, val) in enumerate(overall):
         cx = x0 + block_w/2 + i * block_w
         parts.append(
             f'<text x="{cx:.1f}" y="66.7" text-anchor="middle" '
-            f'font-family="Inter,sans-serif" font-size="1.7" font-weight="600" '
+            f'font-family="Inter,sans-serif" font-size="1.5" font-weight="600" '
             f'fill="#0F2A4D" letter-spacing="0.3">{lab}</text>'
         )
         parts.append(
             f'<text x="{cx:.1f}" y="70.2" text-anchor="middle" '
-            f'font-family="Inter,sans-serif" font-size="2.6" font-weight="800" '
+            f'font-family="Inter,sans-serif" font-size="2.2" font-weight="800" '
             f'fill="#0F2A4D">{val}</text>'
         )
 
