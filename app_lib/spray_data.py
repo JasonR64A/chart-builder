@@ -18,6 +18,19 @@ import pandas as pd
 import streamlit as st
 
 PBP_DIR = Path(__file__).resolve().parent.parent / 'pbp_data' / 'play_by_play'
+DATA_DIR = Path(__file__).resolve().parent.parent / 'data'
+
+
+@st.cache_data(show_spinner=False)
+def _load_csv(name: str) -> pd.DataFrame:
+    """Load chart-builder data CSV with permissive encoding."""
+    p = DATA_DIR / name
+    if not p.exists():
+        return pd.DataFrame()
+    try:
+        return pd.read_csv(p, low_memory=False, encoding='utf-8-sig')
+    except UnicodeDecodeError:
+        return pd.read_csv(p, low_memory=False, encoding='latin-1')
 
 ZONE_NAMES = {
     1: 'P', 2: 'C', 3: '1B', 4: '2B', 5: '3B', 6: 'SS',
@@ -102,16 +115,16 @@ def compute_spray_distribution(
     if df.empty:
         return pd.DataFrame()
 
-    # Filter scope
+    # Filter scope. Use IDs / exact equality only — never substring on
+    # team names (would match Texas/Texas A&M/Texas State/Texas Tech).
     if player_id:
-        # Normalize both sides to plain int-string ('11247533'), since the
-        # raw csv has float ids ('11247533.0') and list_players returns ints.
         target = str(int(float(player_id))) if player_id else ''
         df_pid = pd.to_numeric(df['playerId'], errors='coerce')
         df_pid_str = df_pid.where(df_pid.notna(), other=pd.NA).astype('Int64').astype(str)
         df = df[df_pid_str == target]
     elif team_name:
-        df = df[df['battingTeam'].astype(str).str.contains(team_name, case=False, na=False)]
+        # Exact equality — team_name is the canonical NCAA name from list_teams.
+        df = df[df['battingTeam'].astype(str) == str(team_name)]
 
     # Restrict to balls in play (hitLocation populated)
     df = df.dropna(subset=['hitLocation']).copy()
@@ -170,12 +183,41 @@ def compute_field_side_buckets(spray_df: pd.DataFrame) -> dict:
 
 
 @st.cache_data(show_spinner=False)
-def list_teams(sport: str, division: str) -> list[str]:
-    """All team names that appear as battingTeam in the PBP file."""
+def list_teams(sport: str, division: str) -> pd.DataFrame:
+    """Return DataFrame of (ncaa_team, team_id, bip) — every team that
+    appears in the PBP file, with its chart-builder team_id resolved
+    when possible. Filtering uses ncaa_team for exact equality (the PBP
+    file's canonical name); team_id is shown in the dropdown so the user
+    sees an unambiguous handle."""
     df = _load_pbp(sport, division)
     if df.empty:
-        return []
-    return sorted(df['battingTeam'].dropna().astype(str).unique().tolist())
+        return pd.DataFrame(columns=['ncaa_team','team_id','bip'])
+    df = df.dropna(subset=['hitLocation', 'battingTeam']).copy()
+    bip = df.groupby('battingTeam').size().reset_index(name='bip')
+    bip = bip.rename(columns={'battingTeam': 'ncaa_team'})
+
+    # Best-effort team_id lookup via chart-builder teams.csv. NCAA names in
+    # PBP can include mascots ("Texas Longhorns") while teams.csv uses short
+    # names ("Texas"). Match by short-name-prefix.
+    teams_csv = _load_csv('teams.csv')
+    sport_label = 'Baseball' if sport.lower() == 'baseball' else 'Softball'
+    cb = teams_csv[teams_csv['sport'] == sport_label][['id','name']].copy() if not teams_csv.empty else pd.DataFrame()
+    name_to_id = {}
+    if not cb.empty:
+        # Sort by name length DESC so "Texas A&M" matches before "Texas"
+        cb_sorted = cb.assign(_len=cb['name'].str.len()).sort_values('_len', ascending=False)
+        for _, r in cb_sorted.iterrows():
+            name_to_id[str(r['name'])] = int(r['id'])
+
+    def find_id(ncaa: str) -> int | None:
+        # Exact prefix match — pick the longest short-name that prefixes the NCAA full name
+        for short, tid in name_to_id.items():
+            if ncaa.startswith(short):
+                return tid
+        return None
+
+    bip['team_id'] = bip['ncaa_team'].apply(find_id)
+    return bip.sort_values('ncaa_team').reset_index(drop=True)
 
 
 @st.cache_data(show_spinner=False)

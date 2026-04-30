@@ -36,15 +36,23 @@ with st.sidebar:
 
     view_mode = st.radio('View', ['Team', 'Player'], horizontal=True)
 
-    teams = list_teams(sport, division)
-    if not teams:
+    teams_df = list_teams(sport, division)
+    if teams_df.empty:
         st.error(f'No PBP data found for {sport} {division}. '
                  f'Expected pbp_data/play_by_play/{sport}_play_by_play_{division}.csv '
                  f'(or .csv.gz on Render).')
         st.stop()
 
-    selected_team = st.selectbox('Team', ['(all teams)'] + teams)
-    team_filter = None if selected_team == '(all teams)' else selected_team
+    # Build dropdown labels with team_id when known: "Texas Longhorns (id 856 · 5,510 BIP)"
+    def team_label(row):
+        tid = f"id {int(row['team_id'])}" if pd.notna(row['team_id']) else 'no id'
+        return f"{row['ncaa_team']}  ({tid} · {int(row['bip']):,} BIP)"
+    teams_df = teams_df.copy()
+    teams_df['_label'] = teams_df.apply(team_label, axis=1)
+    options = ['(all teams)'] + teams_df['_label'].tolist()
+    name_by_label = dict(zip(teams_df['_label'], teams_df['ncaa_team']))
+    selected_label = st.selectbox('Team', options)
+    team_filter = None if selected_label == '(all teams)' else name_by_label.get(selected_label)
 
     selected_player_id = None
     selected_player_name = None
