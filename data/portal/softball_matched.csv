@@ -1,5 +1,6 @@
 ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfer_date,update_date,status,year,sport,team_id,player_id_64a,player_id_ncaa_stats,matched_name,match_score,match_method,confidence,position,class_year,player_csv_team_id
 2203458835,DEMI,SILVA,Demi Silva,Menlo College,Pacific West Conference,II,04/30/2026,04/30/2026,Active,2025-26,Softball,2163,118951,3095418,Demi Silva,100.0,team+lastname,HIGH,C,So,2163
+2503530024,KASSANDRA,SWINK,Kassandra Swink,Southern Wesleyan University,Conference Carolinas|Conference Carolinas,II,04/30/2026,04/30/2026,Active,2025-26,Softball|Women's Volleyball,1491,145039,3226419,Kassie Swink,74.1,team+lastname_diff_first+confirmed,HIGH,SS,Jr,1491
 2508702866,ASHLEY,ALBERT,Ashley Albert,"University of Minnesota, Morris",Upper Midwest Athletic Conference,III,03/25/2026,04/30/2026,Active,2025-26,Softball,1697,118956,3095900,Ashley Albert,100.0,team+lastname,HIGH,SS,So,1697
 2211722173,KYLEE,HOLT,Kylee Holt,The University of Virginia's College at Wise,South Atlantic Conference,II,04/30/2026,04/30/2026,Active,2025-26,Softball,1584,145744,3205966,Kylee Holt,100.0,team+lastname,HIGH,C,Fr,1584
 2408383842,ANDREA,DAVIS,Andrea Davis,Tusculum University,South Atlantic Conference,II,04/30/2026,04/30/2026,Active,2025-26,Softball,1411,146303,3142228,Andrea Davis,100.0,team+lastname,HIGH,RF,Fr,1411
@@ -19,6 +20,7 @@ ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfe
 2308981328,BAILEY,GOSSETT,Bailey Gossett,Young Harris College,Conference Carolinas,II,04/29/2026,04/29/2026,Active,2025-26,Softball,1419,146256,3103815,Bailey Gossett,100.0,team+lastname,HIGH,OF,So,1419
 2105167674,AVA,SIN,Ava Sin,Seattle University,West Coast Conference,I,12/02/2025,04/28/2026,Signed,2025-26,Softball,1127,81242,2800272,Ava Sin,100.0,team+lastname,HIGH,DH,Sr,1127
 2311163837,LAUREN,RIDALL,Lauren Ridall,Bloomsburg University of Pennsylvania,Pennsylvania State Athletic Conference,II,02/21/2026,04/28/2026,Active,2025-26,Softball,1472,150431,,Lauren Ridall,100.0,team+lastname,HIGH,,,1472
+1909698018,BRIANNA,GODFREY,Brianna Godfrey,"University of Maryland, College Park",Big Ten Conference,I,04/27/2026,04/28/2026,Active,2025-26,Softball,1200,81867,2821834,Bri Godfrey,82.0,team+lastname_diff_first+confirmed,HIGH,P,Sr,1200
 2210694939,JACI,JOINER,Jaci Joiner,LeMoyne-Owen College,Southern Intercol. Ath. Conf.,II,04/27/2026,04/28/2026,Active,2025-26,Softball,1632,122253,3124354,Jaci Joiner,100.0,team+lastname,HIGH,CF,Fr,1632
 2301761649,KATIE,GARRETT,Katie Garrett,Kentucky State University,Southern Intercol. Ath. Conf.,II,04/28/2026,04/28/2026,Active,2025-26,Softball,1523,105572,3104551,Katie Garrett,100.0,team+lastname,HIGH,RF,So,1523
 2604894502,CORA,MOINE,Cora Moine,Muskingum University,Ohio Athletic Conference,III,04/28/2026,04/28/2026,Active,2025-26,Softball,1910,143655,3243736,Cora Moine,100.0,team+lastname,HIGH,2B,Fr,1910
