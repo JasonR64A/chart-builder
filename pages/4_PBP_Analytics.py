@@ -1691,12 +1691,15 @@ st.sidebar.markdown('---')
 st.sidebar.markdown('### Data Source')
 sport = st.sidebar.selectbox('Sport', ['baseball', 'softball'])
 division = st.sidebar.selectbox('Division', ['D1', 'D2', 'D3'])
-view = st.sidebar.radio('Mode', ['Hitter Stats', 'Pitcher Stats', 'Fielding Stats', 'Pace Chart', 'Lineup Card'], horizontal=True)
+view = st.sidebar.radio('Mode', ['Hitter Stats', 'Pitcher Stats', 'Fielding Stats', 'Pace Chart', 'Lineup Card', 'Share Graphic'], horizontal=True)
 # Team aggregation toggle for the three stat-table views (Pace Chart has its
 # own Player/Team selector built in; Lineup Card is per-team by definition).
 if view in ('Hitter Stats', 'Pitcher Stats', 'Fielding Stats'):
     group_by = st.sidebar.radio('Group by', ['Player', 'Team'], horizontal=True,
                                 help='Team aggregates all players on each team — use it to compare team-level wRC+, ERA, FPCT, etc.')
+elif view == 'Share Graphic':
+    group_by = st.sidebar.radio('Group by', ['Team', 'Player'], horizontal=True,
+                                help='Top-N teams or players for the chosen stat.')
 else:
     group_by = 'Player'
 
@@ -1715,6 +1718,13 @@ elif view == 'Pace Chart':
     pbp = load_pbp(sport, division, 'hitting')
     if pbp is None:
         st.error(f'PBP data not found for {sport} {division}')
+        st.stop()
+elif view == 'Share Graphic':
+    sg_stat_type = st.sidebar.selectbox('Stat type', ['hitting', 'pitching', 'fielding'],
+                                        key='sg_stat_type')
+    pbp = load_pbp(sport, division, sg_stat_type)
+    if pbp is None:
+        st.error(f'No {sg_stat_type} PBP data found for {sport} {division}')
         st.stop()
 else:
     stat_type = {'Hitter Stats': 'hitting', 'Pitcher Stats': 'pitching', 'Fielding Stats': 'fielding'}[view]
@@ -1841,8 +1851,8 @@ if class_map and 'teamName' in pbp.columns:
             hitting_pbp = hitting_pbp[hitting_pbp['teamName'].isin(strength_teams)]
             pitching_pbp = pitching_pbp[pitching_pbp['teamName'].isin(strength_teams)]
 
-# Team / Position / Player filters — not shown for Lineup Card or Who's Hot
-if view != 'Lineup Card':
+# Team / Position / Player filters — not shown for Lineup Card, Who's Hot, or Share Graphic
+if view not in ('Lineup Card', 'Share Graphic'):
     # Team filter
     all_teams = sorted(pbp['teamName'].dropna().unique()) if 'teamName' in pbp.columns else []
     team_list = ['All'] + all_teams
@@ -2712,4 +2722,483 @@ elif view == 'Lineup Card':
     with dl2:
         st.download_button('Download Cards PNG', data=cards_buf,
                           file_name=f'lineup_cards_{sport}_{division}.png', mime='image/png')
+
+
+# ── Share Graphic — 1080×1350 IG portrait social card ──────────────────────
+elif view == 'Share Graphic':
+    st.markdown(f'### Top Teams Graphic — {sport.title()} {division}')
+    st.caption('1080×1350 IG portrait. Pick a stat, optionally upload a hero image, then download the PNG for Twitter/Instagram.')
+
+    import base64 as _b64
+
+    # ── Stat catalog per stat-type ────────────────────────────────────────
+    HIT_STATS = [
+        ('BA',     'AVG', 3, False), ('OBP',    'OBP', 3, False),
+        ('SLG',    'SLG', 3, False), ('OPS',    'OPS', 3, False),
+        ('ISO',    'ISO', 3, False), ('wOBA',   'wOBA', 3, False),
+        ('wRC+',   'wRC+', 0, False),('K%',     'K%',  1, True),
+        ('BB%',    'BB%', 1, False), ('HR',     'HR',  0, False),
+        ('R',      'R',   0, False), ('RBI',    'RBI', 0, False),
+        ('TB',     'TB',  0, False), ('H',      'H',   0, False),
+        ('SB',     'SB',  0, False),
+    ]
+    PIT_STATS = [
+        ('ERA',    'ERA',  2, True),  ('WHIP',   'WHIP', 2, True),
+        ('K/9',    'K/9',  1, False), ('BB/9',   'BB/9', 1, True),
+        ('K%',     'K%',   1, False), ('BB%',    'BB%',  1, True),
+        ('K-BB%',  'K-BB%', 1, False),('BAA',    'BAA',  3, True),
+        ('FIP',    'FIP',  2, True),
+    ]
+    FLD_STATS = [
+        ('FPCT',   'FPCT', 3, False), ('PO',     'PO',   0, False),
+        ('A',      'A',    0, False), ('E',      'E',    0, True),
+        ('DP',     'DP',   0, False), ('TC',     'TC',   0, False),
+    ]
+    catalog = {'hitting': HIT_STATS, 'pitching': PIT_STATS, 'fielding': FLD_STATS}[sg_stat_type]
+    stat_labels = [c[0] for c in catalog]
+
+    # ── Controls ─────────────────────────────────────────────────────────
+    sg_top = st.columns([1, 1, 1, 1])
+    with sg_top[0]:
+        sg_stat = st.selectbox('Rank by', stat_labels, key='sg_stat')
+    sg_meta = next(c for c in catalog if c[0] == sg_stat)
+    _, default_suffix, default_decimals, sort_asc = sg_meta
+    with sg_top[1]:
+        sg_count = st.slider('Row count', 1, 10, 5, key='sg_count')
+    with sg_top[2]:
+        sg_min = st.number_input('Min PA / BF / TC', value=50, min_value=1, step=10, key='sg_min',
+                                  help='Qualifying threshold — PA for hitting, BF for pitching, TC for fielding.')
+    with sg_top[3]:
+        sg_show_names = st.toggle('Show team names', value=False, key='sg_names')
+
+    sg_text1, sg_text2 = st.columns(2)
+    with sg_text1:
+        sg_eyebrow = st.text_input('Eyebrow', value='SEASON-TO-DATE', key='sg_eyebrow').upper()
+        sg_headline = st.text_input('Headline (use \\n for line break)',
+                                     value=f'TOP {sg_count} {division} TEAMS\\nBY {sg_stat.upper()}',
+                                     key='sg_headline').replace('\\n', '\n').upper()
+    with sg_text2:
+        sg_suffix = st.text_input('Stat suffix', value=default_suffix, key='sg_suffix').upper()
+        sg_decimals = st.number_input('Stat decimals', value=int(default_decimals),
+                                       min_value=0, max_value=4, step=1, key='sg_decimals')
+
+    sg_text3, sg_text4 = st.columns(2)
+    with sg_text3:
+        sg_cta_label = st.text_input('CTA label', value='SIGN UP TO SEE THE LATEST UPDATED STATS',
+                                      key='sg_cta_label').upper()
+    with sg_text4:
+        sg_cta_url = st.text_input('CTA URL', value='WWW.64ANALYTICS.COM', key='sg_cta_url').upper()
+
+    sg_rail = st.text_input('Side-rail tagline',
+                             value='64 ANALYTICS IS ONE OF THE INDUSTRY LEADERS IN COLLEGE SPORTS ANALYTICS',
+                             key='sg_rail').upper()
+
+    sg_hero = st.file_uploader('Hero image (optional, right column — 4:5 portrait recommended)',
+                                type=['png', 'jpg', 'jpeg'], key='sg_hero')
+
+    # ── Compute top-N rows ───────────────────────────────────────────────
+    pbp_rank = pbp.copy()
+    if group_by == 'Team':
+        rank_col = 'teamName'
+    else:
+        rank_col = 'playerId' if 'playerId' in pbp_rank.columns else 'playerName'
+
+    if sg_stat_type == 'hitting':
+        league_stats = compute_hitting_stats(pbp_rank)
+        league_woba = league_stats['wOBA']
+        league_r_pa = league_stats.get('R/PA', 0)
+        df_top = compute_grouped_hitting(pbp_rank, rank_col, league_woba,
+                                          league_r_pa=league_r_pa, min_pa=sg_min)
+    elif sg_stat_type == 'pitching':
+        df_top = compute_grouped_pitching(pbp_rank, rank_col, min_bf=sg_min)
+    else:
+        df_top = compute_grouped_fielding(pbp_rank, rank_col)
+        if 'TC' in df_top.columns:
+            df_top = df_top[df_top['TC'] >= sg_min]
+
+    if sg_stat not in df_top.columns:
+        st.error(f"Stat '{sg_stat}' not in computed columns.")
+        st.stop()
+
+    df_top[sg_stat] = pd.to_numeric(df_top[sg_stat], errors='coerce')
+    df_top = df_top.dropna(subset=[sg_stat]).sort_values(sg_stat, ascending=sort_asc).head(sg_count).reset_index(drop=True)
+
+    if df_top.empty:
+        st.warning('No qualifying rows for the chosen stat / threshold.')
+        st.stop()
+
+    # Resolve display name for each row + team metadata for color/logo
+    teams_meta = pd.read_csv(DATA_DIR / 'teams.csv', low_memory=False).fillna('')
+    sport_label = 'Baseball' if sport == 'baseball' else 'Softball'
+    sport_teams_lookup = teams_meta[teams_meta['sport'] == sport_label]
+
+    def _team_lookup(tname):
+        # Match shortest team-name prefix (memory rule)
+        cands = sport_teams_lookup[sport_teams_lookup['name'] == tname]
+        if cands.empty:
+            cands = sport_teams_lookup[sport_teams_lookup['name'].apply(
+                lambda n: isinstance(tname, str) and tname.startswith(n))]
+            if not cands.empty:
+                cands = cands.sort_values('name', key=lambda s: s.str.len()).head(1)
+        if cands.empty:
+            return None
+        return cands.iloc[0]
+
+    # Stable per-team palette (by team_id_ncaa hash) so the same team always
+    # gets the same pill color across re-renders.
+    PILL_PALETTE = ['#1d4ed8', '#2a2a2f', '#d72638', '#3a3f47', '#1f3a8a',
+                    '#0f5132', '#7c2d12', '#312e81', '#0e7490', '#7f1d1d']
+
+    rows_data = []
+    for idx, row in df_top.iterrows():
+        if group_by == 'Team':
+            tname = row.get('teamName', '') or row.get(rank_col, '')
+            display = tname
+            team_row = _team_lookup(tname)
+        else:
+            display = row.get('playerName', '') or row.get(rank_col, '')
+            tname = row.get('teamName', '') or row.get('school', '') or ''
+            team_row = _team_lookup(tname) if tname else None
+        # Logo path
+        logo_b64 = None
+        if team_row is not None and team_row.get('id'):
+            try:
+                tid = int(team_row['id'])
+                logo_path = LOGO_DIR / f'{tid}.png'
+                if logo_path.exists():
+                    logo_b64 = _b64.b64encode(logo_path.read_bytes()).decode('ascii')
+            except Exception:
+                pass
+        # Pill color — stable per team
+        if team_row is not None and team_row.get('team_id_ncaa') not in (None, '', 'nan'):
+            try:
+                seed_idx = int(float(team_row['team_id_ncaa'])) % len(PILL_PALETTE)
+            except Exception:
+                seed_idx = idx % len(PILL_PALETTE)
+        else:
+            seed_idx = idx % len(PILL_PALETTE)
+        pill_color = PILL_PALETTE[seed_idx]
+        # Abbreviation: first 3 letters of team name uppercase, or initials
+        words = (tname or display).split()
+        if len(words) >= 2:
+            abbr = ''.join(w[0] for w in words[:3]).upper()
+        else:
+            abbr = (tname or display)[:3].upper()
+        rows_data.append({
+            'rank': idx + 1, 'name': display, 'team': tname,
+            'abbr': abbr, 'stat': float(row[sg_stat]),
+            'color': pill_color, 'logo_b64': logo_b64,
+        })
+
+    # ── Build SVG ─────────────────────────────────────────────────────────
+    def _xe(s):
+        if s is None: return ''
+        return (str(s).replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;'))
+
+    VB_W, VB_H = 1080, 1350
+    BG = '#0a0a0c'
+    BG_RAIL = '#15151a'
+    RED = '#d72638'
+    WHITE = '#ffffff'
+
+    # Layout per row count (mirrors HTML CSS scaling rules)
+    row_layout = {
+        1:  (88, 18, 78, 64), 2:  (88, 18, 78, 64), 3:  (88, 18, 78, 64),
+        4:  (88, 18, 78, 64), 5:  (88, 18, 78, 64), 6:  (78, 14, 68, 64),
+        7:  (70, 12, 60, 58), 8:  (64, 11, 54, 54), 9:  (58, 10, 48, 50),
+        10: (54, 8,  44, 46),
+    }
+    ROW_H, ROW_GAP, RANK_SIZE, HEAD_SIZE = row_layout[max(1, min(10, sg_count))]
+
+    # Hero image as data URL (or None)
+    hero_data_url = None
+    if sg_hero is not None:
+        try:
+            mime = sg_hero.type or 'image/png'
+            hero_b64 = _b64.b64encode(sg_hero.getvalue()).decode('ascii')
+            hero_data_url = f'data:{mime};base64,{hero_b64}'
+        except Exception:
+            hero_data_url = None
+
+    # 64 emblem from chart-builder/assets if it exists
+    EMBLEM_PATHS = [_APP_DIR / 'assets' / '64-emblem-white.png',
+                    _APP_DIR / 'assets' / 'logo-64a-mono-white.png',
+                    _APP_DIR / 'assets' / 'logo-64a-wide.png']
+    emblem_b64 = None
+    for ep in EMBLEM_PATHS:
+        if ep.exists():
+            try:
+                emblem_b64 = _b64.b64encode(ep.read_bytes()).decode('ascii')
+                break
+            except Exception:
+                pass
+
+    parts = [
+        f'<svg viewBox="0 0 {VB_W} {VB_H}" width="{VB_W}" height="{VB_H}" '
+        f'xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">',
+        '<defs>',
+        '<style>'
+        '@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Barlow+Condensed:ital,wght@0,500;0,600;0,700;1,600;1,700;1,800&family=JetBrains+Mono:wght@500;600&display=swap");'
+        '.os{font-family:Oswald,sans-serif}.bc{font-family:"Barlow Condensed",sans-serif}.mn{font-family:"JetBrains Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}'
+        '</style>',
+        # turbulence filter for distortion bleed
+        '<filter id="distort" x="-10%" y="-10%" width="120%" height="120%">'
+        '<feTurbulence type="fractalNoise" baseFrequency="0.012 0.022" numOctaves="2" seed="7" result="noise"/>'
+        '<feDisplacementMap in="SourceGraphic" in2="noise" scale="34" xChannelSelector="R" yChannelSelector="G"/>'
+        '</filter>',
+        # left-bleed mask for the hero image distortion
+        '<mask id="bleed-mask" maskUnits="userSpaceOnUse">'
+        f'<linearGradient id="bg-grad" x1="0" y1="0" x2="{VB_W}" y2="0" gradientUnits="userSpaceOnUse">'
+        '<stop offset="0%" stop-color="black"/>'
+        '<stop offset="18%" stop-color="rgb(140,140,140)"/>'
+        '<stop offset="32%" stop-color="rgb(204,204,204)"/>'
+        '<stop offset="48%" stop-color="black"/>'
+        '<stop offset="100%" stop-color="black"/>'
+        '</linearGradient>'
+        f'<rect x="0" y="0" width="{VB_W}" height="{VB_H}" fill="url(#bg-grad)"/>'
+        '</mask>',
+        '</defs>',
+        # background
+        f'<rect x="0" y="0" width="{VB_W}" height="{VB_H}" fill="{BG}"/>',
+    ]
+
+    # Distortion bleed layer (only when hero image present)
+    if hero_data_url:
+        # Image stretched 2x and shifted left so the "bleed" covers the rows
+        parts.append(
+            f'<g mask="url(#bleed-mask)" opacity="0.55" style="mix-blend-mode:screen">'
+            f'<image href="{hero_data_url}" xlink:href="{hero_data_url}" '
+            f'x="{-VB_W * 0.5}" y="{-VB_H * 0.5}" width="{VB_W * 2}" height="{VB_H * 2}" '
+            f'preserveAspectRatio="xMidYMid slice" filter="url(#distort)"/>'
+            f'</g>'
+        )
+
+    # Dark scrim over left half so text stays readable
+    parts.append(
+        '<defs><linearGradient id="scrim" x1="0" y1="0" x2="1" y2="0">'
+        '<stop offset="0%" stop-color="#0a0a0c" stop-opacity="0.96"/>'
+        '<stop offset="45%" stop-color="#0a0a0c" stop-opacity="0.85"/>'
+        '<stop offset="80%" stop-color="#0a0a0c" stop-opacity="0.55"/>'
+        '<stop offset="100%" stop-color="#0a0a0c" stop-opacity="0"/>'
+        '</linearGradient></defs>'
+        f'<rect x="0" y="0" width="{int(VB_W * 0.6)}" height="{VB_H}" fill="url(#scrim)"/>'
+    )
+
+    # Right column hero image
+    if hero_data_url:
+        parts.append(
+            f'<image href="{hero_data_url}" xlink:href="{hero_data_url}" '
+            f'x="{VB_W // 2}" y="0" width="{VB_W // 2}" height="{VB_H}" '
+            f'preserveAspectRatio="xMidYMid slice"/>'
+        )
+    else:
+        # placeholder pattern
+        parts.append('<defs><pattern id="empty-pat" patternUnits="userSpaceOnUse" '
+                     'width="48" height="48" patternTransform="rotate(135)">'
+                     '<rect width="48" height="48" fill="#18181c"/>'
+                     '<rect x="24" width="24" height="48" fill="#1e1e23"/>'
+                     '</pattern></defs>')
+        parts.append(f'<rect x="{VB_W // 2}" y="0" width="{VB_W // 2}" height="{VB_H}" fill="url(#empty-pat)"/>')
+
+    # Side rails — left + right
+    parts.append(f'<rect x="0" y="0" width="38" height="{VB_H}" fill="{BG_RAIL}"/>')
+    parts.append(f'<rect x="38" y="0" width="2" height="{VB_H}" fill="{RED}"/>')
+    parts.append(f'<rect x="{VB_W - 38}" y="0" width="38" height="{VB_H}" fill="{BG_RAIL}"/>')
+    parts.append(f'<rect x="{VB_W - 40}" y="0" width="2" height="{VB_H}" fill="{RED}"/>')
+
+    # Rail text — vertical, both sides
+    rail_clean = _xe(sg_rail)
+    # Left rail: read top-to-bottom along the rail. Use rotation -90 about center.
+    parts.append(
+        f'<g transform="translate(19 {VB_H // 2}) rotate(-90)">'
+        f'<text x="0" y="5" text-anchor="middle" class="os" font-size="13" font-weight="600" '
+        f'fill="{RED}" letter-spacing="4.2">{rail_clean}</text>'
+        f'</g>'
+    )
+    parts.append(
+        f'<g transform="translate({VB_W - 19} {VB_H // 2}) rotate(90)">'
+        f'<text x="0" y="5" text-anchor="middle" class="os" font-size="13" font-weight="600" '
+        f'fill="{RED}" letter-spacing="4.2">{rail_clean}</text>'
+        f'</g>'
+    )
+
+    # ── LEFT COLUMN — content ────────────────────────────────────────────
+    LEFT_PAD_X = 76
+    content_x = LEFT_PAD_X
+    content_top_y = 80
+
+    # Eyebrow
+    parts.append(
+        f'<text x="{content_x}" y="{content_top_y + 14}" class="os" font-size="22" '
+        f'font-weight="600" fill="{WHITE}" letter-spacing="3.96">{_xe(sg_eyebrow)}</text>'
+    )
+
+    # Headline (multi-line; italic)
+    head_y = content_top_y + 14 + 28
+    head_lines = sg_headline.split('\n')
+    for i, line in enumerate(head_lines):
+        parts.append(
+            f'<text x="{content_x}" y="{head_y + (i + 1) * HEAD_SIZE * 0.95:.0f}" '
+            f'class="bc" font-size="{HEAD_SIZE}" font-weight="800" font-style="italic" '
+            f'fill="{WHITE}" letter-spacing="0.32">{_xe(line)}</text>'
+        )
+
+    # Rows
+    rows_top_y = head_y + len(head_lines) * HEAD_SIZE * 0.95 + 36
+    for idx, rd in enumerate(rows_data):
+        row_y = rows_top_y + idx * (ROW_H + ROW_GAP)
+        # Rank number
+        rank_x = content_x + 2
+        parts.append(
+            f'<text x="{rank_x}" y="{row_y + ROW_H * 0.78:.0f}" class="bc" '
+            f'font-size="{RANK_SIZE}" font-weight="800" font-style="italic" '
+            f'fill="{WHITE}" letter-spacing="-0.15">{rd["rank"]}</text>'
+        )
+        # Pill
+        pill_x = content_x + RANK_SIZE * 0.85 + 14
+        pill_w = VB_W - 38 - 28 - pill_x  # right edge minus rail minus inner pad
+        pill_h = ROW_H
+        pill_r = pill_h / 2
+        parts.append(
+            f'<rect x="{pill_x:.1f}" y="{row_y:.1f}" width="{pill_w:.1f}" height="{pill_h}" '
+            f'rx="{pill_r}" ry="{pill_r}" fill="{rd["color"]}"/>'
+        )
+        # Logo / placeholder circle on left of pill
+        logo_size = pill_h * 0.8
+        logo_cx = pill_x + pill_h / 2
+        logo_cy = row_y + pill_h / 2
+        if rd['logo_b64']:
+            parts.append(
+                f'<image href="data:image/png;base64,{rd["logo_b64"]}" '
+                f'xlink:href="data:image/png;base64,{rd["logo_b64"]}" '
+                f'x="{logo_cx - logo_size / 2:.1f}" y="{logo_cy - logo_size / 2:.1f}" '
+                f'width="{logo_size:.1f}" height="{logo_size:.1f}" '
+                f'preserveAspectRatio="xMidYMid meet"/>'
+            )
+        else:
+            parts.append(
+                f'<circle cx="{logo_cx:.1f}" cy="{logo_cy:.1f}" r="{logo_size / 2:.1f}" '
+                f'fill="rgba(255,255,255,0.12)"/>'
+                f'<text x="{logo_cx:.1f}" y="{logo_cy + 6:.1f}" class="bc" '
+                f'font-size="{int(pill_h * 0.26)}" font-weight="800" font-style="italic" '
+                f'fill="{WHITE}" text-anchor="middle" letter-spacing="0.4">{_xe(rd["abbr"])}</text>'
+            )
+        # Team / player name (only when toggle on)
+        text_left = pill_x + pill_h + 12
+        if sg_show_names:
+            parts.append(
+                f'<text x="{text_left:.1f}" y="{logo_cy + 8:.1f}" class="bc" '
+                f'font-size="26" font-weight="700" font-style="italic" '
+                f'fill="{WHITE}" letter-spacing="0.5">{_xe(rd["name"]).upper()}</text>'
+            )
+        # Stat value (right-aligned)
+        stat_str = f'{rd["stat"]:.{int(sg_decimals)}f}'
+        stat_text_x = pill_x + pill_w - 28
+        stat_size = max(20, min(32, int(pill_h * 0.36)))
+        if not sg_show_names:
+            # left-align stat where the team name would be
+            stat_text_x_l = text_left
+            parts.append(
+                f'<text x="{stat_text_x_l:.1f}" y="{logo_cy + 8:.1f}" class="bc" '
+                f'font-size="{stat_size}" font-weight="800" font-style="italic" '
+                f'fill="{WHITE}" letter-spacing="0.5">{stat_str}{(" " + _xe(sg_suffix)) if sg_suffix else ""}</text>'
+            )
+        else:
+            parts.append(
+                f'<text x="{stat_text_x:.1f}" y="{logo_cy + 8:.1f}" class="bc" '
+                f'font-size="{stat_size}" font-weight="800" font-style="italic" '
+                f'fill="{WHITE}" text-anchor="end" letter-spacing="0.5">{stat_str}{(" " + _xe(sg_suffix)) if sg_suffix else ""}</text>'
+            )
+
+    # ── FOOTER ────────────────────────────────────────────────────────────
+    foot_top = VB_H - 180
+    # 64 emblem
+    if emblem_b64:
+        parts.append(
+            f'<image href="data:image/png;base64,{emblem_b64}" '
+            f'xlink:href="data:image/png;base64,{emblem_b64}" '
+            f'x="{content_x}" y="{foot_top}" width="70" height="70" '
+            f'preserveAspectRatio="xMidYMid meet"/>'
+        )
+    else:
+        parts.append(
+            f'<circle cx="{content_x + 35}" cy="{foot_top + 35}" r="33" fill="{RED}"/>'
+            f'<text x="{content_x + 35}" y="{foot_top + 47}" class="bc" '
+            f'font-size="32" font-weight="800" font-style="italic" '
+            f'fill="{WHITE}" text-anchor="middle">64</text>'
+        )
+    # PRESENTED BY label
+    parts.append(
+        f'<text x="{content_x + 84}" y="{foot_top + 22}" class="os" font-size="11" '
+        f'font-weight="600" fill="{WHITE}" letter-spacing="2.42" '
+        f'opacity="0.85">PRESENTED BY</text>'
+    )
+    parts.append(
+        f'<text x="{content_x + 84}" y="{foot_top + 50}" class="bc" font-size="28" '
+        f'font-weight="800" font-style="italic" fill="{WHITE}" letter-spacing="0.5">'
+        f'64 ANALYTICS</text>'
+    )
+    # Divider
+    parts.append(
+        f'<line x1="{content_x}" y1="{foot_top + 88}" x2="{VB_W // 2 - 28}" y2="{foot_top + 88}" '
+        f'stroke="rgba(255,255,255,0.35)" stroke-width="1"/>'
+    )
+    # CTA label
+    parts.append(
+        f'<text x="{content_x}" y="{foot_top + 116}" class="os" font-size="16" '
+        f'font-weight="600" fill="{WHITE}" letter-spacing="2.88">{_xe(sg_cta_label)}</text>'
+    )
+    # CTA URL (red)
+    parts.append(
+        f'<text x="{content_x}" y="{foot_top + 152}" class="bc" font-size="28" '
+        f'font-weight="800" font-style="italic" fill="{RED}" letter-spacing="0.5">'
+        f'{_xe(sg_cta_url)}</text>'
+    )
+
+    # Corner mark on right column (over hero image area)
+    corner_size = 92
+    corner_x = VB_W - 38 - 64 - corner_size
+    corner_y = 36
+    if emblem_b64:
+        parts.append(
+            f'<image href="data:image/png;base64,{emblem_b64}" '
+            f'xlink:href="data:image/png;base64,{emblem_b64}" '
+            f'x="{corner_x}" y="{corner_y}" width="{corner_size}" height="{corner_size}" '
+            f'preserveAspectRatio="xMidYMid meet"/>'
+        )
+    else:
+        parts.append(
+            f'<circle cx="{corner_x + corner_size / 2:.0f}" cy="{corner_y + corner_size / 2:.0f}" '
+            f'r="{corner_size / 2}" fill="{RED}"/>'
+            f'<text x="{corner_x + corner_size / 2:.0f}" y="{corner_y + corner_size / 2 + 12:.0f}" '
+            f'class="bc" font-size="36" font-weight="800" font-style="italic" '
+            f'fill="{WHITE}" text-anchor="middle" letter-spacing="-0.5">64</text>'
+        )
+
+    parts.append('</svg>')
+    sg_svg = ''.join(parts)
+
+    # Display
+    sg_display = sg_svg.replace(
+        '<svg ',
+        '<svg style="width:100%;max-width:1080px;height:auto;display:block;'
+        'margin:0 auto;border-radius:8px;box-shadow:0 12px 36px rgba(0,0,0,.5);" ', 1,
+    )
+    st.markdown(sg_display, unsafe_allow_html=True)
+
+    # PNG download
+    try:
+        import cairosvg
+        png_bytes = cairosvg.svg2png(bytestring=sg_svg.encode('utf-8'), output_width=2160)
+        safe_stat = ''.join(c if c.isalnum() else '_' for c in str(sg_stat))[:20]
+        fname = f'top_{sg_count}_{group_by.lower()}_{safe_stat}_{sport}_{division}.png'
+        st.download_button('Download PNG (2160w)', data=png_bytes, file_name=fname,
+                           mime='image/png', use_container_width=False)
+    except Exception as e:
+        st.caption(f'PNG export unavailable in this environment ({type(e).__name__}: {str(e)[:80]}).')
+
+    st.markdown('---')
+    st.caption('1080×1350 IG portrait. Fonts (Oswald + Barlow Condensed Italic) pull from Google Fonts at render time. '
+               'Pill colors are stable per team via team_id_ncaa hash. Hero image, when uploaded, bleeds left across '
+               'the rows with a turbulence-distorted edge.')
 
