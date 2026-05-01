@@ -2790,7 +2790,7 @@ elif view == 'Share Graphic':
         sg_cta_url = st.text_input('CTA URL', value='WWW.64ANALYTICS.COM', key='sg_cta_url').upper()
 
     sg_rail = st.text_input('Side-rail tagline',
-                             value='64 ANALYTICS IS ONE OF THE INDUSTRY LEADERS IN COLLEGE SPORTS ANALYTICS',
+                             value='64 ANALYTICS IS THE INDUSTRY LEADER FOR DIAMOND SPORTS ANALYTICS',
                              key='sg_rail').upper()
 
     sg_hero = st.file_uploader('Hero image (optional, right column — 4:5 portrait recommended)',
@@ -2844,10 +2844,79 @@ elif view == 'Share Graphic':
             return None
         return cands.iloc[0]
 
-    # Stable per-team palette (by team_id_ncaa hash) so the same team always
-    # gets the same pill color across re-renders.
+    # Fallback palette when logo color extraction fails.
     PILL_PALETTE = ['#1d4ed8', '#2a2a2f', '#d72638', '#3a3f47', '#1f3a8a',
                     '#0f5132', '#7c2d12', '#312e81', '#0e7490', '#7f1d1d']
+
+    @st.cache_data(show_spinner=False)
+    def _team_dominant_color(cb_id):
+        """Extract the team's primary brand color from its logo PNG. Skips
+        near-white, near-black, and near-grayscale pixels (silvers, etc.) so
+        the chromatic primary wins. Returns hex like '#8C1D40'."""
+        if cb_id is None:
+            return None
+        try:
+            from PIL import Image
+            from collections import Counter
+        except Exception:
+            return None
+        p = LOGO_DIR / f'{int(cb_id)}.png'
+        if not p.exists():
+            return None
+        try:
+            img = Image.open(p).convert('RGBA').resize((96, 96), Image.LANCZOS)
+            cleaned = []
+            for r, g, b, a in img.getdata():
+                if a < 220:
+                    continue
+                if r > 235 and g > 235 and b > 235:        # near white
+                    continue
+                if r < 18 and g < 18 and b < 18:           # near black
+                    continue
+                if max(r, g, b) - min(r, g, b) < 20:       # near gray (silver, etc.)
+                    continue
+                cleaned.append((r // 16 * 16, g // 16 * 16, b // 16 * 16))
+            if not cleaned:
+                return None
+            top = Counter(cleaned).most_common(1)[0][0]
+            return f'#{top[0]:02x}{top[1]:02x}{top[2]:02x}'
+        except Exception:
+            return None
+
+    # Bridge from PBP playerId (NCAA season-id) to chart-builder cb_id +
+    # team_id, used to look up player headshots and the player's team color.
+    @st.cache_data(show_spinner=False)
+    def _ncaa_pid_to_cb_bridge():
+        """{ncaa_pid: {cb_id, team_id}} for the latest roster year."""
+        try:
+            rosters = pd.read_csv(DATA_DIR / 'rosters.csv', low_memory=False)
+        except Exception:
+            return {}
+        if 'Year' in rosters.columns:
+            rosters['Year'] = pd.to_numeric(rosters['Year'], errors='coerce')
+            current_year = int(rosters['Year'].max())
+            r = rosters[rosters['Year'] == current_year]
+        else:
+            r = rosters
+        cols_needed = [c for c in ('player_id', 'player_ncaa_season_id', 'team_id') if c in r.columns]
+        if 'player_ncaa_season_id' not in cols_needed or 'player_id' not in cols_needed:
+            return {}
+        r = r[cols_needed].copy()
+        r['ncaa_pid'] = pd.to_numeric(r['player_ncaa_season_id'], errors='coerce').astype('Int64')
+        r = r.dropna(subset=['ncaa_pid', 'player_id'])
+        bridge = {}
+        for _, row in r.iterrows():
+            try:
+                bridge[int(row['ncaa_pid'])] = {
+                    'cb_id': int(row['player_id']),
+                    'team_id': int(row['team_id']) if 'team_id' in row and pd.notna(row['team_id']) else None,
+                }
+            except Exception:
+                continue
+        return bridge
+
+    HEADSHOT_DIR = _APP_DIR / 'assets' / 'player_headshots'
+    pid_bridge = _ncaa_pid_to_cb_bridge() if group_by == 'Player' else {}
 
     rows_data = []
     for idx, row in df_top.iterrows():
@@ -2855,29 +2924,67 @@ elif view == 'Share Graphic':
             tname = row.get('teamName', '') or row.get(rank_col, '')
             display = tname
             team_row = _team_lookup(tname)
+            ncaa_pid = None
         else:
             display = row.get('playerName', '') or row.get(rank_col, '')
             tname = row.get('teamName', '') or row.get('school', '') or ''
             team_row = _team_lookup(tname) if tname else None
-        # Logo path
-        logo_b64 = None
-        if team_row is not None and team_row.get('id'):
+            ncaa_pid = row.get('playerId', None)
             try:
-                tid = int(team_row['id'])
-                logo_path = LOGO_DIR / f'{tid}.png'
+                ncaa_pid = int(ncaa_pid) if ncaa_pid is not None and not pd.isna(ncaa_pid) else None
+            except Exception:
+                ncaa_pid = None
+
+        # Resolve cb player + team via bridge for player rows
+        cb_player_id = None
+        if ncaa_pid is not None and ncaa_pid in pid_bridge:
+            cb_player_id = pid_bridge[ncaa_pid].get('cb_id')
+            # If team_row didn't resolve via name match, try by team_id from bridge
+            br_team_id = pid_bridge[ncaa_pid].get('team_id')
+            if (team_row is None or (team_row is not None and not team_row.get('id'))) and br_team_id:
+                cands = sport_teams_lookup[sport_teams_lookup['id'] == br_team_id]
+                if not cands.empty:
+                    team_row = cands.iloc[0]
+
+        team_cb_id = None
+        if team_row is not None:
+            try:
+                team_cb_id = int(team_row['id']) if team_row.get('id') else None
+            except Exception:
+                team_cb_id = None
+
+        # Logo: team logo (fallback for placeholder when no headshot)
+        logo_b64 = None
+        if team_cb_id is not None:
+            try:
+                logo_path = LOGO_DIR / f'{team_cb_id}.png'
                 if logo_path.exists():
                     logo_b64 = _b64.b64encode(logo_path.read_bytes()).decode('ascii')
             except Exception:
                 pass
-        # Pill color — stable per team
-        if team_row is not None and team_row.get('team_id_ncaa') not in (None, '', 'nan'):
+
+        # Player headshot for Player mode
+        headshot_b64 = None
+        if cb_player_id is not None:
             try:
-                seed_idx = int(float(team_row['team_id_ncaa'])) % len(PILL_PALETTE)
+                hs_path = HEADSHOT_DIR / f'{cb_player_id}.png'
+                if hs_path.exists():
+                    headshot_b64 = _b64.b64encode(hs_path.read_bytes()).decode('ascii')
+            except Exception:
+                pass
+
+        # Pill color — extracted from team logo PNG (palette fallback)
+        pill_color = _team_dominant_color(team_cb_id) if team_cb_id is not None else None
+        if not pill_color:
+            try:
+                if team_row is not None and team_row.get('team_id_ncaa') not in (None, '', 'nan'):
+                    seed_idx = int(float(team_row['team_id_ncaa'])) % len(PILL_PALETTE)
+                else:
+                    seed_idx = idx % len(PILL_PALETTE)
             except Exception:
                 seed_idx = idx % len(PILL_PALETTE)
-        else:
-            seed_idx = idx % len(PILL_PALETTE)
-        pill_color = PILL_PALETTE[seed_idx]
+            pill_color = PILL_PALETTE[seed_idx]
+
         # Abbreviation: first 3 letters of team name uppercase, or initials
         words = (tname or display).split()
         if len(words) >= 2:
@@ -2888,6 +2995,8 @@ elif view == 'Share Graphic':
             'rank': idx + 1, 'name': display, 'team': tname,
             'abbr': abbr, 'stat': float(row[sg_stat]),
             'color': pill_color, 'logo_b64': logo_b64,
+            'headshot_b64': headshot_b64, 'cb_player_id': cb_player_id,
+            'team_cb_id': team_cb_id,
         })
 
     # ── Build SVG ─────────────────────────────────────────────────────────
@@ -2910,7 +3019,8 @@ elif view == 'Share Graphic':
     }
     ROW_H, ROW_GAP, RANK_SIZE, HEAD_SIZE = row_layout[max(1, min(10, sg_count))]
 
-    # Hero image as data URL (or None)
+    # Hero image as data URL — manual upload wins; otherwise for Player mode,
+    # auto-fill from the top-1 player's headshot if available.
     hero_data_url = None
     if sg_hero is not None:
         try:
@@ -2919,6 +3029,10 @@ elif view == 'Share Graphic':
             hero_data_url = f'data:{mime};base64,{hero_b64}'
         except Exception:
             hero_data_url = None
+    if hero_data_url is None and group_by == 'Player' and rows_data:
+        top_hs = rows_data[0].get('headshot_b64')
+        if top_hs:
+            hero_data_url = f'data:image/png;base64,{top_hs}'
 
     # 64 emblem from chart-builder/assets if it exists
     EMBLEM_PATHS = [_APP_DIR / 'assets' / '64-emblem-white.png',
@@ -3043,31 +3157,69 @@ elif view == 'Share Graphic':
             f'fill="{WHITE}" letter-spacing="0.32">{_xe(line)}</text>'
         )
 
-    # Rows
-    rows_top_y = head_y + len(head_lines) * HEAD_SIZE * 0.95 + 36
+    # Rows — vertically center the block in the available space between
+    # headline-bottom and footer-top. Scale ROW_H so the block fills ~78% of
+    # available height, capped to a sane range so type stays balanced.
+    headline_bottom_y = head_y + len(head_lines) * HEAD_SIZE * 0.95 + 24
+    footer_top_y = VB_H - 180
+    available_h = footer_top_y - headline_bottom_y
+    _gap_ratio = (ROW_GAP / ROW_H) if ROW_H else 0.205
+    _rank_ratio = (RANK_SIZE / ROW_H) if ROW_H else 0.886
+    _target_block = available_h * 0.82
+    _new_row_h = _target_block / max(1.0, sg_count + (sg_count - 1) * _gap_ratio)
+    _new_row_h = max(54, min(118, _new_row_h))
+    ROW_H = _new_row_h
+    ROW_GAP = ROW_H * _gap_ratio
+    RANK_SIZE = ROW_H * _rank_ratio
+
+    block_h = sg_count * ROW_H + max(0, sg_count - 1) * ROW_GAP
+    rows_top_y = headline_bottom_y + (available_h - block_h) / 2
+
+    # Pill geometry — constrained to the LEFT half of the canvas so the right
+    # column stays clear for the hero image.
+    PILL_RIGHT_EDGE = VB_W * 0.5 - 28
+
     for idx, rd in enumerate(rows_data):
         row_y = rows_top_y + idx * (ROW_H + ROW_GAP)
         # Rank number
         rank_x = content_x + 2
         parts.append(
             f'<text x="{rank_x}" y="{row_y + ROW_H * 0.78:.0f}" class="bc" '
-            f'font-size="{RANK_SIZE}" font-weight="800" font-style="italic" '
+            f'font-size="{RANK_SIZE:.0f}" font-weight="800" font-style="italic" '
             f'fill="{WHITE}" letter-spacing="-0.15">{rd["rank"]}</text>'
         )
-        # Pill
+        # Pill — left edge after rank, right edge at PILL_RIGHT_EDGE
         pill_x = content_x + RANK_SIZE * 0.85 + 14
-        pill_w = VB_W - 38 - 28 - pill_x  # right edge minus rail minus inner pad
+        pill_w = PILL_RIGHT_EDGE - pill_x
         pill_h = ROW_H
         pill_r = pill_h / 2
         parts.append(
             f'<rect x="{pill_x:.1f}" y="{row_y:.1f}" width="{pill_w:.1f}" height="{pill_h}" '
             f'rx="{pill_r}" ry="{pill_r}" fill="{rd["color"]}"/>'
         )
-        # Logo / placeholder circle on left of pill
+
+        # Logo position: for Player mode, prefer headshot circle; for Team
+        # mode use the team logo. Fall back to abbr placeholder.
         logo_size = pill_h * 0.8
         logo_cx = pill_x + pill_h / 2
         logo_cy = row_y + pill_h / 2
-        if rd['logo_b64']:
+        use_headshot = group_by == 'Player' and rd.get('headshot_b64')
+        if use_headshot:
+            # Circular clip: define a clipPath unique to this row.
+            clip_id = f'sg_clip_{idx}'
+            parts.append(
+                f'<defs><clipPath id="{clip_id}">'
+                f'<circle cx="{logo_cx:.1f}" cy="{logo_cy:.1f}" r="{logo_size / 2:.1f}"/>'
+                f'</clipPath></defs>'
+                f'<circle cx="{logo_cx:.1f}" cy="{logo_cy:.1f}" r="{logo_size / 2:.1f}" '
+                f'fill="rgba(255,255,255,0.12)"/>'
+                f'<image href="data:image/png;base64,{rd["headshot_b64"]}" '
+                f'xlink:href="data:image/png;base64,{rd["headshot_b64"]}" '
+                f'x="{logo_cx - logo_size / 2:.1f}" y="{logo_cy - logo_size / 2:.1f}" '
+                f'width="{logo_size:.1f}" height="{logo_size:.1f}" '
+                f'preserveAspectRatio="xMidYMid slice" clip-path="url(#{clip_id})"/>'
+            )
+        elif rd['logo_b64']:
             parts.append(
                 f'<image href="data:image/png;base64,{rd["logo_b64"]}" '
                 f'xlink:href="data:image/png;base64,{rd["logo_b64"]}" '
@@ -3091,21 +3243,20 @@ elif view == 'Share Graphic':
                 f'font-size="26" font-weight="700" font-style="italic" '
                 f'fill="{WHITE}" letter-spacing="0.5">{_xe(rd["name"]).upper()}</text>'
             )
-        # Stat value (right-aligned)
+        # Stat value
         stat_str = f'{rd["stat"]:.{int(sg_decimals)}f}'
-        stat_text_x = pill_x + pill_w - 28
-        stat_size = max(20, min(32, int(pill_h * 0.36)))
+        stat_size = max(20, min(34, int(pill_h * 0.38)))
+        stat_text_x_right = pill_x + pill_w - 22
         if not sg_show_names:
             # left-align stat where the team name would be
-            stat_text_x_l = text_left
             parts.append(
-                f'<text x="{stat_text_x_l:.1f}" y="{logo_cy + 8:.1f}" class="bc" '
+                f'<text x="{text_left:.1f}" y="{logo_cy + 8:.1f}" class="bc" '
                 f'font-size="{stat_size}" font-weight="800" font-style="italic" '
                 f'fill="{WHITE}" letter-spacing="0.5">{stat_str}{(" " + _xe(sg_suffix)) if sg_suffix else ""}</text>'
             )
         else:
             parts.append(
-                f'<text x="{stat_text_x:.1f}" y="{logo_cy + 8:.1f}" class="bc" '
+                f'<text x="{stat_text_x_right:.1f}" y="{logo_cy + 8:.1f}" class="bc" '
                 f'font-size="{stat_size}" font-weight="800" font-style="italic" '
                 f'fill="{WHITE}" text-anchor="end" letter-spacing="0.5">{stat_str}{(" " + _xe(sg_suffix)) if sg_suffix else ""}</text>'
             )
