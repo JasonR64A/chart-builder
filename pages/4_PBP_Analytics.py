@@ -2985,15 +2985,25 @@ elif view == 'Share Graphic':
                 seed_idx = idx % len(PILL_PALETTE)
             pill_color = PILL_PALETTE[seed_idx]
 
-        # Abbreviation: first 3 letters of team name uppercase, or initials
-        words = (tname or display).split()
-        if len(words) >= 2:
-            abbr = ''.join(w[0] for w in words[:3]).upper()
+        # Team abbreviation (first letters of words, or first 3 chars)
+        twords = (tname or '').split()
+        if len(twords) >= 2:
+            tabbr = ''.join(w[0] for w in twords[:3]).upper()
+        elif tname:
+            tabbr = tname[:3].upper()
         else:
-            abbr = (tname or display)[:3].upper()
+            tabbr = (display or '')[:3].upper()
+        # Player initials (e.g., "Landon Hairston" -> "LH")
+        pwords = (display or '').split()
+        if len(pwords) >= 2:
+            pabbr = (pwords[0][0] + pwords[-1][0]).upper()
+        elif pwords:
+            pabbr = pwords[0][:2].upper()
+        else:
+            pabbr = '?'
         rows_data.append({
             'rank': idx + 1, 'name': display, 'team': tname,
-            'abbr': abbr, 'stat': float(row[sg_stat]),
+            'tabbr': tabbr, 'pabbr': pabbr, 'stat': float(row[sg_stat]),
             'color': pill_color, 'logo_b64': logo_b64,
             'headshot_b64': headshot_b64, 'cb_player_id': cb_player_id,
             'team_cb_id': team_cb_id,
@@ -3137,7 +3147,9 @@ elif view == 'Share Graphic':
     )
 
     # ── LEFT COLUMN — content ────────────────────────────────────────────
-    LEFT_PAD_X = 76
+    # Pulled tighter to the left rail than the original design so the pills
+    # have more horizontal room without bleeding into the hero column.
+    LEFT_PAD_X = 54
     content_x = LEFT_PAD_X
     content_top_y = 80
 
@@ -3175,9 +3187,10 @@ elif view == 'Share Graphic':
     block_h = sg_count * ROW_H + max(0, sg_count - 1) * ROW_GAP
     rows_top_y = headline_bottom_y + (available_h - block_h) / 2
 
-    # Pill geometry — constrained to the LEFT half of the canvas so the right
-    # column stays clear for the hero image.
-    PILL_RIGHT_EDGE = VB_W * 0.5 - 28
+    # Pill geometry — pills extend almost to the seam between the left
+    # content column and the right hero column, with a small gap so the hero
+    # image stays visible.
+    PILL_RIGHT_EDGE = VB_W * 0.5 - 12
 
     for idx, rd in enumerate(rows_data):
         row_y = rows_top_y + idx * (ROW_H + ROW_GAP)
@@ -3198,52 +3211,55 @@ elif view == 'Share Graphic':
             f'rx="{pill_r}" ry="{pill_r}" fill="{rd["color"]}"/>'
         )
 
-        # Logo position: for Player mode, prefer headshot circle; for Team
-        # mode use the team logo. Fall back to abbr placeholder.
+        # Logo position. Player mode: use headshot if available, else show
+        # the player's initials in a circle (NEVER fall back to team logo —
+        # that's confusing when ranking players). Team mode: team logo if
+        # available, else team abbreviation.
         logo_size = pill_h * 0.8
         logo_cx = pill_x + pill_h / 2
         logo_cy = row_y + pill_h / 2
-        use_headshot = group_by == 'Player' and rd.get('headshot_b64')
-        if use_headshot:
-            # Circular clip: define a clipPath unique to this row.
-            clip_id = f'sg_clip_{idx}'
-            parts.append(
-                f'<defs><clipPath id="{clip_id}">'
-                f'<circle cx="{logo_cx:.1f}" cy="{logo_cy:.1f}" r="{logo_size / 2:.1f}"/>'
-                f'</clipPath></defs>'
-                f'<circle cx="{logo_cx:.1f}" cy="{logo_cy:.1f}" r="{logo_size / 2:.1f}" '
-                f'fill="rgba(255,255,255,0.12)"/>'
-                f'<image href="data:image/png;base64,{rd["headshot_b64"]}" '
-                f'xlink:href="data:image/png;base64,{rd["headshot_b64"]}" '
-                f'x="{logo_cx - logo_size / 2:.1f}" y="{logo_cy - logo_size / 2:.1f}" '
-                f'width="{logo_size:.1f}" height="{logo_size:.1f}" '
-                f'preserveAspectRatio="xMidYMid slice" clip-path="url(#{clip_id})"/>'
-            )
-        elif rd['logo_b64']:
-            parts.append(
-                f'<image href="data:image/png;base64,{rd["logo_b64"]}" '
-                f'xlink:href="data:image/png;base64,{rd["logo_b64"]}" '
-                f'x="{logo_cx - logo_size / 2:.1f}" y="{logo_cy - logo_size / 2:.1f}" '
-                f'width="{logo_size:.1f}" height="{logo_size:.1f}" '
-                f'preserveAspectRatio="xMidYMid meet"/>'
-            )
+        if group_by == 'Player':
+            if rd.get('headshot_b64'):
+                clip_id = f'sg_clip_{idx}'
+                parts.append(
+                    f'<defs><clipPath id="{clip_id}">'
+                    f'<circle cx="{logo_cx:.1f}" cy="{logo_cy:.1f}" r="{logo_size / 2:.1f}"/>'
+                    f'</clipPath></defs>'
+                    f'<circle cx="{logo_cx:.1f}" cy="{logo_cy:.1f}" r="{logo_size / 2:.1f}" '
+                    f'fill="rgba(255,255,255,0.12)"/>'
+                    f'<image href="data:image/png;base64,{rd["headshot_b64"]}" '
+                    f'xlink:href="data:image/png;base64,{rd["headshot_b64"]}" '
+                    f'x="{logo_cx - logo_size / 2:.1f}" y="{logo_cy - logo_size / 2:.1f}" '
+                    f'width="{logo_size:.1f}" height="{logo_size:.1f}" '
+                    f'preserveAspectRatio="xMidYMid slice" clip-path="url(#{clip_id})"/>'
+                )
+            else:
+                parts.append(
+                    f'<circle cx="{logo_cx:.1f}" cy="{logo_cy:.1f}" r="{logo_size / 2:.1f}" '
+                    f'fill="rgba(255,255,255,0.18)"/>'
+                    f'<text x="{logo_cx:.1f}" y="{logo_cy + 7:.1f}" class="bc" '
+                    f'font-size="{int(pill_h * 0.32)}" font-weight="800" font-style="italic" '
+                    f'fill="{WHITE}" text-anchor="middle" letter-spacing="0.6">{_xe(rd["pabbr"])}</text>'
+                )
         else:
-            parts.append(
-                f'<circle cx="{logo_cx:.1f}" cy="{logo_cy:.1f}" r="{logo_size / 2:.1f}" '
-                f'fill="rgba(255,255,255,0.12)"/>'
-                f'<text x="{logo_cx:.1f}" y="{logo_cy + 6:.1f}" class="bc" '
-                f'font-size="{int(pill_h * 0.26)}" font-weight="800" font-style="italic" '
-                f'fill="{WHITE}" text-anchor="middle" letter-spacing="0.4">{_xe(rd["abbr"])}</text>'
-            )
-        # Team / player name (only when toggle on)
+            if rd['logo_b64']:
+                parts.append(
+                    f'<image href="data:image/png;base64,{rd["logo_b64"]}" '
+                    f'xlink:href="data:image/png;base64,{rd["logo_b64"]}" '
+                    f'x="{logo_cx - logo_size / 2:.1f}" y="{logo_cy - logo_size / 2:.1f}" '
+                    f'width="{logo_size:.1f}" height="{logo_size:.1f}" '
+                    f'preserveAspectRatio="xMidYMid meet"/>'
+                )
+            else:
+                parts.append(
+                    f'<circle cx="{logo_cx:.1f}" cy="{logo_cy:.1f}" r="{logo_size / 2:.1f}" '
+                    f'fill="rgba(255,255,255,0.12)"/>'
+                    f'<text x="{logo_cx:.1f}" y="{logo_cy + 6:.1f}" class="bc" '
+                    f'font-size="{int(pill_h * 0.26)}" font-weight="800" font-style="italic" '
+                    f'fill="{WHITE}" text-anchor="middle" letter-spacing="0.4">{_xe(rd["tabbr"])}</text>'
+                )
+        # Stat value (always rendered; bigger when names are off)
         text_left = pill_x + pill_h + 12
-        if sg_show_names:
-            parts.append(
-                f'<text x="{text_left:.1f}" y="{logo_cy + 8:.1f}" class="bc" '
-                f'font-size="26" font-weight="700" font-style="italic" '
-                f'fill="{WHITE}" letter-spacing="0.5">{_xe(rd["name"]).upper()}</text>'
-            )
-        # Stat value
         stat_str = f'{rd["stat"]:.{int(sg_decimals)}f}'
         stat_size = max(20, min(34, int(pill_h * 0.38)))
         stat_text_x_right = pill_x + pill_w - 22
@@ -3259,6 +3275,15 @@ elif view == 'Share Graphic':
                 f'<text x="{stat_text_x_right:.1f}" y="{logo_cy + 8:.1f}" class="bc" '
                 f'font-size="{stat_size}" font-weight="800" font-style="italic" '
                 f'fill="{WHITE}" text-anchor="end" letter-spacing="0.5">{stat_str}{(" " + _xe(sg_suffix)) if sg_suffix else ""}</text>'
+            )
+            # Team / player name as a bottom-aligned caption so it doesn't
+            # crowd the stat or the logo.
+            name_size = max(13, min(20, int(pill_h * 0.22)))
+            name_y = row_y + pill_h - max(8, pill_h * 0.10)
+            parts.append(
+                f'<text x="{text_left:.1f}" y="{name_y:.1f}" class="bc" '
+                f'font-size="{name_size}" font-weight="600" font-style="italic" '
+                f'fill="rgba(255,255,255,0.78)" letter-spacing="0.5">{_xe(rd["name"]).upper()}</text>'
             )
 
     # ── FOOTER ────────────────────────────────────────────────────────────
