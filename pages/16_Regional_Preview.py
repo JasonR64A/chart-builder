@@ -594,7 +594,9 @@ for i, (team, seed) in enumerate(zip(teams, seeds)):
 st.markdown('---')
 st.markdown('### Shareable graphic')
 
-# ── Build a single-image SVG summary for sharing ────────────────────────────
+# ── Single-panel 1080×1350 IG-feed design ──────────────────────────────────
+# Sports Reference / FiveThirtyEight density. Eggshell over navy stage, tabular
+# nums, ruled tables, JetBrains Mono labels, 2pt closing rule.
 import base64
 import math
 
@@ -622,258 +624,777 @@ def _embed_png(path, x, y, w, h, opacity=1.0):
             f'pointer-events="none"/>')
 
 
-def _donut_arc(cx, cy, r_outer, r_inner, start_deg, end_deg, fill):
-    """SVG path for an annular sector (donut slice)."""
-    s = math.radians(start_deg - 90)
-    e = math.radians(end_deg - 90)
-    x1o = cx + r_outer * math.cos(s); y1o = cy + r_outer * math.sin(s)
-    x2o = cx + r_outer * math.cos(e); y2o = cy + r_outer * math.sin(e)
-    x1i = cx + r_inner * math.cos(s); y1i = cy + r_inner * math.sin(s)
-    x2i = cx + r_inner * math.cos(e); y2i = cy + r_inner * math.sin(e)
-    large = 1 if (end_deg - start_deg) > 180 else 0
-    return (f'<path d="M {x1o:.2f},{y1o:.2f} '
-            f'A {r_outer},{r_outer} 0 {large} 1 {x2o:.2f},{y2o:.2f} '
-            f'L {x2i:.2f},{y2i:.2f} '
-            f'A {r_inner},{r_inner} 0 {large} 0 {x1i:.2f},{y1i:.2f} Z" '
-            f'fill="{fill}"/>')
+# ── Tokens ─────────────────────────────────────────────────────────────────
+INK_900 = '#0F1B2D'
+INK_700 = '#2A3550'
+INK_500 = 'rgba(15,27,45,0.62)'
+INK_400 = 'rgba(15,27,45,0.45)'
+INK_300 = 'rgba(15,27,45,0.28)'
+INK_200 = 'rgba(15,27,45,0.14)'
+INK_100 = 'rgba(15,27,45,0.07)'
+INK_RULE = 'rgba(15,27,45,0.10)'
+BRAND_RED = '#C41230'
+BRAND_NAVY = '#0F2A4D'
+BG_EGG = '#F0EAD6'
+
+# Seed-based accent palette (real team colors not in teams.csv yet → use seeds)
+SEED_ACCENTS = {
+    1: '#0A2240',  # navy
+    2: '#C84A1E',  # burnt orange
+    3: '#3D8AB8',  # carolina blue
+    4: '#2E7D5B',  # forest green
+}
 
 
-# Build the SVG. viewBox 1200x1000 — fits nicely on social.
-VB_W, VB_H = 1200, 1000
+def _accent_for_seed(seed):
+    return SEED_ACCENTS.get(seed, BRAND_NAVY)
+
+
+def _monogram_for(name):
+    """Single-letter monogram from team short name (skip 'St.', '&', etc.)."""
+    if not name: return '?'
+    s = name.strip()
+    return s[0].upper()
+
+
+# ── Round-by-round Monte Carlo (extends _simulate_regional) ────────────────
+def _simulate_regional_full(n=20000, rng=None):
+    """Returns per-team round survival fractions: r1 (post-G1/G2), r2 (W-bracket
+    or losers-G3 alive), r3 (reach regional final), r4 (champ). Last value is
+    same as win_p; included for completeness."""
+    if rng is None:
+        rng = np.random.default_rng(42)
+    cnt = {t: {'r1': 0, 'r2': 0, 'r3': 0, 'r4': 0} for t in teams}
+    s1, s2, s3, s4 = teams
+    for _ in range(n):
+        def play(a, b):
+            return a if rng.random() < _p_win(a, b) else b
+        g1w = play(s1, s4); g1l = s1 if g1w == s4 else s4
+        g2w = play(s2, s3); g2l = s2 if g2w == s3 else s3
+        # r1: alive after G1/G2 = winners of openers
+        for t in (g1w, g2w): cnt[t]['r1'] += 1
+        # plus losers play G3 and the loser is eliminated (so g1l/g2l counted at r1 too — they're alive heading INTO opener's loss bracket)
+        # Better definition: r1 = "won opener" only. Losers go to elim-G3.
+        g3w = play(g1l, g2l)  # G3 loser eliminated
+        # r2: alive heading into G4 = G1w, G2w, G3w (the 3-team set that remains)
+        for t in (g1w, g2w, g3w): cnt[t]['r2'] += 1
+        # G4: winners' final
+        g4w = play(g1w, g2w); g4l = g1w if g4w == g2w else g2w
+        # G5: G3 winner vs G4 loser (loser-out)
+        g5w = play(g3w, g4l)
+        # r3: reach regional final = G4w + G5w (the two who play G6)
+        for t in (g4w, g5w): cnt[t]['r3'] += 1
+        # G6: regional final game 1
+        g6w = play(g4w, g5w)
+        # G7 (only if G5 winner won G6 — G4 winner needs second loss to be eliminated)
+        if g6w == g5w:
+            champ = play(g4w, g5w)
+        else:
+            champ = g4w
+        cnt[champ]['r4'] += 1
+    return {t: {k: v / n for k, v in d.items()} for t, d in cnt.items()}
+
+
+# ── Season-long aggregates from PBP for radar / depth tables ────────────────
+@st.cache_data(show_spinner=False)
+def _team_pbp_full(team_name, sport, division):
+    """All season hitting + pitching + fielding rows for a team."""
+    h_pbp = load_hitting_pbp(sport, division)
+    p_pbp = load_pitching_pbp(sport, division)
+    pbp_name = _pbp_team_match(h_pbp, team_name)
+    h = h_pbp[h_pbp['teamName'] == pbp_name].copy() if pbp_name else pd.DataFrame()
+    p_pbp_name = _pbp_team_match(p_pbp, team_name)
+    p = p_pbp[p_pbp['teamName'] == p_pbp_name].copy() if p_pbp_name else pd.DataFrame()
+    return h, p
+
+
+def _ip_to_outs(ip_val):
+    if pd.isna(ip_val): return 0
+    whole = int(ip_val); frac = round((ip_val - whole) * 10)
+    return whole * 3 + frac
+
+
+@st.cache_data(show_spinner=False)
+def _team_radar_perf(team_name, sport, division, last_n_games=None):
+    """RUNS/G, OPS, ERA, KPCT, FLD for the team. If last_n_games is set, restrict
+    to that window's most recent games (by date) for the L25 overlay."""
+    h, p = _team_pbp_full(team_name, sport, division)
+    if h.empty or p.empty:
+        return None
+    if last_n_games is not None:
+        # last N unique game dates
+        recent_dates = h['date_parsed'].dropna().sort_values().unique()[-last_n_games:]
+        h = h[h['date_parsed'].isin(recent_dates)]
+        p = p[p['date_parsed'].isin(recent_dates)]
+    if h.empty or p.empty:
+        return None
+    for c in ['ab','h','hr','bb','hbp','sf','tb','r']:
+        if c in h.columns: h[c] = pd.to_numeric(h[c], errors='coerce').fillna(0)
+    for c in ['ip','er','so','bf']:
+        if c in p.columns: p[c] = pd.to_numeric(p[c], errors='coerce').fillna(0)
+    games = h['date_parsed'].nunique() if 'date_parsed' in h.columns else 1
+    ab = float(h['ab'].sum()); hits = float(h['h'].sum())
+    bb = float(h['bb'].sum()); hbp = float(h['hbp'].sum())
+    sf = float(h['sf'].sum()); tb = float(h['tb'].sum()) if 'tb' in h.columns else hits
+    runs = float(h['r'].sum()) if 'r' in h.columns else 0
+    pa = ab + bb + hbp + sf
+    obp = (hits + bb + hbp) / pa if pa else 0
+    slg = tb / ab if ab else 0
+    ops = obp + slg
+    outs = p['ip'].apply(_ip_to_outs).sum() if 'ip' in p.columns else 0
+    ip = outs / 3.0
+    er = float(p['er'].sum()); so = float(p['so'].sum())
+    bf = float(p['bf'].sum()) if 'bf' in p.columns else 0
+    era = 9 * er / ip if ip else 0
+    kpct = so / bf if bf else 0
+    # Fielding % via fielding PBP (po + a) / (po + a + e)
+    f_path = PBP_DIR / sport / f'fielding_pbp_{division}.csv'
+    fld = 0.96
+    if f_path.exists():
+        try:
+            f_df = pd.read_csv(f_path, low_memory=False, usecols=lambda c: c in ('teamName','po','a','e','date'))
+            f_df['date_parsed'] = pd.to_datetime(f_df['date'], format='mixed', errors='coerce')
+            pbp_name = _pbp_team_match(h, team_name)  # h is filtered to team already; pbp_match for f_df
+            f_team = f_df[f_df['teamName'].fillna('').str.startswith(team_name)]
+            if last_n_games is not None and not f_team.empty:
+                rd = f_team['date_parsed'].dropna().sort_values().unique()[-last_n_games:]
+                f_team = f_team[f_team['date_parsed'].isin(rd)]
+            for c in ['po','a','e']:
+                if c in f_team.columns:
+                    f_team[c] = pd.to_numeric(f_team[c], errors='coerce').fillna(0)
+            tot = float(f_team['po'].sum()) + float(f_team['a'].sum()) + float(f_team['e'].sum())
+            if tot > 0:
+                fld = (float(f_team['po'].sum()) + float(f_team['a'].sum())) / tot
+        except Exception:
+            pass
+    return {
+        'RUNS': runs / games if games else 0,
+        'OPS': ops, 'ERA': era, 'KPCT': kpct, 'FLD': fld,
+    }
+
+
+@st.cache_data(show_spinner=False)
+def _team_top_pitchers(team_name, sport, division, n=8):
+    """Top N pitchers by IP. First 3 (by IP) get role SP1/SP2/SP3 highlight."""
+    _, p = _team_pbp_full(team_name, sport, division)
+    if p.empty or 'playerName' not in p.columns:
+        return []
+    for c in ['ip','er','so']:
+        if c in p.columns: p[c] = pd.to_numeric(p[c], errors='coerce').fillna(0)
+    p['_outs'] = p['ip'].apply(_ip_to_outs) if 'ip' in p.columns else 0
+    grp = p.groupby('playerName').agg(
+        Outs=('_outs','sum'), App=('ip','count'),
+        ER=('er','sum'), SO=('so','sum'),
+    ).reset_index()
+    grp['IP'] = grp['Outs'] / 3.0
+    grp = grp[grp['IP'] >= 1.0]
+    grp['ERA'] = (9 * grp['ER'] / grp['IP'].replace(0, np.nan)).fillna(0)
+    grp['K9'] = (9 * grp['SO'] / grp['IP'].replace(0, np.nan)).fillna(0)
+    grp['avg_outs'] = grp['Outs'] / grp['App'].replace(0, 1)
+    grp = grp.sort_values('IP', ascending=False).head(n)
+    out = []
+    for idx, (_, row) in enumerate(grp.iterrows()):
+        if idx < 3:
+            role = f'SP{idx+1}'
+        elif row['avg_outs'] < 3:
+            role = 'CL'
+        elif row['avg_outs'] < 9:
+            role = 'RP'
+        else:
+            role = 'SP'
+        out.append({'name': row['playerName'], 'role': role,
+                    'era': float(row['ERA']), 'k9': float(row['K9']),
+                    'ip': float(row['IP'])})
+    return out
+
+
+@st.cache_data(show_spinner=False)
+def _team_top_hitters(team_name, sport, division, n=9):
+    """Top N hitters by AB."""
+    h, _ = _team_pbp_full(team_name, sport, division)
+    if h.empty or 'playerName' not in h.columns:
+        return []
+    for c in ['ab','h','hr','rbi']:
+        if c in h.columns: h[c] = pd.to_numeric(h[c], errors='coerce').fillna(0)
+    grp = h.groupby('playerName').agg(
+        AB=('ab','sum'), H=('h','sum'),
+        HR=('hr','sum'), RBI=('rbi','sum'),
+    ).reset_index()
+    grp = grp[grp['AB'] >= 10]
+    grp['AVG'] = grp['H'] / grp['AB'].replace(0, np.nan)
+    grp = grp.sort_values('AB', ascending=False).head(n)
+    return [{'name': r['playerName'],
+             'avg': float(r['AVG']) if pd.notna(r['AVG']) else 0,
+             'hr': int(r['HR']), 'rbi': int(r['RBI']),
+             'ab': int(r['AB'])} for _, r in grp.iterrows()]
+
+
+# ── Compute all data needed for the graphic ────────────────────────────────
+with st.spinner('Aggregating season + L25 data…'):
+    survival = _simulate_regional_full(20000)
+    perf_full = {t: _team_radar_perf(t, sport, division, last_n_games=None) for t in teams}
+    perf_l25 = {t: _team_radar_perf(t, sport, division, last_n_games=25) for t in teams}
+    top_p = {t: _team_top_pitchers(t, sport, division, n=8) for t in teams}
+    top_h = {t: _team_top_hitters(t, sport, division, n=9) for t in teams}
+
+
+# ── Radar geometry helpers ─────────────────────────────────────────────────
+RADAR_AXES = ['RUNS', 'OPS', 'ERA', 'K%', 'FLD']
+RADAR_NORM = {
+    'RUNS': lambda v: max(0, min(1, (v - 4.0) / (8.5 - 4.0))),
+    'OPS':  lambda v: max(0, min(1, (v - 0.700) / (0.960 - 0.700))),
+    'ERA':  lambda v: 1 - max(0, min(1, (v - 2.8) / (5.5 - 2.8))),
+    'KPCT': lambda v: max(0, min(1, (v - 0.180) / (0.310 - 0.180))),
+    'FLD':  lambda v: max(0, min(1, (v - 0.955) / (0.985 - 0.955))),
+}
+_AXIS_KEY = {'RUNS': 'RUNS', 'OPS': 'OPS', 'ERA': 'ERA', 'K%': 'KPCT', 'FLD': 'FLD'}
+_STRENGTH_LABELS = {'RUNS': 'RUNS/G', 'OPS': 'OPS', 'ERA': 'TEAM ERA', 'KPCT': 'K%', 'FLD': 'FIELD %'}
+_STRENGTH_FMT = {
+    'RUNS': lambda v: f'{v:.1f}',
+    'OPS':  lambda v: f'{v:.3f}'.lstrip('0') or '.000',
+    'ERA':  lambda v: f'{v:.2f}',
+    'KPCT': lambda v: f'{v*100:.1f}%',
+    'FLD':  lambda v: f'{v:.3f}'.lstrip('0') or '.000',
+}
+
+
+def _radar_pts(cx, cy, r, perf, frac_scale=1.0):
+    pts = []
+    n = len(RADAR_AXES)
+    for i, axis in enumerate(RADAR_AXES):
+        angle = -math.pi / 2 + i * 2 * math.pi / n
+        key = _AXIS_KEY[axis]
+        val = perf.get(key, 0) if perf else 0
+        frac = RADAR_NORM[key](val) * frac_scale
+        x = cx + math.cos(angle) * r * frac
+        y = cy + math.sin(angle) * r * frac
+        pts.append(f'{x:.2f},{y:.2f}')
+    return ' '.join(pts)
+
+
+def _radar_grid_pts(cx, cy, r, frac):
+    pts = []
+    n = len(RADAR_AXES)
+    for i in range(n):
+        angle = -math.pi / 2 + i * 2 * math.pi / n
+        x = cx + math.cos(angle) * r * frac
+        y = cy + math.sin(angle) * r * frac
+        pts.append(f'{x:.2f},{y:.2f}')
+    return ' '.join(pts)
+
+
+def _radar_label_pt(cx, cy, r, i):
+    angle = -math.pi / 2 + i * 2 * math.pi / len(RADAR_AXES)
+    return cx + math.cos(angle) * r * 1.18, cy + math.sin(angle) * r * 1.18
+
+
+def _strength_for(perf):
+    if not perf: return None, None
+    ranked = sorted(
+        [(k, RADAR_NORM[k](perf.get(k, 0))) for k in ('RUNS','OPS','ERA','KPCT','FLD')],
+        key=lambda x: -x[1])
+    top_k = ranked[0][0]
+    return _STRENGTH_LABELS[top_k], _STRENGTH_FMT[top_k](perf.get(top_k, 0))
+
+
+# ── Build the SVG (1080×1350 IG-feed canvas) ──────────────────────────────
+VB_W, VB_H = 1080, 1350
+PAD_X, PAD_TOP = 24, 16
+
+# Vertical layout (y positions)
+Y_HEADER = PAD_TOP                       # Header start
+H_HEADER = 92
+Y_STRIP  = Y_HEADER + H_HEADER           # Team identity strip
+H_STRIP  = 84
+Y_PROB   = Y_STRIP + H_STRIP             # Path to the Title
+H_PROB   = 154
+Y_RADAR  = Y_PROB + H_PROB               # Radar hero
+H_RADAR  = 408
+Y_PITCH  = Y_RADAR + H_RADAR             # Pitching depth
+H_PITCH  = 254
+Y_HIT    = Y_PITCH + H_PITCH             # Hitting depth
+H_HIT    = 282
+Y_FOOT   = Y_HIT + H_HIT                 # Footer
+
 parts = [
     f'<svg viewBox="0 0 {VB_W} {VB_H}" width="{VB_W}" height="{VB_H}" '
-    f'xmlns="http://www.w3.org/2000/svg" '
-    f'xmlns:xlink="http://www.w3.org/1999/xlink">'
-    f'<rect x="0" y="0" width="{VB_W}" height="{VB_H}" fill="#F0EAD6"/>'
+    f'xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">',
+    # font import (works in browsers; cairosvg falls back to system fonts)
+    '<defs><style>'
+    '@import url("https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&family=JetBrains+Mono:wght@500;600;700;800&display=swap");'
+    '.in{font-family:Inter,system-ui,sans-serif}.mn{font-family:"JetBrains Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}'
+    '</style></defs>',
+    f'<rect x="0" y="0" width="{VB_W}" height="{VB_H}" fill="{BG_EGG}"/>',
 ]
 
-# Header band — 64A logo + regional name + sport/division
-parts.append(_embed_png(BRAND_64A_WIDE, x=VB_W/2 - 200, y=20, w=400, h=70))
-parts.append(
-    f'<text x="{VB_W/2}" y="130" text-anchor="middle" font-family="Inter,sans-serif" '
-    f'font-size="36" font-weight="800" fill="#0F2A4D">{_xe(regional_name)}</text>'
-)
-parts.append(
-    f'<text x="{VB_W/2}" y="160" text-anchor="middle" font-family="Inter,sans-serif" '
-    f'font-size="18" font-weight="600" fill="#0F2A4D" opacity="0.7">'
-    f'{_xe(sport.title())} {_xe(division)} · 4-Team Double-Elimination Regional</text>'
-)
+# ── HEADER ────────────────────────────────────────────────────────────────
+hx_l = PAD_X
+hx_r = VB_W - PAD_X
+parts.extend([
+    # eyebrow
+    f'<text x="{hx_l}" y="{Y_HEADER + 14}" class="in" font-size="10" font-weight="700" '
+    f'fill="{BRAND_RED}" letter-spacing="2.2">REGIONAL PREVIEW · {sport.upper()}</text>',
+    # title
+    f'<text x="{hx_l}" y="{Y_HEADER + 56}" class="in" font-size="40" font-weight="800" '
+    f'fill="{INK_900}" letter-spacing="-0.8">{_xe(regional_name)}</text>',
+    # mono metaline
+    f'<text x="{hx_l}" y="{Y_HEADER + 78}" class="mn" font-size="11" font-weight="600" '
+    f'fill="{INK_500}" letter-spacing="0.22">'
+    f'NCAA {division} {sport.upper()} · LOOKBACK {lookback_days}D'
+    f'</text>',
+    # right wordmark
+    f'<g>'
+    f'<text x="{hx_r}" y="{Y_HEADER + 32}" class="in" font-size="13" font-weight="800" '
+    f'fill="{INK_900}" text-anchor="end" letter-spacing="-0.13">'
+    f'<tspan fill="{BRAND_RED}">64</tspan>Analytics</text>'
+    f'<text x="{hx_r}" y="{Y_HEADER + 52}" class="mn" font-size="10" font-weight="600" '
+    f'fill="{INK_500}" text-anchor="end" letter-spacing="0.6">REGIONAL · 4-TEAM</text>'
+    f'<text x="{hx_r}" y="{Y_HEADER + 70}" class="mn" font-size="10" font-weight="600" '
+    f'fill="{INK_500}" text-anchor="end" letter-spacing="0.6">DOUBLE-ELIM</text>'
+    f'</g>',
+    # 2pt closing rule
+    f'<line x1="{PAD_X}" y1="{Y_HEADER + H_HEADER - 2}" x2="{VB_W - PAD_X}" '
+    f'y2="{Y_HEADER + H_HEADER - 2}" stroke="{INK_900}" stroke-width="2"/>',
+])
 
-# 4 team cards — top row at y=200..420, each 280 wide centered
-CARD_W = 270
-CARD_H = 220
-GAP = 20
-total_w = 4 * CARD_W + 3 * GAP
-x_start = (VB_W - total_w) / 2
-DONUT_COLORS = ['#C41230', '#29335c', '#F5A623', '#0F8A5F']
-
+# ── TEAM IDENTITY STRIP ───────────────────────────────────────────────────
+strip_inner_w = VB_W - 2 * PAD_X
+cell_w = strip_inner_w / 4
 for i, (team, seed) in enumerate(zip(teams, seeds)):
-    x = x_start + i * (CARD_W + GAP)
-    y = 200
-    # Card with team accent color
-    accent = DONUT_COLORS[i]
-    parts.append(
-        f'<rect x="{x}" y="{y}" width="{CARD_W}" height="{CARD_H}" rx="10" ry="10" '
-        f'fill="#FFFFFF" stroke="{accent}" stroke-width="3"/>'
-    )
-    # Seed badge
-    parts.append(
-        f'<circle cx="{x + 28}" cy="{y + 28}" r="22" fill="{accent}"/>'
-        f'<text x="{x + 28}" y="{y + 36}" text-anchor="middle" font-family="Inter,sans-serif" '
-        f'font-size="22" font-weight="800" fill="#FFFFFF">{seed}</text>'
-    )
-    # Team logo
-    tid = team_ids[team]
-    if tid is not None:
-        logo_path = LOGOS / f'{tid}.png'
-        parts.append(_embed_png(logo_path, x=x + (CARD_W - 110)/2, y=y + 50, w=110, h=110))
-    # Team name
-    parts.append(
-        f'<text x="{x + CARD_W/2}" y="{y + 185}" text-anchor="middle" '
-        f'font-family="Inter,sans-serif" font-size="20" font-weight="800" '
-        f'fill="#0F2A4D">{_xe(team)}</text>'
-    )
-    # RPI + win probability
+    cell_x = PAD_X + i * cell_w
+    accent = _accent_for_seed(seed)
+    mono = _monogram_for(team)
     rpi_val = team_rpi[team]
-    rpi_txt = f"RPI #{int(float(rpi_val))}" if rpi_val and str(rpi_val).strip() else 'RPI —'
-    wp_pct = win_p[team] * 100
-    parts.append(
-        f'<text x="{x + CARD_W/2}" y="{y + 207}" text-anchor="middle" '
-        f'font-family="Inter,sans-serif" font-size="14" font-weight="600" '
-        f'fill="#0F2A4D" opacity="0.7">{_xe(rpi_txt)} · {wp_pct:.1f}% to win</text>'
-    )
+    rpi_txt = f'RPI {int(float(rpi_val))}' if rpi_val and str(rpi_val).strip() else 'RPI —'
+    # Team record (W-L) — derive from PBP wins/losses if available, else blank.
+    rec_str = ''
+    # accent bar
+    parts.append(f'<rect x="{cell_x}" y="{Y_STRIP}" width="{cell_w}" height="3" fill="{accent}"/>')
+    # cell separator
+    if i > 0:
+        parts.append(f'<line x1="{cell_x}" y1="{Y_STRIP + 12}" x2="{cell_x}" y2="{Y_STRIP + H_STRIP - 8}" '
+                     f'stroke="{INK_RULE}" stroke-width="1"/>')
+    # monogram disk
+    disk_cx = cell_x + 30
+    disk_cy = Y_STRIP + 44
+    parts.append(f'<circle cx="{disk_cx}" cy="{disk_cy}" r="22" fill="{accent}"/>')
+    parts.append(f'<text x="{disk_cx}" y="{disk_cy + 7}" class="in" font-size="20" font-weight="800" '
+                 f'fill="#FFFFFF" text-anchor="middle">{mono}</text>')
+    # text block to the right
+    tx = disk_cx + 32
+    parts.append(f'<text x="{tx}" y="{Y_STRIP + 30}" class="mn" font-size="10" font-weight="700" '
+                 f'fill="{accent}" letter-spacing="0.6">#{seed} SEED · {_xe(rpi_txt)}</text>')
+    parts.append(f'<text x="{tx}" y="{Y_STRIP + 52}" class="in" font-size="20" font-weight="800" '
+                 f'fill="{INK_900}" letter-spacing="-0.2">{_xe(team)}</text>')
+    parts.append(f'<text x="{tx}" y="{Y_STRIP + 70}" class="mn" font-size="9" font-weight="600" '
+                 f'fill="{INK_500}" letter-spacing="0.4">{_xe(rec_str)}{("· " if rec_str else "")}'
+                 f'{_xe(team).upper()}</text>')
+parts.append(f'<line x1="{PAD_X}" y1="{Y_STRIP + H_STRIP}" x2="{VB_W - PAD_X}" '
+             f'y2="{Y_STRIP + H_STRIP}" stroke="{INK_RULE}" stroke-width="1"/>')
 
-# Donut — center band
-DONUT_CX = 350
-DONUT_CY = 620
-DONUT_RO = 130
-DONUT_RI = 75
+# ── PATH TO THE TITLE ─────────────────────────────────────────────────────
+PROB_X = PAD_X + 4
+PROB_Y_HEAD = Y_PROB + 18
+PROB_Y_GRID = Y_PROB + 38
+parts.extend([
+    f'<text x="{PROB_X}" y="{PROB_Y_HEAD}" class="in" font-size="11" font-weight="700" '
+    f'fill="{INK_900}" letter-spacing="2.0">PATH TO THE TITLE</text>',
+    f'<text x="{VB_W - PAD_X - 4}" y="{PROB_Y_HEAD}" class="mn" font-size="10" font-weight="600" '
+    f'fill="{INK_500}" text-anchor="end" letter-spacing="0.4">'
+    f'20,000 BRADLEY-TERRY MONTE CARLO · SUMS TO 100%</text>',
+])
 
-# Sort teams by win-prob descending for label clarity, but keep original draw order
-total = sum(win_p[t] for t in teams) or 1.0
-start = 0.0
-for i, team in enumerate(teams):
-    pct = win_p[team] / total
-    end = start + pct * 360
-    parts.append(_donut_arc(DONUT_CX, DONUT_CY, DONUT_RO, DONUT_RI, start, end, DONUT_COLORS[i]))
-    # Label inside the slice if big enough
-    if pct > 0.06:
-        mid_deg = (start + end) / 2
-        label_r = (DONUT_RO + DONUT_RI) / 2
-        lx = DONUT_CX + label_r * math.cos(math.radians(mid_deg - 90))
-        ly = DONUT_CY + label_r * math.sin(math.radians(mid_deg - 90))
-        parts.append(
-            f'<text x="{lx:.1f}" y="{ly+5:.1f}" text-anchor="middle" '
-            f'font-family="Inter,sans-serif" font-size="18" font-weight="800" '
-            f'fill="#FFFFFF">{pct*100:.0f}%</text>'
-        )
-    start = end
-
-# Donut center text
-parts.append(
-    f'<text x="{DONUT_CX}" y="{DONUT_CY - 6}" text-anchor="middle" '
-    f'font-family="Inter,sans-serif" font-size="14" font-weight="600" '
-    f'fill="#0F2A4D" opacity="0.7">WIN-THE-REGIONAL</text>'
-)
-parts.append(
-    f'<text x="{DONUT_CX}" y="{DONUT_CY + 18}" text-anchor="middle" '
-    f'font-family="Inter,sans-serif" font-size="14" font-weight="600" '
-    f'fill="#0F2A4D" opacity="0.7">PROBABILITY</text>'
-)
-
-# Stats summary table — right side, 4 rows × 5 cols (team / AVG / OPS / ERA / K9)
-TABLE_X = 540
-TABLE_Y = 480
-TABLE_W = VB_W - TABLE_X - 40
-ROW_H = 50
-
-# Header row
-header_cols = [('Team', 240), ('AVG', 100), ('OPS', 100), ('ERA', 100), ('K/9', 100)]
-hx = TABLE_X
-for label, w in header_cols:
-    parts.append(
-        f'<text x="{hx + (w if label == "Team" else w/2)}" y="{TABLE_Y + 25}" '
-        f'text-anchor="{"end" if label == "Team" else "middle"}" '
-        f'font-family="Inter,sans-serif" font-size="14" font-weight="700" '
-        f'fill="#0F2A4D" opacity="0.6" letter-spacing="0.5">{label.upper()}</text>'
-    )
-    hx += w
-# Underline
-parts.append(
-    f'<line x1="{TABLE_X}" y1="{TABLE_Y + 35}" x2="{TABLE_X + TABLE_W}" y2="{TABLE_Y + 35}" '
-    f'stroke="#0F2A4D" stroke-width="1" opacity="0.2"/>'
-)
+# Grid columns: Team(112) | Survive(1fr) | W-Bracket Live(1fr) | Reach Final(1fr) | Title Game(1fr) | Champ %(84)
+team_col_w = 116
+champ_col_w = 86
+stage_w = (VB_W - 2 * PAD_X - 8 - team_col_w - champ_col_w) / 4
+prob_grid_x = PAD_X + 4
+col_x = [
+    prob_grid_x,
+    prob_grid_x + team_col_w,
+    prob_grid_x + team_col_w + stage_w,
+    prob_grid_x + team_col_w + 2 * stage_w,
+    prob_grid_x + team_col_w + 3 * stage_w,
+    prob_grid_x + team_col_w + 4 * stage_w,
+]
+# Column header row
+hdr_y = PROB_Y_GRID
+for label, x_l, x_r, anchor, color in [
+    ('TEAM', col_x[0], col_x[1], 'start', INK_400),
+    ('SURVIVE OPENER', col_x[1], col_x[2], 'middle', INK_400),
+    ('W-BRACKET LIVE', col_x[2], col_x[3], 'middle', INK_400),
+    ('REACH FINAL', col_x[3], col_x[4], 'middle', INK_400),
+    ('TITLE GAME', col_x[4], col_x[5], 'middle', INK_400),
+    ('CHAMP %', col_x[5], VB_W - PAD_X - 4, 'end', BRAND_RED),
+]:
+    if anchor == 'start':
+        tx = x_l
+    elif anchor == 'middle':
+        tx = (x_l + x_r) / 2
+    else:
+        tx = x_r
+    parts.append(f'<text x="{tx}" y="{hdr_y}" class="in" font-size="9" font-weight="700" '
+                 f'fill="{color}" letter-spacing="1.0" text-anchor="{anchor}">{label}</text>')
+parts.append(f'<line x1="{prob_grid_x}" y1="{hdr_y + 6}" x2="{VB_W - PAD_X - 4}" y2="{hdr_y + 6}" '
+             f'stroke="{INK_RULE}" stroke-width="1"/>')
 
 # Data rows
-for i, (team, seed) in enumerate(zip(teams, seeds)):
-    rh = team_h_stats.get(team, {})
-    rp = team_p_stats.get(team, {})
-    row_y = TABLE_Y + 50 + i * ROW_H
-    # Seed dot
-    parts.append(
-        f'<circle cx="{TABLE_X + 18}" cy="{row_y + 12}" r="14" fill="{DONUT_COLORS[i]}"/>'
-        f'<text x="{TABLE_X + 18}" y="{row_y + 18}" text-anchor="middle" '
-        f'font-family="Inter,sans-serif" font-size="14" font-weight="800" fill="#FFFFFF">{seed}</text>'
-    )
-    # Team name
-    parts.append(
-        f'<text x="{TABLE_X + 240}" y="{row_y + 18}" text-anchor="end" '
-        f'font-family="Inter,sans-serif" font-size="18" font-weight="700" '
-        f'fill="#0F2A4D">{_xe(team)}</text>'
-    )
-    # Stats
-    cells = [
-        (TABLE_X + 240 + 50,  f"{rh.get('BA', 0):.3f}"  if rh.get('BA')  is not None else '—'),
-        (TABLE_X + 240 + 150, f"{rh.get('OPS', 0):.3f}" if rh.get('OPS') is not None else '—'),
-        (TABLE_X + 240 + 250, f"{rp.get('ERA', 0):.2f}" if rp.get('ERA') is not None else '—'),
-        (TABLE_X + 240 + 350, f"{rp.get('K/9', 0):.1f}" if rp.get('K/9') is not None else '—'),
-    ]
-    for cx_t, cv in cells:
-        parts.append(
-            f'<text x="{cx_t}" y="{row_y + 18}" text-anchor="middle" '
-            f'font-family="Inter,sans-serif" font-size="20" font-weight="700" '
-            f'fill="#0F2A4D">{cv}</text>'
-        )
+ROW_PITCH = 22
+for ti, (team, seed) in enumerate(zip(teams, seeds)):
+    accent = _accent_for_seed(seed)
+    s = survival[team]
+    row_cy = hdr_y + 14 + ti * ROW_PITCH + ROW_PITCH/2
+    # team col: small seed badge + team short name
+    badge_x = col_x[0]
+    badge_y = row_cy - 9
+    parts.append(f'<rect x="{badge_x}" y="{badge_y}" width="18" height="18" rx="3" fill="{accent}"/>')
+    parts.append(f'<text x="{badge_x + 9}" y="{badge_y + 13}" class="in" font-size="10" font-weight="800" '
+                 f'fill="#FFFFFF" text-anchor="middle">{seed}</text>')
+    parts.append(f'<text x="{badge_x + 26}" y="{row_cy + 3}" class="in" font-size="12" font-weight="700" '
+                 f'fill="{INK_900}">{_xe(team)}</text>')
+    # 4 stage bars
+    pct_vals = [s['r1'], s['r2'], s['r3'], s['r4']]
+    bar_h = 14
+    for si, p_val in enumerate(pct_vals):
+        bx_l = col_x[1 + si] + 4
+        bx_r = col_x[2 + si] - 4
+        bw = bx_r - bx_l
+        bar_y = row_cy - bar_h / 2
+        # track
+        parts.append(f'<rect x="{bx_l}" y="{bar_y}" width="{bw}" height="{bar_h}" rx="2" '
+                     f'fill="{INK_100}"/>')
+        # fill
+        fill_w = bw * min(1.0, max(0.0, p_val))
+        parts.append(f'<rect x="{bx_l}" y="{bar_y}" width="{fill_w:.2f}" height="{bar_h}" rx="2" '
+                     f'fill="{accent}" fill-opacity="0.92"/>')
+        # label
+        pct_int = round(p_val * 100)
+        label_color = INK_400 if pct_int < 25 else INK_900
+        label_weight = 600 if pct_int < 25 else 700
+        parts.append(f'<text x="{(bx_l + bx_r)/2:.2f}" y="{row_cy + 3}" class="mn" font-size="10" '
+                     f'font-weight="{label_weight}" fill="{label_color}" text-anchor="middle">{pct_int}%</text>')
+    # champ %
+    champ_pct = s['r4'] * 100
+    parts.append(f'<text x="{VB_W - PAD_X - 6}" y="{row_cy + 5}" class="in" font-size="16" font-weight="800" '
+                 f'fill="{BRAND_RED}" text-anchor="end" letter-spacing="-0.2">'
+                 f'{champ_pct:.1f}<tspan font-size="10">%</tspan></text>')
+parts.append(f'<line x1="{PAD_X}" y1="{Y_PROB + H_PROB}" x2="{VB_W - PAD_X}" y2="{Y_PROB + H_PROB}" '
+             f'stroke="{INK_RULE}" stroke-width="1"/>')
 
-# Bottom band — top hot hitter per team in 4 columns
-HOT_Y = 800
-HOT_H = 150
-parts.append(
-    f'<text x="{VB_W/2}" y="{HOT_Y - 12}" text-anchor="middle" '
-    f'font-family="Inter,sans-serif" font-size="16" font-weight="800" '
-    f'fill="#0F2A4D" opacity="0.7" letter-spacing="0.5">HOTTEST HITTER (LAST {lookback_days}D)</text>'
-)
-hot_w = (VB_W - 80) / 4
-for i, (team, seed) in enumerate(zip(teams, seeds)):
-    hx = 40 + i * hot_w
-    hh_df = _hot_hitters(team, sport, division, lookback_days, n=1)
-    parts.append(
-        f'<rect x="{hx + 10}" y="{HOT_Y}" width="{hot_w - 20}" height="{HOT_H}" '
-        f'rx="8" ry="8" fill="#FFFFFF" stroke="{DONUT_COLORS[i]}" stroke-width="2"/>'
-    )
-    if hh_df.empty:
-        parts.append(
-            f'<text x="{hx + hot_w/2}" y="{HOT_Y + HOT_H/2}" text-anchor="middle" '
-            f'font-family="Inter,sans-serif" font-size="14" font-weight="600" '
-            f'fill="#0F2A4D" opacity="0.5">No qualifying hitter</text>'
-        )
-        continue
-    r = hh_df.iloc[0]
-    parts.append(
-        f'<text x="{hx + hot_w/2}" y="{HOT_Y + 30}" text-anchor="middle" '
-        f'font-family="Inter,sans-serif" font-size="20" font-weight="800" '
-        f'fill="#0F2A4D">{_xe(r["playerName"])}</text>'
-    )
-    parts.append(
-        f'<text x="{hx + hot_w/2}" y="{HOT_Y + 50}" text-anchor="middle" '
-        f'font-family="Inter,sans-serif" font-size="12" font-weight="600" '
-        f'fill="#0F2A4D" opacity="0.6">#{seed} {_xe(team)}</text>'
-    )
-    # Big triple slash
-    slash = f"{r['AVG']:.3f} / {r['OBP']:.3f} / {r['SLG']:.3f}"
-    parts.append(
-        f'<text x="{hx + hot_w/2}" y="{HOT_Y + 90}" text-anchor="middle" '
-        f'font-family="Inter,sans-serif" font-size="22" font-weight="800" '
-        f'fill="{DONUT_COLORS[i]}">{slash}</text>'
-    )
-    # Counts
-    parts.append(
-        f'<text x="{hx + hot_w/2}" y="{HOT_Y + 120}" text-anchor="middle" '
-        f'font-family="Inter,sans-serif" font-size="14" font-weight="600" '
-        f'fill="#0F2A4D">{r["AB"]} AB · {r["HR"]} HR · {r["RBI"]} RBI</text>'
-    )
+# ── RADAR HERO ────────────────────────────────────────────────────────────
+RH_X = PAD_X + 4
+RH_HEAD_Y = Y_RADAR + 18
+parts.extend([
+    f'<text x="{RH_X}" y="{RH_HEAD_Y}" class="in" font-size="11" font-weight="700" '
+    f'fill="{INK_900}" letter-spacing="2.0">TEAM PERFORMANCE PROFILE</text>',
+    f'<text x="{VB_W - PAD_X - 4}" y="{RH_HEAD_Y}" class="mn" font-size="9" font-weight="600" '
+    f'fill="{INK_500}" text-anchor="end" letter-spacing="1.0">'
+    f'RUNS · OPS · ERA · K% · FLD% · FULL SEASON</text>',
+    # Inline dashed-line marker for the L25 legend
+    f'<line x1="{VB_W - PAD_X - 70}" y1="{RH_HEAD_Y - 3}" x2="{VB_W - PAD_X - 56}" y2="{RH_HEAD_Y - 3}" '
+    f'stroke="{INK_700}" stroke-width="1.5" stroke-dasharray="2.5 2"/>',
+    f'<text x="{VB_W - PAD_X - 4}" y="{RH_HEAD_Y + 12}" class="mn" font-size="9" font-weight="600" '
+    f'fill="{INK_500}" text-anchor="end" letter-spacing="1.0">LAST 25</text>',
+])
 
-# Footer caption
-parts.append(
-    f'<text x="{VB_W - 30}" y="{VB_H - 20}" text-anchor="end" '
-    f'font-family="Inter,sans-serif" font-size="11" font-weight="500" '
-    f'fill="#0F2A4D" opacity="0.5">'
-    f'64 Analytics · Bradley-Terry on RPI · 20k bracket sims · {lookback_days}d hot list</text>'
-)
+# Radar geometry
+RH_BODY_Y = Y_RADAR + 36                  # body (radars + tiles) start
+CENTER_R = 138                            # center radar half-size = ~280px diam
+CENTER_CX = VB_W / 2
+CENTER_CY = RH_BODY_Y + CENTER_R + 18
+MINI_R = 64                               # mini radar half-size = 128px
+TILE_GAP_Y = 18
+# Left/right tile column geometry
+side_col_w = 200
+left_col_x = PAD_X + 12
+right_col_x = VB_W - PAD_X - 12 - side_col_w
+
+# Center radar — concentric grid + spokes + 4 team polygons
+parts.append('<g>')
+for f_lev in (0.25, 0.5, 0.75, 1.0):
+    parts.append(f'<polygon points="{_radar_grid_pts(CENTER_CX, CENTER_CY, CENTER_R, f_lev)}" '
+                 f'fill="{"rgba(15,27,45,0.025)" if f_lev == 1.0 else "none"}" '
+                 f'stroke="{INK_RULE}" stroke-width="{1 if f_lev == 1.0 else 0.6}"/>')
+for i in range(len(RADAR_AXES)):
+    angle = -math.pi / 2 + i * 2 * math.pi / len(RADAR_AXES)
+    x_end = CENTER_CX + math.cos(angle) * CENTER_R
+    y_end = CENTER_CY + math.sin(angle) * CENTER_R
+    parts.append(f'<line x1="{CENTER_CX}" y1="{CENTER_CY}" x2="{x_end:.2f}" y2="{y_end:.2f}" '
+                 f'stroke="{INK_RULE}" stroke-width="0.6"/>')
+# Tick labels at 25/50/75/100 along axis 0 (top)
+for f_lev in (0.25, 0.5, 0.75, 1.0):
+    angle = -math.pi / 2
+    x = CENTER_CX + math.cos(angle) * CENTER_R * f_lev
+    y = CENTER_CY + math.sin(angle) * CENTER_R * f_lev
+    parts.append(f'<text x="{x + 4:.2f}" y="{y - 2:.2f}" class="mn" font-size="7" font-weight="600" '
+                 f'fill="{INK_300}" letter-spacing="0.4">{int(f_lev*100)}</text>')
+# Each team polygon
+for i, (team, seed) in enumerate(zip(teams, seeds)):
+    perf = perf_full.get(team)
+    if perf is None: continue
+    accent = _accent_for_seed(seed)
+    pts = _radar_pts(CENTER_CX, CENTER_CY, CENTER_R, perf)
+    parts.append(f'<polygon points="{pts}" fill="{accent}" fill-opacity="0.14" '
+                 f'stroke="{accent}" stroke-width="2" stroke-linejoin="round"/>')
+    # corner dots
+    for pt in pts.split(' '):
+        x_s, y_s = pt.split(',')
+        parts.append(f'<circle cx="{x_s}" cy="{y_s}" r="3" fill="{accent}" stroke="#FFFFFF" stroke-width="0.5"/>')
+# Axis labels
+for i, axis in enumerate(RADAR_AXES):
+    lx, ly = _radar_label_pt(CENTER_CX, CENTER_CY, CENTER_R, i)
+    parts.append(f'<text x="{lx:.2f}" y="{ly:.2f}" class="mn" font-size="11" font-weight="800" '
+                 f'fill="{INK_700}" text-anchor="middle" dominant-baseline="middle" '
+                 f'letter-spacing="1.0">{axis}</text>')
+parts.append('</g>')
+
+# Corner tiles — left has seeds 1 and 3, right has 2 and 4
+def _draw_tile(team, seed, side, tile_top_y):
+    accent = _accent_for_seed(seed)
+    perf = perf_full.get(team)
+    perf25 = perf_l25.get(team)
+    s_lab, s_val = _strength_for(perf)
+    out = []
+    # mini radar position
+    if side == 'left':
+        mini_cx = left_col_x + side_col_w - MINI_R - 4
+    else:
+        mini_cx = right_col_x + MINI_R + 4
+    mini_cy = tile_top_y + MINI_R + 12
+    # info block position
+    if side == 'left':
+        info_x = left_col_x + 4
+        text_anchor = 'start'
+    else:
+        info_x = right_col_x + side_col_w - 4
+        text_anchor = 'end'
+
+    # info text
+    seed_box_size = 16
+    if side == 'left':
+        seed_x = info_x
+        team_x = info_x + seed_box_size + 6
+    else:
+        seed_x = info_x - seed_box_size
+        team_x = info_x - seed_box_size - 6
+    out.append(f'<rect x="{seed_x}" y="{tile_top_y + 14}" width="{seed_box_size}" height="{seed_box_size}" '
+               f'rx="3" fill="{accent}"/>')
+    out.append(f'<text x="{seed_x + seed_box_size/2}" y="{tile_top_y + 26}" class="in" font-size="10" '
+               f'font-weight="800" fill="#FFFFFF" text-anchor="middle">{seed}</text>')
+    out.append(f'<text x="{team_x}" y="{tile_top_y + 26}" class="mn" font-size="10" font-weight="800" '
+               f'fill="{accent}" letter-spacing="0.6" text-anchor="{"start" if side == "left" else "end"}">'
+               f'{_xe(team).upper()}</text>')
+    out.append(f'<text x="{info_x}" y="{tile_top_y + 46}" class="mn" font-size="8" font-weight="700" '
+               f'fill="{INK_400}" letter-spacing="1.0" text-anchor="{text_anchor}">STRENGTH</text>')
+    if s_val:
+        out.append(f'<text x="{info_x}" y="{tile_top_y + 76}" class="in" font-size="28" font-weight="800" '
+                   f'fill="{accent}" letter-spacing="-0.5" text-anchor="{text_anchor}">{_xe(s_val)}</text>')
+    if s_lab:
+        out.append(f'<text x="{info_x}" y="{tile_top_y + 92}" class="mn" font-size="9" font-weight="700" '
+                   f'fill="{accent}" letter-spacing="0.8" text-anchor="{text_anchor}">{_xe(s_lab)}</text>')
+
+    # mini radar grid + spokes
+    for f_lev in (0.33, 0.66, 1.0):
+        out.append(f'<polygon points="{_radar_grid_pts(mini_cx, mini_cy, MINI_R, f_lev)}" '
+                   f'fill="none" stroke="{INK_RULE}" stroke-width="0.6"/>')
+    for i in range(len(RADAR_AXES)):
+        angle = -math.pi / 2 + i * 2 * math.pi / len(RADAR_AXES)
+        x_end = mini_cx + math.cos(angle) * MINI_R
+        y_end = mini_cy + math.sin(angle) * MINI_R
+        out.append(f'<line x1="{mini_cx}" y1="{mini_cy}" x2="{x_end:.2f}" y2="{y_end:.2f}" '
+                   f'stroke="{INK_RULE}" stroke-width="0.6"/>')
+    # season fill
+    if perf:
+        season_pts = _radar_pts(mini_cx, mini_cy, MINI_R, perf)
+        out.append(f'<polygon points="{season_pts}" fill="{accent}" fill-opacity="0.32" '
+                   f'stroke="{accent}" stroke-width="1.5" stroke-linejoin="round"/>')
+        # corner dots on season
+        for pt in season_pts.split(' '):
+            x_s, y_s = pt.split(',')
+            out.append(f'<circle cx="{x_s}" cy="{y_s}" r="2" fill="{accent}" stroke="#FFFFFF" stroke-width="0.4"/>')
+    # L25 dashed overlay
+    if perf25:
+        l25_pts = _radar_pts(mini_cx, mini_cy, MINI_R, perf25)
+        out.append(f'<polygon points="{l25_pts}" fill="none" stroke="{accent}" stroke-width="1.25" '
+                   f'stroke-dasharray="2.5 2" stroke-linejoin="round"/>')
+    # mini radar axis labels
+    for i, axis in enumerate(RADAR_AXES):
+        lx, ly = _radar_label_pt(mini_cx, mini_cy, MINI_R, i)
+        out.append(f'<text x="{lx:.2f}" y="{ly:.2f}" class="mn" font-size="7" font-weight="700" '
+                   f'fill="{INK_400}" text-anchor="middle" dominant-baseline="middle" '
+                   f'letter-spacing="0.6">{axis}</text>')
+    return out
+
+# Two tiles per side, vertically stacked
+TILE_H = 168
+# left col: seeds 0 and 2 (=#1 and #3 by zero-index)
+left_top_a = RH_BODY_Y + 4
+left_top_b = left_top_a + TILE_H + TILE_GAP_Y
+right_top_a = left_top_a
+right_top_b = left_top_b
+parts.extend(_draw_tile(teams[0], seeds[0], 'left',  left_top_a))
+parts.extend(_draw_tile(teams[2], seeds[2], 'left',  left_top_b))
+parts.extend(_draw_tile(teams[1], seeds[1], 'right', right_top_a))
+parts.extend(_draw_tile(teams[3], seeds[3], 'right', right_top_b))
+
+parts.append(f'<line x1="{PAD_X}" y1="{Y_RADAR + H_RADAR}" x2="{VB_W - PAD_X}" y2="{Y_RADAR + H_RADAR}" '
+             f'stroke="{INK_RULE}" stroke-width="1"/>')
+
+# ── PITCHING DEPTH ────────────────────────────────────────────────────────
+PD_X = PAD_X + 4
+PD_HEAD_Y = Y_PITCH + 18
+parts.extend([
+    f'<text x="{PD_X}" y="{PD_HEAD_Y}" class="in" font-size="11" font-weight="700" '
+    f'fill="{INK_900}" letter-spacing="2.0">PITCHING STAFF · TOP 8 BY IP</text>',
+    f'<text x="{VB_W - PAD_X - 4}" y="{PD_HEAD_Y}" class="mn" font-size="10" font-weight="600" '
+    f'fill="{INK_500}" text-anchor="end" letter-spacing="0.4">'
+    f'WEEKEND STARTERS HIGHLIGHTED · ERA / K9</text>',
+])
+pd_inner_w = VB_W - 2 * PAD_X - 8
+pd_col_w = pd_inner_w / 4
+pd_col_x = [PAD_X + 4 + i * pd_col_w for i in range(4)]
+PD_BODY_Y = Y_PITCH + 32
+for ci, (team, seed) in enumerate(zip(teams, seeds)):
+    accent = _accent_for_seed(seed)
+    cx_l = pd_col_x[ci]
+    cx_r = cx_l + pd_col_w - 4
+    # column separator
+    if ci > 0:
+        parts.append(f'<line x1="{cx_l}" y1="{PD_BODY_Y - 8}" x2="{cx_l}" y2="{Y_PITCH + H_PITCH - 8}" '
+                     f'stroke="{INK_RULE}" stroke-width="1"/>')
+    # team header inside column
+    th_x = cx_l + 8
+    parts.append(f'<rect x="{th_x}" y="{PD_BODY_Y + 2}" width="8" height="8" fill="{accent}"/>')
+    parts.append(f'<text x="{th_x + 14}" y="{PD_BODY_Y + 10}" class="mn" font-size="10" font-weight="700" '
+                 f'fill="{INK_700}" letter-spacing="0.6">{_xe(team).upper()}</text>')
+    parts.append(f'<line x1="{th_x}" y1="{PD_BODY_Y + 18}" x2="{cx_r - 4}" y2="{PD_BODY_Y + 18}" '
+                 f'stroke="{INK_RULE}" stroke-width="1"/>')
+    # column headers
+    parts.append(f'<text x="{cx_r - 4 - 38 - 16}" y="{PD_BODY_Y + 32}" class="mn" font-size="8" '
+                 f'font-weight="700" fill="{INK_400}" text-anchor="end" letter-spacing="0.6">ERA</text>')
+    parts.append(f'<text x="{cx_r - 4}" y="{PD_BODY_Y + 32}" class="mn" font-size="8" '
+                 f'font-weight="700" fill="{INK_400}" text-anchor="end" letter-spacing="0.6">K/9</text>')
+    pitchers = top_p.get(team, [])
+    for pi, p in enumerate(pitchers[:8]):
+        is_top3 = pi < 3
+        row_y = PD_BODY_Y + 48 + pi * 20
+        text_color = accent if is_top3 else INK_700
+        text_weight = 800 if is_top3 else 600
+        role_color = accent if is_top3 else INK_400
+        parts.append(f'<text x="{th_x}" y="{row_y}" class="mn" font-size="8" font-weight="700" '
+                     f'fill="{role_color}" letter-spacing="0.6">{p["role"]}</text>')
+        parts.append(f'<text x="{th_x + 26}" y="{row_y}" class="in" font-size="11" font-weight="{text_weight}" '
+                     f'fill="{text_color}">{_xe(p["name"])[:18]}</text>')
+        parts.append(f'<text x="{cx_r - 4 - 38 - 16}" y="{row_y}" class="mn" font-size="10" '
+                     f'font-weight="{text_weight}" fill="{text_color}" text-anchor="end">{p["era"]:.2f}</text>')
+        parts.append(f'<text x="{cx_r - 4}" y="{row_y}" class="mn" font-size="10" '
+                     f'font-weight="{text_weight}" fill="{text_color}" text-anchor="end">{p["k9"]:.1f}</text>')
+        if pi < 7:
+            parts.append(f'<line x1="{th_x}" y1="{row_y + 4}" x2="{cx_r - 4}" y2="{row_y + 4}" '
+                         f'stroke="{INK_RULE}" stroke-width="0.5" stroke-dasharray="2 2"/>')
+parts.append(f'<line x1="{PAD_X}" y1="{Y_PITCH + H_PITCH}" x2="{VB_W - PAD_X}" y2="{Y_PITCH + H_PITCH}" '
+             f'stroke="{INK_RULE}" stroke-width="1"/>')
+
+# ── HITTING DEPTH ─────────────────────────────────────────────────────────
+HD_X = PAD_X + 4
+HD_HEAD_Y = Y_HIT + 18
+parts.extend([
+    f'<text x="{HD_X}" y="{HD_HEAD_Y}" class="in" font-size="11" font-weight="700" '
+    f'fill="{INK_900}" letter-spacing="2.0">HITTING ORDER · TOP 9 BY AB</text>',
+    f'<text x="{VB_W - PAD_X - 4}" y="{HD_HEAD_Y}" class="mn" font-size="10" font-weight="600" '
+    f'fill="{INK_500}" text-anchor="end" letter-spacing="0.4">'
+    f'AVG / HR / RBI · TEAM LEADER IN COLOR</text>',
+])
+HD_BODY_Y = Y_HIT + 32
+hd_col_w = pd_inner_w / 4
+hd_col_x = [PAD_X + 4 + i * hd_col_w for i in range(4)]
+for ci, (team, seed) in enumerate(zip(teams, seeds)):
+    accent = _accent_for_seed(seed)
+    cx_l = hd_col_x[ci]
+    cx_r = cx_l + hd_col_w - 4
+    if ci > 0:
+        parts.append(f'<line x1="{cx_l}" y1="{HD_BODY_Y}" x2="{cx_l}" y2="{Y_HIT + H_HIT - 4}" '
+                     f'stroke="{INK_RULE}" stroke-width="1"/>')
+    # accent bar at top of column
+    parts.append(f'<rect x="{cx_l + 4}" y="{HD_BODY_Y}" width="{hd_col_w - 8}" height="3" fill="{accent}"/>')
+    th_x = cx_l + 8
+    parts.append(f'<rect x="{th_x}" y="{HD_BODY_Y + 12}" width="8" height="8" fill="{accent}"/>')
+    parts.append(f'<text x="{th_x + 14}" y="{HD_BODY_Y + 20}" class="mn" font-size="10" font-weight="700" '
+                 f'fill="{INK_700}" letter-spacing="0.6">{_xe(team).upper()}</text>')
+    parts.append(f'<line x1="{th_x}" y1="{HD_BODY_Y + 28}" x2="{cx_r - 4}" y2="{HD_BODY_Y + 28}" '
+                 f'stroke="{INK_RULE}" stroke-width="1"/>')
+    # column header row
+    col_avg_x = cx_r - 4 - 60
+    col_hr_x  = cx_r - 4 - 30
+    col_rbi_x = cx_r - 4
+    parts.append(f'<text x="{col_avg_x}" y="{HD_BODY_Y + 42}" class="mn" font-size="8" '
+                 f'font-weight="700" fill="{INK_400}" text-anchor="end" letter-spacing="0.6">AVG</text>')
+    parts.append(f'<text x="{col_hr_x}" y="{HD_BODY_Y + 42}" class="mn" font-size="8" '
+                 f'font-weight="700" fill="{INK_400}" text-anchor="end" letter-spacing="0.6">HR</text>')
+    parts.append(f'<text x="{col_rbi_x}" y="{HD_BODY_Y + 42}" class="mn" font-size="8" '
+                 f'font-weight="700" fill="{INK_400}" text-anchor="end" letter-spacing="0.6">RBI</text>')
+    hitters = top_h.get(team, [])
+    if hitters:
+        best_avg = max((h['avg'] for h in hitters), default=0)
+    else:
+        best_avg = 0
+    for hi, h in enumerate(hitters[:9]):
+        is_best = abs(h['avg'] - best_avg) < 1e-6
+        row_y = HD_BODY_Y + 60 + hi * 20
+        text_color = accent if is_best else INK_700
+        text_weight = 800 if is_best else 600
+        avg_str = f'{h["avg"]:.3f}'.lstrip('0') if h['avg'] > 0 else '.000'
+        parts.append(f'<text x="{th_x}" y="{row_y}" class="in" font-size="11" font-weight="{text_weight}" '
+                     f'fill="{text_color}">{_xe(h["name"])[:18]}</text>')
+        parts.append(f'<text x="{col_avg_x}" y="{row_y}" class="mn" font-size="10" '
+                     f'font-weight="{text_weight}" fill="{text_color}" text-anchor="end">{avg_str}</text>')
+        parts.append(f'<text x="{col_hr_x}" y="{row_y}" class="mn" font-size="10" '
+                     f'font-weight="{text_weight}" fill="{text_color}" text-anchor="end">{h["hr"]}</text>')
+        parts.append(f'<text x="{col_rbi_x}" y="{row_y}" class="mn" font-size="10" '
+                     f'font-weight="{text_weight}" fill="{text_color}" text-anchor="end">{h["rbi"]}</text>')
+        if hi < 8:
+            parts.append(f'<line x1="{th_x}" y1="{row_y + 4}" x2="{cx_r - 4}" y2="{row_y + 4}" '
+                         f'stroke="{INK_RULE}" stroke-width="0.5" stroke-dasharray="2 2"/>')
+
+# ── FOOTER ────────────────────────────────────────────────────────────────
+foot_y = Y_FOOT + 4
+parts.append(f'<line x1="{PAD_X}" y1="{foot_y}" x2="{VB_W - PAD_X}" y2="{foot_y}" '
+             f'stroke="{INK_900}" stroke-width="2"/>')
+foot_text_y = foot_y + 18
+parts.append(f'<rect x="{PAD_X}" y="{foot_text_y - 11}" width="62" height="14" rx="2" fill="{INK_900}"/>')
+parts.append(f'<text x="{PAD_X + 31}" y="{foot_text_y - 1}" class="mn" font-size="9" font-weight="700" '
+             f'fill="{BG_EGG}" text-anchor="middle" letter-spacing="1.0">METHOD</text>')
+parts.append(f'<text x="{PAD_X + 70}" y="{foot_text_y}" class="mn" font-size="9" font-weight="600" '
+             f'fill="{INK_500}" letter-spacing="0.6">BRADLEY-TERRY · 20K SIM · FULL SEASON · LAST 25 OVERLAY</text>')
+parts.append(f'<text x="{VB_W - PAD_X - 110}" y="{foot_text_y}" class="mn" font-size="9" font-weight="600" '
+             f'fill="{INK_500}" text-anchor="end" letter-spacing="0.6">SOURCE: NCAA · WARREN NOLAN ·</text>')
+parts.append(f'<text x="{VB_W - PAD_X}" y="{foot_text_y}" class="mn" font-size="9" font-weight="800" '
+             f'fill="{BRAND_RED}" text-anchor="end" letter-spacing="0.6">64ANALYTICS.COM</text>')
 
 parts.append('</svg>')
 graphic_svg = ''.join(parts)
 
-# Render in page (display version with responsive sizing)
+# Render in page
 display_svg = graphic_svg.replace(
     '<svg ',
-    '<svg style="width:100%;max-width:1100px;height:auto;display:block;'
-    'margin:0 auto;border-radius:8px;" ', 1,
+    '<svg style="width:100%;max-width:1080px;height:auto;display:block;'
+    'margin:0 auto;border-radius:8px;box-shadow:0 12px 36px rgba(0,0,0,.18);" ', 1,
 )
 st.markdown(display_svg, unsafe_allow_html=True)
 
 # PNG download
 try:
     import cairosvg
-    png_bytes = cairosvg.svg2png(bytestring=graphic_svg.encode('utf-8'), output_width=2400)
+    png_bytes = cairosvg.svg2png(bytestring=graphic_svg.encode('utf-8'), output_width=2160)
     safe_name = ''.join(c if c.isalnum() else '_' for c in str(regional_name))[:40]
     fname = f'regional_preview_{sport}_{division}_{safe_name}.png'
-    st.download_button('Download PNG', data=png_bytes, file_name=fname,
+    st.download_button('Download PNG (2160w)', data=png_bytes, file_name=fname,
                        mime='image/png', use_container_width=False)
 except Exception as e:
     st.caption(f'PNG export unavailable in this environment ({type(e).__name__}: {str(e)[:80]}).')
 
 
 st.markdown('---')
-st.caption('v1 — RPI-driven Bradley-Terry sim, 21d hot lists, weekend-cadence starter detection. '
-           'Stats pulled from chart-builder PBP box scores. Iterate on inputs and visualization to taste.')
+st.caption('1080×1350 IG-feed graphic. Sports Reference / FiveThirtyEight density: '
+           'eggshell over navy, Bradley-Terry round-by-round survival, hero radar with '
+           'L25 dotted overlay, season-long top-8 pitchers / top-9 hitters per team.')
