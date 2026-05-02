@@ -1595,6 +1595,38 @@ def _norm_team(name):
 
 
 @st.cache_data
+def load_portal_2026_ncaa_pids():
+    """NCAA player season IDs (as strings) for players in the 2026 transfer
+    portal. Used by the 'In 2026 portal' sidebar filter. Bridges
+    portal_rank_player.player_id (cb_id) -> rosters.player_id -> the
+    player_ncaa_season_id PBP files key on. Players in the portal but
+    without a 2026 roster row simply won't be present in PBP data anyway.
+    """
+    portal_path = DATA_DIR / 'portal_rank_player.csv'
+    rosters_path = DATA_DIR / 'rosters.csv'
+    if not portal_path.exists() or not rosters_path.exists():
+        return set()
+    portal = pd.read_csv(portal_path, encoding='latin-1', low_memory=False)
+    portal['year'] = pd.to_numeric(portal['year'], errors='coerce')
+    cb_ids = (pd.to_numeric(portal.loc[portal['year'] == 2026, 'player_id'],
+                            errors='coerce')
+                .dropna().astype(int).unique())
+    if len(cb_ids) == 0:
+        return set()
+    rosters = pd.read_csv(rosters_path, low_memory=False,
+                          usecols=lambda c: c in ('player_id', 'player_ncaa_season_id', 'Year'))
+    if 'Year' in rosters.columns:
+        rosters['Year'] = pd.to_numeric(rosters['Year'], errors='coerce')
+        rosters = rosters[rosters['Year'] == 2026]
+    rosters['player_id'] = pd.to_numeric(rosters['player_id'], errors='coerce').astype('Int64')
+    rosters['player_ncaa_season_id'] = pd.to_numeric(rosters['player_ncaa_season_id'],
+                                                       errors='coerce').astype('Int64')
+    rosters = rosters.dropna(subset=['player_id', 'player_ncaa_season_id'])
+    matched = rosters[rosters['player_id'].isin(cb_ids)]
+    return set(matched['player_ncaa_season_id'].astype(int).astype(str))
+
+
+@st.cache_data
 def load_division_teams(sport, division):
     """Get set of team names belonging to a specific division via conferences.
     Returns the union of teams.csv names AND any PBP-file teamName variants
@@ -1867,6 +1899,22 @@ if view not in ('Lineup Card', 'Share Graphic'):
                                                      help='Leave empty for all positions')
         if selected_positions:
             pbp = pbp[pbp['playerPosition'].isin(selected_positions)]
+
+    # 2026 portal filter — only meaningful when grouping by Player
+    if group_by == 'Player' and 'playerId' in pbp.columns:
+        portal_only = st.sidebar.checkbox(
+            'In 2026 portal',
+            help='Restrict to players in the 2026 transfer portal '
+                 '(portal_rank_player.csv year=2026 → rosters → playerId).',
+        )
+        if portal_only:
+            portal_pids = load_portal_2026_ncaa_pids()
+            before = len(pbp)
+            pbp = pbp[pbp['playerId'].astype(str).isin(portal_pids)]
+            st.sidebar.caption(
+                f'{len(pbp):,} of {before:,} lines · '
+                f'{len(portal_pids):,} 2026 portal players in roster bridge'
+            )
 
     # Min PA/BF — defaults shift up in Team mode where aggregates are larger
     st.sidebar.markdown('---')
