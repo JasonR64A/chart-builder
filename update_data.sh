@@ -190,9 +190,43 @@ if git diff --quiet data/ pbp_data/ 2>/dev/null; then
     exit 0
 fi
 
-echo "Pushing updated data..."
-git add data/ pbp_data/
-git commit -m "Daily data update $(date +%Y-%m-%d)"
-git push
+# Sync with origin BEFORE committing so non-fast-forward pushes can't silently
+# strand the data commit locally. 2026-05-02: nightly's two "Daily data update"
+# commits sat unpushed for ~7h because origin had divergent code commits and
+# the bare `git push` (with no fetch/rebase) failed without surfacing.
+echo "Fetching origin/main before commit..."
+git fetch origin main || { echo "ERROR: git fetch failed"; exit 2; }
+LOCAL_BEHIND=$(git rev-list --count HEAD..origin/main 2>/dev/null || echo 0)
+if [ "$LOCAL_BEHIND" -gt 0 ]; then
+    echo "Local is ${LOCAL_BEHIND} commits behind origin/main; rebasing data changes on top"
+    # Stash the dirty data files, rebase on top of origin/main, then pop.
+    git stash push -u -m "update_data_sh data refresh" data/ pbp_data/ \
+        || { echo "ERROR: stash failed"; exit 3; }
+    git pull --rebase origin main \
+        || { echo "ERROR: rebase failed"; git stash pop || true; exit 4; }
+    git stash pop || { echo "ERROR: stash pop failed"; exit 5; }
+fi
 
-echo "Done! Streamlit Cloud will redeploy automatically."
+echo "Committing + pushing updated data..."
+git add data/ pbp_data/
+git commit -m "Daily data update $(date +%Y-%m-%d)" \
+    || { echo "Commit failed (no staged changes?); exiting"; exit 0; }
+
+if ! git push origin main; then
+    echo "ERROR: git push failed (exit $?)"
+    exit 6
+fi
+
+# Verify push actually landed on origin/main. `git push` exit 0 isn't enough
+# in edge cases (some hooks, push-options, or ref filters can swallow the
+# result). The trustworthy signal is local HEAD == fetched origin/main.
+git fetch origin main || { echo "ERROR: post-push fetch failed"; exit 7; }
+LOCAL_HEAD=$(git rev-parse HEAD)
+ORIGIN_HEAD=$(git rev-parse origin/main)
+if [ "$LOCAL_HEAD" != "$ORIGIN_HEAD" ]; then
+    echo "ERROR: local HEAD ($LOCAL_HEAD) != origin/main ($ORIGIN_HEAD) after push"
+    echo "       Render WILL NOT pick up today's data. Investigate before next run."
+    exit 8
+fi
+
+echo "Done! Streamlit Cloud will redeploy automatically. Pushed: ${LOCAL_HEAD}"
