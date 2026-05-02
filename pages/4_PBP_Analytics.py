@@ -3009,6 +3009,50 @@ elif view == 'Share Graphic':
             'team_cb_id': team_cb_id,
         })
 
+    # ── Player-photo upload (Player mode, surfaced before the render so it's
+    # actually discoverable). Same store the spray-chart page uses: a PNG at
+    # assets/player_headshots/{cb_id}.png replaces the initials-in-a-circle
+    # placeholder for that player on the next render.
+    if group_by == 'Player':
+        any_missing = any(rd.get('headshot_b64') is None and rd.get('cb_player_id') is not None
+                          for rd in rows_data)
+        with st.expander('Add player photos (replaces initials in the pill)',
+                          expanded=any_missing):
+            st.caption(
+                'Upload a square PNG / JPG for any player; saved as '
+                '`assets/player_headshots/{cb_id}.png`. Same store the Spray '
+                'Charts page uses, so a photo uploaded once shows up on both.'
+            )
+            HEADSHOT_DIR.mkdir(parents=True, exist_ok=True)
+            for rd in rows_data:
+                cb_id = rd.get('cb_player_id')
+                pname = rd.get('name', '?')
+                if cb_id is None:
+                    st.caption(f"`{pname}` — no chart-builder id (rosters bridge missed); upload disabled.")
+                    continue
+                target = HEADSHOT_DIR / f'{cb_id}.png'
+                present = '✓ photo on file' if target.exists() else '— no photo yet'
+                up = st.file_uploader(
+                    f"{pname}  (cb_id {cb_id})  {present}",
+                    type=['png', 'jpg', 'jpeg', 'webp'],
+                    key=f'sg_photo_{cb_id}',
+                )
+                if up is not None:
+                    new_bytes = up.getvalue()
+                    existing = target.read_bytes() if target.exists() else None
+                    if existing != new_bytes:
+                        try:
+                            from PIL import Image as _PILImage
+                            import io as _io
+                            img = _PILImage.open(_io.BytesIO(new_bytes)).convert('RGBA')
+                            img.save(target, 'PNG')
+                            # Refresh in-memory so the SVG below picks it up
+                            # without a second rerun.
+                            rd['headshot_b64'] = _b64.b64encode(target.read_bytes()).decode('ascii')
+                            st.success(f"Saved `{target.name}` — re-rendering below.")
+                        except Exception as e:
+                            st.error(f'Could not save image: {e}')
+
     # ── Build SVG ─────────────────────────────────────────────────────────
     def _xe(s):
         if s is None: return ''
@@ -3161,9 +3205,17 @@ elif view == 'Share Graphic':
         f'font-weight="600" fill="{WHITE}" letter-spacing="3.96">{_xe(sg_eyebrow)}</text>'
     )
 
-    # Headline (multi-line; italic)
+    # Headline (multi-line; italic). Scale font down so the longest line fits
+    # inside the left content column — without this, a long stat name like
+    # "TOP 5 D1 TEAMS BY wRC+" can spill over the seam into the hero image.
     head_y = content_top_y + 14 + 28
     head_lines = sg_headline.split('\n')
+    headline_max_w = (VB_W / 2) - content_x - 16
+    longest_line = max((len(line) for line in head_lines), default=1)
+    # Barlow Condensed Italic 800: ~0.46 of font-size per char + letter-spacing.
+    est_w = longest_line * HEAD_SIZE * 0.46 + max(0, longest_line - 1) * 0.32
+    if est_w > headline_max_w and longest_line > 0:
+        HEAD_SIZE = max(28, int(HEAD_SIZE * headline_max_w / est_w))
     for i, line in enumerate(head_lines):
         parts.append(
             f'<text x="{content_x}" y="{head_y + (i + 1) * HEAD_SIZE * 0.95:.0f}" '
@@ -3252,16 +3304,21 @@ elif view == 'Share Graphic':
                 )
         else:
             if rd['logo_b64']:
-                # Soft white disc behind the logo so dark/transparent marks
-                # have something to read against, then the logo, then ring.
+                # Eggshell disc + clipPath so wide logos (e.g. Texas Tech's
+                # winged T) get cropped at the circle edge instead of bleeding
+                # over the team-color pill.
+                clip_id = f'sg_logoclip_{idx}'
                 parts.append(
+                    f'<defs><clipPath id="{clip_id}">'
+                    f'<circle cx="{logo_cx:.1f}" cy="{logo_cy:.1f}" r="{logo_size / 2:.1f}"/>'
+                    f'</clipPath></defs>'
                     f'<circle cx="{logo_cx:.1f}" cy="{logo_cy:.1f}" r="{logo_size / 2:.1f}" '
-                    f'fill="rgba(255,255,255,0.92)"/>'
+                    f'fill="{EGGSHELL}"/>'
                     f'<image href="data:image/png;base64,{rd["logo_b64"]}" '
                     f'xlink:href="data:image/png;base64,{rd["logo_b64"]}" '
                     f'x="{logo_cx - logo_size / 2:.1f}" y="{logo_cy - logo_size / 2:.1f}" '
                     f'width="{logo_size:.1f}" height="{logo_size:.1f}" '
-                    f'preserveAspectRatio="xMidYMid meet"/>'
+                    f'preserveAspectRatio="xMidYMid meet" clip-path="url(#{clip_id})"/>'
                     + ring_attr
                 )
             else:
@@ -3384,42 +3441,6 @@ elif view == 'Share Graphic':
                            mime='image/png', use_container_width=False)
     except Exception as e:
         st.caption(f'PNG export unavailable in this environment ({type(e).__name__}: {str(e)[:80]}).')
-
-    # ── Per-player photo upload (Player mode only) ───────────────────────
-    if group_by == 'Player':
-        st.markdown('---')
-        with st.expander('Upload player photos', expanded=False):
-            st.caption(
-                'Pick a square PNG / JPG for any player; it\'s saved as '
-                f'`assets/player_headshots/{{cb_id}}.png` and shows up in their '
-                'pill on the next render. Same store the spray-chart page uses.'
-            )
-            HEADSHOT_DIR.mkdir(parents=True, exist_ok=True)
-            for rd in rows_data:
-                cb_id = rd.get('cb_player_id')
-                pname = rd.get('name', '?')
-                if cb_id is None:
-                    st.caption(f"`{pname}` — no chart-builder id (rosters bridge missed); upload disabled.")
-                    continue
-                target = HEADSHOT_DIR / f'{cb_id}.png'
-                present = '✓ photo on file' if target.exists() else '— no photo yet'
-                up = st.file_uploader(
-                    f"{pname}  (cb_id {cb_id})  {present}",
-                    type=['png', 'jpg', 'jpeg', 'webp'],
-                    key=f'sg_photo_{cb_id}',
-                )
-                if up is not None:
-                    new_bytes = up.getvalue()
-                    existing = target.read_bytes() if target.exists() else None
-                    if existing != new_bytes:
-                        try:
-                            from PIL import Image as _PILImage
-                            import io as _io
-                            img = _PILImage.open(_io.BytesIO(new_bytes)).convert('RGBA')
-                            img.save(target, 'PNG')
-                            st.success(f"Saved `{target.name}` — re-render to see the headshot.")
-                        except Exception as e:
-                            st.error(f'Could not save image: {e}')
 
     st.markdown('---')
     st.caption('1080×1350 IG portrait. Pill colors are extracted from each team\'s logo PNG. '
