@@ -179,6 +179,28 @@ def _pitcher_throw_lookup(sport: str) -> dict:
 
 
 @st.cache_data(show_spinner=False)
+def _verified_pitcher_ids(sport: str, division: str) -> set:
+    """Set of NCAA player_ids that appear in the box-score pitching PBP file
+    (pbp_data/{sport}/pitching_pbp_{division}.csv) — i.e., players whose
+    team-stats scrape attributed actual innings pitched. Used to filter out
+    misattributed pitchers in the event-level play_by_play file (NCAA
+    scorebook operators occasionally type the wrong name; a position player
+    can show up as the listed pitcher for an entire game even though they
+    have zero box-score IP). Cross-referencing event-level pitcherId against
+    this set keeps phantom pitchers like a DH "throwing 8 games" out of the
+    spray-chart pitcher list."""
+    p = Path(__file__).resolve().parent.parent / 'pbp_data' / sport / f'pitching_pbp_{division}.csv'
+    if not p.exists():
+        return set()
+    try:
+        df = pd.read_csv(p, low_memory=False, usecols=['playerId'])
+    except Exception:
+        return set()
+    pids = pd.to_numeric(df['playerId'], errors='coerce').dropna().astype(int)
+    return set(pids.unique().tolist())
+
+
+@st.cache_data(show_spinner=False)
 def _batter_bat_lookup(sport: str) -> dict:
     """{ncaa_pid (int): 'L'|'R'|'B'} for vs-LHB / vs-RHB filtering on the
     pitching-perspective spray chart."""
@@ -367,6 +389,18 @@ def compute_spray_distribution(
     df = df.dropna(subset=['hitLocation']).copy()
     if df.empty:
         return pd.DataFrame()
+
+    # Pitching POV: drop rows where the listed pitcherId doesn't appear in
+    # the box-score pitching file. Otherwise NCAA scorebook misattributions
+    # (DH listed as the pitcher for an entire game) leak into team-level
+    # spray totals.
+    if perspective == 'pitching' and 'pitcherId' in df.columns:
+        verified = _verified_pitcher_ids(sport, division)
+        if verified:
+            pid_int = pd.to_numeric(df['pitcherId'], errors='coerce')
+            df = df[pid_int.isin(verified)]
+            if df.empty:
+                return pd.DataFrame()
 
     # State filters — applied AFTER scope to keep the BIP universe stable
     if vs_hand in ('L', 'R') and opp_player_col in df.columns:
@@ -628,7 +662,15 @@ def list_pitchers(sport: str, division: str, team_name: str | None = None) -> pd
     """Pitching-perspective mirror of list_players. Distinct
     (pitcherId, pitcher, balls_in_play_allowed) per team, sorted by
     balls-in-play allowed descending. Joins to chart-builder rosters
-    bridge for cb_id / position / classification."""
+    bridge for cb_id / position / classification.
+
+    Filters out pitcherIds that don't have any rows in the box-score
+    pitching PBP file. The event-level play-by-play feed occasionally
+    misattributes pitcher = some position player (NCAA scorebook
+    operator error); without this gate a DH like Carter Rutenbar shows
+    up at the top of Arkansas's pitcher list with 120 phantom BIP
+    allowed. The box-score file is built from a separate team-stats
+    scrape and only contains real pitchers."""
     df = _load_pbp(sport, division)
     if df.empty:
         return pd.DataFrame()
@@ -639,6 +681,15 @@ def list_pitchers(sport: str, division: str, team_name: str | None = None) -> pd
         return pd.DataFrame()
     df['pitcherId'] = pd.to_numeric(df['pitcherId'], errors='coerce').astype('Int64')
     df = df.dropna(subset=['pitcherId'])
+
+    # Drop misattributed pitchers — keep only NCAA pids that appear in the
+    # box-score pitching file.
+    verified = _verified_pitcher_ids(sport, division)
+    if verified:
+        df = df[df['pitcherId'].astype(int).isin(verified)]
+        if df.empty:
+            return pd.DataFrame()
+
     df['pitcherId'] = df['pitcherId'].astype(int).astype(str)
 
     # The pitcher's name string isn't carried as a separate column on PBP
