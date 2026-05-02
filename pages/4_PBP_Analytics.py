@@ -3061,10 +3061,12 @@ elif view == 'Share Graphic':
         f'<svg viewBox="0 0 {VB_W} {VB_H}" width="{VB_W}" height="{VB_H}" '
         f'xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">',
         '<defs>',
-        '<style>'
+        # CDATA-wrap the @import so the unescaped `&` query separators don't
+        # break the XML parser cairosvg uses.
+        '<style><![CDATA['
         '@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Barlow+Condensed:ital,wght@0,500;0,600;0,700;1,600;1,700;1,800&family=JetBrains+Mono:wght@500;600&display=swap");'
         '.os{font-family:Oswald,sans-serif}.bc{font-family:"Barlow Condensed",sans-serif}.mn{font-family:"JetBrains Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}'
-        '</style>',
+        ']]></style>',
         # turbulence filter for distortion bleed
         '<filter id="distort" x="-10%" y="-10%" width="120%" height="120%">'
         '<feTurbulence type="fractalNoise" baseFrequency="0.012 0.022" numOctaves="2" seed="7" result="noise"/>'

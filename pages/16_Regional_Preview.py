@@ -920,10 +920,12 @@ parts = [
     f'<svg viewBox="0 0 {VB_W} {VB_H}" width="{VB_W}" height="{VB_H}" '
     f'xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">',
     # font import (works in browsers; cairosvg falls back to system fonts)
-    '<defs><style>'
+    # CDATA-wrap so the unescaped `&` query separators in the @import URL
+    # don't break cairosvg's XML parser.
+    '<defs><style><![CDATA['
     '@import url("https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&family=JetBrains+Mono:wght@500;600;700;800&display=swap");'
     '.in{font-family:Inter,system-ui,sans-serif}.mn{font-family:"JetBrains Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}'
-    '</style></defs>',
+    ']]></style></defs>',
     f'<rect x="0" y="0" width="{VB_W}" height="{VB_H}" fill="{BG_EGG}"/>',
 ]
 
