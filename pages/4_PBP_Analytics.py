@@ -3258,32 +3258,29 @@ elif view == 'Share Graphic':
                     f'font-size="{int(pill_h * 0.26)}" font-weight="800" font-style="italic" '
                     f'fill="{WHITE}" text-anchor="middle" letter-spacing="0.4">{_xe(rd["tabbr"])}</text>'
                 )
-        # Stat value (always rendered; bigger when names are off)
+        # Stat value — always at the same left-aligned position so toggling
+        # team names doesn't shift it horizontally. When names are on we
+        # nudge the stat slightly UP and put the name caption beneath it.
         text_left = pill_x + pill_h + 12
         stat_str = f'{rd["stat"]:.{int(sg_decimals)}f}'
         stat_size = max(20, min(34, int(pill_h * 0.38)))
-        stat_text_x_right = pill_x + pill_w - 22
-        if not sg_show_names:
-            # left-align stat where the team name would be
-            parts.append(
-                f'<text x="{text_left:.1f}" y="{logo_cy + 8:.1f}" class="bc" '
-                f'font-size="{stat_size}" font-weight="800" font-style="italic" '
-                f'fill="{WHITE}" letter-spacing="0.5">{stat_str}{(" " + _xe(sg_suffix)) if sg_suffix else ""}</text>'
-            )
+        if sg_show_names:
+            stat_y = logo_cy - 2
         else:
-            parts.append(
-                f'<text x="{stat_text_x_right:.1f}" y="{logo_cy + 8:.1f}" class="bc" '
-                f'font-size="{stat_size}" font-weight="800" font-style="italic" '
-                f'fill="{WHITE}" text-anchor="end" letter-spacing="0.5">{stat_str}{(" " + _xe(sg_suffix)) if sg_suffix else ""}</text>'
-            )
-            # Team / player name as a bottom-aligned caption so it doesn't
-            # crowd the stat or the logo.
+            stat_y = logo_cy + 8
+        parts.append(
+            f'<text x="{text_left:.1f}" y="{stat_y:.1f}" class="bc" '
+            f'font-size="{stat_size}" font-weight="800" font-style="italic" '
+            f'fill="{WHITE}" letter-spacing="0.5">{stat_str}{(" " + _xe(sg_suffix)) if sg_suffix else ""}</text>'
+        )
+        # Team / player name as a bottom-aligned caption beneath the stat
+        if sg_show_names:
             name_size = max(13, min(20, int(pill_h * 0.22)))
-            name_y = row_y + pill_h - max(8, pill_h * 0.10)
+            name_y = row_y + pill_h - max(8, pill_h * 0.12)
             parts.append(
                 f'<text x="{text_left:.1f}" y="{name_y:.1f}" class="bc" '
                 f'font-size="{name_size}" font-weight="600" font-style="italic" '
-                f'fill="rgba(255,255,255,0.78)" letter-spacing="0.5">{_xe(rd["name"]).upper()}</text>'
+                f'fill="rgba(255,255,255,0.82)" letter-spacing="0.5">{_xe(rd["name"]).upper()}</text>'
             )
 
     # ── FOOTER ────────────────────────────────────────────────────────────
@@ -3373,8 +3370,45 @@ elif view == 'Share Graphic':
     except Exception as e:
         st.caption(f'PNG export unavailable in this environment ({type(e).__name__}: {str(e)[:80]}).')
 
+    # ── Per-player photo upload (Player mode only) ───────────────────────
+    if group_by == 'Player':
+        st.markdown('---')
+        with st.expander('Upload player photos', expanded=False):
+            st.caption(
+                'Pick a square PNG / JPG for any player; it\'s saved as '
+                f'`assets/player_headshots/{{cb_id}}.png` and shows up in their '
+                'pill on the next render. Same store the spray-chart page uses.'
+            )
+            HEADSHOT_DIR.mkdir(parents=True, exist_ok=True)
+            for rd in rows_data:
+                cb_id = rd.get('cb_player_id')
+                pname = rd.get('name', '?')
+                if cb_id is None:
+                    st.caption(f"`{pname}` — no chart-builder id (rosters bridge missed); upload disabled.")
+                    continue
+                target = HEADSHOT_DIR / f'{cb_id}.png'
+                present = '✓ photo on file' if target.exists() else '— no photo yet'
+                up = st.file_uploader(
+                    f"{pname}  (cb_id {cb_id})  {present}",
+                    type=['png', 'jpg', 'jpeg', 'webp'],
+                    key=f'sg_photo_{cb_id}',
+                )
+                if up is not None:
+                    new_bytes = up.getvalue()
+                    existing = target.read_bytes() if target.exists() else None
+                    if existing != new_bytes:
+                        try:
+                            from PIL import Image as _PILImage
+                            import io as _io
+                            img = _PILImage.open(_io.BytesIO(new_bytes)).convert('RGBA')
+                            img.save(target, 'PNG')
+                            st.success(f"Saved `{target.name}` — re-render to see the headshot.")
+                        except Exception as e:
+                            st.error(f'Could not save image: {e}')
+
     st.markdown('---')
-    st.caption('1080×1350 IG portrait. Fonts (Oswald + Barlow Condensed Italic) pull from Google Fonts at render time. '
-               'Pill colors are stable per team via team_id_ncaa hash. Hero image, when uploaded, bleeds left across '
-               'the rows with a turbulence-distorted edge.')
+    st.caption('1080×1350 IG portrait. Pill colors are extracted from each team\'s logo PNG. '
+               'Player headshots: drop a PNG named `{cb_id}.png` into `assets/player_headshots/`, '
+               'or use the upload section above. Hero image (right column) stays clear; if no '
+               'manual hero is uploaded in Player mode, the top-1 player\'s headshot fills it.')
 
