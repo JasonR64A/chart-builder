@@ -141,12 +141,73 @@ with st.sidebar:
                                'this listed bat side (from players.csv `bat`).')
     else:
         f_hand = st.radio('Pitcher hand', ['Any', 'vs LHP', 'vs RHP'], horizontal=True)
-    f_two_strikes = st.checkbox('2-strike counts only')
-    f_two_outs = st.checkbox('2-out situations only')
-    f_risp = st.checkbox('Runners in scoring position')
+
+    st.markdown('### Game state')
+    # Base-state controls (3-way: Any / Empty / Occupied) and a Yes/No RISP
+    # collapsible — keep the row tight; expand on demand.
+    s_col1, s_col2 = st.columns(2)
+    with s_col1:
+        f_runner1b = st.radio('1B', ['Any', 'Empty', 'Occupied'], horizontal=True, key='f_r1')
+        f_runner2b = st.radio('2B', ['Any', 'Empty', 'Occupied'], horizontal=True, key='f_r2')
+        f_runner3b = st.radio('3B', ['Any', 'Empty', 'Occupied'], horizontal=True, key='f_r3')
+        f_risp = st.radio('RISP', ['Any', 'Yes', 'No'], horizontal=True, key='f_risp')
+    with s_col2:
+        f_balls = st.radio('Balls', ['Any', '0', '1', '2', '3'], horizontal=True, key='f_b')
+        f_strikes = st.radio('Strikes', ['Any', '0', '1', '2'], horizontal=True, key='f_s')
+        f_run_diff = st.radio('Run differential (batting POV)',
+                               ['Any', 'Losing', 'Tied', 'Winning'],
+                               horizontal=True, key='f_rd')
+        f_opp_rank = st.radio('Opponent rank',
+                               ['Any', '1-100', '101-200', '201-500', '500+'],
+                               horizontal=True, key='f_opp',
+                               help='Bucket of the opposite-side player\'s integer rank '
+                                    'in player_rank.csv year=2026 within sport. '
+                                    'Hitting POV ranks pitchers by allowed-efficiency '
+                                    'percentile; pitching POV ranks batters by '
+                                    'created-efficiency percentile.')
+
+    f_innings = st.multiselect(
+        'Innings (empty = all)',
+        options=['1', '2', '3', '4', '5', '6', '7', '8', '9', 'Extras'],
+        default=[],
+        help='Pick one or more innings. "Extras" matches innings 10+.',
+    )
 
 vs_hand = {'vs LHP': 'L', 'vs RHP': 'R',
            'vs LHB': 'L', 'vs RHB': 'R'}.get(f_hand)
+# Translate UI selections into compute_spray_distribution kwargs
+balls_arg = 'Any' if f_balls == 'Any' else int(f_balls)
+strikes_arg = 'Any' if f_strikes == 'Any' else int(f_strikes)
+innings_arg = None
+if f_innings:
+    innings_arg = tuple(int(v) if v.isdigit() else v for v in f_innings)
+
+
+def _filter_bits() -> list[str]:
+    """Compact human-readable list of active state filters, used in chart
+    captions + Team Grid header. Returns [] when no filters are active."""
+    bits: list[str] = []
+    if vs_hand:
+        if is_pitching:
+            bits.append('vs LHB' if vs_hand == 'L' else 'vs RHB')
+        else:
+            bits.append('vs LHP' if vs_hand == 'L' else 'vs RHP')
+    for label, val in [('1B', f_runner1b), ('2B', f_runner2b), ('3B', f_runner3b)]:
+        if val != 'Any':
+            bits.append(f'{label} {val}')
+    if f_risp != 'Any':
+        bits.append('RISP' if f_risp == 'Yes' else 'no RISP')
+    if f_balls != 'Any':
+        bits.append(f'{f_balls} balls')
+    if f_strikes != 'Any':
+        bits.append(f'{f_strikes} strikes')
+    if f_innings:
+        bits.append('Inn ' + '/'.join(f_innings))
+    if f_run_diff != 'Any':
+        bits.append(f_run_diff.lower())
+    if f_opp_rank != 'Any':
+        bits.append(f'opp #{f_opp_rank}')
+    return bits
 
 # ── Compute ──────────────────────────────────────────────────────────────────
 perspective_arg = 'pitching' if is_pitching else 'hitting'
@@ -156,9 +217,12 @@ spray = compute_spray_distribution(
     player_id=selected_player_id if view_mode == 'Player' else None,
     perspective=perspective_arg,
     vs_hand=vs_hand,
-    two_strikes=f_two_strikes,
-    two_outs=f_two_outs,
+    runner1b=f_runner1b, runner2b=f_runner2b, runner3b=f_runner3b,
     risp=f_risp,
+    balls=balls_arg, strikes=strikes_arg,
+    innings=innings_arg,
+    run_diff=f_run_diff,
+    opp_rank_bucket=f_opp_rank,
 )
 spray = add_zone_metrics(spray)
 buckets = compute_field_side_buckets(spray)
@@ -231,8 +295,13 @@ if view_mode == 'Team Grid':
             sport, division,
             team_name=team_filter, player_id=p[grid_id_col],
             perspective=perspective_arg,
-            vs_hand=vs_hand, two_strikes=f_two_strikes,
-            two_outs=f_two_outs, risp=f_risp,
+            vs_hand=vs_hand,
+            runner1b=f_runner1b, runner2b=f_runner2b, runner3b=f_runner3b,
+            risp=f_risp,
+            balls=balls_arg, strikes=strikes_arg,
+            innings=innings_arg,
+            run_diff=f_run_diff,
+            opp_rank_bucket=f_opp_rank,
         )
         sp = add_zone_metrics(sp)
         from app_lib.spray_data import compute_field_side_buckets as _cfsb
@@ -567,15 +636,7 @@ if view_mode == 'Team Grid':
 
     # Team name + scope below logo
     sport_label = 'Baseball' if sport.lower() == 'baseball' else 'Softball'
-    fb = []
-    if vs_hand:
-        if is_pitching:
-            fb.append('vs LHB' if vs_hand == 'L' else 'vs RHB')
-        else:
-            fb.append('vs LHP' if vs_hand == 'L' else 'vs RHP')
-    if f_two_strikes: fb.append('2 strikes')
-    if f_two_outs:    fb.append('2 outs')
-    if f_risp:        fb.append('RISP')
+    fb = _filter_bits()
     fbtxt = ' · ' + ', '.join(fb) if fb else ''
     parts_g.append(
         f'<text x="{VB_W/2}" y="16" text-anchor="middle" font-family="Inter,sans-serif" '
@@ -1097,15 +1158,7 @@ with col_field:
         scope_txt = str(team_filter)
     else:
         scope_txt = 'All teams'
-    filter_bits = []
-    if vs_hand:
-        if is_pitching:
-            filter_bits.append('vs LHB' if vs_hand == 'L' else 'vs RHB')
-        else:
-            filter_bits.append('vs LHP' if vs_hand == 'L' else 'vs RHP')
-    if f_two_strikes: filter_bits.append('2 strikes')
-    if f_two_outs: filter_bits.append('2 outs')
-    if f_risp: filter_bits.append('RISP')
+    filter_bits = _filter_bits()
     filter_txt = (' · ' + ', '.join(filter_bits)) if filter_bits else ''
     caption_line1 = f'{scope_txt} · {sport_label} {division}{filter_txt}'
     caption_line2 = f'{metric_choice} · {buckets["total"]:,} balls in play'

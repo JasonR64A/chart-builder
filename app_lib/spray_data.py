@@ -123,14 +123,18 @@ def _load_pbp(sport: str, division: str) -> pd.DataFrame:
     naming: {sport}_play_by_play_{division}.csv (or .csv.gz on Render —
     raw .csv is gitignored at ~330MB; only .gz reaches Streamlit Cloud).
 
-    Loads enough columns to support the filter set: pitcher handedness
-    join key (pitcherId), 2-out (outs), RISP (runner2B/3B), and 2-strike
-    counts (strikes1..15)."""
+    Loads enough columns to support the full state-filter set: handedness
+    bridges (pitcherId), runners (runner1B/2B/3B), inning + outs, balls
+    and strikes per pitch (for count-at-contact), and away/home score +
+    awayTeam (for run-differential from the batter's POV)."""
     base_cols = ['gameId', 'date', 'battingTeam', 'fieldingTeam',
+                 'awayTeam', 'homeTeam', 'awayScore', 'homeScore',
                  'player', 'playerId', 'pitcherId', 'playResult',
-                 'hitLocation', 'inning', 'outs', 'runner2B', 'runner3B']
+                 'hitLocation', 'inning', 'outs',
+                 'runner1B', 'runner2B', 'runner3B']
     strikes_cols = [f'strikes{i}' for i in range(1, 16)]
-    cols = set(base_cols + strikes_cols)
+    balls_cols   = [f'balls{i}'   for i in range(1, 16)]
+    cols = set(base_cols + strikes_cols + balls_cols)
     csv_p = PBP_DIR / f'{sport}_play_by_play_{division}.csv'
     gz_p  = PBP_DIR / f'{sport}_play_by_play_{division}.csv.gz'
     if csv_p.exists():
@@ -185,13 +189,13 @@ def _batter_bat_lookup(sport: str) -> dict:
     return dict(zip(sub['ncaa_pid'].astype(int), sub['bat']))
 
 
-def _strikes_at_contact(df: pd.DataFrame) -> pd.Series:
-    """For each row, the strikes count immediately before the contact pitch
-    (i.e., the strikes value at the highest non-null pitch index). Vectorized
-    by walking the strikesN columns from 15 down to 1."""
+def _count_at_contact(df: pd.DataFrame, prefix: str) -> pd.Series:
+    """Generic count-at-contact extractor. For each row, returns the value
+    at the highest-index non-null `{prefix}N` column. Vectorized by walking
+    columns from 15 down to 1. Used for both balls and strikes counts."""
     out = pd.Series(pd.NA, index=df.index, dtype='Int64')
     for n in range(15, 0, -1):
-        col = f'strikes{n}'
+        col = f'{prefix}{n}'
         if col not in df.columns:
             continue
         vals = pd.to_numeric(df[col], errors='coerce')
@@ -199,6 +203,80 @@ def _strikes_at_contact(df: pd.DataFrame) -> pd.Series:
         if mask.any():
             out.loc[mask] = vals.loc[mask].astype('Int64')
     return out
+
+
+def _strikes_at_contact(df: pd.DataFrame) -> pd.Series:
+    return _count_at_contact(df, 'strikes')
+
+
+def _balls_at_contact(df: pd.DataFrame) -> pd.Series:
+    return _count_at_contact(df, 'balls')
+
+
+@st.cache_data(show_spinner=False)
+def _opp_rank_lookup(sport: str, role: str) -> dict:
+    """{ncaa_pid (int): integer_rank (1..N)} for filtering by the opponent
+    player's quality. role='pitcher' uses the pitcher percentile column
+    (percentile_rank_weighted_run_allowed_efficiency); role='batter' uses
+    the hitter percentile column (percentile_rank_weighted_run_created_efficiency).
+    Players with percentile == 0 are treated as unranked and omitted from
+    the map — so any specific bucket filter (1-100, etc.) excludes plays
+    against unranked opponents.
+
+    Integer rank is computed within (sport, role, year=2026) by sorting
+    percentile DESC and numbering 1..N. So rank 1 is the best hitter / best
+    pitcher in that sport-year."""
+    pr = _load_csv('player_rank.csv')
+    if pr.empty:
+        return {}
+    pr['year'] = pd.to_numeric(pr['year'], errors='coerce')
+    pr = pr[pr['year'] == 2026].copy()
+    if pr.empty:
+        return {}
+
+    teams_csv = _load_csv('teams.csv')
+    sport_label = 'Baseball' if sport.lower() == 'baseball' else 'Softball'
+    sport_team_ids = set(pd.to_numeric(
+        teams_csv[teams_csv['sport'] == sport_label]['id'], errors='coerce'
+    ).dropna().astype(int)) if not teams_csv.empty else set()
+    pr['team_id_int'] = pd.to_numeric(pr['team_id'], errors='coerce').astype('Int64')
+    pr = pr[pr['team_id_int'].isin(sport_team_ids)]
+    if pr.empty:
+        return {}
+
+    col = ('percentile_rank_weighted_run_allowed_efficiency' if role == 'pitcher'
+           else 'percentile_rank_weighted_run_created_efficiency')
+    if col not in pr.columns:
+        return {}
+    pr['_pct'] = pd.to_numeric(pr[col], errors='coerce')
+    pr = pr.dropna(subset=['_pct', 'player_id'])
+    pr = pr[pr['_pct'] > 0]
+    if pr.empty:
+        return {}
+    # Sort DESC: highest percentile = best = rank 1
+    pr = pr.sort_values('_pct', ascending=False).reset_index(drop=True)
+    pr['_rank'] = pr.index + 1
+    cb_to_rank = dict(zip(pd.to_numeric(pr['player_id'], errors='coerce').astype(int),
+                          pr['_rank'].astype(int)))
+
+    bridge = _ncaa_pid_to_cb_player()
+    if bridge.empty:
+        return {}
+    bb = bridge.dropna(subset=['cb_id', 'ncaa_pid']).copy()
+    bb['cb_id'] = bb['cb_id'].astype(int)
+    bb['ncaa_pid'] = bb['ncaa_pid'].astype(int)
+    return {int(r.ncaa_pid): cb_to_rank[int(r.cb_id)]
+            for r in bb.itertuples()
+            if int(r.cb_id) in cb_to_rank}
+
+
+# Constants used by both the data layer and the UI. Centralized so the page
+# enum-style controls and the filter logic can't drift.
+RUNNER_OPTIONS = ('Any', 'Empty', 'Occupied')
+RISP_OPTIONS   = ('Any', 'Yes', 'No')
+RUN_DIFF_OPTIONS = ('Any', 'Losing', 'Tied', 'Winning')
+RANK_BUCKET_OPTIONS = ('Any', '1-100', '101-200', '201-500', '500+')
+INNING_VALUES = (1, 2, 3, 4, 5, 6, 7, 8, 9, 'Extras')
 
 
 def compute_spray_distribution(
@@ -209,9 +287,15 @@ def compute_spray_distribution(
     *,
     perspective: str = 'hitting',  # 'hitting' or 'pitching'
     vs_hand: str | None = None,    # 'L', 'R', or None
-    two_strikes: bool = False,
-    two_outs: bool = False,
-    risp: bool = False,
+    runner1b: str = 'Any',         # 'Any' | 'Empty' | 'Occupied'
+    runner2b: str = 'Any',
+    runner3b: str = 'Any',
+    risp: str = 'Any',             # 'Any' | 'Yes' | 'No' (2B or 3B occupied)
+    balls: str | int = 'Any',      # 'Any' | 0 | 1 | 2 | 3
+    strikes: str | int = 'Any',    # 'Any' | 0 | 1 | 2
+    innings: tuple | list | None = None,  # subset of INNING_VALUES, None = all
+    run_diff: str = 'Any',         # 'Any' | 'Losing' | 'Tied' | 'Winning'
+    opp_rank_bucket: str = 'Any',  # one of RANK_BUCKET_OPTIONS
 ) -> pd.DataFrame:
     """Return a per-zone count table for the selected scope.
 
@@ -222,7 +306,6 @@ def compute_spray_distribution(
       'pitching' — "where do hitters put the ball against this pitcher /
                    pitching staff?" Scope filters target fieldingTeam +
                    pitcherId; vs_hand targets the OPPONENT batter's bat side.
-                   Same hitLocation distribution shape, just inverted POV.
 
     Scope filters (mutually exclusive):
       team_name: restrict to plays where the relevant team (battingTeam in
@@ -230,12 +313,21 @@ def compute_spray_distribution(
       player_id: restrict to plays by this player (batter in hitting,
                  pitcher in pitching). Overrides team_name.
 
-    Situational filters (compose):
-      vs_hand     'L' or 'R' — pitcher hand in hitting POV, batter hand
-                  in pitching POV.
-      two_strikes True keeps only plays where the contact pitch was at 2 strikes
-      two_outs    True keeps only plays where the play started with 2 outs
-      risp        True keeps only plays with a runner on 2B and/or 3B
+    State filters (all default to 'Any' / no-op; compose):
+      vs_hand          'L'/'R' — opp pitcher throw (hitting) or opp batter
+                       bat (pitching).
+      runner1b/2b/3b   'Empty' or 'Occupied' on that base.
+      risp             'Yes' = runner on 2B and/or 3B; 'No' = neither.
+      balls / strikes  Pre-contact count from the per-pitch count columns.
+      innings          Iterable of inning numbers (1..9 ints) and/or the
+                       string 'Extras' for innings >= 10.
+      run_diff         'Losing'/'Tied'/'Winning' from the BATTING team's
+                       point of view (sign computed from awayTeam check).
+      opp_rank_bucket  Bucket of the opponent player's integer rank in
+                       chart-builder/data/player_rank.csv year=2026 within
+                       sport. 'pitching' POV ranks opposing batters by
+                       hitter percentile; 'hitting' POV ranks opposing
+                       pitchers by pitcher percentile.
 
     Output columns: hitLocation, zone_name, total, plus one column per
     HIT_RESULT_BUCKETS bucket (1B, 2B, 3B, HR, Out, FC/Err, Other) and a
@@ -276,22 +368,83 @@ def compute_spray_distribution(
     if df.empty:
         return pd.DataFrame()
 
-    # Situational filters — applied AFTER scope to keep the BIP universe stable
+    # State filters — applied AFTER scope to keep the BIP universe stable
     if vs_hand in ('L', 'R') and opp_player_col in df.columns:
         if hand_lookup:
             pid = pd.to_numeric(df[opp_player_col], errors='coerce').astype('Int64')
             mapped = pid.map(hand_lookup)
             df = df[mapped == vs_hand]
-    if two_outs and 'outs' in df.columns:
-        df = df[pd.to_numeric(df['outs'], errors='coerce') == 2]
-    if risp:
-        # runner2B / runner3B are 0.0 / 1.0 floats — empty bases are 0, not NaN.
+
+    # Runner on bases — runnerXB columns are 0.0/1.0 floats (empty bases = 0,
+    # not NaN, so a missing column means the base never matters).
+    def _runner_mask(col, state):
+        if state == 'Any' or col not in df.columns:
+            return None
+        on_base = pd.to_numeric(df[col], errors='coerce') > 0
+        return on_base if state == 'Occupied' else ~on_base
+    for col, state in [('runner1B', runner1b), ('runner2B', runner2b), ('runner3B', runner3b)]:
+        m = _runner_mask(col, state)
+        if m is not None:
+            df = df[m]
+
+    # RISP — runner on 2B and/or 3B
+    if risp in ('Yes', 'No'):
         on_2b = pd.to_numeric(df['runner2B'], errors='coerce') > 0 if 'runner2B' in df.columns else False
         on_3b = pd.to_numeric(df['runner3B'], errors='coerce') > 0 if 'runner3B' in df.columns else False
-        df = df[on_2b | on_3b]
-    if two_strikes:
-        df = df.assign(_strk=_strikes_at_contact(df))
-        df = df[df['_strk'] == 2].drop(columns=['_strk'])
+        in_scoring = on_2b | on_3b
+        df = df[in_scoring] if risp == 'Yes' else df[~in_scoring]
+
+    # Balls / strikes count at contact
+    if balls != 'Any':
+        df = df.assign(_b=_balls_at_contact(df))
+        df = df[df['_b'] == int(balls)].drop(columns=['_b'])
+    if strikes != 'Any':
+        df = df.assign(_s=_strikes_at_contact(df))
+        df = df[df['_s'] == int(strikes)].drop(columns=['_s'])
+
+    # Innings — set of allowed inning ints + optional 'Extras' (>=10)
+    if innings:
+        inn_int = pd.to_numeric(df['inning'], errors='coerce') if 'inning' in df.columns else None
+        if inn_int is not None:
+            num_set = {int(v) for v in innings if isinstance(v, int) or (isinstance(v, str) and v.isdigit())}
+            extras = any(isinstance(v, str) and v.lower() == 'extras' for v in innings)
+            mask = inn_int.isin(num_set) if num_set else pd.Series(False, index=df.index)
+            if extras:
+                mask = mask | (inn_int >= 10)
+            df = df[mask]
+
+    # Run differential from batting team's POV
+    if run_diff != 'Any' and all(c in df.columns for c in ['awayScore','homeScore','battingTeam','awayTeam']):
+        away = pd.to_numeric(df['awayScore'], errors='coerce')
+        home = pd.to_numeric(df['homeScore'], errors='coerce')
+        is_away = df['battingTeam'].astype(str) == df['awayTeam'].astype(str)
+        diff = away.where(is_away, other=home) - home.where(is_away, other=away)
+        if run_diff == 'Losing':
+            df = df[diff < 0]
+        elif run_diff == 'Tied':
+            df = df[diff == 0]
+        elif run_diff == 'Winning':
+            df = df[diff > 0]
+
+    # Opponent rank bucket
+    if opp_rank_bucket != 'Any' and opp_player_col in df.columns:
+        opp_role = 'pitcher' if perspective == 'hitting' else 'batter'
+        rank_map = _opp_rank_lookup(sport, opp_role)
+        if rank_map:
+            opp_pid = pd.to_numeric(df[opp_player_col], errors='coerce').astype('Int64')
+            ranks = opp_pid.map(rank_map)
+            if opp_rank_bucket == '1-100':
+                df = df[(ranks >= 1) & (ranks <= 100)]
+            elif opp_rank_bucket == '101-200':
+                df = df[(ranks >= 101) & (ranks <= 200)]
+            elif opp_rank_bucket == '201-500':
+                df = df[(ranks >= 201) & (ranks <= 500)]
+            elif opp_rank_bucket == '500+':
+                df = df[ranks > 500]
+        else:
+            # No rank lookup available → no plays match a specific bucket
+            df = df.iloc[0:0]
+
     if df.empty:
         return pd.DataFrame()
 
