@@ -3220,6 +3220,11 @@ elif view == 'Share Graphic':
         logo_size = pill_h * 0.8
         logo_cx = pill_x + pill_h / 2
         logo_cy = row_y + pill_h / 2
+        # Light stroke ring around the logo / headshot — keeps dark logos
+        # (e.g. Nevada navy) readable on dark pills.
+        ring_r = logo_size / 2 + 1
+        ring_attr = (f'<circle cx="{logo_cx:.1f}" cy="{logo_cy:.1f}" r="{ring_r:.1f}" '
+                     f'fill="none" stroke="rgba(255,255,255,0.65)" stroke-width="2"/>')
         if group_by == 'Player':
             if rd.get('headshot_b64'):
                 clip_id = f'sg_clip_{idx}'
@@ -3234,6 +3239,7 @@ elif view == 'Share Graphic':
                     f'x="{logo_cx - logo_size / 2:.1f}" y="{logo_cy - logo_size / 2:.1f}" '
                     f'width="{logo_size:.1f}" height="{logo_size:.1f}" '
                     f'preserveAspectRatio="xMidYMid slice" clip-path="url(#{clip_id})"/>'
+                    + ring_attr
                 )
             else:
                 parts.append(
@@ -3242,15 +3248,21 @@ elif view == 'Share Graphic':
                     f'<text x="{logo_cx:.1f}" y="{logo_cy + 7:.1f}" class="bc" '
                     f'font-size="{int(pill_h * 0.32)}" font-weight="800" font-style="italic" '
                     f'fill="{WHITE}" text-anchor="middle" letter-spacing="0.6">{_xe(rd["pabbr"])}</text>'
+                    + ring_attr
                 )
         else:
             if rd['logo_b64']:
+                # Soft white disc behind the logo so dark/transparent marks
+                # have something to read against, then the logo, then ring.
                 parts.append(
+                    f'<circle cx="{logo_cx:.1f}" cy="{logo_cy:.1f}" r="{logo_size / 2:.1f}" '
+                    f'fill="rgba(255,255,255,0.92)"/>'
                     f'<image href="data:image/png;base64,{rd["logo_b64"]}" '
                     f'xlink:href="data:image/png;base64,{rd["logo_b64"]}" '
                     f'x="{logo_cx - logo_size / 2:.1f}" y="{logo_cy - logo_size / 2:.1f}" '
                     f'width="{logo_size:.1f}" height="{logo_size:.1f}" '
                     f'preserveAspectRatio="xMidYMid meet"/>'
+                    + ring_attr
                 )
             else:
                 parts.append(
@@ -3259,6 +3271,7 @@ elif view == 'Share Graphic':
                     f'<text x="{logo_cx:.1f}" y="{logo_cy + 6:.1f}" class="bc" '
                     f'font-size="{int(pill_h * 0.26)}" font-weight="800" font-style="italic" '
                     f'fill="{WHITE}" text-anchor="middle" letter-spacing="0.4">{_xe(rd["tabbr"])}</text>'
+                    + ring_attr
                 )
         # Stat value — always at the same left-aligned position so toggling
         # team names doesn't shift it horizontally. When names are on we
