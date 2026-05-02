@@ -246,7 +246,7 @@ with st.expander('Identity', expanded=True):
     throw = c8.text_input('Throws', value=defaults['throw'])
 
     photo_upload = st.file_uploader('Player photo (optional — leave blank to use sample)',
-                                     type=['jpg', 'jpeg', 'png'])
+                                     type=['jpg', 'jpeg', 'png', 'webp'])
 
 with st.expander('Season line', expanded=True):
     c1, c2, c3 = st.columns(3)
