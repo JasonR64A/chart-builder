@@ -626,11 +626,23 @@ def list_players(sport: str, division: str, team_name: str | None = None) -> pd.
 def list_pitching_teams(sport: str, division: str) -> pd.DataFrame:
     """Pitching-perspective mirror of list_teams. Counts BIP allowed by
     each fieldingTeam (i.e., balls put in play against their pitching staff)
-    and resolves chart-builder team_id the same way."""
+    and resolves chart-builder team_id the same way.
+
+    Applies the same verified-pitcher gate as list_pitchers and
+    compute_spray_distribution so the dropdown count matches the chart's
+    actual BIP-allowed total. Without the gate, NCAA scorebook
+    misattributions (a SS typed into the pitcher slot for ~6 games) inflate
+    the sidebar count vs the chart — Minnesota showed 1,031 BIP in the
+    dropdown but 665 in the chart, the 366-row gap was Jack Spanier (SS)
+    listed as pitcher in 346 events that aren't in the box-score file."""
     df = _load_pbp(sport, division)
     if df.empty:
         return pd.DataFrame(columns=['ncaa_team', 'team_id', 'bip', 'short_name'])
     df = df.dropna(subset=['hitLocation', 'fieldingTeam']).copy()
+    verified = _verified_pitcher_ids(sport, division)
+    if verified and 'pitcherId' in df.columns:
+        pid_int = pd.to_numeric(df['pitcherId'], errors='coerce')
+        df = df[pid_int.isin(verified)]
     bip = df.groupby('fieldingTeam').size().reset_index(name='bip')
     bip = bip.rename(columns={'fieldingTeam': 'ncaa_team'})
 
