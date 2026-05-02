@@ -428,27 +428,46 @@ rendered = template
 for k, v in replacements.items():
     rendered = rendered.replace(k, str(v))
 
-# Inject html2canvas + PNG download button
+# Inject html2canvas + PNG download button. Await document.fonts.ready and
+# pre-decode all <img> tags before snapshotting, otherwise html2canvas
+# captures the frame before the Google Fonts CSS resolves and the PNG
+# falls back to system fonts. Button stays disabled while a render is in
+# flight to prevent double-clicks producing duplicate downloads.
 png_script = """
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script>
-window.downloadCardPNG = function() {
+window.downloadCardPNG = async function(btn) {
   var stage = document.querySelector('.stage');
   if (!stage) return;
-  html2canvas(stage, { scale: 2, useCORS: true, allowTaint: true }).then(function(canvas) {
+  if (btn) { btn.disabled = true; btn.dataset.label = btn.textContent; btn.textContent = 'Rendering…'; }
+  try {
+    if (document.fonts && document.fonts.ready) {
+      await document.fonts.ready;
+    }
+    var imgs = Array.from(stage.querySelectorAll('img'));
+    await Promise.all(imgs.map(function(img) {
+      if (img.complete && img.naturalWidth > 0) return Promise.resolve();
+      return new Promise(function(res) {
+        img.addEventListener('load', res, { once: true });
+        img.addEventListener('error', res, { once: true });
+      });
+    }));
+    var canvas = await html2canvas(stage, { scale: 2, useCORS: true, allowTaint: true });
     var a = document.createElement('a');
     a.download = 'portal_entrant.png';
     a.href = canvas.toDataURL('image/png');
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
-  });
+  } finally {
+    if (btn) { btn.disabled = false; btn.textContent = btn.dataset.label || 'Download PNG'; }
+  }
 };
 </script>
 """
 png_btn = """
 <div style="text-align:center;margin:16px 0;">
-  <button onclick="window.downloadCardPNG()" style="
+  <button onclick="window.downloadCardPNG(this)" style="
     padding:10px 24px;background:#b11f2c;color:#fff;border:none;border-radius:4px;
     font-family:'Barlow Condensed','Inter',sans-serif;font-weight:700;font-size:14px;
     letter-spacing:.2em;text-transform:uppercase;cursor:pointer;
@@ -461,6 +480,3 @@ rendered = rendered.replace('</body>', f'{png_script}{png_btn}</body>')
 
 st.subheader('3. Preview')
 components.html(rendered, height=1040, scrolling=False)
-
-st.caption('Tip: PNG export uses html2canvas. External fonts render after first frame — '
-            'if the PNG looks plain, wait a second for fonts to load then retry.')
