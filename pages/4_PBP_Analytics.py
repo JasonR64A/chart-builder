@@ -1883,6 +1883,26 @@ if class_map and 'teamName' in pbp.columns:
             hitting_pbp = hitting_pbp[hitting_pbp['teamName'].isin(strength_teams)]
             pitching_pbp = pitching_pbp[pitching_pbp['teamName'].isin(strength_teams)]
 
+# 2026 portal filter — applies to any Player-mode view (Hitter / Pitcher /
+# Fielding Stats + Share Graphic). Surfaced before the per-view filter blocks
+# so the same checkbox state survives across views.
+if (view in ('Hitter Stats', 'Pitcher Stats', 'Fielding Stats', 'Share Graphic')
+        and group_by == 'Player' and 'playerId' in pbp.columns):
+    portal_only = st.sidebar.checkbox(
+        'In 2026 portal',
+        key='in_2026_portal',
+        help='Restrict to players in the 2026 transfer portal '
+             '(portal_rank_player.csv year=2026 → rosters → playerId).',
+    )
+    if portal_only:
+        portal_pids = load_portal_2026_ncaa_pids()
+        before = len(pbp)
+        pbp = pbp[pbp['playerId'].astype(str).isin(portal_pids)]
+        st.sidebar.caption(
+            f'{len(pbp):,} of {before:,} lines · '
+            f'{len(portal_pids):,} 2026 portal players in roster bridge'
+        )
+
 # Team / Position / Player filters — not shown for Lineup Card, Who's Hot, or Share Graphic
 if view not in ('Lineup Card', 'Share Graphic'):
     # Team filter
@@ -1899,22 +1919,6 @@ if view not in ('Lineup Card', 'Share Graphic'):
                                                      help='Leave empty for all positions')
         if selected_positions:
             pbp = pbp[pbp['playerPosition'].isin(selected_positions)]
-
-    # 2026 portal filter — only meaningful when grouping by Player
-    if group_by == 'Player' and 'playerId' in pbp.columns:
-        portal_only = st.sidebar.checkbox(
-            'In 2026 portal',
-            help='Restrict to players in the 2026 transfer portal '
-                 '(portal_rank_player.csv year=2026 → rosters → playerId).',
-        )
-        if portal_only:
-            portal_pids = load_portal_2026_ncaa_pids()
-            before = len(pbp)
-            pbp = pbp[pbp['playerId'].astype(str).isin(portal_pids)]
-            st.sidebar.caption(
-                f'{len(pbp):,} of {before:,} lines · '
-                f'{len(portal_pids):,} 2026 portal players in roster bridge'
-            )
 
     # Min PA/BF — defaults shift up in Team mode where aggregates are larger
     st.sidebar.markdown('---')
