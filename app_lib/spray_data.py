@@ -174,6 +174,17 @@ def _pitcher_throw_lookup(sport: str) -> dict:
     return dict(zip(sub['ncaa_pid'].astype(int), sub['throw']))
 
 
+@st.cache_data(show_spinner=False)
+def _batter_bat_lookup(sport: str) -> dict:
+    """{ncaa_pid (int): 'L'|'R'|'B'} for vs-LHB / vs-RHB filtering on the
+    pitching-perspective spray chart."""
+    bridge = _ncaa_pid_to_cb_player()
+    if bridge.empty or 'bat' not in bridge.columns:
+        return {}
+    sub = bridge[bridge['bat'].isin(['L', 'R', 'B'])].dropna(subset=['ncaa_pid'])
+    return dict(zip(sub['ncaa_pid'].astype(int), sub['bat']))
+
+
 def _strikes_at_contact(df: pd.DataFrame) -> pd.Series:
     """For each row, the strikes count immediately before the contact pitch
     (i.e., the strikes value at the highest non-null pitch index). Vectorized
@@ -196,6 +207,7 @@ def compute_spray_distribution(
     team_name: str | None = None,
     player_id: str | None = None,
     *,
+    perspective: str = 'hitting',  # 'hitting' or 'pitching'
     vs_hand: str | None = None,    # 'L', 'R', or None
     two_strikes: bool = False,
     two_outs: bool = False,
@@ -203,12 +215,24 @@ def compute_spray_distribution(
 ) -> pd.DataFrame:
     """Return a per-zone count table for the selected scope.
 
+    Perspective:
+      'hitting'  — "where does this batter / batting team put the ball?"
+                   Scope filters target battingTeam + batter playerId; the
+                   vs_hand filter targets the OPPONENT pitcher's throw side.
+      'pitching' — "where do hitters put the ball against this pitcher /
+                   pitching staff?" Scope filters target fieldingTeam +
+                   pitcherId; vs_hand targets the OPPONENT batter's bat side.
+                   Same hitLocation distribution shape, just inverted POV.
+
     Scope filters (mutually exclusive):
-      team_name: restrict to plays where battingTeam matches
-      player_id: restrict to plays by this batter (overrides team)
+      team_name: restrict to plays where the relevant team (battingTeam in
+                 hitting, fieldingTeam in pitching) matches.
+      player_id: restrict to plays by this player (batter in hitting,
+                 pitcher in pitching). Overrides team_name.
 
     Situational filters (compose):
-      vs_hand     'L' or 'R' to keep only plays vs that pitcher hand
+      vs_hand     'L' or 'R' — pitcher hand in hitting POV, batter hand
+                  in pitching POV.
       two_strikes True keeps only plays where the contact pitch was at 2 strikes
       two_outs    True keeps only plays where the play started with 2 outs
       risp        True keeps only plays with a runner on 2B and/or 3B
@@ -221,16 +245,31 @@ def compute_spray_distribution(
     if df.empty:
         return pd.DataFrame()
 
+    # Resolve perspective-dependent column names so the rest of the function
+    # treats them uniformly. Hitting POV: scope = battingTeam / playerId,
+    # opponent-hand lookup = pitcher throw. Pitching POV: scope =
+    # fieldingTeam / pitcherId, opponent-hand lookup = batter bat side.
+    if perspective == 'pitching':
+        team_col = 'fieldingTeam'
+        player_col = 'pitcherId'
+        opp_player_col = 'playerId'
+        hand_lookup = _batter_bat_lookup(sport)
+    else:
+        team_col = 'battingTeam'
+        player_col = 'playerId'
+        opp_player_col = 'pitcherId'
+        hand_lookup = _pitcher_throw_lookup(sport)
+
     # Filter scope. Use IDs / exact equality only — never substring on
     # team names (would match Texas/Texas A&M/Texas State/Texas Tech).
     if player_id:
         target = str(int(float(player_id))) if player_id else ''
-        df_pid = pd.to_numeric(df['playerId'], errors='coerce')
+        df_pid = pd.to_numeric(df[player_col], errors='coerce')
         df_pid_str = df_pid.where(df_pid.notna(), other=pd.NA).astype('Int64').astype(str)
         df = df[df_pid_str == target]
     elif team_name:
         # Exact equality — team_name is the canonical NCAA name from list_teams.
-        df = df[df['battingTeam'].astype(str) == str(team_name)]
+        df = df[df[team_col].astype(str) == str(team_name)]
 
     # Restrict to balls in play (hitLocation populated)
     df = df.dropna(subset=['hitLocation']).copy()
@@ -238,11 +277,10 @@ def compute_spray_distribution(
         return pd.DataFrame()
 
     # Situational filters — applied AFTER scope to keep the BIP universe stable
-    if vs_hand in ('L', 'R') and 'pitcherId' in df.columns:
-        throws = _pitcher_throw_lookup(sport)
-        if throws:
-            pid = pd.to_numeric(df['pitcherId'], errors='coerce').astype('Int64')
-            mapped = pid.map(throws)
+    if vs_hand in ('L', 'R') and opp_player_col in df.columns:
+        if hand_lookup:
+            pid = pd.to_numeric(df[opp_player_col], errors='coerce').astype('Int64')
+            mapped = pid.map(hand_lookup)
             df = df[mapped == vs_hand]
     if two_outs and 'outs' in df.columns:
         df = df[pd.to_numeric(df['outs'], errors='coerce') == 2]
@@ -394,4 +432,85 @@ def list_players(sport: str, division: str, team_name: str | None = None) -> pd.
 
     return out.sort_values('balls_in_play', ascending=False)[
         ['playerId','cb_id','player','player_name','balls_in_play','position','classification']
+    ].reset_index(drop=True)
+
+
+@st.cache_data(show_spinner=False)
+def list_pitching_teams(sport: str, division: str) -> pd.DataFrame:
+    """Pitching-perspective mirror of list_teams. Counts BIP allowed by
+    each fieldingTeam (i.e., balls put in play against their pitching staff)
+    and resolves chart-builder team_id the same way."""
+    df = _load_pbp(sport, division)
+    if df.empty:
+        return pd.DataFrame(columns=['ncaa_team', 'team_id', 'bip', 'short_name'])
+    df = df.dropna(subset=['hitLocation', 'fieldingTeam']).copy()
+    bip = df.groupby('fieldingTeam').size().reset_index(name='bip')
+    bip = bip.rename(columns={'fieldingTeam': 'ncaa_team'})
+
+    teams_csv = _load_csv('teams.csv')
+    sport_label = 'Baseball' if sport.lower() == 'baseball' else 'Softball'
+    cb = teams_csv[teams_csv['sport'] == sport_label][['id', 'name']].copy() if not teams_csv.empty else pd.DataFrame()
+    name_to_id, id_to_short = {}, {}
+    if not cb.empty:
+        cb_sorted = cb.assign(_len=cb['name'].str.len()).sort_values('_len', ascending=False)
+        for _, r in cb_sorted.iterrows():
+            name_to_id[str(r['name'])] = int(r['id'])
+            id_to_short[int(r['id'])] = str(r['name'])
+
+    def find_id(ncaa: str):
+        for short, tid in name_to_id.items():
+            if ncaa.startswith(short):
+                return tid
+        return None
+
+    bip['team_id'] = bip['ncaa_team'].apply(find_id)
+    bip['short_name'] = bip['team_id'].apply(
+        lambda tid: id_to_short.get(int(tid)) if pd.notna(tid) else None
+    )
+    return bip.sort_values('ncaa_team').reset_index(drop=True)
+
+
+@st.cache_data(show_spinner=False)
+def list_pitchers(sport: str, division: str, team_name: str | None = None) -> pd.DataFrame:
+    """Pitching-perspective mirror of list_players. Distinct
+    (pitcherId, pitcher, balls_in_play_allowed) per team, sorted by
+    balls-in-play allowed descending. Joins to chart-builder rosters
+    bridge for cb_id / position / classification."""
+    df = _load_pbp(sport, division)
+    if df.empty:
+        return pd.DataFrame()
+    if team_name:
+        df = df[df['fieldingTeam'].astype(str) == str(team_name)]
+    df = df.dropna(subset=['hitLocation', 'pitcherId']).copy()
+    if df.empty:
+        return pd.DataFrame()
+    df['pitcherId'] = pd.to_numeric(df['pitcherId'], errors='coerce').astype('Int64')
+    df = df.dropna(subset=['pitcherId'])
+    df['pitcherId'] = df['pitcherId'].astype(int).astype(str)
+
+    # The pitcher's name string isn't carried as a separate column on PBP
+    # rows (the `player` field is the BATTER). The bridge to players.csv
+    # gives us the pitcher's full name; if the bridge misses, fall back to
+    # the pitcherId for the dropdown label.
+    bip = df.groupby('pitcherId').size().reset_index(name='balls_in_play')
+
+    bridge = _ncaa_pid_to_cb_player()
+    if not bridge.empty:
+        b = bridge.dropna(subset=['ncaa_pid']).copy()
+        b['pitcherId'] = b['ncaa_pid'].astype(int).astype(str)
+        keep = ['pitcherId', 'cb_id'] + [c for c in ['player_name', 'position', 'classification', 'throw']
+                                          if c in b.columns]
+        b = b[keep].drop_duplicates('pitcherId')
+        bip = bip.merge(b, on='pitcherId', how='left')
+    for col in ('cb_id', 'player_name', 'position', 'classification', 'throw'):
+        if col not in bip.columns:
+            bip[col] = pd.NA
+
+    # `player` column kept for parity with list_players callers — show the
+    # bridge name when available, else the bare pitcherId.
+    bip['player'] = bip['player_name'].where(bip['player_name'].notna(),
+                                              other=bip['pitcherId'])
+    return bip.sort_values('balls_in_play', ascending=False)[
+        ['pitcherId', 'cb_id', 'player', 'player_name', 'balls_in_play',
+         'position', 'classification', 'throw']
     ].reset_index(drop=True)

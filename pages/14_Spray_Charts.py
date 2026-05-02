@@ -31,6 +31,8 @@ from app_lib.spray_data import (
     add_zone_metrics,
     list_teams,
     list_players,
+    list_pitching_teams,
+    list_pitchers,
     ZONE_COORDS,
     ZONE_NAMES,
 )
@@ -49,12 +51,20 @@ with st.sidebar:
     sport = st.selectbox('Sport', ['baseball', 'softball'], format_func=str.title)
     division = st.selectbox('Division', ['D1', 'D2', 'D3'])
 
+    perspective = st.radio(
+        'Perspective', ['Hitting', 'Pitching'], horizontal=True,
+        help='Hitting: where does this batter / batting team put the ball? '
+             'Pitching: where do hitters put the ball against this pitcher / '
+             'pitching staff? Same field heatmap, opposite point of view.',
+    )
+    is_pitching = perspective == 'Pitching'
+
     view_mode = st.radio('View', ['Team', 'Player', 'Team Grid'], horizontal=True,
                          help='Team / Player render a single chart. '
                               'Team Grid renders a 3x3 array of the team\'s nine '
-                              'highest-BIP batters with the same single 64A logo on top.')
+                              'highest-BIP players with the same single 64A logo on top.')
 
-    teams_df = list_teams(sport, division)
+    teams_df = list_pitching_teams(sport, division) if is_pitching else list_teams(sport, division)
     if teams_df.empty:
         st.error(f'No PBP data found for {sport} {division}. '
                  f'Expected pbp_data/play_by_play/{sport}_play_by_play_{division}.csv '
@@ -86,7 +96,8 @@ with st.sidebar:
 
     # Team Grid mode requires a team selection
     if view_mode == 'Team Grid' and team_filter is None:
-        st.warning('Pick a team to see the 3x3 grid of its top 9 batters.')
+        grid_what = 'top 9 pitchers (by BIP allowed)' if is_pitching else 'top 9 batters'
+        st.warning(f'Pick a team to see the 3x3 grid of its {grid_what}.')
         st.stop()
 
     selected_player_id = None
@@ -94,9 +105,13 @@ with st.sidebar:
     selected_player_position = None
     selected_player_class = None
     if view_mode == 'Player':
-        plist = list_players(sport, division, team_filter)
+        if is_pitching:
+            plist = list_pitchers(sport, division, team_filter)
+        else:
+            plist = list_players(sport, division, team_filter)
         if plist.empty:
-            st.warning('No players with batted balls found for this scope.')
+            who = 'pitchers' if is_pitching else 'batters'
+            st.warning(f'No {who} with batted balls found for this scope.')
             st.stop()
         head = plist.head(80).reset_index(drop=True)
         # Prefer the full name from players.csv; fall back to PBP last-name spelling
@@ -105,28 +120,41 @@ with st.sidebar:
             if isinstance(full, str) and full.strip():
                 return full
             return str(r['player'])
-        labels = [f"{_disp_name(r)}  ({r['balls_in_play']} BIP)"
+        bip_label = 'BIP allowed' if is_pitching else 'BIP'
+        labels = [f"{_disp_name(r)}  ({r['balls_in_play']} {bip_label})"
                   for _, r in head.iterrows()]
-        choice = st.selectbox('Player', range(len(labels)), format_func=lambda i: labels[i])
-        selected_player_id = head.loc[choice, 'playerId']
+        person_label = 'Pitcher' if is_pitching else 'Player'
+        choice = st.selectbox(person_label, range(len(labels)), format_func=lambda i: labels[i])
+        # Pitchers identify by 'pitcherId', batters by 'playerId' — both are
+        # NCAA season-pid strings; downstream just calls them player_id.
+        id_col = 'pitcherId' if is_pitching else 'playerId'
+        selected_player_id = head.loc[choice, id_col]
         selected_player_name = _disp_name(head.loc[choice])
         selected_player_position = head.loc[choice, 'position'] if 'position' in head.columns else None
         selected_player_class = head.loc[choice, 'classification'] if 'classification' in head.columns else None
 
     st.markdown('---')
     st.markdown('### Filters')
-    f_hand = st.radio('Pitcher hand', ['Any', 'vs LHP', 'vs RHP'], horizontal=True)
+    if is_pitching:
+        f_hand = st.radio('Batter hand', ['Any', 'vs LHB', 'vs RHB'], horizontal=True,
+                          help='Filter to plays where the batter at the plate had '
+                               'this listed bat side (from players.csv `bat`).')
+    else:
+        f_hand = st.radio('Pitcher hand', ['Any', 'vs LHP', 'vs RHP'], horizontal=True)
     f_two_strikes = st.checkbox('2-strike counts only')
     f_two_outs = st.checkbox('2-out situations only')
     f_risp = st.checkbox('Runners in scoring position')
 
-vs_hand = {'vs LHP': 'L', 'vs RHP': 'R'}.get(f_hand)
+vs_hand = {'vs LHP': 'L', 'vs RHP': 'R',
+           'vs LHB': 'L', 'vs RHB': 'R'}.get(f_hand)
 
 # ── Compute ──────────────────────────────────────────────────────────────────
+perspective_arg = 'pitching' if is_pitching else 'hitting'
 spray = compute_spray_distribution(
     sport, division,
     team_name=team_filter if view_mode == 'Team' else None,
     player_id=selected_player_id if view_mode == 'Player' else None,
+    perspective=perspective_arg,
     vs_hand=vs_hand,
     two_strikes=f_two_strikes,
     two_outs=f_two_outs,
@@ -136,12 +164,16 @@ spray = add_zone_metrics(spray)
 buckets = compute_field_side_buckets(spray)
 
 # ── Header ───────────────────────────────────────────────────────────────────
+person_word = 'Pitcher' if is_pitching else 'Player'
+team_word = 'Pitching staff' if is_pitching else 'Team'
 title_scope = (
-    f"Player: {selected_player_name}" if view_mode == 'Player'
-    else (f"Team: {selected_team_short}" if selected_team_short else f"All {division} {sport}")
+    f"{person_word}: {selected_player_name}" if view_mode == 'Player'
+    else (f"{team_word}: {selected_team_short}" if selected_team_short else f"All {division} {sport}")
 )
-st.markdown(f"## {sport.title()} {division} — Spray Chart")
-st.caption(title_scope + f" · {buckets['total']:,} balls in play")
+chart_label = 'Spray Allowed' if is_pitching else 'Spray Chart'
+bip_word = 'balls in play allowed' if is_pitching else 'balls in play'
+st.markdown(f"## {sport.title()} {division} — {chart_label}")
+st.caption(title_scope + f" · {buckets['total']:,} {bip_word}")
 
 if spray.empty:
     st.warning('No batted-ball data for this selection.')
@@ -174,9 +206,15 @@ if view_mode == 'Team Grid':
     import math, base64
     HEADSHOT_DIR = _APP_DIR / 'assets' / 'player_headshots'
 
-    plist = list_players(sport, division, team_filter)
+    if is_pitching:
+        plist = list_pitchers(sport, division, team_filter)
+        grid_id_col = 'pitcherId'
+    else:
+        plist = list_players(sport, division, team_filter)
+        grid_id_col = 'playerId'
     if plist.empty:
-        st.error(f'No players with batted balls found for {selected_team_short}.')
+        who = 'pitchers' if is_pitching else 'players'
+        st.error(f'No {who} with batted balls found for {selected_team_short}.')
         st.stop()
     top9 = plist.head(9).reset_index(drop=True)
 
@@ -191,7 +229,8 @@ if view_mode == 'Team Grid':
     for _, p in top9.iterrows():
         sp = compute_spray_distribution(
             sport, division,
-            team_name=team_filter, player_id=p['playerId'],
+            team_name=team_filter, player_id=p[grid_id_col],
+            perspective=perspective_arg,
             vs_hand=vs_hand, two_strikes=f_two_strikes,
             two_outs=f_two_outs, risp=f_risp,
         )
@@ -529,7 +568,11 @@ if view_mode == 'Team Grid':
     # Team name + scope below logo
     sport_label = 'Baseball' if sport.lower() == 'baseball' else 'Softball'
     fb = []
-    if vs_hand: fb.append('vs LHP' if vs_hand == 'L' else 'vs RHP')
+    if vs_hand:
+        if is_pitching:
+            fb.append('vs LHB' if vs_hand == 'L' else 'vs RHB')
+        else:
+            fb.append('vs LHP' if vs_hand == 'L' else 'vs RHP')
     if f_two_strikes: fb.append('2 strikes')
     if f_two_outs:    fb.append('2 outs')
     if f_risp:        fb.append('RISP')
@@ -1055,7 +1098,11 @@ with col_field:
     else:
         scope_txt = 'All teams'
     filter_bits = []
-    if vs_hand: filter_bits.append('vs LHP' if vs_hand == 'L' else 'vs RHP')
+    if vs_hand:
+        if is_pitching:
+            filter_bits.append('vs LHB' if vs_hand == 'L' else 'vs RHB')
+        else:
+            filter_bits.append('vs LHP' if vs_hand == 'L' else 'vs RHP')
     if f_two_strikes: filter_bits.append('2 strikes')
     if f_two_outs: filter_bits.append('2 outs')
     if f_risp: filter_bits.append('RISP')
