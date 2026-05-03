@@ -847,6 +847,43 @@ def _team_radar_perf(team_name, sport, division, last_n_games=None):
 
 
 @st.cache_data(show_spinner=False)
+def _division_metric_distributions(sport, division):
+    """Sorted per-metric value list across every team in the sport+division.
+    Defined here (right after _team_radar_perf) because the percentile lookup
+    is invoked at top-level page-render time *before* the radar geometry
+    helpers section further down — moving it earlier keeps Python's
+    forward-reference rules happy."""
+    teams_csv = load_teams()
+    sport_label = 'Baseball' if sport == 'baseball' else 'Softball'
+    confs = pd.read_csv(DATA_DIR / 'conferences.csv', low_memory=False)
+    div_label = {'D1': 'D-I', 'D2': 'D-II', 'D3': 'D-III'}[division]
+    valid_conf_ids = set(confs[(confs['division'] == div_label) & (confs['name'] != 'Big Sky Conference')]['id'])
+    div_teams = teams_csv[(teams_csv['sport'] == sport_label) & (teams_csv['conference_id'].isin(valid_conf_ids))]['name'].dropna().unique().tolist()
+    dist = {k: [] for k in ('RUNS', 'OPS', 'OBP', 'HKBB', 'ERA', 'WHIP', 'PKBB', 'KPCT', 'FLD')}
+    for t in div_teams:
+        perf = _team_radar_perf(t, sport, division, last_n_games=None)
+        if not perf: continue
+        for k in dist:
+            v = perf.get(k)
+            if v is not None:
+                dist[k].append(float(v))
+    for k in dist:
+        dist[k].sort()
+    return dist
+
+
+def _percentile_rank(value, sorted_vals, lower_better=False):
+    """0..1 percentile rank for value within sorted_vals. Inverts when
+    lower_better=True so a low ERA maps to a high radar fraction."""
+    if not sorted_vals:
+        return 0.5
+    import bisect
+    pos = bisect.bisect_left(sorted_vals, value)
+    pct = pos / len(sorted_vals)
+    return 1.0 - pct if lower_better else pct
+
+
+@st.cache_data(show_spinner=False)
 def _team_top_pitchers(team_name, sport, division, n=8):
     """Top N pitchers by IP. First 3 (by IP) get role SP1/SP2/SP3 highlight.
     Returns IP, FIP, WHIP per the user's preferred staff display."""
@@ -995,44 +1032,6 @@ _STRENGTH_FMT = {
     'KPCT': lambda v: f'{v*100:.1f}%',
     'FLD':  lambda v: f'{v:.3f}'.lstrip('0') or '.000',
 }
-
-
-@st.cache_data(show_spinner=False)
-def _division_metric_distributions(sport, division):
-    """For each metric in _team_radar_perf, return the sorted list of values
-    across every team in the sport+division. Used as the percentile baseline
-    for the radar — replaces the hardcoded min-max ranges with the actual
-    league distribution."""
-    teams_csv = load_teams()
-    sport_label = 'Baseball' if sport == 'baseball' else 'Softball'
-    confs = pd.read_csv(DATA_DIR / 'conferences.csv', low_memory=False)
-    div_label = {'D1': 'D-I', 'D2': 'D-II', 'D3': 'D-III'}[division]
-    valid_conf_ids = set(confs[(confs['division'] == div_label) & (confs['name'] != 'Big Sky Conference')]['id'])
-    div_teams = teams_csv[(teams_csv['sport'] == sport_label) & (teams_csv['conference_id'].isin(valid_conf_ids))]['name'].dropna().unique().tolist()
-    dist = {k: [] for k in ('RUNS', 'OPS', 'OBP', 'HKBB', 'ERA', 'WHIP', 'PKBB', 'KPCT', 'FLD')}
-    for t in div_teams:
-        perf = _team_radar_perf(t, sport, division, last_n_games=None)
-        if not perf: continue
-        for k in dist:
-            v = perf.get(k)
-            if v is not None:
-                dist[k].append(float(v))
-    for k in dist:
-        dist[k].sort()
-    return dist
-
-
-def _percentile_rank(value, sorted_vals, lower_better=False):
-    """Return 0..1 percentile rank for value within sorted_vals. Inverts
-    when lower_better=True so a low ERA still maps to a high radar fraction."""
-    if not sorted_vals:
-        return 0.5
-    n = len(sorted_vals)
-    # binary insert position → number of values <= this one
-    import bisect
-    pos = bisect.bisect_left(sorted_vals, value)
-    pct = pos / n
-    return 1.0 - pct if lower_better else pct
 
 
 def _radar_pts(cx, cy, r, perf, frac_scale=1.0, dist=None):
