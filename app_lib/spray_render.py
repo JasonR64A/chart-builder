@@ -666,8 +666,11 @@ def build_player_spray_svg(sport: str, division: str, ncaa_player_id,
     parts = [
         f'<svg viewBox="0 0 {VB_W} {VB_H}" width="{VB_W}" height="{VB_H}" '
         f'xmlns="http://www.w3.org/2000/svg">'
-        f'<rect x="0" y="0" width="{VB_W}" height="{VB_H}" fill="#F0EAD6"/>',
     ]
+    # No background rect — keep the SVG transparent so the row's team-logo
+    # watermark shows through. Mirrors the Spray_Charts player render (the
+    # eggshell rect there only fits the standalone page; embedded here it
+    # blocks the watermark).
 
     def _draw(zc, a1, a2, ri, ro, lf, *, pie=False):
         primary = zc[0]
@@ -686,9 +689,7 @@ def build_player_spray_svg(sport: str, division: str, ncaa_player_id,
     for zc, a1, a2 in LINE:     _draw(zc, a1, a2, R_INNER, R_OUTER, 2.6, pie=True)
     for zc, a1, a2 in INFIELD:  _draw(zc, a1, a2, R_INNER, R_MID, 2.4)
 
-    # Pitcher disc + home plate — small diamond detail that the team-spray
-    # has but the player version was missing. Mirrors build_team_spray_svg
-    # lines 553-565 so the visual language stays consistent across pages.
+    # Pitcher disc + home plate — same as Spray_Charts page.
     px, py = HOME[0], HOME[1] - 4
     parts.append(f'<circle cx="{px}" cy="{py}" r="2.5" fill="#F8E8E2" '
                  f'stroke="#0F2A4D" stroke-width="0.4"/>')
@@ -704,37 +705,6 @@ def build_player_spray_svg(sport: str, division: str, ncaa_player_id,
     parts.append(f'<path d="M {HOME[0]},{HOME[1]} L {fxL:.2f},{fyL:.2f} '
                  f'A {R_OUTER},{R_OUTER} 0 0 1 {fxR:.2f},{fyR:.2f} Z" '
                  f'fill="none" stroke="#0F2A4D" stroke-width="0.5"/>')
-
-    # 64A emblem watermark in the field center, behind the foul-line outline
-    # but above the wedge fills. Inserted at the start of `parts` after the
-    # background rect so it doesn't paint over the zone numbers.
-    emblem_path = _APP_DIR / 'assets' / 'branding' / 'emblem.png'
-    if emblem_path.exists():
-        try:
-            eb64 = base64.b64encode(emblem_path.read_bytes()).decode('ascii')
-            ehref = f'data:image/png;base64,{eb64}'
-            ew = 14
-            parts.insert(1,
-                f'<image href="{ehref}" xlink:href="{ehref}" '
-                f'x="{HOME[0]-ew/2:.2f}" y="{HOME[1]-32:.2f}" width="{ew}" height="{ew}" '
-                f'opacity="0.18" preserveAspectRatio="xMidYMid meet"/>'
-            )
-        except Exception:
-            pass
-
-    # Small diamond inset — upper-left corner reference graphic. Just an
-    # outline of a baseball infield diamond (home -> 1B -> 2B -> 3B -> home)
-    # so the spray chart reads as a baseball visualization at a glance.
-    DX, DY = 6.5, 6.5  # center of the inset
-    DR = 3.2          # half-diagonal
-    parts.append(
-        f'<g opacity="0.55">'
-        f'<polygon points="{DX:.1f},{DY+DR:.1f} {DX+DR:.1f},{DY:.1f} '
-        f'{DX:.1f},{DY-DR:.1f} {DX-DR:.1f},{DY:.1f}" '
-        f'fill="none" stroke="#0F2A4D" stroke-width="0.4"/>'
-        f'<circle cx="{DX:.1f}" cy="{DY:.1f}" r="0.5" fill="#0F2A4D"/>'
-        f'</g>'
-    )
 
     # Bottom-left aggregate stats block — same layout as Spray_Charts page.
     # AVG/SLG/wOBA are BIP-conditional (denominator = total BIP).

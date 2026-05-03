@@ -499,12 +499,12 @@ _STYLES = """
   flex: 1 1 auto;
   min-height: 280px;
 }
-/* Wrapper that vertically centers the SVG inside the section's remaining space */
+/* SVG anchored to the top of the section so it sits right under the
+   "Hit distribution" header rather than centered with a gap above. */
 .rth-stats__spray-figure {
-  flex: 1 1 auto;
-  display: flex;
-  align-items: center;     /* vertical center */
-  justify-content: center; /* horizontal center */
+  flex: 0 0 auto;
+  display: block;
+  margin-top: 4px;
 }
 .rth-stats__spray svg {
   width: 100% !important;
@@ -526,7 +526,7 @@ _STYLES = """
   padding: 6px 9px; display: flex; flex-direction: column; gap: 3px;
   border-right: 1px solid rgba(0,0,0,0.08);
   border-bottom: 1px solid rgba(0,0,0,0.08);
-  background: var(--rth-paper);
+  background: transparent;   /* let the row's team-logo watermark bleed through */
 }
 .rth-stat__top { display: flex; justify-content: space-between; align-items: center; }
 .rth-stat__key {
