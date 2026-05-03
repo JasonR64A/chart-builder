@@ -66,8 +66,8 @@ def build_d1_pool(hitting_df: pd.DataFrame, teams_df: pd.DataFrame, sport: str,
     if conferences_df is not None:
         div_conf_ids = set(conferences_df[conferences_df['division'] == div_full]['id']
                             .astype(int).tolist())
-        sport_teams = sport_teams[sport_teams['conference_id']
-                                  .apply(lambda x: pd.notna(x) and int(x) in div_conf_ids)]
+        conf_id_num = pd.to_numeric(sport_teams['conference_id'], errors='coerce')
+        sport_teams = sport_teams[conf_id_num.isin(div_conf_ids)]
 
     pool = hitting_df[(hitting_df['year'] == CURRENT_YEAR) &
                        (hitting_df['team_id'].isin(sport_teams['id'])) &
