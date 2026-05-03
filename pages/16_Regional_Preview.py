@@ -1591,7 +1591,7 @@ display_svg = graphic_svg.replace(
 )
 st.markdown(display_svg, unsafe_allow_html=True)
 
-# PNG download
+# PNG download for the main page
 try:
     import cairosvg
     png_bytes = cairosvg.svg2png(bytestring=graphic_svg.encode('utf-8'), output_width=2160)
@@ -1601,6 +1601,52 @@ try:
                        mime='image/png', use_container_width=False)
 except Exception as e:
     st.caption(f'PNG export unavailable in this environment ({type(e).__name__}: {str(e)[:80]}).')
+
+
+# ── PER-TEAM HITTING PAGE (Phase 3) ─────────────────────────────────────────
+# Each team gets a section with: top-9 hitters spray grid + team-level
+# hitting spray heatmap. Mirrors the Spray_Charts page output via
+# app_lib/spray_render so the multi-page document feels unified.
+from app_lib.spray_render import build_team_grid_svg, build_team_spray_svg
+
+for team, seed in zip(teams, seeds):
+    tid = team_ids.get(team)
+    accent = _accent_for_team(tid, seed)
+    st.markdown('---')
+    # Section header — team logo + name + page label, in the same brand color
+    logo_b64 = _team_logo_b64(tid)
+    logo_html = (f'<img src="{logo_b64}" style="height:48px;width:48px;'
+                 f'border-radius:50%;background:#fff;border:3px solid {accent};'
+                 f'object-fit:contain;padding:4px;vertical-align:middle;margin-right:14px;"/>'
+                 if logo_b64 else '')
+    st.markdown(
+        f'<div style="display:flex;align-items:center;margin:18px 0 6px 0;">'
+        f'{logo_html}'
+        f'<div>'
+        f'<div style="font-family:\'JetBrains Mono\',monospace;font-size:11px;'
+        f'font-weight:700;letter-spacing:2px;color:{accent};">'
+        f'#{seed} SEED · HITTING PROFILE</div>'
+        f'<div style="font-family:Inter,sans-serif;font-size:30px;font-weight:800;'
+        f'letter-spacing:-0.5px;color:#0F1B2D;">{_xe(team)}</div>'
+        f'</div></div>',
+        unsafe_allow_html=True,
+    )
+    with st.spinner(f'Building hitting spray grid for {team}…'):
+        grid_svg = build_team_grid_svg(sport, division, team, tid, perspective='hitting')
+    grid_disp = grid_svg.replace(
+        '<svg ',
+        '<svg style="width:100%;max-width:1080px;height:auto;display:block;'
+        'margin:0 auto;border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.14);" ', 1,
+    )
+    st.markdown(grid_disp, unsafe_allow_html=True)
+    with st.spinner(f'Building team-level hitting spray for {team}…'):
+        team_spray_svg = build_team_spray_svg(sport, division, team, tid, perspective='hitting')
+    team_disp = team_spray_svg.replace(
+        '<svg ',
+        '<svg style="width:100%;max-width:760px;height:auto;display:block;'
+        'margin:14px auto 0 auto;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,.12);" ', 1,
+    )
+    st.markdown(team_disp, unsafe_allow_html=True)
 
 
 st.markdown('---')
