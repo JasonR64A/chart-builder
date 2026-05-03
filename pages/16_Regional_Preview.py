@@ -123,6 +123,25 @@ team_ids = {t: int(team_meta[t]['id']) if team_meta[t] is not None and pd.notna(
 team_rpi = {t: team_meta[t].get('current_rpi') if team_meta[t] is not None else None for t in teams}
 
 
+# ── View selector — Bracket Preview (existing) vs Top Hitters (new) ─────────
+view = st.radio('View', ['Bracket Preview', 'Top Hitters'],
+                horizontal=True, label_visibility='collapsed', key='rp_view')
+
+if view == 'Top Hitters':
+    from app_lib.regionals_top_hitters import render_tab as _render_top_hitters_tab
+    _SEED_PALETTE = ['#C41230', '#29335c', '#F5A623', '#0F8A5F']
+    _hitting_df_th = pd.read_csv(DATA_DIR / 'hitting.csv', low_memory=False)
+    _players_df_th = load_players()
+    _confs_df_th = pd.read_csv(DATA_DIR / 'conferences.csv', low_memory=False)
+    _render_top_hitters_tab(
+        teams, seeds, team_ids, sport, division, regional_name,
+        _hitting_df_th, _players_df_th, sport_teams,
+        accent_for=lambda _tid, seed: _SEED_PALETTE[(seed - 1) % 4],
+        conferences_df=_confs_df_th,
+    )
+    st.stop()
+
+
 # ── Header — 4 team cards ───────────────────────────────────────────────────
 st.markdown(f'## {regional_name}')
 st.caption(f'{sport.title()} {division} · 4-team double-elimination · Lookback {lookback_days}d')
