@@ -129,7 +129,41 @@ view = st.radio('View', ['Bracket Preview', 'Top Hitters'],
 
 if view == 'Top Hitters':
     from app_lib.regionals_top_hitters import render_tab as _render_top_hitters_tab
+    from collections import Counter as _Counter
     _SEED_PALETTE = ['#C41230', '#29335c', '#F5A623', '#0F8A5F']
+
+    @st.cache_data(show_spinner=False)
+    def _th_team_color(tid: int) -> str | None:
+        """Same dominant-color logic _team_dominant_color uses, hoisted up
+        so we can call it before the bracket-only helpers are defined."""
+        if tid is None:
+            return None
+        try:
+            from PIL import Image
+        except Exception:
+            return None
+        p = LOGOS / f'{int(tid)}.png'
+        if not p.exists():
+            return None
+        try:
+            img = Image.open(p).convert('RGBA').resize((96, 96), Image.LANCZOS)
+            cleaned = []
+            for r, g, b, a in img.getdata():
+                if a < 220: continue
+                if r > 235 and g > 235 and b > 235: continue
+                if r < 18 and g < 18 and b < 18: continue
+                if max(r, g, b) - min(r, g, b) < 20: continue
+                cleaned.append((r // 16 * 16, g // 16 * 16, b // 16 * 16))
+            if not cleaned:
+                return None
+            top = _Counter(cleaned).most_common(1)[0][0]
+            return f'#{top[0]:02x}{top[1]:02x}{top[2]:02x}'
+        except Exception:
+            return None
+
+    def _th_accent(tid, seed):
+        return _th_team_color(tid) or _SEED_PALETTE[(seed - 1) % 4]
+
     _hitting_df_th = pd.read_csv(DATA_DIR / 'hitting.csv', low_memory=False)
     _players_df_th = load_players()
     _confs_df_th = pd.read_csv(DATA_DIR / 'conferences.csv', low_memory=False)
@@ -137,7 +171,7 @@ if view == 'Top Hitters':
     _render_top_hitters_tab(
         teams, seeds, team_ids, sport, division, regional_name,
         _hitting_df_th, _players_df_th, sport_teams,
-        accent_for=lambda _tid, seed: _SEED_PALETTE[(seed - 1) % 4],
+        accent_for=_th_accent,
         conferences_df=_confs_df_th,
         player_rank_df=_player_rank_df_th,
     )

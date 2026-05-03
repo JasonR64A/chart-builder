@@ -686,6 +686,19 @@ def build_player_spray_svg(sport: str, division: str, ncaa_player_id,
     for zc, a1, a2 in LINE:     _draw(zc, a1, a2, R_INNER, R_OUTER, 2.6, pie=True)
     for zc, a1, a2 in INFIELD:  _draw(zc, a1, a2, R_INNER, R_MID, 2.4)
 
+    # Pitcher disc + home plate — small diamond detail that the team-spray
+    # has but the player version was missing. Mirrors build_team_spray_svg
+    # lines 553-565 so the visual language stays consistent across pages.
+    px, py = HOME[0], HOME[1] - 4
+    parts.append(f'<circle cx="{px}" cy="{py}" r="2.5" fill="#F8E8E2" '
+                 f'stroke="#0F2A4D" stroke-width="0.4"/>')
+    pw, ph = 2.4, 2.0
+    cx2, cy2 = HOME[0], HOME[1] + ph
+    plate = [(cx2-pw, cy2-ph), (cx2+pw, cy2-ph),
+             (cx2+pw, cy2+ph*0.10), (cx2, cy2+ph), (cx2-pw, cy2+ph*0.10)]
+    parts.append('<polygon points="' + ' '.join(f'{x:.2f},{y:.2f}' for x, y in plate)
+                 + '" fill="#F8E8E2" stroke="#0F2A4D" stroke-width="0.3"/>')
+
     fo = 45 + LINE_HALF
     fxL, fyL = _polar(-fo, R_OUTER); fxR, fyR = _polar(fo, R_OUTER)
     parts.append(f'<path d="M {HOME[0]},{HOME[1]} L {fxL:.2f},{fyL:.2f} '

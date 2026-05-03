@@ -160,11 +160,12 @@ def _slg_from_subset(subset: pd.DataFrame) -> tuple[float, int]:
     return (round(tb / ab, 3), int(ab))
 
 
-def compute_player_pace(events_df: pd.DataFrame, ncaa_player_id: int) -> list[dict]:
-    """Per-game cumulative OPS trajectory from G1 to last game. Returns a list
-    of {'game': int, 'date': str, 'ops': float, 'pa': int} ordered by date.
-    OPS = OBP + SLG; both denominators are CUMULATIVE (PA for OBP, AB for SLG)
-    so the line smooths out over the season rather than spiking on tiny samples.
+def compute_player_pace(events_df: pd.DataFrame, ncaa_player_id: int,
+                          window_days: int = 30) -> list[dict]:
+    """Per-game cumulative OPS trajectory over the most recent `window_days`
+    days. Returns {'game', 'date', 'ops', 'pa'} ordered by date.
+    OPS = OBP + SLG; cumulative WITHIN the window so a noisy early-season
+    sample doesn't blow up the line.
     """
     if events_df.empty or pd.isna(ncaa_player_id):
         return []
@@ -174,6 +175,14 @@ def compute_player_pace(events_df: pd.DataFrame, ncaa_player_id: int) -> list[di
 
     df['date_dt'] = pd.to_datetime(df['date'], errors='coerce')
     df = df.dropna(subset=['date_dt']).sort_values(['date_dt', 'gameId'])
+    if df.empty:
+        return []
+    # Window cutoff (relative to player's most recent game). We do NOT drop
+    # earlier rows yet — cumulative aggregates need the full season so the
+    # OPS at the start of the window already reflects 100+ PA, not 4.
+    window_cutoff = None
+    if window_days and window_days > 0:
+        window_cutoff = df['date_dt'].max() - pd.Timedelta(days=window_days)
 
     # Per-event flags
     pr = df['playResult']
@@ -210,21 +219,29 @@ def compute_player_pace(events_df: pd.DataFrame, ncaa_player_id: int) -> list[di
     by_game['c_sf'] = by_game['sf'].cumsum()
     by_game['c_pa'] = by_game['pa'].cumsum()
 
-    out = []
+    rows = []
     for i, r in by_game.iterrows():
         c_ab = r['c_ab']; c_h = r['c_h']; c_tb = r['c_tb']
         c_bb = r['c_bb']; c_hbp = r['c_hbp']; c_sf = r['c_sf']; c_pa = r['c_pa']
-        # OBP denominator excludes SH (and is AB+BB+HBP+SF). We approximate with c_pa - c_sh
-        obp_denom = c_pa - r.get('sh', 0) - 0  # exclude SH
+        # OBP denom = AB + BB + HBP + SF; SH excluded
+        # Cumulative SH count
+        sh_cum = by_game['sh'].iloc[:i+1].sum()
+        obp_denom = c_pa - sh_cum
         obp = (c_h + c_bb + c_hbp) / obp_denom if obp_denom > 0 else 0.0
         slg = c_tb / c_ab if c_ab > 0 else 0.0
-        out.append({
+        rows.append({
+            'date_dt': r['date_dt'],
             'game': i + 1,
             'date': r['date_dt'].strftime('%Y-%m-%d'),
             'ops': float(obp + slg),
             'pa': int(c_pa),
         })
-    return out
+    # Trim to the window for plotting; OPS values still reflect the full
+    # season cumulative state at each game.
+    if window_cutoff is not None:
+        rows = [r for r in rows if r['date_dt'] >= window_cutoff]
+    return [{'game': r['game'], 'date': r['date'], 'ops': r['ops'], 'pa': r['pa']}
+            for r in rows]
 
 
 def compute_player_splits(events_df: pd.DataFrame, ncaa_player_id: int,
@@ -275,6 +292,33 @@ def _suffix(n: int) -> str:
 def _initials(name: str) -> str:
     parts = (name or '').split()
     return ''.join(p[0] for p in parts if p)[:2].upper()
+
+
+def _format_height(raw) -> str:
+    """Convert height to feet'inches" format. Accepts:
+      - 70 / "70" / 70.0 → 5'10"
+      - "5-10" / "5'10" / "5'10\"" → 5'10" (already-formatted, normalized)
+      - "" / NaN → "" """
+    if raw is None or raw == '' or (isinstance(raw, float) and pd.isna(raw)):
+        return ''
+    s = str(raw).strip()
+    # Already formatted as feet'inches
+    if "'" in s or '"' in s:
+        return s.replace('"', '"').strip()
+    # "5-10" feet-dash-inches
+    if '-' in s and not s.startswith('-'):
+        parts = s.split('-')
+        if len(parts) == 2 and parts[0].isdigit() and parts[1].isdigit():
+            return f'{parts[0]}\'{parts[1]}"'
+    # Pure number — interpret as inches
+    try:
+        total_in = int(round(float(s)))
+        if total_in <= 0:
+            return ''
+        ft, inch = divmod(total_in, 12)
+        return f'{ft}\'{inch}"'
+    except (ValueError, TypeError):
+        return s
 
 
 def _xe(s):
@@ -419,6 +463,20 @@ _STYLES = """
 .rth-stats {
   padding: 4px 24px 0 24px; display: flex; flex-direction: column; gap: 12px;
   border-right: 1px solid rgba(0,0,0,0.08); position: relative; z-index: 1;
+  justify-content: flex-start;
+}
+.rth-stats__spray {
+  margin-top: 14px; padding-top: 14px;
+  border-top: 1px dashed rgba(0,0,0,0.18);
+  display: flex; flex-direction: column; gap: 6px;
+  flex: 1 1 auto;        /* fills remaining vertical space in the column */
+  min-height: 280px;     /* never collapses below this even on short rows */
+}
+.rth-stats__spray svg {
+  width: 100% !important;
+  height: auto !important;
+  flex: 1 1 auto;
+  min-height: 240px;
 }
 .rth-stats__head {
   display: flex; justify-content: space-between; align-items: baseline;
@@ -681,11 +739,14 @@ def _render_pace_svg(pace: list[dict], accent: str, height: int = 110, width: in
     final = pace[-1]
     end_marker = (f'<circle cx="{x_(n-1):.1f}" cy="{y_(final["ops"]):.1f}" '
                   f'r="3.2" fill="{accent}" stroke="#fff" stroke-width="1.4"/>')
+    # X-axis labels — first and last game date in the window
+    first_date = pace[0].get('date', '')
+    last_date = pace[-1].get('date', '')
     g1_label = (f'<text x="{pad["l"]}" y="{height-6}" font-size="9" fill="#666" '
-                f'font-family="ui-monospace,Menlo,monospace">G1</text>')
+                f'font-family="ui-monospace,Menlo,monospace">{first_date}</text>')
     final_label = (f'<text x="{pad["l"]+w}" y="{height-6}" font-size="9" '
                    f'fill="#666" text-anchor="end" '
-                   f'font-family="ui-monospace,Menlo,monospace">G{n}</text>')
+                   f'font-family="ui-monospace,Menlo,monospace">{last_date}</text>')
     axis = (f'<line x1="{pad["l"]}" x2="{pad["l"]+w}" '
             f'y1="{pad["t"]+h}" y2="{pad["t"]+h}" stroke="#222" stroke-opacity="0.4"/>')
     return (
@@ -790,8 +851,9 @@ def _row_html(idx: int, p: dict, accent: str, total_qualifiers: int) -> str:
         f'<span>{_xe(p["yr"])}</span>',
         f'<span>B/T {_xe(p["bats"])}/{_xe(p["throws"])}</span>',
     ]
-    if p.get('ht') and str(p['ht']).strip():
-        bio_parts.append(f'<span>{_xe(p["ht"])}</span>')
+    ht_fmt = _format_height(p.get('ht'))
+    if ht_fmt:
+        bio_parts.append(f'<span>{_xe(ht_fmt)}</span>')
     if p.get('photo_b64'):
         # User-uploaded headshot — full-bleed, cropped to the 4:3 frame
         headshot = (
@@ -887,15 +949,21 @@ def _row_html(idx: int, p: dict, accent: str, total_qualifiers: int) -> str:
         stat_cells.append(cell)
     spray_svg = p.get('spray_svg') or ''
     if spray_svg:
+        # Strip the SVG's hardcoded width/height attrs so CSS can size it.
+        # The element keeps its viewBox so it scales correctly.
+        import re as _re
+        spray_svg_flex = _re.sub(r'\swidth="[^"]+"\s+height="[^"]+"', '', spray_svg, count=1)
+        # Force preserveAspectRatio so the wedge stays centered as it scales
+        if 'preserveAspectRatio' not in spray_svg_flex:
+            spray_svg_flex = spray_svg_flex.replace('<svg ', '<svg preserveAspectRatio="xMidYMax meet" ', 1)
         spray_block = (
-            f'<div style="margin-top:14px;padding-top:14px;'
-            f'border-top:1px dashed rgba(0,0,0,0.18);">'
+            f'<div class="rth-stats__spray">'
             f'<div class="rth-block-head">'
             f'<div>'
             f'<div class="rth-eyebrow">SPRAY · BATTED-BALL ZONES</div>'
             f'<div class="rth-block-title">Hit distribution</div>'
             f'</div></div>'
-            f'<div style="width:100%;display:block;">{spray_svg}</div>'
+            f'{spray_svg_flex}'
             f'</div>'
         )
     else:
@@ -931,8 +999,8 @@ def _row_html(idx: int, p: dict, accent: str, total_qualifiers: int) -> str:
         f'<div>'
         f'<div class="rth-block-head">'
         f'<div>'
-        f'<div class="rth-eyebrow">PACE · CUMULATIVE OPS · G1 → G{len(pace_data) if pace_data else "?"}</div>'
-        f'<div class="rth-block-title">Season trajectory</div>'
+        f'<div class="rth-eyebrow">PACE · LAST 30 DAYS · {len(pace_data) if pace_data else 0} GAMES</div>'
+        f'<div class="rth-block-title">Recent OPS trajectory</div>'
         f'</div>'
         f'<div style="display:flex;flex-direction:column;align-items:flex-end;">'
         f'<span style="font-family:var(--rth-serif);font-weight:700;font-size:28px;line-height:1;letter-spacing:-0.02em;color:{accent};font-variant-numeric:tabular-nums;">{final_ops}</span>'
@@ -1026,35 +1094,11 @@ def render_top_hitters_html(players: list[dict], regional_name: str, sport: str,
         f'</header>'
     )
 
-    sub = (
-        f'<div class="rth-sub">'
-        f'<div class="rth-sub__cell">'
-        f'<span class="rth-sub__lbl">Players Profiled</span>'
-        f'<span class="rth-sub__val">{len(players):02d}</span>'
-        f'<span class="rth-sub__sub">Top hitters across the 4 regional teams</span>'
-        f'</div>'
-        f'<div class="rth-sub__cell">'
-        f'<span class="rth-sub__lbl">Qualifying Pool</span>'
-        f'<span class="rth-sub__val">{total_qualifiers:,}</span>'
-        f'<span class="rth-sub__sub">{div_label} hitters with ≥ {MIN_PA} PA</span>'
-        f'</div>'
-        f'<div class="rth-sub__cell">'
-        f'<span class="rth-sub__lbl">Combined HR</span>'
-        f'<span class="rth-sub__val">{combined_hr}</span>'
-        f'<span class="rth-sub__sub">Across the four players this season</span>'
-        f'</div>'
-        f'<div class="rth-sub__cell">'
-        f'<span class="rth-sub__lbl">Combined OPS</span>'
-        f'<span class="rth-sub__val">{combined_ops:.3f}</span>'
-        f'<span class="rth-sub__sub">Group average</span>'
-        f'</div>'
-        f'</div>'
-    )
+    sub = ''  # sub-bar removed per user feedback
 
     foot = (
         f'<footer class="rth-foot">'
         f'<span>64 Analytics</span>'
-        f'<span>Sources · NCAA box scores</span>'
         f'<span>Compiled {_xe(as_of_date)}</span>'
         f'</footer>'
     )
