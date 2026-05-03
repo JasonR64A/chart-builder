@@ -601,6 +601,7 @@ def build_player_spray_svg(sport: str, division: str, ncaa_player_id,
                                        player_id=str(ncaa_player_id),
                                        perspective=perspective)
     spray = add_zone_metrics(spray)
+    buckets = compute_field_side_buckets(spray)
     if spray.empty:
         return ('<svg viewBox="0 0 100 75" xmlns="http://www.w3.org/2000/svg">'
                 '<rect width="100%" height="100%" fill="#F0EAD6"/>'
@@ -705,6 +706,48 @@ def build_player_spray_svg(sport: str, division: str, ncaa_player_id,
     parts.append(f'<path d="M {HOME[0]},{HOME[1]} L {fxL:.2f},{fyL:.2f} '
                  f'A {R_OUTER},{R_OUTER} 0 0 1 {fxR:.2f},{fyR:.2f} Z" '
                  f'fill="none" stroke="#0F2A4D" stroke-width="0.5"/>')
+
+    # Top-left mini-diamond — Left/Center/Right wedges with the same
+    # red/orange ramp as the main field. Mirrors lines 975-1022 of the
+    # Spray_Charts page so the embedded chart matches the standalone view.
+    MINI_HOME = (14, 13)
+    MINI_R    = 11.5
+    LBL_FRAC  = 0.72
+    side_pcts = {
+        'L': float(buckets.get('left_pct', 0) or 0),
+        'C': float(buckets.get('middle_pct', 0) or 0),
+        'R': float(buckets.get('right_pct', 0) or 0),
+    }
+    side_max_pct = max(side_pcts.values()) or 1.0
+    SIDE_WEDGES = [('L', -45, -15), ('C', -15, 15), ('R', 15, 45)]
+    def _mini_pie(a1, a2, r):
+        rad1, rad2 = math.radians(a1), math.radians(a2)
+        x1 = MINI_HOME[0] + r * math.sin(rad1)
+        y1 = MINI_HOME[1] - r * math.cos(rad1)
+        x2 = MINI_HOME[0] + r * math.sin(rad2)
+        y2 = MINI_HOME[1] - r * math.cos(rad2)
+        large = 1 if (a2 - a1) > 180 else 0
+        return (f"M {MINI_HOME[0]},{MINI_HOME[1]} L {x1:.2f},{y1:.2f} "
+                f"A {r},{r} 0 {large} 1 {x2:.2f},{y2:.2f} Z")
+    for key, a1, a2 in SIDE_WEDGES:
+        pct = side_pcts[key]
+        intensity = pct / side_max_pct
+        parts.append(
+            f'<path d="{_mini_pie(a1, a2, MINI_R)}" fill="{_ro(intensity)}" '
+            f'stroke="#FFFFFF" stroke-width="0.5"/>'
+        )
+        ang_mid = math.radians((a1 + a2) / 2)
+        lx = MINI_HOME[0] + (MINI_R * LBL_FRAC) * math.sin(ang_mid)
+        ly = MINI_HOME[1] - (MINI_R * LBL_FRAC) * math.cos(ang_mid)
+        parts.append(
+            f'<text x="{lx:.1f}" y="{ly+0.5:.1f}" text-anchor="middle" '
+            f'font-family="Inter,sans-serif" font-size="1.6" font-weight="800" '
+            f'fill="{_tc(intensity)}">{pct:.0f}%</text>'
+        )
+    parts.append(
+        f'<path d="{_mini_pie(-45, 45, MINI_R)}" fill="none" '
+        f'stroke="#0F2A4D" stroke-width="0.5"/>'
+    )
 
     # Bottom-left aggregate stats block — same layout as Spray_Charts page.
     # AVG/SLG/wOBA are BIP-conditional (denominator = total BIP).
