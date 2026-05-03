@@ -105,6 +105,54 @@ def hit_mix(player_row: pd.Series) -> dict:
     return {'1B': singles, '2B': int(d), '3B': int(t), 'HR': int(hr)}
 
 
+# ── Splits — vs LHP / vs RHP / Home / Away / RISP ───────────────────────────
+# Walks/HBP/Sac don't count as AB. Hits drive total bases. SLG = TB / AB.
+# Codes here track the NCAA scorebook strings in events 'playResult'.
+_AB_OUT_CODES = {'GO', 'FO', 'PO', 'LO', 'DP', 'TP', 'FC', 'E',
+                 'K', 'KL', 'KS'}  # all count as AB
+_HIT_CODES_TB = {'1B': 1, '2B': 2, '3B': 3, 'HR': 4}
+_NON_AB_CODES = {'BB', 'IBB', 'HBP', 'SF', 'SH'}  # exclude from AB
+
+
+def _slg_from_subset(subset: pd.DataFrame) -> tuple[float, int]:
+    """Return (SLG, AB) for the subset. SLG = TB/AB; 0.0 if AB == 0."""
+    if subset.empty:
+        return (0.0, 0)
+    counts = subset['playResult'].value_counts()
+    tb = sum(counts.get(code, 0) * w for code, w in _HIT_CODES_TB.items())
+    hits = sum(counts.get(code, 0) for code in _HIT_CODES_TB.keys())
+    outs = sum(counts.get(code, 0) for code in _AB_OUT_CODES)
+    ab = hits + outs
+    if ab == 0:
+        return (0.0, 0)
+    return (round(tb / ab, 3), int(ab))
+
+
+def compute_player_splits(events_df: pd.DataFrame, ncaa_player_id: int,
+                            pitcher_throw_lookup: dict) -> dict:
+    """For one batter (by NCAA season pid), compute SLG splits.
+    Returns {'vs LHP', 'vs RHP', 'Home', 'Away', 'RISP'} -> (slg, ab).
+    Empty-data splits return (0.0, 0)."""
+    if events_df.empty or pd.isna(ncaa_player_id):
+        return {k: (0.0, 0) for k in ('vs LHP', 'vs RHP', 'Home', 'Away', 'RISP')}
+    df = events_df[events_df['playerId'] == ncaa_player_id].copy()
+    if df.empty:
+        return {k: (0.0, 0) for k in ('vs LHP', 'vs RHP', 'Home', 'Away', 'RISP')}
+
+    # Pitcher hand bridge
+    pitcher_pid = pd.to_numeric(df['pitcherId'], errors='coerce').astype('Int64')
+    df['pitcher_throw'] = pitcher_pid.map(pitcher_throw_lookup)
+
+    out = {
+        'vs LHP': _slg_from_subset(df[df['pitcher_throw'] == 'L']),
+        'vs RHP': _slg_from_subset(df[df['pitcher_throw'] == 'R']),
+        'Home':   _slg_from_subset(df[df['battingTeam'] == df['homeTeam']]),
+        'Away':   _slg_from_subset(df[df['battingTeam'] == df['awayTeam']]),
+        'RISP':   _slg_from_subset(df[(df['runner2B'] == 1) | (df['runner3B'] == 1)]),
+    }
+    return out
+
+
 # ── Rendering helpers ───────────────────────────────────────────────────────
 def _fmt_stat(k: str, v) -> str:
     if v is None or pd.isna(v):
@@ -369,6 +417,32 @@ _STYLES = """
   letter-spacing: 0.08em; padding: 14px 0; border-top: 1px dashed rgba(0,0,0,0.18);
 }
 
+.rth-splits {
+  margin-top: 6px; padding-top: 12px; border-top: 1px dashed rgba(0,0,0,0.18);
+}
+.rth-splits__head {
+  font-family: var(--rth-mono); font-size: 10px; letter-spacing: 0.14em;
+  color: var(--rth-muted); margin-bottom: 10px;
+}
+.rth-splits__list { display: flex; flex-direction: column; gap: 6px; }
+.rth-splits__row {
+  display: grid; grid-template-columns: 56px 1fr 56px;
+  align-items: center; gap: 10px;
+}
+.rth-splits__lbl {
+  font-family: var(--rth-mono); font-size: 10px; letter-spacing: 0.08em;
+  color: var(--rth-muted);
+}
+.rth-splits__track {
+  height: 8px; background: rgba(0,0,0,0.06); position: relative;
+}
+.rth-splits__fill { height: 100%; }
+.rth-splits__val {
+  font-family: var(--rth-mono); font-size: 11px; text-align: right;
+  font-variant-numeric: tabular-nums; color: var(--rth-ink);
+}
+.rth-splits__val--dim { color: var(--rth-muted); }
+
 .rth-foot {
   margin-top: 28px; padding-top: 16px; border-top: 1px solid var(--rth-ink);
   display: flex; justify-content: space-between;
@@ -499,6 +573,45 @@ def _row_html(idx: int, p: dict, accent: str, total_qualifiers: int) -> str:
         f'<div class="rth-headshot__init">{initials}</div>'
         f'</div>'
     )
+    # Splits block — SLG vs LHP/RHP/Home/Away/RISP
+    splits = p.get('splits') or {}
+    if splits:
+        # Max scale dynamically — clip floor at .500 so a quiet split doesn't
+        # blow up the bar visually, ceiling at 1.200 (well above realistic SLG)
+        all_slg = [v[0] for v in splits.values() if v[1] > 0]
+        max_scale = max(0.500, min(1.200, (max(all_slg) if all_slg else 0.500) * 1.05))
+        rows = []
+        for label in ('vs LHP', 'vs RHP', 'Home', 'Away', 'RISP'):
+            slg, ab = splits.get(label, (0.0, 0))
+            if ab == 0:
+                rows.append(
+                    f'<div class="rth-splits__row">'
+                    f'<div class="rth-splits__lbl">{label}</div>'
+                    f'<div class="rth-splits__track"></div>'
+                    f'<div class="rth-splits__val rth-splits__val--dim">—</div>'
+                    f'</div>'
+                )
+                continue
+            pct = max(0, min(100, 100 * slg / max_scale))
+            slg_str = f'{slg:.3f}'.lstrip('0') if slg < 1 else f'{slg:.3f}'
+            rows.append(
+                f'<div class="rth-splits__row">'
+                f'<div class="rth-splits__lbl">{label}</div>'
+                f'<div class="rth-splits__track">'
+                f'<div class="rth-splits__fill" style="width:{pct:.1f}%; background:{accent};"></div>'
+                f'</div>'
+                f'<div class="rth-splits__val">{slg_str}</div>'
+                f'</div>'
+            )
+        splits_block = (
+            f'<div class="rth-splits">'
+            f'<div class="rth-splits__head">SPLITS · SLG</div>'
+            f'<div class="rth-splits__list">{"".join(rows)}</div>'
+            f'</div>'
+        )
+    else:
+        splits_block = ''
+
     identity = (
         f'<header class="rth-id">'
         f'{headshot}'
@@ -511,6 +624,7 @@ def _row_html(idx: int, p: dict, accent: str, total_qualifiers: int) -> str:
         f'<h2 class="rth-id__name">{_xe(p["name"])}</h2>'
         f'<div class="rth-id__bio">{"".join(bio_parts)}</div>'
         f'</div>'
+        f'{splits_block}'
         f'</header>'
     )
 
@@ -683,11 +797,28 @@ def render_tab(teams: list[str], seeds: list[int], team_ids: dict, sport: str,
         st.info(f'No qualified hitters (≥{MIN_PA} PA) found across the 4 selected teams in 2026 yet.')
         return
 
+    # Splits — load events PBP + pitcher-hand bridge once for all 4 players.
+    # Use spray_data's helpers to avoid duplicating the load/cache logic.
+    try:
+        from app_lib.spray_data import _load_pbp, _pitcher_throw_lookup, _ncaa_pid_to_cb_player
+        events = _load_pbp(sport, division)
+        pitcher_throw = _pitcher_throw_lookup(sport)
+        # cb_id (64A player_id) -> ncaa_pid bridge so we can find each top hitter's
+        # NCAA season pid (the playerId column in events).
+        bridge = _ncaa_pid_to_cb_player()
+        cb_to_ncaa = {}
+        if not bridge.empty:
+            valid = bridge.dropna(subset=['cb_id', 'ncaa_pid'])
+            cb_to_ncaa = dict(zip(valid['cb_id'].astype(int),
+                                    valid['ncaa_pid'].astype(int)))
+    except Exception as _e:
+        events = pd.DataFrame()
+        pitcher_throw = {}
+        cb_to_ncaa = {}
+
     # Build per-player render dict
     players_payload = []
     team_to_seed = dict(zip(teams, seeds))
-    team_to_name = dict(zip(teams, teams))  # already names
-    # team_id → team_name reverse lookup
     id_to_team = {team_ids[t]: t for t in teams if team_ids.get(t) is not None}
 
     for _, row in top.iterrows():
@@ -695,6 +826,14 @@ def render_tab(teams: list[str], seeds: list[int], team_ids: dict, sport: str,
         if team_name is None:
             continue
         accent = accent_for(team_ids[team_name], team_to_seed[team_name]) if accent_for else '#1a1a1a'
+
+        # Splits via NCAA pid lookup
+        splits = {}
+        cb_id = int(row['player_id']) if pd.notna(row.get('player_id')) else None
+        ncaa_pid = cb_to_ncaa.get(cb_id) if cb_id is not None else None
+        if ncaa_pid is not None and not events.empty:
+            splits = compute_player_splits(events, ncaa_pid, pitcher_throw)
+
         players_payload.append({
             'name': row.get('player_name', '—') or '—',
             'pos': row.get('position', '') or '',
@@ -708,6 +847,7 @@ def render_tab(teams: list[str], seeds: list[int], team_ids: dict, sport: str,
             'accent': accent,
             'ranks': compute_ranks(row, pool),
             'hit_mix': hit_mix(row),
+            'splits': splits,
         })
 
     if not players_payload:
