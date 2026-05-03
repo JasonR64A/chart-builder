@@ -781,45 +781,51 @@ def _ip_to_outs(ip_val):
 
 @st.cache_data(show_spinner=False)
 def _team_radar_perf(team_name, sport, division, last_n_games=None):
-    """RUNS/G, OPS, ERA, KPCT, FLD for the team. If last_n_games is set, restrict
-    to that window's most recent games (by date) for the L25 overlay."""
+    """Per-team radar inputs. Nine raw metrics now: RUNS/G, OPS, OBP, ERA,
+    WHIP, K%, FLD%, K/BB (hitting — fewer is better), K/BB (pitching —
+    more is better). If last_n_games is set, restrict to that window's
+    most recent games (by date) for the L25 overlay."""
     h, p = _team_pbp_full(team_name, sport, division)
     if h.empty or p.empty:
         return None
     if last_n_games is not None:
-        # last N unique game dates
         recent_dates = h['date_parsed'].dropna().sort_values().unique()[-last_n_games:]
         h = h[h['date_parsed'].isin(recent_dates)]
         p = p[p['date_parsed'].isin(recent_dates)]
     if h.empty or p.empty:
         return None
-    for c in ['ab','h','hr','bb','hbp','sf','tb','r']:
+    for c in ['ab','h','hr','bb','hbp','sf','tb','r','k']:
         if c in h.columns: h[c] = pd.to_numeric(h[c], errors='coerce').fillna(0)
-    for c in ['ip','er','so','bf']:
+    for c in ['ip','er','so','bf','bb','h']:
         if c in p.columns: p[c] = pd.to_numeric(p[c], errors='coerce').fillna(0)
     games = h['date_parsed'].nunique() if 'date_parsed' in h.columns else 1
     ab = float(h['ab'].sum()); hits = float(h['h'].sum())
     bb = float(h['bb'].sum()); hbp = float(h['hbp'].sum())
     sf = float(h['sf'].sum()); tb = float(h['tb'].sum()) if 'tb' in h.columns else hits
     runs = float(h['r'].sum()) if 'r' in h.columns else 0
+    h_k = float(h['k'].sum()) if 'k' in h.columns else 0
     pa = ab + bb + hbp + sf
     obp = (hits + bb + hbp) / pa if pa else 0
     slg = tb / ab if ab else 0
     ops = obp + slg
+    h_kbb = (h_k / bb) if bb > 0 else 0  # lower = better for hitters
     outs = p['ip'].apply(_ip_to_outs).sum() if 'ip' in p.columns else 0
     ip = outs / 3.0
     er = float(p['er'].sum()); so = float(p['so'].sum())
     bf = float(p['bf'].sum()) if 'bf' in p.columns else 0
-    era = 9 * er / ip if ip else 0
+    p_h  = float(p['h'].sum())  if 'h'  in p.columns else 0
+    p_bb = float(p['bb'].sum()) if 'bb' in p.columns else 0
+    era  = 9 * er / ip if ip else 0
+    whip = (p_bb + p_h) / ip if ip else 0
     kpct = so / bf if bf else 0
-    # Fielding % via fielding PBP (po + a) / (po + a + e)
+    p_kbb = (so / p_bb) if p_bb > 0 else 0  # higher = better for pitchers
+    # Fielding %: (PO + A) / (PO + A + E) from fielding PBP
     f_path = PBP_DIR / sport / f'fielding_pbp_{division}.csv'
     fld = 0.96
     if f_path.exists():
         try:
             f_df = pd.read_csv(f_path, low_memory=False, usecols=lambda c: c in ('teamName','po','a','e','date'))
             f_df['date_parsed'] = pd.to_datetime(f_df['date'], format='mixed', errors='coerce')
-            pbp_name = _pbp_team_match(h, team_name)  # h is filtered to team already; pbp_match for f_df
             f_team = f_df[f_df['teamName'].fillna('').str.startswith(team_name)]
             if last_n_games is not None and not f_team.empty:
                 rd = f_team['date_parsed'].dropna().sort_values().unique()[-last_n_games:]
@@ -834,7 +840,9 @@ def _team_radar_perf(team_name, sport, division, last_n_games=None):
             pass
     return {
         'RUNS': runs / games if games else 0,
-        'OPS': ops, 'ERA': era, 'KPCT': kpct, 'FLD': fld,
+        'OPS': ops, 'OBP': obp,
+        'ERA': era, 'WHIP': whip, 'KPCT': kpct, 'FLD': fld,
+        'HKBB': h_kbb, 'PKBB': p_kbb,
     }
 
 
@@ -947,38 +955,98 @@ with st.spinner('Aggregating season + L25 data…'):
     survival = _simulate_regional_full(20000)
     perf_full = {t: _team_radar_perf(t, sport, division, last_n_games=None) for t in teams}
     perf_l25 = {t: _team_radar_perf(t, sport, division, last_n_games=25) for t in teams}
+    radar_dist = _division_metric_distributions(sport, division)
     top_p = {t: _team_top_pitchers(t, sport, division, n=8) for t in teams}
     top_h = {t: _team_top_hitters(t, sport, division, n=9) for t in teams}
 
 
 # ── Radar geometry helpers ─────────────────────────────────────────────────
-RADAR_AXES = ['RUNS', 'OPS', 'ERA', 'K%', 'FLD']
-RADAR_NORM = {
-    'RUNS': lambda v: max(0, min(1, (v - 4.0) / (8.5 - 4.0))),
-    'OPS':  lambda v: max(0, min(1, (v - 0.700) / (0.960 - 0.700))),
-    'ERA':  lambda v: 1 - max(0, min(1, (v - 2.8) / (5.5 - 2.8))),
-    'KPCT': lambda v: max(0, min(1, (v - 0.180) / (0.310 - 0.180))),
-    'FLD':  lambda v: max(0, min(1, (v - 0.955) / (0.985 - 0.955))),
+# 9 axes, percentile-based normalization (Similar Entities style). Each axis
+# is computed as the team's percentile rank within the full sport+division
+# team set, so polygons compare apples-to-apples across sports/divisions.
+RADAR_AXES = ['RUNS', 'OPS', 'OBP', 'H K/BB',
+              'ERA', 'WHIP', 'P K/BB', 'K%', 'FLD']
+# Map axis label → metric key from _team_radar_perf, plus inversion flag for
+# lower-is-better metrics (ERA, WHIP, hitting K/BB).
+_AXIS_KEY = {
+    'RUNS':   ('RUNS',   False),
+    'OPS':    ('OPS',    False),
+    'OBP':    ('OBP',    False),
+    'H K/BB': ('HKBB',   True),   # lower K/BB = better discipline at the plate
+    'ERA':    ('ERA',    True),
+    'WHIP':   ('WHIP',   True),
+    'P K/BB': ('PKBB',   False),  # higher K/BB = better stuff on the mound
+    'K%':     ('KPCT',   False),
+    'FLD':    ('FLD',    False),
 }
-_AXIS_KEY = {'RUNS': 'RUNS', 'OPS': 'OPS', 'ERA': 'ERA', 'K%': 'KPCT', 'FLD': 'FLD'}
-_STRENGTH_LABELS = {'RUNS': 'RUNS/G', 'OPS': 'OPS', 'ERA': 'TEAM ERA', 'KPCT': 'K%', 'FLD': 'FIELD %'}
+_STRENGTH_LABELS = {
+    'RUNS': 'RUNS/G', 'OPS': 'OPS', 'OBP': 'OBP', 'HKBB': 'HITTER K/BB',
+    'ERA': 'TEAM ERA', 'WHIP': 'WHIP', 'PKBB': 'STAFF K/BB',
+    'KPCT': 'K%', 'FLD': 'FIELD %',
+}
 _STRENGTH_FMT = {
     'RUNS': lambda v: f'{v:.1f}',
     'OPS':  lambda v: f'{v:.3f}'.lstrip('0') or '.000',
+    'OBP':  lambda v: f'{v:.3f}'.lstrip('0') or '.000',
+    'HKBB': lambda v: f'{v:.2f}',
     'ERA':  lambda v: f'{v:.2f}',
+    'WHIP': lambda v: f'{v:.2f}',
+    'PKBB': lambda v: f'{v:.2f}',
     'KPCT': lambda v: f'{v*100:.1f}%',
     'FLD':  lambda v: f'{v:.3f}'.lstrip('0') or '.000',
 }
 
 
-def _radar_pts(cx, cy, r, perf, frac_scale=1.0):
+@st.cache_data(show_spinner=False)
+def _division_metric_distributions(sport, division):
+    """For each metric in _team_radar_perf, return the sorted list of values
+    across every team in the sport+division. Used as the percentile baseline
+    for the radar — replaces the hardcoded min-max ranges with the actual
+    league distribution."""
+    teams_csv = load_teams()
+    sport_label = 'Baseball' if sport == 'baseball' else 'Softball'
+    confs = pd.read_csv(DATA_DIR / 'conferences.csv', low_memory=False)
+    div_label = {'D1': 'D-I', 'D2': 'D-II', 'D3': 'D-III'}[division]
+    valid_conf_ids = set(confs[(confs['division'] == div_label) & (confs['name'] != 'Big Sky Conference')]['id'])
+    div_teams = teams_csv[(teams_csv['sport'] == sport_label) & (teams_csv['conference_id'].isin(valid_conf_ids))]['name'].dropna().unique().tolist()
+    dist = {k: [] for k in ('RUNS', 'OPS', 'OBP', 'HKBB', 'ERA', 'WHIP', 'PKBB', 'KPCT', 'FLD')}
+    for t in div_teams:
+        perf = _team_radar_perf(t, sport, division, last_n_games=None)
+        if not perf: continue
+        for k in dist:
+            v = perf.get(k)
+            if v is not None:
+                dist[k].append(float(v))
+    for k in dist:
+        dist[k].sort()
+    return dist
+
+
+def _percentile_rank(value, sorted_vals, lower_better=False):
+    """Return 0..1 percentile rank for value within sorted_vals. Inverts
+    when lower_better=True so a low ERA still maps to a high radar fraction."""
+    if not sorted_vals:
+        return 0.5
+    n = len(sorted_vals)
+    # binary insert position → number of values <= this one
+    import bisect
+    pos = bisect.bisect_left(sorted_vals, value)
+    pct = pos / n
+    return 1.0 - pct if lower_better else pct
+
+
+def _radar_pts(cx, cy, r, perf, frac_scale=1.0, dist=None):
     pts = []
     n = len(RADAR_AXES)
     for i, axis in enumerate(RADAR_AXES):
         angle = -math.pi / 2 + i * 2 * math.pi / n
-        key = _AXIS_KEY[axis]
+        key, lower_better = _AXIS_KEY[axis]
         val = perf.get(key, 0) if perf else 0
-        frac = RADAR_NORM[key](val) * frac_scale
+        if dist is not None:
+            frac = _percentile_rank(val, dist.get(key, []), lower_better=lower_better)
+        else:
+            frac = 0.5
+        frac = max(0.0, min(1.0, frac)) * frac_scale
         x = cx + math.cos(angle) * r * frac
         y = cy + math.sin(angle) * r * frac
         pts.append(f'{x:.2f},{y:.2f}')
@@ -1001,11 +1069,16 @@ def _radar_label_pt(cx, cy, r, i):
     return cx + math.cos(angle) * r * 1.18, cy + math.sin(angle) * r * 1.18
 
 
-def _strength_for(perf):
+def _strength_for(perf, dist=None):
     if not perf: return None, None
-    ranked = sorted(
-        [(k, RADAR_NORM[k](perf.get(k, 0))) for k in ('RUNS','OPS','ERA','KPCT','FLD')],
-        key=lambda x: -x[1])
+    if dist is None:
+        return None, None
+    ranked = []
+    for axis_label, (key, lower_better) in _AXIS_KEY.items():
+        v = perf.get(key, 0)
+        pr = _percentile_rank(v, dist.get(key, []), lower_better=lower_better)
+        ranked.append((key, pr))
+    ranked.sort(key=lambda x: -x[1])
     top_k = ranked[0][0]
     return _STRENGTH_LABELS[top_k], _STRENGTH_FMT[top_k](perf.get(top_k, 0))
 
@@ -1222,7 +1295,7 @@ parts.extend([
     f'fill="{INK_900}" letter-spacing="2.0">TEAM PERFORMANCE PROFILE</text>',
     f'<text x="{VB_W - PAD_X - 4}" y="{RH_HEAD_Y}" class="mn" font-size="9" font-weight="600" '
     f'fill="{INK_500}" text-anchor="end" letter-spacing="1.0">'
-    f'RUNS · OPS · ERA · K% · FLD% · FULL SEASON</text>',
+    f'RUNS · OPS · OBP · K/BB · ERA · WHIP · K% · FLD% · DIVISION %ILES</text>',
     # Inline dashed-line marker for the L25 legend
     f'<line x1="{VB_W - PAD_X - 70}" y1="{RH_HEAD_Y - 3}" x2="{VB_W - PAD_X - 56}" y2="{RH_HEAD_Y - 3}" '
     f'stroke="{INK_700}" stroke-width="1.5" stroke-dasharray="2.5 2"/>',
@@ -1270,7 +1343,7 @@ for i, (team, seed) in enumerate(zip(teams, seeds)):
     perf = perf_full.get(team)
     if perf is None: continue
     accent = _accent_for_team(team_ids.get(team), seed)
-    pts = _radar_pts(CENTER_CX, CENTER_CY, CENTER_R, perf)
+    pts = _radar_pts(CENTER_CX, CENTER_CY, CENTER_R, perf, dist=radar_dist)
     parts.append(f'<polygon points="{pts}" fill="{accent}" fill-opacity="0.14" '
                  f'stroke="{accent}" stroke-width="2" stroke-linejoin="round"/>')
     # corner dots
@@ -1290,7 +1363,7 @@ def _draw_tile(team, seed, side, tile_top_y):
     accent = _accent_for_team(team_ids.get(team), seed)
     perf = perf_full.get(team)
     perf25 = perf_l25.get(team)
-    s_lab, s_val = _strength_for(perf)
+    s_lab, s_val = _strength_for(perf, dist=radar_dist)
     out = []
     # mini radar position
     if side == 'left':
@@ -1342,7 +1415,7 @@ def _draw_tile(team, seed, side, tile_top_y):
                    f'stroke="{INK_RULE}" stroke-width="0.6"/>')
     # season fill
     if perf:
-        season_pts = _radar_pts(mini_cx, mini_cy, MINI_R, perf)
+        season_pts = _radar_pts(mini_cx, mini_cy, MINI_R, perf, dist=radar_dist)
         out.append(f'<polygon points="{season_pts}" fill="{accent}" fill-opacity="0.32" '
                    f'stroke="{accent}" stroke-width="1.5" stroke-linejoin="round"/>')
         # corner dots on season
@@ -1351,7 +1424,7 @@ def _draw_tile(team, seed, side, tile_top_y):
             out.append(f'<circle cx="{x_s}" cy="{y_s}" r="2" fill="{accent}" stroke="#FFFFFF" stroke-width="0.4"/>')
     # L25 dashed overlay
     if perf25:
-        l25_pts = _radar_pts(mini_cx, mini_cy, MINI_R, perf25)
+        l25_pts = _radar_pts(mini_cx, mini_cy, MINI_R, perf25, dist=radar_dist)
         out.append(f'<polygon points="{l25_pts}" fill="none" stroke="{accent}" stroke-width="1.25" '
                    f'stroke-dasharray="2.5 2" stroke-linejoin="round"/>')
     # mini radar axis labels
