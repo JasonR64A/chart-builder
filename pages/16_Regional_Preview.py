@@ -600,7 +600,12 @@ st.markdown('### Shareable graphic')
 import base64
 import math
 
-BRAND_64A_WIDE = _APP_DIR / 'assets' / 'logo-64a-wide.png'
+BRAND_64A_WIDE     = _APP_DIR / 'assets' / 'logo-64a-wide.png'
+BRAND_WORDMARK     = _APP_DIR / 'assets' / 'branding' / 'wordmark_red_black.png'
+BRAND_CIRCLE_RB    = _APP_DIR / 'assets' / 'branding' / 'circle_red_black.png'
+BRAND_CIRCLE_RW    = _APP_DIR / 'assets' / 'branding' / 'circle_red_white.png'
+BRAND_EMBLEM       = _APP_DIR / 'assets' / 'branding' / 'emblem.png'
+BRAND_EMBLEM_MONO  = _APP_DIR / 'assets' / 'branding' / 'emblem_mono.png'
 
 
 def _xe(s):
@@ -1052,16 +1057,14 @@ parts.extend([
     f'fill="{INK_500}" letter-spacing="0.22">'
     f'NCAA {division} {sport.upper()} · LOOKBACK {lookback_days}D'
     f'</text>',
-    # right wordmark
-    f'<g>'
-    f'<text x="{hx_r}" y="{Y_HEADER + 32}" class="in" font-size="13" font-weight="800" '
-    f'fill="{INK_900}" text-anchor="end" letter-spacing="-0.13">'
-    f'<tspan fill="{BRAND_RED}">64</tspan>Analytics</text>'
-    f'<text x="{hx_r}" y="{Y_HEADER + 52}" class="mn" font-size="10" font-weight="600" '
-    f'fill="{INK_500}" text-anchor="end" letter-spacing="0.6">REGIONAL · 4-TEAM</text>'
-    f'<text x="{hx_r}" y="{Y_HEADER + 70}" class="mn" font-size="10" font-weight="600" '
-    f'fill="{INK_500}" text-anchor="end" letter-spacing="0.6">DOUBLE-ELIM</text>'
-    f'</g>',
+    # Right side: 64A wordmark + REGIONAL / DOUBLE-ELIM caption.
+    # Wordmark image replaces the text "64Analytics" so the page uses the
+    # canonical brand mark (red+black variant from Graphics/Logo).
+    _embed_png(BRAND_WORDMARK, hx_r - 130, Y_HEADER + 12, 130, 28),
+    f'<text x="{hx_r}" y="{Y_HEADER + 56}" class="mn" font-size="10" font-weight="600" '
+    f'fill="{INK_500}" text-anchor="end" letter-spacing="0.6">REGIONAL · 4-TEAM</text>',
+    f'<text x="{hx_r}" y="{Y_HEADER + 74}" class="mn" font-size="10" font-weight="600" '
+    f'fill="{INK_500}" text-anchor="end" letter-spacing="0.6">DOUBLE-ELIM</text>',
     # 2pt closing rule
     f'<line x1="{PAD_X}" y1="{Y_HEADER + H_HEADER - 2}" x2="{VB_W - PAD_X}" '
     f'y2="{Y_HEADER + H_HEADER - 2}" stroke="{INK_900}" stroke-width="2"/>',
@@ -1239,8 +1242,12 @@ side_col_w = 200
 left_col_x = PAD_X + 12
 right_col_x = VB_W - PAD_X - 12 - side_col_w
 
-# Center radar — concentric grid + spokes + 4 team polygons
+# Center radar — concentric grid + spokes + 4 team polygons.
+# Subtle emblem watermark sits at the geometric center, below the grid so
+# the polygons + axis labels read on top of it.
 parts.append('<g>')
+parts.append(_embed_png(BRAND_EMBLEM,
+                        CENTER_CX - 36, CENTER_CY - 36, 72, 72, opacity=0.08))
 for f_lev in (0.25, 0.5, 0.75, 1.0):
     parts.append(f'<polygon points="{_radar_grid_pts(CENTER_CX, CENTER_CY, CENTER_R, f_lev)}" '
                  f'fill="{"rgba(15,27,45,0.025)" if f_lev == 1.0 else "none"}" '
@@ -1501,10 +1508,10 @@ parts.append(f'<text x="{PAD_X + 31}" y="{foot_text_y - 1}" class="mn" font-size
              f'fill="{BG_EGG}" text-anchor="middle" letter-spacing="1.0">METHOD</text>')
 parts.append(f'<text x="{PAD_X + 70}" y="{foot_text_y}" class="mn" font-size="9" font-weight="600" '
              f'fill="{INK_500}" letter-spacing="0.6">BRADLEY-TERRY · 20K SIM · FULL SEASON · LAST 25 OVERLAY</text>')
-parts.append(f'<text x="{VB_W - PAD_X - 110}" y="{foot_text_y}" class="mn" font-size="9" font-weight="600" '
-             f'fill="{INK_500}" text-anchor="end" letter-spacing="0.6">SOURCE: NCAA · WARREN NOLAN ·</text>')
 parts.append(f'<text x="{VB_W - PAD_X}" y="{foot_text_y}" class="mn" font-size="9" font-weight="800" '
              f'fill="{BRAND_RED}" text-anchor="end" letter-spacing="0.6">64ANALYTICS.COM</text>')
+# Brand circle next to the URL — small, uses the red+black circle logo.
+parts.append(_embed_png(BRAND_CIRCLE_RB, VB_W - PAD_X - 110, foot_text_y - 11, 16, 16))
 
 parts.append('</svg>')
 graphic_svg = ''.join(parts)
