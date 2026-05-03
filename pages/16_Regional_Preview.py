@@ -1393,14 +1393,9 @@ def _draw_tile(team, seed, side, tile_top_y):
     out.append(f'<text x="{team_x}" y="{tile_top_y + 26}" class="mn" font-size="10" font-weight="800" '
                f'fill="{accent}" letter-spacing="0.6" text-anchor="{"start" if side == "left" else "end"}">'
                f'{_xe(team).upper()}</text>')
-    out.append(f'<text x="{info_x}" y="{tile_top_y + 46}" class="mn" font-size="8" font-weight="700" '
-               f'fill="{INK_400}" letter-spacing="1.0" text-anchor="{text_anchor}">STRENGTH</text>')
-    if s_val:
-        out.append(f'<text x="{info_x}" y="{tile_top_y + 76}" class="in" font-size="28" font-weight="800" '
-                   f'fill="{accent}" letter-spacing="-0.5" text-anchor="{text_anchor}">{_xe(s_val)}</text>')
-    if s_lab:
-        out.append(f'<text x="{info_x}" y="{tile_top_y + 92}" class="mn" font-size="9" font-weight="700" '
-                   f'fill="{accent}" letter-spacing="0.8" text-anchor="{text_anchor}">{_xe(s_lab)}</text>')
+    # (STRENGTH callout removed per user feedback — the team's top axis was
+    # surfacing in the corner tile but cluttered the radar layout. The
+    # underlying _strength_for helper stays in case it gets reused later.)
 
     # mini radar grid + spokes
     for f_lev in (0.33, 0.66, 1.0):
