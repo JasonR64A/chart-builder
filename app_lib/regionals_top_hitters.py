@@ -370,30 +370,30 @@ _STYLES = """
 .rth-mast {
   border-top: 6px solid var(--rth-brand);
   border-bottom: 1px solid var(--rth-ink);
-  padding: 22px 0 26px;
-  display: flex;
-  flex-direction: column;
+  padding: 14px 0 16px;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  text-align: center;
-  gap: 8px;
+  gap: 24px;
 }
 .rth-mast__kicker {
   font-family: var(--rth-sans); font-size: 11px; letter-spacing: 0.18em;
   text-transform: uppercase; color: var(--rth-muted);
-  display: flex; flex-direction: row; gap: 14px; flex-wrap: wrap;
-  justify-content: center;
+  text-align: left;
+  line-height: 1.4;
 }
 .rth-mast__kicker strong { color: var(--rth-ink); font-weight: 600; }
 .rth-mast__title {
   font-family: var(--rth-sans); font-weight: 800;
-  font-size: clamp(40px, 5.4vw, 72px); line-height: 1.0;
-  letter-spacing: -0.025em; margin: 0;
+  font-size: clamp(28px, 3.4vw, 44px); line-height: 1.0;
+  letter-spacing: -0.025em; margin: 0; text-align: center;
+  white-space: nowrap;
 }
 .rth-mast__title em { font-style: italic; font-weight: 600; color: var(--rth-brand); }
 .rth-mast__meta {
   font-family: var(--rth-sans); font-size: 11px;
   letter-spacing: 0.12em; color: var(--rth-muted); text-transform: uppercase;
-  display: flex; flex-direction: row; gap: 14px; justify-content: center;
+  text-align: right; line-height: 1.4;
 }
 .rth-mast__meta strong { color: var(--rth-ink); font-weight: 600; }
 
@@ -816,6 +816,7 @@ def _render_scatter_svg(cloud: list[tuple[float, float]],
                           y_ticks: tuple = (0.300, 0.400, 0.500, 0.600, 0.700, 0.800, 0.900),
                           x_pad: float = 0.02, y_pad: float = 0.02,
                           x_clip: tuple = (0.0, 1.0), y_clip: tuple = (0.0, 1.5),
+                          invert_y: bool = False,
                           width: int = 320, height: int = 220) -> str:
     """Generic scatter for the division pool with the player highlighted.
     `cloud` is a list of (x, y) tuples; `player_x` / `player_y` are the
@@ -834,7 +835,12 @@ def _render_scatter_svg(cloud: list[tuple[float, float]],
     ymin = max(y_clip[0], min(ys) - y_pad)
     ymax = min(y_clip[1], max(ys) + y_pad)
     def sx(v): return pad['l'] + ((v - xmin) / max(xmax - xmin, 1e-6)) * w
-    def sy(v): return pad['t'] + (1 - (v - ymin) / max(ymax - ymin, 1e-6)) * h
+    if invert_y:
+        # Flip so that the LOW end of y is at the top (good for "lower is
+        # better" stats like K%). Best players land upper-right.
+        def sy(v): return pad['t'] + ((v - ymin) / max(ymax - ymin, 1e-6)) * h
+    else:
+        def sy(v): return pad['t'] + (1 - (v - ymin) / max(ymax - ymin, 1e-6)) * h
     xticks_in = [t for t in x_ticks if xmin <= t <= xmax]
     yticks_in = [t for t in y_ticks if ymin <= t <= ymax]
     grid = ''
@@ -1103,12 +1109,13 @@ def _row_html(idx: int, p: dict, accent: str, total_qualifiers: int) -> str:
     bb_pct_v = p.get('bb_pct'); k_pct_v = p.get('k_pct')
     scatter_svg_disc = _render_scatter_svg(
         scatter_cloud_disc, bb_pct_v, k_pct_v, last_name, accent,
-        x_label='BB% →', y_label='K% →',
+        x_label='BB% →', y_label='← K%',  # arrow flipped — low K% is up
         x_fmt='.1%', y_fmt='.1%',
         x_ticks=tuple(t / 100 for t in (5, 10, 15, 20, 25)),
         y_ticks=tuple(t / 100 for t in (10, 15, 20, 25, 30, 35)),
         x_pad=0.01, y_pad=0.01,
         x_clip=(0.0, 0.40), y_clip=(0.0, 0.50),
+        invert_y=True,  # K% bad — best players upper-right (low K%, high BB%)
     )
     scatter_block_disc = (
         f'<div style="padding-top:14px;border-top:1px dashed rgba(0,0,0,0.18);">'
@@ -1180,15 +1187,13 @@ def render_top_hitters_html(players: list[dict], regional_name: str, sport: str,
     masthead = (
         f'<header class="rth-mast">'
         f'<div class="rth-mast__kicker">'
-        f'<span>NCAA {div_label} {sport_label}</span>'
-        f'<span>·</span>'
-        f'<span><strong>2026 Regionals · Pre-Tournament Brief</strong></span>'
+        f'NCAA {div_label} {sport_label}<br/>'
+        f'<strong>2026 Regionals · Pre-Tournament Brief</strong>'
         f'</div>'
         f'<h1 class="rth-mast__title">Regionals <em>Top Hitters</em></h1>'
         f'<div class="rth-mast__meta">'
-        f'<span>{_xe(regional_name).upper()}</span>'
-        f'<span>·</span>'
-        f'<span><strong>STATS THROUGH {as_of_date.upper()}</strong></span>'
+        f'{_xe(regional_name).upper()}<br/>'
+        f'<strong>STATS THROUGH {as_of_date.upper()}</strong>'
         f'</div>'
         f'</header>'
     )

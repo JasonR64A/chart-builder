@@ -666,7 +666,8 @@ def build_player_spray_svg(sport: str, division: str, ncaa_player_id,
     VB_W = 100; VB_H = 75
     parts = [
         f'<svg viewBox="0 0 {VB_W} {VB_H}" width="{VB_W}" height="{VB_H}" '
-        f'xmlns="http://www.w3.org/2000/svg">'
+        f'xmlns="http://www.w3.org/2000/svg" '
+        f'xmlns:xlink="http://www.w3.org/1999/xlink">'
     ]
     # No background rect — keep the SVG transparent so the row's team-logo
     # watermark shows through. Mirrors the Spray_Charts player render (the
@@ -748,6 +749,24 @@ def build_player_spray_svg(sport: str, division: str, ncaa_player_id,
         f'<path d="{_mini_pie(-45, 45, MINI_R)}" fill="none" '
         f'stroke="#0F2A4D" stroke-width="0.5"/>'
     )
+
+    # Top-right corner — 64 Analytics circle logo, mirroring the L/C/R
+    # mini-diamond on the upper-left for visual symmetry.
+    logo_path = _APP_DIR / 'assets' / '64-circle-red-black.png'
+    if logo_path.exists():
+        try:
+            lb64 = base64.b64encode(logo_path.read_bytes()).decode('ascii')
+            lhref = f'data:image/png;base64,{lb64}'
+            # Center mirrors MINI_HOME (14, 13) → mirror over x=50 → (86, 13).
+            # Diameter 2 * MINI_R = 23, so x = 86 - 11.5 = 74.5; y = 13 - 11.5 = 1.5.
+            lw = 23
+            parts.append(
+                f'<image href="{lhref}" xlink:href="{lhref}" '
+                f'x="{86 - lw/2:.2f}" y="{13 - lw/2:.2f}" width="{lw}" height="{lw}" '
+                f'preserveAspectRatio="xMidYMid meet"/>'
+            )
+        except Exception:
+            pass
 
     # Bottom-left aggregate stats block — same layout as Spray_Charts page.
     # AVG/SLG/wOBA are BIP-conditional (denominator = total BIP).
