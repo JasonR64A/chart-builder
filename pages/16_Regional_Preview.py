@@ -835,21 +835,26 @@ def _team_radar_perf(team_name, sport, division, last_n_games=None):
 
 @st.cache_data(show_spinner=False)
 def _team_top_pitchers(team_name, sport, division, n=8):
-    """Top N pitchers by IP. First 3 (by IP) get role SP1/SP2/SP3 highlight."""
+    """Top N pitchers by IP. First 3 (by IP) get role SP1/SP2/SP3 highlight.
+    Returns IP, FIP, WHIP per the user's preferred staff display."""
     _, p = _team_pbp_full(team_name, sport, division)
     if p.empty or 'playerName' not in p.columns:
         return []
-    for c in ['ip','er','so']:
+    for c in ['ip','er','so','h','bb','hrA','hb']:
         if c in p.columns: p[c] = pd.to_numeric(p[c], errors='coerce').fillna(0)
     p['_outs'] = p['ip'].apply(_ip_to_outs) if 'ip' in p.columns else 0
     grp = p.groupby('playerName').agg(
         Outs=('_outs','sum'), App=('ip','count'),
-        ER=('er','sum'), SO=('so','sum'),
+        ER=('er','sum'), SO=('so','sum'), H=('h','sum'),
+        BB=('bb','sum'), HRA=('hrA','sum'), HBP=('hb','sum'),
     ).reset_index()
     grp['IP'] = grp['Outs'] / 3.0
     grp = grp[grp['IP'] >= 1.0]
-    grp['ERA'] = (9 * grp['ER'] / grp['IP'].replace(0, np.nan)).fillna(0)
-    grp['K9'] = (9 * grp['SO'] / grp['IP'].replace(0, np.nan)).fillna(0)
+    ip_safe = grp['IP'].replace(0, np.nan)
+    grp['WHIP'] = ((grp['BB'] + grp['H']) / ip_safe).fillna(0)
+    # FIP = (13*HR + 3*(BB+HBP) - 2*K) / IP + FIP_constant (3.0 college approx)
+    grp['FIP']  = ((13 * grp['HRA'] + 3 * (grp['BB'] + grp['HBP'])
+                    - 2 * grp['SO']) / ip_safe).fillna(0) + 3.0
     grp['avg_outs'] = grp['Outs'] / grp['App'].replace(0, 1)
     grp = grp.sort_values('IP', ascending=False).head(n)
     out = []
@@ -863,30 +868,73 @@ def _team_top_pitchers(team_name, sport, division, n=8):
         else:
             role = 'SP'
         out.append({'name': row['playerName'], 'role': role,
-                    'era': float(row['ERA']), 'k9': float(row['K9']),
-                    'ip': float(row['IP'])})
+                    'ip': float(row['IP']),
+                    'fip': float(row['FIP']),
+                    'whip': float(row['WHIP'])})
     return out
 
 
 @st.cache_data(show_spinner=False)
+def _league_woba(sport, division):
+    """League-wide wOBA for the sport+division. Used as the wRAA baseline.
+    Falls back to a sensible college-ball average if PBP is unavailable."""
+    h_pbp = load_hitting_pbp(sport, division)
+    if h_pbp.empty:
+        return 0.330
+    df = h_pbp.copy()
+    for c in ('ab','h','doubles','triples','hr','bb','hbp','sf'):
+        if c in df.columns: df[c] = pd.to_numeric(df[c], errors='coerce').fillna(0)
+    AB = df['ab'].sum(); H = df['h'].sum()
+    DBL = df.get('doubles', pd.Series(0)).sum()
+    TRP = df.get('triples', pd.Series(0)).sum()
+    HR = df.get('hr', pd.Series(0)).sum()
+    BB = df.get('bb', pd.Series(0)).sum(); HBP = df.get('hbp', pd.Series(0)).sum()
+    SF = df.get('sf', pd.Series(0)).sum()
+    SINGLES = H - DBL - TRP - HR
+    denom = AB + BB + HBP + SF
+    if denom == 0:
+        return 0.330
+    return float((0.690*BB + 0.722*HBP + 0.888*SINGLES + 1.271*DBL
+                  + 1.616*TRP + 2.101*HR) / denom)
+
+
+@st.cache_data(show_spinner=False)
 def _team_top_hitters(team_name, sport, division, n=9):
-    """Top N hitters by AB."""
+    """Top N hitters by PA. Returns PA, OPS, wRAA per user-spec display."""
     h, _ = _team_pbp_full(team_name, sport, division)
     if h.empty or 'playerName' not in h.columns:
         return []
-    for c in ['ab','h','hr','rbi']:
+    for c in ['ab','h','doubles','triples','hr','rbi','bb','hbp','sf','sh','tb']:
         if c in h.columns: h[c] = pd.to_numeric(h[c], errors='coerce').fillna(0)
     grp = h.groupby('playerName').agg(
         AB=('ab','sum'), H=('h','sum'),
+        DBL=('doubles','sum'), TRP=('triples','sum'),
         HR=('hr','sum'), RBI=('rbi','sum'),
+        BB=('bb','sum'), HBP=('hbp','sum'),
+        SF=('sf','sum'), SH=('sh','sum'),
     ).reset_index()
-    grp = grp[grp['AB'] >= 10]
-    grp['AVG'] = grp['H'] / grp['AB'].replace(0, np.nan)
-    grp = grp.sort_values('AB', ascending=False).head(n)
+    # Plate appearances = AB + BB + HBP + SF + SH (NCAA convention)
+    grp['PA'] = grp['AB'] + grp['BB'] + grp['HBP'] + grp['SF'] + grp['SH']
+    grp = grp[grp['PA'] >= 25]  # qualifying threshold
+    ab_safe = grp['AB'].replace(0, np.nan)
+    obp_denom = (grp['AB'] + grp['BB'] + grp['HBP'] + grp['SF']).replace(0, np.nan)
+    grp['OBP'] = ((grp['H'] + grp['BB'] + grp['HBP']) / obp_denom).fillna(0)
+    SINGLES = grp['H'] - grp['DBL'] - grp['TRP'] - grp['HR']
+    TB = SINGLES + 2*grp['DBL'] + 3*grp['TRP'] + 4*grp['HR']
+    grp['SLG'] = (TB / ab_safe).fillna(0)
+    grp['OPS'] = grp['OBP'] + grp['SLG']
+    # wOBA + wRAA
+    woba_num = (0.690*grp['BB'] + 0.722*grp['HBP'] + 0.888*SINGLES
+                + 1.271*grp['DBL'] + 1.616*grp['TRP'] + 2.101*grp['HR'])
+    grp['wOBA'] = (woba_num / obp_denom).fillna(0)
+    league_w = _league_woba(sport, division)
+    grp['wRAA'] = ((grp['wOBA'] - league_w) / 1.6) * grp['PA']
+    grp = grp.sort_values('PA', ascending=False).head(n)
     return [{'name': r['playerName'],
-             'avg': float(r['AVG']) if pd.notna(r['AVG']) else 0,
-             'hr': int(r['HR']), 'rbi': int(r['RBI']),
-             'ab': int(r['AB'])} for _, r in grp.iterrows()]
+             'pa': int(r['PA']),
+             'ops': float(r['OPS']) if pd.notna(r['OPS']) else 0,
+             'wraa': float(r['wRAA']) if pd.notna(r['wRAA']) else 0}
+            for _, r in grp.iterrows()]
 
 
 # ── Compute all data needed for the graphic ────────────────────────────────
@@ -1143,10 +1191,16 @@ for ti, (team, seed) in enumerate(zip(teams, seeds)):
         fill_w = bw * min(1.0, max(0.0, p_val))
         parts.append(f'<rect x="{bx_l}" y="{bar_y}" width="{fill_w:.2f}" height="{bar_h}" rx="2" '
                      f'fill="{accent}" fill-opacity="0.92"/>')
-        # label
+        # Label sits at bar center. When fill covers the center (pct>=50)
+        # we'd be drawing dark text on a dark team color and lose contrast —
+        # switch to white in that case so the percentile is always readable.
         pct_int = round(p_val * 100)
-        label_color = INK_400 if pct_int < 25 else INK_900
-        label_weight = 600 if pct_int < 25 else 700
+        if pct_int >= 50:
+            label_color = '#FFFFFF'; label_weight = 700
+        elif pct_int >= 25:
+            label_color = INK_900;   label_weight = 700
+        else:
+            label_color = INK_700;   label_weight = 600
         parts.append(f'<text x="{(bx_l + bx_r)/2:.2f}" y="{row_cy + 3}" class="mn" font-size="10" '
                      f'font-weight="{label_weight}" fill="{label_color}" text-anchor="middle">{pct_int}%</text>')
     # champ %
@@ -1324,7 +1378,7 @@ parts.extend([
     f'fill="{INK_900}" letter-spacing="2.0">PITCHING STAFF · TOP 8 BY IP</text>',
     f'<text x="{VB_W - PAD_X - 4}" y="{PD_HEAD_Y}" class="mn" font-size="10" font-weight="600" '
     f'fill="{INK_500}" text-anchor="end" letter-spacing="0.4">'
-    f'WEEKEND STARTERS HIGHLIGHTED · ERA / K9</text>',
+    f'WEEKEND STARTERS HIGHLIGHTED · IP / FIP / WHIP</text>',
 ])
 pd_inner_w = VB_W - 2 * PAD_X - 8
 pd_col_w = pd_inner_w / 4
@@ -1345,11 +1399,16 @@ for ci, (team, seed) in enumerate(zip(teams, seeds)):
                  f'fill="{INK_700}" letter-spacing="0.6">{_xe(team).upper()}</text>')
     parts.append(f'<line x1="{th_x}" y1="{PD_BODY_Y + 18}" x2="{cx_r - 4}" y2="{PD_BODY_Y + 18}" '
                  f'stroke="{INK_RULE}" stroke-width="1"/>')
-    # column headers
-    parts.append(f'<text x="{cx_r - 4 - 38 - 16}" y="{PD_BODY_Y + 32}" class="mn" font-size="8" '
-                 f'font-weight="700" fill="{INK_400}" text-anchor="end" letter-spacing="0.6">ERA</text>')
-    parts.append(f'<text x="{cx_r - 4}" y="{PD_BODY_Y + 32}" class="mn" font-size="8" '
-                 f'font-weight="700" fill="{INK_400}" text-anchor="end" letter-spacing="0.6">K/9</text>')
+    # column headers — three stat cols (IP / FIP / WHIP)
+    pd_ip_x   = cx_r - 4 - 70
+    pd_fip_x  = cx_r - 4 - 35
+    pd_whip_x = cx_r - 4
+    parts.append(f'<text x="{pd_ip_x}" y="{PD_BODY_Y + 32}" class="mn" font-size="8" '
+                 f'font-weight="700" fill="{INK_400}" text-anchor="end" letter-spacing="0.6">IP</text>')
+    parts.append(f'<text x="{pd_fip_x}" y="{PD_BODY_Y + 32}" class="mn" font-size="8" '
+                 f'font-weight="700" fill="{INK_400}" text-anchor="end" letter-spacing="0.6">FIP</text>')
+    parts.append(f'<text x="{pd_whip_x}" y="{PD_BODY_Y + 32}" class="mn" font-size="8" '
+                 f'font-weight="700" fill="{INK_400}" text-anchor="end" letter-spacing="0.6">WHIP</text>')
     pitchers = top_p.get(team, [])
     for pi, p in enumerate(pitchers[:8]):
         is_top3 = pi < 3
@@ -1361,10 +1420,12 @@ for ci, (team, seed) in enumerate(zip(teams, seeds)):
                      f'fill="{role_color}" letter-spacing="0.6">{p["role"]}</text>')
         parts.append(f'<text x="{th_x + 26}" y="{row_y}" class="in" font-size="11" font-weight="{text_weight}" '
                      f'fill="{text_color}">{_xe(p["name"])[:18]}</text>')
-        parts.append(f'<text x="{cx_r - 4 - 38 - 16}" y="{row_y}" class="mn" font-size="10" '
-                     f'font-weight="{text_weight}" fill="{text_color}" text-anchor="end">{p["era"]:.2f}</text>')
-        parts.append(f'<text x="{cx_r - 4}" y="{row_y}" class="mn" font-size="10" '
-                     f'font-weight="{text_weight}" fill="{text_color}" text-anchor="end">{p["k9"]:.1f}</text>')
+        parts.append(f'<text x="{pd_ip_x}" y="{row_y}" class="mn" font-size="10" '
+                     f'font-weight="{text_weight}" fill="{text_color}" text-anchor="end">{p["ip"]:.1f}</text>')
+        parts.append(f'<text x="{pd_fip_x}" y="{row_y}" class="mn" font-size="10" '
+                     f'font-weight="{text_weight}" fill="{text_color}" text-anchor="end">{p["fip"]:.2f}</text>')
+        parts.append(f'<text x="{pd_whip_x}" y="{row_y}" class="mn" font-size="10" '
+                     f'font-weight="{text_weight}" fill="{text_color}" text-anchor="end">{p["whip"]:.2f}</text>')
         if pi < 7:
             parts.append(f'<line x1="{th_x}" y1="{row_y + 4}" x2="{cx_r - 4}" y2="{row_y + 4}" '
                          f'stroke="{INK_RULE}" stroke-width="0.5" stroke-dasharray="2 2"/>')
@@ -1376,10 +1437,10 @@ HD_X = PAD_X + 4
 HD_HEAD_Y = Y_HIT + 18
 parts.extend([
     f'<text x="{HD_X}" y="{HD_HEAD_Y}" class="in" font-size="11" font-weight="700" '
-    f'fill="{INK_900}" letter-spacing="2.0">HITTING ORDER · TOP 9 BY AB</text>',
+    f'fill="{INK_900}" letter-spacing="2.0">HITTING ORDER · TOP 9 BY PA</text>',
     f'<text x="{VB_W - PAD_X - 4}" y="{HD_HEAD_Y}" class="mn" font-size="10" font-weight="600" '
     f'fill="{INK_500}" text-anchor="end" letter-spacing="0.4">'
-    f'AVG / HR / RBI · TEAM LEADER IN COLOR</text>',
+    f'PA / OPS / wRAA</text>',
 ])
 HD_BODY_Y = Y_HIT + 32
 hd_col_w = pd_inner_w / 4
@@ -1399,35 +1460,33 @@ for ci, (team, seed) in enumerate(zip(teams, seeds)):
                  f'fill="{INK_700}" letter-spacing="0.6">{_xe(team).upper()}</text>')
     parts.append(f'<line x1="{th_x}" y1="{HD_BODY_Y + 28}" x2="{cx_r - 4}" y2="{HD_BODY_Y + 28}" '
                  f'stroke="{INK_RULE}" stroke-width="1"/>')
-    # column header row
-    col_avg_x = cx_r - 4 - 60
-    col_hr_x  = cx_r - 4 - 30
-    col_rbi_x = cx_r - 4
-    parts.append(f'<text x="{col_avg_x}" y="{HD_BODY_Y + 42}" class="mn" font-size="8" '
-                 f'font-weight="700" fill="{INK_400}" text-anchor="end" letter-spacing="0.6">AVG</text>')
-    parts.append(f'<text x="{col_hr_x}" y="{HD_BODY_Y + 42}" class="mn" font-size="8" '
-                 f'font-weight="700" fill="{INK_400}" text-anchor="end" letter-spacing="0.6">HR</text>')
-    parts.append(f'<text x="{col_rbi_x}" y="{HD_BODY_Y + 42}" class="mn" font-size="8" '
-                 f'font-weight="700" fill="{INK_400}" text-anchor="end" letter-spacing="0.6">RBI</text>')
+    # column header row — PA / OPS / wRAA
+    col_pa_x   = cx_r - 4 - 76
+    col_ops_x  = cx_r - 4 - 38
+    col_wraa_x = cx_r - 4
+    parts.append(f'<text x="{col_pa_x}" y="{HD_BODY_Y + 42}" class="mn" font-size="8" '
+                 f'font-weight="700" fill="{INK_400}" text-anchor="end" letter-spacing="0.6">PA</text>')
+    parts.append(f'<text x="{col_ops_x}" y="{HD_BODY_Y + 42}" class="mn" font-size="8" '
+                 f'font-weight="700" fill="{INK_400}" text-anchor="end" letter-spacing="0.6">OPS</text>')
+    parts.append(f'<text x="{col_wraa_x}" y="{HD_BODY_Y + 42}" class="mn" font-size="8" '
+                 f'font-weight="700" fill="{INK_400}" text-anchor="end" letter-spacing="0.6">wRAA</text>')
     hitters = top_h.get(team, [])
-    if hitters:
-        best_avg = max((h['avg'] for h in hitters), default=0)
-    else:
-        best_avg = 0
     for hi, h in enumerate(hitters[:9]):
-        is_best = abs(h['avg'] - best_avg) < 1e-6
+        # User asked for no per-row highlighting in the hitting order — every
+        # row gets the same neutral weight + ink color.
         row_y = HD_BODY_Y + 60 + hi * 20
-        text_color = accent if is_best else INK_700
-        text_weight = 800 if is_best else 600
-        avg_str = f'{h["avg"]:.3f}'.lstrip('0') if h['avg'] > 0 else '.000'
+        text_color = INK_700
+        text_weight = 600
+        ops_str  = f'{h["ops"]:.3f}'.lstrip('0') if h['ops'] > 0 else '.000'
+        wraa_str = f'{h["wraa"]:+.1f}'  # +/- signed, one decimal
         parts.append(f'<text x="{th_x}" y="{row_y}" class="in" font-size="11" font-weight="{text_weight}" '
                      f'fill="{text_color}">{_xe(h["name"])[:18]}</text>')
-        parts.append(f'<text x="{col_avg_x}" y="{row_y}" class="mn" font-size="10" '
-                     f'font-weight="{text_weight}" fill="{text_color}" text-anchor="end">{avg_str}</text>')
-        parts.append(f'<text x="{col_hr_x}" y="{row_y}" class="mn" font-size="10" '
-                     f'font-weight="{text_weight}" fill="{text_color}" text-anchor="end">{h["hr"]}</text>')
-        parts.append(f'<text x="{col_rbi_x}" y="{row_y}" class="mn" font-size="10" '
-                     f'font-weight="{text_weight}" fill="{text_color}" text-anchor="end">{h["rbi"]}</text>')
+        parts.append(f'<text x="{col_pa_x}" y="{row_y}" class="mn" font-size="10" '
+                     f'font-weight="{text_weight}" fill="{text_color}" text-anchor="end">{h["pa"]}</text>')
+        parts.append(f'<text x="{col_ops_x}" y="{row_y}" class="mn" font-size="10" '
+                     f'font-weight="{text_weight}" fill="{text_color}" text-anchor="end">{ops_str}</text>')
+        parts.append(f'<text x="{col_wraa_x}" y="{row_y}" class="mn" font-size="10" '
+                     f'font-weight="{text_weight}" fill="{text_color}" text-anchor="end">{wraa_str}</text>')
         if hi < 8:
             parts.append(f'<line x1="{th_x}" y1="{row_y + 4}" x2="{cx_r - 4}" y2="{row_y + 4}" '
                          f'stroke="{INK_RULE}" stroke-width="0.5" stroke-dasharray="2 2"/>')
