@@ -589,3 +589,108 @@ def build_team_spray_svg(sport: str, division: str, team_name: str,
 
     parts.append('</svg>')
     return ''.join(parts)
+
+
+def build_player_spray_svg(sport: str, division: str, ncaa_player_id,
+                            player_name: str = '',
+                            perspective: str = 'hitting',
+                            metric_choice: str = '% of BIP') -> str:
+    """Single-player wedge spray, mirroring build_team_spray_svg's visual
+    language but filtered to one batter (or pitcher) by NCAA season pid."""
+    spray = compute_spray_distribution(sport, division,
+                                       player_id=str(ncaa_player_id),
+                                       perspective=perspective)
+    spray = add_zone_metrics(spray)
+    if spray.empty:
+        return ('<svg viewBox="0 0 100 75" xmlns="http://www.w3.org/2000/svg">'
+                '<rect width="100%" height="100%" fill="#F0EAD6"/>'
+                f'<text x="50" y="40" text-anchor="middle" font-family="Inter,sans-serif" '
+                f'font-size="3" font-weight="700" fill="#0F2A4D">'
+                f'No batted-ball data{(" for " + _xe(player_name)) if player_name else ""}</text></svg>')
+
+    HOME = (50, 65)
+    R_INNER = 8; R_MID = 25; R_OUTER = 48
+    LINE_HALF = 17
+    OUTFIELD = [((7, 10), -45, -9), ((8, 14), -9, 9), ((9, 11), 9, 45)]
+    INFIELD  = [((5,), -45, -22.5), ((6,), -22.5, 0), ((4,), 0, 22.5), ((3,), 22.5, 45)]
+    LINE     = [((12,), -45 - LINE_HALF, -45), ((13,), 45, 45 + LINE_HALF)]
+
+    def _polar(a, r):
+        rad = math.radians(a)
+        return (HOME[0] + r * math.sin(rad), HOME[1] - r * math.cos(rad))
+
+    def _wedge(a1, a2, ri, ro):
+        x1i, y1i = _polar(a1, ri); x1o, y1o = _polar(a1, ro)
+        x2i, y2i = _polar(a2, ri); x2o, y2o = _polar(a2, ro)
+        return (f'M {x1i:.2f},{y1i:.2f} L {x1o:.2f},{y1o:.2f} '
+                f'A {ro},{ro} 0 0 1 {x2o:.2f},{y2o:.2f} '
+                f'L {x2i:.2f},{y2i:.2f} A {ri},{ri} 0 0 0 {x1i:.2f},{y1i:.2f} Z')
+
+    def _pie(a1, a2, ro):
+        x1, y1 = _polar(a1, ro); x2, y2 = _polar(a2, ro)
+        return (f'M {HOME[0]:.2f},{HOME[1]:.2f} L {x1:.2f},{y1:.2f} '
+                f'A {ro},{ro} 0 0 1 {x2:.2f},{y2:.2f} Z')
+
+    def _label_pos(a1, a2, ri, ro):
+        return _polar((a1 + a2) / 2, (ri + ro) / 2)
+
+    def _combined(codes):
+        sub = spray[spray['hitLocation'].isin(codes)]
+        if sub.empty: return None
+        n = int(sub['total'].sum())
+        if n == 0: return None
+        get = lambda c: int(sub[c].sum()) if c in sub.columns else 0
+        c1, c2, c3, ch = get('1B'), get('2B'), get('3B'), get('HR')
+        hits = c1 + c2 + c3 + ch
+        tb = c1 + 2*c2 + 3*c3 + 4*ch
+        woba = 0.888*c1 + 1.271*c2 + 1.616*c3 + 2.101*ch
+        return {'pct': float(sub['pct'].sum()), 'TB': tb,
+                'AVG': hits / n, 'SLG': tb / n, 'wOBA': woba / n}
+
+    val_by, fmt_by = {}, {}
+    for zc, *_ in OUTFIELD + INFIELD + LINE:
+        bd = _combined(zc)
+        primary = zc[0]
+        if bd is None:
+            val_by[primary] = 0.0
+            fmt_by[primary] = '–'
+        else:
+            v = (bd['pct'] if metric_choice == '% of BIP'
+                 else (float(bd['TB']) if metric_choice == 'TB' else bd[metric_choice]))
+            val_by[primary] = v
+            fmt_by[primary] = _metric_fmt(v, metric_choice)
+    fair_max = max((val_by.get(zc[0], 0) for zc, *_ in OUTFIELD + INFIELD + LINE),
+                   default=1.0) or 1.0
+
+    VB_W = 100; VB_H = 75
+    parts = [
+        f'<svg viewBox="0 0 {VB_W} {VB_H}" width="{VB_W}" height="{VB_H}" '
+        f'xmlns="http://www.w3.org/2000/svg">'
+        f'<rect x="0" y="0" width="{VB_W}" height="{VB_H}" fill="#F0EAD6"/>',
+    ]
+
+    def _draw(zc, a1, a2, ri, ro, lf, *, pie=False):
+        primary = zc[0]
+        v = val_by.get(primary, 0)
+        inten = v / fair_max if fair_max else 0
+        d = _pie(a1, a2, ro) if pie else _wedge(a1, a2, ri, ro)
+        parts.append(f'<path d="{d}" fill="{_ro(inten)}" '
+                     f'stroke="#FFFFFF" stroke-width="0.5"/>')
+        lx, ly = _label_pos(a1, a2, ri, ro)
+        parts.append(
+            f'<text x="{lx:.1f}" y="{ly+0.8:.1f}" text-anchor="middle" '
+            f'font-family="Inter,sans-serif" font-size="{lf}" font-weight="800" '
+            f'fill="{_tc(inten)}">{fmt_by.get(primary, "")}</text>'
+        )
+    for zc, a1, a2 in OUTFIELD: _draw(zc, a1, a2, R_MID, R_OUTER, 3.6)
+    for zc, a1, a2 in LINE:     _draw(zc, a1, a2, R_INNER, R_OUTER, 2.6, pie=True)
+    for zc, a1, a2 in INFIELD:  _draw(zc, a1, a2, R_INNER, R_MID, 2.4)
+
+    fo = 45 + LINE_HALF
+    fxL, fyL = _polar(-fo, R_OUTER); fxR, fyR = _polar(fo, R_OUTER)
+    parts.append(f'<path d="M {HOME[0]},{HOME[1]} L {fxL:.2f},{fyL:.2f} '
+                 f'A {R_OUTER},{R_OUTER} 0 0 1 {fxR:.2f},{fyR:.2f} Z" '
+                 f'fill="none" stroke="#0F2A4D" stroke-width="0.5"/>')
+
+    parts.append('</svg>')
+    return ''.join(parts)

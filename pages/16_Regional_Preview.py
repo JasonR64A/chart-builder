@@ -133,11 +133,13 @@ if view == 'Top Hitters':
     _hitting_df_th = pd.read_csv(DATA_DIR / 'hitting.csv', low_memory=False)
     _players_df_th = load_players()
     _confs_df_th = pd.read_csv(DATA_DIR / 'conferences.csv', low_memory=False)
+    _player_rank_df_th = load_player_rank()
     _render_top_hitters_tab(
         teams, seeds, team_ids, sport, division, regional_name,
         _hitting_df_th, _players_df_th, sport_teams,
         accent_for=lambda _tid, seed: _SEED_PALETTE[(seed - 1) % 4],
         conferences_df=_confs_df_th,
+        player_rank_df=_player_rank_df_th,
     )
     st.stop()
 

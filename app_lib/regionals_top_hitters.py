@@ -39,16 +39,48 @@ STAT_COLS = {
 
 # ── Data: hitter selection ──────────────────────────────────────────────────
 def select_top_hitters(hitting_df: pd.DataFrame, players_df: pd.DataFrame,
-                        team_ids: list[int], top_n: int = 4) -> pd.DataFrame:
-    """Pick top-N hitters across the given team_ids, ranked by OPS, min PA gate."""
+                        team_ids: list[int], top_n: int = 4,
+                        player_rank_df: pd.DataFrame | None = None) -> pd.DataFrame:
+    """Pick top-N hitters across the given team_ids, ranked by wRCE
+    (weighted_run_created_efficiency, from player_rank.csv) when available,
+    falling back to OPS within the min-PA gate. Returns the row joined to
+    hitting.csv slash line + players.csv bio fields.
+    """
+    if player_rank_df is not None and not player_rank_df.empty:
+        pr = player_rank_df[(player_rank_df['year'] == CURRENT_YEAR) &
+                             (player_rank_df['team_id'].isin(team_ids))].copy()
+        pr['_wrce'] = pd.to_numeric(pr['weighted_run_created_efficiency'], errors='coerce')
+        pr = pr.dropna(subset=['_wrce'])
+        # Gate by hitting PA so we don't pick a player with 0 box-score AB
+        h_eligible = hitting_df[(hitting_df['year'] == CURRENT_YEAR) &
+                                 (hitting_df['team_id'].isin(team_ids)) &
+                                 (hitting_df['plate_appearances'] >= MIN_PA)]
+        eligible_pids = set(h_eligible['player_id'].astype(int))
+        pr = pr[pr['player_id'].astype(int).isin(eligible_pids)]
+        if pr.empty:
+            top_pr = pd.DataFrame()
+        else:
+            top_pr = pr.sort_values('_wrce', ascending=False).head(top_n)
+            picked_pids = top_pr['player_id'].astype(int).tolist()
+            h = h_eligible[h_eligible['player_id'].astype(int).isin(picked_pids)].copy()
+            h = h.merge(top_pr[['player_id', '_wrce',
+                                 'percentile_rank_weighted_run_created_efficiency',
+                                 'integer_rank_weighted_run_created_efficiency']],
+                        on='player_id', how='left')
+            # Re-order to match the wRCE descending order
+            h = h.set_index('player_id').loc[picked_pids].reset_index()
+            p = players_df[['id', 'player_name', 'position', 'classification',
+                            'height', 'bat', 'throw']].rename(columns={'id': 'player_id'})
+            h = h.merge(p, on='player_id', how='left')
+            return h.reset_index(drop=True)
+
+    # Fallback to OPS
     h = hitting_df[(hitting_df['year'] == CURRENT_YEAR) &
                    (hitting_df['team_id'].isin(team_ids)) &
                    (hitting_df['plate_appearances'] >= MIN_PA)].copy()
     if h.empty:
         return h
     h = h.sort_values('on_base_plus_slugging', ascending=False).head(top_n)
-
-    # Join player names + position
     p = players_df[['id', 'player_name', 'position', 'classification',
                     'height', 'bat', 'throw']].rename(columns={'id': 'player_id'})
     h = h.merge(p, on='player_id', how='left')
@@ -126,6 +158,73 @@ def _slg_from_subset(subset: pd.DataFrame) -> tuple[float, int]:
     if ab == 0:
         return (0.0, 0)
     return (round(tb / ab, 3), int(ab))
+
+
+def compute_player_pace(events_df: pd.DataFrame, ncaa_player_id: int) -> list[dict]:
+    """Per-game cumulative OPS trajectory from G1 to last game. Returns a list
+    of {'game': int, 'date': str, 'ops': float, 'pa': int} ordered by date.
+    OPS = OBP + SLG; both denominators are CUMULATIVE (PA for OBP, AB for SLG)
+    so the line smooths out over the season rather than spiking on tiny samples.
+    """
+    if events_df.empty or pd.isna(ncaa_player_id):
+        return []
+    df = events_df[events_df['playerId'] == ncaa_player_id].copy()
+    if df.empty:
+        return []
+
+    df['date_dt'] = pd.to_datetime(df['date'], errors='coerce')
+    df = df.dropna(subset=['date_dt']).sort_values(['date_dt', 'gameId'])
+
+    # Per-event flags
+    pr = df['playResult']
+    is_hit = pr.isin(_HIT_CODES_TB.keys())
+    is_ab_out = pr.isin(_AB_OUT_CODES)
+    is_walk = pr.isin({'BB', 'IBB'})
+    is_hbp = pr == 'HBP'
+    is_sf = pr == 'SF'
+    is_sh = pr == 'SH'
+    # AB = hits + AB-counted outs (excludes BB/HBP/SF/SH/IBB)
+    df['is_ab'] = (is_hit | is_ab_out).astype(int)
+    df['is_h'] = is_hit.astype(int)
+    df['tb'] = pr.map(_HIT_CODES_TB).fillna(0).astype(int)
+    df['is_bb'] = (is_walk).astype(int)
+    df['is_hbp'] = is_hbp.astype(int)
+    df['is_sf'] = is_sf.astype(int)
+    df['is_sh'] = is_sh.astype(int)
+    # PA = AB + BB + HBP + SF + SH (intentional walks roll into BB count)
+    df['is_pa'] = df['is_ab'] + df['is_bb'] + df['is_hbp'] + df['is_sf'] + df['is_sh']
+
+    by_game = df.groupby(['date_dt', 'gameId'], sort=True, as_index=False).agg(
+        ab=('is_ab', 'sum'), h=('is_h', 'sum'), tb=('tb', 'sum'),
+        bb=('is_bb', 'sum'), hbp=('is_hbp', 'sum'),
+        sf=('is_sf', 'sum'), sh=('is_sh', 'sum'),
+        pa=('is_pa', 'sum'),
+    ).reset_index(drop=True)
+
+    # Cumulative
+    by_game['c_ab'] = by_game['ab'].cumsum()
+    by_game['c_h'] = by_game['h'].cumsum()
+    by_game['c_tb'] = by_game['tb'].cumsum()
+    by_game['c_bb'] = by_game['bb'].cumsum()
+    by_game['c_hbp'] = by_game['hbp'].cumsum()
+    by_game['c_sf'] = by_game['sf'].cumsum()
+    by_game['c_pa'] = by_game['pa'].cumsum()
+
+    out = []
+    for i, r in by_game.iterrows():
+        c_ab = r['c_ab']; c_h = r['c_h']; c_tb = r['c_tb']
+        c_bb = r['c_bb']; c_hbp = r['c_hbp']; c_sf = r['c_sf']; c_pa = r['c_pa']
+        # OBP denominator excludes SH (and is AB+BB+HBP+SF). We approximate with c_pa - c_sh
+        obp_denom = c_pa - r.get('sh', 0) - 0  # exclude SH
+        obp = (c_h + c_bb + c_hbp) / obp_denom if obp_denom > 0 else 0.0
+        slg = c_tb / c_ab if c_ab > 0 else 0.0
+        out.append({
+            'game': i + 1,
+            'date': r['date_dt'].strftime('%Y-%m-%d'),
+            'ops': float(obp + slg),
+            'pa': int(c_pa),
+        })
+    return out
 
 
 def compute_player_splits(events_df: pd.DataFrame, ncaa_player_id: int,
@@ -538,6 +637,139 @@ def _donut_svg(mix: dict, accent: str, size: int = 130) -> str:
     )
 
 
+def build_division_scatter_cloud(pool: pd.DataFrame) -> list[tuple[float, float]]:
+    """Return (OBP, SLG) tuples for every qualified hitter in the division pool."""
+    if pool.empty:
+        return []
+    obp = pd.to_numeric(pool['on_base_percentage'], errors='coerce')
+    slg = pd.to_numeric(pool['slugging_percentage'], errors='coerce')
+    valid = obp.notna() & slg.notna()
+    return list(zip(obp[valid].tolist(), slg[valid].tolist()))
+
+
+def _render_pace_svg(pace: list[dict], accent: str, height: int = 110, width: int = 520) -> str:
+    """Cumulative OPS line chart, G1 → last game."""
+    if not pace or len(pace) < 2:
+        return ('<svg viewBox="0 0 100 75" preserveAspectRatio="none" '
+                'style="width:100%;height:110px;display:block;">'
+                '<text x="50" y="40" text-anchor="middle" '
+                'font-family="ui-monospace,Menlo,monospace" font-size="3" fill="#999">'
+                'No game-level data yet</text></svg>')
+    pad = {'t': 12, 'r': 14, 'b': 22, 'l': 36}
+    w = width - pad['l'] - pad['r']
+    h = height - pad['t'] - pad['b']
+    ops_vals = [pt['ops'] for pt in pace]
+    ymin = max(0.0, min(ops_vals) * 0.92)
+    ymax = max(ops_vals) * 1.05 or 1.0
+    n = len(pace)
+    def x_(i): return pad['l'] + (i / max(n - 1, 1)) * w
+    def y_(v): return pad['t'] + (1 - (v - ymin) / max(ymax - ymin, 1e-6)) * h
+    line = ' '.join(
+        f'{"M" if i == 0 else "L"}{x_(i):.1f},{y_(pt["ops"]):.1f}'
+        for i, pt in enumerate(pace)
+    )
+    # Y-axis ticks at 4 evenly spaced OPS levels
+    yticks = [ymin + (ymax - ymin) * t for t in (0.0, 0.33, 0.66, 1.0)]
+    grid = ''.join(
+        f'<line x1="{pad["l"]}" x2="{pad["l"]+w}" y1="{y_(t):.1f}" y2="{y_(t):.1f}" '
+        f'stroke="#1a1a1a" stroke-opacity="0.07"/>'
+        f'<text x="{pad["l"]-6}" y="{y_(t)+3:.1f}" text-anchor="end" '
+        f'font-size="9" fill="#666" font-family="ui-monospace,Menlo,monospace">'
+        f'{t:.3f}</text>'
+        for t in yticks
+    )
+    final = pace[-1]
+    end_marker = (f'<circle cx="{x_(n-1):.1f}" cy="{y_(final["ops"]):.1f}" '
+                  f'r="3.2" fill="{accent}" stroke="#fff" stroke-width="1.4"/>')
+    g1_label = (f'<text x="{pad["l"]}" y="{height-6}" font-size="9" fill="#666" '
+                f'font-family="ui-monospace,Menlo,monospace">G1</text>')
+    final_label = (f'<text x="{pad["l"]+w}" y="{height-6}" font-size="9" '
+                   f'fill="#666" text-anchor="end" '
+                   f'font-family="ui-monospace,Menlo,monospace">G{n}</text>')
+    axis = (f'<line x1="{pad["l"]}" x2="{pad["l"]+w}" '
+            f'y1="{pad["t"]+h}" y2="{pad["t"]+h}" stroke="#222" stroke-opacity="0.4"/>')
+    return (
+        f'<svg viewBox="0 0 {width} {height}" preserveAspectRatio="none" '
+        f'style="width:100%;height:{height}px;display:block;">'
+        f'{grid}'
+        f'<path d="{line}" fill="none" stroke="{accent}" stroke-width="1.6" '
+        f'stroke-linejoin="round" stroke-linecap="round"/>'
+        f'{end_marker}{g1_label}{final_label}{axis}'
+        f'</svg>'
+    )
+
+
+def _render_scatter_svg(cloud: list[tuple[float, float]],
+                          player_obp: float | None, player_slg: float | None,
+                          player_last_name: str, accent: str,
+                          width: int = 320, height: int = 220) -> str:
+    """OBP × SLG scatter for the division. Player highlighted with halo + label."""
+    if not cloud:
+        return ('<svg viewBox="0 0 100 75" preserveAspectRatio="none" '
+                'style="width:100%;height:220px;display:block;"><text x="50" y="40" '
+                'text-anchor="middle" font-size="3" fill="#999">No qualifier data</text></svg>')
+    pad = {'t': 18, 'r': 16, 'b': 30, 'l': 40}
+    w = width - pad['l'] - pad['r']
+    h = height - pad['t'] - pad['b']
+    obps = [pt[0] for pt in cloud]
+    slgs = [pt[1] for pt in cloud]
+    xmin, xmax = max(0.18, min(obps) - 0.02), min(0.55, max(obps) + 0.02)
+    ymin, ymax = max(0.20, min(slgs) - 0.02), min(1.10, max(slgs) + 0.02)
+    def sx(v): return pad['l'] + ((v - xmin) / max(xmax - xmin, 1e-6)) * w
+    def sy(v): return pad['t'] + (1 - (v - ymin) / max(ymax - ymin, 1e-6)) * h
+    xticks = [t for t in (0.250, 0.300, 0.350, 0.400, 0.450, 0.500) if xmin <= t <= xmax]
+    yticks = [t for t in (0.300, 0.400, 0.500, 0.600, 0.700, 0.800, 0.900) if ymin <= t <= ymax]
+    grid = ''
+    for t in xticks:
+        grid += (f'<line x1="{sx(t):.1f}" x2="{sx(t):.1f}" y1="{pad["t"]}" '
+                 f'y2="{pad["t"]+h}" stroke="#000" stroke-opacity="0.05"/>'
+                 f'<text x="{sx(t):.1f}" y="{height-10}" font-size="9" fill="#666" '
+                 f'text-anchor="middle" font-family="ui-monospace,Menlo,monospace">{t:.3f}</text>')
+    for t in yticks:
+        grid += (f'<line x1="{pad["l"]}" x2="{pad["l"]+w}" y1="{sy(t):.1f}" '
+                 f'y2="{sy(t):.1f}" stroke="#000" stroke-opacity="0.05"/>'
+                 f'<text x="{pad["l"]-6}" y="{sy(t)+3:.1f}" font-size="9" fill="#666" '
+                 f'text-anchor="end" font-family="ui-monospace,Menlo,monospace">{t:.3f}</text>')
+    # Cloud
+    dots = ''.join(
+        f'<circle cx="{sx(o):.1f}" cy="{sy(s):.1f}" r="1.4" fill="#1a1a1a" fill-opacity="0.18"/>'
+        for o, s in cloud
+    )
+    # Division mean crosshair
+    mean_obp = sum(obps) / len(obps); mean_slg = sum(slgs) / len(slgs)
+    cross = (f'<line x1="{sx(mean_obp):.1f}" x2="{sx(mean_obp):.1f}" y1="{pad["t"]}" '
+             f'y2="{pad["t"]+h}" stroke="#999" stroke-dasharray="2 3" stroke-opacity="0.5"/>'
+             f'<line x1="{pad["l"]}" x2="{pad["l"]+w}" y1="{sy(mean_slg):.1f}" '
+             f'y2="{sy(mean_slg):.1f}" stroke="#999" stroke-dasharray="2 3" stroke-opacity="0.5"/>')
+    # Player highlight
+    highlight = ''
+    if player_obp is not None and player_slg is not None and not pd.isna(player_obp) and not pd.isna(player_slg):
+        px, py = sx(float(player_obp)), sy(float(player_slg))
+        highlight = (
+            f'<circle cx="{px:.1f}" cy="{py:.1f}" r="14" fill="{accent}" fill-opacity="0.12"/>'
+            f'<circle cx="{px:.1f}" cy="{py:.1f}" r="7" fill="{accent}" fill-opacity="0.28"/>'
+            f'<circle cx="{px:.1f}" cy="{py:.1f}" r="3.6" fill="{accent}" stroke="#fff" stroke-width="1.5"/>'
+            f'<g transform="translate({px+12:.1f}, {py-8:.1f})">'
+            f'<text font-size="10" font-family="ui-monospace,Menlo,monospace" '
+            f'fill="{accent}" font-weight="600">{_xe(player_last_name).upper()}</text>'
+            f'<text y="11" font-size="9" font-family="ui-monospace,Menlo,monospace" fill="#444">'
+            f'{float(player_obp):.3f} / {float(player_slg):.3f}</text></g>'
+        )
+    axes = (f'<line x1="{pad["l"]}" x2="{pad["l"]+w}" y1="{pad["t"]+h}" y2="{pad["t"]+h}" '
+            f'stroke="#222" stroke-opacity="0.4"/>'
+            f'<line x1="{pad["l"]}" x2="{pad["l"]}" y1="{pad["t"]}" y2="{pad["t"]+h}" '
+            f'stroke="#222" stroke-opacity="0.4"/>'
+            f'<text x="{pad["l"]+w/2}" y="{height}" font-size="9" fill="#666" '
+            f'text-anchor="middle" font-family="ui-monospace,Menlo,monospace" '
+            f'letter-spacing="1">OBP →</text>'
+            f'<text x="6" y="{pad["t"]+h/2}" font-size="9" fill="#666" '
+            f'font-family="ui-monospace,Menlo,monospace" letter-spacing="1" '
+            f'transform="rotate(-90, 10, {pad["t"]+h/2})">SLG →</text>')
+    return (f'<svg viewBox="0 0 {width} {height}" preserveAspectRatio="none" '
+            f'style="width:100%;height:{height}px;display:block;">'
+            f'{grid}{dots}{cross}{axes}{highlight}</svg>')
+
+
 def _row_html(idx: int, p: dict, accent: str, total_qualifiers: int) -> str:
     """Render one player row."""
     # Rail
@@ -560,19 +792,29 @@ def _row_html(idx: int, p: dict, accent: str, total_qualifiers: int) -> str:
     ]
     if p.get('ht') and str(p['ht']).strip():
         bio_parts.append(f'<span>{_xe(p["ht"])}</span>')
-    headshot = (
-        f'<div class="rth-headshot" style="--rth-accent:{accent};">'
-        f'<svg viewBox="0 0 100 100" class="rth-headshot__bg" preserveAspectRatio="none">'
-        f'<defs><pattern id="rth-stripe-{idx}" width="6" height="6" '
-        f'patternUnits="userSpaceOnUse" patternTransform="rotate(45)">'
-        f'<line x1="0" y1="0" x2="0" y2="6" stroke="{accent}" stroke-width="2.2" stroke-opacity="0.18"/>'
-        f'</pattern></defs>'
-        f'<rect width="100" height="100" fill="#f4efe7"/>'
-        f'<rect width="100" height="100" fill="url(#rth-stripe-{idx})"/>'
-        f'</svg>'
-        f'<div class="rth-headshot__init">{initials}</div>'
-        f'</div>'
-    )
+    if p.get('photo_b64'):
+        # User-uploaded headshot — full-bleed, cropped to the 4:3 frame
+        headshot = (
+            f'<div class="rth-headshot" style="--rth-accent:{accent};">'
+            f'<div style="position:absolute;inset:0;width:100%;height:100%;'
+            f'background-image:url(data:image/{p.get("photo_mime","jpeg")};base64,{p["photo_b64"]});'
+            f'background-size:cover;background-position:50% 35%;"></div>'
+            f'</div>'
+        )
+    else:
+        headshot = (
+            f'<div class="rth-headshot" style="--rth-accent:{accent};">'
+            f'<svg viewBox="0 0 100 100" class="rth-headshot__bg" preserveAspectRatio="none">'
+            f'<defs><pattern id="rth-stripe-{idx}" width="6" height="6" '
+            f'patternUnits="userSpaceOnUse" patternTransform="rotate(45)">'
+            f'<line x1="0" y1="0" x2="0" y2="6" stroke="{accent}" stroke-width="2.2" stroke-opacity="0.18"/>'
+            f'</pattern></defs>'
+            f'<rect width="100" height="100" fill="#f4efe7"/>'
+            f'<rect width="100" height="100" fill="url(#rth-stripe-{idx})"/>'
+            f'</svg>'
+            f'<div class="rth-headshot__init">{initials}</div>'
+            f'</div>'
+        )
     # Splits block — SLG vs LHP/RHP/Home/Away/RISP
     splits = p.get('splits') or {}
     if splits:
@@ -643,6 +885,22 @@ def _row_html(idx: int, p: dict, accent: str, total_qualifiers: int) -> str:
             f'</div>'
         )
         stat_cells.append(cell)
+    spray_svg = p.get('spray_svg') or ''
+    if spray_svg:
+        spray_block = (
+            f'<div style="margin-top:14px;padding-top:14px;'
+            f'border-top:1px dashed rgba(0,0,0,0.18);">'
+            f'<div class="rth-block-head">'
+            f'<div>'
+            f'<div class="rth-eyebrow">SPRAY · BATTED-BALL ZONES</div>'
+            f'<div class="rth-block-title">Hit distribution</div>'
+            f'</div></div>'
+            f'<div style="width:100%;display:block;">{spray_svg}</div>'
+            f'</div>'
+        )
+    else:
+        spray_block = ''
+
     stats = (
         f'<section class="rth-stats">'
         f'<div class="rth-stats__head">'
@@ -650,7 +908,7 @@ def _row_html(idx: int, p: dict, accent: str, total_qualifiers: int) -> str:
         f'<span>D1 RANK · {total_qualifiers:,} qualifiers</span>'
         f'</div>'
         f'<div class="rth-stats__grid">{"".join(stat_cells)}</div>'
-        f'<div class="rth-placeholder">SPRAY · WIRE TO PBP EVENTS NEXT</div>'
+        f'{spray_block}'
         f'</section>'
     )
 
@@ -665,20 +923,47 @@ def _row_html(idx: int, p: dict, accent: str, total_qualifiers: int) -> str:
             iso_int = None
     iso_str = f'.{iso_int:03d}' if iso_int is not None and iso_int >= 0 else (str(iso_int) if iso_int is not None else '—')
 
-    final_avg = _fmt_stat('AVG', avg_v)
+    pace_data = p.get('pace') or []
+    ops_v, _, _ = p['ranks'].get('OPS', (None, None, None))
+    final_ops = f'{float(ops_v):.3f}' if ops_v is not None and not pd.isna(ops_v) else '—'
+    pace_svg = _render_pace_svg(pace_data, accent)
     pace_block = (
         f'<div>'
         f'<div class="rth-block-head">'
         f'<div>'
-        f'<div class="rth-eyebrow">PACE · 10-GAME ROLLING AVG</div>'
+        f'<div class="rth-eyebrow">PACE · CUMULATIVE OPS · G1 → G{len(pace_data) if pace_data else "?"}</div>'
         f'<div class="rth-block-title">Season trajectory</div>'
         f'</div>'
         f'<div style="display:flex;flex-direction:column;align-items:flex-end;">'
-        f'<span style="font-family:var(--rth-serif);font-weight:700;font-size:28px;line-height:1;letter-spacing:-0.02em;color:{accent};font-variant-numeric:tabular-nums;">{final_avg}</span>'
-        f'<span class="rth-iso__lbl">final AVG</span>'
+        f'<span style="font-family:var(--rth-serif);font-weight:700;font-size:28px;line-height:1;letter-spacing:-0.02em;color:{accent};font-variant-numeric:tabular-nums;">{final_ops}</span>'
+        f'<span class="rth-iso__lbl">final OPS</span>'
         f'</div>'
         f'</div>'
-        f'<div class="rth-placeholder">PACE CHART · WIRE TO PER-GAME PBP NEXT</div>'
+        f'{pace_svg}'
+        f'</div>'
+    )
+
+    # Scatter — division OBP × SLG cloud, player highlighted
+    scatter_cloud = p.get('scatter_cloud') or []
+    obp_v, _, _ = p['ranks'].get('OBP', (None, None, None))
+    slg_v, _, _ = p['ranks'].get('SLG', (None, None, None))
+    last_name = p['name'].split()[-1] if p.get('name') else ''
+    scatter_svg = _render_scatter_svg(scatter_cloud, obp_v, slg_v, last_name, accent)
+    scatter_block = (
+        f'<div style="padding-top:14px;border-top:1px dashed rgba(0,0,0,0.18);">'
+        f'<div class="rth-block-head">'
+        f'<div>'
+        f'<div class="rth-eyebrow">DIVISION LANDSCAPE · ALL QUALIFIERS</div>'
+        f'<div class="rth-block-title">OBP × SLG</div>'
+        f'</div>'
+        f'<div style="font-family:var(--rth-mono);font-size:9px;letter-spacing:0.06em;color:var(--rth-muted);">'
+        f'<span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:rgba(0,0,0,0.25);margin-right:4px;vertical-align:middle;"></span>'
+        f' qualifier '
+        f'<span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:{accent};margin:0 4px 0 8px;vertical-align:middle;"></span>'
+        f' {_xe(last_name)}'
+        f'</div>'
+        f'</div>'
+        f'{scatter_svg}'
         f'</div>'
     )
     mix_block = (
@@ -696,7 +981,7 @@ def _row_html(idx: int, p: dict, accent: str, total_qualifiers: int) -> str:
         f'{_donut_svg(p["hit_mix"], accent)}'
         f'</div>'
     )
-    right = f'<section class="rth-right">{pace_block}{mix_block}</section>'
+    right = f'<section class="rth-right">{pace_block}{scatter_block}{mix_block}</section>'
 
     return f'<article class="rth-row" style="--rth-accent:{accent};">{rail}{identity}{stats}{right}</article>'
 
@@ -782,8 +1067,10 @@ def render_tab(teams: list[str], seeds: list[int], team_ids: dict, sport: str,
                 division: str, regional_name: str, hitting_df: pd.DataFrame,
                 players_df: pd.DataFrame, teams_df: pd.DataFrame,
                 accent_for: callable | None = None,
-                conferences_df: pd.DataFrame | None = None):
+                conferences_df: pd.DataFrame | None = None,
+                player_rank_df: pd.DataFrame | None = None):
     """Streamlit-side wrapper. Builds player dicts from real data, renders HTML."""
+    import base64
     import streamlit as st
 
     valid_team_ids = [team_ids[t] for t in teams if team_ids.get(t) is not None]
@@ -792,7 +1079,9 @@ def render_tab(teams: list[str], seeds: list[int], team_ids: dict, sport: str,
         return
 
     pool = build_d1_pool(hitting_df, teams_df, sport, division, conferences_df)
-    top = select_top_hitters(hitting_df, players_df, valid_team_ids, top_n=4)
+    scatter_cloud = build_division_scatter_cloud(pool)
+    top = select_top_hitters(hitting_df, players_df, valid_team_ids, top_n=4,
+                              player_rank_df=player_rank_df)
     if top.empty:
         st.info(f'No qualified hitters (≥{MIN_PA} PA) found across the 4 selected teams in 2026 yet.')
         return
@@ -821,18 +1110,59 @@ def render_tab(teams: list[str], seeds: list[int], team_ids: dict, sport: str,
     team_to_seed = dict(zip(teams, seeds))
     id_to_team = {team_ids[t]: t for t in teams if team_ids.get(t) is not None}
 
+    # Image upload UI — one expander with 4 file uploaders, persists in session
+    with st.expander('Add player photos (replaces the striped placeholder)', expanded=False):
+        upload_cols = st.columns(min(4, len(top)))
+        for i, (_, row) in enumerate(top.iterrows()):
+            cb_id = int(row['player_id']) if pd.notna(row.get('player_id')) else None
+            with upload_cols[i % len(upload_cols)]:
+                st.caption(str(row.get('player_name', '—')))
+                up = st.file_uploader(
+                    f'photo {i+1}',
+                    type=['png', 'jpg', 'jpeg', 'webp'],
+                    key=f'rth_photo_{cb_id}',
+                    label_visibility='collapsed',
+                )
+                if up is not None:
+                    photo_bytes = up.read()
+                    st.session_state[f'rth_photo_b64_{cb_id}'] = base64.b64encode(photo_bytes).decode('ascii')
+                    mime = up.type.split('/')[-1] if up.type else 'jpeg'
+                    st.session_state[f'rth_photo_mime_{cb_id}'] = mime
+
+    # Lazy import for spray rendering — only when we have an NCAA pid
+    try:
+        from app_lib.spray_render import build_player_spray_svg
+    except Exception:
+        build_player_spray_svg = None
+
     for _, row in top.iterrows():
         team_name = id_to_team.get(int(row['team_id']))
         if team_name is None:
             continue
         accent = accent_for(team_ids[team_name], team_to_seed[team_name]) if accent_for else '#1a1a1a'
 
-        # Splits via NCAA pid lookup
-        splits = {}
         cb_id = int(row['player_id']) if pd.notna(row.get('player_id')) else None
         ncaa_pid = cb_to_ncaa.get(cb_id) if cb_id is not None else None
+
+        # Splits + pace + spray via NCAA pid
+        splits = {}
+        pace = []
+        spray_svg = ''
         if ncaa_pid is not None and not events.empty:
             splits = compute_player_splits(events, ncaa_pid, pitcher_throw)
+            pace = compute_player_pace(events, ncaa_pid)
+            if build_player_spray_svg is not None:
+                try:
+                    spray_svg = build_player_spray_svg(
+                        sport, division, ncaa_pid,
+                        player_name=str(row.get('player_name', '')),
+                        perspective='hitting',
+                    )
+                except Exception:
+                    spray_svg = ''
+
+        photo_b64 = st.session_state.get(f'rth_photo_b64_{cb_id}') if cb_id is not None else None
+        photo_mime = st.session_state.get(f'rth_photo_mime_{cb_id}', 'jpeg') if cb_id is not None else 'jpeg'
 
         players_payload.append({
             'name': row.get('player_name', '—') or '—',
@@ -848,6 +1178,11 @@ def render_tab(teams: list[str], seeds: list[int], team_ids: dict, sport: str,
             'ranks': compute_ranks(row, pool),
             'hit_mix': hit_mix(row),
             'splits': splits,
+            'pace': pace,
+            'spray_svg': spray_svg,
+            'scatter_cloud': scatter_cloud,
+            'photo_b64': photo_b64,
+            'photo_mime': photo_mime,
         })
 
     if not players_payload:
