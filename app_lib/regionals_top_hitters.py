@@ -370,27 +370,30 @@ _STYLES = """
 .rth-mast {
   border-top: 6px solid var(--rth-brand);
   border-bottom: 1px solid var(--rth-ink);
-  padding: 18px 0 22px;
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 24px;
-  align-items: end;
+  padding: 22px 0 26px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
 }
 .rth-mast__kicker {
-  font-family: var(--rth-mono); font-size: 11px; letter-spacing: 0.18em;
+  font-family: var(--rth-sans); font-size: 11px; letter-spacing: 0.18em;
   text-transform: uppercase; color: var(--rth-muted);
-  display: flex; flex-direction: column; gap: 4px; margin-bottom: 8px;
+  display: flex; flex-direction: row; gap: 14px; flex-wrap: wrap;
+  justify-content: center;
 }
 .rth-mast__kicker strong { color: var(--rth-ink); font-weight: 600; }
 .rth-mast__title {
-  font-family: var(--rth-serif); font-weight: 600;
-  font-size: clamp(40px, 5.4vw, 72px); line-height: 0.94;
+  font-family: var(--rth-sans); font-weight: 800;
+  font-size: clamp(40px, 5.4vw, 72px); line-height: 1.0;
   letter-spacing: -0.025em; margin: 0;
 }
-.rth-mast__title em { font-style: italic; font-weight: 400; color: var(--rth-brand); }
+.rth-mast__title em { font-style: italic; font-weight: 600; color: var(--rth-brand); }
 .rth-mast__meta {
-  text-align: right; font-family: var(--rth-mono); font-size: 11px;
-  letter-spacing: 0.06em; color: var(--rth-muted); line-height: 1.7;
+  font-family: var(--rth-sans); font-size: 11px;
+  letter-spacing: 0.12em; color: var(--rth-muted); text-transform: uppercase;
+  display: flex; flex-direction: row; gap: 14px; justify-content: center;
 }
 .rth-mast__meta strong { color: var(--rth-ink); font-weight: 600; }
 
@@ -415,10 +418,23 @@ _STYLES = """
   grid-template-columns: 56px minmax(240px, 0.95fr) minmax(300px, 1.25fr) minmax(300px, 1fr);
   gap: 0; border-bottom: 1px solid var(--rth-ink);
   padding: 28px 0; position: relative;
+  overflow: hidden;
 }
 .rth-row::before {
   content: ""; position: absolute; inset: 0 auto 0 0; width: 64px;
   background: var(--rth-accent, #1a1a1a); opacity: 0.06; pointer-events: none;
+}
+/* Team logo watermark — sits behind everything in the row at 20% opacity */
+.rth-row__bg-logo {
+  position: absolute;
+  inset: 0;
+  background-image: var(--rth-team-logo, none);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 60% auto;
+  opacity: 0.20;
+  pointer-events: none;
+  z-index: 0;
 }
 .rth-rail {
   width: 56px; display: flex; flex-direction: column; align-items: center;
@@ -480,14 +496,21 @@ _STYLES = """
   margin-top: 14px; padding-top: 14px;
   border-top: 1px dashed rgba(0,0,0,0.18);
   display: flex; flex-direction: column; gap: 6px;
-  flex: 1 1 auto;        /* fills remaining vertical space in the column */
-  min-height: 280px;     /* never collapses below this even on short rows */
+  flex: 1 1 auto;
+  min-height: 280px;
+}
+/* Wrapper that vertically centers the SVG inside the section's remaining space */
+.rth-stats__spray-figure {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;     /* vertical center */
+  justify-content: center; /* horizontal center */
 }
 .rth-stats__spray svg {
   width: 100% !important;
   height: auto !important;
-  flex: 1 1 auto;
-  min-height: 240px;
+  max-width: 100%;
+  display: block;
 }
 .rth-stats__head {
   display: flex; justify-content: space-between; align-items: baseline;
@@ -999,7 +1022,7 @@ def _row_html(idx: int, p: dict, accent: str, total_qualifiers: int) -> str:
             f'<div class="rth-eyebrow">SPRAY · BATTED-BALL ZONES</div>'
             f'<div class="rth-block-title">Hit distribution</div>'
             f'</div></div>'
-            f'{spray_svg_flex}'
+            f'<div class="rth-stats__spray-figure">{spray_svg_flex}</div>'
             f'</div>'
         )
     else:
@@ -1115,7 +1138,20 @@ def _row_html(idx: int, p: dict, accent: str, total_qualifiers: int) -> str:
     )
     right = f'<section class="rth-right">{pace_block}{scatter_block}{scatter_block_disc}{mix_block}</section>'
 
-    return f'<article class="rth-row" style="--rth-accent:{accent};">{rail}{identity}{stats}{right}</article>'
+    # Team logo watermark behind the row at 20% opacity
+    logo_b64 = p.get('team_logo_b64')
+    bg_layer = ''
+    row_style = f'--rth-accent:{accent};'
+    if logo_b64:
+        row_style += f' --rth-team-logo: url(data:image/png;base64,{logo_b64});'
+        bg_layer = '<div class="rth-row__bg-logo"></div>'
+
+    return (
+        f'<article class="rth-row" style="{row_style}">'
+        f'{bg_layer}'
+        f'{rail}{identity}{stats}{right}'
+        f'</article>'
+    )
 
 
 def render_top_hitters_html(players: list[dict], regional_name: str, sport: str,
@@ -1143,17 +1179,16 @@ def render_top_hitters_html(players: list[dict], regional_name: str, sport: str,
 
     masthead = (
         f'<header class="rth-mast">'
-        f'<div>'
         f'<div class="rth-mast__kicker">'
         f'<span>NCAA {div_label} {sport_label}</span>'
+        f'<span>·</span>'
         f'<span><strong>2026 Regionals · Pre-Tournament Brief</strong></span>'
         f'</div>'
         f'<h1 class="rth-mast__title">Regionals <em>Top Hitters</em></h1>'
-        f'</div>'
         f'<div class="rth-mast__meta">'
-        f'<div>{_xe(regional_name).upper()}</div>'
-        f'<div><strong>STATS THROUGH {as_of_date.upper()}</strong></div>'
-        f'<div>56-GAME REGULAR SEASON</div>'
+        f'<span>{_xe(regional_name).upper()}</span>'
+        f'<span>·</span>'
+        f'<span><strong>STATS THROUGH {as_of_date.upper()}</strong></span>'
         f'</div>'
         f'</header>'
     )
@@ -1278,6 +1313,18 @@ def render_tab(teams: list[str], seeds: list[int], team_ids: dict, sport: str,
         bb_pct = (row.get('walks', 0) / pa_v) if pa_v else None
         k_pct = (row.get('strikeouts', 0) / pa_v) if pa_v else None
 
+        # Team logo for the row's background watermark
+        team_logo_b64 = None
+        tid_for_logo = team_ids.get(team_name)
+        if tid_for_logo is not None:
+            from pathlib import Path
+            logo_path = Path(__file__).resolve().parent.parent / 'team_logos_512' / f'{int(tid_for_logo)}.png'
+            if logo_path.exists():
+                try:
+                    team_logo_b64 = base64.b64encode(logo_path.read_bytes()).decode('ascii')
+                except Exception:
+                    team_logo_b64 = None
+
         players_payload.append({
             'name': row.get('player_name', '—') or '—',
             'pos': row.get('position', '') or '',
@@ -1300,6 +1347,7 @@ def render_tab(teams: list[str], seeds: list[int], team_ids: dict, sport: str,
             'k_pct': k_pct,
             'photo_b64': photo_b64,
             'photo_mime': photo_mime,
+            'team_logo_b64': team_logo_b64,
         })
 
     if not players_payload:

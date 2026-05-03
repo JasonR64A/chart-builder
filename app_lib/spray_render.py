@@ -705,6 +705,37 @@ def build_player_spray_svg(sport: str, division: str, ncaa_player_id,
                  f'A {R_OUTER},{R_OUTER} 0 0 1 {fxR:.2f},{fyR:.2f} Z" '
                  f'fill="none" stroke="#0F2A4D" stroke-width="0.5"/>')
 
+    # 64A emblem watermark in the field center, behind the foul-line outline
+    # but above the wedge fills. Inserted at the start of `parts` after the
+    # background rect so it doesn't paint over the zone numbers.
+    emblem_path = _APP_DIR / 'assets' / 'branding' / 'emblem.png'
+    if emblem_path.exists():
+        try:
+            eb64 = base64.b64encode(emblem_path.read_bytes()).decode('ascii')
+            ehref = f'data:image/png;base64,{eb64}'
+            ew = 14
+            parts.insert(1,
+                f'<image href="{ehref}" xlink:href="{ehref}" '
+                f'x="{HOME[0]-ew/2:.2f}" y="{HOME[1]-32:.2f}" width="{ew}" height="{ew}" '
+                f'opacity="0.18" preserveAspectRatio="xMidYMid meet"/>'
+            )
+        except Exception:
+            pass
+
+    # Small diamond inset — upper-left corner reference graphic. Just an
+    # outline of a baseball infield diamond (home -> 1B -> 2B -> 3B -> home)
+    # so the spray chart reads as a baseball visualization at a glance.
+    DX, DY = 6.5, 6.5  # center of the inset
+    DR = 3.2          # half-diagonal
+    parts.append(
+        f'<g opacity="0.55">'
+        f'<polygon points="{DX:.1f},{DY+DR:.1f} {DX+DR:.1f},{DY:.1f} '
+        f'{DX:.1f},{DY-DR:.1f} {DX-DR:.1f},{DY:.1f}" '
+        f'fill="none" stroke="#0F2A4D" stroke-width="0.4"/>'
+        f'<circle cx="{DX:.1f}" cy="{DY:.1f}" r="0.5" fill="#0F2A4D"/>'
+        f'</g>'
+    )
+
     # Bottom-left aggregate stats block — same layout as Spray_Charts page.
     # AVG/SLG/wOBA are BIP-conditional (denominator = total BIP).
     def _all(c): return int(spray[c].sum()) if c in spray.columns else 0
