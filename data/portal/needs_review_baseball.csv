@@ -1,7 +1,7 @@
 ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfer_date,update_date,status,year,sport,team_id,player_id_64a,player_id_ncaa_stats,matched_name,match_score,match_method,confidence,position,class_year,player_csv_team_id
-2404280498,BRADY,SAVAGE,Brady Savage,Erskine College,Conference Carolinas,II,04/28/2026,04/28/2026,Active,2025-26,Baseball,247,130319,3235154,Cole Savage,60.9,team+lastname_diff_first,REVIEW,C,Jr,247
 2212736494,SAMUEL,HEINTZ,Samuel Heintz,Erskine College,Conference Carolinas|Conference Carolinas,II,04/28/2026,04/28/2026,Active,2025-26,Baseball|Men's Golf,247,63838,2955592,Alex Heintz,50.0,team+lastname_diff_first,REVIEW,P,So,247
 2308978410,DALLAS,STEPHENS,Dallas Stephens,Young Harris College,Conference Carolinas,II,04/28/2026,04/28/2026,Active,2025-26,Baseball,941,147478,3231949,Griffin Stephens,58.1,team+lastname_diff_first,REVIEW,UT,Fr,941
+2404280498,BRADY,SAVAGE,Brady Savage,Erskine College,Conference Carolinas,II,04/28/2026,04/28/2026,Active,2025-26,Baseball,247,130319,3235154,Cole Savage,60.9,team+lastname_diff_first,REVIEW,C,Jr,247
 2306929208,CHASE,FERNANDEZ,Chase Fernandez,Trevecca Nazarene University,Gulf South Conference,II,12/29/2025,02/21/2026,Matriculated,2025-26,Baseball,795,48006,2648919,Alex Fernandez,82.0,team+lastname_diff_first,REVIEW,RF,Sr,795
 2211731052,SEAN,BROWN,Sean Brown,Coker University,South Atlantic Conference,II,12/02/2025,02/12/2026,Active,2025-26,Baseball,166,101840,3093217,Keagan Brown,81.8,team+lastname_diff_first,REVIEW,2B,,166
 2502509948,COLLIN,PARKER,Collin Parker,Mount St. Mary's University,Metro Atlantic Athletic Conference,I,09/25/2025,01/28/2026,Active,2025-26,Baseball,509,19566,1774313,Vaughn Parker,46.2,team+lastname_diff_first,REVIEW,INF,,509
