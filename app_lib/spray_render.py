@@ -751,17 +751,16 @@ def build_player_spray_svg(sport: str, division: str, ncaa_player_id,
     )
 
     # Top-right corner — 64 Analytics circle logo, sized to match the
-    # mini-diamond's vertical extent on the upper-left so both sit at the
-    # same height. The diamond runs y=[1.5, 13] (MINI_R = 11.5 measured
-    # UP from MINI_HOME at y=13). Logo gets the same 11.5-unit footprint
-    # with its top edge at y=1.5.
+    # full mini-diamond bounding box (2 × MINI_R = 23 viewBox units) so it
+    # has visual weight comparable to the L/C/R diamond on the left. Top
+    # edge anchored to y=1.5 to match the diamond's top line.
     logo_path = _APP_DIR / 'assets' / '64-circle-red-black.png'
     if logo_path.exists():
         try:
             lb64 = base64.b64encode(logo_path.read_bytes()).decode('ascii')
             lhref = f'data:image/png;base64,{lb64}'
-            lw = 11.5
-            l_top = MINI_HOME[1] - MINI_R   # 1.5 — matches diamond top
+            lw = 23.0                         # 2 × MINI_R, matches diamond span
+            l_top = MINI_HOME[1] - MINI_R     # 1.5 — matches diamond top
             l_x = 86 - lw / 2                 # x-center mirrored across x=50
             parts.append(
                 f'<image href="{lhref}" xlink:href="{lhref}" '
