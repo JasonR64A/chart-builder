@@ -705,5 +705,52 @@ def build_player_spray_svg(sport: str, division: str, ncaa_player_id,
                  f'A {R_OUTER},{R_OUTER} 0 0 1 {fxR:.2f},{fyR:.2f} Z" '
                  f'fill="none" stroke="#0F2A4D" stroke-width="0.5"/>')
 
+    # Bottom-left aggregate stats block — same layout as Spray_Charts page.
+    # AVG/SLG/wOBA are BIP-conditional (denominator = total BIP).
+    def _all(c): return int(spray[c].sum()) if c in spray.columns else 0
+    n_bip = int(spray['total'].sum())
+    a1, a2, a3, ahr = _all('1B'), _all('2B'), _all('3B'), _all('HR')
+    a_hits = a1 + a2 + a3 + ahr
+    a_tb = a1 + 2*a2 + 3*a3 + 4*ahr
+    a_woba_num = 0.888*a1 + 1.271*a2 + 1.616*a3 + 2.101*ahr
+    if n_bip > 0:
+        agg_avg, agg_slg, agg_woba = a_hits / n_bip, a_tb / n_bip, a_woba_num / n_bip
+    else:
+        agg_avg = agg_slg = agg_woba = 0.0
+    overall = [
+        ('AVG',  _metric_fmt(agg_avg, 'AVG')),
+        ('SLG',  _metric_fmt(agg_slg, 'SLG')),
+        ('wOBA', _metric_fmt(agg_woba, 'wOBA')),
+        ('TB',   _compact(a_tb)),
+    ]
+    block_w = 9.5
+    x0 = 1.5
+    for i, (lab, val) in enumerate(overall):
+        cx = x0 + block_w/2 + i * block_w
+        parts.append(
+            f'<text x="{cx:.1f}" y="66.5" text-anchor="middle" '
+            f'font-family="Inter,sans-serif" font-size="2.0" font-weight="600" '
+            f'fill="#0F2A4D" letter-spacing="0.3">{lab}</text>'
+        )
+        parts.append(
+            f'<text x="{cx:.1f}" y="70" text-anchor="middle" '
+            f'font-family="Inter,sans-serif" font-size="2.4" font-weight="800" '
+            f'fill="#0F2A4D">{val}</text>'
+        )
+
+    # Bottom-right caption — scope + metric choice + BIP count
+    sport_label = 'Baseball' if sport.lower() == 'baseball' else 'Softball'
+    scope_txt = str(player_name) if player_name else f'Player {ncaa_player_id}'
+    caption_line1 = f'{scope_txt} · {sport_label} {division}'
+    caption_line2 = f'{metric_choice} · {n_bip:,} balls in play'
+    parts.append(
+        f'<text x="98" y="66.5" text-anchor="end" font-family="Inter,sans-serif" '
+        f'font-size="2.0" font-weight="600" fill="#0F2A4D">{_xe(caption_line1)}</text>'
+    )
+    parts.append(
+        f'<text x="98" y="70" text-anchor="end" font-family="Inter,sans-serif" '
+        f'font-size="2.4" font-weight="800" fill="#0F2A4D">{_xe(caption_line2)}</text>'
+    )
+
     parts.append('</svg>')
     return ''.join(parts)

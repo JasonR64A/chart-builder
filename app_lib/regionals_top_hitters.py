@@ -146,18 +146,28 @@ _HIT_CODES_TB = {'1B': 1, '2B': 2, '3B': 3, 'HR': 4}
 _NON_AB_CODES = {'BB', 'IBB', 'HBP', 'SF', 'SH'}  # exclude from AB
 
 
-def _slg_from_subset(subset: pd.DataFrame) -> tuple[float, int]:
-    """Return (SLG, AB) for the subset. SLG = TB/AB; 0.0 if AB == 0."""
+def _splits_from_subset(subset: pd.DataFrame) -> dict:
+    """Return {'slg', 'obp', 'ab', 'pa'} for the subset.
+    SLG = TB/AB; OBP = (H+BB+HBP)/(AB+BB+HBP+SF); 0.0 if denominator == 0."""
     if subset.empty:
-        return (0.0, 0)
+        return {'slg': 0.0, 'obp': 0.0, 'ab': 0, 'pa': 0}
     counts = subset['playResult'].value_counts()
     tb = sum(counts.get(code, 0) * w for code, w in _HIT_CODES_TB.items())
     hits = sum(counts.get(code, 0) for code in _HIT_CODES_TB.keys())
     outs = sum(counts.get(code, 0) for code in _AB_OUT_CODES)
+    bb = counts.get('BB', 0) + counts.get('IBB', 0)
+    hbp = counts.get('HBP', 0)
+    sf = counts.get('SF', 0)
+    sh = counts.get('SH', 0)
     ab = hits + outs
-    if ab == 0:
-        return (0.0, 0)
-    return (round(tb / ab, 3), int(ab))
+    obp_denom = ab + bb + hbp + sf  # excludes SH
+    pa = ab + bb + hbp + sf + sh
+    return {
+        'slg': round(tb / ab, 3) if ab else 0.0,
+        'obp': round((hits + bb + hbp) / obp_denom, 3) if obp_denom else 0.0,
+        'ab':  int(ab),
+        'pa':  int(pa),
+    }
 
 
 def compute_player_pace(events_df: pd.DataFrame, ncaa_player_id: int,
@@ -249,22 +259,22 @@ def compute_player_splits(events_df: pd.DataFrame, ncaa_player_id: int,
     """For one batter (by NCAA season pid), compute SLG splits.
     Returns {'vs LHP', 'vs RHP', 'Home', 'Away', 'RISP'} -> (slg, ab).
     Empty-data splits return (0.0, 0)."""
+    empty = {'slg': 0.0, 'obp': 0.0, 'ab': 0, 'pa': 0}
     if events_df.empty or pd.isna(ncaa_player_id):
-        return {k: (0.0, 0) for k in ('vs LHP', 'vs RHP', 'Home', 'Away', 'RISP')}
+        return {k: dict(empty) for k in ('vs LHP', 'vs RHP', 'Home', 'Away', 'RISP')}
     df = events_df[events_df['playerId'] == ncaa_player_id].copy()
     if df.empty:
-        return {k: (0.0, 0) for k in ('vs LHP', 'vs RHP', 'Home', 'Away', 'RISP')}
+        return {k: dict(empty) for k in ('vs LHP', 'vs RHP', 'Home', 'Away', 'RISP')}
 
-    # Pitcher hand bridge
     pitcher_pid = pd.to_numeric(df['pitcherId'], errors='coerce').astype('Int64')
     df['pitcher_throw'] = pitcher_pid.map(pitcher_throw_lookup)
 
     out = {
-        'vs LHP': _slg_from_subset(df[df['pitcher_throw'] == 'L']),
-        'vs RHP': _slg_from_subset(df[df['pitcher_throw'] == 'R']),
-        'Home':   _slg_from_subset(df[df['battingTeam'] == df['homeTeam']]),
-        'Away':   _slg_from_subset(df[df['battingTeam'] == df['awayTeam']]),
-        'RISP':   _slg_from_subset(df[(df['runner2B'] == 1) | (df['runner3B'] == 1)]),
+        'vs LHP': _splits_from_subset(df[df['pitcher_throw'] == 'L']),
+        'vs RHP': _splits_from_subset(df[df['pitcher_throw'] == 'R']),
+        'Home':   _splits_from_subset(df[df['battingTeam'] == df['homeTeam']]),
+        'Away':   _splits_from_subset(df[df['battingTeam'] == df['awayTeam']]),
+        'RISP':   _splits_from_subset(df[(df['runner2B'] == 1) | (df['runner3B'] == 1)]),
     }
     return out
 
@@ -344,9 +354,9 @@ _STYLES = """
 .rth-root {
   --rth-bg: #f6f1e8; --rth-paper: #fbf7ef; --rth-ink: #16130d; --rth-ink2: #3a342a;
   --rth-muted: #756d5e; --rth-rule: #1a1a1a; --rth-brand: #B22234;
-  --rth-serif: "Source Serif 4", "Source Serif Pro", Georgia, serif;
   --rth-sans: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --rth-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --rth-serif: var(--rth-sans);   /* alias — Inter throughout per user pref */
+  --rth-mono: var(--rth-sans);    /* alias — Inter throughout per user pref */
   background: var(--rth-bg);
   color: var(--rth-ink);
   font-family: var(--rth-sans);
@@ -354,6 +364,7 @@ _STYLES = """
   border-radius: 6px;
   -webkit-font-smoothing: antialiased;
 }
+.rth-root, .rth-root * { font-family: var(--rth-sans) !important; }
 .rth-root * { box-sizing: border-box; }
 
 .rth-mast {
@@ -705,6 +716,19 @@ def build_division_scatter_cloud(pool: pd.DataFrame) -> list[tuple[float, float]
     return list(zip(obp[valid].tolist(), slg[valid].tolist()))
 
 
+def build_division_scatter_cloud_disc(pool: pd.DataFrame) -> list[tuple[float, float]]:
+    """Return (BB%, K%) tuples for every qualified hitter — plate discipline."""
+    if pool.empty:
+        return []
+    pa = pd.to_numeric(pool['plate_appearances'], errors='coerce')
+    bb = pd.to_numeric(pool['walks'], errors='coerce')
+    k = pd.to_numeric(pool['strikeouts'], errors='coerce')
+    valid = pa.notna() & bb.notna() & k.notna() & (pa > 0)
+    bb_pct = (bb[valid] / pa[valid]).round(4)
+    k_pct = (k[valid] / pa[valid]).round(4)
+    return list(zip(bb_pct.tolist(), k_pct.tolist()))
+
+
 def _render_pace_svg(pace: list[dict], accent: str, height: int = 110, width: int = 520) -> str:
     """Cumulative OPS line chart, G1 → last game."""
     if not pace or len(pace) < 2:
@@ -761,10 +785,18 @@ def _render_pace_svg(pace: list[dict], accent: str, height: int = 110, width: in
 
 
 def _render_scatter_svg(cloud: list[tuple[float, float]],
-                          player_obp: float | None, player_slg: float | None,
+                          player_x: float | None, player_y: float | None,
                           player_last_name: str, accent: str,
+                          x_label: str = 'OBP →', y_label: str = 'SLG →',
+                          x_fmt: str = '.3f', y_fmt: str = '.3f',
+                          x_ticks: tuple = (0.250, 0.300, 0.350, 0.400, 0.450, 0.500),
+                          y_ticks: tuple = (0.300, 0.400, 0.500, 0.600, 0.700, 0.800, 0.900),
+                          x_pad: float = 0.02, y_pad: float = 0.02,
+                          x_clip: tuple = (0.0, 1.0), y_clip: tuple = (0.0, 1.5),
                           width: int = 320, height: int = 220) -> str:
-    """OBP × SLG scatter for the division. Player highlighted with halo + label."""
+    """Generic scatter for the division pool with the player highlighted.
+    `cloud` is a list of (x, y) tuples; `player_x` / `player_y` are the
+    player's coordinates."""
     if not cloud:
         return ('<svg viewBox="0 0 100 75" preserveAspectRatio="none" '
                 'style="width:100%;height:220px;display:block;"><text x="50" y="40" '
@@ -772,60 +804,57 @@ def _render_scatter_svg(cloud: list[tuple[float, float]],
     pad = {'t': 18, 'r': 16, 'b': 30, 'l': 40}
     w = width - pad['l'] - pad['r']
     h = height - pad['t'] - pad['b']
-    obps = [pt[0] for pt in cloud]
-    slgs = [pt[1] for pt in cloud]
-    xmin, xmax = max(0.18, min(obps) - 0.02), min(0.55, max(obps) + 0.02)
-    ymin, ymax = max(0.20, min(slgs) - 0.02), min(1.10, max(slgs) + 0.02)
+    xs = [pt[0] for pt in cloud]
+    ys = [pt[1] for pt in cloud]
+    xmin = max(x_clip[0], min(xs) - x_pad)
+    xmax = min(x_clip[1], max(xs) + x_pad)
+    ymin = max(y_clip[0], min(ys) - y_pad)
+    ymax = min(y_clip[1], max(ys) + y_pad)
     def sx(v): return pad['l'] + ((v - xmin) / max(xmax - xmin, 1e-6)) * w
     def sy(v): return pad['t'] + (1 - (v - ymin) / max(ymax - ymin, 1e-6)) * h
-    xticks = [t for t in (0.250, 0.300, 0.350, 0.400, 0.450, 0.500) if xmin <= t <= xmax]
-    yticks = [t for t in (0.300, 0.400, 0.500, 0.600, 0.700, 0.800, 0.900) if ymin <= t <= ymax]
+    xticks_in = [t for t in x_ticks if xmin <= t <= xmax]
+    yticks_in = [t for t in y_ticks if ymin <= t <= ymax]
     grid = ''
-    for t in xticks:
+    for t in xticks_in:
         grid += (f'<line x1="{sx(t):.1f}" x2="{sx(t):.1f}" y1="{pad["t"]}" '
                  f'y2="{pad["t"]+h}" stroke="#000" stroke-opacity="0.05"/>'
                  f'<text x="{sx(t):.1f}" y="{height-10}" font-size="9" fill="#666" '
-                 f'text-anchor="middle" font-family="ui-monospace,Menlo,monospace">{t:.3f}</text>')
-    for t in yticks:
+                 f'text-anchor="middle">{format(t, x_fmt)}</text>')
+    for t in yticks_in:
         grid += (f'<line x1="{pad["l"]}" x2="{pad["l"]+w}" y1="{sy(t):.1f}" '
                  f'y2="{sy(t):.1f}" stroke="#000" stroke-opacity="0.05"/>'
                  f'<text x="{pad["l"]-6}" y="{sy(t)+3:.1f}" font-size="9" fill="#666" '
-                 f'text-anchor="end" font-family="ui-monospace,Menlo,monospace">{t:.3f}</text>')
-    # Cloud
+                 f'text-anchor="end">{format(t, y_fmt)}</text>')
     dots = ''.join(
         f'<circle cx="{sx(o):.1f}" cy="{sy(s):.1f}" r="1.4" fill="#1a1a1a" fill-opacity="0.18"/>'
         for o, s in cloud
     )
-    # Division mean crosshair
-    mean_obp = sum(obps) / len(obps); mean_slg = sum(slgs) / len(slgs)
-    cross = (f'<line x1="{sx(mean_obp):.1f}" x2="{sx(mean_obp):.1f}" y1="{pad["t"]}" '
+    mean_x = sum(xs) / len(xs); mean_y = sum(ys) / len(ys)
+    cross = (f'<line x1="{sx(mean_x):.1f}" x2="{sx(mean_x):.1f}" y1="{pad["t"]}" '
              f'y2="{pad["t"]+h}" stroke="#999" stroke-dasharray="2 3" stroke-opacity="0.5"/>'
-             f'<line x1="{pad["l"]}" x2="{pad["l"]+w}" y1="{sy(mean_slg):.1f}" '
-             f'y2="{sy(mean_slg):.1f}" stroke="#999" stroke-dasharray="2 3" stroke-opacity="0.5"/>')
-    # Player highlight
+             f'<line x1="{pad["l"]}" x2="{pad["l"]+w}" y1="{sy(mean_y):.1f}" '
+             f'y2="{sy(mean_y):.1f}" stroke="#999" stroke-dasharray="2 3" stroke-opacity="0.5"/>')
     highlight = ''
-    if player_obp is not None and player_slg is not None and not pd.isna(player_obp) and not pd.isna(player_slg):
-        px, py = sx(float(player_obp)), sy(float(player_slg))
+    if player_x is not None and player_y is not None and not pd.isna(player_x) and not pd.isna(player_y):
+        px, py = sx(float(player_x)), sy(float(player_y))
         highlight = (
             f'<circle cx="{px:.1f}" cy="{py:.1f}" r="14" fill="{accent}" fill-opacity="0.12"/>'
             f'<circle cx="{px:.1f}" cy="{py:.1f}" r="7" fill="{accent}" fill-opacity="0.28"/>'
             f'<circle cx="{px:.1f}" cy="{py:.1f}" r="3.6" fill="{accent}" stroke="#fff" stroke-width="1.5"/>'
             f'<g transform="translate({px+12:.1f}, {py-8:.1f})">'
-            f'<text font-size="10" font-family="ui-monospace,Menlo,monospace" '
-            f'fill="{accent}" font-weight="600">{_xe(player_last_name).upper()}</text>'
-            f'<text y="11" font-size="9" font-family="ui-monospace,Menlo,monospace" fill="#444">'
-            f'{float(player_obp):.3f} / {float(player_slg):.3f}</text></g>'
+            f'<text font-size="10" fill="{accent}" font-weight="700">{_xe(player_last_name).upper()}</text>'
+            f'<text y="11" font-size="9" fill="#444">'
+            f'{format(float(player_x), x_fmt)} / {format(float(player_y), y_fmt)}</text></g>'
         )
     axes = (f'<line x1="{pad["l"]}" x2="{pad["l"]+w}" y1="{pad["t"]+h}" y2="{pad["t"]+h}" '
             f'stroke="#222" stroke-opacity="0.4"/>'
             f'<line x1="{pad["l"]}" x2="{pad["l"]}" y1="{pad["t"]}" y2="{pad["t"]+h}" '
             f'stroke="#222" stroke-opacity="0.4"/>'
             f'<text x="{pad["l"]+w/2}" y="{height}" font-size="9" fill="#666" '
-            f'text-anchor="middle" font-family="ui-monospace,Menlo,monospace" '
-            f'letter-spacing="1">OBP →</text>'
+            f'text-anchor="middle" letter-spacing="1">{x_label}</text>'
             f'<text x="6" y="{pad["t"]+h/2}" font-size="9" fill="#666" '
-            f'font-family="ui-monospace,Menlo,monospace" letter-spacing="1" '
-            f'transform="rotate(-90, 10, {pad["t"]+h/2})">SLG →</text>')
+            f'letter-spacing="1" '
+            f'transform="rotate(-90, 10, {pad["t"]+h/2})">{y_label}</text>')
     return (f'<svg viewBox="0 0 {width} {height}" preserveAspectRatio="none" '
             f'style="width:100%;height:{height}px;display:block;">'
             f'{grid}{dots}{cross}{axes}{highlight}</svg>')
@@ -877,16 +906,20 @@ def _row_html(idx: int, p: dict, accent: str, total_qualifiers: int) -> str:
             f'<div class="rth-headshot__init">{initials}</div>'
             f'</div>'
         )
-    # Splits block — SLG vs LHP/RHP/Home/Away/RISP
+    # Splits — render SLG and OBP as separate stacked blocks. Both share the
+    # 5 conditions (vs LHP/RHP/Home/Away/RISP) with the same accent color.
     splits = p.get('splits') or {}
-    if splits:
-        # Max scale dynamically — clip floor at .500 so a quiet split doesn't
-        # blow up the bar visually, ceiling at 1.200 (well above realistic SLG)
-        all_slg = [v[0] for v in splits.values() if v[1] > 0]
-        max_scale = max(0.500, min(1.200, (max(all_slg) if all_slg else 0.500) * 1.05))
+
+    def _splits_block_for(metric_key: str, head_label: str, max_floor: float, max_ceiling: float) -> str:
+        if not splits:
+            return ''
+        vals = [v.get(metric_key, 0.0) for v in splits.values() if v.get('ab', 0) > 0]
+        max_scale = max(max_floor, min(max_ceiling, (max(vals) if vals else max_floor) * 1.05))
         rows = []
         for label in ('vs LHP', 'vs RHP', 'Home', 'Away', 'RISP'):
-            slg, ab = splits.get(label, (0.0, 0))
+            entry = splits.get(label) or {}
+            ab = entry.get('ab', 0)
+            v = entry.get(metric_key, 0.0)
             if ab == 0:
                 rows.append(
                     f'<div class="rth-splits__row">'
@@ -896,25 +929,28 @@ def _row_html(idx: int, p: dict, accent: str, total_qualifiers: int) -> str:
                     f'</div>'
                 )
                 continue
-            pct = max(0, min(100, 100 * slg / max_scale))
-            slg_str = f'{slg:.3f}'.lstrip('0') if slg < 1 else f'{slg:.3f}'
+            pct = max(0, min(100, 100 * v / max_scale))
+            v_str = f'{v:.3f}'.lstrip('0') if v < 1 else f'{v:.3f}'
             rows.append(
                 f'<div class="rth-splits__row">'
                 f'<div class="rth-splits__lbl">{label}</div>'
                 f'<div class="rth-splits__track">'
                 f'<div class="rth-splits__fill" style="width:{pct:.1f}%; background:{accent};"></div>'
                 f'</div>'
-                f'<div class="rth-splits__val">{slg_str}</div>'
+                f'<div class="rth-splits__val">{v_str}</div>'
                 f'</div>'
             )
-        splits_block = (
+        return (
             f'<div class="rth-splits">'
-            f'<div class="rth-splits__head">SPLITS · SLG</div>'
+            f'<div class="rth-splits__head">{head_label}</div>'
             f'<div class="rth-splits__list">{"".join(rows)}</div>'
             f'</div>'
         )
-    else:
-        splits_block = ''
+
+    splits_block = (
+        _splits_block_for('slg', 'SPLITS · SLG', 0.500, 1.200)
+        + _splits_block_for('obp', 'SPLITS · OBP', 0.400, 0.700)
+    )
 
     identity = (
         f'<header class="rth-id">'
@@ -1011,27 +1047,55 @@ def _row_html(idx: int, p: dict, accent: str, total_qualifiers: int) -> str:
         f'</div>'
     )
 
-    # Scatter — division OBP × SLG cloud, player highlighted
+    # Scatter 1 — division OBP × SLG cloud
     scatter_cloud = p.get('scatter_cloud') or []
     obp_v, _, _ = p['ranks'].get('OBP', (None, None, None))
     slg_v, _, _ = p['ranks'].get('SLG', (None, None, None))
     last_name = p['name'].split()[-1] if p.get('name') else ''
-    scatter_svg = _render_scatter_svg(scatter_cloud, obp_v, slg_v, last_name, accent)
+
+    def _scatter_legend(label_left='qualifier', label_right=last_name):
+        return (
+            f'<div style="font-size:9px;letter-spacing:0.06em;color:var(--rth-muted);">'
+            f'<span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:rgba(0,0,0,0.25);margin-right:4px;vertical-align:middle;"></span>'
+            f' {label_left} '
+            f'<span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:{accent};margin:0 4px 0 8px;vertical-align:middle;"></span>'
+            f' {_xe(label_right)}</div>'
+        )
+
+    scatter_svg_obp = _render_scatter_svg(scatter_cloud, obp_v, slg_v, last_name, accent)
     scatter_block = (
         f'<div style="padding-top:14px;border-top:1px dashed rgba(0,0,0,0.18);">'
         f'<div class="rth-block-head">'
         f'<div>'
         f'<div class="rth-eyebrow">DIVISION LANDSCAPE · ALL QUALIFIERS</div>'
         f'<div class="rth-block-title">OBP × SLG</div>'
+        f'</div>{_scatter_legend()}'
         f'</div>'
-        f'<div style="font-family:var(--rth-mono);font-size:9px;letter-spacing:0.06em;color:var(--rth-muted);">'
-        f'<span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:rgba(0,0,0,0.25);margin-right:4px;vertical-align:middle;"></span>'
-        f' qualifier '
-        f'<span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:{accent};margin:0 4px 0 8px;vertical-align:middle;"></span>'
-        f' {_xe(last_name)}'
+        f'{scatter_svg_obp}'
         f'</div>'
+    )
+
+    # Scatter 2 — plate discipline (BB% × K%)
+    scatter_cloud_disc = p.get('scatter_cloud_disc') or []
+    bb_pct_v = p.get('bb_pct'); k_pct_v = p.get('k_pct')
+    scatter_svg_disc = _render_scatter_svg(
+        scatter_cloud_disc, bb_pct_v, k_pct_v, last_name, accent,
+        x_label='BB% →', y_label='K% →',
+        x_fmt='.1%', y_fmt='.1%',
+        x_ticks=tuple(t / 100 for t in (5, 10, 15, 20, 25)),
+        y_ticks=tuple(t / 100 for t in (10, 15, 20, 25, 30, 35)),
+        x_pad=0.01, y_pad=0.01,
+        x_clip=(0.0, 0.40), y_clip=(0.0, 0.50),
+    )
+    scatter_block_disc = (
+        f'<div style="padding-top:14px;border-top:1px dashed rgba(0,0,0,0.18);">'
+        f'<div class="rth-block-head">'
+        f'<div>'
+        f'<div class="rth-eyebrow">PLATE DISCIPLINE · ALL QUALIFIERS</div>'
+        f'<div class="rth-block-title">BB% × K%</div>'
+        f'</div>{_scatter_legend()}'
         f'</div>'
-        f'{scatter_svg}'
+        f'{scatter_svg_disc}'
         f'</div>'
     )
     mix_block = (
@@ -1049,7 +1113,7 @@ def _row_html(idx: int, p: dict, accent: str, total_qualifiers: int) -> str:
         f'{_donut_svg(p["hit_mix"], accent)}'
         f'</div>'
     )
-    right = f'<section class="rth-right">{pace_block}{scatter_block}{mix_block}</section>'
+    right = f'<section class="rth-right">{pace_block}{scatter_block}{scatter_block_disc}{mix_block}</section>'
 
     return f'<article class="rth-row" style="--rth-accent:{accent};">{rail}{identity}{stats}{right}</article>'
 
@@ -1124,6 +1188,7 @@ def render_tab(teams: list[str], seeds: list[int], team_ids: dict, sport: str,
 
     pool = build_d1_pool(hitting_df, teams_df, sport, division, conferences_df)
     scatter_cloud = build_division_scatter_cloud(pool)
+    scatter_cloud_disc = build_division_scatter_cloud_disc(pool)
     top = select_top_hitters(hitting_df, players_df, valid_team_ids, top_n=4,
                               player_rank_df=player_rank_df)
     if top.empty:
@@ -1208,6 +1273,11 @@ def render_tab(teams: list[str], seeds: list[int], team_ids: dict, sport: str,
         photo_b64 = st.session_state.get(f'rth_photo_b64_{cb_id}') if cb_id is not None else None
         photo_mime = st.session_state.get(f'rth_photo_mime_{cb_id}', 'jpeg') if cb_id is not None else 'jpeg'
 
+        # BB% / K% for the discipline scatter
+        pa_v = row.get('plate_appearances', 0) or 0
+        bb_pct = (row.get('walks', 0) / pa_v) if pa_v else None
+        k_pct = (row.get('strikeouts', 0) / pa_v) if pa_v else None
+
         players_payload.append({
             'name': row.get('player_name', '—') or '—',
             'pos': row.get('position', '') or '',
@@ -1225,6 +1295,9 @@ def render_tab(teams: list[str], seeds: list[int], team_ids: dict, sport: str,
             'pace': pace,
             'spray_svg': spray_svg,
             'scatter_cloud': scatter_cloud,
+            'scatter_cloud_disc': scatter_cloud_disc,
+            'bb_pct': bb_pct,
+            'k_pct': k_pct,
             'photo_b64': photo_b64,
             'photo_mime': photo_mime,
         })
