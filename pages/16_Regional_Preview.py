@@ -657,6 +657,66 @@ def _monogram_for(name):
     return s[0].upper()
 
 
+# ── Team-color + team-logo helpers ──────────────────────────────────────────
+@st.cache_data(show_spinner=False)
+def _team_dominant_color(tid: int | None) -> str | None:
+    """Extract a team's primary brand color from its logo PNG. Skips
+    near-white, near-black, and near-grayscale (silver-ish) pixels so the
+    chromatic primary wins. Returns hex like '#8C1D40'. Mirrors the helper
+    used in the PBP_Analytics Share Graphic so colors stay consistent
+    across pages."""
+    if tid is None:
+        return None
+    try:
+        from PIL import Image
+        from collections import Counter
+    except Exception:
+        return None
+    p = LOGOS / f'{int(tid)}.png'
+    if not p.exists():
+        return None
+    try:
+        img = Image.open(p).convert('RGBA').resize((96, 96), Image.LANCZOS)
+        cleaned = []
+        for r, g, b, a in img.getdata():
+            if a < 220:
+                continue
+            if r > 235 and g > 235 and b > 235:
+                continue
+            if r < 18 and g < 18 and b < 18:
+                continue
+            if max(r, g, b) - min(r, g, b) < 20:
+                continue
+            cleaned.append((r // 16 * 16, g // 16 * 16, b // 16 * 16))
+        if not cleaned:
+            return None
+        top = Counter(cleaned).most_common(1)[0][0]
+        return f'#{top[0]:02x}{top[1]:02x}{top[2]:02x}'
+    except Exception:
+        return None
+
+
+@st.cache_data(show_spinner=False)
+def _team_logo_b64(tid: int | None) -> str | None:
+    """Return data:image/png;base64,... URL for a team logo, or None."""
+    if tid is None:
+        return None
+    p = LOGOS / f'{int(tid)}.png'
+    if not p.exists():
+        return None
+    try:
+        import base64 as _b64
+        return f'data:image/png;base64,{_b64.b64encode(p.read_bytes()).decode("ascii")}'
+    except Exception:
+        return None
+
+
+def _accent_for_team(tid, seed):
+    """Team's brand color when available, else seed-palette fallback so we
+    never render an empty accent. Same pattern Share Graphic uses."""
+    return _team_dominant_color(tid) or _accent_for_seed(seed)
+
+
 # ── Round-by-round Monte Carlo (extends _simulate_regional) ────────────────
 def _simulate_regional_full(n=20000, rng=None):
     """Returns per-team round survival fractions: r1 (post-G1/G2), r2 (W-bracket
@@ -964,8 +1024,8 @@ strip_inner_w = VB_W - 2 * PAD_X
 cell_w = strip_inner_w / 4
 for i, (team, seed) in enumerate(zip(teams, seeds)):
     cell_x = PAD_X + i * cell_w
-    accent = _accent_for_seed(seed)
-    mono = _monogram_for(team)
+    tid = team_ids.get(team)
+    accent = _accent_for_team(tid, seed)
     rpi_val = team_rpi[team]
     rpi_txt = f'RPI {int(float(rpi_val))}' if rpi_val and str(rpi_val).strip() else 'RPI —'
     # Team record (W-L) — derive from PBP wins/losses if available, else blank.
@@ -976,12 +1036,26 @@ for i, (team, seed) in enumerate(zip(teams, seeds)):
     if i > 0:
         parts.append(f'<line x1="{cell_x}" y1="{Y_STRIP + 12}" x2="{cell_x}" y2="{Y_STRIP + H_STRIP - 8}" '
                      f'stroke="{INK_RULE}" stroke-width="1"/>')
-    # monogram disk
+    # Team logo on a white portrait circle with team-color ring (matches the
+    # eggshell/clipped pattern used on the Spray Charts and Share Graphic
+    # pages so dark / transparent marks read correctly on light backgrounds).
     disk_cx = cell_x + 30
     disk_cy = Y_STRIP + 44
+    logo_b64 = _team_logo_b64(tid)
     parts.append(f'<circle cx="{disk_cx}" cy="{disk_cy}" r="22" fill="{accent}"/>')
-    parts.append(f'<text x="{disk_cx}" y="{disk_cy + 7}" class="in" font-size="20" font-weight="800" '
-                 f'fill="#FFFFFF" text-anchor="middle">{mono}</text>')
+    parts.append(f'<circle cx="{disk_cx}" cy="{disk_cy}" r="19" fill="#FFFFFF"/>')
+    if logo_b64:
+        clip_id = f'rp_logo_clip_{i}'
+        parts.append(f'<defs><clipPath id="{clip_id}">'
+                     f'<circle cx="{disk_cx}" cy="{disk_cy}" r="19"/></clipPath></defs>')
+        parts.append(f'<image href="{logo_b64}" xlink:href="{logo_b64}" '
+                     f'x="{disk_cx - 17}" y="{disk_cy - 17}" width="34" height="34" '
+                     f'preserveAspectRatio="xMidYMid meet" clip-path="url(#{clip_id})"/>')
+    else:
+        # Fallback: monogram if logo missing
+        parts.append(f'<text x="{disk_cx}" y="{disk_cy + 7}" class="in" font-size="20" '
+                     f'font-weight="800" fill="{accent}" text-anchor="middle">'
+                     f'{_monogram_for(team)}</text>')
     # text block to the right
     tx = disk_cx + 32
     parts.append(f'<text x="{tx}" y="{Y_STRIP + 30}" class="mn" font-size="10" font-weight="700" '
@@ -1043,7 +1117,7 @@ parts.append(f'<line x1="{prob_grid_x}" y1="{hdr_y + 6}" x2="{VB_W - PAD_X - 4}"
 # Data rows
 ROW_PITCH = 22
 for ti, (team, seed) in enumerate(zip(teams, seeds)):
-    accent = _accent_for_seed(seed)
+    accent = _accent_for_team(team_ids.get(team), seed)
     s = survival[team]
     row_cy = hdr_y + 14 + ti * ROW_PITCH + ROW_PITCH/2
     # team col: small seed badge + team short name
@@ -1134,7 +1208,7 @@ for f_lev in (0.25, 0.5, 0.75, 1.0):
 for i, (team, seed) in enumerate(zip(teams, seeds)):
     perf = perf_full.get(team)
     if perf is None: continue
-    accent = _accent_for_seed(seed)
+    accent = _accent_for_team(team_ids.get(team), seed)
     pts = _radar_pts(CENTER_CX, CENTER_CY, CENTER_R, perf)
     parts.append(f'<polygon points="{pts}" fill="{accent}" fill-opacity="0.14" '
                  f'stroke="{accent}" stroke-width="2" stroke-linejoin="round"/>')
@@ -1152,7 +1226,7 @@ parts.append('</g>')
 
 # Corner tiles — left has seeds 1 and 3, right has 2 and 4
 def _draw_tile(team, seed, side, tile_top_y):
-    accent = _accent_for_seed(seed)
+    accent = _accent_for_team(team_ids.get(team), seed)
     perf = perf_full.get(team)
     perf25 = perf_l25.get(team)
     s_lab, s_val = _strength_for(perf)
@@ -1257,7 +1331,7 @@ pd_col_w = pd_inner_w / 4
 pd_col_x = [PAD_X + 4 + i * pd_col_w for i in range(4)]
 PD_BODY_Y = Y_PITCH + 32
 for ci, (team, seed) in enumerate(zip(teams, seeds)):
-    accent = _accent_for_seed(seed)
+    accent = _accent_for_team(team_ids.get(team), seed)
     cx_l = pd_col_x[ci]
     cx_r = cx_l + pd_col_w - 4
     # column separator
@@ -1311,7 +1385,7 @@ HD_BODY_Y = Y_HIT + 32
 hd_col_w = pd_inner_w / 4
 hd_col_x = [PAD_X + 4 + i * hd_col_w for i in range(4)]
 for ci, (team, seed) in enumerate(zip(teams, seeds)):
-    accent = _accent_for_seed(seed)
+    accent = _accent_for_team(team_ids.get(team), seed)
     cx_l = hd_col_x[ci]
     cx_r = cx_l + hd_col_w - 4
     if ci > 0:
