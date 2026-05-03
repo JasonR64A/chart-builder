@@ -3382,10 +3382,10 @@ elif view == 'Share Graphic':
                     f'fill="{WHITE}" text-anchor="middle" letter-spacing="0.4">{_xe(rd["tabbr"])}</text>'
                     + ring_attr
                 )
-        # Stat value — always at the same left-aligned position so toggling
-        # team names doesn't shift it horizontally. When names are on we
-        # nudge the stat slightly UP and put the name caption beneath it.
-        text_left = pill_x + pill_h + 12
+        # Stat + name — right-anchored to the pill's right edge so they hug
+        # that side regardless of pill height. Avoids the dead-space-in-the-
+        # middle look when the pill count is high and pill_h is short.
+        text_right = pill_x + pill_w - max(14, pill_h * 0.22)
         stat_str = f'{rd["stat"]:.{int(sg_decimals)}f}'
         stat_size = max(20, min(34, int(pill_h * 0.38)))
         if sg_show_names:
@@ -3393,18 +3393,18 @@ elif view == 'Share Graphic':
         else:
             stat_y = logo_cy + 8
         parts.append(
-            f'<text x="{text_left:.1f}" y="{stat_y:.1f}" class="bc" '
+            f'<text x="{text_right:.1f}" y="{stat_y:.1f}" class="bc" '
             f'font-size="{stat_size}" font-weight="800" font-style="italic" '
-            f'fill="{WHITE}" letter-spacing="0.5">{stat_str}{(" " + _xe(sg_suffix)) if sg_suffix else ""}</text>'
+            f'fill="{WHITE}" letter-spacing="0.5" text-anchor="end">{stat_str}{(" " + _xe(sg_suffix)) if sg_suffix else ""}</text>'
         )
         # Team / player name as a bottom-aligned caption beneath the stat
         if sg_show_names:
             name_size = max(13, min(20, int(pill_h * 0.22)))
             name_y = row_y + pill_h - max(8, pill_h * 0.12)
             parts.append(
-                f'<text x="{text_left:.1f}" y="{name_y:.1f}" class="bc" '
+                f'<text x="{text_right:.1f}" y="{name_y:.1f}" class="bc" '
                 f'font-size="{name_size}" font-weight="600" font-style="italic" '
-                f'fill="rgba(255,255,255,0.82)" letter-spacing="0.5">{_xe(rd["name"]).upper()}</text>'
+                f'fill="rgba(255,255,255,0.82)" letter-spacing="0.5" text-anchor="end">{_xe(rd["name"]).upper()}</text>'
             )
 
     # ── FOOTER ────────────────────────────────────────────────────────────
