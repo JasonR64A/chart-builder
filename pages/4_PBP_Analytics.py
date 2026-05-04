@@ -1895,29 +1895,34 @@ if view == 'Weekly Awards':
                                         team_col=team_col, top_n=10,
                                         sport_key=sport, teams_df=teams_df)
 
-    # Auto-pick 6 bottom stats (diversified per stat_type) + leader of each
+    # Auto-pick 6 bottom stats per stat-type. Pitching uses A-OPS (OPS
+    # Against), sourced from the 'OPS Against' column in
+    # compute_grouped_pitching but rendered with the 'A-OPS' label.
+    # Tuple: (display_label, dataframe_column, decimals, sort_ascending)
     if wa_stat_type == 'pitching':
-        bottom_picks = [('ERA',2,True),('WHIP',2,True),('K/9',2,False),
-                         ('FIP',2,True),('K%',1,False),('BAA',3,True)]
+        bottom_picks = [('IP','IP',1,False), ('H','H',0,False),
+                         ('ER','ER',0,False), ('SO','SO',0,False),
+                         ('A-OPS','OPS Against',3,True),
+                         ('FIP','FIP',2,True)]
     else:
-        bottom_picks = [('AB',0,False),('H',0,False),('2B',0,False),
-                         ('HR',0,False),('OPS',3,False),('wRAA',1,False)]
+        bottom_picks = [('AB','AB',0,False), ('H','H',0,False),
+                         ('2B','2B',0,False), ('HR','HR',0,False),
+                         ('OPS','OPS',3,False), ('wRAA','wRAA',1,False)]
     top_stats_payload = []
-    for label, dec, asc in bottom_picks:
-        if label not in df_top.columns:
+    for label, col, dec, asc in bottom_picks:
+        if col not in df_top.columns:
             top_stats_payload.append({'label': label, 'value': None,
                                        'decimals': dec, 'leader': ''})
             continue
-        s = df_top[[name_col, label]].dropna()
-        s[label] = pd.to_numeric(s[label], errors='coerce')
-        s = s.dropna(subset=[label]).sort_values(label, ascending=asc)
+        s = df_top[[name_col, col]].dropna()
+        s[col] = pd.to_numeric(s[col], errors='coerce')
+        s = s.dropna(subset=[col]).sort_values(col, ascending=asc)
         if s.empty:
             val, leader = None, ''
         else:
             top = s.iloc[0]
-            val = float(top[label])
+            val = float(top[col])
             leader = str(top[name_col])
-            # Abbreviate to first-initial last-name for fit
             parts = leader.split()
             if len(parts) >= 2:
                 leader = f'{parts[0][0]}. {parts[-1]}'

@@ -74,11 +74,14 @@ PILL_Y0 = 406
 PILL_STRIDE = 57
 PILL_H = 44
 
-# Hero panel — empty bordered region on the right
-HERO_X = 575
-HERO_Y = 145
-HERO_W = 440
-HERO_H = 770
+# Hero panel — sits INSIDE the bordered hexagon panel on the right.
+# The 64A red circle is baked into the backdrop top-right (y=100-268,
+# x=873-1079), so the hero image starts BELOW it and stops short of the
+# right edge so the circle stays visible "on top of" the image.
+HERO_X = 580
+HERO_Y = 280
+HERO_W = 425
+HERO_H = 615
 
 # Bottom stats strip — bordered region with two decorative horizontal lines
 # (red at y≈945, white at y≈975 inside the strip). Strip outer bounds
@@ -89,12 +92,15 @@ STATS_Y = 920
 STATS_W = 440
 STATS_H = 75
 
-# Static-text cover regions, sized to fully obscure the baked text.
-# Subtitle ('D3 BASEBALL PITCHERS') white pixels live at y≈282-306, x≈78-427.
-SUB_X = 72
+# Subtitle cover. Baked 'D3 BASEBALL PITCHERS' is centered horizontally
+# under 'TOP 10' (both at center_x ≈ 253). We cover the full text band and
+# redraw centered at the same axis so the dynamic subtitle aligns with
+# the headline above it.
+SUB_CX = 253
 SUB_Y = 274
 SUB_W = 380
 SUB_H = 40
+SUB_X = SUB_CX - SUB_W // 2
 
 # Week tag (dark cell with red left border + 'WEEK XX | DATE RANGE') sits in
 # the brushstroke bar at y≈68-104, x≈790-1020.
@@ -277,14 +283,15 @@ def build_weekly_awards_svg(rows: list[dict], top_stats: list[dict], *,
             f'preserveAspectRatio="xMidYMid slice" clip-path="url(#heroClip)"/>'
         )
 
-    # ── 3. Cover the baked 'D3 BASEBALL PITCHERS' subtitle and redraw ──
+    # ── 3. Cover the baked 'D3 BASEBALL PITCHERS' subtitle and redraw,
+    # center-aligned with TOP 10 (center_x = 253). ──
     if headline_sub:
         parts.append(
-            f'<rect x="{SUB_X - 6}" y="{SUB_Y}" width="{SUB_W}" height="{SUB_H}" '
+            f'<rect x="{SUB_X}" y="{SUB_Y}" width="{SUB_W}" height="{SUB_H}" '
             f'fill="#08080a"/>'
         )
         parts.append(
-            f'<text x="{SUB_X}" y="{SUB_Y + 32}" text-anchor="start" '
+            f'<text x="{SUB_CX}" y="{SUB_Y + 32}" text-anchor="middle" '
             f'font-family="Barlow Condensed,Oswald,sans-serif" '
             f'font-style="italic" font-weight="800" font-size="32" '
             f'fill="#ffffff" letter-spacing="0.4">'
