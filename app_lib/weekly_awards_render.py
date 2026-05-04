@@ -75,34 +75,33 @@ PILL_STRIDE = 57
 PILL_H = 44
 
 # Hero panel — fills the bordered octagon on the right.
-# Panel border measured: top y=145, bottom y=894, right x=1027, with cut
-# corners at top-right (64A circle) and bottom-right. We use an inner
-# rectangle that sits comfortably inside the octagon, plus a circular
-# mask cutout so the baked 64A red circle stays visible on top.
-HERO_X = 552
+# CORRECTED 2026-05-04 from user markup: the panel's LEFT border is at
+# x=470 (verified by gray-border pixel scan at y=400, y=600), NOT x=545
+# as previously assumed. Right border x=1027, top y=145, bottom y=894.
+# A circular mask preserves the baked 64A emblem in the top-right.
+HERO_X = 478
 HERO_Y = 152
-HERO_W = 466
+HERO_W = 545
 HERO_H = 738
-# 64A circle baked at x=873-1079, y=100-268. Center≈(976, 185), r≈85.
+# 64A circle: center (976, 185), r ≈ 85; mask a slightly larger disk.
 EMBLEM_CX = 976
 EMBLEM_CY = 185
 EMBLEM_R = 92
 
-# Bottom stats strip (pentagon). Pixel-measured edges:
+# Bottom stats strip (pentagon) — same horizontal span as hero panel
+# (CORRECTED to match real left border at x=470). Pixel-measured edges:
 #   top border:   y=894
-#   red line:     y=941   (decorative)
-#   white line:   y=977   (decorative)
+#   red line:     y=941
+#   white line:   y=977
 #   bottom border:y=1006
-# That gives three vertical zones inside the strip: 894-941 (top, ~47px),
-# 941-977 (mid divider band, ~36px), 977-1006 (bottom, ~28px).
-# Label sits in the top zone; value sits in the bottom zone; the red+white
-# line band acts as a clean divider between them.
-STATS_X = 555
+# Label in the TOP zone (above red line), value in the BOTTOM zone
+# (below white line); the red+white line band divides them.
+STATS_X = 478
 STATS_Y = 894
-STATS_W = 460
+STATS_W = 545
 STATS_H = 112
-STATS_LABEL_DY = 26   # baseline of label inside the top zone (centered)
-STATS_VALUE_DY = 102  # baseline of value inside the bottom zone (centered)
+STATS_LABEL_DY = 26   # baseline of label inside the top zone
+STATS_VALUE_DY = 102  # baseline of value inside the bottom zone
 
 # Subtitle cover. Baked 'D3 BASEBALL PITCHERS' is centered horizontally
 # under 'TOP 10' (both at center_x ≈ 253). We cover the full text band and
