@@ -235,15 +235,18 @@ def _stat_cell_overlay(stat: dict, x: float, y: float, width: float, height: flo
     # line at +83. Label sits in the top zone (above red line), value
     # sits in the bottom zone (below white line). The red+white line
     # band between them visually separates label from value.
+    # Each cell is ~76 px wide (460/6). Values like "0.331" or "132" need
+    # to fit comfortably inside that, so we cap font size at 20 and trim
+    # letter-spacing to nothing.
     return ''.join([
         # Label (red, in top zone)
         f'<text x="{cx}" y="{y + STATS_LABEL_DY}" text-anchor="middle" '
-        f'font-family="Oswald,sans-serif" font-weight="700" font-size="14" '
-        f'letter-spacing="2.4" fill="#d72638">{_xe(label)}</text>',
+        f'font-family="Oswald,sans-serif" font-weight="700" font-size="12" '
+        f'letter-spacing="2.0" fill="#d72638">{_xe(label)}</text>',
         # Value (white, in bottom zone)
         f'<text x="{cx}" y="{y + STATS_VALUE_DY}" text-anchor="middle" '
         f'font-family="Barlow Condensed,sans-serif" font-style="italic" '
-        f'font-weight="800" font-size="26" fill="#ffffff">{_xe(_fmt(value, decimals))}</text>',
+        f'font-weight="800" font-size="20" fill="#ffffff">{_xe(_fmt(value, decimals))}</text>',
     ])
 
 
@@ -291,9 +294,14 @@ def build_weekly_awards_svg(rows: list[dict], top_stats: list[dict], *,
     # the panel; when empty, a striped placeholder (matching Share
     # Graphic's pattern) shows where the image will go. The 64A circle is
     # masked out either way so the baked red emblem stays on top. ──
+    # NOTE: SVG masks default to maskUnits="objectBoundingBox" (0-1 coord
+    # space relative to the masked element). Our coords are pixel-space,
+    # so we must override to userSpaceOnUse — otherwise the mask is empty
+    # and the masked element disappears entirely.
     parts.append(
         '<defs>'
-        '<mask id="heroMask">'
+        '<mask id="heroMask" maskUnits="userSpaceOnUse" '
+        f'x="0" y="0" width="{W}" height="{H}">'
         f'<rect x="{HERO_X}" y="{HERO_Y}" width="{HERO_W}" height="{HERO_H}" fill="white"/>'
         f'<circle cx="{EMBLEM_CX}" cy="{EMBLEM_CY}" r="{EMBLEM_R}" fill="black"/>'
         '</mask>'
