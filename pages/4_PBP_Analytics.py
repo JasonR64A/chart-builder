@@ -1723,7 +1723,72 @@ st.sidebar.markdown('---')
 st.sidebar.markdown('### Data Source')
 sport = st.sidebar.selectbox('Sport', ['baseball', 'softball'])
 division = st.sidebar.selectbox('Division', ['D1', 'D2', 'D3'])
-view = st.sidebar.radio('Mode', ['Hitter Stats', 'Pitcher Stats', 'Fielding Stats', 'Pace Chart', 'Lineup Card', 'Share Graphic'], horizontal=True)
+view = st.sidebar.radio('Mode', ['Hitter Stats', 'Pitcher Stats', 'Fielding Stats', 'Pace Chart', 'Lineup Card', 'Share Graphic', 'Top 25 Rankings'], horizontal=True)
+
+# Top 25 Rankings — early-exit branch so the rest of the page (which is built
+# around per-player PBP) doesn't run.
+if view == 'Top 25 Rankings':
+    from app_lib.top25_render import build_top25_svg, build_teams_payload
+    st.title('Top 25 Rankings')
+    st.caption('1080×1350 weekly graphic. Sources from current RPI (D1) or Custom ELO (D2/D3).')
+
+    # Source selection — RPI exists for D1 only; Custom ELO covers D2/D3.
+    source = st.sidebar.radio(
+        'Ranking source',
+        ['RPI (D1 only)', 'Custom ELO'],
+        index=0 if division == 'D1' else 1,
+        help='RPI is NCAA-published and only exists for D-I. Custom ELO covers all 6 sport/div combos.',
+    )
+    week_label = st.sidebar.text_input('Week label', value=f'Week of {pd.Timestamp.now().strftime("%b %d, %Y")}')
+
+    sport_label = sport.title()
+    teams_df_raw = pd.read_csv(DATA_DIR / 'teams.csv', low_memory=False)
+    sport_teams_raw = teams_df_raw[teams_df_raw['sport'] == sport_label]
+
+    if source.startswith('RPI'):
+        if division != 'D1':
+            st.warning(f'RPI only exists for D-I. Falling back to Custom ELO for {division}.')
+            rank_df = pd.read_csv(_APP_DIR / 'data' / 'rankings' / 'elo_custom_all.csv')
+            rank_df = rank_df[(rank_df['sport'] == sport) & (rank_df['division'] == division)]
+            rank_df = rank_df.rename(columns={'name': 'teamName'}).copy()
+            rank_df['record'] = rank_df['wins'].astype(str) + '-' + rank_df['losses'].astype(str)
+        else:
+            rank_df = pd.read_csv(_APP_DIR / 'data' / f'{sport}_rpi_{division}.csv')
+    else:
+        rank_df = pd.read_csv(_APP_DIR / 'data' / 'rankings' / 'elo_custom_all.csv')
+        rank_df = rank_df[(rank_df['sport'] == sport) & (rank_df['division'] == division)]
+        rank_df = rank_df.rename(columns={'name': 'teamName'}).copy()
+        rank_df['record'] = rank_df['wins'].astype(str) + '-' + rank_df['losses'].astype(str)
+
+    teams_payload = build_teams_payload(rank_df, sport_teams_raw, top_n=25)
+    if not teams_payload:
+        st.error('No ranking data available for this sport/division.')
+        st.stop()
+
+    svg = build_top25_svg(teams_payload, sport_label, division,
+                           week_label=week_label,
+                           date_label=pd.Timestamp.now().strftime('%b %d, %Y'))
+
+    # On-page preview — scale via CSS but keep viewBox intrinsic
+    display_svg = svg.replace(
+        '<svg ',
+        '<svg style="width:100%;max-width:540px;height:auto;display:block;'
+        'margin:0 auto;border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.35);" ', 1,
+    )
+    st.markdown(display_svg, unsafe_allow_html=True)
+
+    # PNG export
+    try:
+        import cairosvg
+        png_bytes = cairosvg.svg2png(bytestring=svg.encode('utf-8'), output_width=1080)
+        fname = f'top25_{sport}_{division}_{pd.Timestamp.now().strftime("%Y%m%d")}.png'
+        st.download_button('Download PNG (1080×1350)', data=png_bytes,
+                            file_name=fname, mime='image/png',
+                            use_container_width=False)
+    except Exception as e:
+        st.caption(f'PNG export unavailable in this environment ({type(e).__name__}: {str(e)[:80]}).')
+
+    st.stop()
 # Team aggregation toggle for the three stat-table views (Pace Chart has its
 # own Player/Team selector built in; Lineup Card is per-team by definition).
 if view in ('Hitter Stats', 'Pitcher Stats', 'Fielding Stats'):
