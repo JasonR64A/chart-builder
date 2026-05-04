@@ -74,23 +74,27 @@ PILL_Y0 = 406
 PILL_STRIDE = 57
 PILL_H = 44
 
-# Hero panel — sits INSIDE the bordered hexagon panel on the right.
-# The 64A red circle is baked into the backdrop top-right (y=100-268,
-# x=873-1079), so the hero image starts BELOW it and stops short of the
-# right edge so the circle stays visible "on top of" the image.
-HERO_X = 580
-HERO_Y = 280
-HERO_W = 425
-HERO_H = 615
+# Hero panel — fills the bordered hexagon panel on the right (x=550-1020,
+# y=150-895). A circular cutout at the 64A emblem location keeps the
+# baked red circle visible "on top of" the hero image, matching the design.
+HERO_X = 550
+HERO_Y = 150
+HERO_W = 470
+HERO_H = 740
+# Baked 64A circle: x=873-1079 (clipped at canvas edge), y=100-268.
+# Center ~(975, 185), visible radius ~85. Mask a slightly larger disk so
+# the circle has a small breathing-room ring.
+EMBLEM_CX = 975
+EMBLEM_CY = 185
+EMBLEM_R = 92
 
-# Bottom stats strip — bordered region with two decorative horizontal lines
-# (red at y≈945, white at y≈975 inside the strip). Strip outer bounds
-# y=920-995. Stat cells sit INSIDE this region: label above the red line,
-# value between the two lines.
-STATS_X = 575
-STATS_Y = 920
-STATS_W = 440
-STATS_H = 75
+# Bottom stats strip — bordered region with two decorative horizontal
+# lines (red at y≈940, white at y≈970). Cells span the full strip width;
+# label sits above the red line, value between red and white.
+STATS_X = 555
+STATS_Y = 915
+STATS_W = 460
+STATS_H = 90
 
 # Subtitle cover. Baked 'D3 BASEBALL PITCHERS' is centered horizontally
 # under 'TOP 10' (both at center_x ≈ 253). We cover the full text band and
@@ -219,15 +223,19 @@ def _stat_cell_overlay(stat: dict, x: float, y: float, width: float, height: flo
     decimals = stat.get('decimals', 0)
     cx = x + width / 2
 
+    # Strip is 90 px tall starting at strip-top (y). Decorative red line at
+    # +25, white line at +55. Place LABEL above the red line and VALUE
+    # below the white line so each cell fills the strip vertically and the
+    # decorative lines act as a divider band between them.
     return ''.join([
-        # Label (red, above the decorative red line)
+        # Label (red, above the red line)
         f'<text x="{cx}" y="{y + 18}" text-anchor="middle" '
-        f'font-family="Oswald,sans-serif" font-weight="700" font-size="11" '
-        f'letter-spacing="2.0" fill="#d72638">{_xe(label)}</text>',
-        # Value (between the red and white lines)
-        f'<text x="{cx}" y="{y + 49}" text-anchor="middle" '
+        f'font-family="Oswald,sans-serif" font-weight="700" font-size="13" '
+        f'letter-spacing="2.4" fill="#d72638">{_xe(label)}</text>',
+        # Value (white, below the white line — bottom zone)
+        f'<text x="{cx}" y="{y + 78}" text-anchor="middle" '
         f'font-family="Barlow Condensed,sans-serif" font-style="italic" '
-        f'font-weight="800" font-size="20" fill="#ffffff">{_xe(_fmt(value, decimals))}</text>',
+        f'font-weight="800" font-size="26" fill="#ffffff">{_xe(_fmt(value, decimals))}</text>',
     ])
 
 
@@ -271,16 +279,19 @@ def build_weekly_awards_svg(rows: list[dict], top_stats: list[dict], *,
     else:
         parts.append(f'<rect width="{W}" height="{H}" fill="#08080a"/>')
 
-    # ── 2. Hero image — fits inside the panel; clipped so it can't spill
-    #       into the rank list on the left. ──
+    # ── 2. Hero image — fills the bordered panel. A mask punches a hole
+    # for the baked 64A red circle so it stays visible above the image. ──
     if hero_b64:
         parts.append(
-            f'<defs><clipPath id="heroClip">'
-            f'<rect x="{HERO_X}" y="{HERO_Y}" width="{HERO_W}" height="{HERO_H}"/>'
-            f'</clipPath></defs>'
+            '<defs>'
+            '<mask id="heroMask">'
+            f'<rect x="{HERO_X}" y="{HERO_Y}" width="{HERO_W}" height="{HERO_H}" fill="white"/>'
+            f'<circle cx="{EMBLEM_CX}" cy="{EMBLEM_CY}" r="{EMBLEM_R}" fill="black"/>'
+            '</mask>'
+            '</defs>'
             f'<image href="{hero_b64}" xlink:href="{hero_b64}" '
             f'x="{HERO_X}" y="{HERO_Y}" width="{HERO_W}" height="{HERO_H}" '
-            f'preserveAspectRatio="xMidYMid slice" clip-path="url(#heroClip)"/>'
+            f'preserveAspectRatio="xMidYMid slice" mask="url(#heroMask)"/>'
         )
 
     # ── 3. Cover the baked 'D3 BASEBALL PITCHERS' subtitle and redraw,
