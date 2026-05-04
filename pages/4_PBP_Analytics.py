@@ -472,8 +472,10 @@ def compute_grouped_pitching(df, group_col, min_bf=1):
     ba_against = np.where(p_oab > 0, h / p_oab, 0.0)
     k_pct = np.where(bf > 0, so / bf * 100, 0.0)
     bb_pct = np.where(bf > 0, bb / bf * 100, 0.0)
+    k_bb_pct = k_pct - bb_pct
     k9 = np.where(ip_actual > 0, (so / ip_actual) * 9, 0.0)
     k7 = np.where(ip_actual > 0, (so / ip_actual) * 7, 0.0)
+    bb9 = np.where(ip_actual > 0, (bb / ip_actual) * 9, 0.0)
     k_bb = np.where(bb > 0, so / bb, so.astype(float))
     whip = np.where(ip_actual > 0, (bb + h) / ip_actual, 0.0)
     babip_d = p_oab - so - hr + sfa
@@ -501,7 +503,9 @@ def compute_grouped_pitching(df, group_col, min_bf=1):
         'SLG Against': np.round(slg_against, 3),
         'OPS Against': np.round(ops_against, 3),
         'K%': np.round(k_pct, 1), 'BB%': np.round(bb_pct, 1),
+        'K-BB%': np.round(k_bb_pct, 1),
         'K/9': np.round(k9, 2), 'K/7': np.round(k7, 2),
+        'BB/9': np.round(bb9, 2),
         'K/BB': np.round(k_bb, 2), 'WHIP': np.round(whip, 2),
         'GmSc': np.round(agg['_gmsc_mean'], 1),
     })
@@ -2845,22 +2849,63 @@ elif view == 'Share Graphic':
     import base64 as _b64
 
     # ── Stat catalog per stat-type ────────────────────────────────────────
+    # All hitting columns produced by compute_grouped_hitting. (label, suffix,
+    # decimals, sort_ascending). Lower-is-better for the hitter perspective:
+    # K, K%, K/BB, GDP, CS.
     HIT_STATS = [
-        ('BA',     'AVG', 3, False), ('OBP',    'OBP', 3, False),
-        ('SLG',    'SLG', 3, False), ('OPS',    'OPS', 3, False),
-        ('ISO',    'ISO', 3, False), ('wOBA',   'wOBA', 3, False),
-        ('wRC+',   'wRC+', 0, False),('K%',     'K%',  1, True),
-        ('BB%',    'BB%', 1, False), ('HR',     'HR',  0, False),
-        ('R',      'R',   0, False), ('RBI',    'RBI', 0, False),
-        ('TB',     'TB',  0, False), ('H',      'H',   0, False),
-        ('SB',     'SB',  0, False),
+        # Counting
+        ('PA',   'PA',   0, False), ('AB',    'AB',   0, False),
+        ('H',    'H',    0, False), ('1B',    '1B',   0, False),
+        ('2B',   '2B',   0, False), ('3B',    '3B',   0, False),
+        ('HR',   'HR',   0, False), ('TB',    'TB',   0, False),
+        ('R',    'R',    0, False), ('RBI',   'RBI',  0, False),
+        ('BB',   'BB',   0, False), ('HBP',   'HBP',  0, False),
+        ('SF',   'SF',   0, False), ('SH',    'SH',   0, False),
+        ('IBB',  'IBB',  0, False),
+        ('K',    'K',    0, True),
+        ('SB',   'SB',   0, False),
+        ('CS',   'CS',   0, True),
+        ('GDP',  'GDP',  0, True),
+        # Rate
+        ('BA',   'AVG',  3, False), ('OBP',   'OBP',  3, False),
+        ('SLG',  'SLG',  3, False), ('OPS',   'OPS',  3, False),
+        ('ISO',  'ISO',  3, False), ('BABIP', 'BABIP',3, False),
+        ('wOBA', 'wOBA', 3, False),
+        ('K%',   'K%',   1, True),  ('BB%',   'BB%',  1, False),
+        ('K/BB', 'K/BB', 2, True),  ('R/PA',  'R/PA', 3, False),
+        # Advanced
+        ('wRAA', 'wRAA', 1, False), ('wRC',   'wRC',  1, False),
+        ('wRC+', 'wRC+', 0, False),
     ]
+    # All pitching columns produced by compute_grouped_pitching. Pitcher
+    # perspective: lower-is-better for hits/runs/walks/HR allowed and ratio
+    # stats (ERA, WHIP, FIP, BAA, etc.); higher-is-better for SO/K rates.
     PIT_STATS = [
-        ('ERA',    'ERA',  2, True),  ('WHIP',   'WHIP', 2, True),
-        ('K/9',    'K/9',  1, False), ('BB/9',   'BB/9', 1, True),
-        ('K%',     'K%',   1, False), ('BB%',    'BB%',  1, True),
-        ('K-BB%',  'K-BB%', 1, False),('BAA',    'BAA',  3, True),
-        ('FIP',    'FIP',  2, True),
+        # Volume
+        ('IP',   'IP',   1, False), ('App',  'App',  0, False),
+        ('GS',   'GS',   0, False), ('BF',   'BF',   0, False),
+        ('OAB',  'OAB',  0, False), ('SO',   'SO',   0, False),
+        # Allowed
+        ('H',    'H',    0, True),  ('R',    'R',    0, True),
+        ('ER',   'ER',   0, True),  ('BB',   'BB',   0, True),
+        ('HB',   'HB',   0, True),  ('HR',   'HR',   0, True),
+        ('2B-A', '2B-A', 0, True),  ('3B-A', '3B-A', 0, True),
+        ('WP',   'WP',   0, True),  ('Bk',   'Bk',   0, True),
+        ('IBB',  'IBB',  0, True),
+        ('SHA',  'SHA',  0, True),  ('SFA',  'SFA',  0, True),
+        # Rate
+        ('ERA',  'ERA',  2, True),  ('WHIP', 'WHIP', 2, True),
+        ('FIP',  'FIP',  2, True),
+        ('K/9',  'K/9',  2, False), ('K/7',  'K/7',  2, False),
+        ('BB/9', 'BB/9', 2, True),
+        ('K/BB', 'K/BB', 2, False),
+        ('K%',   'K%',   1, False), ('BB%',  'BB%',  1, True),
+        ('K-BB%','K-BB%', 1, False),
+        ('BAA',  'BAA',  3, True),  ('BABIP','BABIP',3, True),
+        ('OBP Against', 'OBPa', 3, True),
+        ('SLG Against', 'SLGa', 3, True),
+        ('OPS Against', 'OPSa', 3, True),
+        ('GmSc', 'GmSc', 1, False),
     ]
     FLD_STATS = [
         ('FPCT',   'FPCT', 3, False), ('PO',     'PO',   0, False),
