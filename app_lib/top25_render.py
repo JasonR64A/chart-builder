@@ -211,25 +211,43 @@ def fetch_team_logo_b64(team_id_64a: int | None) -> str | None:
     return _b64(p)
 
 
-def build_teams_payload(rpi_df: pd.DataFrame, teams_df: pd.DataFrame, top_n: int = 25) -> list[dict]:
-    """Convert a sport/div RPI DataFrame into the payload `build_top25_svg` expects.
-    Joins to teams.csv to fetch the 64A team_id for logo lookup."""
+def _build_logo_id_map(teams_df: pd.DataFrame, sport_key: str) -> dict:
+    """team_name -> logo_id. Logos in team_logos_512/ are named by the
+    BASEBALL team_id; softball entries usually don't have their own file.
+    For softball: prefer the SB-specific logo if it exists, otherwise fall
+    back to the baseball id for the same-named school. Mirrors the pattern
+    in app_lib/ncaat_resume_data.py."""
+    bb_rows = teams_df[teams_df['sport'] == 'Baseball']
+    bb_map = {n: int(i) for n, i in zip(bb_rows['name'].astype(str), bb_rows['id'])
+              if pd.notna(i)}
+    if sport_key.lower() == 'baseball':
+        return bb_map
+    sb_rows = teams_df[teams_df['sport'] == 'Softball']
+    out = {}
+    for n, i in zip(sb_rows['name'].astype(str), sb_rows['id']):
+        if pd.isna(i):
+            continue
+        sb_id = int(i)
+        if (LOGO_DIR / f'{sb_id}.png').exists():
+            out[n] = sb_id
+        elif n in bb_map:
+            out[n] = bb_map[n]
+    return out
+
+
+def build_teams_payload(rpi_df: pd.DataFrame, teams_df: pd.DataFrame,
+                         top_n: int = 25, sport_key: str = 'baseball') -> list[dict]:
+    """Convert a sport/div ranked DataFrame into the payload `build_top25_svg`
+    expects. `teams_df` should be the full teams.csv (both sports) so the
+    softball→baseball logo fallback works."""
     if rpi_df.empty:
         return []
     df = rpi_df.head(top_n).copy()
-    # Build name → 64A id lookup
-    name_to_id = dict(zip(teams_df['name'].astype(str), teams_df['id']))
+    name_to_logo_id = _build_logo_id_map(teams_df, sport_key)
     out = []
     for _, r in df.iterrows():
         name = str(r.get('teamName', '')).strip()
-        tid = name_to_id.get(name)
-        if pd.isna(tid):
-            tid = None
-        else:
-            try:
-                tid = int(tid)
-            except (TypeError, ValueError):
-                tid = None
+        tid = name_to_logo_id.get(name)
         out.append({
             'rank': int(r.get('rank', len(out) + 1)),
             'name': name,

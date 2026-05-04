@@ -1756,8 +1756,8 @@ if view == 'Top 25 Rankings':
     rank_df['record'] = (rank_df['wins'].fillna(0).astype(int).astype(str)
                           + '-' + rank_df['losses'].fillna(0).astype(int).astype(str))
 
-    sport_teams_raw = teams_df_raw[teams_df_raw['sport'] == sport_label]
-    teams_payload = build_teams_payload(rank_df, sport_teams_raw, top_n=25)
+    teams_payload = build_teams_payload(rank_df, teams_df_raw, top_n=25,
+                                          sport_key=sport)
     if not teams_payload:
         st.error('No ranking data available for this sport/division.')
         st.stop()
