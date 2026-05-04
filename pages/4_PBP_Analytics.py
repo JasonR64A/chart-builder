@@ -1848,9 +1848,14 @@ if view == 'Weekly Awards':
     wa_show_team = st.sidebar.toggle('Show team under player name',
                                        value=True, key='wa_show_team')
 
-    wa_hero = st.sidebar.file_uploader('Hero image (right panel)',
-                                         type=['png','jpg','jpeg'],
-                                         key='wa_hero')
+    # Hero upload — placed in the main content above the preview so it's
+    # discoverable. Drops into the right-panel slot of the rendered SVG.
+    wa_hero = st.file_uploader(
+        'Hero image — drops into the right panel of the graphic',
+        type=['png', 'jpg', 'jpeg'], key='wa_hero',
+        help='Upload an action shot, team photo, or chart. The image is '
+             'cover-fit into the empty right panel; nothing renders without it.',
+    )
 
     # ── Compute leaderboard ──
     pbp_data = load_pbp(sport, division, wa_stat_type)

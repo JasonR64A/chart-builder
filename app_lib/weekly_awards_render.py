@@ -29,37 +29,40 @@ BACKGROUND = _APP_DIR / 'assets' / 'branding' / 'weekly_awards_background.png'
 W = 1080
 H = 1080
 
-# ── Backdrop-derived coordinates (pixel measurements from the grunge art) ──
-# Pill rows: red flag 1 starts at y≈410, stride ≈ 56 px, 10 rows total.
-# Pill body (dark area to the right of the flag) spans ~x 130-540, h ~38.
-PILL_X = 138       # left edge of pill body (after flag chevron)
-PILL_RIGHT = 540   # right edge of pill body
-PILL_Y0 = 412      # top of pill #1
-PILL_STRIDE = 56
-PILL_H = 38
+# ── Backdrop-derived coordinates (pixel-measured from the grunge art) ──
+# Each pill is ~44 px tall, stride 57 px between pill tops, 10 rows starting
+# at y=406. Pill body spans x≈140 (after flag chevron) to x≈530.
+PILL_X = 140
+PILL_RIGHT = 530
+PILL_Y0 = 406
+PILL_STRIDE = 57
+PILL_H = 44
 
-# Hero panel (right side empty bordered region)
+# Hero panel — empty bordered region on the right
 HERO_X = 575
 HERO_Y = 145
 HERO_W = 440
 HERO_H = 808
 
-# Bottom stats strip (the empty bordered region with 2 horizontal lines)
+# Bottom stats strip — empty bordered region with two horizontal red/white lines
 STATS_X = 575
-STATS_Y = 970
+STATS_Y = 985
 STATS_W = 440
 STATS_H = 70
 
-# Static-text cover-and-redraw regions
-SUB_X = 80     # 'D3 BASEBALL PITCHERS' baked-in
-SUB_Y = 248
-SUB_W = 410
-SUB_H = 44
+# Static-text cover regions, sized to fully obscure the baked text.
+# Subtitle ('D3 BASEBALL PITCHERS') white pixels live at y≈282-306, x≈78-427.
+SUB_X = 72
+SUB_Y = 274
+SUB_W = 380
+SUB_H = 40
 
-WEEK_X = 870
-WEEK_Y = 75
-WEEK_W = 160
-WEEK_H = 36
+# Week tag (dark cell with red left border + 'WEEK XX | DATE RANGE') sits in
+# the brushstroke bar at y≈68-104, x≈790-1020.
+WEEK_X = 790
+WEEK_Y = 67
+WEEK_W = 235
+WEEK_H = 38
 
 
 def _xe(s):
