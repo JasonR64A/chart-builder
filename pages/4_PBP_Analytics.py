@@ -1766,8 +1766,7 @@ if view == 'Top 25 Rankings':
         st.stop()
 
     svg = build_top25_svg(teams_payload, sport_label, division,
-                           week_label=week_label,
-                           date_label=pd.Timestamp.now().strftime('%b %d, %Y'))
+                           week_label=week_label)
 
     # On-page preview — scale via CSS but keep viewBox intrinsic
     display_svg = svg.replace(
