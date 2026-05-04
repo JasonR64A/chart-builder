@@ -22,6 +22,7 @@ import pandas as pd
 _APP_DIR = Path(__file__).resolve().parent.parent
 LOGO_DIR = _APP_DIR / 'team_logos_512'
 EMBLEM = _APP_DIR / 'assets' / 'branding' / 'emblem.png'
+BACKGROUND = _APP_DIR / 'assets' / 'branding' / 'top25_background.png'
 
 
 def _xe(s):
@@ -110,8 +111,11 @@ def _tile_svg(team: dict, idx: int, x: float, y: float, size: float) -> str:
 
 def build_top25_svg(teams: list[dict], sport: str, division: str,
                      week_label: str = '', date_label: str = '') -> str:
-    """Build the full 1080×1350 SVG. `teams` should be 25 dicts with
-    keys: rank, name, record, logo_b64 (base64 data URL or None)."""
+    """Build the full 1080×1350 SVG. Uses pre-rendered background PNG with
+    baked-in frame, side rails, headline, and 'Presented by 64 Analytics'
+    lockup. Only the dynamic sport pill is overlaid.
+
+    `teams` should be 25 dicts with keys: rank, name, record, logo_b64."""
     W, H = 1080, 1350
 
     # Pad team list to 25 if shorter
@@ -119,155 +123,70 @@ def build_top25_svg(teams: list[dict], sport: str, division: str,
         teams.append({'rank': len(teams) + 1, 'name': '—', 'record': '', 'logo_b64': None})
     teams = teams[:25]
 
-    rail_text = ('64 ANALYTICS IS ONE OF THE INDUSTRY LEADERS '
-                 'IN COLLEGE SPORTS ANALYTICS · ') * 4
-
-    # Layout
-    GRID_LEFT = 64
-    GRID_RIGHT = 64
-    GRID_TOP = 480     # below header
-    GRID_BOTTOM = 80
-    grid_w = W - GRID_LEFT - GRID_RIGHT
+    # Layout — the background art reserves the top ~28% (≈ 380 px) for the
+    # baked-in pill / headline / presented-by lockup. Tiles fill the rest.
+    GRID_TOP = 380
+    GRID_BOTTOM = 50
     GAP = 14
     cols, rows = 5, 5
-    tile_size = (grid_w - (cols - 1) * GAP) / cols  # equals (grid_h - 4*GAP)/5 if proportional
+    avail_h = H - GRID_TOP - GRID_BOTTOM
+    tile_size = (avail_h - (rows - 1) * GAP) / rows
+    grid_w = cols * tile_size + (cols - 1) * GAP
+    GRID_LEFT = (W - grid_w) / 2
 
-    # Recompute grid_h to match square tiles
-    grid_h = rows * tile_size + (rows - 1) * GAP
-    GRID_TOP = H - GRID_BOTTOM - grid_h - 30
+    bg_b64 = _b64(BACKGROUND) or ''
 
-    emblem_b64 = _b64(EMBLEM) or ''
-
-    # --- SVG body ---
     parts = [
         f'<svg viewBox="0 0 {W} {H}" width="{W}" height="{H}" '
         f'xmlns="http://www.w3.org/2000/svg" '
         f'xmlns:xlink="http://www.w3.org/1999/xlink">',
-        # Definitions: gradients, paper-dot pattern
         '<defs>'
-        # Frame gradient
-        '<linearGradient id="frameGrad" x1="0" y1="0" x2="0" y2="1">'
-        '<stop offset="0" stop-color="#5a0a18"/>'
-        '<stop offset="0.3" stop-color="#9E1B32"/>'
-        '<stop offset="0.7" stop-color="#9E1B32"/>'
-        '<stop offset="1" stop-color="#5a0a18"/>'
-        '</linearGradient>'
-        # Frame mask cuts out interior
-        '<mask id="frameMask">'
-        f'<rect width="{W}" height="{H}" fill="white"/>'
-        f'<rect x="44" y="44" width="{W-88}" height="{H-88}" fill="black"/>'
-        '</mask>'
-        # Top glow
-        '<radialGradient id="glowTop" cx="0.5" cy="0" r="0.6">'
-        '<stop offset="0" stop-color="#9E1B32" stop-opacity="0.55"/>'
-        '<stop offset="1" stop-color="#0d0d0d" stop-opacity="0"/>'
-        '</radialGradient>'
-        # Bottom glow
-        '<radialGradient id="glowBot" cx="0.5" cy="1" r="0.6">'
-        '<stop offset="0" stop-color="#9E1B32" stop-opacity="0.45"/>'
-        '<stop offset="1" stop-color="#0d0d0d" stop-opacity="0"/>'
-        '</radialGradient>'
-        # Paper-tile dot pattern
+        # Paper-tile dot pattern (used by tile renderer)
         '<pattern id="paperDots" x="0" y="0" width="6" height="6" patternUnits="userSpaceOnUse">'
         '<circle cx="3" cy="3" r="0.4" fill="#000" opacity="0.06"/>'
         '</pattern>'
         '</defs>',
-        # Background
-        f'<rect width="{W}" height="{H}" fill="#0d0d0d"/>',
-        # Top + bottom glow
-        f'<rect width="{W}" height="{H}" fill="url(#glowTop)"/>',
-        f'<rect width="{W}" height="{H}" fill="url(#glowBot)"/>',
-        # Angular shards
-        '<g opacity="0.85">'
-        '<polygon points="44,74 174,74 114,254 44,224" fill="#9E1B32" opacity="0.42"/>'
-        '<polygon points="1036,74 906,74 966,254 1036,224" fill="#9E1B32" opacity="0.42"/>'
-        '<polygon points="164,104 264,74 314,244 214,264" fill="#9E1B32" opacity="0.20"/>'
-        '<polygon points="816,74 916,104 866,264 766,244" fill="#9E1B32" opacity="0.20"/>'
-        '<polygon points="44,1124 134,1144 104,1306 44,1306" fill="#9E1B32" opacity="0.36"/>'
-        '<polygon points="1036,1124 946,1144 976,1306 1036,1306" fill="#9E1B32" opacity="0.36"/>'
-        '</g>',
-        # Red frame
-        f'<rect width="{W}" height="{H}" fill="url(#frameGrad)" mask="url(#frameMask)"/>',
     ]
 
-    # Side rails — vertical text repeating tagline
-    # SVG doesn't easily support vertical text layout; approximate by rotating
-    # a single line. Two side rails, one each side.
-    parts.append(
-        f'<g transform="translate(28 {H/2}) rotate(-90)">'
-        f'<text text-anchor="middle" font-family="Inter,sans-serif" '
-        f'font-weight="800" font-size="11" letter-spacing="3.6" '
-        f'fill="#fff" fill-opacity="0.85">{_xe(rail_text)}</text>'
-        f'</g>'
-    )
-    parts.append(
-        f'<g transform="translate({W-28} {H/2}) rotate(90)">'
-        f'<text text-anchor="middle" font-family="Inter,sans-serif" '
-        f'font-weight="800" font-size="11" letter-spacing="3.6" '
-        f'fill="#fff" fill-opacity="0.85">{_xe(rail_text)}</text>'
-        f'</g>'
-    )
+    # Background — pre-rendered grunge artwork with header text baked in.
+    if bg_b64:
+        parts.append(
+            f'<image href="{bg_b64}" xlink:href="{bg_b64}" '
+            f'x="0" y="0" width="{W}" height="{H}" '
+            f'preserveAspectRatio="xMidYMid slice"/>'
+        )
+    else:
+        parts.append(f'<rect width="{W}" height="{H}" fill="#0d0d0d"/>')
 
-    # Header — sport pill (skewed) + headline + presented by
+    # Sport pill — covers the baked-in "D3 BASEBALL" white text at y=96-146.
+    # Drawn as a red rectangle that blends into the surrounding angled red
+    # banner; fresh white text is drawn on top.
     header_x_center = W / 2
-
     pill_text = f'{division.upper()} {sport.upper()}'
-    pill_w = max(360, len(pill_text) * 22)
+    pill_w = 380
     pill_h = 60
-    pill_y = 100
+    pill_y = 92
     pill_x = header_x_center - pill_w / 2
-    # Skewed parallelogram-ish red pill
-    pill_pts = (
-        f'{pill_x + pill_w*0.03},{pill_y} '
-        f'{pill_x + pill_w*0.97},{pill_y} '
-        f'{pill_x + pill_w},{pill_y + pill_h} '
-        f'{pill_x},{pill_y + pill_h}'
-    )
-    parts.append(f'<polygon points="{pill_pts}" fill="#9E1B32"/>')
     parts.append(
-        f'<text x="{header_x_center}" y="{pill_y + pill_h*0.7}" '
-        f'text-anchor="middle" font-family="Oswald,sans-serif" '
-        f'font-weight="700" font-size="38" letter-spacing="1.5" '
+        f'<rect x="{pill_x}" y="{pill_y}" width="{pill_w}" height="{pill_h}" '
+        f'fill="#c8102e"/>'
+    )
+    parts.append(
+        f'<text x="{header_x_center}" y="{pill_y + pill_h*0.72}" '
+        f'text-anchor="middle" font-family="Oswald,Anton,sans-serif" '
+        f'font-weight="700" font-size="40" letter-spacing="1.6" '
         f'fill="#fff">{_xe(pill_text)}</text>'
     )
 
-    # Headline
-    parts.append(
-        f'<text x="{header_x_center}" y="{pill_y + pill_h + 100}" '
-        f'text-anchor="middle" font-family="Oswald,sans-serif" '
-        f'font-weight="700" font-size="86" letter-spacing="0.4" '
-        f'fill="#fff">TOP 25 RANKINGS</text>'
-    )
-
-    # Presented by emblem + text
-    pres_y = pill_y + pill_h + 130
-    if emblem_b64:
-        parts.append(
-            f'<image href="{emblem_b64}" xlink:href="{emblem_b64}" '
-            f'x="{header_x_center - 130}" y="{pres_y}" '
-            f'width="64" height="64" preserveAspectRatio="xMidYMid meet"/>'
-        )
-    parts.append(
-        f'<text x="{header_x_center - 50}" y="{pres_y + 24}" '
-        f'text-anchor="start" font-family="Inter,sans-serif" '
-        f'font-weight="700" font-size="13" letter-spacing="3.6" '
-        f'fill="#fff">PRESENTED BY</text>'
-    )
-    parts.append(
-        f'<text x="{header_x_center - 50}" y="{pres_y + 56}" '
-        f'text-anchor="start" font-family="Oswald,sans-serif" '
-        f'font-weight="700" font-size="34" letter-spacing="1" '
-        f'fill="#fff">64 ANALYTICS</text>'
-    )
-
-    # Optional week/date subtitle
+    # Optional week/date subtitle — fits between "PRESENTED BY 64 ANALYTICS"
+    # (ends ~y=355) and the tile grid (starts y=380).
     if week_label or date_label:
         sub = ' · '.join(s for s in [week_label, date_label] if s)
         parts.append(
-            f'<text x="{header_x_center}" y="{pres_y + 100}" '
+            f'<text x="{header_x_center}" y="372" '
             f'text-anchor="middle" font-family="Inter,sans-serif" '
-            f'font-weight="600" font-size="14" letter-spacing="2.6" '
-            f'fill="#bbb">{_xe(sub.upper())}</text>'
+            f'font-weight="700" font-size="11" letter-spacing="2.6" '
+            f'fill="#fff" fill-opacity="0.62">{_xe(sub.upper())}</text>'
         )
 
     # 5x5 grid of tiles
