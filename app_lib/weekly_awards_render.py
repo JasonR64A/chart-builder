@@ -100,8 +100,8 @@ STATS_X = 478
 STATS_Y = 894
 STATS_W = 545
 STATS_H = 112
-STATS_LABEL_DY = 26   # baseline of label inside the top zone
-STATS_VALUE_DY = 102  # baseline of value inside the bottom zone
+STATS_LABEL_DY = 30   # baseline of label inside the top zone (y ≈ 924)
+STATS_VALUE_DY = 73   # baseline of value between red and white lines (y ≈ 967)
 
 # Subtitle cover. Baked 'D3 BASEBALL PITCHERS' is centered horizontally
 # under 'TOP 10' (both at center_x ≈ 253). We cover the full text band and
@@ -197,23 +197,23 @@ def _row_overlay(row: dict, idx: int, *, show_team: bool) -> str:
 
     if show_team and team:
         parts.append(
-            f'<text x="{name_x}" y="{pill_cy - 2:.1f}" text-anchor="start" '
+            f'<text x="{name_x}" y="{pill_cy - 3:.1f}" text-anchor="start" '
             f'font-family="Barlow Condensed,Oswald,sans-serif" font-style="italic" '
-            f'font-weight="700" font-size="16" fill="#ffffff" '
-            f'letter-spacing="0.4">{_xe(player)}</text>'
+            f'font-weight="700" font-size="20" fill="#ffffff" '
+            f'letter-spacing="0.5">{_xe(player)}</text>'
         )
         parts.append(
-            f'<text x="{name_x}" y="{pill_cy + 12:.1f}" text-anchor="start" '
-            f'font-family="Oswald,sans-serif" font-weight="500" font-size="10" '
-            f'fill="rgba(255,255,255,0.6)" letter-spacing="1.0">'
+            f'<text x="{name_x}" y="{pill_cy + 14:.1f}" text-anchor="start" '
+            f'font-family="Oswald,sans-serif" font-weight="500" font-size="12" '
+            f'fill="rgba(255,255,255,0.65)" letter-spacing="1.0">'
             f'{_xe(team)}</text>'
         )
     else:
         parts.append(
-            f'<text x="{name_x}" y="{pill_cy + 5:.1f}" text-anchor="start" '
+            f'<text x="{name_x}" y="{pill_cy + 6:.1f}" text-anchor="start" '
             f'font-family="Barlow Condensed,sans-serif" font-style="italic" '
-            f'font-weight="700" font-size="17" fill="#ffffff" '
-            f'letter-spacing="0.4">{_xe(player)}</text>'
+            f'font-weight="700" font-size="21" fill="#ffffff" '
+            f'letter-spacing="0.5">{_xe(player)}</text>'
         )
 
     return ''.join(parts)
@@ -234,18 +234,18 @@ def _stat_cell_overlay(stat: dict, x: float, y: float, width: float, height: flo
     # line at +83. Label sits in the top zone (above red line), value
     # sits in the bottom zone (below white line). The red+white line
     # band between them visually separates label from value.
-    # Each cell is ~76 px wide (460/6). Values like "0.331" or "132" need
-    # to fit comfortably inside that, so we cap font size at 20 and trim
-    # letter-spacing to nothing.
+    # Strip is 112px tall starting at y. Decorative red line at +47, white
+    # at +83. Place LABEL above red and VALUE between red+white (the wide
+    # mid zone, not buried under the white line). Each cell is ~91 px wide.
     return ''.join([
-        # Label (red, in top zone)
+        # Label (red, in top zone above the red line)
         f'<text x="{cx}" y="{y + STATS_LABEL_DY}" text-anchor="middle" '
-        f'font-family="Oswald,sans-serif" font-weight="700" font-size="12" '
-        f'letter-spacing="2.0" fill="#d72638">{_xe(label)}</text>',
-        # Value (white, in bottom zone)
+        f'font-family="Oswald,sans-serif" font-weight="700" font-size="13" '
+        f'letter-spacing="2.4" fill="#d72638">{_xe(label)}</text>',
+        # Value (white, between the red and white lines — bigger font)
         f'<text x="{cx}" y="{y + STATS_VALUE_DY}" text-anchor="middle" '
         f'font-family="Barlow Condensed,sans-serif" font-style="italic" '
-        f'font-weight="800" font-size="20" fill="#ffffff">{_xe(_fmt(value, decimals))}</text>',
+        f'font-weight="800" font-size="28" fill="#ffffff">{_xe(_fmt(value, decimals))}</text>',
     ])
 
 
@@ -293,15 +293,24 @@ def build_weekly_awards_svg(rows: list[dict], top_stats: list[dict], *,
     # the panel; when empty, a striped placeholder (matching Share
     # Graphic's pattern) shows where the image will go. The 64A circle is
     # masked out either way so the baked red emblem stays on top. ──
-    # NOTE: SVG masks default to maskUnits="objectBoundingBox" (0-1 coord
-    # space relative to the masked element). Our coords are pixel-space,
-    # so we must override to userSpaceOnUse — otherwise the mask is empty
-    # and the masked element disappears entirely.
+    # Hero panel is an octagon — a rectangle with a diagonal cut at the
+    # top-right where the baked 64A circle sits. We use a mask that fills
+    # the octagon shape (white = visible) and punches the 64A circle out
+    # (black = hidden) so the hero image hugs the actual panel border
+    # instead of bleeding into the corner where the circle is.
+    octagon_pts = (
+        f'{HERO_X},{HERO_Y} '                                    # top-left
+        f'{HERO_X + 392},{HERO_Y} '                              # top edge
+        f'{HERO_X + 460},{HERO_Y + 60} '                         # diagonal cut (start of 64A corner)
+        f'{HERO_X + HERO_W},{HERO_Y + 130} '                     # diagonal cut (end of 64A corner)
+        f'{HERO_X + HERO_W},{HERO_Y + HERO_H} '                  # bottom-right
+        f'{HERO_X},{HERO_Y + HERO_H}'                            # bottom-left
+    )
     parts.append(
         '<defs>'
         '<mask id="heroMask" maskUnits="userSpaceOnUse" '
         f'x="0" y="0" width="{W}" height="{H}">'
-        f'<rect x="{HERO_X}" y="{HERO_Y}" width="{HERO_W}" height="{HERO_H}" fill="white"/>'
+        f'<polygon points="{octagon_pts}" fill="white"/>'
         f'<circle cx="{EMBLEM_CX}" cy="{EMBLEM_CY}" r="{EMBLEM_R}" fill="black"/>'
         '</mask>'
         '<pattern id="heroPlaceholder" patternUnits="userSpaceOnUse" '
