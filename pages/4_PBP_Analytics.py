@@ -1730,36 +1730,33 @@ view = st.sidebar.radio('Mode', ['Hitter Stats', 'Pitcher Stats', 'Fielding Stat
 if view == 'Top 25 Rankings':
     from app_lib.top25_render import build_top25_svg, build_teams_payload
     st.title('Top 25 Rankings')
-    st.caption('1080×1350 weekly graphic. Sources from current RPI (D1) or Custom ELO (D2/D3).')
+    st.caption('1080×1350 weekly graphic. Sources from the 64 Analytics company ranking (team_rank.csv).')
 
-    # Source selection — RPI exists for D1 only; Custom ELO covers D2/D3.
-    source = st.sidebar.radio(
-        'Ranking source',
-        ['RPI (D1 only)', 'Custom ELO'],
-        index=0 if division == 'D1' else 1,
-        help='RPI is NCAA-published and only exists for D-I. Custom ELO covers all 6 sport/div combos.',
-    )
     week_label = st.sidebar.text_input('Week label', value=f'Week of {pd.Timestamp.now().strftime("%b %d, %Y")}')
 
     sport_label = sport.title()
     teams_df_raw = pd.read_csv(DATA_DIR / 'teams.csv', low_memory=False)
+
+    # Pull the 64A company rank, filter to this season + sport/div, attach
+    # team name + W-L from elo_custom_all (canonical schedule-derived record).
+    team_rank = pd.read_csv(_APP_DIR / 'data' / 'team_rank.csv', low_memory=False)
+    team_rank = team_rank[team_rank['year'] == 2026]
+    elo = pd.read_csv(_APP_DIR / 'data' / 'rankings' / 'elo_custom_all.csv')
+    elo_sd = elo[(elo['sport'] == sport) & (elo['division'] == division)][
+        ['team_id', 'wins', 'losses']
+    ]
+    rank_df = team_rank.merge(elo_sd, on='team_id', how='inner')
+    rank_df = rank_df.merge(teams_df_raw[['id', 'name']], left_on='team_id',
+                              right_on='id', how='left')
+    rank_df = rank_df.rename(columns={
+        'integer_64_rank_total': 'rank',
+        'name': 'teamName',
+    })
+    rank_df = rank_df.dropna(subset=['rank', 'teamName']).sort_values('rank')
+    rank_df['record'] = (rank_df['wins'].fillna(0).astype(int).astype(str)
+                          + '-' + rank_df['losses'].fillna(0).astype(int).astype(str))
+
     sport_teams_raw = teams_df_raw[teams_df_raw['sport'] == sport_label]
-
-    if source.startswith('RPI'):
-        if division != 'D1':
-            st.warning(f'RPI only exists for D-I. Falling back to Custom ELO for {division}.')
-            rank_df = pd.read_csv(_APP_DIR / 'data' / 'rankings' / 'elo_custom_all.csv')
-            rank_df = rank_df[(rank_df['sport'] == sport) & (rank_df['division'] == division)]
-            rank_df = rank_df.rename(columns={'name': 'teamName'}).copy()
-            rank_df['record'] = rank_df['wins'].astype(str) + '-' + rank_df['losses'].astype(str)
-        else:
-            rank_df = pd.read_csv(_APP_DIR / 'data' / f'{sport}_rpi_{division}.csv')
-    else:
-        rank_df = pd.read_csv(_APP_DIR / 'data' / 'rankings' / 'elo_custom_all.csv')
-        rank_df = rank_df[(rank_df['sport'] == sport) & (rank_df['division'] == division)]
-        rank_df = rank_df.rename(columns={'name': 'teamName'}).copy()
-        rank_df['record'] = rank_df['wins'].astype(str) + '-' + rank_df['losses'].astype(str)
-
     teams_payload = build_teams_payload(rank_df, sport_teams_raw, top_n=25)
     if not teams_payload:
         st.error('No ranking data available for this sport/division.')
