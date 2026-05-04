@@ -1727,7 +1727,7 @@ st.sidebar.markdown('---')
 st.sidebar.markdown('### Data Source')
 sport = st.sidebar.selectbox('Sport', ['baseball', 'softball'])
 division = st.sidebar.selectbox('Division', ['D1', 'D2', 'D3'])
-view = st.sidebar.radio('Mode', ['Hitter Stats', 'Pitcher Stats', 'Fielding Stats', 'Pace Chart', 'Lineup Card', 'Share Graphic', 'Top 25 Rankings'], horizontal=True)
+view = st.sidebar.radio('Mode', ['Hitter Stats', 'Pitcher Stats', 'Fielding Stats', 'Pace Chart', 'Lineup Card', 'Share Graphic', 'Top 25 Rankings', 'Weekly Awards'], horizontal=True)
 
 # Top 25 Rankings — early-exit branch so the rest of the page (which is built
 # around per-player PBP) doesn't run.
@@ -1789,6 +1789,169 @@ if view == 'Top 25 Rankings':
         st.caption(f'PNG export unavailable in this environment ({type(e).__name__}: {str(e)[:80]}).')
 
     st.stop()
+
+# Weekly Awards — 1080x1080 'Top 10' graphic per the Claude-Design hand-off.
+if view == 'Weekly Awards':
+    from app_lib.weekly_awards_render import build_weekly_awards_svg, build_rows_payload
+    import base64 as _b64
+
+    st.title('Weekly Awards — Top 10')
+    st.caption('1080×1080 weekly award graphic (pitching or hitting). Pick the rank stat, '
+               'optionally upload a hero image, then download the PNG.')
+
+    # ── Sidebar controls ──
+    wa_stat_type = st.sidebar.selectbox('Stat type', ['pitching', 'hitting'],
+                                          key='wa_stat_type')
+
+    # Stat catalog — same shape as the Share-Graphic catalog
+    HIT_CAT = [
+        ('BA','AVG',3,False),('OBP','OBP',3,False),('SLG','SLG',3,False),
+        ('OPS','OPS',3,False),('ISO','ISO',3,False),('wOBA','wOBA',3,False),
+        ('wRC+','wRC+',0,False),('wRAA','wRAA',1,False),
+        ('HR','HR',0,False),('H','H',0,False),('TB','TB',0,False),
+        ('R','R',0,False),('RBI','RBI',0,False),('SB','SB',0,False),
+        ('K%','K%',1,True),('BB%','BB%',1,False),
+    ]
+    PIT_CAT = [
+        ('ERA','ERA',2,True),('FIP','FIP',2,True),('WHIP','WHIP',2,True),
+        ('K/9','K/9',2,False),('BB/9','BB/9',2,True),('K-BB%','K-BB%',1,False),
+        ('K%','K%',1,False),('BB%','BB%',1,True),('BAA','BAA',3,True),
+        ('SO','SO',0,False),('IP','IP',1,False),('GmSc','GmSc',1,False),
+    ]
+    catalog = PIT_CAT if wa_stat_type == 'pitching' else HIT_CAT
+    stat_labels = [c[0] for c in catalog]
+    wa_rank_stat = st.sidebar.selectbox('Rank by', stat_labels, key='wa_rank_stat')
+    wa_meta = next(c for c in catalog if c[0] == wa_rank_stat)
+    _, wa_default_suffix, wa_default_dec, wa_sort_asc = wa_meta
+
+    wa_min = st.sidebar.number_input(
+        'Min BF / PA', value=50, min_value=1, step=10, key='wa_min',
+        help='Qualifying threshold — BF for pitching, PA for hitting.')
+
+    today = pd.Timestamp.now()
+    wk_default = f'WEEK {today.isocalendar().week} | {(today - pd.Timedelta(days=6)).strftime("%b %d").upper()} – {today.strftime("%b %d").upper()}'
+    wa_week = st.sidebar.text_input('Week tag', value=wk_default, key='wa_week')
+
+    sport_label = sport.upper()
+    div_label = division.upper()
+    role = 'PITCHERS' if wa_stat_type == 'pitching' else 'HITTERS'
+    sub_default = f'{div_label} {sport_label} {role}'
+    wa_sub = st.sidebar.text_input('Headline subtitle', value=sub_default, key='wa_sub')
+
+    wa_suffix = st.sidebar.text_input('Stat suffix (after value)',
+                                       value=wa_default_suffix if wa_rank_stat in ('ERA','WHIP','FIP') else '',
+                                       key='wa_suffix')
+    wa_decimals = st.sidebar.number_input('Decimals (rank stat)',
+                                            value=int(wa_default_dec),
+                                            min_value=0, max_value=4, step=1,
+                                            key='wa_decimals')
+    wa_show_team = st.sidebar.toggle('Show team under player name',
+                                       value=True, key='wa_show_team')
+
+    wa_hero = st.sidebar.file_uploader('Hero image (right panel)',
+                                         type=['png','jpg','jpeg'],
+                                         key='wa_hero')
+
+    # ── Compute leaderboard ──
+    pbp_data = load_pbp(sport, division, wa_stat_type)
+    if pbp_data is None or pbp_data.empty:
+        st.error(f'No {wa_stat_type} PBP data found for {sport} {division}')
+        st.stop()
+
+    rank_col = 'playerId' if 'playerId' in pbp_data.columns else 'playerName'
+    if wa_stat_type == 'hitting':
+        league = compute_hitting_stats(pbp_data)
+        df_top = compute_grouped_hitting(pbp_data, rank_col, league['wOBA'],
+                                          league_r_pa=league.get('R/PA', 0),
+                                          min_pa=wa_min)
+    else:
+        df_top = compute_grouped_pitching(pbp_data, rank_col, min_bf=wa_min)
+
+    if wa_rank_stat not in df_top.columns:
+        st.error(f"Stat '{wa_rank_stat}' not in computed columns.")
+        st.stop()
+
+    df_top[wa_rank_stat] = pd.to_numeric(df_top[wa_rank_stat], errors='coerce')
+    df_top = df_top.dropna(subset=[wa_rank_stat])
+    df_top = df_top.sort_values(wa_rank_stat, ascending=wa_sort_asc).reset_index(drop=True)
+    if df_top.empty:
+        st.warning('No qualifying players for that stat / threshold.')
+        st.stop()
+
+    # Bridge playerId -> playerName + school (from chart-builder players.csv)
+    name_col = 'playerName' if 'playerName' in df_top.columns else rank_col
+    if 'School' not in df_top.columns:
+        df_top['School'] = ''
+    team_col = 'School'
+
+    teams_df = pd.read_csv(DATA_DIR / 'teams.csv', low_memory=False)
+    rows_payload = build_rows_payload(df_top, name_col=name_col,
+                                        stat_col=wa_rank_stat,
+                                        team_col=team_col, top_n=10,
+                                        sport_key=sport, teams_df=teams_df)
+
+    # Auto-pick 6 bottom stats (diversified per stat_type) + leader of each
+    if wa_stat_type == 'pitching':
+        bottom_picks = [('ERA',2,True),('WHIP',2,True),('K/9',2,False),
+                         ('FIP',2,True),('K%',1,False),('BAA',3,True)]
+    else:
+        bottom_picks = [('AB',0,False),('H',0,False),('2B',0,False),
+                         ('HR',0,False),('OPS',3,False),('wRAA',1,False)]
+    top_stats_payload = []
+    for label, dec, asc in bottom_picks:
+        if label not in df_top.columns:
+            top_stats_payload.append({'label': label, 'value': None,
+                                       'decimals': dec, 'leader': ''})
+            continue
+        s = df_top[[name_col, label]].dropna()
+        s[label] = pd.to_numeric(s[label], errors='coerce')
+        s = s.dropna(subset=[label]).sort_values(label, ascending=asc)
+        if s.empty:
+            val, leader = None, ''
+        else:
+            top = s.iloc[0]
+            val = float(top[label])
+            leader = str(top[name_col])
+            # Abbreviate to first-initial last-name for fit
+            parts = leader.split()
+            if len(parts) >= 2:
+                leader = f'{parts[0][0]}. {parts[-1]}'
+        top_stats_payload.append({'label': label, 'value': val,
+                                   'decimals': dec, 'leader': leader})
+
+    hero_b64 = None
+    if wa_hero is not None:
+        mime = 'image/png' if wa_hero.name.lower().endswith('.png') else 'image/jpeg'
+        hero_b64 = f'data:{mime};base64,' + _b64.b64encode(wa_hero.read()).decode('ascii')
+
+    svg = build_weekly_awards_svg(
+        rows_payload, top_stats_payload,
+        sport=sport, division=division, stat_type=wa_stat_type,
+        week_label=wa_week, headline_sub=wa_sub,
+        stat_suffix=wa_suffix, stat_decimals=int(wa_decimals),
+        show_team_subline=wa_show_team, hero_b64=hero_b64,
+    )
+
+    # On-page preview (responsive scale)
+    display_svg = svg.replace(
+        '<svg ',
+        '<svg style="width:100%;max-width:600px;height:auto;display:block;'
+        'margin:0 auto;border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.35);" ', 1,
+    )
+    st.markdown(display_svg, unsafe_allow_html=True)
+
+    try:
+        import cairosvg
+        png_bytes = cairosvg.svg2png(bytestring=svg.encode('utf-8'), output_width=1080)
+        fname = f'weekly_awards_{sport}_{division}_{wa_stat_type}_{today.strftime("%Y%m%d")}.png'
+        st.download_button('Download PNG (1080×1080)', data=png_bytes,
+                            file_name=fname, mime='image/png',
+                            use_container_width=False)
+    except Exception as e:
+        st.caption(f'PNG export unavailable here ({type(e).__name__}: {str(e)[:80]}).')
+
+    st.stop()
+
 # Team aggregation toggle for the three stat-table views (Pace Chart has its
 # own Player/Team selector built in; Lineup Card is per-team by definition).
 if view in ('Hitter Stats', 'Pitcher Stats', 'Fielding Stats'):
