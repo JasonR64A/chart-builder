@@ -293,17 +293,17 @@ def build_weekly_awards_svg(rows: list[dict], top_stats: list[dict], *,
     # the panel; when empty, a striped placeholder (matching Share
     # Graphic's pattern) shows where the image will go. The 64A circle is
     # masked out either way so the baked red emblem stays on top. ──
-    # Hero panel is an octagon — a rectangle with a diagonal cut at the
-    # top-right where the baked 64A circle sits. We use a mask that fills
-    # the octagon shape (white = visible) and punches the 64A circle out
-    # (black = hidden) so the hero image hugs the actual panel border
-    # instead of bleeding into the corner where the circle is.
+    # Hero panel is an octagon — rectangle with a small diagonal cut at
+    # the top-right (where the 64A circle sits) and a small one at the
+    # bottom-right. The mask punches both cuts out plus the 64A circle.
+    # Using a polygon with 8 vertices to match the actual baked panel.
     octagon_pts = (
         f'{HERO_X},{HERO_Y} '                                    # top-left
-        f'{HERO_X + 392},{HERO_Y} '                              # top edge
-        f'{HERO_X + 460},{HERO_Y + 60} '                         # diagonal cut (start of 64A corner)
-        f'{HERO_X + HERO_W},{HERO_Y + 130} '                     # diagonal cut (end of 64A corner)
-        f'{HERO_X + HERO_W},{HERO_Y + HERO_H} '                  # bottom-right
+        f'{HERO_X + 350},{HERO_Y} '                              # top edge before circle cut
+        f'{HERO_X + 460},{HERO_Y + 70} '                         # diagonal cut around 64A
+        f'{HERO_X + HERO_W},{HERO_Y + 140} '                     # right edge after cut
+        f'{HERO_X + HERO_W},{HERO_Y + HERO_H - 16} '             # right edge before bottom cut
+        f'{HERO_X + HERO_W - 18},{HERO_Y + HERO_H} '             # bottom-right diagonal cut
         f'{HERO_X},{HERO_Y + HERO_H}'                            # bottom-left
     )
     parts.append(
@@ -311,7 +311,6 @@ def build_weekly_awards_svg(rows: list[dict], top_stats: list[dict], *,
         '<mask id="heroMask" maskUnits="userSpaceOnUse" '
         f'x="0" y="0" width="{W}" height="{H}">'
         f'<polygon points="{octagon_pts}" fill="white"/>'
-        f'<circle cx="{EMBLEM_CX}" cy="{EMBLEM_CY}" r="{EMBLEM_R}" fill="black"/>'
         '</mask>'
         '<pattern id="heroPlaceholder" patternUnits="userSpaceOnUse" '
         'width="48" height="48" patternTransform="rotate(135)">'
@@ -328,18 +327,29 @@ def build_weekly_awards_svg(rows: list[dict], top_stats: list[dict], *,
         )
     else:
         # Striped placeholder fills the entire panel area, masked so the
-        # 64A circle remains visible.
+        # placeholder follows the octagon shape.
         parts.append(
             f'<rect x="{HERO_X}" y="{HERO_Y}" width="{HERO_W}" height="{HERO_H}" '
             f'fill="url(#heroPlaceholder)" mask="url(#heroMask)"/>'
         )
-        # Centered "DROP HERO IMAGE HERE" hint
         parts.append(
             f'<text x="{HERO_X + HERO_W/2:.0f}" y="{HERO_Y + HERO_H/2:.0f}" '
             f'text-anchor="middle" font-family="JetBrains Mono,monospace" '
             f'font-weight="600" font-size="14" letter-spacing="3" '
             f'fill="rgba(255,255,255,0.55)">DROP HERO IMAGE HERE</text>'
         )
+
+    # ── 2b. 64A red circle drawn ON TOP of the hero so the emblem is
+    # always visible (masking it out of the hero alone left it hidden
+    # because the panel border in the backdrop sits behind the image).
+    parts.append(
+        f'<circle cx="{EMBLEM_CX}" cy="{EMBLEM_CY}" r="{EMBLEM_R - 12}" '
+        f'fill="#d72638"/>'
+        f'<text x="{EMBLEM_CX}" y="{EMBLEM_CY + 14}" text-anchor="middle" '
+        f'font-family="Barlow Condensed,sans-serif" font-style="italic" '
+        f'font-weight="900" font-size="48" letter-spacing="-1" '
+        f'fill="#0a0a0c">64</text>'
+    )
 
     # ── 3. Cover the baked 'D3 BASEBALL PITCHERS' subtitle and redraw,
     # center-aligned with TOP 10 (center_x = 253). ──
