@@ -25,6 +25,42 @@ import pandas as pd
 _APP_DIR = Path(__file__).resolve().parent.parent
 LOGO_DIR = _APP_DIR / 'team_logos_512'
 BACKGROUND = _APP_DIR / 'assets' / 'branding' / 'weekly_awards_background.png'
+FONTS_DIR = _APP_DIR / 'assets' / 'fonts'
+
+
+def _register_bundled_fonts() -> None:
+    """Make sure cairo/fontconfig (used by cairosvg PNG export) can find
+    the bundled TTF files. On Linux, fontconfig auto-scans ~/.fonts; we
+    symlink/copy bundled fonts there once per process and then prime the
+    cache via fc-cache. Silent no-op on platforms where these tools
+    aren't available — on Render this is a one-time cost at startup."""
+    try:
+        if not FONTS_DIR.exists():
+            return
+        import os
+        if os.name != 'posix':  # Linux/macOS only
+            return
+        user_fonts = Path.home() / '.fonts'
+        user_fonts.mkdir(parents=True, exist_ok=True)
+        import shutil
+        for f in FONTS_DIR.glob('*.ttf'):
+            dst = user_fonts / f.name
+            if not dst.exists():
+                try:
+                    dst.symlink_to(f)
+                except Exception:
+                    shutil.copy2(f, dst)
+        import subprocess
+        try:
+            subprocess.run(['fc-cache', '-f', str(user_fonts)],
+                            timeout=15, capture_output=True, check=False)
+        except FileNotFoundError:
+            pass
+    except Exception:
+        pass
+
+
+_register_bundled_fonts()
 
 W = 1080
 H = 1080
