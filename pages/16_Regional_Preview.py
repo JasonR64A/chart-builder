@@ -124,11 +124,10 @@ team_rpi = {t: team_meta[t].get('current_rpi') if team_meta[t] is not None else 
 
 
 # ── View selector — Bracket Preview (existing) vs Top Hitters (new) ─────────
-view = st.radio('View', ['Bracket Preview', 'Top Hitters'],
+view = st.radio('View', ['Bracket Preview', 'Top Hitters', 'Top Pitchers'],
                 horizontal=True, label_visibility='collapsed', key='rp_view')
 
-if view == 'Top Hitters':
-    from app_lib.regionals_top_hitters import render_tab as _render_top_hitters_tab
+if view in ('Top Hitters', 'Top Pitchers'):
     from collections import Counter as _Counter
     _SEED_PALETTE = ['#C41230', '#29335c', '#F5A623', '#0F8A5F']
 
@@ -164,17 +163,30 @@ if view == 'Top Hitters':
     def _th_accent(tid, seed):
         return _th_team_color(tid) or _SEED_PALETTE[(seed - 1) % 4]
 
-    _hitting_df_th = pd.read_csv(DATA_DIR / 'hitting.csv', low_memory=False)
     _players_df_th = load_players()
     _confs_df_th = pd.read_csv(DATA_DIR / 'conferences.csv', low_memory=False)
     _player_rank_df_th = load_player_rank()
-    _render_top_hitters_tab(
-        teams, seeds, team_ids, sport, division, regional_name,
-        _hitting_df_th, _players_df_th, sport_teams,
-        accent_for=_th_accent,
-        conferences_df=_confs_df_th,
-        player_rank_df=_player_rank_df_th,
-    )
+
+    if view == 'Top Hitters':
+        from app_lib.regionals_top_hitters import render_tab as _render_top_hitters_tab
+        _hitting_df_th = pd.read_csv(DATA_DIR / 'hitting.csv', low_memory=False)
+        _render_top_hitters_tab(
+            teams, seeds, team_ids, sport, division, regional_name,
+            _hitting_df_th, _players_df_th, sport_teams,
+            accent_for=_th_accent,
+            conferences_df=_confs_df_th,
+            player_rank_df=_player_rank_df_th,
+        )
+    else:  # Top Pitchers
+        from app_lib.regionals_top_pitchers import render_tab as _render_top_pitchers_tab
+        _pitching_df_tp = pd.read_csv(DATA_DIR / 'pitching.csv', low_memory=False)
+        _render_top_pitchers_tab(
+            teams, seeds, team_ids, sport, division, regional_name,
+            _pitching_df_tp, _players_df_th, sport_teams,
+            accent_for=_th_accent,
+            conferences_df=_confs_df_th,
+            player_rank_df=_player_rank_df_th,
+        )
     st.stop()
 
 
