@@ -67,9 +67,9 @@ H = 1080
 
 # ── Backdrop-derived coordinates (pixel-measured from the grunge art) ──
 # Each pill is ~44 px tall, stride 57 px between pill tops, 10 rows starting
-# at y=406. Pill body spans x≈140 (after flag chevron) to x≈530.
+# at y=406. Pill body spans x≈140 (after flag chevron) to x≈460.
 PILL_X = 140
-PILL_RIGHT = 530
+PILL_RIGHT = 460
 PILL_Y0 = 406
 PILL_STRIDE = 57
 PILL_H = 44
@@ -78,13 +78,16 @@ PILL_H = 44
 HERO_X = 575
 HERO_Y = 145
 HERO_W = 440
-HERO_H = 808
+HERO_H = 770
 
-# Bottom stats strip — empty bordered region with two horizontal red/white lines
+# Bottom stats strip — bordered region with two decorative horizontal lines
+# (red at y≈945, white at y≈975 inside the strip). Strip outer bounds
+# y=920-995. Stat cells sit INSIDE this region: label above the red line,
+# value between the two lines.
 STATS_X = 575
-STATS_Y = 985
+STATS_Y = 920
 STATS_W = 440
-STATS_H = 70
+STATS_H = 75
 
 # Static-text cover regions, sized to fully obscure the baked text.
 # Subtitle ('D3 BASEBALL PITCHERS') white pixels live at y≈282-306, x≈78-427.
@@ -132,19 +135,30 @@ def _initials(name: str) -> str:
     return ''.join(p[0] for p in parts[:2]).upper()
 
 
-def _row_overlay(row: dict, idx: int, *, stat_decimals: int,
-                  stat_suffix: str, show_team: bool) -> str:
-    """Just the in-pill content (logo + name + team + stat). No frame —
-    the backdrop already has the chevron flag and pill body."""
+def _row_overlay(row: dict, idx: int, *, show_team: bool) -> str:
+    """In-pill content: logo (with white highlight ring so dark logos
+    aren't lost on the dark pill body) + player name + team subline.
+    The backdrop already provides the chevron flag and the pill itself.
+    Per-pill rank-stat values are NOT rendered — the user found them
+    visually noisy; the bottom strip carries the leader-board values."""
     py = PILL_Y0 + idx * PILL_STRIDE
     pill_cy = py + PILL_H / 2
 
     parts = []
-    logo_size = 28
+    logo_size = 30
     logo_x = PILL_X + 6
     logo_y = py + (PILL_H - logo_size) / 2
+    logo_cx = logo_x + logo_size / 2
 
     logo_b64 = row.get('logo_b64')
+
+    # White circular highlight behind every logo so dark/navy crests don't
+    # disappear into the pill background. Slight padding around the logo.
+    parts.append(
+        f'<circle cx="{logo_cx:.1f}" cy="{pill_cy:.1f}" '
+        f'r="{logo_size/2 + 2:.1f}" fill="#ffffff" fill-opacity="0.92"/>'
+    )
+
     if logo_b64:
         parts.append(
             f'<image href="{logo_b64}" xlink:href="{logo_b64}" '
@@ -153,16 +167,14 @@ def _row_overlay(row: dict, idx: int, *, stat_decimals: int,
         )
     else:
         parts.append(
-            f'<circle cx="{logo_x + logo_size/2:.1f}" cy="{pill_cy:.1f}" '
-            f'r="{logo_size/2}" fill="rgba(255,255,255,0.10)"/>'
-            f'<text x="{logo_x + logo_size/2:.1f}" y="{pill_cy + 3.5:.1f}" '
+            f'<text x="{logo_cx:.1f}" y="{pill_cy + 4.5:.1f}" '
             f'text-anchor="middle" font-family="Barlow Condensed,sans-serif" '
-            f'font-style="italic" font-weight="800" font-size="11" '
-            f'fill="rgba(255,255,255,0.7)">'
+            f'font-style="italic" font-weight="800" font-size="13" '
+            f'fill="#1a1a1d">'
             f'{_xe(_initials(row.get("player") or row.get("team") or "?"))}</text>'
         )
 
-    name_x = logo_x + logo_size + 10
+    name_x = logo_x + logo_size + 12
     player = (row.get('player') or '').upper()
     team = (row.get('team') or '').upper()
 
@@ -170,61 +182,47 @@ def _row_overlay(row: dict, idx: int, *, stat_decimals: int,
         parts.append(
             f'<text x="{name_x}" y="{pill_cy - 2:.1f}" text-anchor="start" '
             f'font-family="Barlow Condensed,Oswald,sans-serif" font-style="italic" '
-            f'font-weight="700" font-size="15" fill="#ffffff" '
+            f'font-weight="700" font-size="16" fill="#ffffff" '
             f'letter-spacing="0.4">{_xe(player)}</text>'
         )
         parts.append(
-            f'<text x="{name_x}" y="{pill_cy + 11:.1f}" text-anchor="start" '
-            f'font-family="Oswald,sans-serif" font-weight="500" font-size="9" '
-            f'fill="rgba(255,255,255,0.55)" letter-spacing="0.9">'
+            f'<text x="{name_x}" y="{pill_cy + 12:.1f}" text-anchor="start" '
+            f'font-family="Oswald,sans-serif" font-weight="500" font-size="10" '
+            f'fill="rgba(255,255,255,0.6)" letter-spacing="1.0">'
             f'{_xe(team)}</text>'
         )
     else:
         parts.append(
             f'<text x="{name_x}" y="{pill_cy + 5:.1f}" text-anchor="start" '
             f'font-family="Barlow Condensed,sans-serif" font-style="italic" '
-            f'font-weight="700" font-size="16" fill="#ffffff" '
+            f'font-weight="700" font-size="17" fill="#ffffff" '
             f'letter-spacing="0.4">{_xe(player)}</text>'
         )
 
-    stat_str = _fmt(row.get('stat'), stat_decimals)
-    if stat_suffix:
-        stat_str = f'{stat_str} {stat_suffix}'
-    parts.append(
-        f'<text x="{PILL_RIGHT - 14}" y="{pill_cy + 5:.1f}" text-anchor="end" '
-        f'font-family="Barlow Condensed,sans-serif" font-style="italic" '
-        f'font-weight="800" font-size="17" fill="#ffffff" '
-        f'letter-spacing="0.3">{_xe(stat_str)}</text>'
-    )
     return ''.join(parts)
 
 
 def _stat_cell_overlay(stat: dict, x: float, y: float, width: float, height: float) -> str:
-    """One bottom-strip stat cell — drawn inside the empty bordered area."""
+    """One bottom-strip stat cell — drawn inside the bordered strip
+    region. Backdrop has decorative red+white horizontal lines at strip-y
+    +25 (red) and +55 (white). We place the LABEL above the red line and
+    the VALUE between the two lines so the cell sits cleanly within the
+    strip bounds. No leader text — the strip is too thin to fit it."""
     label = (stat.get('label') or '').upper()
     value = stat.get('value')
     decimals = stat.get('decimals', 0)
-    leader = (stat.get('leader') or '').upper()
     cx = x + width / 2
 
-    parts = [
-        # Label (red, on top)
-        f'<text x="{cx}" y="{y + 14}" text-anchor="middle" '
+    return ''.join([
+        # Label (red, above the decorative red line)
+        f'<text x="{cx}" y="{y + 18}" text-anchor="middle" '
         f'font-family="Oswald,sans-serif" font-weight="700" font-size="11" '
         f'letter-spacing="2.0" fill="#d72638">{_xe(label)}</text>',
-        # Value (bold italic, large)
-        f'<text x="{cx}" y="{y + 40}" text-anchor="middle" '
+        # Value (between the red and white lines)
+        f'<text x="{cx}" y="{y + 49}" text-anchor="middle" '
         f'font-family="Barlow Condensed,sans-serif" font-style="italic" '
-        f'font-weight="800" font-size="24" fill="#ffffff">{_xe(_fmt(value, decimals))}</text>',
-    ]
-    if leader:
-        parts.append(
-            f'<text x="{cx}" y="{y + 58}" text-anchor="middle" '
-            f'font-family="Oswald,sans-serif" font-weight="500" font-size="9" '
-            f'letter-spacing="0.9" fill="rgba(255,255,255,0.55)">'
-            f'{_xe(leader)}</text>'
-        )
-    return ''.join(parts)
+        f'font-weight="800" font-size="20" fill="#ffffff">{_xe(_fmt(value, decimals))}</text>',
+    ])
 
 
 def build_weekly_awards_svg(rows: list[dict], top_stats: list[dict], *,
@@ -312,11 +310,9 @@ def build_weekly_awards_svg(rows: list[dict], top_stats: list[dict], *,
             f'{_xe(week_label.upper())}</text>'
         )
 
-    # ── 5. The 10 pill overlays ──
+    # ── 5. The 10 pill overlays (logo + name + team subline; no per-pill stat) ──
     for i, row in enumerate(rows):
-        parts.append(_row_overlay(row, i, stat_decimals=stat_decimals,
-                                    stat_suffix=stat_suffix,
-                                    show_team=show_team_subline))
+        parts.append(_row_overlay(row, i, show_team=show_team_subline))
 
     # ── 6. Bottom stats strip — 6 cells inside the empty bordered area ──
     cell_w = STATS_W / 6
