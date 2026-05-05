@@ -1962,26 +1962,19 @@ if view == 'Weekly Awards':
         bottom_picks = [('AB','AB',0,False), ('H','H',0,False),
                          ('2B','2B',0,False), ('HR','HR',0,False),
                          ('OPS','OPS',3,False), ('wRAA','wRAA',1,False)]
+    # Bottom strip stats now show the WEEK'S #1 player's full line — not
+    # the leader of each individual stat. df_top is already sorted by the
+    # selected rank stat (default 'Rank'), so .iloc[0] is the top player.
+    top_player = df_top.iloc[0]
     top_stats_payload = []
-    for label, col, dec, asc in bottom_picks:
-        if col not in df_top.columns:
-            top_stats_payload.append({'label': label, 'value': None,
-                                       'decimals': dec, 'leader': ''})
-            continue
-        s = df_top[[name_col, col]].dropna()
-        s[col] = pd.to_numeric(s[col], errors='coerce')
-        s = s.dropna(subset=[col]).sort_values(col, ascending=asc)
-        if s.empty:
-            val, leader = None, ''
-        else:
-            top = s.iloc[0]
-            val = float(top[col])
-            leader = str(top[name_col])
-            parts = leader.split()
-            if len(parts) >= 2:
-                leader = f'{parts[0][0]}. {parts[-1]}'
+    for label, col, dec, _asc in bottom_picks:
+        v = top_player.get(col)
+        try:
+            val = float(v) if v is not None and not pd.isna(v) else None
+        except Exception:
+            val = None
         top_stats_payload.append({'label': label, 'value': val,
-                                   'decimals': dec, 'leader': leader})
+                                   'decimals': dec, 'leader': ''})
 
     hero_b64 = None
     if wa_hero is not None:
