@@ -596,7 +596,7 @@ def _radar_area_pct(stat_pcts: dict) -> int:
     return int(round(100 * pair_sum / max_pair_sum))
 
 
-def _compute_remaining_quadrants(sched_full: pd.DataFrame, team_year_id, rpi_lookup: dict) -> dict:
+def _compute_remaining_quadrants(sched_full: pd.DataFrame, team_year_id, rpi_lookup: dict, sport_key: str = 'baseball') -> dict:
     """Return a list of upcoming games per quadrant:
       {'q1': [{opp, venue, date, oppRank}, ...], 'q2': [...], ...}
     Venue: 'home' | 'neutral' | 'away'.
@@ -617,7 +617,7 @@ def _compute_remaining_quadrants(sched_full: pd.DataFrame, team_year_id, rpi_loo
             continue
         venue = _venue(g)
         opp_rank = rpi_lookup.get(_norm(opp_raw), 999)
-        q = _quad_bucket(opp_rank, venue)
+        q = _quad_bucket(opp_rank, venue, sport_key)
         quads[q].append({
             'opp': _clean_opp(opp_raw),
             'venue': venue,
@@ -667,9 +667,30 @@ def _venue(g) -> str:
     return 'home'
 
 
-def _quad_bucket(opp_rank: int, venue: str) -> str:
-    """NCAA quadrant thresholds: Q1 H1-25 N1-40 A1-60; Q2 H26-50 N41-80 A61-120;
-    Q3 H51-100 N81-160 A121-240; Q4 H101+ N161+ A241+."""
+def _quad_bucket(opp_rank: int, venue: str, sport_key: str = 'baseball') -> str:
+    """NCAA quadrant thresholds — different per sport.
+    Baseball: Q1 H1-25 N1-40 A1-60; Q2 H26-50 N41-80 A61-120;
+              Q3 H51-100 N81-160 A121-240; Q4 H101+ N161+ A241+.
+    Softball: Q1 H1-30 N1-50 A1-75; Q2 H31-75 N51-100 A76-135;
+              Q3 H76-160 N101-200 A136-240; Q4 H161+ N201+ A241+.
+    """
+    if sport_key.lower() == 'softball':
+        if venue == 'home':
+            if opp_rank <= 30:  return 'q1'
+            if opp_rank <= 75:  return 'q2'
+            if opp_rank <= 160: return 'q3'
+            return 'q4'
+        elif venue == 'neutral':
+            if opp_rank <= 50:  return 'q1'
+            if opp_rank <= 100: return 'q2'
+            if opp_rank <= 200: return 'q3'
+            return 'q4'
+        else:  # away
+            if opp_rank <= 75:  return 'q1'
+            if opp_rank <= 135: return 'q2'
+            if opp_rank <= 240: return 'q3'
+            return 'q4'
+    # baseball (default)
     if venue == 'home':
         if opp_rank <= 25:  return 'q1'
         if opp_rank <= 50:  return 'q2'
@@ -758,7 +779,7 @@ def _clean_opp(name: str) -> str:
     return re.split(r'\s+@|\s+vs\s+', name, maxsplit=1)[0].strip()
 
 
-def _compute_quad_record(sched_full: pd.DataFrame, team_year_id, rpi_lookup: dict) -> dict:
+def _compute_quad_record(sched_full: pd.DataFrame, team_year_id, rpi_lookup: dict, sport_key: str = 'baseball') -> dict:
     m = sched_full[sched_full['teamYearId'] == team_year_id] if team_year_id is not None else sched_full.iloc[0:0]
     quads = {'q1': [0, 0], 'q2': [0, 0], 'q3': [0, 0], 'q4': [0, 0]}
     for _, g in m.iterrows():
@@ -769,7 +790,7 @@ def _compute_quad_record(sched_full: pd.DataFrame, team_year_id, rpi_lookup: dic
             continue
         venue = _venue(g)
         opp_rank = rpi_lookup.get(_norm(opp), 999)
-        q = _quad_bucket(opp_rank, venue)
+        q = _quad_bucket(opp_rank, venue, sport_key)
         if _is_win(g):
             quads[q][0] += 1
         else:
@@ -1120,8 +1141,8 @@ def build_resume_team(team_name: str, sport_key: str, year: int = 2026) -> dict 
     # drift) stops silently returning empty schedules. team_year_id resolved above.
     sched_full = _load_csv(f'schedules_full_{sport_key}.csv')
     rpi_lookup = _opponent_rpi_lookup(sport_key)
-    quad_record = _compute_quad_record(sched_full, team_year_id, rpi_lookup) if not sched_full.empty else {'q1': '0-0', 'q2': '0-0', 'q3': '0-0', 'q4': '0-0'}
-    remaining_quads = _compute_remaining_quadrants(sched_full, team_year_id, rpi_lookup) if not sched_full.empty else {'q1': [], 'q2': [], 'q3': [], 'q4': []}
+    quad_record = _compute_quad_record(sched_full, team_year_id, rpi_lookup, sport_key) if not sched_full.empty else {'q1': '0-0', 'q2': '0-0', 'q3': '0-0', 'q4': '0-0'}
+    remaining_quads = _compute_remaining_quadrants(sched_full, team_year_id, rpi_lookup, sport_key) if not sched_full.empty else {'q1': [], 'q2': [], 'q3': [], 'q4': []}
     remaining_count = sum(len(v) for v in remaining_quads.values())
     projected_rpi_range = _project_rpi_range(rpi_rank, remaining_count)
     last10 = _last_10_games(sched_full, team_year_id, rpi_lookup) if not sched_full.empty else []
