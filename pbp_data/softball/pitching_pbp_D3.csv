@@ -17,10 +17,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6527414,3/07/26,softball,Gettysburg,1.0,Katie LaPlaunt,8.0,P,9659993,2.0,5,2,2,0,1,9,1,0,0,0,0,0,0,0,0,1,0,0
 6527414,3/07/26,softball,Gettysburg,1.0,Bella Rausch,2.0,P,9658864,3.0,2,1,1,2,2,13,1,0,0,0,0,0,0,0,0,0,0,2
 6527414,3/07/26,softball,Gettysburg,1.0,Lexi Waring,17.0,P,11234440,2.0,2,3,1,1,4,11,0,1,0,0,0,0,0,0,0,0,0,0
-6556505,3/10/26,softball,Hunter,,Abigail Bidinger,13.0,P,11210578,4.0,7,9,4,4,1,25,2,1,0,0,0,0,0,0,0,1,1,1
-6556505,3/10/26,softball,Wm. Paterson,1.0,Lilah Guthy,11.0,P,9663109,3.2,1,0,0,1,4,14,0,0,0,0,0,1,0,0,0,0,0,1
-6556505,3/10/26,softball,Wm. Paterson,1.0,Taylor Palmieri,4.0,P,9656243,0.1,1,1,1,1,0,4,0,0,0,0,0,1,0,0,0,0,0,0
-6556505,3/10/26,softball,Wm. Paterson,1.0,Kylie Anthony,21.0,P,9654231,1.0,0,0,0,0,1,3,0,0,0,0,0,1,0,0,0,0,0,0
 6564646,3/14/26,softball,Illinois Col.,,Avery Fritz,20.0,P/DP,9670589,5.0,6,4,3,1,5,24,1,0,0,0,0,0,0,0,0,0,0,2
 6564646,3/14/26,softball,Illinois Col.,,Cambria Currie,8.0,DP/P,9663809,2.0,0,0,0,0,3,6,0,0,0,0,0,0,0,0,0,0,0,0
 6564646,3/14/26,softball,Westminster (MO),1.0,Madison Plybon,1.0,P,9665918,7.0,8,5,4,4,4,36,1,0,0,1,1,2,0,0,0,2,1,1
@@ -328,11 +324,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6566804,3/28/26,softball,Hanover,1.0,Lulu Van Beek,33.0,P,9670465,3.2,8,6,4,1,1,20,0,1,0,4,0,0,0,0,0,0,0,1
 6566804,3/28/26,softball,Hanover,1.0,Chloey Leach,16.0,P,11240514,1.1,10,9,1,0,2,15,0,0,0,0,0,0,0,0,0,0,0,1
 6567131,3/29/26,softball,New England Col.,1.0,Amanda Magro,51.0,P,9659882,6.0,5,4,4,4,7,28,1,0,0,1,0,1,0,0,0,0,0,2
-6567104,3/29/26,softball,Allegheny,,Kennedy Stahl,9.0,P,11211222,5.1,7,4,2,1,2,24,2,0,0,0,1,0,0,0,0,0,0,1
-6567104,3/29/26,softball,Allegheny,,Mackenzie Keber,18.0,P,11211224,0.1,4,6,0,0,0,7,0,0,0,0,0,0,0,0,0,0,0,0
-6567104,3/29/26,softball,Allegheny,,Madison Hulse,4.0,P,9669468,0.1,1,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0
-6567104,3/29/26,softball,Saint Vincent,1.0,Natalie Bizup,27.0,P,11250472,6.1,12,6,4,0,1,32,7,0,0,0,1,0,0,0,0,3,0,0
-6567104,3/29/26,softball,Saint Vincent,1.0,A.J. Arnal,29.0,P,9657750,0.2,0,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0
 6567142,3/29/26,softball,Salem (NC),,Madison Talley,18.0,P/DP,11253724,1.1,5,4,4,0,0,10,1,0,0,0,0,0,0,0,0,0,0,0
 6567142,3/29/26,softball,Salem (NC),,Chloe Bailey-Bo,7.0,P,11253728,5.1,9,4,4,1,1,28,0,0,0,1,0,0,0,0,0,0,0,0
 6567142,3/29/26,softball,N.C. Wesleyan,1.0,Jaden Clark,6.0,P,11215076,4.0,6,3,3,0,1,18,1,0,0,1,0,0,0,0,0,0,0,0
@@ -360,9 +351,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6567172,3/29/26,softball,New England Col.,1.0,Kendal Cote,16.0,P,11245851,7.0,8,5,4,6,6,36,2,0,0,0,4,1,0,0,0,1,1,1
 6567170,3/29/26,softball,Old Westbury,,Olivia DeRose,1.0,P,11332549,5.0,0,0,0,1,14,18,0,0,0,0,0,0,0,0,0,0,0,5
 6567170,3/29/26,softball,Yeshiva,1.0,Elisheva Trapedo,19.0,P,11254525,5.0,22,27,17,9,1,49,4,0,0,0,0,4,0,0,0,0,0,0
-6567035,3/29/26,softball,Allegheny,,Madison Hulse,4.0,P,9669468,5.0,7,6,5,2,4,25,2,1,0,0,0,0,0,0,0,1,1,1
-6567035,3/29/26,softball,Allegheny,,Mackenzie Keber,18.0,P,11211224,1.0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0
-6567035,3/29/26,softball,Saint Vincent,1.0,A.J. Arnal,29.0,P,9657750,7.0,9,4,4,0,6,29,2,0,0,0,2,0,0,0,0,0,0,2
 6567129,3/29/26,softball,Knox,,Victoria Torres,28.0,P,11332121,3.0,11,8,8,1,1,21,0,0,0,1,0,0,0,0,0,0,0,0
 6567129,3/29/26,softball,Knox,,Zoe Abbott,35.0,P,11332120,1.0,1,1,0,0,0,5,0,0,0,0,0,0,0,0,0,0,0,0
 6567129,3/29/26,softball,Westminster (MO),1.0,Peityn Thomas,32.0,P,9670787,4.0,5,1,1,1,1,19,0,0,0,0,0,0,0,0,0,0,0,0
@@ -382,14 +370,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6537337,3/26/26,softball,Cornell College,,Lexi Ellermeier,14.0,P,9669130,6.0,13,10,8,2,1,36,5,0,0,0,0,2,0,0,0,0,0,0
 6537337,3/26/26,softball,Simpson,1.0,Marina Cronin,30.0,P,9655298,5.0,8,5,3,0,4,24,0,0,0,0,0,0,0,0,0,0,0,1
 6537337,3/26/26,softball,Simpson,1.0,Alyssa Breckner,16.0,P,9664244,2.0,2,0,0,0,1,7,0,0,0,0,0,0,0,0,0,0,0,1
-6550810,3/28/26,softball,Pitt.-Bradford,,Sandra Watne,21.0,P,9657252,5.0,7,2,2,1,0,22,0,0,0,0,0,0,0,0,0,0,0,0
-6550810,3/28/26,softball,Pitt.-Bradford,,Christa Koagel,12.0,P,9660836,1.0,4,3,3,0,0,7,0,0,0,0,0,0,0,0,0,0,1,0
-6550810,3/28/26,softball,Pitt.-Bradford,,Hannah Schnetzer,55.0,P,11238987,1.0,1,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0
-6550810,3/28/26,softball,Mount Aloysius,1.0,Jessica Koptcho,5.0,P,9662591,4.0,7,5,5,2,2,21,1,0,0,1,0,0,0,0,0,0,0,0
-6550810,3/28/26,softball,Mount Aloysius,1.0,Brenna Watts,15.0,P,9664364,3.0,6,4,4,2,0,16,3,0,0,0,0,0,0,0,0,1,1,0
-6550811,3/28/26,softball,Pitt.-Bradford,,Tae-Lynn Brabant,3.0,P,11238947,7.0,15,6,5,1,3,38,0,0,0,0,1,0,0,0,0,0,0,1
-6550811,3/28/26,softball,Mount Aloysius,1.0,Jessica Koptcho,5.0,P,9662591,3.2,9,6,2,0,2,22,0,0,0,1,0,0,0,0,0,0,0,0
-6550811,3/28/26,softball,Mount Aloysius,1.0,Payton Noll,35.0,P,11252347,3.1,4,4,4,5,0,17,0,0,0,0,0,0,0,0,0,0,0,0
 6567091,3/29/26,softball,Randolph-Macon,,Sierra Kegley,12.0,P,11230264,7.0,2,1,1,0,4,23,0,0,0,0,2,0,0,0,0,0,0,0
 6567091,3/29/26,softball,Roanoke,1.0,Grace Clary,25.0,P,9659796,7.0,5,3,1,1,3,28,0,0,0,0,0,0,0,0,0,0,0,1
 6567018,3/29/26,softball,Hartford,,Gracie Hopkins,99.0,P,9657895,3.0,10,7,5,0,4,20,1,0,0,0,0,0,0,0,0,0,0,1
@@ -442,13 +422,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6567520,3/30/26,softball,Wilkes,,Mia Butka,11.0,2B/P,9657354,3.0,3,0,0,0,1,12,0,0,0,0,0,0,0,0,0,0,1,1
 6567520,3/30/26,softball,Widener,1.0,Hayden Sissons,7.0,P/DP,11234312,6.0,7,4,4,2,6,27,2,0,0,2,0,0,0,0,0,0,1,1
 6567520,3/30/26,softball,Widener,1.0,Jocelin Mayorga,19.0,DP/P,9659378,1.0,3,1,1,0,0,5,0,0,0,0,0,0,0,0,0,1,0,0
-6567522,3/30/26,softball,Concordia (TX),,Kylie Kirk,11.0,P,9666064,7.0,8,4,2,3,5,30,0,1,0,0,0,0,0,0,0,1,0,0
-6567522,3/30/26,softball,Mary Hardin-Baylor,1.0,Chloe Booth,7.0,P,11221474,8.0,6,3,2,2,3,32,1,0,0,1,0,0,0,0,0,1,0,1
-6567550,3/30/26,softball,Concordia (TX),,Karlee Mathis,6.0,P/DP,9664891,2.1,6,5,4,1,0,14,2,0,0,0,0,0,0,0,0,0,0,0
-6567550,3/30/26,softball,Concordia (TX),,Mallory Mata,19.0,DP/P,9668807,2.1,3,2,2,0,0,10,0,0,0,1,0,0,0,0,0,1,0,0
-6567550,3/30/26,softball,Concordia (TX),,Mayson Post,14.0,P,9662044,0.1,2,2,2,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0
-6567550,3/30/26,softball,Concordia (TX),,Avery Rodriguez,18.0,P,11234399,0.2,1,3,3,2,2,5,0,0,0,1,1,0,0,0,0,0,0,0
-6567550,3/30/26,softball,Mary Hardin-Baylor,1.0,Madelyn Denn,20.0,P,11221484,6.0,7,3,1,1,2,28,0,0,0,0,0,0,0,0,0,1,0,0
 6566669,3/26/26,softball,Middlebury,,Emily Dowd,3.0,P,11225685,5.2,3,1,1,3,5,24,0,0,0,0,1,0,0,0,0,3,1,1
 6566669,3/26/26,softball,Middlebury,,Mia Gilham,17.0,P,9661132,0.1,1,1,1,1,0,3,0,0,0,0,1,0,0,0,0,0,0,0
 6566669,3/26/26,softball,Middlebury,,Emily Ye,11.0,P,9659734,2.0,2,4,3,3,1,12,1,0,0,0,0,1,0,0,0,0,0,0
@@ -474,9 +447,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6567818,3/31/26,softball,Wm. Paterson,,Aubrey Miller,18.0,P,11254010,6.0,2,0,0,6,3,25,1,0,0,0,0,0,0,0,0,0,0,2
 6567818,3/31/26,softball,Wm. Paterson,,Makenzie Crowe,27.0,P,11254012,1.0,0,1,1,3,1,6,0,0,0,0,0,0,0,0,0,0,0,1
 6567818,3/31/26,softball,Rutgers-Newark,1.0,Michaela Hobson,13.0,P,11231364,7.0,6,6,6,7,2,36,1,0,0,0,4,1,0,0,0,0,0,0
-6567776,3/31/26,softball,Keystone,,Amaia Smith,31.0,P,11228954,3.0,8,5,5,1,0,17,1,0,0,1,0,0,0,0,0,0,0,0
-6567776,3/31/26,softball,Keystone,,Aimee Lyons,11.0,P,11228946,3.0,4,1,1,0,1,12,2,0,0,0,0,0,0,0,0,0,0,0
-6567776,3/31/26,softball,Lancaster Bible,1.0,Maddison Atkins,11.0,P,9654925,7.0,2,0,0,1,1,24,0,0,0,0,0,0,0,0,0,0,0,0
 6567814,3/31/26,softball,Marietta,,Kylie Cobb,16.0,P,11247835,6.0,8,1,1,2,2,28,1,0,0,0,0,0,0,0,0,1,0,1
 6567814,3/31/26,softball,Denison,1.0,Madilyn Moffitt,12.0,P,9669064,7.0,2,0,0,2,10,27,1,0,0,0,0,1,0,0,0,1,0,2
 6567817,3/31/26,softball,La Roche,,Taylor Young,22.0,P,11246071,4.0,5,2,2,1,0,17,0,1,0,0,1,0,0,0,0,0,0,0
@@ -484,9 +454,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6567817,3/31/26,softball,La Roche,,Finley Hohn,12.0,1B,9667603,0.0,1,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0
 6567817,3/31/26,softball,Mount Aloysius,1.0,Jessica Koptcho,5.0,P,9662591,6.0,11,7,7,1,3,31,2,0,0,0,0,0,0,0,0,0,0,0
 6567817,3/31/26,softball,Mount Aloysius,1.0,Brenna Watts,15.0,P,9664364,1.0,0,0,0,0,2,3,0,0,0,0,0,0,0,0,0,0,0,0
-6567799,3/31/26,softball,Keystone,,Amaia Smith,31.0,P,11228954,3.2,3,4,1,1,1,17,0,1,0,0,0,1,0,0,0,0,2,0
-6567799,3/31/26,softball,Keystone,,Aimee Lyons,11.0,P,11228946,2.1,6,2,0,0,0,14,1,0,0,0,0,1,0,0,0,0,0,0
-6567799,3/31/26,softball,Lancaster Bible,1.0,Ava Stern,12.0,P,11231233,7.0,4,1,1,4,3,29,0,0,0,0,0,0,0,0,0,1,0,1
 6567803,3/31/26,softball,Westfield St.,,Angelina Vartuli,1.0,P,9658117,5.0,4,2,0,0,5,21,1,0,0,0,2,1,0,0,0,0,1,0
 6567803,3/31/26,softball,Smith,1.0,Violet Peverly,20.0,P,11214944,5.0,6,6,6,1,2,24,0,1,0,0,2,2,0,0,0,0,0,1
 6567808,3/31/26,softball,Westminster (PA),,Natalie Davis,10.0,P,9657789,7.0,8,3,3,3,2,32,1,0,0,1,0,0,0,0,0,2,0,1
@@ -632,15 +599,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6523322,4/04/26,softball,Union (NY),1.0,Coco Medeiros,33.0,P,11228063,1.0,4,3,2,0,0,8,1,0,0,0,2,0,0,0,0,0,0,0
 6568665,3/29/26,softball,Colby-Sawyer,,Mallory Blackwell,19.0,P,11240726,5.1,15,12,12,2,4,33,6,1,0,1,1,0,0,0,0,1,0,0
 6568665,3/29/26,softball,New England Col.,1.0,Amanda Magro,51.0,P,9659882,6.0,5,4,3,4,7,28,1,0,0,1,0,1,0,0,0,0,1,2
-6568249,3/30/26,softball,Concordia (TX),,Karlee Mathis,6.0,P/DP,9664891,2.1,6,5,4,1,0,14,2,0,0,0,0,0,0,0,0,0,0,0
-6568249,3/30/26,softball,Concordia (TX),,Mallory Mata,19.0,DP/P,9668807,2.1,3,2,2,0,0,10,0,0,0,1,0,0,0,0,0,1,0,0
-6568249,3/30/26,softball,Concordia (TX),,Mayson Post,14.0,P,9662044,0.1,2,2,2,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0
-6568249,3/30/26,softball,Concordia (TX),,Avery Rodriguez,18.0,P,11234399,0.2,1,3,3,2,2,5,0,0,0,1,1,0,0,0,0,0,0,0
-6568249,3/30/26,softball,Mary Hardin-Baylor,1.0,Madelyn Denn,20.0,P,11221484,6.0,7,3,1,1,2,28,0,0,0,0,0,0,0,0,0,1,0,0
-6568388,4/01/26,softball,Manhattanville,,Jori Wilkendorf,13.0,P,9665177,5.0,6,2,1,2,2,22,3,0,0,0,0,0,0,0,0,0,0,2
-6568388,4/01/26,softball,Manhattanville,,Tahlia Smith,2.0,P,11247215,2.0,2,0,0,1,2,9,0,0,0,0,0,0,0,0,0,0,0,0
-6568388,4/01/26,softball,Albertus Magnus,1.0,Annabelle Jabs,9.0,P,9656640,6.0,7,5,3,3,6,30,1,1,0,0,2,1,0,0,0,2,0,3
-6568388,4/01/26,softball,Albertus Magnus,1.0,Madison Wilson,27.0,P,11235865,1.0,2,1,1,0,0,5,0,0,0,1,0,0,0,0,0,0,0,0
 6568566,4/04/26,softball,Claremont-M-S,,Ella Yerkes,17.0,P,9662860,5.0,4,3,3,3,0,22,0,0,0,1,0,0,0,0,0,0,0,0
 6568566,4/04/26,softball,Claremont-M-S,,Hannah Adams,0.0,P,9661881,1.2,2,3,2,1,0,10,1,0,0,0,0,1,0,0,0,0,0,0
 6568566,4/04/26,softball,Cal Lutheran,1.0,Joie Steinkamp,0.0,P,11240314,1.0,3,1,1,2,0,7,0,0,0,0,0,0,0,0,0,1,0,0
@@ -732,10 +690,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6569752,3/29/26,softball,Pitt.-Greensburg,1.0,Autumn Powell,29.0,P,9663274,1.0,1,0,0,0,0,4,1,0,0,0,0,0,0,0,0,0,0,0
 6569744,4/04/26,softball,Worcester St.,,Peyton Maloney,24.0,P,9667847,7.0,4,1,0,0,7,26,0,0,0,0,0,0,0,0,0,1,0,1
 6569744,4/04/26,softball,Salem St.,1.0,Charlie Benesh,4.0,P,11248463,7.0,8,2,2,3,4,32,2,0,0,0,0,0,0,0,0,0,1,2
-6569815,4/07/26,softball,Alfred,,Kendall Steward,24.0,P,9654218,7.0,9,5,5,3,7,32,3,0,0,0,1,0,0,0,0,0,1,0
-6569815,4/07/26,softball,St. John Fisher,1.0,CC Holmes,22.0,P,9660273,7.0,10,8,6,3,4,37,1,1,0,0,2,0,0,0,0,0,0,1
-6569762,4/07/26,softball,Alfred,,Ava Galvan,9.0,P,11245421,6.0,13,11,4,4,1,36,1,0,0,1,1,0,0,0,0,0,0,0
-6569762,4/07/26,softball,St. John Fisher,1.0,Molly Kuhn,18.0,P,9665580,7.0,8,5,4,0,2,29,2,0,0,1,0,0,0,0,0,0,0,1
 6569783,4/08/26,softball,Baruch,,Leilani Jimenez,1.0,P/RF,9663606,5.1,6,6,5,7,4,28,1,0,0,0,1,0,0,0,0,0,1,3
 6569783,4/08/26,softball,Baruch,,Ava Lavery,3.0,2B/P,9670111,1.0,1,1,1,1,1,6,0,0,0,0,1,1,0,0,0,0,0,1
 6569783,4/08/26,softball,Rutgers-Newark,1.0,Michaela Hobson,13.0,P,11231364,6.0,3,6,6,7,10,30,0,0,0,0,2,1,0,0,0,0,0,3
@@ -991,9 +945,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6573531,4/14/26,softball,Immaculata,1.0,Jessica Vido,11.0,P,11329658,0.1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
 6573540,4/14/26,softball,LaGrange,,Jenna Yeary,8.0,P,9658941,6.0,11,7,7,1,1,30,1,0,0,0,1,0,0,0,0,0,0,0
 6573540,4/14/26,softball,Huntingdon,1.0,Addison Gaines,19.0,P,9662557,7.0,4,1,1,0,3,25,2,0,0,0,0,1,0,0,0,0,0,1
-6573506,4/13/26,softball,Ramapo,,Gabby Morgan,16.0,P,11247070,4.0,4,2,0,3,0,19,0,0,0,0,1,0,0,0,0,2,0,0
-6573506,4/13/26,softball,Ramapo,,Brooke Knight,23.0,P,9655332,2.0,5,3,3,2,2,13,1,0,0,0,0,1,0,2,0,0,0,1
-6573506,4/13/26,softball,Wm. Paterson,1.0,Aubrey Miller,18.0,P,11254010,7.0,9,4,2,4,4,35,3,0,0,0,1,1,0,0,0,1,0,0
 6573883,4/16/26,softball,Yeshiva,,Tali Finkelste,12.0,P,9664980,4.0,15,12,12,2,0,27,2,0,0,0,0,1,0,0,0,0,0,0
 6573883,4/16/26,softball,St. Joseph's (L.I.),1.0,Caitlyn Herzing,12.0,P,9670862,3.0,4,0,0,6,6,17,0,0,0,0,0,0,0,0,0,0,0,2
 6573883,4/16/26,softball,St. Joseph's (L.I.),1.0,Emma Rondinell,11.0,P,9664170,2.0,1,0,0,2,3,8,0,0,0,0,0,0,0,0,0,0,0,0
@@ -2133,11 +2084,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6576513,4/24/26,softball,Fredonia,,Phoenix Thomas,16.0,P,11241276,0.1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
 6576513,4/24/26,softball,SUNY Morrisville,1.0,Gracie Battles,7.0,P,11243326,7.0,7,4,2,5,6,33,1,0,0,0,1,1,0,0,0,1,0,1
 6576513,4/24/26,softball,SUNY Morrisville,1.0,Kendall Darling,17.0,P,9659757,1.0,2,2,0,0,1,6,0,0,0,0,0,0,0,0,0,0,1,0
-6576425,4/24/26,softball,Stockton,,Casey Sokol,15.0,P,9662704,5.0,0,0,0,1,6,16,0,0,0,0,0,0,0,0,0,0,0,1
-6576425,4/24/26,softball,Rutgers-Newark,1.0,Keelin O'Brien,8.0,P/LF,9659684,0.0,0,1,1,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0
-6576425,4/24/26,softball,Rutgers-Newark,1.0,Soncia Hughes,3.0,3B/P,9657574,3.0,5,3,3,0,1,15,2,0,0,0,4,1,0,0,0,0,0,0
-6576425,4/24/26,softball,Rutgers-Newark,1.0,Mia Aquino,27.0,P,9668854,1.0,3,2,2,0,0,6,1,0,0,0,1,0,0,0,0,0,0,0
-6576425,4/24/26,softball,Rutgers-Newark,1.0,Michaela Hobson,13.0,P,11231364,1.0,3,5,5,5,1,11,0,0,0,0,2,0,0,0,0,0,0,0
 6576414,4/24/26,softball,Grove City,,Alexis Jackson,4.0,P/1B,9665977,4.1,8,6,5,5,0,26,0,0,0,1,2,0,0,0,0,1,0,0
 6576414,4/24/26,softball,Grove City,,Abigail Meadors,25.0,P,9659338,2.0,3,1,1,0,1,9,0,0,0,0,1,0,0,0,0,1,0,0
 6576414,4/24/26,softball,Saint Vincent,1.0,Natalie Bizup,27.0,P,11250472,0.2,6,5,5,0,0,9,2,0,0,0,0,1,0,0,0,1,0,0
@@ -2146,15 +2092,8 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6576375,4/24/26,softball,SUNY Delhi,1.0,Alethea Ferrara,21.0,P,9665639,3.1,4,6,4,1,1,20,0,1,0,0,1,3,0,0,0,0,0,1
 6576375,4/24/26,softball,SUNY Delhi,1.0,Mikayla Wright,8.0,P,11247709,2.1,4,3,2,3,1,15,2,0,0,0,1,0,0,0,0,0,0,1
 6576375,4/24/26,softball,SUNY Delhi,1.0,Lauren Laferriere,1.0,P,11247699,0.1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
-6576357,4/24/26,softball,Stockton,,Elizabeth Martin,1.0,P/DP,9670523,1.0,3,2,2,0,0,7,0,0,0,0,0,0,0,0,0,0,0,0
-6576357,4/24/26,softball,Stockton,,Lexi Liquori,24.0,P,9667097,3.0,2,0,0,0,4,11,1,0,0,0,0,0,0,0,0,0,0,2
-6576357,4/24/26,softball,Stockton,,Emily McGinn,5.0,P,9668787,1.0,1,2,2,3,1,8,1,0,0,0,1,1,0,0,0,0,0,0
-6576357,4/24/26,softball,Rutgers-Newark,1.0,Michaela Hobson,13.0,P,11231364,2.0,8,9,9,3,0,17,1,1,0,0,1,0,0,0,0,1,0,0
-6576357,4/24/26,softball,Rutgers-Newark,1.0,Mia Aquino,27.0,P,9668854,3.0,13,11,11,2,3,26,4,0,0,1,0,2,0,0,0,0,1,2
 6576326,4/24/26,softball,Penn St.-Berks,,Mallory Johnson,3.0,P,11249963,6.0,6,4,3,0,0,25,3,0,0,1,1,0,0,0,0,0,0,0
 6576326,4/24/26,softball,Lancaster Bible,1.0,Maddison Atkins,11.0,P,9654925,7.0,4,1,0,1,7,29,1,0,0,0,0,1,0,0,0,0,0,4
-6576308,4/24/26,softball,Southern Va.,,Malia Stauffer,6.0,P,9665847,7.0,3,1,1,2,4,27,1,0,0,1,0,0,0,0,0,0,0,1
-6576308,4/24/26,softball,Mary Baldwin,1.0,Jenna Shull,30.0,P,9665945,7.0,9,4,4,3,6,32,1,0,0,2,0,0,0,0,0,0,0,0
 6576254,4/24/26,softball,St. Joseph's (Brkln),,Alyssa Garcia,23.0,P,11239786,4.2,4,0,0,0,7,18,0,0,0,0,0,0,0,0,0,0,0,1
 6576254,4/24/26,softball,St. Joseph's (Brkln),,Audrey Scott,3.0,C/3B,9656018,0.0,0,4,4,3,0,4,0,0,0,0,1,1,0,0,0,0,0,0
 6576254,4/24/26,softball,St. Joseph's (Brkln),,Makena Lopez,10.0,SS/1B,11239785,0.1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
@@ -2162,21 +2101,9 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6539454,4/24/26,softball,Lehman,,Damaris Adames,2.0,P,9664211,3.0,7,8,7,4,4,20,0,3,0,0,0,0,0,0,0,1,1,1
 6539454,4/24/26,softball,Lehman,,K. Garcia,42.0,P,11330123,1.0,3,5,5,5,0,11,0,0,0,0,1,0,0,0,0,0,1,0
 6539454,4/24/26,softball,Baruch,1.0,Leilani Jimenez,1.0,P,9663606,5.0,0,1,1,4,8,21,0,0,0,0,1,3,0,0,0,0,0,3
-6576872,4/24/26,softball,St. Joseph's (L.I.),,K. Lysogorsk,41.0,P,9668752,6.0,8,4,4,1,3,27,2,0,0,0,0,0,0,0,0,0,0,0
-6576872,4/24/26,softball,St. Joseph's (L.I.),,Emma Rondinell,11.0,P,9664170,0.1,3,1,1,0,1,4,0,0,0,0,1,0,0,0,0,0,0,1
-6576872,4/24/26,softball,UMSV,1.0,Savannah Autobee,6.0,P,9657602,7.0,9,4,3,1,1,34,1,0,0,1,1,1,0,0,0,1,0,0
-6576359,4/24/26,softball,UMass Dartmouth,,Brielle Kenney,7.0,P,11243425,6.0,8,4,3,1,7,27,3,0,0,1,0,0,0,0,0,1,0,1
-6576359,4/24/26,softball,WestConn,1.0,Olivia Bordenaro,2.0,P,9655225,4.0,11,9,6,0,2,22,2,1,0,0,0,1,0,0,0,0,0,0
-6576359,4/24/26,softball,WestConn,1.0,Hailey O'Reilly,18.0,P,9664586,1.0,4,4,3,0,1,8,2,0,0,1,0,0,0,0,0,0,1,0
-6576359,4/24/26,softball,WestConn,1.0,Brianne McKay,11.0,P,9656377,1.0,5,4,0,0,0,8,1,0,0,1,0,0,0,0,0,0,0,0
 6576332,4/24/26,softball,Bethany (WV),,Trinity Edge,6.0,P,11243193,7.0,4,1,0,0,8,26,0,0,0,0,0,0,0,0,0,0,0,5
 6576332,4/24/26,softball,Wash. & Jeff.,1.0,Braelyn Altman,25.0,P,11212742,2.2,8,4,4,0,2,16,0,0,0,1,0,0,0,0,0,0,0,1
 6576332,4/24/26,softball,Wash. & Jeff.,1.0,Haylee Young,1.0,P,11212735,4.1,8,1,1,0,2,21,0,0,0,0,0,0,0,0,0,0,0,0
-6576873,4/24/26,softball,St. Joseph's (L.I.),,Caitlyn Herzing,12.0,P,9670862,7.0,9,4,4,3,5,34,2,0,0,0,0,1,0,0,0,0,1,3
-6576873,4/24/26,softball,UMSV,1.0,Savannah Autobee,6.0,P,9657602,2.2,8,7,5,2,2,20,3,0,0,0,0,0,0,0,0,1,0,2
-6576873,4/24/26,softball,UMSV,1.0,Lilly Walsh,3.0,P,11250654,4.1,9,6,6,3,3,25,3,0,0,0,2,0,0,0,0,0,1,2
-6576428,4/24/26,softball,UMass Dartmouth,,Edy Crawford,21.0,P,9660437,7.0,6,5,1,3,2,30,2,0,0,0,0,1,0,0,0,0,0,0
-6576428,4/24/26,softball,WestConn,1.0,Lindsay Farinaccio,13.0,P,9668079,7.0,13,8,8,2,1,35,2,2,0,0,1,0,0,0,0,1,1,0
 6576410,4/24/26,softball,Neb. Wesleyan,,Eva Fahrnbruch,3.0,P/3B,9664909,1.1,7,5,5,0,1,11,3,0,0,1,0,0,0,0,0,0,0,0
 6576410,4/24/26,softball,Neb. Wesleyan,,Jaedyn Ratzlaff,7.0,P,9660996,2.2,7,5,3,1,0,16,1,0,0,0,2,0,0,0,0,0,0,0
 6576410,4/24/26,softball,Coe,1.0,Morgan Hewitt,9.0,P,11246763,4.0,2,1,1,0,2,14,0,0,0,1,0,0,0,0,0,1,0,0
@@ -2255,11 +2182,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6576993,4/26/26,softball,Plymouth St.,,Allie Cecere,8.0,P,11254887,0.2,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0
 6576993,4/26/26,softball,UMass Boston,1.0,Lauryn Meade,13.0,P,11377317,4.2,10,4,4,0,4,24,1,0,0,0,0,1,0,0,0,0,0,0
 6576993,4/26/26,softball,UMass Boston,1.0,Lexus McIntosh,33.0,P,11332540,2.1,3,0,0,0,3,11,0,0,0,0,0,1,0,0,0,0,0,2
-6576958,4/26/26,softball,Penn St.-Altoona,,Riley Best,5.0,P/CF,11246805,3.0,4,4,3,0,2,15,2,0,0,0,0,1,0,0,0,1,0,2
-6576958,4/26/26,softball,Penn St.-Altoona,,Madison Kennedy,18.0,DP/P,9654648,3.0,5,5,5,5,0,18,1,0,0,0,1,0,0,0,0,0,0,0
-6576958,4/26/26,softball,Penn St.-Behrend,1.0,Alyssa Tingley,14.0,P,11330547,4.0,7,4,4,1,0,20,2,0,0,0,0,0,0,0,0,0,0,0
-6576958,4/26/26,softball,Penn St.-Behrend,1.0,Julia Jones,22.0,DP,9660853,1.1,4,3,3,1,0,9,0,0,0,0,1,0,0,0,0,2,0,0
-6576958,4/26/26,softball,Penn St.-Behrend,1.0,Ashley Bartus,6.0,P,11330544,1.2,0,0,0,0,0,7,0,0,0,0,0,1,0,0,0,0,0,0
 6577032,4/26/26,softball,Sarah Lawrence,,Kyra Johnsen,7.0,P,9664382,4.0,9,11,10,8,0,27,3,0,0,0,1,1,0,0,0,0,0,0
 6577032,4/26/26,softball,St. Joseph's (L.I.),1.0,K. Lysogorsk,41.0,P,9668752,5.0,1,1,0,2,4,20,0,0,0,0,0,1,0,0,0,0,0,1
 6539147,4/15/26,softball,VTSU Lyndon,,Riley McNamara,10.0,P,9654510,4.0,12,15,14,3,0,34,3,0,0,0,2,3,0,0,0,0,0,0
@@ -2426,9 +2348,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6522968,4/21/26,softball,Cedar Crest,,Erin Gray,21.0,P,9654235,7.0,8,2,2,1,7,29,2,0,0,0,0,0,0,0,0,0,0,1
 6522968,4/21/26,softball,Cairn,1.0,Sydney Wright,5.0,P/1B,9654543,5.1,9,8,7,1,1,30,1,1,0,0,0,2,0,0,0,0,0,1
 6522968,4/21/26,softball,Cairn,1.0,Brooke Mulligan,6.0,P,11329817,1.2,1,0,0,0,1,6,0,0,0,0,0,0,0,0,0,0,0,1
-6525490,4/25/26,softball,Bethany (WV),,Trinity Edge,6.0,P,11243193,7.0,4,1,0,0,8,26,0,0,0,0,0,0,0,0,0,0,0,5
-6525490,4/25/26,softball,Wash. & Jeff.,1.0,Braelyn Altman,25.0,P,11212742,2.2,8,4,4,0,2,16,0,0,0,1,0,0,0,0,0,0,0,1
-6525490,4/25/26,softball,Wash. & Jeff.,1.0,Haylee Young,1.0,P,11212735,4.1,8,1,1,0,2,21,0,0,0,0,0,0,0,0,0,0,0,0
 6577386,4/27/26,softball,Brooklyn,,Jessica Bowe,13.0,P,11330794,4.0,9,9,7,3,1,25,0,0,0,1,0,0,0,0,0,1,0,0
 6577386,4/27/26,softball,Brooklyn,,Kureshma Dhanraj,10.0,P,11330792,0.2,1,1,1,1,0,4,0,0,0,0,1,0,0,0,0,0,0,0
 6577386,4/27/26,softball,Hunter,1.0,Abigail Bidinger,13.0,P,11210578,5.0,4,2,1,0,6,19,0,0,0,0,0,0,0,0,0,0,0,2
@@ -2447,11 +2366,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6577633,4/28/26,softball,Dominican (IL),,Rhiannon Rubio,21.0,P,9666326,1.2,4,5,5,1,1,10,0,1,0,1,0,0,0,0,0,0,0,0
 6577633,4/28/26,softball,Dominican (IL),,Liberty Rivard,8.0,P,9669854,4.1,6,1,1,3,1,20,0,0,0,1,0,0,0,0,0,0,0,0
 6577633,4/28/26,softball,Lake Forest,1.0,Vanessa Buske,4.0,P,9664264,7.0,5,1,1,1,4,27,0,1,0,0,0,0,0,0,0,0,0,1
-6577480,4/26/26,softball,Penn St.-Altoona,,Riley Best,5.0,P/CF,11246805,3.0,4,4,3,0,2,15,2,0,0,0,0,1,0,0,0,1,0,2
-6577480,4/26/26,softball,Penn St.-Altoona,,Madison Kennedy,18.0,DP/P,9654648,3.0,5,5,5,5,0,18,1,0,0,0,1,0,0,0,0,0,0,0
-6577480,4/26/26,softball,Penn St.-Behrend,1.0,Alyssa Tingley,14.0,P,11330547,4.0,6,4,0,1,0,20,2,0,0,0,0,0,0,0,0,0,0,0
-6577480,4/26/26,softball,Penn St.-Behrend,1.0,Julia Jones,22.0,DP,9660853,1.1,4,3,3,1,0,9,0,0,0,0,1,0,0,0,0,2,0,0
-6577480,4/26/26,softball,Penn St.-Behrend,1.0,Ashley Bartus,6.0,P,11330544,1.2,0,0,0,0,0,7,0,0,0,0,0,1,0,0,0,0,0,0
 6577477,4/25/26,softball,Randolph-Macon,,Sierra Kegley,12.0,P,11230264,6.2,4,0,0,4,5,28,0,0,0,0,0,1,0,0,0,2,0,2
 6577477,4/25/26,softball,Randolph,1.0,Rylee Humble,20.0,P,9655618,7.0,10,3,1,2,1,34,1,0,0,0,1,0,0,0,0,0,1,0
 6577929,4/30/26,softball,Alfred,,Taylor Carlson,23.0,P/DP,11245424,0.0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -2463,11 +2377,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6577927,4/30/26,softball,Ill. Wesleyan,,Ella Hermes,20.0,P,9668614,1.2,3,2,2,0,0,9,1,0,0,0,0,0,0,0,0,0,0,0
 6577927,4/30/26,softball,Ill. Wesleyan,,Mallory Holland,15.0,P,9655848,0.2,2,2,1,1,1,6,0,0,0,0,3,0,0,0,0,0,0,0
 6577927,4/30/26,softball,DePauw,1.0,Alex Romero-Salas,1.0,P,9657343,7.0,11,10,10,1,2,35,1,0,0,2,1,0,0,0,0,3,1,1
-6577877,4/24/26,softball,Southern Va.,,Marni Bianchi,18.0,P,11250958,3.0,6,4,2,2,1,17,2,0,0,0,1,0,0,0,0,0,0,0
-6577877,4/24/26,softball,Southern Va.,,Annabelle Cossa,3.0,P,11250947,1.1,5,4,3,0,0,9,2,0,0,0,0,0,0,0,0,0,0,0
-6577877,4/24/26,softball,Southern Va.,,Addalyn Burch,23.0,P,11251393,1.2,2,0,0,1,0,8,1,0,0,0,0,1,0,0,0,0,1,0
-6577877,4/24/26,softball,Mary Baldwin,1.0,Bailey Jahna,25.0,P,9669778,4.0,5,4,3,1,0,19,0,1,0,0,0,0,0,0,0,0,0,0
-6577877,4/24/26,softball,Mary Baldwin,1.0,Ashlyn Smiley,33.0,P,11209044,3.0,0,1,1,1,1,10,0,0,0,0,0,0,0,0,0,0,2,1
 6578063,5/01/26,softball,MIT,,Sarah Blackett,3.0,P,9663193,4.2,6,3,0,0,2,21,0,0,0,0,0,0,0,0,0,0,0,1
 6578063,5/01/26,softball,MIT,,Sharona Huang,11.0,P,9667758,2.1,1,0,0,1,1,10,0,0,0,0,0,0,0,0,0,0,0,1
 6578063,5/01/26,softball,Smith,1.0,Bailey Gray,23.0,P,9656108,7.0,8,5,1,1,2,33,2,0,0,0,0,0,0,0,0,0,0,0
