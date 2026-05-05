@@ -25,6 +25,7 @@ import pandas as pd
 _APP_DIR = Path(__file__).resolve().parent.parent
 LOGO_DIR = _APP_DIR / 'team_logos_512'
 BACKGROUND = _APP_DIR / 'assets' / 'branding' / 'weekly_awards_background.png'
+EMBLEM_64 = _APP_DIR / 'assets' / 'branding' / '64_emblem.png'
 FONTS_DIR = _APP_DIR / 'assets' / 'fonts'
 
 
@@ -360,17 +361,25 @@ def build_weekly_awards_svg(rows: list[dict], top_stats: list[dict], *,
             f'fill="rgba(255,255,255,0.55)">DROP HERO IMAGE HERE</text>'
         )
 
-    # ── 2b. 64A red circle drawn ON TOP of the hero so the emblem is
-    # always visible (masking it out of the hero alone left it hidden
-    # because the panel border in the backdrop sits behind the image).
-    parts.append(
-        f'<circle cx="{EMBLEM_CX}" cy="{EMBLEM_CY}" r="{EMBLEM_R - 12}" '
-        f'fill="#d72638"/>'
-        f'<text x="{EMBLEM_CX}" y="{EMBLEM_CY + 14}" text-anchor="middle" '
-        f'font-family="Barlow Condensed,sans-serif" font-style="italic" '
-        f'font-weight="900" font-size="48" letter-spacing="-1" '
-        f'fill="#0a0a0c">64</text>'
-    )
+    # ── 2b. 64A emblem PNG drawn ON TOP of the hero. Uses the official
+    # brand logo (assets/branding/64_emblem.png) instead of recreating it
+    # in SVG, so the proportions and angled "64" mark match the brand.
+    emblem_size = (EMBLEM_R - 12) * 2  # diameter
+    emblem_b64 = _b64(EMBLEM_64)
+    if emblem_b64:
+        parts.append(
+            f'<image href="{emblem_b64}" xlink:href="{emblem_b64}" '
+            f'x="{EMBLEM_CX - emblem_size/2:.0f}" '
+            f'y="{EMBLEM_CY - emblem_size/2:.0f}" '
+            f'width="{emblem_size:.0f}" height="{emblem_size:.0f}" '
+            f'preserveAspectRatio="xMidYMid meet"/>'
+        )
+    else:
+        # Fallback: simple circle if the asset is missing
+        parts.append(
+            f'<circle cx="{EMBLEM_CX}" cy="{EMBLEM_CY}" r="{EMBLEM_R - 12}" '
+            f'fill="#a01827"/>'
+        )
 
     # ── 3. Cover the baked 'D3 BASEBALL PITCHERS' subtitle and redraw,
     # center-aligned with TOP 10 (center_x = 253). ──
