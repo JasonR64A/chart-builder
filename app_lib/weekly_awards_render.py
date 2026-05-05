@@ -83,8 +83,7 @@ PILL_H = 44
 HERO_X = 478
 HERO_Y = 152
 HERO_W = 545
-HERO_H = 705   # trimmed from 738 — ends at y=857 instead of 890 to leave
-               # breathing room above the stats strip at y=894
+HERO_H = 720   # bottom edge at y=872, leaves ~22px gap above stats strip
 # 64A circle: center (976, 185), r ≈ 85; mask a slightly larger disk.
 EMBLEM_CX = 976
 EMBLEM_CY = 185
