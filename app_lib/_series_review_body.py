@@ -52,7 +52,7 @@ def load_pbp(sport, division, stat_type):
 def load_schedules(sport):
     # Try local scrape path first, then check for bundled copy
     for p in [
-        Path(f'C:/Users/sixty/OneDrive/Desktop/scrape_final/output/2026/{sport}/schedules_full.csv'),
+        Path(f'C:/Dev/scrape_final/output/2026/{sport}/schedules_full.csv'),
         _APP_DIR / 'data' / f'schedules_full_{sport}.csv',
     ]:
         if p.exists():
@@ -70,7 +70,7 @@ def load_conferences():
 
 @st.cache_data
 def load_rpi(sport, division):
-    path = Path(f'C:/Users/sixty/OneDrive/Desktop/scrape_final/output/2026/{sport}/rpi/{sport}_rpi_{division}.csv')
+    path = Path(f'C:/Dev/scrape_final/output/2026/{sport}/rpi/{sport}_rpi_{division}.csv')
     if not path.exists():
         # Try bundled copy
         path = _APP_DIR / 'data' / f'{sport}_rpi_{division}.csv'
