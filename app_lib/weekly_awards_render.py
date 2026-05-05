@@ -293,25 +293,39 @@ def build_weekly_awards_svg(rows: list[dict], top_stats: list[dict], *,
     # the panel; when empty, a striped placeholder (matching Share
     # Graphic's pattern) shows where the image will go. The 64A circle is
     # masked out either way so the baked red emblem stays on top. ──
-    # Hero panel is an octagon — rectangle with a small diagonal cut at
-    # the top-right (where the 64A circle sits) and a small one at the
-    # bottom-right. The mask punches both cuts out plus the 64A circle.
-    # Using a polygon with 8 vertices to match the actual baked panel.
+    # Hero panel is a true octagon: diagonal cuts at all 4 corners. The
+    # top-right cut is much larger to clear the baked 64A circle that
+    # we redraw on top. The other three corners use ~32px chamfers.
+    CHAMFER = 32
+    BIG_CUT_W = 200   # top-right cut goes far inward to clear the 64A circle
+    BIG_CUT_H = 170
     octagon_pts = (
-        f'{HERO_X},{HERO_Y} '                                    # top-left
-        f'{HERO_X + 350},{HERO_Y} '                              # top edge before circle cut
-        f'{HERO_X + 460},{HERO_Y + 70} '                         # diagonal cut around 64A
-        f'{HERO_X + HERO_W},{HERO_Y + 140} '                     # right edge after cut
-        f'{HERO_X + HERO_W},{HERO_Y + HERO_H - 16} '             # right edge before bottom cut
-        f'{HERO_X + HERO_W - 18},{HERO_Y + HERO_H} '             # bottom-right diagonal cut
-        f'{HERO_X},{HERO_Y + HERO_H}'                            # bottom-left
+        f'{HERO_X + CHAMFER},{HERO_Y} '                                  # top edge starts after TL cut
+        f'{HERO_X + HERO_W - BIG_CUT_W},{HERO_Y} '                       # top edge before 64A cut
+        f'{HERO_X + HERO_W},{HERO_Y + BIG_CUT_H} '                       # diagonal across the 64A corner
+        f'{HERO_X + HERO_W},{HERO_Y + HERO_H - CHAMFER} '                # right edge ends before BR cut
+        f'{HERO_X + HERO_W - CHAMFER},{HERO_Y + HERO_H} '                # bottom-right cut
+        f'{HERO_X + CHAMFER},{HERO_Y + HERO_H} '                         # bottom edge ends before BL cut
+        f'{HERO_X},{HERO_Y + HERO_H - CHAMFER} '                         # bottom-left cut
+        f'{HERO_X},{HERO_Y + CHAMFER}'                                   # left edge ends before TL cut
     )
+    # Radial vignette inside the octagon so the image fades softly toward
+    # the panel edges instead of having a hard rectangular boundary.
+    HERO_CX_VG = HERO_X + HERO_W / 2
+    HERO_CY_VG = HERO_Y + HERO_H / 2
+    HERO_R_VG = max(HERO_W, HERO_H) * 0.62
     parts.append(
         '<defs>'
         '<mask id="heroMask" maskUnits="userSpaceOnUse" '
         f'x="0" y="0" width="{W}" height="{H}">'
         f'<polygon points="{octagon_pts}" fill="white"/>'
         '</mask>'
+        f'<radialGradient id="heroFade" cx="{HERO_CX_VG:.0f}" cy="{HERO_CY_VG:.0f}" '
+        f'r="{HERO_R_VG:.0f}" gradientUnits="userSpaceOnUse">'
+        '<stop offset="0" stop-color="#08080a" stop-opacity="0"/>'
+        '<stop offset="0.55" stop-color="#08080a" stop-opacity="0"/>'
+        '<stop offset="1" stop-color="#08080a" stop-opacity="0.92"/>'
+        '</radialGradient>'
         '<pattern id="heroPlaceholder" patternUnits="userSpaceOnUse" '
         'width="48" height="48" patternTransform="rotate(135)">'
         '<rect width="48" height="48" fill="#18181c"/>'
@@ -324,6 +338,13 @@ def build_weekly_awards_svg(rows: list[dict], top_stats: list[dict], *,
             f'<image href="{hero_b64}" xlink:href="{hero_b64}" '
             f'x="{HERO_X}" y="{HERO_Y}" width="{HERO_W}" height="{HERO_H}" '
             f'preserveAspectRatio="xMidYMid slice" mask="url(#heroMask)"/>'
+        )
+        # Radial vignette overlay so the image fades softly toward the
+        # octagon edges instead of having a hard cut. Same mask so it
+        # follows the octagon shape.
+        parts.append(
+            f'<rect x="{HERO_X}" y="{HERO_Y}" width="{HERO_W}" height="{HERO_H}" '
+            f'fill="url(#heroFade)" mask="url(#heroMask)"/>'
         )
     else:
         # Striped placeholder fills the entire panel area, masked so the
