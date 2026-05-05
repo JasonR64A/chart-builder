@@ -1834,8 +1834,44 @@ if view == 'Weekly Awards':
         help='Qualifying threshold — BF for pitching, PA for hitting.')
 
     today = pd.Timestamp.now()
-    wk_default = f'WEEK {today.isocalendar().week} | {(today - pd.Timedelta(days=6)).strftime("%b %d").upper()} – {today.strftime("%b %d").upper()}'
-    wa_week = st.sidebar.text_input('Week tag', value=wk_default, key='wa_week')
+    # ── Week / date-range selection ──
+    # Pulls dates from the PBP data so the slider only spans real games.
+    _pbp_for_dates = load_pbp(sport, division, wa_stat_type)
+    if _pbp_for_dates is not None and not _pbp_for_dates.empty and 'date_parsed' in _pbp_for_dates.columns:
+        _min_d = _pbp_for_dates['date_parsed'].min()
+        _max_d = _pbp_for_dates['date_parsed'].max()
+        if pd.notna(_min_d) and pd.notna(_max_d):
+            _today = pd.Timestamp.now().normalize()
+            _max_avail = min(pd.Timestamp(_max_d).normalize(), _today)
+            _default_start = _max_avail - pd.Timedelta(days=6)
+            if _default_start < pd.Timestamp(_min_d).normalize():
+                _default_start = pd.Timestamp(_min_d).normalize()
+            wa_date_range = st.sidebar.date_input(
+                'Week range (Mon–Sun typical)',
+                value=(_default_start.date(), _max_avail.date()),
+                min_value=pd.Timestamp(_min_d).date(),
+                max_value=pd.Timestamp(_max_d).date(),
+                key='wa_date_range',
+                help='Filters the leaderboard to games in this window only. '
+                     'Defaults to the last 7 days of available data.',
+            )
+        else:
+            wa_date_range = None
+    else:
+        wa_date_range = None
+
+    if wa_date_range and len(wa_date_range) == 2:
+        wa_start, wa_end = wa_date_range
+        wk_default = (f'WEEK {pd.Timestamp(wa_end).isocalendar().week} | '
+                       f'{pd.Timestamp(wa_start).strftime("%b %d").upper()} – '
+                       f'{pd.Timestamp(wa_end).strftime("%b %d").upper()}')
+    else:
+        wa_start = wa_end = None
+        wk_default = (f'WEEK {today.isocalendar().week} | '
+                       f'{(today - pd.Timedelta(days=6)).strftime("%b %d").upper()} – '
+                       f'{today.strftime("%b %d").upper()}')
+    wa_week = st.sidebar.text_input('Week tag (auto-fills from range, editable)',
+                                      value=wk_default, key='wa_week')
 
     sport_label = sport.upper()
     div_label = division.upper()
@@ -1867,6 +1903,19 @@ if view == 'Weekly Awards':
     if pbp_data is None or pbp_data.empty:
         st.error(f'No {wa_stat_type} PBP data found for {sport} {division}')
         st.stop()
+
+    # Restrict to the selected week's date range so the leaderboard
+    # reflects only that week's games, not season-to-date.
+    if wa_start is not None and wa_end is not None and 'date_parsed' in pbp_data.columns:
+        _ws = pd.Timestamp(wa_start)
+        _we = pd.Timestamp(wa_end) + pd.Timedelta(days=1)  # end-inclusive
+        pbp_data = pbp_data[
+            (pbp_data['date_parsed'] >= _ws) & (pbp_data['date_parsed'] < _we)
+        ].copy()
+        if pbp_data.empty:
+            st.warning(f'No {wa_stat_type} games in the selected week range.')
+            st.stop()
+        st.sidebar.caption(f'{len(pbp_data):,} game lines in this week')
 
     rank_col = 'playerId' if 'playerId' in pbp_data.columns else 'playerName'
     if wa_stat_type == 'hitting':
