@@ -317,15 +317,28 @@ def build_weekly_awards_svg(rows: list[dict], top_stats: list[dict], *,
     HERO_R_VG = max(HERO_W, HERO_H) * 0.62
     parts.append(
         '<defs>'
+        # Feather filter — Gaussian blurs the mask polygon so the octagon
+        # edges aren't a hard pixel cut. Result: image dissolves softly
+        # along the panel boundary instead of having visible crisp edges.
+        '<filter id="featherEdge" x="-5%" y="-5%" width="110%" height="110%">'
+        '<feGaussianBlur stdDeviation="6"/>'
+        '</filter>'
         '<mask id="heroMask" maskUnits="userSpaceOnUse" '
         f'x="0" y="0" width="{W}" height="{H}">'
-        f'<polygon points="{octagon_pts}" fill="white"/>'
+        f'<polygon points="{octagon_pts}" fill="white" filter="url(#featherEdge)"/>'
         '</mask>'
+        # Multi-stop vignette: image full at center, gradually darkening
+        # through 3 intermediate stops, fully blended into the backdrop
+        # color at the corners. The earlier the first non-zero stop, the
+        # more dramatic the fade — 0.30 means the fade starts only 30%
+        # out from the center.
         f'<radialGradient id="heroFade" cx="{HERO_CX_VG:.0f}" cy="{HERO_CY_VG:.0f}" '
         f'r="{HERO_R_VG:.0f}" gradientUnits="userSpaceOnUse">'
         '<stop offset="0" stop-color="#08080a" stop-opacity="0"/>'
-        '<stop offset="0.55" stop-color="#08080a" stop-opacity="0"/>'
-        '<stop offset="1" stop-color="#08080a" stop-opacity="0.92"/>'
+        '<stop offset="0.30" stop-color="#08080a" stop-opacity="0"/>'
+        '<stop offset="0.65" stop-color="#08080a" stop-opacity="0.35"/>'
+        '<stop offset="0.85" stop-color="#08080a" stop-opacity="0.75"/>'
+        '<stop offset="1" stop-color="#08080a" stop-opacity="1"/>'
         '</radialGradient>'
         '<pattern id="heroPlaceholder" patternUnits="userSpaceOnUse" '
         'width="48" height="48" patternTransform="rotate(135)">'
