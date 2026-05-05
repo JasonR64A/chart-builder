@@ -671,25 +671,14 @@ def _quad_bucket(opp_rank: int, venue: str, sport_key: str = 'baseball') -> str:
     """NCAA quadrant thresholds — different per sport.
     Baseball: Q1 H1-25 N1-40 A1-60; Q2 H26-50 N41-80 A61-120;
               Q3 H51-100 N81-160 A121-240; Q4 H101+ N161+ A241+.
-    Softball: Q1 H1-30 N1-50 A1-75; Q2 H31-75 N51-100 A76-135;
-              Q3 H76-160 N101-200 A136-240; Q4 H161+ N201+ A241+.
+    Softball: location-independent — Q1 1-25, Q2 26-50, Q3 51-100, Q4 101+.
     """
     if sport_key.lower() == 'softball':
-        if venue == 'home':
-            if opp_rank <= 30:  return 'q1'
-            if opp_rank <= 75:  return 'q2'
-            if opp_rank <= 160: return 'q3'
-            return 'q4'
-        elif venue == 'neutral':
-            if opp_rank <= 50:  return 'q1'
-            if opp_rank <= 100: return 'q2'
-            if opp_rank <= 200: return 'q3'
-            return 'q4'
-        else:  # away
-            if opp_rank <= 75:  return 'q1'
-            if opp_rank <= 135: return 'q2'
-            if opp_rank <= 240: return 'q3'
-            return 'q4'
+        # Venue ignored — softball uses pure RPI rank thresholds.
+        if opp_rank <= 25:  return 'q1'
+        if opp_rank <= 50:  return 'q2'
+        if opp_rank <= 100: return 'q3'
+        return 'q4'
     # baseball (default)
     if venue == 'home':
         if opp_rank <= 25:  return 'q1'
