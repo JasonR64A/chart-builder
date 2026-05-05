@@ -1803,8 +1803,12 @@ if view == 'Weekly Awards':
     wa_stat_type = st.sidebar.selectbox('Stat type', ['pitching', 'hitting'],
                                           key='wa_stat_type')
 
-    # Stat catalog — same shape as the Share-Graphic catalog
+    # Stat catalog — same shape as the Share-Graphic catalog. The 'Rank'
+    # entry is the composite score from compute_grouped_hitting /
+    # compute_grouped_pitching (percentile-rank blend used throughout the
+    # PBP Analytics page) — listed first so it's the default sort.
     HIT_CAT = [
+        ('Rank','RANK',3,False),
         ('BA','AVG',3,False),('OBP','OBP',3,False),('SLG','SLG',3,False),
         ('OPS','OPS',3,False),('ISO','ISO',3,False),('wOBA','wOBA',3,False),
         ('wRC+','wRC+',0,False),('wRAA','wRAA',1,False),
@@ -1813,6 +1817,7 @@ if view == 'Weekly Awards':
         ('K%','K%',1,True),('BB%','BB%',1,False),
     ]
     PIT_CAT = [
+        ('Rank','RANK',3,False),
         ('ERA','ERA',2,True),('FIP','FIP',2,True),('WHIP','WHIP',2,True),
         ('K/9','K/9',2,False),('BB/9','BB/9',2,True),('K-BB%','K-BB%',1,False),
         ('K%','K%',1,False),('BB%','BB%',1,True),('BAA','BAA',3,True),
