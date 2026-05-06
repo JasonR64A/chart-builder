@@ -441,6 +441,11 @@ with st.expander('Identity', expanded=True):
 
     photo_upload = st.file_uploader('Player photo (optional — leave blank to use sample)',
                                      type=['jpg', 'jpeg', 'png', 'webp'])
+    if photo_upload is not None:
+        # Inline preview so we can verify the upload actually reached Python
+        # (this is what gets data-URL'd into the card). If it shows here but
+        # the card stays black, the issue is in template rendering, not upload.
+        st.image(photo_upload, caption=f'Uploaded · {photo_upload.size:,} bytes · {photo_upload.type}', width=180)
 
 if is_pitcher_player:
     section_title = 'Season line — pitcher'
@@ -688,10 +693,45 @@ def build_career_rows_html(rows_df: pd.DataFrame) -> str:
     return '\n'.join(html)
 
 
-# Photo
+# Photo. The browser sometimes hands Streamlit an empty `type` (or even
+# 'application/octet-stream') for re-encoded PNGs / screenshots; that would
+# produce a malformed `data:;base64,...` URL and the photo-frame would render
+# as just its #222 background ("black box"). Fall back to filename extension
+# and finally to image/png since 99% of uploads are images.
 if photo_upload is not None:
-    photo_src = 'data:' + (photo_upload.type or 'image/jpeg') + ';base64,' \
-                + base64.b64encode(photo_upload.getvalue()).decode()
+    photo_bytes = photo_upload.getvalue()
+    mime = (photo_upload.type or '').strip()
+    if not mime or not mime.startswith('image/'):
+        ext = (Path(photo_upload.name or '').suffix.lower().lstrip('.')) if photo_upload.name else ''
+        mime = {'jpg': 'image/jpeg', 'jpeg': 'image/jpeg',
+                'png': 'image/png',  'webp': 'image/webp'}.get(ext, 'image/png')
+    # Resize big uploads — phone-shot PNGs are commonly 4K+ and produce 8MB+
+    # data URLs that can render as a blank iframe in components.html. The
+    # photo-frame is only 430px wide on the card, so 1200px on the long side
+    # is plenty.
+    if photo_bytes and len(photo_bytes) > 600_000:
+        try:
+            from PIL import Image
+            import io
+            im = Image.open(io.BytesIO(photo_bytes))
+            im.thumbnail((1200, 1500), Image.LANCZOS)
+            buf = io.BytesIO()
+            if mime == 'image/png':
+                im.save(buf, format='PNG', optimize=True)
+            elif mime == 'image/webp':
+                im.save(buf, format='WEBP', quality=88)
+            else:
+                im.convert('RGB').save(buf, format='JPEG', quality=88, optimize=True)
+                mime = 'image/jpeg'
+            photo_bytes = buf.getvalue()
+        except Exception as e:
+            st.warning(f'Could not resize image ({e}); using original.')
+    if photo_bytes:
+        photo_src = f'data:{mime};base64,' + base64.b64encode(photo_bytes).decode()
+        st.caption(f'Photo data URL: {len(photo_bytes):,} bytes ({mime})')
+    else:
+        st.warning('Photo upload returned 0 bytes — falling back to sample.')
+        photo_src = data_url(ASSETS_DIR / 'sample-photo.jpg') if (ASSETS_DIR / 'sample-photo.jpg').exists() else ''
 else:
     photo_src = data_url(ASSETS_DIR / 'sample-photo.jpg') if (ASSETS_DIR / 'sample-photo.jpg').exists() else ''
 
