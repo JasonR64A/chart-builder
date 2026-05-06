@@ -748,21 +748,25 @@ def _verdict_for_score(score: int) -> tuple[str, str]:
 
 
 def _verdict_for_consensus(avg_rank: int) -> tuple[str, str]:
-    """Verdict driven by computer-consensus average rank (RPI/DSR/Massey/ELO/64A).
-    User-defined bands 2026-05-04: 1-16 Lock, 17-34 In, 35-50 Bubble, 51+ Out.
-    Seed projection inside Lock/In is bucketed by 4s so 1 vs 2 vs 3 vs 4 seed
-    still tracks regional hosting odds.
+    """Verdict + seed projection driven by computer-consensus average rank
+    (RPI/DSR/Massey/ELO/64A). Bands the user owns:
+      Verdict — 1-16 Lock, 17-34 In, 35-50 Bubble, 51+ Out
+      Seed   — 1-12 "1 seed", 13-25 "2 seed", 26-35 "2-3 seed",
+               36-50 "3 seed", 51+ "Out"
+    Verdict and seed-projection bands intentionally don't line up — Verdict
+    asks "are they in?" and seed asks "if seeded, where?".
     """
     r = int(avg_rank)
-    if r <= 4:   return '1 seed', 'Lock'
-    if r <= 8:   return '2 seed', 'Lock'
-    if r <= 12:  return '3 seed', 'Lock'
-    if r <= 16:  return '4 seed', 'Lock'
-    if r <= 22:  return '5 seed', 'In'
-    if r <= 28:  return '6 seed', 'In'
-    if r <= 34:  return '7 seed', 'In'
-    if r <= 50:  return 'Bubble', 'Bubble'
-    return 'Out', 'Out'
+    if r <= 16:   verdict = 'Lock'
+    elif r <= 34: verdict = 'In'
+    elif r <= 50: verdict = 'Bubble'
+    else:         verdict = 'Out'
+    if r <= 12:   seed = '1 seed'
+    elif r <= 25: seed = '2 seed'
+    elif r <= 35: seed = '2-3 seed'
+    elif r <= 50: seed = '3 seed'
+    else:         seed = 'Out'
+    return seed, verdict
 
 
 _SCORE_ANCHORS = [(1, 100), (16, 88), (30, 80), (50, 70), (60, 64), (100, 50), (200, 15), (300, 0)]
