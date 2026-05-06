@@ -208,7 +208,12 @@ def compute_predicted_rpi(sport, _ranks_data, _schedules_data, _name_to_rank):
     schedules = _schedules_data
     name_to_rank_local = _name_to_rank
 
-    played = schedules[schedules['result'].notna() & (schedules['result'] != '')].copy()
+    # Exclude rows whose result is anything other than W/L (Canceled,
+    # Postponed, etc.) from the played pool — they're not real games and
+    # would otherwise phantom-count as losses in proj_losses.
+    res = schedules['result'].astype(str)
+    is_wl = res.str.startswith('W') | res.str.startswith('L')
+    played = schedules[schedules['result'].notna() & (schedules['result'] != '') & is_wl].copy()
     remaining = schedules[(schedules['result'].isna()) | (schedules['result'] == '')].copy()
 
     # Step 1: Build projected WP for EVERY team in the schedule

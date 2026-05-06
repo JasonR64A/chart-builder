@@ -83,8 +83,17 @@ def compute_predicted_rpi_for_bracketology(sport: str, DATA_DIR: Path) -> pd.Dat
     team_games: dict = {}
     team_opponents: dict = {}
 
-    # Played games: actual W/L from the result column
-    played = sched[sched['result'].notna() & (sched['result'] != '')]
+    # Played games: actual W/L from the result column. Exclude rows whose
+    # result is anything other than W/L (e.g. "Canceled", "Postponed") —
+    # those are NOT games and should not enter the win-pct denominator.
+    # If included, every cancellation phantom-counts as a loss in the
+    # downstream proj_losses = team_games - team_wins formula. Caused
+    # Boston U softball to read 44-16 instead of 44-14 (2 cancellations).
+    played = sched[
+        sched['result'].notna() & (sched['result'] != '') &
+        (sched['result'].astype(str).str.startswith('W') |
+         sched['result'].astype(str).str.startswith('L'))
+    ]
     for tn, grp in played.groupby('teamName'):
         team_wins[tn] = float(grp['result'].str.startswith('W').sum())
         team_games[tn] = float(len(grp))
