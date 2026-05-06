@@ -479,7 +479,9 @@ function ResumeScore({ team }) {
   const c = 2 * Math.PI * r;
   const dash = (team.resumeScore / 100) * c;
 
-  const of = 301;
+  // Pull the actual D-I pool size from the team data (set by Python's
+  // _sos_lookup) instead of hardcoding 301.
+  const of = (team.sos && team.sos.of) || 308;
   const totals = ["q1","q2","q3","q4"].map(k => { const [w,l] = team.quadRecord[k].split("-").map(Number); return {w, l, t: w+l}; });
   const qWins = totals[0].w * 3 + totals[1].w * 2 + totals[2].w + totals[3].w * 0.5;
   const qLoss = totals[0].l * 0.5 + totals[1].l + totals[2].l * 2 + totals[3].l * 3;
@@ -879,7 +881,8 @@ function RankingsModule({ team }) {
   const ranks = systems.map(s => team.rankings[s.key]);
   const avg = Math.round(ranks.reduce((a,b)=>a+b,0) / ranks.length);
   const hi = Math.min(...ranks), lo = Math.max(...ranks);
-  const of = 301;
+  // Use the SOS pool size from the team data instead of hardcoded 301.
+  const of = (team.sos && team.sos.of) || 308;
   return (
     <Module num="03" title="Computer Consensus" eyebrow="Five systems, one opinion">
       {systems.map((s) => {
