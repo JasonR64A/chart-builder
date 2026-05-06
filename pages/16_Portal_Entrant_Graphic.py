@@ -341,7 +341,7 @@ if prec is not None and is_pitcher_player:
         cur = hist[hist['year'] == 2026]
         cur_row = cur.iloc[0] if not cur.empty else None
         if cur_row is not None:
-            defaults['season_gp'] = season_stat(cur_row, 'appearances') or season_stat(cur_row, 'games_pitched') or 0
+            defaults['season_gp'] = season_stat(cur_row, 'games_appeared') or season_stat(cur_row, 'appearances') or 0
             defaults['season_pa'] = season_stat(cur_row, 'batters_faced')
             defaults['p_era']  = fmt_rate(cur_row.get('earned_run_average'), 2)
             defaults['p_fip']  = fmt_rate(cur_row.get('fielding_independent_pitching'), 2)
@@ -372,7 +372,7 @@ if prec is not None and is_pitcher_player:
                'h': 0, 'bb': 0, 'k': 0, 'hr': 0, 'hbp': 0, 'bf': 0}
         rows = []
         for _, yr in hist.iterrows():
-            g = season_stat(yr, 'appearances') or season_stat(yr, 'games_pitched')
+            g = season_stat(yr, 'games_appeared') or season_stat(yr, 'appearances')
             gs = season_stat(yr, 'games_started')
             w = season_stat(yr, 'wins'); l = season_stat(yr, 'losses')
             ip = float(season_stat(yr, 'innings_pitched') or 0)
