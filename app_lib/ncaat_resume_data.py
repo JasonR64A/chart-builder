@@ -737,15 +737,32 @@ def _grade_for_score(score: int) -> str:
 
 
 def _verdict_for_score(score: int) -> tuple[str, str]:
-    """Anchored on the score curve: RPI ~50 -> 70 (last in),
-    RPI ~60 -> 64 (bubble floor), RPI 61+ -> out.
+    """Legacy score-based verdict. Kept for back-compat callers; new code
+    should use _verdict_for_consensus(avg_rank) below."""
+    if score >= 88: return '1 seed', 'Lock'
+    if score >= 80: return '2 seed', 'Lock'
+    if score >= 75: return '3 seed', 'In'
+    if score >= 70: return '4 seed', 'In'
+    if score >= 64: return 'Bubble', 'Bubble'
+    return 'Out', 'Out'
+
+
+def _verdict_for_consensus(avg_rank: int) -> tuple[str, str]:
+    """Verdict driven by computer-consensus average rank (RPI/DSR/Massey/ELO/64A).
+    User-defined bands 2026-05-04: 1-16 Lock, 17-34 In, 35-50 Bubble, 51+ Out.
+    Seed projection inside Lock/In is bucketed by 4s so 1 vs 2 vs 3 vs 4 seed
+    still tracks regional hosting odds.
     """
-    if score >= 88: return '1 seed', 'Lock'       # RPI 1-16
-    if score >= 80: return '2 seed', 'Lock'       # RPI 17-30
-    if score >= 75: return '3 seed', 'In'         # RPI 31-40
-    if score >= 70: return '4 seed', 'In'         # RPI 41-50
-    if score >= 64: return 'Bubble', 'Bubble'     # RPI 51-60
-    return 'Out', 'Out'                           # RPI 61+
+    r = int(avg_rank)
+    if r <= 4:   return '1 seed', 'Lock'
+    if r <= 8:   return '2 seed', 'Lock'
+    if r <= 12:  return '3 seed', 'Lock'
+    if r <= 16:  return '4 seed', 'Lock'
+    if r <= 22:  return '5 seed', 'In'
+    if r <= 28:  return '6 seed', 'In'
+    if r <= 34:  return '7 seed', 'In'
+    if r <= 50:  return 'Bubble', 'Bubble'
+    return 'Out', 'Out'
 
 
 _SCORE_ANCHORS = [(1, 100), (16, 88), (30, 80), (50, 70), (60, 64), (100, 50), (200, 15), (300, 0)]
@@ -1128,7 +1145,11 @@ def build_resume_team(team_name: str, sport_key: str, year: int = 2026) -> dict 
 
     # Resume score: same piecewise rank-to-score curve as _resume_score_lookup.
     resume_score = _resume_score_from_ranks(rpi_rank, rank64)
-    seed_proj, bubble_verdict = _verdict_for_score(resume_score)
+    # Verdict is driven by the 5-system computer-consensus average (the same
+    # number rendered in the "Computer Consensus" module) rather than the
+    # resume-score curve, so a team's Verdict matches what the card shows.
+    consensus_avg = int(round((rpi_rank + dsr_rank + massey_rank + elo_rank + rank64) / 5))
+    seed_proj, bubble_verdict = _verdict_for_consensus(consensus_avg)
 
     # SOS: real NCAA-formula computation from schedules_full.
     def _tier(rank: int) -> str:
