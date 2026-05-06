@@ -36,12 +36,17 @@ def _norm(name: str) -> str:
       all share one normalized form.
     - Drop "University" / "Univ." suffixes so "Lamar" (teams.csv / RPI) and
       "Lamar University" (schedules_full / PBP) collapse to one form.
+    - Preserve "&" as a literal "and" token so "Missouri S&T" (D-II GLVC)
+      and "Missouri St." (D-I CUSA) don't both collapse to "missourist"
+      and overwrite each other in name->conference lookups. Same for the
+      A&M family.
     - Strip non-alphanumeric.
     """
     if not isinstance(name, str):
         return ''
     n = re.split(r'\s+@|\s+vs\s+', name, maxsplit=1)[0]
     n = n.lower().strip()
+    n = n.replace('&', 'and')
     n = re.sub(r'\bsaint\b', 'st', n)
     n = re.sub(r'\bstate\b', 'st', n)
     n = re.sub(r'\buniversity\b|\buniv\.?\b', '', n)
