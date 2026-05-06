@@ -816,7 +816,7 @@ def _render_scatter_svg(cloud: list[tuple[float, float]],
                           y_ticks: tuple = (0.300, 0.400, 0.500, 0.600, 0.700, 0.800, 0.900),
                           x_pad: float = 0.02, y_pad: float = 0.02,
                           x_clip: tuple = (0.0, 1.0), y_clip: tuple = (0.0, 1.5),
-                          invert_y: bool = False,
+                          invert_y: bool = False, invert_x: bool = False,
                           width: int = 320, height: int = 220) -> str:
     """Generic scatter for the division pool with the player highlighted.
     `cloud` is a list of (x, y) tuples; `player_x` / `player_y` are the
@@ -834,7 +834,13 @@ def _render_scatter_svg(cloud: list[tuple[float, float]],
     xmax = min(x_clip[1], max(xs) + x_pad)
     ymin = max(y_clip[0], min(ys) - y_pad)
     ymax = min(y_clip[1], max(ys) + y_pad)
-    def sx(v): return pad['l'] + ((v - xmin) / max(xmax - xmin, 1e-6)) * w
+    if invert_x:
+        # Mirror x so LOW values land on the right (good for "lower is better"
+        # x-axis stats like FIP). Best players land upper-right alongside the
+        # upper-right convention shared with other scatters.
+        def sx(v): return pad['l'] + (1 - (v - xmin) / max(xmax - xmin, 1e-6)) * w
+    else:
+        def sx(v): return pad['l'] + ((v - xmin) / max(xmax - xmin, 1e-6)) * w
     if invert_y:
         # Flip so that the LOW end of y is at the top (good for "lower is
         # better" stats like K%). Best players land upper-right.

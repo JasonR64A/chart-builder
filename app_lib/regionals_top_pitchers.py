@@ -2,13 +2,17 @@
 Regional Preview. Mirrors `regionals_top_hitters.py` with pitcher-specific
 data + metrics:
 
-  Stats grid: ERA / WHIP / K/9 / BB/9 / IP / K / W-L / FIP
-  Splits:    Opp AVG vs LHB, vs RHB, w/ RISP, 1st PA, Late innings
+  Stats grid: ERA / WHIP / K% / BB% / IP / K / W-L / FIP
+  Splits:    Opp AVG and Opp OPS vs LHB, vs RHB, w/ RISP, 1st PA, Late
   Pace:      Cumulative ERA over the last 30 days
   Spray:     batted-ball zones AGAINST the pitcher (perspective='pitching')
-  Scatter 1: K/9 × BB/9 — best is upper-right (high K, low BB) so BB/9 is
-             y-axis with invert_y=True
+  Scatter 1: K% × BB% — best is upper-right (high K%, low BB%) via invert_y
+  Scatter 2: FIP × WHIP — both lower=better, invert_x + invert_y so
+             best lands upper-right
   Hits-allowed donut: 1B / 2B / 3B / HR allowed
+
+K%/BB% replaces the older K/9 + BB/9 so the metric is innings-length-agnostic
+(softball is 7-inning games, baseball is 9 — rate-per-batter is uniform).
 
 Top-4 pitcher selection uses player_rank.csv weighted_run_allowed_efficiency
 (lower = better; pool restricted to current-year pitchers with IP >= 30).
@@ -33,21 +37,21 @@ from app_lib.regionals_top_hitters import (
 CURRENT_YEAR = 2026
 MIN_IP = 30  # qualifier gate
 
-STAT_KEYS = ['ERA', 'WHIP', 'K/9', 'BB/9', 'IP', 'K', 'W-L', 'FIP']
+STAT_KEYS = ['ERA', 'WHIP', 'K%', 'BB%', 'IP', 'K', 'W-L', 'FIP']
 # Map design-stat-name → chart-builder pitching.csv column. Special cases
 # noted inline.
 _STAT_COL = {
     'ERA':  'earned_run_average',
     'WHIP': 'walks_plus_hits_per_inning_pitched',
-    'K/9':  'strikeouts_per_9_innings',
-    # BB/9 derived: walks_issued / innings_pitched * 9
+    'K%':   'strikeout_percentage',
+    'BB%':  'walk_percentage',
     'IP':   'innings_pitched',
     'K':    'strikeouts',
     # W-L derived: f"{wins}-{losses}"
     'FIP':  'fielding_independent_pitching',
 }
 # Lower-is-better stats — rank ASC for D1 ranks
-_LOWER_IS_BETTER = {'ERA', 'WHIP', 'BB/9', 'FIP'}
+_LOWER_IS_BETTER = {'ERA', 'WHIP', 'BB%', 'FIP'}
 
 # NCAA scorebook codes — same reference set as the hitters module so the
 # hits-allowed donut + spray work cleanly.
@@ -119,30 +123,16 @@ def build_division_pitcher_pool(pitching_df: pd.DataFrame, teams_df: pd.DataFram
 def compute_pitcher_ranks(player_row: pd.Series, pool: pd.DataFrame) -> dict:
     """{stat_key: (value, rank, percentile)}. Lower-is-better stats rank ASC."""
     out = {}
-    n = len(pool)
-    # Compute derived stats once for the player
-    ip = float(player_row.get('innings_pitched') or 0)
-    bb = float(player_row.get('walks_issued') or 0)
     wins = int(player_row.get('wins') or 0)
     losses = int(player_row.get('losses') or 0)
 
-    # Pool-side derived columns (precompute on the pool DataFrame for ranking)
-    pool = pool.copy()
-    pool['_bb9'] = pd.to_numeric(pool['walks_issued'], errors='coerce') / \
-                    pd.to_numeric(pool['innings_pitched'], errors='coerce').replace(0, pd.NA) * 9
-
     for k in STAT_KEYS:
-        if k == 'BB/9':
-            v = (bb / ip * 9) if ip > 0 else None
-            col_vals = pool['_bb9']
-        elif k == 'W-L':
-            # Not ranked — present as a string display only.
+        if k == 'W-L':
             out[k] = (f'{wins}-{losses}', None, None)
             continue
-        else:
-            col = _STAT_COL[k]
-            v = pd.to_numeric(player_row.get(col), errors='coerce')
-            col_vals = pd.to_numeric(pool[col], errors='coerce') if col in pool.columns else None
+        col = _STAT_COL[k]
+        v = pd.to_numeric(player_row.get(col), errors='coerce')
+        col_vals = pd.to_numeric(pool[col], errors='coerce') if col in pool.columns else None
 
         if v is None or pd.isna(v) or col_vals is None:
             out[k] = (None, None, None)
@@ -173,15 +163,24 @@ def hits_allowed(player_row: pd.Series) -> dict:
 
 
 def build_division_pitcher_scatter(pool: pd.DataFrame) -> list[tuple[float, float]]:
-    """(K/9, BB/9) tuples for every qualifier in the division pool."""
+    """(K%, BB%) tuples for every qualifier in the division pool. Uniform
+    across baseball (9-inning) and softball (7-inning) — rate-per-batter."""
     if pool.empty:
         return []
-    k9 = pd.to_numeric(pool['strikeouts_per_9_innings'], errors='coerce')
-    ip = pd.to_numeric(pool['innings_pitched'], errors='coerce').replace(0, pd.NA)
-    bb = pd.to_numeric(pool['walks_issued'], errors='coerce')
-    bb9 = (bb / ip * 9)
-    valid = k9.notna() & bb9.notna()
-    return list(zip(k9[valid].tolist(), bb9[valid].tolist()))
+    kp = pd.to_numeric(pool['strikeout_percentage'], errors='coerce')
+    bbp = pd.to_numeric(pool['walk_percentage'], errors='coerce')
+    valid = kp.notna() & bbp.notna()
+    return list(zip(kp[valid].tolist(), bbp[valid].tolist()))
+
+
+def build_division_pitcher_scatter_fw(pool: pd.DataFrame) -> list[tuple[float, float]]:
+    """(FIP, WHIP) tuples for every qualifier — both lower-is-better."""
+    if pool.empty:
+        return []
+    fip = pd.to_numeric(pool['fielding_independent_pitching'], errors='coerce')
+    whip = pd.to_numeric(pool['walks_plus_hits_per_inning_pitched'], errors='coerce')
+    valid = fip.notna() & whip.notna()
+    return list(zip(fip[valid].tolist(), whip[valid].tolist()))
 
 
 # ── Splits + pace from events PBP (perspective: pitching) ───────────────────
@@ -189,33 +188,56 @@ _AB_OUT_CODES = {'GO', 'FO', 'PO', 'LO', 'DP', 'TP', 'FC', 'E',
                  'K', 'KL', 'KS'}
 
 
-def _opp_avg_from_subset(subset: pd.DataFrame) -> tuple[float, int]:
-    """Opp AVG = hits / AB for the subset. Used for pitcher splits."""
+_AB_NON_CODES = {'BB', 'IBB', 'HBP', 'SF', 'SH'}
+
+
+def _opp_split_from_subset(subset: pd.DataFrame) -> dict:
+    """Return {'avg', 'ops', 'ab', 'pa'} for the pitcher's split.
+    OPS allowed = OBP allowed + SLG allowed. AVG = H/AB; SLG = TB/AB; OBP =
+    (H+BB+HBP)/(AB+BB+HBP+SF) — same definitions as the hitter side, applied
+    to events the pitcher was on the mound for."""
+    empty = {'avg': 0.0, 'ops': 0.0, 'ab': 0, 'pa': 0}
     if subset.empty:
-        return (0.0, 0)
+        return empty
     counts = subset['playResult'].value_counts()
     hits = sum(counts.get(c, 0) for c in _HIT_CODES_TB.keys())
+    tb = sum(counts.get(c, 0) * w for c, w in _HIT_CODES_TB.items())
     outs = sum(counts.get(c, 0) for c in _AB_OUT_CODES)
+    bb = counts.get('BB', 0) + counts.get('IBB', 0)
+    hbp = counts.get('HBP', 0)
+    sf = counts.get('SF', 0)
+    sh = counts.get('SH', 0)
     ab = hits + outs
+    obp_denom = ab + bb + hbp + sf
+    pa = ab + bb + hbp + sf + sh
     if ab == 0:
-        return (0.0, 0)
-    return (round(hits / ab, 3), int(ab))
+        return empty
+    avg = hits / ab
+    slg = tb / ab
+    obp = (hits + bb + hbp) / obp_denom if obp_denom else 0.0
+    return {
+        'avg': round(avg, 3),
+        'ops': round(obp + slg, 3),
+        'ab':  int(ab),
+        'pa':  int(pa),
+    }
 
 
 def compute_pitcher_splits(events_df: pd.DataFrame, ncaa_pitcher_id: int,
                             batter_bat_lookup: dict) -> dict:
-    """For one pitcher, compute opp-AVG splits.
-    Keys: 'vs LHB', 'vs RHB', 'w/ RISP', '1st PA', 'Late'.
+    """For one pitcher, compute opp-AVG + opp-OPS per split.
+    Keys: 'vs LHB', 'vs RHB', 'w/ RISP', '1st PA', 'Late'. Each value is
+    {'avg', 'ops', 'ab', 'pa'}.
     'Late' = inning >= 7. '1st PA' = first time the batter faces this pitcher
     in the game (heuristic: first occurrence of (gameId, batter playerId)).
     """
-    empty = (0.0, 0)
+    empty = {'avg': 0.0, 'ops': 0.0, 'ab': 0, 'pa': 0}
     keys = ('vs LHB', 'vs RHB', 'w/ RISP', '1st PA', 'Late')
     if events_df.empty or pd.isna(ncaa_pitcher_id):
-        return {k: empty for k in keys}
+        return {k: dict(empty) for k in keys}
     df = events_df[events_df['pitcherId'] == ncaa_pitcher_id].copy()
     if df.empty:
-        return {k: empty for k in keys}
+        return {k: dict(empty) for k in keys}
 
     bat_pid = pd.to_numeric(df['playerId'], errors='coerce').astype('Int64')
     df['batter_bat'] = bat_pid.map(batter_bat_lookup)
@@ -227,11 +249,11 @@ def compute_pitcher_splits(events_df: pd.DataFrame, ncaa_pitcher_id: int,
     inning_num = pd.to_numeric(df['inning'], errors='coerce')
 
     return {
-        'vs LHB':  _opp_avg_from_subset(df[df['batter_bat'] == 'L']),
-        'vs RHB':  _opp_avg_from_subset(df[df['batter_bat'] == 'R']),
-        'w/ RISP': _opp_avg_from_subset(df[(df['runner2B'] == 1) | (df['runner3B'] == 1)]),
-        '1st PA':  _opp_avg_from_subset(df[df['_pa_idx'] == 0]),
-        'Late':    _opp_avg_from_subset(df[inning_num >= 7]),
+        'vs LHB':  _opp_split_from_subset(df[df['batter_bat'] == 'L']),
+        'vs RHB':  _opp_split_from_subset(df[df['batter_bat'] == 'R']),
+        'w/ RISP': _opp_split_from_subset(df[(df['runner2B'] == 1) | (df['runner3B'] == 1)]),
+        '1st PA':  _opp_split_from_subset(df[df['_pa_idx'] == 0]),
+        'Late':    _opp_split_from_subset(df[inning_num >= 7]),
     }
 
 
@@ -298,8 +320,8 @@ def _fmt_pitcher_stat(k: str, v) -> str:
         return str(v)
     if k in ('ERA', 'WHIP', 'FIP'):
         return f'{float(v):.2f}'
-    if k in ('K/9', 'BB/9'):
-        return f'{float(v):.1f}'
+    if k in ('K%', 'BB%'):
+        return f'{float(v) * 100:.1f}%'
     if k == 'IP':
         return f'{float(v):.1f}'
     if k == 'K':
@@ -352,14 +374,20 @@ def _row_html(idx: int, p: dict, accent: str, total_qualifiers: int) -> str:
             f'</div>'
         )
 
-    # Splits — opp AVG, lower=better. Bars inverted.
+    # Splits — opp AVG and opp OPS, both lower=better. Two stacked blocks
+    # mirror the hitter view's SLG / OBP layout. Bars inverted: longer = lower
+    # opponent production = better pitcher.
     splits = p.get('splits') or {}
-    if splits:
-        max_floor = 0.300
-        max_ceil = 0.380
+
+    def _opp_block(metric_key: str, head_label: str,
+                   max_floor: float, max_ceil: float) -> str:
+        if not splits:
+            return ''
         rows = []
         for label in ('vs LHB', 'vs RHB', 'w/ RISP', '1st PA', 'Late'):
-            v, ab = splits.get(label, (0.0, 0))
+            entry = splits.get(label) or {}
+            ab = entry.get('ab', 0)
+            v = entry.get(metric_key, 0.0)
             if ab == 0:
                 rows.append(
                     f'<div class="rth-splits__row">'
@@ -369,7 +397,6 @@ def _row_html(idx: int, p: dict, accent: str, total_qualifiers: int) -> str:
                     f'</div>'
                 )
                 continue
-            # Inverted: longer bar = lower opp AVG
             pct = max(8, min(100, ((max_ceil - v) / (max_ceil - max_floor)) * 70 + 30))
             v_str = f'{v:.3f}'.lstrip('0') if v < 1 else f'{v:.3f}'
             rows.append(
@@ -381,14 +408,17 @@ def _row_html(idx: int, p: dict, accent: str, total_qualifiers: int) -> str:
                 f'<div class="rth-splits__val">{v_str}</div>'
                 f'</div>'
             )
-        splits_block = (
+        return (
             f'<div class="rth-splits">'
-            f'<div class="rth-splits__head">SPLITS · OPP AVG</div>'
+            f'<div class="rth-splits__head">{head_label}</div>'
             f'<div class="rth-splits__list">{"".join(rows)}</div>'
             f'</div>'
         )
-    else:
-        splits_block = ''
+
+    splits_block = (
+        _opp_block('avg', 'SPLITS · OPP AVG', 0.300, 0.380)
+        + _opp_block('ops', 'SPLITS · OPP OPS', 0.700, 1.000)
+    )
 
     identity = (
         f'<header class="rth-id">'
@@ -474,41 +504,70 @@ def _row_html(idx: int, p: dict, accent: str, total_qualifiers: int) -> str:
         f'</div>'
     )
 
-    # K/9 × BB/9 scatter — best is upper-right (high K/9, low BB/9), so
-    # invert the y-axis (BB/9 low at top).
+    # Scatter 1 — K% × BB%. Best is upper-right (high K%, low BB%) via
+    # invert_y. Innings-length-agnostic so baseball (9-inning) and softball
+    # (7-inning) qualifiers share the same scale.
     scatter_cloud = p.get('scatter_cloud') or []
-    k9_v, _, _ = p['ranks'].get('K/9', (None, None, None))
-    bb9_v, _, _ = p['ranks'].get('BB/9', (None, None, None))
+    k_pct_v, _, _ = p['ranks'].get('K%', (None, None, None))
+    bb_pct_v, _, _ = p['ranks'].get('BB%', (None, None, None))
     last_name = p['name'].split()[-1] if p.get('name') else ''
 
     def _scatter_legend():
         return (
             f'<div style="font-size:9px;letter-spacing:0.06em;color:var(--rth-muted);">'
             f'<span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:rgba(0,0,0,0.25);margin-right:4px;vertical-align:middle;"></span>'
-            f' starter '
+            f' qualifier '
             f'<span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:{accent};margin:0 4px 0 8px;vertical-align:middle;"></span>'
             f' {_xe(last_name)}</div>'
         )
 
     scatter_svg = _render_scatter_svg(
-        scatter_cloud, k9_v, bb9_v, last_name, accent,
-        x_label='K/9 →', y_label='← BB/9',  # arrow flipped
-        x_fmt='.1f', y_fmt='.1f',
-        x_ticks=tuple(range(2, 18, 2)),
-        y_ticks=tuple(range(1, 10, 1)),
-        x_pad=0.5, y_pad=0.3,
-        x_clip=(0.0, 20.0), y_clip=(0.0, 12.0),
+        scatter_cloud, k_pct_v, bb_pct_v, last_name, accent,
+        x_label='K% →', y_label='← BB%',
+        x_fmt='.1%', y_fmt='.1%',
+        x_ticks=tuple(t / 100 for t in (10, 15, 20, 25, 30, 35, 40)),
+        y_ticks=tuple(t / 100 for t in (2, 5, 8, 12, 16, 20)),
+        x_pad=0.01, y_pad=0.01,
+        x_clip=(0.0, 0.55), y_clip=(0.0, 0.30),
         invert_y=True,
     )
     scatter_block = (
         f'<div style="padding-top:14px;border-top:1px dashed rgba(0,0,0,0.18);">'
         f'<div class="rth-block-head">'
         f'<div>'
-        f'<div class="rth-eyebrow">DIVISION LANDSCAPE · ALL STARTERS</div>'
-        f'<div class="rth-block-title">K/9 × BB/9</div>'
+        f'<div class="rth-eyebrow">DIVISION LANDSCAPE · ALL QUALIFIERS</div>'
+        f'<div class="rth-block-title">K% × BB%</div>'
         f'</div>{_scatter_legend()}'
         f'</div>'
         f'{scatter_svg}'
+        f'</div>'
+    )
+
+    # Scatter 2 — FIP × WHIP. Both lower=better, so invert BOTH axes so the
+    # best pitchers still land upper-right (matching the K%/BB% chart's
+    # convention).
+    scatter_cloud_fw = p.get('scatter_cloud_fw') or []
+    fip_v, _, _ = p['ranks'].get('FIP', (None, None, None))
+    whip_v, _, _ = p['ranks'].get('WHIP', (None, None, None))
+    scatter_svg_fw = _render_scatter_svg(
+        scatter_cloud_fw, fip_v, whip_v, last_name, accent,
+        x_label='← FIP', y_label='← WHIP',
+        x_fmt='.2f', y_fmt='.2f',
+        x_ticks=(2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0),
+        y_ticks=(0.8, 1.0, 1.2, 1.4, 1.6, 1.8, 2.0, 2.2),
+        x_pad=0.2, y_pad=0.05,
+        x_clip=(0.0, 12.0), y_clip=(0.4, 3.5),
+        invert_x=True, invert_y=True,
+    )
+    scatter_block_fw = (
+        f'<div style="padding-top:14px;border-top:1px dashed rgba(0,0,0,0.18);">'
+        f'<div class="rth-block-head">'
+        f'<div>'
+        f'<div class="rth-eyebrow">RUN-PREVENTION LANDSCAPE</div>'
+        f'<div class="rth-block-title">FIP × WHIP</div>'
+        f'</div>{_scatter_legend()}'
+        f'</div>'
+        f'{scatter_svg_fw}'
         f'</div>'
     )
 
@@ -529,7 +588,7 @@ def _row_html(idx: int, p: dict, accent: str, total_qualifiers: int) -> str:
         f'{_donut_svg(p.get("hits_allowed", {}), accent)}'
         f'</div>'
     )
-    right = f'<section class="rth-right">{pace_block}{scatter_block}{mix_block}</section>'
+    right = f'<section class="rth-right">{pace_block}{scatter_block}{scatter_block_fw}{mix_block}</section>'
 
     # Team logo watermark
     logo_b64 = p.get('team_logo_b64')
@@ -599,6 +658,7 @@ def render_tab(teams: list[str], seeds: list[int], team_ids: dict, sport: str,
 
     pool = build_division_pitcher_pool(pitching_df, teams_df, sport, division, conferences_df)
     scatter_cloud = build_division_pitcher_scatter(pool)
+    scatter_cloud_fw = build_division_pitcher_scatter_fw(pool)
     top = select_top_pitchers(pitching_df, players_df, valid_team_ids, top_n=4,
                                 player_rank_df=player_rank_df)
     if top.empty:
@@ -709,6 +769,7 @@ def render_tab(teams: list[str], seeds: list[int], team_ids: dict, sport: str,
             'pace': pace,
             'spray_svg': spray_svg,
             'scatter_cloud': scatter_cloud,
+            'scatter_cloud_fw': scatter_cloud_fw,
             'photo_b64': photo_b64,
             'photo_mime': photo_mime,
             'team_logo_b64': team_logo_b64,
