@@ -1127,7 +1127,6 @@ def build_resume_team(team_name: str, sport_key: str, year: int = 2026) -> dict 
     }
 
     # Resume score: same piecewise rank-to-score curve as _resume_score_lookup.
-    of = 301
     resume_score = _resume_score_from_ranks(rpi_rank, rank64)
     seed_proj, bubble_verdict = _verdict_for_score(resume_score)
 
@@ -1139,7 +1138,17 @@ def build_resume_team(team_name: str, sport_key: str, year: int = 2026) -> dict 
         return 'Weak'
     # Resolve team_year_id up front so all schedule-based helpers key on the ID.
     team_year_id = _team_year_id_lookup(sport_key).get(team_name)
-    sos_map = _sos_lookup(sport_key).get(team_year_id) if team_year_id is not None else None
+    sos_pool = _sos_lookup(sport_key)
+    sos_map = sos_pool.get(team_year_id) if team_year_id is not None else None
+    # Pool size for the 'of N' display — comes from the SOS rank pool itself
+    # (the count of D-I teams with completed games), not a hardcoded number.
+    # Falls back to the count of teams in the pool, or 308 as a last resort.
+    if sos_map and sos_map.get('of'):
+        of = int(sos_map['of'])
+    elif sos_pool:
+        of = max(len(sos_pool), 1)
+    else:
+        of = 308
     if sos_map:
         sos_rank = int(sos_map['overall_rank'])
         non_con_rank = int(sos_map['noncon_rank'])
