@@ -136,18 +136,17 @@
   }
 
   /* ---------- LEFT CARD (photo) ----------
-     Photo is a div with background-image (not <img>) because html2canvas
-     reliably honors background-size:cover but does NOT honor object-fit
-     on <img> tags — the browser preview was correctly cropping with
-     object-fit, but the downloaded PNG was rendering as if object-fit
-     were 'contain' (whole image squeezed into the frame). Background-image
-     yields identical preview + download. */
+     Uses background-image with background-size:cover because html2canvas
+     handles that reliably (object-fit on <img> is broken in html2canvas —
+     PNG download would render as if object-fit were 'contain'). The URL is
+     written inline directly on the element rather than through a CSS custom
+     property — variable + var() indirection failed silently in
+     components.html iframes for some PNG data URLs. */
   .photo-frame {
     position: relative;
     width: 100%;
     aspect-ratio: 4 / 5;
     background-color: #222;
-    background-image: var(--photo-src);
     background-size: cover;
     background-position: 50% 50%;
     background-repeat: no-repeat;
@@ -386,8 +385,8 @@
       <!-- LEFT: player photo card -->
       <div class="card card-photo">
         <div class="tape"></div>
-        <div class="photo-frame" style="--photo-src: url('{{PHOTO_SRC}}');"
-             role="img" aria-label="{{NAME}}"></div>
+        <div class="photo-frame" role="img" aria-label="{{NAME}}"
+             style="background-image: url('{{PHOTO_SRC}}');"></div>
         <div class="name-bar">{{NAME}}</div>
         <div class="school-bar">{{SCHOOL}}</div>
         <div class="keyline">{{POS}} <span class="sep">|</span> {{CLASS_SHORT}} <span class="sep">|</span> {{SEASON_SLASH}}</div>
