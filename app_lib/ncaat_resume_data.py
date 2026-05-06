@@ -50,11 +50,28 @@ def _norm(name: str) -> str:
 
 
 def _is_completed(g) -> bool:
-    """Row is completed if isFuture is not True (NaN treated as completed)."""
+    """Row represents a game that's actually been played.
+
+    isFuture=1/True flags a future-scheduled game and must be excluded.
+    BUT some schedule rows have isFuture=NaN AND runsFor=NaN — those are
+    games that have been scheduled but haven't been played yet (the
+    schedule scraper hasn't restamped them yet either way). They were
+    silently counted as losses (since isWin=NaN→False), inflating each
+    team's loss count by every still-pending game on its slate.
+
+    True only if isFuture is NOT a positive flag AND we have actual run
+    totals on both sides."""
     v = g.get('isFuture')
-    if v is True or v == 1 or str(v).lower() == 'true':
+    if v is True or v == 1 or v == 1.0 or str(v).lower() == 'true':
         return False
-    return True
+    rf, ra = g.get('runsFor'), g.get('runsAgainst')
+    try:
+        # NaN comparisons return False; this guards against unplayed games.
+        if rf is None or ra is None:
+            return False
+        return not (pd.isna(rf) or pd.isna(ra))
+    except Exception:
+        return False
 
 
 def _is_win(g) -> bool:
