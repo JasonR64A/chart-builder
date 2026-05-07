@@ -17,11 +17,15 @@ _APP_DIR = Path(__file__).resolve().parent.parent
 DATA_DIR = _APP_DIR / 'data'
 ASSETS_DIR = _APP_DIR / 'assets' / 'portal-entrant'
 # Template choices keyed by output format (used by the format radio below).
-# Landscape is the original 1500x1000 design; Instagram is a 1080x1350 4:5
-# portrait that fills more of an IG feed without letterboxing.
+# Landscape is the original 1500x1000 design. The two Instagram options are
+# 1080x1350 (4:5 portrait) cards intended as a two-image carousel: card 1
+# leads with the photo + identity, card 2 carries the full stat grid +
+# career table. Trying to fit both on a single portrait clipped the table
+# (the failed combined attempt is intentionally not in this list).
 TEMPLATES = {
-    'Landscape (1500x1000)':           {'path': ASSETS_DIR / 'template.html',    'w': 1500, 'h': 1000},
-    'Instagram Portrait (1080x1350)':  {'path': ASSETS_DIR / 'template_ig.html', 'w': 1080, 'h': 1350},
+    'Landscape (1500x1000)':            {'path': ASSETS_DIR / 'template.html',          'w': 1500, 'h': 1000},
+    'Instagram — Photo (1080x1350)':    {'path': ASSETS_DIR / 'template_ig_photo.html', 'w': 1080, 'h': 1350},
+    'Instagram — Stats (1080x1350)':    {'path': ASSETS_DIR / 'template_ig_stats.html', 'w': 1080, 'h': 1350},
 }
 
 CLASS_SHORT = {
@@ -42,7 +46,10 @@ format_choice = st.radio(
     'Format',
     list(TEMPLATES.keys()),
     horizontal=True,
-    help='Landscape works for Twitter/X and web. Instagram Portrait fills the most space in an IG feed (4:5 aspect).',
+    help=(
+        'Landscape (3:2) — Twitter / X / web. '
+        'Instagram cards are a 2-image carousel: render Photo, download, then switch to Stats and download again.'
+    ),
 )
 TEMPLATE_PATH = TEMPLATES[format_choice]['path']
 TEMPLATE_W = TEMPLATES[format_choice]['w']

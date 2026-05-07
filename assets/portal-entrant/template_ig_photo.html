@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Portal Entrant Photo — {{NAME}}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Barlow+Condensed:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #f4ecdd;
+    --ink: #141414;
+    --bar: #1c1c1c;
+    --red: #b11f2c;
+  }
+  html, body { margin:0; padding:0; background:#0a0604; font-family: 'Barlow Condensed', system-ui, sans-serif; }
+  body { min-height:100vh; display:grid; place-items:center; padding: 24px; }
+  .stage-wrap { width: min(100vw - 48px, calc((100vh - 48px) * 0.8)); aspect-ratio: 4 / 5; }
+  .stage {
+    width: 1080px; height: 1350px;
+    transform-origin: top left;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.55);
+    background: #0a0604;
+  }
+
+  /* Top dirt band */
+  .bg-top {
+    position: absolute; left:0; right:0; top: 0; height: 130px;
+    background-image: url("assets/foul-line-dirt.png");
+    background-size: cover;
+    background-position: 50% 60%;
+    filter: brightness(0.85);
+    z-index: 1;
+  }
+  .bg-top::after {
+    content:""; position:absolute; inset:0;
+    background: linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0) 60%, rgba(10,6,4,1) 100%);
+  }
+
+  /* Header strip */
+  .header {
+    position:absolute;
+    left: 36px; right: 36px; top: 30px;
+    display:flex; align-items:center; justify-content: space-between;
+    z-index: 5;
+  }
+  .header img.logo {
+    height: 60px; width: auto; display:block;
+    filter: drop-shadow(0 4px 14px rgba(0,0,0,0.7));
+  }
+  .header .eyebrow {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.4em;
+    font-size: 18px;
+    color: #f4ecdd;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.9);
+  }
+
+  /* HERO PHOTO — fills almost the whole card */
+  .hero {
+    position: absolute;
+    left: 0; right: 0; top: 130px; bottom: 70px;
+    overflow: hidden;
+    background: #0a0604;
+  }
+  .photo-frame {
+    position: absolute;
+    inset: 0;
+    background-color: #222;
+    background-size: cover;
+    background-position: 50% 25%;
+    background-repeat: no-repeat;
+  }
+  .hero::after {
+    content:""; position:absolute; inset:0;
+    background:
+      linear-gradient(180deg, rgba(0,0,0,0.30) 0%, rgba(0,0,0,0) 22%, rgba(0,0,0,0) 50%, rgba(0,0,0,0.92) 100%);
+    pointer-events:none;
+  }
+  .hero-text {
+    position: absolute;
+    left: 40px; right: 40px; bottom: 40px;
+    z-index: 2;
+    color: #fff;
+  }
+  .hero-text .eyebrow {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.42em;
+    font-size: 18px;
+    color: var(--red);
+    margin-bottom: 12px;
+    text-shadow: 0 3px 10px rgba(0,0,0,0.9);
+  }
+  .hero-text h1 {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 110px;
+    line-height: 0.92;
+    letter-spacing: 0.005em;
+    margin: 0 0 20px 0;
+    text-transform: uppercase;
+    text-shadow: 0 6px 22px rgba(0,0,0,0.92), 0 1px 0 rgba(0,0,0,0.5);
+  }
+  .hero-text .school-bar {
+    display: inline-block;
+    background: var(--red);
+    color: #fff;
+    padding: 10px 22px 8px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 26px;
+    letter-spacing: 0.34em;
+    line-height: 1;
+    margin-bottom: 18px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.45);
+  }
+  .hero-text .keyline {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 30px;
+    letter-spacing: 0.05em;
+    color: #f4ecdd;
+    text-shadow: 0 3px 12px rgba(0,0,0,0.92);
+  }
+  .hero-text .keyline .sep { color: var(--red); margin: 0 12px; }
+
+  /* Footer band */
+  .footer-bar {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 70px;
+    background: var(--bar);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 32px;
+    border-top: 5px solid var(--red);
+    z-index: 6;
+  }
+  .footer-bar .url {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    letter-spacing: 0.18em;
+    color: #fff;
+  }
+  .footer-bar img {
+    height: 40px;
+    filter: drop-shadow(0 3px 10px rgba(0,0,0,0.6));
+  }
+</style>
+</head>
+<body>
+  <div class="stage-wrap" id="stage-wrap">
+    <div class="stage" id="stage" data-screen-label="Portal Entrant Photo IG">
+      <div class="bg-top"></div>
+
+      <div class="header">
+        <img class="logo" src="assets/64-circlelogo-red-white.png" alt="64 Analytics" />
+        <div class="eyebrow">{{EYEBROW}}</div>
+      </div>
+
+      <div class="hero">
+        <div class="photo-frame" role="img" aria-label="{{NAME}}"
+             style="background-image: url('{{PHOTO_SRC}}');"></div>
+        <div class="hero-text">
+          <div class="eyebrow">{{HEADLINE}}</div>
+          <h1>{{NAME}}</h1>
+          <div class="school-bar">{{SCHOOL}}</div>
+          <div class="keyline">{{POS}} <span class="sep">|</span> {{CLASS_SHORT}} <span class="sep">|</span> {{SEASON_SLASH}}</div>
+        </div>
+      </div>
+
+      <div class="footer-bar">
+        <img src="assets/64-logo-red-white.png" alt="64 Analytics" />
+        <div class="url">64ANALYTICS.COM/PLAYER-PROFILES</div>
+      </div>
+    </div>
+  </div>
+<script>
+  function fit() {
+    const wrap = document.getElementById('stage-wrap');
+    const stage = document.getElementById('stage');
+    const s = wrap.clientWidth / 1080;
+    stage.style.transform = `scale(${s})`;
+    wrap.style.height = (1350 * s) + 'px';
+  }
+  window.addEventListener('resize', fit);
+  fit();
+</script>
+</body>
+</html>

@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Portal Entrant Stats — {{NAME}}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Barlow+Condensed:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #f4ecdd;
+    --paper-edge: #e9dfc9;
+    --ink: #141414;
+    --bar: #1c1c1c;
+    --red: #b11f2c;
+    --rule: rgba(20,14,6,0.18);
+  }
+  html, body { margin:0; padding:0; background:#0a0604; font-family: 'Barlow Condensed', system-ui, sans-serif; }
+  body { min-height:100vh; display:grid; place-items:center; padding: 24px; }
+  .stage-wrap { width: min(100vw - 48px, calc((100vh - 48px) * 0.8)); aspect-ratio: 4 / 5; }
+  .stage {
+    width: 1080px; height: 1350px;
+    transform-origin: top left;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.55);
+    background: var(--paper);
+  }
+  .stage::before {
+    content:""; position:absolute; inset:0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='p'><feTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.65 0 0 0 0 0.55 0 0 0 0 0.42 0 0 0 0.25 0'/></filter><rect width='100%25' height='100%25' filter='url(%23p)'/></svg>");
+    mix-blend-mode: multiply;
+    opacity: 0.30;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* IDENTITY STRIP — header with photo + name */
+  .identity {
+    position: absolute;
+    left: 0; right: 0; top: 0;
+    height: 200px;
+    background: var(--bar);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    padding: 0 30px;
+    gap: 24px;
+    border-bottom: 5px solid var(--red);
+    z-index: 2;
+  }
+  .identity .logo {
+    height: 80px; width: auto;
+    filter: drop-shadow(0 4px 14px rgba(0,0,0,0.55));
+  }
+  .identity .photo {
+    width: 150px; height: 150px;
+    border-radius: 8px;
+    background-color: #222;
+    background-size: cover;
+    background-position: 50% 30%;
+    box-shadow: 0 8px 22px rgba(0,0,0,0.45);
+    border: 3px solid var(--red);
+  }
+  .identity .who {
+    flex: 1; min-width: 0;
+  }
+  .identity .who .eyebrow {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.32em;
+    color: var(--red);
+    margin-bottom: 4px;
+  }
+  .identity .who h1 {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 56px;
+    letter-spacing: 0.01em;
+    line-height: 1;
+    margin: 0 0 8px 0;
+    text-transform: uppercase;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .identity .who .meta {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 22px;
+    letter-spacing: 0.05em;
+    color: #f4ecdd;
+  }
+  .identity .who .meta .sep { color: var(--red); margin: 0 10px; }
+
+  /* SEASON HEADER */
+  .season-head {
+    position: absolute;
+    left: 0; right: 0;
+    top: 200px;
+    height: 70px;
+    padding: 0 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(20,14,6,0.06);
+    border-bottom: 1px solid var(--rule);
+    z-index: 1;
+  }
+  .season-head .title {
+    font-family:'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 32px;
+    letter-spacing: 0.08em;
+    color: var(--ink);
+  }
+  .season-head .title .red { color: var(--red); }
+  .season-head .career-slash {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 600;
+    font-size: 22px;
+    color: var(--ink);
+  }
+  .season-head .career-slash .lab {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.32em;
+    color: var(--red);
+    margin-right: 8px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  /* SEASON GRID — 4 cols × 4 rows, big readable cells */
+  .season-grid {
+    position: absolute;
+    left: 0; right: 0;
+    top: 270px;
+    height: 580px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    background: rgba(20,14,6,0.08);
+    border-bottom: 1px solid var(--rule);
+    z-index: 1;
+  }
+  .season-grid .cell {
+    background: var(--paper);
+    text-align: center;
+    border-right: 1px solid rgba(20,14,6,0.12);
+    border-bottom: 1px solid rgba(20,14,6,0.12);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 6px;
+  }
+  .season-grid .cell:nth-child(4n) { border-right: none; }
+  .season-grid .cell:nth-child(n+13) { border-bottom: none; }
+  .season-grid .cell .lab {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: 14px;
+    letter-spacing: 0.24em; color: var(--red);
+    text-transform: uppercase;
+  }
+  .season-grid .cell .v {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 600; font-size: 38px;
+    color: var(--ink);
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+  }
+  .season-grid .cell.slash { background: #fff6e7; }
+
+  /* CAREER SECTION */
+  .career-head {
+    position: absolute;
+    left: 0; right: 0;
+    top: 850px;
+    height: 56px;
+    padding: 0 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(20,14,6,0.06);
+    border-bottom: 1px solid var(--rule);
+    z-index: 1;
+  }
+  .career-head .title {
+    font-family:'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 26px;
+    letter-spacing: 0.08em;
+    color: var(--ink);
+  }
+  .career-head .title .red { color: var(--red); }
+  .career-head .sub {
+    font-family:'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0.24em;
+    color: #5c4a33;
+    text-transform: uppercase;
+  }
+
+  .career-section {
+    position: absolute;
+    left: 0; right: 0;
+    top: 906px;
+    bottom: 70px;
+    padding: 14px 30px 16px;
+    overflow: hidden;
+    z-index: 1;
+  }
+  .career-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'IBM Plex Mono', monospace;
+    font-variant-numeric: tabular-nums;
+  }
+  .career-table thead th {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.20em;
+    color: #fff;
+    background: var(--bar);
+    padding: 10px 4px;
+    text-align: center;
+    border-right: 1px solid rgba(255,255,255,0.08);
+  }
+  .career-table thead th:first-child { text-align: left; padding-left: 14px; }
+  .career-table thead th:last-child { border-right: none; }
+  .career-table tbody td {
+    padding: 11px 4px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--ink);
+    border-right: 1px solid rgba(20,14,6,0.08);
+    border-bottom: 1px solid rgba(20,14,6,0.12);
+  }
+  .career-table tbody td:first-child {
+    text-align: left; padding-left: 14px;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 19px;
+  }
+  .career-table tbody td:last-child { border-right: none; }
+  .career-table tr.totals td {
+    background: var(--bar);
+    color: #fff;
+    font-weight: 700;
+    border-bottom: none;
+    border-right: 1px solid rgba(255,255,255,0.08);
+  }
+  .career-table tr.totals td:last-child { border-right: none; }
+  .career-table tr.totals td:first-child {
+    color: var(--red);
+    letter-spacing: 0.18em;
+    font-size: 14px;
+    font-family: 'Barlow Condensed', sans-serif;
+  }
+
+  /* FOOTER */
+  .footer-bar {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 70px;
+    background: var(--bar);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 32px;
+    border-top: 5px solid var(--red);
+    z-index: 6;
+  }
+  .footer-bar .url {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    letter-spacing: 0.18em;
+    color: #fff;
+  }
+  .footer-bar img {
+    height: 40px;
+    filter: drop-shadow(0 3px 10px rgba(0,0,0,0.6));
+  }
+</style>
+</head>
+<body>
+  <div class="stage-wrap" id="stage-wrap">
+    <div class="stage" id="stage" data-screen-label="Portal Entrant Stats IG">
+
+      <div class="identity">
+        <img class="logo" src="assets/64-circlelogo-red-white.png" alt="64 Analytics" />
+        <div class="photo" role="img" aria-label="{{NAME}}"
+             style="background-image: url('{{PHOTO_SRC}}');"></div>
+        <div class="who">
+          <div class="eyebrow">{{EYEBROW}}</div>
+          <h1>{{NAME}}</h1>
+          <div class="meta">{{SCHOOL}} <span class="sep">|</span> {{POS}} <span class="sep">|</span> {{CLASS_SHORT}}</div>
+        </div>
+      </div>
+
+      <div class="season-head">
+        <div class="title"><span class="red">{{SEASON_YEAR}}</span> SEASON STATS</div>
+        <div class="career-slash"><span class="lab">CAREER</span>{{CAREER_SLASH}}</div>
+      </div>
+
+      <div class="season-grid">
+        <div class="cell slash"><div class="lab">{{LAB_1}}</div><div class="v">{{S_AVG}}</div></div>
+        <div class="cell slash"><div class="lab">{{LAB_2}}</div><div class="v">{{S_OBP}}</div></div>
+        <div class="cell slash"><div class="lab">{{LAB_3}}</div><div class="v">{{S_SLG}}</div></div>
+        <div class="cell slash"><div class="lab">{{LAB_4}}</div><div class="v">{{S_OPS}}</div></div>
+        <div class="cell"><div class="lab">{{LAB_5}}</div><div class="v">{{S_HR}}</div></div>
+        <div class="cell"><div class="lab">{{LAB_6}}</div><div class="v">{{S_RBI}}</div></div>
+        <div class="cell"><div class="lab">{{LAB_7}}</div><div class="v">{{S_R}}</div></div>
+        <div class="cell"><div class="lab">{{LAB_8}}</div><div class="v">{{S_SB}}</div></div>
+        <div class="cell"><div class="lab">{{LAB_9}}</div><div class="v">{{S_H}}</div></div>
+        <div class="cell"><div class="lab">{{LAB_10}}</div><div class="v">{{S_AB}}</div></div>
+        <div class="cell"><div class="lab">{{LAB_11}}</div><div class="v">{{S_2B}}</div></div>
+        <div class="cell"><div class="lab">{{LAB_12}}</div><div class="v">{{S_3B}}</div></div>
+        <div class="cell"><div class="lab">{{LAB_13}}</div><div class="v">{{S_TB}}</div></div>
+        <div class="cell"><div class="lab">{{LAB_14}}</div><div class="v">{{S_BB}}</div></div>
+        <div class="cell"><div class="lab">{{LAB_15}}</div><div class="v">{{S_HBP}}</div></div>
+        <div class="cell"><div class="lab">{{LAB_16}}</div><div class="v">{{S_SO}}</div></div>
+      </div>
+
+      <div class="career-head">
+        <div class="title"><span class="red">CAREER</span> BY YEAR</div>
+        <div class="sub">{{CAREER_SUBTITLE}}</div>
+      </div>
+
+      <div class="career-section">
+        <table class="career-table">
+          <thead>
+            <tr>
+              <th>{{C_TH1}}</th><th>{{C_TH2}}</th><th>{{C_TH3}}</th><th>{{C_TH4}}</th><th>{{C_TH5}}</th><th>{{C_TH6}}</th><th>{{C_TH7}}</th><th>{{C_TH8}}</th><th>{{C_TH9}}</th><th>{{C_TH10}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{CAREER_ROWS_HTML}}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="footer-bar">
+        <img src="assets/64-logo-red-white.png" alt="64 Analytics" />
+        <div class="url">64ANALYTICS.COM/PLAYER-PROFILES</div>
+      </div>
+
+    </div>
+  </div>
+<script>
+  function fit() {
+    const wrap = document.getElementById('stage-wrap');
+    const stage = document.getElementById('stage');
+    const s = wrap.clientWidth / 1080;
+    stage.style.transform = `scale(${s})`;
+    wrap.style.height = (1350 * s) + 'px';
+  }
+  window.addEventListener('resize', fit);
+  fit();
+</script>
+</body>
+</html>
