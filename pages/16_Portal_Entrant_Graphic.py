@@ -16,7 +16,13 @@ import streamlit.components.v1 as components
 _APP_DIR = Path(__file__).resolve().parent.parent
 DATA_DIR = _APP_DIR / 'data'
 ASSETS_DIR = _APP_DIR / 'assets' / 'portal-entrant'
-TEMPLATE_PATH = ASSETS_DIR / 'template.html'
+# Template choices keyed by output format (used by the format radio below).
+# Landscape is the original 1500x1000 design; Instagram is a 1080x1350 4:5
+# portrait that fills more of an IG feed without letterboxing.
+TEMPLATES = {
+    'Landscape (1500x1000)':           {'path': ASSETS_DIR / 'template.html',    'w': 1500, 'h': 1000},
+    'Instagram Portrait (1080x1350)':  {'path': ASSETS_DIR / 'template_ig.html', 'w': 1080, 'h': 1350},
+}
 
 CLASS_SHORT = {
     'Freshman': 'FR.', 'Sophomore': 'SO.', 'Junior': 'JR.', 'Senior': 'SR.',
@@ -31,6 +37,16 @@ CLASS_LONG = {
 st.set_page_config(page_title='Portal Entrant Graphic', layout='wide')
 st.title('Portal Entrant Graphic')
 st.caption('Build a shareable transfer-portal graphic for a single player.')
+
+format_choice = st.radio(
+    'Format',
+    list(TEMPLATES.keys()),
+    horizontal=True,
+    help='Landscape works for Twitter/X and web. Instagram Portrait fills the most space in an IG feed (4:5 aspect).',
+)
+TEMPLATE_PATH = TEMPLATES[format_choice]['path']
+TEMPLATE_W = TEMPLATES[format_choice]['w']
+TEMPLATE_H = TEMPLATES[format_choice]['h']
 
 
 # ── Data loading ────────────────────────────────────────────────────────────
@@ -857,4 +873,7 @@ png_btn = """
 rendered = rendered.replace('</body>', f'{png_script}{png_btn}</body>')
 
 st.subheader('3. Preview')
-components.html(rendered, height=1040, scrolling=False)
+# Iframe height tracks the template's aspect so the preview doesn't crop or
+# leave dead space. Add ~70px for the download-PNG button below.
+_iframe_h = int(min(1080, max(640, TEMPLATE_H * 0.6))) + 70
+components.html(rendered, height=_iframe_h, scrolling=False)
