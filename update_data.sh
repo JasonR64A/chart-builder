@@ -9,10 +9,10 @@
 export PATH="/usr/bin:/mingw64/bin:/c/Program Files/Git/usr/bin:/c/Program Files/Git/mingw64/bin:/c/Program Files/Git/cmd:$PATH"
 
 SOURCE="C:/Users/sixty/OneDrive/Desktop/64Analytics/Website_Data/Zip Uploads/Zips"
-DEST="C:/Users/sixty/OneDrive/Desktop/chart-builder-app/data"
+DEST="C:/Dev/chart-builder-app/data"
 
-PBP_SOURCE="C:/Users/sixty/OneDrive/Desktop/scrape_final/output/2026"
-PBP_DEST="C:/Users/sixty/OneDrive/Desktop/chart-builder-app/pbp_data"
+PBP_SOURCE="C:/Dev/scrape_final/output/2026"
+PBP_DEST="C:/Dev/chart-builder-app/pbp_data"
 
 echo "Copying latest CSVs..."
 cp "$SOURCE"/*.csv "$DEST/"
@@ -62,6 +62,16 @@ for sport in baseball softball; do
     cp "$PBP_SOURCE/$sport/schedules_full.csv" "$DEST/schedules_full_${sport}.csv" 2>/dev/null
 done
 
+# Regenerate schedules.csv (Conf/OOC/Post W-L-T summary) from the freshly
+# copied schedules_full_*.csv files. The Zips copy on line 18 stages a
+# user-maintained version that's typically a couple of days stale, so any
+# pages reading record_str from schedules.csv (Bracketology, Team Comparison,
+# Win Generator) drift from the predictor (which uses schedules_full). Caused
+# Florida SB Bracketology to show 47-7 while the predictor saw 47-9 on
+# 2026-05-06.
+echo "Regenerating schedules.csv from schedules_full_*.csv..."
+python "C:/Dev/scrape_final/scripts/aggregate-schedules-summary.py"
+
 echo "Copying PBP validation output (diff JSONs for the Validator page)..."
 mkdir -p "$PBP_DEST/validated"
 for sport in baseball softball; do
@@ -71,7 +81,7 @@ for sport in baseball softball; do
     done
 done
 
-cd "C:/Users/sixty/OneDrive/Desktop/chart-builder-app"
+cd "C:/Dev/chart-builder-app"
 
 # Fix player names with commas (e.g. "Bocachica, Jr.") that break CSV parsing
 echo "Fixing unquoted commas in player names..."
@@ -122,7 +132,7 @@ def fix_csv(filepath):
 for sport in ['baseball', 'softball']:
     for stat in ['hitting', 'pitching', 'fielding']:
         for div in ['D1', 'D2', 'D3']:
-            path = f'C:/Users/sixty/OneDrive/Desktop/chart-builder-app/pbp_data/{sport}/{stat}_pbp_{div}.csv'
+            path = f'C:/Dev/chart-builder-app/pbp_data/{sport}/{stat}_pbp_{div}.csv'
             if os.path.exists(path):
                 fix_csv(path)
 "
@@ -138,7 +148,7 @@ total_dropped = 0
 for sport in ['baseball', 'softball']:
     for stat in ['hitting', 'pitching', 'fielding']:
         for div in ['D1', 'D2', 'D3']:
-            path = f'C:/Users/sixty/OneDrive/Desktop/chart-builder-app/pbp_data/{sport}/{stat}_pbp_{div}.csv'
+            path = f'C:/Dev/chart-builder-app/pbp_data/{sport}/{stat}_pbp_{div}.csv'
             if not os.path.exists(path): continue
             with open(path, 'r', encoding='utf-8', errors='replace') as f:
                 lines = f.readlines()
@@ -161,7 +171,7 @@ import pandas as pd
 for sport in ['baseball', 'softball']:
     for stat in ['hitting', 'pitching', 'fielding']:
         for div in ['D1', 'D2', 'D3']:
-            path = f'C:/Users/sixty/OneDrive/Desktop/chart-builder-app/pbp_data/{sport}/{stat}_pbp_{div}.csv'
+            path = f'C:/Dev/chart-builder-app/pbp_data/{sport}/{stat}_pbp_{div}.csv'
             try:
                 df = pd.read_csv(path, low_memory=False)
                 before = len(df)
