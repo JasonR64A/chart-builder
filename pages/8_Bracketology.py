@@ -41,7 +41,9 @@ DEFUNCT_PROGRAMS = {
         'West Virginia',
         'San Francisco',
     },
-    'baseball': set(),
+    'baseball': {
+        'N.C. Central',  # dropped baseball after 2021 season
+    },
 }
 
 # ── Page config & style ─────────────────────────────────────────────────────
