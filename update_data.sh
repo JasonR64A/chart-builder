@@ -62,15 +62,12 @@ for sport in baseball softball; do
     cp "$PBP_SOURCE/$sport/schedules_full.csv" "$DEST/schedules_full_${sport}.csv" 2>/dev/null
 done
 
-# Regenerate schedules.csv (Conf/OOC/Post W-L-T summary) from the freshly
-# copied schedules_full_*.csv files. The Zips copy on line 18 stages a
-# user-maintained version that's typically a couple of days stale, so any
-# pages reading record_str from schedules.csv (Bracketology, Team Comparison,
-# Win Generator) drift from the predictor (which uses schedules_full). Caused
-# Florida SB Bracketology to show 47-7 while the predictor saw 47-9 on
-# 2026-05-06.
-echo "Regenerating schedules.csv from schedules_full_*.csv..."
-python "C:/Dev/scrape_final/scripts/aggregate-schedules-summary.py"
+# DISABLED 2026-05-07: aggregate-schedules-summary.py was miscategorizing
+# conference vs OOC games (gave Florida SB 14-10/34-7 vs the user-maintained
+# 17-7/30-2). Until the bucketing is debugged, defer to the user-staged
+# schedules.csv from Zips (line 18 already copied it in).
+# echo "Regenerating schedules.csv from schedules_full_*.csv..."
+# python "C:/Dev/scrape_final/scripts/aggregate-schedules-summary.py"
 
 echo "Copying PBP validation output (diff JSONs for the Validator page)..."
 mkdir -p "$PBP_DEST/validated"
