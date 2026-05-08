@@ -235,9 +235,14 @@ if remaining == 0:
     st.stop()
 
 # ── Review table ─────────────────────────────────────────────────────────────
-# Filter out already-decided players so reviewers only see what's left
-decided_ids = set(k for k, v in decisions_map.items() if v.get('action') or v.get('override_id'))
-df = df[~df['ncaa_id'].isin(decided_ids)]
+# Hide RESOLVED decisions (confirm or adjust+override) from the review queue.
+# Keep `unmatch`-decided players visible — they still need creation in
+# players.csv, so the reviewer should see them here until that's done.
+resolved_ids = set(
+    k for k, v in decisions_map.items()
+    if v.get('action') in ('confirm', 'adjust') and (v.get('action') == 'confirm' or v.get('override_id'))
+)
+df = df[~df['ncaa_id'].isin(resolved_ids)]
 
 page_df = df.reset_index(drop=True)
 page = 1  # no pagination — all players on one page
