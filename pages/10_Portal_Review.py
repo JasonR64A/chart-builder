@@ -134,6 +134,50 @@ def load_review_players():
     return pd.DataFrame(rows)
 
 
+@st.cache_data
+def load_all_known_players():
+    """Build ncaa_id -> context dict from matched + needs_review + unmatched
+    files. Used to render past decisions with full player context (portal_name,
+    institution, predicted match, etc.) since decisions only store ncaa_id."""
+    known = {}
+    for sport in ['baseball', 'softball']:
+        for fname in [f'{sport}_matched.csv', f'needs_review_{sport}.csv', f'unmatched_{sport}.csv']:
+            f = MATCHED_DIR / fname
+            if not f.exists():
+                continue
+            df = pd.read_csv(f, dtype=str).fillna('')
+            for _, r in df.iterrows():
+                nid = r.get('ncaa_id', '')
+                if not nid:
+                    continue
+                # Don't overwrite a richer matched row with a sparser unmatched row
+                if nid in known and known[nid].get('predicted_name'):
+                    continue
+                known[nid] = {
+                    'sport': sport,
+                    'portal_name': r.get('portal_name', ''),
+                    'institution': r.get('institution', ''),
+                    'division': r.get('division', ''),
+                    'predicted_name': r.get('matched_name', ''),
+                    'predicted_64a_id': r.get('player_id_64a', ''),
+                    'match_score': r.get('match_score', ''),
+                    'status': r.get('status', ''),
+                }
+    return known
+
+
+@st.cache_data
+def load_in_production_pids():
+    """Set of player_ids that exist in portal_rank_player.csv year=2026.
+    Used for the 'In Production' indicator on past decisions."""
+    p = _APP_DIR / 'data' / 'portal_rank_player.csv'
+    if not p.exists():
+        return set()
+    df = pd.read_csv(p, low_memory=False)
+    df_2026 = df[df['year'] == 2026]
+    return set(pd.to_numeric(df_2026['player_id'], errors='coerce').dropna().astype(int))
+
+
 # ── Main ─────────────────────────────────────────────────────────────────────
 all_players = load_review_players()
 
@@ -280,6 +324,193 @@ with st.form('review_form'):
             st.success(f'Saved {len([d for d in decisions_map.values() if d.get("action") or d.get("override_id")])} decisions to Supabase')
         else:
             st.error('Failed to save to Supabase')
+
+# ── Past Decisions (override) ────────────────────────────────────────────────
+st.divider()
+
+decided_items = [
+    (k, v) for k, v in decisions_map.items()
+    if v.get('action') or v.get('override_id')
+]
+
+show_past = st.checkbox(
+    f'Show past decisions ({len(decided_items)})',
+    value=False,
+    help='Review or override decisions previously saved to Supabase. '
+         'Edits update the decision but do NOT retroactively rewrite '
+         'portal_rank_player.csv / player_rank.csv — re-run the portal '
+         'pipeline to apply changes.',
+)
+
+if show_past and decided_items:
+    known = load_all_known_players()
+    in_prod = load_in_production_pids()
+
+    st.warning(
+        'Edits here update the decision in Supabase. To flow changes through '
+        'to **portal_rank_player.csv** and **player_rank.csv**, re-run the '
+        'portal pipeline and re-stage the 4 upload CSVs.'
+    )
+
+    # Build the past-decisions dataframe
+    past_rows = []
+    for ncaa_id, dec in decided_items:
+        info = known.get(ncaa_id, {})
+        action = dec.get('action', '')
+        override = dec.get('override_id', '')
+
+        # Resolve the chosen 64A id for the in-production check
+        chosen_id_str = override.strip() if override.strip() else info.get('predicted_64a_id', '')
+        try:
+            chosen_id = int(float(chosen_id_str)) if chosen_id_str else None
+        except (ValueError, TypeError):
+            chosen_id = None
+        if action == 'unmatch':
+            in_prod_flag = '—'  # not expected in production
+        elif chosen_id is None:
+            in_prod_flag = '?'
+        else:
+            in_prod_flag = '✓' if chosen_id in in_prod else '✗'
+
+        past_rows.append({
+            'ncaa_id': ncaa_id,
+            'sport': info.get('sport', ''),
+            'portal_name': info.get('portal_name', '?'),
+            'institution': info.get('institution', '?'),
+            'division': info.get('division', ''),
+            'predicted_name': info.get('predicted_name', ''),
+            'predicted_64a_id': info.get('predicted_64a_id', ''),
+            'match_score': info.get('match_score', ''),
+            'action': action,
+            'override_id': override,
+            'in_prod': in_prod_flag,
+        })
+
+    past_df = pd.DataFrame(past_rows).sort_values(
+        ['in_prod', 'sport', 'portal_name'],
+        ascending=[True, True, True],
+    ).reset_index(drop=True)
+
+    # Filter row for past decisions
+    pcol1, pcol2, pcol3 = st.columns(3)
+    with pcol1:
+        past_sport = st.selectbox(
+            'Sport (past)', ['All', 'baseball', 'softball'], key='past_sport',
+        )
+    with pcol2:
+        past_action = st.selectbox(
+            'Action (past)', ['All', 'confirm', 'adjust', 'unmatch'], key='past_action',
+        )
+    with pcol3:
+        past_search = st.text_input(
+            'Search (past)', '', key='past_search',
+            placeholder='Name or school...',
+        )
+
+    fdf = past_df.copy()
+    if past_sport != 'All':
+        fdf = fdf[fdf['sport'] == past_sport]
+    if past_action != 'All':
+        fdf = fdf[fdf['action'] == past_action]
+    if past_search:
+        q = past_search.lower()
+        fdf = fdf[
+            fdf['portal_name'].str.lower().str.contains(q, na=False) |
+            fdf['predicted_name'].str.lower().str.contains(q, na=False) |
+            fdf['institution'].str.lower().str.contains(q, na=False)
+        ]
+    fdf = fdf.reset_index(drop=True)
+
+    st.markdown(
+        f'**{len(fdf)} of {len(past_df)} past decisions** '
+        f'· In production: ✓ = chosen 64A id is in `portal_rank_player.csv` 2026 '
+        f'· ✗ = decision exists but not in production yet '
+        f'· — = unmatched (not expected in production)'
+    )
+
+    if not fdf.empty:
+        with st.form('past_decisions_form'):
+            hdr = st.columns([2.2, 1.2, 2.5, 1, 1.3, 1.3, 0.8])
+            hdr[0].markdown('**Portal Name / School**')
+            hdr[1].markdown('**NCAA ID**')
+            hdr[2].markdown('**Predicted**')
+            hdr[3].markdown('**Score**')
+            hdr[4].markdown('**Action**')
+            hdr[5].markdown('**Override 64A ID**')
+            hdr[6].markdown('**Prod**')
+
+            past_form = []
+            for row_idx, (_, row) in enumerate(fdf.iterrows()):
+                cols = st.columns([2.2, 1.2, 2.5, 1, 1.3, 1.3, 0.8])
+                cols[0].write(
+                    f"{row['portal_name']}  \n"
+                    f"_{row['institution']} (D-{row['division']})_"
+                )
+                cols[1].write(f"`{row['ncaa_id']}`")
+                if row['predicted_64a_id']:
+                    cols[2].write(f"{row['predicted_name']}  \n`{row['predicted_64a_id']}`")
+                else:
+                    cols[2].write('--')
+                cols[3].write(row['match_score'] if row['match_score'] else '--')
+
+                opts = ['', 'confirm', 'adjust', 'unmatch']
+                cur = row['action'] if row['action'] in opts else ''
+                action_new = cols[4].selectbox(
+                    'past_act', opts, index=opts.index(cur),
+                    key=f'past_act_{row_idx}',
+                    label_visibility='collapsed',
+                )
+                override_new = cols[5].text_input(
+                    'past_ovr', value=row['override_id'],
+                    key=f'past_ovr_{row_idx}',
+                    label_visibility='collapsed',
+                    placeholder='64A ID',
+                )
+                if row['in_prod'] == '✓':
+                    cols[6].markdown(':green[✓]')
+                elif row['in_prod'] == '✗':
+                    cols[6].markdown(':red[✗]')
+                else:
+                    cols[6].write(row['in_prod'])
+
+                past_form.append({
+                    'ncaa_id': row['ncaa_id'],
+                    'old_action': row['action'],
+                    'old_override': row['override_id'],
+                    'new_action': action_new,
+                    'new_override': override_new,
+                })
+
+            past_submitted = st.form_submit_button(
+                'Update Decisions',
+                type='primary',
+                use_container_width=True,
+            )
+            if past_submitted:
+                changed = 0
+                for item in past_form:
+                    new_action = item['new_action']
+                    new_override = item['new_override'].strip()
+                    if new_override and not new_action:
+                        new_action = 'adjust'
+                    if (new_action != item['old_action']) or (new_override != item['old_override']):
+                        decisions_map[item['ncaa_id']] = {
+                            'action': new_action,
+                            'override_id': new_override,
+                        }
+                        changed += 1
+                if changed:
+                    st.session_state.decisions = decisions_map
+                    if save_decisions_to_supabase(decisions_map):
+                        st.success(
+                            f'Updated {changed} decision(s) in Supabase. '
+                            f'Re-run the portal pipeline to apply changes to '
+                            f'`portal_rank_player.csv` / `player_rank.csv`.'
+                        )
+                    else:
+                        st.error('Failed to save updates to Supabase')
+                else:
+                    st.info('No changes detected.')
 
 # ── Downloads ────────────────────────────────────────────────────────────────
 st.divider()
