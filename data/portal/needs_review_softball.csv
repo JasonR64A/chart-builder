@@ -1,3 +1,4 @@
 ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfer_date,update_date,status,year,sport,team_id,player_id_64a,player_id_ncaa_stats,matched_name,match_score,match_method,confidence,position,class_year,player_csv_team_id
 2409398205,ANSLEE,SAUNCHEGRAW,Anslee Saunchegraw,Piedmont University,Collegiate Conference of the South,III,05/07/2026,05/08/2026,Active,2025-26,Softball,1724,144281,3232528,Anslee Sauchegraw,97.1,team+lastname,MEDIUM,SS,Fr,1724
 2411449896,ABIGAIL,BRINKLEY,Abigail Brinkley,Henderson State University,Great American Conference,II,05/08/2026,05/08/2026,Active,2025-26,Softball,1509,142194,3200692,Abby Brinkley,75.9,team+lastname_diff_first,REVIEW,RF,Fr,1509
+2308995858,ALEXIS,GATTUSO,Alexis Gattuso,"University of Maine, Farmington",North Atlantic Conference|North Atlantic Conference,III,12/13/2025,02/21/2026,Matriculated,2025-26,Baseball|Softball,1728,145081,3236623,Lou Gattuso,56.0,team+lastname_diff_first,REVIEW,C,Fr,1597
