@@ -2,7 +2,7 @@
 Regional Preview. Mirrors `regionals_top_hitters.py` with pitcher-specific
 data + metrics:
 
-  Stats grid: ERA / WHIP / K% / BB% / IP / K / W-L / FIP
+  Stats grid: ERA / WHIP / K% / BB% / IP / K / Opp OPS / FIP
   Splits:    Opp AVG and Opp OPS vs LHB, vs RHB, w/ RISP, 1st PA, Late
   Pace:      Cumulative ERA over the last 30 days
   Spray:     batted-ball zones AGAINST the pitcher (perspective='pitching')
@@ -37,21 +37,21 @@ from app_lib.regionals_top_hitters import (
 CURRENT_YEAR = 2026
 MIN_IP = 30  # qualifier gate
 
-STAT_KEYS = ['ERA', 'WHIP', 'K%', 'BB%', 'IP', 'K', 'W-L', 'FIP']
+STAT_KEYS = ['ERA', 'WHIP', 'K%', 'BB%', 'IP', 'K', 'Opp OPS', 'FIP']
 # Map design-stat-name → chart-builder pitching.csv column. Special cases
 # noted inline.
 _STAT_COL = {
-    'ERA':  'earned_run_average',
-    'WHIP': 'walks_plus_hits_per_inning_pitched',
-    'K%':   'strikeout_percentage',
-    'BB%':  'walk_percentage',
-    'IP':   'innings_pitched',
-    'K':    'strikeouts',
-    # W-L derived: f"{wins}-{losses}"
-    'FIP':  'fielding_independent_pitching',
+    'ERA':     'earned_run_average',
+    'WHIP':    'walks_plus_hits_per_inning_pitched',
+    'K%':      'strikeout_percentage',
+    'BB%':     'walk_percentage',
+    'IP':      'innings_pitched',
+    'K':       'strikeouts',
+    'Opp OPS': 'on_base_plus_slugging_against',
+    'FIP':     'fielding_independent_pitching',
 }
 # Lower-is-better stats — rank ASC for D1 ranks
-_LOWER_IS_BETTER = {'ERA', 'WHIP', 'BB%', 'FIP'}
+_LOWER_IS_BETTER = {'ERA', 'WHIP', 'BB%', 'FIP', 'Opp OPS'}
 
 # NCAA scorebook codes — same reference set as the hitters module so the
 # hits-allowed donut + spray work cleanly.
@@ -123,13 +123,8 @@ def build_division_pitcher_pool(pitching_df: pd.DataFrame, teams_df: pd.DataFram
 def compute_pitcher_ranks(player_row: pd.Series, pool: pd.DataFrame) -> dict:
     """{stat_key: (value, rank, percentile)}. Lower-is-better stats rank ASC."""
     out = {}
-    wins = int(player_row.get('wins') or 0)
-    losses = int(player_row.get('losses') or 0)
 
     for k in STAT_KEYS:
-        if k == 'W-L':
-            out[k] = (f'{wins}-{losses}', None, None)
-            continue
         col = _STAT_COL[k]
         v = pd.to_numeric(player_row.get(col), errors='coerce')
         col_vals = pd.to_numeric(pool[col], errors='coerce') if col in pool.columns else None
@@ -259,10 +254,9 @@ def compute_pitcher_splits(events_df: pd.DataFrame, ncaa_pitcher_id: int,
 
 def compute_pitcher_pace(events_df: pd.DataFrame, ncaa_pitcher_id: int,
                           window_days: int = 30) -> list[dict]:
-    """Cumulative ERA over the last `window_days`. Returns list of
-    {'game', 'date', 'era'}. ERA = 9 * earned_runs / IP. We approximate
-    earned_runs as runs_for_pitcher (no UE/PB nuance from events) and IP
-    as outs/3 (each AB-out + K). Good enough for a trajectory line."""
+    """Cumulative WHIP over the last `window_days`. Returns list of
+    {'game', 'date', 'whip'}. WHIP = (hits + walks) / IP, where IP =
+    outs / 3 (each AB-out + K). Walks counted from playResult ∈ {BB, IBB}."""
     if events_df.empty or pd.isna(ncaa_pitcher_id):
         return []
     df = events_df[events_df['pitcherId'] == ncaa_pitcher_id].copy()
@@ -275,20 +269,16 @@ def compute_pitcher_pace(events_df: pd.DataFrame, ncaa_pitcher_id: int,
         return []
 
     pr = df['playResult']
-    df['is_out'] = pr.isin(_AB_OUT_CODES).astype(int)
-    df['is_hit'] = pr.isin(_HIT_CODES_TB.keys()).astype(int)
-    df['is_hr']  = (pr == 'HR').astype(int)
-    # Earned runs proxy — use scoreFor/scoreAgainst delta per play if that
-    # column exists; otherwise count HR-derived runs (very rough). For a
-    # season-long trend the rough proxy works.
-    df['er_proxy'] = df['is_hr']  # at minimum HR = 1 ER. Underestimates but
-                                    # the line shape is what matters.
+    df['is_out']  = pr.isin(_AB_OUT_CODES).astype(int)
+    df['is_hit']  = pr.isin(_HIT_CODES_TB.keys()).astype(int)
+    df['is_walk'] = pr.isin({'BB', 'IBB'}).astype(int)
 
     by_game = df.groupby(['date_dt', 'gameId'], sort=True, as_index=False).agg(
-        outs=('is_out', 'sum'), er=('er_proxy', 'sum'),
+        outs=('is_out', 'sum'), hits=('is_hit', 'sum'), walks=('is_walk', 'sum'),
     )
-    by_game['c_outs'] = by_game['outs'].cumsum()
-    by_game['c_er'] = by_game['er'].cumsum()
+    by_game['c_outs']  = by_game['outs'].cumsum()
+    by_game['c_hits']  = by_game['hits'].cumsum()
+    by_game['c_walks'] = by_game['walks'].cumsum()
 
     if window_days and window_days > 0:
         cutoff = by_game['date_dt'].max() - pd.Timedelta(days=window_days)
@@ -298,15 +288,15 @@ def compute_pitcher_pace(events_df: pd.DataFrame, ncaa_pitcher_id: int,
     rows = []
     for i, r in by_game.iterrows():
         ip = r['c_outs'] / 3
-        era = (9 * r['c_er'] / ip) if ip > 0 else 0.0
+        whip = ((r['c_hits'] + r['c_walks']) / ip) if ip > 0 else 0.0
         if cutoff is None or r['date_dt'] >= cutoff:
             rows.append({
                 'game': i + 1,
                 'date': r['date_dt'].strftime('%Y-%m-%d'),
-                'era':  float(era),
+                'whip': float(whip),
                 # Reuse the hitters pace renderer which keys on 'ops' — alias
                 # so we don't have to duplicate the SVG path here.
-                'ops':  float(era),
+                'ops':  float(whip),
                 'pa':   int(r['c_outs']),
             })
     return rows
@@ -316,10 +306,10 @@ def compute_pitcher_pace(events_df: pd.DataFrame, ncaa_pitcher_id: int,
 def _fmt_pitcher_stat(k: str, v) -> str:
     if v is None or (isinstance(v, float) and pd.isna(v)):
         return '—'
-    if k == 'W-L':
-        return str(v)
     if k in ('ERA', 'WHIP', 'FIP'):
         return f'{float(v):.2f}'
+    if k == 'Opp OPS':
+        return f'{float(v):.3f}'
     if k in ('K%', 'BB%'):
         return f'{float(v) * 100:.1f}%'
     if k == 'IP':
@@ -483,21 +473,21 @@ def _row_html(idx: int, p: dict, accent: str, total_qualifiers: int) -> str:
         f'</section>'
     )
 
-    # Right column — pace (rolling ERA), K/9 × BB/9 scatter, hits-allowed donut
+    # Right column — pace (rolling WHIP), K% × BB% scatter, hits-allowed donut
     pace_data = p.get('pace') or []
-    era_v, _, _ = p['ranks'].get('ERA', (None, None, None))
-    final_era = f'{float(era_v):.2f}' if era_v is not None and not pd.isna(era_v) else '—'
+    whip_v, _, _ = p['ranks'].get('WHIP', (None, None, None))
+    final_whip = f'{float(whip_v):.2f}' if whip_v is not None and not pd.isna(whip_v) else '—'
     pace_svg = _render_pace_svg(pace_data, accent)
     pace_block = (
         f'<div>'
         f'<div class="rth-block-head">'
         f'<div>'
         f'<div class="rth-eyebrow">PACE · LAST 30 DAYS · {len(pace_data) if pace_data else 0} APPEARANCES</div>'
-        f'<div class="rth-block-title">Recent ERA trajectory</div>'
+        f'<div class="rth-block-title">Recent WHIP trajectory</div>'
         f'</div>'
         f'<div style="display:flex;flex-direction:column;align-items:flex-end;">'
-        f'<span style="font-family:var(--rth-serif);font-weight:700;font-size:28px;line-height:1;letter-spacing:-0.02em;color:{accent};font-variant-numeric:tabular-nums;">{final_era}</span>'
-        f'<span class="rth-iso__lbl">final ERA</span>'
+        f'<span style="font-family:var(--rth-serif);font-weight:700;font-size:28px;line-height:1;letter-spacing:-0.02em;color:{accent};font-variant-numeric:tabular-nums;">{final_whip}</span>'
+        f'<span class="rth-iso__lbl">final WHIP</span>'
         f'</div>'
         f'</div>'
         f'{pace_svg}'
