@@ -8,6 +8,7 @@ pbp_data/validated/*.parquet
 pbp_data/validated/*_full.json
 data/_backups_2026_*/
 *.backup_*.csv
+*.bak_*.csv
 *.pre_restore_*.csv
 
 # Design handoff bundles (source artifacts kept locally, not shipped)
