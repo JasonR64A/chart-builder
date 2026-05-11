@@ -119,6 +119,7 @@ Baseball,D1,6500274,2026-03-28,Utah,Kansas St.,13,11,75.6,0.591,0.773,7,0.787,11
 Baseball,D1,6508925,2026-02-13,McNeese,Sam Houston,9,8,75.6,0.793,0.814,6,0.495,146
 Baseball,D1,6522011,2026-03-31,Southern Ill.,Lindenwood,1,3,75.6,0.888,0.804,6,0.393,95
 Baseball,D1,6532547,2026-04-02,Utah Tech,Sacramento St.,7,6,75.6,0.695,0.827,9,0.599,100
+Baseball,D1,6522359,2026-05-10,UCLA,Oregon,9,6,75.5,0.866,0.672,2,0.974,93
 Baseball,D1,6522534,2026-04-04,Stanford,Clemson,5,4,75.4,0.807,0.774,3,0.819,93
 Baseball,D1,6538289,2026-03-24,Wright St.,Ohio St.,10,8,75.4,0.703,0.805,9,0.606,115
 Baseball,D1,6546472,2026-04-24,Western Caro.,ETSU,3,4,75.3,0.617,0.82,5,0.785,87
@@ -189,6 +190,7 @@ Baseball,D1,6536419,2026-05-02,Lafayette,Holy Cross,2,4,72.2,0.988,0.823,12,0.11
 Baseball,D1,6491935,2026-04-18,Harvard,Dartmouth,4,6,72.1,0.964,0.779,7,0.194,130
 Baseball,D1,6499600,2026-03-20,LSU,Oklahoma,2,4,72.1,0.304,0.84,9,0.912,97
 Baseball,D1,6506482,2026-03-08,New Mexico St.,UTSA,5,4,72.1,0.84,0.752,3,0.673,88
+Baseball,D1,6553712,2026-05-10,Oral Roberts,Omaha,6,8,72.1,0.854,0.738,7,0.373,100
 Baseball,D1,6483559,2026-02-27,Troy,Western Caro.,3,4,72.0,0.448,0.86,5,0.811,81
 Baseball,D1,6512468,2026-04-03,UNLV,New Mexico,6,7,72.0,0.599,0.857,13,0.531,104
 Baseball,D1,6489010,2026-05-08,Liberty,Louisiana Tech,3,9,71.9,0.597,0.667,5,0.86,94
@@ -264,8 +266,10 @@ Baseball,D1,6508751,2026-03-06,VMI,Western Ill.,10,7,69.4,0.684,0.841,8,0.345,75
 Baseball,D1,6510195,2026-02-17,Auburn,Cincinnati,0,8,69.4,0.474,0.626,5,0.954,106
 Baseball,D1,6515494,2026-04-25,Arkansas St.,Louisiana,5,11,69.4,0.312,0.816,8,0.822,129
 Baseball,D1,6512739,2026-02-22,Abilene Christian,Oral Roberts,8,7,69.3,0.656,0.809,4,0.614,109
+Baseball,D1,6515319,2026-05-10,UAB,Charlotte,8,10,69.3,0.368,0.81,11,0.757,105
 Baseball,D1,6519026,2026-03-29,Boston College,Virginia,1,3,69.3,0.708,0.762,1,0.909,80
 Baseball,D1,6524543,2026-03-15,Eastern Ky.,Central Ark.,6,5,69.3,0.787,0.761,7,0.314,99
+Baseball,D1,6526518,2026-05-10,Tarleton St.,UTRGV,2,4,69.3,0.743,0.724,3,0.712,92
 Baseball,D1,6527122,2026-03-28,UC Davis,UC San Diego,2,3,69.3,0.571,0.871,8,0.443,86
 Baseball,D1,6492215,2026-03-31,Jacksonville St.,Alabama,3,4,69.2,0.175,0.86,9,0.927,103
 Baseball,D1,6548593,2026-04-11,Rhode Island,La Salle,3,4,69.2,0.756,0.814,7,0.283,92
@@ -344,6 +348,7 @@ Baseball,D1,6546585,2026-03-22,Western Caro.,Samford,10,9,67.3,0.587,0.682,4,0.7
 Baseball,D1,6482815,2026-03-28,Grand Canyon,San Diego St.,11,12,67.2,0.49,0.789,10,0.552,103
 Baseball,D1,6489000,2026-04-21,McNeese,Louisiana Tech,4,3,67.2,0.458,0.806,5,0.671,96
 Baseball,D1,6522526,2026-03-27,Virginia Tech,Stanford,7,9,67.2,0.853,0.646,1,0.79,123
+Baseball,D1,6529611,2026-05-10,Rutgers,Maryland,7,11,67.2,0.454,0.764,10,0.625,108
 Baseball,D1,6529802,2026-05-03,Middle Tenn.,Western Ky.,8,9,67.2,0.39,0.818,14,0.638,106
 Baseball,D1,6537931,2026-05-01,Davidson,Richmond,6,5,67.2,0.562,0.777,7,0.48,107
 Baseball,D1,6541109,2026-02-25,Fla. Atlantic,Miami (FL),7,11,67.2,0.473,0.639,6,0.754,129
@@ -354,6 +359,7 @@ Baseball,D1,6494028,2026-04-18,Florida,Auburn,5,8,67.0,0.372,0.724,4,0.966,92
 Baseball,D1,6518387,2026-05-01,Evansville,UIC,2,1,67.0,0.607,0.86,7,0.318,74
 Baseball,D1,6486528,2026-03-13,Arkansas St.,Southern Miss.,8,5,66.9,0.338,0.65,7,0.891,106
 Baseball,D1,6496876,2026-04-21,Purdue,Indiana St.,5,6,66.9,0.474,0.734,5,0.728,106
+Baseball,D1,6537942,2026-05-10,Davidson,Rhode Island,21,17,66.9,0.826,0.625,6,0.336,129
 Baseball,D1,6499391,2026-04-28,Texas St.,A&M-Corpus Christi,2,7,66.8,0.661,0.602,5,0.655,107
 Baseball,D1,6491906,2026-03-16,California Baptist,Harvard,12,14,66.7,0.913,0.613,3,0.536,125
 Baseball,D1,6499786,2026-03-01,East Carolina,Western Caro.,0,2,66.7,0.504,0.75,3,0.862,88
@@ -399,6 +405,7 @@ Baseball,D1,6492562,2026-02-27,Evansville,Milwaukee,9,12,65.7,0.836,0.764,5,0.20
 Baseball,D1,6498720,2026-05-01,Gonzaga,Santa Clara,3,5,65.7,0.993,0.619,1,0.593,100
 Baseball,D1,6506176,2026-03-28,DBU,Missouri St.,2,8,65.7,0.675,0.724,1,0.847,103
 Baseball,D1,6509837,2026-04-24,McNeese,UTRGV,7,8,65.7,0.422,0.766,11,0.601,133
+Baseball,D1,6522567,2026-05-10,Stanford,NC State,9,5,65.7,0.27,0.726,9,0.834,105
 Baseball,D1,6491606,2026-02-25,South Carolina,Queens (NC),8,9,65.6,0.771,0.563,23,0.423,164
 Baseball,D1,6508773,2026-04-19,VMI,Western Caro.,3,4,65.6,0.322,0.825,10,0.647,103
 Baseball,D1,6565801,2026-03-21,Lehigh,Holy Cross,0,1,65.6,0.648,0.94,10,0.117,64
@@ -471,10 +478,12 @@ Baseball,D1,6546296,2026-03-13,Norfolk St.,Central Conn. St.,10,9,64.4,0.791,0.8
 Baseball,D1,6567118,2026-03-29,Binghamton,Fairfield,1,5,64.4,0.633,0.771,5,0.393,69
 Baseball,D1,6491631,2026-04-07,South Carolina,Col. of Charleston,4,6,64.3,0.619,0.778,3,0.596,108
 Baseball,D1,6497077,2026-02-13,Florida,UAB,7,9,64.3,0.286,0.718,5,0.866,107
+Baseball,D1,6533418,2026-05-10,Kansas,West Virginia,2,13,64.3,0.731,0.559,1,0.923,91
 Baseball,D1,6509042,2026-02-13,Louisville,Michigan St.,3,4,64.2,0.377,0.703,7,0.673,89
 Baseball,D1,6509825,2026-04-12,McNeese,UIW,8,6,64.2,0.854,0.651,3,0.463,92
 Baseball,D1,6515493,2026-04-24,Arkansas St.,Louisiana,2,3,64.2,0.238,0.801,5,0.822,77
 Baseball,D1,6527239,2026-04-21,Wright St.,Cincinnati,12,7,64.2,0.885,0.582,1,0.707,109
+Baseball,D1,6532189,2026-05-09,UIW,SFA,6,9,64.2,0.536,0.783,10,0.388,118
 Baseball,D1,6532699,2026-04-14,Oral Roberts,Central Ark.,3,5,64.2,0.408,0.777,7,0.546,95
 Baseball,D1,6533371,2026-03-06,West Virginia,Columbia,4,7,64.2,0.907,0.656,1,0.591,88
 Baseball,D1,6534299,2026-04-04,Lafayette,Bucknell,8,10,64.2,0.727,0.791,8,0.148,131
@@ -501,9 +510,11 @@ Baseball,D1,6499624,2026-04-05,Tennessee,LSU,6,16,63.8,0.276,0.581,6,0.925,133
 Baseball,D1,6506746,2026-04-28,New Mexico,New Mexico St.,15,16,63.8,0.517,0.7,7,0.49,142
 Baseball,D1,6525025,2026-02-21,Houston,UTRGV,6,10,63.8,0.878,0.638,1,0.63,115
 Baseball,D1,6528952,2026-02-20,Arkansas St.,Eastern Ill.,2,3,63.8,0.517,0.735,3,0.748,88
+Baseball,D1,6486312,2026-05-10,UT Martin,Little Rock,14,16,63.7,0.41,0.784,10,0.515,126
 Baseball,D1,6486563,2026-04-12,Louisiana,Southern Miss.,6,5,63.7,0.198,0.778,5,0.876,100
 Baseball,D1,6506121,2026-02-14,Louisiana,Missouri St.,12,13,63.7,0.417,0.674,4,0.839,153
 Baseball,D1,6509815,2026-03-10,Army West Point,Merrimack,10,9,63.7,0.84,0.718,4,0.279,109
+Baseball,D1,6510685,2026-05-09,Ohio St.,Michigan St.,4,7,63.7,0.683,0.66,3,0.638,84
 Baseball,D1,6512652,2026-04-11,Kansas St.,Oklahoma St.,13,9,63.7,0.425,0.722,3,0.873,110
 Baseball,D1,6512664,2026-04-28,Nebraska,Kansas St.,7,6,63.7,0.162,0.716,8,0.893,98
 Baseball,D1,6521424,2026-03-22,UMBC,Maine,3,4,63.7,0.526,0.835,9,0.314,86
@@ -513,6 +524,7 @@ Baseball,D1,6542165,2026-03-21,Lehigh,Holy Cross,4,6,63.6,0.685,0.836,12,0.117,9
 Baseball,D1,6486500,2026-02-13,Southern Miss.,UC Santa Barbara,1,5,63.5,0.597,0.686,1,0.899,77
 Baseball,D1,6486576,2026-04-24,South Alabama,Southern Miss.,3,4,63.5,0.105,0.776,6,0.883,87
 Baseball,D1,6489284,2026-04-03,UTRGV,Northwestern St.,6,9,63.5,0.879,0.648,1,0.607,106
+Baseball,D1,6499048,2026-05-10,Radford,UNC Asheville,4,6,63.5,0.797,0.653,5,0.298,84
 Baseball,D1,6492219,2026-04-03,Jacksonville St.,Middle Tenn.,7,6,63.4,0.524,0.657,4,0.717,98
 Baseball,D1,6494681,2026-03-01,Wofford,Saint Joseph's,6,10,63.4,0.332,0.743,5,0.748,108
 Baseball,D1,6498420,2026-04-04,Siena,Mount St. Mary's,2,3,63.4,0.658,0.837,7,0.143,91
@@ -530,7 +542,6 @@ Baseball,D1,6518524,2026-04-21,TCU,DBU,6,5,63.3,0.077,0.829,8,0.844,127
 Baseball,D1,6518537,2026-04-26,FIU,DBU,13,10,63.3,0.753,0.626,3,0.578,111
 Baseball,D1,6500105,2026-04-10,Stetson,Queens (NC),0,2,63.2,0.781,0.712,5,0.235,70
 Baseball,D1,6505267,2026-03-24,Memphis,Ole Miss,6,2,63.2,0.639,0.597,3,0.746,96
-Baseball,D1,6510685,2026-05-09,Ohio St.,Michigan St.,4,7,63.2,0.665,0.661,3,0.638,83
 Baseball,D1,6511449,2026-02-24,UNCW,Duke,3,6,63.2,0.685,0.733,1,0.726,92
 Baseball,D1,6511462,2026-03-01,UNCW,UConn,7,2,63.2,0.235,0.775,6,0.717,95
 Baseball,D1,6551356,2026-03-28,Texas Southern,Grambling,5,9,63.2,0.68,0.773,7,0.186,123
@@ -588,6 +599,7 @@ Baseball,D1,6522041,2026-02-24,UT Martin,Murray St.,5,7,62.5,0.725,0.777,3,0.396
 Baseball,D1,6522857,2026-03-17,Georgia,The Citadel,8,5,62.5,0.39,0.661,4,0.839,116
 Baseball,D1,6526928,2026-04-03,Texas Tech,Houston,10,13,62.5,0.303,0.739,7,0.65,168
 Baseball,D1,6545869,2026-03-20,North Ala.,Eastern Ky.,7,5,62.5,0.618,0.724,8,0.288,120
+Baseball,D1,6501791,2026-05-10,Arkansas,Oklahoma,10,15,62.4,0.189,0.699,5,0.93,110
 Baseball,D1,6505768,2026-04-11,Ball St.,Akron,3,2,62.4,0.751,0.796,4,0.238,75
 Baseball,D1,6506414,2026-02-22,New Mexico St.,Towson,6,8,62.4,0.681,0.694,5,0.345,107
 Baseball,D1,6509800,2026-03-27,McNeese,Abilene Christian,4,6,62.4,0.247,0.835,9,0.599,90
@@ -620,6 +632,7 @@ Baseball,D1,6555784,2026-02-21,Northwestern,Boston College,5,4,62.1,0.752,0.672,
 Baseball,D1,6564619,2026-03-14,Air Force,UNLV,18,16,62.1,0.52,0.578,7,0.568,133
 Baseball,D1,6486299,2026-04-17,Little Rock,Eastern Ill.,7,6,62.0,0.385,0.803,4,0.656,162
 Baseball,D1,6490206,2026-03-15,USC Upstate,High Point,5,7,62.0,0.198,0.793,10,0.689,99
+Baseball,D1,6494224,2026-05-10,Baylor,UCF,8,7,62.0,0.236,0.715,5,0.837,101
 Baseball,D1,6499887,2026-04-03,East Carolina,Charlotte,12,9,62.0,0.217,0.678,6,0.806,131
 Baseball,D1,6513985,2026-02-15,South Fla.,Illinois,11,10,62.0,0.373,0.751,4,0.73,96
 Baseball,D1,6521306,2026-03-21,UC Santa Barbara,Hawaii,1,3,62.0,0.56,0.652,3,0.726,87
@@ -632,13 +645,14 @@ Baseball,D1,6555797,2026-02-21,North Florida,Quinnipiac,5,4,61.9,0.691,0.709,4,0
 Baseball,D1,6500444,2026-02-13,North Florida,Sacred Heart,2,7,61.8,0.949,0.591,3,0.322,82
 Baseball,D1,6503445,2026-04-11,Nicholls,Lamar,11,10,61.8,0.216,0.831,6,0.616,135
 Baseball,D1,6508459,2026-03-08,Southern Ill.,South Dakota St.,5,4,61.8,0.6,0.755,6,0.246,99
+Baseball,D1,6508929,2026-05-10,Memphis,UTSA,10,5,61.8,0.448,0.609,5,0.704,95
 Baseball,D1,6522499,2026-02-20,Stanford,Cal St. Fullerton,2,4,61.8,0.525,0.726,3,0.673,86
 Baseball,D1,6530024,2026-02-24,UCLA,San Diego St.,3,4,61.8,0.261,0.668,5,0.858,85
-Baseball,D1,6532189,2026-05-09,UIW,SFA,6,9,61.8,0.45,0.787,8,0.388,107
 Baseball,D1,6532654,2026-05-01,Oklahoma St.,TCU,7,6,61.8,0.048,0.77,12,0.891,88
 Baseball,D1,6533684,2026-02-23,Winthrop,Marshall,11,7,61.8,0.35,0.772,8,0.526,117
 Baseball,D1,6551508,2026-03-14,UTSA,UT Arlington,8,11,61.8,0.95,0.483,1,0.653,100
 Baseball,D1,6486789,2026-04-12,Tulane,East Carolina,6,3,61.7,0.547,0.64,3,0.743,95
+Baseball,D1,6510687,2026-05-10,Ohio St.,Michigan St.,3,2,61.7,0.188,0.835,10,0.638,93
 Baseball,D1,6511456,2026-02-28,UNCW,UConn,2,1,61.7,0.094,0.864,6,0.717,108
 Baseball,D1,6539015,2026-02-13,Oral Roberts,Southern Ill.,2,4,61.7,0.671,0.765,3,0.443,88
 Baseball,D1,6486695,2026-03-13,Tulane,Creighton,6,8,61.6,0.293,0.729,6,0.637,147
@@ -724,6 +738,7 @@ Baseball,D1,6503347,2026-02-18,Lamar,Kansas,4,1,60.5,0.662,0.624,1,0.779,86
 Baseball,D1,6503606,2026-03-07,Dayton,Maine,10,9,60.5,0.492,0.697,6,0.394,113
 Baseball,D1,6515466,2026-02-27,Louisiana,UC San Diego,3,7,60.5,0.383,0.666,5,0.663,111
 Baseball,D1,6527444,2026-04-19,Iowa,Maryland,5,16,60.5,0.324,0.652,5,0.749,115
+Baseball,D1,6540853,2026-05-10,Northern Ky.,Wright St.,10,17,60.5,0.475,0.751,8,0.35,129
 Baseball,D1,6546614,2026-03-01,Southern U.,Morehead St.,7,8,60.5,0.392,0.779,6,0.415,112
 Baseball,D1,6548788,2026-03-27,Arkansas St.,James Madison,11,9,60.5,0.647,0.672,2,0.638,115
 Baseball,D1,6551520,2026-03-29,UTSA,East Carolina,8,7,60.5,0.394,0.719,2,0.886,122
@@ -781,6 +796,7 @@ Baseball,D1,6507461,2026-03-15,Georgia,Tennessee,8,7,59.7,0.316,0.701,2,0.969,99
 Baseball,D1,6513907,2026-04-11,FIU,Kennesaw St.,4,3,59.7,0.311,0.86,5,0.482,92
 Baseball,D1,6513917,2026-04-26,Western Ky.,Kennesaw St.,6,9,59.7,0.311,0.685,5,0.694,102
 Baseball,D1,6514368,2026-02-22,Notre Dame,Indiana,9,8,59.7,0.285,0.755,4,0.739,136
+Baseball,D1,6518557,2026-05-09,Western Ky.,DBU,3,5,59.7,0.213,0.784,4,0.79,86
 Baseball,D1,6524182,2026-04-04,North Carolina,Boston College,8,7,59.7,0.213,0.662,4,0.936,91
 Baseball,D1,6532134,2026-03-07,FIU,Fla. Atlantic,3,5,59.7,0.297,0.802,8,0.467,125
 Baseball,D1,6500281,2026-04-10,Arizona St.,Utah,4,10,59.6,0.592,0.614,1,0.837,103
@@ -825,6 +841,7 @@ Baseball,D1,6525027,2026-02-22,Houston,UTRGV,4,8,59.1,0.594,0.769,1,0.63,108
 Baseball,D1,6530710,2026-02-20,Air Force,Navy,3,5,59.1,0.263,0.774,7,0.521,94
 Baseball,D1,6532581,2026-04-24,UCLA,Sacramento St.,6,5,59.1,0.306,0.568,5,0.814,86
 Baseball,D1,6538962,2026-05-03,William & Mary,Elon,5,7,59.1,0.895,0.69,1,0.362,90
+Baseball,D1,6492955,2026-05-10,Fordham,Saint Louis,6,7,59.0,0.471,0.794,9,0.244,91
 Baseball,D1,6494675,2026-02-22,Wofford,NIU,6,9,59.0,0.733,0.568,1,0.699,108
 Baseball,D1,6496708,2026-03-13,Maryland,Purdue,5,16,59.0,0.15,0.675,8,0.77,106
 Baseball,D1,6500132,2026-04-26,West Ga.,Stetson,11,13,59.0,0.484,0.783,10,0.238,128
@@ -899,6 +916,7 @@ Baseball,D1,6543755,2026-05-03,Florida St.,Pittsburgh,6,4,58.3,0.006,0.672,8,0.9
 Baseball,D1,6545400,2026-04-28,North Carolina,Coastal Carolina,2,12,58.3,0.545,0.53,1,0.943,107
 Baseball,D1,6437860,2026-04-24,UC San Diego,UC Irvine,11,10,58.2,0.278,0.737,6,0.511,114
 Baseball,D1,6496234,2026-03-25,LMU (CA),Cal Poly,8,7,58.2,0.345,0.74,9,0.428,109
+Baseball,D1,6497458,2026-05-09,Florida,Kentucky,2,4,58.2,0.297,0.65,3,0.891,86
 Baseball,D1,6500056,2026-03-09,Arkansas,Stetson,4,6,58.2,0.538,0.626,3,0.632,88
 Baseball,D1,6538440,2026-03-06,Richmond,Binghamton,2,5,58.2,0.772,0.631,1,0.544,91
 Baseball,D1,6486550,2026-04-03,Old Dominion,Southern Miss.,10,8,58.1,0.471,0.583,3,0.759,96
@@ -910,6 +928,7 @@ Baseball,D1,6534004,2026-03-07,Stony Brook,Northeastern,3,4,58.1,0.276,0.748,8,0
 Baseball,D1,6515626,2026-05-03,Nicholls,New Orleans,10,12,58.0,0.297,0.73,7,0.489,140
 Baseball,D1,6528553,2026-02-24,Georgia Tech,Georgia St.,4,9,58.0,0.764,0.448,1,0.764,102
 Baseball,D1,6536773,2026-04-02,Central Conn. St.,Wagner,10,9,58.0,0.553,0.765,9,0.137,106
+Baseball,D1,6545403,2026-05-10,Coastal Carolina,Old Dominion,2,9,58.0,0.464,0.603,3,0.741,95
 Baseball,D1,6490185,2026-02-14,High Point,Saint Joseph's,1,6,57.9,0.184,0.672,5,0.788,86
 Baseball,D1,6509848,2026-04-04,Merrimack,Fairfield,6,7,57.9,0.835,0.717,2,0.256,102
 Baseball,D1,6512875,2026-03-07,Hawaii,Cal Poly,7,10,57.9,0.142,0.725,8,0.674,139
@@ -973,8 +992,10 @@ Baseball,D1,6492986,2026-05-03,UNLV,Milwaukee,8,7,57.2,0.635,0.644,4,0.352,103
 Baseball,D1,6496762,2026-03-27,Michigan St.,Purdue,4,3,57.2,0.289,0.782,3,0.702,77
 Baseball,D1,6496828,2026-03-13,App State,Coastal Carolina,6,10,57.2,0.031,0.678,8,0.836,99
 Baseball,D1,6499635,2026-05-08,Georgia,LSU,11,8,57.2,0.006,0.613,8,0.943,94
+Baseball,D1,6504104,2026-05-10,Dayton,George Mason,5,9,57.2,0.365,0.717,7,0.391,101
 Baseball,D1,6522100,2026-04-07,North Ala.,UT Martin,5,6,57.2,0.39,0.753,5,0.415,111
 Baseball,D1,6529071,2026-05-08,Eastern Ill.,SIUE,2,3,57.2,0.406,0.732,3,0.622,80
+Baseball,D1,6539236,2026-05-10,UAlbany,Binghamton,11,9,57.2,0.536,0.744,5,0.252,101
 Baseball,D1,6500055,2026-03-08,Arkansas,Stetson,1,4,57.1,0.738,0.555,1,0.632,81
 Baseball,D1,6501931,2026-05-01,Penn,Brown,9,13,57.1,0.374,0.723,7,0.366,105
 Baseball,D1,6507213,2026-03-21,Saint Mary's (CA),Pepperdine,5,9,57.1,0.908,0.508,1,0.484,124
@@ -1014,6 +1035,7 @@ Baseball,D1,6504039,2026-04-10,Dayton,Saint Joseph's,3,5,56.7,0.115,0.775,6,0.60
 Baseball,D1,6510419,2026-04-11,Fairfield,Rider,3,6,56.7,0.408,0.759,5,0.366,94
 Baseball,D1,6529022,2026-03-29,Eastern Ill.,Morehead St.,5,8,56.7,0.595,0.716,1,0.594,106
 Baseball,D1,6532959,2026-04-25,UIW,A&M-Corpus Christi,4,6,56.7,0.408,0.797,4,0.423,88
+Baseball,D1,6533790,2026-05-10,Marshall,ULM,5,7,56.7,0.172,0.758,8,0.55,93
 Baseball,D1,6546591,2026-04-07,Western Caro.,USC Upstate,11,18,56.7,0.458,0.601,3,0.695,121
 Baseball,D1,6551437,2026-02-17,Illinois,Butler,8,10,56.7,0.78,0.619,1,0.489,110
 Baseball,D1,6496923,2026-04-11,App State,ULM,9,14,56.6,0.73,0.505,1,0.684,110
@@ -1187,7 +1209,6 @@ Baseball,D1,6557265,2026-02-28,Stetson,Fordham,6,7,54.8,0.369,0.754,5,0.345,113
 Baseball,D1,6558877,2026-03-07,UAB,Middle Tenn.,9,8,54.8,0.349,0.681,3,0.658,94
 Baseball,D1,6500495,2026-04-02,North Florida,Queens (NC),3,7,54.7,0.442,0.685,5,0.337,103
 Baseball,D1,6500541,2026-04-25,UC Davis,Long Beach St.,3,8,54.7,0.774,0.718,1,0.3,91
-Baseball,D1,6504102,2026-05-09,Dayton,George Mason,4,6,54.7,0.522,0.725,3,0.391,109
 Baseball,D1,6514977,2026-04-07,Washington St.,Oregon St.,7,6,54.7,0.242,0.65,3,0.818,97
 Baseball,D1,6515194,2026-03-14,CSUN,UC San Diego,4,6,54.7,0.383,0.776,3,0.495,83
 Baseball,D1,6515354,2026-04-21,CSUN,San Diego St.,3,4,54.7,0.018,0.809,6,0.594,99
@@ -1199,6 +1220,7 @@ Baseball,D1,6543474,2026-04-03,Murray St.,Belmont,5,9,54.7,0.397,0.706,5,0.365,9
 Baseball,D1,6486635,2026-03-08,TCU,Tulane,4,8,54.6,0.449,0.515,3,0.728,93
 Baseball,D1,6491641,2026-04-26,South Carolina,Kentucky,5,9,54.6,0.29,0.719,2,0.775,103
 Baseball,D1,6500532,2026-05-09,Queens (NC),North Florida,4,3,54.6,0.486,0.802,3,0.337,86
+Baseball,D1,6501483,2026-05-10,Murray St.,Indiana St.,8,7,54.6,0.138,0.836,5,0.516,93
 Baseball,D1,6514352,2026-03-31,Evansville,Indiana,5,4,54.6,0.237,0.698,7,0.463,127
 Baseball,D1,6519307,2026-03-22,Oregon,Northwestern,10,11,54.6,0.153,0.665,5,0.704,154
 Baseball,D1,6522317,2026-03-27,UC Santa Barbara,Oregon,0,4,54.6,0.015,0.72,4,0.901,103
@@ -1210,7 +1232,9 @@ Baseball,D1,6568318,2026-04-03,Mercyhurst,New Haven,4,3,54.6,0.483,0.81,6,0.034,
 Baseball,D1,6489293,2026-04-19,Lamar,Northwestern St.,4,3,54.5,0.025,0.809,8,0.581,136
 Baseball,D1,6499047,2026-05-09,Radford,UNC Asheville,2,4,54.5,0.668,0.651,3,0.298,83
 Baseball,D1,6501479,2026-05-08,Murray St.,Indiana St.,2,3,54.5,0.019,0.868,6,0.516,91
+Baseball,D1,6504102,2026-05-09,Dayton,George Mason,4,6,54.5,0.517,0.726,3,0.391,110
 Baseball,D1,6508742,2026-02-28,VMI,Stonehill,5,16,54.5,0.898,0.554,1,0.339,106
+Baseball,D1,6518559,2026-05-10,Western Ky.,DBU,11,8,54.5,0.019,0.724,5,0.79,101
 Baseball,D1,6535562,2026-03-22,Arizona,Texas Tech,10,12,54.5,0.108,0.682,14,0.632,123
 Baseball,D1,6539577,2026-05-09,William & Mary,Towson,10,11,54.5,0.807,0.665,1,0.316,111
 Baseball,D1,6491632,2026-04-09,Missouri,South Carolina,1,5,54.4,0.037,0.702,9,0.689,78
@@ -1228,6 +1252,7 @@ Baseball,D1,6498977,2026-04-10,UC Davis,CSU Bakersfield,5,3,54.3,0.397,0.822,4,0
 Baseball,D1,6507931,2026-04-12,Pepperdine,Pacific,4,9,54.3,0.287,0.796,7,0.272,106
 Baseball,D1,6516418,2026-03-14,Georgetown,William & Mary,2,8,54.3,0.33,0.699,6,0.337,107
 Baseball,D1,6521296,2026-02-28,Hawaii,Ball St.,0,1,54.3,0.451,0.739,3,0.445,80
+Baseball,D1,6525063,2026-05-10,Boston College,NJIT,7,8,54.3,0.269,0.638,13,0.484,95
 Baseball,D1,6527112,2026-05-08,Austin Peay,Eastern Ky.,2,5,54.3,0.885,0.587,1,0.306,91
 Baseball,D1,6538445,2026-02-21,Central Ark.,Northwestern St.,2,5,54.3,0.321,0.791,3,0.537,131
 Baseball,D1,6544144,2026-03-29,Hofstra,Northeastern,11,10,54.3,0.182,0.672,7,0.549,124
@@ -1235,7 +1260,7 @@ Baseball,D1,6549635,2026-02-28,Florida A&M,Central Conn. St.,1,4,54.3,0.47,0.68,
 Baseball,D1,6551678,2026-04-24,Binghamton,Longwood,3,7,54.3,0.191,0.729,7,0.469,192
 Baseball,D1,6492245,2026-04-10,Liberty,Jacksonville St.,4,8,54.2,0.337,0.618,1,0.922,104
 Baseball,D1,6495931,2026-03-10,USC Upstate,Wofford,5,2,54.2,0.169,0.681,5,0.648,86
-Baseball,D1,6518557,2026-05-09,Western Ky.,DBU,3,5,54.2,0.199,0.783,2,0.79,84
+Baseball,D1,6511513,2026-05-10,N.C. A&T,UNCW,7,2,54.2,0.597,0.624,3,0.406,100
 Baseball,D1,6530158,2026-04-10,Clemson,North Carolina,9,5,54.2,0.169,0.618,3,0.925,93
 Baseball,D1,6532954,2026-04-15,Texas Tech,UIW,8,13,54.2,0.723,0.56,1,0.529,140
 Baseball,D1,6533690,2026-03-03,Virginia Tech,Marshall,4,13,54.2,0.648,0.528,1,0.655,124
@@ -1249,6 +1274,7 @@ Baseball,D1,6498894,2026-03-06,CSU Bakersfield,Cal St. Fullerton,3,5,54.1,0.2,0.
 Baseball,D1,6511503,2026-04-21,UNCW,Coastal Carolina,2,1,54.1,0.103,0.769,3,0.819,79
 Baseball,D1,6513160,2026-03-21,Coppin St.,UMES,4,5,54.1,0.493,0.798,7,0.015,98
 Baseball,D1,6515308,2026-04-04,Fla. Atlantic,UAB,4,10,54.1,0.349,0.704,2,0.699,114
+Baseball,D1,6519124,2026-05-10,Virginia,California,7,8,54.1,0.247,0.601,3,0.847,90
 Baseball,D1,6542932,2026-05-01,California,Virginia Tech,1,9,54.1,0.009,0.632,6,0.793,91
 Baseball,D1,6483561,2026-03-01,Rutgers,Troy,1,2,54.0,0.107,0.799,4,0.671,82
 Baseball,D1,6483567,2026-03-22,Southern Miss.,Troy,5,4,54.0,0.015,0.727,4,0.868,102
@@ -1270,6 +1296,7 @@ Baseball,D1,6512743,2026-03-03,TCU,Abilene Christian,7,6,53.9,0.208,0.794,2,0.75
 Baseball,D1,6515314,2026-05-02,Rice,UAB,16,9,53.9,0.053,0.632,7,0.735,206
 Baseball,D1,6526779,2026-03-29,Florida St.,Duke,4,11,53.9,0.441,0.567,1,0.845,107
 Baseball,D1,6529917,2026-03-13,Tarleton St.,Houston Christian,6,7,53.9,0.529,0.664,1,0.622,90
+Baseball,D1,6531486,2026-05-10,Alabama St.,Bethune-Cookman,14,11,53.9,0.723,0.607,1,0.459,107
 Baseball,D1,6532172,2026-03-21,FIU,Sam Houston,12,11,53.9,0.604,0.704,2,0.384,109
 Baseball,D1,6538710,2026-02-27,Elon,Fairfield,3,2,53.9,0.389,0.802,4,0.326,87
 Baseball,D1,6580277,2026-05-08,New Haven,Delaware St.,5,3,53.9,0.875,0.741,2,0.016,88
@@ -1332,13 +1359,13 @@ Baseball,D1,6529782,2026-04-21,Tennessee Tech,Middle Tenn.,12,6,53.3,0.341,0.704
 Baseball,D1,6539544,2026-04-04,Columbia,Penn,8,9,53.3,0.16,0.822,6,0.355,95
 Baseball,D1,6553560,2026-03-14,UIC,UNC Greensboro,5,6,53.3,0.354,0.828,3,0.412,116
 Baseball,D1,6494201,2026-05-02,UCF,Arizona St.,4,2,53.2,0.032,0.733,3,0.909,98
+Baseball,D1,6499925,2026-05-10,Bradley,Campbell,5,4,53.2,0.733,0.584,1,0.45,82
 Baseball,D1,6501466,2026-04-19,Wright St.,Indiana St.,8,11,53.2,0.23,0.747,4,0.557,107
 Baseball,D1,6524665,2026-03-20,Nevada,Air Force,10,7,53.2,0.107,0.702,8,0.557,98
 Baseball,D1,6532513,2026-03-21,UT Arlington,St. John's (NY),7,11,53.2,0.112,0.726,6,0.523,131
 Baseball,D1,6533511,2026-03-13,Bryant,Binghamton,3,4,53.2,0.338,0.82,3,0.44,109
 Baseball,D1,6546477,2026-05-03,UConn,ETSU,4,3,53.2,0.1,0.74,4,0.721,85
 Baseball,D1,6493999,2026-03-22,Auburn,Texas,0,5,53.1,0.061,0.629,3,0.995,103
-Baseball,D1,6497458,2026-05-09,Florida,Kentucky,2,4,53.1,0.294,0.65,1,0.891,85
 Baseball,D1,6506667,2026-03-27,Middle Tenn.,New Mexico St.,7,5,53.1,0.073,0.787,8,0.493,98
 Baseball,D1,6509988,2026-03-06,Marist,Manhattan,9,12,53.1,0.742,0.685,3,0.112,120
 Baseball,D1,6512438,2026-03-04,UNLV,Northern Colo.,7,9,53.1,0.331,0.688,7,0.3,123
@@ -1364,6 +1391,7 @@ Baseball,D1,6493834,2026-02-28,UCF,South Fla.,2,9,52.8,0.42,0.58,1,0.811,102
 Baseball,D1,6501277,2026-03-06,NC State,Lafayette,6,11,52.8,0.722,0.553,1,0.482,85
 Baseball,D1,6518820,2026-04-18,ULM,Arkansas St.,3,2,52.8,0.1,0.811,3,0.721,106
 Baseball,D1,6524434,2026-04-21,Boston College,Maine,4,6,52.8,0.16,0.665,5,0.621,113
+Baseball,D1,6538847,2026-05-10,UT Arlington,Utah Tech,8,5,52.8,0.004,0.839,6,0.498,123
 Baseball,D1,6548666,2026-04-09,Vanderbilt,Oklahoma,10,5,52.8,0.002,0.671,4,0.904,90
 Baseball,D1,6555761,2026-02-21,Mount St. Mary's,Massachusetts,5,7,52.8,0.839,0.706,1,0.16,95
 Baseball,D1,6580290,2026-05-08,Fairfield,Marist,3,4,52.8,0.791,0.679,1,0.248,90
@@ -1398,7 +1426,9 @@ Baseball,D1,6574487,2026-04-18,UConn,St. John's (NY),5,6,52.5,0.193,0.757,3,0.66
 Baseball,D1,6492980,2026-05-02,UNLV,Milwaukee,1,4,52.4,0.736,0.633,1,0.352,88
 Baseball,D1,6498463,2026-05-01,Mount St. Mary's,Merrimack,2,4,52.4,0.311,0.79,7,0.173,112
 Baseball,D1,6499577,2026-03-02,LSU,Northeastern,10,13,52.4,0.258,0.583,3,0.788,143
+Baseball,D1,6502445,2026-05-10,California Baptist,Sacramento St.,2,19,52.4,0.457,0.579,1,0.752,96
 Baseball,D1,6517116,2026-03-10,TCU,Kansas,9,4,52.4,0.142,0.593,3,0.912,99
+Baseball,D1,6521327,2026-05-10,UC Davis,Hawaii,3,1,52.4,0.21,0.719,5,0.484,81
 Baseball,D1,6522530,2026-03-29,Virginia Tech,Stanford,3,6,52.4,0.245,0.76,1,0.79,132
 Baseball,D1,6527228,2026-04-12,Cincinnati,Baylor,3,8,52.4,0.378,0.578,1,0.85,110
 Baseball,D1,6535552,2026-03-11,Texas Tech,UTSA,10,5,52.4,0.402,0.609,1,0.783,123
@@ -1455,6 +1485,7 @@ Baseball,D1,6522979,2026-03-21,Omaha,Northern Colo.,12,11,51.9,0.337,0.804,12,0.
 Baseball,D1,6530698,2026-05-01,New Mexico,Air Force,9,7,51.9,0.054,0.718,8,0.552,112
 Baseball,D1,6531469,2026-05-03,Texas Southern,Alabama St.,4,6,51.9,0.242,0.789,11,0.238,92
 Baseball,D1,6545399,2026-04-12,Arkansas St.,Coastal Carolina,6,3,51.9,0.086,0.667,3,0.873,93
+Baseball,D1,6546507,2026-05-10,Miami (OH),Massachusetts,8,7,51.9,0.683,0.575,1,0.464,99
 Baseball,D1,6502420,2026-04-20,California Baptist,UC Santa Barbara,6,11,51.8,0.137,0.617,3,0.865,111
 Baseball,D1,6504040,2026-04-11,Dayton,Saint Joseph's,4,5,51.8,0.008,0.717,10,0.601,94
 Baseball,D1,6512867,2026-02-23,Cal Poly,Washington St.,4,5,51.8,0.123,0.766,3,0.707,107
@@ -1474,6 +1505,7 @@ Baseball,D1,6494576,2026-05-01,Ga. Southern,Coastal Carolina,7,8,51.7,0.416,0.61
 Baseball,D1,6500041,2026-02-21,Stetson,Virginia,6,5,51.7,0.223,0.729,3,0.625,106
 Baseball,D1,6500153,2026-05-09,Stetson,Jacksonville,16,6,51.7,0.196,0.664,7,0.436,94
 Baseball,D1,6502653,2026-04-17,Kentucky,Vanderbilt,5,2,51.7,0.011,0.826,2,0.863,81
+Baseball,D1,6512671,2026-05-10,Kansas St.,Cincinnati,5,2,51.7,0.08,0.669,3,0.871,80
 Baseball,D1,6522565,2026-05-09,Stanford,NC State,7,12,51.7,0.092,0.604,4,0.834,119
 Baseball,D1,6530062,2026-03-10,Cal St. Fullerton,San Diego St.,3,2,51.7,0.032,0.819,4,0.648,91
 Baseball,D1,6536490,2026-04-24,Fla. Atlantic,Charlotte,3,1,51.7,0.018,0.738,5,0.661,85
@@ -1493,6 +1525,7 @@ Baseball,D1,6486801,2026-05-08,Tulane,South Fla.,6,16,51.5,0.02,0.646,8,0.663,11
 Baseball,D1,6494974,2026-05-02,Penn St.,Minnesota,3,5,51.5,0.003,0.694,6,0.625,89
 Baseball,D1,6499782,2026-02-13,East Carolina,Xavier,3,4,51.5,0.379,0.656,1,0.717,104
 Baseball,D1,6510290,2026-03-28,Niagara,Iona,3,9,51.5,0.929,0.563,1,0.169,87
+Baseball,D1,6522158,2026-05-10,Lindenwood,Tennessee Tech,3,4,51.5,0.422,0.745,3,0.36,80
 Baseball,D1,6522553,2026-04-27,Stanford,UC Davis,6,5,51.5,0.117,0.629,8,0.567,148
 Baseball,D1,6538286,2026-02-27,UTSA,Ohio St.,6,5,51.5,0.032,0.687,4,0.796,86
 Baseball,D1,6482835,2026-05-08,Grand Canyon,New Mexico,6,5,51.4,0.119,0.803,5,0.451,92
@@ -1656,6 +1689,7 @@ Baseball,D1,6509996,2026-03-20,Manhattan,Quinnipiac,6,5,50.0,0.267,0.767,9,0.16,
 Baseball,D1,6512829,2026-05-05,Abilene Christian,UTRGV,7,13,50.0,0.045,0.665,5,0.647,125
 Baseball,D1,6518379,2026-04-19,Belmont,Evansville,1,6,50.0,0.437,0.744,3,0.285,84
 Baseball,D1,6521940,2026-03-21,Lindenwood,Eastern Ill.,4,5,50.0,0.062,0.795,4,0.57,97
+Baseball,D1,6535665,2026-05-10,Seattle U,Santa Clara,2,4,50.0,0.458,0.821,2,0.265,90
 Baseball,D1,6536096,2026-03-14,Nebraska,Maine,8,7,50.0,0.562,0.478,1,0.651,105
 Baseball,D1,6537278,2026-03-31,Baylor,Tarleton St.,1,5,50.0,0.085,0.683,3,0.78,92
 Baseball,D1,6538722,2026-03-17,North Ala.,Tennessee Tech,9,10,50.0,0.238,0.724,5,0.347,121
@@ -1730,9 +1764,11 @@ Baseball,D1,6522688,2026-04-02,Quinnipiac,Niagara,6,8,49.4,0.146,0.785,7,0.259,9
 Baseball,D1,6527119,2026-05-09,Austin Peay,Eastern Ky.,2,4,49.4,0.612,0.696,1,0.306,87
 Baseball,D1,6532004,2026-04-03,Southern Ill.,Illinois St.,4,3,49.4,0.143,0.689,5,0.477,83
 Baseball,D1,6533198,2026-03-29,Bellarmine,North Ala.,12,9,49.4,0.429,0.669,3,0.358,103
+Baseball,D1,6550296,2026-05-10,Saint Joseph's,VCU,5,19,49.4,0.171,0.651,3,0.691,100
 Baseball,D1,6553397,2026-05-09,Central Mich.,Akron,10,12,49.4,0.558,0.675,3,0.197,115
 Baseball,D1,6498350,2026-02-20,Mount St. Mary's,Massachusetts,4,6,49.3,0.388,0.706,5,0.16,110
 Baseball,D1,6498419,2026-03-18,Liberty,Virginia,12,14,49.3,0.031,0.591,3,0.927,117
+Baseball,D1,6498802,2026-05-10,Air Force,Washington St.,10,9,49.3,0.235,0.718,2,0.627,98
 Baseball,D1,6499410,2026-05-09,Arkansas St.,Texas St.,3,8,49.3,0.001,0.615,4,0.836,92
 Baseball,D1,6499551,2026-02-20,Indiana,LSU,7,14,49.3,0.03,0.628,4,0.783,138
 Baseball,D1,6501420,2026-02-20,Indiana St.,Miami (OH),11,3,49.3,0.01,0.552,7,0.697,94
@@ -1829,6 +1865,7 @@ Baseball,D1,6538091,2026-05-09,Arizona St.,Oklahoma St.,6,13,48.5,0.151,0.611,1,
 Baseball,D1,6538434,2026-04-21,Norfolk St.,Virginia,16,0,48.5,0.388,0.571,3,0.49,84
 Baseball,D1,6544285,2026-04-07,William & Mary,Old Dominion,3,15,48.5,0.037,0.672,14,0.49,105
 Baseball,D1,6546471,2026-04-24,Western Caro.,ETSU,14,10,48.5,0.013,0.617,4,0.785,101
+Baseball,D1,6548678,2026-05-10,Missouri,Vanderbilt,4,1,48.5,0.192,0.695,1,0.777,86
 Baseball,D1,6549890,2026-02-15,Murray St.,Ohio,13,15,48.5,0.719,0.619,1,0.233,145
 Baseball,D1,6549905,2026-02-22,A&M-Corpus Christi,Pittsburgh,5,2,48.5,0.327,0.648,1,0.671,93
 Baseball,D1,6486627,2026-02-25,South Alabama,Tulane,2,15,48.4,0.37,0.57,1,0.707,92
@@ -1862,6 +1899,7 @@ Baseball,D1,6494050,2026-03-20,TCU,UCF,7,18,48.2,0.003,0.623,3,0.876,124
 Baseball,D1,6495060,2026-03-06,Belmont,Wofford,8,11,48.2,0.017,0.653,10,0.524,101
 Baseball,D1,6509250,2026-05-09,Gardner-Webb,Campbell,9,11,48.2,0.11,0.646,4,0.621,115
 Baseball,D1,6518130,2026-03-24,James Madison,Radford,6,10,48.2,0.267,0.697,3,0.471,118
+Baseball,D1,6521551,2026-05-10,Bryant,UMBC,4,3,48.2,0.271,0.704,4,0.357,86
 Baseball,D1,6529931,2026-03-27,SFA,Houston Christian,8,5,48.2,0.017,0.725,7,0.436,98
 Baseball,D1,6542437,2026-04-28,Rutgers,UConn,4,5,48.2,0.002,0.75,4,0.627,210
 Baseball,D1,6546505,2026-05-09,Miami (OH),Massachusetts,10,8,48.2,0.284,0.602,4,0.464,97
@@ -1923,8 +1961,10 @@ Baseball,D1,6510615,2026-03-20,Michigan St.,Iowa,2,0,47.7,0.078,0.696,3,0.681,75
 Baseball,D1,6529920,2026-03-15,Tarleton St.,Houston Christian,5,9,47.7,0.208,0.614,3,0.622,89
 Baseball,D1,6532142,2026-03-10,FIU,FGCU,6,11,47.7,0.019,0.622,6,0.537,143
 Baseball,D1,6532145,2026-04-03,A&M-Corpus Christi,SFA,9,13,47.7,0.049,0.673,9,0.44,100
+Baseball,D1,6536962,2026-05-10,Wagner,Coppin St.,11,12,47.7,0.25,0.731,7,0.129,119
 Baseball,D1,6544283,2026-03-31,William & Mary,VMI,3,10,47.7,0.111,0.7,5,0.435,115
 Baseball,D1,6549415,2026-03-27,Rice,Fla. Atlantic,2,6,47.7,0.272,0.704,1,0.638,97
+Baseball,D1,6482837,2026-05-10,Grand Canyon,New Mexico,9,11,47.6,0.192,0.687,4,0.451,109
 Baseball,D1,6492728,2026-04-03,Milwaukee,Youngstown St.,4,7,47.6,0.574,0.682,3,0.096,99
 Baseball,D1,6494099,2026-04-04,West Virginia,UCF,11,10,47.6,0.126,0.639,1,0.888,113
 Baseball,D1,6495344,2026-04-12,UAB,Wichita St.,2,10,47.6,0.221,0.666,1,0.739,100
@@ -1932,6 +1972,7 @@ Baseball,D1,6496187,2026-05-01,Wofford,Western Caro.,6,1,47.6,0.004,0.68,3,0.783
 Baseball,D1,6496768,2026-03-28,Michigan St.,Purdue,13,16,47.6,0.068,0.602,4,0.702,132
 Baseball,D1,6501783,2026-05-01,Arkansas,Ole Miss,12,2,47.6,0.0,0.546,3,0.95,74
 Baseball,D1,6508906,2026-04-24,UAB,Memphis,7,6,47.6,0.065,0.638,4,0.661,133
+Baseball,D1,6512903,2026-05-10,Cal St. Fullerton,Cal Poly,2,6,47.6,0.005,0.693,4,0.664,88
 Baseball,D1,6514341,2026-03-07,Indiana,Washington,2,9,47.6,0.14,0.657,3,0.647,92
 Baseball,D1,6519215,2026-02-22,Boston College,Northwestern,5,8,47.6,0.493,0.446,1,0.678,115
 Baseball,D1,6519330,2026-04-14,Northwestern,UIC,12,11,47.6,0.255,0.649,4,0.419,97
@@ -2023,6 +2064,7 @@ Baseball,D1,6494479,2026-02-19,Hawaii,Wichita St.,7,6,46.8,0.267,0.675,1,0.642,8
 Baseball,D1,6498408,2026-03-14,Liberty,Missouri St.,11,12,46.8,0.143,0.582,1,0.901,124
 Baseball,D1,6508418,2026-04-24,South Dakota St.,Northern Colo.,7,6,46.8,0.215,0.746,10,0.121,232
 Baseball,D1,6508451,2026-03-15,UC Riverside,San Francisco,6,5,46.8,0.167,0.843,5,0.16,120
+Baseball,D1,6516470,2026-05-10,Creighton,Georgetown,2,5,46.8,0.455,0.628,1,0.474,100
 Baseball,D1,6522651,2026-02-20,Lipscomb,Villanova,5,11,46.8,0.168,0.714,8,0.215,116
 Baseball,D1,6524768,2026-05-01,Clemson,Boston College,4,8,46.8,0.026,0.713,1,0.884,97
 Baseball,D1,6526805,2026-05-05,Duke,Queens (NC),7,11,46.8,0.416,0.533,3,0.432,116
@@ -2058,6 +2100,7 @@ Baseball,D1,6512856,2026-02-22,UC San Diego,Western Mich.,2,5,46.5,0.433,0.668,1
 Baseball,D1,6514183,2026-02-21,Nevada,Utah Valley,9,5,46.5,0.048,0.696,6,0.368,96
 Baseball,D1,6519321,2026-03-28,Washington,Northwestern,9,10,46.5,0.401,0.615,1,0.542,108
 Baseball,D1,6522793,2026-04-15,Monmouth,Penn,5,3,46.5,0.084,0.78,4,0.423,91
+Baseball,D1,6522821,2026-05-10,Hofstra,Monmouth,10,18,46.5,0.099,0.678,5,0.427,137
 Baseball,D1,6529760,2026-03-04,Middle Tenn.,Belmont,7,8,46.5,0.248,0.705,3,0.417,105
 Baseball,D1,6529918,2026-03-14,Tarleton St.,Houston Christian,8,5,46.5,0.04,0.66,4,0.622,91
 Baseball,D1,6530783,2026-03-15,Lehigh,Navy,3,1,46.5,0.237,0.679,5,0.261,71
@@ -2136,6 +2179,7 @@ Baseball,D1,6486783,2026-04-04,Wichita St.,Tulane,1,8,45.9,0.139,0.61,3,0.638,88
 Baseball,D1,6498898,2026-03-07,CSU Bakersfield,Cal St. Fullerton,9,3,45.9,0.124,0.646,5,0.414,92
 Baseball,D1,6500389,2026-02-28,Long Beach St.,BYU,7,6,45.9,0.422,0.64,1,0.463,104
 Baseball,D1,6501782,2026-04-25,Missouri,Arkansas,6,1,45.9,0.187,0.591,1,0.803,81
+Baseball,D1,6503494,2026-05-09,Houston Christian,Lamar,9,5,45.9,0.023,0.648,5,0.533,98
 Baseball,D1,6509594,2026-02-20,Richmond,Penn St.,0,5,45.9,0.398,0.616,1,0.52,92
 Baseball,D1,6510305,2026-04-08,Iona,FDU,3,1,45.9,0.182,0.738,5,0.233,92
 Baseball,D1,6512472,2026-04-14,Utah Tech,UNLV,6,8,45.9,0.001,0.731,4,0.559,115
@@ -2164,6 +2208,7 @@ Baseball,D1,6542925,2026-04-12,Pittsburgh,California,2,13,45.8,0.196,0.565,1,0.8
 Baseball,D1,6546485,2026-03-20,Massachusetts,Kent St.,3,14,45.8,0.023,0.607,8,0.476,100
 Baseball,D1,6492682,2026-02-27,Towson,Canisius,2,3,45.7,0.378,0.765,3,0.158,88
 Baseball,D1,6492769,2026-03-20,Canisius,Merrimack,2,4,45.7,0.345,0.818,3,0.134,84
+Baseball,D1,6494990,2026-05-10,Minnesota,Michigan,5,8,45.7,0.1,0.651,1,0.827,92
 Baseball,D1,6503367,2026-03-01,Lamar,UTRGV,2,1,45.7,0.006,0.833,2,0.622,111
 Baseball,D1,6503577,2026-02-25,Dayton,Toledo,18,8,45.7,0.019,0.619,21,0.461,179
 Baseball,D1,6510210,2026-03-17,Auburn,Georgia Tech,9,2,45.7,0.037,0.578,1,0.992,96
@@ -2255,6 +2300,7 @@ Baseball,D1,6544278,2026-03-22,William & Mary,N.C. A&T,11,10,45.0,0.157,0.639,6,
 Baseball,D1,6545866,2026-02-18,North Ala.,Murray St.,15,5,45.0,0.001,0.636,6,0.436,90
 Baseball,D1,6486587,2026-05-08,James Madison,Southern Miss.,5,8,44.9,0.161,0.591,2,0.692,93
 Baseball,D1,6494869,2026-04-18,UCLA,Minnesota,6,4,44.9,0.002,0.558,2,0.925,95
+Baseball,D1,6512496,2026-05-10,Fresno St.,UNLV,14,13,44.9,0.54,0.582,1,0.35,115
 Baseball,D1,6512643,2026-03-22,Kansas St.,Arizona St.,12,1,44.9,0.094,0.589,1,0.878,73
 Baseball,D1,6516866,2026-02-13,Seton Hall,Boston College,4,6,44.9,0.041,0.694,4,0.513,93
 Baseball,D1,6529769,2026-04-07,Middle Tenn.,Lipscomb,5,3,44.9,0.082,0.736,4,0.414,96
@@ -2278,6 +2324,7 @@ Baseball,D1,6535775,2026-04-11,Presbyterian,Winthrop,5,2,44.8,0.339,0.636,3,0.32
 Baseball,D1,6536596,2026-03-22,Texas A&M,Georgia,18,5,44.8,0.028,0.561,1,0.984,111
 Baseball,D1,6550287,2026-04-21,VCU,Virginia Tech,6,8,44.8,0.004,0.722,2,0.718,98
 Baseball,D1,6566950,2026-03-28,George Washington,La Salle,9,6,44.8,0.05,0.794,9,0.181,104
+Baseball,D1,6486803,2026-05-10,Tulane,South Fla.,9,5,44.7,0.037,0.651,3,0.663,113
 Baseball,D1,6492847,2026-04-07,Fordham,Manhattan,8,12,44.7,0.564,0.666,1,0.213,121
 Baseball,D1,6493830,2026-02-22,UCF,LSU,0,11,44.7,0.041,0.622,1,0.894,97
 Baseball,D1,6498963,2026-04-12,Longwood,UNC Asheville,5,7,44.7,0.478,0.685,1,0.292,94
@@ -2301,6 +2348,7 @@ Baseball,D1,6514963,2026-03-01,Iowa,Oregon St.,3,4,44.6,0.0,0.75,0,0.884,118
 Baseball,D1,6526960,2026-04-25,TCU,Houston,4,2,44.6,0.054,0.65,2,0.738,81
 Baseball,D1,6526972,2026-04-10,Austin Peay,North Ala.,3,9,44.6,0.342,0.666,1,0.474,86
 Baseball,D1,6531371,2026-03-07,Alabama St.,Longwood,11,6,44.6,0.081,0.668,5,0.383,97
+Baseball,D1,6535315,2026-05-10,Pepperdine,Portland,5,2,44.6,0.061,0.643,5,0.44,83
 Baseball,D1,6536494,2026-04-25,Fla. Atlantic,Charlotte,9,4,44.6,0.01,0.676,3,0.661,90
 Baseball,D1,6537286,2026-04-03,Baylor,BYU,4,10,44.6,0.124,0.662,1,0.739,104
 Baseball,D1,6540965,2026-02-28,Southeast Mo. St.,Miami (OH),6,14,44.6,0.024,0.576,3,0.765,107
@@ -2408,6 +2456,7 @@ Baseball,D1,6500431,2026-03-15,Long Beach St.,Hawaii,2,1,43.8,0.249,0.781,1,0.41
 Baseball,D1,6520863,2026-04-26,Mercyhurst,FDU,9,10,43.8,0.125,0.654,6,0.215,135
 Baseball,D1,6525562,2026-02-20,Jackson St.,Texas Southern,3,2,43.8,0.02,0.781,6,0.191,81
 Baseball,D1,6530832,2026-04-05,Navy,Lehigh,6,11,43.8,0.582,0.579,1,0.261,102
+Baseball,D1,6532024,2026-05-10,UIC,Illinois St.,6,7,43.8,0.028,0.67,4,0.515,116
 Baseball,D1,6533526,2026-04-07,Bryant,UConn,2,6,43.8,0.082,0.739,2,0.567,102
 Baseball,D1,6546008,2026-05-09,Miami (FL),Louisville,10,8,43.8,0.0,0.59,2,0.844,105
 Baseball,D1,6484900,2026-03-14,Miami (OH),Bowling Green,0,10,43.7,0.364,0.584,1,0.511,88
@@ -2443,6 +2492,7 @@ Baseball,D1,6494061,2026-04-03,Iowa,Minnesota,4,9,43.5,0.0,0.595,2,0.824,104
 Baseball,D1,6494338,2026-03-25,Col. of Charleston,Ga. Southern,2,5,43.5,0.13,0.719,3,0.42,86
 Baseball,D1,6496146,2026-03-02,LMU (CA),Utah,4,13,43.5,0.155,0.606,4,0.427,107
 Baseball,D1,6528975,2026-03-01,Northern Ky.,Eastern Ill.,20,15,43.5,0.461,0.548,1,0.43,135
+Baseball,D1,6535664,2026-05-09,Seattle U,Santa Clara,4,11,43.5,0.014,0.715,6,0.265,96
 Baseball,D1,6544812,2026-02-20,James Madison,Le Moyne,13,11,43.5,0.01,0.7,6,0.288,130
 Baseball,D1,6548787,2026-03-03,James Madison,George Mason,2,11,43.5,0.258,0.618,3,0.389,107
 Baseball,D1,6484884,2026-02-20,Western Caro.,Bowling Green,4,3,43.4,0.005,0.66,4,0.537,81
@@ -2452,7 +2502,6 @@ Baseball,D1,6514005,2026-03-31,Illinois St.,Illinois,4,1,43.4,0.011,0.695,2,0.68
 Baseball,D1,6520108,2026-04-02,Oklahoma,Alabama,7,10,43.4,0.012,0.574,1,0.933,91
 Baseball,D1,6528925,2026-02-20,George Washington,Lehigh,3,5,43.4,0.613,0.662,1,0.106,84
 Baseball,D1,6529021,2026-04-19,VCU,George Washington,3,9,43.4,0.451,0.594,1,0.383,99
-Baseball,D1,6535664,2026-05-09,Seattle U,Santa Clara,4,11,43.4,0.013,0.711,6,0.265,93
 Baseball,D1,6538482,2026-04-15,Old Dominion,Richmond,10,9,43.4,0.075,0.7,2,0.606,133
 Baseball,D1,6553578,2026-02-15,UConn,Air Force,6,12,43.4,0.164,0.661,1,0.647,113
 Baseball,D1,6486802,2026-05-09,Tulane,South Fla.,9,8,43.3,0.1,0.707,1,0.663,103
@@ -2514,6 +2563,7 @@ Baseball,D1,6486519,2026-03-01,Louisiana Tech,Southern Miss.,2,6,42.9,0.0,0.708,
 Baseball,D1,6488979,2026-03-21,New Mexico St.,Louisiana Tech,13,10,42.9,0.185,0.639,1,0.627,114
 Baseball,D1,6498417,2026-04-03,Siena,Mount St. Mary's,3,2,42.9,0.001,0.81,6,0.143,80
 Baseball,D1,6498744,2026-03-20,San Diego,Gonzaga,7,6,42.9,0.234,0.602,1,0.612,110
+Baseball,D1,6499412,2026-05-10,Arkansas St.,Texas St.,9,15,42.9,0.0,0.567,2,0.836,128
 Baseball,D1,6500515,2026-04-26,FGCU,North Florida,13,3,42.9,0.013,0.553,4,0.638,107
 Baseball,D1,6501776,2026-04-17,Arkansas,Georgia,3,5,42.9,0.0,0.629,0,0.961,86
 Baseball,D1,6519528,2026-03-31,Creighton,Nebraska,5,6,42.9,0.0,0.582,2,0.819,98
@@ -2542,6 +2592,7 @@ Baseball,D1,6512808,2026-04-10,Tarleton St.,Abilene Christian,4,11,42.7,0.169,0.
 Baseball,D1,6518775,2026-02-14,ULM,Central Ark.,11,12,42.7,0.161,0.714,1,0.557,124
 Baseball,D1,6522332,2026-04-10,Oregon,Nebraska,7,6,42.7,0.0,0.628,0,0.953,108
 Baseball,D1,6525635,2026-03-20,Notre Dame,Clemson,6,0,42.7,0.0,0.64,1,0.842,71
+Baseball,D1,6526991,2026-05-10,Arizona,Houston,6,5,42.7,0.02,0.74,2,0.594,94
 Baseball,D1,6527118,2026-03-15,UC Davis,UC Santa Barbara,10,6,42.7,0.232,0.6,1,0.611,105
 Baseball,D1,6529015,2026-03-27,Eastern Ill.,Morehead St.,16,9,42.7,0.033,0.562,4,0.594,102
 Baseball,D1,6539531,2026-02-21,Texas A&M,Penn,2,1,42.7,0.071,0.606,2,0.697,110
@@ -2578,6 +2629,7 @@ Baseball,D1,6502655,2026-04-18,Kentucky,Vanderbilt,7,8,42.4,0.0,0.695,0,0.863,12
 Baseball,D1,6509610,2026-03-15,Penn St.,Iowa,4,12,42.4,0.001,0.578,4,0.599,102
 Baseball,D1,6512874,2026-03-06,Hawaii,Cal Poly,2,6,42.4,0.002,0.683,2,0.674,87
 Baseball,D1,6528490,2026-04-24,Saint Peter's,Niagara,9,11,42.4,0.216,0.753,4,0.132,114
+Baseball,D1,6529081,2026-05-10,Eastern Ill.,SIUE,9,20,42.4,0.053,0.593,3,0.622,121
 Baseball,D1,6533199,2026-03-31,Northern Ky.,Bellarmine,12,15,42.4,0.029,0.691,13,0.231,145
 Baseball,D1,6534748,2026-02-22,UC Santa Barbara,Portland,6,2,42.4,0.002,0.634,2,0.731,89
 Baseball,D1,6536059,2026-04-17,William & Mary,Col. of Charleston,10,16,42.4,0.142,0.65,3,0.446,114
@@ -2633,6 +2685,7 @@ Baseball,D1,6536591,2026-03-21,Texas A&M,Georgia,2,8,42.0,0.0,0.58,0,0.984,95
 Baseball,D1,6537487,2026-04-03,West Ga.,FGCU,9,6,42.0,0.309,0.637,1,0.445,100
 Baseball,D1,6538946,2026-04-11,Elon,William & Mary,1,13,42.0,0.001,0.597,6,0.362,83
 Baseball,D1,6539720,2026-03-22,Princeton,Cornell,3,6,42.0,0.499,0.7,1,0.142,96
+Baseball,D1,6437870,2026-05-10,UC Riverside,UC Irvine,5,3,41.9,0.35,0.712,1,0.301,84
 Baseball,D1,6482828,2026-04-27,Grand Canyon,BYU,10,3,41.9,0.108,0.589,3,0.541,93
 Baseball,D1,6486300,2026-04-18,Little Rock,Eastern Ill.,11,7,41.9,0.072,0.612,2,0.656,104
 Baseball,D1,6491921,2026-04-04,Harvard,Brown,0,4,41.9,0.087,0.762,4,0.257,75
@@ -2679,6 +2732,7 @@ Baseball,D1,6512816,2026-04-19,Indiana,Abilene Christian,5,4,41.6,0.001,0.671,2,
 Baseball,D1,6512823,2026-04-28,Abilene Christian,DBU,4,16,41.6,0.036,0.571,2,0.735,128
 Baseball,D1,6531974,2026-02-20,FIU,Holy Cross,7,4,41.6,0.015,0.662,10,0.249,91
 Baseball,D1,6546461,2026-03-24,ETSU,Virginia Tech,9,4,41.6,0.044,0.612,1,0.777,103
+Baseball,D1,6578962,2026-05-10,Army West Point,Holy Cross,2,6,41.6,0.235,0.673,3,0.274,91
 Baseball,D1,6580262,2026-05-08,Quinnipiac,Rider,9,4,41.6,0.015,0.682,5,0.326,93
 Baseball,D1,6437828,2026-02-20,UC Irvine,California,5,3,41.5,0.172,0.596,1,0.638,81
 Baseball,D1,6492288,2026-05-01,Missouri St.,Jacksonville St.,10,2,41.5,0.01,0.548,1,0.891,89
@@ -2700,6 +2754,8 @@ Baseball,D1,6517281,2026-03-21,Kansas,Houston,9,8,41.4,0.034,0.524,2,0.787,108
 Baseball,D1,6526716,2026-02-21,Duke,Milwaukee,6,9,41.4,0.392,0.539,1,0.44,116
 Baseball,D1,6532573,2026-04-17,UT Arlington,Sacramento St.,1,2,41.4,0.001,0.773,2,0.528,81
 Baseball,D1,6532962,2026-04-28,UTSA,UIW,22,10,41.4,0.009,0.516,4,0.625,102
+Baseball,D1,6546779,2026-05-10,NIU,Ball St.,5,17,41.4,0.328,0.572,1,0.476,120
+Baseball,D1,6548602,2026-05-10,La Salle,St. Bonaventure,10,8,41.4,0.224,0.683,4,0.166,104
 Baseball,D1,6556716,2026-02-25,Liberty,High Point,9,3,41.4,0.001,0.485,2,0.875,100
 Baseball,D1,6492295,2026-05-03,Missouri St.,Jacksonville St.,4,11,41.3,0.0,0.634,0,0.891,105
 Baseball,D1,6495284,2026-03-07,Wichita St.,West Ga.,12,7,41.3,0.205,0.657,2,0.415,106
@@ -2712,6 +2768,7 @@ Baseball,D1,6537790,2026-03-15,Washington,Ohio St.,5,4,41.3,0.001,0.733,1,0.669,
 Baseball,D1,6541327,2026-03-29,Wright St.,Oakland,7,10,41.3,0.164,0.577,5,0.262,109
 Baseball,D1,6482799,2026-03-01,Grand Canyon,Pacific,11,10,41.2,0.072,0.692,4,0.331,111
 Baseball,D1,6486240,2026-02-14,Little Rock,Eastern Mich.,6,11,41.2,0.571,0.391,1,0.394,116
+Baseball,D1,6496200,2026-05-10,Wofford,ETSU,5,9,41.2,0.059,0.616,1,0.738,100
 Baseball,D1,6498064,2026-02-13,Southeastern La.,Kent St.,3,8,41.2,0.014,0.623,1,0.785,88
 Baseball,D1,6509810,2026-03-07,Merrimack,Niagara,0,4,41.2,0.007,0.681,8,0.22,86
 Baseball,D1,6521495,2026-04-24,Maine,UMBC,2,3,41.2,0.065,0.797,3,0.314,88
@@ -2813,7 +2870,7 @@ Baseball,D1,6506736,2026-04-25,Creighton,Butler,6,5,40.4,0.133,0.577,3,0.466,91
 Baseball,D1,6508748,2026-03-06,VMI,Western Ill.,8,7,40.4,0.002,0.725,4,0.345,104
 Baseball,D1,6509628,2026-04-04,Nebraska,Penn St.,8,7,40.4,0.001,0.612,2,0.679,94
 Baseball,D1,6529011,2026-04-14,George Washington,Navy,4,1,40.4,0.178,0.668,3,0.298,91
-Baseball,D1,6536957,2026-05-09,Wagner,Coppin St.,10,9,40.4,0.071,0.667,8,0.129,111
+Baseball,D1,6536957,2026-05-09,Wagner,Coppin St.,10,9,40.4,0.072,0.667,8,0.129,112
 Baseball,D1,6539564,2026-04-04,Towson,Hofstra,8,6,40.4,0.042,0.619,5,0.322,101
 Baseball,D1,6578198,2026-05-02,Lehigh,Bucknell,0,4,40.4,0.007,0.713,10,0.151,95
 Baseball,D1,6486295,2026-04-10,SIUE,Little Rock,0,3,40.3,0.063,0.68,1,0.621,81
@@ -2876,6 +2933,7 @@ Baseball,D1,6504416,2026-05-02,Maryland,Michigan,5,17,39.9,0.0,0.536,2,0.752,100
 Baseball,D1,6509587,2026-02-13,Penn St.,Air Force,3,15,39.9,0.0,0.584,4,0.495,103
 Baseball,D1,6514200,2026-04-07,Utah Valley,BYU,5,10,39.9,0.004,0.616,4,0.453,118
 Baseball,D1,6519101,2026-04-18,Virginia,Clemson,5,4,39.9,0.0,0.584,0,0.897,89
+Baseball,D1,6530198,2026-05-10,Clemson,Florida St.,3,6,39.9,0.0,0.564,0,0.92,99
 Baseball,D1,6530248,2026-04-18,Seton Hall,Xavier,3,6,39.9,0.033,0.684,4,0.336,97
 Baseball,D1,6531497,2026-03-14,Omaha,North Dakota St.,6,2,39.9,0.033,0.694,6,0.124,86
 Baseball,D1,6536639,2026-04-21,Georgia Tech,Georgia,14,4,39.9,0.0,0.505,0,0.989,86
@@ -2960,7 +3018,9 @@ Baseball,D1,6489005,2026-05-01,DBU,Louisiana Tech,4,1,39.2,0.0,0.635,0,0.806,68
 Baseball,D1,6489280,2026-03-27,Nicholls,Northwestern St.,2,12,39.2,0.122,0.599,1,0.601,108
 Baseball,D1,6491615,2026-03-10,The Citadel,South Carolina,8,3,39.2,0.0,0.642,1,0.699,102
 Baseball,D1,6495341,2026-04-10,UAB,Wichita St.,4,3,39.2,0.0,0.691,0,0.739,85
+Baseball,D1,6497034,2026-05-10,App State,Louisiana,3,12,39.2,0.014,0.556,1,0.785,108
 Baseball,D1,6499834,2026-03-20,Indiana St.,Bradley,8,10,39.2,0.38,0.569,1,0.329,108
+Baseball,D1,6500294,2026-05-10,TCU,Utah,4,3,39.2,0.0,0.635,0,0.805,87
 Baseball,D1,6504038,2026-04-08,Toledo,Dayton,5,9,39.2,0.214,0.624,1,0.461,113
 Baseball,D1,6507460,2026-03-14,Georgia,Tennessee,4,2,39.2,0.0,0.498,0,0.969,78
 Baseball,D1,6509664,2026-05-08,Penn St.,Washington,6,4,39.2,0.106,0.69,1,0.513,87
@@ -3043,6 +3103,7 @@ Baseball,D1,6525422,2026-03-31,UMass Lowell,Dartmouth,4,3,38.8,0.016,0.739,5,0.1
 Baseball,D1,6525704,2026-03-20,Houston Christian,UTRGV,7,10,38.8,0.021,0.64,2,0.559,107
 Baseball,D1,6526748,2026-03-22,Virginia Tech,Duke,7,6,38.8,0.0,0.653,0,0.769,125
 Baseball,D1,6530036,2026-03-10,Northern Ky.,Toledo,3,12,38.8,0.001,0.674,4,0.34,117
+Baseball,D1,6531968,2026-05-10,Villanova,St. John's (NY),8,2,38.8,0.144,0.59,3,0.371,97
 Baseball,D1,6538065,2026-02-15,Oklahoma St.,Vanderbilt,11,1,38.8,0.0,0.542,0,0.901,87
 Baseball,D1,6545230,2026-02-24,Oklahoma,Arizona St.,3,15,38.8,0.0,0.519,0,0.927,85
 Baseball,D1,6549899,2026-04-12,UIC,Murray St.,10,5,38.8,0.07,0.728,2,0.397,94
@@ -3102,6 +3163,7 @@ Baseball,D1,6489004,2026-04-28,ULM,Louisiana Tech,16,5,38.2,0.041,0.568,1,0.697,
 Baseball,D1,6491629,2026-04-03,South Carolina,Texas,3,5,38.2,0.0,0.563,0,0.852,92
 Baseball,D1,6492845,2026-03-28,Rider,Canisius,2,8,38.2,0.339,0.647,1,0.244,97
 Baseball,D1,6492920,2026-04-28,Fordham,Sacred Heart,10,13,38.2,0.373,0.62,1,0.236,118
+Baseball,D1,6492934,2026-05-10,Youngstown St.,Milwaukee,8,12,38.2,0.015,0.677,7,0.096,107
 Baseball,D1,6493797,2026-03-11,Minnesota,Gonzaga,6,2,38.2,0.0,0.561,0,0.855,77
 Baseball,D1,6496196,2026-05-08,Wofford,ETSU,7,6,38.2,0.0,0.66,0,0.738,94
 Baseball,D1,6500473,2026-03-14,Pacific,Sacramento St.,7,6,38.2,0.135,0.678,1,0.451,107
@@ -3158,6 +3220,7 @@ Baseball,D1,6530261,2026-05-01,Georgia Tech,Xavier,4,8,37.9,0.131,0.411,1,0.765,
 Baseball,D1,6538454,2026-03-15,Richmond,Saint Joseph's,1,5,37.9,0.0,0.68,0,0.699,83
 Baseball,D1,6541107,2026-02-17,Fla. Atlantic,Missouri,4,2,37.9,0.0,0.731,0,0.637,77
 Baseball,D1,6542330,2026-03-20,Pittsburgh,Georgia Tech,9,11,37.9,0.0,0.49,0,0.928,108
+Baseball,D1,6489012,2026-05-10,Liberty,Louisiana Tech,3,2,37.8,0.0,0.543,0,0.86,79
 Baseball,D1,6498736,2026-02-28,Oklahoma,Gonzaga,11,1,37.8,0.0,0.517,0,0.893,67
 Baseball,D1,6500033,2026-02-15,Stetson,St. John's (NY),7,11,37.8,0.005,0.693,2,0.474,95
 Baseball,D1,6505263,2026-03-15,Texas,Ole Miss,8,2,37.8,0.0,0.443,0,0.98,85
@@ -3196,6 +3259,7 @@ Baseball,D1,6530038,2026-03-13,Toledo,NIU,21,5,37.6,0.003,0.524,3,0.57,103
 Baseball,D1,6531774,2026-03-08,Florida A&M,Villanova,1,4,37.6,0.239,0.734,1,0.238,87
 Baseball,D1,6546377,2026-05-01,Binghamton,Maine,2,9,37.6,0.252,0.586,1,0.397,85
 Baseball,D1,6495986,2026-04-10,Wofford,The Citadel,2,0,37.5,0.0,0.655,0,0.713,76
+Baseball,D1,6497460,2026-05-10,Florida,Kentucky,9,6,37.5,0.0,0.508,0,0.891,93
 Baseball,D1,6500157,2026-02-15,Fresno St.,Utah,14,8,37.5,0.209,0.583,1,0.45,110
 Baseball,D1,6500293,2026-05-09,TCU,Utah,3,1,37.5,0.0,0.579,0,0.805,74
 Baseball,D1,6507244,2026-03-27,Portland,Saint Mary's (CA),0,3,37.5,0.0,0.707,0,0.653,93
@@ -3229,6 +3293,7 @@ Baseball,D1,6510329,2026-04-26,Fairfield,Iona,4,5,37.3,0.173,0.65,3,0.205,99
 Baseball,D1,6519296,2026-03-14,Northwestern,Southern California,0,2,37.3,0.0,0.653,0,0.707,75
 Baseball,D1,6532951,2026-03-31,UIW,UTSA,13,11,37.3,0.001,0.555,2,0.625,115
 Baseball,D1,6537991,2026-04-07,Tarleton St.,UTSA,2,6,37.3,0.0,0.554,0,0.827,92
+Baseball,D1,6538093,2026-05-10,Arizona St.,Oklahoma St.,11,7,37.3,0.0,0.473,0,0.923,112
 Baseball,D1,6544826,2026-02-21,High Point,Maine,6,3,37.3,0.001,0.592,2,0.581,88
 Baseball,D1,6551338,2026-03-28,Southern U.,Prairie View,3,6,37.3,0.346,0.679,1,0.161,96
 Baseball,D1,6568401,2026-04-02,James Madison,Louisiana,4,5,37.3,0.0,0.724,0,0.624,99
@@ -3273,6 +3338,7 @@ Baseball,D1,6511486,2026-03-20,Col. of Charleston,UNCW,1,2,37.0,0.0,0.727,0,0.60
 Baseball,D1,6513909,2026-04-12,FIU,Kennesaw St.,7,1,37.0,0.128,0.622,1,0.482,91
 Baseball,D1,6522352,2026-05-08,UCLA,Oregon,11,1,37.0,0.0,0.421,0,0.974,67
 Baseball,D1,6522879,2026-04-08,Winthrop,The Citadel,8,10,37.0,0.0,0.715,0,0.624,128
+Baseball,D1,6527487,2026-05-10,Nebraska,Iowa,8,6,37.0,0.0,0.501,0,0.878,103
 Baseball,D1,6528353,2026-03-11,NJIT,Seton Hall,5,8,37.0,0.021,0.628,7,0.101,106
 Baseball,D1,6530716,2026-02-22,Marshall,Navy,1,8,37.0,0.114,0.642,1,0.474,92
 Baseball,D1,6533390,2026-03-27,Arizona St.,West Virginia,14,4,37.0,0.0,0.476,0,0.907,110
@@ -3281,6 +3347,7 @@ Baseball,D1,6534254,2026-02-21,Jacksonville,LIU,5,4,37.0,0.002,0.717,2,0.415,75
 Baseball,D1,6536783,2026-04-11,Wagner,Norfolk St.,3,2,37.0,0.035,0.74,4,0.15,87
 Baseball,D1,6539074,2026-04-24,Southern Ill.,Murray St.,1,13,37.0,0.005,0.594,4,0.36,82
 Baseball,D1,6542919,2026-03-13,California,North Carolina,1,8,37.0,0.0,0.506,0,0.875,85
+Baseball,D1,6550074,2026-05-10,North Carolina,Pittsburgh,7,3,37.0,0.0,0.466,0,0.922,92
 Baseball,D1,6550084,2026-02-21,Fresno St.,Pepperdine,10,6,37.0,0.308,0.665,1,0.212,107
 Baseball,D1,6550666,2026-04-17,Virginia Tech,Pittsburgh,11,6,37.0,0.0,0.533,0,0.84,102
 Baseball,D1,6568219,2026-04-03,Massachusetts,NIU,4,0,37.0,0.18,0.63,1,0.406,76
@@ -3317,6 +3384,7 @@ Baseball,D1,6526778,2026-03-28,Florida St.,Duke,12,11,36.8,0.0,0.521,0,0.845,118
 Baseball,D1,6531646,2026-02-17,Delaware,La Salle,6,4,36.8,0.087,0.764,2,0.249,89
 Baseball,D1,6542340,2026-04-11,Georgia Tech,Florida St.,17,3,36.8,0.0,0.412,0,0.979,89
 Baseball,D1,6549697,2026-05-01,Old Dominion,Arkansas St.,0,6,36.8,0.0,0.639,0,0.705,83
+Baseball,D1,6483597,2026-05-10,Troy,South Alabama,8,1,36.7,0.0,0.55,0,0.806,86
 Baseball,D1,6494272,2026-02-28,Ga. Southern,USC Upstate,2,8,36.7,0.011,0.58,3,0.458,111
 Baseball,D1,6498412,2026-03-15,Liberty,Missouri St.,9,3,36.7,0.0,0.473,0,0.901,95
 Baseball,D1,6498766,2026-04-14,Duke,Liberty,7,17,36.7,0.0,0.533,0,0.827,128
@@ -3362,6 +3430,7 @@ Baseball,D1,6530104,2026-03-22,UConn,San Diego St.,7,5,36.5,0.0,0.625,0,0.71,92
 Baseball,D1,6530181,2026-05-05,UC San Diego,San Diego St.,8,4,36.5,0.045,0.574,1,0.617,96
 Baseball,D1,6530642,2026-04-10,Lipscomb,Central Ark.,6,12,36.5,0.058,0.652,2,0.407,101
 Baseball,D1,6536252,2026-02-27,William & Mary,Lafayette,10,3,36.5,0.081,0.606,4,0.235,90
+Baseball,D1,6541874,2026-05-10,Longwood,Charleston So.,3,21,36.5,0.161,0.593,1,0.456,111
 Baseball,D1,6483560,2026-02-28,East Carolina,Troy,5,2,36.4,0.0,0.512,0,0.842,83
 Baseball,D1,6494009,2026-02-27,Mississippi St.,Arizona St.,8,4,36.4,0.0,0.416,0,0.956,91
 Baseball,D1,6494121,2026-04-11,Kansas,UCF,3,1,36.4,0.0,0.444,0,0.925,96
@@ -3393,6 +3462,7 @@ Baseball,D1,6535595,2026-04-26,Texas Tech,Oklahoma St.,2,11,36.3,0.0,0.542,0,0.8
 Baseball,D1,6538475,2026-04-12,George Mason,Richmond,7,5,36.3,0.1,0.619,1,0.489,101
 Baseball,D1,6548844,2026-03-27,Missouri,Texas A&M,9,11,36.3,0.0,0.522,0,0.826,115
 Baseball,D1,6550072,2026-05-08,North Carolina,Pittsburgh,4,1,36.3,0.0,0.441,0,0.922,74
+Baseball,D1,6491648,2026-05-10,South Carolina,Alabama,6,7,36.2,0.0,0.519,0,0.824,98
 Baseball,D1,6492944,2026-04-11,Niagara,Canisius,6,4,36.2,0.15,0.742,2,0.178,93
 Baseball,D1,6493980,2026-02-22,Louisville,Auburn,6,10,36.2,0.0,0.465,0,0.888,106
 Baseball,D1,6501458,2026-04-11,Illinois St.,Indiana St.,6,4,36.2,0.0,0.68,0,0.634,91
@@ -3403,6 +3473,7 @@ Baseball,D1,6525604,2026-03-06,Duke,Notre Dame,4,10,36.2,0.0,0.567,0,0.767,99
 Baseball,D1,6540017,2026-04-17,San Diego,Seattle U,4,7,36.2,0.232,0.654,1,0.285,107
 Baseball,D1,6564615,2026-03-14,Wright St.,Southeast Mo. St.,2,4,36.2,0.0,0.686,0,0.625,73
 Baseball,D1,6574011,2026-04-17,St. Bonaventure,Rhode Island,7,4,36.2,0.062,0.7,3,0.231,74
+Baseball,D1,6492310,2026-05-10,Jacksonville St.,Kennesaw St.,4,3,36.1,0.0,0.561,0,0.772,99
 Baseball,D1,6496618,2026-02-15,Purdue,Portland,10,7,36.1,0.0,0.598,0,0.725,107
 Baseball,D1,6497017,2026-04-28,Wake Forest,App State,3,2,36.1,0.0,0.479,0,0.868,92
 Baseball,D1,6503406,2026-03-31,TCU,Lamar,8,6,36.1,0.0,0.596,0,0.73,113
@@ -3463,11 +3534,13 @@ Baseball,D1,6500446,2026-02-21,Pacific,Utah Tech,5,8,35.8,0.001,0.673,2,0.422,11
 Baseball,D1,6500547,2026-05-02,Long Beach St.,UC San Diego,11,1,35.8,0.052,0.578,3,0.375,116
 Baseball,D1,6501751,2026-02-25,Arkansas,Arkansas St.,1,0,35.8,0.0,0.455,0,0.886,127
 Baseball,D1,6512469,2026-04-04,UNLV,New Mexico,2,12,35.8,0.048,0.618,1,0.531,102
+Baseball,D1,6523120,2026-05-10,North Dakota St.,Northern Colo.,7,9,35.8,0.382,0.671,1,0.068,95
 Baseball,D1,6525427,2026-04-04,Cornell,Dartmouth,4,2,35.8,0.0,0.737,4,0.148,84
 Baseball,D1,6527251,2026-02-21,Fla. Atlantic,Iowa,1,6,35.8,0.0,0.61,0,0.7,90
 Baseball,D1,6530001,2026-02-27,Lipscomb,Toledo,1,5,35.8,0.005,0.693,2,0.393,91
 Baseball,D1,6533399,2026-04-12,Texas Tech,West Virginia,2,10,35.8,0.0,0.538,0,0.787,117
 Baseball,D1,6533761,2026-04-28,Morehead St.,Marshall,9,6,35.8,0.003,0.596,2,0.513,88
+Baseball,D1,6539523,2026-05-10,Wake Forest,Western Caro.,9,5,35.8,0.0,0.442,0,0.902,91
 Baseball,D1,6483571,2026-03-27,Ga. Southern,Troy,4,3,35.7,0.036,0.595,1,0.573,81
 Baseball,D1,6489263,2026-02-27,Northwestern St.,Southeastern La.,5,7,35.7,0.0,0.634,0,0.668,96
 Baseball,D1,6493054,2026-05-03,Iona,Canisius,1,7,35.7,0.053,0.65,5,0.083,92
@@ -3520,6 +3593,7 @@ Baseball,D1,6518810,2026-03-20,South Alabama,ULM,5,4,35.5,0.0,0.587,0,0.713,90
 Baseball,D1,6519536,2026-04-14,Nebraska,Creighton,5,4,35.5,0.0,0.501,0,0.819,96
 Baseball,D1,6526573,2026-04-18,Stonehill,Wagner,5,12,35.5,0.035,0.626,4,0.228,106
 Baseball,D1,6530045,2026-03-02,Washington,San Diego St.,4,1,35.5,0.0,0.624,0,0.671,77
+Baseball,D1,6530213,2026-05-10,Ohio,Toledo,3,8,35.5,0.022,0.607,4,0.264,100
 Baseball,D1,6530793,2026-03-21,Navy,Bucknell,3,7,35.5,0.256,0.558,1,0.344,81
 Baseball,D1,6537232,2026-03-01,Baylor,UTSA,6,11,35.5,0.0,0.49,0,0.832,104
 Baseball,D1,6538823,2026-04-15,Utah Tech,Washington St.,18,8,35.5,0.015,0.571,1,0.617,110
@@ -3609,6 +3683,7 @@ Baseball,D1,6540008,2026-03-02,Seattle U,Holy Cross,3,7,35.0,0.282,0.648,1,0.186
 Baseball,D1,6572861,2026-04-14,Boston College,Northeastern,3,1,35.0,0.0,0.512,0,0.787,82
 Baseball,D1,6491907,2026-03-21,Columbia,Harvard,1,4,34.9,0.177,0.697,1,0.246,85
 Baseball,D1,6496871,2026-04-19,Purdue,Ohio St.,6,2,34.9,0.0,0.516,0,0.777,78
+Baseball,D1,6496951,2026-05-10,Purdue,Indiana,11,8,34.9,0.0,0.534,0,0.754,99
 Baseball,D1,6500453,2026-03-03,San Jose St.,Pacific,5,11,34.9,0.169,0.625,1,0.342,107
 Baseball,D1,6507175,2026-02-14,Saint Mary's (CA),Creighton,7,2,34.9,0.0,0.589,0,0.689,94
 Baseball,D1,6507930,2026-04-11,Pepperdine,Pacific,10,3,34.9,0.105,0.667,2,0.272,89
@@ -3654,6 +3729,7 @@ Baseball,D1,6488970,2026-03-06,South Alabama,Louisiana Tech,9,3,34.7,0.0,0.487,0
 Baseball,D1,6494972,2026-05-02,Penn St.,Minnesota,4,5,34.7,0.0,0.635,0,0.625,95
 Baseball,D1,6500439,2026-02-14,Pacific,Utah Valley,13,7,34.7,0.022,0.598,4,0.243,115
 Baseball,D1,6508421,2026-04-25,South Dakota St.,Northern Colo.,2,19,34.7,0.064,0.575,5,0.121,212
+Baseball,D1,6508439,2026-05-10,South Dakota St.,St. Thomas (MN),7,3,34.7,0.048,0.678,4,0.117,100
 Baseball,D1,6508928,2026-02-14,McNeese,Sam Houston,2,11,34.7,0.075,0.586,1,0.495,130
 Baseball,D1,6512456,2026-03-17,UNLV,Cal St. Fullerton,4,3,34.7,0.0,0.686,0,0.564,94
 Baseball,D1,6515306,2026-04-02,Fla. Atlantic,UAB,2,7,34.7,0.0,0.575,0,0.699,97
@@ -3664,6 +3740,7 @@ Baseball,D1,6525630,2026-03-20,Jackson St.,Prairie View,0,9,34.7,0.431,0.558,1,0
 Baseball,D1,6525652,2026-04-02,Grambling,Jackson St.,12,9,34.7,0.002,0.672,4,0.178,109
 Baseball,D1,6527432,2026-04-17,Iowa,Maryland,14,4,34.7,0.0,0.534,0,0.749,107
 Baseball,D1,6530924,2026-04-18,Holy Cross,Navy,5,10,34.7,0.091,0.64,2,0.309,104
+Baseball,D1,6533786,2026-05-09,Marshall,ULM,13,10,34.7,0.001,0.614,1,0.55,115
 Baseball,D1,6539510,2026-04-14,Wake Forest,Coastal Carolina,10,5,34.7,0.0,0.371,0,0.941,109
 Baseball,D1,6540964,2026-02-28,Southeast Mo. St.,Miami (OH),10,2,34.7,0.0,0.517,0,0.765,89
 Baseball,D1,6542931,2026-04-26,Miami (FL),California,4,1,34.7,0.0,0.456,0,0.839,86
@@ -3828,6 +3905,7 @@ Baseball,D1,6502364,2026-03-06,BYU,California Baptist,7,14,33.8,0.0,0.471,0,0.78
 Baseball,D1,6503652,2026-03-24,Dayton,Miami (OH),4,14,33.8,0.0,0.616,0,0.611,90
 Baseball,D1,6512879,2026-02-27,CSUN,Western Mich.,1,11,33.8,0.097,0.602,1,0.415,106
 Baseball,D1,6513999,2026-03-08,Southern California,Illinois,5,3,33.8,0.0,0.426,0,0.84,96
+Baseball,D1,6515361,2026-05-10,CSUN,UC Santa Barbara,2,4,33.8,0.0,0.575,0,0.663,90
 Baseball,D1,6515602,2026-02-22,New Orleans,ULM,1,9,33.8,0.0,0.564,2,0.474,103
 Baseball,D1,6518168,2026-04-21,Davidson,Radford,2,18,33.8,0.001,0.532,3,0.412,100
 Baseball,D1,6536036,2026-03-06,Hofstra,Col. of Charleston,1,5,33.8,0.032,0.634,1,0.453,87
@@ -3838,6 +3916,7 @@ Baseball,D1,6577828,2026-04-29,Rider,Stony Brook,11,5,33.8,0.001,0.664,2,0.353,1
 Baseball,D1,6494015,2026-02-28,Virginia Tech,Mississippi St.,8,15,33.7,0.0,0.375,0,0.899,138
 Baseball,D1,6496293,2026-04-17,LMU (CA),Pepperdine,3,14,33.7,0.023,0.609,4,0.189,95
 Baseball,D1,6496917,2026-04-10,App State,ULM,13,5,33.7,0.0,0.554,0,0.684,95
+Baseball,D1,6499944,2026-05-10,East Carolina,Rice,3,0,33.7,0.0,0.47,0,0.783,96
 Baseball,D1,6500263,2026-02-28,UC Santa Barbara,Utah,7,1,33.7,0.0,0.455,0,0.8,89
 Baseball,D1,6502435,2026-05-03,Utah Valley,California Baptist,1,2,33.7,0.0,0.671,0,0.544,94
 Baseball,D1,6502675,2026-03-19,Ole Miss,Kentucky,5,0,33.7,0.0,0.37,0,0.904,84
@@ -3900,6 +3979,7 @@ Baseball,D1,6534979,2026-04-28,UC Santa Barbara,UCLA,3,15,33.5,0.0,0.346,0,0.927
 Baseball,D1,6482832,2026-05-03,San Jose St.,Grand Canyon,6,1,33.4,0.0,0.612,2,0.399,87
 Baseball,D1,6491923,2026-04-21,Harvard,Brown,3,6,33.4,0.033,0.699,2,0.257,81
 Baseball,D1,6495364,2026-05-03,UTSA,Wichita St.,6,3,33.4,0.0,0.462,0,0.782,94
+Baseball,D1,6496433,2026-05-10,LMU (CA),Saint Mary's (CA),3,6,33.4,0.0,0.61,2,0.402,95
 Baseball,D1,6502676,2026-02-20,Ole Miss,Missouri St.,11,6,33.4,0.0,0.348,0,0.917,106
 Baseball,D1,6505587,2026-02-28,North Ala.,Southern Ind.,0,8,33.4,0.064,0.611,1,0.425,103
 Baseball,D1,6512811,2026-04-22,Abilene Christian,Texas Tech,1,9,33.4,0.0,0.557,0,0.666,116
@@ -3953,6 +4033,7 @@ Baseball,D1,6486252,2026-03-06,Central Ark.,Little Rock,2,8,33.1,0.0,0.618,0,0.5
 Baseball,D1,6486575,2026-04-21,Southern Miss.,Tulane,5,4,33.1,0.0,0.463,0,0.769,95
 Baseball,D1,6495361,2026-05-02,UTSA,Wichita St.,8,1,33.1,0.0,0.453,0,0.782,86
 Baseball,D1,6498083,2026-03-04,ULM,Southeastern La.,6,16,33.1,0.0,0.532,0,0.687,157
+Baseball,D1,6500156,2026-05-10,Stetson,Jacksonville,9,6,33.1,0.018,0.639,1,0.436,102
 Baseball,D1,6500490,2026-03-28,Jacksonville,North Florida,4,11,33.1,0.013,0.558,1,0.539,106
 Baseball,D1,6502638,2026-02-28,Kentucky,St. John's (NY),3,0,33.1,0.0,0.493,0,0.731,80
 Baseball,D1,6503339,2026-02-15,Lamar,Oakland,2,3,33.1,0.156,0.603,1,0.311,112
@@ -4119,6 +4200,7 @@ Baseball,D1,6553597,2026-03-07,Bethune-Cookman,FGCU,5,13,32.3,0.0,0.5,0,0.692,12
 Baseball,D1,6578318,2026-05-02,Houston,Cincinnati,1,8,32.3,0.0,0.439,0,0.764,103
 Baseball,D1,6486778,2026-03-28,UAB,Tulane,7,4,32.2,0.0,0.496,0,0.694,99
 Baseball,D1,6486794,2026-04-24,Tulane,UTSA,3,7,32.2,0.0,0.459,0,0.736,94
+Baseball,D1,6495372,2026-05-10,Wichita St.,Fla. Atlantic,4,1,32.2,0.0,0.538,0,0.643,111
 Baseball,D1,6498990,2026-04-18,CSU Bakersfield,Hawaii,3,5,32.2,0.0,0.721,0,0.423,108
 Baseball,D1,6500513,2026-04-25,FGCU,North Florida,5,3,32.2,0.0,0.543,0,0.638,98
 Baseball,D1,6501918,2026-04-25,Brown,Cornell,1,2,32.2,0.095,0.717,1,0.212,116
@@ -4182,6 +4264,7 @@ Baseball,D1,6491932,2026-04-14,Massachusetts,Harvard,12,17,31.9,0.039,0.63,3,0.1
 Baseball,D1,6493736,2026-02-21,Minnesota,Northeastern,12,2,31.9,0.0,0.427,0,0.764,71
 Baseball,D1,6495275,2026-02-22,Hawaii,Wichita St.,3,13,31.9,0.0,0.528,0,0.642,96
 Baseball,D1,6497324,2026-02-27,Mercer,Penn,5,4,31.9,0.0,0.537,0,0.63,93
+Baseball,D1,6499639,2026-05-10,Georgia,LSU,12,1,31.9,0.0,0.276,0,0.943,91
 Baseball,D1,6503362,2026-02-27,Lamar,UTRGV,6,2,31.9,0.0,0.546,0,0.622,93
 Baseball,D1,6504173,2026-02-20,Florida St.,Michigan,6,1,31.9,0.0,0.326,0,0.886,110
 Baseball,D1,6505586,2026-02-27,North Ala.,Southern Ind.,1,20,31.9,0.056,0.571,1,0.425,99
@@ -4205,6 +4288,7 @@ Baseball,D1,6486547,2026-03-29,Southern Miss.,App State,13,4,31.8,0.0,0.348,0,0.
 Baseball,D1,6486775,2026-03-22,Tulane,Memphis,12,2,31.8,0.0,0.593,0,0.56,99
 Baseball,D1,6488965,2026-02-21,Louisiana Tech,Ohio St.,9,3,31.8,0.0,0.435,0,0.751,101
 Baseball,D1,6489294,2026-04-19,Lamar,Northwestern St.,3,1,31.8,0.0,0.576,0,0.581,88
+Baseball,D1,6493113,2026-05-10,Canisius,Sacred Heart,5,10,31.8,0.264,0.63,1,0.101,106
 Baseball,D1,6496276,2026-04-04,LMU (CA),San Francisco,10,7,31.8,0.013,0.661,3,0.164,99
 Baseball,D1,6505801,2026-04-17,Southern Ind.,UT Martin,1,10,31.8,0.073,0.582,1,0.384,99
 Baseball,D1,6505816,2026-05-01,Southern Ind.,Tennessee Tech,3,13,31.8,0.112,0.601,1,0.316,84
@@ -4284,6 +4368,7 @@ Baseball,D1,6525580,2026-02-28,Jackson St.,UNC Asheville,1,7,31.4,0.251,0.598,1,
 Baseball,D1,6527454,2026-04-22,Iowa,UIC,6,4,31.4,0.0,0.556,0,0.588,98
 Baseball,D1,6530077,2026-03-31,Ohio St.,Toledo,10,5,31.4,0.0,0.55,0,0.596,114
 Baseball,D1,6532414,2026-02-21,Arizona St.,St. John's (NY),3,1,31.4,0.0,0.401,0,0.774,78
+Baseball,D1,6539086,2026-05-10,Belmont,Southern Ill.,4,13,31.4,0.129,0.578,1,0.308,117
 Baseball,D1,6564765,2026-03-15,LIU,Wagner,1,11,31.4,0.116,0.628,1,0.264,72
 Baseball,D1,6494024,2026-04-12,Auburn,Kentucky,11,0,31.3,0.0,0.279,0,0.919,74
 Baseball,D1,6495346,2026-04-14,Kansas,Wichita St.,5,2,31.3,0.0,0.357,0,0.822,91
@@ -4292,6 +4377,7 @@ Baseball,D1,6502640,2026-03-01,Kentucky,St. John's (NY),3,1,31.3,0.0,0.434,0,0.7
 Baseball,D1,6504354,2026-03-24,Michigan,Oakland,6,7,31.3,0.078,0.534,1,0.415,140
 Baseball,D1,6504598,2026-04-02,Alcorn,Mississippi Val.,10,13,31.3,0.126,0.657,3,0.013,119
 Baseball,D1,6505806,2026-04-22,Southern Ind.,Evansville,14,4,31.3,0.0,0.604,2,0.326,88
+Baseball,D1,6506229,2026-05-10,Missouri St.,New Mexico St.,7,6,31.3,0.0,0.487,0,0.668,89
 Baseball,D1,6509204,2026-03-15,Gardner-Webb,Longwood,9,4,31.3,0.026,0.57,1,0.436,89
 Baseball,D1,6517068,2026-03-10,Radford,James Madison,4,2,31.3,0.0,0.65,0,0.471,88
 Baseball,D1,6526911,2026-03-10,Houston,Rice,13,1,31.3,0.0,0.507,0,0.643,94
@@ -4386,6 +4472,7 @@ Baseball,D1,6517113,2026-02-14,UTRGV,Kansas,3,10,30.8,0.0,0.357,0,0.805,88
 Baseball,D1,6521322,2026-05-08,UC Davis,Hawaii,1,4,30.8,0.0,0.624,0,0.484,83
 Baseball,D1,6522574,2026-04-12,San Francisco,San Diego,6,1,30.8,0.043,0.655,1,0.293,88
 Baseball,D1,6529812,2026-05-08,FIU,Middle Tenn.,9,11,30.8,0.0,0.672,0,0.427,107
+Baseball,D1,6529819,2026-05-10,FIU,Middle Tenn.,10,2,30.8,0.022,0.565,1,0.427,91
 Baseball,D1,6529966,2026-04-04,Houston Christian,Nicholls,1,11,30.8,0.0,0.565,0,0.552,99
 Baseball,D1,6534947,2026-03-06,Ohio St.,UCLA,1,11,30.8,0.0,0.313,0,0.857,97
 Baseball,D1,6537221,2026-02-28,Texas,Baylor,5,2,30.8,0.0,0.285,0,0.891,97
@@ -4511,6 +4598,7 @@ Baseball,D1,6540982,2026-04-14,Murray St.,Southeast Mo. St.,1,12,30.2,0.0,0.521,
 Baseball,D1,6545389,2026-02-20,Coastal Carolina,VCU,13,2,30.2,0.0,0.369,0,0.765,99
 Baseball,D1,6549903,2026-02-17,Texas A&M,A&M-Corpus Christi,8,3,30.2,0.0,0.398,0,0.728,103
 Baseball,D1,6482795,2026-02-21,Grand Canyon,Oklahoma St.,7,10,30.1,0.0,0.46,0,0.653,114
+Baseball,D1,6486589,2026-05-10,James Madison,Southern Miss.,5,10,30.1,0.0,0.427,0,0.692,90
 Baseball,D1,6495946,2026-03-14,Wofford,Princeton,5,6,30.1,0.061,0.479,1,0.458,127
 Baseball,D1,6498978,2026-04-10,UC Davis,CSU Bakersfield,2,8,30.1,0.061,0.603,1,0.308,98
 Baseball,D1,6500119,2026-04-18,North Florida,Stetson,2,1,30.1,0.0,0.644,0,0.432,83
@@ -4527,6 +4615,7 @@ Baseball,D1,6539451,2026-02-21,Southern California,Rice,4,1,30.1,0.0,0.323,0,0.8
 Baseball,D1,6545223,2026-02-15,Arizona St.,Omaha,6,4,30.1,0.0,0.55,0,0.546,93
 Baseball,D1,6549421,2026-03-29,Rice,Fla. Atlantic,8,1,30.1,0.0,0.472,0,0.638,84
 Baseball,D1,6566116,2026-03-22,UNC Greensboro,ETSU,8,15,30.1,0.0,0.51,0,0.593,123
+Baseball,D1,6578957,2026-05-10,Bucknell,Navy,16,4,30.1,0.064,0.568,1,0.344,106
 Baseball,D1,6486273,2026-04-07,Arkansas,Little Rock,7,0,30.0,0.0,0.337,0,0.795,97
 Baseball,D1,6486274,2026-04-14,Louisiana Tech,Little Rock,9,3,30.0,0.0,0.4,0,0.721,105
 Baseball,D1,6498422,2026-04-08,Bucknell,Mount St. Mary's,2,14,30.0,0.015,0.567,3,0.202,92
@@ -4673,6 +4762,7 @@ Baseball,D1,6532935,2026-02-24,Tarleton St.,UIW,17,5,29.4,0.0,0.504,0,0.573,86
 Baseball,D1,6534976,2026-04-12,Rutgers,UCLA,2,9,29.4,0.0,0.333,0,0.775,96
 Baseball,D1,6537751,2026-03-22,San Jose St.,UConn,0,8,29.4,0.0,0.514,0,0.557,91
 Baseball,D1,6545897,2026-05-05,North Ala.,Samford,2,8,29.4,0.0,0.494,0,0.583,104
+Baseball,D1,6546384,2026-05-10,Maine,UMass Lowell,4,5,29.4,0.108,0.602,1,0.223,76
 Baseball,D1,6558986,2026-03-07,A&M-Corpus Christi,Nicholls,5,14,29.4,0.0,0.518,0,0.555,116
 Baseball,D1,6574462,2026-04-18,UAlbany,Siena,4,10,29.4,0.041,0.618,3,0.086,100
 Baseball,D1,6488978,2026-03-20,New Mexico St.,Louisiana Tech,8,13,29.3,0.0,0.453,0,0.627,108
@@ -4740,6 +4830,7 @@ Baseball,D1,6550953,2026-04-19,Oklahoma,Missouri,8,4,29.1,0.0,0.303,0,0.798,93
 Baseball,D1,6566699,2026-03-24,George Mason,Longwood,14,4,29.1,0.001,0.541,1,0.414,102
 Baseball,D1,6483557,2026-02-17,Mississippi St.,Troy,13,7,29.0,0.0,0.228,0,0.888,119
 Baseball,D1,6486798,2026-05-02,Charlotte,Tulane,8,2,29.0,0.0,0.418,0,0.656,93
+Baseball,D1,6490262,2026-05-10,High Point,Winthrop,11,3,29.0,0.0,0.395,0,0.687,111
 Baseball,D1,6493712,2026-02-13,Stetson,Minnesota,5,11,29.0,0.0,0.474,0,0.59,115
 Baseball,D1,6494071,2026-03-28,UCF,Arizona,13,3,29.0,0.0,0.357,0,0.733,95
 Baseball,D1,6498758,2026-04-10,Gonzaga,Portland,12,6,29.0,0.0,0.355,0,0.735,103
@@ -4885,6 +4976,7 @@ Baseball,D1,6524549,2026-04-03,Eastern Ky.,Austin Peay,7,6,28.4,0.024,0.585,1,0.
 Baseball,D1,6526802,2026-05-03,North Carolina,Duke,13,0,28.4,0.0,0.239,0,0.85,78
 Baseball,D1,6532151,2026-04-04,A&M-Corpus Christi,SFA,8,3,28.4,0.0,0.58,0,0.44,91
 Baseball,D1,6535756,2026-03-01,Winthrop,Maine,9,6,28.4,0.0,0.572,0,0.451,99
+Baseball,D1,6537502,2026-05-10,FGCU,West Ga.,5,2,28.4,0.0,0.575,0,0.445,84
 Baseball,D1,6549376,2026-04-25,Southern U.,Ark.-Pine Bluff,10,8,28.4,0.002,0.615,1,0.296,106
 Baseball,D1,6550704,2026-04-12,Samford,VMI,5,3,28.4,0.0,0.459,0,0.586,85
 Baseball,D1,6551684,2026-04-21,Longwood,VMI,10,4,28.4,0.0,0.55,0,0.476,97
@@ -4905,6 +4997,7 @@ Baseball,D1,6531981,2026-03-10,Saint Louis,Illinois St.,5,8,28.3,0.0,0.62,0,0.38
 Baseball,D1,6538472,2026-04-11,George Mason,Richmond,3,11,28.3,0.0,0.537,0,0.489,97
 Baseball,D1,6540016,2026-03-31,Seattle U,Washington St.,0,10,28.3,0.0,0.579,0,0.435,79
 Baseball,D1,6574038,2026-04-17,Sacred Heart,Merrimack,3,2,28.3,0.054,0.686,1,0.143,89
+Baseball,D1,6484941,2026-05-10,Bowling Green,Western Mich.,7,5,28.2,0.0,0.604,1,0.301,92
 Baseball,D1,6492938,2026-05-03,Rhode Island,Fordham,5,1,28.2,0.0,0.646,0,0.355,85
 Baseball,D1,6496894,2026-04-29,Purdue,Southern Ind.,5,1,28.2,0.0,0.426,0,0.617,105
 Baseball,D1,6498960,2026-04-02,CSU Bakersfield,Utah Valley,4,14,28.2,0.061,0.603,1,0.23,125
@@ -4934,6 +5027,7 @@ Baseball,D1,6492703,2026-03-01,Towson,Canisius,16,7,28.1,0.003,0.634,2,0.158,110
 Baseball,D1,6492821,2026-04-03,Dayton,Fordham,5,3,28.1,0.0,0.603,0,0.402,91
 Baseball,D1,6494265,2026-02-24,Ga. Southern,Kennesaw St.,5,7,28.1,0.0,0.525,0,0.493,103
 Baseball,D1,6497254,2026-04-19,Norfolk St.,New Haven,4,15,28.1,0.047,0.603,3,0.044,93
+Baseball,D1,6500553,2026-05-10,Long Beach St.,Oregon St.,4,8,28.1,0.0,0.437,0,0.601,94
 Baseball,D1,6509161,2026-02-20,Gardner-Webb,FDU,0,6,28.1,0.0,0.612,0,0.388,106
 Baseball,D1,6509608,2026-03-14,Penn St.,Iowa,4,13,28.1,0.0,0.437,0,0.599,116
 Baseball,D1,6513246,2026-04-17,UMES,Mercyhurst,0,14,28.1,0.007,0.574,4,0.026,74
@@ -4999,6 +5093,7 @@ Baseball,D1,6495966,2026-03-28,Wofford,UNC Greensboro,6,1,27.8,0.0,0.435,0,0.591
 Baseball,D1,6497125,2026-02-20,Florida,Kennesaw St.,9,3,27.8,0.0,0.271,0,0.785,90
 Baseball,D1,6498799,2026-02-13,CSU Bakersfield,Southern Ind.,8,7,27.8,0.012,0.564,1,0.321,118
 Baseball,D1,6508910,2026-04-26,UAB,Memphis,11,2,27.8,0.0,0.374,0,0.661,88
+Baseball,D1,6510019,2026-05-10,Manhattan,Niagara,14,3,27.8,0.127,0.58,1,0.164,82
 Baseball,D1,6510207,2026-03-07,Auburn,Winthrop,8,1,27.8,0.0,0.28,0,0.775,92
 Baseball,D1,6512462,2026-03-28,UNLV,San Jose St.,15,8,27.8,0.0,0.528,0,0.479,115
 Baseball,D1,6516978,2026-05-01,St. Thomas (MN),Oral Roberts,4,7,27.8,0.0,0.666,0,0.314,91
@@ -5027,6 +5122,7 @@ Baseball,D1,6524677,2026-03-27,Washington St.,Nevada,12,6,27.7,0.0,0.427,0,0.594
 Baseball,D1,6524692,2026-04-06,Sacramento St.,Nevada,11,2,27.7,0.0,0.441,0,0.577,94
 Baseball,D1,6528360,2026-04-07,NJIT,Rider,11,1,27.7,0.064,0.579,1,0.235,82
 Baseball,D1,6529601,2026-04-14,Maryland,Towson,15,7,27.7,0.0,0.538,0,0.463,116
+Baseball,D1,6530201,2026-05-10,San Diego St.,San Jose St.,4,1,27.7,0.0,0.454,0,0.564,82
 Baseball,D1,6532869,2026-02-20,Charleston So.,Elon,7,4,27.7,0.0,0.616,0,0.37,93
 Baseball,D1,6534665,2026-02-28,Portland,Niagara,3,1,27.7,0.0,0.561,0,0.436,82
 Baseball,D1,6537809,2026-03-22,Southern California,Washington,14,4,27.7,0.0,0.265,0,0.79,76
@@ -5070,7 +5166,7 @@ Baseball,D1,6536406,2026-04-18,Lafayette,Lehigh,7,8,27.5,0.083,0.695,1,0.065,105
 Baseball,D1,6536517,2026-02-20,Georgia,Samford,11,1,27.5,0.0,0.21,0,0.849,78
 Baseball,D1,6539556,2026-03-13,Northeastern,Towson,6,3,27.5,0.0,0.541,0,0.451,95
 Baseball,D1,6543085,2026-04-25,Northeastern,Hofstra,8,6,27.5,0.0,0.459,0,0.549,111
-Baseball,D1,6545401,2026-05-08,Coastal Carolina,Old Dominion,16,8,27.5,0.0,0.299,0,0.741,120
+Baseball,D1,6545401,2026-05-08,Coastal Carolina,Old Dominion,16,8,27.5,0.0,0.298,0,0.741,161
 Baseball,D1,6564689,2026-03-14,Northern Colo.,St. Thomas (MN),9,4,27.5,0.0,0.71,2,0.049,99
 Baseball,D1,6482804,2026-03-09,Utah,Grand Canyon,7,2,27.4,0.0,0.44,0,0.567,92
 Baseball,D1,6486777,2026-03-27,UAB,Tulane,9,6,27.4,0.0,0.334,0,0.694,100
@@ -5142,6 +5238,7 @@ Baseball,D1,6537807,2026-03-21,Southern California,Washington,7,2,27.2,0.0,0.249
 Baseball,D1,6539462,2026-05-02,Southern California,Rutgers,11,1,27.2,0.0,0.278,0,0.752,76
 Baseball,D1,6544077,2026-03-13,Oral Roberts,South Dakota St.,4,3,27.2,0.0,0.584,0,0.386,82
 Baseball,D1,6549382,2026-05-01,Bethune-Cookman,Ark.-Pine Bluff,6,4,27.2,0.0,0.516,0,0.467,76
+Baseball,D1,6549928,2026-05-10,Fairfield,Marist,12,7,27.2,0.0,0.7,0,0.248,102
 Baseball,D1,6550058,2026-02-18,North Carolina,Longwood,5,3,27.2,0.0,0.297,0,0.733,100
 Baseball,D1,6493848,2026-03-06,UCF,Murray St.,8,3,27.1,0.0,0.358,0,0.653,95
 Baseball,D1,6497126,2026-02-21,Florida,Kennesaw St.,11,0,27.1,0.0,0.248,0,0.785,84
@@ -5160,6 +5257,7 @@ Baseball,D1,6526808,2026-05-09,Georgia Tech,Duke,15,2,27.1,0.0,0.19,0,0.857,104
 Baseball,D1,6532879,2026-02-24,Elon,Longwood,3,8,27.1,0.0,0.567,0,0.402,101
 Baseball,D1,6534648,2026-02-20,Old Dominion,Niagara,5,4,27.1,0.0,0.555,0,0.419,76
 Baseball,D1,6539203,2026-04-25,Saint Louis,Rhode Island,11,7,27.1,0.038,0.585,1,0.238,107
+Baseball,D1,6539234,2026-05-10,UAlbany,Binghamton,1,3,27.1,0.0,0.694,0,0.252,59
 Baseball,D1,6542176,2026-04-25,Holy Cross,Lehigh,3,2,27.1,0.002,0.636,2,0.117,77
 Baseball,D1,6574309,2026-04-18,Stony Brook,Monmouth,3,1,27.1,0.0,0.593,0,0.371,72
 Baseball,D1,6482810,2026-03-20,Washington St.,Grand Canyon,7,3,27.0,0.0,0.462,0,0.526,91
@@ -5217,6 +5315,7 @@ Baseball,D1,6517190,2026-03-18,Kansas,Missouri,10,0,26.8,0.0,0.214,0,0.816,79
 Baseball,D1,6519038,2026-03-31,Virginia,Old Dominion,16,2,26.8,0.0,0.269,0,0.748,103
 Baseball,D1,6522569,2026-04-06,San Francisco,California,0,8,26.8,0.0,0.48,0,0.497,93
 Baseball,D1,6522673,2026-03-01,ETSU,Quinnipiac,16,5,26.8,0.0,0.481,0,0.497,109
+Baseball,D1,6526811,2026-05-10,Georgia Tech,Duke,14,1,26.8,0.0,0.181,0,0.857,84
 Baseball,D1,6530073,2026-03-20,Central Mich.,Toledo,1,10,26.8,0.0,0.607,0,0.344,95
 Baseball,D1,6532597,2026-04-02,Seton Hall,St. John's (NY),2,8,26.8,0.0,0.581,0,0.375,83
 Baseball,D1,6535779,2026-03-29,Queens (NC),West Ga.,9,8,26.8,0.085,0.604,1,0.143,98
@@ -5250,6 +5349,7 @@ Baseball,D1,6539057,2026-03-10,SIUE,Southern Ill.,16,6,26.7,0.0,0.519,0,0.445,10
 Baseball,D1,6539180,2026-03-21,St. Bonaventure,Saint Louis,3,6,26.7,0.033,0.671,1,0.121,95
 Baseball,D1,6550702,2026-04-10,Samford,VMI,10,4,26.7,0.0,0.401,0,0.586,99
 Baseball,D1,6553540,2026-03-14,South Fla.,Columbia,10,6,26.7,0.0,0.461,0,0.515,103
+Baseball,D1,6553567,2026-05-10,Virginia Tech,UNC Greensboro,11,9,26.7,0.0,0.364,0,0.63,124
 Baseball,D1,6553710,2026-05-09,Oral Roberts,Omaha,4,3,26.7,0.0,0.581,0,0.373,77
 Baseball,D1,6482794,2026-02-20,Grand Canyon,Oklahoma St.,1,9,26.6,0.0,0.342,0,0.653,101
 Baseball,D1,6486293,2026-04-04,Western Ill.,Little Rock,4,8,26.6,0.0,0.519,0,0.441,112
@@ -5322,6 +5422,7 @@ Baseball,D1,6525029,2026-02-24,Texas,UTRGV,14,0,26.3,0.0,0.191,0,0.822,98
 Baseball,D1,6526979,2026-05-05,Houston,A&M-Corpus Christi,10,1,26.3,0.0,0.424,0,0.544,102
 Baseball,D1,6530689,2026-03-24,Texas Tech,New Mexico,12,2,26.3,0.0,0.377,0,0.601,103
 Baseball,D1,6531712,2026-05-03,Delaware,FIU,12,9,26.3,0.0,0.622,0,0.306,103
+Baseball,D1,6534109,2026-05-10,Northeastern,Stony Brook,7,4,26.3,0.0,0.464,0,0.493,109
 Baseball,D1,6535750,2026-02-21,Winthrop,Morehead St.,19,4,26.3,0.0,0.424,0,0.544,133
 Baseball,D1,6536511,2026-02-18,Georgia,USC Upstate,12,6,26.3,0.0,0.233,0,0.774,113
 Baseball,D1,6536528,2026-02-22,Georgia,Samford,22,0,26.3,0.0,0.169,0,0.849,98
@@ -5392,6 +5493,7 @@ Baseball,D1,6532009,2026-04-05,Southern Ill.,Illinois St.,4,10,26.0,0.0,0.467,0,
 Baseball,D1,6532426,2026-03-06,St. John's (NY),UAlbany,2,1,26.0,0.0,0.585,0,0.337,136
 Baseball,D1,6535528,2026-04-02,San Diego,Santa Clara,5,1,26.0,0.0,0.58,0,0.345,76
 Baseball,D1,6535591,2026-05-02,Kansas,Arizona,7,2,26.0,0.0,0.227,0,0.769,92
+Baseball,D1,6536077,2026-05-10,Elon,Col. of Charleston,3,11,26.0,0.0,0.533,0,0.401,98
 Baseball,D1,6536663,2026-05-03,Georgia,Missouri,14,4,26.0,0.0,0.176,0,0.829,93
 Baseball,D1,6537253,2026-03-10,Baylor,Sam Houston,13,5,26.0,0.0,0.358,0,0.611,117
 Baseball,D1,6537812,2026-03-24,Pepperdine,Washington,2,11,26.0,0.0,0.493,0,0.448,110
@@ -5484,6 +5586,7 @@ Baseball,D1,6510597,2026-03-08,Nebraska,Michigan St.,12,2,25.6,0.0,0.219,0,0.761
 Baseball,D1,6511506,2026-04-26,Elon,UNCW,1,8,25.6,0.0,0.417,0,0.523,98
 Baseball,D1,6513286,2026-04-24,UMES,Wagner,6,11,25.6,0.002,0.578,2,0.127,104
 Baseball,D1,6514203,2026-04-11,Sacramento St.,Utah Valley,9,5,25.6,0.0,0.503,0,0.42,99
+Baseball,D1,6525485,2026-05-10,Yale,Dartmouth,3,2,25.6,0.0,0.559,0,0.352,77
 Baseball,D1,6530175,2026-04-21,Clemson,USC Upstate,7,2,25.6,0.0,0.257,0,0.717,97
 Baseball,D1,6530643,2026-04-11,Lipscomb,Central Ark.,5,10,25.6,0.0,0.515,0,0.407,115
 Baseball,D1,6534031,2026-03-15,Col. of Charleston,Stony Brook,6,2,25.6,0.0,0.522,0,0.397,99
@@ -5541,12 +5644,14 @@ Baseball,D1,6482818,2026-04-03,Fresno St.,Grand Canyon,0,3,25.3,0.0,0.619,0,0.27
 Baseball,D1,6494572,2026-04-25,App State,Ga. Southern,11,5,25.3,0.0,0.377,0,0.559,94
 Baseball,D1,6497244,2026-04-10,New Haven,LIU,1,2,25.3,0.0,0.712,0,0.158,80
 Baseball,D1,6497538,2026-05-09,Mercer,VMI,5,2,25.3,0.0,0.299,0,0.655,81
+Baseball,D1,6497542,2026-05-10,Mercer,VMI,11,1,25.3,0.0,0.296,0,0.655,84
 Baseball,D1,6498703,2026-05-08,San Francisco,Gonzaga,0,7,25.3,0.0,0.393,0,0.541,77
 Baseball,D1,6503647,2026-03-18,Miami (OH),Dayton,13,7,25.3,0.0,0.334,0,0.611,127
 Baseball,D1,6505244,2026-03-03,Ole Miss,Memphis,7,1,25.3,0.0,0.222,0,0.746,89
 Baseball,D1,6505592,2026-03-01,North Ala.,Southern Ind.,7,3,25.3,0.0,0.489,0,0.425,115
 Baseball,D1,6506191,2026-04-10,Delaware,Missouri St.,1,14,25.3,0.0,0.363,0,0.575,102
 Baseball,D1,6506397,2026-02-16,Oklahoma,New Mexico St.,10,6,25.3,0.0,0.264,0,0.695,117
+Baseball,D1,6506763,2026-05-10,Butler,Xavier,2,9,25.3,0.0,0.514,0,0.396,122
 Baseball,D1,6509227,2026-04-10,Washington St.,Gardner-Webb,7,4,25.3,0.0,0.407,0,0.524,95
 Baseball,D1,6518329,2026-03-18,Evansville,Southeast Mo. St.,1,9,25.3,0.0,0.421,0,0.505,112
 Baseball,D1,6522697,2026-05-01,Quinnipiac,Fairfield,7,0,25.3,0.0,0.597,0,0.295,78
@@ -5562,6 +5667,7 @@ Baseball,D1,6492268,2026-04-19,Jacksonville St.,FIU,7,2,25.2,0.0,0.32,0,0.622,91
 Baseball,D1,6492421,2026-02-14,New Mexico,Fordham,16,6,25.2,0.0,0.474,0,0.438,91
 Baseball,D1,6494561,2026-04-03,Texas St.,Ga. Southern,15,5,25.2,0.0,0.345,0,0.594,95
 Baseball,D1,6501742,2026-02-22,Arkansas,Xavier,11,0,25.2,0.0,0.226,0,0.738,72
+Baseball,D1,6514039,2026-05-10,Illinois,Northwestern,10,3,25.2,0.0,0.345,0,0.593,100
 Baseball,D1,6516461,2026-04-28,Georgetown,Maryland,2,11,25.2,0.0,0.436,0,0.484,111
 Baseball,D1,6518313,2026-03-13,Xavier,Evansville,7,5,25.2,0.0,0.508,0,0.399,81
 Baseball,D1,6522034,2026-02-21,Nicholls,UT Martin,13,5,25.2,0.0,0.421,0,0.505,99
@@ -5648,6 +5754,7 @@ Baseball,D1,6503611,2026-03-08,Dayton,Maine,14,8,24.8,0.0,0.499,0,0.394,116
 Baseball,D1,6504100,2026-05-08,Dayton,George Mason,11,6,24.8,0.0,0.501,0,0.391,100
 Baseball,D1,6504210,2026-03-05,Pepperdine,Michigan,4,17,24.8,0.0,0.379,0,0.537,130
 Baseball,D1,6505250,2026-03-06,Ole Miss,Evansville,7,2,24.8,0.0,0.316,0,0.611,88
+Baseball,D1,6505836,2026-05-10,Southeast Mo. St.,Southern Ind.,9,6,24.8,0.0,0.347,0,0.573,102
 Baseball,D1,6506227,2026-05-09,Missouri St.,New Mexico St.,9,1,24.8,0.0,0.271,0,0.668,93
 Baseball,D1,6506739,2026-04-26,Creighton,Butler,12,2,24.8,0.0,0.438,0,0.466,95
 Baseball,D1,6509247,2026-05-01,USC Upstate,Gardner-Webb,16,8,24.8,0.0,0.434,0,0.472,109
@@ -5681,6 +5788,7 @@ Baseball,D1,6530189,2026-05-08,San Diego St.,San Jose St.,11,1,24.7,0.0,0.354,0,
 Baseball,D1,6531363,2026-03-06,Alabama St.,Longwood,1,16,24.7,0.0,0.504,0,0.383,118
 Baseball,D1,6531887,2026-03-29,UT Arlington,Villanova,2,1,24.7,0.0,0.596,0,0.275,76
 Baseball,D1,6534351,2026-04-11,Bucknell,Holy Cross,5,4,24.7,0.0,0.657,0,0.2,73
+Baseball,D1,6535663,2026-05-08,Seattle U,Santa Clara,1,7,24.7,0.0,0.604,0,0.265,96
 Baseball,D1,6536525,2026-03-10,Rutgers,Wagner,8,5,24.7,0.0,0.492,0,0.396,107
 Baseball,D1,6537920,2026-04-17,Saint Louis,Davidson,5,9,24.7,0.0,0.636,0,0.225,101
 Baseball,D1,6539557,2026-03-14,Northeastern,Towson,3,1,24.7,0.0,0.448,0,0.451,85
@@ -5723,7 +5831,6 @@ Baseball,D1,6526835,2026-03-06,Cincinnati,UC San Diego,16,1,24.5,0.0,0.218,0,0.7
 Baseball,D1,6531390,2026-03-22,Alabama St.,Southern U.,5,2,24.5,0.0,0.576,0,0.288,91
 Baseball,D1,6533966,2026-02-13,Arkansas St.,Stony Brook,9,8,24.5,0.0,0.339,0,0.573,102
 Baseball,D1,6534207,2026-03-10,North Carolina,Bucknell,13,3,24.5,0.0,0.311,0,0.606,86
-Baseball,D1,6535663,2026-05-08,Seattle U,Santa Clara,1,7,24.5,0.0,0.594,0,0.265,89
 Baseball,D1,6535755,2026-02-28,Winthrop,Maine,7,2,24.5,0.0,0.44,0,0.451,95
 Baseball,D1,6538868,2026-04-18,Cornell,Yale,3,6,24.5,0.0,0.559,0,0.308,85
 Baseball,D1,6553606,2026-04-04,Southern U.,Bethune-Cookman,7,12,24.5,0.0,0.425,0,0.471,101
@@ -5780,6 +5887,7 @@ Baseball,D1,6502633,2026-02-20,Evansville,Kentucky,2,9,24.2,0.0,0.348,0,0.55,98
 Baseball,D1,6506529,2026-03-15,DBU,New Mexico St.,20,2,24.2,0.0,0.269,0,0.645,97
 Baseball,D1,6506663,2026-03-21,Ohio St.,Butler,13,3,24.2,0.0,0.403,0,0.482,86
 Baseball,D1,6506689,2026-04-03,New Mexico St.,Delaware,15,8,24.2,0.0,0.495,0,0.373,109
+Baseball,D1,6509233,2026-05-10,Morehead St.,Western Ill.,8,7,24.2,0.0,0.492,0,0.379,106
 Baseball,D1,6510680,2026-05-06,Michigan St.,Western Mich.,8,3,24.2,0.0,0.421,0,0.461,107
 Baseball,D1,6515601,2026-02-18,Southern U.,New Orleans,5,14,24.2,0.0,0.538,0,0.321,142
 Baseball,D1,6522524,2026-02-21,San Jose St.,San Francisco,7,3,24.2,0.0,0.544,0,0.316,86
@@ -5797,6 +5905,7 @@ Baseball,D1,6546490,2026-04-04,Massachusetts,NIU,0,6,24.2,0.0,0.47,0,0.406,86
 Baseball,D1,6492558,2026-02-21,Duke,Milwaukee,10,8,24.1,0.0,0.437,0,0.44,88
 Baseball,D1,6498538,2026-03-28,Liberty,FIU,7,1,24.1,0.0,0.278,0,0.632,90
 Baseball,D1,6499034,2026-05-01,UNC Asheville,Winthrop,1,5,24.1,0.0,0.532,0,0.326,92
+Baseball,D1,6500533,2026-05-10,Queens (NC),North Florida,1,12,24.1,0.0,0.524,0,0.337,92
 Baseball,D1,6501619,2026-03-29,Eastern Mich.,Central Mich.,13,7,24.1,0.014,0.564,1,0.171,93
 Baseball,D1,6506180,2026-04-04,Missouri St.,Sam Houston,15,5,24.1,0.0,0.26,0,0.653,89
 Baseball,D1,6509141,2026-02-14,San Francisco,Western Ill.,5,4,24.1,0.0,0.617,0,0.225,96
@@ -5804,6 +5913,7 @@ Baseball,D1,6509166,2026-02-21,Gardner-Webb,Dartmouth,8,7,24.1,0.0,0.564,0,0.288
 Baseball,D1,6509633,2026-04-12,Ohio St.,Penn St.,15,10,24.1,0.0,0.338,0,0.557,107
 Baseball,D1,6509654,2026-04-26,Oregon,Penn St.,5,0,24.1,0.0,0.241,0,0.674,89
 Baseball,D1,6512428,2026-02-25,UNLV,Western Mich.,16,1,24.1,0.0,0.425,0,0.453,142
+Baseball,D1,6512835,2026-05-10,Abilene Christian,Utah Valley,16,6,24.1,0.0,0.446,0,0.428,106
 Baseball,D1,6517678,2026-05-02,Prairie View,Alabama A&M,7,10,24.1,0.071,0.634,1,0.016,99
 Baseball,D1,6522464,2026-03-27,Western Mich.,Massachusetts,6,2,24.1,0.0,0.59,0,0.254,85
 Baseball,D1,6531506,2026-03-14,Omaha,North Dakota St.,2,0,24.1,0.0,0.701,0,0.124,73
@@ -5818,6 +5928,7 @@ Baseball,D1,6492696,2026-03-20,Wright St.,Milwaukee,8,4,24.0,0.0,0.526,0,0.327,8
 Baseball,D1,6496288,2026-04-10,Seattle U,LMU (CA),5,4,24.0,0.0,0.669,0,0.156,88
 Baseball,D1,6496751,2026-03-24,Purdue,Valparaiso,3,2,24.0,0.0,0.418,0,0.459,100
 Baseball,D1,6497138,2026-02-25,Florida,FIU,11,4,24.0,0.0,0.271,0,0.635,109
+Baseball,D1,6499041,2026-05-10,CSU Bakersfield,UC San Diego,2,15,24.0,0.0,0.48,0,0.383,125
 Baseball,D1,6499814,2026-03-06,Saint Louis,Bradley,2,1,24.0,0.0,0.728,0,0.085,81
 Baseball,D1,6505599,2026-03-10,Missouri,Southern Ind.,14,6,24.0,0.0,0.357,0,0.533,121
 Baseball,D1,6509138,2026-02-13,San Francisco,Western Ill.,2,0,24.0,0.0,0.614,0,0.225,81
@@ -5862,6 +5973,7 @@ Baseball,D1,6556707,2026-02-25,Louisville,Eastern Ky.,6,5,23.9,0.0,0.421,0,0.451
 Baseball,D1,6557152,2026-02-28,Stetson,Fordham,13,7,23.9,0.0,0.51,0,0.345,116
 Baseball,D1,6491952,2026-04-26,Harvard,Penn,6,7,23.8,0.0,0.54,0,0.305,102
 Baseball,D1,6492565,2026-02-28,Evansville,Milwaukee,2,1,23.8,0.0,0.621,0,0.207,82
+Baseball,D1,6498693,2026-05-10,San Francisco,Gonzaga,5,12,23.8,0.0,0.342,0,0.541,116
 Baseball,D1,6500138,2026-02-13,Fresno St.,Utah,3,8,23.8,0.0,0.419,0,0.45,106
 Baseball,D1,6501758,2026-03-01,Arkansas,UT Arlington,11,1,23.8,0.0,0.227,0,0.681,80
 Baseball,D1,6505617,2026-04-10,Eastern Ill.,Southern Ind.,13,3,23.8,0.0,0.355,0,0.526,83
@@ -5898,6 +6010,7 @@ Baseball,D1,6522999,2026-03-29,Northern Colo.,South Dakota St.,2,21,23.7,0.0,0.5
 Baseball,D1,6532430,2026-03-07,St. John's (NY),UAlbany,5,4,23.7,0.0,0.507,0,0.337,77
 Baseball,D1,6534106,2026-05-09,Northeastern,Stony Brook,15,0,23.7,0.0,0.377,0,0.493,78
 Baseball,D1,6542915,2026-03-06,California,San Diego,11,1,23.7,0.0,0.317,0,0.568,94
+Baseball,D1,6553433,2026-05-10,Central Mich.,Akron,12,11,23.7,0.0,0.624,0,0.197,117
 Baseball,D1,6483564,2026-03-17,Alabama St.,Troy,2,11,23.6,0.0,0.343,0,0.534,99
 Baseball,D1,6492670,2026-02-21,UNC Greensboro,Canisius,7,3,23.6,0.0,0.564,0,0.269,105
 Baseball,D1,6501905,2026-04-11,Dartmouth,Brown,3,13,23.6,0.0,0.574,0,0.256,107
@@ -5921,6 +6034,7 @@ Baseball,D1,6534242,2026-02-20,Jacksonville,LIU,12,0,23.6,0.0,0.442,0,0.415,66
 Baseball,D1,6539547,2026-04-11,Penn,Cornell,7,3,23.6,0.0,0.57,0,0.259,98
 Baseball,D1,6542917,2026-03-07,California,San Diego,9,1,23.6,0.0,0.313,0,0.568,84
 Baseball,D1,6548795,2026-04-28,Virginia Tech,James Madison,14,1,23.6,0.0,0.263,0,0.627,110
+Baseball,D1,6553584,2026-05-10,Seton Hall,UConn,3,7,23.6,0.0,0.44,0,0.417,97
 Baseball,D1,6556031,2026-02-25,Charlotte,Maine,9,4,23.6,0.0,0.341,0,0.533,167
 Baseball,D1,6557144,2026-02-28,Pittsburgh,UNC Greensboro,14,2,23.6,0.0,0.241,0,0.656,74
 Baseball,D1,6484915,2026-04-03,Bowling Green,Akron,9,6,23.5,0.0,0.603,0,0.215,112
@@ -5978,6 +6092,7 @@ Baseball,D1,6497128,2026-02-24,Florida,FIU,17,11,23.2,0.0,0.246,0,0.635,132
 Baseball,D1,6498913,2026-03-13,Cal Poly,CSU Bakersfield,8,4,23.2,0.0,0.359,0,0.498,102
 Baseball,D1,6499890,2026-04-26,Illinois St.,Bradley,8,5,23.2,0.0,0.485,0,0.347,96
 Baseball,D1,6500464,2026-02-28,North Florida,Presbyterian,12,11,23.2,0.0,0.513,0,0.311,126
+Baseball,D1,6500655,2026-05-10,Valparaiso,Evansville,0,11,23.2,0.0,0.632,0,0.168,88
 Baseball,D1,6500942,2026-03-28,Akron,Toledo,3,7,23.2,0.0,0.497,0,0.332,86
 Baseball,D1,6501566,2026-02-21,Austin Peay,Eastern Mich.,8,7,23.2,0.0,0.512,0,0.313,110
 Baseball,D1,6502373,2026-03-21,California Baptist,Evansville,10,3,23.2,0.0,0.301,0,0.567,96
@@ -6023,6 +6138,7 @@ Baseball,D1,6516429,2026-04-11,St. John's (NY),Georgetown,9,0,23.1,0.0,0.401,0,0
 Baseball,D1,6516458,2026-04-24,Georgetown,UConn,2,14,23.1,0.0,0.366,0,0.485,103
 Baseball,D1,6516844,2026-02-20,Lindenwood,St. Thomas (MN),4,2,23.1,0.0,0.552,0,0.264,87
 Baseball,D1,6518220,2026-02-13,Marshall,Evansville,5,2,23.1,0.0,0.457,0,0.376,77
+Baseball,D1,6525488,2026-05-10,Yale,Dartmouth,4,1,23.1,0.0,0.478,0,0.352,72
 Baseball,D1,6528849,2026-02-22,Boston College,Cornell,7,6,23.1,0.0,0.354,0,0.5,86
 Baseball,D1,6528981,2026-03-06,Eastern Ill.,Bellarmine,11,4,23.1,0.0,0.387,0,0.459,96
 Baseball,D1,6531447,2026-04-04,Alabama St.,Ark.-Pine Bluff,1,26,23.1,0.0,0.531,0,0.285,110
@@ -6118,6 +6234,7 @@ Baseball,D1,6506571,2026-02-13,UT Martin,Butler,9,8,22.6,0.0,0.494,0,0.313,119
 Baseball,D1,6508476,2026-04-07,San Diego St.,UC Riverside,1,0,22.6,0.0,0.414,0,0.407,83
 Baseball,D1,6516242,2026-03-14,N.C. A&T,Campbell,0,10,22.6,0.0,0.364,0,0.469,76
 Baseball,D1,6519271,2026-02-27,Georgia Tech,Northwestern,17,3,22.6,0.0,0.151,0,0.725,93
+Baseball,D1,6526620,2026-05-10,LIU,Stonehill,7,3,22.6,0.0,0.545,0,0.251,101
 Baseball,D1,6530247,2026-04-17,Seton Hall,Xavier,1,10,22.6,0.0,0.473,0,0.336,102
 Baseball,D1,6531408,2026-03-29,Florida A&M,Alabama St.,7,2,22.6,0.0,0.492,0,0.314,78
 Baseball,D1,6532148,2026-03-13,Western Ky.,FIU,15,4,22.6,0.0,0.301,0,0.544,85
@@ -6168,6 +6285,7 @@ Baseball,D1,6533972,2026-02-15,Arkansas St.,Stony Brook,12,5,22.4,0.0,0.269,0,0.
 Baseball,D1,6534258,2026-02-22,Jacksonville,LIU,11,3,22.4,0.0,0.4,0,0.415,110
 Baseball,D1,6536555,2026-03-01,Georgia,Oakland,4,3,22.4,0.0,0.324,0,0.507,96
 Baseball,D1,6539552,2026-04-18,Princeton,Penn,0,12,22.4,0.0,0.499,0,0.296,90
+Baseball,D1,6539579,2026-05-10,William & Mary,Towson,14,6,22.4,0.0,0.482,0,0.316,110
 Baseball,D1,6546317,2026-05-05,Norfolk St.,VCU,3,14,22.4,0.0,0.463,0,0.34,87
 Baseball,D1,6556710,2026-02-25,Mercer,Florida A&M,5,1,22.4,0.0,0.247,0,0.599,103
 Baseball,D1,6492266,2026-04-18,Jacksonville St.,FIU,13,1,22.3,0.0,0.225,0,0.622,84
@@ -6321,6 +6439,7 @@ Baseball,D1,6532953,2026-04-07,Texas,UIW,16,4,21.6,0.0,0.15,0,0.684,89
 Baseball,D1,6538673,2026-02-13,Texas A&M,Tennessee Tech,15,6,21.6,0.0,0.213,0,0.609,106
 Baseball,D1,6538725,2026-03-24,Vanderbilt,Tennessee Tech,15,5,21.6,0.0,0.254,0,0.56,123
 Baseball,D1,6538739,2026-03-29,SIUE,Tennessee Tech,6,2,21.6,0.0,0.376,0,0.412,81
+Baseball,D1,6547531,2026-05-10,Sam Houston,Delaware,8,1,21.6,0.0,0.421,0,0.358,103
 Baseball,D1,6574205,2026-04-17,Austin Peay,Bellarmine,16,6,21.6,0.0,0.408,0,0.376,97
 Baseball,D1,6492880,2026-04-26,Milwaukee,Wright St.,2,13,21.5,0.0,0.444,0,0.327,89
 Baseball,D1,6494670,2026-02-13,Wofford,Mercyhurst,12,2,21.5,0.0,0.395,0,0.388,89
@@ -6412,6 +6531,7 @@ Baseball,D1,6510006,2026-04-12,Manhattan,Siena,16,2,21.1,0.006,0.537,1,0.091,88
 Baseball,D1,6517651,2026-05-09,Alabama A&M,Florida A&M,3,10,21.1,0.0,0.554,0,0.181,93
 Baseball,D1,6518334,2026-03-03,Southeast Mo. St.,Evansville,13,4,21.1,0.0,0.283,0,0.505,113
 Baseball,D1,6522785,2026-04-10,Monmouth,Towson,8,2,21.1,0.0,0.429,0,0.329,87
+Baseball,D1,6525015,2026-05-10,Boston College,NJIT,6,3,21.1,0.0,0.3,0,0.484,93
 Baseball,D1,6525676,2026-05-09,Notre Dame,Oakland,15,5,21.1,0.0,0.353,0,0.419,100
 Baseball,D1,6527043,2026-04-19,Austin Peay,Bellarmine,10,5,21.1,0.0,0.39,0,0.376,102
 Baseball,D1,6529005,2026-04-11,George Washington,Saint Louis,13,4,21.1,0.0,0.59,0,0.135,96
@@ -6521,6 +6641,7 @@ Baseball,D1,6532432,2026-03-08,St. John's (NY),UAlbany,4,3,20.5,0.0,0.403,0,0.33
 Baseball,D1,6541333,2026-05-01,Oakland,Wright St.,4,8,20.5,0.0,0.464,0,0.262,103
 Baseball,D1,6544550,2026-03-04,Kent St.,St. Bonaventure,14,9,20.5,0.0,0.3,0,0.458,132
 Baseball,D1,6548653,2026-02-22,Vanderbilt,Marist,8,1,20.5,0.0,0.248,0,0.521,91
+Baseball,D1,6578477,2026-05-10,Presbyterian,USC Upstate,4,13,20.5,0.0,0.412,0,0.324,114
 Baseball,D1,6484882,2026-02-14,Georgia Tech,Bowling Green,12,2,20.4,0.0,0.167,0,0.617,80
 Baseball,D1,6490210,2026-03-21,High Point,Presbyterian,8,5,20.4,0.0,0.301,0,0.453,90
 Baseball,D1,6496654,2026-02-27,Purdue,Marist,9,4,20.4,0.0,0.262,0,0.5,104
@@ -6555,6 +6676,7 @@ Baseball,D1,6500460,2026-04-04,CSUN,Long Beach St.,18,4,20.2,0.0,0.379,0,0.352,1
 Baseball,D1,6500609,2026-03-14,SIUE,Valparaiso,3,2,20.2,0.0,0.398,0,0.332,71
 Baseball,D1,6501594,2026-03-10,Eastern Mich.,Michigan St.,5,13,20.2,0.0,0.384,0,0.349,108
 Baseball,D1,6504543,2026-03-15,Alabama A&M,Alcorn,10,6,20.2,0.0,0.668,0,0.008,106
+Baseball,D1,6510018,2026-05-10,Manhattan,Niagara,9,14,20.2,0.0,0.535,0,0.164,107
 Baseball,D1,6510400,2026-04-02,Rider,Marist,9,2,20.2,0.0,0.44,0,0.279,86
 Baseball,D1,6522152,2026-05-06,Lindenwood,Saint Louis,10,1,20.2,0.0,0.418,0,0.305,102
 Baseball,D1,6524188,2026-04-08,Boston College,Dartmouth,13,3,20.2,0.0,0.22,0,0.544,115
@@ -6888,6 +7010,7 @@ Baseball,D1,6549638,2026-03-20,Central Conn. St.,LIU,8,18,18.3,0.0,0.476,0,0.16,
 Baseball,D1,6551384,2026-05-05,Texas A&M,Prairie View,16,7,18.3,0.0,0.191,0,0.502,113
 Baseball,D1,6496141,2026-02-28,Wake Forest,LMU (CA),15,4,18.2,0.0,0.157,0,0.541,85
 Baseball,D1,6496171,2026-03-15,Abilene Christian,LMU (CA),22,11,18.2,0.0,0.294,0,0.376,109
+Baseball,D1,6501660,2026-05-10,Kent St.,Eastern Mich.,6,0,18.2,0.0,0.218,0,0.467,90
 Baseball,D1,6504560,2026-03-21,Alcorn,Bethune-Cookman,3,14,18.2,0.0,0.336,0,0.324,87
 Baseball,D1,6515960,2026-04-22,Youngstown St.,Toledo,0,21,18.2,0.0,0.393,0,0.257,114
 Baseball,D1,6517621,2026-03-24,Alabama A&M,Middle Tenn.,2,10,18.2,0.0,0.386,0,0.265,105
@@ -6930,6 +7053,7 @@ Baseball,D1,6501587,2026-03-03,Notre Dame,Eastern Mich.,11,1,18.0,0.0,0.208,0,0.
 Baseball,D1,6507486,2026-04-28,Tennessee,West Ga.,13,0,18.0,0.0,0.143,0,0.549,98
 Baseball,D1,6513188,2026-03-27,UMES,LIU,2,13,18.0,0.0,0.476,0,0.15,90
 Baseball,D1,6515929,2026-02-28,Longwood,Youngstown St.,9,3,18.0,0.0,0.382,0,0.262,109
+Baseball,D1,6529055,2026-05-10,Richmond,George Washington,13,1,18.0,0.0,0.276,0,0.391,79
 Baseball,D1,6530020,2026-03-07,Toledo,Massachusetts,11,1,18.0,0.0,0.34,0,0.314,82
 Baseball,D1,6530775,2026-03-10,Norfolk St.,Navy,8,15,18.0,0.0,0.387,0,0.256,121
 Baseball,D1,6549384,2026-05-08,Ark.-Pine Bluff,Grambling,16,1,18.0,0.0,0.407,0,0.233,82
@@ -6950,6 +7074,7 @@ Baseball,D1,6491638,2026-04-21,South Carolina,Presbyterian,9,3,17.8,0.0,0.261,0,
 Baseball,D1,6496006,2026-04-21,Wofford,Queens (NC),20,1,17.8,0.0,0.229,0,0.438,124
 Baseball,D1,6497208,2026-03-14,New Haven,Le Moyne,1,13,17.8,0.0,0.525,0,0.083,111
 Baseball,D1,6501371,2026-02-17,Vanderbilt,Eastern Mich.,13,2,17.8,0.0,0.171,0,0.508,76
+Baseball,D1,6509870,2026-05-10,Saint Peter's,Merrimack,6,11,17.8,0.0,0.519,0,0.088,106
 Baseball,D1,6516269,2026-05-03,Campbell,N.C. A&T,8,2,17.8,0.0,0.201,0,0.469,93
 Baseball,D1,6516965,2026-04-22,Northwestern,St. Thomas (MN),15,5,17.8,0.0,0.384,0,0.252,94
 Baseball,D1,6517544,2026-02-28,Tennessee Tech,Alabama A&M,7,4,17.8,0.0,0.489,0,0.124,88
@@ -6982,6 +7107,7 @@ Baseball,D1,6500638,2026-04-02,Washington,Valparaiso,6,3,17.6,0.0,0.294,0,0.352,
 Baseball,D1,6500643,2026-04-18,UIC,Valparaiso,10,0,17.6,0.0,0.396,0,0.228,72
 Baseball,D1,6501917,2026-04-25,Brown,Cornell,16,4,17.6,0.0,0.409,0,0.212,120
 Baseball,D1,6506749,2026-05-02,Butler,Seton Hall,15,6,17.6,0.0,0.427,0,0.191,112
+Baseball,D1,6515786,2026-05-10,Mississippi Val.,Jackson St.,1,7,17.6,0.0,0.503,0,0.101,83
 Baseball,D1,6517537,2026-02-27,Alabama A&M,Notre Dame,2,19,17.6,0.0,0.246,0,0.41,96
 Baseball,D1,6522227,2026-03-18,Boston College,UMass Lowell,12,2,17.6,0.0,0.171,0,0.498,109
 Baseball,D1,6526551,2026-04-02,Delaware St.,Stonehill,2,13,17.6,0.0,0.496,0,0.109,77
@@ -7000,6 +7126,7 @@ Baseball,D1,6515732,2026-03-14,Ark.-Pine Bluff,Mississippi Val.,7,5,17.5,0.0,0.4
 Baseball,D1,6516478,2026-05-05,Georgetown,Delaware St.,17,11,17.5,0.0,0.469,0,0.135,131
 Baseball,D1,6517631,2026-04-02,Alabama A&M,Texas Southern,5,7,17.5,0.0,0.495,0,0.104,108
 Baseball,D1,6518792,2026-02-24,ULM,Grambling,19,9,17.5,0.0,0.259,0,0.389,131
+Baseball,D1,6527123,2026-05-10,Austin Peay,Eastern Ky.,15,2,17.5,0.0,0.328,0,0.306,90
 Baseball,D1,6530322,2026-02-22,USC Upstate,NJIT,17,1,17.5,0.0,0.32,0,0.316,82
 Baseball,D1,6530638,2026-03-29,Lipscomb,Eastern Ky.,9,2,17.5,0.0,0.407,0,0.213,97
 Baseball,D1,6536412,2026-04-19,Lafayette,Lehigh,7,3,17.5,0.0,0.53,0,0.065,97
@@ -7153,6 +7280,7 @@ Baseball,D1,6499830,2026-03-15,ETSU,Bradley,15,2,16.3,0.0,0.217,0,0.391,96
 Baseball,D1,6500445,2026-02-14,North Florida,Sacred Heart,16,3,16.3,0.0,0.275,0,0.322,123
 Baseball,D1,6508445,2026-03-10,UNLV,UC Riverside,11,10,16.3,0.0,0.275,0,0.322,124
 Baseball,D1,6509989,2026-03-07,Marist,Manhattan,16,5,16.3,0.0,0.449,0,0.112,145
+Baseball,D1,6510344,2026-05-10,Siena,Iona,8,1,16.3,0.0,0.462,0,0.096,87
 Baseball,D1,6516857,2026-03-01,New Mexico,St. Thomas (MN),7,3,16.3,0.0,0.31,0,0.28,114
 Baseball,D1,6541318,2026-03-06,Texas A&M,Oakland,10,2,16.3,0.0,0.124,0,0.503,92
 Baseball,D1,6492897,2026-04-03,Canisius,Saint Peter's,7,3,16.2,0.0,0.501,0,0.046,83
@@ -7169,11 +7297,13 @@ Baseball,D1,6513150,2026-03-08,Central Conn. St.,UMES,6,1,16.1,0.0,0.517,0,0.023
 Baseball,D1,6515764,2026-04-11,Mississippi Val.,Bethune-Cookman,0,15,16.1,0.0,0.263,0,0.331,113
 Baseball,D1,6515951,2026-04-15,Central Mich.,Youngstown St.,12,2,16.1,0.0,0.436,0,0.122,101
 Baseball,D1,6521478,2026-04-17,UMBC,UMass Lowell,13,0,16.1,0.0,0.375,0,0.192,93
+Baseball,D1,6525679,2026-05-10,Notre Dame,Oakland,9,3,16.1,0.0,0.186,0,0.419,102
 Baseball,D1,6530898,2026-04-10,Navy,Lafayette,9,1,16.1,0.0,0.323,0,0.257,99
 Baseball,D1,6539214,2026-04-03,UAlbany,UMass Lowell,7,2,16.1,0.0,0.471,0,0.078,83
 Baseball,D1,6539539,2026-03-31,Delaware St.,Penn,5,10,16.1,0.0,0.363,0,0.208,117
 Baseball,D1,6546325,2026-02-21,Oklahoma,Coppin St.,24,0,16.1,0.0,0.144,0,0.471,112
 Baseball,D1,6546326,2026-02-22,Oklahoma,Coppin St.,11,0,16.1,0.0,0.144,0,0.471,95
+Baseball,D1,6549646,2026-05-10,Mercyhurst,Central Conn. St.,7,2,16.1,0.0,0.506,0,0.036,92
 Baseball,D1,6553548,2026-04-22,Kent St.,Mercyhurst,13,2,16.1,0.0,0.187,0,0.42,108
 Baseball,D1,6556701,2026-02-25,West Virginia,Ohio,19,6,16.1,0.0,0.148,0,0.467,142
 Baseball,D1,6558398,2026-03-04,Pittsburgh,Ohio,16,2,16.1,0.0,0.155,0,0.458,86
@@ -7614,6 +7744,7 @@ Baseball,D2,6504928,2026-03-27,Northwood,Malone,3,5,68.9,0.995,0.75,3,0.361,72
 Baseball,D2,6576404,2026-04-24,Saint Leo,Lander,4,5,68.9,0.324,0.879,11,0.713,77
 Baseball,D2,6495729,2026-03-29,Saint Michael's,Adelphi,11,10,68.8,0.719,0.826,14,0.299,119
 Baseball,D2,6501808,2026-03-08,Angelo St.,Lubbock Christian,8,11,68.8,0.593,0.753,3,0.835,107
+Baseball,D2,6579100,2026-05-09,North Georgia,Lander,7,11,68.8,0.724,0.561,3,0.91,108
 Baseball,D2,6579134,2026-05-08,Missouri S&T,UIndy,14,10,68.7,0.635,0.665,4,0.789,110
 Baseball,D2,6533240,2026-03-29,Rogers St.,Emporia St.,2,8,68.6,0.352,0.768,5,0.9,93
 Baseball,D2,6549216,2026-02-28,Pace,Point Park,3,4,68.6,0.47,0.869,12,0.536,107
@@ -8568,6 +8699,8 @@ Baseball,D2,6580036,2026-05-06,Claflin,Bluefield St.,8,7,52.1,0.486,0.799,4,0.14
 Baseball,D2,6525096,2026-03-11,Wilmington (DE),Chestnut Hill,8,10,52.0,0.591,0.593,1,0.558,108
 Baseball,D2,6545079,2026-03-20,Catawba,Wingate,9,2,52.0,0.002,0.616,4,0.938,92
 Baseball,D2,6578817,2026-05-07,Findlay,Hillsdale,3,2,52.0,0.249,0.698,4,0.542,77
+Baseball,D2,6580134,2026-05-10,Glenville St.,Charleston (WV),5,6,52.0,0.241,0.836,5,0.289,105
+Baseball,D2,6580135,2026-05-10,Frostburg St.,Charleston (WV),2,9,52.0,0.665,0.533,1,0.542,101
 Baseball,D2,6493849,2026-03-20,Embry-Riddle (FL),Grand Valley St.,2,4,51.9,0.068,0.631,4,0.835,110
 Baseball,D2,6503627,2026-04-07,Fort Hays St.,Emporia St.,3,0,51.9,0.514,0.635,1,0.596,81
 Baseball,D2,6503930,2026-04-26,Augusta,Flagler,5,6,51.9,0.163,0.759,4,0.57,104
@@ -9056,6 +9189,7 @@ Baseball,D2,6524842,2026-04-11,Findlay,Ashland,6,1,45.9,0.034,0.627,3,0.743,89
 Baseball,D2,6527609,2026-04-18,Northwest Nazarene,Saint Martin's,6,5,45.9,0.365,0.556,3,0.43,88
 Baseball,D2,6531268,2026-03-03,Rollins,Seton Hill,10,3,45.9,0.059,0.585,1,0.962,97
 Baseball,D2,6535106,2026-04-04,Shorter,Erskine,8,7,45.9,0.008,0.717,6,0.367,93
+Baseball,D2,6578803,2026-05-10,Southern N.H.,Bentley,9,11,45.9,0.068,0.655,1,0.867,109
 Baseball,D2,6507320,2026-04-12,Truman St.,Drury,9,3,45.8,0.257,0.639,3,0.458,109
 Baseball,D2,6522356,2026-03-21,Cal St. Dom. Hills,Cal St. East Bay,6,5,45.8,0.251,0.733,2,0.452,75
 Baseball,D2,6535016,2026-03-07,Concordia-St. Paul,Jamestown,4,5,45.8,0.315,0.755,3,0.247,105
@@ -10749,6 +10883,7 @@ Baseball,D2,6549819,2026-02-04,CSU Pueblo,Mont. St. Billings,11,6,31.1,0.0,0.547
 Baseball,D2,6567743,2026-03-31,California (PA),Wheeling,12,6,31.1,0.0,0.504,0,0.639,108
 Baseball,D2,6568148,2026-04-02,Ashland,Lake Erie,7,9,31.1,0.14,0.453,1,0.432,117
 Baseball,D2,6577299,2026-05-02,Lee,Delta St.,9,3,31.1,0.0,0.333,0,0.843,92
+Baseball,D2,6579270,2026-05-10,Grand Valley St.,Davenport,12,3,31.1,0.0,0.33,0,0.849,99
 Baseball,D2,6469992,2026-03-20,Quincy,Mo.-St. Louis,12,5,31.0,0.0,0.477,0,0.667,97
 Baseball,D2,6495075,2026-02-07,Southern Nazarene,Southwest Baptist,11,5,31.0,0.023,0.612,3,0.177,112
 Baseball,D2,6495851,2026-04-17,Ferrum,Emmanuel (GA),10,5,31.0,0.089,0.601,1,0.311,94
@@ -13698,6 +13833,7 @@ Baseball,D3,6506295,2026-03-14,FDU-Florham,Arcadia,10,9,65.7,0.45,0.738,9,0.604,
 Baseball,D3,6508478,2026-03-28,Ill. Wesleyan,Millikin,4,3,65.7,0.302,0.744,9,0.772,86
 Baseball,D3,6549199,2026-03-07,Arcadia,Ithaca,6,9,65.7,0.514,0.698,3,0.873,107
 Baseball,D3,6579157,2026-05-07,Alma,Kalamazoo,4,3,65.7,0.155,0.825,8,0.851,93
+Baseball,D3,6579290,2026-05-09,Salve Regina,MIT,9,8,65.7,0.655,0.599,4,0.722,106
 Baseball,D3,6498826,2026-02-21,Salisbury,Denison,4,1,65.6,0.472,0.635,3,0.995,104
 Baseball,D3,6538497,2026-03-29,St. Joseph's (L.I.),Manhattanville,4,7,65.6,0.843,0.626,3,0.562,81
 Baseball,D3,6492196,2026-03-14,Chris. Newport,Wittenberg,9,8,65.5,0.224,0.709,7,0.902,115
@@ -13723,6 +13859,7 @@ Baseball,D3,6526026,2026-02-28,Mary Hardin-Baylor,Macalester,10,14,65.1,0.396,0.
 Baseball,D3,6526118,2026-04-24,Amherst,Hamilton,1,4,65.1,0.912,0.61,1,0.679,80
 Baseball,D3,6539712,2026-03-06,Saint Mary's (MN),Illinois Col.,4,9,65.1,0.669,0.726,3,0.631,88
 Baseball,D3,6545714,2026-04-24,Concordia (TX),St. Thomas (TX),2,1,65.1,0.431,0.761,6,0.571,85
+Baseball,D3,6579738,2026-05-10,Marymount (VA),Centenary (NJ),3,5,65.1,0.727,0.678,3,0.617,91
 Baseball,D3,6511103,2026-04-11,Keene St.,Southern Me.,6,1,65.0,0.288,0.738,5,0.871,86
 Baseball,D3,6513884,2026-04-21,Wentworth,Hartford,6,4,65.0,0.372,0.811,15,0.579,81
 Baseball,D3,6537471,2026-03-21,Coe,Wartburg,11,12,65.0,0.925,0.546,1,0.735,108
@@ -13747,6 +13884,7 @@ Baseball,D3,6486741,2026-04-26,Scranton,Susquehanna,5,6,64.6,0.659,0.786,1,0.749
 Baseball,D3,6489790,2026-04-10,Lyon,Spalding,12,12,64.6,0.442,0.626,19,0.703,236
 Baseball,D3,6512018,2026-03-25,Franciscan,Mount Aloysius,8,7,64.6,0.668,0.853,11,0.16,96
 Baseball,D3,6532435,2026-03-27,Piedmont,Belhaven,22,10,64.6,0.159,0.738,10,0.908,107
+Baseball,D3,6579266,2026-05-09,Russell Sage,St. John Fisher,1,3,64.6,0.109,0.787,7,0.91,78
 Baseball,D3,6495248,2026-03-28,Albright,Eastern,2,3,64.5,0.428,0.812,10,0.493,107
 Baseball,D3,6529705,2026-03-14,Widener,Messiah,7,3,64.5,0.618,0.626,3,0.789,98
 Baseball,D3,6532398,2026-02-27,Belhaven,Hardin-Simmons,7,6,64.5,0.486,0.679,4,0.784,105
@@ -13830,6 +13968,7 @@ Baseball,D3,6528917,2026-03-14,Wooster,Penn St. Harrisburg,4,3,62.8,0.084,0.797,
 Baseball,D3,6543240,2026-03-14,Bethel (MN),Rowan,5,6,62.8,0.13,0.693,6,0.923,135
 Baseball,D3,6577651,2026-05-02,LeTourneau,McMurry,9,7,62.8,0.3,0.788,11,0.608,96
 Baseball,D3,6578493,2026-05-03,LeTourneau,McMurry,9,7,62.8,0.3,0.788,11,0.608,96
+Baseball,D3,6579440,2026-05-10,Coe,Wartburg,2,5,62.8,0.765,0.635,1,0.735,85
 Baseball,D3,6498855,2026-03-16,Salisbury,Oswego St.,2,10,62.7,0.823,0.488,1,0.836,110
 Baseball,D3,6510882,2026-04-11,Johns Hopkins,Haverford,5,10,62.7,0.858,0.499,1,0.778,99
 Baseball,D3,6514601,2026-04-16,Texas Lutheran,Concordia (TX),6,2,62.7,0.262,0.76,6,0.683,90
@@ -14122,6 +14261,7 @@ Baseball,D3,6514428,2026-03-21,Catholic,Lycoming,3,10,58.8,0.663,0.616,1,0.718,9
 Baseball,D3,6518932,2026-04-24,Ithaca,Hobart,6,3,58.8,0.021,0.734,6,0.847,104
 Baseball,D3,6526878,2026-03-15,Ohio Northern,UMass Boston,11,13,58.8,0.457,0.672,3,0.698,114
 Baseball,D3,6576470,2026-04-24,Ithaca,Hobart,6,3,58.8,0.021,0.732,6,0.847,104
+Baseball,D3,6579289,2026-05-10,Salve Regina,Babson,2,21,58.8,0.595,0.529,1,0.905,119
 Baseball,D3,6503567,2026-03-23,Rockford,Beloit,4,3,58.7,0.587,0.74,2,0.555,92
 Baseball,D3,6513889,2026-04-24,Hartford,WestConn,6,7,58.7,0.882,0.648,1,0.412,115
 Baseball,D3,6518445,2026-02-27,Rhodes,DePauw,5,7,58.7,0.015,0.684,8,0.908,105
@@ -14493,6 +14633,7 @@ Baseball,D3,6544886,2026-04-04,Whittier,Claremont-M-S,9,0,54.3,0.318,0.593,3,0.7
 Baseball,D3,6546257,2026-04-25,Beloit,Lawrence,4,3,54.3,0.533,0.744,3,0.338,93
 Baseball,D3,6556938,2026-02-28,Geneva,La Roche,9,8,54.3,0.544,0.757,4,0.211,79
 Baseball,D3,6574788,2026-04-20,Beloit,Rockford,3,7,54.3,0.135,0.71,7,0.555,136
+Baseball,D3,6579424,2026-05-09,North Park,Carthage,12,9,54.3,0.128,0.727,8,0.545,104
 Baseball,D3,6494117,2026-03-13,Maryville (TN),Piedmont,0,5,54.2,0.169,0.614,3,0.927,83
 Baseball,D3,6508585,2026-04-07,Alvernia,Ramapo,15,17,54.2,0.218,0.702,4,0.664,128
 Baseball,D3,6514304,2026-04-19,Brevard,William Peace,5,8,54.2,0.441,0.778,5,0.206,101
@@ -14586,6 +14727,7 @@ Baseball,D3,6503875,2026-03-07,Chapman,Lewis & Clark,3,10,53.3,0.516,0.58,1,0.71
 Baseball,D3,6520413,2026-03-08,Keuka,St. Lawrence,8,6,53.3,0.457,0.704,3,0.441,106
 Baseball,D3,6520643,2026-04-18,Kenyon,Wabash,11,10,53.3,0.218,0.807,13,0.302,164
 Baseball,D3,6542946,2026-04-18,George Fox,Claremont-M-S,12,6,53.3,0.366,0.603,3,0.669,112
+Baseball,D3,6577677,2026-05-09,Trinity (CT),Tufts,6,15,53.3,0.004,0.569,5,0.945,117
 Baseball,D3,6579415,2026-05-08,Wheaton (MA),Babson,2,3,53.3,0.319,0.694,1,0.815,83
 Baseball,D3,6579718,2026-05-08,Linfield,Lewis & Clark,8,7,53.3,0.034,0.85,5,0.57,103
 Baseball,D3,6467016,2026-02-18,Va. Wesleyan,Regent,10,9,53.2,0.217,0.752,6,0.368,137
@@ -14764,6 +14906,7 @@ Baseball,D3,6543956,2026-02-21,Mary Washington,John Carroll,4,7,51.3,0.354,0.615
 Baseball,D3,6557718,2026-03-05,Bluffton,Calvin,9,8,51.3,0.183,0.823,7,0.247,131
 Baseball,D3,6576953,2026-04-26,Rutgers-Newark,Montclair St.,2,4,51.3,0.234,0.665,4,0.571,92
 Baseball,D3,6577136,2026-04-30,Saint Joseph (CT),Lasell,1,3,51.3,0.406,0.587,3,0.558,78
+Baseball,D3,6579472,2026-05-09,Aurora,MSOE,10,9,51.3,0.052,0.635,4,0.828,114
 Baseball,D3,6459081,2026-03-10,Rose-Hulman,WashU,9,8,51.2,0.245,0.666,1,0.856,96
 Baseball,D3,6486737,2026-04-19,Elizabethtown,Susquehanna,6,5,51.2,0.246,0.631,2,0.796,96
 Baseball,D3,6492042,2026-03-28,Concordia Wisconsin,Dominican (IL),2,4,51.2,0.601,0.727,1,0.352,93
@@ -14819,6 +14962,7 @@ Baseball,D3,6546270,2026-04-20,Wis.-Eau Claire,Wis.-La Crosse,3,2,50.8,0.288,0.6
 Baseball,D3,6548875,2026-04-18,Elmhurst,Carroll (WI),12,10,50.8,0.244,0.728,5,0.365,113
 Baseball,D3,6557740,2026-03-04,Centenary (NJ),Rutgers-Newark,6,13,50.8,0.317,0.667,5,0.352,114
 Baseball,D3,6574393,2026-04-18,Alfred St.,Penn St.-Behrend,4,5,50.8,0.152,0.724,4,0.579,107
+Baseball,D3,6579819,2026-05-10,Merchant Marine,Farmingdale St.,2,5,50.8,0.052,0.743,4,0.678,98
 Baseball,D3,6467100,2026-04-19,Notre Dame (MD),Regent,1,5,50.7,0.179,0.861,14,0.179,70
 Baseball,D3,6491220,2026-03-07,Mary Baldwin,Hood,10,13,50.7,0.304,0.716,7,0.202,101
 Baseball,D3,6495213,2026-02-12,St. Thomas (TX),Hendrix,4,0,50.7,0.006,0.786,7,0.478,89
@@ -15132,6 +15276,7 @@ Baseball,D3,6540763,2026-04-03,Dean,Saint Joseph (CT),8,13,47.7,0.003,0.61,6,0.5
 Baseball,D3,6542811,2026-04-04,Clark (MA),Salve Regina,4,5,47.7,0.005,0.716,2,0.843,91
 Baseball,D3,6543226,2026-03-14,Penn St.-Abington,Wesleyan (CT),8,7,47.7,0.078,0.765,4,0.496,83
 Baseball,D3,6579242,2026-05-08,Russell Sage,St. John Fisher,8,5,47.7,0.014,0.651,2,0.91,91
+Baseball,D3,6579257,2026-05-10,Scranton,Elizabethtown,4,2,47.7,0.125,0.703,1,0.817,94
 Baseball,D3,6579682,2026-05-09,RIT,Hobart,6,17,47.7,0.175,0.588,1,0.891,117
 Baseball,D3,6486140,2026-04-13,Knox,Monmouth (IL),6,10,47.6,0.229,0.773,10,0.102,128
 Baseball,D3,6495216,2026-02-13,St. Thomas (TX),Hendrix,9,5,47.6,0.002,0.685,7,0.478,107
@@ -15412,6 +15557,7 @@ Baseball,D3,6545055,2026-03-06,Hope,Saint Vincent,13,16,45.1,0.264,0.645,5,0.212
 Baseball,D3,6547485,2026-04-25,Bowdoin,Colby,6,7,45.1,0.0,0.787,2,0.661,85
 Baseball,D3,6564607,2026-03-14,Dallas,Howard Payne,4,3,45.1,0.019,0.864,6,0.144,96
 Baseball,D3,6579430,2026-05-06,North Park,Wheaton (IL),5,4,45.1,0.003,0.725,4,0.532,89
+Baseball,D3,6579432,2026-05-10,Endicott,Western New Eng.,7,4,45.1,0.001,0.625,2,0.855,86
 Baseball,D3,6483859,2026-03-26,Franklin & Marshall,Elizabethtown,6,18,45.0,0.0,0.639,2,0.832,105
 Baseball,D3,6491301,2026-04-03,Greensboro,Methodist,4,6,45.0,0.262,0.721,1,0.521,109
 Baseball,D3,6503310,2026-03-29,St. Lawrence,RIT,6,5,45.0,0.133,0.622,1,0.793,94
@@ -15911,6 +16057,7 @@ Baseball,D3,6544997,2026-03-04,Illinois Col.,Grove City,5,4,40.7,0.002,0.718,2,0
 Baseball,D3,6545016,2026-03-28,Franklin,Earlham,11,8,40.7,0.115,0.601,1,0.668,96
 Baseball,D3,6545019,2026-04-03,Lawrence,Illinois Col.,75,49,40.7,0.234,0.562,3,0.371,89
 Baseball,D3,6555646,2026-02-21,Va. Wesleyan,SUNY New Paltz,8,18,40.7,0.089,0.641,2,0.554,114
+Baseball,D3,6579737,2026-05-09,Centenary (NJ),Marymount (VA),9,15,40.7,0.072,0.603,2,0.617,122
 Baseball,D3,6486730,2026-04-11,Susquehanna,Drew,13,7,40.6,0.007,0.567,2,0.734,120
 Baseball,D3,6539749,2026-04-15,Macalester,Saint Mary's (MN),7,6,40.6,0.0,0.79,0,0.677,72
 Baseball,D3,6539915,2026-03-10,Pitt.-Greensburg,Stockton,6,15,40.6,0.012,0.653,8,0.228,126
@@ -16123,6 +16270,7 @@ Baseball,D3,6542819,2026-03-13,Rivier,La Roche,4,12,38.9,0.113,0.616,5,0.179,117
 Baseball,D3,6543986,2026-03-09,Covenant,Ohio Wesleyan,0,11,38.9,0.194,0.626,3,0.272,91
 Baseball,D3,6544729,2026-03-18,Trinity (CT),Wis.-Whitewater,3,15,38.9,0.0,0.504,0,0.951,78
 Baseball,D3,6566704,2026-04-04,Penn St. Brandywine,Penn St.-Berks,2,3,38.9,0.288,0.787,1,0.166,77
+Baseball,D3,6579667,2026-05-09,Salem St.,Worcester St.,4,13,38.9,0.034,0.613,3,0.482,103
 Baseball,D3,6483881,2026-04-14,Washington Col.,Franklin & Marshall,13,12,38.8,0.018,0.594,1,0.716,120
 Baseball,D3,6491203,2026-02-28,Mary Baldwin,Mount Aloysius,4,10,38.8,0.419,0.642,1,0.179,80
 Baseball,D3,6510861,2026-03-07,Johns Hopkins,Cortland,6,5,38.8,0.0,0.478,0,0.978,93
@@ -16238,6 +16386,7 @@ Baseball,D3,6537810,2026-02-21,George Fox,Centenary (LA),2,6,38.1,0.089,0.738,1,
 Baseball,D3,6544742,2026-04-17,Colby,Trinity (CT),4,7,38.1,0.0,0.571,0,0.839,94
 Baseball,D3,6559181,2026-03-08,Tufts,Hobart,3,1,38.1,0.0,0.508,0,0.913,82
 Baseball,D3,6573888,2026-04-16,East Tex. Baptist,Mary Hardin-Baylor,6,5,38.1,0.0,0.515,0,0.908,65
+Baseball,D3,6577680,2026-05-10,Tufts,Amherst,16,8,38.1,0.0,0.5,0,0.926,107
 Baseball,D3,6486722,2026-03-31,Juniata,Susquehanna,11,4,38.0,0.196,0.577,1,0.492,103
 Baseball,D3,6491225,2026-03-14,Mary Baldwin,Brevard,7,10,38.0,0.393,0.657,1,0.161,110
 Baseball,D3,6495242,2026-03-21,Eastern,Hood,4,5,38.0,0.056,0.586,3,0.451,106
@@ -16515,6 +16664,7 @@ Baseball,D3,6542270,2026-03-07,St. Joseph's (L.I.),Bridgewater St.,1,4,36.1,0.0,
 Baseball,D3,6542684,2026-03-14,Alvernia,Albright,10,13,36.1,0.169,0.622,1,0.396,121
 Baseball,D3,6568946,2026-04-07,Carthage,Marian (WI),7,10,36.1,0.219,0.622,1,0.334,117
 Baseball,D3,6574792,2026-04-26,Denison,Ohio Northern,5,4,36.1,0.0,0.451,0,0.904,103
+Baseball,D3,6579431,2026-05-10,Endicott,Western New Eng.,3,1,36.1,0.0,0.492,0,0.855,71
 Baseball,D3,6579844,2026-05-07,Rhodes,Berry,12,2,36.1,0.0,0.498,0,0.847,87
 Baseball,D3,6483875,2026-04-04,Franklin & Marshall,Swarthmore,6,27,36.0,0.0,0.524,0,0.811,130
 Baseball,D3,6496858,2026-03-20,Central (IA),Loras,7,13,36.0,0.051,0.651,1,0.496,101
@@ -16594,6 +16744,7 @@ Baseball,D3,6542824,2026-04-21,La Roche,Saint Vincent,2,7,35.6,0.359,0.662,1,0.0
 Baseball,D3,6544969,2026-03-01,MUW,North Park,15,4,35.6,0.0,0.642,0,0.654,91
 Baseball,D3,6573326,2026-04-13,Penn St. Harrisburg,Marymount (VA),6,4,35.6,0.0,0.515,0,0.805,98
 Baseball,D3,6579224,2026-05-07,SUNY Brockport,St. John Fisher,0,3,35.6,0.0,0.511,0,0.81,75
+Baseball,D3,6579708,2026-05-10,Baldwin Wallace,Ohio Northern,5,1,35.6,0.0,0.446,0,0.891,83
 Baseball,D3,6481661,2026-03-20,Piedmont,Emory,10,6,35.5,0.0,0.484,0,0.839,105
 Baseball,D3,6495600,2026-03-15,Allegheny,John Carroll,2,0,35.5,0.0,0.564,0,0.744,74
 Baseball,D3,6498322,2026-03-10,Thomas (ME),Penn St.-Altoona,7,12,35.5,0.031,0.672,3,0.277,130
@@ -17614,6 +17765,7 @@ Baseball,D3,6542254,2026-04-07,North Park,Wheaton (IL),9,4,29.9,0.0,0.555,0,0.53
 Baseball,D3,6546534,2026-03-12,Crown (MN),Carthage,2,12,29.9,0.002,0.58,2,0.297,96
 Baseball,D3,6548858,2026-02-20,Carroll (WI),Wittenberg,8,16,29.9,0.0,0.412,0,0.701,123
 Baseball,D3,6578977,2026-05-08,Penn St. Harrisburg,Penn St.-Abington,16,3,29.9,0.0,0.366,0,0.756,100
+Baseball,D3,6579653,2026-05-10,Transylvania,Rose-Hulman,11,2,29.9,0.0,0.297,0,0.838,108
 Baseball,D3,6498835,2026-03-04,Va. Wesleyan,Salisbury,6,20,29.8,0.0,0.379,0,0.737,124
 Baseball,D3,6505670,2026-03-11,North Central (MN),Alfred,21,3,29.8,0.013,0.554,5,0.011,110
 Baseball,D3,6508589,2026-04-11,Rutgers-Camden,Ramapo,0,10,29.8,0.0,0.42,0,0.69,101
@@ -19172,6 +19324,7 @@ Baseball,D3,6546901,2026-03-17,TCNJ,Mount Aloysius,5,2,23.1,0.0,0.518,0,0.303,83
 Baseball,D3,6546916,2026-03-25,Lesley,Rivier,3,5,23.1,0.0,0.626,0,0.173,101
 Baseball,D3,6567184,2026-03-29,Russell Sage,Houghton,13,1,23.1,0.0,0.252,0,0.621,79
 Baseball,D3,6572681,2026-04-10,Schreiner,Austin,12,0,23.1,0.0,0.548,0,0.265,72
+Baseball,D3,6578865,2026-05-09,Baruch,CCNY,12,4,23.1,0.0,0.559,0,0.255,95
 Baseball,D3,6467745,2026-04-25,Crown (MN),Wis.-Superior,3,8,23.0,0.0,0.416,0,0.42,110
 Baseball,D3,6491307,2026-04-11,Methodist,William Peace,8,1,23.0,0.0,0.457,0,0.371,91
 Baseball,D3,6497101,2026-02-28,Thiel,Juniata,3,5,23.0,0.0,0.631,0,0.161,75
@@ -25006,6 +25159,7 @@ Softball,D1,6533974,2026-04-03,California,Louisville,3,6,31.5,0.0,0.503,0,0.655,
 Softball,D1,6535977,2026-03-14,SIUE,Morehead St.,3,1,31.5,0.001,0.714,2,0.204,59
 Softball,D1,6541084,2026-04-10,Northern Ky.,Robert Morris,12,2,31.5,0.049,0.619,1,0.36,62
 Softball,D1,6543452,2026-02-06,McNeese,North Texas,5,2,31.5,0.0,0.472,0,0.695,67
+Softball,D1,6579008,2026-05-10,UNC Greensboro,Samford,4,0,31.5,0.0,0.441,0,0.733,62
 Softball,D1,6495804,2026-04-21,Alabama St.,Jacksonville St.,1,4,31.4,0.0,0.581,0,0.559,75
 Softball,D1,6496338,2026-04-24,Cal St. Fullerton,Long Beach St.,4,2,31.4,0.0,0.436,0,0.735,83
 Softball,D1,6500606,2026-04-03,Queens (NC),North Florida,5,8,31.4,0.0,0.635,0,0.495,91
@@ -25474,6 +25628,7 @@ Softball,D1,6535492,2026-03-28,NIU,Massachusetts,5,4,29.4,0.0,0.641,0,0.409,72
 Softball,D1,6537030,2026-02-08,UTSA,Texas,0,10,29.4,0.0,0.382,0,0.72,77
 Softball,D1,6542675,2026-04-25,UNC Greensboro,Chattanooga,9,1,29.4,0.0,0.437,0,0.651,59
 Softball,D1,6548849,2026-02-08,Elon,James Madison,4,13,29.4,0.0,0.506,0,0.567,115
+Softball,D1,6578981,2026-05-10,Marist,Iona,4,0,29.4,0.0,0.575,0,0.484,53
 Softball,D1,6580435,2026-05-09,California Baptist,Tarleton St.,8,2,29.4,0.0,0.42,0,0.671,77
 Softball,D1,6491946,2026-03-07,San Diego,Princeton,10,11,29.3,0.0,0.522,0,0.547,124
 Softball,D1,6492746,2026-03-28,California Baptist,Utah Valley,6,3,29.3,0.0,0.457,0,0.624,75
@@ -27505,6 +27660,7 @@ Softball,D1,6541756,2026-04-15,UNC Greensboro,Longwood,14,1,21.0,0.0,0.243,0,0.5
 Softball,D1,6542666,2026-04-11,Chattanooga,ETSU,5,0,21.0,0.0,0.391,0,0.37,70
 Softball,D1,6546724,2026-03-29,Bellarmine,North Ala.,2,12,21.0,0.0,0.332,0,0.443,96
 Softball,D1,6547417,2026-04-14,UMass Lowell,Holy Cross,10,5,21.0,0.0,0.538,0,0.194,98
+Softball,D1,6577553,2026-05-09,Howard,South Carolina St.,11,2,21.0,0.0,0.397,0,0.363,68
 Softball,D1,6503655,2026-03-03,Southern Miss.,Alcorn,5,2,20.9,0.0,0.345,0,0.422,68
 Softball,D1,6503699,2026-03-06,UNLV,Utah Tech,13,5,20.9,0.0,0.307,0,0.469,91
 Softball,D1,6507398,2026-03-14,UC Riverside,Long Beach St.,1,10,20.9,0.0,0.408,0,0.345,63
@@ -28658,6 +28814,7 @@ Softball,D2,6533956,2026-03-21,Cal Poly Humboldt,Cal St. Dom. Hills,5,4,80.0,0.8
 Softball,D2,6546352,2026-03-13,Emporia St.,Rogers St.,3,1,79.7,0.551,0.901,12,0.846,74
 Softball,D2,6501143,2026-04-08,Caldwell,Mercy,11,10,79.6,0.928,0.813,10,0.494,109
 Softball,D2,6523773,2026-03-14,Pittsburg St.,St. Cloud St.,5,4,79.4,0.55,0.859,5,0.985,66
+Softball,D2,6503290,2026-05-09,Eckerd,Saint Leo,4,2,79.2,0.502,0.847,9,0.951,70
 Softball,D2,6495869,2026-04-09,Southern Nazarene,Arkansas Tech,6,5,79.1,0.702,0.864,13,0.684,102
 Softball,D2,6497403,2026-04-10,East Stroudsburg,Shippensburg,2,1,79.0,0.534,0.867,7,0.878,76
 Softball,D2,6505830,2026-04-25,Ashland,Northwood,1,3,79.0,0.801,0.905,5,0.61,75
@@ -28703,6 +28860,7 @@ Softball,D2,6576168,2026-04-23,UVA Wise,Mars Hill,3,4,76.2,0.612,0.887,10,0.648,
 Softball,D2,6547167,2026-04-24,Lock Haven,Bloomsburg,0,1,76.1,0.566,0.924,9,0.657,64
 Softball,D2,6495004,2026-02-25,Lincoln Memorial,Lee,9,8,76.0,0.813,0.805,5,0.597,88
 Softball,D2,6520949,2026-04-04,Mars Hill,Lincoln Memorial,8,11,76.0,0.984,0.712,3,0.704,93
+Softball,D2,6579614,2026-05-09,Charleston (WV),Glenville St.,3,4,75.9,0.448,0.864,11,0.86,76
 Softball,D2,6531925,2026-03-21,West Va. Wesleyan,Fairmont St.,3,4,75.8,0.884,0.759,8,0.459,90
 Softball,D2,6495619,2026-04-18,Tampa,Rollins,0,5,75.6,0.789,0.752,3,0.875,72
 Softball,D2,6522346,2026-04-04,Cal Poly Humboldt,Cal St. Monterey Bay,2,3,75.5,0.533,0.905,8,0.695,71
@@ -28840,6 +28998,7 @@ Softball,D2,6505785,2026-04-08,Saginaw Valley,Northwood,3,11,69.6,0.857,0.606,3,
 Softball,D2,6511032,2026-02-21,Union (TN),Delta St.,6,8,69.6,0.768,0.743,13,0.373,91
 Softball,D2,6527813,2026-04-14,American Int'l,Southern Conn. St.,7,6,69.6,0.881,0.808,5,0.258,84
 Softball,D2,6579463,2026-05-08,West Florida,Trevecca Nazarene,1,9,69.6,0.605,0.618,5,0.815,74
+Softball,D2,6579980,2026-05-08,Grand Valley St.,Purdue Northwest,3,6,69.6,0.91,0.712,3,0.537,91
 Softball,D2,6506268,2026-04-15,Ashland,Malone,6,5,69.5,0.882,0.82,2,0.539,74
 Softball,D2,6493480,2026-03-28,Lees-McRae,Erskine,5,6,69.4,0.815,0.872,7,0.152,85
 Softball,D2,6506494,2026-02-13,Spring Hill,Henderson St.,1,5,69.4,0.922,0.657,3,0.582,80
@@ -28864,6 +29023,7 @@ Softball,D2,6495571,2026-03-13,Embry-Riddle (FL),Rollins,2,5,68.8,0.51,0.804,4,0
 Softball,D2,6495590,2026-03-21,Rollins,Nova Southeastern,4,12,68.8,0.876,0.635,1,0.839,83
 Softball,D2,6506055,2026-04-13,Dominican (CA),Biola,2,1,68.8,0.918,0.762,1,0.637,78
 Softball,D2,6557415,2026-03-01,Lincoln (PA),Ferrum,0,1,68.8,0.74,0.93,7,0.146,64
+Softball,D2,6579564,2026-05-09,St. Cloud St.,Augustana (SD),1,6,68.8,0.874,0.633,1,0.845,69
 Softball,D2,6497964,2026-01-30,Tampa,Okla. Christian,2,4,68.7,0.111,0.902,12,0.933,84
 Softball,D2,6521930,2026-02-22,Lubbock Christian,Angelo St.,3,4,68.7,0.602,0.791,3,0.775,90
 Softball,D2,6524522,2026-02-28,Pittsburg St.,Winona St.,4,8,68.7,0.389,0.824,3,0.991,82
@@ -29139,6 +29299,7 @@ Softball,D2,6522392,2026-05-01,San Fran. St.,Cal St. Monterey Bay,4,5,61.5,0.27,
 Softball,D2,6527812,2026-04-25,Embry-Riddle (FL),Nova Southeastern,1,0,61.5,0.081,0.893,5,0.79,51
 Softball,D2,6531548,2026-03-20,Southeastern Okla.,Harding,5,8,61.5,0.481,0.766,4,0.564,73
 Softball,D2,6535876,2026-04-19,Concord,Fairmont St.,4,10,61.5,0.211,0.822,10,0.618,103
+Softball,D2,6579613,2026-05-09,Charleston (WV),Glenville St.,4,10,61.5,0.076,0.757,11,0.86,87
 Softball,D2,6496390,2026-05-01,Adelphi,Franklin Pierce,3,5,61.4,0.501,0.784,2,0.715,81
 Softball,D2,6498647,2026-03-15,Wheeling,Pitt.-Johnstown,0,4,61.4,0.565,0.83,10,0.182,79
 Softball,D2,6518852,2026-02-19,Missouri S&T,Grand Valley St.,1,4,61.4,0.651,0.682,1,0.757,78
@@ -29225,6 +29386,7 @@ Softball,D2,6497742,2026-03-27,Chowan,Ferrum,6,5,60.2,0.674,0.769,3,0.378,96
 Softball,D2,6510702,2026-03-28,Mercy,D'Youville,6,5,60.2,0.276,0.868,8,0.434,70
 Softball,D2,6518724,2026-02-12,Central Okla.,Okla. Baptist,3,9,60.2,0.681,0.502,1,0.89,78
 Softball,D2,6538952,2026-01-31,Columbus St.,Mount Olive,3,2,60.2,0.018,0.845,9,0.772,60
+Softball,D2,6578737,2026-05-09,Cal St. East Bay,Cal St. San Marcos,5,1,60.2,0.224,0.748,3,0.942,75
 Softball,D2,6492834,2026-02-28,Belmont Abbey,Tusculum,0,1,60.0,0.323,0.884,5,0.451,65
 Softball,D2,6496135,2026-03-07,Florida Tech,Adelphi,9,7,60.0,0.228,0.651,7,0.745,92
 Softball,D2,6497580,2026-04-17,Stanislaus St.,Cal St. Monterey Bay,10,9,60.0,0.299,0.779,5,0.607,91
@@ -29256,6 +29418,7 @@ Softball,D2,6510073,2026-01-31,Southeastern Okla.,Tex. A&M Int'l,11,10,59.6,0.40
 Softball,D2,6518833,2026-03-21,Ouachita Baptist,Okla. Baptist,5,4,59.6,0.163,0.82,7,0.603,91
 Softball,D2,6524180,2026-02-10,North Greenville,Lander,1,3,59.6,0.046,0.881,12,0.67,81
 Softball,D2,6536980,2026-04-24,Clarion,Seton Hill,5,6,59.6,0.447,0.815,12,0.27,83
+Softball,D2,6580443,2026-05-09,Simon Fraser,Western Wash.,6,8,59.6,0.352,0.787,6,0.418,89
 Softball,D2,6499226,2026-03-28,UVA Wise,Anderson (SC),7,9,59.5,0.072,0.811,14,0.723,124
 Softball,D2,6507683,2026-03-05,Walsh,Minn.-Crookston,4,6,59.5,0.518,0.835,7,0.154,86
 Softball,D2,6508099,2026-04-02,Newman,Missouri Western,8,5,59.5,0.727,0.691,3,0.378,72
@@ -29361,12 +29524,14 @@ Softball,D2,6526867,2026-01-31,Cal Poly Humboldt,Jessup,5,4,57.9,0.18,0.803,7,0.
 Softball,D2,6537479,2026-01-30,UT Tyler,Saint Martin's,5,9,57.9,0.397,0.671,3,0.736,94
 Softball,D2,6548141,2026-01-30,Northwest Mo. St.,Lewis,8,7,57.9,0.407,0.762,4,0.513,99
 Softball,D2,6579602,2026-05-08,Caldwell,Felician,8,7,57.9,0.232,0.809,6,0.466,99
+Softball,D2,6493545,2026-05-09,Barry,Tampa,3,1,57.8,0.496,0.724,1,0.747,65
 Softball,D2,6495818,2026-03-07,Southern Nazarene,Southwestern Okla.,4,8,57.8,0.754,0.64,3,0.339,93
 Softball,D2,6498639,2026-03-15,Pitt.-Johnstown,West Va. Wesleyan,9,10,57.8,0.941,0.714,1,0.227,93
 Softball,D2,6513533,2026-04-08,Southern N.H.,Bentley,5,4,57.8,0.246,0.822,8,0.433,70
 Softball,D2,6520287,2026-04-04,Staten Island,D'Youville,0,1,57.8,0.329,0.867,12,0.277,64
 Softball,D2,6521443,2026-04-18,Mars Hill,Wingate,2,5,57.8,0.445,0.752,1,0.775,72
 Softball,D2,6545017,2026-04-18,Western Ore.,Saint Martin's,2,5,57.8,0.34,0.856,4,0.476,72
+Softball,D2,6579593,2026-05-09,Lincoln Memorial,Anderson (SC),8,5,57.8,0.538,0.656,1,0.779,74
 Softball,D2,6494533,2026-04-02,Cal St. San Marcos,Cal St. Dom. Hills,3,2,57.7,0.185,0.732,3,0.906,72
 Softball,D2,6518911,2026-04-10,Okla. Baptist,Harding,5,7,57.7,0.323,0.741,3,0.73,88
 Softball,D2,6520097,2026-02-13,Mo.-St. Louis,Neb.-Kearney,2,4,57.7,0.376,0.739,5,0.47,79
@@ -29659,6 +29824,7 @@ Softball,D2,6529499,2026-03-14,Slippery Rock,West Liberty,1,2,54.1,0.532,0.771,1
 Softball,D2,6541685,2026-04-30,Point Park,West Liberty,9,6,54.1,0.264,0.8,9,0.288,89
 Softball,D2,6554950,2026-02-20,Fairmont St.,Ferrum,8,16,54.1,0.737,0.598,1,0.461,100
 Softball,D2,6575731,2026-05-01,Tiffin,Hillsdale,5,6,54.1,0.092,0.679,5,0.738,94
+Softball,D2,6579606,2026-05-10,Assumption,Southern N.H.,6,4,54.1,0.039,0.783,10,0.579,79
 Softball,D2,6513544,2026-04-22,Bentley,Southern N.H.,4,5,54.0,0.091,0.85,8,0.433,81
 Softball,D2,6517125,2026-04-11,Franklin Pierce,Pace,5,8,54.0,0.509,0.666,1,0.65,97
 Softball,D2,6518883,2026-04-03,Northwestern Okla.,Okla. Baptist,3,6,54.0,0.525,0.715,2,0.472,87
@@ -29697,6 +29863,7 @@ Softball,D2,6503179,2026-02-20,Saint Leo,Tampa,3,2,53.5,0.015,0.798,2,0.963,68
 Softball,D2,6503600,2026-02-14,Flagler,Chowan,1,2,53.5,0.138,0.767,6,0.455,109
 Softball,D2,6514479,2026-01-31,Drury,East Central,6,7,53.5,0.753,0.586,1,0.434,104
 Softball,D2,6548000,2026-03-25,Lander,Lenoir-Rhyne,8,0,53.5,0.351,0.623,1,0.871,46
+Softball,D2,6579635,2026-05-09,Colo. Christian,CSU Pueblo,2,8,53.5,0.357,0.627,1,0.861,75
 Softball,D2,6492900,2026-04-24,Colo. Sch. of Mines,CSU Pueblo,5,8,53.4,0.004,0.799,8,0.571,84
 Softball,D2,6509768,2026-04-17,Midwestern St.,Tex. A&M Int'l,2,3,53.4,0.231,0.915,8,0.163,75
 Softball,D2,6532854,2026-03-31,Rockhurst,Central Mo.,5,4,53.4,0.141,0.729,3,0.79,83
@@ -29711,6 +29878,8 @@ Softball,D2,6525835,2026-05-02,Lincoln (MO),William Jewell,0,3,53.3,0.625,0.776,
 Softball,D2,6528304,2026-02-14,Central Okla.,Southern Ark.,6,14,53.3,0.061,0.665,3,0.961,78
 Softball,D2,6564726,2026-03-14,Okla. Christian,Angelo St.,4,5,53.3,0.063,0.694,3,0.923,80
 Softball,D2,6566232,2026-03-23,King (TN),Lenoir-Rhyne,5,1,53.3,0.468,0.599,1,0.751,69
+Softball,D2,6579545,2026-05-09,McKendree,Rockhurst,1,2,53.3,0.062,0.764,3,0.841,58
+Softball,D2,6579974,2026-05-10,Saginaw Valley,Ferris St.,2,1,53.3,0.006,0.739,4,0.839,101
 Softball,D2,6493518,2026-04-18,Lees-McRae,North Greenville,7,6,53.2,0.412,0.728,4,0.361,73
 Softball,D2,6506555,2026-03-28,Wayne St. (MI),Wis.-Parkside,1,0,53.2,0.572,0.792,1,0.391,61
 Softball,D2,6512404,2026-04-19,Wayne St. (MI),Davenport,2,5,53.2,0.797,0.693,1,0.242,84
@@ -29738,6 +29907,7 @@ Softball,D2,6513972,2026-04-01,Felician,Dominican (NY),6,5,52.9,0.462,0.815,4,0.
 Softball,D2,6522270,2026-03-28,Cal St. East Bay,Cal Poly Humboldt,2,8,52.9,0.416,0.624,1,0.768,80
 Softball,D2,6551587,2026-04-21,Bloomsburg,Pitt.-Johnstown,2,7,52.9,0.728,0.571,1,0.457,75
 Softball,D2,6579537,2026-05-07,Ill. Springfield,Maryville (MO),3,6,52.9,0.355,0.784,1,0.65,85
+Softball,D2,6579976,2026-05-09,Purdue Northwest,Davenport,7,6,52.9,0.578,0.727,2,0.35,84
 Softball,D2,6494395,2026-03-29,Tiffin,Ashland,5,11,52.8,0.452,0.594,1,0.755,99
 Softball,D2,6497327,2026-01-30,Chico St.,Western Wash.,1,2,52.8,0.198,0.876,3,0.522,82
 Softball,D2,6509775,2026-04-24,Tex. A&M Int'l,Eastern N.M.,3,2,52.8,0.133,0.865,7,0.315,72
@@ -29793,6 +29963,7 @@ Softball,D2,6530904,2026-03-08,Emporia St.,Augustana (SD),3,2,52.3,0.0,0.772,4,0
 Softball,D2,6532887,2026-02-01,San Fran. St.,Western Ore.,6,5,52.3,0.185,0.827,5,0.376,108
 Softball,D2,6548489,2026-01-30,Texas-Dallas,Okla. Baptist,11,12,52.3,0.15,0.696,6,0.476,110
 Softball,D2,6567055,2026-03-29,Bloomsburg,Kutztown,3,8,52.3,0.339,0.72,1,0.723,77
+Softball,D2,6579546,2026-05-09,McKendree,Rockhurst,3,6,52.3,0.295,0.666,1,0.841,86
 Softball,D2,6498058,2026-04-17,Texas Woman's,Okla. Christian,2,0,52.2,0.253,0.716,1,0.824,57
 Softball,D2,6521363,2026-02-13,Columbus St.,Mars Hill,2,5,52.2,0.007,0.771,4,0.753,68
 Softball,D2,6533838,2026-02-07,Cal St. Dom. Hills,Lubbock Christian,5,6,52.2,0.207,0.669,3,0.736,92
@@ -29811,6 +29982,7 @@ Softball,D2,6506016,2026-03-08,Hawaii Pacific,Dominican (CA),3,4,52.0,0.235,0.78
 Softball,D2,6506201,2026-03-08,Minn.-Crookston,Malone,3,5,52.0,0.142,0.846,12,0.296,87
 Softball,D2,6520589,2026-02-07,Georgia College,Tampa,2,7,52.0,0.001,0.672,4,0.871,83
 Softball,D2,6532704,2026-04-19,Minnesota St.,Concordia-St. Paul,3,4,52.0,0.157,0.781,3,0.655,114
+Softball,D2,6539368,2026-05-09,Fla. Southern,Embry-Riddle (FL),11,10,52.0,0.112,0.685,9,0.522,137
 Softball,D2,6545427,2026-03-20,Emmanuel (GA),Barton,7,4,52.0,0.854,0.617,1,0.215,79
 Softball,D2,6568288,2026-04-03,Embry-Riddle (FL),Saint Leo,1,7,52.0,0.029,0.653,4,0.863,80
 Softball,D2,6497879,2026-02-12,Southwest Baptist,Northwest Mo. St.,1,2,51.9,0.014,0.821,6,0.476,79
@@ -30355,6 +30527,7 @@ Softball,D2,6513179,2026-04-26,Wayne St. (MI),Grand Valley St.,2,3,45.0,0.023,0.
 Softball,D2,6524420,2026-05-03,Clarion,Slippery Rock,11,10,45.0,0.089,0.691,5,0.365,95
 Softball,D2,6525957,2026-04-25,Quincy,Lincoln (MO),2,5,45.0,0.02,0.81,6,0.206,77
 Softball,D2,6529759,2026-03-05,Erskine,Anderson (SC),2,6,45.0,0.081,0.65,4,0.524,88
+Softball,D2,6579600,2026-05-09,Caldwell,Bridgeport,1,5,45.0,0.267,0.692,1,0.551,73
 Softball,D2,6493377,2026-02-27,Barry,Embry-Riddle (FL),8,2,44.9,0.075,0.632,3,0.648,78
 Softball,D2,6494855,2026-03-06,Ga. Southwestern,Lander,2,8,44.9,0.008,0.663,4,0.592,77
 Softball,D2,6503199,2026-03-28,Saint Leo,Florida Tech,3,2,44.9,0.0,0.7,0,0.955,67
@@ -30385,6 +30558,7 @@ Softball,D2,6522175,2026-01-30,Cal St. East Bay,Colo. Christian,3,8,44.7,0.026,0
 Softball,D2,6526597,2026-05-02,Rogers St.,Northeastern St.,3,1,44.7,0.001,0.679,2,0.772,59
 Softball,D2,6539123,2026-03-01,Virginia Union,Staten Island,9,10,44.7,0.106,0.76,9,0.15,98
 Softball,D2,6551401,2026-03-01,Frostburg St.,Mansfield,6,5,44.7,0.092,0.729,4,0.403,82
+Softball,D2,6579986,2026-05-09,Columbus St.,Georgia College,4,3,44.7,0.023,0.727,1,0.788,67
 Softball,D2,6492865,2026-04-04,Colo. Sch. of Mines,Black Hills St.,4,8,44.6,0.203,0.754,3,0.337,88
 Softball,D2,6494557,2026-05-01,CSUSB,Cal St. San Marcos,11,14,44.6,0.014,0.723,2,0.699,102
 Softball,D2,6503732,2026-03-20,Fort Hays St.,Mo. Southern St.,4,9,44.6,0.005,0.598,4,0.661,76
@@ -30750,6 +30924,7 @@ Softball,D2,6531461,2026-02-07,Ill. Springfield,Shorter,4,5,41.0,0.036,0.607,5,0
 Softball,D2,6547152,2026-04-18,Kutztown,Lock Haven,1,0,41.0,0.0,0.766,0,0.721,65
 Softball,D2,6572715,2026-04-10,Minnesota St.,Augustana (SD),0,8,41.0,0.056,0.618,1,0.73,72
 Softball,D2,6577837,2026-04-29,Tuskegee,Miles,2,3,41.0,0.014,0.625,3,0.575,76
+Softball,D2,6493538,2026-05-08,Barry,Tampa,5,9,40.9,0.0,0.741,0,0.747,85
 Softball,D2,6494422,2026-02-07,Ga. Southwestern,Savannah St.,9,1,40.9,0.133,0.624,3,0.429,59
 Softball,D2,6495039,2026-04-14,Ga. Southwestern,Albany St. (GA),6,5,40.9,0.183,0.636,1,0.552,76
 Softball,D2,6503289,2026-05-08,Eckerd,Saint Leo,5,7,40.9,0.0,0.572,0,0.951,80
@@ -30774,7 +30949,6 @@ Softball,D2,6525614,2026-02-28,Christian Brothers,West Ala.,8,9,40.8,0.058,0.629
 Softball,D2,6527635,2026-02-13,Arkansas Tech,Pittsburg St.,2,8,40.8,0.0,0.581,0,0.936,80
 Softball,D2,6539306,2026-02-13,Columbus St.,Eckerd,0,6,40.8,0.0,0.666,0,0.831,69
 Softball,D2,6546353,2026-03-13,Emporia St.,Rogers St.,10,4,40.8,0.014,0.558,1,0.846,95
-Softball,D2,6493538,2026-05-08,Barry,Tampa,5,9,40.7,0.0,0.735,0,0.747,82
 Softball,D2,6494525,2026-03-27,Cal St. Monterey Bay,Cal St. San Marcos,4,7,40.7,0.0,0.631,0,0.869,88
 Softball,D2,6510497,2026-02-21,Young Harris,Lenoir-Rhyne,0,4,40.7,0.0,0.629,0,0.875,70
 Softball,D2,6527500,2026-04-19,Fort Lewis,Chadron St.,1,2,40.7,0.062,0.791,5,0.103,66
@@ -30793,6 +30967,7 @@ Softball,D2,6530285,2026-03-28,Cal St. Dom. Hills,CSUSB,4,5,40.6,0.02,0.566,3,0.
 Softball,D2,6551585,2026-04-17,Kutztown,Bloomsburg,4,3,40.6,0.0,0.751,0,0.723,72
 Softball,D2,6566396,2026-03-27,Johnson C. Smith,Virginia St.,0,8,40.6,0.288,0.751,3,0.079,69
 Softball,D2,6573895,2026-04-16,Ouachita Baptist,Northwestern Okla.,4,5,40.6,0.094,0.787,3,0.266,79
+Softball,D2,6579547,2026-05-09,Mo. Southern St.,Rogers St.,4,1,40.6,0.0,0.576,0,0.934,84
 Softball,D2,6579573,2026-05-07,California (PA),Seton Hill,1,9,40.6,0.088,0.767,3,0.298,69
 Softball,D2,6492768,2026-02-14,Tusculum,Ferris St.,1,9,40.5,0.002,0.671,2,0.61,67
 Softball,D2,6495889,2026-04-30,Ark.-Monticello,Southern Nazarene,2,1,40.5,0.225,0.752,1,0.346,78
@@ -30869,6 +31044,7 @@ Softball,D2,6495035,2026-03-06,Union (TN),Lee,0,5,39.9,0.004,0.737,2,0.507,77
 Softball,D2,6495206,2026-05-02,USC Aiken,USC Beaufort,0,10,39.9,0.067,0.59,1,0.708,67
 Softball,D2,6495450,2026-02-20,Fla. Southern,Rollins,3,6,39.9,0.004,0.683,2,0.571,92
 Softball,D2,6498040,2026-03-29,Okla. Christian,St. Edward's,4,2,39.9,0.04,0.606,2,0.622,78
+Softball,D2,6503293,2026-05-09,Eckerd,Saint Leo,1,12,39.9,0.0,0.537,0,0.951,80
 Softball,D2,6506605,2026-03-14,Okla. Baptist,Henderson St.,5,3,39.9,0.001,0.662,2,0.601,76
 Softball,D2,6507702,2026-03-29,Augustana (SD),Minn.-Crookston,1,2,39.9,0.027,0.697,3,0.429,66
 Softball,D2,6508354,2026-04-12,Lewis,Missouri S&T,2,3,39.9,0.008,0.665,2,0.59,67
@@ -30879,6 +31055,7 @@ Softball,D2,6524701,2026-03-11,Bemidji St.,UIndy,0,3,39.9,0.037,0.708,2,0.502,67
 Softball,D2,6528581,2026-04-18,Mo. Southern St.,Rogers St.,2,0,39.9,0.0,0.553,0,0.934,61
 Softball,D2,6531709,2026-03-11,Albany St. (GA),Tuskegee,0,3,39.9,0.0,0.691,0,0.766,69
 Softball,D2,6574445,2026-04-18,Mo. Southern St.,Rogers St.,2,0,39.9,0.0,0.553,0,0.934,61
+Softball,D2,6579966,2026-05-09,Southern Ark.,Arkansas Tech,3,0,39.9,0.0,0.568,0,0.916,53
 Softball,D2,6501147,2026-04-15,Bridgeport,Caldwell,7,4,39.8,0.002,0.616,3,0.551,80
 Softball,D2,6506509,2026-03-21,Davenport,Wayne St. (MI),5,2,39.8,0.032,0.844,3,0.242,87
 Softball,D2,6506585,2026-05-01,Shepherd,West Chester,2,8,39.8,0.057,0.649,1,0.646,90
@@ -30972,6 +31149,7 @@ Softball,D2,6528371,2026-02-07,St. Edward's,Arkansas Tech,3,4,39.2,0.0,0.645,2,0
 Softball,D2,6528579,2026-04-17,Mo. Southern St.,Central Mo.,4,3,39.2,0.0,0.539,0,0.921,78
 Softball,D2,6530390,2026-02-28,Ouachita Baptist,Harding,7,3,39.2,0.132,0.655,1,0.524,79
 Softball,D2,6549821,2026-03-21,Trevecca Nazarene,Mississippi Col.,8,6,39.2,0.004,0.608,1,0.734,94
+Softball,D2,6579628,2026-05-10,D'Youville,St. Thomas Aquinas,3,10,39.2,0.017,0.615,2,0.609,70
 Softball,D2,6492547,2026-02-14,Northwood,Barry,0,11,39.1,0.094,0.645,1,0.579,66
 Softball,D2,6498062,2026-04-19,UT Tyler,Okla. Christian,3,7,39.1,0.0,0.549,0,0.904,78
 Softball,D2,6510280,2026-04-11,West Ala.,West Florida,8,0,39.1,0.0,0.514,0,0.946,54
@@ -31398,6 +31576,7 @@ Softball,D2,6525820,2026-03-29,William Jewell,Quincy,5,2,35.9,0.024,0.82,2,0.225
 Softball,D2,6548278,2026-02-01,Missouri Western,Tex. A&M-Kingsville,7,5,35.9,0.0,0.61,0,0.704,85
 Softball,D2,6548335,2026-02-01,Southern Ark.,Drury,4,3,35.9,0.0,0.533,0,0.796,74
 Softball,D2,6574755,2026-04-24,Young Harris,North Greenville,3,2,35.9,0.0,0.636,0,0.674,70
+Softball,D2,6493542,2026-05-09,Barry,Tampa,4,11,35.8,0.0,0.57,0,0.747,120
 Softball,D2,6495087,2026-03-13,Mississippi Col.,Lee,10,6,35.8,0.0,0.64,0,0.663,107
 Softball,D2,6495162,2026-03-03,USC Aiken,Wingate,3,0,35.8,0.0,0.566,0,0.753,69
 Softball,D2,6497325,2026-02-28,Central Wash.,Stanislaus St.,4,6,35.8,0.0,0.744,2,0.339,88
@@ -31463,6 +31642,7 @@ Softball,D2,6550696,2026-02-21,East Stroudsburg,St. Thomas Aquinas,8,4,35.5,0.0,
 Softball,D2,6554488,2026-02-14,Francis Marion,Ferris St.,5,3,35.5,0.0,0.445,0,0.888,68
 Softball,D2,6567189,2026-03-30,Bloomsburg,Millersville,10,6,35.5,0.014,0.587,2,0.498,78
 Softball,D2,6574334,2026-04-18,Union (TN),Montevallo,1,4,35.5,0.0,0.596,0,0.706,75
+Softball,D2,6579975,2026-05-09,Saginaw Valley,Ferris St.,8,5,35.5,0.0,0.485,0,0.839,90
 Softball,D2,6506157,2026-03-08,Mo.-St. Louis,Wis.-Parkside,4,3,35.4,0.0,0.662,0,0.622,54
 Softball,D2,6506210,2026-03-12,Malone,D'Youville,4,3,35.4,0.0,0.813,0,0.442,69
 Softball,D2,6506580,2026-05-01,Shepherd,West Chester,3,1,35.4,0.0,0.643,0,0.646,71
@@ -31492,6 +31672,7 @@ Softball,D2,6537100,2026-02-28,Clarion,Elizabeth City St.,10,7,35.3,0.004,0.753,
 Softball,D2,6537504,2026-02-08,UT Tyler,Northeastern St.,9,3,35.3,0.0,0.534,0,0.77,84
 Softball,D2,6556504,2026-03-12,Missouri Western,MSU Moorhead,0,1,35.3,0.024,0.605,2,0.457,67
 Softball,D2,6574488,2026-04-18,Mo. Southern St.,Rogers St.,4,2,35.3,0.0,0.399,0,0.934,70
+Softball,D2,6579583,2026-05-09,Shippensburg,East Stroudsburg,8,5,35.3,0.0,0.446,0,0.878,85
 Softball,D2,6493388,2026-03-06,Barry,Central Mo.,3,4,35.2,0.0,0.583,0,0.708,77
 Softball,D2,6505929,2026-03-06,Claflin,Anderson (SC),3,7,35.2,0.0,0.555,0,0.74,74
 Softball,D2,6507264,2026-02-13,Truman St.,Arkansas Tech,0,4,35.2,0.0,0.648,0,0.629,83
@@ -31514,6 +31695,7 @@ Softball,D2,6541875,2026-02-21,Glenville St.,Gannon,2,1,35.1,0.0,0.649,0,0.624,7
 Softball,D2,6548271,2026-02-01,Texas Woman's,Mo.-St. Louis,4,1,35.1,0.0,0.586,0,0.702,70
 Softball,D2,6556932,2026-03-01,Mansfield,West Virginia St.,3,1,35.1,0.141,0.744,1,0.243,71
 Softball,D2,6568688,2026-04-08,Mount Olive,Augusta,4,3,35.1,0.0,0.65,0,0.624,66
+Softball,D2,6495636,2026-05-09,Rollins,Palm Beach Atl.,3,2,35.0,0.0,0.582,0,0.7,84
 Softball,D2,6495795,2026-03-03,Northeastern St.,Southern Nazarene,5,4,35.0,0.0,0.686,0,0.579,82
 Softball,D2,6501148,2026-04-18,Caldwell,Wilmington (DE),3,2,35.0,0.0,0.721,0,0.536,70
 Softball,D2,6520250,2026-04-18,Mo.-St. Louis,UIndy,1,5,35.0,0.0,0.467,0,0.839,65
@@ -31567,6 +31749,7 @@ Softball,D2,6531314,2026-04-18,Maryville (MO),Ill. Springfield,3,0,34.7,0.0,0.61
 Softball,D2,6542763,2026-04-07,Grand Valley St.,Saginaw Valley,5,11,34.7,0.0,0.536,0,0.743,90
 Softball,D2,6547983,2026-01-30,Washburn,Texas Woman's,8,2,34.7,0.0,0.511,0,0.773,87
 Softball,D2,6576070,2026-04-10,Clarion,Gannon,10,5,34.7,0.237,0.6,1,0.285,88
+Softball,D2,6578457,2026-05-09,Western Wash.,Simon Fraser,3,2,34.7,0.0,0.81,0,0.418,73
 Softball,D2,6510700,2026-03-28,Mercy,D'Youville,4,3,34.6,0.013,0.694,1,0.434,72
 Softball,D2,6512767,2026-03-29,Thomas More,Walsh,0,12,34.6,0.219,0.624,1,0.272,68
 Softball,D2,6524299,2026-05-03,Columbus St.,Lander,12,4,34.6,0.0,0.515,0,0.764,67
@@ -31752,6 +31935,7 @@ Softball,D2,6524971,2026-04-08,Kutztown,Wilmington (DE),4,1,33.5,0.0,0.575,0,0.6
 Softball,D2,6535871,2026-04-04,Charleston (WV),Concord,2,0,33.5,0.0,0.555,0,0.674,56
 Softball,D2,6549830,2026-05-02,Trevecca Nazarene,AUM,0,9,33.5,0.0,0.434,0,0.82,54
 Softball,D2,6576120,2026-04-23,Arkansas Tech,Harding,3,0,33.5,0.0,0.48,0,0.766,63
+Softball,D2,6579979,2026-05-08,Ferris St.,Grand Valley St.,9,1,33.5,0.0,0.52,0,0.717,80
 Softball,D2,6492462,2026-02-01,Barry,West Florida,4,11,33.4,0.0,0.478,0,0.762,95
 Softball,D2,6493484,2026-03-28,Lees-McRae,Erskine,5,8,33.4,0.016,0.719,3,0.152,95
 Softball,D2,6506223,2026-03-23,Malone,D'Youville,4,1,33.4,0.0,0.746,0,0.442,55
@@ -31775,6 +31959,7 @@ Softball,D2,6508141,2026-03-01,Central Wash.,Cal St. East Bay,4,6,33.3,0.0,0.646
 Softball,D2,6520876,2026-03-10,Emory & Henry,Lincoln Memorial,4,2,33.3,0.0,0.54,0,0.684,64
 Softball,D2,6527689,2026-05-03,Minot St.,Sioux Falls,8,0,33.3,0.0,0.591,0,0.622,50
 Softball,D2,6530620,2026-03-24,Walsh,Ohio Dominican,2,3,33.3,0.0,0.742,0,0.442,71
+Softball,D2,6579985,2026-05-09,North Georgia,Lander,7,0,33.3,0.0,0.389,0,0.863,67
 Softball,D2,6493718,2026-03-06,West Ala.,Valdosta St.,5,1,33.2,0.0,0.413,0,0.833,58
 Softball,D2,6494420,2026-02-07,Ga. Southwestern,Savannah St.,13,4,33.2,0.089,0.578,1,0.429,65
 Softball,D2,6495832,2026-03-21,Henderson St.,Southern Nazarene,6,3,33.2,0.002,0.655,1,0.44,81
@@ -31934,6 +32119,7 @@ Softball,D2,6525632,2026-03-28,Union (TN),West Ala.,0,9,32.3,0.0,0.484,0,0.71,60
 Softball,D2,6528382,2026-03-13,Arkansas Tech,Southeastern Okla.,4,3,32.3,0.0,0.512,0,0.678,86
 Softball,D2,6548159,2026-01-30,Minn. Duluth,Lubbock Christian,7,6,32.3,0.0,0.546,0,0.637,89
 Softball,D2,6553867,2026-02-13,Flagler,Chowan,0,2,32.3,0.0,0.698,0,0.455,84
+Softball,D2,6579584,2026-05-09,Angelo St.,Tex. A&M-Kingsville,5,3,32.3,0.0,0.42,0,0.787,77
 Softball,D2,6495887,2026-05-01,Ark.-Monticello,Southern Nazarene,8,2,32.2,0.1,0.603,1,0.346,93
 Softball,D2,6510523,2026-03-21,Lenoir-Rhyne,Lincoln Memorial,8,6,32.2,0.0,0.393,0,0.818,77
 Softball,D2,6511754,2026-03-20,St. Mary's (TX),Texas Woman's,1,6,32.2,0.0,0.555,0,0.622,86
@@ -32126,6 +32312,7 @@ Softball,D2,6527791,2026-03-27,Nova Southeastern,Palm Beach Atl.,4,0,31.2,0.0,0.
 Softball,D2,6533085,2026-03-22,Sul Ross St.,Cameron,1,8,31.2,0.013,0.594,2,0.322,75
 Softball,D2,6536480,2026-02-01,Black Hills St.,Mont. St. Billings,11,6,31.2,0.026,0.665,2,0.217,98
 Softball,D2,6568039,2026-04-02,Southwest Minn. St.,Minnesota St.,1,9,31.2,0.0,0.538,0,0.603,61
+Softball,D2,6579984,2026-05-10,North Georgia,Columbus St.,10,5,31.2,0.0,0.325,0,0.86,82
 Softball,D2,6495118,2026-04-03,West Florida,Lee,6,2,31.1,0.0,0.416,0,0.743,77
 Softball,D2,6497610,2026-04-10,Mont. St. Billings,Western Wash.,10,2,31.1,0.101,0.581,1,0.326,67
 Softball,D2,6506060,2026-04-14,Dominican (CA),Biola,0,8,31.1,0.0,0.507,0,0.637,71
@@ -32139,6 +32326,7 @@ Softball,D2,6566395,2026-03-27,Livingstone,Virginia St.,4,3,31.1,0.004,0.776,2,0
 Softball,D2,6567974,2026-04-01,Western N.M.,Tex. A&M-Kingsville,9,16,31.1,0.0,0.582,0,0.547,94
 Softball,D2,6572554,2026-04-09,Catawba,Carson-Newman,2,12,31.1,0.0,0.414,0,0.747,76
 Softball,D2,6579634,2026-05-07,Mercy,D'Youville,8,2,31.1,0.009,0.582,1,0.434,67
+Softball,D2,6579637,2026-05-08,CSU Pueblo,MSU Denver,1,0,31.1,0.0,0.489,0,0.657,54
 Softball,D2,6508241,2026-03-04,AUM,Spring Hill,9,3,31.0,0.0,0.308,0,0.869,78
 Softball,D2,6508355,2026-04-12,Lewis,Missouri S&T,8,11,31.0,0.0,0.543,0,0.59,87
 Softball,D2,6513537,2026-04-12,Southern N.H.,Assumption,5,1,31.0,0.0,0.551,0,0.579,74
@@ -32266,6 +32454,7 @@ Softball,D2,6544162,2026-04-25,West Liberty,Fairmont St.,4,12,30.4,0.0,0.515,0,0
 Softball,D2,6549738,2026-02-07,Kutztown,Chowan,6,0,30.4,0.0,0.456,0,0.67,68
 Softball,D2,6554676,2026-02-18,Tusculum,West Virginia St.,3,1,30.4,0.0,0.689,0,0.388,60
 Softball,D2,6562759,2026-03-12,Kentucky St.,Benedict,7,9,30.4,0.07,0.739,2,0.043,99
+Softball,D2,6579470,2026-05-09,West Ala.,Trevecca Nazarene,5,3,30.4,0.0,0.342,0,0.805,70
 Softball,D2,6579967,2026-05-08,Arkansas Tech,Harding,9,0,30.4,0.0,0.376,0,0.766,55
 Softball,D2,6579987,2026-05-08,North Georgia,Flagler,6,5,30.4,0.0,0.466,0,0.657,76
 Softball,D2,6493572,2026-03-09,Lenoir-Rhyne,UNC Pembroke,5,1,30.3,0.0,0.288,0,0.865,56
@@ -32289,6 +32478,7 @@ Softball,D2,6564571,2026-03-14,Saint Leo,Palm Beach Atl.,2,0,30.3,0.0,0.354,0,0.
 Softball,D2,6568094,2026-04-02,Christian Brothers,Mississippi Col.,2,14,30.3,0.0,0.562,0,0.536,74
 Softball,D2,6568230,2026-04-03,Mo. Southern St.,Northeastern St.,4,2,30.3,0.0,0.317,0,0.833,76
 Softball,D2,6579559,2026-05-07,Winona St.,Southwest Minn. St.,4,2,30.3,0.0,0.407,0,0.723,56
+Softball,D2,6579977,2026-05-09,Ferris St.,Purdue Northwest,7,4,30.3,0.0,0.484,0,0.633,92
 Softball,D2,6495717,2026-02-20,Southern Nazarene,Southern Ark.,0,8,30.2,0.0,0.407,0,0.719,78
 Softball,D2,6497394,2026-04-07,Shippensburg,Bowie St.,9,1,30.2,0.0,0.409,0,0.715,60
 Softball,D2,6511532,2026-02-14,Eastern N.M.,West Tex. A&M,1,9,30.2,0.0,0.409,0,0.717,72
@@ -32377,6 +32567,7 @@ Softball,D2,6531557,2026-03-21,Southeastern Okla.,Harding,0,7,29.8,0.0,0.522,0,0
 Softball,D2,6532993,2026-01-31,UT Tyler,Simon Fraser,2,0,29.8,0.0,0.507,0,0.582,66
 Softball,D2,6544641,2026-03-15,West Liberty,Bloomsburg,1,9,29.8,0.0,0.518,0,0.569,59
 Softball,D2,6557036,2026-02-27,Mississippi Col.,Union (TN),5,0,29.8,0.0,0.462,0,0.639,74
+Softball,D2,6579978,2026-05-08,Saginaw Valley,Purdue Northwest,4,2,29.8,0.0,0.445,0,0.659,78
 Softball,D2,6492871,2026-03-21,UVA Wise,Tusculum,4,2,29.7,0.0,0.589,0,0.479,61
 Softball,D2,6493206,2026-05-03,N.M. Highlands,Colo. Sch. of Mines,5,11,29.7,0.014,0.651,1,0.288,108
 Softball,D2,6493490,2026-04-11,Rollins,Barry,13,4,29.7,0.0,0.411,0,0.697,67
@@ -32726,6 +32917,7 @@ Softball,D2,6522946,2026-04-23,Millersville,Holy Family,6,5,28.0,0.0,0.673,0,0.3
 Softball,D2,6524743,2026-03-22,Winona St.,Jamestown,3,0,28.0,0.0,0.326,0,0.728,62
 Softball,D2,6524989,2026-04-12,St. Cloud St.,Sioux Falls,6,1,28.0,0.0,0.279,0,0.787,67
 Softball,D2,6524993,2026-04-25,Lynn,Fla. Southern,4,2,28.0,0.0,0.687,0,0.294,73
+Softball,D2,6524999,2026-05-09,Lynn,Nova Southeastern,3,8,28.0,0.0,0.465,0,0.562,72
 Softball,D2,6525779,2026-02-07,William Jewell,Washburn,0,9,28.0,0.0,0.429,0,0.605,65
 Softball,D2,6531019,2026-05-03,Northern St.,Augustana (SD),2,10,28.0,0.0,0.528,0,0.485,60
 Softball,D2,6536686,2026-03-09,Black Hills St.,N.M. Highlands,2,1,28.0,0.0,0.706,0,0.273,63
@@ -32955,6 +33147,7 @@ Softball,D2,6548214,2026-01-31,Mo. Southern St.,Southern Nazarene,3,0,27.0,0.0,0
 Softball,D2,6574209,2026-04-17,Saginaw Valley,Davenport,1,0,27.0,0.0,0.437,0,0.556,69
 Softball,D2,6492753,2026-02-14,MSU Denver,Colo. Sch. of Mines,7,1,26.9,0.0,0.532,0,0.438,73
 Softball,D2,6494509,2026-03-20,Cal St. San Marcos,San Fran. St.,8,2,26.9,0.0,0.318,0,0.695,91
+Softball,D2,6495640,2026-05-09,Rollins,Palm Beach Atl.,14,1,26.9,0.0,0.313,0,0.7,71
 Softball,D2,6496137,2026-03-07,Florida Tech,Adelphi,6,0,26.9,0.0,0.276,0,0.745,75
 Softball,D2,6503992,2026-03-10,Spring Hill,Savannah St.,10,2,26.9,0.0,0.39,0,0.607,72
 Softball,D2,6506561,2026-03-06,Harding,Henderson St.,7,1,26.9,0.0,0.463,0,0.522,67
@@ -33056,6 +33249,7 @@ Softball,D2,6515324,2026-02-28,Adams St.,Regis (CO),4,2,26.3,0.0,0.774,0,0.122,6
 Softball,D2,6520315,2026-04-11,West Va. Wesleyan,West Virginia St.,1,5,26.3,0.0,0.642,0,0.283,72
 Softball,D2,6523650,2026-04-03,Frostburg St.,West Liberty,8,0,26.3,0.0,0.39,0,0.582,50
 Softball,D2,6524644,2026-02-27,Bemidji St.,Washburn,3,9,26.3,0.0,0.518,0,0.431,97
+Softball,D2,6525002,2026-05-09,Lynn,Nova Southeastern,0,9,26.3,0.0,0.41,0,0.562,49
 Softball,D2,6525947,2026-03-19,Quincy,Wis.-Parkside,0,4,26.3,0.0,0.617,0,0.313,75
 Softball,D2,6525954,2026-04-03,Quincy,Lewis,4,5,26.3,0.0,0.725,0,0.184,73
 Softball,D2,6526210,2026-03-20,MSU Moorhead,Southwest Minn. St.,3,7,26.3,0.0,0.614,0,0.315,73
@@ -34526,6 +34720,7 @@ Softball,D2,6515369,2026-04-25,Colo. Christian,Adams St.,9,1,18.2,0.0,0.186,0,0.
 Softball,D2,6519667,2026-04-07,Southern Wesleyan,Erskine,10,2,18.2,0.0,0.212,0,0.476,75
 Softball,D2,6523332,2026-04-17,West Tex. A&M,Texas-Dallas,18,2,18.2,0.0,0.156,0,0.543,90
 Softball,D2,6527438,2026-03-08,Colo. Christian,Fort Lewis,8,3,18.2,0.0,0.151,0,0.545,74
+Softball,D2,6579963,2026-05-08,Bowie St.,Lincoln (PA),8,0,18.2,0.0,0.357,0,0.3,70
 Softball,D2,6505493,2026-03-31,Franklin Pierce,Saint Michael's,5,0,18.1,0.0,0.226,0,0.453,65
 Softball,D2,6506554,2026-04-17,West Chester,Mansfield,19,2,18.1,0.0,0.27,0,0.399,85
 Softball,D2,6507986,2026-04-24,Mo. Southern St.,Newman,6,1,18.1,0.0,0.183,0,0.506,84
@@ -34858,7 +35053,9 @@ Softball,D2,6529023,2026-02-22,Wheeling,Lake Erie,8,3,10.5,0.0,0.277,0,0.088,92
 Softball,D3,6491511,2026-04-11,Benedictine (IL),Concordia Wisconsin,2,3,92.1,0.986,0.896,9,0.826,69
 Softball,D3,6574134,2026-04-17,Colby,Middlebury,5,9,91.5,0.961,0.837,15,0.904,128
 Softball,D3,6501040,2026-03-20,Texas Lutheran,Tufts,6,7,90.5,0.979,0.819,5,0.96,108
+Softball,D3,6580592,2026-05-10,Dominican (IL),Benedictine (IL),7,6,90.5,1.0,0.85,7,0.8,75
 Softball,D3,6548527,2026-03-19,Springfield,Wis.-Oshkosh,3,2,89.8,0.846,0.908,9,0.886,61
+Softball,D3,6576025,2026-05-10,Rhode Island Col.,UMass Dartmouth,1,2,89.7,0.923,0.922,8,0.776,60
 Softball,D3,6505562,2026-04-22,Huntingdon,Emory,3,6,89.6,0.911,0.78,7,0.954,85
 Softball,D3,6566011,2026-03-18,St. Thomas (TX),Tufts,3,5,89.0,0.808,0.9,10,0.912,85
 Softball,D3,6505565,2026-05-08,Emory,WashU,2,1,88.8,0.792,0.87,7,0.959,64
@@ -34920,6 +35117,7 @@ Softball,D3,6513643,2026-03-01,Ill. Wesleyan,St. Catherine,1,3,80.3,0.964,0.818,
 Softball,D3,6577111,2026-04-25,Trinity (CT),Bowdoin,4,5,80.3,0.641,0.887,8,0.779,72
 Softball,D3,6499423,2026-04-11,Ozarks (AR),Concordia (TX),2,4,80.1,0.931,0.869,4,0.646,77
 Softball,D3,6507751,2026-03-05,Concordia Chicago,Dubuque,3,4,80.1,0.944,0.885,8,0.41,89
+Softball,D3,6579030,2026-05-10,Trinity (TX),Berry,0,2,80.1,0.888,0.813,3,0.862,74
 Softball,D3,6513642,2026-03-01,Wis.-Eau Claire,Ill. Wesleyan,5,6,80.0,0.66,0.859,5,0.877,107
 Softball,D3,6547472,2026-03-12,Benedictine (IL),Loras,2,5,79.9,0.907,0.787,3,0.862,76
 Softball,D3,6566784,2026-03-28,Ill. Wesleyan,Wis.-Oshkosh,7,4,79.9,0.507,0.897,9,0.912,78
@@ -35016,6 +35214,7 @@ Softball,D3,6533553,2026-02-28,TCNJ,Swarthmore,2,4,73.6,0.308,0.87,6,0.932,76
 Softball,D3,6533573,2026-03-26,Lawrence,Union (NY),2,4,73.6,0.961,0.799,7,0.232,92
 Softball,D3,6545778,2026-03-23,St. Lawrence,Buffalo St.,7,6,73.5,0.882,0.783,3,0.642,92
 Softball,D3,6573105,2026-04-12,Tufts,Trinity (CT),5,7,73.5,0.854,0.654,3,0.829,76
+Softball,D3,6580093,2026-05-08,Wilson,Penn College,2,3,73.5,0.608,0.905,4,0.723,70
 Softball,D3,6518579,2026-03-09,Penn College,Albion,2,10,73.4,0.75,0.686,7,0.614,74
 Softball,D3,6534332,2026-04-21,Wis.-Eau Claire,Wis.-Stevens Point,3,2,73.4,0.384,0.818,9,0.895,77
 Softball,D3,6548012,2026-04-08,Cortland,Rensselaer,0,1,73.4,0.394,0.891,8,0.792,79
@@ -35096,6 +35295,7 @@ Softball,D3,6511884,2026-04-25,U New England,Roger Williams,2,0,70.9,0.799,0.705
 Softball,D3,6513651,2026-03-27,Ill. Wesleyan,Calvin,3,2,70.9,0.262,0.856,9,0.896,76
 Softball,D3,6515750,2026-04-29,Bates,Colby,4,2,70.9,0.618,0.72,5,0.731,57
 Softball,D3,6576125,2026-04-19,Penn St. Harrisburg,Penn College,5,7,70.9,0.581,0.839,4,0.733,89
+Softball,D3,6580586,2026-05-10,Earlham,Transylvania,6,5,70.9,0.371,0.864,6,0.754,86
 Softball,D3,6497864,2026-04-08,Neumann,Gwynedd Mercy,2,4,70.8,0.825,0.85,5,0.322,70
 Softball,D3,6502456,2026-02-28,Pfeiffer,Mt. St. Joseph,2,5,70.8,0.788,0.725,1,0.915,83
 Softball,D3,6502857,2026-04-07,Luther,Coe,0,2,70.8,0.315,0.899,12,0.774,76
@@ -35130,6 +35330,7 @@ Softball,D3,6537347,2026-03-19,Plymouth St.,SUNY Geneseo,2,3,69.6,0.361,0.86,18,
 Softball,D3,6533730,2026-03-05,Saint Elizabeth,Waynesburg,8,11,69.5,0.997,0.779,2,0.449,88
 Softball,D3,6540793,2026-03-29,Dean,Saint Joseph (CT),13,9,69.4,0.766,0.828,7,0.262,102
 Softball,D3,6546913,2026-03-28,Denison,Wittenberg,5,7,69.4,0.919,0.727,1,0.703,90
+Softball,D3,6580576,2026-05-10,Albertus Magnus,Simmons,0,1,69.4,0.448,0.892,7,0.568,62
 Softball,D3,6510544,2026-03-31,UMass Dartmouth,Brandeis,1,7,69.3,0.982,0.626,1,0.742,72
 Softball,D3,6532798,2026-02-27,Redlands,Linfield,4,6,69.3,0.543,0.719,3,0.959,74
 Softball,D3,6546117,2026-04-11,Stockton,Montclair St.,0,3,69.3,0.581,0.739,3,0.888,87
@@ -35310,10 +35511,13 @@ Softball,D3,6498974,2026-03-30,Wilson,Juniata,0,4,65.2,0.945,0.667,1,0.574,60
 Softball,D3,6511240,2026-03-13,SUNY New Paltz,Juniata,0,12,65.2,0.895,0.597,1,0.715,70
 Softball,D3,6513821,2026-04-04,Hartford,Endicott,3,2,65.2,0.278,0.848,10,0.656,89
 Softball,D3,6536864,2026-04-16,Elmira,SUNY Delhi,1,3,65.2,0.863,0.887,3,0.206,67
+Softball,D3,6579499,2026-05-09,SUNY Geneseo,St. John Fisher,3,5,65.2,0.173,0.81,7,0.827,66
 Softball,D3,6533839,2026-02-25,Edgewood,Ripon,5,4,65.1,0.64,0.81,3,0.563,90
 Softball,D3,6545788,2026-02-13,Pomona-Pitzer,Claremont-M-S,1,4,65.1,0.824,0.793,1,0.564,76
 Softball,D3,6547462,2026-03-09,Catholic,Loras,4,3,65.1,0.38,0.804,3,0.882,91
 Softball,D3,6564387,2026-03-12,Hendrix,Millsaps,4,3,65.1,0.821,0.721,3,0.455,62
+Softball,D3,6579803,2026-05-10,Middlebury,Colby,6,4,65.1,0.042,0.876,12,0.904,125
+Softball,D3,6580582,2026-05-10,Catholic,Moravian,2,4,65.1,0.073,0.828,8,0.922,72
 Softball,D3,6504176,2026-03-15,Guilford,Greensboro,6,7,65.0,0.338,0.796,8,0.638,93
 Softball,D3,6505951,2026-04-07,Mary Hardin-Baylor,St. Thomas (TX),3,1,65.0,0.512,0.754,3,0.781,57
 Softball,D3,6513838,2026-04-28,Trinity (CT),Hartford,4,3,65.0,0.519,0.795,4,0.626,76
@@ -35430,6 +35634,7 @@ Softball,D3,6529126,2026-04-15,Wooster,Muskingum,6,3,63.3,0.498,0.739,3,0.746,60
 Softball,D3,6529259,2026-05-01,Clark (MA),Wheaton (MA),0,1,63.3,0.246,0.865,10,0.6,52
 Softball,D3,6546876,2026-03-14,VTSU Castleton,TCNJ,0,1,63.3,0.08,0.889,10,0.768,60
 Softball,D3,6568445,2026-04-04,Denison,DePauw,4,6,63.3,0.238,0.859,5,0.714,82
+Softball,D3,6579857,2026-05-10,Dominican (IL),Benedictine (IL),10,7,63.3,0.131,0.814,11,0.8,81
 Softball,D3,6505563,2026-05-08,Emory,WashU,2,7,63.2,0.031,0.776,6,0.959,77
 Softball,D3,6525902,2026-03-07,La Verne,Whittier,5,3,63.2,0.492,0.752,5,0.533,84
 Softball,D3,6527420,2026-03-08,Mount Union,Gettysburg,4,5,63.2,0.397,0.617,5,0.813,83
@@ -35708,6 +35913,7 @@ Softball,D3,6505561,2026-04-22,Huntingdon,Emory,6,8,58.4,0.371,0.698,1,0.954,97
 Softball,D3,6508978,2026-04-11,Wm. Paterson,Kean,4,5,58.4,0.058,0.838,7,0.658,71
 Softball,D3,6526925,2026-03-11,Marietta,Greenville,6,5,58.4,0.146,0.754,7,0.656,109
 Softball,D3,6544006,2026-03-26,John Carroll,Bethany (WV),0,1,58.4,0.051,0.889,6,0.608,66
+Softball,D3,6579246,2026-05-10,Moravian,Catholic,0,1,58.4,0.158,0.771,3,0.922,86
 Softball,D3,6496054,2026-03-24,Franklin & Marshall,Penn St. Brandywine,1,3,58.3,0.068,0.776,8,0.717,62
 Softball,D3,6506476,2026-02-28,Muhlenberg,Kean,0,11,58.3,0.421,0.596,3,0.813,73
 Softball,D3,6529735,2026-03-16,Manchester,Plymouth St.,4,6,58.3,0.272,0.838,6,0.399,72
@@ -35791,6 +35997,7 @@ Softball,D3,6513671,2026-04-30,DePauw,Ill. Wesleyan,7,3,57.1,0.043,0.692,9,0.803
 Softball,D3,6529252,2026-04-24,Wheaton (MA),MIT,5,9,57.1,0.002,0.719,10,0.818,87
 Softball,D3,6551308,2026-03-07,Brooklyn,UMSV,1,4,57.1,0.798,0.746,3,0.132,70
 Softball,D3,6565365,2026-03-17,Trinity (TX),Tufts,6,7,57.1,0.067,0.754,4,0.897,85
+Softball,D3,6579824,2026-05-10,Roger Williams,Endicott,0,1,57.1,0.136,0.866,3,0.781,57
 Softball,D3,6504464,2026-04-03,Southern Va.,William Peace,3,2,57.0,0.155,0.913,10,0.399,64
 Softball,D3,6539826,2026-03-07,DePauw,Saint Mary's (MN),4,3,57.0,0.036,0.737,5,0.853,74
 Softball,D3,6543448,2026-04-15,Tufts,Endicott,4,11,57.0,0.302,0.631,3,0.86,86
@@ -35906,6 +36113,7 @@ Softball,D3,6523319,2026-04-04,Union (NY),Ithaca,1,2,55.4,0.1,0.798,6,0.54,74
 Softball,D3,6541543,2026-03-17,Wellesley,Wis.-Whitewater,2,5,55.4,0.048,0.804,4,0.792,86
 Softball,D3,6567829,2026-03-31,Loras,Wis.-Platteville,0,4,55.4,0.358,0.709,1,0.837,78
 Softball,D3,6576920,2026-04-26,UMass Boston,Plymouth St.,7,6,55.4,0.309,0.713,3,0.687,87
+Softball,D3,6579806,2026-05-10,Williams,Tufts,8,7,55.4,0.357,0.707,1,0.84,81
 Softball,D3,6492064,2026-03-04,Randolph,Mary Baldwin,3,6,55.3,0.739,0.793,3,0.074,89
 Softball,D3,6495173,2026-03-31,Immaculata,Eastern,1,3,55.3,0.113,0.8,10,0.514,77
 Softball,D3,6496601,2026-03-24,Wilkes,Penn St. Harrisburg,5,8,55.3,0.476,0.723,1,0.673,80
@@ -36711,6 +36919,7 @@ Softball,D3,6538923,2026-04-03,St. Joseph's (Brkln),WestConn,2,3,46.9,0.236,0.78
 Softball,D3,6547096,2026-03-10,WPI,Montclair St.,3,2,46.9,0.0,0.826,0,0.883,72
 Softball,D3,6547097,2026-03-28,Arcadia,King's (PA),2,5,46.9,0.418,0.713,3,0.218,74
 Softball,D3,6559114,2026-03-08,Greensboro,Muhlenberg,1,3,46.9,0.0,0.856,0,0.847,74
+Softball,D3,6579031,2026-05-10,Berry,Trinity (TX),3,1,46.9,0.019,0.741,1,0.862,53
 Softball,D3,6492012,2026-02-27,Spalding,Coe,6,5,46.8,0.223,0.68,1,0.69,93
 Softball,D3,6501229,2026-05-01,Babson,Wellesley,5,0,46.8,0.105,0.654,3,0.662,69
 Softball,D3,6502808,2026-04-18,Lasell,Mitchell,5,4,46.8,0.123,0.747,9,0.228,113
@@ -36944,6 +37153,7 @@ Softball,D3,6535151,2026-03-09,Immaculata,Keystone,1,10,44.6,0.583,0.561,3,0.112
 Softball,D3,6549804,2026-03-21,Cal Lutheran,Pomona-Pitzer,1,11,44.6,0.109,0.69,4,0.424,72
 Softball,D3,6558504,2026-03-05,Schreiner,Hardin-Simmons,1,3,44.6,0.007,0.804,4,0.409,80
 Softball,D3,6576960,2026-04-26,Marian (WI),Wis. Lutheran,6,5,44.6,0.045,0.742,4,0.438,79
+Softball,D3,6580089,2026-05-09,Penn St. Brandywine,Penn College,3,2,44.6,0.0,0.777,0,0.853,70
 Softball,D3,6502173,2026-04-19,Rose-Hulman,Monmouth (IL),5,13,44.5,0.527,0.592,1,0.337,84
 Softball,D3,6526319,2026-04-18,Buffalo St.,Oswego St.,4,5,44.5,0.056,0.737,2,0.627,85
 Softball,D3,6535851,2026-03-28,Brevard,Southern Va.,17,9,44.5,0.066,0.777,5,0.271,88
@@ -37272,6 +37482,7 @@ Softball,D3,6549392,2026-03-31,MCLA,New England Col.,6,4,41.7,0.192,0.627,4,0.28
 Softball,D3,6553641,2026-04-21,Curry,Suffolk,4,1,41.7,0.255,0.67,3,0.256,69
 Softball,D3,6573546,2026-04-14,Bridgewater St.,Salem St.,4,6,41.7,0.014,0.78,2,0.515,70
 Softball,D3,6578703,2026-05-08,Salisbury,Mary Washington,4,5,41.7,0.01,0.592,3,0.646,77
+Softball,D3,6579779,2026-05-10,Earlham,Transylvania,0,2,41.7,0.0,0.763,0,0.754,67
 Softball,D3,6504456,2026-03-24,William Peace,N.C. Wesleyan,1,10,41.6,0.007,0.602,4,0.533,87
 Softball,D3,6508288,2026-03-06,Millikin,Greenville,1,3,41.6,0.0,0.721,0,0.797,68
 Softball,D3,6511596,2026-02-28,Bethany Lutheran,Trine,1,6,41.6,0.0,0.599,0,0.946,66
@@ -37403,6 +37614,7 @@ Softball,D3,6568222,2026-04-03,Piedmont,Maryville (TN),2,0,40.7,0.0,0.757,0,0.71
 Softball,D3,6576050,2026-05-02,Swarthmore,Muhlenberg,3,1,40.7,0.0,0.574,0,0.937,60
 Softball,D3,6577510,2026-05-02,Marymount (VA),Saint Elizabeth,6,4,40.7,0.111,0.717,2,0.435,82
 Softball,D3,6578196,2026-05-02,Swarthmore,Muhlenberg,3,1,40.7,0.0,0.574,0,0.937,60
+Softball,D3,6579042,2026-05-10,WPI,MIT,10,3,40.7,0.0,0.606,0,0.903,74
 Softball,D3,6492652,2026-04-11,Stevenson,Widener,3,7,40.6,0.228,0.749,1,0.351,91
 Softball,D3,6511949,2026-02-27,Southwestern (TX),Willamette,5,4,40.6,0.025,0.647,4,0.418,88
 Softball,D3,6512989,2026-03-13,Thomas (ME),Nichols,0,7,40.6,0.182,0.72,1,0.444,68
@@ -37427,6 +37639,7 @@ Softball,D3,6577133,2026-05-04,Westminster (PA),Geneva,4,0,40.5,0.0,0.637,0,0.85
 Softball,D3,6577549,2026-05-03,TCNJ,Rowan,4,8,40.5,0.0,0.571,0,0.936,91
 Softball,D3,6578404,2026-05-03,TCNJ,Rowan,4,8,40.5,0.0,0.571,0,0.936,91
 Softball,D3,6579742,2026-05-07,Cortland,Buffalo St.,1,0,40.5,0.0,0.764,0,0.704,48
+Softball,D3,6580583,2026-05-10,Simmons,Albertus Magnus,1,10,40.5,0.008,0.619,3,0.568,73
 Softball,D3,6495646,2026-04-25,Penn St.-Behrend,Penn St.-Altoona,9,7,40.4,0.01,0.705,2,0.56,87
 Softball,D3,6497597,2026-02-28,Hood,Dickinson,1,8,40.4,0.142,0.662,3,0.353,83
 Softball,D3,6503463,2026-03-07,Lebanon Valley,Calvin,1,6,40.4,0.0,0.615,0,0.878,77
@@ -37464,6 +37677,7 @@ Softball,D3,6574411,2026-04-18,Washington Col.,Ursinus,10,6,40.2,0.065,0.669,5,0
 Softball,D3,6576031,2026-04-18,Washington Col.,Ursinus,10,6,40.2,0.065,0.669,5,0.227,76
 Softball,D3,6578945,2026-05-07,Hope,Calvin,1,10,40.2,0.0,0.597,0,0.891,58
 Softball,D3,6579797,2026-05-08,Mount Union,Capital,4,5,40.2,0.014,0.469,3,0.727,77
+Softball,D3,6579804,2026-05-10,Williams,Middlebury,5,7,40.2,0.0,0.661,0,0.814,95
 Softball,D3,6502882,2026-03-15,Hendrix,Schreiner,8,3,40.1,0.365,0.716,1,0.208,81
 Softball,D3,6506092,2026-04-15,Shenandoah,Bridgewater (VA),2,0,40.1,0.0,0.641,0,0.833,55
 Softball,D3,6506961,2026-03-10,Mary Washington,Roanoke,4,3,40.1,0.02,0.768,1,0.56,93
@@ -37702,6 +37916,7 @@ Softball,D3,6550148,2026-03-21,Nichols,Suffolk,6,8,38.4,0.126,0.717,1,0.426,88
 Softball,D3,6577625,2026-04-28,Mount Union,Denison,1,0,38.4,0.0,0.574,0,0.847,69
 Softball,D3,6579040,2026-05-05,Babson,Wellesley,9,3,38.4,0.062,0.584,1,0.662,75
 Softball,D3,6579477,2026-05-05,Babson,Wellesley,9,3,38.4,0.062,0.584,1,0.662,75
+Softball,D3,6579734,2026-05-10,Cortland,Buffalo St.,6,1,38.4,0.0,0.692,0,0.704,67
 Softball,D3,6579814,2026-05-08,Va. Wesleyan,Bridgewater (VA),1,0,38.4,0.0,0.529,0,0.901,62
 Softball,D3,6496700,2026-04-25,Loras,Central (IA),4,2,38.3,0.0,0.571,0,0.847,84
 Softball,D3,6497888,2026-04-11,Centenary (NJ),Neumann,4,2,38.3,0.243,0.72,1,0.278,63
@@ -37749,6 +37964,7 @@ Softball,D3,6555660,2026-02-21,WashU,Wartburg,10,2,38.1,0.0,0.465,0,0.965,73
 Softball,D3,6564589,2026-03-14,Randolph-Macon,Salisbury,9,0,38.1,0.0,0.525,0,0.892,60
 Softball,D3,6573743,2026-04-15,Dean,Curry,3,4,38.1,0.002,0.835,4,0.119,79
 Softball,D3,6577401,2026-05-02,Regis (MA),Emmanuel (MA),0,9,38.1,0.323,0.669,1,0.235,69
+Softball,D3,6579759,2026-05-10,Westfield St.,Worcester St.,1,0,38.1,0.0,0.6,0,0.806,73
 Softball,D3,6496649,2026-04-12,Wilkes,Misericordia,5,10,38.0,0.0,0.654,0,0.737,88
 Softball,D3,6506993,2026-04-28,Springfield,Manhattanville,5,2,38.0,0.0,0.55,0,0.862,67
 Softball,D3,6525195,2026-03-21,Wash. & Jeff.,Waynesburg,2,6,38.0,0.006,0.68,2,0.497,72
@@ -38206,6 +38422,7 @@ Softball,D3,6547238,2026-03-31,Valley Forge,Cairn,17,9,35.1,0.043,0.693,4,0.121,
 Softball,D3,6547243,2026-04-10,Cairn,Brooklyn,6,17,35.1,0.007,0.558,6,0.124,106
 Softball,D3,6547998,2026-03-07,Cortland,Transylvania,5,21,35.1,0.0,0.478,0,0.829,120
 Softball,D3,6572697,2026-04-10,Cairn,Brooklyn,6,17,35.1,0.007,0.558,6,0.124,106
+Softball,D3,6580090,2026-05-09,Penn College,Penn St. Harrisburg,3,1,35.1,0.0,0.559,0,0.733,63
 Softball,D3,6501024,2026-02-20,Texas Lutheran,St. Thomas (TX),5,2,35.0,0.0,0.394,0,0.928,74
 Softball,D3,6504469,2026-04-11,Salem (NC),William Peace,3,7,35.0,0.058,0.722,2,0.264,84
 Softball,D3,6510284,2026-04-07,Saint Benedict,St. Olaf,8,3,35.0,0.0,0.468,0,0.84,90
@@ -38275,6 +38492,7 @@ Softball,D3,6576056,2026-04-28,Franklin & Marshall,Haverford,3,11,34.7,0.0,0.645
 Softball,D3,6577608,2026-04-28,Lake Forest,Dominican (IL),4,0,34.7,0.0,0.49,0,0.801,63
 Softball,D3,6577610,2026-04-28,Franklin & Marshall,Haverford,3,11,34.7,0.0,0.645,0,0.613,60
 Softball,D3,6579047,2026-05-08,Springfield,Wellesley,6,0,34.7,0.0,0.5,0,0.786,66
+Softball,D3,6580591,2026-05-10,UMass Dartmouth,Rhode Island Col.,8,3,34.7,0.0,0.511,0,0.776,71
 Softball,D3,6501579,2026-04-29,Wilmington (OH),Wittenberg,12,8,34.6,0.013,0.56,1,0.595,98
 Softball,D3,6506593,2026-03-10,Kean,Wittenberg,10,2,34.6,0.0,0.567,0,0.705,82
 Softball,D3,6506684,2026-03-12,CWRU,Kean,8,0,34.6,0.0,0.487,0,0.797,70
@@ -38287,6 +38505,7 @@ Softball,D3,6550826,2026-03-25,Wis.-La Crosse,Wartburg,1,9,34.6,0.0,0.488,0,0.79
 Softball,D3,6572682,2026-04-10,Southwestern (TX),Trinity (TX),3,8,34.6,0.0,0.545,0,0.729,98
 Softball,D3,6574796,2026-04-20,Arcadia,Widener,4,1,34.6,0.024,0.666,3,0.258,68
 Softball,D3,6579164,2026-05-09,Saint Benedict,St. Catherine,5,2,34.6,0.0,0.483,0,0.806,70
+Softball,D3,6580519,2026-05-10,Whittier,Redlands,2,11,34.6,0.0,0.499,0,0.785,72
 Softball,D3,6496626,2026-04-09,Lebanon Valley,Wilkes,10,2,34.5,0.0,0.514,0,0.762,66
 Softball,D3,6501506,2026-02-21,Wilmington (OH),McDaniel,4,13,34.5,0.081,0.635,1,0.422,71
 Softball,D3,6508356,2026-04-25,North Central (IL),Millikin,7,5,34.5,0.0,0.574,0,0.692,81
@@ -38669,6 +38888,7 @@ Softball,D3,6556862,2026-04-01,Colby,Me.-Farmington,9,7,32.7,0.0,0.529,0,0.673,7
 Softball,D3,6567314,2026-03-27,Whittier,Redlands,1,10,32.7,0.0,0.435,0,0.785,59
 Softball,D3,6569710,2026-04-04,Southern Va.,N.C. Wesleyan,3,6,32.7,0.0,0.665,0,0.509,75
 Softball,D3,6576974,2026-04-26,McDaniel,Haverford,4,8,32.7,0.0,0.651,0,0.527,83
+Softball,D3,6579812,2026-05-09,Redlands,Chapman,8,0,32.7,0.0,0.395,0,0.832,58
 Softball,D3,6496150,2026-05-02,Bluffton,Rose-Hulman,4,17,32.6,0.0,0.545,2,0.449,93
 Softball,D3,6497840,2026-03-25,Neumann,Elizabethtown,2,7,32.6,0.0,0.623,0,0.554,80
 Softball,D3,6500374,2026-03-18,Macalester,Worcester St.,8,3,32.6,0.0,0.556,0,0.638,77
@@ -39262,6 +39482,7 @@ Softball,D3,6559118,2026-03-08,Wheaton (MA),Ohio Northern,1,0,29.9,0.0,0.538,0,0
 Softball,D3,6564466,2026-03-11,Southern Va.,Randolph,2,3,29.9,0.117,0.616,1,0.215,82
 Softball,D3,6567889,2026-04-04,Middlebury,Trinity (CT),7,3,29.9,0.0,0.328,0,0.804,73
 Softball,D3,6576882,2026-04-26,Ozarks (AR),Centenary (LA),3,2,29.9,0.0,0.648,0,0.421,63
+Softball,D3,6579716,2026-05-10,Manhattanville,Farmingdale St.,9,6,29.9,0.0,0.406,0,0.709,79
 Softball,D3,6491522,2026-05-01,Wis. Lutheran,Concordia Wisconsin,6,8,29.8,0.0,0.5,0,0.594,90
 Softball,D3,6492325,2026-04-12,Centre,Berry,1,10,29.8,0.0,0.483,0,0.614,72
 Softball,D3,6493187,2026-03-11,Widener,Rochester (NY),0,8,29.8,0.0,0.475,0,0.624,75
@@ -39460,7 +39681,7 @@ Softball,D3,6574202,2026-04-17,East Tex. Baptist,Mary Hardin-Baylor,6,1,29.1,0.0
 Softball,D3,6575774,2026-04-21,Mitchell,Salem St.,4,9,29.1,0.0,0.567,0,0.485,92
 Softball,D3,6575979,2026-04-22,Rivier,Keene St.,2,6,29.1,0.0,0.673,0,0.358,83
 Softball,D3,6577072,2026-04-26,VTSU-Johnson,Me.-Farmington,2,4,29.1,0.0,0.763,0,0.249,64
-Softball,D3,6579815,2026-05-09,Va. Wesleyan,Bridgewater (VA),12,2,29.1,0.0,0.219,0,0.901,65
+Softball,D3,6579815,2026-05-09,Va. Wesleyan,Bridgewater (VA),12,2,29.1,0.0,0.218,0,0.901,66
 Softball,D3,6492346,2026-02-14,Methodist,Chris. Newport,3,6,29.0,0.0,0.519,0,0.538,69
 Softball,D3,6492650,2026-04-11,Stevenson,Widener,6,4,29.0,0.0,0.673,0,0.351,75
 Softball,D3,6498255,2026-04-24,Lycoming,Mount Aloysius,9,0,29.0,0.018,0.629,1,0.283,55
