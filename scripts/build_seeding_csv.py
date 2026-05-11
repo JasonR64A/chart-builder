@@ -157,7 +157,11 @@ for bn, seed, role in all_picks:
     }
     records.append(rec)
 
-df = pd.DataFrame(records).sort_values('committee_seed')
+# Filter to multi-bid conferences only — single-bid auto-qualifiers from low confs
+# are outliers in ranking-vs-seed analysis and dilute the chart.
+df = pd.DataFrame(records)
+df = df[df['multi_bid_conf'] == 'TRUE'].copy()
+df = df.sort_values('committee_seed').reset_index(drop=True)
 df.to_csv(OUT, index=False, encoding='utf-8')
-print(f'Wrote {OUT.name}: {len(df)} rows, {len(df.columns)} cols')
+print(f'Wrote {OUT.name}: {len(df)} rows, {len(df.columns)} cols  (multi-bid only)')
 print(df.head(8).to_string(index=False))
