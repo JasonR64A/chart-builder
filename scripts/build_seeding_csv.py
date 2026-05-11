@@ -72,13 +72,41 @@ def team_id(bracket_name):
     return (m.iloc[0]['id'], m.iloc[0]['name'], m.iloc[0]['conference_id']) if not m.empty else (None, n, None)
 
 
-def rank_from(df, name_col, query):
-    n = canon(query)
-    m = df[df[name_col].str.replace('(AQ)', '', regex=False).str.strip() == n]
-    if m.empty:
-        m = df[df[name_col].str.contains(n, case=False, na=False, regex=False)]
-    if not m.empty and pd.notna(m.iloc[0]['rank_n']):
-        return int(m.iloc[0]['rank_n'])
+def rank_from(df, name_col, query, source=None):
+    """Look up a team's rank by name, trying multiple variants since each
+    ranking source uses a different naming convention (Massey: 'Florida St',
+    DSR: 'Florida State', RPI: 'Florida St.')."""
+    base = canon(query)
+    # Build a list of name variants to try, in priority order
+    variants = [base]
+    # Replace "St." with various forms
+    if 'St.' in base:
+        variants.append(base.replace('St.', 'St'))     # Massey: "Florida St"
+        variants.append(base.replace('St.', 'State'))  # DSR: "Florida State"
+    # Specific overrides where the school's name is fundamentally different
+    SPECIAL = {
+        'Ole Miss': ['Ole Miss', 'Mississippi'],
+        'Mississippi': ['Mississippi', 'Ole Miss'],
+        'Texas St.': ['Texas St.', 'Texas St', 'Texas State'],
+        'Southeastern La.': ['Southeastern La.', 'Southeastern Louisiana'],
+        'SE LA': ['Southeastern La.', 'Southeastern Louisiana'],
+        'South Carolina': ['South Carolina', 'S Carolina'],
+        'South Florida': ['South Florida', 'South Fla', 'South Fla.'],
+        'Cal St. Fullerton': ['Cal St. Fullerton', 'CS Fullerton', 'Cal State Fullerton'],
+    }
+    if base in SPECIAL:
+        for alt in SPECIAL[base]:
+            if alt not in variants: variants.append(alt)
+
+    for v in variants:
+        m = df[df[name_col].str.replace('(AQ)', '', regex=False).str.strip() == v]
+        if not m.empty and pd.notna(m.iloc[0]['rank_n']):
+            return int(m.iloc[0]['rank_n'])
+    # Last resort: substring on the unique first word + last-name portion
+    for v in variants:
+        m = df[df[name_col].str.contains(v, case=False, na=False, regex=False)]
+        if len(m) == 1 and pd.notna(m.iloc[0]['rank_n']):
+            return int(m.iloc[0]['rank_n'])
     return None
 
 
