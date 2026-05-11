@@ -30,36 +30,41 @@ DETECT_COLS = [
 
 
 def find_phantom_gids(hitting_df):
-    """Return set of gameIds that are byte-identical phantoms of another gameId."""
+    """Return set of gameIds that are byte-identical phantoms of another gameId.
+
+    Groups candidates by `teams` ALONE (not date). NCAA's phantom duplicates can
+    have a date shift (suspended/resumed, rescheduled, etc.), so the original
+    (date, teams) grouping missed them. Byte-identical 24-player stat lines
+    across two games is essentially impossible by chance even when two real
+    games are played against the same opponent on different days — different
+    games yield different stat lines.
+    """
     df = hitting_df.copy()
-    df["_d"] = pd.to_datetime(df["date"], format="%m/%d/%y", errors="coerce")
 
     game_meta = df.groupby("gameId").agg(
-        date=("_d", "first"),
         teams=("teamName", lambda s: frozenset(s.dropna().unique())),
     ).reset_index()
 
-    groups = game_meta.groupby(["date", "teams"])["gameId"].apply(list).reset_index()
+    groups = game_meta.groupby("teams")["gameId"].apply(list).reset_index()
     multi = groups[groups["gameId"].apply(len) > 1]
 
     use_cols = [c for c in DETECT_COLS if c in df.columns]
     phantoms = set()
     for _, row in multi.iterrows():
         gids = sorted(row["gameId"])
-        canonical = gids[0]
-        for gid in gids[1:]:
-            a = (
-                df[df["gameId"] == canonical][use_cols]
-                .sort_values(["teamName", "playerName"])
-                .reset_index(drop=True)
-            )
-            b = (
+        # Compare every pair; keep the lowest-id as canonical, drop any byte-match
+        canonical_signatures = {}
+        for gid in gids:
+            sig = (
                 df[df["gameId"] == gid][use_cols]
                 .sort_values(["teamName", "playerName"])
                 .reset_index(drop=True)
             )
-            if len(a) == len(b) and len(a) > 0 and a.equals(b):
+            sig_key = tuple(map(tuple, sig.values))
+            if sig_key in canonical_signatures and len(sig) > 0:
                 phantoms.add(gid)
+            else:
+                canonical_signatures[sig_key] = gid
     return phantoms
 
 
