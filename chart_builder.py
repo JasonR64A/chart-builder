@@ -205,7 +205,11 @@ def _inject_team_id(df, filename=None):
     sport = _infer_sport_from_filename(filename)
     name_to_id = sb_map if sport == 'softball' else bb_map
     df = df.copy()
-    df['team_id'] = df[name_col].map(name_to_id)
+    # Strip "(AQ)" auto-qualifier marker from RPI/Massey/DSR feeds before
+    # mapping; otherwise "Texas(AQ)" doesn't match our "Texas" canonical name
+    # and silently drops the team from joins.
+    clean_names = df[name_col].astype(str).str.replace(r'\s*\(AQ\)', '', regex=True).str.strip()
+    df['team_id'] = clean_names.map(name_to_id)
     return df
 
 
