@@ -29,6 +29,11 @@ for sport in baseball softball; do
     cp "$PBP_SOURCE/$sport/rankings/dsr_${sport}.csv" "$DEST/rankings/" 2>/dev/null
     cp "$PBP_SOURCE/$sport/rankings/elo_${sport}.csv" "$DEST/rankings/" 2>/dev/null
 done
+# Custom ELO aggregate — the source for T-25 records on the PBP Analytics
+# page. Sits at output/2026/elo_custom_all.csv (combines all 6 sport/divs).
+# Was missed by the per-sport loop above for ~weeks until 2026-05-11; T-25
+# records went stale silently.
+cp "$PBP_SOURCE/elo_custom_all.csv" "$DEST/rankings/" 2>/dev/null
 
 echo "Copying bracketology snapshots..."
 mkdir -p "$DEST/bracketology/snapshots"
