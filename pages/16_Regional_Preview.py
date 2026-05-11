@@ -25,6 +25,61 @@ LOGOS = _APP_DIR / 'team_logos_512'
 st.set_page_config(page_title='Regional Preview — 64 Analytics', layout='wide')
 
 
+# Softball teams are mostly missing from team_logos_512/; fall back to the
+# S3 logo_url in teams.csv for any tid without a local PNG.
+@st.cache_data(show_spinner=False)
+def _logo_url_lookup() -> dict:
+    try:
+        t = pd.read_csv(DATA_DIR / 'teams.csv', usecols=['id', 'logo_url'])
+    except Exception:
+        return {}
+    return {int(r['id']): r['logo_url'] for _, r in t.iterrows()
+            if pd.notna(r['logo_url']) and str(r['logo_url']).strip()}
+
+
+@st.cache_data(show_spinner=False, max_entries=4000)
+def _resolve_logo_bytes(tid):
+    if tid is None:
+        return None
+    try:
+        tid_int = int(tid)
+    except (TypeError, ValueError):
+        return None
+    p = LOGOS / f'{tid_int}.png'
+    if p.exists():
+        try:
+            return p.read_bytes()
+        except Exception:
+            return None
+    url = _logo_url_lookup().get(tid_int)
+    if not url:
+        return None
+    try:
+        import requests
+        r = requests.get(url, timeout=10)
+        if r.status_code == 200 and r.content:
+            return r.content
+    except Exception:
+        return None
+    return None
+
+
+def _resolve_logo_src(tid):
+    """For st.image: returns local path str if available, else the S3 URL,
+    else None. Avoids re-downloading bytes when we just need a src for the
+    <img>."""
+    if tid is None:
+        return None
+    try:
+        tid_int = int(tid)
+    except (TypeError, ValueError):
+        return None
+    p = LOGOS / f'{tid_int}.png'
+    if p.exists():
+        return str(p)
+    return _logo_url_lookup().get(tid_int)
+
+
 # ── Data loaders ─────────────────────────────────────────────────────────────
 @st.cache_data(show_spinner=False)
 def load_teams():
@@ -139,13 +194,14 @@ if view in ('Top Hitters', 'Top Pitchers'):
             return None
         try:
             from PIL import Image
+            from io import BytesIO
         except Exception:
             return None
-        p = LOGOS / f'{int(tid)}.png'
-        if not p.exists():
+        data = _resolve_logo_bytes(tid)
+        if data is None:
             return None
         try:
-            img = Image.open(p).convert('RGBA').resize((96, 96), Image.LANCZOS)
+            img = Image.open(BytesIO(data)).convert('RGBA').resize((96, 96), Image.LANCZOS)
             cleaned = []
             for r, g, b, a in img.getdata():
                 if a < 220: continue
@@ -176,6 +232,7 @@ if view in ('Top Hitters', 'Top Pitchers'):
             accent_for=_th_accent,
             conferences_df=_confs_df_th,
             player_rank_df=_player_rank_df_th,
+            logo_bytes_for=_resolve_logo_bytes,
         )
     else:  # Top Pitchers
         from app_lib.regionals_top_pitchers import render_tab as _render_top_pitchers_tab
@@ -186,6 +243,7 @@ if view in ('Top Hitters', 'Top Pitchers'):
             accent_for=_th_accent,
             conferences_df=_confs_df_th,
             player_rank_df=_player_rank_df_th,
+            logo_bytes_for=_resolve_logo_bytes,
         )
     st.stop()
 
@@ -199,9 +257,9 @@ for col, team, seed in zip(hdr_cols, teams, seeds):
     with col:
         tid = team_ids[team]
         if tid is not None:
-            logo_path = LOGOS / f'{tid}.png'
-            if logo_path.exists():
-                st.image(str(logo_path), width=120)
+            logo_src = _resolve_logo_src(tid)
+            if logo_src:
+                st.image(logo_src, width=120)
         st.markdown(f"**#{seed} · {team}**")
         rpi_val = team_rpi[team]
         rpi_txt = f"{int(float(rpi_val))}" if rpi_val and str(rpi_val).strip() else '—'
@@ -741,14 +799,15 @@ def _team_dominant_color(tid: int | None) -> str | None:
         return None
     try:
         from PIL import Image
+        from io import BytesIO
         from collections import Counter
     except Exception:
         return None
-    p = LOGOS / f'{int(tid)}.png'
-    if not p.exists():
+    data = _resolve_logo_bytes(tid)
+    if data is None:
         return None
     try:
-        img = Image.open(p).convert('RGBA').resize((96, 96), Image.LANCZOS)
+        img = Image.open(BytesIO(data)).convert('RGBA').resize((96, 96), Image.LANCZOS)
         cleaned = []
         for r, g, b, a in img.getdata():
             if a < 220:
@@ -771,14 +830,12 @@ def _team_dominant_color(tid: int | None) -> str | None:
 @st.cache_data(show_spinner=False)
 def _team_logo_b64(tid: int | None) -> str | None:
     """Return data:image/png;base64,... URL for a team logo, or None."""
-    if tid is None:
-        return None
-    p = LOGOS / f'{int(tid)}.png'
-    if not p.exists():
+    data = _resolve_logo_bytes(tid)
+    if data is None:
         return None
     try:
         import base64 as _b64
-        return f'data:image/png;base64,{_b64.b64encode(p.read_bytes()).decode("ascii")}'
+        return f'data:image/png;base64,{_b64.b64encode(data).decode("ascii")}'
     except Exception:
         return None
 

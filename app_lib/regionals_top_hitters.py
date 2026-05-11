@@ -1222,7 +1222,8 @@ def render_tab(teams: list[str], seeds: list[int], team_ids: dict, sport: str,
                 players_df: pd.DataFrame, teams_df: pd.DataFrame,
                 accent_for: callable | None = None,
                 conferences_df: pd.DataFrame | None = None,
-                player_rank_df: pd.DataFrame | None = None):
+                player_rank_df: pd.DataFrame | None = None,
+                logo_bytes_for: callable | None = None):
     """Streamlit-side wrapper. Builds player dicts from real data, renders HTML."""
     import base64
     import streamlit as st
@@ -1328,11 +1329,23 @@ def render_tab(teams: list[str], seeds: list[int], team_ids: dict, sport: str,
         team_logo_b64 = None
         tid_for_logo = team_ids.get(team_name)
         if tid_for_logo is not None:
-            from pathlib import Path
-            logo_path = Path(__file__).resolve().parent.parent / 'team_logos_512' / f'{int(tid_for_logo)}.png'
-            if logo_path.exists():
+            data = None
+            if logo_bytes_for is not None:
                 try:
-                    team_logo_b64 = base64.b64encode(logo_path.read_bytes()).decode('ascii')
+                    data = logo_bytes_for(tid_for_logo)
+                except Exception:
+                    data = None
+            if data is None:
+                from pathlib import Path
+                logo_path = Path(__file__).resolve().parent.parent / 'team_logos_512' / f'{int(tid_for_logo)}.png'
+                if logo_path.exists():
+                    try:
+                        data = logo_path.read_bytes()
+                    except Exception:
+                        data = None
+            if data is not None:
+                try:
+                    team_logo_b64 = base64.b64encode(data).decode('ascii')
                 except Exception:
                     team_logo_b64 = None
 
