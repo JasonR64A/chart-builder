@@ -1,4 +1,5 @@
 ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfer_date,update_date,status,year,sport,team_id,player_id_64a,player_id_ncaa_stats,matched_name,match_score,match_method,confidence,position,class_year,player_csv_team_id
+2108309069,HALLE,BIDDLE,Halle Biddle,University of Virginia,Atlantic Coast Conference,I,05/11/2026,05/12/2026,Active,2025-26,Softball,1321,82010,2951236,Brie Biddle,69.6,team+lastname_diff_first,REVIEW,2B,Jr,1321
+1808274494,REBECCA,ZAWISTOWSKI,Rebecca Zawistowski,University of Rhode Island,Atlantic 10 Conference,I,05/12/2026,05/12/2026,Active,2025-26,Softball,1329,81560,2807831,Becca Zawistowski,94.4,team+lastname,LOW,1B,Sr,1329
 2208633459,ARIELA,YSLAVA,Ariela Yslava,Menlo College,Pacific West Conference,II,05/11/2026,05/11/2026,Active,2025-26,Softball,2163,143198,3225108,Lela Yslava,82.0,team+lastname_diff_first,REVIEW,P,Fr,2163
-2108309069,HALLE,BIDDLE,Halle Biddle,University of Virginia,Atlantic Coast Conference,I,05/11/2026,05/11/2026,Active,2025-26,Softball,1321,82010,2951236,Brie Biddle,69.6,team+lastname_diff_first,REVIEW,2B,Jr,1321
 2202446245,CATHLEEN,SIELAFF,Cathleen Sielaff,Missouri Western State University,Mid-America Intercollegiate Athletics Association,II,05/11/2026,05/11/2026,Active,2025-26,Softball,1545,143474,3107166,Kinnick Sielaff,58.1,team+lastname_diff_first,REVIEW,C,So,1545
