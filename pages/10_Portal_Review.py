@@ -288,14 +288,19 @@ with st.form('review_form'):
         else:
             cols[5].markdown(':red[unmatched]')
 
-        # Use row_idx for unique keys (ncaa_id can duplicate across status changes)
+        # Widget keys MUST be stable per (ncaa_id, source) — using positional
+        # row_idx alone causes typed values to migrate to the wrong ncaa_id
+        # when filters change (Streamlit caches widget values by key, and
+        # row_idx maps to different ncaa_ids after a re-render). Bug
+        # surfaced 2026-05-12.
+        widget_key = f"{ncaa_id}__{row['source']}"
         if has_pred:
             options = ['', 'confirm', 'adjust', 'unmatch']
             cur = existing.get('action', '')
             idx = options.index(cur) if cur in options else 0
             action = cols[6].selectbox(
                 'act', options, index=idx,
-                key=f'act_{row_idx}',
+                key=f'act_{widget_key}',
                 label_visibility='collapsed',
             )
         else:
@@ -305,7 +310,7 @@ with st.form('review_form'):
         cur_override = existing.get('override_id', '')
         override = cols[7].text_input(
             'ovr', value=cur_override,
-            key=f'ovr_{row_idx}',
+            key=f'ovr_{widget_key}',
             label_visibility='collapsed',
             placeholder='64A ID',
         )
@@ -458,16 +463,18 @@ if show_past and decided_items:
                     cols[2].write('--')
                 cols[3].write(row['match_score'] if row['match_score'] else '--')
 
+                # Stable key per ncaa_id — see review-form comment above.
+                pkey = f"{row['ncaa_id']}"
                 opts = ['', 'confirm', 'adjust', 'unmatch']
                 cur = row['action'] if row['action'] in opts else ''
                 action_new = cols[4].selectbox(
                     'past_act', opts, index=opts.index(cur),
-                    key=f'past_act_{row_idx}',
+                    key=f'past_act_{pkey}',
                     label_visibility='collapsed',
                 )
                 override_new = cols[5].text_input(
                     'past_ovr', value=row['override_id'],
-                    key=f'past_ovr_{row_idx}',
+                    key=f'past_ovr_{pkey}',
                     label_visibility='collapsed',
                     placeholder='64A ID',
                 )
