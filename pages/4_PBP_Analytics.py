@@ -1645,8 +1645,13 @@ def load_division_teams(sport, division):
     confs = pd.read_csv(confs_path, low_memory=False)
     sport_label = sport.title() if sport != 'softball' else 'Softball'
     div_label = {'D1': 'D-I', 'D2': 'D-II', 'D3': 'D-III'}[division]
-    # Exclude Big Sky (id 123) — it's a catch-all bucket for unmapped NAIA teams
-    div_conf_ids = set(confs[(confs['division'] == div_label) & (confs['name'] != 'Big Sky Conference')]['id'])
+    # Big Sky doesn't sponsor D1 baseball, so any baseball entries are NAIA pollution.
+    # Softball Big Sky is a real D1 conference (Idaho St., Sacramento St., Portland St.,
+    # Weber St., Montana, Northern Colo.) — must include.
+    mask = confs['division'] == div_label
+    if sport == 'baseball':
+        mask &= confs['name'] != 'Big Sky Conference'
+    div_conf_ids = set(confs[mask]['id'])
     sport_teams = teams[teams['sport'] == sport_label]
     div_teams = sport_teams[sport_teams['conference_id'].isin(div_conf_ids)]
     canonical = set(div_teams['name'].dropna())
