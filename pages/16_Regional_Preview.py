@@ -1093,32 +1093,69 @@ def _percentile_rank(value, sorted_vals, lower_better=False):
 @st.cache_data(show_spinner=False)
 def _team_top_pitchers(team_name, sport, division, n=8):
     """Top N pitchers by IP. First 3 (by IP) get role SP1/SP2/SP3 highlight.
-    Returns IP, FIP, WHIP per the user's preferred staff display."""
+    Returns IP, FIP, WHIP per the user's preferred staff display.
+
+    Closer (CL) assignment: only the team's saves leader, AND only if their
+    SV/App ratio is at least 25%. Otherwise, falls through to RP/SP based on
+    average outs per appearance. Save proxy = appearances in team wins where
+    the pitcher's IP for that game is short (relief profile, <= 3 outs)."""
     _, p = _team_pbp_full(team_name, sport, division)
     if p.empty or 'playerName' not in p.columns:
         return []
     for c in ['ip','er','so','h','bb','hrA','hb']:
         if c in p.columns: p[c] = pd.to_numeric(p[c], errors='coerce').fillna(0)
     p['_outs'] = p['ip'].apply(_ip_to_outs) if 'ip' in p.columns else 0
+
+    # Save-proxy: appearances in team wins with relief-profile IP (<= 3 outs)
+    try:
+        sched = pd.read_csv(DATA_DIR / f'schedules_full_{sport}.csv',
+                            dtype=str, low_memory=False,
+                            usecols=['teamName','gameId','result'])
+        # Bridge to PBP teamName via shortest-startswith (same pattern as _pbp_team_match)
+        sched_team_candidates = [n for n in sched['teamName'].dropna().unique()
+                                 if isinstance(n, str) and n.startswith(team_name)]
+        sched_team_candidates.sort(key=len)
+        sched_team = sched_team_candidates[0] if sched_team_candidates else None
+        if sched_team:
+            team_sched = sched[sched['teamName'] == sched_team]
+            win_gids = set(team_sched[team_sched['result'].astype(str).str.startswith('W')]['gameId'].astype(str))
+        else:
+            win_gids = set()
+    except Exception:
+        win_gids = set()
+    p['_in_win'] = (p['gameId'].astype(str).isin(win_gids) & (p['_outs'] <= 3)).astype(int)
+
     grp = p.groupby('playerName').agg(
         Outs=('_outs','sum'), App=('ip','count'),
         ER=('er','sum'), SO=('so','sum'), H=('h','sum'),
         BB=('bb','sum'), HRA=('hrA','sum'), HBP=('hb','sum'),
+        Saves=('_in_win','sum'),
     ).reset_index()
     grp['IP'] = grp['Outs'] / 3.0
     grp = grp[grp['IP'] >= 1.0]
     ip_safe = grp['IP'].replace(0, np.nan)
     grp['WHIP'] = ((grp['BB'] + grp['H']) / ip_safe).fillna(0)
-    # FIP = (13*HR + 3*(BB+HBP) - 2*K) / IP + FIP_constant (3.0 college approx)
     grp['FIP']  = ((13 * grp['HRA'] + 3 * (grp['BB'] + grp['HBP'])
                     - 2 * grp['SO']) / ip_safe).fillna(0) + 3.0
     grp['avg_outs'] = grp['Outs'] / grp['App'].replace(0, 1)
-    grp = grp.sort_values('IP', ascending=False).head(n)
+    grp['SV_PCT']   = grp['Saves'] / grp['App'].replace(0, 1)
+
+    grp = grp.sort_values('IP', ascending=False).head(n).reset_index(drop=True)
+
+    # Identify CL: team's saves leader (among non-SP1/2/3 candidates),
+    # requires SV/App >= 25% and at least 3 saves to qualify.
+    closer_name = None
+    relievers = grp.iloc[3:]
+    if len(relievers) > 0:
+        cand = relievers.sort_values('Saves', ascending=False).iloc[0]
+        if cand['Saves'] >= 3 and cand['SV_PCT'] >= 0.25:
+            closer_name = cand['playerName']
+
     out = []
-    for idx, (_, row) in enumerate(grp.iterrows()):
+    for idx, row in grp.iterrows():
         if idx < 3:
             role = f'SP{idx+1}'
-        elif row['avg_outs'] < 3:
+        elif row['playerName'] == closer_name:
             role = 'CL'
         elif row['avg_outs'] < 9:
             role = 'RP'
