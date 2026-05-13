@@ -1,2 +1,4 @@
 ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfer_date,update_date,status,year,sport,team_id,player_id_64a,player_id_ncaa_stats,matched_name,match_score,match_method,confidence,position,class_year,player_csv_team_id
+2112392390,CAMRYN,GANT,Camryn Gant,Barry University,Sunshine State Conference,II,05/13/2026,05/13/2026,Active,2025-26,Softball,1579,140130,3080992,Cam Gant,82.0,team+lastname_diff_first,REVIEW,OF,So,1579
+2209674651,VICTORIA,GARRIDO,Victoria Garrido,University of Sioux Falls,Northern Sun Intercollegiate Conference,II,05/13/2026,05/13/2026,Active,2025-26,Softball,1550,144824,3232111,Tori Garrido,82.0,team+lastname_diff_first,REVIEW,2B,Fr,1550
 2108309069,HALLE,BIDDLE,Halle Biddle,University of Virginia,Atlantic Coast Conference,I,05/11/2026,05/12/2026,Active,2025-26,Softball,1321,82010,2951236,Brie Biddle,69.6,team+lastname_diff_first,REVIEW,2B,Jr,1321
