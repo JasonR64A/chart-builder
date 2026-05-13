@@ -281,7 +281,92 @@ def _bt_strength(rpi_rank):
         return 0.5
 
 
-strengths = {t: _bt_strength(team_rpi[t]) for t in teams}
+def _ip_to_outs_local(ip):
+    """Convert 5.2-style IP (outs in tenths) to integer outs."""
+    try:
+        v = float(ip)
+        full = int(v)
+        frac = round((v - full) * 10)
+        return full * 3 + frac
+    except (TypeError, ValueError):
+        return 0
+
+
+@st.cache_data(show_spinner=False)
+def _team_top_pitcher_fips(team, sport, division, n=12):
+    """Return [FIP, ...] for top-N pitchers by IP for a team. Inlined here
+    (rather than reusing _team_top_pitchers) so it can be called before that
+    helper is defined later in the file."""
+    pbp = load_pitching_pbp(sport, division)
+    if pbp.empty or 'teamName' not in pbp.columns or 'playerName' not in pbp.columns:
+        return []
+    # Find this team's row(s) using shortest-startswith match (same as _pbp_team_match)
+    cands = [n for n in pbp['teamName'].dropna().unique()
+             if isinstance(n, str) and n.startswith(team)]
+    cands.sort(key=len)
+    pbp_team = cands[0] if cands else None
+    if pbp_team is None:
+        return []
+    p = pbp[pbp['teamName'] == pbp_team].copy()
+    if p.empty: return []
+    for c in ['ip','er','so','h','bb','hrA','hb']:
+        if c in p.columns: p[c] = pd.to_numeric(p[c], errors='coerce').fillna(0)
+    p['_outs'] = p['ip'].apply(_ip_to_outs_local) if 'ip' in p.columns else 0
+    grp = p.groupby('playerName').agg(
+        Outs=('_outs','sum'),
+        ER=('er','sum'), SO=('so','sum'), H=('h','sum'),
+        BB=('bb','sum'), HRA=('hrA','sum'), HBP=('hb','sum'),
+    ).reset_index()
+    grp['IP'] = grp['Outs'] / 3.0
+    grp = grp[grp['IP'] >= 1.0]
+    if grp.empty: return []
+    ip_safe = grp['IP'].replace(0, np.nan)
+    grp['FIP'] = ((13 * grp['HRA'] + 3 * (grp['BB'] + grp['HBP']) - 2 * grp['SO']) / ip_safe).fillna(0) + 3.0
+    grp = grp.sort_values('IP', ascending=False).head(n)
+    return [float(f) for f in grp['FIP'].tolist()]
+
+
+def _team_weighted_fip(team, sport, division):
+    """Role-weighted team FIP per softball/baseball workload patterns.
+    Softball: 75% SP1, 12.5% SP2, 12.5% SP3 (ace carries most innings).
+    Baseball: 15% each for SP1/SP2/SP3, 10% each for RP4-7, 15% for pitchers 8+.
+    Returns weighted FIP; missing slots fall back to league average."""
+    LEAGUE_AVG_FIP = 4.5
+    fips = _team_top_pitcher_fips(team, sport, division, n=12)
+    if not fips:
+        return LEAGUE_AVG_FIP
+    if sport == 'softball':
+        weights = [0.75, 0.125, 0.125]
+        n_needed = 3
+        while len(fips) < n_needed:
+            fips.append(LEAGUE_AVG_FIP)
+        return sum(w * f for w, f in zip(weights, fips[:n_needed]))
+    else:
+        starter_weights = [0.15, 0.15, 0.15]
+        rp_weights = [0.10, 0.10, 0.10, 0.10]
+        n_main = 7
+        while len(fips) < n_main:
+            fips.append(LEAGUE_AVG_FIP)
+        wsum = sum(w * f for w, f in zip(starter_weights + rp_weights, fips[:n_main]))
+        rest = fips[n_main:]
+        rest_avg = sum(rest) / len(rest) if rest else LEAGUE_AVG_FIP
+        return wsum + 0.15 * rest_avg
+
+
+def _bt_strength_combined(team, rpi_rank, sport, division):
+    """Bradley-Terry strength: RPI rank × pitcher-quality multiplier.
+    Pitching multiplier scales linearly with weighted FIP delta from league average.
+    Delta of −2.0 FIP (well above avg) → ~1.6× strength;
+    Delta of +2.0 FIP (well below)    → ~0.4×."""
+    base = _bt_strength(rpi_rank)
+    LEAGUE_AVG_FIP = 4.5
+    fip = _team_weighted_fip(team, sport, division)
+    multiplier = 1.0 + (LEAGUE_AVG_FIP - fip) * 0.30   # 0.30 per FIP point
+    multiplier = max(0.30, min(2.50, multiplier))
+    return base * multiplier
+
+
+strengths = {t: _bt_strength_combined(t, team_rpi[t], sport, division) for t in teams}
 
 def _p_win(a, b):
     """Bradley-Terry P(a beats b)."""
