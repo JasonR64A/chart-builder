@@ -336,23 +336,51 @@ with st.expander('Stats strip (5 cells)', expanded=True):
         slg = fmt_slash(hitter_2026.get('slugging_percentage'))
         ops = fmt_slash(hitter_2026.get('on_base_plus_slugging'))
         gp = season_int(hitter_2026, 'games_played')
-        hr = season_int(hitter_2026, 'home_runs')
-        rbi = season_int(hitter_2026, 'runs_batted_in')
-        bb = season_int(hitter_2026, 'walks')
-        k = season_int(hitter_2026, 'strikeouts')
-        sb = season_int(hitter_2026, 'stolen_bases')
-        cs = season_int(hitter_2026, 'caught_stealing')
 
-        bb_k_ratio = f'{bb/k:.2f}' if k > 0 else f'{bb}.00'
+        # wRAA from hitting.csv. wRAA can be negative; show one decimal and
+        # surface the national percentile as the sub-line.
+        wraa_raw = pd.to_numeric(hitter_2026.get('weighted_runs_above_average'), errors='coerce')
+        wraa_str = f'{float(wraa_raw):+.1f}' if pd.notna(wraa_raw) else '—'
+        wraa_pct = pd.to_numeric(hitter_2026.get('percentile_rank_weighted_runs_above_average'), errors='coerce')
+        wraa_sub = (f'TOP {100 - int(round(float(wraa_pct)*100))}% NTL'
+                    if pd.notna(wraa_pct) else '')
+
+        # wRC+ from hitting.csv. Display as integer; reference line is 100=avg.
+        wrcp_raw = pd.to_numeric(hitter_2026.get('weighted_runs_created_plus'), errors='coerce')
+        wrcp_str = f'{int(round(float(wrcp_raw)))}' if pd.notna(wrcp_raw) else '—'
+        wrcp_sub = 'VS 100 LG AVG'
+
+        # wRCE lives in player_rank.csv, joined by (player_id, year=2026). Show
+        # the 64A national rank as the sub-line when available.
+        try:
+            pr_row = prp[(prp['player_id'] == player_id) & (prp['year'] == 2026)]
+            pr_2026 = pr_row.iloc[0] if not pr_row.empty else None
+        except Exception:
+            pr_2026 = None
+        # Note: pr is the local portal_rank_player frame; we actually want
+        # player_rank.csv (full hitter ranking) here. Load it lazily so the
+        # page doesn't pay the cost when not needed.
+        @st.cache_data
+        def _load_player_rank():
+            return pd.read_csv(DATA_DIR / 'player_rank.csv', low_memory=False,
+                               usecols=['player_id', 'year',
+                                        'weighted_run_created_efficiency',
+                                        'sixty_four_rank_weighted_run_created_efficiency',
+                                        'percentile_rank_weighted_run_created_efficiency'])
+        pr_full = _load_player_rank()
+        pr_match = pr_full[(pr_full['player_id'] == player_id) & (pr_full['year'] == 2026)]
+        wrce_raw = pd.to_numeric(pr_match['weighted_run_created_efficiency'].iloc[0], errors='coerce') if not pr_match.empty else None
+        wrce_str = f'{float(wrce_raw):.2f}' if pd.notna(wrce_raw) else '—'
+        wrce_rank = pd.to_numeric(pr_match['sixty_four_rank_weighted_run_created_efficiency'].iloc[0], errors='coerce') if not pr_match.empty else None
+        wrce_sub = f'RANK #{int(wrce_rank)}' if pd.notna(wrce_rank) else ''
+
         d_hero_lab = '2026 SLASH LINE'
         d_hero_val = f'{avg} / {obp} / {slg}'
         d_hero_sub = f'AVG · OBP · SLG · {gp} GP'
         d_s1_lab, d_s1_val, d_s1_sub = 'OPS', ops, ''
-        d_s2_lab, d_s2_val, d_s2_sub = 'HR', str(hr), f'{rbi} RBI'
-        d_s3_lab, d_s3_val_html, d_s3_sub = ('BB / K',
-            f'{bb}<span style="color:var(--crimson-hot); font-size:32px; padding: 0 4px;">/</span>{k}',
-            f'{bb_k_ratio} RATIO')
-        d_s4_lab, d_s4_val, d_s4_sub = 'SB', str(sb), f'{cs} CS'
+        d_s2_lab, d_s2_val, d_s2_sub = 'wRAA', wraa_str, wraa_sub
+        d_s3_lab, d_s3_val_html, d_s3_sub = 'wRC+', wrcp_str, wrcp_sub
+        d_s4_lab, d_s4_val, d_s4_sub = 'wRCE', wrce_str, wrce_sub
     elif is_pitcher_player and pitcher_2026 is not None:
         era = fmt_rate(pitcher_2026.get('earned_run_average'), 2)
         whip = fmt_rate(pitcher_2026.get('walks_plus_hits_per_inning_pitched'), 2)
