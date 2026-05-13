@@ -371,8 +371,12 @@ with st.expander('Stats strip (5 cells)', expanded=True):
         pr_match = pr_full[(pr_full['player_id'] == player_id) & (pr_full['year'] == 2026)]
         wrce_raw = pd.to_numeric(pr_match['weighted_run_created_efficiency'].iloc[0], errors='coerce') if not pr_match.empty else None
         wrce_str = f'{float(wrce_raw):.2f}' if pd.notna(wrce_raw) else '—'
-        wrce_rank = pd.to_numeric(pr_match['sixty_four_rank_weighted_run_created_efficiency'].iloc[0], errors='coerce') if not pr_match.empty else None
-        wrce_sub = f'RANK #{int(wrce_rank)}' if pd.notna(wrce_rank) else ''
+        # Use the percentile column directly — the sixty_four_rank field is 0
+        # for players outside the ranked pool, which renders as a misleading
+        # "RANK #0" in the sub-line.
+        wrce_pct = pd.to_numeric(pr_match['percentile_rank_weighted_run_created_efficiency'].iloc[0], errors='coerce') if not pr_match.empty else None
+        wrce_sub = (f'TOP {max(1, 100 - int(round(float(wrce_pct)*100)))}% NTL'
+                    if pd.notna(wrce_pct) else '')
 
         d_hero_lab = '2026 SLASH LINE'
         d_hero_val = f'{avg} / {obp} / {slg}'
