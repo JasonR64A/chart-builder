@@ -848,9 +848,12 @@ def _accent_for_team(tid, seed):
 
 # ── Round-by-round Monte Carlo (extends _simulate_regional) ────────────────
 def _simulate_regional_full(n=20000, rng=None):
-    """Returns per-team round survival fractions: r1 (post-G1/G2), r2 (W-bracket
-    or losers-G3 alive), r3 (reach regional final), r4 (champ). Last value is
-    same as win_p; included for completeness."""
+    """Returns per-team milestone reach rates across a 4-team double-elim:
+      r1 = went 1-0 (won opener)      -> sums to 200% (2 of 4 teams)
+      r2 = went 2-0 (won W-bracket)   -> sums to 100% (1 of 4 teams)
+      r3 = reached regional final     -> sums to 200% (2 of 4 teams play G6)
+      r4 = won the regional (Champ %) -> sums to 100% (1 champion)
+    """
     if rng is None:
         rng = np.random.default_rng(42)
     cnt = {t: {'r1': 0, 'r2': 0, 'r3': 0, 'r4': 0} for t in teams}
@@ -860,26 +863,21 @@ def _simulate_regional_full(n=20000, rng=None):
             return a if rng.random() < _p_win(a, b) else b
         g1w = play(s1, s4); g1l = s1 if g1w == s4 else s4
         g2w = play(s2, s3); g2l = s2 if g2w == s3 else s3
-        # r1: alive after G1/G2 = winners of openers
+        # r1: went 1-0 (won opener)
         for t in (g1w, g2w): cnt[t]['r1'] += 1
-        # plus losers play G3 and the loser is eliminated (so g1l/g2l counted at r1 too — they're alive heading INTO opener's loss bracket)
-        # Better definition: r1 = "won opener" only. Losers go to elim-G3.
-        g3w = play(g1l, g2l)  # G3 loser eliminated
-        # r2: alive heading into G4 = G1w, G2w, G3w (the 3-team set that remains)
-        for t in (g1w, g2w, g3w): cnt[t]['r2'] += 1
-        # G4: winners' final
+        g3w = play(g1l, g2l)
         g4w = play(g1w, g2w); g4l = g1w if g4w == g2w else g2w
-        # G5: G3 winner vs G4 loser (loser-out)
+        # r2: went 2-0 (won G4 = winners-bracket champion)
+        cnt[g4w]['r2'] += 1
         g5w = play(g3w, g4l)
-        # r3: reach regional final = G4w + G5w (the two who play G6)
+        # r3: reached regional final = G4w + G5w (the two who play G6)
         for t in (g4w, g5w): cnt[t]['r3'] += 1
-        # G6: regional final game 1
         g6w = play(g4w, g5w)
-        # G7 (only if G5 winner won G6 — G4 winner needs second loss to be eliminated)
         if g6w == g5w:
             champ = play(g4w, g5w)
         else:
             champ = g4w
+        # r4: regional champion
         cnt[champ]['r4'] += 1
     return {t: {k: v / n for k, v in d.items()} for t, d in cnt.items()}
 
@@ -1327,10 +1325,10 @@ parts.extend([
     f'20,000 BRADLEY-TERRY MONTE CARLO · SUMS TO 100%</text>',
 ])
 
-# Grid columns: Team(112) | Survive(1fr) | W-Bracket Live(1fr) | Reach Final(1fr) | Title Game(1fr) | Champ %(84)
+# Grid columns: Team(112) | 1-0(1fr) | 2-0(1fr) | Reach Final(1fr) | Champ %(84)
 team_col_w = 116
 champ_col_w = 86
-stage_w = (VB_W - 2 * PAD_X - 8 - team_col_w - champ_col_w) / 4
+stage_w = (VB_W - 2 * PAD_X - 8 - team_col_w - champ_col_w) / 3
 prob_grid_x = PAD_X + 4
 col_x = [
     prob_grid_x,
@@ -1338,17 +1336,15 @@ col_x = [
     prob_grid_x + team_col_w + stage_w,
     prob_grid_x + team_col_w + 2 * stage_w,
     prob_grid_x + team_col_w + 3 * stage_w,
-    prob_grid_x + team_col_w + 4 * stage_w,
 ]
 # Column header row
 hdr_y = PROB_Y_GRID
 for label, x_l, x_r, anchor, color in [
     ('TEAM', col_x[0], col_x[1], 'start', INK_400),
-    ('SURVIVE OPENER', col_x[1], col_x[2], 'middle', INK_400),
-    ('W-BRACKET LIVE', col_x[2], col_x[3], 'middle', INK_400),
+    ('1-0 (WON OPENER)', col_x[1], col_x[2], 'middle', INK_400),
+    ('2-0 (WON W-BRACKET)', col_x[2], col_x[3], 'middle', INK_400),
     ('REACH FINAL', col_x[3], col_x[4], 'middle', INK_400),
-    ('TITLE GAME', col_x[4], col_x[5], 'middle', INK_400),
-    ('CHAMP %', col_x[5], VB_W - PAD_X - 4, 'end', BRAND_RED),
+    ('CHAMP %', col_x[4], VB_W - PAD_X - 4, 'end', BRAND_RED),
 ]:
     if anchor == 'start':
         tx = x_l
@@ -1375,8 +1371,8 @@ for ti, (team, seed) in enumerate(zip(teams, seeds)):
                  f'fill="#FFFFFF" text-anchor="middle">{seed}</text>')
     parts.append(f'<text x="{badge_x + 26}" y="{row_cy + 3}" class="in" font-size="12" font-weight="700" '
                  f'fill="{INK_900}">{_xe(team)}</text>')
-    # 4 stage bars
-    pct_vals = [s['r1'], s['r2'], s['r3'], s['r4']]
+    # 3 stage bars (r4 is shown as the big red CHAMP % on the right, not as a bar)
+    pct_vals = [s['r1'], s['r2'], s['r3']]
     bar_h = 14
     for si, p_val in enumerate(pct_vals):
         bx_l = col_x[1 + si] + 4
