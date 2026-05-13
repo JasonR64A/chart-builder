@@ -628,7 +628,37 @@ def render_top_pitchers_html(players: list[dict], regional_name: str, sport: str
         f'<span>Compiled {_xe(as_of_date)}</span>'
         f'</footer>'
     )
-    return f'{_STYLES}<div class="rth-root">{masthead}{rows_html}{foot}</div>'
+    # html2canvas + Download PNG button (same pattern as Top Hitters)
+    png_filename = f'top_pitchers_{_xe(regional_name).lower().replace(" ", "_")}_{division.lower()}.png'.replace('/', '_')
+    png_script = f'''
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script>
+window.downloadTopPitchersPNG = function() {{
+  var node = document.querySelector('.rth-root');
+  if (!node) return;
+  var btn = document.getElementById('rtp-png-btn');
+  if (btn) {{ btn.style.visibility = 'hidden'; }}
+  html2canvas(node, {{ scale: 2, backgroundColor: '#FAF8F2', useCORS: true, allowTaint: true, logging: false }}).then(function(canvas) {{
+    var a = document.createElement('a');
+    a.download = {png_filename!r};
+    a.href = canvas.toDataURL('image/png');
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    if (btn) {{ btn.style.visibility = 'visible'; }}
+  }});
+}};
+</script>
+'''
+    download_btn = (
+        '<div style="text-align:center;margin:18px 0 8px;">'
+        '<button id="rtp-png-btn" onclick="window.downloadTopPitchersPNG()" style="'
+        'padding:10px 24px;background:#1a1a1a;color:#fff;border:none;border-radius:4px;'
+        "font-family:'Inter',sans-serif;font-weight:700;font-size:12px;letter-spacing:.18em;"
+        'text-transform:uppercase;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.25);">'
+        'Download Top Pitchers PNG'
+        '</button>'
+        '</div>'
+    )
+    return f'{_STYLES}{png_script}{download_btn}<div class="rth-root">{masthead}{rows_html}{foot}</div>'
 
 
 # ── Streamlit entry point ───────────────────────────────────────────────────
@@ -786,4 +816,9 @@ def render_tab(teams: list[str], seeds: list[int], team_ids: dict, sport: str,
         players_payload, regional_name, sport, division,
         total_qualifiers=len(pool),
     )
-    st.markdown(html_doc, unsafe_allow_html=True)
+    # components.html so the html2canvas <script> tag executes (markdown
+    # strips/disables scripts). Generous height for 4-pitcher vertical stack.
+    import streamlit.components.v1 as components
+    n = len(players_payload)
+    iframe_height = 320 + (n * 740) + 80
+    components.html(html_doc, height=iframe_height, scrolling=True)
