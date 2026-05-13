@@ -41,49 +41,41 @@ STAT_COLS = {
 def select_top_hitters(hitting_df: pd.DataFrame, players_df: pd.DataFrame,
                         team_ids: list[int], top_n: int = 4,
                         player_rank_df: pd.DataFrame | None = None) -> pd.DataFrame:
-    """Pick top-N hitters across the given team_ids, ranked by wRCE
-    (weighted_run_created_efficiency, from player_rank.csv) when available,
-    falling back to OPS within the min-PA gate. Returns the row joined to
-    hitting.csv slash line + players.csv bio fields.
+    """Pick top-N hitters across the given team_ids, ranked by wRAA
+    (weighted_runs_above_average, from hitting.csv) within the min-PA gate.
+    wRAA rewards both efficiency and playing time (raw above-average runs),
+    so a top-end hitter with full PA volume ranks above an efficiency-leader
+    with fewer PAs — matches the user's expected "top hitters in regional"
+    view (changed 2026-05-12, was wRCE before).
+    Returns the row joined to hitting.csv slash line + players.csv bio fields.
     """
-    if player_rank_df is not None and not player_rank_df.empty:
-        pr = player_rank_df[(player_rank_df['year'] == CURRENT_YEAR) &
-                             (player_rank_df['team_id'].isin(team_ids))].copy()
-        pr['_wrce'] = pd.to_numeric(pr['weighted_run_created_efficiency'], errors='coerce')
-        pr = pr.dropna(subset=['_wrce'])
-        # Gate by hitting PA so we don't pick a player with 0 box-score AB
-        h_eligible = hitting_df[(hitting_df['year'] == CURRENT_YEAR) &
-                                 (hitting_df['team_id'].isin(team_ids)) &
-                                 (hitting_df['plate_appearances'] >= MIN_PA)]
-        eligible_pids = set(h_eligible['player_id'].astype(int))
-        pr = pr[pr['player_id'].astype(int).isin(eligible_pids)]
-        if pr.empty:
-            top_pr = pd.DataFrame()
-        else:
-            top_pr = pr.sort_values('_wrce', ascending=False).head(top_n)
-            picked_pids = top_pr['player_id'].astype(int).tolist()
-            h = h_eligible[h_eligible['player_id'].astype(int).isin(picked_pids)].copy()
-            h = h.merge(top_pr[['player_id', '_wrce',
-                                 'percentile_rank_weighted_run_created_efficiency',
-                                 'integer_rank_weighted_run_created_efficiency']],
-                        on='player_id', how='left')
-            # Re-order to match the wRCE descending order
-            h = h.set_index('player_id').loc[picked_pids].reset_index()
-            p = players_df[['id', 'player_name', 'position', 'classification',
-                            'height', 'bat', 'throw']].rename(columns={'id': 'player_id'})
-            h = h.merge(p, on='player_id', how='left')
-            return h.reset_index(drop=True)
-
-    # Fallback to OPS
     h = hitting_df[(hitting_df['year'] == CURRENT_YEAR) &
                    (hitting_df['team_id'].isin(team_ids)) &
                    (hitting_df['plate_appearances'] >= MIN_PA)].copy()
     if h.empty:
         return h
-    h = h.sort_values('on_base_plus_slugging', ascending=False).head(top_n)
+    h['_wraa'] = pd.to_numeric(h['weighted_runs_above_average'], errors='coerce')
+    h = h.dropna(subset=['_wraa']).sort_values('_wraa', ascending=False).head(top_n)
     p = players_df[['id', 'player_name', 'position', 'classification',
                     'height', 'bat', 'throw']].rename(columns={'id': 'player_id'})
     h = h.merge(p, on='player_id', how='left')
+
+    # If player_rank.csv is provided, merge the wRCE percentile/rank columns
+    # so the per-row card can still display "D-I wRCE rank" if any downstream
+    # code references them. Optional.
+    if player_rank_df is not None and not player_rank_df.empty:
+        pr = player_rank_df[(player_rank_df['year'] == CURRENT_YEAR) &
+                             (player_rank_df['team_id'].isin(team_ids))][
+            ['player_id', 'weighted_run_created_efficiency',
+             'percentile_rank_weighted_run_created_efficiency',
+             'integer_rank_weighted_run_created_efficiency']
+        ].copy()
+        pr = pr.rename(columns={'weighted_run_created_efficiency': '_wrce'})
+        # Convert player_id types to match
+        pr['player_id'] = pd.to_numeric(pr['player_id'], errors='coerce').astype('Int64')
+        h['player_id'] = pd.to_numeric(h['player_id'], errors='coerce').astype('Int64')
+        h = h.merge(pr, on='player_id', how='left')
+
     return h.reset_index(drop=True)
 
 
