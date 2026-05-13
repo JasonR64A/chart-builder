@@ -5,6 +5,13 @@ Uses the same pre-game WP model as the Win Probability page and the Win
 Generator's Team Projection: compressed log5 + HFA + 50/50 team-rank/player
 blend + auto-detected Weekend/Midweek series context. Single source of truth
 lives in pages/_win_prob_model.py.
+
+Final raw RPI is post-processed with an empirical linear stretch to match
+NCAA's published RPI distribution. The documented NCAA formula (0.25·WP +
+0.50·OWP + 0.25·OOWP) does NOT reproduce NCAA's published RPI even when
+computed from NCAA's own data; NCAA applies an undisclosed ~1.04-1.07x
+stretch. Coefficients were fit 2026-05-12 against the May 11 nitty gritty
+snapshot (R² ≈ 0.98 both sports).
 """
 
 import pandas as pd
@@ -15,6 +22,16 @@ from app_lib.win_prob_model import (
     build_team_profiles, detect_game_context, compute_matchup_wp,
     build_rank_pct_map,
 )
+
+# Empirical stretch coefficients to match NCAA's published RPI.
+# Fit 2026-05-12 on this function's raw pred_rpi output vs NCAA nitty gritty
+# (May 11 snapshot, 308 teams). Coefficients are specific to THIS computation's
+# WP/OWP/OOWP formulation — refit if the underlying RPI logic changes.
+# R²: BB 0.979, SB 0.972 | MAE after stretch: BB 0.00649, SB 0.00909
+RPI_STRETCH = {
+    'baseball': {'a': -0.14975, 'b': 1.29636},
+    'softball': {'a': -0.10693, 'b': 1.21326},
+}
 
 
 def compute_predicted_rpi_for_bracketology(sport: str, DATA_DIR: Path) -> pd.DataFrame:
@@ -157,14 +174,17 @@ def compute_predicted_rpi_for_bracketology(sport: str, DATA_DIR: Path) -> pd.Dat
 
     true_rank_lookup = dict(zip(ranked['name'], ranked['true_rank']))
 
+    stretch = RPI_STRETCH.get(sport, {'a': 0.0, 'b': 1.0})
     results = []
     for t in wp_lookup:
         opps = team_opponents.get(t, [])
         oowps = [owp_lookup.get(o, 0.5) for o in opps if o in owp_lookup]
         oowp = float(np.mean(oowps)) if oowps else 0.5
+        raw_rpi = 0.25 * wp_lookup[t] + 0.50 * owp_lookup.get(t, 0.5) + 0.25 * oowp
         results.append({
             'team': t,
-            'pred_rpi': 0.25 * wp_lookup[t] + 0.50 * owp_lookup.get(t, 0.5) + 0.25 * oowp,
+            'pred_rpi': stretch['a'] + stretch['b'] * raw_rpi,
+            'pred_rpi_raw': raw_rpi,
             'proj_wins': round(team_wins.get(t, 0)),
             'proj_losses': round(team_games.get(t, 0) - team_wins.get(t, 0)),
         })
