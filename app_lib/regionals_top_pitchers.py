@@ -732,27 +732,25 @@ def render_tab(teams: list[str], seeds: list[int], team_ids: dict, sport: str,
     from pathlib import Path as _Path
 
     def _normalize_and_resize(up) -> tuple[str, str]:
+        """Unconditionally downscale uploaded photos to 800×1000 max + JPEG q=85
+        (mirror of the hitter renderer). Keeps the iframe + html2canvas-pro
+        capture from OOMing on full-res phone photos."""
         raw = up.read()
         mime = (up.type or '').strip()
         if not mime or not mime.startswith('image/'):
             ext = (_Path(up.name or '').suffix.lower().lstrip('.')) if up.name else ''
             mime = {'jpg': 'image/jpeg', 'jpeg': 'image/jpeg',
                     'png': 'image/png',  'webp': 'image/webp'}.get(ext, 'image/jpeg')
-        if raw and len(raw) > 600_000:
+        if raw:
             try:
                 from PIL import Image
                 import io as _io
                 im = Image.open(_io.BytesIO(raw))
-                im.thumbnail((1200, 1500), Image.LANCZOS)
+                im.thumbnail((800, 1000), Image.LANCZOS)
                 buf = _io.BytesIO()
-                if mime == 'image/png':
-                    im.save(buf, format='PNG', optimize=True)
-                elif mime == 'image/webp':
-                    im.save(buf, format='WEBP', quality=88)
-                else:
-                    im.convert('RGB').save(buf, format='JPEG', quality=88, optimize=True)
-                    mime = 'image/jpeg'
+                im.convert('RGB').save(buf, format='JPEG', quality=85, optimize=True)
                 raw = buf.getvalue()
+                mime = 'image/jpeg'
             except Exception:
                 pass
         return _b64.b64encode(raw).decode('ascii'), mime.split('/')[-1]

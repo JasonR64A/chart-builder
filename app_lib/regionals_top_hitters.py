@@ -1021,12 +1021,19 @@ def _row_html(idx: int, p: dict, accent: str, total_qualifiers: int) -> str:
         stat_cells.append(cell)
     spray_svg = p.get('spray_svg') or ''
     if spray_svg:
-        # Keep the SVG's intrinsic width/height attributes — html2canvas-pro
-        # needs them to compute layout (without them it renders the SVG at
-        # 0 height and the chart vanishes from the PNG). CSS still scales
-        # the element responsively via `max-width: 100%` on the parent.
+        # Replace the SVG's intrinsic 100×75 dimensions with 400×300 (same 4:3
+        # aspect, same viewBox so content scales). Reasons:
+        #   1. html2canvas-pro needs concrete pixel dimensions to capture an
+        #      SVG; if width/height are stripped or set via CSS only, the SVG
+        #      vanishes from the PNG.
+        #   2. The previous attempt KEPT the intrinsic 100×75 + used
+        #      max-width:100% — that rendered at exactly 100 CSS px in browser
+        #      (super tiny diamonds).
+        # 400×300 is large enough to fill the stats column at a reasonable size
+        # but max-width:100% on the parent still lets it scale down responsively.
         import re as _re
-        spray_svg_flex = spray_svg
+        spray_svg_flex = _re.sub(r'\swidth="[^"]+"\s+height="[^"]+"',
+                                  ' width="400" height="300"', spray_svg, count=1)
         # Force preserveAspectRatio so the wedge stays centered as it scales
         if 'preserveAspectRatio' not in spray_svg_flex:
             spray_svg_flex = spray_svg_flex.replace('<svg ', '<svg preserveAspectRatio="xMidYMax meet" ', 1)
@@ -1333,27 +1340,28 @@ def render_tab(teams: list[str], seeds: list[int], team_ids: dict, sport: str,
     # for html2canvas to capture without OOM; normalize the MIME so the data URL
     # actually renders (some uploads arrive as application/octet-stream).
     def _normalize_and_resize(up) -> tuple[str, str]:
+        """Unconditionally downscale uploaded photos to 800×1000 max + JPEG q=85.
+        The headshot frame renders at ~200px wide; anything larger is wasted
+        bytes that bloat the Streamlit iframe AND the html2canvas-pro capture
+        (browser tab was crashing on the full-res versions)."""
         raw = up.read()
         mime = (up.type or '').strip()
         if not mime or not mime.startswith('image/'):
             ext = (Path(up.name or '').suffix.lower().lstrip('.')) if up.name else ''
             mime = {'jpg': 'image/jpeg', 'jpeg': 'image/jpeg',
                     'png': 'image/png',  'webp': 'image/webp'}.get(ext, 'image/jpeg')
-        if raw and len(raw) > 600_000:
+        if raw:
             try:
                 from PIL import Image
                 import io as _io
                 im = Image.open(_io.BytesIO(raw))
-                im.thumbnail((1200, 1500), Image.LANCZOS)
+                im.thumbnail((800, 1000), Image.LANCZOS)
                 buf = _io.BytesIO()
-                if mime == 'image/png':
-                    im.save(buf, format='PNG', optimize=True)
-                elif mime == 'image/webp':
-                    im.save(buf, format='WEBP', quality=88)
-                else:
-                    im.convert('RGB').save(buf, format='JPEG', quality=88, optimize=True)
-                    mime = 'image/jpeg'
+                # Always re-encode as JPEG (smaller; the card crops out
+                # transparency anyway via background-size:cover).
+                im.convert('RGB').save(buf, format='JPEG', quality=85, optimize=True)
                 raw = buf.getvalue()
+                mime = 'image/jpeg'
             except Exception:
                 pass
         return base64.b64encode(raw).decode('ascii'), mime.split('/')[-1]
