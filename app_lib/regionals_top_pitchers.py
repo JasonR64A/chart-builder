@@ -633,18 +633,38 @@ def render_top_pitchers_html(players: list[dict], regional_name: str, sport: str
     png_script = f'''
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script>
-window.downloadTopPitchersPNG = function() {{
+window.downloadTopPitchersPNG = async function() {{
   var node = document.querySelector('.rth-root');
   if (!node) return;
   var btn = document.getElementById('rtp-png-btn');
-  if (btn) {{ btn.style.visibility = 'hidden'; }}
-  html2canvas(node, {{ scale: 2, backgroundColor: '#FAF8F2', useCORS: true, allowTaint: true, logging: false }}).then(function(canvas) {{
+  var origText = btn ? btn.textContent : '';
+  if (btn) {{ btn.disabled = true; btn.textContent = 'Rendering…'; }}
+  try {{
+    if (document.fonts && document.fonts.ready) await document.fonts.ready;
+    var imgs = Array.from(node.querySelectorAll('img'));
+    await Promise.all(imgs.map(function(img) {{
+      if (img.complete && img.naturalWidth > 0) return Promise.resolve();
+      return new Promise(function(res) {{
+        img.addEventListener('load', res, {{ once: true }});
+        img.addEventListener('error', res, {{ once: true }});
+      }});
+    }}));
+    var canvas = await html2canvas(node, {{
+      scale: 2, backgroundColor: '#FAF8F2', useCORS: true, allowTaint: true,
+      logging: false, imageTimeout: 15000
+    }});
     var a = document.createElement('a');
     a.download = {png_filename!r};
     a.href = canvas.toDataURL('image/png');
     document.body.appendChild(a); a.click(); document.body.removeChild(a);
-    if (btn) {{ btn.style.visibility = 'visible'; }}
-  }});
+  }} catch (err) {{
+    console.error('Top Pitchers PNG export failed:', err);
+    alert('Download failed: ' + (err && err.message ? err.message : err) +
+          '\\n\\nA common cause is a team-logo image blocked by CORS. ' +
+          'Open the browser console (F12) for details.');
+  }} finally {{
+    if (btn) {{ btn.disabled = false; btn.textContent = origText || 'Download Top Pitchers PNG'; }}
+  }}
 }};
 </script>
 '''
@@ -703,8 +723,37 @@ def render_tab(teams: list[str], seeds: list[int], team_ids: dict, sport: str,
         batter_bat = {}
         cb_to_ncaa = {}
 
-    # Optional photo upload
+    # Optional photo upload — mirror the hitter renderer: normalize MIME + resize
+    # large uploads so the embedded data URL stays small enough for html2canvas.
     import base64 as _b64
+    from pathlib import Path as _Path
+
+    def _normalize_and_resize(up) -> tuple[str, str]:
+        raw = up.read()
+        mime = (up.type or '').strip()
+        if not mime or not mime.startswith('image/'):
+            ext = (_Path(up.name or '').suffix.lower().lstrip('.')) if up.name else ''
+            mime = {'jpg': 'image/jpeg', 'jpeg': 'image/jpeg',
+                    'png': 'image/png',  'webp': 'image/webp'}.get(ext, 'image/jpeg')
+        if raw and len(raw) > 600_000:
+            try:
+                from PIL import Image
+                import io as _io
+                im = Image.open(_io.BytesIO(raw))
+                im.thumbnail((1200, 1500), Image.LANCZOS)
+                buf = _io.BytesIO()
+                if mime == 'image/png':
+                    im.save(buf, format='PNG', optimize=True)
+                elif mime == 'image/webp':
+                    im.save(buf, format='WEBP', quality=88)
+                else:
+                    im.convert('RGB').save(buf, format='JPEG', quality=88, optimize=True)
+                    mime = 'image/jpeg'
+                raw = buf.getvalue()
+            except Exception:
+                pass
+        return _b64.b64encode(raw).decode('ascii'), mime.split('/')[-1]
+
     with st.expander('Add pitcher photos (replaces the striped placeholder)', expanded=False):
         upload_cols = st.columns(min(4, len(top)))
         for i, (_, row) in enumerate(top.iterrows()):
@@ -718,10 +767,9 @@ def render_tab(teams: list[str], seeds: list[int], team_ids: dict, sport: str,
                     label_visibility='collapsed',
                 )
                 if up is not None:
-                    photo_bytes = up.read()
-                    st.session_state[f'rtp_photo_b64_{cb_id}'] = _b64.b64encode(photo_bytes).decode('ascii')
-                    mime = up.type.split('/')[-1] if up.type else 'jpeg'
-                    st.session_state[f'rtp_photo_mime_{cb_id}'] = mime
+                    b64, mime_short = _normalize_and_resize(up)
+                    st.session_state[f'rtp_photo_b64_{cb_id}'] = b64
+                    st.session_state[f'rtp_photo_mime_{cb_id}'] = mime_short
 
     # Spray (perspective='pitching')
     try:

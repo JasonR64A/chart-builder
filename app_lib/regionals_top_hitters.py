@@ -1213,18 +1213,41 @@ def render_top_hitters_html(players: list[dict], regional_name: str, sport: str,
     png_script = f'''
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script>
-window.downloadTopHittersPNG = function() {{
+window.downloadTopHittersPNG = async function() {{
   var node = document.querySelector('.rth-root');
   if (!node) return;
   var btn = document.getElementById('rth-png-btn');
-  if (btn) {{ btn.style.visibility = 'hidden'; }}
-  html2canvas(node, {{ scale: 2, backgroundColor: '#FAF8F2', useCORS: true, allowTaint: true, logging: false }}).then(function(canvas) {{
+  var origText = btn ? btn.textContent : '';
+  if (btn) {{ btn.disabled = true; btn.textContent = 'Rendering…'; }}
+  try {{
+    if (document.fonts && document.fonts.ready) await document.fonts.ready;
+    // Force-load all <img> tags inside the card so html2canvas doesn't snapshot
+    // before logos/photos resolve. Failures resolve (not reject) so one bad
+    // image can't kill the whole capture.
+    var imgs = Array.from(node.querySelectorAll('img'));
+    await Promise.all(imgs.map(function(img) {{
+      if (img.complete && img.naturalWidth > 0) return Promise.resolve();
+      return new Promise(function(res) {{
+        img.addEventListener('load', res, {{ once: true }});
+        img.addEventListener('error', res, {{ once: true }});
+      }});
+    }}));
+    var canvas = await html2canvas(node, {{
+      scale: 2, backgroundColor: '#FAF8F2', useCORS: true, allowTaint: true,
+      logging: false, imageTimeout: 15000
+    }});
     var a = document.createElement('a');
     a.download = {png_filename!r};
     a.href = canvas.toDataURL('image/png');
     document.body.appendChild(a); a.click(); document.body.removeChild(a);
-    if (btn) {{ btn.style.visibility = 'visible'; }}
-  }});
+  }} catch (err) {{
+    console.error('Top Hitters PNG export failed:', err);
+    alert('Download failed: ' + (err && err.message ? err.message : err) +
+          '\\n\\nA common cause is a team-logo image blocked by CORS. ' +
+          'Open the browser console (F12) for details.');
+  }} finally {{
+    if (btn) {{ btn.disabled = false; btn.textContent = origText || 'Download Top Hitters PNG'; }}
+  }}
 }};
 </script>
 '''
@@ -1291,7 +1314,36 @@ def render_tab(teams: list[str], seeds: list[int], team_ids: dict, sport: str,
     team_to_seed = dict(zip(teams, seeds))
     id_to_team = {team_ids[t]: t for t in teams if team_ids.get(t) is not None}
 
-    # Image upload UI — one expander with 4 file uploaders, persists in session
+    # Image upload UI — one expander with 4 file uploaders, persists in session.
+    # Resize big uploads (≥600KB) so the embedded data URL stays small enough
+    # for html2canvas to capture without OOM; normalize the MIME so the data URL
+    # actually renders (some uploads arrive as application/octet-stream).
+    def _normalize_and_resize(up) -> tuple[str, str]:
+        raw = up.read()
+        mime = (up.type or '').strip()
+        if not mime or not mime.startswith('image/'):
+            ext = (Path(up.name or '').suffix.lower().lstrip('.')) if up.name else ''
+            mime = {'jpg': 'image/jpeg', 'jpeg': 'image/jpeg',
+                    'png': 'image/png',  'webp': 'image/webp'}.get(ext, 'image/jpeg')
+        if raw and len(raw) > 600_000:
+            try:
+                from PIL import Image
+                import io as _io
+                im = Image.open(_io.BytesIO(raw))
+                im.thumbnail((1200, 1500), Image.LANCZOS)
+                buf = _io.BytesIO()
+                if mime == 'image/png':
+                    im.save(buf, format='PNG', optimize=True)
+                elif mime == 'image/webp':
+                    im.save(buf, format='WEBP', quality=88)
+                else:
+                    im.convert('RGB').save(buf, format='JPEG', quality=88, optimize=True)
+                    mime = 'image/jpeg'
+                raw = buf.getvalue()
+            except Exception:
+                pass
+        return base64.b64encode(raw).decode('ascii'), mime.split('/')[-1]
+
     with st.expander('Add player photos (replaces the striped placeholder)', expanded=False):
         upload_cols = st.columns(min(4, len(top)))
         for i, (_, row) in enumerate(top.iterrows()):
@@ -1305,10 +1357,9 @@ def render_tab(teams: list[str], seeds: list[int], team_ids: dict, sport: str,
                     label_visibility='collapsed',
                 )
                 if up is not None:
-                    photo_bytes = up.read()
-                    st.session_state[f'rth_photo_b64_{cb_id}'] = base64.b64encode(photo_bytes).decode('ascii')
-                    mime = up.type.split('/')[-1] if up.type else 'jpeg'
-                    st.session_state[f'rth_photo_mime_{cb_id}'] = mime
+                    b64, mime_short = _normalize_and_resize(up)
+                    st.session_state[f'rth_photo_b64_{cb_id}'] = b64
+                    st.session_state[f'rth_photo_mime_{cb_id}'] = mime_short
 
     # Lazy import for spray rendering — only when we have an NCAA pid
     try:
