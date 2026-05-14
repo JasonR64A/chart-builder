@@ -23,7 +23,7 @@ import pandas as pd
 CURRENT_YEAR = 2026
 MIN_PA = 100  # ~half a 56-game season; matches the 2.7 PA/team-game qualifier roughly
 
-STAT_KEYS = ['AVG', 'OBP', 'SLG', 'OPS', 'HR', 'RBI', 'H', 'wRC+']
+STAT_KEYS = ['AVG', 'OBP', 'SLG', 'OPS', 'HR', 'RBI', 'H', 'wRAA']
 STAT_COLS = {
     'AVG': 'batting_average',
     'OBP': 'on_base_percentage',
@@ -32,7 +32,7 @@ STAT_COLS = {
     'HR':  'home_runs',
     'RBI': 'runs_batted_in',
     'H':   'hits',
-    'wRC+': 'weighted_runs_created_plus',
+    'wRAA': 'weighted_runs_above_average',
 }
 # Lower = better for none of these (all are higher-is-better)
 
@@ -279,8 +279,10 @@ def _fmt_stat(k: str, v) -> str:
         return f'{float(v):.3f}'.lstrip('0') if 0 <= float(v) < 1 else f'{float(v):.3f}'
     if k == 'OPS':
         return f'{float(v):.3f}'
-    if k == 'wRC+':
-        return f'{int(round(float(v)))}'
+    if k == 'wRAA':
+        # Signed 1-decimal (wRAA is centered on 0; sign carries meaning)
+        f = float(v)
+        return f'{f:+.1f}'
     return f'{int(v)}'
 
 
