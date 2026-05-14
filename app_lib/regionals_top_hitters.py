@@ -501,9 +501,12 @@ _STYLES = """
   margin-top: 4px;
 }
 .rth-stats__spray svg {
-  width: 100% !important;
-  height: auto !important;
+  /* Use max-width (not forced width:100%) so the SVG keeps its intrinsic
+     aspect ratio AND html2canvas-pro can resolve layout. The browser will
+     scale it down to fit while preserving its intrinsic height attribute,
+     which is what html2canvas needs to capture the chart. */
   max-width: 100%;
+  height: auto;
   display: block;
 }
 .rth-stats__head {
@@ -1018,10 +1021,12 @@ def _row_html(idx: int, p: dict, accent: str, total_qualifiers: int) -> str:
         stat_cells.append(cell)
     spray_svg = p.get('spray_svg') or ''
     if spray_svg:
-        # Strip the SVG's hardcoded width/height attrs so CSS can size it.
-        # The element keeps its viewBox so it scales correctly.
+        # Keep the SVG's intrinsic width/height attributes — html2canvas-pro
+        # needs them to compute layout (without them it renders the SVG at
+        # 0 height and the chart vanishes from the PNG). CSS still scales
+        # the element responsively via `max-width: 100%` on the parent.
         import re as _re
-        spray_svg_flex = _re.sub(r'\swidth="[^"]+"\s+height="[^"]+"', '', spray_svg, count=1)
+        spray_svg_flex = spray_svg
         # Force preserveAspectRatio so the wedge stays centered as it scales
         if 'preserveAspectRatio' not in spray_svg_flex:
             spray_svg_flex = spray_svg_flex.replace('<svg ', '<svg preserveAspectRatio="xMidYMax meet" ', 1)
@@ -1354,8 +1359,9 @@ def render_tab(teams: list[str], seeds: list[int], team_ids: dict, sport: str,
         return base64.b64encode(raw).decode('ascii'), mime.split('/')[-1]
 
     with st.expander('Add player photos (replaces the striped placeholder)', expanded=False):
-        st.caption('Focal point Y: 0 = top of photo (head pinned to top of frame), '
-                   '50 = centered, 100 = bottom. Lower the value if heads are getting cut off.')
+        st.caption('Move the slider until the head sits where you want in the preview. '
+                   '0 = top of photo at top of frame, 100 = bottom of photo at top of frame. '
+                   'The preview matches the actual headshot crop in the graphic.')
         upload_cols = st.columns(min(4, len(top)))
         for i, (_, row) in enumerate(top.iterrows()):
             cb_id = int(row['player_id']) if pd.notna(row.get('player_id')) else None
@@ -1371,11 +1377,27 @@ def render_tab(teams: list[str], seeds: list[int], team_ids: dict, sport: str,
                     b64, mime_short = _normalize_and_resize(up)
                     st.session_state[f'rth_photo_b64_{cb_id}'] = b64
                     st.session_state[f'rth_photo_mime_{cb_id}'] = mime_short
-                st.slider(
-                    f'crop Y · {i+1}', min_value=0, max_value=100, value=20, step=5,
+                pos_y = st.slider(
+                    f'crop Y · {i+1}', min_value=0, max_value=100, value=20, step=1,
                     key=f'rth_photo_pos_y_{cb_id}',
                     label_visibility='collapsed',
                 )
+                # Live preview — same background-image/size/position as the
+                # rendered card so the user can dial in pos_y without having
+                # to download the PNG and check.
+                preview_b64 = st.session_state.get(f'rth_photo_b64_{cb_id}')
+                preview_mime = st.session_state.get(f'rth_photo_mime_{cb_id}', 'jpeg')
+                if preview_b64:
+                    st.markdown(
+                        f'<div style="width:100%;aspect-ratio:4/3;'
+                        f'background-image:url(data:image/{preview_mime};base64,{preview_b64});'
+                        f'background-size:cover;background-position:50% {pos_y}%;'
+                        f'border:1px solid #d4cfc4;border-radius:4px;'
+                        f'margin-top:4px;"></div>'
+                        f'<div style="font-size:10px;color:#888;text-align:right;'
+                        f'margin-top:2px;">crop Y = {pos_y}</div>',
+                        unsafe_allow_html=True,
+                    )
 
     # Lazy import for spray rendering — only when we have an NCAA pid
     try:

@@ -758,8 +758,9 @@ def render_tab(teams: list[str], seeds: list[int], team_ids: dict, sport: str,
         return _b64.b64encode(raw).decode('ascii'), mime.split('/')[-1]
 
     with st.expander('Add pitcher photos (replaces the striped placeholder)', expanded=False):
-        st.caption('Focal point Y: 0 = top of photo (head pinned to top of frame), '
-                   '50 = centered, 100 = bottom. Lower the value if heads are getting cut off.')
+        st.caption('Move the slider until the head sits where you want in the preview. '
+                   '0 = top of photo at top of frame, 100 = bottom of photo at top of frame. '
+                   'The preview matches the actual headshot crop in the graphic.')
         upload_cols = st.columns(min(4, len(top)))
         for i, (_, row) in enumerate(top.iterrows()):
             cb_id = int(row['player_id']) if pd.notna(row.get('player_id')) else None
@@ -775,11 +776,24 @@ def render_tab(teams: list[str], seeds: list[int], team_ids: dict, sport: str,
                     b64, mime_short = _normalize_and_resize(up)
                     st.session_state[f'rtp_photo_b64_{cb_id}'] = b64
                     st.session_state[f'rtp_photo_mime_{cb_id}'] = mime_short
-                st.slider(
-                    f'crop Y · {i+1}', min_value=0, max_value=100, value=20, step=5,
+                pos_y = st.slider(
+                    f'crop Y · {i+1}', min_value=0, max_value=100, value=20, step=1,
                     key=f'rtp_photo_pos_y_{cb_id}',
                     label_visibility='collapsed',
                 )
+                preview_b64 = st.session_state.get(f'rtp_photo_b64_{cb_id}')
+                preview_mime = st.session_state.get(f'rtp_photo_mime_{cb_id}', 'jpeg')
+                if preview_b64:
+                    st.markdown(
+                        f'<div style="width:100%;aspect-ratio:4/3;'
+                        f'background-image:url(data:image/{preview_mime};base64,{preview_b64});'
+                        f'background-size:cover;background-position:50% {pos_y}%;'
+                        f'border:1px solid #d4cfc4;border-radius:4px;'
+                        f'margin-top:4px;"></div>'
+                        f'<div style="font-size:10px;color:#888;text-align:right;'
+                        f'margin-top:2px;">crop Y = {pos_y}</div>',
+                        unsafe_allow_html=True,
+                    )
 
     # Spray (perspective='pitching')
     try:
