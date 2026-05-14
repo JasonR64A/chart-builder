@@ -913,12 +913,16 @@ def _row_html(idx: int, p: dict, accent: str, total_qualifiers: int) -> str:
     if ht_fmt:
         bio_parts.append(f'<span>{_xe(ht_fmt)}</span>')
     if p.get('photo_b64'):
-        # User-uploaded headshot — full-bleed, cropped to the 4:3 frame
+        # User-uploaded headshot — full-bleed, cropped to the 4:3 frame.
+        # Vertical focal point comes from the per-photo slider; default 20 keeps
+        # the head visible on tall portraits (lower number pulls top of photo
+        # into view; 50 = centered).
+        pos_y = p.get('photo_pos_y', 20)
         headshot = (
             f'<div class="rth-headshot" style="--rth-accent:{accent};">'
             f'<div style="position:absolute;inset:0;width:100%;height:100%;'
             f'background-image:url(data:image/{p.get("photo_mime","jpeg")};base64,{p["photo_b64"]});'
-            f'background-size:cover;background-position:50% 35%;"></div>'
+            f'background-size:cover;background-position:50% {pos_y}%;"></div>'
             f'</div>'
         )
     else:
@@ -1210,8 +1214,13 @@ def render_top_hitters_html(players: list[dict], regional_name: str, sport: str,
     # html2canvas script + Download PNG button at the top. Captures the
     # whole .rth-root element including all player rows.
     png_filename = f'top_hitters_{_xe(regional_name).lower().replace(" ", "_")}_{division.lower()}.png'.replace('/', '_')
+    # html2canvas-pro is a maintained fork that supports modern CSS color
+    # functions (color(), color-mix(), oklch(), lab() etc.) which the original
+    # html2canvas@1.4.1 rejects with "Attempting to parse an unsupported color
+    # function 'color'". Same window.html2canvas function surface — no other
+    # code changes needed.
     png_script = f'''
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas-pro@1.5.8/dist/html2canvas-pro.min.js"></script>
 <script>
 window.downloadTopHittersPNG = async function() {{
   var node = document.querySelector('.rth-root');
@@ -1345,6 +1354,8 @@ def render_tab(teams: list[str], seeds: list[int], team_ids: dict, sport: str,
         return base64.b64encode(raw).decode('ascii'), mime.split('/')[-1]
 
     with st.expander('Add player photos (replaces the striped placeholder)', expanded=False):
+        st.caption('Focal point Y: 0 = top of photo (head pinned to top of frame), '
+                   '50 = centered, 100 = bottom. Lower the value if heads are getting cut off.')
         upload_cols = st.columns(min(4, len(top)))
         for i, (_, row) in enumerate(top.iterrows()):
             cb_id = int(row['player_id']) if pd.notna(row.get('player_id')) else None
@@ -1360,6 +1371,11 @@ def render_tab(teams: list[str], seeds: list[int], team_ids: dict, sport: str,
                     b64, mime_short = _normalize_and_resize(up)
                     st.session_state[f'rth_photo_b64_{cb_id}'] = b64
                     st.session_state[f'rth_photo_mime_{cb_id}'] = mime_short
+                st.slider(
+                    f'crop Y · {i+1}', min_value=0, max_value=100, value=20, step=5,
+                    key=f'rth_photo_pos_y_{cb_id}',
+                    label_visibility='collapsed',
+                )
 
     # Lazy import for spray rendering — only when we have an NCAA pid
     try:
@@ -1395,6 +1411,7 @@ def render_tab(teams: list[str], seeds: list[int], team_ids: dict, sport: str,
 
         photo_b64 = st.session_state.get(f'rth_photo_b64_{cb_id}') if cb_id is not None else None
         photo_mime = st.session_state.get(f'rth_photo_mime_{cb_id}', 'jpeg') if cb_id is not None else 'jpeg'
+        photo_pos_y = st.session_state.get(f'rth_photo_pos_y_{cb_id}', 20) if cb_id is not None else 20
 
         # BB% / K% for the discipline scatter
         pa_v = row.get('plate_appearances', 0) or 0
@@ -1447,6 +1464,7 @@ def render_tab(teams: list[str], seeds: list[int], team_ids: dict, sport: str,
             'k_pct': k_pct,
             'photo_b64': photo_b64,
             'photo_mime': photo_mime,
+            'photo_pos_y': photo_pos_y,
             'team_logo_b64': team_logo_b64,
         })
 
