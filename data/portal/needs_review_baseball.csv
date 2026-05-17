@@ -1,6 +1,4 @@
 ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfer_date,update_date,status,year,sport,team_id,player_id_64a,player_id_ncaa_stats,matched_name,match_score,match_method,confidence,position,class_year,player_csv_team_id
-2304880081,ANDREW,BRADLEY,Andrew Bradley,Oklahoma Christian University,Lone Star Conference,II,05/05/2026,05/05/2026,Active,2025-26,Baseball,579,150828,,Drew Bradley,92.0,team+lastname,LOW,C,So,579
-2310135336,ALEXANDER,BLANKENSHIP,Alexander Blankenship,Methodist University,USA South Athletic Conference,III,04/23/2026,04/23/2026,Active,2025-26,Baseball,468,150899,,Alex Blankenship,92.0,team+lastname,LOW,P,Fr,468
 2502509948,COLLIN,PARKER,Collin Parker,Mount St. Mary's University,Metro Atlantic Athletic Conference,I,09/25/2025,01/28/2026,Active,2025-26,Baseball,509,19566,1774313,Vaughn Parker,46.2,team+lastname_diff_first,REVIEW,INF,,509
 2311167009,AIDEN,FOX,Aiden Fox,"Pennsylvania Western University, Clarion",Pennsylvania State Athletic Conference,II,12/16/2025,12/16/2025,Active,2025-26,Baseball,155,5828,2136368,Danny Fox,66.7,team+lastname_diff_first,REVIEW,P,,155
 2408388116,ERIC,MYKUT,Eric Mykut,Millersville University of Pennsylvania,Pennsylvania State Athletic Conference,II,12/12/2025,12/12/2025,Active,2025-26,Baseball,476,18248,2137204,Alex Mykut,70.0,team+lastname_diff_first,REVIEW,P,,476
