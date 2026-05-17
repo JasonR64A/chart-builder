@@ -1,2 +1,3 @@
 ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfer_date,update_date,status,year,sport,team_id,player_id_64a,player_id_ncaa_stats,matched_name,match_score,match_method,confidence,position,class_year,player_csv_team_id
-2009931110,SAMANTHA,RODGERS,Samantha Rodgers,U.S. Military Academy,Patriot League,I,05/17/2026,05/17/2026,Active,2025-26,Softball,1330,107091,3109151,Sam Rodgers,81.5,team+lastname_diff_first,REVIEW,C,So,1330
+2202446245,CATHLEEN,SIELAFF,Cathleen Sielaff,Missouri Western State University,Mid-America Intercollegiate Athletics Association,II,05/11/2026,05/11/2026,Active,2025-26,Softball,1545,143474,3107166,Kinnick Sielaff,58.1,team+lastname_diff_first,REVIEW,C,So,1545
+2305911564,SAYLOR,DAVIS,Saylor Davis,Oklahoma State University,Big 12 Conference,I,12/01/2025,12/02/2025,Active,2025-26,Softball,1119,96723,2950410,Rosie Davis,60.9,team+lastname_diff_first,REVIEW,3B,Jr,1119
