@@ -386,26 +386,26 @@ with st.expander('Stats strip (5 cells)', expanded=True):
         d_s3_lab, d_s3_val_html, d_s3_sub = 'wRC+', wrcp_str, wrcp_sub
         d_s4_lab, d_s4_val, d_s4_sub = 'wRCE', wrce_str, wrce_sub
     elif is_pitcher_player and pitcher_2026 is not None:
-        era = fmt_rate(pitcher_2026.get('earned_run_average'), 2)
+        fip = fmt_rate(pitcher_2026.get('fielding_independent_pitching'), 2)
         whip = fmt_rate(pitcher_2026.get('walks_plus_hits_per_inning_pitched'), 2)
+        siera = fmt_rate(pitcher_2026.get('skill_interactive_earned_run_average'), 2)
+        aops = fmt_slash(pitcher_2026.get('on_base_plus_slugging_against'), 3)
         ip = fmt_rate(pitcher_2026.get('innings_pitched'), 1)
         kp = pitcher_2026.get('strikeout_percentage')
         kp_str = f'{float(kp)*100:.1f}%' if pd.notna(kp) else '—'
         k = season_int(pitcher_2026, 'strikeouts')
         bb = season_int(pitcher_2026, 'walks_issued')
-        w = season_int(pitcher_2026, 'wins')
-        l = season_int(pitcher_2026, 'losses')
         g = season_int(pitcher_2026, 'games_appeared') or season_int(pitcher_2026, 'appearances')
 
         d_hero_lab = '2026 PITCHING LINE'
-        d_hero_val = f'{era} / {whip} / {kp_str}'
-        d_hero_sub = f'ERA · WHIP · K% · {g} G'
+        d_hero_val = f'{fip} / {whip} / {siera}'
+        d_hero_sub = f'FIP · WHIP · SIERA · {g} G'
         d_s1_lab, d_s1_val, d_s1_sub = 'IP', ip, ''
         d_s2_lab, d_s2_val, d_s2_sub = 'K', str(k), f'{kp_str} K%'
         d_s3_lab, d_s3_val_html, d_s3_sub = ('K / BB',
             f'{k}<span style="color:var(--crimson-hot); font-size:32px; padding: 0 4px;">/</span>{bb}',
             f'{(k/bb if bb else 0):.2f} RATIO')
-        d_s4_lab, d_s4_val, d_s4_sub = 'W-L', f'{w}-{l}', ''
+        d_s4_lab, d_s4_val, d_s4_sub = 'A-OPS', aops, ''
     else:
         d_hero_lab = '2026 SLASH LINE'
         d_hero_val = '.000 / .000 / .000'
