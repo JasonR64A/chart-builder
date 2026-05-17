@@ -53,7 +53,29 @@ def load_decisions_from_supabase():
 # Build tag — bump on every meaningful change to verify Render is serving the
 # current code. If the user reports a save failure but the build tag shown in
 # the UI doesn't match the latest push, Streamlit Cloud is still on stale code.
-BUILD = 'portal-review-2026-05-19-v4'
+BUILD = 'portal-review-2026-05-19-v5'
+
+
+def delete_decisions_from_supabase(ncaa_ids):
+    """DELETE the given ncaa_ids from portal_review_decisions.
+    Used when user clears a row to blank/blank in the past-decisions form —
+    they want the decision removed entirely, not stored as empty values."""
+    if not ncaa_ids:
+        return True, {'deleted_count': 0}
+    diag = {'attempted_ids': list(ncaa_ids), 'status_code': None, 'response_body_head': ''}
+    try:
+        ids_clause = ','.join(f'"{n}"' for n in ncaa_ids)
+        resp = requests.delete(
+            sb_url(DECISIONS_TABLE) + f'?ncaa_id=in.({ids_clause})',
+            headers={**HEADERS, 'Prefer': 'return=representation'},
+            timeout=15,
+        )
+        diag['status_code'] = resp.status_code
+        diag['response_body_head'] = resp.text[:400]
+        return resp.status_code in (200, 204), diag
+    except Exception as e:
+        diag['exception'] = repr(e)
+        return False, diag
 
 
 def save_decisions_to_supabase(decisions, target_ncaa_ids=None):
@@ -578,14 +600,20 @@ if show_past and decided_items:
             )
             if past_submitted:
                 changed = 0
-                changed_ncaa_ids = []
-                detection_log = []  # per-row diagnostic
+                changed_ncaa_ids = []   # for upsert
+                deleted_ncaa_ids = []   # cleared to blank/blank
+                detection_log = []
                 for item in past_form:
                     new_action = item['new_action']
                     new_override = item['new_override'].strip()
                     if new_override and not new_action:
                         new_action = 'adjust'
                     did_change = (new_action != item['old_action']) or (new_override != item['old_override'])
+                    # User cleared BOTH fields → wants the decision removed entirely.
+                    # Fix 2026-05-19: the prior save filter skipped these silently
+                    # so the existing Supabase row stayed. Now we route them to
+                    # an explicit DELETE.
+                    is_clear = did_change and not new_action and not new_override
                     detection_log.append({
                         'ncaa_id': item['ncaa_id'],
                         'old_action': item['old_action'],
@@ -593,35 +621,47 @@ if show_past and decided_items:
                         'old_override': item['old_override'],
                         'new_override': new_override,
                         'changed': did_change,
-                        'in_decisions_map_after': item['ncaa_id'] in decisions_map,
+                        'route': 'delete' if is_clear else ('upsert' if did_change else 'noop'),
                     })
                     if did_change:
-                        decisions_map[item['ncaa_id']] = {
-                            'action': new_action,
-                            'override_id': new_override,
-                        }
+                        if is_clear:
+                            # Remove from local decisions_map AND queue for DELETE
+                            decisions_map.pop(item['ncaa_id'], None)
+                            deleted_ncaa_ids.append(item['ncaa_id'])
+                        else:
+                            decisions_map[item['ncaa_id']] = {
+                                'action': new_action,
+                                'override_id': new_override,
+                            }
+                            changed_ncaa_ids.append(item['ncaa_id'])
                         changed += 1
-                        changed_ncaa_ids.append(item['ncaa_id'])
-                # Verify the decisions_map mutations actually took effect
                 for entry in detection_log:
                     if entry['changed']:
                         actual = decisions_map.get(entry['ncaa_id'])
                         entry['decisions_map_value_now'] = actual
                 if changed:
                     st.session_state.decisions = decisions_map
-                    ok, diag = save_decisions_to_supabase(
-                        decisions_map, target_ncaa_ids=changed_ncaa_ids
+                    # Two phases: DELETE the cleared rows, then UPSERT the
+                    # modified ones. Order doesn't matter (different ncaa_ids).
+                    del_ok, del_diag = delete_decisions_from_supabase(deleted_ncaa_ids)
+                    up_ok, up_diag = save_decisions_to_supabase(
+                        decisions_map, target_ncaa_ids=changed_ncaa_ids + deleted_ncaa_ids
                     )
+                    ok = del_ok and up_ok
+                    parts = []
+                    if changed_ncaa_ids: parts.append(f'{len(changed_ncaa_ids)} upsert')
+                    if deleted_ncaa_ids: parts.append(f'{len(deleted_ncaa_ids)} delete')
+                    summary = ' + '.join(parts) or 'nothing'
                     if ok:
                         st.success(
-                            f'Updated {changed} decision(s) in Supabase. '
+                            f'Applied {summary} ({changed} total) to Supabase. '
                             f'Re-run the portal pipeline to apply changes to '
                             f'`portal_rank_player.csv` / `player_rank.csv`.'
                         )
                     else:
-                        st.error('Failed to save updates to Supabase')
+                        st.error(f'Some operations failed: upsert_ok={up_ok}  delete_ok={del_ok}')
                     with st.expander('Save diagnostic (open if Supabase didn\'t update)', expanded=not ok):
-                        st.json(diag)
+                        st.json({'upsert': up_diag, 'delete': del_diag})
                 else:
                     st.info('No changes detected.')
                 # Per-row detection log — shows for EVERY row in past_form whether
