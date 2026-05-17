@@ -50,38 +50,102 @@ def load_decisions_from_supabase():
         return {}
 
 
-def save_decisions_to_supabase(decisions):
+# Build tag — bump on every meaningful change to verify Render is serving the
+# current code. If the user reports a save failure but the build tag shown in
+# the UI doesn't match the latest push, Streamlit Cloud is still on stale code.
+BUILD = 'portal-review-2026-05-19-v3'
+
+
+def save_decisions_to_supabase(decisions, target_ncaa_ids=None):
+    """Returns (success, diagnostic_dict).
+    diagnostic_dict has: rows_posted, status_code, response_body_head, target_status.
+    If target_ncaa_ids is provided, we read those rows BACK after the POST and
+    surface whether they actually reflect the intended values — that's the only
+    way to know for sure Supabase applied the update."""
     rows = [
         {'ncaa_id': k, 'action': v.get('action', ''), 'override_id': v.get('override_id', '')}
         for k, v in decisions.items()
         if v.get('action') or v.get('override_id')
     ]
+    diag = {
+        'build': BUILD,
+        'rows_posted': len(rows),
+        'sample_ncaa_ids': [r['ncaa_id'] for r in rows[:3]],
+        'targets_in_payload': [],
+        'status_code': None,
+        'response_body_head': '',
+        'target_state_after': {},
+        'exception': None,
+    }
+    if target_ncaa_ids:
+        diag['targets_in_payload'] = [
+            r for r in rows if r['ncaa_id'] in set(map(str, target_ncaa_ids))
+        ]
     if not rows:
-        return True
+        diag['status_code'] = 'NO_ROWS'
+        return True, diag
     try:
-        # PostgREST upserts REQUIRE `on_conflict=<unique_column>` in the URL
-        # for the `merge-duplicates` Prefer header to actually apply updates
-        # to existing rows. Without it, PostgREST silently drops the existing
-        # rows from the upsert (it would otherwise raise a duplicate-key
-        # error). Inserts of truly-new ncaa_ids still succeed, so the response
-        # is 201 — that's why the UI reported "saved N" while existing rows
-        # were never updated. Caught 2026-05-17 after user noticed Ah'Marion
-        # Ashley (and 37 others) wouldn't update despite repeated saves.
+        # PostgREST upsert with `?on_conflict=ncaa_id` + `Prefer:merge-duplicates`.
+        # Switched to return=representation so we can surface the actual response
+        # body to the UI for debugging stale-deploy / silent-drop scenarios.
         resp = requests.post(
             sb_url(DECISIONS_TABLE) + '?on_conflict=ncaa_id',
-            headers={**HEADERS, 'Prefer': 'resolution=merge-duplicates,return=minimal'},
+            headers={**HEADERS, 'Prefer': 'resolution=merge-duplicates,return=representation'},
             json=rows,
             timeout=15,
         )
-        return resp.status_code in (200, 201, 204)
-    except Exception:
-        return False
+        diag['status_code'] = resp.status_code
+        diag['response_body_head'] = resp.text[:400]
+        ok = resp.status_code in (200, 201, 204)
+
+        # Read back the target ncaa_ids to verify Supabase actually has the
+        # values we intended. This is the smoking-gun test: if the POST returned
+        # 200/201 but target_state_after still shows the old override, then
+        # Supabase silently dropped the update.
+        if target_ncaa_ids:
+            try:
+                ids_clause = ','.join(f'"{n}"' for n in target_ncaa_ids)
+                vr = requests.get(
+                    sb_url(DECISIONS_TABLE),
+                    headers=HEADERS,
+                    params={
+                        'ncaa_id': f'in.({ids_clause})',
+                        'select': 'ncaa_id,action,override_id,updated_at',
+                    },
+                    timeout=10,
+                )
+                if vr.status_code == 200:
+                    diag['target_state_after'] = {
+                        r['ncaa_id']: {
+                            'action': r.get('action', ''),
+                            'override_id': r.get('override_id', ''),
+                            'updated_at': r.get('updated_at', ''),
+                        }
+                        for r in vr.json()
+                    }
+            except Exception as ve:
+                diag['target_state_after'] = {'_verify_error': str(ve)}
+
+        return ok, diag
+    except Exception as e:
+        diag['exception'] = repr(e)
+        return False, diag
 
 
 # ── Page config ──────────────────────────────────────────────────────────────
 st.set_page_config(page_title="Portal Player Review", layout="wide")
 st.title("Portal Player Review")
-st.caption("Only showing players that need review (100% confident matches are excluded)")
+st.caption(f"Only showing players that need review (100% confident matches are excluded) · build `{BUILD}`")
+
+# Force-refresh button — wipes the cached decisions_map and re-fetches from
+# Supabase. Useful when verifying that a save actually landed (or that another
+# session updated rows). Streamlit otherwise caches decisions_map in
+# session_state for the lifetime of the browser tab.
+_rcol1, _rcol2 = st.columns([6, 1])
+with _rcol2:
+    if st.button('🔄 Refresh from Supabase', help='Re-fetch decisions from Supabase, bypassing the session cache.'):
+        st.session_state.pop('decisions', None)
+        st.rerun()
 
 
 # ── Load players ─────────────────────────────────────────────────────────────
@@ -338,10 +402,16 @@ with st.form('review_form'):
                 decisions_map[ncaa_id] = {'action': action, 'override_id': override}
 
         st.session_state.decisions = decisions_map
-        if save_decisions_to_supabase(decisions_map):
+        # Target ncaa_ids = the ones in this form's submission (so we can
+        # surface their post-save Supabase state in the diagnostic panel).
+        targets = [d['ncaa_id'] for d in form_data if d.get('action') or d.get('override').strip()]
+        ok, diag = save_decisions_to_supabase(decisions_map, target_ncaa_ids=targets)
+        if ok:
             st.success(f'Saved {len([d for d in decisions_map.values() if d.get("action") or d.get("override_id")])} decisions to Supabase')
         else:
             st.error('Failed to save to Supabase')
+        with st.expander('Save diagnostic (open if something looks wrong)', expanded=not ok):
+            st.json(diag)
 
 # ── Past Decisions (override) ────────────────────────────────────────────────
 st.divider()
@@ -508,6 +578,7 @@ if show_past and decided_items:
             )
             if past_submitted:
                 changed = 0
+                changed_ncaa_ids = []
                 for item in past_form:
                     new_action = item['new_action']
                     new_override = item['new_override'].strip()
@@ -519,9 +590,13 @@ if show_past and decided_items:
                             'override_id': new_override,
                         }
                         changed += 1
+                        changed_ncaa_ids.append(item['ncaa_id'])
                 if changed:
                     st.session_state.decisions = decisions_map
-                    if save_decisions_to_supabase(decisions_map):
+                    ok, diag = save_decisions_to_supabase(
+                        decisions_map, target_ncaa_ids=changed_ncaa_ids
+                    )
+                    if ok:
                         st.success(
                             f'Updated {changed} decision(s) in Supabase. '
                             f'Re-run the portal pipeline to apply changes to '
@@ -529,6 +604,8 @@ if show_past and decided_items:
                         )
                     else:
                         st.error('Failed to save updates to Supabase')
+                    with st.expander('Save diagnostic (open if Supabase didn\'t update)', expanded=not ok):
+                        st.json(diag)
                 else:
                     st.info('No changes detected.')
 
