@@ -53,7 +53,7 @@ def load_decisions_from_supabase():
 # Build tag — bump on every meaningful change to verify Render is serving the
 # current code. If the user reports a save failure but the build tag shown in
 # the UI doesn't match the latest push, Streamlit Cloud is still on stale code.
-BUILD = 'portal-review-2026-05-19-v5'
+BUILD = 'portal-review-2026-05-19-v6'
 
 
 def delete_decisions_from_supabase(ncaa_ids):
@@ -382,12 +382,11 @@ with st.form('review_form'):
         else:
             cols[5].markdown(':red[unmatched]')
 
-        # Widget keys MUST be stable per (ncaa_id, source) — using positional
-        # row_idx alone causes typed values to migrate to the wrong ncaa_id
-        # when filters change (Streamlit caches widget values by key, and
-        # row_idx maps to different ncaa_ids after a re-render). Bug
-        # surfaced 2026-05-12.
-        widget_key = f"{ncaa_id}__{row['source']}"
+        # Widget keys MUST be stable per (ncaa_id, sport, source). sport
+        # included because NCAA occasionally registers one ncaa_id in both
+        # baseball and softball feeds (e.g. 2308995858), producing two rows
+        # with identical (ncaa_id, source) — duplicate key crash 2026-05-17.
+        widget_key = f"{ncaa_id}__{row['sport']}__{row['source']}"
         if has_pred:
             options = ['', 'confirm', 'adjust', 'unmatch']
             cur = existing.get('action', '')
