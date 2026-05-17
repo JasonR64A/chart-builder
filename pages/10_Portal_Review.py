@@ -53,7 +53,7 @@ def load_decisions_from_supabase():
 # Build tag — bump on every meaningful change to verify Render is serving the
 # current code. If the user reports a save failure but the build tag shown in
 # the UI doesn't match the latest push, Streamlit Cloud is still on stale code.
-BUILD = 'portal-review-2026-05-19-v3'
+BUILD = 'portal-review-2026-05-19-v4'
 
 
 def save_decisions_to_supabase(decisions, target_ncaa_ids=None):
@@ -579,18 +579,34 @@ if show_past and decided_items:
             if past_submitted:
                 changed = 0
                 changed_ncaa_ids = []
+                detection_log = []  # per-row diagnostic
                 for item in past_form:
                     new_action = item['new_action']
                     new_override = item['new_override'].strip()
                     if new_override and not new_action:
                         new_action = 'adjust'
-                    if (new_action != item['old_action']) or (new_override != item['old_override']):
+                    did_change = (new_action != item['old_action']) or (new_override != item['old_override'])
+                    detection_log.append({
+                        'ncaa_id': item['ncaa_id'],
+                        'old_action': item['old_action'],
+                        'new_action': new_action,
+                        'old_override': item['old_override'],
+                        'new_override': new_override,
+                        'changed': did_change,
+                        'in_decisions_map_after': item['ncaa_id'] in decisions_map,
+                    })
+                    if did_change:
                         decisions_map[item['ncaa_id']] = {
                             'action': new_action,
                             'override_id': new_override,
                         }
                         changed += 1
                         changed_ncaa_ids.append(item['ncaa_id'])
+                # Verify the decisions_map mutations actually took effect
+                for entry in detection_log:
+                    if entry['changed']:
+                        actual = decisions_map.get(entry['ncaa_id'])
+                        entry['decisions_map_value_now'] = actual
                 if changed:
                     st.session_state.decisions = decisions_map
                     ok, diag = save_decisions_to_supabase(
@@ -608,6 +624,17 @@ if show_past and decided_items:
                         st.json(diag)
                 else:
                     st.info('No changes detected.')
+                # Per-row detection log — shows for EVERY row in past_form whether
+                # the change-detection saw a diff. If the row the user edited
+                # shows changed=False, the widget value wasn't captured. If
+                # changed=True but in_decisions_map_after=False, the mutation
+                # didn't stick. If both are True but the row's not in the POST
+                # payload, save_decisions_to_supabase's filter dropped it.
+                changes_or_intent = [d for d in detection_log if d['changed']]
+                with st.expander(f'Per-row change detection log ({len(changes_or_intent)} rows detected as changed of {len(detection_log)} total)'):
+                    st.json(changes_or_intent[:30])
+                    if len(changes_or_intent) > 30:
+                        st.caption(f'... and {len(changes_or_intent)-30} more changed rows omitted')
 
 # ── Downloads ────────────────────────────────────────────────────────────────
 st.divider()
