@@ -59,8 +59,16 @@ def save_decisions_to_supabase(decisions):
     if not rows:
         return True
     try:
+        # PostgREST upserts REQUIRE `on_conflict=<unique_column>` in the URL
+        # for the `merge-duplicates` Prefer header to actually apply updates
+        # to existing rows. Without it, PostgREST silently drops the existing
+        # rows from the upsert (it would otherwise raise a duplicate-key
+        # error). Inserts of truly-new ncaa_ids still succeed, so the response
+        # is 201 — that's why the UI reported "saved N" while existing rows
+        # were never updated. Caught 2026-05-17 after user noticed Ah'Marion
+        # Ashley (and 37 others) wouldn't update despite repeated saves.
         resp = requests.post(
-            sb_url(DECISIONS_TABLE),
+            sb_url(DECISIONS_TABLE) + '?on_conflict=ncaa_id',
             headers={**HEADERS, 'Prefer': 'resolution=merge-duplicates,return=minimal'},
             json=rows,
             timeout=15,
