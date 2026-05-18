@@ -1,0 +1,176 @@
+year,sport,regional_host_seed,host_team,host_city,national_seed
+2014,baseball,1,Oregon St.,Corvallis,1.0
+2014,baseball,2,Florida,Gainesville,2.0
+2014,baseball,3,Virginia,Charlottesville,3.0
+2014,baseball,4,Indiana,Bloomington,4.0
+2014,baseball,5,Florida St.,Tallahassee,5.0
+2014,baseball,6,Louisiana,Lafayette,6.0
+2014,baseball,7,TCU,Fort Worth,7.0
+2014,baseball,8,LSU,Baton Rouge,8.0
+2014,baseball,9,Oklahoma St.,Stillwater,
+2014,baseball,10,Houston,Houston,
+2014,baseball,11,Louisville,Louisville,
+2014,baseball,12,Vanderbilt,Nashville,
+2014,baseball,13,Miami (FL),Coral Gables,
+2014,baseball,14,Cal Poly,San Luis Obispo,
+2014,baseball,15,Ole Miss,Oxford,
+2014,baseball,16,South Carolina,Columbia,
+2015,baseball,1,UCLA,Los Angeles,1.0
+2015,baseball,2,LSU,Baton Rouge,2.0
+2015,baseball,3,Louisville,Louisville,3.0
+2015,baseball,4,Florida,Gainesville,4.0
+2015,baseball,5,Miami (FL),Coral Gables,5.0
+2015,baseball,6,Illinois,Champaign,6.0
+2015,baseball,7,TCU,Fort Worth,7.0
+2015,baseball,8,Missouri St.,Springfield,8.0
+2015,baseball,9,Oklahoma St.,Stillwater,
+2015,baseball,10,Florida St.,Tallahassee,
+2015,baseball,11,DBU,Dallas,
+2015,baseball,12,Houston,Houston,
+2015,baseball,13,Texas A&M,College Station,
+2015,baseball,14,Cal St. Fullerton,Fullerton,
+2015,baseball,15,Vanderbilt,Nashville,
+2016,baseball,1,Florida,Gainesville,1.0
+2016,baseball,2,Louisville,Louisville,2.0
+2016,baseball,3,Miami (FL),Coral Gables,3.0
+2016,baseball,4,Texas A&M,College Station,4.0
+2016,baseball,5,Texas Tech,Lubbock,5.0
+2016,baseball,6,Mississippi St.,Starkville,6.0
+2016,baseball,7,Clemson,Clemson,7.0
+2016,baseball,8,LSU,Baton Rouge,8.0
+2016,baseball,9,Florida St.,Tallahassee,
+2016,baseball,10,NC State,Raleigh,
+2016,baseball,11,TCU,Fort Worth,
+2016,baseball,12,Virginia,Charlottesville,
+2016,baseball,13,Ole Miss,Oxford,
+2016,baseball,14,Louisiana,Lafayette,
+2016,baseball,15,Vanderbilt,Nashville,
+2016,baseball,16,South Carolina,Columbia,
+2017,baseball,1,Oregon St.,Corvallis,1.0
+2017,baseball,2,North Carolina,Chapel Hill,2.0
+2017,baseball,3,Florida,Gainesville,3.0
+2017,baseball,4,LSU,Baton Rouge,4.0
+2017,baseball,5,Texas Tech,Lubbock,5.0
+2017,baseball,6,TCU,Fort Worth,6.0
+2017,baseball,7,Louisville,Louisville,7.0
+2017,baseball,8,Stanford,Stanford,8.0
+2017,baseball,9,Clemson,Clemson,
+2017,baseball,10,Long Beach St.,Long Beach,
+2017,baseball,11,Florida St.,Tallahassee,
+2017,baseball,12,Southern Miss.,Hattiesburg,
+2017,baseball,13,Wake Forest,Winston-Salem,
+2017,baseball,14,Arkansas,Fayetteville,
+2017,baseball,15,Kentucky,Lexington,
+2017,baseball,16,Houston,Houston,
+2018,baseball,1,Florida,Gainesville,1.0
+2018,baseball,2,Stanford,Stanford,2.0
+2018,baseball,3,Oregon St.,Corvallis,3.0
+2018,baseball,4,Ole Miss,Oxford,4.0
+2018,baseball,5,Arkansas,Fayetteville,5.0
+2018,baseball,6,North Carolina,Chapel Hill,6.0
+2018,baseball,7,Florida St.,Tallahassee,7.0
+2018,baseball,8,Georgia,Athens,8.0
+2018,baseball,9,Texas Tech,Lubbock,
+2018,baseball,10,Clemson,Clemson,
+2018,baseball,11,Stetson,DeLand,
+2018,baseball,12,East Carolina,Greenville,
+2018,baseball,13,Texas,Austin,
+2018,baseball,14,Minnesota,Minneapolis,
+2018,baseball,15,Coastal Carolina,Conway,
+2018,baseball,16,NC State,Raleigh,
+2019,baseball,1,UCLA,Los Angeles,1.0
+2019,baseball,2,Vanderbilt,Nashville,2.0
+2019,baseball,3,Georgia Tech,Atlanta,3.0
+2019,baseball,4,Georgia,Athens,4.0
+2019,baseball,5,Arkansas,Fayetteville,5.0
+2019,baseball,6,Mississippi St.,Starkville,6.0
+2019,baseball,7,Louisville,Louisville,7.0
+2019,baseball,8,Texas Tech,Lubbock,8.0
+2019,baseball,9,Oklahoma St.,Stillwater,
+2019,baseball,10,East Carolina,Greenville,
+2019,baseball,11,Stanford,Stanford,
+2019,baseball,12,Ole Miss,Oxford,
+2019,baseball,13,LSU,Baton Rouge,
+2019,baseball,14,North Carolina,Chapel Hill,
+2019,baseball,15,West Virginia,Morgantown,
+2019,baseball,16,Oregon St.,Corvallis,
+2021,baseball,1,Arkansas,Fayetteville,1.0
+2021,baseball,2,Texas,Austin,2.0
+2021,baseball,3,Tennessee,Knoxville,3.0
+2021,baseball,4,Vanderbilt,Nashville,4.0
+2021,baseball,5,Arizona,Tucson,5.0
+2021,baseball,6,TCU,Fort Worth,6.0
+2021,baseball,7,Mississippi St.,Starkville,7.0
+2021,baseball,8,Texas Tech,Lubbock,8.0
+2021,baseball,9,Stanford,Stanford,
+2021,baseball,10,Notre Dame,Notre Dame,
+2021,baseball,11,Old Dominion,Columbia,
+2021,baseball,12,Ole Miss,Oxford,
+2021,baseball,13,East Carolina,Greenville,
+2021,baseball,14,Oregon,Eugene,
+2021,baseball,15,Florida,Gainesville,
+2021,baseball,16,Louisiana Tech,Ruston,
+2022,baseball,1,Tennessee,Knoxville,1.0
+2022,baseball,2,Stanford,Stanford,2.0
+2022,baseball,3,Oregon St.,Corvallis,3.0
+2022,baseball,4,Virginia Tech,Blacksburg,4.0
+2022,baseball,5,Texas A&M,College Station,5.0
+2022,baseball,6,Miami (FL),Coral Gables,6.0
+2022,baseball,7,Oklahoma St.,Stillwater,7.0
+2022,baseball,8,East Carolina,Greenville,8.0
+2022,baseball,9,Texas,Austin,
+2022,baseball,10,North Carolina,Chapel Hill,
+2022,baseball,11,Southern Miss.,Hattiesburg,
+2022,baseball,12,Louisville,Louisville,
+2022,baseball,13,Florida,Gainesville,
+2022,baseball,14,Auburn,Auburn,
+2022,baseball,15,Maryland,College Park,
+2022,baseball,16,Ga. Southern,Statesboro,
+2023,baseball,1,Wake Forest,Winston-Salem,1.0
+2023,baseball,2,Florida,Gainesville,2.0
+2023,baseball,3,Arkansas,Fayetteville,3.0
+2023,baseball,4,Clemson,Clemson,4.0
+2023,baseball,5,LSU,Baton Rouge,5.0
+2023,baseball,6,Vanderbilt,Nashville,6.0
+2023,baseball,7,Virginia,Charlottesville,7.0
+2023,baseball,8,Stanford,Stanford,8.0
+2023,baseball,9,Miami (FL),Coral Gables,
+2023,baseball,10,Coastal Carolina,Conway,
+2023,baseball,11,Oklahoma St.,Stillwater,
+2023,baseball,12,Kentucky,Lexington,
+2023,baseball,13,Auburn,Auburn,
+2023,baseball,14,Indiana St.,Terre Haute,
+2023,baseball,15,South Carolina,Columbia,
+2023,baseball,16,Alabama,Tuscaloosa,
+2024,baseball,1,Tennessee,Knoxville,1.0
+2024,baseball,2,Kentucky,Lexington,2.0
+2024,baseball,3,Texas A&M,College Station,3.0
+2024,baseball,4,North Carolina,Chapel Hill,4.0
+2024,baseball,5,Arkansas,Fayetteville,5.0
+2024,baseball,6,Clemson,Clemson,6.0
+2024,baseball,7,Georgia,Athens,7.0
+2024,baseball,8,Florida St.,Tallahassee,8.0
+2024,baseball,9,Oklahoma,Norman,
+2024,baseball,10,NC State,Raleigh,
+2024,baseball,11,Oklahoma St.,Stillwater,
+2024,baseball,12,Virginia,Charlottesville,
+2024,baseball,13,Arizona,Tucson,
+2024,baseball,14,UC Santa Barbara,Santa Barbara,
+2024,baseball,15,Oregon St.,Corvallis,
+2024,baseball,16,East Carolina,Greenville,
+2025,baseball,1,Vanderbilt,Nashville,1.0
+2025,baseball,2,Texas,Austin,2.0
+2025,baseball,3,Arkansas,Fayetteville,3.0
+2025,baseball,4,Auburn,Auburn,4.0
+2025,baseball,5,North Carolina,Chapel Hill,5.0
+2025,baseball,6,LSU,Baton Rouge,6.0
+2025,baseball,7,Georgia,Athens,7.0
+2025,baseball,8,Oregon St.,Corvallis,8.0
+2025,baseball,9,Florida St.,Tallahassee,
+2025,baseball,10,Ole Miss,Oxford,
+2025,baseball,11,Clemson,Clemson,
+2025,baseball,12,Oregon,Eugene,
+2025,baseball,13,Coastal Carolina,Conway,
+2025,baseball,14,Tennessee,Knoxville,
+2025,baseball,15,UCLA,Los Angeles,
+2025,baseball,16,Southern Miss.,Hattiesburg,
