@@ -361,7 +361,8 @@ with st.form('review_form'):
 
         cols = st.columns([2.5, 1.2, 2, 3, 1, 1.2, 1.5, 1.5])
 
-        cols[0].write(row['portal_name'])
+        sport_tag = ':blue[**BB**]' if row['sport'] == 'baseball' else ':orange[**SB**]'
+        cols[0].markdown(f"{sport_tag} &nbsp; {row['portal_name']}")
 
         cols[1].write(f"`{row['ncaa_id']}`")
 
@@ -551,8 +552,9 @@ if show_past and decided_items:
             past_form = []
             for row_idx, (_, row) in enumerate(fdf.iterrows()):
                 cols = st.columns([2.2, 1.2, 2.5, 1, 1.3, 1.3, 0.8])
-                cols[0].write(
-                    f"{row['portal_name']}  \n"
+                sport_tag = ':blue[**BB**]' if row['sport'] == 'baseball' else ':orange[**SB**]'
+                cols[0].markdown(
+                    f"{sport_tag} &nbsp; {row['portal_name']}  \n"
                     f"_{row['institution']} (D-{row['division']})_"
                 )
                 cols[1].write(f"`{row['ncaa_id']}`")
