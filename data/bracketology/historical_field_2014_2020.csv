@@ -1,4 +1,118 @@
 year,sport,school,conference,record,berth_type
+2013,baseball,Binghamton,America East,30–23 (16–13),Tournament
+2013,baseball,North Carolina,ACC,52–8 (21–7),Tournament
+2013,baseball,East Tennessee State,Atlantic Sun,36–22 (17–10),Tournament
+2013,baseball,Saint Louis,Atlantic 10,41–18 (17–7),Tournament
+2013,baseball,Oklahoma,Big 12,40–19 (13–11),Tournament
+2013,baseball,Connecticut,Big East,34–26 (9–15),Tournament
+2013,baseball,Liberty,Big South,29–26 (13–11),Tournament
+2013,baseball,Indiana,Big Ten,40–13 (17–7),Tournament
+2013,baseball,Cal State Fullerton,Big West,48–8 (23–4),Regular season
+2013,baseball,Towson,Colonial,29–28 (14–13),Tournament
+2013,baseball,Rice,Conference USA,41-17(15–9),Tournament
+2013,baseball,Valparaiso,Horizon,31–26 (13–11),Tournament
+2013,baseball,Columbia,Ivy League,26–19 (16–4),Championship series
+2013,baseball,Canisius,Metro Atlantic,39–15 (13–9),Tournament
+2013,baseball,Bowling Green,Mid-American,24–28 (13–14),Tournament
+2013,baseball,Savannah State,Mid-Eastern,30–22 (17–7),Tournament
+2013,baseball,Wichita State,Missouri Valley,34–25 (15–6),Tournament
+2013,baseball,San Diego State,Mountain West,26–28 (15–15),Tournament
+2013,baseball,Bryant,Northeast,40-15-1 (27–5),Tournament
+2013,baseball,Austin Peay State,Ohio Valley,42–13 (22–7),Tournament
+2013,baseball,Oregon State,Pac-12,45–10 (24–6),Regular season
+2013,baseball,Army,Patriot,29–21 (11–9),Tournament
+2013,baseball,LSU,Southeastern,52–9 (23–7),Tournament
+2013,baseball,Elon,Southern,28–28 (18–11),Tournament
+2013,baseball,Central Arkansas,Southland,34–19 (12–15),Tournament
+2013,baseball,Jackson State,Southwestern Athletic,34–20 (19–5),Tournament
+2013,baseball,South Dakota State,Summit,31–22 (16–10),Tournament
+2013,baseball,Florida Atlantic,Sun Belt,36–20 (19–11),Tournament
+2013,baseball,San Diego,West Coast,34–23 (15–9),Tournament
+2013,baseball,UTSA,Western Athletic,33–22 (15–11),Tournament
+2013,baseball,SEC,9,"Alabama, Arkansas, Florida, LSU, Mississippi State, Ole Miss, South Carolina, Texas A&M, Vanderbilt",
+2013,baseball,ACC,8,"Clemson, Florida State, Georgia Tech, Miami, North Carolina, NC State, Virginia, Virginia Tech",
+2013,baseball,Pac-12,4,"Arizona State, Oregon, Oregon State, UCLA",
+2013,baseball,Sun Belt,4,"Florida Atlantic, Louisiana–Lafayette, South Alabama, Troy",
+2013,baseball,Big 12,3,"Kansas State, Oklahoma, Oklahoma State",
+2013,baseball,Big West,3,"Cal Poly, Cal State Fullerton, UC Santa Barbara",
+2013,baseball,Colonial,3,"Towson, UNC Wilmington, William & Mary",
+2013,baseball,Atlantic Sun,2,"East Tennessee State, Mercer",
+2013,baseball,Big East,2,"Connecticut, Louisville",
+2013,baseball,Big South,2,"Coastal Carolina, Liberty",
+2013,baseball,Big Ten,2,"Illinois, Indiana",
+2013,baseball,Mountain West,2,"New Mexico, San Diego State",
+2013,baseball,Southland,2,"Central Arkansas, Sam Houston State",
+2013,baseball,West Coast,2,"San Diego, San Francisco",
+2013,baseball,America East,1,Binghamton,
+2013,baseball,Atlantic 10,1,Saint Louis,
+2013,baseball,Conference USA,1,Rice,
+2013,baseball,Horizon,1,Valparaiso,
+2013,baseball,Ivy,1,Columbia,
+2013,baseball,MAAC,1,Canisius,
+2013,baseball,Mid-American,1,Bowling Green,
+2013,baseball,MEAC,1,Savannah State,
+2013,baseball,Missouri Valley,1,Wichita State,
+2013,baseball,NEC,1,Bryant,
+2013,baseball,Ohio Valley,1,Austin Peay State,
+2013,baseball,Patriot,1,Army,
+2013,baseball,Southern,1,Elon,
+2013,baseball,SWAC,1,Jackson State,
+2013,baseball,Summit,1,South Dakota State,
+2013,baseball,WAC,1,UTSA,
+2013,baseball,Louisville,Big East,51–12 (20–4),Dan McDonnell
+2013,baseball,Mississippi State,SEC,48–18 (16–14),John Cohen
+2013,baseball,NC State,ACC,49–14 (19–10),Elliott Avent
+2013,baseball,UCLA,Pac-12,44–17 (21–9),John Savage
+2013,baseball,P,Adam Plutko ( MOP ),UCLA,
+2013,baseball,Nick Vander Tuig,UCLA,,
+2013,baseball,C,Brian Holberton,North Carolina,
+2013,baseball,1B,Wes Rea,Mississippi State,
+2013,baseball,2B,Brett Pirtle,Mississippi State,
+2013,baseball,3B,Colin Moran,North Carolina,
+2013,baseball,SS,Pat Valaika,UCLA,
+2013,baseball,OF,Michael Conforto,Oregon State,
+2013,baseball,Eric Filia,UCLA,,
+2013,baseball,Hunter Renfroe,Mississippi State,,
+2013,baseball,DH,Trey Porter,Mississippi State,
+2013,baseball,1st,UCLA,10–0,
+2013,baseball,2nd,Mississippi State,8–3,
+2013,baseball,3rd,#1 North Carolina,7–4,
+2013,baseball,#3 Oregon State,7–3,,
+2013,baseball,5th,Indiana,6–2,
+2013,baseball,7th,Louisville,5–2,
+2013,baseball,#4 LSU,5–2,,
+2013,baseball,9th,#5 Cal State Fullerton,3–2,
+2013,baseball,#7 Florida State,3–2,,
+2013,baseball,Kansas State,4–2,,
+2013,baseball,South Carolina,4–2,,
+2013,baseball,#2 Vanderbilt,3–3,,
+2013,baseball,#6 Virginia,3–2,,
+2013,baseball,17th,Arizona State,2–2,
+2013,baseball,Arkansas,2–2,,
+2013,baseball,Georgia Tech,3–2,,
+2013,baseball,Louisiana–Lafayette,2–2,,
+2013,baseball,Oklahoma State,2–2,,
+2013,baseball,#8 Oregon,3–2,,
+2013,baseball,Texas A&M,2–2,,
+2013,baseball,Troy,2–2,,
+2013,baseball,Virginia Tech,2–2,,
+2013,baseball,William & Mary,2–2,,
+2013,baseball,33rd,Alabama,1–2,
+2013,baseball,Cal Poly,1–2,,
+2013,baseball,Clemson,1–2,,
+2013,baseball,Illinois,1–2,,
+2013,baseball,Miami (FL),1–2,,
+2013,baseball,Ole Miss,1–2,,
+2013,baseball,Sam Houston State,1–2,,
+2013,baseball,San Francisco,1–2,,
+2013,baseball,South Alabama,1–2,,
+2013,baseball,UC Santa Barbara,1–2,,
+2013,baseball,UNC Wilmington,1–2,,
+2013,baseball,49th,Army,0–2,
+2013,baseball,Coastal Carolina,0–2,,
+2013,baseball,Florida,0–2,,
+2013,baseball,Mercer,0–2,,
+2013,baseball,New Mexico,0–2,,
 2014,baseball,Binghamton,America East,25–25 (11–12),Tournament
 2014,baseball,Houston,American,44–15 (14–9),Tournament
 2014,baseball,Georgia Tech,Atlantic Coast,36–25 (14–16),Tournament
