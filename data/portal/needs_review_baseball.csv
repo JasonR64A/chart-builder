@@ -1,8 +1,2 @@
 ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfer_date,update_date,status,year,sport,team_id,player_id_64a,player_id_ncaa_stats,matched_name,match_score,match_method,confidence,position,class_year,player_csv_team_id
-2111365383,BENJAMIN,CHERICO,Benjamin Cherico,Saint Louis University,Atlantic 10 Conference,I,05/19/2026,05/19/2026,Active,2025-26,Baseball,670,59557,2798259,Ben Cherico,92.0,team+lastname,LOW,P,Sr,670
-2211713141,MILES,NELSON,Miles Nelson,Trevecca Nazarene University,Gulf South Conference,II,05/19/2026,05/19/2026,Active,2025-26,Baseball,795,137489,3242675,M. Nelson,76.2,team+lastname_diff_first,REVIEW,3B,So,795
-2410439424,BRYCE,MESSER,Bryce Messer,Trevecca Nazarene University,Gulf South Conference,II,05/19/2026,05/19/2026,Active,2025-26,Baseball,795,137487,3247379,B. Messer,76.2,team+lastname_diff_first,REVIEW,SS,Fr,795
-2309115674,JAMES,GILSON,James Gilson,Flagler College,Peach Belt Conference,II,05/19/2026,05/19/2026,Active,2025-26,Baseball,264,104890,3101977,George Gilson,48.0,team+lastname_diff_first,REVIEW,RF,So,264
-2110343558,JEROME,MANARCHUCK,Jerome Manarchuck,Mount St. Mary's University,Metro Atlantic Athletic Conference,I,05/19/2026,05/19/2026,Active,2025-26,Baseball,509,57355,2809695,JB Manarchuck,80.0,team+lastname_diff_first,REVIEW,P,Sr,509
-2110352618,JONATHAN,WEBB,Jonathan Webb,Central Michigan University,Mid-American Conference,I,05/19/2026,05/19/2026,Active,2025-26,Baseball,137,69714,2949897,Bryson Webb,58.3,team+lastname_diff_first,REVIEW,3B,Jr,137
-2402229553,MAXIMUS,REAUME,Maximus Reaume,Wingate University,South Atlantic Conference,II,05/19/2026,05/19/2026,Active,2025-26,Baseball,917,138748,3234466,Max Reaume,82.0,team+lastname_diff_first,REVIEW,C,Fr,917
+2605930880,JACOB,CANE,Jacob Cane,Earlham College,Heartland Collegiate Athletic Conference,III,05/19/2026,05/19/2026,Active,2025-26,Baseball,219,129940,3247820,Jake Cane,92,team+lastname,LOW,RF,Fr,219
