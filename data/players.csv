@@ -70385,7 +70385,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 70443,Nick Davis,P,,FALSE,,,,291,2964582,,FALSE,77,R,R,"Pasadena, CA"
 70444,Ryan DeMartin,P,,FALSE,,,,291,2964575,,FALSE,73,R,R,"Ashburn, VA"
 70445,Johan Franco,P,Jr,FALSE,,,,291,2964567,,FALSE,73,R,R,"Queens Vlg, NY"
-70446,Ashtin Gilio,DH,Jr,FALSE,,,,291,2964568,CF,FALSE,73,B,R,"Lafayette, CO"
+70446,Ashtin Gilio,OF,Jr,FALSE,,,,291,2964568,CF,FALSE,73,B,R,"Lafayette, CO"
 70447,Joe Hollerbach,3B,,FALSE,,,,291,2964577,DH,FALSE,75,R,R,"Orinda, CA"
 70448,Ryan Keenan,P,,FALSE,,,,291,2964583,,FALSE,70,L,L,"Lighthouse Point, FL"
 70449,Marcello Mastroianni,P,Jr,TRUE,291,,,217,2964573,,FALSE,75,L,L,"Little Silver, NJ"
@@ -87316,7 +87316,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 87397,Jadelyn Van Winkle,P,,FALSE,,,,1969,2688877,1B,TRUE,,,,
 87398,Jaden Bernal,,,FALSE,,,,1588,2807762,,FALSE,63,R,R,"Temecula, CA"
 87399,Jaden Cheek,INF,,FALSE,,,,1249,2465407,,,69,,,"Martin, GA"
-87400,Jaden Colunga,OF,,FALSE,,,,1152,2806762,,,68,R,R,
+87400,Jaden Colunga,OF,Jr,TRUE,1152,,,1105,2806762,,,68,R,R,"Colton, CA"
 87401,Jaden Conrad,2B,Sr,FALSE,,,,1578,2804768,,FALSE,68,R,R,"Saint Albans, WV"
 87402,Jaden Davis,P,,FALSE,,,,1302,2668666,SS,TRUE,64,R,R,"Knightdale, NC"
 87403,Jaden Farhat,3B,,FALSE,,,,1564,2469039,,,66,R,R,"Carlstadt, NJ"
@@ -149801,3 +149801,4 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 150941,Tyler Morales,P,So,FALSE,,,,423,,,,71,R,R,"Colorado Springs, CO"
 150942,Caden Williams,C,Fr,FALSE,,,,234,,,,70,R,R,"Jacksonville, FL"
 150943,Garrett Murray,SS,Fr,FALSE,,,,632,,,,68,R,R,"Olathe, KS"
+150944,Sophia Kellogg,3B,Fr,FALSE,,,,1127,,,,,,,"Canton, MI"
