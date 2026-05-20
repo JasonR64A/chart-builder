@@ -1,2 +1,7 @@
 ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfer_date,update_date,status,year,sport,team_id,player_id_64a,player_id_ncaa_stats,matched_name,match_score,match_method,confidence,position,class_year,player_csv_team_id
-2605930880,JACOB,CANE,Jacob Cane,Earlham College,Heartland Collegiate Athletic Conference,III,05/19/2026,05/19/2026,Active,2025-26,Baseball,219,129940,3247820,Jake Cane,92,team+lastname,LOW,RF,Fr,219
+2309117571,ZAKARIYA,WHITNEY,Zakariya Whitney,Southern New Hampshire University,Northeast 10 Conference,II,05/20/2026,05/20/2026,Active,2025-26,Baseball,723,136401,3225663,Zak Whitney,81.5,team+lastname_diff_first,REVIEW,P,Fr,723
+2207627338,LEONARDO,VITALE,Leonardo Vitale,American International College,Northeast 10 Conference,II,05/20/2026,05/20/2026,Active,2025-26,Baseball,23,139367,3230079,Leo Vitale,80.0,team+lastname_diff_first,REVIEW,P,Fr,23
+1807241928,NATHANIEL,DUDECK,Nathaniel Dudeck,Central Connecticut State University,Northeast Conference,I,05/20/2026,05/20/2026,Active,2025-26,Baseball,136,71118,2951428,Nate Dudeck,92.0,team+lastname,LOW,P,Jr,136
+2505613535,TOMMY,MATHAY,Tommy Mathay,Queens University of Charlotte,Atlantic Sun Conference,I,05/20/2026,05/20/2026,Active,2025-26,Baseball,630,139735,3250329,Thomas Mathay,92.0,team+lastname,LOW,RF,Jr,630
+2007889657,JACOB,DODGE,Jacob Dodge,Metropolitan State University of Denver,Rocky Mountain Athletic Conference,II,05/20/2026,05/20/2026,Active,2025-26,Baseball,512,61584,2827133,Jake Dodge,92.0,team+lastname,LOW,1B,Jr,512
+2211716482,COLIN,AHART,Colin Ahart,Shepherd University,Pennsylvania State Athletic Conference,II,05/20/2026,05/20/2026,Active,2025-26,Baseball,699,65532,2955022,Collin Ahart,95.7,team+lastname,MEDIUM,LF,Jr,699
