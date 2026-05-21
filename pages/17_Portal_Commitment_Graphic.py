@@ -25,7 +25,9 @@ ASSETS_DIR = _APP_DIR / 'assets' / 'portal-commitment'
 ENTRANT_ASSETS = _APP_DIR / 'assets' / 'portal-entrant'  # share the 64A logo
 
 TEMPLATE_PATH = ASSETS_DIR / 'template.html'
+TEMPLATE_PORTRAIT_PATH = ASSETS_DIR / 'template_portrait.html'
 TEMPLATE_W, TEMPLATE_H = 1500, 1000
+TEMPLATE_PORTRAIT_W, TEMPLATE_PORTRAIT_H = 1080, 1350
 
 CLASS_LONG = {
     'Freshman': 'FRESHMAN', 'FR': 'FRESHMAN', 'FR.': 'FRESHMAN',
@@ -279,6 +281,15 @@ if is_pitcher_player:
 
 # ── Editable form ───────────────────────────────────────────────────────────
 st.subheader('2. Review & edit fields')
+
+format_choice = st.radio(
+    'Output format',
+    options=['Landscape (1500×1000) — Twitter/web', 'Portrait (1080×1350) — Instagram'],
+    index=0,
+    horizontal=True,
+    key='commit_format',
+)
+is_portrait = format_choice.startswith('Portrait')
 
 with st.expander('Identity', expanded=True):
     c1, c2, c3 = st.columns([3, 1, 1])
@@ -546,7 +557,32 @@ commit_date_str = commit_date_dt.strftime('%b %d, %Y').upper()
 # NAME html — let the user break on \n
 name_html = name.replace('\n', '<br/>')
 
-template = TEMPLATE_PATH.read_text(encoding='utf-8')
+template_path = TEMPLATE_PORTRAIT_PATH if is_portrait else TEMPLATE_PATH
+template = template_path.read_text(encoding='utf-8')
+
+# Portrait slash card splits {{HERO_VAL}} into 3 keyed rows. Falls back to
+# the hero label string for keys (split on ' / ' or '·') and the hero value
+# (same delimiters). Common shapes: ".301 / .479 / .463" or "FIP / WHIP / SIERA".
+def _split_three(s: str, fallback: tuple[str, str, str]) -> tuple[str, str, str]:
+    parts = [p.strip() for p in str(s).replace('·', '/').split('/') if p.strip()]
+    if len(parts) == 3:
+        return parts[0], parts[1], parts[2]
+    return fallback
+
+
+hero_label_keys = _split_three(hero_lab, ('AVG', 'OBP', 'SLG'))
+hero_value_keys = _split_three(hero_val, ('.000', '.000', '.000'))
+# If the user-provided hero_lab doesn't have keys (e.g. "2026 SLASH LINE"),
+# fall back to standard AVG/OBP/SLG (or FIP/WHIP/SIERA for pitcher).
+if not ('/' in hero_lab or '·' in hero_lab):
+    if is_pitcher_player:
+        hero_label_keys = ('FIP', 'WHIP', 'SIERA')
+    else:
+        hero_label_keys = ('AVG', 'OBP', 'SLG')
+
+slash_k1, slash_k2, slash_k3 = hero_label_keys
+slash_v1, slash_v2, slash_v3 = hero_value_keys
+
 replacements = {
     '{{NAME}}': name.replace('\n', ' '),
     '{{NAME_HTML}}': name_html,
@@ -587,6 +623,12 @@ replacements = {
     '{{CRIMSON_GLOW}}': crimson_glow,
     '{{CRIMSON_BG_HERO_A}}': crimson_bg_hero_a,
     '{{CRIMSON_BG_HERO_B}}': crimson_bg_hero_b,
+    '{{SLASH_K1}}': slash_k1,
+    '{{SLASH_V1}}': slash_v1,
+    '{{SLASH_K2}}': slash_k2,
+    '{{SLASH_V2}}': slash_v2,
+    '{{SLASH_K3}}': slash_k3,
+    '{{SLASH_V3}}': slash_v3,
 }
 rendered = template
 for k, v in replacements.items():
@@ -612,7 +654,7 @@ window.downloadCardPNG = async function(btn) {
     }));
     var canvas = await html2canvas(stage, { scale: 2, useCORS: true, allowTaint: true });
     var a = document.createElement('a');
-    a.download = 'portal_commitment.png';
+    a.download = '__PNG_FILENAME__';
     a.href = canvas.toDataURL('image/png');
     document.body.appendChild(a);
     a.click();
@@ -634,8 +676,14 @@ png_btn = """
   </button>
 </div>
 """
+png_filename = 'portal_commitment_portrait.png' if is_portrait else 'portal_commitment.png'
+png_script = png_script.replace('__PNG_FILENAME__', png_filename)
 rendered = rendered.replace('</body>', f'{png_script}{png_btn}</body>')
 
 st.subheader('3. Preview')
-_iframe_h = int(min(1080, max(640, TEMPLATE_H * 0.6))) + 70
+if is_portrait:
+    # 1080x1350 → preview at ~480 wide ⇒ 600 tall + UI room
+    _iframe_h = int(min(1200, max(720, TEMPLATE_PORTRAIT_H * 0.5))) + 70
+else:
+    _iframe_h = int(min(1080, max(640, TEMPLATE_H * 0.6))) + 70
 components.html(rendered, height=_iframe_h, scrolling=False)

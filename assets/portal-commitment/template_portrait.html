@@ -1,0 +1,551 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Portal Commitment — Portrait — {{NAME}}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --crimson: {{CRIMSON}};
+    --crimson-deep: {{CRIMSON_DEEP}};
+    --crimson-hot: {{CRIMSON_HOT}};
+    --ink: #0b0b0c;
+    --paper: #f4ecdd;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin:0; padding:0; background:#050405; font-family: 'Inter', system-ui, sans-serif; color:#fff; }
+  body { min-height:100vh; display:grid; place-items:center; padding: 24px; }
+
+  /* IG portrait: 1080 x 1350 (4:5) */
+  .stage-wrap {
+    width: min(100vw - 48px, calc((100vh - 48px) * (1080 / 1350)));
+    aspect-ratio: 1080 / 1350;
+  }
+  .stage {
+    width: 1080px; height: 1350px;
+    transform-origin: top left;
+    position: relative;
+    overflow: hidden;
+    background: #0b0608;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+  }
+
+  /* ---------- PHOTO (top, full-width, ~62% tall) ---------- */
+  .photo-wrap { position:absolute; left:0; right:0; top:0; height: 820px; overflow:hidden; }
+  .photo {
+    position:absolute; inset:0;
+    background-image: url("{{PHOTO_SRC}}");
+    background-size: cover;
+    background-position: 50% 18%;
+  }
+  /* Smooth fade from photo to dark bottom panel */
+  .photo::after {
+    content:""; position:absolute; inset:0;
+    background:
+      linear-gradient(180deg, rgba(11,6,8,0.55) 0%, rgba(11,6,8,0) 14%, rgba(11,6,8,0) 55%, rgba(11,6,8,0.85) 88%, rgba(11,6,8,1) 100%),
+      linear-gradient(90deg, rgba(11,6,8,0.4) 0%, rgba(11,6,8,0) 18%, rgba(11,6,8,0) 82%, rgba(11,6,8,0.4) 100%);
+  }
+
+  /* Bottom panel (dark, where text lives) */
+  .bottom-panel {
+    position:absolute; left:0; right:0; bottom:0; top: 760px;
+    background:
+      radial-gradient(ellipse 90% 70% at 50% 20%, {{CRIMSON_FADE}} 0%, rgba(11,6,8,0) 70%),
+      linear-gradient(180deg, rgba(11,6,8,0.7) 0%, rgba(8,4,6,1) 18%, rgba(8,4,6,1) 100%);
+  }
+
+  /* subtle grain on top */
+  .grain {
+    position:absolute; inset:0; pointer-events:none; z-index: 4;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='260'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.35 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    mix-blend-mode: overlay;
+    opacity: 0.32;
+  }
+
+  /* ---------- TOP LEFT LOGO ---------- */
+  .brand-tl {
+    position:absolute; left: 36px; top: 32px; z-index: 10;
+  }
+  .brand-tl img { height: 78px; display:block;
+    filter: drop-shadow(0 4px 12px rgba(0,0,0,0.7));
+  }
+
+  /* ---------- TOP RIGHT meta ---------- */
+  .meta-tr {
+    position:absolute; right: 36px; top: 42px; z-index: 10;
+    text-align:right;
+    font-family:'Inter', sans-serif;
+  }
+  .meta-tr .kicker {
+    font-size: 12px; letter-spacing: 0.42em; font-weight: 700;
+    color: #f2d3d8;
+    margin-bottom: 4px;
+    white-space: nowrap;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.8);
+  }
+  .meta-tr .date {
+    font-family:'Inter', sans-serif; font-weight: 800;
+    font-size: 20px; letter-spacing: 0.06em; color:#fff;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+    white-space: nowrap;
+  }
+
+  /* ---------- PORTAL RANK MEDALLION ---------- */
+  .rank {
+    position:absolute;
+    right: 36px; top: 140px;
+    z-index: 8;
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at 35% 30%, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0) 40%),
+      linear-gradient(160deg, var(--crimson) 0%, var(--crimson-deep) 100%);
+    box-shadow:
+      0 0 0 4px rgba(255,255,255,0.95),
+      0 0 0 6px rgba(11,6,8,0.9),
+      0 18px 40px rgba(0,0,0,0.55),
+      inset 0 2px 0 rgba(255,255,255,0.2);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    transform: rotate(-6deg);
+    padding: 10px;
+  }
+  .rank .hash {
+    font-family:'Inter', sans-serif; font-weight:700;
+    font-size: 16px; letter-spacing: 0.3em;
+    color: rgba(255,255,255,0.85);
+    line-height: 1;
+  }
+  .rank .num {
+    font-family:'Inter', sans-serif; font-weight:900;
+    font-size: 84px; line-height: 0.85;
+    color: #fff;
+    margin: 2px 0 4px;
+    letter-spacing: -0.04em;
+    text-shadow: 0 4px 10px rgba(0,0,0,0.35);
+  }
+  .rank .label {
+    font-family:'Inter', sans-serif; font-weight:800;
+    font-size: 10px; letter-spacing: 0.3em;
+    color: #fff; opacity: 0.95;
+    line-height: 1.15; text-align:center;
+  }
+  .rank .src {
+    font-family:'Inter', sans-serif; font-weight:700;
+    font-size: 8px; letter-spacing: 0.3em;
+    color: #fff; opacity: 0.78;
+    margin-top: 6px;
+    padding-top: 6px;
+    border-top: 1px solid rgba(255,255,255,0.35);
+    width: 75%;
+    text-align:center;
+  }
+
+  /* ---------- COMMITTED MARK (over photo, near bottom of photo zone) ---------- */
+  .eyebrow-committed {
+    position:absolute;
+    left: 40px; top: 600px;
+    font-family:'Inter', sans-serif; font-weight: 700;
+    font-size: 14px; letter-spacing: 0.55em;
+    color: var(--crimson-hot);
+    text-shadow: 0 2px 10px rgba(0,0,0,0.85);
+    z-index: 6;
+  }
+  .committed-mark {
+    position:absolute;
+    left: 40px; top: 624px;
+    z-index: 6;
+    display:flex; align-items:baseline; gap: 0;
+  }
+  .committed-mark .big {
+    font-family:'Inter', sans-serif; font-weight: 900;
+    font-size: 118px; line-height: 0.9;
+    letter-spacing: -0.04em;
+    color: #fff;
+    text-shadow: 0 4px 24px rgba(0,0,0,0.85);
+    text-transform: uppercase;
+  }
+  .committed-mark .dot {
+    font-family:'Inter', sans-serif; font-weight: 900;
+    font-size: 118px; line-height: 0.9;
+    color: var(--crimson-hot);
+    margin-left: 2px;
+  }
+
+  /* ---------- GHOST COMMITTED (behind FROM/TO panel in dark bottom) ---------- */
+  .ghost-wrap {
+    position:absolute;
+    left: 0; right: 0;
+    top: 1010px;
+    display:flex; align-items:center; justify-content:flex-start;
+    pointer-events:none;
+    z-index: 2;
+    mix-blend-mode: screen;
+    overflow: hidden;
+    height: 220px;
+    padding-left: 24px;
+  }
+  .ghost {
+    font-family:'Inter', sans-serif;
+    font-weight: 900;
+    font-size: 220px;
+    letter-spacing: -0.04em;
+    line-height: 0.8;
+    color: rgba(255,255,255,0.16);
+    white-space: nowrap;
+    text-transform: uppercase;
+  }
+
+  /* ---------- TWO-COLUMN BOTTOM ---------- */
+  .col-divider {
+    position:absolute;
+    left: 565px; top: 850px;
+    width: 1px; height: 460px;
+    background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.18) 20%, rgba(255,255,255,0.18) 80%, rgba(255,255,255,0) 100%);
+    z-index: 5;
+  }
+
+  /* LEFT COLUMN: identity stack */
+  .id-col { position:absolute; left: 40px; top: 850px; width: 510px; z-index: 6; }
+  .id-col .name {
+    font-family:'Inter', sans-serif; font-weight: 900;
+    font-size: 56px; line-height: 0.92; letter-spacing: -0.025em;
+    color:#fff;
+    text-shadow: 0 4px 16px rgba(0,0,0,0.75);
+  }
+  .id-col .badges {
+    display:flex; gap: 8px; flex-wrap: wrap;
+    margin-top: 14px;
+  }
+  .id-col .pos {
+    background: var(--crimson);
+    padding: 8px 14px 6px;
+    font-family:'Inter', sans-serif; font-weight:800;
+    font-size: 15px; letter-spacing: 0.22em;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.45);
+    color:#fff;
+    white-space: nowrap;
+  }
+  .id-col .meta-tag {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.4);
+    padding: 8px 14px 6px;
+    font-family:'Inter', sans-serif; font-weight:700;
+    font-size: 15px; letter-spacing: 0.22em;
+    color: #fff;
+    backdrop-filter: blur(4px);
+    white-space: nowrap;
+  }
+  .id-col .id-divider {
+    height: 1px;
+    background: linear-gradient(90deg, var(--crimson) 0%, rgba(157,34,53,0) 100%);
+    margin: 26px 0 20px;
+  }
+  .id-col .from-block { margin-bottom: 18px; }
+  .id-col .label {
+    font-family:'Inter', sans-serif; font-weight: 800;
+    font-size: 13px; letter-spacing: 0.5em;
+    color: #a0a0a0;
+    margin-bottom: 8px;
+  }
+  .id-col .label.red { color: var(--crimson-hot); }
+  .id-col .school-row {
+    display:flex; align-items:center; gap: 14px;
+  }
+  .id-col .school-row .text {
+    display:flex; flex-direction:column;
+  }
+  .id-col .school {
+    font-family:'Inter', sans-serif; font-weight: 900;
+    font-size: 48px; letter-spacing: -0.02em; color: #fff;
+    line-height: 1;
+    text-shadow: 0 3px 12px rgba(0,0,0,0.6);
+  }
+  .id-col .from-block .school { color: #c8c8c8; font-size: 38px; }
+  .id-col .school-sub {
+    font-family:'Inter', sans-serif; font-weight: 600;
+    font-size: 13px; letter-spacing: 0.32em;
+    color: #888;
+    margin-top: 6px;
+  }
+  .id-col .to-block .school-sub { color: var(--crimson-hot); }
+  .id-col .arrow-down {
+    margin: 14px 0 18px 8px;
+    color: var(--crimson-hot);
+  }
+  .id-col .school-logo-wrap {
+    width: 64px; height: 64px;
+    background: #fff; border-radius: 50%;
+    display:grid; place-items:center;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.55);
+    flex-shrink: 0;
+  }
+  .id-col .school-logo-wrap img { width: 48px; height: 48px; object-fit: contain; }
+
+  /* RIGHT COLUMN: stats stack */
+  .stat-col {
+    position:absolute; left: 600px; top: 850px; right: 40px;
+    z-index: 6;
+  }
+  .stat-col .col-head {
+    font-family:'Inter', sans-serif; font-weight: 800;
+    font-size: 13px; letter-spacing: 0.5em;
+    color: var(--crimson-hot);
+    margin-bottom: 14px;
+  }
+  .stat-col .slash-card {
+    background: linear-gradient(135deg, {{CRIMSON_BG_HERO_A}} 0%, {{CRIMSON_BG_HERO_B}} 100%);
+    border-top: 3px solid #fff;
+    border-bottom: 1px solid rgba(255,255,255,0.18);
+    padding: 16px 22px 18px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+    margin-bottom: 14px;
+  }
+  .stat-col .slash-card .row {
+    display:flex; align-items: baseline; justify-content: space-between;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+  }
+  .stat-col .slash-card .row:last-child { border-bottom: none; }
+  .stat-col .slash-card .row .k {
+    font-family:'Inter', sans-serif; font-weight: 800;
+    font-size: 22px; letter-spacing: 0.25em; color: #ffd2d8;
+  }
+  .stat-col .slash-card .row .v {
+    font-family:'IBM Plex Mono', monospace; font-weight: 700;
+    font-size: 46px; color: #fff;
+    letter-spacing: 0.01em; line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+  .stat-col .slash-card .sub {
+    font-family:'Inter', sans-serif; font-weight: 600;
+    font-size: 11px; letter-spacing: 0.22em; color: #f4ecdd;
+    opacity: 0.85; text-transform: uppercase;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(255,255,255,0.15);
+  }
+  .stat-col .stat-grid {
+    display:grid; grid-template-columns: 1fr 1fr; gap: 10px;
+  }
+  .stat-col .scell {
+    background: rgba(10,6,8,0.78);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-top: 3px solid var(--crimson);
+    padding: 12px 16px 12px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+    display:flex; flex-direction: column; gap: 4px;
+  }
+  .stat-col .scell .lab {
+    font-family:'Inter', sans-serif; font-weight: 800;
+    font-size: 12px; letter-spacing: 0.34em; color: var(--crimson-hot);
+  }
+  .stat-col .scell .val {
+    font-family:'Inter', sans-serif; font-weight: 900;
+    font-size: 40px; color: #fff; line-height: 1;
+    font-variant-numeric: tabular-nums; letter-spacing: -0.02em;
+  }
+  .stat-col .scell .sub {
+    font-family:'Inter', sans-serif; font-weight: 600;
+    font-size: 11px; letter-spacing: 0.22em; color: #b9b9bd;
+    text-transform: uppercase;
+  }
+
+  /* ---------- FOOTER RULE ---------- */
+  .footer-rule {
+    position:absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 36px;
+    background:
+      linear-gradient(180deg, rgba(8,4,6,0.95) 0%, rgba(8,4,6,1) 100%);
+    z-index: 8;
+    display:flex; align-items:center; justify-content: space-between;
+    padding: 0 24px;
+    border-top: 4px solid var(--crimson);
+  }
+  .footer-rule::after {
+    content:"";
+    position:absolute; left:0; right:0; top: -4px; height: 4px;
+    background:
+      linear-gradient(90deg,
+        var(--crimson) 0%,
+        var(--crimson) 70%,
+        #fff 70%,
+        #fff 72%,
+        var(--crimson-hot) 72%,
+        var(--crimson-hot) 100%);
+  }
+  .footer-rule .tag {
+    position: static;
+    font-family:'Inter', sans-serif; font-weight:700;
+    font-size: 12px; letter-spacing: 0.3em;
+    color:#fff; opacity: 0.9;
+    white-space: nowrap;
+  }
+  .footer-rule .tag-l {
+    font-family:'Inter', sans-serif; font-weight:700;
+    font-size: 11px; letter-spacing: 0.34em;
+    color:#fff; opacity: 0.7;
+  }
+
+  /* accent crimson bar bridging photo to bottom panel */
+  .accent-bar {
+    position:absolute;
+    left: 0; right: 0; top: 820px;
+    height: 6px;
+    background: var(--crimson);
+    box-shadow: 0 4px 18px {{CRIMSON_GLOW}};
+    z-index: 3;
+  }
+  .accent-bar::after {
+    content:""; position:absolute;
+    left: 0; right: 0; top: 8px;
+    height: 2px;
+    background: rgba(255,255,255,0.5);
+  }
+
+</style>
+</head>
+<body>
+  <div class="stage-wrap" id="stage-wrap">
+    <div class="stage" id="stage" data-screen-label="Portal Commitment Portrait">
+
+      <!-- Photo top -->
+      <div class="photo-wrap">
+        <div class="photo"></div>
+      </div>
+      <!-- Bottom dark panel -->
+      <div class="bottom-panel"></div>
+
+      <!-- Accent bar -->
+      <div class="accent-bar"></div>
+
+      <!-- 64 Analytics logo -->
+      <div class="brand-tl">
+        <img src="{{LOGO_SRC}}" alt="64 Analytics" />
+      </div>
+
+      <!-- Top right meta -->
+      <div class="meta-tr">
+        <div class="kicker">{{KICKER}}</div>
+        <div class="date">{{COMMIT_DATE}}</div>
+      </div>
+
+      <!-- Portal rank medallion -->
+      <div class="rank">
+        <div class="hash">NO.</div>
+        <div class="num">{{PORTAL_RANK}}</div>
+        <div class="label">PORTAL<br/>RANKING</div>
+        <div class="src">{{RANK_SRC}}</div>
+      </div>
+
+      <!-- COMMITTED hero text over photo bottom -->
+      <div class="eyebrow-committed">{{EYEBROW}}</div>
+      <div class="committed-mark">
+        <span class="big">COMMITTED</span><span class="dot">.</span>
+      </div>
+
+      <!-- GHOST behind FROM/TO -->
+      <div class="ghost-wrap"><div class="ghost">COMMITTED</div></div>
+
+      <!-- ============ TWO-COLUMN BOTTOM ============ -->
+      <div class="col-divider"></div>
+
+      <!-- LEFT: identity stack -->
+      <div class="id-col">
+        <div class="name">{{NAME_HTML}}</div>
+        <div class="badges">
+          <span class="pos">{{POS}}</span>
+          <span class="meta-tag">{{HAND_BADGE}}</span>
+        </div>
+        <div class="id-divider"></div>
+
+        <div class="from-block">
+          <div class="label">FROM</div>
+          <div class="school-row">
+            <div class="text">
+              <div class="school">{{FROM_SCHOOL}}</div>
+              <div class="school-sub">{{FROM_SUB}}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="arrow-down">
+          <svg width="28" height="36" viewBox="0 0 28 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M14 2 L14 28" stroke="currentColor" stroke-width="3" stroke-linecap="square"/>
+            <path d="M2 22 L14 34 L26 22" stroke="currentColor" stroke-width="3" fill="none" stroke-linejoin="miter"/>
+          </svg>
+        </div>
+
+        <div class="to-block">
+          <div class="label red">COMMITTED TO</div>
+          <div class="school-row">
+            <div class="school-logo-wrap"><img src="{{TO_LOGO_SRC}}" alt="{{TO_SCHOOL}}" /></div>
+            <div class="text">
+              <div class="school">{{TO_SCHOOL}}</div>
+              <div class="school-sub">{{TO_SUB}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: stats stack -->
+      <div class="stat-col">
+        <div class="col-head">{{HERO_LAB}}</div>
+
+        <div class="slash-card">
+          <div class="row"><span class="k">{{SLASH_K1}}</span><span class="v">{{SLASH_V1}}</span></div>
+          <div class="row"><span class="k">{{SLASH_K2}}</span><span class="v">{{SLASH_V2}}</span></div>
+          <div class="row"><span class="k">{{SLASH_K3}}</span><span class="v">{{SLASH_V3}}</span></div>
+          <div class="sub">{{HERO_SUB}}</div>
+        </div>
+
+        <div class="stat-grid">
+          <div class="scell">
+            <div class="lab">{{S1_LAB}}</div>
+            <div class="val">{{S1_VAL}}</div>
+            <div class="sub">{{S1_SUB}}</div>
+          </div>
+          <div class="scell">
+            <div class="lab">{{S2_LAB}}</div>
+            <div class="val">{{S2_VAL}}</div>
+            <div class="sub">{{S2_SUB}}</div>
+          </div>
+          <div class="scell">
+            <div class="lab">{{S3_LAB}}</div>
+            <div class="val">{{S3_VAL_HTML}}</div>
+            <div class="sub">{{S3_SUB}}</div>
+          </div>
+          <div class="scell">
+            <div class="lab">{{S4_LAB}}</div>
+            <div class="val">{{S4_VAL}}</div>
+            <div class="sub">{{S4_SUB}}</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- grain on top of everything -->
+      <div class="grain"></div>
+
+      <div class="footer-rule">
+        <div class="tag-l">PORTAL COMMITMENT · 64 ANALYTICS</div>
+        <div class="tag">@64ANALYTICS</div>
+      </div>
+
+    </div>
+  </div>
+
+<script>
+  function fit() {
+    const wrap = document.getElementById('stage-wrap');
+    const stage = document.getElementById('stage');
+    const s = wrap.clientWidth / 1080;
+    stage.style.transform = `scale(${s})`;
+    wrap.style.height = (1350 * s) + 'px';
+  }
+  window.addEventListener('resize', fit);
+  fit();
+</script>
+</body>
+</html>
