@@ -583,6 +583,19 @@ if not ('/' in hero_lab or '·' in hero_lab):
 slash_k1, slash_k2, slash_k3 = hero_label_keys
 slash_v1, slash_v2, slash_v3 = hero_value_keys
 
+# TO school font-size step-down: long names wrap to 2 rows and shrink to fit.
+# Threshold tuned against the available width (~224px after logo + gap)
+# at the design's default 40px font. Caught Hott -> SOUTHERN CALIFORNIA
+# truncating to "SOUTHERN CA" with ellipsis (2026-05-21).
+_to_school_clean = to_school_in.strip()
+_to_len = len(_to_school_clean)
+if _to_len <= 12:
+    to_school_len_class = ''
+elif _to_len <= 20:
+    to_school_len_class = 'long-1'
+else:
+    to_school_len_class = 'long-2'
+
 replacements = {
     '{{NAME}}': name.replace('\n', ' '),
     '{{NAME_HTML}}': name_html,
@@ -629,6 +642,7 @@ replacements = {
     '{{SLASH_V2}}': slash_v2,
     '{{SLASH_K3}}': slash_k3,
     '{{SLASH_V3}}': slash_v3,
+    '{{TO_SCHOOL_LEN_CLASS}}': to_school_len_class,
 }
 rendered = template
 for k, v in replacements.items():
