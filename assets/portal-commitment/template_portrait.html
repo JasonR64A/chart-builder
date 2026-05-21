@@ -92,10 +92,14 @@
     white-space: nowrap;
   }
 
-  /* ---------- PORTAL RANK MEDALLION ---------- */
+  /* ---------- PORTAL RANK MEDALLION ----------
+     Positioned on the LEFT side, vertically between the 64 Analytics logo
+     (top ~32-110) and the COMMITTED hero text (top ~624). Moved off the
+     top-right because the photo's translucent "64" graphic was getting
+     covered by the medallion there. */
   .rank {
     position:absolute;
-    right: 36px; top: 140px;
+    left: 36px; top: 250px;
     z-index: 8;
     width: 180px; height: 180px;
     border-radius: 50%;
@@ -173,29 +177,32 @@
     margin-left: 2px;
   }
 
-  /* ---------- GHOST COMMITTED (behind right column in dark bottom) ---------- */
-  /* Sits BEHIND the right stat column. Width capped so it never bleeds
-     into the left column or the footer (avoids the rogue "C" curve
-     appearing as a partial circle in the bottom-left, caught 2026-05-21). */
+  /* ---------- GHOST COMMITTED (left-anchored backdrop) ----------
+     Left-bound per user request (2026-05-21). Right edge fades to
+     transparent via mask so any letter that gets truncated at the
+     edge doesn't render as a visible partial curve / "semi-circle"
+     artifact. The 'O' character was the prior offender. */
   .ghost-wrap {
     position:absolute;
-    left: 600px; right: 0;
-    top: 1030px;
+    left: 0; right: 0;
+    top: 1025px;
     display:flex; align-items:center; justify-content:flex-start;
     pointer-events:none;
     z-index: 2;
     mix-blend-mode: screen;
     overflow: hidden;
-    height: 180px;
-    padding-left: 16px;
+    height: 190px;
+    padding-left: 30px;
+    -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 55%, transparent 92%);
+            mask-image: linear-gradient(90deg, #000 0%, #000 55%, transparent 92%);
   }
   .ghost {
     font-family:'Inter', sans-serif;
     font-weight: 900;
-    font-size: 180px;
+    font-size: 200px;
     letter-spacing: -0.04em;
     line-height: 0.85;
-    color: rgba(255,255,255,0.13);
+    color: rgba(255,255,255,0.14);
     white-space: nowrap;
     text-transform: uppercase;
   }
