@@ -200,17 +200,17 @@
   /* ---------- TWO-COLUMN BOTTOM ---------- */
   .col-divider {
     position:absolute;
-    left: 565px; top: 850px;
-    width: 1px; height: 460px;
+    left: 610px; top: 850px;
+    width: 1px; height: 440px;
     background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.18) 20%, rgba(255,255,255,0.18) 80%, rgba(255,255,255,0) 100%);
     z-index: 5;
   }
 
   /* LEFT COLUMN: identity stack */
-  .id-col { position:absolute; left: 40px; top: 850px; width: 510px; z-index: 6; }
+  .id-col { position:absolute; left: 40px; top: 850px; width: 540px; z-index: 6; }
   .id-col .name {
     font-family:'Inter', sans-serif; font-weight: 900;
-    font-size: 56px; line-height: 0.92; letter-spacing: -0.025em;
+    font-size: 112px; line-height: 0.92; letter-spacing: -0.035em;
     color:#fff;
     text-shadow: 0 4px 16px rgba(0,0,0,0.75);
   }
@@ -220,9 +220,9 @@
   }
   .id-col .pos {
     background: var(--crimson);
-    padding: 8px 14px 6px;
+    padding: 7px 13px 5px;
     font-family:'Inter', sans-serif; font-weight:800;
-    font-size: 15px; letter-spacing: 0.22em;
+    font-size: 14px; letter-spacing: 0.22em;
     box-shadow: 0 4px 14px rgba(0,0,0,0.45);
     color:#fff;
     white-space: nowrap;
@@ -230,9 +230,9 @@
   .id-col .meta-tag {
     background: rgba(255,255,255,0.1);
     border: 1px solid rgba(255,255,255,0.4);
-    padding: 8px 14px 6px;
+    padding: 7px 13px 5px;
     font-family:'Inter', sans-serif; font-weight:700;
-    font-size: 15px; letter-spacing: 0.22em;
+    font-size: 14px; letter-spacing: 0.22em;
     color: #fff;
     backdrop-filter: blur(4px);
     white-space: nowrap;
@@ -240,115 +240,116 @@
   .id-col .id-divider {
     height: 1px;
     background: linear-gradient(90deg, var(--crimson) 0%, rgba(157,34,53,0) 100%);
-    margin: 26px 0 20px;
+    margin: 18px 0 14px;
   }
-  .id-col .from-block { margin-bottom: 18px; }
+  .id-col .from-block { margin-bottom: 10px; }
   .id-col .label {
     font-family:'Inter', sans-serif; font-weight: 800;
-    font-size: 13px; letter-spacing: 0.5em;
+    font-size: 12px; letter-spacing: 0.5em;
     color: #a0a0a0;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
   }
   .id-col .label.red { color: var(--crimson-hot); }
   .id-col .school-row {
-    display:flex; align-items:center; gap: 14px;
+    display:flex; align-items:center; gap: 12px;
   }
   .id-col .school-row .text {
     display:flex; flex-direction:column;
   }
   .id-col .school {
     font-family:'Inter', sans-serif; font-weight: 900;
-    font-size: 48px; letter-spacing: -0.02em; color: #fff;
+    font-size: 34px; letter-spacing: -0.02em; color: #fff;
     line-height: 1;
     text-shadow: 0 3px 12px rgba(0,0,0,0.6);
   }
-  .id-col .from-block .school { color: #c8c8c8; font-size: 38px; }
+  .id-col .from-block .school { color: #c8c8c8; font-size: 26px; }
   .id-col .school-sub {
     font-family:'Inter', sans-serif; font-weight: 600;
-    font-size: 13px; letter-spacing: 0.32em;
+    font-size: 12px; letter-spacing: 0.3em;
     color: #888;
-    margin-top: 6px;
+    margin-top: 5px;
   }
   .id-col .to-block .school-sub { color: var(--crimson-hot); }
   .id-col .arrow-down {
-    margin: 14px 0 18px 8px;
+    margin: 8px 0 10px 6px;
     color: var(--crimson-hot);
   }
+  .id-col .arrow-down svg { width: 22px; height: 28px; }
   .id-col .school-logo-wrap {
-    width: 64px; height: 64px;
+    width: 52px; height: 52px;
     background: #fff; border-radius: 50%;
     display:grid; place-items:center;
     box-shadow: 0 6px 18px rgba(0,0,0,0.55);
     flex-shrink: 0;
   }
-  .id-col .school-logo-wrap img { width: 48px; height: 48px; object-fit: contain; }
+  .id-col .school-logo-wrap img { width: 38px; height: 38px; object-fit: contain; }
 
-  /* RIGHT COLUMN: stats stack */
+  /* RIGHT COLUMN: stats stack — narrower so it stops bleeding into footer */
   .stat-col {
-    position:absolute; left: 600px; top: 850px; right: 40px;
+    position:absolute; left: 640px; top: 850px; right: 50px;
     z-index: 6;
   }
   .stat-col .col-head {
     font-family:'Inter', sans-serif; font-weight: 800;
-    font-size: 13px; letter-spacing: 0.5em;
+    font-size: 12px; letter-spacing: 0.45em;
     color: var(--crimson-hot);
-    margin-bottom: 14px;
+    margin-bottom: 10px;
   }
   .stat-col .slash-card {
     background: linear-gradient(135deg, {{CRIMSON_BG_HERO_A}} 0%, {{CRIMSON_BG_HERO_B}} 100%);
     border-top: 3px solid #fff;
     border-bottom: 1px solid rgba(255,255,255,0.18);
-    padding: 16px 22px 18px;
+    padding: 12px 18px 14px;
     box-shadow: 0 12px 30px rgba(0,0,0,0.5);
-    margin-bottom: 14px;
+    margin-bottom: 10px;
   }
   .stat-col .slash-card .row {
     display:flex; align-items: baseline; justify-content: space-between;
-    padding: 6px 0;
+    padding: 3px 0;
     border-bottom: 1px solid rgba(255,255,255,0.15);
   }
-  .stat-col .slash-card .row:last-child { border-bottom: none; }
+  .stat-col .slash-card .row:last-of-type { border-bottom: none; }
   .stat-col .slash-card .row .k {
     font-family:'Inter', sans-serif; font-weight: 800;
-    font-size: 22px; letter-spacing: 0.25em; color: #ffd2d8;
+    font-size: 18px; letter-spacing: 0.25em; color: #ffd2d8;
   }
   .stat-col .slash-card .row .v {
     font-family:'IBM Plex Mono', monospace; font-weight: 700;
-    font-size: 46px; color: #fff;
+    font-size: 36px; color: #fff;
     letter-spacing: 0.01em; line-height: 1;
     font-variant-numeric: tabular-nums;
   }
   .stat-col .slash-card .sub {
     font-family:'Inter', sans-serif; font-weight: 600;
-    font-size: 11px; letter-spacing: 0.22em; color: #f4ecdd;
+    font-size: 10px; letter-spacing: 0.22em; color: #f4ecdd;
     opacity: 0.85; text-transform: uppercase;
-    margin-top: 8px;
-    padding-top: 8px;
+    margin-top: 6px;
+    padding-top: 6px;
     border-top: 1px solid rgba(255,255,255,0.15);
   }
   .stat-col .stat-grid {
-    display:grid; grid-template-columns: 1fr 1fr; gap: 10px;
+    display:grid; grid-template-columns: 1fr 1fr; gap: 8px;
   }
   .stat-col .scell {
     background: rgba(10,6,8,0.78);
     border: 1px solid rgba(255,255,255,0.1);
     border-top: 3px solid var(--crimson);
-    padding: 12px 16px 12px;
+    padding: 9px 12px 9px;
     box-shadow: 0 12px 30px rgba(0,0,0,0.4);
-    display:flex; flex-direction: column; gap: 4px;
+    display:flex; flex-direction: column; gap: 3px;
   }
   .stat-col .scell .lab {
     font-family:'Inter', sans-serif; font-weight: 800;
-    font-size: 12px; letter-spacing: 0.34em; color: var(--crimson-hot);
+    font-size: 11px; letter-spacing: 0.32em; color: var(--crimson-hot);
   }
   .stat-col .scell .val {
     font-family:'Inter', sans-serif; font-weight: 900;
-    font-size: 40px; color: #fff; line-height: 1;
+    font-size: 30px; color: #fff; line-height: 1;
     font-variant-numeric: tabular-nums; letter-spacing: -0.02em;
   }
   .stat-col .scell .sub {
     font-family:'Inter', sans-serif; font-weight: 600;
-    font-size: 11px; letter-spacing: 0.22em; color: #b9b9bd;
+    font-size: 10px; letter-spacing: 0.22em; color: #b9b9bd;
     text-transform: uppercase;
   }
 
