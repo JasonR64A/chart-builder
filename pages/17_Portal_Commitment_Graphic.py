@@ -589,12 +589,13 @@ slash_v1, slash_v2, slash_v3 = hero_value_keys
 # truncating to "SOUTHERN CA" with ellipsis (2026-05-21).
 _to_school_clean = to_school_in.strip()
 _to_len = len(_to_school_clean)
-if _to_len <= 12:
+if _to_len <= 9:
     to_school_len_class = ''
-elif _to_len <= 20:
+elif _to_len <= 16:
     to_school_len_class = 'long-1'
 else:
     to_school_len_class = 'long-2'
+st.caption(f"TO school: '{_to_school_clean}' ({_to_len} chars) -> size class: {to_school_len_class or 'default 40px'}")
 
 replacements = {
     '{{NAME}}': name.replace('\n', ' '),
