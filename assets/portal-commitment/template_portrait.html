@@ -240,49 +240,92 @@
   .id-col .id-divider {
     height: 1px;
     background: linear-gradient(90deg, var(--crimson) 0%, rgba(157,34,53,0) 100%);
-    margin: 18px 0 14px;
+    margin: 18px 0 16px;
   }
-  .id-col .from-block { margin-bottom: 10px; }
+  /* Horizontal commit row: old school left (muted), arrow, new school right (hero) */
+  .id-col .commit-row {
+    display:flex; align-items:center; gap: 14px;
+  }
   .id-col .label {
     font-family:'Inter', sans-serif; font-weight: 800;
-    font-size: 12px; letter-spacing: 0.5em;
-    color: #a0a0a0;
-    margin-bottom: 6px;
+    font-size: 11px; letter-spacing: 0.45em;
+    color: #888;
+    margin-bottom: 5px;
+    white-space: nowrap;
   }
   .id-col .label.red { color: var(--crimson-hot); }
+  /* FROM block: left, muted, smaller */
+  .id-col .from-block {
+    flex: 0 0 auto;
+    max-width: 170px;
+    overflow: hidden;
+  }
+  .id-col .from-block .school {
+    font-family:'Inter', sans-serif; font-weight: 700;
+    font-size: 22px; letter-spacing: -0.01em;
+    color: #b8b8b8;
+    line-height: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  }
+  .id-col .from-block .school-sub {
+    font-family:'Inter', sans-serif; font-weight: 600;
+    font-size: 10px; letter-spacing: 0.28em;
+    color: #6e6e6e;
+    margin-top: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  /* Arrow between blocks */
+  .id-col .arrow-right {
+    flex-shrink: 0;
+    color: var(--crimson-hot);
+    display:flex; align-items:center; justify-content:center;
+    margin-top: 14px;
+  }
+  .id-col .arrow-right svg { width: 32px; height: 22px; }
+  /* TO block: right, emphasized */
+  .id-col .to-block {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
   .id-col .school-row {
     display:flex; align-items:center; gap: 12px;
   }
   .id-col .school-row .text {
     display:flex; flex-direction:column;
+    min-width: 0;
   }
-  .id-col .school {
+  .id-col .to-block .school {
     font-family:'Inter', sans-serif; font-weight: 900;
-    font-size: 34px; letter-spacing: -0.02em; color: #fff;
-    line-height: 1;
-    text-shadow: 0 3px 12px rgba(0,0,0,0.6);
+    font-size: 40px; letter-spacing: -0.025em;
+    color: #fff;
+    line-height: 0.95;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-shadow: 0 3px 12px rgba(0,0,0,0.7);
   }
-  .id-col .from-block .school { color: #c8c8c8; font-size: 26px; }
-  .id-col .school-sub {
-    font-family:'Inter', sans-serif; font-weight: 600;
-    font-size: 12px; letter-spacing: 0.3em;
-    color: #888;
-    margin-top: 5px;
-  }
-  .id-col .to-block .school-sub { color: var(--crimson-hot); }
-  .id-col .arrow-down {
-    margin: 8px 0 10px 6px;
+  .id-col .to-block .school-sub {
+    font-family:'Inter', sans-serif; font-weight: 700;
+    font-size: 12px; letter-spacing: 0.32em;
     color: var(--crimson-hot);
+    margin-top: 6px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
-  .id-col .arrow-down svg { width: 22px; height: 28px; }
   .id-col .school-logo-wrap {
-    width: 52px; height: 52px;
+    width: 56px; height: 56px;
     background: #fff; border-radius: 50%;
     display:grid; place-items:center;
     box-shadow: 0 6px 18px rgba(0,0,0,0.55);
     flex-shrink: 0;
   }
-  .id-col .school-logo-wrap img { width: 38px; height: 38px; object-fit: contain; }
+  .id-col .school-logo-wrap img { width: 42px; height: 42px; object-fit: contain; }
 
   /* RIGHT COLUMN: stats stack — narrower so it stops bleeding into footer */
   .stat-col {
@@ -462,30 +505,28 @@
         </div>
         <div class="id-divider"></div>
 
-        <div class="from-block">
-          <div class="label">FROM</div>
-          <div class="school-row">
-            <div class="text">
-              <div class="school">{{FROM_SCHOOL}}</div>
-              <div class="school-sub">{{FROM_SUB}}</div>
-            </div>
+        <div class="commit-row">
+          <div class="from-block">
+            <div class="label">FROM</div>
+            <div class="school">{{FROM_SCHOOL}}</div>
+            <div class="school-sub">{{FROM_SUB}}</div>
           </div>
-        </div>
 
-        <div class="arrow-down">
-          <svg width="28" height="36" viewBox="0 0 28 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M14 2 L14 28" stroke="currentColor" stroke-width="3" stroke-linecap="square"/>
-            <path d="M2 22 L14 34 L26 22" stroke="currentColor" stroke-width="3" fill="none" stroke-linejoin="miter"/>
-          </svg>
-        </div>
+          <div class="arrow-right">
+            <svg width="32" height="22" viewBox="0 0 32 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M2 11 L28 11" stroke="currentColor" stroke-width="3" stroke-linecap="square"/>
+              <path d="M20 2 L30 11 L20 20" stroke="currentColor" stroke-width="3" fill="none" stroke-linejoin="miter"/>
+            </svg>
+          </div>
 
-        <div class="to-block">
-          <div class="label red">COMMITTED TO</div>
-          <div class="school-row">
-            <div class="school-logo-wrap"><img src="{{TO_LOGO_SRC}}" alt="{{TO_SCHOOL}}" /></div>
-            <div class="text">
-              <div class="school">{{TO_SCHOOL}}</div>
-              <div class="school-sub">{{TO_SUB}}</div>
+          <div class="to-block">
+            <div class="label red">COMMITTED TO</div>
+            <div class="school-row">
+              <div class="school-logo-wrap"><img src="{{TO_LOGO_SRC}}" alt="{{TO_SCHOOL}}" /></div>
+              <div class="text">
+                <div class="school">{{TO_SCHOOL}}</div>
+                <div class="school-sub">{{TO_SUB}}</div>
+              </div>
             </div>
           </div>
         </div>
