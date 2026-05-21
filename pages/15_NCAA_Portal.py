@@ -9,6 +9,8 @@ from pathlib import Path
 
 _APP_DIR = Path(__file__).resolve().parent.parent
 ARCHIVE_DIR = _APP_DIR / 'data' / 'portal_archive'
+PORTAL_DIR = _APP_DIR / 'data' / 'portal'
+PLAYERS_CSV = _APP_DIR / 'data' / 'players.csv'
 
 st.set_page_config(page_title='NCAA Transfer Portal', layout='wide')
 
@@ -32,13 +34,53 @@ def load_portal_data():
     return pd.concat(frames, ignore_index=True)
 
 
+@st.cache_data
+def load_enrichment():
+    """Build ncaa_id -> 64A player info from matched.csv + players.csv.
+
+    Joins current-year matched files (the only ones that carry the
+    ncaa_id <-> player_id_64a bridge) with the canonical players.csv so we
+    can display position / classification / height / bat / throw / hometown
+    for portal entries that have been matched to a 64A player record.
+    """
+    # Load matched bridges (current year only — historical years aren't preserved)
+    matched_frames = []
+    for f in ['baseball_matched.csv', 'softball_matched.csv']:
+        p = PORTAL_DIR / f
+        if p.exists():
+            mdf = pd.read_csv(p, dtype=str).fillna('')
+            matched_frames.append(mdf[['ncaa_id', 'player_id_64a']])
+    if not matched_frames:
+        return pd.DataFrame(columns=['ncaa_id', 'player_id_64a', 'position',
+                                      'classification', 'height', 'bat',
+                                      'throw', 'hometown'])
+    matched = pd.concat(matched_frames, ignore_index=True)
+    matched = matched[matched['player_id_64a'] != ''].drop_duplicates('ncaa_id')
+
+    # Load players.csv (cp1252 because some hometown entries have extended chars)
+    if not PLAYERS_CSV.exists():
+        return matched
+    try:
+        players = pd.read_csv(PLAYERS_CSV, dtype=str, encoding='utf-8').fillna('')
+    except UnicodeDecodeError:
+        players = pd.read_csv(PLAYERS_CSV, dtype=str, encoding='cp1252').fillna('')
+    keep = ['id', 'position', 'classification', 'height', 'bat', 'throw', 'hometown']
+    players = players[[c for c in keep if c in players.columns]]
+    players = players.rename(columns={'id': 'player_id_64a'})
+
+    return matched.merge(players, on='player_id_64a', how='left').fillna('')
+
+
 df = load_portal_data()
+enrichment = load_enrichment()
+if not enrichment.empty:
+    df = df.merge(enrichment, on='ncaa_id', how='left').fillna('')
 if df.empty:
     st.warning('No portal data found.')
     st.stop()
 
 # ── Filters (NCAA-style top bar) ─────────────────────────────────────────────
-f1, f2, f3, f4, f5 = st.columns(5)
+f1, f2, f3, f4, f5, f6 = st.columns(6)
 
 with f1:
     sport_opts = ['All'] + sorted(df['sport_label'].dropna().unique().tolist())
@@ -57,6 +99,10 @@ with f4:
     sel_status = st.selectbox('Status', status_opts, key='portal_status')
 
 with f5:
+    match_opts = ['All', 'Matched to 64A', 'Unmatched']
+    sel_match = st.selectbox('64A Match', match_opts, key='portal_match')
+
+with f6:
     search = st.text_input('Search', '', placeholder='Name, school, conference...',
                             key='portal_search')
 
@@ -70,6 +116,12 @@ if sel_year != 'All':
     filtered = filtered[filtered['year'] == sel_year]
 if sel_status != 'All':
     filtered = filtered[filtered['status'] == sel_status]
+if sel_match != 'All' and 'player_id_64a' in filtered.columns:
+    has_pid = filtered['player_id_64a'].astype(str).str.strip() != ''
+    if sel_match == 'Matched to 64A':
+        filtered = filtered[has_pid]
+    else:  # 'Unmatched'
+        filtered = filtered[~has_pid]
 if search:
     q = search.lower()
     filtered = filtered[
@@ -80,11 +132,17 @@ if search:
     ]
 
 # ── Summary bar ──────────────────────────────────────────────────────────────
-s1, s2, s3, s4 = st.columns(4)
+s1, s2, s3, s4, s5 = st.columns(5)
 s1.metric('Total Entries', f'{len(filtered):,}')
 s2.metric('Active', f'{(filtered["status"] == "Active").sum():,}')
 s3.metric('Signed', f'{(filtered["status"] == "Signed").sum():,}')
 s4.metric('Withdrawn', f'{(filtered["status"] == "Withdrawn").sum():,}')
+if 'player_id_64a' in filtered.columns:
+    matched_n = (filtered['player_id_64a'].astype(str).str.strip() != '').sum()
+    pct = (matched_n / len(filtered) * 100) if len(filtered) else 0
+    s5.metric('Matched to 64A', f'{matched_n:,}', f'{pct:.1f}%')
+else:
+    s5.metric('Matched to 64A', '0', '—')
 
 st.markdown('---')
 
@@ -106,10 +164,18 @@ display = display.rename(columns={
     'transfer_date': 'Transfer Date',
     'update_date': 'Updated',
     'sport_label': 'Sport',
+    'player_id_64a': '64A ID',
+    'position': 'Pos',
+    'classification': 'Class',
+    'height': 'Ht',
+    'bat': 'B',
+    'throw': 'T',
+    'hometown': 'Hometown',
 })
 
 show_cols = ['Year', 'Name', 'Div', 'Institution', 'Conference', 'Status',
-             'Transfer Date', 'Updated', 'Sport']
+             'Transfer Date', 'Updated', 'Sport',
+             '64A ID', 'Pos', 'Class', 'Ht', 'B', 'T', 'Hometown']
 show_cols = [c for c in show_cols if c in display.columns]
 
 # Sort: most recent transfer date first
