@@ -173,26 +173,29 @@
     margin-left: 2px;
   }
 
-  /* ---------- GHOST COMMITTED (behind FROM/TO panel in dark bottom) ---------- */
+  /* ---------- GHOST COMMITTED (behind right column in dark bottom) ---------- */
+  /* Sits BEHIND the right stat column. Width capped so it never bleeds
+     into the left column or the footer (avoids the rogue "C" curve
+     appearing as a partial circle in the bottom-left, caught 2026-05-21). */
   .ghost-wrap {
     position:absolute;
-    left: 0; right: 0;
-    top: 1010px;
+    left: 600px; right: 0;
+    top: 1030px;
     display:flex; align-items:center; justify-content:flex-start;
     pointer-events:none;
     z-index: 2;
     mix-blend-mode: screen;
     overflow: hidden;
-    height: 220px;
-    padding-left: 24px;
+    height: 180px;
+    padding-left: 16px;
   }
   .ghost {
     font-family:'Inter', sans-serif;
     font-weight: 900;
-    font-size: 220px;
+    font-size: 180px;
     letter-spacing: -0.04em;
-    line-height: 0.8;
-    color: rgba(255,255,255,0.16);
+    line-height: 0.85;
+    color: rgba(255,255,255,0.13);
     white-space: nowrap;
     text-transform: uppercase;
   }

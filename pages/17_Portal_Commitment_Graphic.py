@@ -652,7 +652,32 @@ window.downloadCardPNG = async function(btn) {
         img.addEventListener('error', res, { once: true });
       });
     }));
-    var canvas = await html2canvas(stage, { scale: 2, useCORS: true, allowTaint: true });
+    // Render at the stage's true pixel dimensions. Portrait = exactly
+    // 1080x1350 (Instagram portrait spec). Landscape = 1500x1000 (high enough
+    // for Twitter / web). The stage element has explicit width/height set in
+    // CSS, so we read from getBoundingClientRect and pass width/height to
+    // html2canvas to avoid any scaling.
+    var rect = stage.getBoundingClientRect();
+    var stageW = stage.offsetWidth;
+    var stageH = stage.offsetHeight;
+    // The stage is CSS-scaled via transform for the preview iframe — undo
+    // that to render at native resolution.
+    var savedTransform = stage.style.transform;
+    stage.style.transform = 'none';
+    try {
+      var canvas = await html2canvas(stage, {
+        scale: __PNG_SCALE__,
+        width: stageW,
+        height: stageH,
+        windowWidth: stageW,
+        windowHeight: stageH,
+        useCORS: true,
+        allowTaint: true,
+        backgroundColor: null,
+      });
+    } finally {
+      stage.style.transform = savedTransform;
+    }
     var a = document.createElement('a');
     a.download = '__PNG_FILENAME__';
     a.href = canvas.toDataURL('image/png');
@@ -677,7 +702,10 @@ png_btn = """
 </div>
 """
 png_filename = 'portal_commitment_portrait.png' if is_portrait else 'portal_commitment.png'
-png_script = png_script.replace('__PNG_FILENAME__', png_filename)
+# Portrait → scale=1 so the PNG is exactly 1080×1350 (Instagram portrait spec).
+# Landscape → scale=2 keeps the existing 3000×2000 high-res output for Twitter/web.
+png_scale = '1' if is_portrait else '2'
+png_script = png_script.replace('__PNG_FILENAME__', png_filename).replace('__PNG_SCALE__', png_scale)
 rendered = rendered.replace('</body>', f'{png_script}{png_btn}</body>')
 
 st.subheader('3. Preview')
