@@ -264,6 +264,27 @@ if search:
         filtered['conference'].str.lower().str.contains(q, na=False)
     ]
 
+# ── Sort controls (server-side: blanks always at bottom) ─────────────────────
+# Streamlit's interactive column-click sort uses Glide Data Grid, which puts
+# NaN at the top on descending clicks regardless of pandas dtype. Use these
+# selectboxes for any sort where blank-position matters — they always pin
+# blanks to the bottom.
+sc1, sc2, _ = st.columns([2, 2, 6])
+with sc1:
+    sort_col = st.selectbox(
+        'Sort by',
+        ['Rank (default)', 'Rating', 'Transfer Date', 'Name', 'Institution'],
+        key='portal_sort_col',
+    )
+with sc2:
+    sort_dir = st.radio(
+        'Direction',
+        ['Ascending', 'Descending'],
+        horizontal=True,
+        key='portal_sort_dir',
+        index=0 if sort_col != 'Rating' else 1,
+    )
+
 # ── Summary bar ──────────────────────────────────────────────────────────────
 s1, s2, s3, s4, s5, s6 = st.columns(6)
 s1.metric('Total Entries', f'{len(filtered):,}')
@@ -321,17 +342,31 @@ show_cols = ['Rank', 'Rating', 'Year', 'Sport', 'Name', 'Div', 'Institution',
              '64A ID', 'Pos', 'Class', 'Ht', 'B', 'T', 'Hometown']
 show_cols = [c for c in show_cols if c in display.columns]
 
-# Sort: rank ascending if present, else most-recent transfer date
+# Server-side sort honoring the explicit Sort selectboxes above. pandas'
+# na_position='last' guarantees blanks stay at the bottom in both directions.
 display['_sort_date'] = pd.to_datetime(display['Transfer Date'], errors='coerce', format='mixed')
-if 'Rank' in display.columns:
-    # rank nulls go to bottom; among ranked rows, lower rank = higher importance
-    display = display.sort_values(
-        ['Rank', '_sort_date'],
-        ascending=[True, False],
-        na_position='last',
-    ).reset_index(drop=True)
+
+sort_map = {
+    'Rank (default)': 'Rank',
+    'Rating': 'Rating',
+    'Transfer Date': '_sort_date',
+    'Name': 'Name',
+    'Institution': 'Institution',
+}
+sort_target = sort_map.get(sort_col, 'Rank')
+asc = (sort_dir == 'Ascending')
+
+if sort_target in display.columns:
+    # Secondary tiebreaker: Rank ASC, then transfer date DESC, so the table is
+    # always deterministic within ties.
+    secondary = ['Rank', '_sort_date'] if sort_target not in ('Rank', '_sort_date') else (
+        ['_sort_date'] if sort_target == 'Rank' else ['Rank']
+    )
+    by = [sort_target] + secondary
+    ascending = [asc] + [True if c == 'Rank' else False for c in secondary]
+    display = display.sort_values(by, ascending=ascending, na_position='last').reset_index(drop=True)
 else:
-    display = display.sort_values('_sort_date', ascending=False).reset_index(drop=True)
+    display = display.sort_values('_sort_date', ascending=False, na_position='last').reset_index(drop=True)
 display.index = display.index + 1
 display.index.name = '#'
 
@@ -349,5 +384,8 @@ st.caption(
     '(not yet in matched.csv — runs through on next pipeline rebuild) · '
     '✗ no decision (truly unmatched) · — explicit unmatch decision. '
     'Supabase decisions are refetched every 60 seconds; force a refresh by '
-    'reloading the page.'
+    'reloading the page. · For sorting where blank position matters, use the '
+    '"Sort by" / "Direction" controls above — clicking column headers in the '
+    'table uses Streamlit\'s interactive sort which can place blanks at the '
+    'top on descending clicks.'
 )
