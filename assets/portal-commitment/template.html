@@ -105,8 +105,8 @@
     transform: skewY(-2deg);
   }
 
-  .brand-tl { position:absolute; left: 40px; top: 34px; z-index: 10; }
-  .brand-tl img { height: 86px; display:block; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.6)); }
+  .brand-tl { position:absolute; left: 40px; top: 34px; z-index: 10; display:flex; gap: 14px; align-items:center; }
+  .brand-tl img { height: 86px; width:86px; display:block; object-fit: contain; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.6)); }
 
   .meta-tr {
     position:absolute; right: 40px; top: 44px; z-index: 10;
@@ -402,7 +402,9 @@
       <div class="grain"></div>
 
       <div class="brand-tl">
-        <img src="{{LOGO_SRC}}" alt="64 Analytics" />
+        <img src="{{LOGO_CBS_SRC}}" alt="The College Baseball Show" />
+        <img src="{{LOGO_JB_SRC}}" alt="JB" />
+        <img src="{{LOGO_64A_SRC}}" alt="64 Analytics" />
       </div>
 
       <div class="meta-tr">

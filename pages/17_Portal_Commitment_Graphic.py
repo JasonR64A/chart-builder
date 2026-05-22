@@ -525,8 +525,12 @@ elif to_logo_url:
     except Exception as e:
         st.warning(f'Could not fetch TO logo from S3 ({e}). Upload one manually if needed.')
 
-# 64 Analytics logo
-logo_src = data_url_from_path(ENTRANT_ASSETS / '64-logo-red-white.png')
+# Brand logos: College Baseball Show, JB, 64 Analytics (top-left of graphic)
+logo_cbs_src = data_url_from_path(ASSETS_DIR / 'logo-college-baseball-show.png')
+logo_jb_src = data_url_from_path(ASSETS_DIR / 'logo-jb.png')
+logo_64a_src = data_url_from_path(ASSETS_DIR / 'logo-64-analytics.png')
+# Back-compat: keep LOGO_SRC pointing at 64A so any old caller still resolves.
+logo_src = logo_64a_src
 
 # Colors — default to the design's crimson; the design's effects depend on
 # rgba() forms of these values, so when the user overrides the new-school
@@ -630,6 +634,9 @@ replacements = {
     '{{PHOTO_SRC}}': photo_src,
     '{{TO_LOGO_SRC}}': to_logo_src,
     '{{LOGO_SRC}}': logo_src,
+    '{{LOGO_CBS_SRC}}': logo_cbs_src,
+    '{{LOGO_JB_SRC}}': logo_jb_src,
+    '{{LOGO_64A_SRC}}': logo_64a_src,
     '{{CRIMSON}}': crimson_hex,
     '{{CRIMSON_DEEP}}': crimson_deep,
     '{{CRIMSON_HOT}}': crimson_hot,

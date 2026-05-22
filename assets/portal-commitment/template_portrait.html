@@ -64,11 +64,13 @@
     opacity: 0.32;
   }
 
-  /* ---------- TOP LEFT LOGO ---------- */
+  /* ---------- TOP LEFT LOGOS ---------- */
   .brand-tl {
     position:absolute; left: 36px; top: 32px; z-index: 10;
+    display:flex; gap: 12px; align-items:center;
   }
-  .brand-tl img { height: 78px; display:block;
+  .brand-tl img { height: 78px; width: 78px; display:block;
+    object-fit: contain;
     filter: drop-shadow(0 4px 12px rgba(0,0,0,0.7));
   }
 
@@ -491,9 +493,11 @@
       <!-- Accent bar -->
       <div class="accent-bar"></div>
 
-      <!-- 64 Analytics logo -->
+      <!-- Brand logos: College Baseball Show, JB, 64 Analytics -->
       <div class="brand-tl">
-        <img src="{{LOGO_SRC}}" alt="64 Analytics" />
+        <img src="{{LOGO_CBS_SRC}}" alt="The College Baseball Show" />
+        <img src="{{LOGO_JB_SRC}}" alt="JB" />
+        <img src="{{LOGO_64A_SRC}}" alt="64 Analytics" />
       </div>
 
       <!-- Top right meta -->
