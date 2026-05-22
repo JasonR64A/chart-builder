@@ -1190,10 +1190,10 @@ with st.sidebar:
 
     view_mode = st.radio(
         'View',
-        ['Bracket', 'Team Resume'],
+        ['Bracket', 'Team Resume', 'Bubble Meter'],
         index=0,
         horizontal=True,
-        help='Bracket: full field projection. Team Resume: single-team dossier infographic.',
+        help='Bracket: full field projection. Team Resume: single-team dossier. Bubble Meter: at-large probability scoring (naive + logistic regression).',
     )
 
     sport = st.selectbox('Sport', ['Baseball', 'Softball'], index=0)
@@ -1243,6 +1243,133 @@ if view_mode == 'Team Resume':
         unsafe_allow_html=True,
     )
     render_ncaat_resume(resume_team, sport_key, resume_theme)
+    st.stop()
+
+if view_mode == 'Bubble Meter':
+    from app_lib.bubble_meter import (
+        load_historical, fit_naive_thresholds, fit_logistic,
+        load_current_year_teams, naive_grade, calibration_summary,
+    )
+
+    st.markdown(
+        f'<h1 style="text-align:center;margin-bottom:0;">Bubble Meter</h1>'
+        f'<p style="text-align:center;color:#888;margin-top:4px;">'
+        f'{sport} · at-large selection probability — naive thresholds vs. logistic regression'
+        f'</p>',
+        unsafe_allow_html=True,
+    )
+
+    @st.cache_data(show_spinner='Training on 2013-2025 data...')
+    def _train(sport_key_local: str):
+        df = load_historical(BRACKET_DIR)
+        rules = fit_naive_thresholds(df)
+        model = fit_logistic(df)
+        summary = calibration_summary(df, rules, model)
+        return df, rules, model, summary
+
+    @st.cache_data(show_spinner=False)
+    def _current(sport_key_local: str):
+        return load_current_year_teams(DATA_DIR, sport_key_local)
+
+    hist_df, rules, model, summary = _train(sport_key)
+    cur = _current(sport_key)
+    if cur.empty:
+        st.error(f'No current-year RPI file found at data/{sport_key}_rpi_D1.csv.')
+        st.stop()
+
+    # Score current-year teams
+    X_cur = cur[model.feature_names].to_numpy(dtype=float)
+    cur = cur.copy()
+    cur['logreg_grade'] = model.predict_proba(X_cur)
+    cur['naive_grade'] = cur.apply(
+        lambda r: naive_grade({c: r[c] for c in [x.column for x in rules]}, rules)[0], axis=1,
+    )
+
+    # ── How it works (methodology) ──────────────────────────────────────
+    with st.expander('How the score is computed', expanded=False):
+        st.markdown(f"""
+**Training data.** {len(hist_df):,} team-seasons from 2013-2025 (12 baseball cycles, ~300 teams/year, 64 selected per year — base rate {summary['pos_rate']*100:.1f}%).
+
+**NAIVE method** (your original proposal). For each of these rules, we compute *"of teams that met this rule historically, what % made the field?"*. A team's bubble grade is the average of those percentages — but only for the rules they actually pass. Easy to explain to a coach.
+
+**LOGISTIC REGRESSION method.** Same features, but fitted to honestly account for correlation between metrics (a team with low RPI rank usually also has a high win% — averaging double-counts the signal). Numpy-based gradient descent, L2 regularised.
+
+Both methods are shown side-by-side so you can compare ordering vs. calibration.
+
+**Feature coverage caveat.** Right now the model uses **RPI rank, win %, and power-conference flag**. Your original sketch mentioned conference wins, SOS, and Q1/Q2 wins — those need schedule-derived features that aren't in this training corpus yet. When they get wired in, just add them to `bubble_meter.fit_naive_thresholds` and `fit_logistic` and retrain.
+""")
+
+        c1, c2 = st.columns(2)
+        with c1:
+            st.markdown('**Naive rule calibration**')
+            st.dataframe(
+                pd.DataFrame([
+                    {'rule': r.label, 'historical % in': f"{r.historical_p_in*100:.1f}%"}
+                    for r in rules
+                ]),
+                hide_index=True, use_container_width=True,
+            )
+        with c2:
+            st.markdown('**Logistic regression coefficients** (standardised)')
+            st.dataframe(
+                pd.DataFrame({
+                    'feature': model.feature_names + ['(intercept)'],
+                    'weight': [f'{c:+.3f}' for c in model.coef] + [f'{model.intercept:+.3f}'],
+                }),
+                hide_index=True, use_container_width=True,
+            )
+            st.caption(f"Training accuracy: {model.accuracy*100:.1f}% · log-loss: {model.log_loss:.3f}")
+
+        st.markdown('**Calibration on training data** — does the score match reality?')
+        for label, b in [('Naive', summary['naive_buckets']), ('Logistic regression', summary['logreg_buckets'])]:
+            disp = b.assign(
+                bucket=b['_bucket'].astype(str),
+                predicted=(b['pred']*100).round(1).astype(str)+'%',
+                actual=(b['actual']*100).round(1).astype(str)+'%',
+            )[['bucket','n','predicted','actual']]
+            st.markdown(f"_{label}_")
+            st.dataframe(disp, hide_index=True, use_container_width=True)
+
+    # ── Current-year teams ─────────────────────────────────────────────
+    st.markdown('### Current-season teams')
+    c1, c2, c3 = st.columns([2, 1, 1])
+    band = c1.radio('Filter',
+                    ['All teams', 'Locks (≥ 90%)', 'On the bubble (30-70%)', 'Long shots (< 30%)'],
+                    horizontal=True, key='bubble_band')
+    sort_by = c2.selectbox('Sort by',
+                           ['Logistic grade', 'Naive grade', 'RPI rank'],
+                           key='bubble_sort')
+    show_n = c3.number_input('Show top N', min_value=10, max_value=308, value=80, step=10)
+
+    view = cur.copy()
+    if band == 'Locks (≥ 90%)':
+        view = view[view['logreg_grade'] >= 0.90]
+    elif band == 'On the bubble (30-70%)':
+        view = view[(view['logreg_grade'] >= 0.30) & (view['logreg_grade'] <= 0.70)]
+    elif band == 'Long shots (< 30%)':
+        view = view[view['logreg_grade'] < 0.30]
+
+    sort_col = {'Logistic grade': 'logreg_grade', 'Naive grade': 'naive_grade', 'RPI rank': 'rpi_rank'}[sort_by]
+    asc = sort_col == 'rpi_rank'
+    view = view.sort_values(sort_col, ascending=asc).head(show_n)
+
+    disp = view.assign(
+        rpi=view['rpi_rank'].astype(int),
+        rec=view['record'],
+        win_pct=(view['win_pct']*100).round(1).astype(str)+'%',
+        pwr=view['power_conf'].map({1: '✓', 0: ''}),
+        naive=(view['naive_grade']*100).round(1).astype(str)+'%',
+        logreg=(view['logreg_grade']*100).round(1).astype(str)+'%',
+    )[['teamName','conference','rec','rpi','win_pct','pwr','naive','logreg']]
+    disp.columns = ['Team', 'Conference', 'Record', 'RPI Rank', 'Win %', 'P5', 'Naive Grade', 'Logreg Grade']
+
+    st.dataframe(disp, hide_index=True, use_container_width=True, height=600)
+    st.caption(
+        f"Showing {len(view):,} of {len(cur):,} D-I {sport_key} teams. "
+        f"Logreg grade is the calibrated at-large probability; naive grade is the average of "
+        f"historical pass-rates per rule. When they disagree, trust the logreg."
+    )
+
     st.stop()
 
 st.markdown(
