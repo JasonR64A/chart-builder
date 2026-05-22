@@ -1,7 +1,7 @@
 #!/bin/bash
 # Targeted rescrape for Bucket C teams' missing box-score dates.
 # Run from scrape_final dir. Each date = one full NCAA scoreboard pass for D1.
-cd "C:/Users/sixty/OneDrive/Desktop/scrape_final" || exit 1
+cd "C:/Dev/scrape_final" || exit 1
 
 npx ts-node scripts/scrape-pbp-puppeteer.ts baseball 2026 --date 2026-02-15 --division D1 --no-cache
 npx ts-node scripts/scrape-pbp-puppeteer.ts baseball 2026 --date 2026-02-21 --division D1 --no-cache

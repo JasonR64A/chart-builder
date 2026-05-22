@@ -3,7 +3,7 @@
 # Each entry below shows the teams with missing data on that date.
 # Each date = one full D1 scoreboard pass (~3-5 min).
 
-cd "C:/Users/sixty/OneDrive/Desktop/scrape_final" || exit 1
+cd "C:/Dev/scrape_final" || exit 1
 
 # 2026-02-20  (missing for: Georgia Tech, Delaware St., La Salle)
 npx ts-node scripts/scrape-pbp-puppeteer.ts baseball 2026 --date 2026-02-20 --division D1 --no-cache

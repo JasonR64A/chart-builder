@@ -73,7 +73,7 @@
   .last5-item{display:flex;align-items:center;gap:5px;padding:3px 7px 3px 5px;border:1px solid var(--line-strong);border-radius:4px;background:#fff}
   .last5-wl{width:15px;height:15px;display:inline-flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;color:#fff;border-radius:2px}
   .last5-wl.w{background:var(--p-green)} .last5-wl.l{background:var(--p-red)} .last5-wl.p{background:#B5B0A3}
-  .last5-score{font-size:10px;font-weight:700;color:var(--ink);font-family:'JetBrains Mono',monospace}
+  .last5-score{font-size:10px;font-weight:700;color:var(--ink);font-family:'Inter',monospace}
   .last5-opp{font-size:8.5px;letter-spacing:.06em;color:var(--gray);font-weight:600}
 
   .pace-grid-4{
@@ -99,7 +99,7 @@
   .module-title{font-weight:800;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink)}
   .pace-svg-wrap{flex:1;min-height:0;position:relative;margin:0;overflow:hidden}
   .pace-svg-wrap svg{width:100%;height:100%;display:block}
-  .pace-footer{display:flex;justify-content:space-between;align-items:center;font-size:9.5px;color:var(--gray);letter-spacing:.04em;padding:0 4px;font-family:'JetBrains Mono',monospace;font-weight:700;margin-top:0}
+  .pace-footer{display:flex;justify-content:space-between;align-items:center;font-size:9.5px;color:var(--gray);letter-spacing:.04em;padding:0 4px;font-family:'Inter',monospace;font-weight:700;margin-top:0}
   .pace-delta{font-weight:800;font-variant-numeric:tabular-nums;font-size:11px}
   .pace-delta.up{color:var(--p-green)} .pace-delta.down{color:var(--p-red)}
 
@@ -110,8 +110,8 @@
   .micro{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;padding-top:3px;border-top:1px dashed var(--line-strong)}
   .micro-cell{display:flex;flex-direction:column;align-items:center;gap:1px;padding:3px 2px}
   .micro-label{font-size:8.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gray)}
-  .micro-value{font-size:12.5px;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:-.01em;color:var(--ink);font-family:'JetBrains Mono',monospace}
-  .micro-pct{font-size:8.5px;font-weight:700;font-variant-numeric:tabular-nums;font-family:'JetBrains Mono',monospace}
+  .micro-value{font-size:12.5px;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:-.01em;color:var(--ink);font-family:'Inter',monospace}
+  .micro-pct{font-size:8.5px;font-weight:700;font-variant-numeric:tabular-nums;font-family:'Inter',monospace}
   .micro-pct.na{color:var(--gray);font-weight:600}
   .pct-green{color:var(--p-green)} .pct-gold{color:var(--p-gold)} .pct-orange{color:var(--p-orange)} .pct-red{color:var(--p-red)}
 
@@ -140,7 +140,7 @@
   .bullet-row{display:flex;flex-direction:column;gap:2px}
   .bullet-label{font-size:10.5px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--ink);text-align:center;line-height:1.1}
   .bullet-track-row{display:grid;grid-template-columns:44px 1fr 44px;align-items:center;gap:6px}
-  .bullet-val{font-size:12.5px;font-weight:800;font-variant-numeric:tabular-nums;font-family:'JetBrains Mono',monospace}
+  .bullet-val{font-size:12.5px;font-weight:800;font-variant-numeric:tabular-nums;font-family:'Inter',monospace}
   .bullet-val.a{color:var(--red);text-align:right}
   .bullet-val.b{color:var(--navy);text-align:left}
   .bullet-track{position:relative;height:20px;background:linear-gradient(90deg,rgba(196,18,48,.05),rgba(41,51,92,.05));border-radius:4px;overflow:hidden;border:1px solid var(--line)}
@@ -498,7 +498,7 @@ function renderRadar(el, axes, teamA, teamB, opts) {
   let ringLabels='';
   [25,50,75].forEach(v=>{
     const r=(v/100)*R;
-    ringLabels += `<text x="${cx+3}" y="${cy-r+3}" font-family="JetBrains Mono,monospace" font-size="8" fill="#B5B0A3" font-weight="500">${v}</text>`;
+    ringLabels += `<text x="${cx+3}" y="${cy-r+3}" font-family="Inter,sans-serif" font-size="8" fill="#B5B0A3" font-weight="500">${v}</text>`;
   });
 
   function arcLabel(indices,color,label){
@@ -566,14 +566,14 @@ function renderPaceSmall(el, values, meta, teamColor, opts) {
   ticks.forEach(v=>{
     const y=yScale(v);
     yGrid += `<line x1="${padL}" y1="${y}" x2="${W-padR}" y2="${y}" stroke="#EDE7D9" stroke-width="0.6"/>`;
-    yGrid += `<text x="${padL-5}" y="${y}" text-anchor="end" dominant-baseline="middle" font-family="JetBrains Mono,monospace" font-size="7.5" fill="#888" font-weight="700">${meta.format(v)}</text>`;
+    yGrid += `<text x="${padL-5}" y="${y}" text-anchor="end" dominant-baseline="middle" font-family="Inter,sans-serif" font-size="7.5" fill="#888" font-weight="700">${meta.format(v)}</text>`;
   });
   let xAxis='';
   [0,n-1].forEach((i,k)=>{
     const xx=x(i);
     const lbl = i===0?'G‑14':'NOW';
     const anchor = k===0?'start':'middle';
-    xAxis += `<text x="${xx}" y="${H-3}" text-anchor="${anchor}" font-family="JetBrains Mono,monospace" font-size="7.5" fill="#888" font-weight="700">${lbl}</text>`;
+    xAxis += `<text x="${xx}" y="${H-3}" text-anchor="${anchor}" font-family="Inter,sans-serif" font-size="7.5" fill="#888" font-weight="700">${lbl}</text>`;
   });
   let band='';
   if (opts.band !== false) {

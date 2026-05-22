@@ -26,7 +26,7 @@ from collections import defaultdict
 
 import pandas as pd
 
-ROOT = Path(r"C:\Users\sixty\OneDrive\Desktop\chart-builder-app")
+ROOT = Path(r"C:\Dev\chart-builder-app")
 OUT = Path(__file__).parent / "out"
 OUT.mkdir(parents=True, exist_ok=True)
 

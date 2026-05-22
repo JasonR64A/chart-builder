@@ -11,8 +11,8 @@ import sys, pandas as pd
 sys.stdout.reconfigure(encoding='utf-8')
 from pathlib import Path
 
-DATA = Path(r'C:\Users\sixty\OneDrive\Desktop\chart-builder-app\data')
-PBP  = Path(r'C:\Users\sixty\OneDrive\Desktop\chart-builder-app\pbp_data')
+DATA = Path(r'C:\Dev\chart-builder-app\data')
+PBP  = Path(r'C:\Dev\chart-builder-app\pbp_data')
 
 # Targets: teams flagged in Bucket C we want to inspect
 TARGETS = ['Southern U.', 'Georgia Tech', 'Bradley', 'LIU', 'VCU',

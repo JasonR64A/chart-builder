@@ -15,8 +15,8 @@ import sys, pandas as pd
 sys.stdout.reconfigure(encoding='utf-8')
 from pathlib import Path
 
-DATA = Path(r'C:\Users\sixty\OneDrive\Desktop\chart-builder-app\data')
-PBP  = Path(r'C:\Users\sixty\OneDrive\Desktop\chart-builder-app\pbp_data')
+DATA = Path(r'C:\Dev\chart-builder-app\data')
+PBP  = Path(r'C:\Dev\chart-builder-app\pbp_data')
 
 # ── Build D1 team_id whitelist from teams + conferences (NO team names) ──────
 teams = pd.read_csv(DATA / 'teams.csv', low_memory=False)

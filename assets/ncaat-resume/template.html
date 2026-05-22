@@ -63,8 +63,8 @@
   body[data-theme="broadcast"] { background: #000; }
 
   .serif { font-family: 'Inter', system-ui, sans-serif; font-feature-settings: "cv11", "ss01", "ss03"; letter-spacing: -0.015em; }
-  .mono { font-family: 'JetBrains Mono', monospace; }
-  .eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+  .mono { font-family: 'Inter', monospace; }
+  .eyebrow { font-family: 'Inter', monospace; font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
 
   .page {
     width: 1000px;
@@ -641,7 +641,7 @@ function SpiderChart({ team, size = 240 }) {
         else if (Math.cos(a) < -0.25) anchor = "end";
         return (
           <text key={k} x={lx} y={ly} textAnchor={anchor} dominantBaseline="middle"
-            fontFamily="JetBrains Mono" fontSize="8" fontWeight="600" fill="var(--ink)" letterSpacing="0.06em">
+            fontFamily="Inter" fontSize="8" fontWeight="600" fill="var(--ink)" letterSpacing="0.06em">
             {((stats[k] && stats[k].label) || STAT_LABELS[k].label).toUpperCase()}
           </text>
         );
@@ -957,7 +957,7 @@ function PaceModule({ team }) {
         {[0, 3, 6, 9, 12, 15].filter(v => v <= maxR).map(v => (
           <g key={v}>
             <line x1={padL} x2={width-padR} y1={y(v)} y2={y(v)} stroke="var(--rule)" strokeWidth="0.5" strokeDasharray={v===0?"0":"2,3"} />
-            <text x={padL-4} y={y(v)} textAnchor="end" dominantBaseline="middle" fontFamily="JetBrains Mono" fontSize="8" fill="var(--muted)">{v}</text>
+            <text x={padL-4} y={y(v)} textAnchor="end" dominantBaseline="middle" fontFamily="Inter" fontSize="8" fill="var(--muted)">{v}</text>
           </g>
         ))}
         {games.map((g, i) => {
@@ -972,14 +972,14 @@ function PaceModule({ team }) {
               <rect x={cx-w/2} y={y(hi)} width={w} height={y(lo)-y(hi)} fill={fill} fillOpacity="0.85" stroke={fill} />
               <line x1={cx-w/2-3} x2={cx-w/2} y1={y(g.rs)} y2={y(g.rs)} stroke="var(--ink)" strokeWidth="1.2" />
               <line x1={cx+w/2} x2={cx+w/2+3} y1={y(g.ra)} y2={y(g.ra)} stroke="var(--ink)" strokeWidth="1.2" />
-              <text x={cx} y={y(hi)-4} textAnchor="middle" fontFamily="JetBrains Mono" fontSize="8" fontWeight="700" fill={fill}>{g.result}</text>
-              <text x={cx} y={height-padB+8} textAnchor="end" fontFamily="JetBrains Mono" fontSize="8" fontWeight="600" fill="var(--ink-2)"
+              <text x={cx} y={y(hi)-4} textAnchor="middle" fontFamily="Inter" fontSize="8" fontWeight="700" fill={fill}>{g.result}</text>
+              <text x={cx} y={height-padB+8} textAnchor="end" fontFamily="Inter" fontSize="8" fontWeight="600" fill="var(--ink-2)"
                     transform={`rotate(-45 ${cx} ${height-padB+8})`}>{(g.home?"vs ":g.oppRank===0?"n ":"@ ")+g.opp}</text>
-              <text x={cx} y={height-12} textAnchor="middle" fontFamily="JetBrains Mono" fontSize="7" fill="var(--muted)">#{g.oppRank}</text>
+              <text x={cx} y={height-12} textAnchor="middle" fontFamily="Inter" fontSize="7" fill="var(--muted)">#{g.oppRank}</text>
             </g>
           );
         })}
-        <text x={padL-4} y={padT} textAnchor="end" fontFamily="JetBrains Mono" fontSize="8" fill="var(--muted)" letterSpacing="0.1em">R</text>
+        <text x={padL-4} y={padT} textAnchor="end" fontFamily="Inter" fontSize="8" fill="var(--muted)" letterSpacing="0.1em">R</text>
       </svg>
 
       <div style={{ marginTop: 6, paddingTop: 6, borderTop: "1px solid var(--rule)" }}>

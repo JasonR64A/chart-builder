@@ -82,7 +82,7 @@ def _tile_svg(team: dict, idx: int, x: float, y: float, size: float) -> str:
         mono = _team_short(name)
         tile += (
             f'<text x="{size/2:.1f}" y="{size/2 + 12:.1f}" text-anchor="middle" '
-            f'font-family="Oswald,sans-serif" font-weight="700" font-size="38" '
+            f'font-family="Inter,sans-serif" font-weight="700" font-size="38" '
             f'fill="#1a1a1a" opacity="0.65">{_xe(mono)}</text>'
         )
 
@@ -173,7 +173,7 @@ def build_top25_svg(teams: list[dict], sport: str, division: str,
     )
     parts.append(
         f'<text x="{header_x_center}" y="{pill_y + pill_h*0.72}" '
-        f'text-anchor="middle" font-family="Oswald,Anton,sans-serif" '
+        f'text-anchor="middle" font-family="Inter,sans-serif" '
         f'font-weight="700" font-size="40" letter-spacing="1.6" '
         f'fill="#fff">{_xe(pill_text)}</text>'
     )

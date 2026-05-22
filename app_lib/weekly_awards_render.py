@@ -186,7 +186,7 @@ def _row_overlay(row: dict, idx: int, *, show_team: bool) -> str:
     else:
         parts.append(
             f'<text x="{logo_cx:.1f}" y="{pill_cy + 4.5:.1f}" '
-            f'text-anchor="middle" font-family="Barlow Condensed,sans-serif" '
+            f'text-anchor="middle" font-family="Inter,sans-serif" '
             f'font-style="italic" font-weight="800" font-size="13" '
             f'fill="#1a1a1d">'
             f'{_xe(_initials(row.get("player") or row.get("team") or "?"))}</text>'
@@ -199,20 +199,20 @@ def _row_overlay(row: dict, idx: int, *, show_team: bool) -> str:
     if show_team and team:
         parts.append(
             f'<text x="{name_x}" y="{pill_cy - 3:.1f}" text-anchor="start" '
-            f'font-family="Barlow Condensed,Oswald,sans-serif" font-style="italic" '
+            f'font-family="Inter,sans-serif" font-style="italic" '
             f'font-weight="700" font-size="20" fill="#ffffff" '
             f'letter-spacing="0.5">{_xe(player)}</text>'
         )
         parts.append(
             f'<text x="{name_x}" y="{pill_cy + 14:.1f}" text-anchor="start" '
-            f'font-family="Oswald,sans-serif" font-weight="500" font-size="12" '
+            f'font-family="Inter,sans-serif" font-weight="500" font-size="12" '
             f'fill="rgba(255,255,255,0.65)" letter-spacing="1.0">'
             f'{_xe(team)}</text>'
         )
     else:
         parts.append(
             f'<text x="{name_x}" y="{pill_cy + 6:.1f}" text-anchor="start" '
-            f'font-family="Barlow Condensed,sans-serif" font-style="italic" '
+            f'font-family="Inter,sans-serif" font-style="italic" '
             f'font-weight="700" font-size="21" fill="#ffffff" '
             f'letter-spacing="0.5">{_xe(player)}</text>'
         )
@@ -241,11 +241,11 @@ def _stat_cell_overlay(stat: dict, x: float, y: float, width: float, height: flo
     return ''.join([
         # Label (red, in top zone above the red line)
         f'<text x="{cx}" y="{y + STATS_LABEL_DY}" text-anchor="middle" '
-        f'font-family="Oswald,sans-serif" font-weight="700" font-size="13" '
+        f'font-family="Inter,sans-serif" font-weight="700" font-size="13" '
         f'letter-spacing="2.4" fill="#d72638">{_xe(label)}</text>',
         # Value (white, between the red and white lines — bigger font)
         f'<text x="{cx}" y="{y + STATS_VALUE_DY}" text-anchor="middle" '
-        f'font-family="Barlow Condensed,sans-serif" font-style="italic" '
+        f'font-family="Inter,sans-serif" font-style="italic" '
         f'font-weight="800" font-size="28" fill="#ffffff">{_xe(_fmt(value, decimals))}</text>',
     ])
 
@@ -369,7 +369,7 @@ def build_weekly_awards_svg(rows: list[dict], top_stats: list[dict], *,
         )
         parts.append(
             f'<text x="{HERO_X + HERO_W/2:.0f}" y="{HERO_Y + HERO_H/2:.0f}" '
-            f'text-anchor="middle" font-family="JetBrains Mono,monospace" '
+            f'text-anchor="middle" font-family="Inter,sans-serif" '
             f'font-weight="600" font-size="14" letter-spacing="3" '
             f'fill="rgba(255,255,255,0.55)">DROP HERO IMAGE HERE</text>'
         )
@@ -403,7 +403,7 @@ def build_weekly_awards_svg(rows: list[dict], top_stats: list[dict], *,
         )
         parts.append(
             f'<text x="{SUB_CX}" y="{SUB_Y + 32}" text-anchor="middle" '
-            f'font-family="Barlow Condensed,Oswald,sans-serif" '
+            f'font-family="Inter,sans-serif" '
             f'font-style="italic" font-weight="800" font-size="32" '
             f'fill="#ffffff" letter-spacing="0.4">'
             f'{_xe(headline_sub.upper())}</text>'
@@ -422,7 +422,7 @@ def build_weekly_awards_svg(rows: list[dict], top_stats: list[dict], *,
         )
         parts.append(
             f'<text x="{WEEK_X + WEEK_W - 8}" y="{WEEK_Y + WEEK_H*0.7:.1f}" '
-            f'text-anchor="end" font-family="Barlow Condensed,sans-serif" '
+            f'text-anchor="end" font-family="Inter,sans-serif" '
             f'font-style="italic" font-weight="800" font-size="18" '
             f'letter-spacing="2.4" fill="#ffffff">'
             f'{_xe(week_label.upper())}</text>'

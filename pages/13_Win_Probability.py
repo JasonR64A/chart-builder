@@ -668,7 +668,7 @@ for pos in inning_positions[1:]:
 annotations = [
     dict(x=0.5, y=1.08, xref='paper', yref='paper', showarrow=False,
          text=f'<b>{away}</b> @ <b>{home}</b>  ·  {game["date"].iloc[0]}',
-         font=dict(size=18, color=TEXT_COLOR, family='Arial Black')),
+         font=dict(size=18, color=TEXT_COLOR, family='Inter')),
     dict(x=0.5, y=1.03, xref='paper', yref='paper', showarrow=False,
          text=f'Pre-game: {pg_home*100:.1f}%  →  Final: {home_wps[-1]:.1f}%',
          font=dict(size=11, color=TEXT_MUTED)),
@@ -717,7 +717,7 @@ fig.update_layout(
         title=dict(text='Inning', font=dict(size=14, color=TEXT_COLOR)),
         tickmode='array', tickvals=inning_positions, ticktext=inning_labels,
         tickangle=0, color=TEXT_COLOR,
-        tickfont=dict(size=13, color=TEXT_COLOR, family='Arial Black'),
+        tickfont=dict(size=13, color=TEXT_COLOR, family='Inter'),
         gridcolor=GRID_COLOR, gridwidth=0.5,
         showgrid=False, zeroline=False,
     ),

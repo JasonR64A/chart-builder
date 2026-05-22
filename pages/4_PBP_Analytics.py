@@ -1000,9 +1000,9 @@ def _name_with_stroke(name, y_offset, font_size=9):
     elif n > 14:
         font_size = max(font_size - 1, 7)
     return f'''<text font-size="{font_size}" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linejoin="round"
-          text-anchor="middle" y="{y_offset}" font-family="sans-serif" font-weight="bold">{name}</text>
+          text-anchor="middle" y="{y_offset}" font-family="Inter,sans-serif" font-weight="bold">{name}</text>
     <text font-size="{font_size}" fill="#111111" text-anchor="middle" y="{y_offset}"
-          font-family="sans-serif" font-weight="bold">{name}</text>'''
+          font-family="Inter,sans-serif" font-weight="bold">{name}</text>'''
 
 
 def _logo_node(x, y, player, pos, team_map, ring_color, r=22, r_inner=19, sport='baseball'):
@@ -1014,9 +1014,9 @@ def _logo_node(x, y, player, pos, team_map, ring_color, r=22, r_inner=19, sport=
     clip_id = f"clip-{pos}-{x}-{y}"
     dh_label = 'DP' if sport == 'softball' else 'DH'
     pos_label = f'''<text font-size="7" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linejoin="round"
-          text-anchor="middle" y="{r+19}" font-family="sans-serif" font-weight="bold">{dh_label}</text>
+          text-anchor="middle" y="{r+19}" font-family="Inter,sans-serif" font-weight="bold">{dh_label}</text>
     <text font-size="7" fill="#111111" text-anchor="middle" y="{r+19}"
-          font-family="sans-serif" font-weight="bold">{dh_label}</text>''' if pos == 'DH' else ''
+          font-family="Inter,sans-serif" font-weight="bold">{dh_label}</text>''' if pos == 'DH' else ''
 
     if logo_b64:
         return f'''<g transform="translate({x},{y})">
@@ -1030,7 +1030,7 @@ def _logo_node(x, y, player, pos, team_map, ring_color, r=22, r_inner=19, sport=
         ini = _initials(name)
         return f'''<g transform="translate({x},{y})">
     <circle r="{r}" fill="{ring_color}"/><circle r="{r_inner}" fill="{EGGSHELL}"/>
-    <text font-size="10" font-weight="500" fill="#333" text-anchor="middle" dominant-baseline="central" font-family="sans-serif">{ini}</text>
+    <text font-size="10" font-weight="500" fill="#333" text-anchor="middle" dominant-baseline="central" font-family="Inter,sans-serif">{ini}</text>
     {_name_with_stroke(name, r + 10, font_size=9)}
     {pos_label}</g>'''
 
@@ -1054,7 +1054,7 @@ def _pitcher_logo_node(x, y, player, team_map, ring_color, r=20, r_inner=17):
         ini = _initials(name)
         return f'''<g transform="translate({x},{y})">
     <circle r="{r}" fill="{ring_color}"/><circle r="{r_inner}" fill="{EGGSHELL}"/>
-    <text font-size="9" font-weight="500" fill="#333" text-anchor="middle" dominant-baseline="central" font-family="sans-serif">{ini}</text>
+    <text font-size="9" font-weight="500" fill="#333" text-anchor="middle" dominant-baseline="central" font-family="Inter,sans-serif">{ini}</text>
     {_name_with_stroke(name, 27, font_size=8)}</g>'''
 
 
@@ -1067,29 +1067,29 @@ def render_lineup_svg(best_hitters, starters, relievers, title, subtitle, team_m
         else:
             nodes.append(f'''<g transform="translate({x},{y})">
     <circle r="22" fill="#555"/><circle r="19" fill="#1c2a38"/>
-    <text font-size="9" fill="#666" text-anchor="middle" dominant-baseline="central" font-family="sans-serif">—</text>
-    <text font-size="7" fill="#666" text-anchor="middle" y="37" font-family="sans-serif">{pos}</text></g>''')
+    <text font-size="9" fill="#666" text-anchor="middle" dominant-baseline="central" font-family="Inter,sans-serif">—</text>
+    <text font-size="7" fill="#666" text-anchor="middle" y="37" font-family="Inter,sans-serif">{pos}</text></g>''')
 
     # Pitcher sidebar (right column)
     sx = 423
     nodes.append(f'<line x1="385" y1="10" x2="385" y2="390" stroke="#3a3a3a" stroke-width="1"/>')
-    nodes.append(f'''<text x="{sx}" y="26" font-size="8" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linejoin="round" font-weight="bold" text-anchor="middle" letter-spacing="0.08em" font-family="sans-serif">STARTERS</text>
-    <text x="{sx}" y="26" font-size="8" fill="#111111" font-weight="bold" text-anchor="middle" letter-spacing="0.08em" font-family="sans-serif">STARTERS</text>''')
+    nodes.append(f'''<text x="{sx}" y="26" font-size="8" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linejoin="round" font-weight="bold" text-anchor="middle" letter-spacing="0.08em" font-family="Inter,sans-serif">STARTERS</text>
+    <text x="{sx}" y="26" font-size="8" fill="#111111" font-weight="bold" text-anchor="middle" letter-spacing="0.08em" font-family="Inter,sans-serif">STARTERS</text>''')
     for i in range(3):
         y = 58 + i * 56
         if i < len(starters):
             nodes.append(_pitcher_logo_node(sx, y, starters[i], team_map, LC_RED))
         else:
-            nodes.append(f'<g transform="translate({sx},{y})"><circle r="20" fill="#555"/><circle r="17" fill="#1c2a38"/><text font-size="9" fill="#666" text-anchor="middle" dominant-baseline="central" font-family="sans-serif">—</text></g>')
+            nodes.append(f'<g transform="translate({sx},{y})"><circle r="20" fill="#555"/><circle r="17" fill="#1c2a38"/><text font-size="9" fill="#666" text-anchor="middle" dominant-baseline="central" font-family="Inter,sans-serif">—</text></g>')
 
-    nodes.append(f'''<text x="{sx}" y="218" font-size="8" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linejoin="round" font-weight="bold" text-anchor="middle" letter-spacing="0.08em" font-family="sans-serif">RELIEVERS</text>
-    <text x="{sx}" y="218" font-size="8" fill="#111111" font-weight="bold" text-anchor="middle" letter-spacing="0.08em" font-family="sans-serif">RELIEVERS</text>''')
+    nodes.append(f'''<text x="{sx}" y="218" font-size="8" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linejoin="round" font-weight="bold" text-anchor="middle" letter-spacing="0.08em" font-family="Inter,sans-serif">RELIEVERS</text>
+    <text x="{sx}" y="218" font-size="8" fill="#111111" font-weight="bold" text-anchor="middle" letter-spacing="0.08em" font-family="Inter,sans-serif">RELIEVERS</text>''')
     for i in range(3):
         y = 246 + i * 56
         if i < len(relievers):
             nodes.append(_pitcher_logo_node(sx, y, relievers[i], team_map, LC_RELIEVER_COLOR))
         else:
-            nodes.append(f'<g transform="translate({sx},{y})"><circle r="20" fill="#555"/><circle r="17" fill="#1c2a38"/><text font-size="9" fill="#666" text-anchor="middle" dominant-baseline="central" font-family="sans-serif">—</text></g>')
+            nodes.append(f'<g transform="translate({sx},{y})"><circle r="20" fill="#555"/><circle r="17" fill="#1c2a38"/><text font-size="9" fill="#666" text-anchor="middle" dominant-baseline="central" font-family="Inter,sans-serif">—</text></g>')
 
     # Brand logos
     brand_b64 = None
@@ -1129,7 +1129,7 @@ def render_lineup_svg(best_hitters, starters, relievers, title, subtitle, team_m
   <!-- Branded info tile centered on LF x-axis (x=55) at C/DH height -->
   <rect x="15" y="318" rx="8" ry="8" width="80" height="45" fill="#222222" stroke="#FFFFFF" stroke-width="1.5" opacity="0.9"/>
   {f'<image href="{wide_logo_b64}" x="20" y="323" width="70" height="18" opacity="0.95" preserveAspectRatio="xMidYMid meet"/>' if wide_logo_b64 else ''}
-  <text x="55" y="352" font-size="6" fill="#aaaaaa" text-anchor="middle" font-family="sans-serif">{date_label}</text>
+  <text x="55" y="352" font-size="6" fill="#aaaaaa" text-anchor="middle" font-family="Inter,sans-serif">{date_label}</text>
 </svg>
 '''
     return svg
@@ -3491,8 +3491,8 @@ elif view == 'Share Graphic':
         # CDATA-wrap the @import so the unescaped `&` query separators don't
         # break the XML parser cairosvg uses.
         '<style><![CDATA['
-        '@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Barlow+Condensed:ital,wght@0,500;0,600;0,700;1,600;1,700;1,800&family=JetBrains+Mono:wght@500;600&display=swap");'
-        '.os{font-family:Oswald,sans-serif}.bc{font-family:"Barlow Condensed",sans-serif}.mn{font-family:"JetBrains Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}'
+        '@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap");'
+        '.os{font-family:"Inter",sans-serif}.bc{font-family:"Inter",sans-serif}.mn{font-family:"Inter",ui-monospace,monospace;font-variant-numeric:tabular-nums}'
         ']]></style>',
         # turbulence filter for distortion bleed
         '<filter id="distort" x="-10%" y="-10%" width="120%" height="120%">'

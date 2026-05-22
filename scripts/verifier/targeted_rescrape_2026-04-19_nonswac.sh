@@ -2,7 +2,7 @@
 # Non-SWAC targeted rescrape (GT + Bradley + LIU + VCU + Delaware St. + Wagner + Le Moyne + La Salle)
 # Excludes Southern U. + Texas Southern (known bad NCAA data source).
 
-cd "C:/Users/sixty/OneDrive/Desktop/scrape_final" || exit 1
+cd "C:/Dev/scrape_final" || exit 1
 
 # 2026-02-20  (Georgia Tech, Delaware St., La Salle)
 npx ts-node scripts/scrape-pbp-puppeteer.ts baseball 2026 --date 2026-02-20 --division D1 --no-cache

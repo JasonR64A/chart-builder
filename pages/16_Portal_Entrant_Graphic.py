@@ -877,7 +877,7 @@ png_btn = """
 <div style="text-align:center;margin:16px 0;">
   <button onclick="window.downloadCardPNG(this)" style="
     padding:10px 24px;background:#b11f2c;color:#fff;border:none;border-radius:4px;
-    font-family:'Barlow Condensed','Inter',sans-serif;font-weight:700;font-size:14px;
+    font-family:'Inter','Inter',sans-serif;font-weight:700;font-size:14px;
     letter-spacing:.2em;text-transform:uppercase;cursor:pointer;
     box-shadow:0 4px 12px rgba(0,0,0,.3);">
     Download PNG
