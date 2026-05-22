@@ -1,8 +1,4 @@
 ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfer_date,update_date,status,year,sport,team_id,player_id_64a,player_id_ncaa_stats,matched_name,match_score,match_method,confidence,position,class_year,player_csv_team_id
-2503524705,BRANDON,HOFTIJZER,Brandon Hoftijzer,Salem University (West Virginia),Independent,II,05/21/2026,05/21/2026,Active,2025-26,Baseball,678,135817,3223380,Brandon Hoftjizer,94.1,team+lastname,LOW,2B,Jr,678
-2211733042,TYLER,PINSON,Tyler Pinson,University of the South,Southern Athletic Association,III,05/21/2026,05/21/2026,Active,2025-26,Baseball,696,116027,3117340,T. Pinson,76.2,team+lastname_diff_first,REVIEW,3B,So,696
-2409401535,MARC,PIETO,Marc Pieto,John Carroll University,North Coast Athletic Conference,III,05/21/2026,05/21/2026,Active,2025-26,Baseball,360,131897,3107584,Marx Pieto,82.0,team+lastname_diff_first,REVIEW,P,Fr,360
-2407347608,ZACHARY,ALLEN,Zachary Allen,Salem University (West Virginia),Independent,II,05/21/2026,05/21/2026,Active,2025-26,Baseball,678,103257,3091714,Zach Allen,92.0,team+lastname,LOW,P,Sr,678
-2210708493,MAXIMILIANO,CASTRO,Maximiliano Castro,Salem University (West Virginia),Independent,II,05/21/2026,05/21/2026,Active,2025-26,Baseball,678,67024,2942986,Max Castro,71.4,team+lastname_diff_first,REVIEW,C,Jr,678
-2109328878,RICHARD,HEYDER,Richard Heyder,Farmingdale State College,Skyline Conference,III,05/21/2026,05/21/2026,Active,2025-26,Baseball,253,76474,2974929,Richie Heyder,81.5,team+lastname_diff_first,REVIEW,RF,Sr,253
-2506653007,NICHOLAS,DONOFRIO,Nicholas Donofrio,Drew University,Landmark Conference,III,05/21/2026,05/21/2026,Active,2025-26,Baseball,214,129821,3249249,Nick Donofrio,92.0,team+lastname,LOW,C,Fr,214
+2504587709,BEN,HUTCHINSON,Ben Hutchinson,Illinois College,Midwest Conference,III,05/21/2026,05/21/2026,Active,2025-26,Baseball,346,131633,3246020,Benjamin Hutchinson,92,team+lastname,LOW,UT,Fr,346
+2104145742,JOSHUA,RAMOS,Joshua Ramos,Northwestern University,Big Ten Conference,I,05/21/2026,05/21/2026,Active,2025-26,Baseball,559,67390,2968881,Josh Ramos,92,team+lastname,LOW,C,Jr,559
+2605934408,WILLIAM,ROBINSON,William Robinson,Belhaven University,Collegiate Conference of the South,III,05/21/2026,05/21/2026,Active,2025-26,Baseball,63,127788,3233444,Will Robinson,92,team+lastname,LOW,P,Fr,63
