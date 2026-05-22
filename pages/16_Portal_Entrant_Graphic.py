@@ -762,6 +762,10 @@ else:
 bg_url = data_url(ASSETS_DIR / 'foul-line-dirt.png')
 circle_url = data_url(ASSETS_DIR / '64-circlelogo-red-white.png')
 mark_url = data_url(ASSETS_DIR / '64-logo-red-white.png')
+# Triple-logo top-left brand mark (replaces the single 64A circle logo)
+logo_cbs_url = data_url(ASSETS_DIR / 'logo-college-baseball-show.png')
+logo_jb_url = data_url(ASSETS_DIR / 'logo-jb.png')
+logo_64a_url = data_url(ASSETS_DIR / 'logo-64-analytics.png')
 
 meta_line = f'{pos} &nbsp;·&nbsp; {school_abbr or school.upper()[:3]} &nbsp;·&nbsp; {class_long or class_short} &nbsp;·&nbsp; {bat}/{throw}'
 
@@ -824,6 +828,9 @@ replacements = {
     'assets/foul-line-dirt.png': bg_url,
     'assets/64-circlelogo-red-white.png': circle_url,
     'assets/64-logo-red-white.png': mark_url,
+    'assets/logo-college-baseball-show.png': logo_cbs_url,
+    'assets/logo-jb.png': logo_jb_url,
+    'assets/logo-64-analytics.png': logo_64a_url,
 }
 rendered = template
 for k, v in replacements.items():

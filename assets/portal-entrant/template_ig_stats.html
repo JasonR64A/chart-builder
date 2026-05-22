@@ -49,8 +49,11 @@
     border-bottom: 5px solid var(--red);
     z-index: 2;
   }
-  .identity .logo {
-    height: 80px; width: auto;
+  .identity .logo-group {
+    display:flex; align-items:center; gap: 12px;
+  }
+  .identity .logo-group img {
+    height: 80px; width: 80px; object-fit: contain;
     filter: drop-shadow(0 4px 14px rgba(0,0,0,0.55));
   }
   .identity .photo {
@@ -293,7 +296,11 @@
     <div class="stage" id="stage" data-screen-label="Portal Entrant Stats IG">
 
       <div class="identity">
-        <img class="logo" src="assets/64-circlelogo-red-white.png" alt="64 Analytics" />
+        <div class="logo-group">
+          <img src="assets/logo-college-baseball-show.png" alt="The College Baseball Show" />
+          <img src="assets/logo-jb.png" alt="JB" />
+          <img src="assets/logo-64-analytics.png" alt="64 Analytics" />
+        </div>
         <div class="photo" role="img" aria-label="{{NAME}}"
              style="background-image: url('{{PHOTO_SRC}}');"></div>
         <div class="who">

@@ -57,13 +57,16 @@
   }
   .header .logo-left {
     flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 14px;
   }
   .header .title-wrap {
     flex: 1;
     min-width: 0;
   }
   .header .logo-left img {
-    height: 86px; width: auto; display:block;
+    height: 86px; width: 86px; object-fit: contain; display:block;
     filter: drop-shadow(0 4px 14px rgba(0,0,0,0.55));
   }
   .header h1 {
@@ -373,7 +376,9 @@
       <!-- HEADER: logo left, headline center (one line) -->
       <div class="header">
         <div class="logo-left">
-          <img src="assets/64-circlelogo-red-white.png" alt="64 Analytics" style="height:140px;"/>
+          <img src="assets/logo-college-baseball-show.png" alt="The College Baseball Show" />
+          <img src="assets/logo-jb.png" alt="JB" />
+          <img src="assets/logo-64-analytics.png" alt="64 Analytics" />
         </div>
         <div class="title-wrap">
           <span class="eyebrow">{{EYEBROW}}</span>

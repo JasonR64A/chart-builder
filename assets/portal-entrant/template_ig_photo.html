@@ -46,8 +46,11 @@
     display:flex; align-items:center; justify-content: space-between;
     z-index: 5;
   }
-  .header img.logo {
-    height: 60px; width: auto; display:block;
+  .header .logo-group {
+    display:flex; align-items:center; gap: 10px;
+  }
+  .header .logo-group img {
+    height: 60px; width: 60px; object-fit: contain; display:block;
     filter: drop-shadow(0 4px 14px rgba(0,0,0,0.7));
   }
   .header .eyebrow {
@@ -161,7 +164,11 @@
       <div class="bg-top"></div>
 
       <div class="header">
-        <img class="logo" src="assets/64-circlelogo-red-white.png" alt="64 Analytics" />
+        <div class="logo-group">
+          <img src="assets/logo-college-baseball-show.png" alt="The College Baseball Show" />
+          <img src="assets/logo-jb.png" alt="JB" />
+          <img src="assets/logo-64-analytics.png" alt="64 Analytics" />
+        </div>
         <div class="eyebrow">{{EYEBROW}}</div>
       </div>
 
