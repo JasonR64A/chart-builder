@@ -247,6 +247,147 @@ def load_current_year_teams(data_dir: Path, sport_key: str) -> pd.DataFrame:
 
 
 # ─────────────────────────────────────────────────────────────────────────────
+# Schedule-derived current-year features
+# Q1/Q2 wins, conference record, SOS rank — shown as context columns in the
+# bubble meter table. NOT used in the model yet because we don't have these
+# historically (would need to backfill archived schedules to do that). When
+# 12 years of historical Q1/Q2/SOS arrive, plug them into fit_logistic.
+# ─────────────────────────────────────────────────────────────────────────────
+
+def _quad_bucket_for(sport_key: str, opp_rank: int, venue: str) -> str:
+    """Mirror of ncaat_resume_data._quad_bucket — kept here to avoid pulling
+    streamlit through the import chain."""
+    if sport_key == 'softball':
+        if opp_rank <= 25:  return 'q1'
+        if opp_rank <= 50:  return 'q2'
+        if opp_rank <= 100: return 'q3'
+        return 'q4'
+    # baseball: location-dependent
+    if venue == 'home':
+        if opp_rank <= 25:  return 'q1'
+        if opp_rank <= 50:  return 'q2'
+        if opp_rank <= 100: return 'q3'
+        return 'q4'
+    if venue == 'neutral':
+        if opp_rank <= 40:  return 'q1'
+        if opp_rank <= 80:  return 'q2'
+        if opp_rank <= 120: return 'q3'
+        return 'q4'
+    # away
+    if opp_rank <= 60:  return 'q1'
+    if opp_rank <= 120: return 'q2'
+    if opp_rank <= 200: return 'q3'
+    return 'q4'
+
+
+def compute_current_year_features(data_dir: Path, sport_key: str,
+                                   rpi_df: pd.DataFrame) -> pd.DataFrame:
+    """
+    From the current-year schedule + RPI file, compute per-team:
+      - q1_w, q1_l, q2_w, q2_l, q1q2_w (sum of Q1 and Q2 wins)
+      - conf_w, conf_l, conf_record
+      - sos_rank (D-I only)
+      - owp (opponent win pct)
+
+    Returns one row per teamYearId joined back to teamName via the schedule.
+    """
+    sched_path = data_dir / f'schedules_full_{sport_key}.csv'
+    if not sched_path.exists():
+        return pd.DataFrame()
+    sched = pd.read_csv(sched_path, low_memory=False)
+
+    # Restrict to completed games
+    sched = sched[sched['isFuture'] != True].copy() if 'isFuture' in sched.columns else sched
+    if 'isWin' in sched.columns:
+        sched['_is_win'] = sched['isWin'].fillna(False).astype(bool)
+    else:
+        sched['_is_win'] = sched.apply(lambda g: g.get('runsFor', 0) > g.get('runsAgainst', 0), axis=1)
+    sched = sched.dropna(subset=['teamYearId', 'opponentYearId']).copy()
+    sched['teamYearId'] = sched['teamYearId'].astype(int)
+    sched['opponentYearId'] = sched['opponentYearId'].astype(int)
+
+    # Build name->rank lookup from the current RPI file
+    def _norm(s):
+        import re
+        return re.sub(r'[^a-z0-9]', '', str(s).lower())
+    rank_col = 'rpi_rank' if 'rpi_rank' in rpi_df.columns else 'rank'
+    rpi_lookup = dict(zip(rpi_df['teamName'].apply(_norm), rpi_df[rank_col]))
+
+    # Map teamYearId -> conference via teamName -> RPI conference
+    name_to_conf = dict(zip(rpi_df['teamName'].apply(_norm), rpi_df['conference']))
+    sched_first = sched.groupby('teamYearId')['teamName'].first()
+    tid_to_conf = {int(tid): name_to_conf.get(_norm(n), '') for tid, n in sched_first.items()}
+
+    # Per-team WP for OWP calc (denominator = all completed games)
+    wp_grp = sched.groupby('teamYearId')['_is_win'].agg(['sum', 'count'])
+    wp_grp['wp'] = wp_grp['sum'] / wp_grp['count'].clip(lower=1)
+    wp_by_tid = wp_grp['wp'].to_dict()
+
+    # SOS — overall (no exclude-self): (2/3)*OWP + (1/3)*OOWP across ALL opps
+    owp_by_tid = {}
+    for tid, chunk in sched.groupby('teamYearId'):
+        opp_wps = [wp_by_tid.get(o) for o in chunk['opponentYearId'] if o in wp_by_tid]
+        owp_by_tid[int(tid)] = sum(opp_wps) / len(opp_wps) if opp_wps else 0.0
+
+    sos_score = {}
+    for tid, chunk in sched.groupby('teamYearId'):
+        opp_owps = [owp_by_tid.get(o, 0) for o in chunk['opponentYearId']]
+        oowp = sum(opp_owps) / len(opp_owps) if opp_owps else 0.0
+        sos_score[int(tid)] = (2/3) * owp_by_tid.get(int(tid), 0) + (1/3) * oowp
+
+    # Per-team venue + opp rank → quad win counts
+    def _venue(row):
+        if pd.notna(row.get('isAway')) and bool(row['isAway']):
+            return 'away'
+        # current schedule schema may use other markers; default home
+        return 'home'
+
+    out_rows = []
+    for tid, chunk in sched.groupby('teamYearId'):
+        team_conf = tid_to_conf.get(int(tid), '')
+        q_w = {'q1': 0, 'q2': 0, 'q3': 0, 'q4': 0}
+        q_l = {'q1': 0, 'q2': 0, 'q3': 0, 'q4': 0}
+        conf_w = conf_l = 0
+        for _, g in chunk.iterrows():
+            opp_name = g.get('opponentName')
+            opp_norm = _norm(opp_name) if isinstance(opp_name, str) else ''
+            opp_rank = rpi_lookup.get(opp_norm, 999)
+            v = _venue(g)
+            q = _quad_bucket_for(sport_key, int(opp_rank), v)
+            if g['_is_win']:
+                q_w[q] += 1
+            else:
+                q_l[q] += 1
+            # Conf record
+            opp_conf = tid_to_conf.get(int(g['opponentYearId']), '')
+            if team_conf and opp_conf and team_conf == opp_conf:
+                if g['_is_win']:
+                    conf_w += 1
+                else:
+                    conf_l += 1
+        out_rows.append({
+            'teamYearId': int(tid),
+            'teamName': sched_first.loc[int(tid)],
+            'q1_w': q_w['q1'], 'q1_l': q_l['q1'],
+            'q2_w': q_w['q2'], 'q2_l': q_l['q2'],
+            'q3_w': q_w['q3'], 'q3_l': q_l['q3'],
+            'q4_w': q_w['q4'], 'q4_l': q_l['q4'],
+            'q1q2_w': q_w['q1'] + q_w['q2'],
+            'conf_w': conf_w, 'conf_l': conf_l,
+            'conf_record': f'{conf_w}-{conf_l}',
+            'sos_score': sos_score.get(int(tid), 0.0),
+            'owp': owp_by_tid.get(int(tid), 0.0),
+        })
+
+    feat = pd.DataFrame(out_rows)
+    # SOS rank — rank by sos_score descending (higher SOS = harder schedule)
+    feat = feat.sort_values('sos_score', ascending=False).reset_index(drop=True)
+    feat['sos_rank'] = feat.index + 1
+    feat['_name_norm'] = feat['teamName'].apply(_norm)
+    return feat
+
+
+# ─────────────────────────────────────────────────────────────────────────────
 # Calibration check (how well does each method match reality?)
 # ─────────────────────────────────────────────────────────────────────────────
 

@@ -1249,6 +1249,7 @@ if view_mode == 'Bubble Meter':
     from app_lib.bubble_meter import (
         load_historical, fit_naive_thresholds, fit_logistic,
         load_current_year_teams, naive_grade, calibration_summary,
+        compute_current_year_features,
     )
 
     st.markdown(
@@ -1284,6 +1285,23 @@ if view_mode == 'Bubble Meter':
     cur['naive_grade'] = cur.apply(
         lambda r: naive_grade({c: r[c] for c in [x.column for x in rules]}, rules)[0], axis=1,
     )
+
+    # Enrich with schedule-derived context features (display only — the model
+    # doesn't train on these yet because they don't exist for 2013-2025).
+    import re as _re
+    def _norm_name(s):
+        return _re.sub(r'[^a-z0-9]', '', str(s).lower())
+
+    @st.cache_data(show_spinner='Computing Q1/Q2, conf record, SOS rank...')
+    def _features(sport_key_local: str):
+        return compute_current_year_features(DATA_DIR, sport_key_local, _current(sport_key_local))
+
+    feat = _features(sport_key)
+    if not feat.empty:
+        cur['_name_norm'] = cur['teamName'].apply(_norm_name)
+        ctx_cols = ['_name_norm', 'q1_w', 'q1_l', 'q2_w', 'q2_l', 'q1q2_w',
+                    'conf_record', 'sos_rank']
+        cur = cur.merge(feat[ctx_cols], on='_name_norm', how='left')
 
     # ── How it works (methodology) ──────────────────────────────────────
     with st.expander('How the score is computed', expanded=False):
@@ -1353,21 +1371,34 @@ Both methods are shown side-by-side so you can compare ordering vs. calibration.
     asc = sort_col == 'rpi_rank'
     view = view.sort_values(sort_col, ascending=asc).head(show_n)
 
+    def _fmt_quad(w, l):
+        if pd.isna(w) or pd.isna(l):
+            return '—'
+        return f'{int(w)}-{int(l)}'
+
     disp = view.assign(
         rpi=view['rpi_rank'].astype(int),
         rec=view['record'],
-        win_pct=(view['win_pct']*100).round(1).astype(str)+'%',
         pwr=view['power_conf'].map({1: '✓', 0: ''}),
+        q1=view.apply(lambda r: _fmt_quad(r.get('q1_w'), r.get('q1_l')), axis=1),
+        q2=view.apply(lambda r: _fmt_quad(r.get('q2_w'), r.get('q2_l')), axis=1),
+        q1q2=view.get('q1q2_w', pd.Series([None]*len(view))).apply(lambda v: '—' if pd.isna(v) else str(int(v))),
+        conf=view.get('conf_record', pd.Series([None]*len(view))).fillna('—'),
+        sos=view.get('sos_rank', pd.Series([None]*len(view))).apply(lambda v: '—' if pd.isna(v) else str(int(v))),
         naive=(view['naive_grade']*100).round(1).astype(str)+'%',
         logreg=(view['logreg_grade']*100).round(1).astype(str)+'%',
-    )[['teamName','conference','rec','rpi','win_pct','pwr','naive','logreg']]
-    disp.columns = ['Team', 'Conference', 'Record', 'RPI Rank', 'Win %', 'P5', 'Naive Grade', 'Logreg Grade']
+    )[['teamName','conference','rec','rpi','pwr','q1','q2','q1q2','conf','sos','naive','logreg']]
+    disp.columns = ['Team', 'Conference', 'Record', 'RPI', 'P5',
+                    'Q1', 'Q2', 'Q1+Q2 W', 'Conf', 'SOS', 'Naive', 'Logreg']
 
     st.dataframe(disp, hide_index=True, use_container_width=True, height=600)
     st.caption(
         f"Showing {len(view):,} of {len(cur):,} D-I {sport_key} teams. "
-        f"Logreg grade is the calibrated at-large probability; naive grade is the average of "
-        f"historical pass-rates per rule. When they disagree, trust the logreg."
+        f"Logreg grade is the calibrated at-large probability. Q1/Q2 wins, conference "
+        f"record, and SOS rank are computed from this season's schedule + RPI for context "
+        f"— they aren't model inputs yet because we don't have historical schedule data "
+        f"for 2013-2025 to train on. Once that backfill lands, they plug into "
+        f"app_lib/bubble_meter.fit_logistic and the grade picks them up automatically."
     )
 
     st.stop()
