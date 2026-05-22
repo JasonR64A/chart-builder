@@ -292,12 +292,12 @@ div_map = {'I': 'D-I', 'II': 'D-II', 'III': 'D-III'}
 display['Div'] = display['division'].map(div_map).fillna(display['division'])
 state_map = {'matched': '✓', 'pending': '⏳', 'pending_confirm': '⏳', 'unmatch': '—', 'none': '✗'}
 display['Match'] = display['match_state'].map(state_map).fillna('?')
-display['Rank'] = display['portal_rank'].apply(
-    lambda v: int(v) if pd.notna(v) and v != '' else None
-)
-display['Rating'] = display['rating'].apply(
-    lambda v: round(v, 1) if pd.notna(v) else None
-)
+# Keep Rank/Rating as numeric (float w/ NaN for blanks) so Streamlit's
+# column-header sort puts blanks at the bottom on BOTH ascending and
+# descending clicks. Mixing in Python `None` would force object dtype
+# and break the sort (blanks ending up at the top).
+display['Rank'] = pd.to_numeric(display['portal_rank'], errors='coerce')
+display['Rating'] = pd.to_numeric(display['rating'], errors='coerce').round(1)
 
 display = display.rename(columns={
     'year': 'Year',
