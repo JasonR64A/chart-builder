@@ -5,7 +5,7 @@
 <title>Portal Entrant Photo — {{NAME}}</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Barlow+Condensed:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
 <style>
   :root {
     --paper: #f4ecdd;
@@ -13,7 +13,7 @@
     --bar: #1c1c1c;
     --red: #b11f2c;
   }
-  html, body { margin:0; padding:0; background:#0a0604; font-family: 'Barlow Condensed', system-ui, sans-serif; }
+  html, body { margin:0; padding:0; background:#0a0604; font-family: 'Inter', system-ui, sans-serif; }
   body { min-height:100vh; display:grid; place-items:center; padding: 24px; }
   .stage-wrap { width: min(100vw - 48px, calc((100vh - 48px) * 0.8)); aspect-ratio: 4 / 5; }
   .stage {
@@ -54,7 +54,7 @@
     filter: drop-shadow(0 4px 14px rgba(0,0,0,0.7));
   }
   .header .eyebrow {
-    font-family: 'Barlow Condensed', sans-serif;
+    font-family: 'Inter', system-ui, sans-serif;
     font-weight: 700;
     letter-spacing: 0.4em;
     font-size: 18px;
@@ -90,7 +90,7 @@
     color: #fff;
   }
   .hero-text .eyebrow {
-    font-family: 'Barlow Condensed', sans-serif;
+    font-family: 'Inter', system-ui, sans-serif;
     font-weight: 700;
     letter-spacing: 0.42em;
     font-size: 18px;
@@ -99,7 +99,7 @@
     text-shadow: 0 3px 10px rgba(0,0,0,0.9);
   }
   .hero-text h1 {
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Inter', system-ui, sans-serif;
     font-weight: 700;
     font-size: 110px;
     line-height: 0.92;
@@ -113,7 +113,7 @@
     background: var(--red);
     color: #fff;
     padding: 10px 22px 8px;
-    font-family: 'Barlow Condensed', sans-serif;
+    font-family: 'Inter', system-ui, sans-serif;
     font-weight: 700;
     font-size: 26px;
     letter-spacing: 0.34em;
@@ -122,7 +122,7 @@
     box-shadow: 0 8px 24px rgba(0,0,0,0.45);
   }
   .hero-text .keyline {
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Inter', system-ui, sans-serif;
     font-weight: 600;
     font-size: 30px;
     letter-spacing: 0.05em;
@@ -145,17 +145,15 @@
     border-top: 5px solid var(--red);
     z-index: 6;
   }
-  .footer-bar .url,
-  .footer-bar .center,
-  .footer-bar .left {
-    font-family: 'Oswald', sans-serif;
+  .footer-bar .left,
+  .footer-bar .url {
+    font-family: 'Inter', system-ui, sans-serif;
     font-weight: 700;
     color: #fff;
-    flex: 1 1 0;
+    white-space: nowrap;
   }
-  .footer-bar .left   { text-align: left; }
-  .footer-bar .center { text-align: center; font-size: 24px; letter-spacing: 0.16em; }
-  .footer-bar .url    { text-align: right;  font-size: 15px; letter-spacing: 0.04em; white-space: nowrap; }
+  .footer-bar .left { font-size: 22px; letter-spacing: 0.14em; }
+  .footer-bar .url  { font-size: 17px; letter-spacing: 0.04em; }
 </style>
 </head>
 <body>
@@ -184,8 +182,7 @@
       </div>
 
       <div class="footer-bar">
-        <div class="left">&nbsp;</div>
-        <div class="center">TRANSFER PORTAL · 2026</div>
+        <div class="left">TRANSFER PORTAL · 2026</div>
         <div class="url">WWW.64ANALYTICS.COM/RANKINGS/PORTAL/PLAYERS</div>
       </div>
     </div>
