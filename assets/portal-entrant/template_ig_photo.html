@@ -145,17 +145,17 @@
     border-top: 5px solid var(--red);
     z-index: 6;
   }
-  .footer-bar .url {
+  .footer-bar .url,
+  .footer-bar .center,
+  .footer-bar .left {
     font-family: 'Oswald', sans-serif;
     font-weight: 700;
-    font-size: 22px;
-    letter-spacing: 0.18em;
     color: #fff;
+    flex: 1 1 0;
   }
-  .footer-bar img {
-    height: 40px;
-    filter: drop-shadow(0 3px 10px rgba(0,0,0,0.6));
-  }
+  .footer-bar .left   { text-align: left; }
+  .footer-bar .center { text-align: center; font-size: 24px; letter-spacing: 0.16em; }
+  .footer-bar .url    { text-align: right;  font-size: 15px; letter-spacing: 0.04em; white-space: nowrap; }
 </style>
 </head>
 <body>
@@ -184,8 +184,9 @@
       </div>
 
       <div class="footer-bar">
-        <img src="assets/64-logo-red-white.png" alt="64 Analytics" />
-        <div class="url">64ANALYTICS.COM/PLAYER-PROFILES</div>
+        <div class="left">&nbsp;</div>
+        <div class="center">TRANSFER PORTAL · 2026</div>
+        <div class="url">WWW.64ANALYTICS.COM/RANKINGS/PORTAL/PLAYERS</div>
       </div>
     </div>
   </div>
