@@ -187,13 +187,9 @@ def render_chart(out_path, title, subtitle, backdrop, target, cohort_label,
     ax.text(16.5, 0.88, '  host line (RPI 16)', fontsize=8.5, color=GOLD,
             ha='left', va='top', fontweight='bold')
 
-    # Title block — match the Selection Committee Study series
-    fig.text(0.06, 0.955,
-             _letter_spaced('D1 BASEBALL') + '     ·     '
-             + _letter_spaced('SELECTION COMMITTEE STUDY'),
-             fontsize=9, color=SUBINK, weight='bold')
-    fig.text(0.06, 0.905, title, fontsize=23, color=INK, weight='bold')
-    fig.text(0.06, 0.868, subtitle, fontsize=11, color=SUBINK)
+    # Title block
+    fig.text(0.06, 0.93, title, fontsize=23, color=INK, weight='bold')
+    fig.text(0.06, 0.888, subtitle, fontsize=11, color=SUBINK)
 
     # Dot-size legend — discreet, mirrors the snubs chart's quiet legend strip
     for wins in (30, 42, 54):
@@ -205,21 +201,17 @@ def render_chart(out_path, title, subtitle, backdrop, target, cohort_label,
                     bbox_to_anchor=(0.005, 0.005))
     leg.get_title().set_color(SUBINK)
 
-    # Footer — match snubs chart layout exactly
-    # Bottom-left: small-caps row-count tag (like "27 SNUBS")
-    fig.text(0.06, 0.062, footer_tag, fontsize=9.5, color=INK, weight='bold')
-    # Bottom-left under tag: cohort note
-    fig.text(0.06, 0.040, cohort_label, fontsize=8.5, color=SUBINK)
-    # Bottom-very-bottom: source line (full width, left-aligned per series)
-    fig.text(0.06, 0.018,
-             'Source  ·  NCAA team schedules + RPI computed weekly Monday-by-Monday  ·  64 Analytics',
-             fontsize=8, color=SUBINK)
-    # Bottom-right: thresholds tag (matches snubs chart exactly)
-    fig.text(0.97, 0.018,
+    # Footer (three lines, all left-aligned, generous vertical breathing room)
+    # Row 1: small-caps row-count tag
+    fig.text(0.06, 0.072, footer_tag, fontsize=9.5, color=INK, weight='bold')
+    # Row 2: cohort note
+    fig.text(0.06, 0.046, cohort_label, fontsize=8.5, color=SUBINK)
+    # Row 3: thresholds (chart methodology)
+    fig.text(0.06, 0.022,
              'Q1: H≤30, N≤50, A≤75  ·  Q2: H≤75, N≤100, A≤135  ·  Records as of Selection Monday',
-             fontsize=8, color=SUBINK, ha='right')
+             fontsize=8, color=SUBINK)
 
-    plt.subplots_adjust(left=0.07, right=0.97, top=0.83, bottom=0.18)
+    plt.subplots_adjust(left=0.07, right=0.97, top=0.85, bottom=0.18)
     fig.savefig(out_path, dpi=180, facecolor=BG, bbox_inches='tight')
     plt.close(fig)
     print(f'Wrote {out_path}')

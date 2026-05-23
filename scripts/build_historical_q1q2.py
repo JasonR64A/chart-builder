@@ -32,6 +32,18 @@ def norm(s):
     return re.sub(r'[^a-z0-9]', '', str(s).lower())
 
 
+# Schedule-name -> RPI-name aliases for cases the normalizer can't bridge.
+# Keep in sync with build_current_q1q2.py.
+NAME_ALIASES = {
+    'uncgreensboro': 'uncg',
+}
+
+
+def normalize_opp(s):
+    n = norm(s)
+    return NAME_ALIASES.get(n, n)
+
+
 def load_selection_dates():
     out = {}
     with open(BRACK / 'selection_dates.csv', newline='', encoding='utf-8') as f:
@@ -92,7 +104,7 @@ def load_schedule_for_year(year):
             by_team[yid].append({
                 'date': r['date'],  # MM/DD/YYYY
                 'loc': r['loc'],
-                'opp_norm': norm(r['opponent_clean']),
+                'opp_norm': normalize_opp(r['opponent_clean']),
                 'result': r['result'],
             })
     return by_team

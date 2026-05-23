@@ -114,7 +114,7 @@ historical,2016,Fla. Atlantic,24,38,17,12,23,0.5217,American Athletic Conference
 historical,2016,Rice,25,35,22,17,33,0.5152,American Athletic Conference
 historical,2016,Bryant,26,47,10,4,9,0.4444,America East
 historical,2016,Duke,27,33,22,16,34,0.4706,Atlantic Coast Conference
-historical,2016,Wake Forest,28,34,25,17,39,0.4359,Atlantic Coast Conference
+historical,2016,Wake Forest,28,34,25,17,38,0.4474,Atlantic Coast Conference
 historical,2016,Louisiana Tech,29,40,18,12,21,0.5714,Conference USA
 historical,2016,Tulane,30,39,19,14,27,0.5185,American Athletic Conference
 historical,2016,Gonzaga,31,35,19,14,27,0.5185,West Coast Conference
@@ -136,7 +136,7 @@ historical,2016,Saint Mary's (CA),60,33,23,14,28,0.5,West Coast Conference
 historical,2016,Xavier,81,30,28,4,22,0.1818,Big East
 historical,2016,Utah,94,25,27,14,29,0.4828,Big 12
 historical,2016,William & Mary,102,29,29,5,24,0.2083,Colonial Athletic Association
-historical,2016,Binghamton,103,30,23,4,8,0.5,America East
+historical,2016,Binghamton,103,30,23,4,5,0.8,America East
 historical,2016,Alabama St.,123,38,15,3,10,0.3,Southwestern Athletic Conference
 historical,2016,Bethune-Cookman,163,29,25,1,13,0.0769,Southwestern Athletic Conference
 historical,2017,Virginia,15,42,14,16,27,0.5926,Atlantic Coast Conference
@@ -152,7 +152,7 @@ historical,2017,Missouri St.,26,40,17,11,21,0.5238,Conference USA
 historical,2017,Indiana,27,33,22,16,32,0.5,Big Ten
 historical,2017,Mississippi St.,29,36,24,22,43,0.5116,Southeastern Conference
 historical,2017,South Alabama,30,39,19,8,24,0.3333,Sun Belt
-historical,2017,NC State,31,34,23,17,35,0.4857,Atlantic Coast Conference
+historical,2017,NC State,31,34,23,16,34,0.4706,Atlantic Coast Conference
 historical,2017,St. John's (NY),33,42,11,9,13,0.6923,Big East
 historical,2017,Michigan,35,42,15,15,24,0.625,Big Ten
 historical,2017,Maryland,36,37,21,12,25,0.48,Big Ten
@@ -203,7 +203,7 @@ historical,2018,UNCW,65,37,21,11,21,0.5238,Colonial Athletic Association
 historical,2018,New Mexico St.,82,40,20,4,16,0.25,Conference USA
 historical,2018,Morehead St.,88,37,24,5,13,0.3846,Ohio Valley Conference
 historical,2018,Campbell,109,35,24,2,15,0.1333,Colonial Athletic Association
-historical,2018,N.C. A&T,223,32,23,1,6,0.1667,Colonial Athletic Association
+historical,2018,N.C. A&T,223,32,23,0,5,0.0,Colonial Athletic Association
 historical,2019,Tennessee,14,38,19,20,37,0.5405,Southeastern Conference
 historical,2019,Texas A&M,15,37,21,22,40,0.55,Southeastern Conference
 historical,2019,Auburn,16,33,25,22,46,0.4783,Southeastern Conference
@@ -228,7 +228,7 @@ historical,2019,Clemson,41,34,24,19,36,0.5278,Atlantic Coast Conference
 historical,2019,Duke,44,31,25,15,36,0.4167,Atlantic Coast Conference
 historical,2019,Southern Miss.,47,38,19,6,13,0.4615,Sun Belt
 historical,2019,Florida St.,50,36,21,17,36,0.4722,Atlantic Coast Conference
-historical,2019,Campbell,54,35,19,7,18,0.3889,Colonial Athletic Association
+historical,2019,Campbell,54,35,19,6,17,0.3529,Colonial Athletic Association
 historical,2019,TCU,61,32,26,18,38,0.4737,Big 12
 historical,2019,Jacksonville St.,69,37,21,9,17,0.5294,Conference USA
 historical,2019,Coastal Carolina,74,35,24,17,30,0.5667,Sun Belt
@@ -246,12 +246,12 @@ historical,2021,UCLA,19,35,18,19,29,0.6552,Big Ten
 historical,2021,Duke,22,32,20,19,36,0.5278,Atlantic Coast Conference
 historical,2021,UC Irvine,24,40,16,11,22,0.5,Big West
 historical,2021,Miami (FL),26,32,19,25,42,0.5952,Atlantic Coast Conference
-historical,2021,Charlotte,27,39,19,12,22,0.5455,American Athletic Conference
+historical,2021,Charlotte,27,39,19,12,21,0.5714,American Athletic Conference
 historical,2021,Southern Miss.,29,37,19,13,26,0.5,Sun Belt
 historical,2021,LSU,30,34,22,18,36,0.5,Southeastern Conference
 historical,2021,Liberty,31,39,14,11,20,0.55,Conference USA
 historical,2021,Northeastern,32,36,10,2,6,0.3333,Colonial Athletic Association
-historical,2021,NC State,34,30,17,22,36,0.6111,Atlantic Coast Conference
+historical,2021,NC State,34,30,17,21,35,0.6,Atlantic Coast Conference
 historical,2021,Alabama,35,31,24,13,30,0.4333,Southeastern Conference
 historical,2021,Nevada,37,25,18,12,26,0.4615,Mountain West
 historical,2021,Arizona St.,38,32,20,17,32,0.5312,Big 12
@@ -271,7 +271,7 @@ historical,2021,Rider,101,23,16,4,12,0.3333,Metro Atlantic Athletic Conference
 historical,2021,South Fla.,108,28,27,7,24,0.2917,American Athletic Conference
 historical,2021,Central Conn. St.,133,28,13,0,1,0.0,Northeast Conference
 historical,2021,Norfolk St.,259,25,26,0,4,0.0,Northeast Conference
-historical,2022,Wake Forest,8,40,17,19,34,0.5588,Atlantic Coast Conference
+historical,2022,Wake Forest,8,40,17,18,33,0.5455,Atlantic Coast Conference
 historical,2022,Vanderbilt,10,36,21,22,41,0.5366,Southeastern Conference
 historical,2022,DBU,14,34,22,18,33,0.5455,Conference USA
 historical,2022,Georgia,15,35,21,21,40,0.525,Southeastern Conference
@@ -282,7 +282,7 @@ historical,2022,Oklahoma,24,37,20,16,29,0.5517,Southeastern Conference
 historical,2022,Virginia,25,38,17,16,31,0.5161,Atlantic Coast Conference
 historical,2022,Oregon,26,35,23,20,38,0.5263,Big Ten
 historical,2022,LSU,27,38,20,19,37,0.5135,Southeastern Conference
-historical,2022,Coastal Carolina,28,36,18,24,36,0.6667,Sun Belt
+historical,2022,Coastal Carolina,28,36,18,24,35,0.6857,Sun Belt
 historical,2022,Gonzaga,29,36,17,12,22,0.5455,West Coast Conference
 historical,2022,Florida St.,30,33,23,17,35,0.4857,Atlantic Coast Conference
 historical,2022,Liberty,32,37,21,11,26,0.4231,Conference USA
@@ -297,7 +297,7 @@ historical,2022,Kennesaw St.,47,35,26,11,28,0.3929,Conference USA
 historical,2022,San Diego,49,36,18,13,24,0.5417,West Coast Conference
 historical,2022,UCLA,50,38,22,20,32,0.625,Big Ten
 historical,2022,Louisiana,52,36,21,12,27,0.4444,Sun Belt
-historical,2022,Campbell,54,40,17,9,20,0.45,Colonial Athletic Association
+historical,2022,Campbell,54,40,17,9,19,0.4737,Colonial Athletic Association
 historical,2022,Michigan,69,32,26,6,22,0.2727,Big Ten
 historical,2022,Missouri St.,105,30,27,7,21,0.3333,Conference USA
 historical,2022,Air Force,108,30,27,3,14,0.2143,Mountain West
@@ -336,7 +336,7 @@ historical,2023,Sam Houston,76,38,23,10,18,0.5556,Conference USA
 historical,2023,Tulane,160,19,40,3,20,0.15,American Athletic Conference
 historical,2023,Belmont,220,27,33,4,15,0.2667,Missouri Valley Conference
 historical,2024,Indiana St.,10,42,13,12,20,0.6,Missouri Valley Conference
-historical,2024,Wake Forest,11,38,20,22,40,0.55,Atlantic Coast Conference
+historical,2024,Wake Forest,11,38,20,21,38,0.5526,Atlantic Coast Conference
 historical,2024,DBU,17,44,13,13,24,0.5417,Conference USA
 historical,2024,Duke,19,39,18,18,33,0.5455,Atlantic Coast Conference
 historical,2024,UC Irvine,21,43,12,11,16,0.6875,Big West
@@ -350,7 +350,7 @@ historical,2024,Mississippi St.,29,38,21,21,35,0.6,Southeastern Conference
 historical,2024,Louisiana Tech,30,45,17,15,24,0.625,Conference USA
 historical,2024,Florida,31,28,27,15,39,0.3846,Southeastern Conference
 historical,2024,Louisiana,34,40,18,18,27,0.6667,Sun Belt
-historical,2024,Coastal Carolina,35,34,23,15,34,0.4412,Sun Belt
+historical,2024,Coastal Carolina,35,34,23,14,33,0.4242,Sun Belt
 historical,2024,UCF,36,35,19,14,29,0.4828,Big 12
 historical,2024,West Virginia,37,33,22,20,36,0.5556,Big 12
 historical,2024,UConn,38,32,23,16,34,0.4706,Big East
