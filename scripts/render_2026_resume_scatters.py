@@ -123,7 +123,8 @@ def _letter_spaced(s, spaces=2):
 
 def render_chart(out_path, title, subtitle, backdrop, target, cohort_label,
                  footer_tag, highlight_color=RED,
-                 label_offset=(0.0, 0.0), label_anchor='auto'):
+                 label_offset=(0.0, 0.0), label_anchor='auto',
+                 x_max=75, x_ticks=None):
     fig, ax = plt.subplots(figsize=(13.5, 8.6), facecolor=BG)
     ax.set_facecolor(BG)
 
@@ -166,12 +167,15 @@ def render_chart(out_path, title, subtitle, backdrop, target, cohort_label,
                           ec=highlight_color, lw=1.3))
 
     # Axes — quiet, minimal, like a polished editorial chart
-    ax.set_xlim(76, -2)
+    ax.set_xlim(x_max + 1, -2)
     ax.set_ylim(-0.02, 0.92)
     ax.set_xlabel('RPI rank  (#1 on right)', fontsize=10.5, color=SUBINK,
                   labelpad=10)
     ax.set_ylabel('Q1 + Q2 win %', fontsize=10.5, color=SUBINK, labelpad=12)
-    ax.set_xticks([1, 10, 20, 30, 40, 50, 60, 75])
+    if x_ticks is None:
+        x_ticks = [1, 10, 20, 30, 40, 50, 60, 75]
+        x_ticks = [t for t in x_ticks if t <= x_max]
+    ax.set_xticks(x_ticks)
     ax.set_yticks([0.0, 0.2, 0.4, 0.5, 0.6, 0.7, 0.8])
     ax.set_yticklabels(['.000', '.200', '.400', '.500', '.600', '.700', '.800'])
     ax.tick_params(axis='both', labelsize=9.5, length=3, width=0.7)
@@ -260,7 +264,10 @@ def main():
         cohort_label='Backdrop: every regional host named by the NCAA D1 baseball committee 2013-2025 (no 2020).',
         footer_tag=f'{len(hosts)} HOSTS',
         # USC at (8, .600). Inverted x: rank=8 is on the right. Anchor label upper-LEFT (toward x>8).
-        label_offset=(25, 0.20), label_anchor='center_bottom',
+        label_offset=(15, 0.20), label_anchor='center_bottom',
+        # Hosts almost never come from below RPI ~22 (only outlier: Louisiana Tech 2021 #33).
+        # Cap x at 35 to drop the empty 36-75 range.
+        x_max=35, x_ticks=[1, 5, 10, 16, 20, 25, 30, 35],
     )
     write_cohort_csv(hosts, usc, BRACK / 'usc_vs_hosts_2013_2025.csv',
                      extra_fields=('is_host',))
