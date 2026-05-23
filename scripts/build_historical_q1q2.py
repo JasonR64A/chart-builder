@@ -39,7 +39,20 @@ NAME_ALIASES = {
 }
 
 
+def _strip_conf_tournament_tags(s):
+    """NCAA schedules tag conf-tourney games on both ends:
+      Prefix:  '#<seed> Team' (e.g. '#6 UIC')
+      Suffix:  'Team YYYY <Conf> Baseball Champ...' (historical scrape)
+    Strip both."""
+    if not isinstance(s, str):
+        return s
+    s = re.sub(r'^#\d+\s+', '', s).strip()
+    s = re.split(r'\s+\d{4}\s+', s, maxsplit=1)[0].strip()
+    return s
+
+
 def normalize_opp(s):
+    s = _strip_conf_tournament_tags(s)
     n = norm(s)
     return NAME_ALIASES.get(n, n)
 

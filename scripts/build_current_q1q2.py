@@ -60,9 +60,18 @@ NAME_ALIASES = {
 }
 
 
+def _strip_conf_tournament_suffix(s):
+    """Some NCAA schedules tag conf-tourney opponents with a trailing
+    ' YYYY <Conf> Baseball Champ...' suffix. Strip from the first 4-digit
+    year onward."""
+    if not isinstance(s, str):
+        return s
+    return re.split(r'\s+\d{4}\s+', s, maxsplit=1)[0].strip()
+
+
 def normalize_opp(opp_name):
     """Apply opponent-name aliases on top of base normalization."""
-    n = norm(opp_name)
+    n = norm(_strip_conf_tournament_suffix(opp_name))
     return NAME_ALIASES.get(n, n)
 
 
