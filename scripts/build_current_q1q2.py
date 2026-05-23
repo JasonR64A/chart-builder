@@ -26,12 +26,22 @@ TEAMS = ['Southern California', 'Mercer']
 # Each override is keyed by team name. Only fields listed are replaced.
 OVERRIDES = {
     'Mercer': {
-        # Per d1baseball.com Selection Monday display 2026-05-23
+        # Per user, d1baseball.com Selection Monday display 2026-05-23
+        'record': '44-15',
         'rpi_rank': 28,
-        'q1_w': 0, 'q1_l': 7,   # 9-13 with Q2 totals below = full override
+        # Q1/Q2 split is approximate — only the Q1+Q2 total matters for the chart
+        'q1_w': 0, 'q1_l': 7,
         'q2_w': 9, 'q2_l': 6,
-        # Recomputed: q1q2_w = q1_w + q2_w; q1q2_g = sum of w+l; pct = w/g
-        '_note': 'Override: d1baseball.com published RPI + Q1/Q2 split (2026-05-23)',
+        '_note': 'Override: d1baseball.com published RPI + Q1/Q2 total (9-13) (2026-05-23)',
+    },
+    'Southern California': {
+        # Per user, d1baseball.com Selection Monday display 2026-05-23
+        'record': '43-14',
+        # RPI rank unchanged (#8)
+        # Q1/Q2 split is approximate — only the Q1+Q2 total matters for the chart
+        'q1_w': 1, 'q1_l': 9,
+        'q2_w': 8, 'q2_l': 2,
+        '_note': 'Override: d1baseball.com published Q1/Q2 total (9-11) (2026-05-23)',
     },
 }
 
