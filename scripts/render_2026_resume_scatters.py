@@ -28,20 +28,21 @@ import matplotlib.patches as mpatches
 REPO = Path(r'C:\Dev\chart-builder-app')
 BRACK = REPO / 'data' / 'bracketology'
 
-# 64 Analytics brand
-BG = '#FAF8F2'
-INK = '#2D2926'
-GRAY = '#B8B0A4'
-RED = '#C41230'
-GOLD = '#C9A96B'
-SUBINK = '#6B6359'
+# 64 Analytics — match the Selection Committee Study series brand
+BG       = '#F4EFE3'   # cream, slightly warmer than #FAF8F2
+INK      = '#1F1B17'   # near-black with warm undertone
+SUBINK   = '#7A736A'   # muted gray for subtitle/source
+BACKDROP = '#C7BFAF'   # warm beige for backdrop dots
+RED      = '#C41230'   # highlight / target
+GOLD     = '#C9A96B'   # accent (mid emphasis)
+GREEN    = '#5B7C3E'   # positive accent
 
 plt.rcParams['font.family'] = ['Segoe UI', 'Arial', 'DejaVu Sans']
 plt.rcParams['font.size'] = 11
-plt.rcParams['axes.edgecolor'] = INK
+plt.rcParams['axes.edgecolor'] = SUBINK
 plt.rcParams['axes.labelcolor'] = INK
-plt.rcParams['xtick.color'] = INK
-plt.rcParams['ytick.color'] = INK
+plt.rcParams['xtick.color'] = SUBINK
+plt.rcParams['ytick.color'] = SUBINK
 
 
 def norm(s):
@@ -110,94 +111,115 @@ def size_for_wins(wins):
     return max(20, min(s, 260))
 
 
+def _letter_spaced(s, spaces=2):
+    """Apply visual letter-spacing by inserting spaces between characters.
+    spaces=2 between letters and 4 between separators reproduces the
+    'D 1   B A S E B A L L     ·     ...' look of the snubs chart."""
+    out = []
+    for word in s.split(' '):
+        out.append((' ' * spaces).join(list(word)))
+    return ('   ' * 2).join(out)
+
+
 def render_chart(out_path, title, subtitle, backdrop, target, cohort_label,
-                 highlight_color=RED, label_offset=(0.0, 0.0), label_anchor='auto'):
-    fig, ax = plt.subplots(figsize=(13, 8.5), facecolor=BG)
+                 footer_tag, highlight_color=RED,
+                 label_offset=(0.0, 0.0), label_anchor='auto'):
+    fig, ax = plt.subplots(figsize=(13.5, 8.6), facecolor=BG)
     ax.set_facecolor(BG)
 
-    # Backdrop dots
+    # Subtle "above .500" band — green tint mirrors the snubs chart Q1+Q2 % column
+    ax.axhspan(0.500, 0.95, color=GREEN, alpha=0.04, zorder=0)
+
+    # Backdrop dots — warm beige to match the series palette
     xs = [r['rpi_rank'] for r in backdrop]
     ys = [r['q1q2_pct'] for r in backdrop]
     ss = [size_for_wins(r['w']) for r in backdrop]
-    ax.scatter(xs, ys, s=ss, color=GRAY, alpha=0.45, edgecolors='none', zorder=2)
+    ax.scatter(xs, ys, s=ss, color=BACKDROP, alpha=0.55,
+               edgecolors='none', zorder=2)
 
     # Target
     tx, ty, tsize = target['rpi_rank'], target['q1q2_pct'], size_for_wins(target['w'])
-    ax.scatter([tx], [ty], s=tsize * 1.8, color=highlight_color,
-               edgecolors=INK, linewidths=1.2, zorder=4)
+    ax.scatter([tx], [ty], s=tsize * 2.0, color=highlight_color,
+               edgecolors=INK, linewidths=1.0, zorder=4)
 
     # Target label
-    label = (f"{target['team']} 2026\n"
-             f"RPI #{target['rpi_rank']}  ·  {target['record']}  ·  "
-             f"Q1+Q2 {target['q1q2_w']}-{target['q1q2_g']-target['q1q2_w']} "
-             f"({target['q1q2_pct']:.3f})")
-    # Use caller-supplied label offset (axis-data units). x positive = away from
-    # rank #1 (leftward on the inverted axis); y positive = upward.
+    pct_color = GREEN if target['q1q2_pct'] >= 0.500 else RED
+    label_line1 = f"{target['team']} 2026"
+    label_line2 = (f"RPI #{target['rpi_rank']}  ·  {target['record']}  ·  "
+                   f"Q1+Q2 {target['q1q2_w']}-{target['q1q2_g']-target['q1q2_w']} "
+                   f"({target['q1q2_pct']:.3f})")
     lx_dx, lx_dy = label_offset
     if label_anchor == 'auto':
         label_ha = 'left' if lx_dx >= 0 else 'right'
         label_va = 'bottom' if lx_dy >= 0 else 'top'
     else:
         label_ha, label_va = label_anchor.split('_')
-    # Draw connector line from dot to label box
-    ax.annotate(label, xy=(tx, ty), xytext=(tx + lx_dx, ty + lx_dy),
+    label_text = f"{label_line1}\n{label_line2}"
+    ax.annotate(label_text, xy=(tx, ty), xytext=(tx + lx_dx, ty + lx_dy),
                 ha=label_ha, va=label_va, fontsize=11.5, color=INK,
                 fontweight='bold', zorder=5,
                 arrowprops=dict(arrowstyle='-', color=highlight_color,
-                                lw=1.0, alpha=0.8,
-                                connectionstyle='arc3,rad=0.0'),
-                bbox=dict(boxstyle='round,pad=0.45', fc=BG, ec=highlight_color, lw=1.3))
+                                lw=1.0, alpha=0.85,
+                                connectionstyle='arc3,rad=0.0',
+                                shrinkA=8, shrinkB=10),
+                bbox=dict(boxstyle='round,pad=0.55', fc=BG,
+                          ec=highlight_color, lw=1.3))
 
-    # Axes
-    ax.set_xlim(76, -2)  # inverted: RPI #1 on right
+    # Axes — quiet, minimal, like a polished editorial chart
+    ax.set_xlim(76, -2)
     ax.set_ylim(-0.02, 0.92)
-    ax.set_xlabel('RPI rank  (#1 on right)', fontsize=11, color=INK, labelpad=8)
-    ax.set_ylabel('Q1 + Q2 win %', fontsize=12, color=INK, labelpad=10)
+    ax.set_xlabel('RPI rank  (#1 on right)', fontsize=10.5, color=SUBINK,
+                  labelpad=10)
+    ax.set_ylabel('Q1 + Q2 win %', fontsize=10.5, color=SUBINK, labelpad=12)
     ax.set_xticks([1, 10, 20, 30, 40, 50, 60, 75])
     ax.set_yticks([0.0, 0.2, 0.4, 0.5, 0.6, 0.7, 0.8])
     ax.set_yticklabels(['.000', '.200', '.400', '.500', '.600', '.700', '.800'])
-    ax.tick_params(axis='both', labelsize=10)
+    ax.tick_params(axis='both', labelsize=9.5, length=3, width=0.7)
     for spine in ('top', 'right'):
         ax.spines[spine].set_visible(False)
     for spine in ('left', 'bottom'):
         ax.spines[spine].set_color(SUBINK)
-        ax.spines[spine].set_linewidth(0.8)
-    ax.grid(True, axis='y', color=GRAY, alpha=0.35, linewidth=0.6, zorder=1)
-    ax.axhline(0.500, color=SUBINK, linewidth=0.5, alpha=0.5, linestyle='--', zorder=1)
-    ax.axvline(16.5, color=SUBINK, linewidth=0.5, alpha=0.5, linestyle='--', zorder=1)
-    # Annotate the host line
-    ax.text(16.5, 0.89, 'host line (RPI 16)', fontsize=8.5, color=SUBINK,
-            ha='right', va='top', rotation=0)
+        ax.spines[spine].set_linewidth(0.7)
+    ax.grid(True, axis='y', color=BACKDROP, alpha=0.35, linewidth=0.55, zorder=1)
+    # Host line + 0.500 line — gold for emphasis like the snubs DROP bars
+    ax.axvline(16.5, color=GOLD, linewidth=1.0, alpha=0.7, linestyle='-', zorder=1)
+    ax.axhline(0.500, color=SUBINK, linewidth=0.5, alpha=0.4, linestyle='--', zorder=1)
+    ax.text(16.5, 0.88, '  host line (RPI 16)', fontsize=8.5, color=GOLD,
+            ha='left', va='top', fontweight='bold')
 
-    # Title block
-    fig.text(0.06, 0.95, 'D 1   B A S E B A L L     ·     6 4   A N A L Y T I C S',
-             fontsize=9.5, color=SUBINK, weight='bold')
-    fig.text(0.06, 0.905, title, fontsize=22, color=INK, weight='bold')
-    fig.text(0.06, 0.873, subtitle, fontsize=11.5, color=SUBINK)
+    # Title block — match the Selection Committee Study series
+    fig.text(0.06, 0.955,
+             _letter_spaced('D1 BASEBALL') + '     ·     '
+             + _letter_spaced('SELECTION COMMITTEE STUDY'),
+             fontsize=9, color=SUBINK, weight='bold')
+    fig.text(0.06, 0.905, title, fontsize=23, color=INK, weight='bold')
+    fig.text(0.06, 0.868, subtitle, fontsize=11, color=SUBINK)
 
-    # Legend strip (bottom-right of plot area): dot size legend
-    leg_x = 0.78
-    leg_y_top = 0.20
-    for i, (wins, lbl) in enumerate([(30, '30 W'), (42, '42 W'), (54, '54 W')]):
-        y = leg_y_top - i * 0.04
-        ax.scatter([], [], s=size_for_wins(wins), color=GRAY, alpha=0.6,
-                   label=lbl, edgecolors='none')
-    leg = ax.legend(loc='lower left', frameon=False, fontsize=9.5,
+    # Dot-size legend — discreet, mirrors the snubs chart's quiet legend strip
+    for wins in (30, 42, 54):
+        ax.scatter([], [], s=size_for_wins(wins), color=BACKDROP, alpha=0.6,
+                   label=f'{wins} W', edgecolors='none')
+    leg = ax.legend(loc='lower left', frameon=False, fontsize=9,
                     labelcolor=INK, title='dot size = overall wins',
-                    title_fontsize=9, handletextpad=1.2, borderaxespad=1.2,
-                    bbox_to_anchor=(0.01, 0.01))
+                    title_fontsize=8.5, handletextpad=1.0, borderaxespad=1.0,
+                    bbox_to_anchor=(0.005, 0.005))
     leg.get_title().set_color(SUBINK)
 
-    # Footer
-    fig.text(0.06, 0.045, cohort_label, fontsize=9, color=SUBINK)
-    fig.text(0.06, 0.020,
-             'Q1: H≤30 · N≤50 · A≤75    Q2: H≤75 · N≤100 · A≤135    '
-             'RPI + records as of Selection Monday (2026 snapshot: 2026-05-22)',
+    # Footer — match snubs chart layout exactly
+    # Bottom-left: small-caps row-count tag (like "27 SNUBS")
+    fig.text(0.06, 0.062, footer_tag, fontsize=9.5, color=INK, weight='bold')
+    # Bottom-left under tag: cohort note
+    fig.text(0.06, 0.040, cohort_label, fontsize=8.5, color=SUBINK)
+    # Bottom-very-bottom: source line (full width, left-aligned per series)
+    fig.text(0.06, 0.018,
+             'Source  ·  NCAA team schedules + RPI computed weekly Monday-by-Monday  ·  64 Analytics',
              fontsize=8, color=SUBINK)
-    fig.text(0.97, 0.020, 'Source: NCAA team schedules + selection-week RPI',
+    # Bottom-right: thresholds tag (matches snubs chart exactly)
+    fig.text(0.97, 0.018,
+             'Q1: H≤30, N≤50, A≤75  ·  Q2: H≤75, N≤100, A≤135  ·  Records as of Selection Monday',
              fontsize=8, color=SUBINK, ha='right')
 
-    plt.subplots_adjust(left=0.07, right=0.97, top=0.83, bottom=0.16)
+    plt.subplots_adjust(left=0.07, right=0.97, top=0.83, bottom=0.18)
     fig.savefig(out_path, dpi=180, facecolor=BG, bbox_inches='tight')
     plt.close(fig)
     print(f'Wrote {out_path}')
@@ -239,12 +261,14 @@ def main():
     render_chart(
         BRACK / 'usc_vs_hosts_2013_2025.png',
         title='Does USC look like a host?',
-        subtitle=f"Southern California 2026 vs every regional host, 2013-2025 (n={len(hosts)})",
+        subtitle=("Southern California 2026 plotted against every regional host  ·  "
+                  f"12 NCAA tournaments, 2013-2025  ·  n={len(hosts)} host-seasons"),
         backdrop=hosts,
         target=usc,
-        cohort_label=f'Backdrop: {len(hosts)} regional hosts across 12 NCAA tournaments (2013-2025, no 2020).',
-        # USC at (8, .600). Inverted x: rank=8 is on the right. Anchor label to upper-LEFT (toward x>8).
-        label_offset=(25, 0.18), label_anchor='center_bottom',
+        cohort_label='Backdrop: every regional host named by the NCAA D1 baseball committee 2013-2025 (no 2020).',
+        footer_tag=f'{len(hosts)} HOSTS',
+        # USC at (8, .600). Inverted x: rank=8 is on the right. Anchor label upper-LEFT (toward x>8).
+        label_offset=(25, 0.20), label_anchor='center_bottom',
     )
     write_cohort_csv(hosts, usc, BRACK / 'usc_vs_hosts_2013_2025.csv',
                      extra_fields=('is_host',))
@@ -270,15 +294,17 @@ def main():
     mercer = targets['Mercer']
     render_chart(
         BRACK / 'mercer_vs_at_large_2013_2025.png',
-        title='Does Mercer look like an at-large pick?',
-        subtitle=f"Mercer 2026 vs at-large-track entrants 2013-2025 (n={len(at_large_cohort)})",
+        title='Does Mercer fit the multi-bid-league field?',
+        subtitle=("Mercer 2026 plotted against non-host entrants from multi-bid conferences  ·  "
+                  f"12 NCAA tournaments, 2013-2025  ·  n={len(at_large_cohort)} team-seasons"),
         backdrop=at_large_cohort,
         target=mercer,
-        cohort_label=('Backdrop: non-host entrants from conferences that placed 2+ teams '
-                      'in the field that year (filter excludes one-bid auto-bid leagues). '
-                      'Conference assignments use current 2026 alignment for all years.'),
-        # Mercer at (27, .500). Anchor label upper-right (toward higher rpi_rank = leftward on inverted axis).
-        label_offset=(18, 0.18), label_anchor='center_bottom',
+        cohort_label=('Backdrop: non-host entrants from conferences that placed 2+ teams in the field '
+                      'that year. Includes conference-tournament auto-bid winners from multi-bid leagues '
+                      '(e.g. Nebraska 2025) — not pure at-large picks. Conference assignments use 2026 alignment.'),
+        footer_tag=f'{len(at_large_cohort)} ENTRANT SEASONS',
+        # Mercer at (28, .409). Anchor label upper-right (toward higher rpi_rank = leftward on inverted axis).
+        label_offset=(18, 0.22), label_anchor='center_bottom',
     )
     write_cohort_csv(at_large_cohort, mercer,
                      BRACK / 'mercer_vs_at_large_2013_2025.csv',

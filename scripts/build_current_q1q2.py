@@ -20,6 +20,21 @@ BRACK = REPO / 'data' / 'bracketology'
 
 TEAMS = ['Southern California', 'Mercer']
 
+# Manual overrides applied AFTER computation. Use this for cases where the
+# 64A internal RPI calc diverges from the d1baseball.com / NCAA published
+# numbers and we want the chart label to match what readers see externally.
+# Each override is keyed by team name. Only fields listed are replaced.
+OVERRIDES = {
+    'Mercer': {
+        # Per d1baseball.com Selection Monday display 2026-05-23
+        'rpi_rank': 28,
+        'q1_w': 0, 'q1_l': 7,   # 9-13 with Q2 totals below = full override
+        'q2_w': 9, 'q2_l': 6,
+        # Recomputed: q1q2_w = q1_w + q2_w; q1q2_g = sum of w+l; pct = w/g
+        '_note': 'Override: d1baseball.com published RPI + Q1/Q2 split (2026-05-23)',
+    },
+}
+
 Q1 = {'home': 30, 'neutral': 50, 'away': 75}
 Q2 = {'home': 75, 'neutral': 100, 'away': 135}
 
@@ -28,12 +43,31 @@ def norm(s):
     return re.sub(r'[^a-z0-9]', '', str(s).lower())
 
 
+# Schedule-name -> RPI-name aliases for cases the normalizer can't bridge
+NAME_ALIASES = {
+    'uncgreensboro': 'uncg',
+    # Add more here when audit surfaces them
+}
+
+
+def normalize_opp(opp_name):
+    """Apply opponent-name aliases on top of base normalization."""
+    n = norm(opp_name)
+    return NAME_ALIASES.get(n, n)
+
+
 def strip_neutral_suffix(opp_name):
-    """opponentName like 'Mount Union @Canton, OH' -> ('Mount Union', True)."""
-    if isinstance(opp_name, str) and ' @' in opp_name:
-        base = opp_name.split(' @', 1)[0].strip()
-        return base, True
-    return opp_name, False
+    """opponentName like 'Mount Union @Canton, OH' -> ('Mount Union', True).
+    Also strip leading '#N ' conference-tournament seed prefix (e.g. '#5 The Citadel').
+    """
+    s = opp_name or ''
+    is_neutral = False
+    if ' @' in s:
+        s = s.split(' @', 1)[0].strip()
+        is_neutral = True
+    # Strip leading '#<digits> ' that NCAA uses for conf-tourney seeds
+    s = re.sub(r'^#\d+\s+', '', s).strip()
+    return s, is_neutral
 
 
 def main():
@@ -109,7 +143,7 @@ def main():
             opp_clean, is_neutral = strip_neutral_suffix(opp_raw)
             is_away = (g.get('isAway') == '1')
             venue = 'neutral' if is_neutral else ('away' if is_away else 'home')
-            opp_rank = rpi.get(norm(opp_clean))
+            opp_rank = rpi.get(normalize_opp(opp_clean))
             if opp_rank is None:
                 continue
             if opp_rank <= Q1[venue]:
@@ -123,7 +157,7 @@ def main():
         q1q2_g = q1_w + q1_l + q2_w + q2_l
         q1q2_pct = q1q2_w / q1q2_g if q1q2_g else 0.0
 
-        out_rows.append({
+        row = {
             'year': 2026,
             'team': meta['teamName'],
             'conference': meta['conference'],
@@ -134,11 +168,27 @@ def main():
             'q2_w': q2_w, 'q2_l': q2_l,
             'q1q2_w': q1q2_w, 'q1q2_g': q1q2_g,
             'q1q2_pct': round(q1q2_pct, 4),
-        })
+            'note': '',
+        }
+        # Apply override if present
+        ovr = OVERRIDES.get(meta['teamName'])
+        if ovr:
+            for k, v in ovr.items():
+                if k.startswith('_'):
+                    row['note'] = v.replace('_note', '').lstrip(': ').strip() \
+                        if k == '_note' else v
+                    continue
+                row[k] = v
+            # Recompute derived fields from overridden q1/q2
+            row['q1q2_w'] = row['q1_w'] + row['q2_w']
+            row['q1q2_g'] = row['q1_w'] + row['q1_l'] + row['q2_w'] + row['q2_l']
+            row['q1q2_pct'] = round(row['q1q2_w'] / row['q1q2_g'], 4) \
+                              if row['q1q2_g'] else 0.0
+        out_rows.append(row)
 
     fields = ['year', 'team', 'conference', 'rpi_rank', 'record', 'w', 'l',
               'q1_w', 'q1_l', 'q2_w', 'q2_l',
-              'q1q2_w', 'q1q2_g', 'q1q2_pct']
+              'q1q2_w', 'q1q2_g', 'q1q2_pct', 'note']
     out_path = BRACK / 'current_q1q2_baseball.csv'
     with open(out_path, 'w', newline='', encoding='utf-8') as f:
         w = csv.DictWriter(f, fieldnames=fields)
