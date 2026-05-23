@@ -53,7 +53,7 @@ def load_historical():
     rows = []
     with open(BRACK / 'historical_q1q2_baseball.csv', encoding='utf-8') as f:
         for r in csv.DictReader(f):
-            if r['note']:  # skip unmatched rows
+            if r['note'] == 'no_yearid_match':  # skip only unmatched rows; keep overrides
                 continue
             if not r['rpi_rank'] or not r['q1q2_pct']:
                 continue

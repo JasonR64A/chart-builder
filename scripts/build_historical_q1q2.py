@@ -38,6 +38,21 @@ NAME_ALIASES = {
     'uncgreensboro': 'uncg',
 }
 
+# Surgical (year, team) -> override values. Applied AFTER computation so the
+# specific dots reflect NCAA-published numbers exactly. Will be superseded
+# when we scrape all 576 NCAA nitty-gritty pages (blocked on proxy DNS).
+# Each override is keyed by (year, team_rpi_name).
+OVERRIDES = {
+    (2023, 'Indiana St.'): {
+        # NCAA nitty-gritty 32689 — Q1+Q2 at selection
+        'q1_w': None, 'q1_l': None,  # split unknown; using totals only
+        'q2_w': None, 'q2_l': None,
+        'q1q2_w': 10, 'q1q2_g': 20,  # 10-10 (.500)
+        'q1q2_pct': 0.500,
+        '_note': 'NCAA nitty-gritty override 32689',
+    },
+}
+
 
 def _strip_conf_tournament_tags(s):
     """NCAA schedules tag conf-tourney games on both ends:
@@ -215,7 +230,7 @@ def main():
             q1q2_g = q1_w + q1_l + q2_w + q2_l
             q1q2_pct = (q1q2_w / q1q2_g) if q1q2_g > 0 else 0.0
 
-            out_rows.append({
+            row = {
                 'year': year, 'team': e['team_rpi_name'],
                 'rpi_rank': e['rpi_rank'],
                 'in_tournament': e['in_tournament'],
@@ -225,7 +240,17 @@ def main():
                 'q1q2_w': q1q2_w, 'q1q2_g': q1q2_g,
                 'q1q2_pct': round(q1q2_pct, 4),
                 'note': '',
-            })
+            }
+            # Apply surgical override if present
+            ovr = OVERRIDES.get((year, e['team_rpi_name']))
+            if ovr:
+                for k, v in ovr.items():
+                    if k.startswith('_'):
+                        row['note'] = v if k == '_note' else v
+                        continue
+                    if v is not None:
+                        row[k] = v
+            out_rows.append(row)
 
     out_path = BRACK / 'historical_q1q2_baseball.csv'
     fields = ['year', 'team', 'rpi_rank', 'in_tournament', 'is_host', 'w', 'l',
@@ -238,7 +263,7 @@ def main():
 
     # Quick audit
     print(f'Wrote {len(out_rows)} rows to {out_path}')
-    unmatched = [r for r in out_rows if r['note']]
+    unmatched = [r for r in out_rows if r['note'] == 'no_yearid_match']
     print(f'Unmatched yearId: {len(unmatched)}')
     for r in unmatched[:10]:
         print(f"  {r['year']} {r['team']}")
