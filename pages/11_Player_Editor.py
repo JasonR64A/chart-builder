@@ -167,7 +167,7 @@ EDITABLE_COLS = ['player_name', 'position', 'classification', 'height', 'bat', '
 POSITION_OPTIONS = ['', 'P', 'C', '1B', '2B', '3B', 'SS', 'LF', 'CF', 'RF', 'OF', 'INF', 'DH', 'UT']
 CLASS_OPTIONS = ['', 'Fr', 'So', 'Jr', 'Sr', 'Gr', 'HS']
 BAT_OPTIONS = ['', 'L', 'R', 'S']
-THROW_OPTIONS = ['', 'L', 'R']
+THROW_OPTIONS = ['', 'L', 'R', 'B']
 
 
 @st.cache_data
