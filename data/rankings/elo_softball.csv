@@ -1,309 +1,309 @@
 rank,team,record,elo,delta,sport,date
-1,Nebraska,49-6,1879.31,183.22,softball,2026-05-23
-2,Alabama,52-7,1861.47,161.47,softball,2026-05-23
-3,Texas Tech,55-6,1850.02,152.63,softball,2026-05-23
-4,Oklahoma,51-8,1847.76,149.07,softball,2026-05-23
-5,Texas,45-10,1842.83,148.04,softball,2026-05-23
-6,UCLA,50-8,1841.23,156.87,softball,2026-05-23
-7,Arkansas,45-11,1835.66,144.78,softball,2026-05-23
-8,Florida,51-10,1832.65,139.16,softball,2026-05-23
-9,Florida St.,52-10,1829.77,142.8,softball,2026-05-23
-10,Tennessee,46-10,1821.49,129.31,softball,2026-05-23
-11,Georgia,41-19,1800.58,118.82,softball,2026-05-23
-12,Virginia Tech,48-12,1797.87,112.2,softball,2026-05-23
-13,Duke,43-15,1791.55,120.22,softball,2026-05-23
-14,LSU,40-17,1790.0,113.45,softball,2026-05-23
-15,Arizona St.,44-16,1778.89,95.82,softball,2026-05-23
-16,Oregon,41-14,1778.61,89.04,softball,2026-05-23
-17,Oklahoma St.,41-15,1778.04,97.58,softball,2026-05-23
-18,Texas A&M,38-19,1766.54,78.27,softball,2026-05-23
-19,Grand Canyon,54-10,1762.75,84.89,softball,2026-05-23
-20,Stanford,39-15,1755.8,76.65,softball,2026-05-23
-21,Mississippi St.,41-18,1750.54,76.6,softball,2026-05-23
-22,UCF,41-17,1750.47,81.74,softball,2026-05-23
-23,Indiana,43-16,1740.49,70.46,softball,2026-05-23
-24,Southeastern La.,46-16,1736.34,61.1,softball,2026-05-23
-25,Arizona,37-18,1723.56,73.07,softball,2026-05-23
-26,Jacksonville St.,45-16,1719.78,78.42,softball,2026-05-23
-27,Ole Miss,36-26,1719.66,56.15,softball,2026-05-23
-28,Louisville,44-14,1718.76,52.64,softball,2026-05-23
-29,Texas St.,39-22,1717.62,50.2,softball,2026-05-23
-30,Virginia,40-15,1715.87,43.23,softball,2026-05-23
-31,Omaha,37-12,1710.82,53.81,softball,2026-05-23
-32,South Fla.,44-17,1710.39,58.6,softball,2026-05-23
-33,Clemson,34-22,1702.17,43.86,softball,2026-05-23
-34,Belmont,41-13,1700.55,39.63,softball,2026-05-23
-35,Washington,37-20,1699.71,34.89,softball,2026-05-23
-36,Kansas,36-21,1691.55,31.94,softball,2026-05-23
-37,Wichita St.,35-17,1690.11,40.93,softball,2026-05-23
-38,Boston U.,47-15,1687.86,41.28,softball,2026-05-23
-39,ULM,38-20,1684.97,44.9,softball,2026-05-23
-40,Nevada,39-20,1684.62,41.95,softball,2026-05-23
-41,South Carolina,32-28,1683.22,28.82,softball,2026-05-23
-42,Marshall,38-19,1681.87,19.66,softball,2026-05-23
-43,Cal St. Fullerton,41-15,1676.75,28.86,softball,2026-05-23
-44,UNC Greensboro,43-19,1675.25,36.49,softball,2026-05-23
-45,Northwestern,29-21,1673.41,17.71,softball,2026-05-23
-46,Michigan,36-22,1672.73,35.27,softball,2026-05-23
-47,Georgia Tech,32-29,1671.01,25.73,softball,2026-05-23
-48,Western Ky.,39-14,1670.38,26.4,softball,2026-05-23
-49,Utah,35-20,1668.18,15.09,softball,2026-05-23
-50,Saint Mary's (CA),42-16,1663.73,45.82,softball,2026-05-23
-51,Purdue,34-20,1663.44,29.89,softball,2026-05-23
-52,Wisconsin,33-21,1656.62,20.46,softball,2026-05-23
-53,Fla. Atlantic,34-20,1655.96,25.02,softball,2026-05-23
-54,Stetson,37-22,1654.48,22.24,softball,2026-05-23
-55,North Carolina,32-19,1649.93,20.29,softball,2026-05-23
-56,Penn St.,33-21,1647.06,20.02,softball,2026-05-23
-57,McNeese,40-22,1645.06,20.63,softball,2026-05-23
-58,North Ala.,36-16,1644.64,21.51,softball,2026-05-23
-59,Auburn,27-28,1642.62,7.76,softball,2026-05-23
-60,South Alabama,32-27,1642.22,13.88,softball,2026-05-23
-61,Missouri,28-29,1639.17,18.65,softball,2026-05-23
-62,Iowa St.,32-23,1636.47,27.68,softball,2026-05-23
-63,Central Ark.,36-20,1635.26,9.52,softball,2026-05-23
-64,California Baptist,43-19,1633.46,20.76,softball,2026-05-23
-65,Princeton,34-15,1628.95,13.64,softball,2026-05-23
-66,FIU,34-18,1627.45,17.36,softball,2026-05-23
-67,St. Thomas (MN),34-19,1624.99,8.38,softball,2026-05-23
-68,Southern Ill.,34-17,1623.98,2.16,softball,2026-05-23
-69,James Madison,27-24,1622.31,10.91,softball,2026-05-23
-70,Baylor,30-28,1620.57,18.29,softball,2026-05-23
-71,Miami (OH),38-18,1618.17,-1.05,softball,2026-05-23
-72,Troy,32-22,1617.93,13.04,softball,2026-05-23
-73,Southern Miss.,33-24,1617.54,17.86,softball,2026-05-23
-74,Ohio,38-20,1616.5,27.25,softball,2026-05-23
-75,Louisiana,29-27,1613.0,9.41,softball,2026-05-23
-76,UConn,32-28,1612.7,15.63,softball,2026-05-23
-77,Ohio St.,26-27,1610.53,-3.47,softball,2026-05-23
-78,Akron,35-25,1609.5,26.76,softball,2026-05-23
-79,North Florida,39-22,1609.4,3.21,softball,2026-05-23
-80,Idaho St.,37-20,1605.62,25.49,softball,2026-05-23
-81,UIW,33-21,1600.18,9.63,softball,2026-05-23
-82,Jacksonville,34-21,1598.37,5.21,softball,2026-05-23
-83,NC State,27-26,1596.56,-10.93,softball,2026-05-23
-84,Charlotte,32-26,1595.33,17.8,softball,2026-05-23
-85,App State,29-21,1595.3,-5.67,softball,2026-05-23
-86,Notre Dame,25-28,1594.67,0.21,softball,2026-05-23
-87,Louisiana Tech,31-25,1594.24,-4.13,softball,2026-05-23
-88,Liberty,29-28,1592.38,13.56,softball,2026-05-23
-89,Rutgers,27-27,1591.19,-4.57,softball,2026-05-23
-90,Kentucky,26-29,1590.15,3.51,softball,2026-05-23
-91,UNLV,31-22,1589.54,-2.32,softball,2026-05-23
-92,Delaware,31-24,1589.11,7.68,softball,2026-05-23
-93,Lamar,34-24,1587.37,26.79,softball,2026-05-23
-94,LMU (CA),33-19,1587.21,16.2,softball,2026-05-23
-95,UNCW,32-19,1585.16,-0.19,softball,2026-05-23
-96,Iowa,27-27,1584.47,9.55,softball,2026-05-23
-97,Nicholls,31-23,1583.51,-4.43,softball,2026-05-23
-98,Campbell,34-23,1582.14,-1.9,softball,2026-05-23
-99,New Mexico,28-27,1579.81,3.59,softball,2026-05-23
-100,USC Upstate,38-23,1575.34,42.12,softball,2026-05-23
-101,East Carolina,34-25,1573.69,5.29,softball,2026-05-23
-102,Murray St.,29-23,1571.7,4.6,softball,2026-05-23
-103,Eastern Ill.,36-23,1569.18,3.38,softball,2026-05-23
-104,Creighton,32-27,1567.29,9.31,softball,2026-05-23
-105,Providence,29-20,1566.27,-7.34,softball,2026-05-23
-106,Tarleton St.,38-23,1563.26,11.8,softball,2026-05-23
-107,Southern U.,28-15,1562.9,19.25,softball,2026-05-23
-108,Hawaii,30-20,1562.46,14.91,softball,2026-05-23
-109,UNI,29-24,1561.91,-2.58,softball,2026-05-23
-110,Texas Southern,27-12,1560.39,10.23,softball,2026-05-23
-111,Army West Point,33-25,1555.74,-16.57,softball,2026-05-23
-112,New Mexico St.,27-27,1551.14,-18.56,softball,2026-05-23
-113,Marist,37-21,1551.12,11.38,softball,2026-05-23
-114,Fresno St.,23-24,1550.74,-11.15,softball,2026-05-23
-115,Samford,28-31,1549.99,-9.29,softball,2026-05-23
-116,Wofford,35-19,1549.78,13.95,softball,2026-05-23
-117,UC Santa Barbara,31-26,1547.42,-9.26,softball,2026-05-23
-118,Austin Peay,30-24,1546.14,-7.94,softball,2026-05-23
-119,Ga. Southern,24-29,1544.33,-0.62,softball,2026-05-23
-120,San Diego St.,24-26,1542.48,-20.72,softball,2026-05-23
-121,North Texas,28-28,1541.42,-11.35,softball,2026-05-23
-122,Sacramento St.,33-20,1538.87,-9.99,softball,2026-05-23
-123,SFA,30-26,1538.16,8.85,softball,2026-05-23
-124,North Dakota St.,27-23,1534.39,20.71,softball,2026-05-23
-125,Central Mich.,25-24,1533.86,-7.19,softball,2026-05-23
-126,Long Beach St.,31-23,1533.65,-0.88,softball,2026-05-23
-127,Florida A&M,31-22,1533.15,-22.22,softball,2026-05-23
-128,Sam Houston,29-27,1532.91,-5.52,softball,2026-05-23
-129,Coastal Carolina,26-31,1532.58,-13.67,softball,2026-05-23
-130,Western Mich.,29-26,1532.49,-4.65,softball,2026-05-23
-131,Hofstra,31-23,1528.64,-1.98,softball,2026-05-23
-132,Fordham,27-28,1522.17,4.58,softball,2026-05-23
-133,Prairie View,27-19,1521.66,0.16,softball,2026-05-23
-134,Illinois St.,29-22,1521.41,-2.7,softball,2026-05-23
-135,Radford,24-27,1519.9,-12.02,softball,2026-05-23
-136,Boise St.,25-30,1519.0,-9.01,softball,2026-05-23
-137,Maryland,19-29,1515.63,12.37,softball,2026-05-23
-138,St. John's (NY),32-23,1515.45,-26.9,softball,2026-05-23
-139,Utah Valley,31-23,1512.99,-1.99,softball,2026-05-23
-140,NIU,25-18,1511.89,0.82,softball,2026-05-23
-141,Western Caro.,34-24,1511.43,-15.28,softball,2026-05-23
-142,Colorado St.,23-28,1510.59,-8.3,softball,2026-05-23
-143,Howard,28-19,1508.81,-11.39,softball,2026-05-23
-144,Santa Clara,26-25,1506.75,0.88,softball,2026-05-23
-145,BYU,18-33,1506.26,-16.54,softball,2026-05-23
-146,UT Martin,33-21,1504.76,-5.01,softball,2026-05-23
-147,Georgia St.,25-31,1504.32,-21.09,softball,2026-05-23
-148,Eastern Ky.,27-25,1501.51,7.37,softball,2026-05-23
-149,Pittsburgh,25-27,1500.26,-8.21,softball,2026-05-23
-150,Loyola Chicago,28-24,1499.79,10.86,softball,2026-05-23
-151,Winthrop,30-23,1498.57,3.13,softball,2026-05-23
-152,Colgate,29-26,1498.41,-13.97,softball,2026-05-23
-153,Butler,25-21,1495.8,22.51,softball,2026-05-23
-154,Middle Tenn.,21-30,1492.17,-12.39,softball,2026-05-23
-155,Tulsa,20-33,1490.46,-25.83,softball,2026-05-23
-156,Columbia,22-23,1489.56,-11.09,softball,2026-05-23
-157,Oregon St.,21-32,1488.61,-8.13,softball,2026-05-23
-158,Houston,20-31,1484.76,-22.4,softball,2026-05-23
-159,Brown,21-24,1483.83,-9.0,softball,2026-05-23
-160,Lindenwood,32-24,1483.77,-7.76,softball,2026-05-23
-161,UAB,21-33,1480.17,-10.06,softball,2026-05-23
-162,Harvard,21-23,1480.03,-18.01,softball,2026-05-23
-163,Col. of Charleston,30-30,1479.93,-2.48,softball,2026-05-23
-164,Chattanooga,25-29,1478.82,-23.14,softball,2026-05-23
-165,UT Arlington,24-23,1478.06,0.86,softball,2026-05-23
-166,Syracuse,18-26,1477.43,-21.92,softball,2026-05-23
-167,Ball St.,23-25,1476.18,10.71,softball,2026-05-23
-168,Gardner-Webb,32-25,1475.52,0.93,softball,2026-05-23
-169,Missouri St.,22-28,1473.68,3.0,softball,2026-05-23
-170,Northwestern St.,24-29,1473.03,-14.59,softball,2026-05-23
-171,FGCU,21-33,1471.32,-15.0,softball,2026-05-23
-172,Robert Morris,29-18,1470.46,-5.44,softball,2026-05-23
-173,Saint Joseph's,26-25,1467.57,-17.45,softball,2026-05-23
-174,Youngstown St.,31-20,1465.35,-14.45,softball,2026-05-23
-175,UTSA,24-33,1464.02,-19.69,softball,2026-05-23
-176,Dayton,26-24,1463.27,3.01,softball,2026-05-23
-177,UMBC,10-8,1461.54,-5.23,softball,2026-05-23
-178,Lehigh,25-28,1460.01,-8.06,softball,2026-05-23
-179,UC Davis,29-25,1458.14,-13.85,softball,2026-05-23
-180,George Washington,23-22,1454.18,-26.92,softball,2026-05-23
-181,California,15-37,1454.01,-8.86,softball,2026-05-23
-182,Iona,27-26,1453.09,-5.87,softball,2026-05-23
-183,South Dakota St.,25-34,1452.45,-5.21,softball,2026-05-23
-184,Fairfield,27-24,1451.56,-12.61,softball,2026-05-23
-185,Minnesota,16-36,1449.96,-28.54,softball,2026-05-23
-186,UAlbany,25-20,1449.32,-12.24,softball,2026-05-23
-187,Northern Colo.,24-27,1446.25,-6.19,softball,2026-05-23
-188,Saint Louis,23-28,1444.8,-11.55,softball,2026-05-23
-189,North Dakota,25-24,1443.2,-11.85,softball,2026-05-23
-190,Binghamton,20-27,1443.15,-4.08,softball,2026-05-23
-191,Bryant,21-23,1439.72,8.12,softball,2026-05-23
-192,South Dakota,20-36,1438.21,-3.81,softball,2026-05-23
-193,SIUE,29-29,1437.53,-11.0,softball,2026-05-23
-194,Southern Utah,21-30,1436.09,-13.74,softball,2026-05-23
-195,Seattle U,19-32,1433.16,-36.22,softball,2026-05-23
-196,Central Conn. St.,28-19,1432.72,-11.91,softball,2026-05-23
-197,UC San Diego,23-28,1432.56,-1.64,softball,2026-05-23
-198,Rider,25-24,1431.26,-8.15,softball,2026-05-23
-199,Quinnipiac,24-21,1431.24,7.47,softball,2026-05-23
-200,San Diego,21-30,1431.19,-12.13,softball,2026-05-23
-201,UMass Lowell,27-27,1430.16,-15.77,softball,2026-05-23
-202,George Mason,26-25,1429.88,-8.23,softball,2026-05-23
-203,Boston College,13-38,1427.34,-26.4,softball,2026-05-23
-204,Northern Ky.,26-25,1422.68,-3.7,softball,2026-05-23
-205,Drexel,22-23,1422.58,2.71,softball,2026-05-23
-206,Evansville,21-30,1421.76,-29.38,softball,2026-05-23
-207,Buffalo,24-32,1421.09,-0.08,softball,2026-05-23
-208,Southeast Mo. St.,23-30,1420.01,4.05,softball,2026-05-23
-209,Michigan St.,17-34,1419.83,-16.98,softball,2026-05-23
-210,DePaul,20-30,1419.4,-13.5,softball,2026-05-23
-211,Montana,20-32,1418.66,7.91,softball,2026-05-23
-212,Elon,18-33,1415.81,-9.27,softball,2026-05-23
-213,San Jose St.,15-33,1414.14,-3.12,softball,2026-05-23
-214,Pacific,18-34,1413.25,-5.32,softball,2026-05-23
-215,Bethune-Cookman,21-28,1411.95,14.24,softball,2026-05-23
-216,Alabama St.,23-32,1410.22,-3.14,softball,2026-05-23
-217,Kent St.,20-30,1408.82,-26.68,softball,2026-05-23
-218,Georgetown,16-26,1408.37,-32.35,softball,2026-05-23
-219,ETSU,22-30,1405.65,-3.8,softball,2026-05-23
-220,Valparaiso,22-30,1404.96,-7.09,softball,2026-05-23
-221,Indiana St.,22-28,1404.76,-22.93,softball,2026-05-23
-222,Cornell,21-22,1402.7,-5.44,softball,2026-05-23
-223,Delaware St.,20-18,1402.08,-2.16,softball,2026-05-23
-224,Massachusetts,19-30,1401.48,-4.06,softball,2026-05-23
-225,Memphis,18-39,1399.91,-30.38,softball,2026-05-23
-226,Jackson St.,21-22,1398.32,-30.67,softball,2026-05-23
-227,Rhode Island,21-26,1397.94,-1.08,softball,2026-05-23
-228,Bowling Green,20-29,1396.14,2.33,softball,2026-05-23
-229,Towson,25-26,1393.68,-28.8,softball,2026-05-23
-230,Siena,25-22,1391.37,-23.28,softball,2026-05-23
-231,Yale,17-28,1388.65,-12.97,softball,2026-05-23
-232,Sacred Heart,23-31,1387.75,0.45,softball,2026-05-23
-233,Stony Brook,21-29,1387.12,-13.21,softball,2026-05-23
-234,Longwood,21-32,1386.37,-20.47,softball,2026-05-23
-235,Illinois,15-39,1386.2,-5.01,softball,2026-05-23
-236,UIC,21-32,1383.72,-8.79,softball,2026-05-23
-237,Mercer,20-30,1382.88,-13.53,softball,2026-05-23
-238,South Carolina St.,20-20,1376.38,-18.73,softball,2026-05-23
-239,Presbyterian,20-32,1374.01,-9.38,softball,2026-05-23
-240,Queens (NC),14-34,1369.35,-11.43,softball,2026-05-23
-241,LIU,24-32,1368.49,-4.47,softball,2026-05-23
-242,Mount St. Mary's,20-28,1367.85,-14.24,softball,2026-05-23
-243,Utah St.,19-35,1367.6,-35.34,softball,2026-05-23
-244,Toledo,15-35,1367.43,-12.05,softball,2026-05-23
-245,Villanova,14-39,1365.09,-19.6,softball,2026-05-23
-246,Kansas City,16-32,1364.57,4.64,softball,2026-05-23
-247,Utah Tech,19-34,1364.09,-3.66,softball,2026-05-23
-248,Monmouth,20-31,1363.77,-14.41,softball,2026-05-23
-249,Seton Hall,19-30,1363.06,-13.81,softball,2026-05-23
-250,Penn,17-27,1361.13,-28.77,softball,2026-05-23
-251,Oakland,12-24,1360.28,-28.32,softball,2026-05-23
-252,Bradley,16-37,1359.08,-12.58,softball,2026-05-23
-253,Norfolk St.,20-21,1356.02,-29.97,softball,2026-05-23
-254,Lipscomb,13-38,1354.85,-15.51,softball,2026-05-23
-255,Portland St.,14-32,1352.38,-12.76,softball,2026-05-23
-256,CSUN,14-32,1350.56,2.35,softball,2026-05-23
-257,Dartmouth,10-23,1350.55,-23.72,softball,2026-05-23
-258,Canisius,16-26,1349.06,-26.51,softball,2026-05-23
-259,Green Bay,14-31,1347.54,-13.7,softball,2026-05-23
-260,Wagner,22-28,1347.33,-19.12,softball,2026-05-23
-261,Tennessee Tech,16-34,1346.35,-12.28,softball,2026-05-23
-262,Drake,13-38,1344.4,-19.45,softball,2026-05-23
-263,A&M-Corpus Christi,14-39,1334.93,-22.39,softball,2026-05-23
-264,N.C. A&T,19-33,1327.02,-35.52,softball,2026-05-23
-265,UTEP,12-37,1326.84,-42.22,softball,2026-05-23
-266,West Ga.,15-40,1320.41,-35.62,softball,2026-05-23
-267,Southern Ind.,15-32,1320.24,-34.48,softball,2026-05-23
-268,Houston Christian,11-36,1318.65,-30.86,softball,2026-05-23
-269,Grambling,12-25,1313.31,-38.81,softball,2026-05-23
-270,Lafayette,16-36,1312.19,-32.11,softball,2026-05-23
-271,Abilene Christian,7-41,1305.7,-47.72,softball,2026-05-23
-272,Furman,13-40,1304.85,-42.05,softball,2026-05-23
-273,FDU,20-32,1304.16,-20.6,softball,2026-05-23
-274,Detroit Mercy,14-32,1299.38,-42.32,softball,2026-05-23
-275,Morgan St.,13-28,1298.41,-41.98,softball,2026-05-23
-276,Ark.-Pine Bluff,13-29,1297.8,-47.81,softball,2026-05-23
-277,Cal Poly,11-35,1295.31,-47.69,softball,2026-05-23
-278,Kennesaw St.,7-43,1293.09,-57.72,softball,2026-05-23
-279,Weber St.,14-42,1286.78,-48.39,softball,2026-05-23
-280,Bellarmine,12-38,1282.07,-41.39,softball,2026-05-23
-281,Manhattan,15-37,1281.95,-46.72,softball,2026-05-23
-282,Merrimack,12-29,1281.29,-56.5,softball,2026-05-23
-283,Alcorn,9-31,1281.22,-55.26,softball,2026-05-23
-284,Western Ill.,14-32,1277.94,-49.42,softball,2026-05-23
-285,Maine,11-36,1271.78,-54.28,softball,2026-05-23
-286,Charleston So.,10-41,1271.64,-67.44,softball,2026-05-23
-287,Hampton,10-33,1270.93,-60.34,softball,2026-05-23
-288,CSU Bakersfield,10-40,1255.07,-67.08,softball,2026-05-23
-289,Le Moyne,16-35,1254.51,-65.03,softball,2026-05-23
-290,UC Riverside,6-38,1253.43,-80.44,softball,2026-05-23
-291,Stonehill,13-37,1252.99,-56.13,softball,2026-05-23
-292,Bucknell,9-35,1252.01,-66.23,softball,2026-05-23
-293,St. Bonaventure,9-44,1248.95,-71.89,softball,2026-05-23
-294,Holy Cross,10-34,1245.03,-69.31,softball,2026-05-23
-295,IU Indy,7-40,1244.86,-85.1,softball,2026-05-23
-296,Alabama A&M,10-29,1236.51,-96.07,softball,2026-05-23
-297,Coppin St.,9-27,1234.58,-82.36,softball,2026-05-23
-298,UMES,9-32,1225.44,-86.29,softball,2026-05-23
-299,Morehead St.,7-38,1223.38,-89.65,softball,2026-05-23
-300,N.C. Central,7-40,1222.95,-92.69,softball,2026-05-23
-301,Niagara,8-34,1220.36,-82.24,softball,2026-05-23
-302,East Texas A&M,6-46,1217.19,-93.24,softball,2026-05-23
-303,New Haven,10-35,1210.94,-94.27,softball,2026-05-23
-304,Mercyhurst,9-34,1194.62,-113.2,softball,2026-05-23
-305,Tennessee St.,2-38,1181.38,-119.92,softball,2026-05-23
-306,Saint Peter's,7-44,1171.14,-132.77,softball,2026-05-23
-307,Saint Francis,5-42,1167.48,-139.04,softball,2026-05-23
-308,Mississippi Val.,0-36,1138.93,-161.07,softball,2026-05-23
+1,Nebraska,51-6,1891.2,195.1,softball,2026-05-24
+2,Alabama,54-7,1874.04,174.04,softball,2026-05-24
+3,UCLA,52-8,1853.7,169.33,softball,2026-05-24
+4,Arkansas,47-11,1850.91,160.03,softball,2026-05-24
+5,Oklahoma,52-9,1847.01,148.31,softball,2026-05-24
+6,Texas Tech,56-7,1845.64,148.25,softball,2026-05-24
+7,Florida,52-11,1837.38,143.89,softball,2026-05-24
+8,Texas,46-11,1837.02,142.23,softball,2026-05-24
+9,Florida St.,52-10,1829.93,142.96,softball,2026-05-24
+10,Tennessee,47-10,1824.95,132.77,softball,2026-05-24
+11,Virginia Tech,48-12,1797.81,112.14,softball,2026-05-24
+12,Georgia,41-20,1797.73,115.97,softball,2026-05-24
+13,Arizona St.,45-17,1784.67,101.61,softball,2026-05-24
+14,Oregon,41-14,1778.6,89.03,softball,2026-05-24
+15,LSU,40-19,1777.43,100.88,softball,2026-05-24
+16,Duke,43-17,1776.4,105.06,softball,2026-05-24
+17,Texas A&M,38-19,1766.22,77.94,softball,2026-05-24
+18,Oklahoma St.,41-17,1765.79,85.33,softball,2026-05-24
+19,Grand Canyon,54-10,1762.76,84.91,softball,2026-05-24
+20,Stanford,39-15,1756.24,77.09,softball,2026-05-24
+21,Mississippi St.,42-19,1751.47,77.53,softball,2026-05-24
+22,Indiana,43-16,1740.24,70.21,softball,2026-05-24
+23,UCF,41-19,1738.17,69.44,softball,2026-05-24
+24,Southeastern La.,46-16,1737.04,61.8,softball,2026-05-24
+25,Arizona,37-18,1723.37,72.88,softball,2026-05-24
+26,Jacksonville St.,45-16,1720.07,78.7,softball,2026-05-24
+27,Ole Miss,36-26,1719.79,56.27,softball,2026-05-24
+28,Louisville,44-14,1718.73,52.6,softball,2026-05-24
+29,Texas St.,39-22,1717.86,50.43,softball,2026-05-24
+30,Virginia,40-15,1715.93,43.29,softball,2026-05-24
+31,Omaha,37-12,1710.94,53.93,softball,2026-05-24
+32,South Fla.,44-17,1710.54,58.75,softball,2026-05-24
+33,Clemson,34-22,1702.1,43.8,softball,2026-05-24
+34,Belmont,41-13,1701.34,40.43,softball,2026-05-24
+35,Washington,37-20,1700.16,35.34,softball,2026-05-24
+36,Kansas,36-21,1691.21,31.6,softball,2026-05-24
+37,Wichita St.,35-17,1689.92,40.73,softball,2026-05-24
+38,Boston U.,47-15,1687.8,41.22,softball,2026-05-24
+39,ULM,38-20,1684.78,44.71,softball,2026-05-24
+40,Nevada,39-20,1684.66,41.99,softball,2026-05-24
+41,South Carolina,32-28,1682.99,28.59,softball,2026-05-24
+42,Marshall,38-19,1681.8,19.58,softball,2026-05-24
+43,Cal St. Fullerton,41-15,1676.92,29.04,softball,2026-05-24
+44,UNC Greensboro,43-19,1675.31,36.55,softball,2026-05-24
+45,Northwestern,29-21,1672.63,16.93,softball,2026-05-24
+46,Michigan,36-22,1672.46,35.0,softball,2026-05-24
+47,Georgia Tech,32-29,1670.91,25.63,softball,2026-05-24
+48,Western Ky.,39-14,1669.95,25.98,softball,2026-05-24
+49,Utah,35-20,1668.37,15.27,softball,2026-05-24
+50,Saint Mary's (CA),42-16,1663.79,45.88,softball,2026-05-24
+51,Purdue,34-20,1663.23,29.68,softball,2026-05-24
+52,Wisconsin,33-21,1656.47,20.31,softball,2026-05-24
+53,Fla. Atlantic,34-20,1656.03,25.09,softball,2026-05-24
+54,Stetson,37-22,1653.97,21.72,softball,2026-05-24
+55,North Carolina,32-19,1649.53,19.89,softball,2026-05-24
+56,Penn St.,33-21,1646.9,19.86,softball,2026-05-24
+57,McNeese,40-22,1644.36,19.93,softball,2026-05-24
+58,North Ala.,36-16,1643.97,20.84,softball,2026-05-24
+59,Auburn,27-28,1643.07,8.21,softball,2026-05-24
+60,South Alabama,32-27,1642.0,13.66,softball,2026-05-24
+61,Missouri,28-29,1639.65,19.13,softball,2026-05-24
+62,Iowa St.,32-23,1636.49,27.7,softball,2026-05-24
+63,Central Ark.,36-20,1635.71,9.97,softball,2026-05-24
+64,California Baptist,43-19,1633.34,20.64,softball,2026-05-24
+65,Princeton,34-15,1628.69,13.39,softball,2026-05-24
+66,FIU,34-18,1627.16,17.06,softball,2026-05-24
+67,St. Thomas (MN),34-19,1626.45,9.84,softball,2026-05-24
+68,Southern Ill.,34-17,1624.66,2.84,softball,2026-05-24
+69,James Madison,27-24,1622.41,11.01,softball,2026-05-24
+70,Baylor,30-28,1620.54,18.26,softball,2026-05-24
+71,Miami (OH),38-18,1618.72,-0.5,softball,2026-05-24
+72,Troy,32-22,1617.46,12.57,softball,2026-05-24
+73,Southern Miss.,33-24,1617.37,17.7,softball,2026-05-24
+74,Ohio,38-20,1616.98,27.73,softball,2026-05-24
+75,UConn,32-28,1613.72,16.65,softball,2026-05-24
+76,Louisiana,29-27,1612.8,9.21,softball,2026-05-24
+77,Ohio St.,26-27,1610.62,-3.38,softball,2026-05-24
+78,North Florida,39-22,1609.63,3.44,softball,2026-05-24
+79,Akron,35-25,1609.05,26.31,softball,2026-05-24
+80,Idaho St.,37-20,1605.17,25.04,softball,2026-05-24
+81,UIW,33-21,1599.91,9.35,softball,2026-05-24
+82,Jacksonville,34-21,1598.32,5.16,softball,2026-05-24
+83,NC State,27-26,1596.82,-10.67,softball,2026-05-24
+84,App State,29-21,1595.28,-5.69,softball,2026-05-24
+85,Charlotte,32-26,1595.15,17.63,softball,2026-05-24
+86,Notre Dame,25-28,1594.69,0.23,softball,2026-05-24
+87,Louisiana Tech,31-25,1593.98,-4.4,softball,2026-05-24
+88,Liberty,29-28,1592.41,13.58,softball,2026-05-24
+89,Rutgers,27-27,1591.07,-4.69,softball,2026-05-24
+90,Kentucky,26-29,1590.18,3.54,softball,2026-05-24
+91,UNLV,31-22,1589.51,-2.35,softball,2026-05-24
+92,Delaware,31-24,1589.16,7.73,softball,2026-05-24
+93,LMU (CA),33-19,1587.28,16.27,softball,2026-05-24
+94,Lamar,34-24,1586.97,26.38,softball,2026-05-24
+95,UNCW,32-19,1585.55,0.21,softball,2026-05-24
+96,Iowa,27-27,1584.51,9.59,softball,2026-05-24
+97,Nicholls,31-23,1582.43,-5.52,softball,2026-05-24
+98,Campbell,34-23,1581.92,-2.12,softball,2026-05-24
+99,New Mexico,28-27,1579.55,3.33,softball,2026-05-24
+100,USC Upstate,38-23,1574.97,41.74,softball,2026-05-24
+101,East Carolina,34-25,1573.74,5.34,softball,2026-05-24
+102,Murray St.,29-23,1570.37,3.27,softball,2026-05-24
+103,Eastern Ill.,36-23,1569.89,4.09,softball,2026-05-24
+104,Providence,29-20,1566.2,-7.42,softball,2026-05-24
+105,Creighton,32-27,1566.17,8.19,softball,2026-05-24
+106,Tarleton St.,38-23,1562.92,11.45,softball,2026-05-24
+107,Southern U.,28-15,1562.83,19.18,softball,2026-05-24
+108,UNI,29-24,1562.68,-1.82,softball,2026-05-24
+109,Hawaii,30-20,1562.4,14.84,softball,2026-05-24
+110,Texas Southern,27-12,1560.15,9.99,softball,2026-05-24
+111,Army West Point,33-25,1555.51,-16.81,softball,2026-05-24
+112,Marist,37-21,1551.32,11.59,softball,2026-05-24
+113,New Mexico St.,27-27,1551.26,-18.44,softball,2026-05-24
+114,Fresno St.,23-24,1550.82,-11.07,softball,2026-05-24
+115,Wofford,35-19,1550.19,14.36,softball,2026-05-24
+116,Samford,28-31,1549.56,-9.72,softball,2026-05-24
+117,UC Santa Barbara,31-26,1547.24,-9.44,softball,2026-05-24
+118,Austin Peay,30-24,1546.2,-7.87,softball,2026-05-24
+119,Ga. Southern,24-29,1544.29,-0.67,softball,2026-05-24
+120,San Diego St.,24-26,1541.99,-21.2,softball,2026-05-24
+121,North Texas,28-28,1541.11,-11.66,softball,2026-05-24
+122,Sacramento St.,33-20,1538.91,-9.95,softball,2026-05-24
+123,SFA,30-26,1538.0,8.69,softball,2026-05-24
+124,North Dakota St.,27-23,1534.48,20.8,softball,2026-05-24
+125,Long Beach St.,31-23,1534.06,-0.46,softball,2026-05-24
+126,Central Mich.,25-24,1533.31,-7.73,softball,2026-05-24
+127,Western Mich.,29-26,1533.21,-3.93,softball,2026-05-24
+128,Florida A&M,31-22,1533.2,-22.18,softball,2026-05-24
+129,Coastal Carolina,26-31,1532.93,-13.32,softball,2026-05-24
+130,Sam Houston,29-27,1532.64,-5.79,softball,2026-05-24
+131,Hofstra,31-23,1528.47,-2.15,softball,2026-05-24
+132,Fordham,27-28,1523.1,5.51,softball,2026-05-24
+133,Prairie View,27-19,1521.82,0.33,softball,2026-05-24
+134,Radford,24-27,1519.89,-12.03,softball,2026-05-24
+135,Illinois St.,29-22,1519.51,-4.59,softball,2026-05-24
+136,Boise St.,25-30,1519.35,-8.66,softball,2026-05-24
+137,St. John's (NY),32-23,1515.58,-26.76,softball,2026-05-24
+138,Maryland,19-29,1515.53,12.27,softball,2026-05-24
+139,Utah Valley,31-23,1513.47,-1.51,softball,2026-05-24
+140,Western Caro.,34-24,1511.8,-14.91,softball,2026-05-24
+141,NIU,25-18,1511.54,0.47,softball,2026-05-24
+142,Colorado St.,23-28,1510.9,-8.0,softball,2026-05-24
+143,Howard,28-19,1509.23,-10.97,softball,2026-05-24
+144,Santa Clara,26-25,1507.16,1.3,softball,2026-05-24
+145,BYU,18-33,1506.41,-16.39,softball,2026-05-24
+146,Georgia St.,25-31,1504.2,-21.21,softball,2026-05-24
+147,UT Martin,33-21,1503.88,-5.89,softball,2026-05-24
+148,Eastern Ky.,27-25,1501.6,7.47,softball,2026-05-24
+149,Pittsburgh,25-27,1500.47,-8.0,softball,2026-05-24
+150,Loyola Chicago,28-24,1499.71,10.78,softball,2026-05-24
+151,Winthrop,30-23,1499.48,4.04,softball,2026-05-24
+152,Colgate,29-26,1498.12,-14.26,softball,2026-05-24
+153,Butler,25-21,1496.1,22.81,softball,2026-05-24
+154,Middle Tenn.,21-30,1492.29,-12.27,softball,2026-05-24
+155,Tulsa,20-33,1490.31,-25.97,softball,2026-05-24
+156,Columbia,22-23,1489.93,-10.72,softball,2026-05-24
+157,Oregon St.,21-32,1489.28,-7.46,softball,2026-05-24
+158,Houston,20-31,1485.11,-22.06,softball,2026-05-24
+159,Brown,21-24,1484.43,-8.4,softball,2026-05-24
+160,Lindenwood,32-24,1483.78,-7.75,softball,2026-05-24
+161,UAB,21-33,1480.36,-9.87,softball,2026-05-24
+162,Col. of Charleston,30-30,1480.02,-2.39,softball,2026-05-24
+163,Chattanooga,25-29,1479.23,-22.73,softball,2026-05-24
+164,Harvard,21-23,1478.51,-19.54,softball,2026-05-24
+165,UT Arlington,24-23,1478.38,1.18,softball,2026-05-24
+166,Syracuse,18-26,1476.9,-22.45,softball,2026-05-24
+167,Ball St.,23-25,1476.15,10.67,softball,2026-05-24
+168,Gardner-Webb,32-25,1475.31,0.72,softball,2026-05-24
+169,Missouri St.,22-28,1473.78,3.1,softball,2026-05-24
+170,Northwestern St.,24-29,1472.92,-14.71,softball,2026-05-24
+171,FGCU,21-33,1471.74,-14.58,softball,2026-05-24
+172,Robert Morris,29-18,1471.57,-4.33,softball,2026-05-24
+173,Saint Joseph's,26-25,1468.16,-16.85,softball,2026-05-24
+174,Youngstown St.,31-20,1465.23,-14.58,softball,2026-05-24
+175,UTSA,24-33,1463.46,-20.26,softball,2026-05-24
+176,Dayton,26-24,1462.84,2.58,softball,2026-05-24
+177,UMBC,10-8,1462.26,-4.51,softball,2026-05-24
+178,Lehigh,25-28,1460.57,-7.51,softball,2026-05-24
+179,UC Davis,29-25,1458.52,-13.47,softball,2026-05-24
+180,George Washington,23-22,1453.88,-27.23,softball,2026-05-24
+181,Iona,27-26,1453.73,-5.23,softball,2026-05-24
+182,California,15-37,1453.59,-9.27,softball,2026-05-24
+183,South Dakota St.,25-34,1452.65,-5.01,softball,2026-05-24
+184,Fairfield,27-24,1451.61,-12.56,softball,2026-05-24
+185,Minnesota,16-36,1449.99,-28.51,softball,2026-05-24
+186,UAlbany,25-20,1449.07,-12.49,softball,2026-05-24
+187,Northern Colo.,24-27,1445.64,-6.8,softball,2026-05-24
+188,Saint Louis,23-28,1445.15,-11.2,softball,2026-05-24
+189,Binghamton,20-27,1443.37,-3.86,softball,2026-05-24
+190,North Dakota,25-24,1443.23,-11.82,softball,2026-05-24
+191,Bryant,21-23,1438.6,7.01,softball,2026-05-24
+192,SIUE,29-29,1438.12,-10.41,softball,2026-05-24
+193,South Dakota,20-36,1438.01,-4.01,softball,2026-05-24
+194,Southern Utah,21-30,1436.03,-13.8,softball,2026-05-24
+195,Seattle U,19-32,1433.24,-36.14,softball,2026-05-24
+196,Central Conn. St.,28-19,1432.32,-12.31,softball,2026-05-24
+197,UC San Diego,23-28,1432.08,-2.12,softball,2026-05-24
+198,Rider,25-24,1431.09,-8.33,softball,2026-05-24
+199,San Diego,21-30,1431.04,-12.28,softball,2026-05-24
+200,George Mason,26-25,1430.53,-7.59,softball,2026-05-24
+201,UMass Lowell,27-27,1430.29,-15.64,softball,2026-05-24
+202,Quinnipiac,24-21,1430.25,6.47,softball,2026-05-24
+203,Boston College,13-38,1427.68,-26.06,softball,2026-05-24
+204,Drexel,22-23,1423.53,3.66,softball,2026-05-24
+205,Northern Ky.,26-25,1422.54,-3.84,softball,2026-05-24
+206,Buffalo,24-32,1421.45,0.27,softball,2026-05-24
+207,Evansville,21-30,1420.92,-30.22,softball,2026-05-24
+208,Southeast Mo. St.,23-30,1420.18,4.22,softball,2026-05-24
+209,Montana,20-32,1419.55,8.81,softball,2026-05-24
+210,DePaul,20-30,1419.26,-13.64,softball,2026-05-24
+211,Michigan St.,17-34,1418.87,-17.94,softball,2026-05-24
+212,Elon,18-33,1415.33,-9.75,softball,2026-05-24
+213,San Jose St.,15-33,1414.91,-2.36,softball,2026-05-24
+214,Pacific,18-34,1412.98,-5.59,softball,2026-05-24
+215,Bethune-Cookman,21-28,1412.02,14.3,softball,2026-05-24
+216,Alabama St.,23-32,1410.18,-3.17,softball,2026-05-24
+217,Kent St.,20-30,1409.48,-26.03,softball,2026-05-24
+218,Georgetown,16-26,1407.51,-33.21,softball,2026-05-24
+219,Valparaiso,22-30,1405.97,-6.09,softball,2026-05-24
+220,ETSU,22-30,1405.67,-3.78,softball,2026-05-24
+221,Indiana St.,22-28,1404.67,-23.02,softball,2026-05-24
+222,Cornell,21-22,1403.58,-4.56,softball,2026-05-24
+223,Delaware St.,20-18,1401.86,-2.38,softball,2026-05-24
+224,Massachusetts,19-30,1400.18,-5.35,softball,2026-05-24
+225,Memphis,18-39,1400.01,-30.28,softball,2026-05-24
+226,Rhode Island,21-26,1398.23,-0.8,softball,2026-05-24
+227,Jackson St.,21-22,1398.15,-30.84,softball,2026-05-24
+228,Bowling Green,20-29,1395.92,2.1,softball,2026-05-24
+229,Towson,25-26,1394.04,-28.44,softball,2026-05-24
+230,Siena,25-22,1391.68,-22.98,softball,2026-05-24
+231,Yale,17-28,1387.77,-13.86,softball,2026-05-24
+232,Sacred Heart,23-31,1387.21,-0.09,softball,2026-05-24
+233,Stony Brook,21-29,1387.13,-13.2,softball,2026-05-24
+234,Longwood,21-32,1386.58,-20.26,softball,2026-05-24
+235,Illinois,15-39,1386.56,-4.65,softball,2026-05-24
+236,Mercer,20-30,1383.91,-12.5,softball,2026-05-24
+237,UIC,21-32,1383.8,-8.7,softball,2026-05-24
+238,South Carolina St.,20-20,1376.38,-18.73,softball,2026-05-24
+239,Presbyterian,20-32,1372.14,-11.24,softball,2026-05-24
+240,LIU,24-32,1368.58,-4.38,softball,2026-05-24
+241,Toledo,15-35,1368.42,-11.06,softball,2026-05-24
+242,Mount St. Mary's,20-28,1368.3,-13.78,softball,2026-05-24
+243,Queens (NC),14-34,1368.11,-12.67,softball,2026-05-24
+244,Utah St.,19-35,1367.53,-35.4,softball,2026-05-24
+245,Villanova,14-39,1365.12,-19.57,softball,2026-05-24
+246,Monmouth,20-31,1364.43,-13.75,softball,2026-05-24
+247,Kansas City,16-32,1364.21,4.27,softball,2026-05-24
+248,Utah Tech,19-34,1363.99,-3.76,softball,2026-05-24
+249,Seton Hall,19-30,1362.94,-13.93,softball,2026-05-24
+250,Penn,17-27,1361.41,-28.49,softball,2026-05-24
+251,Oakland,12-24,1360.32,-28.28,softball,2026-05-24
+252,Bradley,16-37,1358.65,-13.01,softball,2026-05-24
+253,Norfolk St.,20-21,1355.97,-30.03,softball,2026-05-24
+254,Lipscomb,13-38,1355.35,-15.01,softball,2026-05-24
+255,Portland St.,14-32,1351.25,-13.89,softball,2026-05-24
+256,CSUN,14-32,1350.56,2.35,softball,2026-05-24
+257,Dartmouth,10-23,1350.53,-23.74,softball,2026-05-24
+258,Canisius,16-26,1348.75,-26.82,softball,2026-05-24
+259,Green Bay,14-31,1347.87,-13.36,softball,2026-05-24
+260,Wagner,22-28,1346.95,-19.5,softball,2026-05-24
+261,Tennessee Tech,16-34,1346.35,-12.28,softball,2026-05-24
+262,Drake,13-38,1344.53,-19.31,softball,2026-05-24
+263,A&M-Corpus Christi,14-39,1335.53,-21.8,softball,2026-05-24
+264,N.C. A&T,19-33,1327.62,-34.92,softball,2026-05-24
+265,UTEP,12-37,1326.6,-42.45,softball,2026-05-24
+266,West Ga.,15-40,1320.76,-35.27,softball,2026-05-24
+267,Southern Ind.,15-32,1320.49,-34.23,softball,2026-05-24
+268,Houston Christian,11-36,1318.7,-30.81,softball,2026-05-24
+269,Grambling,12-25,1313.61,-38.5,softball,2026-05-24
+270,Lafayette,16-36,1312.82,-31.48,softball,2026-05-24
+271,Abilene Christian,7-41,1306.15,-47.27,softball,2026-05-24
+272,Furman,13-40,1305.39,-41.52,softball,2026-05-24
+273,FDU,20-32,1303.69,-21.06,softball,2026-05-24
+274,Ark.-Pine Bluff,13-29,1298.16,-47.45,softball,2026-05-24
+275,Detroit Mercy,14-32,1298.07,-43.63,softball,2026-05-24
+276,Morgan St.,13-28,1297.04,-43.35,softball,2026-05-24
+277,Cal Poly,11-35,1294.52,-48.48,softball,2026-05-24
+278,Kennesaw St.,7-43,1293.29,-57.53,softball,2026-05-24
+279,Weber St.,14-42,1286.67,-48.51,softball,2026-05-24
+280,Manhattan,15-37,1282.58,-46.09,softball,2026-05-24
+281,Bellarmine,12-38,1281.69,-41.76,softball,2026-05-24
+282,Merrimack,12-29,1281.21,-56.58,softball,2026-05-24
+283,Alcorn,9-31,1281.0,-55.48,softball,2026-05-24
+284,Western Ill.,14-32,1277.78,-49.58,softball,2026-05-24
+285,Charleston So.,10-41,1272.3,-66.79,softball,2026-05-24
+286,Hampton,10-33,1271.41,-59.86,softball,2026-05-24
+287,Maine,11-36,1271.35,-54.71,softball,2026-05-24
+288,Le Moyne,16-35,1255.0,-64.55,softball,2026-05-24
+289,CSU Bakersfield,10-40,1254.36,-67.79,softball,2026-05-24
+290,UC Riverside,6-38,1254.11,-79.77,softball,2026-05-24
+291,Stonehill,13-37,1254.08,-55.04,softball,2026-05-24
+292,Bucknell,9-35,1252.23,-66.01,softball,2026-05-24
+293,St. Bonaventure,9-44,1248.59,-72.25,softball,2026-05-24
+294,IU Indy,7-40,1245.47,-84.5,softball,2026-05-24
+295,Holy Cross,10-34,1244.76,-69.57,softball,2026-05-24
+296,Alabama A&M,10-29,1236.32,-96.25,softball,2026-05-24
+297,Coppin St.,9-27,1234.41,-82.53,softball,2026-05-24
+298,UMES,9-32,1224.79,-86.94,softball,2026-05-24
+299,Morehead St.,7-38,1223.91,-89.12,softball,2026-05-24
+300,N.C. Central,7-40,1222.51,-93.13,softball,2026-05-24
+301,Niagara,8-34,1219.71,-82.89,softball,2026-05-24
+302,East Texas A&M,6-46,1216.99,-93.43,softball,2026-05-24
+303,New Haven,10-35,1210.3,-94.91,softball,2026-05-24
+304,Mercyhurst,9-34,1194.6,-113.21,softball,2026-05-24
+305,Tennessee St.,2-38,1180.99,-120.31,softball,2026-05-24
+306,Saint Peter's,7-44,1172.31,-131.6,softball,2026-05-24
+307,Saint Francis,5-42,1167.44,-139.08,softball,2026-05-24
+308,Mississippi Val.,0-36,1138.83,-161.17,softball,2026-05-24
