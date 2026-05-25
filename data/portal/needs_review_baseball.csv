@@ -1,2 +1,3 @@
 ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfer_date,update_date,status,year,sport,team_id,player_id_64a,player_id_ncaa_stats,matched_name,match_score,match_method,confidence,position,class_year,player_csv_team_id
-2109311215,WILLIAM,TAYLOR,William Taylor,Marist University,Metro Atlantic Athletic Conference,I,05/23/2026,05/24/2026,Active,2025-26,Baseball,438,67652,2959409,Will Taylor,92,team+lastname,LOW,P,Sr,438
+2207627430,ZACHARY,SMETHERS,Zachary Smethers,Goldey-Beacom College,Central Atlantic Collegiate Conference,II,05/25/2026,05/25/2026,Active,2025-26,Baseball,298,71602,2956943,Zach Smethers,92.0,team+lastname,LOW,1B,Jr,298
+2505610865,SANTIAGO,ADAME,Santiago Adame,University of Illinois Springfield,Great Lakes Valley Conference,II,05/25/2026,05/25/2026,Active,2025-26,Baseball,343,131678,3241721,JJ Adame,54.5,team+lastname_diff_first,REVIEW,C,Fr,343
