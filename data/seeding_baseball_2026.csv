@@ -1,0 +1,43 @@
+team_id,team_name,sport,year,conference,multi_bid_conf,committee_seed,regional_role,rpi_rank,massey_rank,dsr_rank,sixty_four_rank,dev_vs_rpi,dev_vs_massey,dev_vs_dsr,dev_vs_64a
+815,UCLA,baseball,2026,Big Ten,TRUE,1,1,1,2,2,1,0,-1,-1,0
+295,Georgia Tech,baseball,2026,Atlantic Coast Conference,TRUE,2,1,2,1,1,2,0,1,1,0
+292,Georgia,baseball,2026,Southeastern Conference,TRUE,3,1,7,3,4,4,-4,0,-1,-1
+43,Auburn,baseball,2026,Southeastern Conference,TRUE,4,1,3,8,5,5,1,-4,-1,-1
+543,North Carolina,baseball,2026,Atlantic Coast Conference,TRUE,5,1,4,4,3,3,1,1,2,2
+781,Texas,baseball,2026,Southeastern Conference,TRUE,6,1,5,5,6,6,1,1,0,0
+8,Alabama,baseball,2026,Southeastern Conference,TRUE,7,1,6,13,15,23,1,-6,-8,-16
+265,Florida,baseball,2026,Southeastern Conference,TRUE,8,1,11,9,8,9,-3,-1,0,-1
+722,Southern Miss.,baseball,2026,Sun Belt,TRUE,9,1,12,26,20,18,-3,-17,-11,-9
+267,Florida St.,baseball,2026,Atlantic Coast Conference,TRUE,10,1,8,11,11,12,2,-1,-1,-2
+588,Oregon,baseball,2026,Big Ten,TRUE,11,1,15,22,18,19,-4,-11,-7,-8
+782,Texas A&M,baseball,2026,Southeastern Conference,TRUE,12,1,14,6,7,7,-2,6,5,5
+525,Nebraska,baseball,2026,Big Ten,TRUE,13,1,10,15,21,14,3,-2,-8,-1
+488,Mississippi St.,baseball,2026,Southeastern Conference,TRUE,14,1,13,7,12,8,1,7,2,6
+366,Kansas,baseball,2026,Big 12,TRUE,15,1,19,14,9,10,-4,1,6,5
+888,West Virginia,baseball,2026,Big 12,TRUE,16,1,17,10,10,11,-1,6,6,5
+864,Wake Forest,baseball,2026,Atlantic Coast Conference,TRUE,17,2,20,21,16,17,-3,-4,1,0
+36,Arkansas,baseball,2026,Southeastern Conference,TRUE,18,2,21,12,14,16,-3,6,4,2
+152,Cincinnati,baseball,2026,Big 12,TRUE,19,2,22,30,39,30,-3,-11,-20,-11
+584,Ole Miss,baseball,2026,Southeastern Conference,TRUE,20,2,16,16,19,22,4,4,1,-2
+717,Southern California,baseball,2026,Big Ten,TRUE,21,2,9,19,23,15,12,2,-2,6
+589,Oregon St.,baseball,2026,DI Independent,TRUE,22,2,18,18,13,13,4,4,9,9
+163,Coastal Carolina,baseball,2026,Sun Belt,TRUE,23,2,27,37,29,38,-4,-14,-6,-15
+856,Virginia,baseball,2026,Atlantic Coast Conference,TRUE,24,2,26,32,27,43,-2,-8,-3,-19
+469,Miami (FL),baseball,2026,Atlantic Coast Conference,TRUE,25,2,30,23,26,27,-5,2,-1,-2
+581,Oklahoma St.,baseball,2026,Big 12,TRUE,26,2,29,25,22,24,-3,1,4,2
+811,UC Santa Barbara,baseball,2026,Big West,TRUE,27,2,38,38,42,33,-11,-11,-15,-6
+776,Tennessee,baseball,2026,Southeastern Conference,TRUE,28,2,31,17,17,21,-3,11,11,7
+813,UCF,baseball,2026,Big 12,TRUE,29,2,36,33,28,31,-7,-4,1,-2
+87,Boston College,baseball,2026,Atlantic Coast Conference,TRUE,30,2,34,40,45,40,-4,-10,-15,-10
+580,Oklahoma,baseball,2026,Southeastern Conference,TRUE,31,2,24,20,31,44,7,11,0,-13
+858,Virginia Tech,baseball,2026,Atlantic Coast Conference,TRUE,32,2,42,46,25,52,-10,-14,7,-20
+105,Cal Poly,baseball,2026,Big West,TRUE,33,3,73,59,79,80,-40,-26,-46,-47
+405,Liberty,baseball,2026,Conference USA,TRUE,34,3,32,36,35,25,2,-2,-1,9
+523,NC State,baseball,2026,Atlantic Coast Conference,TRUE,35,3,51,34,36,35,-16,1,-1,0
+799,Troy,baseball,2026,Sun Belt,TRUE,36,3,35,70,51,41,1,-34,-15,-5
+357,Jacksonville St.,baseball,2026,Conference USA,TRUE,37,3,25,27,24,20,12,10,13,17
+785,Texas St.,baseball,2026,Sun Belt,TRUE,38,3,43,60,59,49,-5,-22,-21,-11
+32,Arizona St.,baseball,2026,Big 12,TRUE,39,3,44,24,33,26,-5,15,6,13
+419,Louisiana,baseball,2026,Sun Belt,TRUE,40,3,33,47,43,37,7,-7,-3,3
+492,Missouri St.,baseball,2026,Conference USA,TRUE,41,3,23,49,48,39,18,-8,-7,2
+372,Kentucky,baseball,2026,Southeastern Conference,TRUE,42,3,37,28,30,48,5,14,12,-6
