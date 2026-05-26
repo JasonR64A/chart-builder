@@ -1409,8 +1409,17 @@ def _svg_eyebrow(x, y, kicker, title):
             f'fill="{_INK}">{_xe(title)}</text>')
 
 
+def _clean_txt(x) -> str:
+    """Coerce a field to a clean string; NaN/None/empty -> ''. Fields pulled
+    from the dataframe can arrive as float NaN, which breaks str joins."""
+    if x is None or (isinstance(x, float) and pd.isna(x)):
+        return ''
+    return str(x).strip()
+
+
 def _player_block_svg(idx: int, p: dict, top: float, total_qualifiers: int) -> str:
     accent = p.get('accent', '#1a1a1a')
+    pname = _clean_txt(p.get('name')) or '—'
     parts = [f'<line x1="60" x2="{_SVG_W - 60}" y1="{top:.1f}" y2="{top:.1f}" stroke="{_RULE}" stroke-opacity="0.5" stroke-width="2"/>']
 
     # faint team-logo watermark
@@ -1439,15 +1448,16 @@ def _player_block_svg(idx: int, p: dict, top: float, total_qualifiers: int) -> s
     else:
         parts.append(f'<text x="{hx + hw / 2:.1f}" y="{hy + hh / 2 + 18:.1f}" text-anchor="middle" '
                      f'font-family="{_SANS}" font-size="54" font-weight="800" fill="{accent}" fill-opacity="0.55">'
-                     f'{_xe(_initials(p.get("name", "")))}</text>')
+                     f'{_xe(_initials(pname))}</text>')
     parts.append(f'<rect x="{hx}" y="{hy:.1f}" width="6" height="{hh}" fill="{accent}"/>')
     parts.append(f'<rect x="{hx}" y="{hy:.1f}" width="{hw}" height="{hh}" fill="none" stroke="{_INK}" stroke-opacity="0.25"/>')
 
     nx = hx
     ny = hy + hh + 34
-    parts.append(f'<text x="{nx}" y="{ny:.1f}" font-family="{_SANS}" font-size="25" font-weight="800" fill="{_INK}">{_xe(p.get("name", ""))}</text>')
-    meta = ' · '.join([s for s in [p.get('pos', ''), p.get('yr', ''),
-                                    f'B/T {p.get("bats", "—")}/{p.get("throws", "—")}', p.get('ht', '')] if s])
+    parts.append(f'<text x="{nx}" y="{ny:.1f}" font-family="{_SANS}" font-size="25" font-weight="800" fill="{_INK}">{_xe(pname)}</text>')
+    bt = f'B/T {_clean_txt(p.get("bats")) or "—"}/{_clean_txt(p.get("throws")) or "—"}'
+    meta = ' · '.join([s for s in [_clean_txt(p.get('pos')), _clean_txt(p.get('yr')),
+                                    bt, _format_height(p.get('ht', ''))] if s])
     parts.append(f'<text x="{nx}" y="{ny + 22:.1f}" font-family="{_SANS}" font-size="12" fill="{_MUTE}">{_xe(meta)}</text>')
     parts.append(f'<text x="{nx}" y="{ny + 40:.1f}" font-family="{_SANS}" font-size="12" font-weight="700" fill="{accent}">'
                  f'#{p.get("seed", "")} SEED · {_xe(p.get("region", ""))}</text>')
@@ -1499,14 +1509,14 @@ def _player_block_svg(idx: int, p: dict, top: float, total_qualifiers: int) -> s
     parts.append(_svg_eyebrow(cx0, top + 200, 'DIVISION LANDSCAPE', 'OBP × SLG'))
     sc1 = _render_scatter_svg(p.get('scatter_cloud') or [],
                               (ranks.get('OBP', (None,))[0]), (ranks.get('SLG', (None,))[0]),
-                              p.get('name', '').split()[-1] if p.get('name') else '', accent)
+                              pname.split()[-1] if pname and pname != '—' else '', accent)
     if sc1:
         parts.append(_nest_svg(sc1, cx0, top + 214, 460, 250, preserve='xMidYMin meet'))
 
     parts.append(_svg_eyebrow(cx0, top + 490, 'PLATE DISCIPLINE', 'BB% × K%'))
     sc2 = _render_scatter_svg(
         p.get('scatter_cloud_disc') or [], p.get('bb_pct'), p.get('k_pct'),
-        p.get('name', '').split()[-1] if p.get('name') else '', accent,
+        pname.split()[-1] if pname and pname != '—' else '', accent,
         x_label='BB% →', y_label='K% ↓', x_fmt='.1%', y_fmt='.1%',
         x_ticks=(0.05, 0.10, 0.15, 0.20, 0.25), y_ticks=(0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35),
         x_pad=0.01, y_pad=0.01, x_clip=(0.0, 0.5), y_clip=(0.0, 0.6), invert_y=True)
