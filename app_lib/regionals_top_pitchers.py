@@ -487,7 +487,7 @@ def _row_html(idx: int, p: dict, accent: str, total_qualifiers: int) -> str:
         f'<div class="rth-block-title">Recent WHIP trajectory</div>'
         f'</div>'
         f'<div style="display:flex;flex-direction:column;align-items:flex-end;">'
-        f'<span style="font-family:'Inter',sans-serif;font-weight:700;font-size:28px;line-height:1;letter-spacing:-0.02em;color:{accent};font-variant-numeric:tabular-nums;">{final_whip}</span>'
+        f'<span style="font-family:\'Inter\',sans-serif;font-weight:700;font-size:28px;line-height:1;letter-spacing:-0.02em;color:{accent};font-variant-numeric:tabular-nums;">{final_whip}</span>'
         f'<span class="rth-iso__lbl">final WHIP</span>'
         f'</div>'
         f'</div>'
