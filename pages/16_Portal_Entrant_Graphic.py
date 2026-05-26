@@ -222,7 +222,51 @@ def season_stat(row, key, default=0):
             return default
 
 
-is_pitcher_player = _is_pitcher(prec) if prec is not None else False
+def _career_sum(df: pd.DataFrame, col: str) -> float:
+    """Sum a numeric career column, tolerant of strings/NaN."""
+    if df is None or df.empty or col not in df.columns:
+        return 0.0
+    return float(pd.to_numeric(df[col], errors='coerce').fillna(0).sum())
+
+
+def _two_way_sides(player_row):
+    """Return (has_hitting, has_pitching) for the player, gated on meaningful
+    volume so an incidental mop-up inning or a pitcher's stray AB doesn't
+    falsely flag a two-way. Career AB >= 10 and IP >= 5."""
+    if player_row is None:
+        return False, False
+    try:
+        pid = int(player_row.get('id') or 0)
+    except Exception:
+        return False, False
+    if not pid:
+        return False, False
+    has_hit = _career_sum(career_stats(pid), 'at_bats') >= 10
+    has_pit = _career_sum(pitcher_career_stats(pid), 'innings_pitched') >= 5
+    return has_hit, has_pit
+
+
+# Two-way players (e.g. Ryan Kroepel: hits AND pitches) get a toggle so the
+# user picks which stat set the card features. Non-two-way players keep the
+# automatic hitter/pitcher detection.
+if prec is None:
+    is_pitcher_player = False
+else:
+    _has_hit, _has_pit = _two_way_sides(prec)
+    if _has_hit and _has_pit:
+        _default_idx = 1 if _is_pitcher(prec) else 0  # default to primary side
+        _stat_mode = st.radio(
+            'Two-way player — feature which stat?',
+            ['Hitting', 'Pitching'],
+            index=_default_idx,
+            horizontal=True,
+            key='two_way_stat_mode',
+            help=('This player has both hitting and pitching data. Choose which '
+                  'stat set drives the season line + career table on the card.'),
+        )
+        is_pitcher_player = (_stat_mode == 'Pitching')
+    else:
+        is_pitcher_player = _is_pitcher(prec)
 
 # Build defaults from the selected row. Stat keys s1..s16 map positionally to
 # the template's 16 season cells (LAB_1..LAB_16 supply the labels). Hitters
