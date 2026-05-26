@@ -1317,7 +1317,7 @@ import re as _re_svg
 
 _SVG_W = 1600
 _SVG_MAST_H = 150
-_SVG_ROW_H = 820
+_SVG_ROW_H = 730
 _SVG_FOOT_H = 78
 _EGG = '#f6f1e8'; _PAPER = '#fbf7ef'; _INK = '#16130d'; _INK2 = '#3a342a'
 _MUTE = '#756d5e'; _RULE = '#1a1a1a'
@@ -1422,11 +1422,13 @@ def _player_block_svg(idx: int, p: dict, top: float, total_qualifiers: int) -> s
     pname = _clean_txt(p.get('name')) or '—'
     parts = [f'<line x1="60" x2="{_SVG_W - 60}" y1="{top:.1f}" y2="{top:.1f}" stroke="{_RULE}" stroke-opacity="0.5" stroke-width="2"/>']
 
-    # faint team-logo watermark
+    # faint team-logo watermark — centered behind the player's data
     if p.get('team_logo_b64'):
         href = f'data:image/png;base64,{p["team_logo_b64"]}'
-        parts.append(f'<image href="{href}" xlink:href="{href}" x="180" y="{top + 230:.1f}" '
-                     f'width="360" height="360" opacity="0.06" preserveAspectRatio="xMidYMid meet"/>')
+        _wm = 440
+        parts.append(f'<image href="{href}" xlink:href="{href}" '
+                     f'x="{(_SVG_W - _wm) / 2:.1f}" y="{top + 130:.1f}" '
+                     f'width="{_wm}" height="{_wm}" opacity="0.06" preserveAspectRatio="xMidYMid meet"/>')
 
     # ── Col A: rank, headshot, identity, splits ──
     parts.append(f'<text x="70" y="{top + 64:.1f}" font-family="{_SANS}" font-size="46" font-weight="800" fill="{accent}">{idx + 1:02d}</text>')
