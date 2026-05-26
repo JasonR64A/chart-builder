@@ -222,7 +222,11 @@
   .id-col { position:absolute; left: 40px; top: 850px; width: 540px; z-index: 6; }
   .id-col .name {
     font-family:'Inter', sans-serif; font-weight: 900;
-    font-size: 112px; line-height: 0.92; letter-spacing: -0.035em;
+    /* font-size is computed per-name in Python ({{NAME_FONT_SIZE}}) so the
+       longest line always fits the 540px column — see "best fit" block in
+       17_Portal_Commitment_Graphic.py. Was a fixed 112px, which overflowed
+       on any ~9+ char surname (e.g. RODRIGUEZ, ENSELL JR). */
+    font-size: {{NAME_FONT_SIZE}}px; line-height: 0.92; letter-spacing: -0.035em;
     color:#fff;
     text-shadow: 0 4px 16px rgba(0,0,0,0.75);
   }

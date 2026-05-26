@@ -164,7 +164,9 @@
   }
   .name-block .name {
     font-family:'Inter', sans-serif; font-weight: 800;
-    font-size: 72px; line-height: 0.94; letter-spacing: -0.02em;
+    /* font-size computed per-name in Python ({{NAME_FONT_SIZE}}) to fit the
+       620px name-block; was a fixed 72px. */
+    font-size: {{NAME_FONT_SIZE}}px; line-height: 0.94; letter-spacing: -0.02em;
     color:#fff;
     text-shadow: 0 4px 16px rgba(0,0,0,0.75);
   }

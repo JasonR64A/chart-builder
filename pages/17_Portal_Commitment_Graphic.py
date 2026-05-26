@@ -601,7 +601,31 @@ else:
     to_school_len_class = 'long-2'
 st.caption(f"TO school: '{_to_school_clean}' ({_to_len} chars) -> size class: {to_school_len_class or 'default 40px'}")
 
+# Player NAME "best fit" — the name renders in a fixed 540px column at weight
+# 900. The old fixed 112px overflowed on any ~9+ char line (e.g. "RODRIGUEZ",
+# "ENSELL JR"). Scale the font down so the longest unbreakable token fits the
+# column. The browser wraps on spaces, so the binding constraint is the longest
+# WORD — this covers both explicit "\n" breaks and natural space-wrapping.
+import re as _re_name
+_name_tokens = [t for t in _re_name.split(r'\s+', name.strip()) if t]
+_max_tok = max((len(t) for t in _name_tokens), default=1)
+# Per-orientation column width + default (max) size. Portrait: 540px id-col at
+# 112px. Landscape: 620px name-block at 72px.
+if is_portrait:
+    _NAME_AVAIL_W, _NAME_MAX = 525, 112
+else:
+    _NAME_AVAIL_W, _NAME_MAX = 600, 72
+_NAME_CHAR_EM = 0.68    # avg uppercase Inter-Black advance incl. negative tracking
+_NAME_MIN = 44
+name_font_size = int(max(_NAME_MIN, min(_NAME_MAX, _NAME_AVAIL_W / (_max_tok * _NAME_CHAR_EM))))
+st.caption(
+    f"Name: longest token '{max(_name_tokens, key=len) if _name_tokens else ''}' "
+    f"({_max_tok} chars) -> font {name_font_size}px"
+    + ("" if name_font_size < _NAME_MAX else " (max)")
+)
+
 replacements = {
+    '{{NAME_FONT_SIZE}}': str(name_font_size),
     '{{NAME}}': name.replace('\n', ' '),
     '{{NAME_HTML}}': name_html,
     '{{POS}}': pos,
