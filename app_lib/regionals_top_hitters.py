@@ -1307,6 +1307,248 @@ window.downloadTopHittersPNG = async function() {{
     return f'{_STYLES}{png_script}{download_btn}<div class="rth-root">{masthead}{sub}{rows_html}{foot}</div>'
 
 
+# ── Single-SVG renderer (server-side, cairosvg-safe) ────────────────────────
+# html2canvas (browser) choked on this dense card and dropped the spray. We now
+# author the whole card as ONE SVG and rasterize it with cairosvg server-side
+# (same pattern the bracket graphic + Spray Charts download already use), so the
+# browser never has to capture anything. Pure SVG only: no foreignObject/HTML,
+# no CSS color-mix() (cairosvg can't parse it — colors are pre-blended in Python).
+import re as _re_svg
+
+_SVG_W = 1600
+_SVG_MAST_H = 150
+_SVG_ROW_H = 820
+_SVG_FOOT_H = 78
+_EGG = '#f6f1e8'; _PAPER = '#fbf7ef'; _INK = '#16130d'; _INK2 = '#3a342a'
+_MUTE = '#756d5e'; _RULE = '#1a1a1a'
+_SANS = 'Inter, Helvetica, Arial, sans-serif'
+
+
+def _mix_white(hex_color: str, pct: float) -> str:
+    """Blend `pct`% of hex_color with white — replaces CSS color-mix()."""
+    h = (hex_color or '#1a1a1a').lstrip('#')
+    if len(h) == 3:
+        h = ''.join(c * 2 for c in h)
+    try:
+        r, g, b = int(h[0:2], 16), int(h[2:4], 16), int(h[4:6], 16)
+    except Exception:
+        r, g, b = 26, 26, 26
+    t = max(0.0, min(1.0, pct / 100.0))
+    return '#%02x%02x%02x' % (round(r * t + 255 * (1 - t)),
+                              round(g * t + 255 * (1 - t)),
+                              round(b * t + 255 * (1 - t)))
+
+
+def _nest_svg(svg: str, x: float, y: float, w: float, h: float,
+              preserve: str = 'xMidYMid meet') -> str:
+    """Wrap a standalone sub-SVG (spray/pace/scatter) into a positioned nested
+    <svg> the master document can place. cairosvg renders nested <svg>+viewBox."""
+    if not svg:
+        return ''
+    m = _re_svg.search(r'viewBox="([^"]+)"', svg)
+    vb = m.group(1) if m else '0 0 100 75'
+    inner = _re_svg.sub(r'^\s*<svg[^>]*>', '', svg, count=1)
+    inner = _re_svg.sub(r'</svg>\s*$', '', inner, count=1)
+    return (f'<svg x="{x:.1f}" y="{y:.1f}" width="{w:.1f}" height="{h:.1f}" '
+            f'viewBox="{vb}" preserveAspectRatio="{preserve}">{inner}</svg>')
+
+
+def _svg_pct_bar(x: float, y: float, w: float, pct, accent: str) -> str:
+    pct = max(0.0, min(100.0, float(pct or 0)))
+    th = 7.0
+    return (f'<rect x="{x:.1f}" y="{y:.1f}" width="{w:.1f}" height="{th}" rx="1.5" fill="{_INK}" fill-opacity="0.10"/>'
+            f'<rect x="{x:.1f}" y="{y:.1f}" width="{w * pct / 100.0:.1f}" height="{th}" rx="1.5" fill="{accent}"/>'
+            f'<rect x="{x + w * 0.9:.1f}" y="{y - 1.5:.1f}" width="1" height="{th + 3:.1f}" fill="{_INK}" fill-opacity="0.30"/>')
+
+
+def _svg_donut(mix: dict, accent: str, cx: float, cy: float, r: float) -> str:
+    import math
+    order = ['1B', '2B', '3B', 'HR']
+    total = sum(int(mix.get(k, 0)) for k in order)
+    cols = {'1B': _mix_white(accent, 40), '2B': _mix_white(accent, 65),
+            '3B': _mix_white(accent, 85), 'HR': accent}
+    parts = []
+    if total == 0:
+        parts.append(f'<circle cx="{cx}" cy="{cy}" r="{r}" fill="none" stroke="{_INK}" stroke-opacity="0.12" stroke-width="3"/>')
+    else:
+        r2 = r * 0.62
+        cum = 0
+        for k in order:
+            v = int(mix.get(k, 0))
+            if v == 0:
+                continue
+            start = (cum / total) * 2 * math.pi - math.pi / 2
+            cum += v
+            end = (cum / total) * 2 * math.pi - math.pi / 2
+            large = 1 if (end - start) > math.pi else 0
+            x1 = cx + math.cos(start) * r; y1 = cy + math.sin(start) * r
+            x2 = cx + math.cos(end) * r;   y2 = cy + math.sin(end) * r
+            x3 = cx + math.cos(end) * r2;  y3 = cy + math.sin(end) * r2
+            x4 = cx + math.cos(start) * r2; y4 = cy + math.sin(start) * r2
+            d = (f'M {x1:.2f} {y1:.2f} A {r:.2f} {r:.2f} 0 {large} 1 {x2:.2f} {y2:.2f} '
+                 f'L {x3:.2f} {y3:.2f} A {r2:.2f} {r2:.2f} 0 {large} 0 {x4:.2f} {y4:.2f} Z')
+            parts.append(f'<path d="{d}" fill="{cols[k]}" stroke="{_PAPER}" stroke-width="1.2"/>')
+        parts.append(f'<text x="{cx}" y="{cy - 1}" text-anchor="middle" font-family="{_SANS}" font-size="22" font-weight="700" fill="{_INK}">{total}</text>')
+        parts.append(f'<text x="{cx}" y="{cy + 13}" text-anchor="middle" font-family="{_SANS}" font-size="8" fill="{_MUTE}" letter-spacing="1.5">HITS</text>')
+    ly = cy + r + 20
+    for i, k in enumerate(order):
+        v = int(mix.get(k, 0)); pc = round(100 * v / total) if total else 0
+        lx = cx - r
+        yy = ly + i * 17
+        parts.append(f'<rect x="{lx:.1f}" y="{yy - 8:.1f}" width="9" height="9" fill="{cols[k]}"/>')
+        parts.append(f'<text x="{lx + 15:.1f}" y="{yy:.1f}" font-family="{_SANS}" font-size="11" fill="{_INK2}">{k}</text>')
+        parts.append(f'<text x="{lx + 110:.1f}" y="{yy:.1f}" text-anchor="end" font-family="{_SANS}" font-size="11" font-weight="600" fill="{_INK}">{v}</text>')
+        parts.append(f'<text x="{lx + 150:.1f}" y="{yy:.1f}" text-anchor="end" font-family="{_SANS}" font-size="10" fill="{_MUTE}">{pc}%</text>')
+    return ''.join(parts)
+
+
+def _svg_eyebrow(x, y, kicker, title):
+    return (f'<text x="{x:.1f}" y="{y:.1f}" font-family="{_SANS}" font-size="9" font-weight="700" '
+            f'fill="{_MUTE}" letter-spacing="2">{_xe(kicker)}</text>'
+            f'<text x="{x:.1f}" y="{y + 16:.1f}" font-family="{_SANS}" font-size="14" font-weight="700" '
+            f'fill="{_INK}">{_xe(title)}</text>')
+
+
+def _player_block_svg(idx: int, p: dict, top: float, total_qualifiers: int) -> str:
+    accent = p.get('accent', '#1a1a1a')
+    parts = [f'<line x1="60" x2="{_SVG_W - 60}" y1="{top:.1f}" y2="{top:.1f}" stroke="{_RULE}" stroke-opacity="0.5" stroke-width="2"/>']
+
+    # faint team-logo watermark
+    if p.get('team_logo_b64'):
+        href = f'data:image/png;base64,{p["team_logo_b64"]}'
+        parts.append(f'<image href="{href}" xlink:href="{href}" x="180" y="{top + 230:.1f}" '
+                     f'width="360" height="360" opacity="0.06" preserveAspectRatio="xMidYMid meet"/>')
+
+    # ── Col A: rank, headshot, identity, splits ──
+    parts.append(f'<text x="70" y="{top + 64:.1f}" font-family="{_SANS}" font-size="46" font-weight="800" fill="{accent}">{idx + 1:02d}</text>')
+    parts.append(f'<text x="74" y="{top + 84:.1f}" font-family="{_SANS}" font-size="9" font-weight="700" fill="{_MUTE}" letter-spacing="2">RANK · TOP 4</text>')
+
+    hx, hy, hw, hh = 60, top + 100, 240, 180
+    parts.append(f'<rect x="{hx}" y="{hy:.1f}" width="{hw}" height="{hh}" fill="{_mix_white(accent, 18)}"/>')
+    photo = p.get('photo_b64')
+    if photo:
+        mime = p.get('photo_mime', 'jpeg')
+        href = f'data:image/{mime};base64,{photo}'
+        py = p.get('photo_pos_y', 20)
+        cid = f'clip{idx}'
+        parts.append(f'<clipPath id="{cid}"><rect x="{hx}" y="{hy:.1f}" width="{hw}" height="{hh}"/></clipPath>')
+        # slice to fill; nudge vertical anchor by photo_pos_y
+        align = 'xMidYMin slice' if py < 35 else ('xMidYMax slice' if py > 65 else 'xMidYMid slice')
+        parts.append(f'<image href="{href}" xlink:href="{href}" x="{hx}" y="{hy:.1f}" width="{hw}" height="{hh}" '
+                     f'preserveAspectRatio="{align}" clip-path="url(#{cid})"/>')
+    else:
+        parts.append(f'<text x="{hx + hw / 2:.1f}" y="{hy + hh / 2 + 18:.1f}" text-anchor="middle" '
+                     f'font-family="{_SANS}" font-size="54" font-weight="800" fill="{accent}" fill-opacity="0.55">'
+                     f'{_xe(_initials(p.get("name", "")))}</text>')
+    parts.append(f'<rect x="{hx}" y="{hy:.1f}" width="6" height="{hh}" fill="{accent}"/>')
+    parts.append(f'<rect x="{hx}" y="{hy:.1f}" width="{hw}" height="{hh}" fill="none" stroke="{_INK}" stroke-opacity="0.25"/>')
+
+    nx = hx
+    ny = hy + hh + 34
+    parts.append(f'<text x="{nx}" y="{ny:.1f}" font-family="{_SANS}" font-size="25" font-weight="800" fill="{_INK}">{_xe(p.get("name", ""))}</text>')
+    meta = ' · '.join([s for s in [p.get('pos', ''), p.get('yr', ''),
+                                    f'B/T {p.get("bats", "—")}/{p.get("throws", "—")}', p.get('ht', '')] if s])
+    parts.append(f'<text x="{nx}" y="{ny + 22:.1f}" font-family="{_SANS}" font-size="12" fill="{_MUTE}">{_xe(meta)}</text>')
+    parts.append(f'<text x="{nx}" y="{ny + 40:.1f}" font-family="{_SANS}" font-size="12" font-weight="700" fill="{accent}">'
+                 f'#{p.get("seed", "")} SEED · {_xe(p.get("region", ""))}</text>')
+
+    # splits (SLG then OBP)
+    splits = p.get('splits') or {}
+    split_labels = ['vs LHP', 'vs RHP', 'Home', 'Away', 'RISP']
+    sy = ny + 70
+    for metric, head in (('slg', 'SPLITS · SLG'), ('obp', 'SPLITS · OBP')):
+        parts.append(f'<text x="{nx}" y="{sy:.1f}" font-family="{_SANS}" font-size="9" font-weight="700" fill="{_MUTE}" letter-spacing="2">{head}</text>')
+        for i, lab in enumerate(split_labels):
+            ry = sy + 18 + i * 21
+            val = (splits.get(lab) or {}).get(metric, 0.0) or 0.0
+            parts.append(f'<text x="{nx}" y="{ry:.1f}" font-family="{_SANS}" font-size="11" fill="{_INK2}">{lab}</text>')
+            barpct = min(100.0, float(val) / (1.000 if metric == 'slg' else 0.600) * 100.0)
+            parts.append(_svg_pct_bar(nx + 70, ry - 8, 150, barpct, accent))
+            parts.append(f'<text x="{nx + 290:.1f}" y="{ry:.1f}" text-anchor="end" font-family="{_SANS}" font-size="11" font-weight="600" fill="{_INK}">{float(val):.3f}</text>')
+        sy = sy + 18 + len(split_labels) * 21 + 18
+
+    # ── Col B: slash line + spray ──
+    bx = 520
+    parts.append(_svg_eyebrow(bx, top + 44, 'SLASH LINE & COUNTING STATS', ''))
+    parts.append(f'<text x="{bx + 470:.1f}" y="{top + 44:.1f}" text-anchor="end" font-family="{_SANS}" font-size="9" '
+                 f'fill="{_MUTE}" letter-spacing="1">D1 RANK · {total_qualifiers:,} QUALIFIERS</text>')
+    ranks = p.get('ranks', {})
+    gy = top + 72
+    for i, k in enumerate(STAT_KEYS):
+        v, rk, pct = ranks.get(k, (None, None, None))
+        ry = gy + i * 31
+        parts.append(f'<text x="{bx}" y="{ry:.1f}" font-family="{_SANS}" font-size="11" font-weight="700" fill="{_MUTE}" letter-spacing="1">{k}</text>')
+        parts.append(f'<text x="{bx + 70:.1f}" y="{ry:.1f}" font-family="{_SANS}" font-size="16" font-weight="800" fill="{_INK}">{_xe(_fmt_stat(k, v))}</text>')
+        parts.append(_svg_pct_bar(bx + 170, ry - 9, 220, pct if pct is not None else 0, accent))
+        rk_txt = f'#{rk}' if rk else '—'
+        parts.append(f'<text x="{bx + 470:.1f}" y="{ry:.1f}" text-anchor="end" font-family="{_SANS}" font-size="11" fill="{_INK2}">{rk_txt}</text>')
+
+    spray_y = gy + len(STAT_KEYS) * 31 + 18
+    parts.append(_svg_eyebrow(bx, spray_y, 'SPRAY · BATTED-BALL ZONES', 'Hit distribution'))
+    spray_svg = p.get('spray_svg') or ''
+    if spray_svg:
+        parts.append(_nest_svg(spray_svg, bx, spray_y + 14, 480, 300, preserve='xMidYMin meet'))
+
+    # ── Col C: pace, OBP×SLG scatter, BB%×K% scatter, donut ──
+    cx0 = 1080
+    parts.append(_svg_eyebrow(cx0, top + 44, 'PACE · LAST 10 GAMES', 'Recent OPS trend'))
+    pace_svg = _render_pace_svg(p.get('pace') or [], accent)
+    if pace_svg:
+        parts.append(_nest_svg(pace_svg, cx0, top + 56, 460, 110, preserve='none'))
+
+    parts.append(_svg_eyebrow(cx0, top + 200, 'DIVISION LANDSCAPE', 'OBP × SLG'))
+    sc1 = _render_scatter_svg(p.get('scatter_cloud') or [],
+                              (ranks.get('OBP', (None,))[0]), (ranks.get('SLG', (None,))[0]),
+                              p.get('name', '').split()[-1] if p.get('name') else '', accent)
+    if sc1:
+        parts.append(_nest_svg(sc1, cx0, top + 214, 460, 250, preserve='xMidYMin meet'))
+
+    parts.append(_svg_eyebrow(cx0, top + 490, 'PLATE DISCIPLINE', 'BB% × K%'))
+    sc2 = _render_scatter_svg(
+        p.get('scatter_cloud_disc') or [], p.get('bb_pct'), p.get('k_pct'),
+        p.get('name', '').split()[-1] if p.get('name') else '', accent,
+        x_label='BB% →', y_label='K% ↓', x_fmt='.1%', y_fmt='.1%',
+        x_ticks=(0.05, 0.10, 0.15, 0.20, 0.25), y_ticks=(0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35),
+        x_pad=0.01, y_pad=0.01, x_clip=(0.0, 0.5), y_clip=(0.0, 0.6), invert_y=True)
+    if sc2:
+        parts.append(_nest_svg(sc2, cx0, top + 504, 300, 200, preserve='xMidYMin meet'))
+
+    parts.append(_svg_donut(p.get('hit_mix') or {}, accent, cx0 + 410, top + 560, 64))
+    return ''.join(parts)
+
+
+def render_top_hitters_svg(players: list[dict], regional_name: str, sport: str,
+                            division: str, total_qualifiers: int,
+                            as_of_date: str | None = None) -> str:
+    """Build the whole Top Hitters card as a single self-contained SVG, suitable
+    for server-side cairosvg rasterization (no html2canvas, no HTML)."""
+    if as_of_date is None:
+        as_of_date = datetime.now().strftime('%b %d, %Y')
+    div_label = {'D1': 'Division I', 'D2': 'Division II', 'D3': 'Division III'}.get(division, division)
+    n = max(1, len(players))
+    height = _SVG_MAST_H + n * _SVG_ROW_H + _SVG_FOOT_H
+
+    parts = [
+        f'<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" '
+        f'width="{_SVG_W}" height="{height}" viewBox="0 0 {_SVG_W} {height}" font-family="{_SANS}">',
+        f'<rect x="0" y="0" width="{_SVG_W}" height="{height}" fill="{_EGG}"/>',
+        # masthead
+        f'<text x="60" y="56" font-family="{_SANS}" font-size="11" font-weight="700" fill="{_MUTE}" letter-spacing="2">'
+        f'NCAA {_xe(div_label)} {sport.title()} · 2026 REGIONALS · PRE-TOURNAMENT BRIEF</text>',
+        f'<text x="60" y="100" font-family="{_SANS}" font-size="40" font-weight="800" fill="{_INK}">Regionals Top Hitters</text>',
+        f'<text x="{_SVG_W - 60}" y="56" text-anchor="end" font-family="{_SANS}" font-size="13" font-weight="700" fill="{_INK2}">{_xe(regional_name).upper()}</text>',
+        f'<text x="{_SVG_W - 60}" y="78" text-anchor="end" font-family="{_SANS}" font-size="11" fill="{_MUTE}">STATS THROUGH {_xe(as_of_date).upper()}</text>',
+    ]
+    for idx, p in enumerate(players):
+        parts.append(_player_block_svg(idx, p, _SVG_MAST_H + idx * _SVG_ROW_H + 30, total_qualifiers))
+    fy = _SVG_MAST_H + n * _SVG_ROW_H + 40
+    parts.append(f'<line x1="60" x2="{_SVG_W - 60}" y1="{fy:.1f}" y2="{fy:.1f}" stroke="{_RULE}" stroke-opacity="0.5" stroke-width="2"/>')
+    parts.append(f'<text x="60" y="{fy + 28:.1f}" font-family="{_SANS}" font-size="12" font-weight="700" fill="{_INK}">64 Analytics</text>')
+    parts.append(f'<text x="{_SVG_W - 60}" y="{fy + 28:.1f}" text-anchor="end" font-family="{_SANS}" font-size="12" fill="{_MUTE}">Compiled {_xe(as_of_date)}</text>')
+    parts.append('</svg>')
+    return ''.join(parts)
+
+
 # ── Streamlit entry point ───────────────────────────────────────────────────
 def render_tab(teams: list[str], seeds: list[int], team_ids: dict, sport: str,
                 division: str, regional_name: str, hitting_df: pd.DataFrame,
@@ -1541,15 +1783,32 @@ def render_tab(teams: list[str], seeds: list[int], team_ids: dict, sport: str,
         st.info('Could not resolve any hitters back to the regional teams.')
         return
 
-    html_doc = render_top_hitters_html(
+    # Build the card as ONE SVG and rasterize it server-side with cairosvg.
+    # No html2canvas: the browser never has to capture the DOM, so it can't
+    # freeze, and the spray (with its embedded field image) renders correctly.
+    svg_doc = render_top_hitters_svg(
         players_payload, regional_name, sport, division,
         total_qualifiers=len(pool),
     )
-    # Use components.html so the html2canvas <script> tag executes; markdown
-    # strips/disables scripts. Set generous height for 4-player vertical stack
-    # (~720px per row + masthead/footer) and enable scrolling so nothing
-    # gets clipped while still letting html2canvas snapshot the full DOM.
-    import streamlit.components.v1 as components
-    n = len(players_payload)
-    iframe_height = 320 + (n * 740) + 80  # masthead + rows + footer/button
-    components.html(html_doc, height=iframe_height, scrolling=True)
+    import re as _re_dl
+    safe = _re_dl.sub(r'[^a-z0-9]+', '_', regional_name.lower()).strip('_') or 'regional'
+    png_name = f'top_hitters_{safe}_{division.lower()}.png'
+    png_bytes = None
+    try:
+        import cairosvg
+        png_bytes = cairosvg.svg2png(bytestring=svg_doc.encode('utf-8'), output_width=1600)
+    except Exception as _e:
+        png_bytes = None
+    if png_bytes:
+        st.download_button('Download Top Hitters PNG', data=png_bytes,
+                           file_name=png_name, mime='image/png', type='primary')
+        st.image(png_bytes, use_container_width=True)
+    else:
+        # cairo not available (e.g. local Windows dev). Show the SVG inline as a
+        # native-browser preview; the deployed site (cairo installed) serves the PNG.
+        st.info('Server PNG renderer (cairosvg) is unavailable in this environment — '
+                'showing a live preview. The Download button works on the deployed site.')
+        import streamlit.components.v1 as components
+        n = len(players_payload)
+        components.html(svg_doc, height=_SVG_MAST_H + n * _SVG_ROW_H + _SVG_FOOT_H + 24,
+                        scrolling=True)
