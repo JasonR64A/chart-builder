@@ -443,13 +443,25 @@ def _row_html(idx: int, p: dict, accent: str, total_qualifiers: int) -> str:
         )
         stat_cells.append(cell)
 
-    # Spray-against
+    # Spray-against. Prefer a server-rasterized PNG (cairosvg): html2canvas-pro
+    # cannot capture the base64 field image nested in the inline SVG, so the
+    # spray dropped out of the downloaded PNG. A flat <img> captures fine; fall
+    # back to the inline SVG if rasterization was unavailable.
+    spray_png_b64 = p.get('spray_png_b64') or ''
     spray_svg = p.get('spray_svg') or ''
-    if spray_svg:
+    spray_figure = ''
+    if spray_png_b64:
+        spray_figure = (f'<img class="rth-spray-img" alt="Hit distribution allowed" '
+                        f'src="data:image/png;base64,{spray_png_b64}" '
+                        f'width="400" height="300" '
+                        f'style="width:100%;height:auto;display:block;"/>')
+    elif spray_svg:
         import re as _re
-        spray_svg_flex = _re.sub(r'\swidth="[^"]+"\s+height="[^"]+"', '', spray_svg, count=1)
-        if 'preserveAspectRatio' not in spray_svg_flex:
-            spray_svg_flex = spray_svg_flex.replace('<svg ', '<svg preserveAspectRatio="xMidYMax meet" ', 1)
+        spray_figure = _re.sub(r'\swidth="[^"]+"\s+height="[^"]+"',
+                               ' width="400" height="300"', spray_svg, count=1)
+        if 'preserveAspectRatio' not in spray_figure:
+            spray_figure = spray_figure.replace('<svg ', '<svg preserveAspectRatio="xMidYMax meet" ', 1)
+    if spray_figure:
         spray_block = (
             f'<div class="rth-stats__spray">'
             f'<div class="rth-block-head">'
@@ -457,7 +469,7 @@ def _row_html(idx: int, p: dict, accent: str, total_qualifiers: int) -> str:
             f'<div class="rth-eyebrow">SPRAY AGAINST · BATTED-BALL ZONES</div>'
             f'<div class="rth-block-title">Hit distribution allowed</div>'
             f'</div></div>'
-            f'<div class="rth-stats__spray-figure">{spray_svg_flex}</div>'
+            f'<div class="rth-stats__spray-figure">{spray_figure}</div>'
             f'</div>'
         )
     else:
@@ -847,6 +859,22 @@ def render_tab(teams: list[str], seeds: list[int], team_ids: dict, sport: str,
                 except Exception:
                     spray_svg = ''
 
+        # Flatten the spray to a PNG server-side (cairosvg) so html2canvas can
+        # capture it — it cannot render the base64 field image nested in the SVG.
+        # Same call the Spray Charts page uses for its download. Falls back to
+        # the inline SVG if cairo isn't available (e.g. local Windows dev).
+        spray_png_b64 = ''
+        if spray_svg:
+            try:
+                import cairosvg
+                _spray_png = cairosvg.svg2png(
+                    bytestring=spray_svg.encode('utf-8'),
+                    output_width=800, output_height=600,
+                )
+                spray_png_b64 = base64.b64encode(_spray_png).decode('ascii')
+            except Exception:
+                spray_png_b64 = ''
+
         photo_b64 = st.session_state.get(f'rtp_photo_b64_{cb_id}') if cb_id is not None else None
         photo_mime = st.session_state.get(f'rtp_photo_mime_{cb_id}', 'jpeg') if cb_id is not None else 'jpeg'
         photo_pos_y = st.session_state.get(f'rtp_photo_pos_y_{cb_id}', 20) if cb_id is not None else 20
@@ -891,6 +919,7 @@ def render_tab(teams: list[str], seeds: list[int], team_ids: dict, sport: str,
             'splits': splits,
             'pace': pace,
             'spray_svg': spray_svg,
+            'spray_png_b64': spray_png_b64,
             'scatter_cloud': scatter_cloud,
             'scatter_cloud_fw': scatter_cloud_fw,
             'photo_b64': photo_b64,

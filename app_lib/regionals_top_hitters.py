@@ -1019,24 +1019,27 @@ def _row_html(idx: int, p: dict, accent: str, total_qualifiers: int) -> str:
             f'</div>'
         )
         stat_cells.append(cell)
+    # Prefer a server-rasterized PNG of the spray (cairosvg). html2canvas-pro
+    # cannot capture the base64 field image nested inside the inline SVG, so the
+    # spray came out blank in the downloaded PNG. A flat <img> captures fine.
+    # Fall back to the inline SVG if rasterization was unavailable.
+    spray_png_b64 = p.get('spray_png_b64') or ''
     spray_svg = p.get('spray_svg') or ''
-    if spray_svg:
-        # Replace the SVG's intrinsic 100×75 dimensions with 400×300 (same 4:3
-        # aspect, same viewBox so content scales). Reasons:
-        #   1. html2canvas-pro needs concrete pixel dimensions to capture an
-        #      SVG; if width/height are stripped or set via CSS only, the SVG
-        #      vanishes from the PNG.
-        #   2. The previous attempt KEPT the intrinsic 100×75 + used
-        #      max-width:100% — that rendered at exactly 100 CSS px in browser
-        #      (super tiny diamonds).
-        # 400×300 is large enough to fill the stats column at a reasonable size
-        # but max-width:100% on the parent still lets it scale down responsively.
+    spray_figure = ''
+    if spray_png_b64:
+        spray_figure = (f'<img class="rth-spray-img" alt="Hit distribution" '
+                        f'src="data:image/png;base64,{spray_png_b64}" '
+                        f'width="400" height="300" '
+                        f'style="width:100%;height:auto;display:block;"/>')
+    elif spray_svg:
+        # Numeric 400×300 (same 4:3 viewBox) gives html2canvas concrete pixel
+        # dims; max-width:100% on the parent still scales it down responsively.
         import re as _re
-        spray_svg_flex = _re.sub(r'\swidth="[^"]+"\s+height="[^"]+"',
-                                  ' width="400" height="300"', spray_svg, count=1)
-        # Force preserveAspectRatio so the wedge stays centered as it scales
-        if 'preserveAspectRatio' not in spray_svg_flex:
-            spray_svg_flex = spray_svg_flex.replace('<svg ', '<svg preserveAspectRatio="xMidYMax meet" ', 1)
+        spray_figure = _re.sub(r'\swidth="[^"]+"\s+height="[^"]+"',
+                               ' width="400" height="300"', spray_svg, count=1)
+        if 'preserveAspectRatio' not in spray_figure:
+            spray_figure = spray_figure.replace('<svg ', '<svg preserveAspectRatio="xMidYMax meet" ', 1)
+    if spray_figure:
         spray_block = (
             f'<div class="rth-stats__spray">'
             f'<div class="rth-block-head">'
@@ -1044,7 +1047,7 @@ def _row_html(idx: int, p: dict, accent: str, total_qualifiers: int) -> str:
             f'<div class="rth-eyebrow">SPRAY · BATTED-BALL ZONES</div>'
             f'<div class="rth-block-title">Hit distribution</div>'
             f'</div></div>'
-            f'<div class="rth-stats__spray-figure">{spray_svg_flex}</div>'
+            f'<div class="rth-stats__spray-figure">{spray_figure}</div>'
             f'</div>'
         )
     else:
@@ -1458,6 +1461,22 @@ def render_tab(teams: list[str], seeds: list[int], team_ids: dict, sport: str,
                 except Exception:
                     spray_svg = ''
 
+        # Flatten the spray to a PNG server-side (cairosvg) so html2canvas can
+        # capture it — it cannot render the base64 field image nested in the SVG.
+        # Same call the Spray Charts page uses for its download. Falls back to
+        # the inline SVG if cairo isn't available (e.g. local Windows dev).
+        spray_png_b64 = ''
+        if spray_svg:
+            try:
+                import cairosvg
+                _spray_png = cairosvg.svg2png(
+                    bytestring=spray_svg.encode('utf-8'),
+                    output_width=800, output_height=600,
+                )
+                spray_png_b64 = base64.b64encode(_spray_png).decode('ascii')
+            except Exception:
+                spray_png_b64 = ''
+
         photo_b64 = st.session_state.get(f'rth_photo_b64_{cb_id}') if cb_id is not None else None
         photo_mime = st.session_state.get(f'rth_photo_mime_{cb_id}', 'jpeg') if cb_id is not None else 'jpeg'
         photo_pos_y = st.session_state.get(f'rth_photo_pos_y_{cb_id}', 20) if cb_id is not None else 20
@@ -1507,6 +1526,7 @@ def render_tab(teams: list[str], seeds: list[int], team_ids: dict, sport: str,
             'splits': splits,
             'pace': pace,
             'spray_svg': spray_svg,
+            'spray_png_b64': spray_png_b64,
             'scatter_cloud': scatter_cloud,
             'scatter_cloud_disc': scatter_cloud_disc,
             'bb_pct': bb_pct,
