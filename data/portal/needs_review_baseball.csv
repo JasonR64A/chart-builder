@@ -1,3 +1,8 @@
 ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfer_date,update_date,status,year,sport,team_id,player_id_64a,player_id_ncaa_stats,matched_name,match_score,match_method,confidence,position,class_year,player_csv_team_id
-2505610865,SANTIAGO,ADAME,Santiago Adame,University of Illinois Springfield,Great Lakes Valley Conference,II,05/25/2026,05/25/2026,Active,2025-26,Baseball,343,131678,3241721,JJ Adame,54.5,team+lastname_diff_first,REVIEW,C,Fr,343
-2207627430,ZACHARY,SMETHERS,Zachary Smethers,Goldey-Beacom College,Central Atlantic Collegiate Conference,II,05/25/2026,05/25/2026,Active,2025-26,Baseball,298,71602,2956943,Zach Smethers,92.0,team+lastname,LOW,1B,Jr,298
+2209665411,BENJAMIN,BARNES,Benjamin Barnes,Grove City College,Presidents' Athletic Conference,III,05/26/2026,05/26/2026,Active,2025-26,Baseball,307,131125,3107538,Ben Barnes,92.0,team+lastname,LOW,RF,So,307
+2108308899,THOMAS,BOURQUE,Thomas Bourque,William & Mary,Coastal Athletic Association,I,05/26/2026,05/26/2026,Active,2025-26,Baseball,910,62989,2806759,Tom Bourque,92.0,team+lastname,LOW,P,Jr,910
+2211713292,TRISTAN,GOVEA,Tristan Govea,Felician University,Central Atlantic Collegiate Conference,II,05/26/2026,05/26/2026,Active,2025-26,Baseball,256,66091,2951062,Tristian Govea,96.3,team+lastname,MEDIUM,LF,Jr,256
+2208645825,JOHN,WALSH,John Walsh,Florida International University,Conference USA,I,05/26/2026,05/26/2026,Active,2025-26,Baseball,261,130567,3231779,Alex Walsh,60.0,team+lastname_diff_first,REVIEW,P,Jr,261
+2410439286,NICHOLAS,LAY,Nicholas Lay,Colorado State University Pueblo,Rocky Mountain Athletic Conference,II,05/26/2026,05/26/2026,Active,2025-26,Baseball,189,129325,3214710,Nick Lay,92.0,team+lastname,LOW,P,So,189
+2110358525,JOSEPH,HAYNES,Joseph Haynes,Hilbert College,Allegheny Mountain Collegiate Conference,III,05/26/2026,05/26/2026,Active,2025-26,Baseball,327,51801,2808025,Joey Haynes,92.0,team+lastname,LOW,LF,Sr,327
+2605932016,THOMAS,MAXWELL,Thomas Maxwell,Bard College,Liberty League,III,05/26/2026,05/26/2026,Active,2025-26,Baseball,57,102990,3088569,Tom Maxwell,92.0,team+lastname,LOW,P,So,57
