@@ -1253,14 +1253,33 @@ window.downloadTopHittersPNG = async function() {{
         img.addEventListener('error', res, {{ once: true }});
       }});
     }}));
+    // Cap the canvas height (~6000px) so a tall 4-player card doesn't build a
+    // huge canvas that hangs the tab or hits the browser's canvas-size ceiling.
+    var scale = Math.min(2, 6000 / Math.max(1, node.scrollHeight));
     var canvas = await html2canvas(node, {{
-      scale: 2, backgroundColor: '#FAF8F2', useCORS: true, allowTaint: true,
+      scale: scale, backgroundColor: '#FAF8F2', useCORS: true, allowTaint: true,
       logging: false, imageTimeout: 15000
     }});
-    var a = document.createElement('a');
-    a.download = {png_filename!r};
-    a.href = canvas.toDataURL('image/png');
-    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    var fname = {png_filename!r};
+    var triggerDownload = function(href, revoke) {{
+      var a = document.createElement('a');
+      a.download = fname; a.href = href;
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      if (revoke) setTimeout(function() {{ URL.revokeObjectURL(href); }}, 60000);
+    }};
+    // toBlob encodes the PNG off the main thread (toDataURL is synchronous and
+    // freezes the tab on large canvases). Fall back to toDataURL if unavailable.
+    if (canvas.toBlob) {{
+      await new Promise(function(res) {{
+        canvas.toBlob(function(blob) {{
+          if (blob) {{ triggerDownload(URL.createObjectURL(blob), true); }}
+          else {{ triggerDownload(canvas.toDataURL('image/png'), false); }}
+          res();
+        }}, 'image/png');
+      }});
+    }} else {{
+      triggerDownload(canvas.toDataURL('image/png'), false);
+    }}
   }} catch (err) {{
     console.error('Top Hitters PNG export failed:', err);
     alert('Download failed: ' + (err && err.message ? err.message : err) +
