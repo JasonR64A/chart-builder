@@ -107,7 +107,7 @@ def load_players():
         return pd.read_csv(DATA_DIR / 'players.csv', low_memory=False, encoding='latin-1')
 
 
-@st.cache_data(show_spinner=False)
+@st.cache_data(show_spinner=False, max_entries=2)
 def load_hitting_pbp(sport, division):
     p = PBP_DIR / sport / f'hitting_pbp_{division}.csv'
     if not p.exists():
@@ -117,7 +117,7 @@ def load_hitting_pbp(sport, division):
     return df
 
 
-@st.cache_data(show_spinner=False)
+@st.cache_data(show_spinner=False, max_entries=2)
 def load_pitching_pbp(sport, division):
     p = PBP_DIR / sport / f'pitching_pbp_{division}.csv'
     if not p.exists():

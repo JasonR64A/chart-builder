@@ -117,7 +117,11 @@ def add_zone_metrics(df: pd.DataFrame) -> pd.DataFrame:
     return out
 
 
-@st.cache_data(show_spinner=False)
+# max_entries=1: these event frames are 150-250MB+ each. On Render's 512MB
+# plan, keeping more than one sport/division resident OOMs the whole service.
+# Capping at 1 evicts the previous division when you switch (a few seconds to
+# re-read) instead of letting all six combos accumulate. Output is unchanged.
+@st.cache_data(show_spinner=False, max_entries=1)
 def _load_pbp(sport: str, division: str) -> pd.DataFrame:
     """Load events PBP for sport+division. Schema is the chart-builder
     naming: {sport}_play_by_play_{division}.csv (or .csv.gz on Render —
