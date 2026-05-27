@@ -452,6 +452,35 @@ if sport == 'baseball' and division == 'D1':
     except Exception as _e:
         st.caption(f'(Game-1 pitching view unavailable: {_e})')
 
+    # Full regional path under each Game-1 choice (ace vs save-the-ace)
+    try:
+        from app_lib.regional_strength import simulate_regional_milestones as _simm
+        _m1 = _simm(teams, sport, division, host_model='model1', host_idx=0, n=15000)
+        _m2 = _simm(teams, sport, division, host_model='model2', host_idx=0, n=15000)
+        st.markdown('#### Path to the regional title — by Game-1 starter')
+
+        def _path_tbl(mm):
+            return pd.DataFrame(
+                {'Win opener': [f"{mm[t]['r1']*100:.0f}%" for t in teams],
+                 'Win W-bracket': [f"{mm[t]['r2']*100:.0f}%" for t in teams],
+                 'Reach final': [f"{mm[t]['r3']*100:.0f}%" for t in teams],
+                 'Champ %': [f"{mm[t]['r4']*100:.0f}%" for t in teams]},
+                index=[f'#{s} {t}' for t, s in zip(teams, seeds)])
+
+        _ace_nm = _g1['ace_name'] if '_g1' in dir() else 'ace'
+        _n2_nm = _g1['n2_name'] if '_g1' in dir() else '#2'
+        _pc1, _pc2 = st.columns(2)
+        with _pc1:
+            st.caption(f'Ace in Game 1 — {_ace_nm}')
+            st.dataframe(_path_tbl(_m1), use_container_width=True)
+        with _pc2:
+            st.caption(f'Save ace, #2 in Game 1 — {_n2_nm}')
+            st.dataframe(_path_tbl(_m2), use_container_width=True)
+        st.caption(f"Only {teams[0]}'s Game-1 starter changes between the two; the gap shows up "
+                   "most in 'Win opener' and fades by the regional final.")
+    except Exception as _e:
+        st.caption(f'(Path comparison unavailable: {_e})')
+
 
 # ── Helpers for the remaining sections ──────────────────────────────────────
 def _pbp_team_match(pbp_df, team_name):
