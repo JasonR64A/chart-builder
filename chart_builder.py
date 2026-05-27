@@ -293,26 +293,48 @@ def _norm_team(name):
 
 
 @st.cache_data
-def load_tournament_field_norm(sport: str, year: int) -> set:
-    """Normalized team-name keys for a year's NCAA tournament field (the 64
-    seeded teams) for the 'In the tournament' filter. Current cycle reads the
-    latest dated bracketology snapshot for the sport (seed_tier 1-4, excludes
-    first_four_out); older years fall back to tournament_field_2013_2020.csv."""
+def load_tournament_field_ids(sport: str, year: int) -> set:
+    """team_db_id strings for a year's NCAA tournament field, for the 'In the
+    tournament' filter. Precedence:
+      1. tournament_field_{sport}_{year}.csv — the ACTUAL committee field with
+         a team_db_id column (resolved to teams.csv at build time, so name
+         collisions like 'Missouri St.' vs 'Missouri S&T' can't sneak in).
+         Preferred when present.
+      2. latest dated bracketology snapshot — the PROJECTED field (seed_tier
+         1-4), resolved to ids by name. A projection can differ from the real
+         bracket (2026 BB projected Oral Roberts in; they did not make it).
+      3. tournament_field_2013_2020.csv — historical actual fields, by name.
+    """
     bdir = DATA_DIR / 'bracketology'
+    actual = bdir / f'tournament_field_{sport}_{year}.csv'
     names = []
-    snaps = sorted((bdir / 'snapshots').glob(f'{sport}_bracketology_{year}-*.csv'))
-    if snaps:
-        snap = pd.read_csv(snaps[-1])
-        if 'seed_tier' in snap.columns:
-            snap = snap[snap['seed_tier'].isin(['1-seed', '2-seed', '3-seed', '4-seed'])]
-        names = snap['name'].dropna().astype(str).tolist() if 'name' in snap.columns else []
+    if actual.exists():
+        h = pd.read_csv(actual)
+        if 'team_db_id' in h.columns:
+            return set(pd.to_numeric(h['team_db_id'], errors='coerce')
+                       .dropna().astype(int).astype(str))
+        names = h['team'].dropna().astype(str).tolist()
     else:
-        hist = bdir / 'tournament_field_2013_2020.csv'
-        if hist.exists():
-            h = pd.read_csv(hist)
-            names = h.loc[pd.to_numeric(h['year'], errors='coerce') == year,
-                          'team'].dropna().astype(str).tolist()
-    return {_norm_team(n) for n in names if _norm_team(n)}
+        snaps = sorted((bdir / 'snapshots').glob(f'{sport}_bracketology_{year}-*.csv'))
+        if snaps:
+            snap = pd.read_csv(snaps[-1])
+            if 'seed_tier' in snap.columns:
+                snap = snap[snap['seed_tier'].isin(['1-seed', '2-seed', '3-seed', '4-seed'])]
+            names = snap['name'].dropna().astype(str).tolist() if 'name' in snap.columns else []
+        else:
+            legacy = bdir / 'tournament_field_2013_2020.csv'
+            if legacy.exists():
+                h = pd.read_csv(legacy)
+                names = h.loc[pd.to_numeric(h['year'], errors='coerce') == year,
+                              'team'].dropna().astype(str).tolist()
+    if not names:
+        return set()
+    # name fallback (projection / legacy): resolve to ids via teams.csv
+    tdf = load_teams()
+    sdf = tdf[tdf['sport'] == sport.capitalize()]
+    fnorm = {_norm_team(n) for n in names}
+    return set(sdf.loc[sdf['team_name'].map(lambda n: _norm_team(n) in fnorm),
+                       'team_db_id'].astype(str))
 
 
 @st.cache_data
@@ -434,22 +456,17 @@ def sidebar():
              'the Year selected above. Default No = all teams.',
     )
     if cfg['in_tournament'] == 'Yes':
-        _field_norm = load_tournament_field_norm(cfg['sport'].lower(), int(cfg['year']))
-        if _field_norm:
-            # Keep ALL matching team_db_ids (teams.csv has legacy duplicate
-            # rows for some schools — including both ensures we don't miss
-            # stats keyed to either id). Count distinct schools for the caption.
-            _mask = sport_teams['team_name'].map(lambda n: _norm_team(n) in _field_norm)
-            _field_ids = set(sport_teams.loc[_mask, 'team_db_id'].astype(str))
+        _field_ids = load_tournament_field_ids(cfg['sport'].lower(), int(cfg['year']))
+        if _field_ids:
             cfg['team_ids'] = cfg['team_ids'] & _field_ids
-            _n_schools = sport_teams.loc[_mask, 'team_name'].nunique()
             st.sidebar.caption(
-                f"{_n_schools} of {len(_field_norm)} {cfg['year']} field teams (after filters)"
+                f"{len(cfg['team_ids'])} of {len(_field_ids)} {cfg['year']} "
+                f"field teams (after filters)"
             )
         else:
             st.sidebar.warning(
                 f"No {cfg['year']} {cfg['sport']} tournament field available "
-                "(only 2026 is loaded)."
+                "(actual field loaded for 2026 baseball)."
             )
 
     # ── Game-context filter (PBP-derived; only applies to current year + team-level stat CSVs) ──
