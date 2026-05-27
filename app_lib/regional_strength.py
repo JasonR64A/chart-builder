@@ -28,17 +28,20 @@ import pandas as pd
 
 _ND = NormalDist()
 _SQRT2 = math.sqrt(2.0)
-# Calibrated 2026-05-27 so avg host regional win ~55% (real-world national-seed rate).
-K_DECISIVENESS = 0.78
+# 2026-05-27: win prob uses Computer Rank ALONE (CR_WEIGHT=1.0) — SOS-aware, so
+# weak-schedule teams don't get over-rated by raw offense. k tuned so avg host
+# regional win ~58% and no 4-seed exceeds ~6%.
+K_DECISIVENESS = 1.15
 HFA = 0.04          # host single-game win-prob bump
 _SQRT = _SQRT2
 
 DATA = Path(__file__).resolve().parent.parent / 'data'
 CURRENT_YEAR = 2026
-CR_WEIGHT = 0.65
+CR_WEIGHT = 1.0       # 1.0 = Computer Rank only (no roster blend)
 LEAGUE_AVG_FIP = 4.5
 PA_GATE = 50          # min PA for a hitter to count toward the top-9 lineup wRAA
 MIN_IP = 1.0
+CR_ONLY = True        # win prob from Computer Rank alone (roster terms weighted out)
 
 
 def _ip_to_outs(v):
@@ -200,9 +203,11 @@ def _rotations():
 @functools.lru_cache(maxsize=8)
 def _zparams(sport, division):
     m = _components(sport, division)
-    full = m.dropna(subset=['CR', 'off9'])
-    return (m, float(full['CR'].mean()), float(full['CR'].std(ddof=0)),
-            float(full['off9'].mean()), float(full['off9'].std(ddof=0)))
+    full = m.dropna(subset=['CR'])              # CR-only standardization pool
+    off = full['off9'].dropna()
+    om = float(off.mean()) if len(off) else 0.0
+    osd = float(off.std(ddof=0)) if len(off) > 1 else 1.0
+    return (m, float(full['CR'].mean()), float(full['CR'].std(ddof=0)), om, osd or 1.0)
 
 
 def _cr_off(m, crm, crs, om, osd, name):
@@ -219,14 +224,19 @@ def _tid(m, name):
 
 
 def _strength_array(cr, off, tid, model, rots, cr_weight=CR_WEIGHT):
-    """Bradley-Terry strength for a team's 1st..5th game of the regional."""
+    """Bradley-Terry strength for a team's 1st..5th game of the regional.
+    With cr_weight == 1.0 the strength is Computer-Rank-only and constant across
+    games (the per-game rotation/offense terms are weighted out)."""
+    roster_w = 1.0 - cr_weight
+    if roster_w <= 1e-9:                       # Computer Rank only
+        return [math.exp(K_DECISIVENESS * cr)] * 5
     r = rots.get(int(tid)) if tid is not None else None
     out = []
     for n in range(1, 6):
         pit = r[model][f'g{min(n, 4)}'] if r else 0.5
         zp = _ND.inv_cdf(min(0.98, max(0.02, pit)))
         zr = (off + zp) / _SQRT2
-        out.append(math.exp(K_DECISIVENESS * (cr_weight * cr + (1 - cr_weight) * zr)))
+        out.append(math.exp(K_DECISIVENESS * (cr_weight * cr + roster_w * zr)))
     return out
 
 

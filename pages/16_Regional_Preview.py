@@ -434,53 +434,6 @@ if sport == 'baseball' and division == 'D1':
 else:
     st.caption('Bradley-Terry on RPI rank, 20k Monte-Carlo bracket sims. Higher RPI rank = stronger.')
 
-# ── Game 1 (1 vs 4): throw the ace, or save him? ────────────────────────────
-if sport == 'baseball' and division == 'D1':
-    from app_lib.regional_strength import g1_ace_vs_n2
-    try:
-        _g1 = g1_ace_vs_n2(teams, sport, division)
-        st.markdown('#### Game 1 pitching decision')
-        st.caption(f"{teams[0]} hosts {_g1['opp']} (4-seed) in Game 1 — throw the ace, "
-                   f"or save him for Game 2?")
-        _c1, _c2 = st.columns(2)
-        _c1.metric(f"Start ace · {_g1['ace_name']}", f"{_g1['ace']*100:.0f}%",
-                   help='Probability of winning Game 1')
-        _c2.metric(f"Save ace, start #2 · {_g1['n2_name']}", f"{_g1['n2']*100:.0f}%",
-                   delta=f"{(_g1['n2']-_g1['ace'])*100:+.1f} pts vs ace")
-        st.caption('Game-1 win probability for the host. Both teams throw their listed Game-1 '
-                   'starter; the gap is the cost of holding your ace for Game 2.')
-    except Exception as _e:
-        st.caption(f'(Game-1 pitching view unavailable: {_e})')
-
-    # Full regional path under each Game-1 choice (ace vs save-the-ace)
-    try:
-        from app_lib.regional_strength import simulate_regional_milestones as _simm
-        _m1 = _simm(teams, sport, division, host_model='model1', host_idx=0, n=15000)
-        _m2 = _simm(teams, sport, division, host_model='model2', host_idx=0, n=15000)
-        st.markdown('#### Path to the regional title — by Game-1 starter')
-
-        def _path_tbl(mm):
-            return pd.DataFrame(
-                {'Win opener': [f"{mm[t]['r1']*100:.0f}%" for t in teams],
-                 'Win W-bracket': [f"{mm[t]['r2']*100:.0f}%" for t in teams],
-                 'Reach final': [f"{mm[t]['r3']*100:.0f}%" for t in teams],
-                 'Champ %': [f"{mm[t]['r4']*100:.0f}%" for t in teams]},
-                index=[f'#{s} {t}' for t, s in zip(teams, seeds)])
-
-        _ace_nm = _g1['ace_name'] if '_g1' in dir() else 'ace'
-        _n2_nm = _g1['n2_name'] if '_g1' in dir() else '#2'
-        _pc1, _pc2 = st.columns(2)
-        with _pc1:
-            st.caption(f'Ace in Game 1 — {_ace_nm}')
-            st.dataframe(_path_tbl(_m1), use_container_width=True)
-        with _pc2:
-            st.caption(f'Save ace, #2 in Game 1 — {_n2_nm}')
-            st.dataframe(_path_tbl(_m2), use_container_width=True)
-        st.caption(f"Only {teams[0]}'s Game-1 starter changes between the two; the gap shows up "
-                   "most in 'Win opener' and fades by the regional final.")
-    except Exception as _e:
-        st.caption(f'(Path comparison unavailable: {_e})')
-
 
 # ── Helpers for the remaining sections ──────────────────────────────────────
 def _pbp_team_match(pbp_df, team_name):
@@ -1300,16 +1253,6 @@ def _team_top_hitters(team_name, sport, division, n=9):
 # ── Compute all data needed for the graphic ────────────────────────────────
 with st.spinner('Aggregating season + L25 data…'):
     survival = _simulate_regional_full(20000)
-    survival_n2 = None; _g1names = None
-    if sport == 'baseball' and division == 'D1':
-        try:
-            from app_lib.regional_strength import (simulate_regional_milestones as _simm2,
-                                                   rotation_starters as _rs2)
-            survival_n2 = _simm2(teams, sport, division, host_model='model2', host_idx=0, n=20000)
-            _sp2 = _rs2(teams[0], sport, division)
-            _g1names = (_sp2[0][0], _sp2[1][0]) if _sp2 and len(_sp2) > 1 else None
-        except Exception:
-            survival_n2 = None
     perf_full = {t: _team_radar_perf(t, sport, division, last_n_games=None) for t in teams}
     perf_l25 = {t: _team_radar_perf(t, sport, division, last_n_games=25) for t in teams}
     radar_dist = _division_metric_distributions(sport, division)
@@ -1403,7 +1346,7 @@ def _strength_for(perf, dist=None):
 
 
 # ── Build the SVG (1080×1350 IG-feed canvas) ──────────────────────────────
-VB_W, VB_H = 1080, 1402
+VB_W, VB_H = 1080, 1350
 PAD_X, PAD_TOP = 24, 16
 
 # Vertical layout (y positions)
@@ -1412,7 +1355,7 @@ H_HEADER = 92
 Y_STRIP  = Y_HEADER + H_HEADER           # Team identity strip
 H_STRIP  = 84
 Y_PROB   = Y_STRIP + H_STRIP             # Path to the Title
-H_PROB   = 206
+H_PROB   = 154
 Y_RADAR  = Y_PROB + H_PROB               # Radar hero
 H_RADAR  = 408
 Y_PITCH  = Y_RADAR + H_RADAR             # Pitching depth
@@ -1601,27 +1544,6 @@ for ti, (team, seed) in enumerate(zip(teams, seeds)):
     parts.append(f'<text x="{VB_W - PAD_X - 6}" y="{row_cy + 5}" class="in" font-size="16" font-weight="800" '
                  f'fill="{BRAND_RED}" text-anchor="end" letter-spacing="-0.2">'
                  f'{champ_pct:.1f}<tspan font-size="10">%</tspan></text>')
-# ── Game-1 starter call for the 1-seed (ace vs save-the-ace) ────────────────
-if survival_n2 is not None:
-    _host = teams[0]
-    _an, _nn = (_g1names if _g1names else ('ace', '#2'))
-    _gy = hdr_y + 14 + len(teams) * ROW_PITCH + 20
-    parts.append(f'<text x="{prob_grid_x}" y="{_gy}" class="in" font-size="9" font-weight="700" '
-                 f'fill="{INK_400}" letter-spacing="1.2">GAME 1 STARTER CALL · '
-                 f'{_xe(_host).upper()} (1-SEED)</text>')
-    for _k, (_lab, _nm, _s) in enumerate([('START ACE', _an, survival[_host]),
-                                          ('SAVE ACE, #2 GAME 1', _nn, survival_n2[_host])]):
-        _ly = _gy + 20 + _k * 17
-        parts.append(f'<text x="{prob_grid_x}" y="{_ly}" class="mn" font-size="10" font-weight="700" '
-                     f'fill="{INK_900}">{_lab} · {_xe(_nm)}</text>')
-        parts.append(
-            f'<text x="{VB_W - PAD_X - 4}" y="{_ly}" class="mn" font-size="10" font-weight="600" '
-            f'fill="{INK_700}" text-anchor="end">'
-            f"opener {_s['r1']*100:.0f}%  ·  W-bracket {_s['r2']*100:.0f}%  ·  "
-            f"final {_s['r3']*100:.0f}%  ·  "
-            f'<tspan fill="{BRAND_RED}" font-weight="800">win regional '
-            f"{_s['r4']*100:.0f}%</tspan></text>")
-
 parts.append(f'<line x1="{PAD_X}" y1="{Y_PROB + H_PROB}" x2="{VB_W - PAD_X}" y2="{Y_PROB + H_PROB}" '
              f'stroke="{INK_RULE}" stroke-width="1"/>')
 
