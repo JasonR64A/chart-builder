@@ -916,6 +916,22 @@ def _last_10_games(sched_full: pd.DataFrame, team_year_id, rpi_lookup: dict) -> 
     return out
 
 
+def _top25_wins(sched_full: pd.DataFrame, team_year_id, rpi_lookup: dict) -> int:
+    """Count completed wins over opponents ranked in the RPI top 25. (The SoS
+    box previously showed Q1 wins under a 'Top-25 Wins' label — a road win over
+    e.g. #48 is Q1 but NOT a top-25 win, which read as contradictory next to
+    the signature-wins list.)"""
+    if team_year_id is None or sched_full.empty:
+        return 0
+    m = sched_full[sched_full['teamYearId'] == team_year_id]
+    n = 0
+    for _, g in m.iterrows():
+        if _is_completed(g) and _is_win(g):
+            if rpi_lookup.get(_norm(g.get('opponentName', '')), 999) <= 25:
+                n += 1
+    return n
+
+
 def _big_wins(sched_full: pd.DataFrame, team_year_id, rpi_lookup: dict, top_n: int = 3) -> list:
     if team_year_id is None:
         return []
@@ -1260,6 +1276,7 @@ def build_resume_team(team_name: str, sport_key: str, year: int = 2026) -> dict 
     projected_rpi_range = _project_rpi_range(rpi_rank, remaining_count)
     last10 = _last_10_games(sched_full, team_year_id, rpi_lookup) if not sched_full.empty else []
     big_wins = _big_wins(sched_full, team_year_id, rpi_lookup) if not sched_full.empty else []
+    top25_wins = _top25_wins(sched_full, team_year_id, rpi_lookup)
     bad_losses = _bad_losses(sched_full, team_year_id, rpi_lookup) if not sched_full.empty else []
 
     # Nearest by resume score
@@ -1315,6 +1332,7 @@ def build_resume_team(team_name: str, sport_key: str, year: int = 2026) -> dict 
         'projectedRpiRange': projected_rpi_range,
         'last10': last10,
         'quadRecord': quad_record,
+        'top25Wins': top25_wins,
         'remainingQuadSchedule': remaining_quads,
         'bigWins': big_wins,
         'badLosses': bad_losses,

@@ -806,7 +806,7 @@ function SOSModule({ team }) {
         </div>
         <div style={{ padding: "5px 7px", background: "var(--paper-2)", border: "1px solid var(--rule)", textAlign: "center" }}>
           <div className="eyebrow" style={{ fontSize: 8 }}>Top-25 Wins</div>
-          <div className="serif" style={{ fontSize: 18, fontWeight: 600, fontVariantNumeric: "tabular-nums", lineHeight: 1 }}>{totals[0].w}</div>
+          <div className="serif" style={{ fontSize: 18, fontWeight: 600, fontVariantNumeric: "tabular-nums", lineHeight: 1 }}>{team.top25Wins != null ? team.top25Wins : totals[0].w}</div>
         </div>
       </div>
       <div className="serif" style={{ marginTop: 6, paddingTop: 5, borderTop: "1px solid var(--rule)", fontSize: 10, color: "var(--muted)", lineHeight: 1.4, fontStyle: "italic" }}>
