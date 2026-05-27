@@ -1,2 +1,4 @@
 ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfer_date,update_date,status,year,sport,team_id,player_id_64a,player_id_ncaa_stats,matched_name,match_score,match_method,confidence,position,class_year,player_csv_team_id
-2112396573,NICHOLAS,QUAGLIATO,Nicholas Quagliato,"Fairleigh Dickinson University, Metropolitan Campus",Northeast Conference,I,05/26/2026,05/26/2026,Active,2025-26,Baseball,254,71123,2951470,Nick Quagliato,92,team+lastname,LOW,C,Jr,254
+2108291332,NELSON,YEATTS,Nelson Yeatts,Longwood University,Big South Conference,I,05/27/2026,05/27/2026,Active,2025-26,Baseball,417,61801,2812327,Bentley Yeatts,66.7,team+lastname_diff_first,REVIEW,3B,Sr,417
+2309111303,BRAYDEN,ENOCH,Brayden Enoch,Mary Baldwin University,USA South Athletic Conference,III,05/27/2026,05/27/2026,Active,2025-26,Baseball,443,122097,3123867,B. Enoch,66.7,team+lastname_diff_first,REVIEW,1B,So,443
+2108289143,JOHN,FREEMAN,John Freeman,Florida International University,Conference USA,I,05/27/2026,05/27/2026,Active,2025-26,Baseball,261,130560,3231758,Trey Freeman,66.7,team+lastname_diff_first,REVIEW,RF,Jr,261
