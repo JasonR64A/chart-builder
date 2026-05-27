@@ -804,8 +804,9 @@ def _verdict_for_consensus(avg_rank: int) -> tuple[str, str]:
     """Verdict + seed projection driven by computer-consensus average rank
     (RPI/DSR/Massey/ELO/64A). Bands the user owns:
       Verdict — 1-16 Lock, 17-34 In, 35-50 Bubble, 51+ Out
-      Seed   — 1-12 "1 seed", 13-25 "2 seed", 26-35 "2-3 seed",
-               36-50 "3 seed", 51+ "Out"
+      Seed   — 1-12 "1 seed", 13-18 "1-2 seed", 19-26 "2 seed",
+               27-36 "2-3 seed", 37-44 "3 seed", 45-60 "Bubble out",
+               61+ "Needs AQ"
     Verdict and seed-projection bands intentionally don't line up — Verdict
     asks "are they in?" and seed asks "if seeded, where?".
     """
@@ -815,10 +816,12 @@ def _verdict_for_consensus(avg_rank: int) -> tuple[str, str]:
     elif r <= 50: verdict = 'Bubble'
     else:         verdict = 'Out'
     if r <= 12:   seed = '1 seed'
-    elif r <= 25: seed = '2 seed'
-    elif r <= 35: seed = '2-3 seed'
-    elif r <= 50: seed = '3 seed'
-    else:         seed = 'Out'
+    elif r <= 18: seed = '1-2 seed'
+    elif r <= 26: seed = '2 seed'
+    elif r <= 36: seed = '2-3 seed'
+    elif r <= 44: seed = '3 seed'
+    elif r <= 60: seed = 'Bubble out'
+    else:         seed = 'Needs AQ'
     return seed, verdict
 
 
@@ -1224,14 +1227,14 @@ def build_resume_team(team_name: str, sport_key: str, year: int = 2026) -> dict 
     seed_proj, bubble_verdict = _verdict_for_consensus(consensus_avg)
 
     # Postseason: if the team is in the ACTUAL committee field, the Verdict
-    # shows their real seed + regional instead of the projection (e.g. Cal Poly
-    # -> "3 seed - Los Angeles Regional"). fieldPlacement also drives the
-    # remaining-schedule block (their season is over; show the regional).
+    # shows their real seed + regional (e.g. Cal Poly -> "3 seed - Los Angeles
+    # Regional"). "Projected" (seed_proj) keeps the computer-consensus band
+    # projection so you can see projected-vs-actual. fieldPlacement also drives
+    # the remaining-schedule block (their season is over; show the regional).
     _field_lookup = _actual_field_lookup(sport_key, year)
     field_placement = _field_lookup.get(team_id)
     if field_placement and field_placement.get('seed') and field_placement.get('regional'):
         _sd = field_placement['seed']; _reg = field_placement['regional']
-        seed_proj = f"{_sd} seed"
         bubble_verdict = f"{_sd} seed - {_reg} Regional"
 
     # SOS: real NCAA-formula computation from schedules_full.
