@@ -1631,6 +1631,34 @@ def load_portal_2026_ncaa_pids():
 
 
 @st.cache_data
+def load_tournament_field_norm(sport: str, year: int) -> set:
+    """Normalized team-name keys for a year's NCAA tournament field, for the
+    'In the tournament' filter. The current cycle (2026) reads the latest
+    dated bracketology snapshot and takes the 64 seeded teams (seed_tier
+    1/2/3/4-seed, excluding first_four_out). Earlier years fall back to the
+    historical actual fields in tournament_field_2013_2020.csv (year,team).
+    Returns normalized keys (via _norm_team) so it matches PBP teamName
+    variants the same way the conference filter does."""
+    bdir = DATA_DIR / 'bracketology'
+    names = []
+    snaps = sorted((bdir / 'snapshots').glob(f'{sport}_bracketology_{year}-*.csv'))
+    if snaps:
+        snap = pd.read_csv(snaps[-1])
+        if 'seed_tier' in snap.columns:
+            field = snap[snap['seed_tier'].isin(['1-seed', '2-seed', '3-seed', '4-seed'])]
+        else:
+            field = snap
+        names = field['name'].dropna().astype(str).tolist() if 'name' in field.columns else []
+    else:
+        hist = bdir / 'tournament_field_2013_2020.csv'
+        if hist.exists():
+            h = pd.read_csv(hist)
+            names = h.loc[pd.to_numeric(h['year'], errors='coerce') == year,
+                          'team'].dropna().astype(str).tolist()
+    return {_norm_team(n) for n in names if _norm_team(n)}
+
+
+@st.cache_data
 def load_division_teams(sport, division):
     """Get set of team names belonging to a specific division via conferences.
     Returns the union of teams.csv names AND any PBP-file teamName variants
@@ -2172,6 +2200,37 @@ if class_map and 'teamName' in pbp.columns:
         if view == 'Lineup Card':
             hitting_pbp = hitting_pbp[hitting_pbp['teamName'].isin(strength_teams)]
             pitching_pbp = pitching_pbp[pitching_pbp['teamName'].isin(strength_teams)]
+
+# "In the tournament" filter (applies to all views) — restrict to a year's
+# NCAA tournament field (the 64 seeded teams). Default 'No' = all teams.
+# 2026 reads the latest bracketology snapshot for the selected sport.
+if 'teamName' in pbp.columns:
+    tourney_year = st.sidebar.selectbox(
+        'In the tournament',
+        ['No', '2026'],
+        help='Restrict to the NCAA tournament field (64 teams) for the chosen '
+             'year. 2026 uses the latest bracketology field for the selected '
+             'sport. Default is No (all teams).',
+        key='in_tournament_year',
+    )
+    if tourney_year != 'No':
+        field_norm = load_tournament_field_norm(sport, int(tourney_year))
+        if field_norm:
+            before = len(pbp)
+            in_field = pbp['teamName'].map(lambda t: _norm_team(t) in field_norm)
+            pbp = pbp[in_field]
+            if view == 'Lineup Card':
+                hitting_pbp = hitting_pbp[hitting_pbp['teamName'].map(lambda t: _norm_team(t) in field_norm)]
+                pitching_pbp = pitching_pbp[pitching_pbp['teamName'].map(lambda t: _norm_team(t) in field_norm)]
+            matched_teams = pbp['teamName'].dropna().map(_norm_team).nunique()
+            st.sidebar.caption(
+                f'{len(pbp):,} of {before:,} lines · '
+                f'{matched_teams} of {len(field_norm)} field teams in data'
+            )
+        else:
+            st.sidebar.warning(
+                f'No {tourney_year} tournament field found for {sport}.'
+            )
 
 # 2026 portal filter — applies to any Player-mode view (Hitter / Pitcher /
 # Fielding Stats + Share Graphic). Surfaced before the per-view filter blocks
