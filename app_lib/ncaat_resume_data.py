@@ -340,6 +340,14 @@ _SOURCE_TEAM_ALIASES = {
     'South Carolina Upstate': 'USC Upstate',        # ELO spells it out; teams.csv = "USC Upstate"
     'Loyola Marymount': 'LMU (CA)',                 # RPI/DSR use full name; teams.csv = "LMU (CA)"
     'Loyola-Marymount': 'LMU (CA)',                 # ELO hyphenates
+    # Ranking sources spell these out; teams.csv (and schedule opponents) use
+    # the short form, so without the alias they showed rank #999 both on their
+    # own resume and as opponents (e.g. Binghamton's losses to "DBU").
+    'Dallas Baptist': 'DBU',
+    'UMass': 'Massachusetts',                       # NOT "UMass Lowell" (separate school)
+    'North Alabama': 'North Ala.',
+    'Incarnate Word': 'UIW',
+    'UNCG': 'UNC Greensboro',
 }
 
 
