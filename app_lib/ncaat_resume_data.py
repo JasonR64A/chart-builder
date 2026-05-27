@@ -1202,7 +1202,8 @@ def build_resume_team(team_name: str, sport_key: str, year: int = 2026) -> dict 
     # shows their real seed + regional instead of the projection (e.g. Cal Poly
     # -> "3 seed - Los Angeles Regional"). fieldPlacement also drives the
     # remaining-schedule block (their season is over; show the regional).
-    field_placement = _actual_field_lookup(sport_key, year).get(team_id)
+    _field_lookup = _actual_field_lookup(sport_key, year)
+    field_placement = _field_lookup.get(team_id)
     if field_placement and field_placement.get('seed') and field_placement.get('regional'):
         _sd = field_placement['seed']; _reg = field_placement['regional']
         seed_proj = f"{_sd} seed"
@@ -1289,7 +1290,11 @@ def build_resume_team(team_name: str, sport_key: str, year: int = 2026) -> dict 
         'location': location,
         'coach': coach,
         'resumeScore': resume_score,
-        'grade': _grade_for_score(resume_score),
+        # Postseason: the field is set, so the letter grade is moot — show
+        # IN / OUT instead. Only when an actual field file exists for this
+        # sport/year (baseball 2026); otherwise keep the resume letter grade.
+        'grade': (('IN' if field_placement else 'OUT') if _field_lookup
+                  else _grade_for_score(resume_score)),
         'seedProjection': seed_proj,
         'bubbleVerdict': bubble_verdict,
         'fieldPlacement': field_placement,
