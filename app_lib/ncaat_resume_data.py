@@ -27,6 +27,23 @@ _APP_DIR = Path(__file__).resolve().parent.parent
 DATA_DIR = _APP_DIR / 'data'
 
 
+def _strip_conf_tourney_tags(s: str) -> str:
+    """Strip conference-tournament tags the schedule scraper adds to opponent
+    names so they resolve to the plain team. Two forms:
+      - leading seed prefix:  "#3 UC San Diego"  -> "UC San Diego"
+      - trailing event suffix: "Adrian 2026 MIAA Baseball Tournament" -> "Adrian"
+        (the "@City, ST (...)" form is already removed by the @/vs split).
+    Deliberately does NOT strip a trailing "(XX)" — that would break legit
+    disambiguators in teams.csv ("LMU (CA)", "Miami (FL)" vs "Miami (OH)").
+    """
+    if not isinstance(s, str):
+        return ''
+    s = re.sub(r'^\s*#\d+\s+', '', s)               # "#3 " seed prefix
+    s = re.sub(r'\s+(?:19|20)\d{2}\b.*$', '', s)     # " 2026 ... Championship/Tournament"
+    s = re.sub(r'\s+\d{2}-\d{2}\b.*$', '', s)        # " 25-26 ... Tournament"
+    return s.strip()
+
+
 def _norm(name: str) -> str:
     """Normalize a team name for cross-file matching.
     - Strip " @Location, ST" / " vs X" suffixes (schedules_full convention)
@@ -45,6 +62,7 @@ def _norm(name: str) -> str:
     if not isinstance(name, str):
         return ''
     n = re.split(r'\s+@|\s+vs\s+', name, maxsplit=1)[0]
+    n = _strip_conf_tourney_tags(n)
     n = n.lower().strip()
     n = n.replace('&', 'and')
     n = re.sub(r'\bsaint\b', 'st', n)
@@ -125,7 +143,32 @@ def _opponent_rpi_lookup(sport_key: str) -> dict:
     df = _rpi_frame(sport_key)
     if df.empty:
         return {}
-    return dict(zip(df['name_norm'], df['rank'].astype(int)))
+    # Route through _SOURCE_TEAM_ALIASES so RPI's spelling (e.g. "Loyola
+    # Marymount") also resolves under the teams.csv canonical ("LMU (CA)").
+    return _register_ranks_with_aliases(df, 'teamName', 'rank')
+
+
+@st.cache_data(show_spinner=False)
+def _actual_field_lookup(sport_key: str, year: int) -> dict:
+    """team_db_id -> {'seed': int, 'regional': str} from the ACTUAL committee
+    field file (data/bracketology/tournament_field_{sport}_{year}.csv). Empty
+    dict if no actual-field file exists (e.g. softball / future years), in
+    which case the resume Verdict stays the projection."""
+    p = DATA_DIR / 'bracketology' / f'tournament_field_{sport_key}_{year}.csv'
+    if not p.exists():
+        return {}
+    df = pd.read_csv(p)
+    out = {}
+    for _, r in df.iterrows():
+        tid = pd.to_numeric(r.get('team_db_id'), errors='coerce')
+        if pd.isna(tid):
+            continue
+        seed = pd.to_numeric(r.get('seed'), errors='coerce')
+        out[int(tid)] = {
+            'seed': int(seed) if pd.notna(seed) else None,
+            'regional': str(r.get('regional', '') or '').strip(),
+        }
+    return out
 
 
 @st.cache_data(show_spinner=False)
@@ -156,8 +199,7 @@ def _resume_score_lookup(sport_key: str, year: int = 2026) -> dict:
     sport_label = 'Baseball' if sport_key == 'baseball' else 'Softball'
     di_ids = set(conferences[conferences['division'] == 'D-I']['id'].tolist())
     d1 = teams[(teams['sport'] == sport_label) & (teams['conference_id'].isin(di_ids))]
-    rpi = _rpi_frame(sport_key)
-    rpi_by_name = dict(zip(rpi['name_norm'], rpi['rank'].astype(int))) if not rpi.empty else {}
+    rpi_by_name = _opponent_rpi_lookup(sport_key)
     rank64 = _sixty_four_lookup(year)
     out = {}
     for _, r in d1.iterrows():
@@ -296,6 +338,8 @@ def _team_locations() -> dict:
 _SOURCE_TEAM_ALIASES = {
     'USC': 'Southern California',                   # DSR, Massey, ELO all use "USC"
     'South Carolina Upstate': 'USC Upstate',        # ELO spells it out; teams.csv = "USC Upstate"
+    'Loyola Marymount': 'LMU (CA)',                 # RPI/DSR use full name; teams.csv = "LMU (CA)"
+    'Loyola-Marymount': 'LMU (CA)',                 # ELO hyphenates
 }
 
 
@@ -805,10 +849,13 @@ def _resume_score_from_ranks(rpi_rank, rank64) -> int:
 
 
 def _clean_opp(name: str) -> str:
-    """Strip ' @Location, ST' and ' vs X' suffixes from opponent names."""
+    """Strip ' @Location, ST' / ' vs X' suffixes AND conference-tournament tags
+    ('#3 UC San Diego', 'Adrian 2026 MIAA Baseball Tournament') from opponent
+    names so the displayed/looked-up opponent is the plain team."""
     if not isinstance(name, str):
         return ''
-    return re.split(r'\s+@|\s+vs\s+', name, maxsplit=1)[0].strip()
+    base = re.split(r'\s+@|\s+vs\s+', name, maxsplit=1)[0]
+    return _strip_conf_tourney_tags(base)
 
 
 def _compute_quad_record(sched_full: pd.DataFrame, team_year_id, rpi_lookup: dict, sport_key: str = 'baseball') -> dict:
@@ -1123,13 +1170,9 @@ def build_resume_team(team_name: str, sport_key: str, year: int = 2026) -> dict 
         record = f'{w}-{l}'
         conf_record = f'{cw}-{cl}'
 
-    # Rankings
-    rpi_df = _rpi_frame(sport_key)
-    rpi_rank = 301
-    if not rpi_df.empty:
-        match = rpi_df[rpi_df['name_norm'] == _norm(team_name)]
-        if not match.empty:
-            rpi_rank = int(match.iloc[0]['rank'])
+    # Rankings — RPI via the alias-aware lookup so canonical names like
+    # "LMU (CA)" resolve to RPI's "Loyola Marymount".
+    rpi_rank = _opponent_rpi_lookup(sport_key).get(_norm(team_name), 301)
     rank64 = _sixty_four_lookup(year).get(team_id, 301)
     dsr_rank = _dsr_rank_lookup(sport_key).get(_norm(team_name), 301)
     massey_rank = _massey_rank_lookup(sport_key).get(_norm(team_name), 301)
@@ -1154,6 +1197,16 @@ def build_resume_team(team_name: str, sport_key: str, year: int = 2026) -> dict 
     # resume-score curve, so a team's Verdict matches what the card shows.
     consensus_avg = int(round((rpi_rank + dsr_rank + massey_rank + elo_rank + rank64) / 5))
     seed_proj, bubble_verdict = _verdict_for_consensus(consensus_avg)
+
+    # Postseason: if the team is in the ACTUAL committee field, the Verdict
+    # shows their real seed + regional instead of the projection (e.g. Cal Poly
+    # -> "3 seed - Los Angeles Regional"). fieldPlacement also drives the
+    # remaining-schedule block (their season is over; show the regional).
+    field_placement = _actual_field_lookup(sport_key, year).get(team_id)
+    if field_placement and field_placement.get('seed') and field_placement.get('regional'):
+        _sd = field_placement['seed']; _reg = field_placement['regional']
+        seed_proj = f"{_sd} seed"
+        bubble_verdict = f"{_sd} seed - {_reg} Regional"
 
     # SOS: real NCAA-formula computation from schedules_full.
     def _tier(rank: int) -> str:
@@ -1188,6 +1241,11 @@ def build_resume_team(team_name: str, sport_key: str, year: int = 2026) -> dict 
     rpi_lookup = _opponent_rpi_lookup(sport_key)
     quad_record = _compute_quad_record(sched_full, team_year_id, rpi_lookup, sport_key) if not sched_full.empty else {'q1': '0-0', 'q2': '0-0', 'q3': '0-0', 'q4': '0-0'}
     remaining_quads = _compute_remaining_quadrants(sched_full, team_year_id, rpi_lookup, sport_key) if not sched_full.empty else {'q1': [], 'q2': [], 'q3': [], 'q4': []}
+    # Postseason: a team in the committee field has no remaining regular-season
+    # games — any "remaining" rows are stale. Blank them so the resume shows
+    # the regional (via fieldPlacement) instead of leftover schedule noise.
+    if field_placement:
+        remaining_quads = {'q1': [], 'q2': [], 'q3': [], 'q4': []}
     remaining_count = sum(len(v) for v in remaining_quads.values())
     projected_rpi_range = _project_rpi_range(rpi_rank, remaining_count)
     last10 = _last_10_games(sched_full, team_year_id, rpi_lookup) if not sched_full.empty else []
@@ -1234,6 +1292,7 @@ def build_resume_team(team_name: str, sport_key: str, year: int = 2026) -> dict 
         'grade': _grade_for_score(resume_score),
         'seedProjection': seed_proj,
         'bubbleVerdict': bubble_verdict,
+        'fieldPlacement': field_placement,
         'stats': stats,
         'statArea': stat_area,
         'sos': {'value': sos_rank, 'natRank': sos_rank, 'of': of, 'tier': _tier(sos_rank)},

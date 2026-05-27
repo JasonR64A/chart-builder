@@ -842,7 +842,11 @@ function SOSModule({ team }) {
               );
             })}
             {["q1","q2","q3","q4"].every(k => !(team.remainingQuadSchedule[k] && team.remainingQuadSchedule[k].length)) && (
-              <div className="mono" style={{ fontSize: 9, color: "var(--muted)", fontStyle: "italic" }}>No remaining games on the schedule.</div>
+              (team.fieldPlacement && team.fieldPlacement.regional)
+                ? <div className="mono" style={{ fontSize: 9, color: "var(--ink-2)", fontWeight: 600, fontStyle: "italic" }}>
+                    Postseason · In the {team.fieldPlacement.regional} Regional ({team.fieldPlacement.seed} seed)
+                  </div>
+                : <div className="mono" style={{ fontSize: 9, color: "var(--muted)", fontStyle: "italic" }}>No remaining games on the schedule.</div>
             )}
           </div>
         </div>
