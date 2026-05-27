@@ -376,6 +376,14 @@ def _p_win(a, b):
 
 def _simulate_regional(n=20000, rng=None):
     """Monte-Carlo sample n bracket realizations; return P(team wins regional)."""
+    if sport == 'baseball' and division == 'D1':
+        try:
+            from app_lib.regional_strength import simulate_regional_milestones
+            mile = simulate_regional_milestones(teams, sport, division,
+                                                host_model='model1', host_idx=0, n=n)
+            return {t: mile[t]['r4'] for t in teams}
+        except Exception:
+            pass  # fall back to legacy Bradley-Terry sim below
     if rng is None:
         rng = np.random.default_rng(42)
     wins = {t: 0 for t in teams}
@@ -420,7 +428,29 @@ fig = go.Figure(go.Pie(
 fig.update_layout(height=380, margin=dict(l=10, r=10, t=10, b=10),
                   showlegend=False)
 st.plotly_chart(fig, use_container_width=True)
-st.caption('Bradley-Terry on RPI rank, 20k Monte-Carlo bracket sims. Higher RPI rank = stronger.')
+if sport == 'baseball' and division == 'D1':
+    st.caption('Computer Rank (64A/RPI/Massey/DSR) blended 65/35 with roster strength '
+               '(top-9 wRAA offense + weekend-rotation pitching), 20k double-elim sims, host home-field.')
+else:
+    st.caption('Bradley-Terry on RPI rank, 20k Monte-Carlo bracket sims. Higher RPI rank = stronger.')
+
+# ── Game 1 (1 vs 4): throw the ace, or save him? ────────────────────────────
+if sport == 'baseball' and division == 'D1':
+    from app_lib.regional_strength import g1_ace_vs_n2
+    try:
+        _g1 = g1_ace_vs_n2(teams, sport, division)
+        st.markdown('#### Game 1 pitching decision')
+        st.caption(f"{teams[0]} hosts {_g1['opp']} (4-seed) in Game 1 — throw the ace, "
+                   f"or save him for Game 2?")
+        _c1, _c2 = st.columns(2)
+        _c1.metric(f"Start ace · {_g1['ace_name']}", f"{_g1['ace']*100:.0f}%",
+                   help='Probability of winning Game 1')
+        _c2.metric(f"Save ace, start #2 · {_g1['n2_name']}", f"{_g1['n2']*100:.0f}%",
+                   delta=f"{(_g1['n2']-_g1['ace'])*100:+.1f} pts vs ace")
+        st.caption('Game-1 win probability for the host. Both teams throw their listed Game-1 '
+                   'starter; the gap is the cost of holding your ace for Game 2.')
+    except Exception as _e:
+        st.caption(f'(Game-1 pitching view unavailable: {_e})')
 
 
 # ── Helpers for the remaining sections ──────────────────────────────────────
@@ -939,6 +969,13 @@ def _simulate_regional_full(n=20000, rng=None):
       r3 = reached regional final     -> sums to 200% (2 of 4 teams play G6)
       r4 = won the regional (Champ %) -> sums to 100% (1 champion)
     """
+    if sport == 'baseball' and division == 'D1':
+        try:
+            from app_lib.regional_strength import simulate_regional_milestones
+            return simulate_regional_milestones(teams, sport, division,
+                                                host_model='model1', host_idx=0, n=n)
+        except Exception:
+            pass  # fall back to legacy sim below
     if rng is None:
         rng = np.random.default_rng(42)
     cnt = {t: {'r1': 0, 'r2': 0, 'r3': 0, 'r4': 0} for t in teams}
@@ -1444,7 +1481,7 @@ parts.extend([
     f'fill="{INK_900}" letter-spacing="2.0">PATH TO THE TITLE</text>',
     f'<text x="{VB_W - PAD_X - 4}" y="{PROB_Y_HEAD}" class="mn" font-size="10" font-weight="600" '
     f'fill="{INK_500}" text-anchor="end" letter-spacing="0.4">'
-    f'20,000 BRADLEY-TERRY MONTE CARLO · SUMS TO 100%</text>',
+    f'20,000 DOUBLE-ELIM MONTE CARLO · SUMS TO 100%</text>',
 ])
 
 # Grid columns: Team(112) | 1-0(1fr) | 2-0(1fr) | Reach Final(1fr) | Champ %(84)

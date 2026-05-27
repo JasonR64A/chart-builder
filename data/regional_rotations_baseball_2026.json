@@ -1,0 +1,9858 @@
+{
+"1": {
+"sp": [
+{
+"name": "Chase Mayer",
+"pit": 0.8683,
+"fallback": false
+},
+{
+"name": "Preston Watkins",
+"pit": 0.8044,
+"fallback": false
+},
+{
+"name": "Connor Schlect",
+"pit": 0.3912,
+"fallback": false
+}
+],
+"avg": 0.4201,
+"model1": {
+"g1": 0.8076,
+"g2": 0.7369,
+"g3": 0.4496,
+"g4": 0.4201
+},
+"model2": {
+"g1": 0.765,
+"g2": 0.7795,
+"g3": 0.4496,
+"g4": 0.4201
+}
+},
+"2": {
+"sp": [
+{
+"name": "Brett Lanman",
+"pit": 0.8786,
+"fallback": false
+},
+{
+"name": "Aidan Coleman",
+"pit": 0.727,
+"fallback": false
+},
+{
+"name": "Evan Whiteaker",
+"pit": 0.5779,
+"fallback": false
+}
+],
+"avg": 0.3844,
+"model1": {
+"g1": 0.8215,
+"g2": 0.6783,
+"g3": 0.5639,
+"g4": 0.3844
+},
+"model2": {
+"g1": 0.7204,
+"g2": 0.7794,
+"g3": 0.5639,
+"g4": 0.3844
+}
+},
+"6": {
+"sp": [
+{
+"name": "Ethan Dillinger",
+"pit": 0.5642,
+"fallback": false
+},
+{
+"name": "Aiden Poe",
+"pit": 0.4913,
+"fallback": false
+},
+{
+"name": "Jordan Watkins",
+"pit": 0.111,
+"fallback": false
+}
+],
+"avg": 0.4738,
+"model1": {
+"g1": 0.6278,
+"g2": 0.5554,
+"g3": 0.2938,
+"g4": 0.4738
+},
+"model2": {
+"g1": 0.5792,
+"g2": 0.604,
+"g3": 0.2938,
+"g4": 0.4738
+}
+},
+"7": {
+"sp": [
+{
+"name": "Elijah Griffith",
+"pit": 0.7063,
+"fallback": false
+},
+{
+"name": "Brady Bowen",
+"pit": 0.6482,
+"fallback": false
+},
+{
+"name": "Carter Beck",
+"pit": 0.4317,
+"fallback": false
+}
+],
+"avg": 0.3487,
+"model1": {
+"g1": 0.6918,
+"g2": 0.6158,
+"g3": 0.4529,
+"g4": 0.3487
+},
+"model2": {
+"g1": 0.6531,
+"g2": 0.6545,
+"g3": 0.4529,
+"g4": 0.3487
+}
+},
+"8": {
+"sp": [
+{
+"name": "Tyler Fay",
+"pit": 0.9951,
+"fallback": false
+},
+{
+"name": "Myles Upchurch",
+"pit": 0.9785,
+"fallback": false
+},
+{
+"name": "Zane Adams",
+"pit": 0.9705,
+"fallback": false
+}
+],
+"avg": 0.6475,
+"model1": {
+"g1": 0.9418,
+"g2": 0.9175,
+"g3": 0.8996,
+"g4": 0.6475
+},
+"model2": {
+"g1": 0.9307,
+"g2": 0.9286,
+"g3": 0.8996,
+"g4": 0.6475
+}
+},
+"9": {
+"sp": [
+{
+"name": "Anthony Mateo",
+"pit": 0.1733,
+"fallback": false
+},
+{
+"name": "Terence Sales",
+"pit": 0.0457,
+"fallback": false
+},
+{
+"name": "Will Tarpley",
+"pit": 0.0016,
+"fallback": false
+}
+],
+"avg": 0.1111,
+"model1": {
+"g1": 0.219,
+"g2": 0.1092,
+"g3": 0.0725,
+"g4": 0.1111
+},
+"model2": {
+"g1": 0.134,
+"g2": 0.1943,
+"g3": 0.0725,
+"g4": 0.1111
+}
+},
+"11": {
+"sp": [
+{
+"name": "Jorhan LaBoy",
+"pit": 0.1298,
+"fallback": false
+},
+{
+"name": "James Peterson",
+"pit": 0.0594,
+"fallback": false
+},
+{
+"name": "Joe Dolinshek",
+"pit": 0.0223,
+"fallback": false
+}
+],
+"avg": 0.2148,
+"model1": {
+"g1": 0.2456,
+"g2": 0.1723,
+"g3": 0.137,
+"g4": 0.2148
+},
+"model2": {
+"g1": 0.1987,
+"g2": 0.2192,
+"g3": 0.137,
+"g4": 0.2148
+}
+},
+"16": {
+"sp": [
+{
+"name": "Kanious Davis",
+"pit": 0.3694,
+"fallback": false
+},
+{
+"name": "Devin Kriley",
+"pit": 0.0238,
+"fallback": false
+},
+{
+"name": "Jose Cherena",
+"pit": 0.0012,
+"fallback": false
+}
+],
+"avg": 0.1403,
+"model1": {
+"g1": 0.3566,
+"g2": 0.0987,
+"g3": 0.0739,
+"g4": 0.1403
+},
+"model2": {
+"g1": 0.1262,
+"g2": 0.3291,
+"g3": 0.0739,
+"g4": 0.1403
+}
+},
+"29": {
+"sp": [
+{
+"name": "Gage Peterson",
+"pit": 0.9955,
+"fallback": false
+},
+{
+"name": "Nick Dirito",
+"pit": 0.9615,
+"fallback": false
+},
+{
+"name": "Tanner Nolan",
+"pit": 0.8272,
+"fallback": false
+}
+],
+"avg": 0.6158,
+"model1": {
+"g1": 0.9292,
+"g2": 0.8927,
+"g3": 0.7927,
+"g4": 0.6158
+},
+"model2": {
+"g1": 0.9065,
+"g2": 0.9154,
+"g3": 0.7927,
+"g4": 0.6158
+}
+},
+"31": {
+"sp": [
+{
+"name": "Smith Bailey",
+"pit": 0.9767,
+"fallback": false
+},
+{
+"name": "Luc Fladda",
+"pit": 0.966,
+"fallback": false
+},
+{
+"name": "Owen Kramkowski",
+"pit": 0.9592,
+"fallback": false
+}
+],
+"avg": 0.793,
+"model1": {
+"g1": 0.951,
+"g2": 0.9347,
+"g3": 0.9247,
+"g4": 0.793
+},
+"model2": {
+"g1": 0.9439,
+"g2": 0.9418,
+"g3": 0.9247,
+"g4": 0.793
+}
+},
+"32": {
+"sp": [
+{
+"name": "Cole Carlon",
+"pit": 0.9971,
+"fallback": false
+},
+{
+"name": "Kole Klecker",
+"pit": 0.9599,
+"fallback": false
+},
+{
+"name": "Jaden Alba",
+"pit": 0.8894,
+"fallback": false
+}
+],
+"avg": 0.7318,
+"model1": {
+"g1": 0.9672,
+"g2": 0.9318,
+"g3": 0.8793,
+"g4": 0.7318
+},
+"model2": {
+"g1": 0.9424,
+"g2": 0.9566,
+"g3": 0.8793,
+"g4": 0.7318
+}
+},
+"35": {
+"sp": [
+{
+"name": "Ryland Morin",
+"pit": 0.7416,
+"fallback": false
+},
+{
+"name": "Kenney Fabian",
+"pit": 0.5165,
+"fallback": false
+},
+{
+"name": "Joe King",
+"pit": 0.3311,
+"fallback": false
+}
+],
+"avg": 0.3699,
+"model1": {
+"g1": 0.6965,
+"g2": 0.5169,
+"g3": 0.3834,
+"g4": 0.3699
+},
+"model2": {
+"g1": 0.5464,
+"g2": 0.667,
+"g3": 0.3834,
+"g4": 0.3699
+}
+},
+"36": {
+"sp": [
+{
+"name": "Hunter Dietz",
+"pit": 0.9965,
+"fallback": false
+},
+{
+"name": "Cole Gibler",
+"pit": 0.9566,
+"fallback": false
+},
+{
+"name": "Gabe Gaeckle",
+"pit": 0.9113,
+"fallback": false
+}
+],
+"avg": 0.7107,
+"model1": {
+"g1": 0.9683,
+"g2": 0.9243,
+"g3": 0.8881,
+"g4": 0.7107
+},
+"model2": {
+"g1": 0.9417,
+"g2": 0.9509,
+"g3": 0.8881,
+"g4": 0.7107
+}
+},
+"37": {
+"sp": [
+{
+"name": "Jack Nelson",
+"pit": 0.9109,
+"fallback": false
+},
+{
+"name": "Andrew Allen",
+"pit": 0.8816,
+"fallback": false
+},
+{
+"name": "Dylan Farley",
+"pit": 0.8614,
+"fallback": false
+}
+],
+"avg": 0.7581,
+"model1": {
+"g1": 0.8938,
+"g2": 0.862,
+"g3": 0.8413,
+"g4": 0.7581
+},
+"model2": {
+"g1": 0.8743,
+"g2": 0.8815,
+"g3": 0.8413,
+"g4": 0.7581
+}
+},
+"39": {
+"sp": [
+{
+"name": "Trey Ates",
+"pit": 0.8548,
+"fallback": false
+},
+{
+"name": "Andrew Berg",
+"pit": 0.7338,
+"fallback": false
+},
+{
+"name": "Kevin Reavey",
+"pit": 0.6385,
+"fallback": false
+}
+],
+"avg": 0.4357,
+"model1": {
+"g1": 0.7591,
+"g2": 0.6576,
+"g3": 0.5833,
+"g4": 0.4357
+},
+"model2": {
+"g1": 0.6785,
+"g2": 0.7382,
+"g3": 0.5833,
+"g4": 0.4357
+}
+},
+"43": {
+"sp": [
+{
+"name": "Jake Marciano",
+"pit": 0.9967,
+"fallback": false
+},
+{
+"name": "Alex Petrovic",
+"pit": 0.9932,
+"fallback": false
+},
+{
+"name": "Andreas Alvarez",
+"pit": 0.9771,
+"fallback": false
+}
+],
+"avg": 0.6787,
+"model1": {
+"g1": 0.9616,
+"g2": 0.9381,
+"g3": 0.9187,
+"g4": 0.6787
+},
+"model2": {
+"g1": 0.9593,
+"g2": 0.9404,
+"g3": 0.9187,
+"g4": 0.6787
+}
+},
+"51": {
+"sp": [
+{
+"name": "DJ Merriweather",
+"pit": 0.899,
+"fallback": false
+},
+{
+"name": "Cody Airington",
+"pit": 0.8095,
+"fallback": false
+},
+{
+"name": "Ryker Walton",
+"pit": 0.5832,
+"fallback": false
+}
+],
+"avg": 0.5046,
+"model1": {
+"g1": 0.8697,
+"g2": 0.7846,
+"g3": 0.6185,
+"g4": 0.5046
+},
+"model2": {
+"g1": 0.8101,
+"g2": 0.8443,
+"g3": 0.6185,
+"g4": 0.5046
+}
+},
+"53": {
+"sp": [
+{
+"name": "Elijah Morgan",
+"pit": 0.9379,
+"fallback": false
+},
+{
+"name": "Joel Tornero",
+"pit": 0.9214,
+"fallback": false
+},
+{
+"name": "Damian Pasillas",
+"pit": 0.5277,
+"fallback": false
+}
+],
+"avg": 0.3928,
+"model1": {
+"g1": 0.8555,
+"g2": 0.7997,
+"g3": 0.5241,
+"g4": 0.3928
+},
+"model2": {
+"g1": 0.8445,
+"g2": 0.8107,
+"g3": 0.5241,
+"g4": 0.3928
+}
+},
+"101": {
+"sp": [
+{
+"name": "Garrison Sumner",
+"pit": 0.9707,
+"fallback": false
+},
+{
+"name": "Cayson Bell",
+"pit": 0.7174,
+"fallback": false
+},
+{
+"name": "Justis Reiser",
+"pit": 0.7039,
+"fallback": false
+}
+],
+"avg": 0.6213,
+"model1": {
+"g1": 0.9307,
+"g2": 0.7458,
+"g3": 0.7259,
+"g4": 0.6213
+},
+"model2": {
+"g1": 0.7618,
+"g2": 0.9147,
+"g3": 0.7259,
+"g4": 0.6213
+}
+},
+"56": {
+"sp": [
+{
+"name": "John Chambers",
+"pit": 0.7155,
+"fallback": false
+},
+{
+"name": "Brendan Garza",
+"pit": 0.5017,
+"fallback": false
+},
+{
+"name": "Brady Strawmyer",
+"pit": 0.1431,
+"fallback": false
+}
+],
+"avg": 0.2388,
+"model1": {
+"g1": 0.5841,
+"g2": 0.4264,
+"g3": 0.1821,
+"g4": 0.2388
+},
+"model2": {
+"g1": 0.4416,
+"g2": 0.5689,
+"g3": 0.1821,
+"g4": 0.2388
+}
+},
+"62": {
+"sp": [
+{
+"name": "Lucas Davenport",
+"pit": 0.9724,
+"fallback": false
+},
+{
+"name": "Zack Wallace",
+"pit": 0.9025,
+"fallback": false
+},
+{
+"name": "Ethan Calder",
+"pit": 0.882,
+"fallback": false
+}
+],
+"avg": 0.6284,
+"model1": {
+"g1": 0.9389,
+"g2": 0.8775,
+"g3": 0.8559,
+"g4": 0.6284
+},
+"model2": {
+"g1": 0.8923,
+"g2": 0.9241,
+"g3": 0.8559,
+"g4": 0.6284
+}
+},
+"64": {
+"sp": [
+{
+"name": "Chase Chamberlain",
+"pit": 0.7381,
+"fallback": false
+},
+{
+"name": "Raygan New",
+"pit": 0.1642,
+"fallback": false
+},
+{
+"name": "Deaton Oak",
+"pit": 0.0811,
+"fallback": false
+}
+],
+"avg": 0.3409,
+"model1": {
+"g1": 0.6979,
+"g2": 0.2973,
+"g3": 0.2299,
+"g4": 0.3409
+},
+"model2": {
+"g1": 0.3153,
+"g2": 0.6799,
+"g3": 0.2299,
+"g4": 0.3409
+}
+},
+"65": {
+"sp": [
+{
+"name": "Ridge Harvey",
+"pit": 0.8534,
+"fallback": false
+},
+{
+"name": "Zane Brown",
+"pit": 0.8368,
+"fallback": false
+},
+{
+"name": "Shane Duke",
+"pit": 0.7239,
+"fallback": false
+}
+],
+"avg": 0.5194,
+"model1": {
+"g1": 0.8298,
+"g2": 0.8002,
+"g3": 0.7056,
+"g4": 0.5194
+},
+"model2": {
+"g1": 0.8187,
+"g2": 0.8113,
+"g3": 0.7056,
+"g4": 0.5194
+}
+},
+"77": {
+"sp": [
+{
+"name": "Edwin Sanchez",
+"pit": 0.9078,
+"fallback": false
+},
+{
+"name": "Harbersting Abreu",
+"pit": 0.4022,
+"fallback": false
+},
+{
+"name": "Tanner Boccabello",
+"pit": 0.196,
+"fallback": false
+}
+],
+"avg": 0.3575,
+"model1": {
+"g1": 0.7807,
+"g2": 0.4225,
+"g3": 0.2773,
+"g4": 0.3575
+},
+"model2": {
+"g1": 0.4436,
+"g2": 0.7596,
+"g3": 0.2773,
+"g4": 0.3575
+}
+},
+"78": {
+"sp": [
+{
+"name": "Conner Griffin",
+"pit": 0.8784,
+"fallback": false
+},
+{
+"name": "Jackson Mitchell",
+"pit": 0.8495,
+"fallback": false
+},
+{
+"name": "Mason Holloway",
+"pit": 0.5007,
+"fallback": false
+}
+],
+"avg": 0.3862,
+"model1": {
+"g1": 0.793,
+"g2": 0.7354,
+"g3": 0.4889,
+"g4": 0.3862
+},
+"model2": {
+"g1": 0.7737,
+"g2": 0.7546,
+"g3": 0.4889,
+"g4": 0.3862
+}
+},
+"87": {
+"sp": [
+{
+"name": "A.J. Colarusso",
+"pit": 0.9758,
+"fallback": false
+},
+{
+"name": "Brady Miller",
+"pit": 0.9642,
+"fallback": false
+},
+{
+"name": "Tyler Mudd",
+"pit": 0.8048,
+"fallback": false
+}
+],
+"avg": 0.7455,
+"model1": {
+"g1": 0.933,
+"g2": 0.9097,
+"g3": 0.7979,
+"g4": 0.7455
+},
+"model2": {
+"g1": 0.9253,
+"g2": 0.9174,
+"g3": 0.7979,
+"g4": 0.7455
+}
+},
+"89": {
+"sp": [
+{
+"name": "Ethan Stade",
+"pit": 0.9791,
+"fallback": false
+},
+{
+"name": "Jackson Miller",
+"pit": 0.7667,
+"fallback": false
+},
+{
+"name": "Andrew Heffernan",
+"pit": 0.5585,
+"fallback": false
+}
+],
+"avg": 0.4568,
+"model1": {
+"g1": 0.8776,
+"g2": 0.7148,
+"g3": 0.56,
+"g4": 0.4568
+},
+"model2": {
+"g1": 0.736,
+"g2": 0.8564,
+"g3": 0.56,
+"g4": 0.4568
+}
+},
+"90": {
+"sp": [
+{
+"name": "Josh Vaughn",
+"pit": 0.7188,
+"fallback": false
+},
+{
+"name": "Robert Sanford",
+"pit": 0.5828,
+"fallback": false
+},
+{
+"name": "Gavin Thompson",
+"pit": 0.1368,
+"fallback": false
+}
+],
+"avg": 0.3147,
+"model1": {
+"g1": 0.6872,
+"g2": 0.5707,
+"g3": 0.2607,
+"g4": 0.3147
+},
+"model2": {
+"g1": 0.5965,
+"g2": 0.6613,
+"g3": 0.2607,
+"g4": 0.3147
+}
+},
+"96": {
+"sp": [
+{
+"name": "Peter Dubie",
+"pit": 0.9017,
+"fallback": false
+},
+{
+"name": "Dylan Reid",
+"pit": 0.8851,
+"fallback": false
+},
+{
+"name": "Drew Nelson",
+"pit": 0.7311,
+"fallback": false
+}
+],
+"avg": 0.5489,
+"model1": {
+"g1": 0.7977,
+"g2": 0.7669,
+"g3": 0.6562,
+"g4": 0.5489
+},
+"model2": {
+"g1": 0.7866,
+"g2": 0.7779,
+"g3": 0.6562,
+"g4": 0.5489
+}
+},
+"97": {
+"sp": [
+{
+"name": "Ty Davis",
+"pit": 0.8421,
+"fallback": false
+},
+{
+"name": "Kaden Hilburger",
+"pit": 0.8024,
+"fallback": false
+},
+{
+"name": "Cole Schiff",
+"pit": 0.6709,
+"fallback": false
+}
+],
+"avg": 0.502,
+"model1": {
+"g1": 0.8044,
+"g2": 0.7615,
+"g3": 0.6663,
+"g4": 0.502
+},
+"model2": {
+"g1": 0.7779,
+"g2": 0.7879,
+"g3": 0.6663,
+"g4": 0.502
+}
+},
+"98": {
+"sp": [
+{
+"name": "Brady Hoar",
+"pit": 0.6926,
+"fallback": false
+},
+{
+"name": "Jake Schultz",
+"pit": 0.6668,
+"fallback": false
+},
+{
+"name": "Tyler Seidman",
+"pit": 0.6506,
+"fallback": false
+}
+],
+"avg": 0.3683,
+"model1": {
+"g1": 0.6573,
+"g2": 0.6089,
+"g3": 0.5875,
+"g4": 0.3683
+},
+"model2": {
+"g1": 0.6401,
+"g2": 0.6261,
+"g3": 0.5875,
+"g4": 0.3683
+}
+},
+"100": {
+"sp": [
+{
+"name": "Max Winders",
+"pit": 0.9195,
+"fallback": false
+},
+{
+"name": "Brock Buckley",
+"pit": 0.9093,
+"fallback": false
+},
+{
+"name": "Grayson Bradberry",
+"pit": 0.7342,
+"fallback": false
+}
+],
+"avg": 0.3568,
+"model1": {
+"g1": 0.7707,
+"g2": 0.7375,
+"g3": 0.6127,
+"g4": 0.3568
+},
+"model2": {
+"g1": 0.7639,
+"g2": 0.7443,
+"g3": 0.6127,
+"g4": 0.3568
+}
+},
+"188": {
+"sp": [
+{
+"name": "Ryan King",
+"pit": 0.8487,
+"fallback": false
+},
+{
+"name": "Ethan Minaker",
+"pit": 0.7182,
+"fallback": false
+},
+{
+"name": "Shane McAlinden",
+"pit": 0.2699,
+"fallback": false
+}
+],
+"avg": 0.3092,
+"model1": {
+"g1": 0.722,
+"g2": 0.6143,
+"g3": 0.307,
+"g4": 0.3092
+},
+"model2": {
+"g1": 0.635,
+"g2": 0.7013,
+"g3": 0.307,
+"g4": 0.3092
+}
+},
+"190": {
+"sp": [
+{
+"name": "Adam Christopher",
+"pit": 0.5667,
+"fallback": false
+},
+{
+"name": "Gabriel Hernandez",
+"pit": 0.5234,
+"fallback": false
+},
+{
+"name": "Charles Rogers",
+"pit": 0.1458,
+"fallback": false
+}
+],
+"avg": 0.4096,
+"model1": {
+"g1": 0.6004,
+"g2": 0.5451,
+"g3": 0.283,
+"g4": 0.4096
+},
+"model2": {
+"g1": 0.5715,
+"g2": 0.574,
+"g3": 0.283,
+"g4": 0.4096
+}
+},
+"105": {
+"sp": [
+{
+"name": "Carson Turnquist",
+"pit": 0.9396,
+"fallback": false
+},
+{
+"name": "Griffin Naess",
+"pit": 0.8988,
+"fallback": false
+},
+{
+"name": "Corden Pettey",
+"pit": 0.7768,
+"fallback": false
+}
+],
+"avg": 0.612,
+"model1": {
+"g1": 0.8718,
+"g2": 0.8283,
+"g3": 0.7401,
+"g4": 0.612
+},
+"model2": {
+"g1": 0.8446,
+"g2": 0.8555,
+"g3": 0.7401,
+"g4": 0.612
+}
+},
+"109": {
+"sp": [
+{
+"name": "Mikiah Negrete",
+"pit": 0.9732,
+"fallback": false
+},
+{
+"name": "Bobby Mahoney",
+"pit": 0.8558,
+"fallback": false
+},
+{
+"name": "Dylan Smith",
+"pit": 0.6113,
+"fallback": false
+}
+],
+"avg": 0.5386,
+"model1": {
+"g1": 0.9149,
+"g2": 0.8021,
+"g3": 0.6267,
+"g4": 0.5386
+},
+"model2": {
+"g1": 0.8366,
+"g2": 0.8804,
+"g3": 0.6267,
+"g4": 0.5386
+}
+},
+"114": {
+"sp": [
+{
+"name": "Gavin Eddy",
+"pit": 0.9947,
+"fallback": false
+},
+{
+"name": "Oliver de la Torre",
+"pit": 0.9853,
+"fallback": false
+},
+{
+"name": "Ethan Foley",
+"pit": 0.812,
+"fallback": false
+}
+],
+"avg": 0.6399,
+"model1": {
+"g1": 0.945,
+"g2": 0.9146,
+"g3": 0.7912,
+"g4": 0.6399
+},
+"model2": {
+"g1": 0.9388,
+"g2": 0.9209,
+"g3": 0.7912,
+"g4": 0.6399
+}
+},
+"116": {
+"sp": [
+{
+"name": "Michael Malki",
+"pit": 0.9736,
+"fallback": false
+},
+{
+"name": "Bryan Peck",
+"pit": 0.9465,
+"fallback": false
+},
+{
+"name": "Ryne Palmer",
+"pit": 0.8761,
+"fallback": false
+}
+],
+"avg": 0.6626,
+"model1": {
+"g1": 0.9406,
+"g2": 0.9041,
+"g3": 0.8459,
+"g4": 0.6626
+},
+"model2": {
+"g1": 0.9225,
+"g2": 0.9222,
+"g3": 0.8459,
+"g4": 0.6626
+}
+},
+"120": {
+"sp": [
+{
+"name": "David Rossow",
+"pit": 0.9959,
+"fallback": false
+},
+{
+"name": "Connor Hensley",
+"pit": 0.9261,
+"fallback": false
+},
+{
+"name": "Zach Sabers",
+"pit": 0.7456,
+"fallback": false
+}
+],
+"avg": 0.7089,
+"model1": {
+"g1": 0.9422,
+"g2": 0.8835,
+"g3": 0.7554,
+"g4": 0.7089
+},
+"model2": {
+"g1": 0.8956,
+"g2": 0.93,
+"g3": 0.7554,
+"g4": 0.7089
+}
+},
+"121": {
+"sp": [
+{
+"name": "Felix Morin",
+"pit": 0.7518,
+"fallback": false
+},
+{
+"name": "Brian Smith",
+"pit": 0.3875,
+"fallback": false
+},
+{
+"name": "Joe LoPinto",
+"pit": 0.2847,
+"fallback": false
+}
+],
+"avg": 0.3754,
+"model1": {
+"g1": 0.694,
+"g2": 0.4172,
+"g3": 0.3311,
+"g4": 0.3754
+},
+"model2": {
+"g1": 0.4511,
+"g2": 0.6601,
+"g3": 0.3311,
+"g4": 0.3754
+}
+},
+"135": {
+"sp": [
+{
+"name": "Denver Hamilton",
+"pit": 0.8444,
+"fallback": false
+},
+{
+"name": "Jakes Jones",
+"pit": 0.7964,
+"fallback": false
+},
+{
+"name": "Jacob Pannell",
+"pit": 0.4682,
+"fallback": false
+}
+],
+"avg": 0.4434,
+"model1": {
+"g1": 0.7923,
+"g2": 0.7282,
+"g3": 0.4973,
+"g4": 0.4434
+},
+"model2": {
+"g1": 0.7603,
+"g2": 0.7602,
+"g3": 0.4973,
+"g4": 0.4434
+}
+},
+"136": {
+"sp": [
+{
+"name": "Kyle Salvati",
+"pit": 0.829,
+"fallback": false
+},
+{
+"name": "Jacob Hines",
+"pit": 0.4747,
+"fallback": false
+},
+{
+"name": "Zach Worzel",
+"pit": 0.1511,
+"fallback": false
+}
+],
+"avg": 0.2575,
+"model1": {
+"g1": 0.7013,
+"g2": 0.446,
+"g3": 0.22,
+"g4": 0.2575
+},
+"model2": {
+"g1": 0.4651,
+"g2": 0.6822,
+"g3": 0.22,
+"g4": 0.2575
+}
+},
+"137": {
+"sp": [
+{
+"name": "Hayden Bailey",
+"pit": 0.7626,
+"fallback": false
+},
+{
+"name": "Tyson Potts",
+"pit": 0.6451,
+"fallback": false
+},
+{
+"name": "Gavin Moczydlowsky",
+"pit": 0.249,
+"fallback": false
+}
+],
+"avg": 0.3122,
+"model1": {
+"g1": 0.6837,
+"g2": 0.5725,
+"g3": 0.2958,
+"g4": 0.3122
+},
+"model2": {
+"g1": 0.6054,
+"g2": 0.6508,
+"g3": 0.2958,
+"g4": 0.3122
+}
+},
+"144": {
+"sp": [
+{
+"name": "Matt Gallant",
+"pit": 0.3594,
+"fallback": false
+},
+{
+"name": "Titus von Kapff",
+"pit": 0.1999,
+"fallback": false
+},
+{
+"name": "Aydan Smith",
+"pit": 0.0262,
+"fallback": false
+}
+],
+"avg": 0.2917,
+"model1": {
+"g1": 0.4278,
+"g2": 0.3081,
+"g3": 0.1855,
+"g4": 0.2917
+},
+"model2": {
+"g1": 0.3215,
+"g2": 0.4144,
+"g3": 0.1855,
+"g4": 0.2917
+}
+},
+"145": {
+"sp": [
+{
+"name": "Eddie Copper",
+"pit": 0.9431,
+"fallback": false
+},
+{
+"name": "Ryan Combs",
+"pit": 0.8335,
+"fallback": false
+},
+{
+"name": "Drew Munn",
+"pit": 0.6424,
+"fallback": false
+}
+],
+"avg": 0.5949,
+"model1": {
+"g1": 0.9116,
+"g2": 0.8058,
+"g3": 0.6662,
+"g4": 0.5949
+},
+"model2": {
+"g1": 0.8385,
+"g2": 0.8789,
+"g3": 0.6662,
+"g4": 0.5949
+}
+},
+"152": {
+"sp": [
+{
+"name": "Nathan Taylor",
+"pit": 0.9902,
+"fallback": false
+},
+{
+"name": "Logan Knight",
+"pit": 0.9764,
+"fallback": false
+},
+{
+"name": "Connor Blue",
+"pit": 0.8036,
+"fallback": false
+}
+],
+"avg": 0.683,
+"model1": {
+"g1": 0.9539,
+"g2": 0.9251,
+"g3": 0.8022,
+"g4": 0.683
+},
+"model2": {
+"g1": 0.9447,
+"g2": 0.9343,
+"g3": 0.8022,
+"g4": 0.683
+}
+},
+"160": {
+"sp": [
+{
+"name": "Michael Sharman",
+"pit": 0.9848,
+"fallback": false
+},
+{
+"name": "Aidan Knaak",
+"pit": 0.976,
+"fallback": false
+},
+{
+"name": "Dane Moehler",
+"pit": 0.6367,
+"fallback": false
+}
+],
+"avg": 0.7236,
+"model1": {
+"g1": 0.9591,
+"g2": 0.9463,
+"g3": 0.7175,
+"g4": 0.7236
+},
+"model2": {
+"g1": 0.9533,
+"g2": 0.9522,
+"g3": 0.7175,
+"g4": 0.7236
+}
+},
+"163": {
+"sp": [
+{
+"name": "Luke Jones",
+"pit": 0.9517,
+"fallback": false
+},
+{
+"name": "Ross Norman",
+"pit": 0.9334,
+"fallback": false
+},
+{
+"name": "Cameron Flukey",
+"pit": 0.5859,
+"fallback": false
+}
+],
+"avg": 0.695,
+"model1": {
+"g1": 0.9298,
+"g2": 0.8925,
+"g3": 0.6481,
+"g4": 0.695
+},
+"model2": {
+"g1": 0.9176,
+"g2": 0.9047,
+"g3": 0.6481,
+"g4": 0.695
+}
+},
+"167": {
+"sp": [
+{
+"name": "Carson Bryant",
+"pit": 0.8765,
+"fallback": false
+},
+{
+"name": "Kurt Rogers",
+"pit": 0.7319,
+"fallback": false
+},
+{
+"name": "Carter Harrington",
+"pit": 0.7301,
+"fallback": false
+}
+],
+"avg": 0.5689,
+"model1": {
+"g1": 0.8593,
+"g2": 0.7321,
+"g3": 0.7143,
+"g4": 0.5689
+},
+"model2": {
+"g1": 0.7629,
+"g2": 0.8285,
+"g3": 0.7143,
+"g4": 0.5689
+}
+},
+"173": {
+"sp": [
+{
+"name": "Alex Sotiropoulos",
+"pit": 0.8464,
+"fallback": false
+},
+{
+"name": "Thomas Santana",
+"pit": 0.7901,
+"fallback": false
+},
+{
+"name": "Evan Kleinhans",
+"pit": 0.6815,
+"fallback": false
+}
+],
+"avg": 0.4673,
+"model1": {
+"g1": 0.7737,
+"g2": 0.7067,
+"g3": 0.6227,
+"g4": 0.4673
+},
+"model2": {
+"g1": 0.7362,
+"g2": 0.7442,
+"g3": 0.6227,
+"g4": 0.4673
+}
+},
+"181": {
+"sp": [
+{
+"name": "Nicco Holland",
+"pit": 0.4931,
+"fallback": false
+},
+{
+"name": "Dillon Kirksey",
+"pit": 0.2408,
+"fallback": false
+},
+{
+"name": "Abel Ortiz",
+"pit": 0.0244,
+"fallback": false
+}
+],
+"avg": 0.2311,
+"model1": {
+"g1": 0.4822,
+"g2": 0.2825,
+"g3": 0.1267,
+"g4": 0.2311
+},
+"model2": {
+"g1": 0.314,
+"g2": 0.4507,
+"g3": 0.1267,
+"g4": 0.2311
+}
+},
+"182": {
+"sp": [
+{
+"name": "Huxley Holcombe",
+"pit": 0.82,
+"fallback": false
+},
+{
+"name": "John Hegarty",
+"pit": 0.7577,
+"fallback": false
+},
+{
+"name": "Ethan Hamill",
+"pit": 0.7217,
+"fallback": false
+}
+],
+"avg": 0.5125,
+"model1": {
+"g1": 0.7627,
+"g2": 0.7022,
+"g3": 0.6674,
+"g4": 0.5125
+},
+"model2": {
+"g1": 0.7212,
+"g2": 0.7438,
+"g3": 0.6674,
+"g4": 0.5125
+}
+},
+"186": {
+"sp": [
+{
+"name": "Jack Pineau",
+"pit": 0.9666,
+"fallback": false
+},
+{
+"name": "Shea Wendt",
+"pit": 0.9158,
+"fallback": false
+},
+{
+"name": "Wilson Magers",
+"pit": 0.777,
+"fallback": false
+}
+],
+"avg": 0.5675,
+"model1": {
+"g1": 0.8945,
+"g2": 0.8372,
+"g3": 0.736,
+"g4": 0.5675
+},
+"model2": {
+"g1": 0.8606,
+"g2": 0.8711,
+"g3": 0.736,
+"g4": 0.5675
+}
+},
+"201": {
+"sp": [
+{
+"name": "Liam Watt",
+"pit": 0.9535,
+"fallback": false
+},
+{
+"name": "Ryan Borberg",
+"pit": 0.8482,
+"fallback": false
+},
+{
+"name": "Jerrod Jenkins",
+"pit": 0.6301,
+"fallback": false
+}
+],
+"avg": 0.6877,
+"model1": {
+"g1": 0.9068,
+"g2": 0.8331,
+"g3": 0.6828,
+"g4": 0.6877
+},
+"model2": {
+"g1": 0.8366,
+"g2": 0.9033,
+"g3": 0.6828,
+"g4": 0.6877
+}
+},
+"196": {
+"sp": [
+{
+"name": "Nate Isler",
+"pit": 0.9277,
+"fallback": false
+},
+{
+"name": "Nate Kugler",
+"pit": 0.6314,
+"fallback": false
+},
+{
+"name": "Marco Dumsky",
+"pit": 0.3305,
+"fallback": false
+}
+],
+"avg": 0.6141,
+"model1": {
+"g1": 0.8827,
+"g2": 0.6581,
+"g3": 0.4453,
+"g4": 0.6141
+},
+"model2": {
+"g1": 0.6852,
+"g2": 0.8557,
+"g3": 0.4453,
+"g4": 0.6141
+}
+},
+"198": {
+"sp": [
+{
+"name": "Cooper Cavanaugh",
+"pit": 0.9037,
+"fallback": false
+},
+{
+"name": "Ed Hall",
+"pit": 0.2566,
+"fallback": false
+},
+{
+"name": "Wilson Perkins",
+"pit": 0.1585,
+"fallback": false
+}
+],
+"avg": 0.3118,
+"model1": {
+"g1": 0.7879,
+"g2": 0.3295,
+"g3": 0.2519,
+"g4": 0.3118
+},
+"model2": {
+"g1": 0.3565,
+"g2": 0.7609,
+"g3": 0.2519,
+"g4": 0.3118
+}
+},
+"200": {
+"sp": [
+{
+"name": "John Delgado",
+"pit": 0.7833,
+"fallback": false
+},
+{
+"name": "Sawyer Jensen",
+"pit": 0.6555,
+"fallback": false
+},
+{
+"name": "Carson Samuels",
+"pit": 0.0725,
+"fallback": false
+}
+],
+"avg": 0.3235,
+"model1": {
+"g1": 0.7136,
+"g2": 0.5957,
+"g3": 0.195,
+"g4": 0.3235
+},
+"model2": {
+"g1": 0.6284,
+"g2": 0.6809,
+"g3": 0.195,
+"g4": 0.3235
+}
+},
+"204": {
+"sp": [
+{
+"name": "Andrew Callaway",
+"pit": 0.7401,
+"fallback": false
+},
+{
+"name": "Chase Deibler",
+"pit": 0.7012,
+"fallback": false
+},
+{
+"name": "Doug Marose",
+"pit": 0.5908,
+"fallback": false
+}
+],
+"avg": 0.5873,
+"model1": {
+"g1": 0.7731,
+"g2": 0.7351,
+"g3": 0.6558,
+"g4": 0.5873
+},
+"model2": {
+"g1": 0.7472,
+"g2": 0.7611,
+"g3": 0.6558,
+"g4": 0.5873
+}
+},
+"205": {
+"sp": [
+{
+"name": "Michael Lane",
+"pit": 0.3275,
+"fallback": false
+},
+{
+"name": "Jeremy Vest",
+"pit": 0.0901,
+"fallback": false
+},
+{
+"name": "Eddie Del Valle",
+"pit": 0.0295,
+"fallback": false
+}
+],
+"avg": 0.1424,
+"model1": {
+"g1": 0.328,
+"g2": 0.1474,
+"g3": 0.0961,
+"g4": 0.1424
+},
+"model2": {
+"g1": 0.1698,
+"g2": 0.3057,
+"g3": 0.0961,
+"g4": 0.1424
+}
+},
+"217": {
+"sp": [
+{
+"name": "Aidan Weaver",
+"pit": 0.9838,
+"fallback": false
+},
+{
+"name": "Peter Lemke",
+"pit": 0.9609,
+"fallback": false
+},
+{
+"name": "Andy Leon",
+"pit": 0.9406,
+"fallback": false
+}
+],
+"avg": 0.6427,
+"model1": {
+"g1": 0.9297,
+"g2": 0.9023,
+"g3": 0.8803,
+"g4": 0.6427
+},
+"model2": {
+"g1": 0.9144,
+"g2": 0.9176,
+"g3": 0.8803,
+"g4": 0.6427
+}
+},
+"248": {
+"sp": [
+{
+"name": "Michael Harpster",
+"pit": 0.9777,
+"fallback": false
+},
+{
+"name": "Cooper Jones",
+"pit": 0.9107,
+"fallback": false
+},
+{
+"name": "Tadan Bell",
+"pit": 0.8075,
+"fallback": false
+}
+],
+"avg": 0.5687,
+"model1": {
+"g1": 0.9069,
+"g2": 0.8405,
+"g3": 0.7636,
+"g4": 0.5687
+},
+"model2": {
+"g1": 0.8622,
+"g2": 0.8851,
+"g3": 0.7636,
+"g4": 0.5687
+}
+},
+"220": {
+"sp": [
+{
+"name": "Ethan Norby",
+"pit": 0.9836,
+"fallback": false
+},
+{
+"name": "Ryan Towers",
+"pit": 0.7846,
+"fallback": false
+},
+{
+"name": "Luke Payne",
+"pit": 0.566,
+"fallback": false
+}
+],
+"avg": 0.6445,
+"model1": {
+"g1": 0.9663,
+"g2": 0.8054,
+"g3": 0.6432,
+"g4": 0.6445
+},
+"model2": {
+"g1": 0.8337,
+"g2": 0.938,
+"g3": 0.6432,
+"g4": 0.6445
+}
+},
+"227": {
+"sp": [
+{
+"name": "Bryce Riggs",
+"pit": 0.9746,
+"fallback": false
+},
+{
+"name": "Tyler Conklin",
+"pit": 0.701,
+"fallback": false
+},
+{
+"name": "Dalton Boruff",
+"pit": 0.1761,
+"fallback": false
+}
+],
+"avg": 0.3749,
+"model1": {
+"g1": 0.8519,
+"g2": 0.6363,
+"g3": 0.2722,
+"g4": 0.3749
+},
+"model2": {
+"g1": 0.6695,
+"g2": 0.8187,
+"g3": 0.2722,
+"g4": 0.3749
+}
+},
+"228": {
+"sp": [
+{
+"name": "Jacob Price",
+"pit": 0.889,
+"fallback": false
+},
+{
+"name": "Hayden Collins",
+"pit": 0.3176,
+"fallback": false
+},
+{
+"name": "Jackson Briese",
+"pit": 0.0588,
+"fallback": false
+}
+],
+"avg": 0.3208,
+"model1": {
+"g1": 0.8046,
+"g2": 0.3964,
+"g3": 0.2084,
+"g4": 0.3208
+},
+"model2": {
+"g1": 0.4236,
+"g2": 0.7774,
+"g3": 0.2084,
+"g4": 0.3208
+}
+},
+"229": {
+"sp": [
+{
+"name": "Cal Rutherford",
+"pit": 0.5407,
+"fallback": false
+},
+{
+"name": "John Carmichael",
+"pit": 0.3766,
+"fallback": false
+},
+{
+"name": "Carter White",
+"pit": 0.207,
+"fallback": false
+}
+],
+"avg": 0.2328,
+"model1": {
+"g1": 0.5127,
+"g2": 0.3906,
+"g3": 0.264,
+"g4": 0.2328
+},
+"model2": {
+"g1": 0.4033,
+"g2": 0.5,
+"g3": 0.264,
+"g4": 0.2328
+}
+},
+"239": {
+"sp": [
+{
+"name": "Brian Strange",
+"pit": 0.8966,
+"fallback": false
+},
+{
+"name": "Tommy Mitchell",
+"pit": 0.694,
+"fallback": false
+},
+{
+"name": "Owen Winebarger",
+"pit": 0.5533,
+"fallback": false
+}
+],
+"avg": 0.4821,
+"model1": {
+"g1": 0.826,
+"g2": 0.6743,
+"g3": 0.5609,
+"g4": 0.4821
+},
+"model2": {
+"g1": 0.6909,
+"g2": 0.8093,
+"g3": 0.5609,
+"g4": 0.4821
+}
+},
+"250": {
+"sp": [
+{
+"name": "Max Hansmann",
+"pit": 0.9709,
+"fallback": false
+},
+{
+"name": "Tanner Graham",
+"pit": 0.8935,
+"fallback": false
+},
+{
+"name": "Kenton Deverman",
+"pit": 0.8077,
+"fallback": false
+}
+],
+"avg": 0.522,
+"model1": {
+"g1": 0.9018,
+"g2": 0.8157,
+"g3": 0.7437,
+"g4": 0.522
+},
+"model2": {
+"g1": 0.8502,
+"g2": 0.8673,
+"g3": 0.7437,
+"g4": 0.522
+}
+},
+"254": {
+"sp": [
+{
+"name": "Cooper Montelbano",
+"pit": 0.3543,
+"fallback": false
+},
+{
+"name": "Jeremy Cheeseman",
+"pit": 0.0836,
+"fallback": false
+},
+{
+"name": "Chris Mattioli",
+"pit": 0.0098,
+"fallback": false
+}
+],
+"avg": 0.2703,
+"model1": {
+"g1": 0.4402,
+"g2": 0.2279,
+"g3": 0.1661,
+"g4": 0.2703
+},
+"model2": {
+"g1": 0.2597,
+"g2": 0.4084,
+"g3": 0.1661,
+"g4": 0.2703
+}
+},
+"258": {
+"sp": [
+{
+"name": "Evan Dempsey",
+"pit": 0.9891,
+"fallback": false
+},
+{
+"name": "Chris Diaz",
+"pit": 0.9441,
+"fallback": false
+},
+{
+"name": "Hunter Possehl",
+"pit": 0.8749,
+"fallback": false
+}
+],
+"avg": 0.5666,
+"model1": {
+"g1": 0.927,
+"g2": 0.8732,
+"g3": 0.8168,
+"g4": 0.5666
+},
+"model2": {
+"g1": 0.897,
+"g2": 0.9032,
+"g3": 0.8168,
+"g4": 0.5666
+}
+},
+"261": {
+"sp": [
+{
+"name": "Preston Prince",
+"pit": 0.9347,
+"fallback": false
+},
+{
+"name": "Jordan Vargas",
+"pit": 0.6768,
+"fallback": false
+},
+{
+"name": "Julian Mlodzinski",
+"pit": 0.6099,
+"fallback": false
+}
+],
+"avg": 0.5419,
+"model1": {
+"g1": 0.9022,
+"g2": 0.7134,
+"g3": 0.6577,
+"g4": 0.5419
+},
+"model2": {
+"g1": 0.7302,
+"g2": 0.8854,
+"g3": 0.6577,
+"g4": 0.5419
+}
+},
+"251": {
+"sp": [
+{
+"name": "Ben Alekson",
+"pit": 0.8847,
+"fallback": false
+},
+{
+"name": "Harrison Engle",
+"pit": 0.7317,
+"fallback": false
+},
+{
+"name": "Nick Kelly",
+"pit": 0.1325,
+"fallback": false
+}
+],
+"avg": 0.3842,
+"model1": {
+"g1": 0.7834,
+"g2": 0.6499,
+"g3": 0.2328,
+"g4": 0.3842
+},
+"model2": {
+"g1": 0.6814,
+"g2": 0.7519,
+"g3": 0.2328,
+"g4": 0.3842
+}
+},
+"262": {
+"sp": [
+{
+"name": "Kide Adetuyi",
+"pit": 0.9734,
+"fallback": false
+},
+{
+"name": "James Litman",
+"pit": 0.9541,
+"fallback": false
+},
+{
+"name": "Garrett Grant",
+"pit": 0.8564,
+"fallback": false
+}
+],
+"avg": 0.6187,
+"model1": {
+"g1": 0.9139,
+"g2": 0.8803,
+"g3": 0.8052,
+"g4": 0.6187
+},
+"model2": {
+"g1": 0.901,
+"g2": 0.8932,
+"g3": 0.8052,
+"g4": 0.6187
+}
+},
+"265": {
+"sp": [
+{
+"name": "Aidan King",
+"pit": 0.999,
+"fallback": false
+},
+{
+"name": "Liam Peterson",
+"pit": 0.9879,
+"fallback": false
+},
+{
+"name": "Russell Sandefer",
+"pit": 0.9662,
+"fallback": false
+}
+],
+"avg": 0.7854,
+"model1": {
+"g1": 0.9743,
+"g2": 0.9534,
+"g3": 0.9324,
+"g4": 0.7854
+},
+"model2": {
+"g1": 0.9669,
+"g2": 0.9608,
+"g3": 0.9324,
+"g4": 0.7854
+}
+},
+"266": {
+"sp": [
+{
+"name": "Caleb Granger",
+"pit": 0.3371,
+"fallback": false
+},
+{
+"name": "Garrett Workman",
+"pit": 0.1554,
+"fallback": false
+},
+{
+"name": "Jesus Campa",
+"pit": 0.0547,
+"fallback": false
+}
+],
+"avg": 0.3502,
+"model1": {
+"g1": 0.4347,
+"g2": 0.2942,
+"g3": 0.2143,
+"g4": 0.3502
+},
+"model2": {
+"g1": 0.3136,
+"g2": 0.4154,
+"g3": 0.2143,
+"g4": 0.3502
+}
+},
+"267": {
+"sp": [
+{
+"name": "Wes Mendes",
+"pit": 0.9994,
+"fallback": false
+},
+{
+"name": "Bryson Moore",
+"pit": 0.9629,
+"fallback": false
+},
+{
+"name": "Trey Beard",
+"pit": 0.9597,
+"fallback": false
+}
+],
+"avg": 0.7358,
+"model1": {
+"g1": 0.9692,
+"g2": 0.934,
+"g3": 0.9256,
+"g4": 0.7358
+},
+"model2": {
+"g1": 0.9449,
+"g2": 0.9583,
+"g3": 0.9256,
+"g4": 0.7358
+}
+},
+"270": {
+"sp": [
+{
+"name": "Chase Hanawalt",
+"pit": 0.9302,
+"fallback": false
+},
+{
+"name": "Beau Elson",
+"pit": 0.6658,
+"fallback": false
+},
+{
+"name": "Aidan Dowd",
+"pit": 0.188,
+"fallback": false
+}
+],
+"avg": 0.3308,
+"model1": {
+"g1": 0.8271,
+"g2": 0.6101,
+"g3": 0.2789,
+"g4": 0.3308
+},
+"model2": {
+"g1": 0.6509,
+"g2": 0.7864,
+"g3": 0.2789,
+"g4": 0.3308
+}
+},
+"280": {
+"sp": [
+{
+"name": "Erik Rico",
+"pit": 0.667,
+"fallback": false
+},
+{
+"name": "Drew Townson",
+"pit": 0.4659,
+"fallback": false
+},
+{
+"name": "Tyler Patrick",
+"pit": 0.0571,
+"fallback": false
+}
+],
+"avg": 0.4343,
+"model1": {
+"g1": 0.6853,
+"g2": 0.5178,
+"g3": 0.2316,
+"g4": 0.4343
+},
+"model2": {
+"g1": 0.5513,
+"g2": 0.6519,
+"g3": 0.2316,
+"g4": 0.4343
+}
+},
+"282": {
+"sp": [
+{
+"name": "Will Holder",
+"pit": 0.8626,
+"fallback": false
+},
+{
+"name": "Carter DeGondea",
+"pit": 0.7442,
+"fallback": false
+},
+{
+"name": "Alex Mason",
+"pit": 0.1735,
+"fallback": false
+}
+],
+"avg": 0.4644,
+"model1": {
+"g1": 0.8095,
+"g2": 0.7113,
+"g3": 0.3226,
+"g4": 0.4644
+},
+"model2": {
+"g1": 0.7306,
+"g2": 0.7902,
+"g3": 0.3226,
+"g4": 0.4644
+}
+},
+"286": {
+"sp": [
+{
+"name": "Reid Bertram",
+"pit": 0.4815,
+"fallback": false
+},
+{
+"name": "Matthew Stuart",
+"pit": 0.1792,
+"fallback": false
+},
+{
+"name": "Oliver Ellison",
+"pit": 0.1378,
+"fallback": false
+}
+],
+"avg": 0.3124,
+"model1": {
+"g1": 0.5119,
+"g2": 0.2868,
+"g3": 0.2486,
+"g4": 0.3124
+},
+"model2": {
+"g1": 0.3104,
+"g2": 0.4884,
+"g3": 0.2486,
+"g4": 0.3124
+}
+},
+"289": {
+"sp": [
+{
+"name": "Logan Rumberg",
+"pit": 0.94,
+"fallback": false
+},
+{
+"name": "Jake Drumm",
+"pit": 0.7698,
+"fallback": false
+},
+{
+"name": "Aiden Parker",
+"pit": 0.1225,
+"fallback": false
+}
+],
+"avg": 0.5395,
+"model1": {
+"g1": 0.8853,
+"g2": 0.739,
+"g3": 0.2964,
+"g4": 0.5395
+},
+"model2": {
+"g1": 0.7718,
+"g2": 0.8524,
+"g3": 0.2964,
+"g4": 0.5395
+}
+},
+"290": {
+"sp": [
+{
+"name": "Andrew Cutler",
+"pit": 0.7968,
+"fallback": false
+},
+{
+"name": "Max Haug",
+"pit": 0.6097,
+"fallback": false
+},
+{
+"name": "Declan Wywoda",
+"pit": 0.181,
+"fallback": false
+}
+],
+"avg": 0.34,
+"model1": {
+"g1": 0.7419,
+"g2": 0.5883,
+"g3": 0.2889,
+"g4": 0.34
+},
+"model2": {
+"g1": 0.6172,
+"g2": 0.713,
+"g3": 0.2889,
+"g4": 0.34
+}
+},
+"291": {
+"sp": [
+{
+"name": "Spencer Seid",
+"pit": 0.949,
+"fallback": false
+},
+{
+"name": "Kai Leckszas",
+"pit": 0.8319,
+"fallback": false
+},
+{
+"name": "JT Raab",
+"pit": 0.2871,
+"fallback": false
+}
+],
+"avg": 0.4559,
+"model1": {
+"g1": 0.8759,
+"g2": 0.7853,
+"g3": 0.4082,
+"g4": 0.4559
+},
+"model2": {
+"g1": 0.7978,
+"g2": 0.8633,
+"g3": 0.4082,
+"g4": 0.4559
+}
+},
+"292": {
+"sp": [
+{
+"name": "Joey Volchko",
+"pit": 0.9906,
+"fallback": false
+},
+{
+"name": "Dylan Vigue",
+"pit": 0.9871,
+"fallback": false
+},
+{
+"name": "Caden Aoki",
+"pit": 0.9859,
+"fallback": false
+}
+],
+"avg": 0.6442,
+"model1": {
+"g1": 0.9656,
+"g2": 0.9404,
+"g3": 0.926,
+"g4": 0.6442
+},
+"model2": {
+"g1": 0.9633,
+"g2": 0.9427,
+"g3": 0.926,
+"g4": 0.6442
+}
+},
+"294": {
+"sp": [
+{
+"name": "Michael Caruso",
+"pit": 0.9136,
+"fallback": false
+},
+{
+"name": "Cole Roberts",
+"pit": 0.8605,
+"fallback": false
+},
+{
+"name": "Brian Crooms",
+"pit": 0.5869,
+"fallback": false
+}
+],
+"avg": 0.6194,
+"model1": {
+"g1": 0.8944,
+"g2": 0.8349,
+"g3": 0.64,
+"g4": 0.6194
+},
+"model2": {
+"g1": 0.859,
+"g2": 0.8703,
+"g3": 0.64,
+"g4": 0.6194
+}
+},
+"295": {
+"sp": [
+{
+"name": "Jackson Blakely",
+"pit": 0.973,
+"fallback": false
+},
+{
+"name": "Tate McKee",
+"pit": 0.9715,
+"fallback": false
+},
+{
+"name": "Carson Ballard",
+"pit": 0.7049,
+"fallback": false
+}
+],
+"avg": 0.7475,
+"model1": {
+"g1": 0.9487,
+"g2": 0.9425,
+"g3": 0.7629,
+"g4": 0.7475
+},
+"model2": {
+"g1": 0.9477,
+"g2": 0.9435,
+"g3": 0.7629,
+"g4": 0.7475
+}
+},
+"299": {
+"sp": [
+{
+"name": "Karsten Sweum",
+"pit": 0.9887,
+"fallback": false
+},
+{
+"name": "Justin Feld",
+"pit": 0.9349,
+"fallback": false
+},
+{
+"name": "Finbar O'Brien",
+"pit": 0.8599,
+"fallback": false
+}
+],
+"avg": 0.6978,
+"model1": {
+"g1": 0.959,
+"g2": 0.8906,
+"g3": 0.823,
+"g4": 0.6978
+},
+"model2": {
+"g1": 0.9231,
+"g2": 0.9264,
+"g3": 0.823,
+"g4": 0.6978
+}
+},
+"301": {
+"sp": [
+{
+"name": "Keyon Guillory",
+"pit": 0.6127,
+"fallback": false
+},
+{
+"name": "Payton Allen",
+"pit": 0.1049,
+"fallback": false
+},
+{
+"name": "Trevor Esparza",
+"pit": 0.0985,
+"fallback": false
+}
+],
+"avg": 0.1646,
+"model1": {
+"g1": 0.4956,
+"g2": 0.1321,
+"g3": 0.1198,
+"g4": 0.1646
+},
+"model2": {
+"g1": 0.1571,
+"g2": 0.4706,
+"g3": 0.1198,
+"g4": 0.1646
+}
+},
+"302": {
+"sp": [
+{
+"name": "Chase Frey",
+"pit": 0.9676,
+"fallback": false
+},
+{
+"name": "JT Guerrero",
+"pit": 0.5959,
+"fallback": false
+},
+{
+"name": "Cody Kiemele",
+"pit": 0.3715,
+"fallback": false
+}
+],
+"avg": 0.5512,
+"model1": {
+"g1": 0.909,
+"g2": 0.6453,
+"g3": 0.4847,
+"g4": 0.5512
+},
+"model2": {
+"g1": 0.6612,
+"g2": 0.8931,
+"g3": 0.4847,
+"g4": 0.5512
+}
+},
+"318": {
+"sp": [
+{
+"name": "Gio Colasante",
+"pit": 0.9091,
+"fallback": false
+},
+{
+"name": "Andrew Abler",
+"pit": 0.7823,
+"fallback": false
+},
+{
+"name": "Davis Kahn",
+"pit": 0.3068,
+"fallback": false
+}
+],
+"avg": 0.5956,
+"model1": {
+"g1": 0.8484,
+"g2": 0.7332,
+"g3": 0.393,
+"g4": 0.5956
+},
+"model2": {
+"g1": 0.7639,
+"g2": 0.8178,
+"g3": 0.393,
+"g4": 0.5956
+}
+},
+"320": {
+"sp": [
+{
+"name": "Isaiah Magdaleno",
+"pit": 0.9924,
+"fallback": false
+},
+{
+"name": "Hekili Robello",
+"pit": 0.9474,
+"fallback": false
+},
+{
+"name": "Brody Martin-Grudzielanek",
+"pit": 0.7674,
+"fallback": false
+}
+],
+"avg": 0.6497,
+"model1": {
+"g1": 0.9304,
+"g2": 0.8771,
+"g3": 0.7476,
+"g4": 0.6497
+},
+"model2": {
+"g1": 0.9004,
+"g2": 0.9071,
+"g3": 0.7476,
+"g4": 0.6497
+}
+},
+"326": {
+"sp": [
+{
+"name": "Wade Walton",
+"pit": 0.8982,
+"fallback": false
+},
+{
+"name": "Ty Brachbill",
+"pit": 0.8913,
+"fallback": false
+},
+{
+"name": "Aidan Paul",
+"pit": 0.7534,
+"fallback": false
+}
+],
+"avg": 0.55,
+"model1": {
+"g1": 0.8366,
+"g2": 0.8147,
+"g3": 0.7153,
+"g4": 0.55
+},
+"model2": {
+"g1": 0.832,
+"g2": 0.8193,
+"g3": 0.7153,
+"g4": 0.55
+}
+},
+"331": {
+"sp": [
+{
+"name": "Carlos Martinez",
+"pit": 0.967,
+"fallback": false
+},
+{
+"name": "Nicholas Reese",
+"pit": 0.778,
+"fallback": false
+},
+{
+"name": "Chris Bedford",
+"pit": 0.6428,
+"fallback": false
+}
+],
+"avg": 0.5715,
+"model1": {
+"g1": 0.9155,
+"g2": 0.7614,
+"g3": 0.6616,
+"g4": 0.5715
+},
+"model2": {
+"g1": 0.7895,
+"g2": 0.8874,
+"g3": 0.6616,
+"g4": 0.5715
+}
+},
+"332": {
+"sp": [
+{
+"name": "Jaden Wywoda",
+"pit": 0.9304,
+"fallback": false
+},
+{
+"name": "Jake Lenahan",
+"pit": 0.8972,
+"fallback": false
+},
+{
+"name": "Derek Volz",
+"pit": 0.2976,
+"fallback": false
+}
+],
+"avg": 0.3597,
+"model1": {
+"g1": 0.8024,
+"g2": 0.759,
+"g3": 0.3509,
+"g4": 0.3597
+},
+"model2": {
+"g1": 0.7803,
+"g2": 0.7811,
+"g3": 0.3509,
+"g4": 0.3597
+}
+},
+"337": {
+"sp": [
+{
+"name": "Paul Schmitz",
+"pit": 0.9005,
+"fallback": false
+},
+{
+"name": "Kendall Hoffman",
+"pit": 0.9003,
+"fallback": false
+},
+{
+"name": "Caden Cooper",
+"pit": 0.8128,
+"fallback": false
+}
+],
+"avg": 0.7302,
+"model1": {
+"g1": 0.8852,
+"g2": 0.8684,
+"g3": 0.8047,
+"g4": 0.7302
+},
+"model2": {
+"g1": 0.885,
+"g2": 0.8685,
+"g3": 0.8047,
+"g4": 0.7302
+}
+},
+"338": {
+"sp": [
+{
+"name": "David Lopez",
+"pit": 0.931,
+"fallback": false
+},
+{
+"name": "Jett Feltman",
+"pit": 0.2193,
+"fallback": false
+},
+{
+"name": "Trent Barnes",
+"pit": 0.1292,
+"fallback": false
+}
+],
+"avg": 0.4254,
+"model1": {
+"g1": 0.8732,
+"g2": 0.3735,
+"g3": 0.3017,
+"g4": 0.4254
+},
+"model2": {
+"g1": 0.3987,
+"g2": 0.848,
+"g3": 0.3017,
+"g4": 0.4254
+}
+},
+"345": {
+"sp": [
+{
+"name": "Aidan Flinn",
+"pit": 0.9621,
+"fallback": false
+},
+{
+"name": "Regan Hall",
+"pit": 0.9468,
+"fallback": false
+},
+{
+"name": "Mitch Dye",
+"pit": 0.7893,
+"fallback": false
+}
+],
+"avg": 0.5603,
+"model1": {
+"g1": 0.917,
+"g2": 0.8898,
+"g3": 0.7683,
+"g4": 0.5603
+},
+"model2": {
+"g1": 0.9068,
+"g2": 0.9,
+"g3": 0.7683,
+"g4": 0.5603
+}
+},
+"347": {
+"sp": [
+{
+"name": "Michael Addari",
+"pit": 0.9635,
+"fallback": false
+},
+{
+"name": "Luke Teschke",
+"pit": 0.9412,
+"fallback": false
+},
+{
+"name": "Carson Cormier",
+"pit": 0.9312,
+"fallback": false
+}
+],
+"avg": 0.5854,
+"model1": {
+"g1": 0.9216,
+"g2": 0.8822,
+"g3": 0.8643,
+"g4": 0.5854
+},
+"model2": {
+"g1": 0.9068,
+"g2": 0.897,
+"g3": 0.8643,
+"g4": 0.5854
+}
+},
+"349": {
+"sp": [
+{
+"name": "Tony Neubeck",
+"pit": 0.9787,
+"fallback": false
+},
+{
+"name": "Brayton Thomas",
+"pit": 0.942,
+"fallback": false
+},
+{
+"name": "Conner Linn",
+"pit": 0.2296,
+"fallback": false
+}
+],
+"avg": 0.5844,
+"model1": {
+"g1": 0.9433,
+"g2": 0.8977,
+"g3": 0.4114,
+"g4": 0.5844
+},
+"model2": {
+"g1": 0.9188,
+"g2": 0.9222,
+"g3": 0.4114,
+"g4": 0.5844
+}
+},
+"351": {
+"sp": [
+{
+"name": "Ryan Karst",
+"pit": 0.9435,
+"fallback": false
+},
+{
+"name": "Ty Brooks",
+"pit": 0.941,
+"fallback": false
+},
+{
+"name": "Spencer Johnsen",
+"pit": 0.5687,
+"fallback": false
+}
+],
+"avg": 0.4831,
+"model1": {
+"g1": 0.8816,
+"g2": 0.8524,
+"g3": 0.592,
+"g4": 0.4831
+},
+"model2": {
+"g1": 0.88,
+"g2": 0.8541,
+"g3": 0.592,
+"g4": 0.4831
+}
+},
+"352": {
+"sp": [
+{
+"name": "Andrelys Payamps",
+"pit": 0.8124,
+"fallback": false
+},
+{
+"name": "Luke Lang",
+"pit": 0.6842,
+"fallback": false
+},
+{
+"name": "Brendan Callanan",
+"pit": 0.1241,
+"fallback": false
+}
+],
+"avg": 0.32,
+"model1": {
+"g1": 0.7231,
+"g2": 0.6161,
+"g3": 0.2306,
+"g4": 0.32
+},
+"model2": {
+"g1": 0.6377,
+"g2": 0.7015,
+"g3": 0.2306,
+"g4": 0.32
+}
+},
+"353": {
+"sp": [
+{
+"name": "Logan Runde",
+"pit": 0.9058,
+"fallback": false
+},
+{
+"name": "Maddux Frese",
+"pit": 0.9027,
+"fallback": false
+},
+{
+"name": "Tyler Guerin",
+"pit": 0.7999,
+"fallback": false
+}
+],
+"avg": 0.6474,
+"model1": {
+"g1": 0.8799,
+"g2": 0.8628,
+"g3": 0.7898,
+"g4": 0.6474
+},
+"model2": {
+"g1": 0.8779,
+"g2": 0.8649,
+"g3": 0.7898,
+"g4": 0.6474
+}
+},
+"355": {
+"sp": [
+{
+"name": "Talmagde Davis",
+"pit": 0.8284,
+"fallback": false
+},
+{
+"name": "Jayden Lopez",
+"pit": 0.6226,
+"fallback": false
+},
+{
+"name": "Derek Arrocha",
+"pit": 0.2728,
+"fallback": false
+}
+],
+"avg": 0.3303,
+"model1": {
+"g1": 0.7163,
+"g2": 0.5465,
+"g3": 0.3032,
+"g4": 0.3303
+},
+"model2": {
+"g1": 0.5791,
+"g2": 0.6837,
+"g3": 0.3032,
+"g4": 0.3303
+}
+},
+"356": {
+"sp": [
+{
+"name": "Alex Walsh",
+"pit": 0.9357,
+"fallback": false
+},
+{
+"name": "Brendan Holland",
+"pit": 0.9238,
+"fallback": false
+},
+{
+"name": "Kyle Powers",
+"pit": 0.3268,
+"fallback": false
+}
+],
+"avg": 0.5631,
+"model1": {
+"g1": 0.8706,
+"g2": 0.84,
+"g3": 0.4349,
+"g4": 0.5631
+},
+"model2": {
+"g1": 0.8627,
+"g2": 0.848,
+"g3": 0.4349,
+"g4": 0.5631
+}
+},
+"357": {
+"sp": [
+{
+"name": "Eli Pillsbury",
+"pit": 0.998,
+"fallback": false
+},
+{
+"name": "Steven Cash",
+"pit": 0.9941,
+"fallback": false
+},
+{
+"name": "Beau Bryans",
+"pit": 0.9875,
+"fallback": false
+}
+],
+"avg": 0.6551,
+"model1": {
+"g1": 0.9669,
+"g2": 0.9401,
+"g3": 0.9218,
+"g4": 0.6551
+},
+"model2": {
+"g1": 0.9643,
+"g2": 0.9427,
+"g3": 0.9218,
+"g4": 0.6551
+}
+},
+"358": {
+"sp": [
+{
+"name": "Tyler Lutz",
+"pit": 0.908,
+"fallback": false
+},
+{
+"name": "Luke Alexander",
+"pit": 0.7854,
+"fallback": false
+},
+{
+"name": "Patrick Bauer",
+"pit": 0.7645,
+"fallback": false
+}
+],
+"avg": 0.5826,
+"model1": {
+"g1": 0.8571,
+"g2": 0.7615,
+"g3": 0.7395,
+"g4": 0.5826
+},
+"model2": {
+"g1": 0.7754,
+"g2": 0.8433,
+"g3": 0.7395,
+"g4": 0.5826
+}
+},
+"366": {
+"sp": [
+{
+"name": "Dominic Voegele",
+"pit": 0.9916,
+"fallback": false
+},
+{
+"name": "Mathis Nayral",
+"pit": 0.964,
+"fallback": false
+},
+{
+"name": "Mason Cook",
+"pit": 0.8738,
+"fallback": false
+}
+],
+"avg": 0.7433,
+"model1": {
+"g1": 0.9524,
+"g2": 0.9195,
+"g3": 0.8537,
+"g4": 0.7433
+},
+"model2": {
+"g1": 0.934,
+"g2": 0.9379,
+"g3": 0.8537,
+"g4": 0.7433
+}
+},
+"367": {
+"sp": [
+{
+"name": "James Guyette",
+"pit": 0.9855,
+"fallback": false
+},
+{
+"name": "Lincoln Sheffield",
+"pit": 0.9603,
+"fallback": false
+},
+{
+"name": "Robert Fortenberry",
+"pit": 0.7262,
+"fallback": false
+}
+],
+"avg": 0.6763,
+"model1": {
+"g1": 0.9478,
+"g2": 0.9135,
+"g3": 0.7515,
+"g4": 0.6763
+},
+"model2": {
+"g1": 0.931,
+"g2": 0.9303,
+"g3": 0.7515,
+"g4": 0.6763
+}
+},
+"370": {
+"sp": [
+{
+"name": "Harry Cain",
+"pit": 0.905,
+"fallback": false
+},
+{
+"name": "Cooper McMullen",
+"pit": 0.7878,
+"fallback": false
+},
+{
+"name": "Nolan Sliver",
+"pit": 0.7536,
+"fallback": false
+}
+],
+"avg": 0.6062,
+"model1": {
+"g1": 0.878,
+"g2": 0.7775,
+"g3": 0.7475,
+"g4": 0.6062
+},
+"model2": {
+"g1": 0.7998,
+"g2": 0.8557,
+"g3": 0.7475,
+"g4": 0.6062
+}
+},
+"371": {
+"sp": [
+{
+"name": "Ciaran Caughey",
+"pit": 0.9332,
+"fallback": false
+},
+{
+"name": "Ben Rabatin",
+"pit": 0.7983,
+"fallback": false
+},
+{
+"name": "Easton Tumis",
+"pit": 0.5685,
+"fallback": false
+}
+],
+"avg": 0.5404,
+"model1": {
+"g1": 0.8738,
+"g2": 0.7632,
+"g3": 0.6013,
+"g4": 0.5404
+},
+"model2": {
+"g1": 0.7839,
+"g2": 0.8532,
+"g3": 0.6013,
+"g4": 0.5404
+}
+},
+"372": {
+"sp": [
+{
+"name": "Jaxon Jelkin",
+"pit": 0.9996,
+"fallback": false
+},
+{
+"name": "Ben Cleaver",
+"pit": 0.9183,
+"fallback": false
+},
+{
+"name": "Connor Mattison",
+"pit": 0.8945,
+"fallback": false
+}
+],
+"avg": 0.7376,
+"model1": {
+"g1": 0.9632,
+"g2": 0.9005,
+"g3": 0.8806,
+"g4": 0.7376
+},
+"model2": {
+"g1": 0.909,
+"g2": 0.9547,
+"g3": 0.8806,
+"g4": 0.7376
+}
+},
+"413": {
+"sp": [
+{
+"name": "Nicholas Finarelli",
+"pit": 0.9076,
+"fallback": false
+},
+{
+"name": "Dale Fry",
+"pit": 0.2206,
+"fallback": false
+},
+{
+"name": "Justin DeCastro",
+"pit": 0.0541,
+"fallback": false
+}
+],
+"avg": 0.2914,
+"model1": {
+"g1": 0.7535,
+"g2": 0.2705,
+"g3": 0.1505,
+"g4": 0.2914
+},
+"model2": {
+"g1": 0.2955,
+"g2": 0.7285,
+"g3": 0.1505,
+"g4": 0.2914
+}
+},
+"414": {
+"sp": [
+{
+"name": "Jonah Johnson",
+"pit": 0.6942,
+"fallback": false
+},
+{
+"name": "Adam Behrens",
+"pit": 0.3981,
+"fallback": false
+},
+{
+"name": "Avery Laine",
+"pit": 0.0162,
+"fallback": false
+}
+],
+"avg": 0.4697,
+"model1": {
+"g1": 0.7093,
+"g2": 0.4892,
+"g3": 0.2224,
+"g4": 0.4697
+},
+"model2": {
+"g1": 0.5119,
+"g2": 0.6866,
+"g3": 0.2224,
+"g4": 0.4697
+}
+},
+"422": {
+"sp": [
+{
+"name": "William Schmidt",
+"pit": 0.9762,
+"fallback": false
+},
+{
+"name": "Zac Cowan",
+"pit": 0.9418,
+"fallback": false
+},
+{
+"name": "Marcos Paz",
+"pit": 0.8841,
+"fallback": false
+}
+],
+"avg": 0.7782,
+"model1": {
+"g1": 0.9653,
+"g2": 0.9334,
+"g3": 0.8907,
+"g4": 0.7782
+},
+"model2": {
+"g1": 0.9424,
+"g2": 0.9563,
+"g3": 0.8907,
+"g4": 0.7782
+}
+},
+"949": {
+"sp": [
+{
+"name": "Owen MacDonnell",
+"pit": 0.8263,
+"fallback": false
+},
+{
+"name": "Titus Shay",
+"pit": 0.7882,
+"fallback": false
+},
+{
+"name": "Jace Terry",
+"pit": 0.1075,
+"fallback": false
+}
+],
+"avg": 0.3504,
+"model1": {
+"g1": 0.7222,
+"g2": 0.6924,
+"g3": 0.2368,
+"g4": 0.3504
+},
+"model2": {
+"g1": 0.6968,
+"g2": 0.7178,
+"g3": 0.2368,
+"g4": 0.3504
+}
+},
+"384": {
+"sp": [
+{
+"name": "Tristan Helmick",
+"pit": 0.725,
+"fallback": false
+},
+{
+"name": "Ben Waterman",
+"pit": 0.6793,
+"fallback": false
+},
+{
+"name": "Gregory Quintana",
+"pit": 0.451,
+"fallback": false
+}
+],
+"avg": 0.3785,
+"model1": {
+"g1": 0.6913,
+"g2": 0.6393,
+"g3": 0.4762,
+"g4": 0.3785
+},
+"model2": {
+"g1": 0.6609,
+"g2": 0.6697,
+"g3": 0.4762,
+"g4": 0.3785
+}
+},
+"394": {
+"sp": [
+{
+"name": "AJ Petraitis",
+"pit": 0.2089,
+"fallback": false
+},
+{
+"name": "Jack Molini",
+"pit": 0.0659,
+"fallback": false
+},
+{
+"name": "Luke VanMarter",
+"pit": 0.0485,
+"fallback": false
+}
+],
+"avg": 0.2022,
+"model1": {
+"g1": 0.2916,
+"g2": 0.1697,
+"g3": 0.1476,
+"g4": 0.2022
+},
+"model2": {
+"g1": 0.1962,
+"g2": 0.265,
+"g3": 0.1476,
+"g4": 0.2022
+}
+},
+"397": {
+"sp": [
+{
+"name": "Cole Leaman",
+"pit": 0.8609,
+"fallback": false
+},
+{
+"name": "Sam Fairhurst",
+"pit": 0.803,
+"fallback": false
+},
+{
+"name": "Jackson Shepelsky",
+"pit": 0.5628,
+"fallback": false
+}
+],
+"avg": 0.4037,
+"model1": {
+"g1": 0.7596,
+"g2": 0.7066,
+"g3": 0.5408,
+"g4": 0.4037
+},
+"model2": {
+"g1": 0.721,
+"g2": 0.7452,
+"g3": 0.5408,
+"g4": 0.4037
+}
+},
+"405": {
+"sp": [
+{
+"name": "Ben Blair",
+"pit": 0.9988,
+"fallback": false
+},
+{
+"name": "Bradley Zayac",
+"pit": 0.9687,
+"fallback": false
+},
+{
+"name": "Jaxon Lucas",
+"pit": 0.9146,
+"fallback": false
+}
+],
+"avg": 0.6573,
+"model1": {
+"g1": 0.9521,
+"g2": 0.9034,
+"g3": 0.8541,
+"g4": 0.6573
+},
+"model2": {
+"g1": 0.932,
+"g2": 0.9235,
+"g3": 0.8541,
+"g4": 0.6573
+}
+},
+"409": {
+"sp": [
+{
+"name": "Seth Benes",
+"pit": 0.9814,
+"fallback": false
+},
+{
+"name": "Josh Newell",
+"pit": 0.9056,
+"fallback": false
+},
+{
+"name": "Lucas Niemeyer",
+"pit": 0.3639,
+"fallback": false
+}
+],
+"avg": 0.4421,
+"model1": {
+"g1": 0.8494,
+"g2": 0.7759,
+"g3": 0.4028,
+"g4": 0.4421
+},
+"model2": {
+"g1": 0.7989,
+"g2": 0.8264,
+"g3": 0.4028,
+"g4": 0.4421
+}
+},
+"411": {
+"sp": [
+{
+"name": "Collin Bosley-Smith",
+"pit": 0.8804,
+"fallback": false
+},
+{
+"name": "Alexander Llinas",
+"pit": 0.8241,
+"fallback": false
+},
+{
+"name": "Jace Trautner",
+"pit": 0.3559,
+"fallback": false
+}
+],
+"avg": 0.4925,
+"model1": {
+"g1": 0.8261,
+"g2": 0.7774,
+"g3": 0.4596,
+"g4": 0.4925
+},
+"model2": {
+"g1": 0.7885,
+"g2": 0.8149,
+"g3": 0.4596,
+"g4": 0.4925
+}
+},
+"412": {
+"sp": [
+{
+"name": "Brannon Westmoreland",
+"pit": 0.9678,
+"fallback": false
+},
+{
+"name": "Brigden Parker",
+"pit": 0.8843,
+"fallback": false
+},
+{
+"name": "Nic Bronzini",
+"pit": 0.8016,
+"fallback": false
+}
+],
+"avg": 0.5021,
+"model1": {
+"g1": 0.9112,
+"g2": 0.8244,
+"g3": 0.757,
+"g4": 0.5021
+},
+"model2": {
+"g1": 0.8556,
+"g2": 0.8801,
+"g3": 0.757,
+"g4": 0.5021
+}
+},
+"416": {
+"sp": [
+{
+"name": "Luke Howe",
+"pit": 0.8755,
+"fallback": false
+},
+{
+"name": "Jason Gerfers",
+"pit": 0.8601,
+"fallback": false
+},
+{
+"name": "Ka'imi Kahalekai",
+"pit": 0.3799,
+"fallback": false
+}
+],
+"avg": 0.5974,
+"model1": {
+"g1": 0.8393,
+"g2": 0.8122,
+"g3": 0.486,
+"g4": 0.5974
+},
+"model2": {
+"g1": 0.829,
+"g2": 0.8224,
+"g3": 0.486,
+"g4": 0.5974
+}
+},
+"417": {
+"sp": [
+{
+"name": "Jaxon Lloyd",
+"pit": 0.8954,
+"fallback": false
+},
+{
+"name": "Joe Castrichini",
+"pit": 0.2697,
+"fallback": false
+},
+{
+"name": "Brady Hoover",
+"pit": 0.2417,
+"fallback": false
+}
+],
+"avg": 0.4053,
+"model1": {
+"g1": 0.8341,
+"g2": 0.394,
+"g3": 0.3643,
+"g4": 0.4053
+},
+"model2": {
+"g1": 0.4169,
+"g2": 0.8111,
+"g3": 0.3643,
+"g4": 0.4053
+}
+},
+"419": {
+"sp": [
+{
+"name": "Cody Brasch",
+"pit": 0.9857,
+"fallback": false
+},
+{
+"name": "Andrew Herrmann",
+"pit": 0.9818,
+"fallback": false
+},
+{
+"name": "Ty Roman",
+"pit": 0.9164,
+"fallback": false
+}
+],
+"avg": 0.7397,
+"model1": {
+"g1": 0.9395,
+"g2": 0.9225,
+"g3": 0.8669,
+"g4": 0.7397
+},
+"model2": {
+"g1": 0.9369,
+"g2": 0.9251,
+"g3": 0.8669,
+"g4": 0.7397
+}
+},
+"420": {
+"sp": [
+{
+"name": "Declan Dahl",
+"pit": 0.9894,
+"fallback": false
+},
+{
+"name": "Hudson Rowan",
+"pit": 0.9648,
+"fallback": false
+},
+{
+"name": "Landon Fontenot",
+"pit": 0.8151,
+"fallback": false
+}
+],
+"avg": 0.6449,
+"model1": {
+"g1": 0.9565,
+"g2": 0.9206,
+"g3": 0.8073,
+"g4": 0.6449
+},
+"model2": {
+"g1": 0.9401,
+"g2": 0.937,
+"g3": 0.8073,
+"g4": 0.6449
+}
+},
+"421": {
+"sp": [
+{
+"name": "Wyatt Danilowicz",
+"pit": 0.9756,
+"fallback": false
+},
+{
+"name": "Ethan Eberle",
+"pit": 0.9236,
+"fallback": false
+},
+{
+"name": "Colton Hartman",
+"pit": 0.7346,
+"fallback": false
+}
+],
+"avg": 0.5686,
+"model1": {
+"g1": 0.925,
+"g2": 0.876,
+"g3": 0.7411,
+"g4": 0.5686
+},
+"model2": {
+"g1": 0.8903,
+"g2": 0.9106,
+"g3": 0.7411,
+"g4": 0.5686
+}
+},
+"429": {
+"sp": [
+{
+"name": "Vaun Larisa",
+"pit": 0.6805,
+"fallback": false
+},
+{
+"name": "Jason Krieger",
+"pit": 0.3449,
+"fallback": false
+},
+{
+"name": "Gianni Gambradella",
+"pit": 0.0993,
+"fallback": false
+}
+],
+"avg": 0.42,
+"model1": {
+"g1": 0.6734,
+"g2": 0.4212,
+"g3": 0.2482,
+"g4": 0.42
+},
+"model2": {
+"g1": 0.4497,
+"g2": 0.6449,
+"g3": 0.2482,
+"g4": 0.42
+}
+},
+"432": {
+"sp": [
+{
+"name": "Hudson Pergamit",
+"pit": 0.444,
+"fallback": false
+},
+{
+"name": "Trey Packen",
+"pit": 0.1903,
+"fallback": false
+},
+{
+"name": "Jackson Klein",
+"pit": 0.0156,
+"fallback": false
+}
+],
+"avg": 0.2133,
+"model1": {
+"g1": 0.4206,
+"g2": 0.2355,
+"g3": 0.1141,
+"g4": 0.2133
+},
+"model2": {
+"g1": 0.2514,
+"g2": 0.4047,
+"g3": 0.1141,
+"g4": 0.2133
+}
+},
+"438": {
+"sp": [
+{
+"name": "Caleb Kempler",
+"pit": 0.7796,
+"fallback": false
+},
+{
+"name": "Tyler Hartley",
+"pit": 0.3471,
+"fallback": false
+},
+{
+"name": "Steven Mazza",
+"pit": 0.0399,
+"fallback": false
+}
+],
+"avg": 0.3458,
+"model1": {
+"g1": 0.7044,
+"g2": 0.3975,
+"g3": 0.1856,
+"g4": 0.3458
+},
+"model2": {
+"g1": 0.4161,
+"g2": 0.6859,
+"g3": 0.1856,
+"g4": 0.3458
+}
+},
+"440": {
+"sp": [
+{
+"name": "Bryce Blevins",
+"pit": 0.9638,
+"fallback": false
+},
+{
+"name": "Andrew Harlow",
+"pit": 0.9586,
+"fallback": false
+},
+{
+"name": "Kenyon Collins",
+"pit": 0.9519,
+"fallback": false
+}
+],
+"avg": 0.5246,
+"model1": {
+"g1": 0.8814,
+"g2": 0.8357,
+"g3": 0.8182,
+"g4": 0.5246
+},
+"model2": {
+"g1": 0.8779,
+"g2": 0.8391,
+"g3": 0.8182,
+"g4": 0.5246
+}
+},
+"446": {
+"sp": [
+{
+"name": "Logan Hastings",
+"pit": 0.9422,
+"fallback": false
+},
+{
+"name": "Cristofer Cespedes",
+"pit": 0.9265,
+"fallback": false
+},
+{
+"name": "Brayden Ryan",
+"pit": 0.4696,
+"fallback": false
+}
+],
+"avg": 0.5349,
+"model1": {
+"g1": 0.8932,
+"g2": 0.8487,
+"g3": 0.5251,
+"g4": 0.5349
+},
+"model2": {
+"g1": 0.8827,
+"g2": 0.8591,
+"g3": 0.5251,
+"g4": 0.5349
+}
+},
+"452": {
+"sp": [
+{
+"name": "Callen Powers",
+"pit": 0.9181,
+"fallback": false
+},
+{
+"name": "Adam Merritt",
+"pit": 0.8175,
+"fallback": false
+},
+{
+"name": "Sam Perry",
+"pit": 0.77,
+"fallback": false
+}
+],
+"avg": 0.352,
+"model1": {
+"g1": 0.75,
+"g2": 0.6653,
+"g3": 0.6272,
+"g4": 0.352
+},
+"model2": {
+"g1": 0.6829,
+"g2": 0.7323,
+"g3": 0.6272,
+"g4": 0.352
+}
+},
+"457": {
+"sp": [
+{
+"name": "Eric Nachtsheim",
+"pit": 0.9943,
+"fallback": false
+},
+{
+"name": "Cooper Golden",
+"pit": 0.7962,
+"fallback": false
+},
+{
+"name": "Carlos Garcia",
+"pit": 0.5955,
+"fallback": false
+}
+],
+"avg": 0.6264,
+"model1": {
+"g1": 0.9115,
+"g2": 0.7703,
+"g3": 0.633,
+"g4": 0.6264
+},
+"model2": {
+"g1": 0.7794,
+"g2": 0.9024,
+"g3": 0.633,
+"g4": 0.6264
+}
+},
+"461": {
+"sp": [
+{
+"name": "David Case",
+"pit": 0.9259,
+"fallback": false
+},
+{
+"name": "Will Howell",
+"pit": 0.8505,
+"fallback": false
+},
+{
+"name": "Seth Garner",
+"pit": 0.7739,
+"fallback": false
+}
+],
+"avg": 0.5595,
+"model1": {
+"g1": 0.8544,
+"g2": 0.7951,
+"g3": 0.7397,
+"g4": 0.5595
+},
+"model2": {
+"g1": 0.8041,
+"g2": 0.8454,
+"g3": 0.7397,
+"g4": 0.5595
+}
+},
+"462": {
+"sp": [
+{
+"name": "Garrett Lambert",
+"pit": 0.9812,
+"fallback": false
+},
+{
+"name": "Miguel Hugas",
+"pit": 0.7925,
+"fallback": false
+},
+{
+"name": "Jeb Johnson",
+"pit": 0.7506,
+"fallback": false
+}
+],
+"avg": 0.554,
+"model1": {
+"g1": 0.922,
+"g2": 0.7785,
+"g3": 0.7421,
+"g4": 0.554
+},
+"model2": {
+"g1": 0.7962,
+"g2": 0.9043,
+"g3": 0.7421,
+"g4": 0.554
+}
+},
+"465": {
+"sp": [
+{
+"name": "Matthew Delvaux",
+"pit": 0.6637,
+"fallback": false
+},
+{
+"name": "Andrew Malec",
+"pit": 0.5789,
+"fallback": false
+},
+{
+"name": "Nate Vargo",
+"pit": 0.5452,
+"fallback": false
+}
+],
+"avg": 0.285,
+"model1": {
+"g1": 0.5596,
+"g2": 0.4808,
+"g3": 0.4494,
+"g4": 0.285
+},
+"model2": {
+"g1": 0.5031,
+"g2": 0.5373,
+"g3": 0.4494,
+"g4": 0.285
+}
+},
+"466": {
+"sp": [
+{
+"name": "Nick Hunklee",
+"pit": 0.7839,
+"fallback": false
+},
+{
+"name": "Colby Barker",
+"pit": 0.3836,
+"fallback": false
+},
+{
+"name": "James Borsari",
+"pit": 0.0348,
+"fallback": false
+}
+],
+"avg": 0.2797,
+"model1": {
+"g1": 0.6906,
+"g2": 0.4014,
+"g3": 0.1575,
+"g4": 0.2797
+},
+"model2": {
+"g1": 0.4238,
+"g2": 0.6683,
+"g3": 0.1575,
+"g4": 0.2797
+}
+},
+"469": {
+"sp": [
+{
+"name": "Rob Evans",
+"pit": 0.992,
+"fallback": false
+},
+{
+"name": "AJ Ciscar",
+"pit": 0.9681,
+"fallback": false
+},
+{
+"name": "Lazaro Collera",
+"pit": 0.9343,
+"fallback": false
+}
+],
+"avg": 0.7477,
+"model1": {
+"g1": 0.9561,
+"g2": 0.9234,
+"g3": 0.8926,
+"g4": 0.7477
+},
+"model2": {
+"g1": 0.9402,
+"g2": 0.9394,
+"g3": 0.8926,
+"g4": 0.7477
+}
+},
+"470": {
+"sp": [
+{
+"name": "Clayton Burke",
+"pit": 0.7932,
+"fallback": false
+},
+{
+"name": "Zac Sohosky",
+"pit": 0.6652,
+"fallback": false
+},
+{
+"name": "Troy Benko",
+"pit": 0.1198,
+"fallback": false
+}
+],
+"avg": 0.4467,
+"model1": {
+"g1": 0.7447,
+"g2": 0.6325,
+"g3": 0.2602,
+"g4": 0.4467
+},
+"model2": {
+"g1": 0.6593,
+"g2": 0.7179,
+"g3": 0.2602,
+"g4": 0.4467
+}
+},
+"471": {
+"sp": [
+{
+"name": "Kurt Barr",
+"pit": 0.9869,
+"fallback": false
+},
+{
+"name": "Shane Brinham",
+"pit": 0.9134,
+"fallback": false
+},
+{
+"name": "David Lally Jr.",
+"pit": 0.8882,
+"fallback": false
+}
+],
+"avg": 0.6538,
+"model1": {
+"g1": 0.922,
+"g2": 0.8617,
+"g3": 0.8388,
+"g4": 0.6538
+},
+"model2": {
+"g1": 0.873,
+"g2": 0.9107,
+"g3": 0.8388,
+"g4": 0.6538
+}
+},
+"472": {
+"sp": [
+{
+"name": "Aidan Donovan",
+"pit": 0.9394,
+"fallback": false
+},
+{
+"name": "Carter Monke",
+"pit": 0.7731,
+"fallback": false
+},
+{
+"name": "JD Greeley",
+"pit": 0.7358,
+"fallback": false
+}
+],
+"avg": 0.6496,
+"model1": {
+"g1": 0.91,
+"g2": 0.7732,
+"g3": 0.7383,
+"g4": 0.6496
+},
+"model2": {
+"g1": 0.7991,
+"g2": 0.8841,
+"g3": 0.7383,
+"g4": 0.6496
+}
+},
+"473": {
+"sp": [
+{
+"name": "David Horn Jr.",
+"pit": 0.9384,
+"fallback": false
+},
+{
+"name": "Cole Torbett",
+"pit": 0.7721,
+"fallback": false
+},
+{
+"name": "Chandler Alderman",
+"pit": 0.5982,
+"fallback": false
+}
+],
+"avg": 0.6475,
+"model1": {
+"g1": 0.9175,
+"g2": 0.796,
+"g3": 0.6673,
+"g4": 0.6475
+},
+"model2": {
+"g1": 0.8066,
+"g2": 0.9069,
+"g3": 0.6673,
+"g4": 0.6475
+}
+},
+"479": {
+"sp": [
+{
+"name": "Aric Ehmke",
+"pit": 0.8372,
+"fallback": false
+},
+{
+"name": "Riley Peterson",
+"pit": 0.8145,
+"fallback": false
+},
+{
+"name": "Gavin Theis",
+"pit": 0.6848,
+"fallback": false
+}
+],
+"avg": 0.3778,
+"model1": {
+"g1": 0.7289,
+"g2": 0.6882,
+"g3": 0.5923,
+"g4": 0.3778
+},
+"model2": {
+"g1": 0.7137,
+"g2": 0.7033,
+"g3": 0.5923,
+"g4": 0.3778
+}
+},
+"483": {
+"sp": [
+{
+"name": "Isaac Morton",
+"pit": 0.9527,
+"fallback": false
+},
+{
+"name": "Marcus Kruzan",
+"pit": 0.9439,
+"fallback": false
+},
+{
+"name": "Cole Selvig",
+"pit": 0.9375,
+"fallback": false
+}
+],
+"avg": 0.6513,
+"model1": {
+"g1": 0.921,
+"g2": 0.903,
+"g3": 0.8912,
+"g4": 0.6513
+},
+"model2": {
+"g1": 0.9151,
+"g2": 0.9089,
+"g3": 0.8912,
+"g4": 0.6513
+}
+},
+"488": {
+"sp": [
+{
+"name": "Tomas Valincius",
+"pit": 0.9998,
+"fallback": false
+},
+{
+"name": "Duke Stone",
+"pit": 0.9883,
+"fallback": false
+},
+{
+"name": "Charlie Foster",
+"pit": 0.9218,
+"fallback": false
+}
+],
+"avg": 0.8162,
+"model1": {
+"g1": 0.9762,
+"g2": 0.9637,
+"g3": 0.917,
+"g4": 0.8162
+},
+"model2": {
+"g1": 0.9685,
+"g2": 0.9713,
+"g3": 0.917,
+"g4": 0.8162
+}
+},
+"489": {
+"sp": [
+{
+"name": "Daniel Scott",
+"pit": 0.1599,
+"fallback": false
+},
+{
+"name": "Luke Richard",
+"pit": 0.0023,
+"fallback": false
+},
+{
+"name": "Logan Darnell",
+"pit": 0.0014,
+"fallback": false
+}
+],
+"avg": 0.1147,
+"model1": {
+"g1": 0.203,
+"g2": 0.0909,
+"g3": 0.0838,
+"g4": 0.1147
+},
+"model2": {
+"g1": 0.0979,
+"g2": 0.1959,
+"g3": 0.0838,
+"g4": 0.1147
+}
+},
+"490": {
+"sp": [
+{
+"name": "Josh McDevitt",
+"pit": 0.9873,
+"fallback": false
+},
+{
+"name": "Brady Kehlenbrink",
+"pit": 0.983,
+"fallback": false
+},
+{
+"name": "Keyler Gonzalez",
+"pit": 0.8964,
+"fallback": false
+}
+],
+"avg": 0.6725,
+"model1": {
+"g1": 0.9311,
+"g2": 0.923,
+"g3": 0.8618,
+"g4": 0.6725
+},
+"model2": {
+"g1": 0.9282,
+"g2": 0.9259,
+"g3": 0.8618,
+"g4": 0.6725
+}
+},
+"492": {
+"sp": [
+{
+"name": "Brock Lucas",
+"pit": 0.8863,
+"fallback": false
+},
+{
+"name": "Owen Slater",
+"pit": 0.8353,
+"fallback": false
+},
+{
+"name": "Jason Schaaf",
+"pit": 0.4319,
+"fallback": false
+}
+],
+"avg": 0.6833,
+"model1": {
+"g1": 0.8874,
+"g2": 0.8446,
+"g3": 0.5686,
+"g4": 0.6833
+},
+"model2": {
+"g1": 0.8535,
+"g2": 0.8786,
+"g3": 0.5686,
+"g4": 0.6833
+}
+},
+"499": {
+"sp": [
+{
+"name": "Alec Couture",
+"pit": 0.8878,
+"fallback": false
+},
+{
+"name": "Ryan Mealy",
+"pit": 0.6621,
+"fallback": false
+},
+{
+"name": "Brendan Kenneally",
+"pit": 0.4804,
+"fallback": false
+}
+],
+"avg": 0.4643,
+"model1": {
+"g1": 0.8077,
+"g2": 0.636,
+"g3": 0.5071,
+"g4": 0.4643
+},
+"model2": {
+"g1": 0.6573,
+"g2": 0.7865,
+"g3": 0.5071,
+"g4": 0.4643
+}
+},
+"505": {
+"sp": [
+{
+"name": "Landon Waugh",
+"pit": 0.5992,
+"fallback": false
+},
+{
+"name": "Callum McGill",
+"pit": 0.4462,
+"fallback": false
+},
+{
+"name": "Connor Davis",
+"pit": 0.0928,
+"fallback": false
+}
+],
+"avg": 0.2612,
+"model1": {
+"g1": 0.5652,
+"g2": 0.4275,
+"g3": 0.1801,
+"g4": 0.2612
+},
+"model2": {
+"g1": 0.4632,
+"g2": 0.5295,
+"g3": 0.1801,
+"g4": 0.2612
+}
+},
+"509": {
+"sp": [
+{
+"name": "Serigne Sarre",
+"pit": 0.8994,
+"fallback": false
+},
+{
+"name": "Eli DeRossi-Cytron",
+"pit": 0.42,
+"fallback": false
+},
+{
+"name": "Jakob Foster",
+"pit": 0.2388,
+"fallback": false
+}
+],
+"avg": 0.3453,
+"model1": {
+"g1": 0.8029,
+"g2": 0.4481,
+"g3": 0.3112,
+"g4": 0.3453
+},
+"model2": {
+"g1": 0.4834,
+"g2": 0.7677,
+"g3": 0.3112,
+"g4": 0.3453
+}
+},
+"516": {
+"sp": [
+{
+"name": "Nic Schutte",
+"pit": 0.9744,
+"fallback": false
+},
+{
+"name": "Jacob Hustedde",
+"pit": 0.9537,
+"fallback": false
+},
+{
+"name": "Drew Deremer",
+"pit": 0.5204,
+"fallback": true
+}
+],
+"avg": 0.5204,
+"model1": {
+"g1": 0.9085,
+"g2": 0.8801,
+"g3": 0.5811,
+"g4": 0.5204
+},
+"model2": {
+"g1": 0.8947,
+"g2": 0.8939,
+"g3": 0.5811,
+"g4": 0.5204
+}
+},
+"519": {
+"sp": [
+{
+"name": "Angel Ortiz",
+"pit": 0.7211,
+"fallback": false
+},
+{
+"name": "Agyei Quinichett",
+"pit": 0.702,
+"fallback": false
+},
+{
+"name": "Gavin Sentell",
+"pit": 0.2638,
+"fallback": false
+}
+],
+"avg": 0.5003,
+"model1": {
+"g1": 0.7172,
+"g2": 0.6828,
+"g3": 0.3811,
+"g4": 0.5003
+},
+"model2": {
+"g1": 0.7045,
+"g2": 0.6955,
+"g3": 0.3811,
+"g4": 0.5003
+}
+},
+"523": {
+"sp": [
+{
+"name": "Cooper Consiglio",
+"pit": 0.9939,
+"fallback": false
+},
+{
+"name": "Heath Andrews",
+"pit": 0.8822,
+"fallback": false
+},
+{
+"name": "Luke Hemric",
+"pit": 0.8597,
+"fallback": false
+}
+],
+"avg": 0.743,
+"model1": {
+"g1": 0.9744,
+"g2": 0.8883,
+"g3": 0.8671,
+"g4": 0.743
+},
+"model2": {
+"g1": 0.8999,
+"g2": 0.9628,
+"g3": 0.8671,
+"g4": 0.743
+}
+},
+"539": {
+"sp": [
+{
+"name": "Max Vaisvilla",
+"pit": 0.8927,
+"fallback": false
+},
+{
+"name": "Carter Cox",
+"pit": 0.8102,
+"fallback": false
+},
+{
+"name": "Danny Cihocki",
+"pit": 0.8026,
+"fallback": false
+}
+],
+"avg": 0.4473,
+"model1": {
+"g1": 0.7912,
+"g2": 0.7099,
+"g3": 0.6937,
+"g4": 0.4473
+},
+"model2": {
+"g1": 0.7362,
+"g2": 0.7649,
+"g3": 0.6937,
+"g4": 0.4473
+}
+},
+"540": {
+"sp": [
+{
+"name": "Mark Scamardella",
+"pit": 0.8587,
+"fallback": false
+},
+{
+"name": "Brandon Peterson",
+"pit": 0.6465,
+"fallback": false
+},
+{
+"name": "Josh Willitts",
+"pit": 0.5966,
+"fallback": false
+}
+],
+"avg": 0.3889,
+"model1": {
+"g1": 0.7312,
+"g2": 0.5663,
+"g3": 0.5261,
+"g4": 0.3889
+},
+"model2": {
+"g1": 0.5898,
+"g2": 0.7078,
+"g3": 0.5261,
+"g4": 0.3889
+}
+},
+"522": {
+"sp": [
+{
+"name": "Matt Archibald",
+"pit": 0.9865,
+"fallback": false
+},
+{
+"name": "Brady Bendik",
+"pit": 0.959,
+"fallback": false
+},
+{
+"name": "Owen Phypers",
+"pit": 0.3621,
+"fallback": false
+}
+],
+"avg": 0.5109,
+"model1": {
+"g1": 0.8857,
+"g2": 0.8442,
+"g3": 0.4356,
+"g4": 0.5109
+},
+"model2": {
+"g1": 0.8674,
+"g2": 0.8625,
+"g3": 0.4356,
+"g4": 0.5109
+}
+},
+"525": {
+"sp": [
+{
+"name": "Carson Jasa",
+"pit": 0.9975,
+"fallback": false
+},
+{
+"name": "Gavin Blachowicz",
+"pit": 0.9689,
+"fallback": false
+},
+{
+"name": "Cooper Katskee",
+"pit": 0.9263,
+"fallback": false
+}
+],
+"avg": 0.6622,
+"model1": {
+"g1": 0.9381,
+"g2": 0.9019,
+"g3": 0.868,
+"g4": 0.6622
+},
+"model2": {
+"g1": 0.919,
+"g2": 0.921,
+"g3": 0.868,
+"g4": 0.6622
+}
+},
+"527": {
+"sp": [
+{
+"name": "Ryan Oakes",
+"pit": 0.7592,
+"fallback": false
+},
+{
+"name": "Alessandro Castro",
+"pit": 0.4847,
+"fallback": false
+},
+{
+"name": "Aidan Brainard",
+"pit": 0.317,
+"fallback": false
+}
+],
+"avg": 0.4348,
+"model1": {
+"g1": 0.7454,
+"g2": 0.546,
+"g3": 0.4262,
+"g4": 0.4348
+},
+"model2": {
+"g1": 0.5624,
+"g2": 0.729,
+"g3": 0.4262,
+"g4": 0.4348
+}
+},
+"529": {
+"sp": [
+{
+"name": "Maxwell Hilsenroth",
+"pit": 0.3635,
+"fallback": false
+},
+{
+"name": "Cole Gibson",
+"pit": 0.2865,
+"fallback": false
+},
+{
+"name": "James Reilly",
+"pit": 0.2419,
+"fallback": false
+}
+],
+"avg": 0.2693,
+"model1": {
+"g1": 0.3799,
+"g2": 0.3159,
+"g3": 0.2786,
+"g4": 0.2693
+},
+"model2": {
+"g1": 0.3286,
+"g2": 0.3673,
+"g3": 0.2786,
+"g4": 0.2693
+}
+},
+"531": {
+"sp": [
+{
+"name": "Ryan Castillo",
+"pit": 0.9552,
+"fallback": false
+},
+{
+"name": "Cristian Mogen",
+"pit": 0.5454,
+"fallback": false
+},
+{
+"name": "Diego Alvarez",
+"pit": 0.0256,
+"fallback": false
+}
+],
+"avg": 0.3827,
+"model1": {
+"g1": 0.8416,
+"g2": 0.5442,
+"g3": 0.188,
+"g4": 0.3827
+},
+"model2": {
+"g1": 0.5684,
+"g2": 0.8174,
+"g3": 0.188,
+"g4": 0.3827
+}
+},
+"532": {
+"sp": [
+{
+"name": "Jack Turner",
+"pit": 0.9345,
+"fallback": false
+},
+{
+"name": "Connor Wylde",
+"pit": 0.8081,
+"fallback": false
+},
+{
+"name": "JT Price",
+"pit": 0.7497,
+"fallback": false
+}
+],
+"avg": 0.5572,
+"model1": {
+"g1": 0.8844,
+"g2": 0.7789,
+"g3": 0.7324,
+"g4": 0.5572
+},
+"model2": {
+"g1": 0.8001,
+"g2": 0.8632,
+"g3": 0.7324,
+"g4": 0.5572
+}
+},
+"533": {
+"sp": [
+{
+"name": "Riley Marcotte",
+"pit": 0.589,
+"fallback": false
+},
+{
+"name": "Reid Leonard",
+"pit": 0.3023,
+"fallback": false
+},
+{
+"name": "Bryson Goff",
+"pit": 0.0915,
+"fallback": false
+}
+],
+"avg": 0.4229,
+"model1": {
+"g1": 0.6372,
+"g2": 0.4288,
+"g3": 0.2775,
+"g4": 0.4229
+},
+"model2": {
+"g1": 0.4461,
+"g2": 0.6199,
+"g3": 0.2775,
+"g4": 0.4229
+}
+},
+"536": {
+"sp": [
+{
+"name": "Nate Bennett",
+"pit": 0.7475,
+"fallback": false
+},
+{
+"name": "Gage Wheaton",
+"pit": 0.7284,
+"fallback": false
+},
+{
+"name": "Reuben Malamed",
+"pit": 0.3402,
+"fallback": false
+}
+],
+"avg": 0.4689,
+"model1": {
+"g1": 0.729,
+"g2": 0.6858,
+"g3": 0.4179,
+"g4": 0.4689
+},
+"model2": {
+"g1": 0.7163,
+"g2": 0.6986,
+"g3": 0.4179,
+"g4": 0.4689
+}
+},
+"537": {
+"sp": [
+{
+"name": "Haden Luke",
+"pit": 0.9246,
+"fallback": false
+},
+{
+"name": "Dawson Richard",
+"pit": 0.822,
+"fallback": false
+},
+{
+"name": "Nuno Parache",
+"pit": 0.8126,
+"fallback": false
+}
+],
+"avg": 0.486,
+"model1": {
+"g1": 0.8508,
+"g2": 0.7657,
+"g3": 0.7515,
+"g4": 0.486
+},
+"model2": {
+"g1": 0.7824,
+"g2": 0.8341,
+"g3": 0.7515,
+"g4": 0.486
+}
+},
+"541": {
+"sp": [
+{
+"name": "Ethan Blakeney",
+"pit": 0.7207,
+"fallback": false
+},
+{
+"name": "Parker Hampton",
+"pit": 0.1219,
+"fallback": false
+},
+{
+"name": "Walker Fuller",
+"pit": 0.0141,
+"fallback": false
+}
+],
+"avg": 0.2062,
+"model1": {
+"g1": 0.5959,
+"g2": 0.1836,
+"g3": 0.104,
+"g4": 0.2062
+},
+"model2": {
+"g1": 0.1967,
+"g2": 0.5828,
+"g3": 0.104,
+"g4": 0.2062
+}
+},
+"542": {
+"sp": [
+{
+"name": "Justus Agosto",
+"pit": 0.8356,
+"fallback": false
+},
+{
+"name": "Reese Young",
+"pit": 0.2951,
+"fallback": false
+},
+{
+"name": "Tripp Patterson",
+"pit": 0.2396,
+"fallback": false
+}
+],
+"avg": 0.504,
+"model1": {
+"g1": 0.7975,
+"g2": 0.419,
+"g3": 0.3765,
+"g4": 0.504
+},
+"model2": {
+"g1": 0.4371,
+"g2": 0.7793,
+"g3": 0.3765,
+"g4": 0.504
+}
+},
+"543": {
+"sp": [
+{
+"name": "Jason DeCaro",
+"pit": 0.9797,
+"fallback": false
+},
+{
+"name": "Ryan Lynch",
+"pit": 0.9672,
+"fallback": false
+},
+{
+"name": "Folger Boaz",
+"pit": 0.8867,
+"fallback": false
+}
+],
+"avg": 0.7593,
+"model1": {
+"g1": 0.9518,
+"g2": 0.9188,
+"g3": 0.8564,
+"g4": 0.7593
+},
+"model2": {
+"g1": 0.9435,
+"g2": 0.9271,
+"g3": 0.8564,
+"g4": 0.7593
+}
+},
+"546": {
+"sp": [
+{
+"name": "Parker Puetz",
+"pit": 0.8007,
+"fallback": false
+},
+{
+"name": "Sheamus Ryan",
+"pit": 0.6213,
+"fallback": false
+},
+{
+"name": "Jonah Walker",
+"pit": 0.4686,
+"fallback": false
+}
+],
+"avg": 0.3344,
+"model1": {
+"g1": 0.6724,
+"g2": 0.5436,
+"g3": 0.4356,
+"g4": 0.3344
+},
+"model2": {
+"g1": 0.5528,
+"g2": 0.6632,
+"g3": 0.4356,
+"g4": 0.3344
+}
+},
+"547": {
+"sp": [
+{
+"name": "Dakota Stone",
+"pit": 0.9863,
+"fallback": false
+},
+{
+"name": "Trevor Nikolis",
+"pit": 0.8091,
+"fallback": false
+},
+{
+"name": "Ryan Furey",
+"pit": 0.5732,
+"fallback": false
+}
+],
+"avg": 0.5667,
+"model1": {
+"g1": 0.9172,
+"g2": 0.7825,
+"g3": 0.6139,
+"g4": 0.5667
+},
+"model2": {
+"g1": 0.799,
+"g2": 0.9006,
+"g3": 0.6139,
+"g4": 0.5667
+}
+},
+"551": {
+"sp": [
+{
+"name": "Luc Rising",
+"pit": 0.9844,
+"fallback": false
+},
+{
+"name": "Robbie O'Connor",
+"pit": 0.9502,
+"fallback": false
+},
+{
+"name": "Ryan Griffin",
+"pit": 0.8665,
+"fallback": false
+}
+],
+"avg": 0.6009,
+"model1": {
+"g1": 0.9286,
+"g2": 0.8831,
+"g3": 0.8205,
+"g4": 0.6009
+},
+"model2": {
+"g1": 0.9058,
+"g2": 0.9059,
+"g3": 0.8205,
+"g4": 0.6009
+}
+},
+"553": {
+"sp": [
+{
+"name": "Reece Wagner",
+"pit": 0.6756,
+"fallback": false
+},
+{
+"name": "Jake Storey",
+"pit": 0.3735,
+"fallback": false
+},
+{
+"name": "Trevor Landen",
+"pit": 0.019,
+"fallback": false
+}
+],
+"avg": 0.2095,
+"model1": {
+"g1": 0.5739,
+"g2": 0.3545,
+"g3": 0.1105,
+"g4": 0.2095
+},
+"model2": {
+"g1": 0.3725,
+"g2": 0.5559,
+"g3": 0.1105,
+"g4": 0.2095
+}
+},
+"554": {
+"sp": [
+{
+"name": "EJ Miramontes",
+"pit": 0.716,
+"fallback": false
+},
+{
+"name": "Cody Little",
+"pit": 0.0231,
+"fallback": false
+},
+{
+"name": "Logan Wilson",
+"pit": 0.0207,
+"fallback": false
+}
+],
+"avg": 0.2683,
+"model1": {
+"g1": 0.6629,
+"g2": 0.1775,
+"g3": 0.1678,
+"g4": 0.2683
+},
+"model2": {
+"g1": 0.201,
+"g2": 0.6394,
+"g3": 0.1678,
+"g4": 0.2683
+}
+},
+"559": {
+"sp": [
+{
+"name": "Matthew Kouser",
+"pit": 0.9193,
+"fallback": false
+},
+{
+"name": "Ryan Weaver",
+"pit": 0.8902,
+"fallback": false
+},
+{
+"name": "Sam Hliboki",
+"pit": 0.574,
+"fallback": false
+}
+],
+"avg": 0.5317,
+"model1": {
+"g1": 0.8512,
+"g2": 0.8098,
+"g3": 0.5826,
+"g4": 0.5317
+},
+"model2": {
+"g1": 0.8318,
+"g2": 0.8292,
+"g3": 0.5826,
+"g4": 0.5317
+}
+},
+"561": {
+"sp": [
+{
+"name": "Dylan Marionneaux",
+"pit": 0.9613,
+"fallback": false
+},
+{
+"name": "Trent Hillen",
+"pit": 0.8906,
+"fallback": false
+},
+{
+"name": "Kevin Robinson",
+"pit": 0.7571,
+"fallback": false
+}
+],
+"avg": 0.5802,
+"model1": {
+"g1": 0.8789,
+"g2": 0.8135,
+"g3": 0.7149,
+"g4": 0.5802
+},
+"model2": {
+"g1": 0.8318,
+"g2": 0.8606,
+"g3": 0.7149,
+"g4": 0.5802
+}
+},
+"565": {
+"sp": [
+{
+"name": "Jack Radel",
+"pit": 0.9973,
+"fallback": false
+},
+{
+"name": "Dylan Singleton",
+"pit": 0.821,
+"fallback": false
+},
+{
+"name": "DJ Helwig",
+"pit": 0.3092,
+"fallback": false
+}
+],
+"avg": 0.7215,
+"model1": {
+"g1": 0.9644,
+"g2": 0.8372,
+"g3": 0.4891,
+"g4": 0.7215
+},
+"model2": {
+"g1": 0.8469,
+"g2": 0.9547,
+"g3": 0.4891,
+"g4": 0.7215
+}
+},
+"569": {
+"sp": [
+{
+"name": "Josh Rosenblitt",
+"pit": 0.3295,
+"fallback": false
+},
+{
+"name": "Ben Green",
+"pit": 0.2328,
+"fallback": false
+},
+{
+"name": "Ethan Glassman",
+"pit": 0.0188,
+"fallback": false
+}
+],
+"avg": 0.2454,
+"model1": {
+"g1": 0.3605,
+"g2": 0.2846,
+"g3": 0.137,
+"g4": 0.2454
+},
+"model2": {
+"g1": 0.2961,
+"g2": 0.3491,
+"g3": 0.137,
+"g4": 0.2454
+}
+},
+"573": {
+"sp": [
+{
+"name": "Evan Lichtenauer",
+"pit": 0.1356,
+"fallback": false
+},
+{
+"name": "Hunter Winston",
+"pit": 0.1112,
+"fallback": false
+},
+{
+"name": "Mason Gass",
+"pit": 0.0137,
+"fallback": false
+}
+],
+"avg": 0.1667,
+"model1": {
+"g1": 0.2237,
+"g2": 0.1885,
+"g3": 0.1164,
+"g4": 0.1667
+},
+"model2": {
+"g1": 0.2074,
+"g2": 0.2047,
+"g3": 0.1164,
+"g4": 0.1667
+}
+},
+"576": {
+"sp": [
+{
+"name": "Gavin Kuzniewski",
+"pit": 0.9605,
+"fallback": false
+},
+{
+"name": "Chris Domke",
+"pit": 0.9355,
+"fallback": false
+},
+{
+"name": "Pierce Herrenbruck",
+"pit": 0.9185,
+"fallback": false
+}
+],
+"avg": 0.6423,
+"model1": {
+"g1": 0.9154,
+"g2": 0.8809,
+"g3": 0.8616,
+"g4": 0.6423
+},
+"model2": {
+"g1": 0.8987,
+"g2": 0.8975,
+"g3": 0.8616,
+"g4": 0.6423
+}
+},
+"580": {
+"sp": [
+{
+"name": "LJ Mercurius",
+"pit": 0.9969,
+"fallback": false
+},
+{
+"name": "Cam Johnson",
+"pit": 0.9867,
+"fallback": false
+},
+{
+"name": "Cord Rager",
+"pit": 0.9549,
+"fallback": false
+}
+],
+"avg": 0.74,
+"model1": {
+"g1": 0.9646,
+"g2": 0.9485,
+"g3": 0.9233,
+"g4": 0.74
+},
+"model2": {
+"g1": 0.9578,
+"g2": 0.9553,
+"g3": 0.9233,
+"g4": 0.74
+}
+},
+"581": {
+"sp": [
+{
+"name": "Ethan Lund",
+"pit": 0.9922,
+"fallback": false
+},
+{
+"name": "Stormy Rhodes",
+"pit": 0.9652,
+"fallback": false
+},
+{
+"name": "Brennan Phillips",
+"pit": 0.5548,
+"fallback": false
+}
+],
+"avg": 0.673,
+"model1": {
+"g1": 0.9649,
+"g2": 0.9229,
+"g3": 0.6352,
+"g4": 0.673
+},
+"model2": {
+"g1": 0.9469,
+"g2": 0.9409,
+"g3": 0.6352,
+"g4": 0.673
+}
+},
+"582": {
+"sp": [
+{
+"name": "J.J. Gatti",
+"pit": 0.9463,
+"fallback": false
+},
+{
+"name": "Darin Kuskie",
+"pit": 0.9351,
+"fallback": false
+},
+{
+"name": "Jackson Okonkwo",
+"pit": 0.5822,
+"fallback": false
+}
+],
+"avg": 0.5609,
+"model1": {
+"g1": 0.9006,
+"g2": 0.8788,
+"g3": 0.6328,
+"g4": 0.5609
+},
+"model2": {
+"g1": 0.8932,
+"g2": 0.8863,
+"g3": 0.6328,
+"g4": 0.5609
+}
+},
+"584": {
+"sp": [
+{
+"name": "Cade Townsend",
+"pit": 0.9937,
+"fallback": false
+},
+{
+"name": "Hunter Elliott",
+"pit": 0.9898,
+"fallback": false
+},
+{
+"name": "Taylor Rabe",
+"pit": 0.9631,
+"fallback": false
+}
+],
+"avg": 0.7783,
+"model1": {
+"g1": 0.9759,
+"g2": 0.9637,
+"g3": 0.9352,
+"g4": 0.7783
+},
+"model2": {
+"g1": 0.9733,
+"g2": 0.9663,
+"g3": 0.9352,
+"g4": 0.7783
+}
+},
+"586": {
+"sp": [
+{
+"name": "Maddox Meyer",
+"pit": 0.3844,
+"fallback": false
+},
+{
+"name": "Michael Sall",
+"pit": 0.1626,
+"fallback": false
+},
+{
+"name": "Tanner Foerstch",
+"pit": 0.119,
+"fallback": false
+}
+],
+"avg": 0.2949,
+"model1": {
+"g1": 0.4323,
+"g2": 0.2709,
+"g3": 0.236,
+"g4": 0.2949
+},
+"model2": {
+"g1": 0.2845,
+"g2": 0.4188,
+"g3": 0.236,
+"g4": 0.2949
+}
+},
+"587": {
+"sp": [
+{
+"name": "Easton Teel",
+"pit": 0.7809,
+"fallback": false
+},
+{
+"name": "Jackson Farrell",
+"pit": 0.7633,
+"fallback": false
+},
+{
+"name": "Nathan Love",
+"pit": 0.2982,
+"fallback": false
+}
+],
+"avg": 0.3841,
+"model1": {
+"g1": 0.7348,
+"g2": 0.7002,
+"g3": 0.3764,
+"g4": 0.3841
+},
+"model2": {
+"g1": 0.723,
+"g2": 0.7119,
+"g3": 0.3764,
+"g4": 0.3841
+}
+},
+"588": {
+"sp": [
+{
+"name": "Will Sanford",
+"pit": 0.9912,
+"fallback": false
+},
+{
+"name": "Collin Clarke",
+"pit": 0.9656,
+"fallback": false
+},
+{
+"name": "Miles Gosztola",
+"pit": 0.887,
+"fallback": false
+}
+],
+"avg": 0.6653,
+"model1": {
+"g1": 0.9585,
+"g2": 0.9298,
+"g3": 0.864,
+"g4": 0.6653
+},
+"model2": {
+"g1": 0.9415,
+"g2": 0.9468,
+"g3": 0.864,
+"g4": 0.6653
+}
+},
+"589": {
+"sp": [
+{
+"name": "Ethan Kleinschmit",
+"pit": 0.9717,
+"fallback": false
+},
+{
+"name": "Eric Segura",
+"pit": 0.9701,
+"fallback": false
+},
+{
+"name": "Trey Morris",
+"pit": 0.9429,
+"fallback": false
+}
+],
+"avg": 0.7666,
+"model1": {
+"g1": 0.9622,
+"g2": 0.9425,
+"g3": 0.9114,
+"g4": 0.7666
+},
+"model2": {
+"g1": 0.9611,
+"g2": 0.9436,
+"g3": 0.9114,
+"g4": 0.7666
+}
+},
+"595": {
+"sp": [
+{
+"name": "Zach Todd",
+"pit": 0.9711,
+"fallback": false
+},
+{
+"name": "Garret Plata",
+"pit": 0.9697,
+"fallback": false
+},
+{
+"name": "Adan Perez",
+"pit": 0.5316,
+"fallback": false
+}
+],
+"avg": 0.4999,
+"model1": {
+"g1": 0.8969,
+"g2": 0.8672,
+"g3": 0.5623,
+"g4": 0.4999
+},
+"model2": {
+"g1": 0.8959,
+"g2": 0.8682,
+"g3": 0.5623,
+"g4": 0.4999
+}
+},
+"599": {
+"sp": [
+{
+"name": "Benjamin Moulin",
+"pit": 0.7551,
+"fallback": false
+},
+{
+"name": "Nicholas Newburn",
+"pit": 0.6928,
+"fallback": false
+},
+{
+"name": "Connor Darling",
+"pit": 0.6748,
+"fallback": false
+}
+],
+"avg": 0.5674,
+"model1": {
+"g1": 0.7741,
+"g2": 0.6983,
+"g3": 0.6665,
+"g4": 0.5674
+},
+"model2": {
+"g1": 0.7325,
+"g2": 0.7398,
+"g3": 0.6665,
+"g4": 0.5674
+}
+},
+"601": {
+"sp": [
+{
+"name": "Benjamin Hudson",
+"pit": 0.9447,
+"fallback": false
+},
+{
+"name": "Colin Fitzgerald",
+"pit": 0.8837,
+"fallback": false
+},
+{
+"name": "Isaiah Shayter",
+"pit": 0.6273,
+"fallback": false
+}
+],
+"avg": 0.6359,
+"model1": {
+"g1": 0.9106,
+"g2": 0.8459,
+"g3": 0.6627,
+"g4": 0.6359
+},
+"model2": {
+"g1": 0.8699,
+"g2": 0.8866,
+"g3": 0.6627,
+"g4": 0.6359
+}
+},
+"607": {
+"sp": [
+{
+"name": "Tommy Scavone",
+"pit": 0.9578,
+"fallback": false
+},
+{
+"name": "Casey Euper",
+"pit": 0.9525,
+"fallback": false
+},
+{
+"name": "Collin Valentine",
+"pit": 0.6947,
+"fallback": false
+}
+],
+"avg": 0.421,
+"model1": {
+"g1": 0.8498,
+"g2": 0.802,
+"g3": 0.6142,
+"g4": 0.421
+},
+"model2": {
+"g1": 0.8462,
+"g2": 0.8055,
+"g3": 0.6142,
+"g4": 0.421
+}
+},
+"614": {
+"sp": [
+{
+"name": "Drew Lafferty",
+"pit": 0.9154,
+"fallback": false
+},
+{
+"name": "Antonio Doganiero",
+"pit": 0.7915,
+"fallback": false
+},
+{
+"name": "Chase Kriebel",
+"pit": 0.692,
+"fallback": false
+}
+],
+"avg": 0.7737,
+"model1": {
+"g1": 0.9003,
+"g2": 0.8083,
+"g3": 0.7367,
+"g4": 0.7737
+},
+"model2": {
+"g1": 0.8177,
+"g2": 0.8909,
+"g3": 0.7367,
+"g4": 0.7737
+}
+},
+"619": {
+"sp": [
+{
+"name": "William Labonte",
+"pit": 0.9437,
+"fallback": false
+},
+{
+"name": "Trey Newmann",
+"pit": 0.8962,
+"fallback": false
+},
+{
+"name": "Kaden Segel",
+"pit": 0.744,
+"fallback": false
+}
+],
+"avg": 0.6302,
+"model1": {
+"g1": 0.8899,
+"g2": 0.8329,
+"g3": 0.7215,
+"g4": 0.6302
+},
+"model2": {
+"g1": 0.8582,
+"g2": 0.8646,
+"g3": 0.7215,
+"g4": 0.6302
+}
+},
+"621": {
+"sp": [
+{
+"name": "Oliver Brown",
+"pit": 0.1849,
+"fallback": false
+},
+{
+"name": "Kenneth Haynes",
+"pit": 0.059,
+"fallback": false
+},
+{
+"name": "Beau Beaty",
+"pit": 0.0281,
+"fallback": false
+}
+],
+"avg": 0.1536,
+"model1": {
+"g1": 0.2487,
+"g2": 0.1385,
+"g3": 0.1071,
+"g4": 0.1536
+},
+"model2": {
+"g1": 0.1647,
+"g2": 0.2224,
+"g3": 0.1071,
+"g4": 0.1536
+}
+},
+"622": {
+"sp": [
+{
+"name": "Tyrell Williams",
+"pit": 0.7391,
+"fallback": false
+},
+{
+"name": "Christian Charalambous",
+"pit": 0.3914,
+"fallback": false
+},
+{
+"name": "Tristan McGregor",
+"pit": 0.2734,
+"fallback": false
+}
+],
+"avg": 0.2473,
+"model1": {
+"g1": 0.6378,
+"g2": 0.3909,
+"g3": 0.3064,
+"g4": 0.2473
+},
+"model2": {
+"g1": 0.406,
+"g2": 0.6227,
+"g3": 0.3064,
+"g4": 0.2473
+}
+},
+"623": {
+"sp": [
+{
+"name": "Justin Kim",
+"pit": 0.913,
+"fallback": false
+},
+{
+"name": "Liam Kinneen",
+"pit": 0.8827,
+"fallback": false
+},
+{
+"name": "Elliot Eaton",
+"pit": 0.7033,
+"fallback": false
+}
+],
+"avg": 0.5625,
+"model1": {
+"g1": 0.8351,
+"g2": 0.7908,
+"g3": 0.654,
+"g4": 0.5625
+},
+"model2": {
+"g1": 0.815,
+"g2": 0.811,
+"g3": 0.654,
+"g4": 0.5625
+}
+},
+"627": {
+"sp": [
+{
+"name": "Zach Erdman",
+"pit": 0.8691,
+"fallback": false
+},
+{
+"name": "Cole Van Assen",
+"pit": 0.8638,
+"fallback": false
+},
+{
+"name": "Austin Klug",
+"pit": 0.846,
+"fallback": false
+}
+],
+"avg": 0.5576,
+"model1": {
+"g1": 0.8328,
+"g2": 0.8026,
+"g3": 0.7821,
+"g4": 0.5576
+},
+"model2": {
+"g1": 0.8293,
+"g2": 0.8061,
+"g3": 0.7821,
+"g4": 0.5576
+}
+},
+"630": {
+"sp": [
+{
+"name": "Joseph Ruller",
+"pit": 0.9511,
+"fallback": false
+},
+{
+"name": "Jake Young",
+"pit": 0.7131,
+"fallback": false
+},
+{
+"name": "Jackson Gowan",
+"pit": 0.4198,
+"fallback": false
+}
+],
+"avg": 0.4172,
+"model1": {
+"g1": 0.801,
+"g2": 0.6254,
+"g3": 0.4231,
+"g4": 0.4172
+},
+"model2": {
+"g1": 0.6423,
+"g2": 0.7841,
+"g3": 0.4231,
+"g4": 0.4172
+}
+},
+"633": {
+"sp": [
+{
+"name": "Andrew Rubayo",
+"pit": 0.9291,
+"fallback": false
+},
+{
+"name": "Jacob Belecky",
+"pit": 0.6545,
+"fallback": false
+},
+{
+"name": "Nick Balcom",
+"pit": 0.4757,
+"fallback": false
+}
+],
+"avg": 0.5209,
+"model1": {
+"g1": 0.8649,
+"g2": 0.6646,
+"g3": 0.5303,
+"g4": 0.5209
+},
+"model2": {
+"g1": 0.6818,
+"g2": 0.8477,
+"g3": 0.5303,
+"g4": 0.5209
+}
+},
+"634": {
+"sp": [
+{
+"name": "Raymond Ladd",
+"pit": 0.8165,
+"fallback": false
+},
+{
+"name": "Daniel Quintana",
+"pit": 0.7811,
+"fallback": false
+},
+{
+"name": "Matthew Lefevers",
+"pit": 0.3191,
+"fallback": false
+}
+],
+"avg": 0.4842,
+"model1": {
+"g1": 0.7754,
+"g2": 0.7362,
+"g3": 0.4208,
+"g4": 0.4842
+},
+"model2": {
+"g1": 0.7518,
+"g2": 0.7598,
+"g3": 0.4208,
+"g4": 0.4842
+}
+},
+"640": {
+"sp": [
+{
+"name": "Sam Houchens",
+"pit": 0.768,
+"fallback": false
+},
+{
+"name": "Evan Maloney",
+"pit": 0.7112,
+"fallback": false
+},
+{
+"name": "Jake Cullen",
+"pit": 0.5636,
+"fallback": false
+}
+],
+"avg": 0.5243,
+"model1": {
+"g1": 0.7689,
+"g2": 0.7024,
+"g3": 0.5944,
+"g4": 0.5243
+},
+"model2": {
+"g1": 0.731,
+"g2": 0.7403,
+"g3": 0.5944,
+"g4": 0.5243
+}
+},
+"643": {
+"sp": [
+{
+"name": "Ethan Sanders",
+"pit": 0.9339,
+"fallback": false
+},
+{
+"name": "Ryland Urbanczyk",
+"pit": 0.9201,
+"fallback": false
+},
+{
+"name": "Tanner Wiggins",
+"pit": 0.7373,
+"fallback": false
+}
+],
+"avg": 0.606,
+"model1": {
+"g1": 0.8962,
+"g2": 0.8634,
+"g3": 0.7327,
+"g4": 0.606
+},
+"model2": {
+"g1": 0.887,
+"g2": 0.8726,
+"g3": 0.7327,
+"g4": 0.606
+}
+},
+"644": {
+"sp": [
+{
+"name": "Chase Topolski",
+"pit": 0.9042,
+"fallback": false
+},
+{
+"name": "Joey Giordano",
+"pit": 0.8781,
+"fallback": false
+},
+{
+"name": "Jackson Hinchliffe",
+"pit": 0.6654,
+"fallback": false
+}
+],
+"avg": 0.4185,
+"model1": {
+"g1": 0.8073,
+"g2": 0.7705,
+"g3": 0.623,
+"g4": 0.4185
+},
+"model2": {
+"g1": 0.7899,
+"g2": 0.7879,
+"g3": 0.623,
+"g4": 0.4185
+}
+},
+"645": {
+"sp": [
+{
+"name": "PJ Craig",
+"pit": 0.7778,
+"fallback": false
+},
+{
+"name": "Kyle Batt",
+"pit": 0.0829,
+"fallback": false
+},
+{
+"name": "Clayton Poliey",
+"pit": 0.0109,
+"fallback": false
+}
+],
+"avg": 0.3547,
+"model1": {
+"g1": 0.7308,
+"g2": 0.2382,
+"g3": 0.1786,
+"g4": 0.3547
+},
+"model2": {
+"g1": 0.2675,
+"g2": 0.7015,
+"g3": 0.1786,
+"g4": 0.3547
+}
+},
+"660": {
+"sp": [
+{
+"name": "Vincent Borghese",
+"pit": 0.9801,
+"fallback": false
+},
+{
+"name": "Zack Konstantinovsky",
+"pit": 0.9453,
+"fallback": false
+},
+{
+"name": "Dallin Harrison",
+"pit": 0.7037,
+"fallback": false
+}
+],
+"avg": 0.6938,
+"model1": {
+"g1": 0.9308,
+"g2": 0.8965,
+"g3": 0.7269,
+"g4": 0.6938
+},
+"model2": {
+"g1": 0.9076,
+"g2": 0.9197,
+"g3": 0.7269,
+"g4": 0.6938
+}
+},
+"697": {
+"sp": [
+{
+"name": "Dylan Mulcahy",
+"pit": 0.8759,
+"fallback": false
+},
+{
+"name": "Cody Templeton",
+"pit": 0.8607,
+"fallback": false
+},
+{
+"name": "Gabriel LeBlanc",
+"pit": 0.2816,
+"fallback": false
+}
+],
+"avg": 0.3783,
+"model1": {
+"g1": 0.8019,
+"g2": 0.7589,
+"g3": 0.3597,
+"g4": 0.3783
+},
+"model2": {
+"g1": 0.7918,
+"g2": 0.7691,
+"g3": 0.3597,
+"g4": 0.3783
+}
+},
+"705": {
+"sp": [
+{
+"name": "Tim Teixeira",
+"pit": 0.965,
+"fallback": false
+},
+{
+"name": "Spencer Stearns",
+"pit": 0.9033,
+"fallback": false
+},
+{
+"name": "Jase Phillips",
+"pit": 0.7841,
+"fallback": false
+}
+],
+"avg": 0.5593,
+"model1": {
+"g1": 0.9277,
+"g2": 0.868,
+"g3": 0.7764,
+"g4": 0.5593
+},
+"model2": {
+"g1": 0.8866,
+"g2": 0.9092,
+"g3": 0.7764,
+"g4": 0.5593
+}
+},
+"663": {
+"sp": [
+{
+"name": "Ethan Lay",
+"pit": 0.9515,
+"fallback": false
+},
+{
+"name": "Kurt Marton",
+"pit": 0.8661,
+"fallback": false
+},
+{
+"name": "Carson Timothy",
+"pit": 0.72,
+"fallback": false
+}
+],
+"avg": 0.5817,
+"model1": {
+"g1": 0.8959,
+"g2": 0.8162,
+"g3": 0.7113,
+"g4": 0.5817
+},
+"model2": {
+"g1": 0.839,
+"g2": 0.8731,
+"g3": 0.7113,
+"g4": 0.5817
+}
+},
+"664": {
+"sp": [
+{
+"name": "Ryan Parker",
+"pit": 0.4845,
+"fallback": false
+},
+{
+"name": "Jake Friel",
+"pit": 0.3971,
+"fallback": false
+},
+{
+"name": "Bryan Matuschat",
+"pit": 0.0774,
+"fallback": false
+}
+],
+"avg": 0.2486,
+"model1": {
+"g1": 0.4617,
+"g2": 0.3863,
+"g3": 0.1637,
+"g4": 0.2486
+},
+"model2": {
+"g1": 0.4034,
+"g2": 0.4445,
+"g3": 0.1637,
+"g4": 0.2486
+}
+},
+"668": {
+"sp": [
+{
+"name": "Cole Fehrman",
+"pit": 0.9531,
+"fallback": false
+},
+{
+"name": "Duke McCarron",
+"pit": 0.6766,
+"fallback": false
+},
+{
+"name": "Luke Parise",
+"pit": 0.6529,
+"fallback": false
+}
+],
+"avg": 0.4824,
+"model1": {
+"g1": 0.9122,
+"g2": 0.6878,
+"g3": 0.6521,
+"g4": 0.4824
+},
+"model2": {
+"g1": 0.7279,
+"g2": 0.8722,
+"g3": 0.6521,
+"g4": 0.4824
+}
+},
+"670": {
+"sp": [
+{
+"name": "Ben Cherico",
+"pit": 0.914,
+"fallback": false
+},
+{
+"name": "Noah Andrunas",
+"pit": 0.7282,
+"fallback": false
+},
+{
+"name": "Loren Georger",
+"pit": 0.4983,
+"fallback": false
+}
+],
+"avg": 0.3979,
+"model1": {
+"g1": 0.8332,
+"g2": 0.6776,
+"g3": 0.5117,
+"g4": 0.3979
+},
+"model2": {
+"g1": 0.7093,
+"g2": 0.8015,
+"g3": 0.5117,
+"g4": 0.3979
+}
+},
+"672": {
+"sp": [
+{
+"name": "John Damozonio",
+"pit": 0.9664,
+"fallback": false
+},
+{
+"name": "Sam Kretsch",
+"pit": 0.9062,
+"fallback": false
+},
+{
+"name": "Jake Hilton",
+"pit": 0.855,
+"fallback": false
+}
+],
+"avg": 0.5894,
+"model1": {
+"g1": 0.8893,
+"g2": 0.8324,
+"g3": 0.7889,
+"g4": 0.5894
+},
+"model2": {
+"g1": 0.8491,
+"g2": 0.8726,
+"g3": 0.7889,
+"g4": 0.5894
+}
+},
+"675": {
+"sp": [
+{
+"name": "James Ellis",
+"pit": 0.0119,
+"fallback": false
+},
+{
+"name": "Marcus Monroe",
+"pit": 0.0049,
+"fallback": false
+},
+{
+"name": "Kurt Thomas",
+"pit": 0.002,
+"fallback": false
+}
+],
+"avg": 0.1657,
+"model1": {
+"g1": 0.1404,
+"g2": 0.121,
+"g3": 0.1098,
+"g4": 0.1657
+},
+"model2": {
+"g1": 0.1357,
+"g2": 0.1257,
+"g3": 0.1098,
+"g4": 0.1657
+}
+},
+"682": {
+"sp": [
+{
+"name": "Ryan Peterson",
+"pit": 0.9961,
+"fallback": false
+},
+{
+"name": "Tyler Ryden",
+"pit": 0.9099,
+"fallback": false
+},
+{
+"name": "Tate Hickman",
+"pit": 0.7385,
+"fallback": false
+}
+],
+"avg": 0.5461,
+"model1": {
+"g1": 0.9269,
+"g2": 0.8572,
+"g3": 0.7351,
+"g4": 0.5461
+},
+"model2": {
+"g1": 0.8694,
+"g2": 0.9147,
+"g3": 0.7351,
+"g4": 0.5461
+}
+},
+"683": {
+"sp": [
+{
+"name": "Joseph Lee",
+"pit": 0.9279,
+"fallback": false
+},
+{
+"name": "Mason Blasche",
+"pit": 0.8233,
+"fallback": false
+},
+{
+"name": "Noah Berry",
+"pit": 0.8202,
+"fallback": false
+}
+],
+"avg": 0.599,
+"model1": {
+"g1": 0.8884,
+"g2": 0.7979,
+"g3": 0.7889,
+"g4": 0.599
+},
+"model2": {
+"g1": 0.8186,
+"g2": 0.8676,
+"g3": 0.7889,
+"g4": 0.599
+}
+},
+"684": {
+"sp": [
+{
+"name": "Diego Gutierrez",
+"pit": 0.9513,
+"fallback": false
+},
+{
+"name": "Nate Deschryver",
+"pit": 0.7035,
+"fallback": false
+},
+{
+"name": "Fernando Palencia",
+"pit": 0.6504,
+"fallback": false
+}
+],
+"avg": 0.6052,
+"model1": {
+"g1": 0.8803,
+"g2": 0.7067,
+"g3": 0.6675,
+"g4": 0.6052
+},
+"model2": {
+"g1": 0.7151,
+"g2": 0.8719,
+"g3": 0.6675,
+"g4": 0.6052
+}
+},
+"685": {
+"sp": [
+{
+"name": "Rohan Lettow",
+"pit": 0.975,
+"fallback": false
+},
+{
+"name": "Drew Talavs",
+"pit": 0.7995,
+"fallback": false
+},
+{
+"name": "Alec Belardes",
+"pit": 0.6742,
+"fallback": false
+}
+],
+"avg": 0.6291,
+"model1": {
+"g1": 0.9205,
+"g2": 0.7838,
+"g3": 0.6895,
+"g4": 0.6291
+},
+"model2": {
+"g1": 0.8035,
+"g2": 0.9008,
+"g3": 0.6895,
+"g4": 0.6291
+}
+},
+"687": {
+"sp": [
+{
+"name": "Gauge Lockhart",
+"pit": 0.9314,
+"fallback": false
+},
+{
+"name": "Gabriel Barrett",
+"pit": 0.827,
+"fallback": false
+},
+{
+"name": "Adrian Valdez",
+"pit": 0.6885,
+"fallback": false
+}
+],
+"avg": 0.4312,
+"model1": {
+"g1": 0.8844,
+"g2": 0.7863,
+"g3": 0.6808,
+"g4": 0.4312
+},
+"model2": {
+"g1": 0.8148,
+"g2": 0.8559,
+"g3": 0.6808,
+"g4": 0.4312
+}
+},
+"688": {
+"sp": [
+{
+"name": "David Thomas",
+"pit": 0.8265,
+"fallback": false
+},
+{
+"name": "Dylan Smith",
+"pit": 0.7895,
+"fallback": false
+},
+{
+"name": "Jesse Gutierrez",
+"pit": 0.522,
+"fallback": false
+}
+],
+"avg": 0.5826,
+"model1": {
+"g1": 0.7955,
+"g2": 0.7594,
+"g3": 0.5754,
+"g4": 0.5826
+},
+"model2": {
+"g1": 0.7708,
+"g2": 0.784,
+"g3": 0.5754,
+"g4": 0.5826
+}
+},
+"689": {
+"sp": [
+{
+"name": "Max Bayles",
+"pit": 0.9832,
+"fallback": false
+},
+{
+"name": "Jace Gillmore",
+"pit": 0.9341,
+"fallback": false
+},
+{
+"name": "Tyler Alleman",
+"pit": 0.7086,
+"fallback": false
+}
+],
+"avg": 0.5793,
+"model1": {
+"g1": 0.9216,
+"g2": 0.8767,
+"g3": 0.7199,
+"g4": 0.5793
+},
+"model2": {
+"g1": 0.8889,
+"g2": 0.9095,
+"g3": 0.7199,
+"g4": 0.5793
+}
+},
+"693": {
+"sp": [
+{
+"name": "Kale Hammer",
+"pit": 0.8646,
+"fallback": false
+},
+{
+"name": "Travis Farrell",
+"pit": 0.7911,
+"fallback": false
+},
+{
+"name": "Micah Hagler",
+"pit": 0.3703,
+"fallback": false
+}
+],
+"avg": 0.4507,
+"model1": {
+"g1": 0.8099,
+"g2": 0.7089,
+"g3": 0.4055,
+"g4": 0.4507
+},
+"model2": {
+"g1": 0.7609,
+"g2": 0.7579,
+"g3": 0.4055,
+"g4": 0.4507
+}
+},
+"694": {
+"sp": [
+{
+"name": "Steven Svenson",
+"pit": 0.7858,
+"fallback": false
+},
+{
+"name": "Mason Christopher",
+"pit": 0.776,
+"fallback": false
+},
+{
+"name": "Jason Kuhn",
+"pit": 0.6269,
+"fallback": false
+}
+],
+"avg": 0.5977,
+"model1": {
+"g1": 0.7827,
+"g2": 0.7523,
+"g3": 0.6414,
+"g4": 0.5977
+},
+"model2": {
+"g1": 0.7762,
+"g2": 0.7589,
+"g3": 0.6414,
+"g4": 0.5977
+}
+},
+"702": {
+"sp": [
+{
+"name": "Sam Falace",
+"pit": 0.8644,
+"fallback": false
+},
+{
+"name": "Ryan Taffe",
+"pit": 0.8485,
+"fallback": false
+},
+{
+"name": "Giovanni Conte",
+"pit": 0.8104,
+"fallback": false
+}
+],
+"avg": 0.3966,
+"model1": {
+"g1": 0.7526,
+"g2": 0.7197,
+"g3": 0.6872,
+"g4": 0.3966
+},
+"model2": {
+"g1": 0.742,
+"g2": 0.7303,
+"g3": 0.6872,
+"g4": 0.3966
+}
+},
+"709": {
+"sp": [
+{
+"name": "Mitchell Heer",
+"pit": 0.9584,
+"fallback": false
+},
+{
+"name": "Daniel Gonzalez",
+"pit": 0.9433,
+"fallback": false
+},
+{
+"name": "Ryland Bozenhard",
+"pit": 0.5863,
+"fallback": false
+}
+],
+"avg": 0.6329,
+"model1": {
+"g1": 0.9189,
+"g2": 0.8865,
+"g3": 0.6383,
+"g4": 0.6329
+},
+"model2": {
+"g1": 0.9088,
+"g2": 0.8966,
+"g3": 0.6383,
+"g4": 0.6329
+}
+},
+"710": {
+"sp": [
+{
+"name": "Amp Phillips",
+"pit": 0.9805,
+"fallback": false
+},
+{
+"name": "Alex Valentin",
+"pit": 0.9504,
+"fallback": false
+},
+{
+"name": "Brandon Stone",
+"pit": 0.9402,
+"fallback": false
+}
+],
+"avg": 0.7094,
+"model1": {
+"g1": 0.9486,
+"g2": 0.912,
+"g3": 0.8975,
+"g4": 0.7094
+},
+"model2": {
+"g1": 0.9285,
+"g2": 0.932,
+"g3": 0.8975,
+"g4": 0.7094
+}
+},
+"711": {
+"sp": [
+{
+"name": "Sam Schlecht",
+"pit": 0.2935,
+"fallback": false
+},
+{
+"name": "Sam Novotny",
+"pit": 0.2777,
+"fallback": false
+},
+{
+"name": "Kaden Rylance",
+"pit": 0.2458,
+"fallback": false
+}
+],
+"avg": 0.2891,
+"model1": {
+"g1": 0.3728,
+"g2": 0.3414,
+"g3": 0.3115,
+"g4": 0.2891
+},
+"model2": {
+"g1": 0.3623,
+"g2": 0.3519,
+"g3": 0.3115,
+"g4": 0.2891
+}
+},
+"712": {
+"sp": [
+{
+"name": "Michael Senay",
+"pit": 0.9779,
+"fallback": false
+},
+{
+"name": "Kade Smith",
+"pit": 0.9009,
+"fallback": false
+},
+{
+"name": "Dominic Pontbriant",
+"pit": 0.6963,
+"fallback": false
+}
+],
+"avg": 0.7266,
+"model1": {
+"g1": 0.9398,
+"g2": 0.8708,
+"g3": 0.7255,
+"g4": 0.7266
+},
+"model2": {
+"g1": 0.8884,
+"g2": 0.9221,
+"g3": 0.7255,
+"g4": 0.7266
+}
+},
+"713": {
+"sp": [
+{
+"name": "Nathan Mertens",
+"pit": 0.9162,
+"fallback": false
+},
+{
+"name": "Mason Pennington",
+"pit": 0.8917,
+"fallback": false
+},
+{
+"name": "Andrew Carroll",
+"pit": 0.4505,
+"fallback": false
+}
+],
+"avg": 0.5783,
+"model1": {
+"g1": 0.852,
+"g2": 0.8209,
+"g3": 0.5157,
+"g4": 0.5783
+},
+"model2": {
+"g1": 0.8357,
+"g2": 0.8373,
+"g3": 0.5157,
+"g4": 0.5783
+}
+},
+"714": {
+"sp": [
+{
+"name": "Nik Toups",
+"pit": 0.8433,
+"fallback": false
+},
+{
+"name": "Blake Lobell",
+"pit": 0.7567,
+"fallback": false
+},
+{
+"name": "Truitt Webb",
+"pit": 0.6512,
+"fallback": false
+}
+],
+"avg": 0.4615,
+"model1": {
+"g1": 0.7606,
+"g2": 0.6922,
+"g3": 0.6177,
+"g4": 0.4615
+},
+"model2": {
+"g1": 0.7029,
+"g2": 0.75,
+"g3": 0.6177,
+"g4": 0.4615
+}
+},
+"717": {
+"sp": [
+{
+"name": "Mason Edwards",
+"pit": 1.0,
+"fallback": false
+},
+{
+"name": "Grant Govel",
+"pit": 0.9953,
+"fallback": false
+},
+{
+"name": "Diego Velazquez",
+"pit": 0.8747,
+"fallback": false
+}
+],
+"avg": 0.6686,
+"model1": {
+"g1": 0.9687,
+"g2": 0.9354,
+"g3": 0.8445,
+"g4": 0.6686
+},
+"model2": {
+"g1": 0.9655,
+"g2": 0.9385,
+"g3": 0.8445,
+"g4": 0.6686
+}
+},
+"719": {
+"sp": [
+{
+"name": "Andrew Evans",
+"pit": 0.9885,
+"fallback": false
+},
+{
+"name": "Troy Shepard",
+"pit": 0.9775,
+"fallback": false
+},
+{
+"name": "Meade Johnson",
+"pit": 0.8313,
+"fallback": false
+}
+],
+"avg": 0.577,
+"model1": {
+"g1": 0.9188,
+"g2": 0.8847,
+"g3": 0.7764,
+"g4": 0.577
+},
+"model2": {
+"g1": 0.9115,
+"g2": 0.8921,
+"g3": 0.7764,
+"g4": 0.577
+}
+},
+"720": {
+"sp": [
+{
+"name": "Ryan Weller",
+"pit": 0.8634,
+"fallback": false
+},
+{
+"name": "Ean DiPasquale",
+"pit": 0.8628,
+"fallback": false
+},
+{
+"name": "Jake Porter",
+"pit": 0.2681,
+"fallback": false
+}
+],
+"avg": 0.4877,
+"model1": {
+"g1": 0.8068,
+"g2": 0.7994,
+"g3": 0.3972,
+"g4": 0.4877
+},
+"model2": {
+"g1": 0.8064,
+"g2": 0.7998,
+"g3": 0.3972,
+"g4": 0.4877
+}
+},
+"722": {
+"sp": [
+{
+"name": "Camden Clark",
+"pit": 0.9881,
+"fallback": false
+},
+{
+"name": "Grayden Harris",
+"pit": 0.982,
+"fallback": false
+},
+{
+"name": "Camden Sunstrom",
+"pit": 0.9674,
+"fallback": false
+}
+],
+"avg": 0.6877,
+"model1": {
+"g1": 0.9624,
+"g2": 0.9414,
+"g3": 0.9206,
+"g4": 0.6877
+},
+"model2": {
+"g1": 0.9584,
+"g2": 0.9454,
+"g3": 0.9206,
+"g4": 0.6877
+}
+},
+"725": {
+"sp": [
+{
+"name": "Bobby Spencer",
+"pit": 0.6304,
+"fallback": false
+},
+{
+"name": "Myles Dismute",
+"pit": 0.3932,
+"fallback": false
+},
+{
+"name": "Quincy Thornton",
+"pit": 0.0434,
+"fallback": false
+}
+],
+"avg": 0.3172,
+"model1": {
+"g1": 0.5937,
+"g2": 0.4219,
+"g3": 0.1807,
+"g4": 0.3172
+},
+"model2": {
+"g1": 0.4356,
+"g2": 0.5801,
+"g3": 0.1807,
+"g4": 0.3172
+}
+},
+"736": {
+"sp": [
+{
+"name": "David James",
+"pit": 0.8872,
+"fallback": false
+},
+{
+"name": "Tristan Ciampa",
+"pit": 0.7364,
+"fallback": false
+},
+{
+"name": "Enger Paulino",
+"pit": 0.6185,
+"fallback": false
+}
+],
+"avg": 0.4125,
+"model1": {
+"g1": 0.7849,
+"g2": 0.6479,
+"g3": 0.5575,
+"g4": 0.4125
+},
+"model2": {
+"g1": 0.6844,
+"g2": 0.7484,
+"g3": 0.5575,
+"g4": 0.4125
+}
+},
+"740": {
+"sp": [
+{
+"name": "Liam O'Leary",
+"pit": 0.9646,
+"fallback": false
+},
+{
+"name": "Evan Chaffee",
+"pit": 0.915,
+"fallback": false
+},
+{
+"name": "Ian Mowad",
+"pit": 0.6627,
+"fallback": false
+}
+],
+"avg": 0.5136,
+"model1": {
+"g1": 0.8808,
+"g2": 0.8268,
+"g3": 0.6478,
+"g4": 0.5136
+},
+"model2": {
+"g1": 0.8478,
+"g2": 0.8599,
+"g3": 0.6478,
+"g4": 0.5136
+}
+},
+"750": {
+"sp": [
+{
+"name": "Owen Marsolek",
+"pit": 0.6719,
+"fallback": false
+},
+{
+"name": "Brayden Olson",
+"pit": 0.6078,
+"fallback": false
+},
+{
+"name": "Sam Stockman",
+"pit": 0.282,
+"fallback": false
+}
+],
+"avg": 0.2355,
+"model1": {
+"g1": 0.5576,
+"g2": 0.4997,
+"g3": 0.2753,
+"g4": 0.2355
+},
+"model2": {
+"g1": 0.5148,
+"g2": 0.5424,
+"g3": 0.2753,
+"g4": 0.2355
+}
+},
+"753": {
+"sp": [
+{
+"name": "Toran O'Harran",
+"pit": 0.8798,
+"fallback": false
+},
+{
+"name": "Nick Dugan",
+"pit": 0.7549,
+"fallback": false
+},
+{
+"name": "Andrew Shaw",
+"pit": 0.7327,
+"fallback": false
+}
+],
+"avg": 0.7206,
+"model1": {
+"g1": 0.8944,
+"g2": 0.8064,
+"g3": 0.7796,
+"g4": 0.7206
+},
+"model2": {
+"g1": 0.8111,
+"g2": 0.8896,
+"g3": 0.7796,
+"g4": 0.7206
+}
+},
+"756": {
+"sp": [
+{
+"name": "James Hays",
+"pit": 0.947,
+"fallback": false
+},
+{
+"name": "Trace Hartman",
+"pit": 0.8136,
+"fallback": false
+},
+{
+"name": "Connor Ball",
+"pit": 0.6883,
+"fallback": false
+}
+],
+"avg": 0.5198,
+"model1": {
+"g1": 0.873,
+"g2": 0.7634,
+"g3": 0.6675,
+"g4": 0.5198
+},
+"model2": {
+"g1": 0.7841,
+"g2": 0.8523,
+"g3": 0.6675,
+"g4": 0.5198
+}
+},
+"760": {
+"sp": [
+{
+"name": "James Gilleran",
+"pit": 0.7166,
+"fallback": false
+},
+{
+"name": "Ryan Douglas",
+"pit": 0.4688,
+"fallback": false
+},
+{
+"name": "Daniel Lang",
+"pit": 0.375,
+"fallback": false
+}
+],
+"avg": 0.3619,
+"model1": {
+"g1": 0.653,
+"g2": 0.4767,
+"g3": 0.4093,
+"g4": 0.3619
+},
+"model2": {
+"g1": 0.4878,
+"g2": 0.6419,
+"g3": 0.4093,
+"g4": 0.3619
+}
+},
+"761": {
+"sp": [
+{
+"name": "Micah Worley",
+"pit": 0.993,
+"fallback": false
+},
+{
+"name": "Hunter Colagrande",
+"pit": 0.6535,
+"fallback": false
+},
+{
+"name": "Dylan Henshaw",
+"pit": 0.6322,
+"fallback": false
+}
+],
+"avg": 0.499,
+"model1": {
+"g1": 0.9015,
+"g2": 0.652,
+"g3": 0.6194,
+"g4": 0.499
+},
+"model2": {
+"g1": 0.6752,
+"g2": 0.8783,
+"g3": 0.6194,
+"g4": 0.499
+}
+},
+"775": {
+"sp": [
+{
+"name": "Zack James",
+"pit": 0.9691,
+"fallback": false
+},
+{
+"name": "Lance Davis",
+"pit": 0.9554,
+"fallback": false
+},
+{
+"name": "Trever Baumler",
+"pit": 0.7649,
+"fallback": false
+}
+],
+"avg": 0.6621,
+"model1": {
+"g1": 0.9543,
+"g2": 0.9172,
+"g3": 0.7804,
+"g4": 0.6621
+},
+"model2": {
+"g1": 0.9452,
+"g2": 0.9263,
+"g3": 0.7804,
+"g4": 0.6621
+}
+},
+"773": {
+"sp": [
+{
+"name": "Ethan Wendel",
+"pit": 0.6648,
+"fallback": false
+},
+{
+"name": "Matthew McCullough",
+"pit": 0.5718,
+"fallback": false
+},
+{
+"name": "Brendon Carter",
+"pit": 0.4059,
+"fallback": false
+}
+],
+"avg": 0.5032,
+"model1": {
+"g1": 0.7157,
+"g2": 0.6399,
+"g3": 0.5231,
+"g4": 0.5032
+},
+"model2": {
+"g1": 0.6537,
+"g2": 0.7019,
+"g3": 0.5231,
+"g4": 0.5032
+}
+},
+"776": {
+"sp": [
+{
+"name": "Tegan Kuhns",
+"pit": 0.9963,
+"fallback": false
+},
+{
+"name": "Evan Blanco",
+"pit": 0.9918,
+"fallback": false
+},
+{
+"name": "Landon Mack",
+"pit": 0.9619,
+"fallback": false
+}
+],
+"avg": 0.7106,
+"model1": {
+"g1": 0.9645,
+"g2": 0.951,
+"g3": 0.9241,
+"g4": 0.7106
+},
+"model2": {
+"g1": 0.9615,
+"g2": 0.954,
+"g3": 0.9241,
+"g4": 0.7106
+}
+},
+"777": {
+"sp": [
+{
+"name": "Carter Casabella",
+"pit": 0.7903,
+"fallback": false
+},
+{
+"name": "Jaxson Pease",
+"pit": 0.511,
+"fallback": false
+},
+{
+"name": "Garrett Holpuch",
+"pit": 0.23,
+"fallback": false
+}
+],
+"avg": 0.2804,
+"model1": {
+"g1": 0.7083,
+"g2": 0.4856,
+"g3": 0.2838,
+"g4": 0.2804
+},
+"model2": {
+"g1": 0.5221,
+"g2": 0.6718,
+"g3": 0.2838,
+"g4": 0.2804
+}
+},
+"781": {
+"sp": [
+{
+"name": "Dylan Volantis",
+"pit": 0.9992,
+"fallback": false
+},
+{
+"name": "Ruger Riojas",
+"pit": 0.9982,
+"fallback": false
+},
+{
+"name": "Luke Harrison",
+"pit": 0.99,
+"fallback": false
+}
+],
+"avg": 0.6803,
+"model1": {
+"g1": 0.977,
+"g2": 0.9555,
+"g3": 0.9385,
+"g4": 0.6803
+},
+"model2": {
+"g1": 0.9763,
+"g2": 0.9561,
+"g3": 0.9385,
+"g4": 0.6803
+}
+},
+"782": {
+"sp": [
+{
+"name": "Aiden Sims",
+"pit": 0.9926,
+"fallback": false
+},
+{
+"name": "Weston Moss",
+"pit": 0.9392,
+"fallback": false
+},
+{
+"name": "Ethan Darden",
+"pit": 0.7862,
+"fallback": false
+}
+],
+"avg": 0.7282,
+"model1": {
+"g1": 0.9523,
+"g2": 0.8911,
+"g3": 0.7809,
+"g4": 0.7282
+},
+"model2": {
+"g1": 0.9167,
+"g2": 0.9267,
+"g3": 0.7809,
+"g4": 0.7282
+}
+},
+"784": {
+"sp": [
+{
+"name": "Justin Mayes",
+"pit": 0.8571,
+"fallback": false
+},
+{
+"name": "Joshua Pena",
+"pit": 0.4368,
+"fallback": false
+},
+{
+"name": "Jose Luccioni",
+"pit": 0.0158,
+"fallback": false
+}
+],
+"avg": 0.2158,
+"model1": {
+"g1": 0.6723,
+"g2": 0.3734,
+"g3": 0.0864,
+"g4": 0.2158
+},
+"model2": {
+"g1": 0.3921,
+"g2": 0.6536,
+"g3": 0.0864,
+"g4": 0.2158
+}
+},
+"785": {
+"sp": [
+{
+"name": "Jesus Tovar",
+"pit": 0.9472,
+"fallback": false
+},
+{
+"name": "Wade Cooper",
+"pit": 0.8947,
+"fallback": false
+},
+{
+"name": "Cade Smith",
+"pit": 0.7948,
+"fallback": false
+}
+],
+"avg": 0.5977,
+"model1": {
+"g1": 0.9008,
+"g2": 0.8497,
+"g3": 0.7776,
+"g4": 0.5977
+},
+"model2": {
+"g1": 0.8658,
+"g2": 0.8847,
+"g3": 0.7776,
+"g4": 0.5977
+}
+},
+"786": {
+"sp": [
+{
+"name": "Jackson Burns",
+"pit": 0.8773,
+"fallback": false
+},
+{
+"name": "Donovan Becerra",
+"pit": 0.3823,
+"fallback": false
+},
+{
+"name": "Adam Hayes",
+"pit": 0.378,
+"fallback": false
+}
+],
+"avg": 0.6229,
+"model1": {
+"g1": 0.851,
+"g2": 0.5124,
+"g3": 0.5055,
+"g4": 0.6229
+},
+"model2": {
+"g1": 0.521,
+"g2": 0.8424,
+"g3": 0.5055,
+"g4": 0.6229
+}
+},
+"788": {
+"sp": [
+{
+"name": "Will Holmes",
+"pit": 0.9908,
+"fallback": false
+},
+{
+"name": "Andrew Buffkin",
+"pit": 0.9126,
+"fallback": false
+},
+{
+"name": "Bryce Coulter",
+"pit": 0.7688,
+"fallback": false
+}
+],
+"avg": 0.5885,
+"model1": {
+"g1": 0.9362,
+"g2": 0.8592,
+"g3": 0.7466,
+"g4": 0.5885
+},
+"model2": {
+"g1": 0.8841,
+"g2": 0.9113,
+"g3": 0.7466,
+"g4": 0.5885
+}
+},
+"792": {
+"sp": [
+{
+"name": "Nathan Leininger",
+"pit": 0.9713,
+"fallback": false
+},
+{
+"name": "Hayden Frey",
+"pit": 0.8941,
+"fallback": false
+},
+{
+"name": "Michael Fliss",
+"pit": 0.8073,
+"fallback": false
+}
+],
+"avg": 0.5426,
+"model1": {
+"g1": 0.8989,
+"g2": 0.8038,
+"g3": 0.7278,
+"g4": 0.5426
+},
+"model2": {
+"g1": 0.8474,
+"g2": 0.8553,
+"g3": 0.7278,
+"g4": 0.5426
+}
+},
+"793": {
+"sp": [
+{
+"name": "Liam Diehl",
+"pit": 0.7868,
+"fallback": false
+},
+{
+"name": "Aden Knowles",
+"pit": 0.7723,
+"fallback": false
+},
+{
+"name": "Dutch DeProspero",
+"pit": 0.2511,
+"fallback": false
+}
+],
+"avg": 0.488,
+"model1": {
+"g1": 0.7801,
+"g2": 0.7406,
+"g3": 0.3759,
+"g4": 0.488
+},
+"model2": {
+"g1": 0.7704,
+"g2": 0.7502,
+"g3": 0.3759,
+"g4": 0.488
+}
+},
+"799": {
+"sp": [
+{
+"name": "Tommy Egan",
+"pit": 0.9877,
+"fallback": false
+},
+{
+"name": "Benjamin Stubbs",
+"pit": 0.9564,
+"fallback": false
+},
+{
+"name": "Hayden Smith",
+"pit": 0.7706,
+"fallback": false
+}
+],
+"avg": 0.5524,
+"model1": {
+"g1": 0.9482,
+"g2": 0.8909,
+"g3": 0.7523,
+"g4": 0.5524
+},
+"model2": {
+"g1": 0.9273,
+"g2": 0.9118,
+"g3": 0.7523,
+"g4": 0.5524
+}
+},
+"802": {
+"sp": [
+{
+"name": "J.D. Rodriguez",
+"pit": 0.8407,
+"fallback": false
+},
+{
+"name": "Jake Toporek",
+"pit": 0.8163,
+"fallback": false
+},
+{
+"name": "Sam Larson",
+"pit": 0.6069,
+"fallback": true
+}
+],
+"avg": 0.6069,
+"model1": {
+"g1": 0.8134,
+"g2": 0.7911,
+"g3": 0.6464,
+"g4": 0.6069
+},
+"model2": {
+"g1": 0.7971,
+"g2": 0.8074,
+"g3": 0.6464,
+"g4": 0.6069
+}
+},
+"805": {
+"sp": [
+{
+"name": "Mason Steele",
+"pit": 0.9601,
+"fallback": false
+},
+{
+"name": "Carter Samuelson",
+"pit": 0.7583,
+"fallback": false
+},
+{
+"name": "Justin Hicks",
+"pit": 0.5556,
+"fallback": false
+}
+],
+"avg": 0.5404,
+"model1": {
+"g1": 0.889,
+"g2": 0.7151,
+"g3": 0.5676,
+"g4": 0.5404
+},
+"model2": {
+"g1": 0.7544,
+"g2": 0.8496,
+"g3": 0.5676,
+"g4": 0.5404
+}
+},
+"806": {
+"sp": [
+{
+"name": "Dylan Banner",
+"pit": 0.8997,
+"fallback": false
+},
+{
+"name": "Ethan Nardacci",
+"pit": 0.7454,
+"fallback": false
+},
+{
+"name": "Brian Cadieux",
+"pit": 0.1429,
+"fallback": false
+}
+],
+"avg": 0.3988,
+"model1": {
+"g1": 0.8174,
+"g2": 0.6767,
+"g3": 0.2624,
+"g4": 0.3988
+},
+"model2": {
+"g1": 0.7145,
+"g2": 0.7796,
+"g3": 0.2624,
+"g4": 0.3988
+}
+},
+"807": {
+"sp": [
+{
+"name": "Jack Pezzolo",
+"pit": 0.8343,
+"fallback": false
+},
+{
+"name": "Grayson Bonanno",
+"pit": 0.5009,
+"fallback": false
+},
+{
+"name": "Noel Valdez",
+"pit": 0.2167,
+"fallback": false
+}
+],
+"avg": 0.495,
+"model1": {
+"g1": 0.8197,
+"g2": 0.5722,
+"g3": 0.3692,
+"g4": 0.495
+},
+"model2": {
+"g1": 0.5974,
+"g2": 0.7945,
+"g3": 0.3692,
+"g4": 0.495
+}
+},
+"808": {
+"sp": [
+{
+"name": "Trevor Hansen",
+"pit": 0.9476,
+"fallback": false
+},
+{
+"name": "Hunter Manning",
+"pit": 0.7061,
+"fallback": false
+},
+{
+"name": "Finnegan Wall",
+"pit": 0.6398,
+"fallback": false
+}
+],
+"avg": 0.5773,
+"model1": {
+"g1": 0.9018,
+"g2": 0.7154,
+"g3": 0.6531,
+"g4": 0.5773
+},
+"model2": {
+"g1": 0.7408,
+"g2": 0.8764,
+"g3": 0.6531,
+"g4": 0.5773
+}
+},
+"809": {
+"sp": [
+{
+"name": "Matthew O'Brien",
+"pit": 0.4233,
+"fallback": false
+},
+{
+"name": "Joshua Martinez",
+"pit": 0.3721,
+"fallback": false
+},
+{
+"name": "Joshua Torres",
+"pit": 0.1186,
+"fallback": false
+}
+],
+"avg": 0.2274,
+"model1": {
+"g1": 0.421,
+"g2": 0.3558,
+"g3": 0.1778,
+"g4": 0.2274
+},
+"model2": {
+"g1": 0.3869,
+"g2": 0.3899,
+"g3": 0.1778,
+"g4": 0.2274
+}
+},
+"810": {
+"sp": [
+{
+"name": "Steele Murdock",
+"pit": 0.956,
+"fallback": false
+},
+{
+"name": "Niccolas Gregson",
+"pit": 0.5673,
+"fallback": false
+},
+{
+"name": "Trevor Rector",
+"pit": 0.1413,
+"fallback": false
+}
+],
+"avg": 0.4468,
+"model1": {
+"g1": 0.854,
+"g2": 0.5748,
+"g3": 0.282,
+"g4": 0.4468
+},
+"model2": {
+"g1": 0.5948,
+"g2": 0.8339,
+"g3": 0.282,
+"g4": 0.4468
+}
+},
+"811": {
+"sp": [
+{
+"name": "Jackson Flora",
+"pit": 0.9986,
+"fallback": false
+},
+{
+"name": "Kellan Montgomery",
+"pit": 0.8442,
+"fallback": false
+},
+{
+"name": "Calvin Proskey",
+"pit": 0.4817,
+"fallback": false
+}
+],
+"avg": 0.6264,
+"model1": {
+"g1": 0.9625,
+"g2": 0.8315,
+"g3": 0.5741,
+"g4": 0.6264
+},
+"model2": {
+"g1": 0.8595,
+"g2": 0.9344,
+"g3": 0.5741,
+"g4": 0.6264
+}
+},
+"813": {
+"sp": [
+{
+"name": "Camden Wicker",
+"pit": 0.984,
+"fallback": false
+},
+{
+"name": "Matt Sauser",
+"pit": 0.9064,
+"fallback": false
+},
+{
+"name": "Mateo Gray",
+"pit": 0.9054,
+"fallback": false
+}
+],
+"avg": 0.7441,
+"model1": {
+"g1": 0.9508,
+"g2": 0.8876,
+"g3": 0.8834,
+"g4": 0.7441
+},
+"model2": {
+"g1": 0.8991,
+"g2": 0.9394,
+"g3": 0.8834,
+"g4": 0.7441
+}
+},
+"815": {
+"sp": [
+{
+"name": "Wylan Moss",
+"pit": 0.9889,
+"fallback": false
+},
+{
+"name": "Michael Barnett",
+"pit": 0.9445,
+"fallback": false
+},
+{
+"name": "Landon Stump",
+"pit": 0.8769,
+"fallback": false
+}
+],
+"avg": 0.7286,
+"model1": {
+"g1": 0.9738,
+"g2": 0.9305,
+"g3": 0.8743,
+"g4": 0.7286
+},
+"model2": {
+"g1": 0.9442,
+"g2": 0.9601,
+"g3": 0.8743,
+"g4": 0.7286
+}
+},
+"816": {
+"sp": [
+{
+"name": "Cayden Suchy",
+"pit": 0.9945,
+"fallback": false
+},
+{
+"name": "Charlie West",
+"pit": 0.9896,
+"fallback": false
+},
+{
+"name": "Oliver Pudvar",
+"pit": 0.81,
+"fallback": false
+}
+],
+"avg": 0.4918,
+"model1": {
+"g1": 0.9232,
+"g2": 0.8785,
+"g3": 0.743,
+"g4": 0.4918
+},
+"model2": {
+"g1": 0.9199,
+"g2": 0.8818,
+"g3": 0.743,
+"g4": 0.4918
+}
+},
+"817": {
+"sp": [
+{
+"name": "Mason Lei",
+"pit": 0.9695,
+"fallback": false
+},
+{
+"name": "Brandon Bak",
+"pit": 0.9556,
+"fallback": false
+},
+{
+"name": "Kendall Lyons",
+"pit": 0.6183,
+"fallback": false
+}
+],
+"avg": 0.4975,
+"model1": {
+"g1": 0.8942,
+"g2": 0.8453,
+"g3": 0.6034,
+"g4": 0.4975
+},
+"model2": {
+"g1": 0.885,
+"g2": 0.8546,
+"g3": 0.6034,
+"g4": 0.4975
+}
+},
+"819": {
+"sp": [
+{
+"name": "Zac Colletti",
+"pit": 0.6258,
+"fallback": false
+},
+{
+"name": "Fawster Voytko",
+"pit": 0.6238,
+"fallback": false
+},
+{
+"name": "Gus McKay",
+"pit": 0.0537,
+"fallback": false
+}
+],
+"avg": 0.246,
+"model1": {
+"g1": 0.5633,
+"g2": 0.5453,
+"g3": 0.1548,
+"g4": 0.246
+},
+"model2": {
+"g1": 0.562,
+"g2": 0.5466,
+"g3": 0.1548,
+"g4": 0.246
+}
+},
+"820": {
+"sp": [
+{
+"name": "Brandt Corley",
+"pit": 0.8845,
+"fallback": false
+},
+{
+"name": "Adam Brodnax",
+"pit": 0.8499,
+"fallback": false
+},
+{
+"name": "JC Dermody",
+"pit": 0.6222,
+"fallback": false
+}
+],
+"avg": 0.5628,
+"model1": {
+"g1": 0.8511,
+"g2": 0.8071,
+"g3": 0.6474,
+"g4": 0.5628
+},
+"model2": {
+"g1": 0.828,
+"g2": 0.8302,
+"g3": 0.6474,
+"g4": 0.5628
+}
+},
+"824": {
+"sp": [
+{
+"name": "Zach Robinson",
+"pit": 0.5978,
+"fallback": false
+},
+{
+"name": "Sergio Droz",
+"pit": 0.5183,
+"fallback": false
+},
+{
+"name": "Eddie Sargent",
+"pit": 0.4133,
+"fallback": false
+}
+],
+"avg": 0.3742,
+"model1": {
+"g1": 0.5998,
+"g2": 0.5145,
+"g3": 0.4322,
+"g4": 0.3742
+},
+"model2": {
+"g1": 0.5468,
+"g2": 0.5675,
+"g3": 0.4322,
+"g4": 0.3742
+}
+},
+"825": {
+"sp": [
+{
+"name": "Richard De Jesus",
+"pit": 0.3496,
+"fallback": false
+},
+{
+"name": "Esteban Torres",
+"pit": 0.146,
+"fallback": false
+},
+{
+"name": "Cade Williams",
+"pit": 0.0053,
+"fallback": false
+}
+],
+"avg": 0.2304,
+"model1": {
+"g1": 0.3862,
+"g2": 0.2321,
+"g3": 0.1314,
+"g4": 0.2304
+},
+"model2": {
+"g1": 0.2504,
+"g2": 0.3679,
+"g3": 0.1314,
+"g4": 0.2304
+}
+},
+"823": {
+"sp": [
+{
+"name": "Nolan Geisler",
+"pit": 0.4286,
+"fallback": false
+},
+{
+"name": "Jacob Jette",
+"pit": 0.333,
+"fallback": false
+},
+{
+"name": "Alfred Mucciarone",
+"pit": 0.2992,
+"fallback": false
+}
+],
+"avg": 0.2752,
+"model1": {
+"g1": 0.4598,
+"g2": 0.3753,
+"g3": 0.3394,
+"g4": 0.2752
+},
+"model2": {
+"g1": 0.3961,
+"g2": 0.439,
+"g3": 0.3394,
+"g4": 0.2752
+}
+},
+"826": {
+"sp": [
+{
+"name": "Drew Turner",
+"pit": 0.7866,
+"fallback": false
+},
+{
+"name": "Cooper Smith",
+"pit": 0.7186,
+"fallback": false
+},
+{
+"name": "Lucas Boesen",
+"pit": 0.2711,
+"fallback": false
+}
+],
+"avg": 0.2626,
+"model1": {
+"g1": 0.6585,
+"g2": 0.577,
+"g3": 0.2669,
+"g4": 0.2626
+},
+"model2": {
+"g1": 0.6132,
+"g2": 0.6224,
+"g3": 0.2669,
+"g4": 0.2626
+}
+},
+"827": {
+"sp": [
+{
+"name": "Noah Chapman",
+"pit": 0.9023,
+"fallback": false
+},
+{
+"name": "Hunter Shuey",
+"pit": 0.8612,
+"fallback": false
+},
+{
+"name": "J.T. Weaver",
+"pit": 0.4401,
+"fallback": false
+}
+],
+"avg": 0.4559,
+"model1": {
+"g1": 0.8239,
+"g2": 0.7767,
+"g3": 0.4822,
+"g4": 0.4559
+},
+"model2": {
+"g1": 0.7965,
+"g2": 0.8041,
+"g3": 0.4822,
+"g4": 0.4559
+}
+},
+"829": {
+"sp": [
+{
+"name": "Cooper Allen",
+"pit": 0.9928,
+"fallback": false
+},
+{
+"name": "Trey Williford, III",
+"pit": 0.9816,
+"fallback": false
+},
+{
+"name": "Connor Marshburn",
+"pit": 0.9742,
+"fallback": false
+}
+],
+"avg": 0.6583,
+"model1": {
+"g1": 0.9477,
+"g2": 0.9221,
+"g3": 0.9001,
+"g4": 0.6583
+},
+"model2": {
+"g1": 0.9403,
+"g2": 0.9296,
+"g3": 0.9001,
+"g4": 0.6583
+}
+},
+"832": {
+"sp": [
+{
+"name": "Parker Dillhoff",
+"pit": 0.9048,
+"fallback": false
+},
+{
+"name": "Carson Lane",
+"pit": 0.6889,
+"fallback": false
+},
+{
+"name": "Josh Donegan",
+"pit": 0.0463,
+"fallback": false
+}
+],
+"avg": 0.567,
+"model1": {
+"g1": 0.8448,
+"g2": 0.6885,
+"g3": 0.2557,
+"g4": 0.567
+},
+"model2": {
+"g1": 0.7008,
+"g2": 0.8325,
+"g3": 0.2557,
+"g4": 0.567
+}
+},
+"837": {
+"sp": [
+{
+"name": "Max Kaplan",
+"pit": 0.6856,
+"fallback": false
+},
+{
+"name": "Chris Torres",
+"pit": 0.5421,
+"fallback": false
+},
+{
+"name": "Brent Stukes",
+"pit": 0.3322,
+"fallback": false
+}
+],
+"avg": 0.3953,
+"model1": {
+"g1": 0.6558,
+"g2": 0.5414,
+"g3": 0.3947,
+"g4": 0.3953
+},
+"model2": {
+"g1": 0.5601,
+"g2": 0.6371,
+"g3": 0.3947,
+"g4": 0.3953
+}
+},
+"838": {
+"sp": [
+{
+"name": "Caylon Dygert",
+"pit": 0.9308,
+"fallback": false
+},
+{
+"name": "Danny Valadez",
+"pit": 0.7067,
+"fallback": false
+},
+{
+"name": "Kyle Winkler",
+"pit": 0.3486,
+"fallback": false
+}
+],
+"avg": 0.4444,
+"model1": {
+"g1": 0.872,
+"g2": 0.6812,
+"g3": 0.4251,
+"g4": 0.4444
+},
+"model2": {
+"g1": 0.7226,
+"g2": 0.8306,
+"g3": 0.4251,
+"g4": 0.4444
+}
+},
+"839": {
+"sp": [
+{
+"name": "Jacob Sitton",
+"pit": 0.7993,
+"fallback": false
+},
+{
+"name": "Cason Sharp",
+"pit": 0.523,
+"fallback": false
+},
+{
+"name": "Maxwell Schumacher",
+"pit": 0.0846,
+"fallback": false
+}
+],
+"avg": 0.3286,
+"model1": {
+"g1": 0.7221,
+"g2": 0.5091,
+"g3": 0.207,
+"g4": 0.3286
+},
+"model2": {
+"g1": 0.5379,
+"g2": 0.6933,
+"g3": 0.207,
+"g4": 0.3286
+}
+},
+"845": {
+"sp": [
+{
+"name": "Harrison Thayer",
+"pit": 0.8403,
+"fallback": false
+},
+{
+"name": "Sergio Lopez",
+"pit": 0.8196,
+"fallback": false
+},
+{
+"name": "Mason Engel",
+"pit": 0.6588,
+"fallback": false
+}
+],
+"avg": 0.507,
+"model1": {
+"g1": 0.7881,
+"g2": 0.7534,
+"g3": 0.6397,
+"g4": 0.507
+},
+"model2": {
+"g1": 0.7743,
+"g2": 0.7672,
+"g3": 0.6397,
+"g4": 0.507
+}
+},
+"846": {
+"sp": [
+{
+"name": "Conor Myles",
+"pit": 0.9562,
+"fallback": false
+},
+{
+"name": "Gunnar Brown",
+"pit": 0.7563,
+"fallback": false
+},
+{
+"name": "Jake Qualia",
+"pit": 0.5394,
+"fallback": false
+}
+],
+"avg": 0.5502,
+"model1": {
+"g1": 0.9191,
+"g2": 0.7492,
+"g3": 0.5843,
+"g4": 0.5502
+},
+"model2": {
+"g1": 0.7858,
+"g2": 0.8824,
+"g3": 0.5843,
+"g4": 0.5502
+}
+},
+"841": {
+"sp": [
+{
+"name": "Colter McAnelly",
+"pit": 0.948,
+"fallback": false
+},
+{
+"name": "Payton Riske",
+"pit": 0.8835,
+"fallback": false
+},
+{
+"name": "Seth Graham-Pippin",
+"pit": 0.6383,
+"fallback": true
+}
+],
+"avg": 0.6383,
+"model1": {
+"g1": 0.9129,
+"g2": 0.8562,
+"g3": 0.6846,
+"g4": 0.6383
+},
+"model2": {
+"g1": 0.8699,
+"g2": 0.8992,
+"g3": 0.6846,
+"g4": 0.6383
+}
+},
+"842": {
+"sp": [
+{
+"name": "Tyler Ray",
+"pit": 0.7479,
+"fallback": false
+},
+{
+"name": "Dakoda West",
+"pit": 0.7139,
+"fallback": false
+},
+{
+"name": "Brandon Kosel",
+"pit": 0.5906,
+"fallback": false
+}
+],
+"avg": 0.3719,
+"model1": {
+"g1": 0.6891,
+"g2": 0.648,
+"g3": 0.5505,
+"g4": 0.3719
+},
+"model2": {
+"g1": 0.6665,
+"g2": 0.6706,
+"g3": 0.5505,
+"g4": 0.3719
+}
+},
+"843": {
+"sp": [
+{
+"name": "Jacob Heppner",
+"pit": 0.4802,
+"fallback": false
+},
+{
+"name": "Maddax Peck",
+"pit": 0.403,
+"fallback": false
+},
+{
+"name": "George Albrecht",
+"pit": 0.1702,
+"fallback": false
+}
+],
+"avg": 0.3278,
+"model1": {
+"g1": 0.5499,
+"g2": 0.4777,
+"g3": 0.3121,
+"g4": 0.3278
+},
+"model2": {
+"g1": 0.4985,
+"g2": 0.5292,
+"g3": 0.3121,
+"g4": 0.3278
+}
+},
+"854": {
+"sp": [
+{
+"name": "Patrick Steitz",
+"pit": 0.9382,
+"fallback": false
+},
+{
+"name": "Elias Holbert",
+"pit": 0.9273,
+"fallback": false
+},
+{
+"name": "Everett Vaughan",
+"pit": 0.3899,
+"fallback": false
+}
+],
+"avg": 0.5394,
+"model1": {
+"g1": 0.8872,
+"g2": 0.8534,
+"g3": 0.486,
+"g4": 0.5394
+},
+"model2": {
+"g1": 0.8799,
+"g2": 0.8607,
+"g3": 0.486,
+"g4": 0.5394
+}
+},
+"859": {
+"sp": [
+{
+"name": "Buddy Baker",
+"pit": 0.7602,
+"fallback": false
+},
+{
+"name": "Justin Spiegel",
+"pit": 0.6543,
+"fallback": false
+},
+{
+"name": "Andrew Jones",
+"pit": 0.3408,
+"fallback": false
+}
+],
+"avg": 0.4664,
+"model1": {
+"g1": 0.7111,
+"g2": 0.6218,
+"g3": 0.4058,
+"g4": 0.4664
+},
+"model2": {
+"g1": 0.6405,
+"g2": 0.6924,
+"g3": 0.4058,
+"g4": 0.4664
+}
+},
+"851": {
+"sp": [
+{
+"name": "Connor Lockwood",
+"pit": 0.8857,
+"fallback": false
+},
+{
+"name": "Adam Guazzo",
+"pit": 0.802,
+"fallback": false
+},
+{
+"name": "Nick Baffa",
+"pit": 0.4239,
+"fallback": false
+}
+],
+"avg": 0.4299,
+"model1": {
+"g1": 0.7465,
+"g2": 0.6787,
+"g3": 0.4228,
+"g4": 0.4299
+},
+"model2": {
+"g1": 0.6907,
+"g2": 0.7345,
+"g3": 0.4228,
+"g4": 0.4299
+}
+},
+"852": {
+"sp": [
+{
+"name": "Connor Fennell",
+"pit": 0.9842,
+"fallback": false
+},
+{
+"name": "Wyatt Nadeau",
+"pit": 0.9748,
+"fallback": false
+},
+{
+"name": "Aiden Stillman",
+"pit": 0.7956,
+"fallback": false
+}
+],
+"avg": 0.7575,
+"model1": {
+"g1": 0.9546,
+"g2": 0.9428,
+"g3": 0.8213,
+"g4": 0.7575
+},
+"model2": {
+"g1": 0.9483,
+"g2": 0.9491,
+"g3": 0.8213,
+"g4": 0.7575
+}
+},
+"855": {
+"sp": [
+{
+"name": "Jack Kelley",
+"pit": 0.9001,
+"fallback": false
+},
+{
+"name": "JP Podgorski",
+"pit": 0.5728,
+"fallback": false
+},
+{
+"name": "Jake Francis",
+"pit": 0.1776,
+"fallback": false
+}
+],
+"avg": 0.4601,
+"model1": {
+"g1": 0.8453,
+"g2": 0.5954,
+"g3": 0.3183,
+"g4": 0.4601
+},
+"model2": {
+"g1": 0.6271,
+"g2": 0.8136,
+"g3": 0.3183,
+"g4": 0.4601
+}
+},
+"856": {
+"sp": [
+{
+"name": "Henry Zatkowski",
+"pit": 0.9783,
+"fallback": false
+},
+{
+"name": "John Paone",
+"pit": 0.9644,
+"fallback": false
+},
+{
+"name": "Kyle Johnson",
+"pit": 0.8667,
+"fallback": false
+}
+],
+"avg": 0.6454,
+"model1": {
+"g1": 0.9522,
+"g2": 0.928,
+"g3": 0.854,
+"g4": 0.6454
+},
+"model2": {
+"g1": 0.9429,
+"g2": 0.9373,
+"g3": 0.854,
+"g4": 0.6454
+}
+},
+"858": {
+"sp": [
+{
+"name": "Brett Renfrow",
+"pit": 0.9957,
+"fallback": false
+},
+{
+"name": "Logan Eisenreich",
+"pit": 0.9285,
+"fallback": false
+},
+{
+"name": "Griffin Stieg",
+"pit": 0.8779,
+"fallback": false
+}
+],
+"avg": 0.6891,
+"model1": {
+"g1": 0.9613,
+"g2": 0.9034,
+"g3": 0.862,
+"g4": 0.6891
+},
+"model2": {
+"g1": 0.9165,
+"g2": 0.9482,
+"g3": 0.862,
+"g4": 0.6891
+}
+},
+"863": {
+"sp": [
+{
+"name": "Joseph Steventon",
+"pit": 0.7694,
+"fallback": false
+},
+{
+"name": "Colin Trizuto",
+"pit": 0.6967,
+"fallback": false
+},
+{
+"name": "Justin Roitman",
+"pit": 0.1403,
+"fallback": false
+}
+],
+"avg": 0.3327,
+"model1": {
+"g1": 0.6891,
+"g2": 0.6224,
+"g3": 0.2443,
+"g4": 0.3327
+},
+"model2": {
+"g1": 0.6406,
+"g2": 0.6708,
+"g3": 0.2443,
+"g4": 0.3327
+}
+},
+"864": {
+"sp": [
+{
+"name": "Chris Levonas",
+"pit": 0.9977,
+"fallback": false
+},
+{
+"name": "Troy Dressler",
+"pit": 0.9769,
+"fallback": false
+},
+{
+"name": "Cam Bagwell",
+"pit": 0.7432,
+"fallback": false
+}
+],
+"avg": 0.832,
+"model1": {
+"g1": 0.9827,
+"g2": 0.9619,
+"g3": 0.802,
+"g4": 0.832
+},
+"model2": {
+"g1": 0.9689,
+"g2": 0.9758,
+"g3": 0.802,
+"g4": 0.832
+}
+},
+"870": {
+"sp": [
+{
+"name": "Noah Kenney",
+"pit": 0.9824,
+"fallback": false
+},
+{
+"name": "Hayden Lewis",
+"pit": 0.9177,
+"fallback": false
+},
+{
+"name": "Jackson Thomas",
+"pit": 0.8949,
+"fallback": false
+}
+],
+"avg": 0.687,
+"model1": {
+"g1": 0.9362,
+"g2": 0.8713,
+"g3": 0.8466,
+"g4": 0.687
+},
+"model2": {
+"g1": 0.8931,
+"g2": 0.9144,
+"g3": 0.8466,
+"g4": 0.687
+}
+},
+"872": {
+"sp": [
+{
+"name": "Nick Lewis",
+"pit": 0.8562,
+"fallback": false
+},
+{
+"name": "Griffin Smith",
+"pit": 0.7024,
+"fallback": false
+},
+{
+"name": "Luke Meyers",
+"pit": 0.5243,
+"fallback": false
+}
+],
+"avg": 0.3814,
+"model1": {
+"g1": 0.7664,
+"g2": 0.6332,
+"g3": 0.5023,
+"g4": 0.3814
+},
+"model2": {
+"g1": 0.6638,
+"g2": 0.7357,
+"g3": 0.5023,
+"g4": 0.3814
+}
+},
+"884": {
+"sp": [
+{
+"name": "Lex Kenny",
+"pit": 0.8833,
+"fallback": false
+},
+{
+"name": "Luke Ridley",
+"pit": 0.6054,
+"fallback": false
+},
+{
+"name": "Maverick Torres",
+"pit": 0.5042,
+"fallback": false
+}
+],
+"avg": 0.3232,
+"model1": {
+"g1": 0.7602,
+"g2": 0.5455,
+"g3": 0.4678,
+"g4": 0.3232
+},
+"model2": {
+"g1": 0.575,
+"g2": 0.7308,
+"g3": 0.4678,
+"g4": 0.3232
+}
+},
+"888": {
+"sp": [
+{
+"name": "Max Yehl",
+"pit": 0.9949,
+"fallback": false
+},
+{
+"name": "Chansen Cole",
+"pit": 0.9834,
+"fallback": false
+},
+{
+"name": "Dawson Montesa",
+"pit": 0.9803,
+"fallback": false
+}
+],
+"avg": 0.7083,
+"model1": {
+"g1": 0.9605,
+"g2": 0.9327,
+"g3": 0.9207,
+"g4": 0.7083
+},
+"model2": {
+"g1": 0.9528,
+"g2": 0.9404,
+"g3": 0.9207,
+"g4": 0.7083
+}
+},
+"891": {
+"sp": [
+{
+"name": "Carter Burnette",
+"pit": 0.8722,
+"fallback": false
+},
+{
+"name": "Evan Myers",
+"pit": 0.7631,
+"fallback": false
+},
+{
+"name": "James Fordham",
+"pit": 0.4745,
+"fallback": false
+}
+],
+"avg": 0.5258,
+"model1": {
+"g1": 0.8245,
+"g2": 0.7291,
+"g3": 0.5291,
+"g4": 0.5258
+},
+"model2": {
+"g1": 0.7518,
+"g2": 0.8018,
+"g3": 0.5291,
+"g4": 0.5258
+}
+},
+"892": {
+"sp": [
+{
+"name": "Max Tripure",
+"pit": 0.8054,
+"fallback": false
+},
+{
+"name": "Brett Buchanan",
+"pit": 0.7403,
+"fallback": false
+},
+{
+"name": "Jason Buhl",
+"pit": 0.3719,
+"fallback": false
+}
+],
+"avg": 0.464,
+"model1": {
+"g1": 0.7728,
+"g2": 0.6953,
+"g3": 0.433,
+"g4": 0.464
+},
+"model2": {
+"g1": 0.7294,
+"g2": 0.7387,
+"g3": 0.433,
+"g4": 0.464
+}
+},
+"893": {
+"sp": [
+{
+"name": "Gavin Perry",
+"pit": 0.981,
+"fallback": false
+},
+{
+"name": "Aaron Robertson",
+"pit": 0.9095,
+"fallback": false
+},
+{
+"name": "Jacob O'Day",
+"pit": 0.4735,
+"fallback": false
+}
+],
+"avg": 0.6478,
+"model1": {
+"g1": 0.9451,
+"g2": 0.8847,
+"g3": 0.5865,
+"g4": 0.6478
+},
+"model2": {
+"g1": 0.8974,
+"g2": 0.9323,
+"g3": 0.5865,
+"g4": 0.6478
+}
+},
+"894": {
+"sp": [
+{
+"name": "Sam Carlisle",
+"pit": 0.8978,
+"fallback": false
+},
+{
+"name": "Ricky Kidd",
+"pit": 0.7762,
+"fallback": false
+},
+{
+"name": "Zach Vriesenga",
+"pit": 0.1178,
+"fallback": false
+}
+],
+"avg": 0.4345,
+"model1": {
+"g1": 0.8111,
+"g2": 0.7102,
+"g3": 0.2551,
+"g4": 0.4345
+},
+"model2": {
+"g1": 0.73,
+"g2": 0.7912,
+"g3": 0.2551,
+"g4": 0.4345
+}
+},
+"906": {
+"sp": [
+{
+"name": "Matthew Cuccias",
+"pit": 0.9699,
+"fallback": false
+},
+{
+"name": "Johnny Nuanez",
+"pit": 0.9529,
+"fallback": false
+},
+{
+"name": "Caleb Reed",
+"pit": 0.862,
+"fallback": false
+}
+],
+"avg": 0.6013,
+"model1": {
+"g1": 0.9208,
+"g2": 0.8925,
+"g3": 0.8252,
+"g4": 0.6013
+},
+"model2": {
+"g1": 0.9094,
+"g2": 0.9038,
+"g3": 0.8252,
+"g4": 0.6013
+}
+},
+"910": {
+"sp": [
+{
+"name": "Owen Pierce",
+"pit": 0.5878,
+"fallback": false
+},
+{
+"name": "Zack Potts",
+"pit": 0.5646,
+"fallback": false
+},
+{
+"name": "Jack Pye",
+"pit": 0.2023,
+"fallback": false
+}
+],
+"avg": 0.5492,
+"model1": {
+"g1": 0.6583,
+"g2": 0.6257,
+"g3": 0.3786,
+"g4": 0.5492
+},
+"model2": {
+"g1": 0.6428,
+"g2": 0.6412,
+"g3": 0.3786,
+"g4": 0.5492
+}
+},
+"919": {
+"sp": [
+{
+"name": "Luke Earnhardt",
+"pit": 0.9316,
+"fallback": false
+},
+{
+"name": "Brayden GIlley",
+"pit": 0.6568,
+"fallback": false
+},
+{
+"name": "Randy Guzman",
+"pit": 0.5374,
+"fallback": false
+}
+],
+"avg": 0.4389,
+"model1": {
+"g1": 0.8265,
+"g2": 0.6232,
+"g3": 0.5351,
+"g4": 0.4389
+},
+"model2": {
+"g1": 0.6433,
+"g2": 0.8064,
+"g3": 0.5351,
+"g4": 0.4389
+}
+},
+"932": {
+"sp": [
+{
+"name": "Alec Bouchard",
+"pit": 0.9934,
+"fallback": false
+},
+{
+"name": "Cullen Condon",
+"pit": 0.9232,
+"fallback": false
+},
+{
+"name": "Miller Alston",
+"pit": 0.5638,
+"fallback": false
+}
+],
+"avg": 0.5534,
+"model1": {
+"g1": 0.9162,
+"g2": 0.8426,
+"g3": 0.5907,
+"g4": 0.5534
+},
+"model2": {
+"g1": 0.8694,
+"g2": 0.8894,
+"g3": 0.5907,
+"g4": 0.5534
+}
+},
+"936": {
+"sp": [
+{
+"name": "Griffen Paige",
+"pit": 0.9128,
+"fallback": false
+},
+{
+"name": "Chet Lax",
+"pit": 0.796,
+"fallback": false
+},
+{
+"name": "Cam Allen",
+"pit": 0.7377,
+"fallback": false
+}
+],
+"avg": 0.5162,
+"model1": {
+"g1": 0.8502,
+"g2": 0.7566,
+"g3": 0.7109,
+"g4": 0.5162
+},
+"model2": {
+"g1": 0.7723,
+"g2": 0.8344,
+"g3": 0.7109,
+"g4": 0.5162
+}
+},
+"937": {
+"sp": [
+{
+"name": "Ryan Piech",
+"pit": 0.9754,
+"fallback": false
+},
+{
+"name": "Ashton Chronister",
+"pit": 0.7663,
+"fallback": false
+},
+{
+"name": "Evan Vasiliou",
+"pit": 0.283,
+"fallback": false
+}
+],
+"avg": 0.4093,
+"model1": {
+"g1": 0.8653,
+"g2": 0.7037,
+"g3": 0.3735,
+"g4": 0.4093
+},
+"model2": {
+"g1": 0.7259,
+"g2": 0.8431,
+"g3": 0.3735,
+"g4": 0.4093
+}
+},
+"938": {
+"sp": [
+{
+"name": "Tate Evans",
+"pit": 0.9703,
+"fallback": false
+},
+{
+"name": "Jack Ohman",
+"pit": 0.9425,
+"fallback": false
+},
+{
+"name": "Daniel Cohen",
+"pit": 0.4667,
+"fallback": false
+}
+],
+"avg": 0.5583,
+"model1": {
+"g1": 0.8528,
+"g2": 0.7961,
+"g3": 0.4637,
+"g4": 0.5583
+},
+"model2": {
+"g1": 0.8342,
+"g2": 0.8146,
+"g3": 0.4637,
+"g4": 0.5583
+}
+},
+"942": {
+"sp": [
+{
+"name": "Braden Gebhardt",
+"pit": 0.9773,
+"fallback": false
+},
+{
+"name": "Jack Messmore",
+"pit": 0.445,
+"fallback": false
+},
+{
+"name": "Brandon Mikos",
+"pit": 0.0291,
+"fallback": false
+}
+],
+"avg": 0.3061,
+"model1": {
+"g1": 0.8599,
+"g2": 0.4619,
+"g3": 0.1705,
+"g4": 0.3061
+},
+"model2": {
+"g1": 0.5051,
+"g2": 0.8168,
+"g3": 0.1705,
+"g4": 0.3061
+}
+}
+}
