@@ -279,6 +279,42 @@ def load_teams():
     return teams
 
 
+def _norm_team(name):
+    """Normalize a team name so bracketology names match teams.csv names
+    (e.g. 'Saint'/'State'/'University' variants collapse)."""
+    import re as _re
+    if not isinstance(name, str):
+        return ''
+    n = name.lower().strip()
+    n = _re.sub(r'\bsaint\b', 'st', n)
+    n = _re.sub(r'\bstate\b', 'st', n)
+    n = _re.sub(r'\buniversity\b|\buniv\.?\b', '', n)
+    return _re.sub(r'[^a-z0-9]+', '', n)
+
+
+@st.cache_data
+def load_tournament_field_norm(sport: str, year: int) -> set:
+    """Normalized team-name keys for a year's NCAA tournament field (the 64
+    seeded teams) for the 'In the tournament' filter. Current cycle reads the
+    latest dated bracketology snapshot for the sport (seed_tier 1-4, excludes
+    first_four_out); older years fall back to tournament_field_2013_2020.csv."""
+    bdir = DATA_DIR / 'bracketology'
+    names = []
+    snaps = sorted((bdir / 'snapshots').glob(f'{sport}_bracketology_{year}-*.csv'))
+    if snaps:
+        snap = pd.read_csv(snaps[-1])
+        if 'seed_tier' in snap.columns:
+            snap = snap[snap['seed_tier'].isin(['1-seed', '2-seed', '3-seed', '4-seed'])]
+        names = snap['name'].dropna().astype(str).tolist() if 'name' in snap.columns else []
+    else:
+        hist = bdir / 'tournament_field_2013_2020.csv'
+        if hist.exists():
+            h = pd.read_csv(hist)
+            names = h.loc[pd.to_numeric(h['year'], errors='coerce') == year,
+                          'team'].dropna().astype(str).tolist()
+    return {_norm_team(n) for n in names if _norm_team(n)}
+
+
 @st.cache_data
 def load_players():
     """Load player name lookup: players.csv id -> player_name."""
@@ -388,6 +424,33 @@ def sidebar():
 
     year_list = ['2026', '2025', '2024', '2023', '2022', '2021']
     cfg['year'] = st.sidebar.selectbox('Year', year_list)
+
+    # In the tournament — restrict to the NCAA field (64 seeded teams) for the
+    # Year selected above. Default 'No' = all teams. Stacks with the other
+    # filters by intersecting the team_id set.
+    cfg['in_tournament'] = st.sidebar.selectbox(
+        'In the tournament', ['No', 'Yes'],
+        help='Restrict to the NCAA tournament field (the 64 seeded teams) for '
+             'the Year selected above. Default No = all teams.',
+    )
+    if cfg['in_tournament'] == 'Yes':
+        _field_norm = load_tournament_field_norm(cfg['sport'].lower(), int(cfg['year']))
+        if _field_norm:
+            # Keep ALL matching team_db_ids (teams.csv has legacy duplicate
+            # rows for some schools — including both ensures we don't miss
+            # stats keyed to either id). Count distinct schools for the caption.
+            _mask = sport_teams['team_name'].map(lambda n: _norm_team(n) in _field_norm)
+            _field_ids = set(sport_teams.loc[_mask, 'team_db_id'].astype(str))
+            cfg['team_ids'] = cfg['team_ids'] & _field_ids
+            _n_schools = sport_teams.loc[_mask, 'team_name'].nunique()
+            st.sidebar.caption(
+                f"{_n_schools} of {len(_field_norm)} {cfg['year']} field teams (after filters)"
+            )
+        else:
+            st.sidebar.warning(
+                f"No {cfg['year']} {cfg['sport']} tournament field available "
+                "(only 2026 is loaded)."
+            )
 
     # ── Game-context filter (PBP-derived; only applies to current year + team-level stat CSVs) ──
     cfg['game_type'] = st.sidebar.selectbox(
