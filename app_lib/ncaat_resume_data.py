@@ -348,6 +348,7 @@ _SOURCE_TEAM_ALIASES = {
     'North Alabama': 'North Ala.',
     'Incarnate Word': 'UIW',
     'UNCG': 'UNC Greensboro',
+    'Northern Ill.': 'NIU',                         # RPI abbreviates "Ill."; teams.csv = "NIU" (a 2026 regional team)
 }
 
 
