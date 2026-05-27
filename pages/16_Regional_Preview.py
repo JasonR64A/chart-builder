@@ -1300,6 +1300,16 @@ def _team_top_hitters(team_name, sport, division, n=9):
 # ── Compute all data needed for the graphic ────────────────────────────────
 with st.spinner('Aggregating season + L25 data…'):
     survival = _simulate_regional_full(20000)
+    survival_n2 = None; _g1names = None
+    if sport == 'baseball' and division == 'D1':
+        try:
+            from app_lib.regional_strength import (simulate_regional_milestones as _simm2,
+                                                   rotation_starters as _rs2)
+            survival_n2 = _simm2(teams, sport, division, host_model='model2', host_idx=0, n=20000)
+            _sp2 = _rs2(teams[0], sport, division)
+            _g1names = (_sp2[0][0], _sp2[1][0]) if _sp2 and len(_sp2) > 1 else None
+        except Exception:
+            survival_n2 = None
     perf_full = {t: _team_radar_perf(t, sport, division, last_n_games=None) for t in teams}
     perf_l25 = {t: _team_radar_perf(t, sport, division, last_n_games=25) for t in teams}
     radar_dist = _division_metric_distributions(sport, division)
@@ -1393,7 +1403,7 @@ def _strength_for(perf, dist=None):
 
 
 # ── Build the SVG (1080×1350 IG-feed canvas) ──────────────────────────────
-VB_W, VB_H = 1080, 1350
+VB_W, VB_H = 1080, 1402
 PAD_X, PAD_TOP = 24, 16
 
 # Vertical layout (y positions)
@@ -1402,7 +1412,7 @@ H_HEADER = 92
 Y_STRIP  = Y_HEADER + H_HEADER           # Team identity strip
 H_STRIP  = 84
 Y_PROB   = Y_STRIP + H_STRIP             # Path to the Title
-H_PROB   = 154
+H_PROB   = 206
 Y_RADAR  = Y_PROB + H_PROB               # Radar hero
 H_RADAR  = 408
 Y_PITCH  = Y_RADAR + H_RADAR             # Pitching depth
@@ -1591,6 +1601,27 @@ for ti, (team, seed) in enumerate(zip(teams, seeds)):
     parts.append(f'<text x="{VB_W - PAD_X - 6}" y="{row_cy + 5}" class="in" font-size="16" font-weight="800" '
                  f'fill="{BRAND_RED}" text-anchor="end" letter-spacing="-0.2">'
                  f'{champ_pct:.1f}<tspan font-size="10">%</tspan></text>')
+# ── Game-1 starter call for the 1-seed (ace vs save-the-ace) ────────────────
+if survival_n2 is not None:
+    _host = teams[0]
+    _an, _nn = (_g1names if _g1names else ('ace', '#2'))
+    _gy = hdr_y + 14 + len(teams) * ROW_PITCH + 20
+    parts.append(f'<text x="{prob_grid_x}" y="{_gy}" class="in" font-size="9" font-weight="700" '
+                 f'fill="{INK_400}" letter-spacing="1.2">GAME 1 STARTER CALL · '
+                 f'{_xe(_host).upper()} (1-SEED)</text>')
+    for _k, (_lab, _nm, _s) in enumerate([('START ACE', _an, survival[_host]),
+                                          ('SAVE ACE, #2 GAME 1', _nn, survival_n2[_host])]):
+        _ly = _gy + 20 + _k * 17
+        parts.append(f'<text x="{prob_grid_x}" y="{_ly}" class="mn" font-size="10" font-weight="700" '
+                     f'fill="{INK_900}">{_lab} · {_xe(_nm)}</text>')
+        parts.append(
+            f'<text x="{VB_W - PAD_X - 4}" y="{_ly}" class="mn" font-size="10" font-weight="600" '
+            f'fill="{INK_700}" text-anchor="end">'
+            f"opener {_s['r1']*100:.0f}%  ·  W-bracket {_s['r2']*100:.0f}%  ·  "
+            f"final {_s['r3']*100:.0f}%  ·  "
+            f'<tspan fill="{BRAND_RED}" font-weight="800">win regional '
+            f"{_s['r4']*100:.0f}%</tspan></text>")
+
 parts.append(f'<line x1="{PAD_X}" y1="{Y_PROB + H_PROB}" x2="{VB_W - PAD_X}" y2="{Y_PROB + H_PROB}" '
              f'stroke="{INK_RULE}" stroke-width="1"/>')
 
@@ -1882,7 +1913,8 @@ parts.append(f'<rect x="{PAD_X}" y="{foot_text_y - 11}" width="62" height="14" r
 parts.append(f'<text x="{PAD_X + 31}" y="{foot_text_y - 1}" class="mn" font-size="9" font-weight="700" '
              f'fill="{BG_EGG}" text-anchor="middle" letter-spacing="1.0">METHOD</text>')
 parts.append(f'<text x="{PAD_X + 70}" y="{foot_text_y}" class="mn" font-size="9" font-weight="600" '
-             f'fill="{INK_500}" letter-spacing="0.6">BRADLEY-TERRY · 20K SIM · FULL SEASON · LAST 25 OVERLAY</text>')
+             f'fill="{INK_500}" letter-spacing="0.6">'
+             f'{("CR + ROSTER BLEND · 20K SIM · WEEKEND ROTATION · LAST 25 OVERLAY" if (sport == "baseball" and division == "D1") else "BRADLEY-TERRY · 20K SIM · FULL SEASON · LAST 25 OVERLAY")}</text>')
 parts.append(f'<text x="{VB_W - PAD_X}" y="{foot_text_y}" class="mn" font-size="9" font-weight="800" '
              f'fill="{BRAND_RED}" text-anchor="end" letter-spacing="0.6">64ANALYTICS.COM</text>')
 # Brand circle next to the URL — small, uses the red+black circle logo.
