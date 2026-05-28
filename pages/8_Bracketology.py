@@ -42,7 +42,8 @@ DEFUNCT_PROGRAMS = {
         'San Francisco',
     },
     'baseball': {
-        'N.C. Central',  # dropped baseball after 2021 season
+        'N.C. Central',       # dropped baseball after 2021 season
+        'Purdue Fort Wayne',  # does not field D-I baseball in 2026
     },
 }
 

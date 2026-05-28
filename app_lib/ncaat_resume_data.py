@@ -114,9 +114,19 @@ def _load_csv(rel_path: str, **kwargs) -> pd.DataFrame:
     return pd.read_csv(p, low_memory=False, **kwargs)
 
 
+# Programs that appear in teams.csv as D-I but don't sponsor the sport this
+# season — exclude from the resume picker so they don't show an all-#999/301
+# dossier. Mirrors DEFUNCT_PROGRAMS in pages/8_Bracketology.py.
+DEFUNCT_PROGRAMS = {
+    'baseball': {'N.C. Central', 'Purdue Fort Wayne'},
+    'softball': {'Cleveland St.', 'Purdue Fort Wayne', 'West Virginia', 'San Francisco'},
+}
+
+
 @st.cache_data(show_spinner=False)
 def list_d1_teams(sport_key: str) -> list[str]:
-    """Return sorted D-I team names for the given sport."""
+    """Return sorted D-I team names for the given sport (excluding programs
+    that don't field the sport this season)."""
     teams = _load_csv('teams.csv')
     conferences = _load_csv('conferences.csv')
     if teams.empty or conferences.empty:
@@ -124,7 +134,8 @@ def list_d1_teams(sport_key: str) -> list[str]:
     sport_label = 'Baseball' if sport_key == 'baseball' else 'Softball'
     di_ids = set(conferences[conferences['division'] == 'D-I']['id'].tolist())
     d1 = teams[(teams['sport'] == sport_label) & (teams['conference_id'].isin(di_ids))]
-    return sorted(d1['name'].dropna().unique().tolist())
+    defunct = DEFUNCT_PROGRAMS.get(sport_key, set())
+    return sorted(n for n in d1['name'].dropna().unique().tolist() if n not in defunct)
 
 
 @st.cache_data(show_spinner=False)
