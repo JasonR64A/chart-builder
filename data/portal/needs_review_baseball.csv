@@ -1,14 +1,4 @@
 ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfer_date,update_date,status,year,sport,team_id,player_id_64a,player_id_ncaa_stats,matched_name,match_score,match_method,confidence,position,class_year,player_csv_team_id
-2201424505,ALEXANDER,LEPAGE,Alexander Lepage,Immaculata University,Atlantic East Conference,III,05/27/2026,05/28/2026,Active,2025-26,Baseball,348,74774,2958844,Alex LePage,92.0,team+lastname,LOW,P,Jr,348
-2108291332,NELSON,YEATTS,Nelson Yeatts,Longwood University,Big South Conference,I,05/27/2026,05/28/2026,Active,2025-26,Baseball,417,61801,2812327,Bentley Yeatts,66.7,team+lastname_diff_first,REVIEW,3B,Sr,417
-2105177830,MATTHEW,HOLMES,Matthew Holmes,Husson University,North Atlantic Conference,III,05/27/2026,05/28/2026,Active,2025-26,Baseball,341,76211,2943126,Matt Holmes,92.0,team+lastname,LOW,RF,Jr,341
-2210691235,AIDAN,NITSCHE,Aidan Nitsche,Baldwin Wallace University,Ohio Athletic Conference,III,05/27/2026,05/28/2026,Active,2025-26,Baseball,55,127678,3242315,Aidan Nitchse,92.3,team+lastname,LOW,P,Fr,55
-2108306057,WILLIAM,KAMAKA,William Kamaka,Mercer University,Southern Conference,I,05/27/2026,05/28/2026,Active,2025-26,Baseball,462,53870,2797428,Titan Kamaka,69.2,team+lastname_diff_first,REVIEW,SS,Sr,462
 2108289143,JOHN,FREEMAN,John Freeman,Florida International University,Conference USA,I,05/27/2026,05/27/2026,Active,2025-26,Baseball,261,130560,3231758,Trey Freeman,66.7,team+lastname_diff_first,REVIEW,RF,Jr,261
-2308985042,BENJAMIN,KRZA,Benjamin Krza,Asbury University,Collegiate Conference of the South,III,05/27/2026,05/27/2026,Active,2025-26,Baseball,40,127478,3233035,Ben Krza,92.0,team+lastname,LOW,C,So,40
-2010945524,ANDREW,KOLENDA,Andrew Kolenda,Kent State University,Mid-American Conference,I,05/27/2026,05/27/2026,Active,2025-26,Baseball,371,55358,2798295,Jordan Kolenda,71.4,team+lastname_diff_first,REVIEW,P,Jr,371
 2502506018,GAVIN,REGAN,Gavin Regan,King University,Conference Carolinas,II,05/27/2026,05/27/2026,Active,2025-26,Baseball,377,132154,3231762,Tommy Regan,45.5,team+lastname_diff_first,REVIEW,1B,Fr,377
 2605938347,JOSEPH,MARASCO,Joseph Marasco,George Fox University,Northwest Conference,III,05/27/2026,05/27/2026,Active,2025-26,Baseball,288,130821,3239833,Joey Marasco,92.0,team+lastname,LOW,SS,Fr,288
-2108307574,CHRISTOPHER,LAIETA,Christopher Laieta,Felician University,Central Atlantic Collegiate Conference,II,05/27/2026,05/27/2026,Active,2025-26,Baseball,256,130411,3226836,Chris Laieta,92.0,team+lastname,LOW,P,Fr,256
-2311160874,THAMON,MCGRIFF,Thamon Mcgriff,University of Maryland Eastern Shore,Northeast Conference,I,05/27/2026,05/27/2026,Active,2025-26,Baseball,825,116972,3108686,Tha'Mon McGriff,96.6,team+lastname,MEDIUM,P,,825
-2309112201,COLIN,CHATTERTON,Colin Chatterton,Randolph-Macon College,Old Dominion Athletic Conf.,III,05/27/2026,05/27/2026,Active,2025-26,Baseball,636,118764,3114810,CJ Chatterton,82.0,team+lastname_diff_first,REVIEW,SS,So,636
