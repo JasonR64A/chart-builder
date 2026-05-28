@@ -1555,8 +1555,8 @@ parts.extend([
 ])
 
 # Grid columns: Team(112) | 1-0(1fr) | 2-0(1fr) | Reach Final(1fr) | Champ %(84)
-team_col_w = 116
-champ_col_w = 86
+team_col_w = 134
+champ_col_w = 94
 stage_w = (VB_W - 2 * PAD_X - 8 - team_col_w - champ_col_w) / 3
 prob_grid_x = PAD_X + 4
 col_x = [
@@ -1573,7 +1573,7 @@ for label, x_l, x_r, anchor, color in [
     ('1-0 (WON OPENER)', col_x[1], col_x[2], 'middle', INK_400),
     ('2-0 (WON W-BRACKET)', col_x[2], col_x[3], 'middle', INK_400),
     ('REACH FINAL', col_x[3], col_x[4], 'middle', INK_400),
-    ('CHAMP %', col_x[4], VB_W - PAD_X - 4, 'end', BRAND_RED),
+    ('CHAMP %', col_x[4], VB_W - PAD_X - 14, 'end', BRAND_RED),
 ]:
     if anchor == 'start':
         tx = x_l
@@ -1599,7 +1599,7 @@ for ti, (team, seed) in enumerate(zip(teams, seeds)):
     parts.append(f'<text x="{badge_x + 9}" y="{badge_y + 13}" class="in" font-size="10" font-weight="800" '
                  f'fill="#FFFFFF" text-anchor="middle">{seed}</text>')
     parts.append(f'<text x="{badge_x + 26}" y="{row_cy + 3}" class="in" font-size="12" font-weight="700" '
-                 f'fill="{INK_900}">{_xe(team)}</text>')
+                 f'fill="{INK_900}">{_xe(team.split("(")[0].strip()[:16])}</text>')
     # 3 stage bars (r4 is shown as the big red CHAMP % on the right, not as a bar)
     pct_vals = [s['r1'], s['r2'], s['r3']]
     bar_h = 14
@@ -1629,7 +1629,7 @@ for ti, (team, seed) in enumerate(zip(teams, seeds)):
                      f'font-weight="{label_weight}" fill="{label_color}" text-anchor="middle">{pct_int}%</text>')
     # champ %
     champ_pct = s['r4'] * 100
-    parts.append(f'<text x="{VB_W - PAD_X - 6}" y="{row_cy + 5}" class="in" font-size="16" font-weight="800" '
+    parts.append(f'<text x="{VB_W - PAD_X - 14}" y="{row_cy + 5}" class="in" font-size="16" font-weight="800" '
                  f'fill="{BRAND_RED}" text-anchor="end" letter-spacing="-0.2">'
                  f'{champ_pct:.1f}<tspan font-size="10">%</tspan></text>')
 parts.append(f'<line x1="{PAD_X}" y1="{Y_PROB + H_PROB}" x2="{VB_W - PAD_X}" y2="{Y_PROB + H_PROB}" '
