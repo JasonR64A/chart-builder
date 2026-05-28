@@ -1,4 +1,3 @@
 ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfer_date,update_date,status,year,sport,team_id,player_id_64a,player_id_ncaa_stats,matched_name,match_score,match_method,confidence,position,class_year,player_csv_team_id
-2108289143,JOHN,FREEMAN,John Freeman,Florida International University,Conference USA,I,05/27/2026,05/27/2026,Active,2025-26,Baseball,261,130560,3231758,Trey Freeman,66.7,team+lastname_diff_first,REVIEW,RF,Jr,261
-2502506018,GAVIN,REGAN,Gavin Regan,King University,Conference Carolinas,II,05/27/2026,05/27/2026,Active,2025-26,Baseball,377,132154,3231762,Tommy Regan,45.5,team+lastname_diff_first,REVIEW,1B,Fr,377
-2605938347,JOSEPH,MARASCO,Joseph Marasco,George Fox University,Northwest Conference,III,05/27/2026,05/27/2026,Active,2025-26,Baseball,288,130821,3239833,Joey Marasco,92.0,team+lastname,LOW,SS,Fr,288
+2303801804,NIKOLAS,HILTON,Nikolas Hilton,Ohio Wesleyan University,North Coast Athletic Conference,III,05/28/2026,05/28/2026,Active,2025-26,Baseball,577,149031,3256639,Nik Hilton,82,team+lastname_diff_first,REVIEW,C,Fr,577
+2110348006,ANDREW,JONES,Andrew Jones,Eastern Michigan University,Mid-American Conference,I,05/28/2026,05/28/2026,Active,2025-26,Baseball,229,58301,2801840,Drew Jones,92,team+fullname,LOW,RF,Sr,229
