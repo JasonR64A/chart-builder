@@ -352,11 +352,31 @@ _SOURCE_TEAM_ALIASES = {
 }
 
 
+@st.cache_data(show_spinner=False)
+def _load_name_map() -> dict:
+    """external (ranking-source) name -> our (teams.csv) name, from
+    data/rankings/name_map.csv. The comprehensive bridge regional_strength.py
+    already uses; reused here so DSR/ELO/Massey/RPI resolve teams.csv spellings
+    (e.g. 'St. John's' -> 'St. John's (NY)', 'Connecticut' -> 'UConn')."""
+    nm = _load_csv('rankings/name_map.csv')
+    if nm.empty or 'external_name' not in nm.columns or 'our_name' not in nm.columns:
+        return {}
+    # Multimap: one external name can map to several our-name variants
+    # (e.g. "N Illinois" -> both "NIU" and "Northern Ill."). A plain dict would
+    # drop all but the last, so register the rank under every variant.
+    mm: dict = {}
+    for e, o in zip(nm['external_name'].astype(str), nm['our_name'].astype(str)):
+        mm.setdefault(e, []).append(o)
+    return mm
+
+
 def _register_ranks_with_aliases(df, team_col, rank_col) -> dict:
-    """Build {_norm(name): rank} from a ranking df, registering both the
-    source's spelling AND any canonical teams.csv alias so either form
-    resolves to the same rank.
+    """Build {_norm(name): rank} from a ranking df. Registers the source's own
+    spelling, any hardcoded _SOURCE_TEAM_ALIASES canonical, AND the
+    name_map.csv our-name — so a lookup by the teams.csv name resolves
+    regardless of the source's abbreviation (e.g. 'App State', 'Ga. Southern').
     """
+    nmap = _load_name_map()
     out = {}
     for t, r in zip(df[team_col], df[rank_col]):
         try:
@@ -367,6 +387,8 @@ def _register_ranks_with_aliases(df, team_col, rank_col) -> dict:
         canonical = _SOURCE_TEAM_ALIASES.get(t)
         if canonical:
             out[_norm(canonical)] = rank
+        for our in nmap.get(str(t), ()):
+            out[_norm(our)] = rank
     return out
 
 
