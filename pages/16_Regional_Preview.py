@@ -1109,6 +1109,65 @@ def _percentile_rank(value, sorted_vals, lower_better=False):
     return 1.0 - pct if lower_better else pct
 
 
+# ── Frozen rotation/lineup membership + LIVE stats from season CSVs ──────────
+# The player LIST (who's in the staff/lineup) is baked once from recent PBP; the
+# STATS shown beside them are pulled live from pitching.csv / hitting.csv so they
+# stay current. Baseball D1 only.
+@st.cache_data(show_spinner=False)
+def _baked_staff():
+    import json
+    p = DATA_DIR / 'regional_rotations_baseball_2026.json'
+    if not p.exists():
+        return {}
+    try:
+        return {int(k): v for k, v in json.load(open(p)).items()}
+    except Exception:
+        return {}
+
+
+@st.cache_data(show_spinner=False)
+def _live_pitching(year=2026):
+    """{(team_id, player_id): (IP, FIP, WHIP)} from the live season pitching.csv."""
+    df = pd.read_csv(DATA_DIR / 'pitching.csv', low_memory=False)
+    df = df[df['year'] == year].copy()
+    for c in ['innings_pitched', 'homeruns_allowed', 'walks_issued', 'hit_batter',
+              'strikeouts', 'hits_allowed']:
+        df[c] = pd.to_numeric(df.get(c), errors='coerce').fillna(0)
+    df['_outs'] = df['innings_pitched'].apply(_ip_to_outs_local)
+    g = df.groupby(['team_id', 'player_id']).agg(
+        outs=('_outs', 'sum'), HR=('homeruns_allowed', 'sum'),
+        BB=('walks_issued', 'sum'), HBP=('hit_batter', 'sum'),
+        SO=('strikeouts', 'sum'), H=('hits_allowed', 'sum')).reset_index()
+    g['IP'] = g['outs'] / 3.0
+    ip = g['IP'].replace(0, np.nan)
+    g['FIP'] = ((13 * g['HR'] + 3 * (g['BB'] + g['HBP']) - 2 * g['SO']) / ip + 3.0)
+    g['WHIP'] = (g['H'] + g['BB']) / ip
+    out = {}
+    for _, r in g.iterrows():
+        out[(int(r['team_id']), int(r['player_id']))] = (
+            round(r['IP'], 1),
+            round(float(r['FIP']), 2) if pd.notna(r['FIP']) else 4.5,
+            round(float(r['WHIP']), 2) if pd.notna(r['WHIP']) else 1.4)
+    return out
+
+
+@st.cache_data(show_spinner=False)
+def _live_hitting(year=2026):
+    """{(team_id, player_id): (PA, OPS, wRAA)} from the live season hitting.csv."""
+    df = pd.read_csv(DATA_DIR / 'hitting.csv', low_memory=False)
+    df = df[df['year'] == year].copy()
+    out = {}
+    for _, r in df.iterrows():
+        try:
+            out[(int(r['team_id']), int(r['player_id']))] = (
+                int(pd.to_numeric(r['plate_appearances'], errors='coerce') or 0),
+                float(pd.to_numeric(r['on_base_plus_slugging'], errors='coerce') or 0),
+                float(pd.to_numeric(r['weighted_runs_above_average'], errors='coerce') or 0))
+        except Exception:
+            continue
+    return out
+
+
 @st.cache_data(show_spinner=False)
 def _team_top_pitchers(team_name, sport, division, n=8):
     """Top N pitchers by IP. First 3 (by IP) get role SP1/SP2/SP3 highlight.
@@ -1118,6 +1177,21 @@ def _team_top_pitchers(team_name, sport, division, n=8):
     SV/App ratio is at least 25%. Otherwise, falls through to RP/SP based on
     average outs per appearance. Save proxy = appearances in team wins where
     the pitcher's IP for that game is short (relief profile, <= 3 outs)."""
+    if sport == 'baseball' and division == 'D1':
+        try:
+            tid = team_ids.get(team_name)
+            ent = _baked_staff().get(tid)
+            if ent and ent.get('rotation'):
+                live = _live_pitching()
+                out = []
+                for mb in ent['rotation'][:n]:
+                    s = live.get((tid, mb['id'])) if mb.get('id') else None
+                    ip, fip, whip = s if s else (0.0, 4.5, 1.4)
+                    out.append({'name': mb['name'], 'role': mb['role'],
+                                'ip': ip, 'fip': fip, 'whip': whip})
+                return out
+        except Exception:
+            pass
     _, p = _team_pbp_full(team_name, sport, division)
     if p.empty or 'playerName' not in p.columns:
         return []
@@ -1214,6 +1288,20 @@ def _league_woba(sport, division):
 @st.cache_data(show_spinner=False)
 def _team_top_hitters(team_name, sport, division, n=9):
     """Top N hitters by PA. Returns PA, OPS, wRAA per user-spec display."""
+    if sport == 'baseball' and division == 'D1':
+        try:
+            tid = team_ids.get(team_name)
+            ent = _baked_staff().get(tid)
+            if ent and ent.get('lineup'):
+                live = _live_hitting()
+                out = []
+                for mb in ent['lineup'][:n]:
+                    s = live.get((tid, mb['id'])) if mb.get('id') else None
+                    pa, ops, wraa = s if s else (0, 0.0, 0.0)
+                    out.append({'name': mb['name'], 'pa': pa, 'ops': ops, 'wraa': wraa})
+                return out
+        except Exception:
+            pass
     h, _ = _team_pbp_full(team_name, sport, division)
     if h.empty or 'playerName' not in h.columns:
         return []
