@@ -1,3 +1,6 @@
 ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfer_date,update_date,status,year,sport,team_id,player_id_64a,player_id_ncaa_stats,matched_name,match_score,match_method,confidence,position,class_year,player_csv_team_id
-2512786801,SALVATORE,URSO,Salvatore Urso,Savannah State University,Southern Intercol. Ath. Conf.,II,05/28/2026,05/28/2026,Active,2025-26,Baseball,690,135961,3242657,S. Urso,57.1,team+lastname_diff_first,REVIEW,P,Jr,690
-2109326425,ALEXANDER,MARTIN,Alexander Martin,University of Louisville,Atlantic Coast Conference,I,05/28/2026,05/28/2026,Active,2025-26,Baseball,421,54188,2810191,A.J. Martin,59.3,team+lastname_diff_first,REVIEW,2B,Sr,421
+2111367582,ALEXANDER,ALBERICO,Alexander Alberico,Kent State University,Mid-American Conference,I,05/29/2026,05/29/2026,Active,2025-26,Baseball,371,55354,2798386,Alex Alberico,92.0,team+lastname,LOW,P,Jr,371
+2103132176,CHRISTOPHER,LAMOND,Christopher Lamond,St. Thomas Aquinas College,East Coast Conference,II,05/29/2026,05/29/2026,Active,2025-26,Baseball,752,118137,3116016,Chris Lamond,92.0,team+lastname,LOW,P,Sr,752
+2111375331,WILLIAM,EDGERTON,William Edgerton,University of New Mexico,Mountain West Conference,I,05/29/2026,05/29/2026,Active,2025-26,Baseball,531,51049,2815677,Seth Edgerton,62.1,team+lastname_diff_first,REVIEW,P,Jr,531
+2605941415,WYATT,RAYMOND,Wyatt Raymond,Grinnell College,Midwest Conference,III,05/29/2026,05/29/2026,Active,2025-26,Baseball,306,119800,3121755,W. Raymond,78.3,team+lastname_diff_first,REVIEW,RF,So,306
+2307959429,NICHOLAS,VILLALBA,Nicholas Villalba,Saint Elizabeth University,Atlantic East Conference,III,05/29/2026,05/29/2026,Active,2025-26,Baseball,666,73985,2955494,Nick Villalba,92.0,team+lastname,LOW,LF,Jr,666
