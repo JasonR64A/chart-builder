@@ -4,22 +4,22 @@ rank,team,record,elo,delta,sport,date
 3,"UCLA","52-7",1748.96,"-1",baseball,2026-05-31
 4,"North Carolina","47-11-1",1723.59,"",baseball,2026-05-31
 5,"Texas","42-13",1689.71,"",baseball,2026-05-31
-6,"Kansas","44-16",1663.49,"+4",baseball,2026-05-31
-7,"Texas A&M","40-14",1656.28,"+2",baseball,2026-05-31
-8,"Arkansas","40-21",1655.82,"-1",baseball,2026-05-31
-9,"Florida","40-19",1655.66,"-1",baseball,2026-05-31
+6,"Florida","41-19",1668.45,"+2",baseball,2026-05-31
+7,"Texas A&M","41-14",1664.95,"+2",baseball,2026-05-31
+8,"Kansas","44-16",1663.49,"+2",baseball,2026-05-31
+9,"Arkansas","40-21",1655.82,"-2",baseball,2026-05-31
 10,"Auburn","39-20",1654.73,"-4",baseball,2026-05-31
-11,"Mississippi State","41-17",1642.26,"",baseball,2026-05-31
+11,"Mississippi State","42-17",1653.64,"",baseball,2026-05-31
 12,"Oregon","42-16",1624.64,"+1",baseball,2026-05-31
 13,"Alabama","39-19",1622.79,"+2",baseball,2026-05-31
 14,"West Virginia","40-15",1618.54,"-2",baseball,2026-05-31
 15,"Nebraska","43-15",1595.15,"+6",baseball,2026-05-31
 16,"Ole Miss","37-21",1592.26,"+6",baseball,2026-05-31
-17,"Oregon State","44-13",1590.89,"-3",baseball,2026-05-31
-18,"Jacksonville State","47-14",1586.24,"+1",baseball,2026-05-31
-19,"Miami (FL)","39-18",1584.98,"+5",baseball,2026-05-31
+17,"Florida State","39-18",1592.12,"",baseball,2026-05-31
+18,"Oregon State","44-13",1590.89,"-4",baseball,2026-05-31
+19,"Jacksonville State","47-14",1586.24,"",baseball,2026-05-31
 20,"Wake Forest","39-20",1584.42,"",baseball,2026-05-31
-21,"Florida State","38-18",1581.34,"-4",baseball,2026-05-31
+21,"Miami (FL)","39-19",1572.19,"+3",baseball,2026-05-31
 22,"Tennessee","38-22",1564.24,"-6",baseball,2026-05-31
 23,"Oklahoma State","38-21",1559.11,"",baseball,2026-05-31
 24,"Southern Miss","44-17",1557.92,"-6",baseball,2026-05-31
@@ -28,9 +28,9 @@ rank,team,record,elo,delta,sport,date
 27,"Oklahoma","33-22",1542.53,"+2",baseball,2026-05-31
 28,"Mercer","44-15",1539.40,"",baseball,2026-05-31
 29,"East Carolina","37-23-1",1539.40,"+1",baseball,2026-05-31
-30,"Cincinnati","38-20",1538.85,"+5",baseball,2026-05-31
-31,"Kentucky","33-21",1538.66,"+11",baseball,2026-05-31
-32,"Arizona State","38-20",1532.06,"-5",baseball,2026-05-31
+30,"Kentucky","33-21",1538.66,"+12",baseball,2026-05-31
+31,"Arizona State","38-20",1532.06,"-4",baseball,2026-05-31
+32,"Cincinnati","38-21",1527.48,"+3",baseball,2026-05-31
 33,"Liberty","42-20",1527.46,"+4",baseball,2026-05-31
 34,"Notre Dame","31-22",1524.31,"",baseball,2026-05-31
 35,"Louisiana","40-24",1520.45,"-3",baseball,2026-05-31
@@ -49,18 +49,18 @@ rank,team,record,elo,delta,sport,date
 48,"UCF","32-22",1487.83,"-4",baseball,2026-05-31
 49,"UTSA","38-20",1486.63,"",baseball,2026-05-31
 50,"Stanford","28-26",1485.51,"",baseball,2026-05-31
-51,"Texas State","37-24",1484.54,"+9",baseball,2026-05-31
-52,"Northeastern","39-21",1483.41,"+3",baseball,2026-05-31
-53,"Boston College","37-22",1481.39,"-5",baseball,2026-05-31
-54,"California","29-26",1477.05,"",baseball,2026-05-31
+51,"Northeastern","39-21",1483.41,"+4",baseball,2026-05-31
+52,"Boston College","37-22",1481.39,"-4",baseball,2026-05-31
+53,"California","29-26",1477.05,"+1",baseball,2026-05-31
+54,"Texas State","37-25",1475.86,"+6",baseball,2026-05-31
 55,"Clemson","31-26",1472.37,"+1",baseball,2026-05-31
 56,"Louisville","30-27",1471.76,"+1",baseball,2026-05-31
 57,"California Baptist","44-15",1467.61,"+1",baseball,2026-05-31
 58,"Samford","31-25",1467.02,"+1",baseball,2026-05-31
 59,"Saint John's","34-24",1465.75,"+11",baseball,2026-05-31
-60,"Coastal Carolina","37-22",1463.71,"-9",baseball,2026-05-31
-61,"Gonzaga","35-19",1456.91,"",baseball,2026-05-31
-62,"Missouri State","34-21",1455.11,"-10",baseball,2026-05-31
+60,"Gonzaga","35-19",1456.91,"+1",baseball,2026-05-31
+61,"Missouri State","34-21",1455.11,"-9",baseball,2026-05-31
+62,"Coastal Carolina","37-23",1452.93,"-11",baseball,2026-05-31
 63,"South Alabama","34-23",1452.91,"-1",baseball,2026-05-31
 64,"Purdue","36-20",1452.62,"-1",baseball,2026-05-31
 65,"Rice","35-24",1451.49,"-1",baseball,2026-05-31
