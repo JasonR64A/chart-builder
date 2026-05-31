@@ -479,8 +479,20 @@ if show_past and decided_items:
             in_prod_flag = '—'  # not expected in production
         elif chosen_id is None:
             in_prod_flag = '?'
+        elif chosen_id in in_prod:
+            in_prod_flag = '✓'
         else:
-            in_prod_flag = '✓' if chosen_id in in_prod else '✗'
+            # Decision is saved and correct, but the chosen player isn't in
+            # portal_rank_player.csv. Two very different reasons — don't show
+            # both as a red ✗ (that's a false negative for the first case):
+            #   - terminal status (Withdrawn/Signed/Matriculated): correctly
+            #     excluded from the rankings, nothing pending → neutral ⊘
+            #   - otherwise (Active): genuinely not processed yet → red ✗
+            _status = (info.get('status') or '').strip().lower()
+            if _status in ('withdrawn', 'signed', 'matriculated'):
+                in_prod_flag = f'⊘ {_status}'
+            else:
+                in_prod_flag = '✗'
 
         past_rows.append({
             'ncaa_id': ncaa_id,
@@ -534,7 +546,8 @@ if show_past and decided_items:
     st.markdown(
         f'**{len(fdf)} of {len(past_df)} past decisions** '
         f'· In production: ✓ = chosen 64A id is in `portal_rank_player.csv` 2026 '
-        f'· ✗ = decision exists but not in production yet '
+        f'· ✗ = decided & Active but not in production yet (needs a pipeline run) '
+        f'· ⊘ = excluded by status (withdrawn/signed/matriculated) — nothing pending '
         f'· — = unmatched (not expected in production)'
     )
 
@@ -583,6 +596,8 @@ if show_past and decided_items:
                     cols[6].markdown(':green[✓]')
                 elif row['in_prod'] == '✗':
                     cols[6].markdown(':red[✗]')
+                elif str(row['in_prod']).startswith('⊘'):
+                    cols[6].markdown(f":gray[{row['in_prod']}]")
                 else:
                     cols[6].write(row['in_prod'])
 
