@@ -2045,15 +2045,24 @@ if view == 'Top 10 Portal Entrants':
     if pe_by == 'A stat':
         pe_stat = st.sidebar.selectbox('Stat (2026 season)', list(PE_STAT_CATALOG), key='pe_stat')
         _kind, _col, _asc, _mincol, _minval, _dec = PE_STAT_CATALOG[pe_stat]
+        # Adjustable volume floor — Min PA (hitter stats) / Min IP (pitcher stats).
+        # Defaults to the per-stat sensible floor (50 PA / 20 IP for rate stats,
+        # 0 for counting stats); change it to taste.
+        _qcol = 'plate_appearances' if _kind == 'hit' else 'innings_pitched'
+        _qlabel = 'Min PA' if _kind == 'hit' else 'Min IP'
+        _user_min = st.sidebar.number_input(
+            _qlabel, value=int(_minval), min_value=0, step=5, key=f'pe_minq_{pe_stat}',
+            help='Volume floor so small samples (e.g. 4 PA / 2 IP) cannot top rate stats '
+                 'like OPS / WHIP. Applies to whichever stat is selected.')
         _hit_t, _pit_t = load_2026_rank_tables()
         _tbl = _hit_t if _kind == 'hit' else _pit_t
         prp['_pid'] = prp['player_id'].astype('Int64')
         prp['StatVal'] = pd.to_numeric(
             prp['_pid'].map(_tbl[_col]) if (len(_tbl) and _col in _tbl.columns) else pd.NA,
             errors='coerce')
-        if _mincol and len(_tbl) and _mincol in _tbl.columns:
-            _q = pd.to_numeric(prp['_pid'].map(_tbl[_mincol]), errors='coerce').fillna(0)
-            prp = prp[_q >= _minval]
+        if _user_min > 0 and len(_tbl) and _qcol in _tbl.columns:
+            _q = pd.to_numeric(prp['_pid'].map(_tbl[_qcol]), errors='coerce').fillna(0)
+            prp = prp[_q >= _user_min]
         prp = prp[prp['StatVal'].notna()]
         if prp.empty:
             st.warning(f'No entrants in that date range have a qualifying 2026 {pe_stat}. '
