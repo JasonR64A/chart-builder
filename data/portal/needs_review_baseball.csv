@@ -1,6 +1,4 @@
 ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfer_date,update_date,status,year,sport,team_id,player_id_64a,player_id_ncaa_stats,matched_name,match_score,match_method,confidence,position,class_year,player_csv_team_id
-2308984406,COOPER,SMITH,Cooper Smith,University of Oklahoma,Southeastern Conference,I,06/01/2026,06/01/2026,Active,2025-26,Baseball,580,134941,3248243,Brisco Smith,66.7,team+lastname_diff_first,REVIEW,P,Fr,580
-2311151816,ALEX,EVASCO,Alex Evasco,Kansas State University,Big 12 Conference,I,06/01/2026,06/01/2026,Active,2025-26,Baseball,367,99731,3088204,AJ Evasco,80.0,team+lastname_diff_first,REVIEW,RF,So,367
-2211732219,JACOB,YEAGER,Jacob Yeager,"University of Maryland, College Park",Big Ten Conference,I,06/01/2026,06/01/2026,Active,2025-26,Baseball,446,101508,3093604,Jake Yeager,92.0,team+lastname,LOW,P,So,446
-2310127780,CHARLES,WOOTEN,Charles Wooten,Christian Brothers University,Gulf South Conference,II,06/01/2026,06/01/2026,Active,2025-26,Baseball,151,103748,3103840,Charlie Wooten,92.9,team+lastname,LOW,LF,Sr,151
-2410445624,BRAYLEN,CENTENO,Braylen Centeno,Franklin Pierce University,Northeast 10 Conference,II,06/01/2026,06/01/2026,Active,2025-26,Baseball,277,130688,3242163,Braylen Andruw Centeno,92.0,team+lastname,LOW,2B,Fr,277
+2210692519,KAIMIIKEKUOKOA,KAHALEKAI,Kaimiikekuokoa Kahalekai,Long Beach State University,Big West Conference,I,06/01/2026,06/01/2026,Active,2025-26,Baseball,416,101818,3084972,Ka'imi Kahalekai,45.0,team+lastname_diff_first,REVIEW,P,So,416
+2311158169,MATTHEW,BROWN,Matthew Brown,North Greenville University,Conference Carolinas,II,06/01/2026,06/01/2026,Active,2025-26,Baseball,549,104842,3107324,Matty Brown,82.0,team+lastname_diff_first,REVIEW,P,So,549
+2310148223,MATTHEW,DESHIRO,Matthew Deshiro,Merrimack College,Metro Atlantic Athletic Conference,I,06/01/2026,06/01/2026,Active,2025-26,Baseball,466,102192,3089070,Matt Deshiro,92.0,team+lastname,LOW,2B,So,466
