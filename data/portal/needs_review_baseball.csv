@@ -1,7 +1,2 @@
 ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfer_date,update_date,status,year,sport,team_id,player_id_64a,player_id_ncaa_stats,matched_name,match_score,match_method,confidence,position,class_year,player_csv_team_id
-2211712542,WILLIAM,LAFFERTY,William Lafferty,Winthrop University,Big South Conference,I,06/01/2026,06/01/2026,Active,2025-26,Baseball,919,69971,2969536,Will Lafferty,92.0,team+lastname,LOW,LF,So,919
-2310149899,CADEN,CARTER,Caden Carter,Missouri Southern State University,Mid-America Intercollegiate Athletics Association,II,06/01/2026,06/01/2026,Active,2025-26,Baseball,496,119984,3121879,C. Carter,76.2,team+lastname_diff_first,REVIEW,P,So,496
-2108298850,JORDAN,MEDELLIN,Jordan Medellin,"University of Arkansas, Pine Bluff",Southwestern Athletic Conf.,I,06/01/2026,06/01/2026,Active,2025-26,Baseball,35,50994,2823280,JoJo Medellin,78.6,team+lastname_diff_first,REVIEW,P,Jr,35
-2108284312,ZACHARY,WIEDER,Zachary Wieder,"University of Arkansas, Pine Bluff",Southwestern Athletic Conf.,I,06/01/2026,06/01/2026,Active,2025-26,Baseball,35,69924,2970583,Zach Wieder,92.0,team+lastname,LOW,3B,Sr,35
-2102111831,NICHOLAS,HOCKEMEYER,Nicholas Hockemeyer,"University of Arkansas, Pine Bluff",Southwestern Athletic Conf.,I,06/01/2026,06/01/2026,Active,2025-26,Baseball,35,102430,3090724,Nick Hockemeyer,92.0,team+lastname,LOW,CF,Jr,35
-2210704375,WILLIAM,SCALDEFERRI,William Scaldeferri,Grand Canyon University,Mountain West Conference,I,06/01/2026,06/01/2026,Active,2025-26,Baseball,302,70467,2940795,Billy Scaldeferri,92.0,team+lastname,LOW,RF,Jr,302
+2203458428,NATHAN,TICHY,Nathan Tichy,University of Washington,Big Ten Conference,I,06/01/2026,06/01/2026,Active,2025-26,Baseball,870,117852,3118783,Nate Tichy,92,team+lastname,LOW,P,So,870
