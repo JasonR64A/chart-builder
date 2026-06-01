@@ -1,2 +1,4 @@
 ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfer_date,update_date,status,year,sport,team_id,player_id_64a,player_id_ncaa_stats,matched_name,match_score,match_method,confidence,position,class_year,player_csv_team_id
-2309106465,SAMUEL,MILLER,Samuel Miller,Binghamton University,America East Conference,I,06/01/2026,06/01/2026,Active,2025-26,Baseball,78,102835,3093239,Sam Miller,92,team+fullname,LOW,LF,So,78
+2404259302,ALEJANDRO,DIAZ,Alejandro Diaz,Lamar University,Southland Conference,I,06/01/2026,06/01/2026,Active,2025-26,Baseball,388,100319,3088926,Cam Diaz,54.5,team+lastname_diff_first,REVIEW,P,Sr,388
+2407369037,JAMIE,MULLIN,Jamie Mullin,"California State University, Sacramento",Western Athletic Conference,I,06/01/2026,06/01/2026,Active,2025-26,Baseball,663,117369,3098967,Jameson Mullin,82.0,team+lastname_diff_first,REVIEW,1B,So,663
+2408371671,CHARLES,PEARCE,Charles Pearce,Old Dominion University,Sun Belt Conference,I,06/01/2026,06/01/2026,Active,2025-26,Baseball,582,134989,3245402,Charlie Pearce,92.9,team+lastname,LOW,P,Fr,582
