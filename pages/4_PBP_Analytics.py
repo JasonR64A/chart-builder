@@ -1689,7 +1689,9 @@ def load_portal_spotlight_stats():
         h['XBH'] = h['doubles'].fillna(0) + h['triples'].fillna(0) + h['home_runs'].fillna(0)
         h = h.rename(columns={'at_bats': 'AB', 'on_base_plus_slugging': 'OPS',
                               'weighted_runs_above_average': 'wRAA', 'weighted_runs_created_plus': 'wRC+'})
-        hit = h.set_index(h['player_id'].astype(int))[['AB', 'XBH', 'OPS', 'wRAA', 'wRC+']].to_dict('index')
+        h['_pid'] = h['player_id'].astype(int)
+        h = h.sort_values('AB', ascending=False).drop_duplicates('_pid', keep='first')
+        hit = h.set_index('_pid')[['AB', 'XBH', 'OPS', 'wRAA', 'wRC+']].to_dict('index')
     if pp.exists():
         p = pd.read_csv(pp, low_memory=False, usecols=lambda c: c in (
             'player_id', 'year', 'innings_pitched', 'walks_plus_hits_per_inning_pitched',
@@ -1702,7 +1704,9 @@ def load_portal_spotlight_stats():
         p = p.rename(columns={'innings_pitched': 'IP', 'walks_plus_hits_per_inning_pitched': 'WHIP',
                               'fielding_independent_pitching': 'FIP',
                               'on_base_plus_slugging_against': 'A-OPS', 'strikeout_to_walk_ratio': 'K/BB'})
-        pit = p.set_index(p['player_id'].astype(int))[['IP', 'WHIP', 'FIP', 'A-OPS', 'K/BB']].to_dict('index')
+        p['_pid'] = p['player_id'].astype(int)
+        p = p.sort_values('IP', ascending=False).drop_duplicates('_pid', keep='first')
+        pit = p.set_index('_pid')[['IP', 'WHIP', 'FIP', 'A-OPS', 'K/BB']].to_dict('index')
     if plp.exists():
         pl = pd.read_csv(plp, dtype=str, encoding='latin-1', low_memory=False,
                          usecols=lambda c: c in ('id', 'position'))
