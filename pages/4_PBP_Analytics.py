@@ -1716,6 +1716,63 @@ def load_portal_spotlight_stats():
     return hit, pit, pos
 
 
+# Top 10 Portal Entrants "by a stat" catalog. label -> (kind, column, ascending,
+# min_qualifier_column, min_qualifier_value, decimals). Picking a stat also
+# decides the pool (hitters vs pitchers).
+PE_STAT_CATALOG = {
+    'Home Runs':      ('hit', 'home_runs', False, None, 0, 0),
+    'RBI':            ('hit', 'runs_batted_in', False, None, 0, 0),
+    'Hits':           ('hit', 'hits', False, None, 0, 0),
+    'Doubles':        ('hit', 'doubles', False, None, 0, 0),
+    'Stolen Bases':   ('hit', 'stolen_bases', False, None, 0, 0),
+    'AVG':            ('hit', 'batting_average', False, 'plate_appearances', 25, 3),
+    'OPS':            ('hit', 'on_base_plus_slugging', False, 'plate_appearances', 25, 3),
+    'wOBA':           ('hit', 'weighted_on_base_average', False, 'plate_appearances', 25, 3),
+    'wRC+':           ('hit', 'weighted_runs_created_plus', False, 'plate_appearances', 25, 0),
+    'Strikeouts (P)': ('pit', 'strikeouts', False, None, 0, 0),
+    'Wins':           ('pit', 'wins', False, None, 0, 0),
+    'Saves':          ('pit', 'saves', False, None, 0, 0),
+    'K/9':            ('pit', 'strikeouts_per_9_innings', False, 'innings_pitched', 10, 2),
+    'ERA':            ('pit', 'earned_run_average', True, 'innings_pitched', 10, 2),
+    'FIP':            ('pit', 'fielding_independent_pitching', True, 'innings_pitched', 10, 2),
+    'WHIP':           ('pit', 'walks_plus_hits_per_inning_pitched', True, 'innings_pitched', 10, 2),
+}
+
+
+@st.cache_data
+def load_2026_rank_tables():
+    """2026 hitting + pitching stat tables for Top-10 Portal Entrants 'by a stat'
+    ranking. One row per 64A player_id (deduped to max playing time), indexed by
+    player_id (int). Returns (hit_df, pit_df)."""
+    hit, pit = pd.DataFrame(), pd.DataFrame()
+    hcols = ['player_id', 'year', 'plate_appearances', 'home_runs', 'runs_batted_in', 'hits',
+             'doubles', 'stolen_bases', 'batting_average', 'on_base_plus_slugging',
+             'weighted_on_base_average', 'weighted_runs_created_plus']
+    pcols = ['player_id', 'year', 'innings_pitched', 'strikeouts', 'wins', 'saves',
+             'earned_run_average', 'fielding_independent_pitching',
+             'walks_plus_hits_per_inning_pitched', 'strikeouts_per_9_innings']
+    hp, pp = DATA_DIR / 'hitting.csv', DATA_DIR / 'pitching.csv'
+    if hp.exists():
+        h = pd.read_csv(hp, low_memory=False, usecols=lambda c: c in hcols)
+        h = h[pd.to_numeric(h['year'], errors='coerce') == 2026].copy()
+        for c in hcols:
+            if c != 'year':
+                h[c] = pd.to_numeric(h[c], errors='coerce')
+        h = h.dropna(subset=['player_id'])
+        h['_pid'] = h['player_id'].astype(int)
+        hit = h.sort_values('plate_appearances', ascending=False).drop_duplicates('_pid', keep='first').set_index('_pid')
+    if pp.exists():
+        p = pd.read_csv(pp, low_memory=False, usecols=lambda c: c in pcols)
+        p = p[pd.to_numeric(p['year'], errors='coerce') == 2026].copy()
+        for c in pcols:
+            if c != 'year':
+                p[c] = pd.to_numeric(p[c], errors='coerce')
+        p = p.dropna(subset=['player_id'])
+        p['_pid'] = p['player_id'].astype(int)
+        pit = p.sort_values('innings_pitched', ascending=False).drop_duplicates('_pid', keep='first').set_index('_pid')
+    return hit, pit
+
+
 @st.cache_data
 def load_tournament_field_norm(sport: str, year: int) -> set:
     """Normalized team-name keys for a year's NCAA tournament field, for the
@@ -1960,15 +2017,50 @@ if view == 'Top 10 Portal Entrants':
         st.warning('No ranked portal entrants in that date range for this sport. Widen the range.')
         st.stop()
     prp['School'] = pd.to_numeric(prp['team_id'], errors='coerce').map(team_name).fillna('')
-    df_sorted = prp.sort_values('PortalRank').reset_index(drop=True)
     st.sidebar.caption(f'{len(in_window)} entrant(s) in range · {len(prp)} ranked {sport} entrants')
 
+    # ── Dropdown 2: Portal rank, or a 2026 stat. Dropdown 3 (the stat) only
+    #    appears when "A stat" is chosen — picking a stat decides hitters vs
+    #    pitchers and the sort, e.g. "top 10 entrants by home runs".
+    pe_by = st.sidebar.selectbox('Top 10 by', ['Portal rank', 'A stat'], key='pe_by')
+    if pe_by == 'A stat':
+        pe_stat = st.sidebar.selectbox('Stat (2026 season)', list(PE_STAT_CATALOG), key='pe_stat')
+        _kind, _col, _asc, _mincol, _minval, _dec = PE_STAT_CATALOG[pe_stat]
+        _hit_t, _pit_t = load_2026_rank_tables()
+        _tbl = _hit_t if _kind == 'hit' else _pit_t
+        prp['_pid'] = prp['player_id'].astype('Int64')
+        prp['StatVal'] = pd.to_numeric(
+            prp['_pid'].map(_tbl[_col]) if (len(_tbl) and _col in _tbl.columns) else pd.NA,
+            errors='coerce')
+        if _mincol and len(_tbl) and _mincol in _tbl.columns:
+            _q = pd.to_numeric(prp['_pid'].map(_tbl[_mincol]), errors='coerce').fillna(0)
+            prp = prp[_q >= _minval]
+        prp = prp[prp['StatVal'].notna()]
+        if prp.empty:
+            st.warning(f'No entrants in that date range have a qualifying 2026 {pe_stat}. '
+                       'Widen the range or pick another stat.')
+            st.stop()
+        df_sorted = prp.sort_values('StatVal', ascending=_asc).reset_index(drop=True)
+        stat_col, stat_dec, stat_suffix = 'StatVal', _dec, ''
+        _sub_default = f'{sport.upper()} PORTAL — {pe_stat.upper()}'
+    else:
+        df_sorted = prp.sort_values('PortalRank').reset_index(drop=True)
+        stat_col, stat_dec, stat_suffix = 'PortalRank', 0, ''
+        _sub_default = f'{sport.upper()} PORTAL ENTRANTS'
+
     # ── Auto (top 10) vs Manual (pick) ──
-    pe_mode = st.radio('Selection', ['Auto — top 10 by portal rank', 'Manual — pick players'],
+    pe_mode = st.radio('Selection', ['Auto — top 10', 'Manual — pick players'],
                         horizontal=True, key='pe_mode')
+
+    def _row_label(r):
+        try:
+            v = f"{float(r[stat_col]):.{stat_dec}f}"
+        except Exception:
+            v = str(r[stat_col])
+        return f"{r['name']} — {r['School']}  ({v})"
+
     if pe_mode.startswith('Manual'):
-        _labels = (df_sorted['name'].astype(str) + '  (#'
-                   + df_sorted['PortalRank'].astype(int).astype(str) + ')').tolist()
+        _labels = [_row_label(r) for _, r in df_sorted.iterrows()]
         _lab2idx = {lab: i for i, lab in enumerate(_labels)}
         _picked = st.multiselect('Pick up to 10 (shown in this order)', _labels,
                                   default=_labels[:10], key='pe_pick', max_selections=10)
@@ -1983,13 +2075,12 @@ if view == 'Top 10 Portal Entrants':
     wk_default = ('ENTERED ' + pe_start.strftime('%b %d').upper()
                   + ('' if pe_start == pe_end else ' – ' + pe_end.strftime('%b %d').upper()))
     pe_week = st.sidebar.text_input('Tag (top-right)', value=wk_default, key='pe_week')
-    pe_sub = st.sidebar.text_input('Headline subtitle',
-                                    value=f'{sport.upper()} PORTAL ENTRANTS', key='pe_sub')
+    pe_sub = st.sidebar.text_input('Headline subtitle', value=_sub_default, key='pe_sub')
     pe_show_team = st.sidebar.toggle('Show team under player name', value=True, key='pe_show_team')
     pe_hero = st.file_uploader('Hero image — drops into the right panel',
                                 type=['png','jpg','jpeg'], key='pe_hero')
 
-    rows_payload = build_rows_payload(df_render, name_col='name', stat_col='PortalRank',
+    rows_payload = build_rows_payload(df_render, name_col='name', stat_col=stat_col,
                                        team_col='School', top_n=10, sport_key=sport, teams_df=teams_df)
 
     # Bottom strip = the #1 player's line. Hitter set: AB / XBH / OPS / wRAA / wRC+ / Rank.
@@ -2025,7 +2116,7 @@ if view == 'Top 10 Portal Entrants':
         rows_payload, top_stats_payload,
         sport=sport, division=division, stat_type='hitting',
         week_label=pe_week, headline_sub=pe_sub,
-        stat_suffix='', stat_decimals=0,
+        stat_suffix=stat_suffix, stat_decimals=int(stat_dec),
         show_team_subline=pe_show_team, hero_b64=hero_b64,
     )
     display_svg = svg.replace(
