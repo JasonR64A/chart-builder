@@ -1725,17 +1725,18 @@ PE_STAT_CATALOG = {
     'Hits':           ('hit', 'hits', False, None, 0, 0),
     'Doubles':        ('hit', 'doubles', False, None, 0, 0),
     'Stolen Bases':   ('hit', 'stolen_bases', False, None, 0, 0),
-    'AVG':            ('hit', 'batting_average', False, 'plate_appearances', 25, 3),
-    'OPS':            ('hit', 'on_base_plus_slugging', False, 'plate_appearances', 25, 3),
-    'wOBA':           ('hit', 'weighted_on_base_average', False, 'plate_appearances', 25, 3),
-    'wRC+':           ('hit', 'weighted_runs_created_plus', False, 'plate_appearances', 25, 0),
+    'AVG':            ('hit', 'batting_average', False, 'plate_appearances', 50, 3),
+    'OPS':            ('hit', 'on_base_plus_slugging', False, 'plate_appearances', 50, 3),
+    'wOBA':           ('hit', 'weighted_on_base_average', False, 'plate_appearances', 50, 3),
+    'wRAA':           ('hit', 'weighted_runs_above_average', False, 'plate_appearances', 50, 1),
+    'wRC+':           ('hit', 'weighted_runs_created_plus', False, 'plate_appearances', 50, 0),
     'Strikeouts (P)': ('pit', 'strikeouts', False, None, 0, 0),
     'Wins':           ('pit', 'wins', False, None, 0, 0),
     'Saves':          ('pit', 'saves', False, None, 0, 0),
-    'K/9':            ('pit', 'strikeouts_per_9_innings', False, 'innings_pitched', 10, 2),
-    'ERA':            ('pit', 'earned_run_average', True, 'innings_pitched', 10, 2),
-    'FIP':            ('pit', 'fielding_independent_pitching', True, 'innings_pitched', 10, 2),
-    'WHIP':           ('pit', 'walks_plus_hits_per_inning_pitched', True, 'innings_pitched', 10, 2),
+    'K/9':            ('pit', 'strikeouts_per_9_innings', False, 'innings_pitched', 20, 2),
+    'ERA':            ('pit', 'earned_run_average', True, 'innings_pitched', 20, 2),
+    'FIP':            ('pit', 'fielding_independent_pitching', True, 'innings_pitched', 20, 2),
+    'WHIP':           ('pit', 'walks_plus_hits_per_inning_pitched', True, 'innings_pitched', 20, 2),
 }
 
 
@@ -1747,7 +1748,7 @@ def load_2026_rank_tables():
     hit, pit = pd.DataFrame(), pd.DataFrame()
     hcols = ['player_id', 'year', 'plate_appearances', 'home_runs', 'runs_batted_in', 'hits',
              'doubles', 'stolen_bases', 'batting_average', 'on_base_plus_slugging',
-             'weighted_on_base_average', 'weighted_runs_created_plus']
+             'weighted_on_base_average', 'weighted_runs_above_average', 'weighted_runs_created_plus']
     pcols = ['player_id', 'year', 'innings_pitched', 'strikeouts', 'wins', 'saves',
              'earned_run_average', 'fielding_independent_pitching',
              'walks_plus_hits_per_inning_pitched', 'strikeouts_per_9_innings']
@@ -2080,57 +2081,69 @@ if view == 'Top 10 Portal Entrants':
     pe_hero = st.file_uploader('Hero image — drops into the right panel',
                                 type=['png','jpg','jpeg'], key='pe_hero')
 
-    rows_payload = build_rows_payload(df_render, name_col='name', stat_col=stat_col,
-                                       team_col='School', top_n=10, sport_key=sport, teams_df=teams_df)
+    # ── Build the graphic — gated behind a button. The SVG embeds 10 team logos
+    #    (~5 MB) and cairosvg rasterizes it; doing that on every filter change
+    #    pegs the server. So nothing heavy runs until you click Build, and the
+    #    preview is a light PNG image (not a 5 MB inline SVG).
+    st.divider()
+    _go = st.button('🖼️  Build / refresh graphic', type='primary')
+    if _go:
+        with st.spinner('Rendering graphic…'):
+            rows_payload = build_rows_payload(df_render, name_col='name', stat_col=stat_col,
+                                               team_col='School', top_n=10, sport_key=sport, teams_df=teams_df)
+            # Bottom strip = the #1 player's line (hitter or pitcher set).
+            _spot_hit, _spot_pit, _spot_pos = load_portal_spotlight_stats()
+            _top = df_render.iloc[0]
+            _tpid_num = pd.to_numeric(_top.get('player_id'), errors='coerce')
+            _tpid = int(_tpid_num) if pd.notna(_tpid_num) else None
+            _rank_val = float(_top['PortalRank']) if pd.notna(_top.get('PortalRank')) else None
+            _is_pitcher = str(_spot_pos.get(_tpid, '')).upper() in ('P', 'SP', 'RP')
+            if _is_pitcher:
+                _s = _spot_pit.get(_tpid, {})
+                _picks = [('IP', _s.get('IP'), 1), ('WHIP', _s.get('WHIP'), 2), ('FIP', _s.get('FIP'), 2),
+                          ('A-OPS', _s.get('A-OPS'), 3), ('K/BB', _s.get('K/BB'), 2), ('RANK', _rank_val, 0)]
+            else:
+                _s = _spot_hit.get(_tpid, {})
+                _picks = [('AB', _s.get('AB'), 0), ('XBH', _s.get('XBH'), 0), ('OPS', _s.get('OPS'), 3),
+                          ('wRAA', _s.get('wRAA'), 1), ('wRC+', _s.get('wRC+'), 0), ('RANK', _rank_val, 0)]
+            top_stats_payload = []
+            for _label, _val, _dec in _picks:
+                try:
+                    _v = float(_val) if _val is not None and not pd.isna(_val) else None
+                except Exception:
+                    _v = None
+                top_stats_payload.append({'label': _label, 'value': _v, 'decimals': _dec, 'leader': ''})
+            hero_b64 = None
+            if pe_hero is not None:
+                mime = 'image/png' if pe_hero.name.lower().endswith('.png') else 'image/jpeg'
+                hero_b64 = f'data:{mime};base64,' + _b64.b64encode(pe_hero.read()).decode('ascii')
+            svg = build_weekly_awards_svg(
+                rows_payload, top_stats_payload,
+                sport=sport, division=division, stat_type='hitting',
+                week_label=pe_week, headline_sub=pe_sub,
+                stat_suffix=stat_suffix, stat_decimals=int(stat_dec),
+                show_team_subline=pe_show_team, hero_b64=hero_b64,
+            )
+            st.session_state['_pe_svg'] = None
+            try:
+                import cairosvg
+                st.session_state['_pe_png'] = cairosvg.svg2png(bytestring=svg.encode('utf-8'), output_width=1080)
+            except Exception as e:
+                st.session_state['_pe_png'] = None
+                st.session_state['_pe_svg'] = svg
+                st.caption(f'PNG render unavailable ({type(e).__name__}: {str(e)[:60]}); showing SVG.')
+            st.session_state['_pe_fname'] = f'top10_portal_{sport}_{today.strftime("%Y%m%d")}.png'
 
-    # Bottom strip = the #1 player's line. Hitter set: AB / XBH / OPS / wRAA / wRC+ / Rank.
-    # Pitcher set: IP / WHIP / FIP / A-OPS / K/BB / Rank. Role from players.csv position.
-    _spot_hit, _spot_pit, _spot_pos = load_portal_spotlight_stats()
-    _top = df_render.iloc[0]
-    _tpid_num = pd.to_numeric(_top.get('player_id'), errors='coerce')
-    _tpid = int(_tpid_num) if pd.notna(_tpid_num) else None
-    _rank_val = float(_top['PortalRank']) if pd.notna(_top.get('PortalRank')) else None
-    _is_pitcher = str(_spot_pos.get(_tpid, '')).upper() in ('P', 'SP', 'RP')
-    if _is_pitcher:
-        _s = _spot_pit.get(_tpid, {})
-        _picks = [('IP', _s.get('IP'), 1), ('WHIP', _s.get('WHIP'), 2), ('FIP', _s.get('FIP'), 2),
-                  ('A-OPS', _s.get('A-OPS'), 3), ('K/BB', _s.get('K/BB'), 2), ('RANK', _rank_val, 0)]
+    if st.session_state.get('_pe_png'):
+        st.image(st.session_state['_pe_png'], width=620)
+        st.download_button('Download PNG (1080×1080)', data=st.session_state['_pe_png'],
+                            file_name=st.session_state.get('_pe_fname', 'top10_portal.png'), mime='image/png')
+    elif st.session_state.get('_pe_svg'):
+        st.markdown(st.session_state['_pe_svg'].replace(
+            '<svg ', '<svg style="width:100%;max-width:620px;height:auto;display:block;margin:0 auto;" ', 1),
+            unsafe_allow_html=True)
     else:
-        _s = _spot_hit.get(_tpid, {})
-        _picks = [('AB', _s.get('AB'), 0), ('XBH', _s.get('XBH'), 0), ('OPS', _s.get('OPS'), 3),
-                  ('wRAA', _s.get('wRAA'), 1), ('wRC+', _s.get('wRC+'), 0), ('RANK', _rank_val, 0)]
-    top_stats_payload = []
-    for _label, _val, _dec in _picks:
-        try:
-            _v = float(_val) if _val is not None and not pd.isna(_val) else None
-        except Exception:
-            _v = None
-        top_stats_payload.append({'label': _label, 'value': _v, 'decimals': _dec, 'leader': ''})
-
-    hero_b64 = None
-    if pe_hero is not None:
-        mime = 'image/png' if pe_hero.name.lower().endswith('.png') else 'image/jpeg'
-        hero_b64 = f'data:{mime};base64,' + _b64.b64encode(pe_hero.read()).decode('ascii')
-
-    svg = build_weekly_awards_svg(
-        rows_payload, top_stats_payload,
-        sport=sport, division=division, stat_type='hitting',
-        week_label=pe_week, headline_sub=pe_sub,
-        stat_suffix=stat_suffix, stat_decimals=int(stat_dec),
-        show_team_subline=pe_show_team, hero_b64=hero_b64,
-    )
-    display_svg = svg.replace(
-        '<svg ',
-        '<svg style="width:100%;max-width:600px;height:auto;display:block;'
-        'margin:0 auto;border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.35);" ', 1)
-    st.markdown(display_svg, unsafe_allow_html=True)
-    try:
-        import cairosvg
-        png_bytes = cairosvg.svg2png(bytestring=svg.encode('utf-8'), output_width=1080)
-        fname = f'top10_portal_{sport}_{today.strftime("%Y%m%d")}.png'
-        st.download_button('Download PNG (1080×1080)', data=png_bytes, file_name=fname, mime='image/png')
-    except Exception as e:
-        st.caption(f'PNG export unavailable in this environment ({type(e).__name__}: {str(e)[:80]}).')
+        st.info('Set your date range + stat above, then click **Build / refresh graphic**.')
     st.stop()
 
 
