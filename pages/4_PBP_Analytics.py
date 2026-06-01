@@ -1669,6 +1669,50 @@ def load_portal_entrant_pids_by_date(start_iso: str, end_iso: str):
 
 
 @st.cache_data
+def load_portal_spotlight_stats():
+    """For the Top 10 Portal Entrants bottom strip — the #1 player's stat line.
+    Returns (hit, pit, pos) keyed by 64A player_id (int):
+      hit[pid] = {AB, XBH, OPS, wRAA, wRC+}    pit[pid] = {IP, WHIP, FIP, A-OPS, K/BB}
+      pos[pid] = position string ('P'/'SP'/'RP' => pitcher).
+    """
+    hit, pit, pos = {}, {}, {}
+    hp, pp, plp = DATA_DIR / 'hitting.csv', DATA_DIR / 'pitching.csv', DATA_DIR / 'players.csv'
+    if hp.exists():
+        h = pd.read_csv(hp, low_memory=False, usecols=lambda c: c in (
+            'player_id', 'year', 'at_bats', 'doubles', 'triples', 'home_runs',
+            'on_base_plus_slugging', 'weighted_runs_above_average', 'weighted_runs_created_plus'))
+        h = h[pd.to_numeric(h['year'], errors='coerce') == 2026].copy()
+        for c in ('player_id', 'at_bats', 'doubles', 'triples', 'home_runs',
+                  'on_base_plus_slugging', 'weighted_runs_above_average', 'weighted_runs_created_plus'):
+            h[c] = pd.to_numeric(h[c], errors='coerce')
+        h = h.dropna(subset=['player_id'])
+        h['XBH'] = h['doubles'].fillna(0) + h['triples'].fillna(0) + h['home_runs'].fillna(0)
+        h = h.rename(columns={'at_bats': 'AB', 'on_base_plus_slugging': 'OPS',
+                              'weighted_runs_above_average': 'wRAA', 'weighted_runs_created_plus': 'wRC+'})
+        hit = h.set_index(h['player_id'].astype(int))[['AB', 'XBH', 'OPS', 'wRAA', 'wRC+']].to_dict('index')
+    if pp.exists():
+        p = pd.read_csv(pp, low_memory=False, usecols=lambda c: c in (
+            'player_id', 'year', 'innings_pitched', 'walks_plus_hits_per_inning_pitched',
+            'fielding_independent_pitching', 'on_base_plus_slugging_against', 'strikeout_to_walk_ratio'))
+        p = p[pd.to_numeric(p['year'], errors='coerce') == 2026].copy()
+        for c in ('player_id', 'innings_pitched', 'walks_plus_hits_per_inning_pitched',
+                  'fielding_independent_pitching', 'on_base_plus_slugging_against', 'strikeout_to_walk_ratio'):
+            p[c] = pd.to_numeric(p[c], errors='coerce')
+        p = p.dropna(subset=['player_id'])
+        p = p.rename(columns={'innings_pitched': 'IP', 'walks_plus_hits_per_inning_pitched': 'WHIP',
+                              'fielding_independent_pitching': 'FIP',
+                              'on_base_plus_slugging_against': 'A-OPS', 'strikeout_to_walk_ratio': 'K/BB'})
+        pit = p.set_index(p['player_id'].astype(int))[['IP', 'WHIP', 'FIP', 'A-OPS', 'K/BB']].to_dict('index')
+    if plp.exists():
+        pl = pd.read_csv(plp, dtype=str, encoding='latin-1', low_memory=False,
+                         usecols=lambda c: c in ('id', 'position'))
+        pl['_id'] = pd.to_numeric(pl['id'], errors='coerce')
+        pl = pl.dropna(subset=['_id'])
+        pos = dict(zip(pl['_id'].astype(int), pl['position'].astype(str)))
+    return hit, pit, pos
+
+
+@st.cache_data
 def load_tournament_field_norm(sport: str, year: int) -> set:
     """Normalized team-name keys for a year's NCAA tournament field, for the
     'In the tournament' filter. The current cycle (2026) reads the latest
@@ -1943,8 +1987,30 @@ if view == 'Top 10 Portal Entrants':
 
     rows_payload = build_rows_payload(df_render, name_col='name', stat_col='PortalRank',
                                        team_col='School', top_n=10, sport_key=sport, teams_df=teams_df)
-    # Portal-rank graphic — no bottom stat strip (say the word if you want stats there).
+
+    # Bottom strip = the #1 player's line. Hitter set: AB / XBH / OPS / wRAA / wRC+ / Rank.
+    # Pitcher set: IP / WHIP / FIP / A-OPS / K/BB / Rank. Role from players.csv position.
+    _spot_hit, _spot_pit, _spot_pos = load_portal_spotlight_stats()
+    _top = df_render.iloc[0]
+    _tpid_num = pd.to_numeric(_top.get('player_id'), errors='coerce')
+    _tpid = int(_tpid_num) if pd.notna(_tpid_num) else None
+    _rank_val = float(_top['PortalRank']) if pd.notna(_top.get('PortalRank')) else None
+    _is_pitcher = str(_spot_pos.get(_tpid, '')).upper() in ('P', 'SP', 'RP')
+    if _is_pitcher:
+        _s = _spot_pit.get(_tpid, {})
+        _picks = [('IP', _s.get('IP'), 1), ('WHIP', _s.get('WHIP'), 2), ('FIP', _s.get('FIP'), 2),
+                  ('A-OPS', _s.get('A-OPS'), 3), ('K/BB', _s.get('K/BB'), 2), ('RANK', _rank_val, 0)]
+    else:
+        _s = _spot_hit.get(_tpid, {})
+        _picks = [('AB', _s.get('AB'), 0), ('XBH', _s.get('XBH'), 0), ('OPS', _s.get('OPS'), 3),
+                  ('wRAA', _s.get('wRAA'), 1), ('wRC+', _s.get('wRC+'), 0), ('RANK', _rank_val, 0)]
     top_stats_payload = []
+    for _label, _val, _dec in _picks:
+        try:
+            _v = float(_val) if _val is not None and not pd.isna(_val) else None
+        except Exception:
+            _v = None
+        top_stats_payload.append({'label': _label, 'value': _v, 'decimals': _dec, 'leader': ''})
 
     hero_b64 = None
     if pe_hero is not None:
