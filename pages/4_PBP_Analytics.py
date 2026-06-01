@@ -2014,11 +2014,29 @@ if view == 'Top 10 Portal Entrants':
     team_name = dict(zip(_tid, teams_df['name'].astype(str)))
     prp['_sport'] = pd.to_numeric(prp['team_id'], errors='coerce').map(team_sport)
     prp = prp[prp['_sport'] == sport]
+    # Division filter (the page's Division dropdown). An entrant's division =
+    # their FROM-team's division, via teams.conference_id -> conferences.division.
+    try:
+        _confs = pd.read_csv(DATA_DIR / 'conferences.csv', low_memory=False)
+        _dlab = {'D1': 'D-I', 'D2': 'D-II', 'D3': 'D-III'}.get(division)
+        _cmask = _confs['division'] == _dlab
+        if sport == 'baseball':
+            _cmask &= _confs['name'] != 'Big Sky Conference'   # NAIA pollution
+        _div_confs = set(pd.to_numeric(_confs[_cmask]['id'], errors='coerce').dropna().astype(int))
+        _slabel = sport.title() if sport != 'softball' else 'Softball'
+        _conf_num = pd.to_numeric(teams_df['conference_id'], errors='coerce')
+        _div_team_ids = set(pd.to_numeric(
+            teams_df[(teams_df['sport'] == _slabel) & _conf_num.isin(_div_confs)]['id'],
+            errors='coerce').dropna().astype(int))
+        prp = prp[pd.to_numeric(prp['team_id'], errors='coerce').isin(_div_team_ids)]
+    except Exception as _e:
+        st.sidebar.caption(f'(division filter unavailable: {type(_e).__name__})')
     if prp.empty:
-        st.warning('No ranked portal entrants in that date range for this sport. Widen the range.')
+        st.warning(f'No ranked portal entrants in that date range for {sport} {division}. '
+                   'Widen the range or change the Division dropdown.')
         st.stop()
     prp['School'] = pd.to_numeric(prp['team_id'], errors='coerce').map(team_name).fillna('')
-    st.sidebar.caption(f'{len(in_window)} entrant(s) in range · {len(prp)} ranked {sport} entrants')
+    st.sidebar.caption(f'{len(in_window)} entrant(s) in range · {len(prp)} ranked {sport} {division} entrants')
 
     # ── Dropdown 2: Portal rank, or a 2026 stat. Dropdown 3 (the stat) only
     #    appears when "A stat" is chosen — picking a stat decides hitters vs
