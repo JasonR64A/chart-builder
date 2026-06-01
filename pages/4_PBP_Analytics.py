@@ -1631,6 +1631,44 @@ def load_portal_2026_ncaa_pids():
 
 
 @st.cache_data
+def load_portal_entrant_pids_by_date(start_iso: str, end_iso: str):
+    """PBP playerIds (player_ncaa_season_id, as strings) for 2026 portal entrants
+    whose entry date (player_rank.initiated_date) is in [start, end] inclusive.
+    start_iso/end_iso are 'YYYY-MM-DD' (or '' for open-ended). Same cb_id ->
+    rosters -> player_ncaa_season_id bridge as load_portal_2026_ncaa_pids.
+    Returns (pid_set, n_entrants) — n_entrants is how many entrants matched the
+    window (before the roster/PBP join), for display.
+    """
+    pr_path = DATA_DIR / 'player_rank.csv'
+    rosters_path = DATA_DIR / 'rosters.csv'
+    if not pr_path.exists() or not rosters_path.exists():
+        return set(), 0
+    pr = pd.read_csv(pr_path, encoding='utf-8-sig', low_memory=False,
+                     usecols=lambda c: c in ('player_id', 'year', 'in_portal', 'initiated_date'))
+    pr = pr[(pd.to_numeric(pr['year'], errors='coerce') == 2026)
+            & (pr['in_portal'].astype(str).str.upper() == 'TRUE')].copy()
+    pr['_dt'] = pd.to_datetime(pr['initiated_date'], errors='coerce')
+    if start_iso:
+        pr = pr[pr['_dt'] >= pd.Timestamp(start_iso)]
+    if end_iso:
+        pr = pr[pr['_dt'] < pd.Timestamp(end_iso) + pd.Timedelta(days=1)]
+    cb_ids = pd.to_numeric(pr['player_id'], errors='coerce').dropna().astype(int).unique()
+    n_entrants = len(cb_ids)
+    if n_entrants == 0:
+        return set(), 0
+    rosters = pd.read_csv(rosters_path, low_memory=False,
+                          usecols=lambda c: c in ('player_id', 'player_ncaa_season_id', 'Year'))
+    if 'Year' in rosters.columns:
+        rosters = rosters[pd.to_numeric(rosters['Year'], errors='coerce') == 2026]
+    rosters['player_id'] = pd.to_numeric(rosters['player_id'], errors='coerce').astype('Int64')
+    rosters['player_ncaa_season_id'] = pd.to_numeric(rosters['player_ncaa_season_id'],
+                                                       errors='coerce').astype('Int64')
+    rosters = rosters.dropna(subset=['player_id', 'player_ncaa_season_id'])
+    matched = rosters[rosters['player_id'].isin(cb_ids)]
+    return set(matched['player_ncaa_season_id'].astype(int).astype(str)), int(n_entrants)
+
+
+@st.cache_data
 def load_tournament_field_norm(sport: str, year: int) -> set:
     """Normalized team-name keys for a year's NCAA tournament field, for the
     'In the tournament' filter. The current cycle (2026) reads the latest
@@ -1760,7 +1798,7 @@ st.sidebar.markdown('---')
 st.sidebar.markdown('### Data Source')
 sport = st.sidebar.selectbox('Sport', ['baseball', 'softball'])
 division = st.sidebar.selectbox('Division', ['D1', 'D2', 'D3'])
-view = st.sidebar.radio('Mode', ['Hitter Stats', 'Pitcher Stats', 'Fielding Stats', 'Pace Chart', 'Lineup Card', 'Share Graphic', 'Top 25 Rankings', 'Weekly Awards'], horizontal=True)
+view = st.sidebar.radio('Mode', ['Hitter Stats', 'Pitcher Stats', 'Fielding Stats', 'Pace Chart', 'Lineup Card', 'Share Graphic', 'Top 25 Rankings', 'Weekly Awards', 'Top 10 Portal Entrants'], horizontal=True)
 
 # Top 25 Rankings — early-exit branch so the rest of the page (which is built
 # around per-player PBP) doesn't run.
@@ -1822,6 +1860,183 @@ if view == 'Top 25 Rankings':
         st.caption(f'PNG export unavailable in this environment ({type(e).__name__}: {str(e)[:80]}).')
 
     st.stop()
+
+# Top 10 Portal Entrants — Weekly-Awards template, but the pool is 2026 portal
+# entrants filtered by ENTRY DATE (player_rank.initiated_date), ranked by a
+# chosen stat. Reuses the PBP stat machinery + weekly_awards renderer so the
+# whole stat catalog + bottom strip + PNG export come for free.
+if view == 'Top 10 Portal Entrants':
+    from app_lib.weekly_awards_render import build_weekly_awards_svg, build_rows_payload
+    import base64 as _b64
+
+    st.title('Top 10 Portal Entrants')
+    st.caption('1080×1080 graphic. Pool = 2026 portal entrants filtered by entry date, '
+               'ranked by your chosen stat — e.g. "top strikeout pitchers to enter this week."')
+
+    pe_stat_type = st.sidebar.selectbox('Stat type', ['pitching', 'hitting'], key='pe_stat_type')
+
+    # Same catalogs the Weekly Awards view uses (label, suffix, decimals, sort_asc).
+    PE_HIT_CAT = [
+        ('Rank','RANK',3,False),('BA','AVG',3,False),('OBP','OBP',3,False),('SLG','SLG',3,False),
+        ('OPS','OPS',3,False),('ISO','ISO',3,False),('wOBA','wOBA',3,False),('wRC+','wRC+',0,False),
+        ('wRAA','wRAA',1,False),('HR','HR',0,False),('H','H',0,False),('TB','TB',0,False),
+        ('R','R',0,False),('RBI','RBI',0,False),('SB','SB',0,False),('K%','K%',1,True),('BB%','BB%',1,False),
+    ]
+    PE_PIT_CAT = [
+        ('Rank','RANK',3,False),('ERA','ERA',2,True),('FIP','FIP',2,True),('WHIP','WHIP',2,True),
+        ('K/9','K/9',2,False),('BB/9','BB/9',2,True),('K-BB%','K-BB%',1,False),('K%','K%',1,False),
+        ('BB%','BB%',1,True),('BAA','BAA',3,True),('SO','SO',0,False),('IP','IP',1,False),('GmSc','GmSc',1,False),
+    ]
+    pe_catalog = PE_PIT_CAT if pe_stat_type == 'pitching' else PE_HIT_CAT
+    pe_rank_stat = st.sidebar.selectbox('Rank by', [c[0] for c in pe_catalog], key='pe_rank_stat')
+    _, pe_default_suffix, pe_default_dec, pe_sort_asc = next(c for c in pe_catalog if c[0] == pe_rank_stat)
+
+    pe_min = st.sidebar.number_input('Min BF / PA', value=10, min_value=1, step=5, key='pe_min',
+                                      help='Qualifying threshold (BF for pitching, PA for hitting). '
+                                           'Kept low since portal pools are small.')
+
+    # ── Entry-date window ──
+    today = pd.Timestamp.now().normalize()
+    pe_window = st.sidebar.selectbox(
+        'Entered', ['Today', 'Last 3 days', 'Last 7 days', 'All current portal', 'Custom range'],
+        index=2, key='pe_window')
+    if pe_window == 'Today':
+        pe_start, pe_end = today, today
+    elif pe_window == 'Last 3 days':
+        pe_start, pe_end = today - pd.Timedelta(days=2), today
+    elif pe_window == 'Last 7 days':
+        pe_start, pe_end = today - pd.Timedelta(days=6), today
+    elif pe_window == 'All current portal':
+        pe_start = pe_end = None
+    else:
+        _rng = st.sidebar.date_input('Entry date range',
+                                      value=((today - pd.Timedelta(days=6)).date(), today.date()),
+                                      key='pe_range')
+        if isinstance(_rng, (tuple, list)) and len(_rng) == 2:
+            pe_start, pe_end = pd.Timestamp(_rng[0]), pd.Timestamp(_rng[1])
+        else:
+            pe_start = pe_end = None
+
+    start_iso = pe_start.strftime('%Y-%m-%d') if pe_start is not None else ''
+    end_iso = pe_end.strftime('%Y-%m-%d') if pe_end is not None else ''
+    portal_pids, n_entrants = load_portal_entrant_pids_by_date(start_iso, end_iso)
+    st.sidebar.caption(f'{n_entrants} entrant(s) in window · {len(portal_pids)} with 2026 roster/PBP data')
+    if not portal_pids:
+        st.warning('No portal entrants with PBP stats in that entry window. Widen the window or switch stat type.')
+        st.stop()
+
+    if pe_start is not None and pe_end is not None:
+        wk_default = ('ENTERED ' + pe_start.strftime('%b %d').upper()
+                      + ('' if pe_start == pe_end else ' – ' + pe_end.strftime('%b %d').upper()))
+    else:
+        wk_default = '2026 PORTAL ENTRANTS'
+    pe_week = st.sidebar.text_input('Tag (top-right)', value=wk_default, key='pe_week')
+    pe_role = 'PITCHERS' if pe_stat_type == 'pitching' else 'HITTERS'
+    pe_sub = st.sidebar.text_input('Headline subtitle',
+                                    value=f'{division.upper()} {sport.upper()} PORTAL {pe_role}', key='pe_sub')
+    pe_suffix = st.sidebar.text_input('Stat suffix (after value)',
+                                       value=pe_default_suffix if pe_rank_stat in ('ERA','WHIP','FIP') else '', key='pe_suffix')
+    pe_decimals = st.sidebar.number_input('Decimals (rank stat)', value=int(pe_default_dec),
+                                           min_value=0, max_value=4, step=1, key='pe_decimals')
+    pe_show_team = st.sidebar.toggle('Show team under player name', value=True, key='pe_show_team')
+    pe_hero = st.file_uploader('Hero image — drops into the right panel',
+                                type=['png','jpg','jpeg'], key='pe_hero')
+
+    # ── Compute leaderboard, restricted to portal entrants in the window ──
+    pbp_data = load_pbp(sport, division, pe_stat_type)
+    if pbp_data is None or pbp_data.empty:
+        st.error(f'No {pe_stat_type} PBP data for {sport} {division}')
+        st.stop()
+    pid_col = 'playerId' if 'playerId' in pbp_data.columns else None
+    if pid_col is None:
+        st.error('PBP data has no playerId column; cannot filter to portal entrants.')
+        st.stop()
+    _pid_ints = {int(p) for p in portal_pids}
+    pbp_data = pbp_data[pd.to_numeric(pbp_data[pid_col], errors='coerce').isin(_pid_ints)].copy()
+    if pbp_data.empty:
+        st.warning('Portal entrants in this window have no PBP game lines yet (try a wider window or the other stat type).')
+        st.stop()
+
+    rank_col = 'playerId' if 'playerId' in pbp_data.columns else 'playerName'
+    if pe_stat_type == 'hitting':
+        league = compute_hitting_stats(pbp_data)
+        df_top = compute_grouped_hitting(pbp_data, rank_col, league['wOBA'],
+                                          league_r_pa=league.get('R/PA', 0), min_pa=pe_min)
+    else:
+        df_top = compute_grouped_pitching(pbp_data, rank_col, min_bf=pe_min)
+    if pe_rank_stat not in df_top.columns:
+        st.error(f"Stat '{pe_rank_stat}' not in computed columns.")
+        st.stop()
+    df_top[pe_rank_stat] = pd.to_numeric(df_top[pe_rank_stat], errors='coerce')
+    df_top = df_top.dropna(subset=[pe_rank_stat]).sort_values(pe_rank_stat, ascending=pe_sort_asc).reset_index(drop=True)
+    if df_top.empty:
+        st.warning('No qualifying entrants for that stat / threshold — lower Min BF/PA or widen the window.')
+        st.stop()
+
+    pe_name_col = 'playerName' if 'playerName' in df_top.columns else rank_col
+    if 'School' not in df_top.columns:
+        df_top['School'] = ''
+
+    # ── Auto (top 10 by stat) vs Manual (pick players) ──
+    pe_mode = st.radio('Selection', ['Auto — top 10 by stat', 'Manual — pick players'],
+                        horizontal=True, key='pe_mode')
+    if pe_mode.startswith('Manual'):
+        _opts = df_top[pe_name_col].astype(str).tolist()
+        _picked = st.multiselect('Pick up to 10 (shown in this order)', _opts,
+                                  default=_opts[:10], key='pe_pick', max_selections=10)
+        if not _picked:
+            st.info('Pick at least one player.')
+            st.stop()
+        df_render = df_top.set_index(pe_name_col).loc[_picked].reset_index()
+    else:
+        df_render = df_top.head(10).copy()
+
+    teams_df = pd.read_csv(DATA_DIR / 'teams.csv', low_memory=False)
+    rows_payload = build_rows_payload(df_render, name_col=pe_name_col, stat_col=pe_rank_stat,
+                                       team_col='School', top_n=10, sport_key=sport, teams_df=teams_df)
+
+    if pe_stat_type == 'pitching':
+        bottom_picks = [('IP','IP',1,False),('H','H',0,False),('ER','ER',0,False),
+                         ('SO','SO',0,False),('A-OPS','OPS Against',3,True),('FIP','FIP',2,True)]
+    else:
+        bottom_picks = [('AB','AB',0,False),('H','H',0,False),('2B','2B',0,False),
+                         ('HR','HR',0,False),('OPS','OPS',3,False),('wRAA','wRAA',1,False)]
+    pe_top_player = df_render.iloc[0]
+    top_stats_payload = []
+    for label, col, dec, _asc in bottom_picks:
+        v = pe_top_player.get(col)
+        try:
+            val = float(v) if v is not None and not pd.isna(v) else None
+        except Exception:
+            val = None
+        top_stats_payload.append({'label': label, 'value': val, 'decimals': dec, 'leader': ''})
+
+    hero_b64 = None
+    if pe_hero is not None:
+        mime = 'image/png' if pe_hero.name.lower().endswith('.png') else 'image/jpeg'
+        hero_b64 = f'data:{mime};base64,' + _b64.b64encode(pe_hero.read()).decode('ascii')
+
+    svg = build_weekly_awards_svg(
+        rows_payload, top_stats_payload,
+        sport=sport, division=division, stat_type=pe_stat_type,
+        week_label=pe_week, headline_sub=pe_sub,
+        stat_suffix=pe_suffix, stat_decimals=int(pe_decimals),
+        show_team_subline=pe_show_team, hero_b64=hero_b64,
+    )
+    display_svg = svg.replace(
+        '<svg ',
+        '<svg style="width:100%;max-width:600px;height:auto;display:block;'
+        'margin:0 auto;border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.35);" ', 1)
+    st.markdown(display_svg, unsafe_allow_html=True)
+    try:
+        import cairosvg
+        png_bytes = cairosvg.svg2png(bytestring=svg.encode('utf-8'), output_width=1080)
+        fname = f'top10_portal_{sport}_{division}_{pe_stat_type}_{today.strftime("%Y%m%d")}.png'
+        st.download_button('Download PNG (1080×1080)', data=png_bytes, file_name=fname, mime='image/png')
+    except Exception as e:
+        st.caption(f'PNG export unavailable in this environment ({type(e).__name__}: {str(e)[:80]}).')
+    st.stop()
+
 
 # Weekly Awards — 1080x1080 'Top 10' graphic per the Claude-Design hand-off.
 if view == 'Weekly Awards':
