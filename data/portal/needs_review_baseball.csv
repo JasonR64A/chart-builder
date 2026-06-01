@@ -1,4 +1,6 @@
 ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfer_date,update_date,status,year,sport,team_id,player_id_64a,player_id_ncaa_stats,matched_name,match_score,match_method,confidence,position,class_year,player_csv_team_id
-2303800645,NICHOLAS,FOX,Nicholas Fox,Central Connecticut State University,Northeast Conference,I,06/01/2026,06/01/2026,Active,2025-26,Baseball,136,128815,3114794,Nick Fox,92.0,team+fullname,LOW,1B,So,136
-2204508057,THOMAS,MAGLIOZZO,Thomas Magliozzo,Central Connecticut State University,Northeast Conference,I,06/01/2026,06/01/2026,Active,2025-26,Baseball,136,128820,3114850,TJ Magliozzo,78.6,team+lastname_diff_first,REVIEW,SS,Fr,136
-2112395084,GABRIEL,PITTS,Gabriel Pitts,Central Connecticut State University,Northeast Conference,I,06/01/2026,06/01/2026,Active,2025-26,Baseball,136,75999,2959110,Gabe Pitts,82.0,team+lastname_diff_first,REVIEW,CF,So,136
+2102113761,MICHAEL,SWEENEY,Michael Sweeney,Wichita State University,American Conference,I,06/01/2026,06/01/2026,Active,2025-26,Baseball,906,138615,3220554,MJ Sweeney,72.0,team+lastname_diff_first,REVIEW,1B,Jr,906
+2302788305,JACOB,POLLARO,Jacob Pollaro,University of Delaware,Conference USA,I,06/01/2026,06/01/2026,Active,2025-26,Baseball,204,101494,3089378,Jake Pollaro,92.0,team+lastname,LOW,P,So,204
+2311155497,SALVATORE,MINEO,Salvatore Mineo,University of Delaware,Conference USA,I,06/01/2026,06/01/2026,Active,2025-26,Baseball,204,102818,3091001,Sal Mineo,75.0,team+lastname_diff_first,REVIEW,CF,So,204
+2308975336,JACOB,SOUDERS,Jacob Souders,Samford University,Southern Conference,I,06/01/2026,06/01/2026,Active,2025-26,Baseball,683,115389,3116327,Jake Souders,92.0,team+lastname,LOW,RF,So,683
+2208652191,ROY,DURHAM,Roy Durham,Utah Tech University,Western Athletic Conference,I,06/01/2026,06/01/2026,Active,2025-26,Baseball,842,137756,3249052,Miller Durham,69.6,team+lastname_diff_first,REVIEW,1B,Jr,842
