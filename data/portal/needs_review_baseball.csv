@@ -1,8 +1,4 @@
 ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfer_date,update_date,status,year,sport,team_id,player_id_64a,player_id_ncaa_stats,matched_name,match_score,match_method,confidence,position,class_year,player_csv_team_id
-2004839433,CHRISTOPHER,PATTERSON II,Christopher Patterson Ii,"University of Missouri, Columbia",Southeastern Conference,I,06/01/2026,06/01/2026,Active,2025-26,Baseball,490,118119,3114370,Chris Patterson,92.0,team+lastname,LOW,3B,So,490
-2309105196,ANDREW,JOHNSON,Andrew Johnson,University of Washington,Big Ten Conference,I,06/01/2026,06/01/2026,Active,2025-26,Baseball,870,138093,3239751,Drew Johnson,92.3,team+fullname,LOW,1B,So,870
-2209670015,THOMAS,THACKER,Thomas Thacker,West Virginia University,Big 12 Conference,I,06/01/2026,06/01/2026,Active,2025-26,Baseball,888,125006,3097286,Bryson Thacker,50.0,team+lastname_diff_first,REVIEW,P,So,888
-2209679193,ZEBEDIAH,ALLEN,Zebediah Allen,University of Central Arkansas,Atlantic Sun Conference,I,06/01/2026,06/01/2026,Active,2025-26,Baseball,135,69192,2968562,Zeb Allen,78.3,team+lastname_diff_first,REVIEW,LF,Jr,135
-2206574546,SAMUEL,SUMMERLIN,Samuel Summerlin,Kennesaw State University,Conference USA,I,06/01/2026,06/01/2026,Active,2025-26,Baseball,370,132036,3225824,Sam Summerlin,92.0,team+lastname,LOW,UT,Fr,370
-2310135065,ISAAC,HALLAM,Isaac Hallam,Seattle University,West Coast Conference,I,06/01/2026,06/01/2026,Active,2025-26,Baseball,693,101292,3093558,Issac Hallam,92.0,team+lastname,LOW,P,So,693
-2104140368,PAUL,GREEN,Paul Green,"University of Missouri, Columbia",Southeastern Conference,I,06/01/2026,06/01/2026,Active,2025-26,Baseball,490,118120,3114377,PJ Green,77.8,team+lastname_diff_first,REVIEW,P,So,490
+2303800645,NICHOLAS,FOX,Nicholas Fox,Central Connecticut State University,Northeast Conference,I,06/01/2026,06/01/2026,Active,2025-26,Baseball,136,128815,3114794,Nick Fox,92.0,team+fullname,LOW,1B,So,136
+2204508057,THOMAS,MAGLIOZZO,Thomas Magliozzo,Central Connecticut State University,Northeast Conference,I,06/01/2026,06/01/2026,Active,2025-26,Baseball,136,128820,3114850,TJ Magliozzo,78.6,team+lastname_diff_first,REVIEW,SS,Fr,136
+2112395084,GABRIEL,PITTS,Gabriel Pitts,Central Connecticut State University,Northeast Conference,I,06/01/2026,06/01/2026,Active,2025-26,Baseball,136,75999,2959110,Gabe Pitts,82.0,team+lastname_diff_first,REVIEW,CF,So,136
