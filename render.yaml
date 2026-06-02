@@ -5,5 +5,6 @@ services:
     plan: starter
     repo: https://github.com/JasonR64A/chart-builder.git
     branch: main
+    autoDeploy: true
     buildCommand: "apt-get update && apt-get install -y libcairo2-dev && pip install -r requirements.txt"
     startCommand: "streamlit run chart_builder.py --server.port $PORT --server.address 0.0.0.0 --server.headless true"
