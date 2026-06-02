@@ -358,8 +358,10 @@ with st.sidebar:
         st.selectbox('Group by', ['None', 'Conference', 'Position', 'Prev school'])]
     show_stat = st.toggle('Key-stat column', value=True)
     highlight_top = st.toggle('Highlight top 10', value=True)
-    limit = st.number_input('Rows (auto-fit to poster)', min_value=5, max_value=60, value=15, step=1,
-                            help='Rows auto-size to fill the poster middle. ~15–20 looks best.')
+    st.markdown('### Pagination')
+    per_page = st.number_input('Rows per page', min_value=5, max_value=30, value=20, step=1,
+                               help='Rows per graphic. For a long list, build one page at a time: '
+                                    'set this, pick the Page below, download, then step Page +1.')
 
 # Pool = search + conference + position (drives summary counts).
 pool = df.copy()
@@ -396,7 +398,16 @@ else:
     # Group by the chosen field, then rank within it (so "by team" reads cleanly).
     view = view.assign(_k=view[_sortcol].astype(str).str.lower())
     view = view.sort_values(['_k', 'rank'], ascending=[_asc, True], na_position='last').drop(columns='_k')
-view = view.head(int(limit))
+view_all = view                       # full sorted, filtered set
+total_rows = len(view_all)
+per_page_i = max(1, int(per_page))
+n_pages = max(1, (total_rows + per_page_i - 1) // per_page_i)
+page = int(st.sidebar.number_input(
+    'Page', min_value=1, max_value=n_pages, value=1, step=1,
+    help=f'{n_pages} page(s) of {per_page_i} for the current {total_rows} filtered entrants. '
+         'Download each page, then step to the next.'))
+_start = (page - 1) * per_page_i
+view = view_all.iloc[_start:_start + per_page_i]
 
 # ── Build the rows (with optional grouping) ──────────────────────────────────
 col_count = (5 + int(show_stat)) if layout == 'board' else (7 + int(show_stat))
@@ -441,7 +452,9 @@ if status_f != 'All':
     filt_bits.append(status_f)
 _sortlbl = {'Rank': 'BY RANK', 'Team': 'BY TEAM', 'Name': 'A–Z',
             'Conference': 'BY CONF', 'Position': 'BY POS'}[sort_by]
-result_line = (f'TOP {len(view)} OF {counts["total"]:,} · {_sortlbl}'
+_rng = f'{_start + 1}–{_start + len(view)} OF {total_rows:,}'
+_pg = f' · PAGE {page}/{n_pages}' if n_pages > 1 else ''
+result_line = (f'{_rng}{_pg} · {_sortlbl}'
                + (' · ' + ' · '.join(b.upper() for b in filt_bits) if filt_bits else ''))
 
 # Auto-fit: size rows so the chosen count fits the middle zone WITHOUT clipping.
@@ -483,13 +496,14 @@ window.dlPNG = async function(btn){{
   try{{
     if(document.fonts && document.fonts.ready) await document.fonts.ready;
     var canvas = await html2canvas(el, {{scale:2, useCORS:true, backgroundColor:'#0b0c0f'}});
-    var a = document.createElement('a'); a.download='portal_2026_rankings.png';
+    var a = document.createElement('a'); a.download='portal_2026_rankings_p{page}of{n_pages}.png';
     a.href = canvas.toDataURL('image/png'); document.body.appendChild(a); a.click(); document.body.removeChild(a);
   }} finally {{ if(btn){{ btn.disabled=false; btn.textContent = t || 'Download PNG'; }} }}
 }};
 </script></body></html>"""
 
-st.markdown(f'**{len(view)}** shown · **{counts["total"]:,}** in filtered pool · '
-            f'sort: {sort_by} {sort_dir} · layout: {layout.title()}'
-            + (f' · grouped by {group_by}' if group_by != 'none' else ''))
+st.markdown(f'**Page {page}/{n_pages}** · rows **{_start + 1}–{_start + len(view)}** of '
+            f'**{total_rows:,}** filtered · sort: {sort_by} {sort_dir} · layout: {layout.title()}'
+            + (f' · grouped by {group_by}' if group_by != 'none' else '')
+            + ('' if n_pages == 1 else f' · download p{page}, then step Page → for the rest'))
 components.html(page_html, height=1620, scrolling=True)
