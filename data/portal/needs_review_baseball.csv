@@ -1,5 +1,4 @@
 ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfer_date,update_date,status,year,sport,team_id,player_id_64a,player_id_ncaa_stats,matched_name,match_score,match_method,confidence,position,class_year,player_csv_team_id
-2110348354,JORDAN D. TREADWELL,TREADWELL,Jordan D. Treadwell Treadwell,Coppin State University,Northeast Conference,I,06/02/2026,06/02/2026,Active,2025-26,Baseball,181,129541,3240262,Jordan Treadwell,92,team+lastname,LOW,2B,Jr,181
-2205555759,DAWSON NEAL,NEAL,Dawson Neal Neal,East Carolina University,American Conference,I,06/02/2026,06/02/2026,Active,2025-26,Baseball,220,100779,3089075,Dawson Neal,92,team+lastname,LOW,P,Sr,220
-2308994267,NICHOLAS,SPANER,Nicholas Spaner,College of the Holy Cross,Patriot League,I,06/02/2026,06/02/2026,Active,2025-26,Baseball,332,122992,3113786,Nick Spaner,92,team+lastname,LOW,DH,So,332
-2005862894,BENJAMIN,WEBER,Benjamin Weber,Virginia Polytechnic Institute and State University,Atlantic Coast Conference,I,06/02/2026,06/02/2026,Active,2025-26,Baseball,858,50166,2805201,Ben Weber,92,team+lastname,LOW,P,Sr,858
+2508686323,ERIK,HYLTON,Erik Hylton,Virginia Commonwealth University,Atlantic 10 Conference,I,06/02/2026,06/02/2026,Active,2025-26,Baseball,854,137919,3232298,Graham Hylton,66.7,team+lastname_diff_first,REVIEW,1B,Jr,854
+2503537354,VINCENT,COONEY,Vincent Cooney,Albion College,Michigan Intercollegiate Athletic Association,III,06/02/2026,06/02/2026,Active,2025-26,Baseball,14,120955,3103122,Vinny Cooney,82.0,team+lastname_diff_first,REVIEW,3B,So,14
+2007896535,NICODEMIUS,GARCIA,Nicodemius Garcia,Alcorn State University,Southwestern Athletic Conf.,I,06/02/2026,06/02/2026,Active,2025-26,Baseball,16,73081,2973998,Nico Garcia,78.6,team+lastname_diff_first,REVIEW,C,Fr,16
