@@ -1,5 +1,7 @@
 ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfer_date,update_date,status,year,sport,team_id,player_id_64a,player_id_ncaa_stats,matched_name,match_score,match_method,confidence,position,class_year,player_csv_team_id
 2111375650,SAMUEL,GEORGE,Samuel George,"Minnesota State University, Mankato",Northern Sun Intercollegiate Conference,II,06/02/2026,06/02/2026,Active,2025-26,Baseball,484,75476,2977098,Sam George,92.0,team+lastname,LOW,P,Jr,484
-2109315240,NATHAN,DAGLEY,Nathan Dagley,Lamar University,Southland Conference,I,06/02/2026,06/02/2026,Active,2025-26,Baseball,388,68636,2967617,Ty Dagley,72.7,team+lastname_diff_first,REVIEW,P,Jr,388
+2011956113,WESLYN,THOMPSON,Weslyn Thompson,University of Alabama at Birmingham,American Conference,I,06/02/2026,06/02/2026,Active,2025-26,Baseball,805,139163,3217552,Drew Thompson,57.1,team+lastname_diff_first,REVIEW,P,Jr,805
 2209658610,ELIJAH,BRIDENTHAL,Elijah Bridenthal,Xavier University,BIG EAST Conference,I,06/02/2026,06/02/2026,Active,2025-26,Baseball,937,68601,2965240,Eli Bridenthal,82.0,team+lastname_diff_first,REVIEW,P,Jr,937
 2211716900,JUSTIN,TAYLOR,Justin Taylor,North Carolina A&T State University,Coastal Athletic Association,I,06/02/2026,06/02/2026,Active,2025-26,Baseball,519,70196,2969061,JT Taylor,81.8,team+lastname_diff_first,REVIEW,SS,So,519
+2109315240,NATHAN,DAGLEY,Nathan Dagley,Lamar University,Southland Conference,I,06/02/2026,06/02/2026,Active,2025-26,Baseball,388,68636,2967617,Ty Dagley,72.7,team+lastname_diff_first,REVIEW,P,Jr,388
+2507680404,JOSHUA,JONES,Joshua Jones,McNeese State University,Southland Conference,I,06/02/2026,06/02/2026,Active,2025-26,Baseball,457,133144,3222903,Josh Jones,92.0,team+fullname,LOW,C,Jr,457
