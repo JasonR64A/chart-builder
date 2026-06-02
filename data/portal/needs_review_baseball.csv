@@ -1,4 +1,2 @@
 ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfer_date,update_date,status,year,sport,team_id,player_id_64a,player_id_ncaa_stats,matched_name,match_score,match_method,confidence,position,class_year,player_csv_team_id
-2211714748,MATTHEW,LEAHY,Matthew Leahy,Rider University,Metro Atlantic Athletic Conference,I,06/01/2026,06/01/2026,Active,2025-26,Baseball,645,67705,2972715,Matt Leahy,92.0,team+lastname,LOW,SS,Jr,645
-2205558891,DWAYNE,PRIMEAUX,Dwayne Primeaux,Louisiana State University,Southeastern Conference,I,06/01/2026,06/01/2026,Active,2025-26,Baseball,422,56141,2815131,DJ Primeaux,76.9,team+lastname_diff_first,REVIEW,P,Jr,422
-2308992438,STEVEN,BRYANT,Steven Bryant,"University of California, Berkeley",Atlantic Coast Conference,I,06/01/2026,06/01/2026,Active,2025-26,Baseball,114,128490,3236424,Tre Bryant,78.3,team+lastname_diff_first,REVIEW,INF,Fr,114
+1908652087,MICHAEL,BELL,Michael Bell,Gonzaga University,West Coast Conference,I,06/02/2026,06/02/2026,Active,2025-26,Baseball,299,116581,3095025,Mikey Bell,92,team+lastname,LOW,3B,Jr,299
