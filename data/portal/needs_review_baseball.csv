@@ -1,2 +1,5 @@
 ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfer_date,update_date,status,year,sport,team_id,player_id_64a,player_id_ncaa_stats,matched_name,match_score,match_method,confidence,position,class_year,player_csv_team_id
-1908652087,MICHAEL,BELL,Michael Bell,Gonzaga University,West Coast Conference,I,06/02/2026,06/02/2026,Active,2025-26,Baseball,299,116581,3095025,Mikey Bell,92,team+lastname,LOW,3B,Jr,299
+2308986430,ZAKERY,SPURRIER,Zakery Spurrier,Samford University,Southern Conference,I,06/02/2026,06/02/2026,Active,2025-26,Baseball,683,103299,3088100,Zak Spurrier,82.0,team+lastname_diff_first,REVIEW,P,So,683
+2212747196,BENJAMIN,MCMILLAN,Benjamin Mcmillan,Charleston Southern University,Big South Conference,I,06/02/2026,06/02/2026,Active,2025-26,Baseball,144,128986,3101925,Ben McMillan,92.0,team+lastname,LOW,P,Fr,144
+1908652087,MICHAEL,BELL,Michael Bell,Gonzaga University,West Coast Conference,I,06/02/2026,06/02/2026,Active,2025-26,Baseball,299,116581,3095025,Mikey Bell,92.0,team+lastname,LOW,3B,Jr,299
+2308994360,KADEN,HAGER,Kaden Hager,Morehead State University,Ohio Valley Conference,I,06/02/2026,06/02/2026,Active,2025-26,Baseball,505,100012,3067019,Blake Hager,45.5,team+lastname_diff_first,REVIEW,P,So,505
