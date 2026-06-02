@@ -23,6 +23,15 @@ import streamlit.components.v1 as components
 
 _APP_DIR = Path(__file__).resolve().parent.parent
 DATA_DIR = _APP_DIR / 'data'
+ASSETS = _APP_DIR / 'assets' / 'portal-entrant'
+
+
+@st.cache_data
+def poster_data_url():
+    """Base64 the rankings poster once (cached) for use as the graphic background."""
+    import base64
+    p = ASSETS / 'rankings-poster.jpg'
+    return 'data:image/jpeg;base64,' + base64.b64encode(p.read_bytes()).decode()
 
 # Ordering used for conference / position group sort, from the design.
 CONF_ORDER = ['ACC', 'SEC', 'Big Ten', 'Big 12', 'Pac-12', 'CAA', 'Sun Belt',
@@ -184,83 +193,57 @@ def _slash(v):
         return ''
 
 
-# Design CSS — inlined verbatim from the handoff styles.css (the print rules and
-# all three layout classes are preserved).
+# Graphic CSS — dark "Portal 2026 Rankings" poster theme. All Inter. The table
+# is sized in em off a Python-computed --fs so any row count fills the poster's
+# middle zone. __POSTER__ is replaced with the base64 background at assembly.
 DESIGN_CSS = """
-:root{--blush:#f3e6e8;--blush-deep:#ecd9dc;--paper:#fff;--ink:#14202e;--ink-2:#3a4654;
---ink-soft:#7c8694;--maroon:#9a303e;--maroon-deep:#7c2531;--blue:#005ca6;--orange:#c6783a;
---green:#2f7d5b;--hair:#15212e;--dot:#cbb6ba;--zebra:#faf4f5;--radius:3px;
---mono:'Spline Sans Mono',ui-monospace,Menlo,monospace;--sans:'Archivo',system-ui,sans-serif;}
+:root{--red:#d6232f;--red-deep:#9a303e;--text:#ededed;--muted:#b9bfc7;--soft:#838b95;
+--green:#5bd39a;--blue:#82b9ff;--line:rgba(255,255,255,.10);--zebra:rgba(255,255,255,.04);
+--sans:'Inter',system-ui,-apple-system,sans-serif;}
 *{box-sizing:border-box;}html,body{margin:0;padding:0;}
-body{font-family:var(--sans);background:var(--blush);color:var(--ink);-webkit-font-smoothing:antialiased;}
-.wrap{max-width:1240px;margin:0 auto;padding:34px 28px 28px;}
-.mast{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:22px;}
-.brand{display:flex;align-items:baseline;gap:0;line-height:1;}
-.brand .b64{font-weight:800;font-size:40px;letter-spacing:-1.5px;color:var(--maroon);}
-.brand .bword{font-weight:800;font-size:30px;letter-spacing:-0.5px;color:var(--ink);text-transform:uppercase;}
-.mast-meta{text-align:right;}
-.mast h1{font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:2.5px;color:var(--ink);margin:0 0 4px;}
-.mast .sub{font-family:var(--mono);font-size:11.5px;color:var(--ink-soft);letter-spacing:.2px;}
-.summary{display:flex;gap:0;border:1.5px solid var(--hair);background:var(--paper);margin-bottom:18px;}
-.stat{flex:1;padding:13px 18px;border-right:1px solid var(--dot);position:relative;}
-.stat:last-child{border-right:none;}
-.stat.active{background:var(--ink);}
-.stat.active .stat-num,.stat.active .stat-lab{color:var(--paper);}
-.stat-num{font-family:var(--mono);font-size:25px;font-weight:600;color:var(--ink);line-height:1;letter-spacing:-1px;}
-.stat-num .accent{color:var(--maroon);}
-.stat-lab{font-size:10.5px;text-transform:uppercase;letter-spacing:1.3px;color:var(--ink-soft);margin-top:6px;font-weight:600;}
-.resultline{font-family:var(--mono);font-size:11px;color:var(--ink-soft);margin:0 2px 8px;letter-spacing:.2px;text-transform:uppercase;}
-.tablecard{background:var(--paper);border:1.5px solid var(--hair);}
-table.portal{width:100%;border-collapse:collapse;}
-table.portal thead th{font-size:10.5px;text-transform:uppercase;letter-spacing:1.2px;font-weight:700;color:var(--ink);
-text-align:left;padding:11px 14px;border-bottom:1.5px solid var(--hair);white-space:nowrap;background:var(--blush);}
+body{font-family:var(--sans);background:#0b0c0f;-webkit-font-smoothing:antialiased;}
+.poster{position:relative;width:1054px;height:1492px;margin:0 auto;
+background-image:url('__POSTER__');background-size:100% 100%;background-repeat:no-repeat;font-family:var(--sans);}
+.content{position:absolute;top:30.5%;left:9%;right:9%;bottom:21%;display:flex;flex-direction:column;overflow:hidden;}
+.resultline{font-size:11px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:var(--muted);margin:0 2px 10px;}
+table.portal{width:100%;border-collapse:collapse;font-size:var(--fs);color:var(--text);text-shadow:0 1px 2px rgba(0,0,0,.65);}
+table.portal thead th{font-size:.6em;text-transform:uppercase;letter-spacing:1.1px;font-weight:800;color:#fff;
+text-align:left;padding:.5em .7em;border-bottom:2px solid var(--red);white-space:nowrap;}
 table.portal thead th.num{text-align:center;}
-table.portal tbody td{padding:11px 14px;font-size:13.5px;vertical-align:middle;}
-.colrank{text-align:center;width:64px;}.colpos{text-align:center;width:64px;}
-.rank-fig{font-family:var(--mono);font-weight:600;font-size:15px;color:var(--orange);letter-spacing:-.5px;}
-.pos-tag{font-family:var(--mono);font-weight:600;font-size:13px;color:var(--blue);}
-.pname{font-weight:700;color:var(--ink);letter-spacing:-.2px;font-size:14.5px;white-space:nowrap;}
-.pschool{font-weight:600;color:var(--ink);}
-.pconf{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--ink-2);white-space:nowrap;}
-.pclass{font-family:var(--mono);font-size:11.5px;color:var(--ink-soft);}
-.pdate{font-family:var(--mono);font-size:11.5px;color:var(--ink-soft);white-space:nowrap;}
-.pill{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:.3px;padding:3px 9px;border-radius:20px;white-space:nowrap;}
+table.portal tbody td{padding:var(--pady) .7em;font-size:1em;vertical-align:middle;font-weight:500;}
+.colrank{text-align:center;width:9%;}.colpos{text-align:center;width:8%;}
+.rank-fig{font-weight:800;font-size:1.08em;color:var(--red);letter-spacing:-.5px;}
+.pos-tag{font-weight:700;font-size:.92em;color:var(--blue);}
+.pname{font-weight:800;color:#fff;font-size:1.02em;white-space:nowrap;letter-spacing:-.2px;}
+.pschool{font-weight:600;color:var(--text);}
+.pconf{font-size:.74em;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);white-space:nowrap;}
+.pclass{font-size:.78em;color:var(--soft);font-weight:600;}
+.pdate{font-size:.78em;color:var(--soft);white-space:nowrap;font-weight:600;}
+.pill{display:inline-flex;align-items:center;gap:5px;font-size:.72em;font-weight:800;letter-spacing:.3px;padding:.18em .6em;border-radius:20px;white-space:nowrap;text-shadow:none;}
 .pill .dot{width:6px;height:6px;border-radius:50%;}
-.pill.committed{background:rgba(47,125,91,.12);color:var(--green);}.pill.committed .dot{background:var(--green);}
-.pill.uncommitted{background:rgba(0,92,166,.10);color:var(--blue);}.pill.uncommitted .dot{background:var(--blue);}
-.pill.withdrawn{background:rgba(124,37,49,.10);color:var(--maroon);}.pill.withdrawn .dot{background:var(--maroon);}
-.commit-to{font-weight:700;color:var(--ink);font-size:13px;}
-.commit-arrow{color:var(--green);margin:0 5px;font-weight:700;}
-.lay-ledger tbody tr{border-bottom:1px dotted var(--dot);}
+.pill.committed{background:rgba(91,211,154,.18);color:var(--green);}.pill.committed .dot{background:var(--green);}
+.pill.uncommitted{background:rgba(130,185,255,.16);color:var(--blue);}.pill.uncommitted .dot{background:var(--blue);}
+.pill.withdrawn{background:rgba(214,35,47,.20);color:#ff8a90;}.pill.withdrawn .dot{background:var(--red);}
+.commit-to{font-weight:700;color:#fff;font-size:.92em;}
+.commit-arrow{color:var(--green);margin:0 4px;font-weight:800;}
+.statline{font-size:.84em;color:var(--muted);white-space:nowrap;}
+.statline b{color:#fff;font-weight:700;}
+.lay-ledger tbody tr{border-bottom:1px solid var(--line);}
 .lay-ledger tbody tr:last-child{border-bottom:none;}
-.lay-board tbody tr{border-bottom:1px solid #eee3e5;}
+.lay-board tbody tr{border-bottom:1px solid var(--line);}
 .lay-board tbody tr:nth-child(even){background:var(--zebra);}
-.lay-board .colrank{width:74px;}
-.lay-board .rank-badge{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;background:var(--ink);color:var(--paper);font-family:var(--mono);font-weight:600;font-size:16px;border-radius:var(--radius);}
-.lay-board .rank-badge.top{background:var(--maroon);}
-.lay-board .pname{font-size:15.5px;}
-.lay-board .submeta{font-size:11.5px;color:var(--ink-soft);font-weight:600;margin-top:3px;display:flex;gap:7px;align-items:center;}
-.lay-board .submeta .sep{color:var(--dot);}
-.lay-board tbody td{padding:13px 14px;}
-.statline{font-family:var(--mono);font-size:12px;color:var(--ink-2);white-space:nowrap;}
-.statline b{color:var(--ink);font-weight:600;}
-.lay-index{border:none;background:transparent;}
-.lay-index table.portal thead th{background:transparent;border-bottom:2px solid var(--hair);border-top:2px solid var(--hair);font-size:10px;}
-.lay-index tbody tr{border-bottom:1px solid #e4d6d9;}
-.lay-index tbody td{padding:8px 14px;font-size:13px;}
-.lay-index .rank-fig{color:var(--ink);}.lay-index .pos-tag{color:var(--ink-2);}
-.grouphd td{background:var(--ink)!important;color:var(--paper);padding:9px 14px!important;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.4px;}
-.grouphd .gcount{float:right;font-family:var(--mono);color:var(--blush);font-weight:600;letter-spacing:0;}
-.lay-index .grouphd td{background:transparent!important;color:var(--maroon);border-bottom:1.5px solid var(--maroon);}
-.lay-index .grouphd .gcount{color:var(--ink-soft);}
-.empty{padding:60px 20px;text-align:center;color:var(--ink-soft);font-family:var(--mono);font-size:13px;}
-.foot{margin-top:18px;font-family:var(--mono);font-size:10.5px;color:var(--ink-soft);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;border-top:1px dotted var(--dot);padding-top:14px;}
+.lay-board .rank-badge{display:inline-flex;align-items:center;justify-content:center;width:2.3em;height:2.3em;background:#1b1e25;color:#fff;font-weight:800;font-size:1em;border-radius:3px;text-shadow:none;}
+.lay-board .rank-badge.top{background:var(--red);}
+.lay-board .submeta{font-size:.72em;color:var(--soft);font-weight:600;margin-top:2px;display:flex;gap:6px;align-items:center;}
+.lay-board .submeta .sep{color:#555;}
+.lay-index tbody tr{border-bottom:1px solid var(--line);}
+.lay-index .rank-fig{color:#fff;}
+.grouphd td{background:var(--red)!important;color:#fff;padding:.4em .7em!important;font-size:.7em;font-weight:800;text-transform:uppercase;letter-spacing:1.4px;text-shadow:none;}
+.grouphd .gcount{float:right;font-weight:700;letter-spacing:0;color:rgba(255,255,255,.88);}
+.empty{padding:40px 20px;text-align:center;color:var(--soft);font-size:14px;}
 .btn-row{text-align:center;margin:16px 0;}
-.btn-row button{padding:10px 22px;background:#9a303e;color:#fff;border:none;border-radius:3px;font-family:var(--sans);font-weight:700;font-size:13px;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;margin:0 5px;box-shadow:0 4px 12px rgba(0,0,0,.25);}
-@media print{@page{margin:12mm;}body{background:#fff;}.wrap{max-width:none;padding:0;}.btn-row{display:none!important;}
-table.portal thead th{background:#fff!important;-webkit-print-color-adjust:exact;}
-.grouphd td{background:#14202e!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
-tbody tr{break-inside:avoid;}.pill,.rank-badge,.stat-num .accent{-webkit-print-color-adjust:exact;print-color-adjust:exact;}}
+.btn-row button{padding:10px 22px;background:var(--red);color:#fff;border:none;border-radius:3px;font-family:var(--sans);font-weight:700;font-size:13px;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;margin:0 5px;box-shadow:0 4px 12px rgba(0,0,0,.4);}
+@media print{@page{margin:0;}.btn-row{display:none!important;}.poster{-webkit-print-color-adjust:exact;print-color-adjust:exact;}}
 """
 
 
@@ -362,6 +345,10 @@ with st.sidebar:
                                 key=lambda p: (POS_ORDER.index(p) if p in POS_ORDER else 99, p))
     pos = st.selectbox('Position', pos_opts)
     status_f = st.radio('Status', ['All', 'Committed', 'Available'], horizontal=True)
+    st.markdown('### Sort')
+    sort_by = st.selectbox('Sort by', ['Rank', 'Team', 'Name', 'Conference', 'Position'])
+    sort_dir = st.radio('Order', ['Asc', 'Desc'], horizontal=True,
+                        help='Team sort groups by school, then orders by rank within each.')
     st.markdown('### Layout')
     layout = {'Ledger': 'ledger', 'Board': 'board', 'Index': 'index'}[
         st.radio('Direction', ['Ledger', 'Board', 'Index'],
@@ -370,8 +357,8 @@ with st.sidebar:
         st.selectbox('Group by', ['None', 'Conference', 'Position', 'Prev school'])]
     show_stat = st.toggle('Key-stat column', value=True)
     highlight_top = st.toggle('Highlight top 10', value=True)
-    limit = st.number_input('Max rows', min_value=5, max_value=500, value=50, step=5,
-                            help='Caps the table; counts above reflect the full filtered pool.')
+    limit = st.number_input('Rows (auto-fit to poster)', min_value=5, max_value=60, value=15, step=1,
+                            help='Rows auto-size to fill the poster middle. ~15–20 looks best.')
 
 # Pool = search + conference + position (drives summary counts).
 pool = df.copy()
@@ -391,7 +378,7 @@ counts = {
     'softball': int((pool['sport'] == 'Softball').sum()),
 }
 
-# Table set = pool + sport + status, sorted by rank, limited.
+# Table set = pool + sport + status, sorted, limited.
 view = pool.copy()
 if sport != 'All':
     view = view[view['sport'] == sport]
@@ -399,7 +386,16 @@ if status_f == 'Committed':
     view = view[view['status'] == 'Committed']
 elif status_f == 'Available':
     view = view[view['status'] == 'Uncommitted']
-view = view.sort_values('rank', ascending=True, na_position='last').head(int(limit))
+_asc = (sort_dir == 'Asc')
+_sortcol = {'Rank': 'rank', 'Team': 'prevSchool', 'Name': 'name',
+            'Conference': 'conf', 'Position': 'pos'}[sort_by]
+if _sortcol == 'rank':
+    view = view.sort_values('rank', ascending=_asc, na_position='last')
+else:
+    # Group by the chosen field, then rank within it (so "by team" reads cleanly).
+    view = view.assign(_k=view[_sortcol].astype(str).str.lower())
+    view = view.sort_values(['_k', 'rank'], ascending=[_asc, True], na_position='last').drop(columns='_k')
+view = view.head(int(limit))
 
 # ── Build the rows (with optional grouping) ──────────────────────────────────
 col_count = (5 + int(show_stat)) if layout == 'board' else (7 + int(show_stat))
@@ -432,27 +428,7 @@ else:
         for _, p in grows.iterrows():
             body.append(render_row(p, layout, show_stat, highlight_top))
 
-# Masthead / summary / result line
-updated = ''
-if not df.empty:
-    d = pd.to_datetime(df['entered'], errors='coerce').max()
-    d = d if pd.notna(d) else pd.Timestamp(datetime.now())
-    updated = f'{d.strftime("%b")} {d.day}, {d.year}'
-sport_lbl = 'BASEBALL + SOFTBALL' if sport == 'All' else sport.upper()
-
-summary_html = (
-    f'<div class="stat"><div class="stat-num"><span class="accent">{counts["total"]:,}</span></div>'
-    f'<div class="stat-lab">Total Entrants</div></div>'
-    f'<div class="stat {"active" if status_f == "Committed" else ""}"><div class="stat-num">{counts["committed"]:,}</div>'
-    f'<div class="stat-lab">Committed</div></div>'
-    f'<div class="stat {"active" if status_f == "Available" else ""}"><div class="stat-num">{counts["available"]:,}</div>'
-    f'<div class="stat-lab">Available</div></div>'
-    f'<div class="stat {"active" if sport == "Baseball" else ""}"><div class="stat-num">{counts["baseball"]:,}</div>'
-    f'<div class="stat-lab">Baseball</div></div>'
-    f'<div class="stat {"active" if sport == "Softball" else ""}"><div class="stat-num">{counts["softball"]:,}</div>'
-    f'<div class="stat-lab">Softball</div></div>'
-)
-
+# Result line (the poster supplies the masthead/branding; table only).
 filt_bits = []
 if conf != 'All':
     filt_bits.append(conf)
@@ -462,26 +438,34 @@ if sport != 'All':
     filt_bits.append(sport)
 if status_f != 'All':
     filt_bits.append(status_f)
-result_line = f'SHOWING {len(view)} OF {counts["total"]:,} ENTRANTS' + (' · ' + ' · '.join(filt_bits) if filt_bits else '')
+_sortlbl = {'Rank': 'BY RANK', 'Team': 'BY TEAM', 'Name': 'A–Z',
+            'Conference': 'BY CONF', 'Position': 'BY POS'}[sort_by]
+result_line = (f'TOP {len(view)} OF {counts["total"]:,} · {_sortlbl}'
+               + (' · ' + ' · '.join(b.upper() for b in filt_bits) if filt_bits else ''))
 
+# Auto-fit: size the rows so the chosen count fills the poster's middle zone
+# (~723px tall on the 1054x1492 canvas). Board rows are ~2 lines → weigh more.
+ZONE_H = 723.0
+rows_total = max(1, len(body))
+weight = 1.6 if layout == 'board' else 1.0
+_rowh = ZONE_H / (rows_total * weight + 1.3)
+fs = max(9.0, min(18.0, _rowh * 0.40))
+pady = max(2.0, (_rowh - fs * 1.32) / 2)
+
+css = DESIGN_CSS.replace('__POSTER__', poster_data_url())
 page_html = f"""<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Spline+Sans+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
-<style>{DESIGN_CSS}</style></head><body>
-<div class="wrap" id="capture">
-  <header class="mast">
-    <div><div class="brand"><span class="b64">64</span><span class="bword">nalytics</span></div></div>
-    <div class="mast-meta"><h1>Transfer Portal — Entrant List</h1>
-      <div class="sub">{_e(sport_lbl)} · UPDATED {_e(updated.upper())}</div></div>
-  </header>
-  <div class="summary">{summary_html}</div>
-  <div class="resultline">{_e(result_line)}</div>
-  <div class="tablecard lay-{layout}">
-    <table class="portal"><thead>{header_cells(layout, show_stat)}</thead>
-    <tbody>{''.join(body)}</tbody></table>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>{css}</style></head><body>
+<div class="poster" id="capture">
+  <div class="content" style="--fs:{fs:.1f}px;--pady:{pady:.1f}px">
+    <div class="resultline">{_e(result_line)}</div>
+    <div class="lay-{layout}">
+      <table class="portal"><thead>{header_cells(layout, show_stat)}</thead>
+      <tbody>{''.join(body)}</tbody></table>
+    </div>
   </div>
-  <div class="foot"><span>64 ANALYTICS · TRANSFER PORTAL TRACKER</span><span>{_e(updated.upper())}</span></div>
 </div>
 <div class="btn-row">
   <button onclick="window.print()">Print / PDF</button>
@@ -494,14 +478,14 @@ window.dlPNG = async function(btn){{
   if(btn){{ btn.disabled = true; var t = btn.textContent; btn.textContent='Rendering…'; }}
   try{{
     if(document.fonts && document.fonts.ready) await document.fonts.ready;
-    var canvas = await html2canvas(el, {{scale:2, useCORS:true, backgroundColor:'#f3e6e8'}});
-    var a = document.createElement('a'); a.download='portal_entrant_list.png';
+    var canvas = await html2canvas(el, {{scale:2, useCORS:true, backgroundColor:'#0b0c0f'}});
+    var a = document.createElement('a'); a.download='portal_2026_rankings.png';
     a.href = canvas.toDataURL('image/png'); document.body.appendChild(a); a.click(); document.body.removeChild(a);
   }} finally {{ if(btn){{ btn.disabled=false; btn.textContent = t || 'Download PNG'; }} }}
 }};
 </script></body></html>"""
 
 st.markdown(f'**{len(view)}** shown · **{counts["total"]:,}** in filtered pool · '
-            f'layout: {layout.title()}' + (f' · grouped by {group_by}' if group_by != 'none' else ''))
-_h = min(2400, 360 + len(body) * 46)
-components.html(page_html, height=_h, scrolling=True)
+            f'sort: {sort_by} {sort_dir} · layout: {layout.title()}'
+            + (f' · grouped by {group_by}' if group_by != 'none' else ''))
+components.html(page_html, height=1620, scrolling=True)
