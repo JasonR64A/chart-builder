@@ -91,7 +91,7 @@ HITTER_LABELS = {
     'LAB_13':'TB',  'LAB_14':'BB',  'LAB_15':'HBP', 'LAB_16':'SO',
     'C_TH1': 'YEAR','C_TH2': 'G',   'C_TH3': 'AVG','C_TH4': 'OBP',
     'C_TH5': 'SLG', 'C_TH6': 'OPS', 'C_TH7': 'HR', 'C_TH8': 'RBI',
-    'C_TH9': 'H/AB','C_TH10':'BB/K',
+    'C_TH9': 'SB',  'C_TH10':'H/AB','C_TH11':'BB/K',
 }
 # Pitcher season grid + career table — mirrors PBP Analytics pitcher card.
 # Slash row = ERA / FIP / WHIP / K%. Cell row = BB% / K-BB% / K/9 / OPS-A.
@@ -339,7 +339,7 @@ if prec is not None and not is_pitcher_player:
 
         # Career rows + totals
         tot = {'ab': 0, 'h': 0, 'bb': 0, 'k': 0, 'hr': 0, 'rbi': 0, 'g': 0,
-                 'hbp': 0, 'sf': 0, 'tb': 0, 'pa': 0}
+                 'hbp': 0, 'sf': 0, 'tb': 0, 'pa': 0, 'sb': 0}
         rows = []
         for _, yr in hist.iterrows():
             g = season_stat(yr, 'games_played')
@@ -349,6 +349,7 @@ if prec is not None and not is_pitcher_player:
             k  = season_stat(yr, 'strikeouts')
             hr = season_stat(yr, 'home_runs')
             rbi = season_stat(yr, 'runs_batted_in')
+            sb = season_stat(yr, 'stolen_bases')
             tb = season_stat(yr, 'total_bases')
             hbp = season_stat(yr, 'hit_by_pitch')
             sf = season_stat(yr, 'sac_fly')
@@ -359,14 +360,14 @@ if prec is not None and not is_pitcher_player:
                 'obp': fmt_slash(yr.get('on_base_percentage')),
                 'slg': fmt_slash(yr.get('slugging_percentage')),
                 'ops': fmt_slash(yr.get('on_base_plus_slugging')),
-                'hr': hr, 'rbi': rbi,
+                'hr': hr, 'rbi': rbi, 'sb': sb,
                 'hAb': f'{h}/{ab}',
                 'bbK': f'{bb}/{k}',
                 # Hidden raw fields used to recompute OBP/SLG/OPS in the totals row:
                 '_tb': tb, '_hbp': hbp, '_sf': sf,
             })
-            for key, val in zip(('g','ab','h','bb','k','hr','rbi','tb','hbp','sf'),
-                                  (g, ab, h, bb, k, hr, rbi, tb, hbp, sf)):
+            for key, val in zip(('g','ab','h','bb','k','hr','rbi','tb','hbp','sf','sb'),
+                                  (g, ab, h, bb, k, hr, rbi, tb, hbp, sf, sb)):
                 tot[key] += val
         defaults['career_rows'] = rows
         # Totals
@@ -380,7 +381,7 @@ if prec is not None and not is_pitcher_player:
                 'year': 'TOTAL', 'g': tot['g'],
                 'avg': fmt_slash(avg), 'obp': fmt_slash(obp),
                 'slg': fmt_slash(slg), 'ops': fmt_slash(ops),
-                'hr': tot['hr'], 'rbi': tot['rbi'],
+                'hr': tot['hr'], 'rbi': tot['rbi'], 'sb': tot['sb'],
                 'hAb': f"{tot['h']}/{tot['ab']}",
                 'bbK': f"{tot['bb']}/{tot['k']}",
             }
@@ -586,7 +587,7 @@ with st.expander('Career by year (editable)', expanded=False):
         default_df = pd.DataFrame(defaults['career_rows']) if defaults['career_rows'] else pd.DataFrame(
             [{'year': season_year, 'g': season_gp,
               'avg': s_avg, 'obp': s_obp, 'slg': s_slg, 'ops': s_ops,
-              'hr': s_hr, 'rbi': s_rbi,
+              'hr': s_hr, 'rbi': s_rbi, 'sb': s_sb,
               'hAb': f'{s_h}/{s_ab}', 'bbK': f'{s_bb}/{s_so}',
               '_tb': s_tb, '_hbp': s_hbp, '_sf': 0}]
         )
@@ -652,6 +653,17 @@ def data_url(path: Path) -> str:
     return f'data:{mime or "image/png"};base64,' + base64.b64encode(b).decode()
 
 
+def build_career_head_html(labels: dict) -> str:
+    """Generate the career-table header cells in Python so the column count can
+    differ by player type: hitters carry 11 columns (…HR/RBI/SB/H-AB/BB-K),
+    pitchers stay at 10. Reads C_TH1, C_TH2, … in order until one is missing."""
+    cells, i = [], 1
+    while f'C_TH{i}' in labels:
+        cells.append(f'<th>{labels[f"C_TH{i}"]}</th>')
+        i += 1
+    return ''.join(cells)
+
+
 def build_pitcher_career_rows_html(rows_df: pd.DataFrame) -> str:
     """Pitcher table: YEAR / G / ERA / FIP / WHIP / K% / BB% / IP / K/BB / W-L.
     Totals row recomputed from per-year raw counts (rates can't be summed)."""
@@ -711,10 +723,11 @@ def build_career_rows_html(rows_df: pd.DataFrame) -> str:
             f'<td>{r.get("avg","")}</td><td>{r.get("obp","")}</td>'
             f'<td>{r.get("slg","")}</td><td>{r.get("ops","")}</td>'
             f'<td>{r.get("hr","")}</td><td>{r.get("rbi","")}</td>'
+            f'<td>{r.get("sb","")}</td>'
             f'<td>{r.get("hAb","")}</td><td>{r.get("bbK","")}</td></tr>'
         )
     # Totals: recompute from per-year raw fields
-    tot = {'g': 0, 'hr': 0, 'rbi': 0, 'h': 0, 'ab': 0, 'bb': 0, 'k': 0,
+    tot = {'g': 0, 'hr': 0, 'rbi': 0, 'sb': 0, 'h': 0, 'ab': 0, 'bb': 0, 'k': 0,
            'tb': 0, 'hbp': 0, 'sf': 0}
 
     def _int(v):
@@ -727,6 +740,7 @@ def build_career_rows_html(rows_df: pd.DataFrame) -> str:
         tot['g']   += _int(r.get('g'))
         tot['hr']  += _int(r.get('hr'))
         tot['rbi'] += _int(r.get('rbi'))
+        tot['sb']  += _int(r.get('sb'))
         hAb = str(r.get('hAb') or '0/0')
         bbK = str(r.get('bbK') or '0/0')
         try:
@@ -754,7 +768,7 @@ def build_career_rows_html(rows_df: pd.DataFrame) -> str:
         html.append(
             f'<tr class="totals"><td>TOTAL</td><td>{tot["g"]}</td>'
             f'<td>{avg_s}</td><td>{obp_s}</td><td>{slg_s}</td><td>{ops_s}</td>'
-            f'<td>{tot["hr"]}</td><td>{tot["rbi"]}</td>'
+            f'<td>{tot["hr"]}</td><td>{tot["rbi"]}</td><td>{tot["sb"]}</td>'
             f'<td>{tot["h"]}/{tot["ab"]}</td><td>{tot["bb"]}/{tot["k"]}</td></tr>'
         )
     return '\n'.join(html)
@@ -831,6 +845,7 @@ if is_pitcher_player:
     }
     label_map = {f'{{{{{k}}}}}': v for k, v in PITCHER_LABELS.items()}
     career_rows_html = build_pitcher_career_rows_html(edited)
+    career_head_html = build_career_head_html(PITCHER_LABELS)
 else:
     season_slash = f'{s_avg} / {s_obp} / {s_slg}'
     season_subtitle = f"{school.upper()} · {int(season_gp)} GP · {int(season_pa)} PA"
@@ -849,6 +864,7 @@ else:
     }
     label_map = {f'{{{{{k}}}}}': v for k, v in HITTER_LABELS.items()}
     career_rows_html = build_career_rows_html(edited)
+    career_head_html = build_career_head_html(HITTER_LABELS)
 
 template = TEMPLATE_PATH.read_text(encoding='utf-8')
 replacements = {
@@ -865,6 +881,7 @@ replacements = {
     **label_map,
     '{{CAREER_SLASH}}': career_slash or '—',
     '{{CAREER_SUBTITLE}}': career_subtitle,
+    '{{CAREER_HEAD_HTML}}': career_head_html,
     '{{CAREER_ROWS_HTML}}': career_rows_html,
     '{{EYEBROW}}': eyebrow,
     '{{HEADLINE}}': headline,
