@@ -211,7 +211,7 @@ table.portal{width:100%;border-collapse:collapse;font-size:var(--fs);color:var(-
 table.portal thead th{font-size:.6em;text-transform:uppercase;letter-spacing:1.1px;font-weight:800;color:#fff;
 text-align:left;padding:.5em .7em;border-bottom:2px solid var(--red);white-space:nowrap;}
 table.portal thead th.num{text-align:center;}
-table.portal tbody td{padding:var(--pady) .7em;font-size:1em;vertical-align:middle;font-weight:500;}
+table.portal tbody td{padding:var(--pady) .7em;font-size:1em;vertical-align:middle;font-weight:500;white-space:nowrap;}
 .colrank{text-align:center;width:9%;}.colpos{text-align:center;width:8%;}
 .rank-fig{font-weight:800;font-size:1.08em;color:var(--red);letter-spacing:-.5px;}
 .pos-tag{font-weight:700;font-size:.92em;color:var(--blue);}
