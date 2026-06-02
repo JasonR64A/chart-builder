@@ -1,4 +1,4 @@
 ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfer_date,update_date,status,year,sport,team_id,player_id_64a,player_id_ncaa_stats,matched_name,match_score,match_method,confidence,position,class_year,player_csv_team_id
-2508686323,ERIK,HYLTON,Erik Hylton,Virginia Commonwealth University,Atlantic 10 Conference,I,06/02/2026,06/02/2026,Active,2025-26,Baseball,854,137919,3232298,Graham Hylton,66.7,team+lastname_diff_first,REVIEW,1B,Jr,854
-2503537354,VINCENT,COONEY,Vincent Cooney,Albion College,Michigan Intercollegiate Athletic Association,III,06/02/2026,06/02/2026,Active,2025-26,Baseball,14,120955,3103122,Vinny Cooney,82.0,team+lastname_diff_first,REVIEW,3B,So,14
-2007896535,NICODEMIUS,GARCIA,Nicodemius Garcia,Alcorn State University,Southwestern Athletic Conf.,I,06/02/2026,06/02/2026,Active,2025-26,Baseball,16,73081,2973998,Nico Garcia,78.6,team+lastname_diff_first,REVIEW,C,Fr,16
+2109329942,MARC,FUENTES,Marc Fuentes,Rice University,American Conference,I,06/02/2026,06/02/2026,Active,2025-26,Baseball,643,68376,2955225,Marco Fuentes,96.0,team+lastname,MEDIUM,P,Jr,643
+2308975674,JAESUNG,AN,Jaesung An,University of Texas at Arlington,Western Athletic Conference,I,06/02/2026,06/02/2026,Active,2025-26,Baseball,838,137270,3246281,David An,44.4,team+lastname_diff_first,REVIEW,P,Fr,838
+2410445415,EMMANUEL,LANTIGUA,Emmanuel Lantigua,Florida State University,Atlantic Coast Conference,I,06/02/2026,06/02/2026,Active,2025-26,Baseball,267,139632,3250699,Manny Lantigua,51.6,team+lastname_diff_first,REVIEW,P,Fr,267
