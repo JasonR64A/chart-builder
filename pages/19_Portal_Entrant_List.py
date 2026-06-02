@@ -204,9 +204,9 @@ DESIGN_CSS = """
 body{font-family:var(--sans);background:#0b0c0f;-webkit-font-smoothing:antialiased;}
 .poster{position:relative;width:1054px;height:1492px;margin:0 auto;
 background-image:url('__POSTER__');background-size:100% 100%;background-repeat:no-repeat;font-family:var(--sans);}
-.content{position:absolute;top:30.5%;left:9%;right:9%;bottom:21%;display:flex;flex-direction:column;overflow:hidden;}
+.content{position:absolute;top:30%;left:9%;right:9%;bottom:15%;display:flex;flex-direction:column;overflow:hidden;}
 .resultline{font-size:11px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:var(--muted);margin:0 2px 10px;}
-table.portal{width:100%;border-collapse:collapse;font-size:var(--fs);color:var(--text);text-shadow:0 1px 2px rgba(0,0,0,.65);}
+table.portal{width:100%;border-collapse:collapse;font-size:var(--fs);color:var(--text);text-shadow:0 1px 2px rgba(0,0,0,.65);line-height:1.2;}
 table.portal thead th{font-size:.6em;text-transform:uppercase;letter-spacing:1.1px;font-weight:800;color:#fff;
 text-align:left;padding:.5em .7em;border-bottom:2px solid var(--red);white-space:nowrap;}
 table.portal thead th.num{text-align:center;}
@@ -443,14 +443,17 @@ _sortlbl = {'Rank': 'BY RANK', 'Team': 'BY TEAM', 'Name': 'A–Z',
 result_line = (f'TOP {len(view)} OF {counts["total"]:,} · {_sortlbl}'
                + (' · ' + ' · '.join(b.upper() for b in filt_bits) if filt_bits else ''))
 
-# Auto-fit: size the rows so the chosen count fills the poster's middle zone
-# (~723px tall on the 1054x1492 canvas). Board rows are ~2 lines → weigh more.
-ZONE_H = 723.0
+# Auto-fit: size rows so the chosen count fits the middle zone WITHOUT clipping.
+# Row height ≈ 2·pady + fs·line-height; line-height is pinned to 1.2 in CSS, so
+# solving fs from the zone budget is accurate (no more bottom-row cutoff).
+ZONE_H = 803.0        # middle-zone height (px) on the 1054x1492 canvas
+RESULT_H = 28.0       # result line above the table
+HEADER_W = 1.5        # header-row height in units of fs
+ROW_W = 3.1 if layout == 'board' else 2.2  # data-row height in fs units (board = 2 lines)
 rows_total = max(1, len(body))
-weight = 1.6 if layout == 'board' else 1.0
-_rowh = ZONE_H / (rows_total * weight + 1.3)
-fs = max(9.0, min(18.0, _rowh * 0.40))
-pady = max(2.0, (_rowh - fs * 1.32) / 2)
+fs = (ZONE_H - RESULT_H) / (HEADER_W + ROW_W * rows_total)
+fs = max(8.5, min(18.0, fs))
+pady = max(1.5, fs * 0.5)
 
 css = DESIGN_CSS.replace('__POSTER__', poster_data_url())
 page_html = f"""<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/>
