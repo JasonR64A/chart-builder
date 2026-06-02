@@ -204,7 +204,8 @@ DESIGN_CSS = """
 body{font-family:var(--sans);background:#0b0c0f;-webkit-font-smoothing:antialiased;}
 .poster{position:relative;width:1054px;height:1492px;margin:0 auto;
 background-image:url('__POSTER__');background-size:100% 100%;background-repeat:no-repeat;font-family:var(--sans);}
-.content{position:absolute;top:30%;left:9%;right:9%;bottom:6%;display:flex;flex-direction:column;overflow:hidden;}
+.content{position:absolute;top:30%;left:9%;right:9%;bottom:6%;display:flex;flex-direction:column;overflow:hidden;
+background:rgba(9,10,13,0.66);border:1px solid rgba(255,255,255,.07);border-radius:6px;padding:14px 18px;}
 .resultline{font-size:11px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:var(--muted);margin:0 2px 10px;}
 table.portal{width:100%;border-collapse:collapse;font-size:var(--fs);color:var(--text);text-shadow:0 1px 2px rgba(0,0,0,.65);line-height:1.2;}
 table.portal thead th{font-size:.6em;text-transform:uppercase;letter-spacing:1.1px;font-weight:800;color:#fff;
@@ -446,7 +447,7 @@ result_line = (f'TOP {len(view)} OF {counts["total"]:,} · {_sortlbl}'
 # Auto-fit: size rows so the chosen count fits the middle zone WITHOUT clipping.
 # Row height ≈ 2·pady + fs·line-height; line-height is pinned to 1.2 in CSS, so
 # solving fs from the zone budget is accurate (no more bottom-row cutoff).
-ZONE_H = 935.0        # middle-zone height (px) — bottom art removed, runs near full page
+ZONE_H = 905.0        # usable zone height (px) inside the scrim padding; runs near full page
 RESULT_H = 28.0       # result line above the table
 HEADER_W = 1.5        # header-row height in units of fs
 ROW_W = 3.1 if layout == 'board' else 2.2  # data-row height in fs units (board = 2 lines)
