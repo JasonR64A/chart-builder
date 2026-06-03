@@ -1,4 +1,2 @@
 ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfer_date,update_date,status,year,sport,team_id,player_id_64a,player_id_ncaa_stats,matched_name,match_score,match_method,confidence,position,class_year,player_csv_team_id
-2110346360,TIMOTHY,BROOKS,Timothy Brooks,University of North Carolina Asheville,Big South Conference,I,06/03/2026,06/03/2026,Active,2025-26,Baseball,826,67466,2948499,TJ Brooks,69.6,team+lastname_diff_first,REVIEW,P,Jr,826
-2308985741,HOWARD,DERIAS,Howard Derias,University of Miami (Florida),Atlantic Coast Conference,I,06/03/2026,06/03/2026,Active,2025-26,Baseball,469,115877,3098783,Tate DeRias,66.7,team+lastname_diff_first,REVIEW,P,So,469
-2206574302,ALEXANDER,DAY,Alexander Day,Northern Illinois University,Mid-American Conference,I,06/03/2026,06/03/2026,Active,2025-26,Baseball,539,71149,2964096,Alex Day,92.0,team+lastname,LOW,P,Jr,539
+2110337343,ALEXANDER,ROSARIO,Alexander Rosario,Winthrop University,Big South Conference,I,06/03/2026,06/03/2026,Active,2025-26,Baseball,919,99788,3062068,Alex Rosario,92,team+lastname,LOW,P,Sr,919
