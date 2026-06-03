@@ -1,4 +1,5 @@
 ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfer_date,update_date,status,year,sport,team_id,player_id_64a,player_id_ncaa_stats,matched_name,match_score,match_method,confidence,position,class_year,player_csv_team_id
-2605940550,MATTHEW,MAHONEY,Matthew Mahoney,Colby College,New England Small College Athletic Conference,III,06/03/2026,06/03/2026,Active,2025-26,Baseball,168,122504,3115146,Matt Mahoney,92.0,team+lastname,LOW,P,So,168
-2203455353,JAMES,LONG,James Long,Dallas Baptist University,Conference USA,II,06/03/2026,06/03/2026,Active,2025-26,Baseball (DI),201,129645,3235045,JT Long,70.6,team+lastname_diff_first,REVIEW,P,Jr,201
-2210709434,WILFREDO,ACEVEDO,Wilfredo Acevedo,Virginia Commonwealth University,Atlantic 10 Conference,I,06/03/2026,06/03/2026,Active,2025-26,Baseball,854,69677,2943572,Ethan Acevedo,62.1,team+lastname_diff_first,REVIEW,LF,Jr,854
+2210698524,JOSHUA,BRYSON,Joshua Bryson,"Pennsylvania Western University, California",Pennsylvania State Athletic Conference,II,06/03/2026,06/03/2026,Active,2025-26,Baseball,115,71292,2962160,Josh Bryson,92.0,team+lastname,LOW,P,Jr,115
+2204539519,JOHN,GIBSON,John Gibson,University of South Carolina Upstate,Big South Conference,I,06/03/2026,06/03/2026,Active,2025-26,Baseball,837,70074,2941737,Jack Gibson,92.0,team+lastname,LOW,P,Jr,837
+2207622154,CHRISTOPHER,FORMAN,Christopher Forman,Adelphi University,Northeast 10 Conference,II,06/03/2026,06/03/2026,Active,2025-26,Baseball,4,124968,3096117,CJ Forman,59.3,team+lastname_diff_first,REVIEW,P,So,4
+2411454615,EDWARD,READ,Edward Read,Virginia Commonwealth University,Atlantic 10 Conference,I,06/03/2026,06/03/2026,Active,2025-26,Baseball,854,137924,3232308,Boyce Read,57.1,team+lastname_diff_first,REVIEW,DH,Fr,854
