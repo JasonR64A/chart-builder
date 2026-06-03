@@ -1,3 +1,4 @@
 ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfer_date,update_date,status,year,sport,team_id,player_id_64a,player_id_ncaa_stats,matched_name,match_score,match_method,confidence,position,class_year,player_csv_team_id
-2310142366,WILLIAM,WILLOUGHBY,William Willoughby,The University of Southern Mississippi,Sun Belt Conference,I,06/03/2026,06/03/2026,Active,2025-26,Baseball,722,100213,3090576,Brooks Willoughby,62.9,team+lastname_diff_first,REVIEW,P,So,722
-2309108091,ARNOLD,ABERNATHY,Arnold Abernathy,"University of Tennessee, Knoxville",Southeastern Conference,I,06/03/2026,06/03/2026,Active,2025-26,Baseball,776,116060,3096962,Jay Abernathy,75.9,team+lastname_diff_first,REVIEW,CF,So,776
+2605940550,MATTHEW,MAHONEY,Matthew Mahoney,Colby College,New England Small College Athletic Conference,III,06/03/2026,06/03/2026,Active,2025-26,Baseball,168,122504,3115146,Matt Mahoney,92.0,team+lastname,LOW,P,So,168
+2203455353,JAMES,LONG,James Long,Dallas Baptist University,Conference USA,II,06/03/2026,06/03/2026,Active,2025-26,Baseball (DI),201,129645,3235045,JT Long,70.6,team+lastname_diff_first,REVIEW,P,Jr,201
+2210709434,WILFREDO,ACEVEDO,Wilfredo Acevedo,Virginia Commonwealth University,Atlantic 10 Conference,I,06/03/2026,06/03/2026,Active,2025-26,Baseball,854,69677,2943572,Ethan Acevedo,62.1,team+lastname_diff_first,REVIEW,LF,Jr,854

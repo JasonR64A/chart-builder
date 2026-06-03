@@ -52408,7 +52408,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 52410,Owen Rustand,,,FALSE,,0,0,165,2820116,,,,,,
 52411,Nolan Schroeder,P,Sr,FALSE,,0,0,165,2820221,,FALSE,,,,
 52412,Adam Severson,P,,FALSE,,0,0,165,2820209,,FALSE,,,,
-52413,Casey Stecker,P,Jr,FALSE,,0,0,165,2820188,,FALSE,,,,
+52413,Casey Stecker,P,Sr,FALSE,,0,0,165,2820188,,FALSE,73,R,R,"Indianola, IA"
 52414,Hunter Stroud,,,FALSE,,0,0,165,2820181,,,,,,
 52415,Ryan Thoreson,C,Sr,FALSE,,0,0,165,2820183,,FALSE,,,,
 52416,Trevor Weber,RF,,FALSE,,0,0,165,2820190,LF,FALSE,,,,
@@ -54538,7 +54538,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 54541,Jeremy Mangiameli,3B,Sr,FALSE,,0,0,317,2806243,,FALSE,70,R,R,"Middlefield, CT"
 54542,Ryan Melendez,LF,,FALSE,,0,0,317,2806221,DH,FALSE,70,R,R,
 54543,Luke Rier,P,,FALSE,,0,0,317,2806223,,FALSE,73,L,L,
-54544,Sabien Rivera,P,Sr,FALSE,,0,0,359,2806251,,FALSE,73,R,R,
+54544,Sabien Rivera,P,Sr,FALSE,,0,0,359,2806251,,FALSE,72,R,R,"Philadelphia, PA"
 54545,JJ Romatzick,SS,Jr,FALSE,,0,0,317,2806220,,FALSE,70,R,R,"Stratford, CT"
 54546,Matt Rose,P,,FALSE,,0,0,317,2806259,,,,,,
 54547,John Russell,C,Sr,FALSE,,0,0,317,2806245,DH,FALSE,75,R,R,"Eastchester, NY"
@@ -55766,7 +55766,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 55769,A Booker,OF,,FALSE,,0,0,399,2841819,,,,,,
 55770,B Carroll,OF,,FALSE,,0,0,399,2841820,,,,,,
 55771,Clayton Dyer,CF,,FALSE,,0,0,399,2829572,LF,TRUE,73,,,
-55772,Kai Finch,P,So,FALSE,,0,0,399,2829573,,FALSE,66,,,
+55772,Kai Finch,C,Jr,FALSE,,0,0,399,2829573,,FALSE,68,R,R,"Birmingham, AL"
 55773,Gabriel Fuentes,2B,Sr,FALSE,,0,0,399,2829576,P,TRUE,66,,,
 55774,Steven Huggins,1B,,FALSE,,0,0,399,2829557,RF,TRUE,77,,,
 55775,D Jackson,OF,,FALSE,,0,0,399,2841825,,,,,,
@@ -56135,7 +56135,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 56138,Aiden Moffett,P,,TRUE,422,128,0,781,2815103,,FALSE,75,R,R,"Mount Olive, MS"
 56139,Brady Neal,C,Sr,TRUE,422,0,0,8,2815127,RF,FALSE,70,L,R,"Tallahassee, FL"
 56140,Mic Paul,CF,Jr,TRUE,422,375,0,870,2815126,DH,FALSE,70,L,L,"Salt Lake City, UT"
-56141,DJ Primeaux,P,Jr,FALSE,,0,0,422,2815131,,FALSE,,L,L,
+56141,DJ Primeaux,P,Jr,FALSE,,0,0,422,2815131,,FALSE,70,L,L,"Baton Rouge, LA"
 56142,Zeb Ruddell,LF,,FALSE,,198,0,422,2815106,,FALSE,73,L,L,"Monroe, LA"
 56143,Chase Shores,P,,FALSE,,43,0,422,2815105,,FALSE,80,R,R,"Midland, TX"
 56144,Josh Akers,P,,FALSE,,0,0,423,2812947,,FALSE,70,L,L,"Lubbock, TX"
@@ -65178,7 +65178,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 65189,Kevin Geake,P,,FALSE,,,,408,2957985,,,72,,,
 65190,Brooks Hagedorn,3B,So,FALSE,,,,408,2957982,2B,FALSE,68,,,
 65191,Joey LaMattina,C,Jr,FALSE,,,,408,2957981,DH,FALSE,70,,,
-65192,Carter White,P,Jr,TRUE,408,,,229,2957986,,FALSE,73,,L,
+65192,Carter White,P,Jr,TRUE,408,,,229,2957986,,FALSE,73,L,L,"Shelby County, KY"
 65193,Evan Harbach,P,So,FALSE,,,,171,2949690,,FALSE,76,R,R,"Argyle, TX"
 65194,Canon Humphreys,SS,,FALSE,,,,171,2949680,2B,FALSE,71,R,R,"Highlands Ranch, CO"
 65195,Jackson Kay,P,Jr,FALSE,,,,171,2949650,,FALSE,74,R,R,"Albuquerque, NM"
@@ -65841,7 +65841,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 65880,Nathan Goodman,P,Jr,FALSE,,,,571,2955267,,FALSE,,R,R,"Bend, OR"
 65881,Alex Henderson,1B,So,TRUE,571,,,154,2955274,DH,FALSE,75,L,R,"Mercer Island, WA"
 65882,Tyler Kubo,RF,Jr,FALSE,,,,571,2955262,CF,FALSE,,L,L,"Pleasanton, CA"
-65883,Christian Martinez,P,Jr,TRUE,571,,,761,2955264,,FALSE,,R,R,"Corpus Christi, TX"
+65883,Christian Martinez,P,Jr,TRUE,571,,,761,2955264,,FALSE,70,R,R,"Corpus Christi, TX"
 65884,Thomas Munch,C,Jr,FALSE,,,,571,2955258,DH,FALSE,,R,R,"Aurora, CO"
 65885,Malcolm Munnich,P,Jr,FALSE,,,,571,2955255,,FALSE,,L,L,"Minneapolis, MN"
 65886,Alex Nielson,P,,FALSE,,,,571,2955253,,FALSE,,L,L,"Spanish Fork, UT"
@@ -67135,7 +67135,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 67174,Demario Faison,P,,FALSE,,,,175,2967387,CF,TRUE,,R,R,
 67175,Demetri Jamison,LF,,FALSE,,,,175,2967388,RF,FALSE,,R,R,
 67176,Jake Robinson,P,Jr,FALSE,,,,175,2967389,,FALSE,,R,R,
-67177,Alex Rodriguez,2B,Jr,FALSE,,,,175,2967390,RF,FALSE,70,S,R,"Long Island, NY"
+67177,Alex Rodriguez,2B,Jr,FALSE,,,,175,2967390,RF,FALSE,70,B,R,"Long Island, NY"
 67178,Maddux Walker,C,Jr,FALSE,,,,175,2967391,,FALSE,,R,R,
 67179,Abbott Lawrence,1B,,FALSE,,,,795,2968370,,FALSE,77,R,R,"Nashville, TN"
 67180,Trent Merrill,P,,FALSE,,,,795,2965611,,FALSE,73,L,L,"Chino Hills, CA"
@@ -67877,7 +67877,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 67935,Nik Copenhaver,P,So,TRUE,852,,,576,2971948,,FALSE,76,R,R,"Hamilton, OH"
 67936,Deegan Cordova,P,Jr,FALSE,,,,852,2971952,,,74,R,R,
 67937,Duke Ekstrom,P,,FALSE,,,,852,2971944,,,74,R,R,
-67938,Miller Green,P,Jr,FALSE,,,,852,2971956,,FALSE,77,L,L,
+67938,Miller Green,P,Jr,FALSE,,,,852,2971956,,FALSE,77,L,L,"Nashville, TN"
 67939,Luke Guth,P,Jr,FALSE,,,,852,2971945,,FALSE,73,R,R,
 67940,RJ Hamilton,2B,Jr,TRUE,852,,,217,2971936,RF,FALSE,70,R,R,"Hoover, AL"
 67941,Braden Holcomb,CF,Jr,FALSE,,,,852,2971939,LF,FALSE,76,R,R,
@@ -67887,7 +67887,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 67945,Kaito Muto,UT,,FALSE,,,,852,2971940,,,67,B,R,
 67946,Matt Ossenfort,1B,Jr,TRUE,523,,,471,2971937,,FALSE,75,L,L,"Sioux Falls, SD"
 67947,Ethan Robinson,P,So,FALSE,,,,473,2971943,,FALSE,77,R,R,"Murfreesboro, TN"
-67948,Jakob Schulz,P,Jr,FALSE,,,,852,2971950,,FALSE,74,R,L,
+67948,Jakob Schulz,P,Jr,FALSE,,,,852,2971950,,FALSE,74,R,L,"Houston, TX"
 67949,Brennan Seiber,P,Jr,FALSE,,,,852,2971946,,FALSE,77,R,R,
 67950,Nate Teague,P,Jr,FALSE,,,,852,2971958,,FALSE,79,R,R,
 67951,Garrison Barile,RF,Jr,FALSE,,,,144,2971856,DH,FALSE,74,R,R,"Greenwood, IN"
@@ -69498,10 +69498,10 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 69556,Logan Pikur,P,Jr,FALSE,,,,472,2957257,,FALSE,76,R,R,"West Bloomfield, MI"
 69557,Nick Williams,LF,Sr,FALSE,,,,472,2957264,CF,FALSE,73,R,R,"Racine, WI"
 69558,Jacob Albert,LF,Jr,TRUE,466,,,723,2944162,CF,FALSE,69,L,R,"Pelham, NH"
-69559,Colby Barker,P,Jr,FALSE,,,,466,2944177,,FALSE,77,,R,"Warwick, RI"
+69559,Colby Barker,P,Jr,FALSE,,,,466,2944177,,FALSE,77,R,R,"Warwick, RI"
 69560,Timmy Bonin,C,Jr,FALSE,,,,466,2944156,,FALSE,71,,,"Dillsburg, PA"
 69561,Michael Bradshaw,P,Jr,FALSE,,,,466,2944174,,FALSE,73,,R,"Cumberland, RI"
-69562,Campbell Cassidy,P,Jr,FALSE,,,,466,2944175,,FALSE,74,,L,"Auburn, ME"
+69562,Campbell Cassidy,P,Jr,FALSE,,,,466,2944175,,FALSE,74,R,L,"Auburn, ME"
 69563,Brooks Craigue,SS,Jr,FALSE,,,,466,2944138,DH,FALSE,70,,,"Concord, NH"
 69564,Dawson Bryce,SS,Jr,TRUE,466,,,145,2944154,3B,FALSE,75,R,R,"Taunton, MA"
 69565,Brian Downing,DH,Jr,FALSE,,,,466,2944173,1B,FALSE,73,,,"Hudson, MA"
@@ -70060,7 +70060,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 70118,Kai Etwaru,P,Sr,TRUE,205,,,547,2973411,,FALSE,73,L,L,"West Palm Beach, FL"
 70119,Ricardo Gonzalez,P,So,FALSE,,,,567,2973147,,FALSE,74,R,R,"West Palm Beach, FL"
 70120,Kobe Head,P,,FALSE,,,,205,2973148,,FALSE,73,,,"Atlanta, GA"
-70121,Michael Lane,P,Jr,FALSE,,,,205,2973149,,FALSE,73,,,"Bear, DE"
+70121,Michael Lane,P,Jr,FALSE,,,,205,2973149,,FALSE,73,R,R,"Bear, DE"
 70122,Chance Satcho,3B,,FALSE,,,,205,2973150,2B,FALSE,71,,,"Pittsburg, PA"
 70123,Jake Arnold,P,Sr,TRUE,144,,,509,2948933,,FALSE,74,R,R,"Hummelstown, PA"
 70124,Christian Bauman,CF,,TRUE,256,,,509,2948953,LF,FALSE,69,L,R,"West Long Branch, NJ"
@@ -70385,7 +70385,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 70443,Nick Davis,P,,FALSE,,,,291,2964582,,FALSE,77,R,R,"Pasadena, CA"
 70444,Ryan DeMartin,P,,FALSE,,,,291,2964575,,FALSE,73,R,R,"Ashburn, VA"
 70445,Johan Franco,P,Jr,FALSE,,,,291,2964567,,FALSE,73,R,R,"Queens Vlg, NY"
-70446,Ashtin Gilio,OF,Jr,FALSE,,,,291,2964568,CF,FALSE,73,B,R,"Lafayette, CO"
+70446,Ashtin Gilio,CF,Jr,FALSE,,,,291,2964568,CF,FALSE,73,B,R,"Lafayette, CO"
 70447,Joe Hollerbach,3B,,FALSE,,,,291,2964577,DH,FALSE,75,R,R,"Orinda, CA"
 70448,Ryan Keenan,P,,FALSE,,,,291,2964583,,FALSE,70,L,L,"Lighthouse Point, FL"
 70449,Marcello Mastroianni,P,Jr,TRUE,291,,,217,2964573,,FALSE,75,L,L,"Little Silver, NJ"
@@ -73013,7 +73013,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 73071,Ashton Larson,DH,Jr,TRUE,422,,,781,2944695,LF,FALSE,73,L,L,"Overland Park, KS"
 73072,Steven Milam,SS,Jr,FALSE,,,,422,2944687,,FALSE,,B,R,
 73073,Derrick Mitchell,DH,So,FALSE,,,,51,2944694,,FALSE,75,B,R,"Plano, TX"
-73074,Jaden Noot,P,Jr,FALSE,,,,422,2944691,,FALSE,,R,R,
+73074,Jaden Noot,P,Jr,FALSE,,,,422,2944691,,FALSE,76,R,R,"Oak Park, CA"
 73075,Austen Roellig,3B,So,TRUE,841,,,32,2944690,2B,FALSE,71,R,R,"Rancho Cucamonga, CA"
 73076,Fidel Ulloa,P,,FALSE,,,,422,2944693,,FALSE,74,R,R,"Lodi, CA"
 73077,Luis Guillermo,3B,,FALSE,,,,904,2974583,,FALSE,,,,
@@ -73276,7 +73276,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 73334,Carter Stebane,SS,,FALSE,,,,923,2974740,,FALSE,73,R,R,"Brillion, WI"
 73335,Aidan Trusky,P,,FALSE,,,,923,2974750,,FALSE,74,,R,"Antioch, IL"
 73336,Will Withers,OF,,FALSE,,,,923,2974735,,,73,L,R,"Frankfort, IL"
-73337,Christian Bosque,2B,Jr,FALSE,,,,511,2975704,1B,FALSE,72,S,R,"Palmetto Bay, FL"
+73337,Christian Bosque,2B,Jr,FALSE,,,,511,2975704,1B,FALSE,72,B,R,"Palmetto Bay, FL"
 73338,Hunter Szymborsk,C,,FALSE,,,,511,2975705,,FALSE,,,,
 73339,Ian Campbell,,Jr,FALSE,,,,378,2971419,,FALSE,,,,
 73340,Jonathan Garcia,2B,So,FALSE,,,,378,2971433,,FALSE,,,,
@@ -73388,7 +73388,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 73446,Shane Murphy,P,,FALSE,,,,824,2950990,,FALSE,73,,R,"Greenbelt, MD"
 73447,Nick Pratt,DH,Jr,FALSE,,,,824,2950992,C,FALSE,73,,,"Crownsville, MD"
 73448,Gabriel Ruiz,LF,So,TRUE,824,,,128,2950982,CF,FALSE,74,,,"Silver Spring, MD"
-73449,Logan Wiley,P,Jr,TRUE,824,,,100,2950984,,FALSE,73,,L,"Wilmington, DE"
+73449,Logan Wiley,P,Jr,TRUE,824,,,100,2950984,,FALSE,72,L,L,"Wilmington, DE"
 73450,Danny Wyatt,DH,Jr,FALSE,,,,824,2950986,C,FALSE,73,,,"Oxford, PA"
 73451,Jackson Baldrate,P,Jr,FALSE,,,,623,2972884,,FALSE,74,L,L,"McLean, VA"
 73452,Elliot Eaton,P,Jr,FALSE,,,,623,2972886,,FALSE,75,R,R,"Washington, DC"
@@ -98746,7 +98746,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 98827,Taylor Hunter,1B,,FALSE,,,,1650,2835175,,FALSE,64,R,R,"Weedsport, NY"
 98828,Taylor Ivey,2B,Sr,FALSE,,,,1319,2825138,,FALSE,64,R,R,"Bowie, MD"
 98829,Taylor Jackson,C,,FALSE,,,,1355,2459873,,,67,,,"Smithfield, KY"
-98830,Taylor Jacobs,P,Jr,FALSE,,,,1123,2812016,1B,TRUE,70,,,"Litchfield Park, AZ"
+98830,Taylor Jacobs,P,Jr,FALSE,,,,1123,2812016,1B,TRUE,70,L,R,"Litchfield Park, AZ"
 98831,Taylor Jacobson,2B,,FALSE,,,,1665,2832704,SS,FALSE,68,R,R,"Kenosha, WI"
 98832,Taylor Jensen,C,,FALSE,,,,1374,2811691,,,70,R,R,"Melbourne, FL"
 98833,Taylor Johnson,1B,Sr,FALSE,,,,1246,2805314,,FALSE,70,R,R,"Seal Beach, CA"
@@ -101758,7 +101758,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 102073,Luke Baier,C,Sr,FALSE,,,,2,3081598,,,77,L,R,"Wenatchee, WA"
 102074,Luke Boswell,P,Sr,FALSE,,,,795,3090425,,FALSE,75,R,R,"Lawrenceburg, TN"
 102075,Luke Bragga,RF,So,FALSE,,,,777,2974739,LF,FALSE,75,L,R,"Cookeville, TN"
-102076,Luke Bryant,P,So,FALSE,,,,573,3089911,,FALSE,73,,R,"Ashland, OH"
+102076,Luke Bryant,P,So,FALSE,,,,573,3089911,,FALSE,73,R,R,"Ashland, OH"
 102078,Luke Carrell,P,Sr,FALSE,,,,576,3090966,,FALSE,74,R,L,"Davis, CA"
 102079,Luke Clinton,CF,,FALSE,,,,189,3094073,C,FALSE,75,R,R,"Lewistown, MT"
 102080,Luke Daddona,RF,Fr,TRUE,264,,,293,3085615,,FALSE,71,R,R,"Middlebury, CT"
@@ -101914,7 +101914,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 102253,Matthew Zarriello,1B,,FALSE,,,,953,3090954,DH,FALSE,74,R,R,"Honolulu, HI"
 102254,Matthias Trondson,P,Jr,TRUE,230,,,875,3087857,,FALSE,77,R,R,"Toronto, Canada"
 102255,Maverick Lawin,OF,Sr,FALSE,,,,68,3093727,,,69,L,L,"Minneapolis, MN"
-102256,Mavrick Rizy,P,So,FALSE,,,,422,3088555,,FALSE,,R,R,
+102256,Mavrick Rizy,P,So,FALSE,,,,422,3088555,,FALSE,81,R,R,"Fiskdale, MA"
 102257,Max Babich,P,,FALSE,,,,511,3090816,,,73,,L,"Downers Grove, IL"
 102258,Max Barclay,1B,,FALSE,,,,68,3093760,,,73,,,"Pierz, MN"
 102259,Max Bernadowski,3B,So,FALSE,,,,707,3093977,2B,FALSE,70,R,R,"Murrysville, PA"
@@ -102449,7 +102449,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 102850,Samuel Brewer,LF,Sr,FALSE,,,,953,3090945,1B,FALSE,74,R,R,"Chula Vista, CA"
 102851,Samuel Camacho,INF,Fr,FALSE,,,,155,3088701,,,74,R,R,"Plantation, FL"
 102852,Samuel Chase,RF,So,FALSE,,,,868,3089986,CF,FALSE,73,R,R,"Houston, TX"
-102853,Samuel Franco,P,So,FALSE,,,,466,3089085,,FALSE,,L,L,
+102853,Samuel Franco,P,So,FALSE,,,,466,3089085,,FALSE,76,L,L,"Manchester, NH"
 102854,Samuel Simonds,LF,So,FALSE,,,,727,3087658,DH,FALSE,75,R,R,"Fernandina Bch, FL"
 102855,Santi Scheele,3B,So,FALSE,,,,598,3093684,DH,FALSE,70,R,R,"Fort Lauderdale, FL"
 102856,Santiago Garcia,P,Jr,TRUE,588,,,422,3089815,,FALSE,73,L,L,"Las Cruces, NM"
@@ -102851,7 +102851,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 103296,Zack Wisdom,P,,FALSE,,,,798,2977262,,,73,L,L,"Blanco, TX"
 103297,Zaden Wake,1B,,FALSE,,,,34,3090197,,FALSE,73,,,"Winnipeg, CAN"
 103298,Zak Johnson,P,Sr,FALSE,,,,682,3088933,,FALSE,73,R,R,"Shiner, TX"
-103299,Zak Spurrier,P,So,TRUE,372,,,683,3088100,,FALSE,,R,R,
+103299,Zak Spurrier,P,So,TRUE,372,,,683,3088100,,FALSE,75,R,R,"Elizabethtown, KY"
 103300,Zander Friberg,UT,Fr,FALSE,,,,558,3085447,,,71,L,R,"Mountain Home, ID"
 103301,Zane Becker,C,So,TRUE,36,,,782,3085124,,FALSE,71,R,R,"Flower Mound, TX"
 103302,Zane Bennett,RF,Sr,FALSE,,,,578,3087672,DH,FALSE,74,R,,"Petaluma, CA"
@@ -103786,7 +103786,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 104235,Tristin Thomas,RF,So,FALSE,,,,886,3106123,LF,FALSE,68,L,L,"Carlsbad, NM"
 104236,Julius Carpio,P,Sr,TRUE,886,,,388,3106114,,FALSE,73,R,R,"Dimmitt, TX"
 104237,Teddy Judkins,P,Jr,FALSE,,,,886,3106135,,FALSE,74,R,R,"Fort Worth, TX"
-104238,Finn Mignerey,P,So,FALSE,,,,738,3097684,,FALSE,73,,,"Galveston, TX"
+104238,Finn Mignerey,P,So,FALSE,,,,738,3097684,,FALSE,73,L,L,"Wimberley, TX"
 104239,Jeremy Hill,LF,,FALSE,,,,738,3097559,RF,FALSE,75,R,R,"Antioch, CA"
 104240,Jake Wiley,LF,Sr,FALSE,,,,738,3097696,1B,FALSE,71,,,"Grapevine, TX"
 104241,Carter Collins,3B,Fr,FALSE,,,,887,3097709,1B,FALSE,74,R,R,
@@ -104029,7 +104029,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 104478,Auldon Perkins,OF,,FALSE,,,,244,3094733,,,,,,
 104479,Aidan Palmer,C,So,FALSE,,,,244,3094729,,FALSE,68,R,R,"Fredericksburg, VA"
 104480,Hunter Word,P,So,FALSE,,,,244,3094734,,FALSE,,,,
-104481,Brady Halstead,P,Sr,FALSE,,,,244,3094718,,FALSE,,,,
+104481,Brady Halstead,P,Sr,FALSE,,,,244,3094718,,FALSE,77,R,R,"Indian Trail, NC"
 104482,Ky Gregoire,C,Sr,FALSE,,,,244,3094738,DH,FALSE,,,,
 104483,Cole Gillis,P,So,FALSE,,,,244,3094725,,FALSE,,,,
 104484,Easton Walker,P,,FALSE,,,,244,3094722,,FALSE,,,,
@@ -106939,7 +106939,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 107428,Anslie Roach,3B,Sr,FALSE,,,,1514,3084760,DH,FALSE,,,,"Cache, OK"
 107429,Payton Dickerson,LF,Jr,FALSE,,,,1514,3097203,SS,FALSE,67,,,"Corsicana, TX"
 107430,Shiya Victorian,LF,So,FALSE,,,,1514,3097190,,FALSE,62,L,R,"League City, TX"
-107431,Haley Gardella,C,So,FALSE,,,,1514,3097211,3B,FALSE,67,S,R,"Royse City, TX"
+107431,Haley Gardella,C,So,FALSE,,,,1514,3097211,3B,FALSE,67,B,R,"Royse City, TX"
 107432,Haley Krebs,2B,So,FALSE,,,,1156,3104615,SS,FALSE,63,L,R,"Robbinsville, NJ"
 107433,Hannah Cornetto,1B,So,FALSE,,,,1156,3104623,,FALSE,69,R,R,"Suwanee, GA"
 107434,Emily Dameron,P,So,FALSE,,,,1156,3104620,,FALSE,68,R,R,"Fredericksburg, VA"
@@ -114829,7 +114829,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 115319,Jake McDonough,LF,So,FALSE,,,,486,3116412,DH,FALSE,70,R,R,
 115320,Eli DeRossi-Cytron,P,So,FALSE,,,,509,3116926,,FALSE,75,R,R,"Frederick, MD"
 115321,Ethan Flaugher,C,,FALSE,,,,509,3116894,DH,FALSE,68,B,R,"North East, MD"
-115322,Serigne Sarre,P,So,FALSE,,,,509,3116920,,FALSE,,L,L,
+115322,Serigne Sarre,P,So,FALSE,,,,509,3116920,,FALSE,76,L,L,"Silver Spring, MD"
 115323,Nolan Book,SS,So,TRUE,509,,,799,3116895,3B,FALSE,73,R,R,"Lancaster, PA"
 115324,Sam Grube,1B,Fr,TRUE,509,,,858,3116907,LF,FALSE,,L,R,"Mechanicsburg, PA"
 115325,Patrick Hebda,RF,Sr,FALSE,,,,509,3116922,1B,FALSE,,L,R,
@@ -115504,7 +115504,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 115994,Michael Pierson,1B,,FALSE,,,,668,3104945,,FALSE,70,,,"Medford, NJ"
 115995,Joey Pagano,LF,Sr,FALSE,,,,668,3104962,DH,FALSE,71,,,"Ridgewood, NJ"
 115996,Jaden Ovalles,P,,FALSE,,,,668,3105043,,FALSE,69,,,"Monrovia, MD"
-115997,Micah Wells,P,So,FALSE,,,,668,3104943,,FALSE,73,,,"Philadelphia, PA"
+115997,Micah Wells,P,So,FALSE,,,,668,3104943,,FALSE,72,R,R,"Philadelphia, PA"
 115998,Alex Kelsey,CF,So,FALSE,,,,668,3104988,,FALSE,71,,,"Reading, PA"
 115999,Amaan Khan,P,,FALSE,,,,670,3109084,,FALSE,77,R,R,"Chicago, IL"
 116000,Brady Petit,3B,So,FALSE,,,,672,3094196,DH,FALSE,74,R,R,"Encinitas, CA"
@@ -115763,7 +115763,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 116253,Elise Graham,1B,So,FALSE,,,,1476,3117407,2B,FALSE,,,,
 116254,Sydney McGuirk,C,So,FALSE,,,,1280,3098693,1B,FALSE,73,R,R,"Excelsior, MN"
 116255,Kylie Nerell,LF,So,FALSE,,,,1737,3086300,,FALSE,,,,
-116256,Jordyn Tong,3B,So,FALSE,,,,1737,3086303,1B,FALSE,,,,
+116256,Jordyn Tong,3B,So,FALSE,,,,1737,3086303,1B,FALSE,66,R,R,"Arcadia, OH"
 116257,Alexis Lynch,CF,So,FALSE,,,,1737,3086301,3B,FALSE,,,,
 116258,Abbey Drake,C,So,FALSE,,,,1737,3086302,,FALSE,,,,
 116259,Sarah Lambert,CF,So,FALSE,,,,2054,3115448,LF,FALSE,68,R,R,"Woodbury, MN"
@@ -116358,7 +116358,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 116848,Dominic Dottavio,P,So,FALSE,,,,698,3108993,DH,TRUE,,,,
 116849,Lawson McIntosh,P,So,FALSE,,,,702,3116535,,FALSE,75,R,R,"Egg Harbor Township, NJ"
 116850,Michael Siemer,DH,,FALSE,,,,705,3116458,LF,FALSE,74,R,R,"Johnston, IA"
-116851,Nolan Bernard,P,So,FALSE,,,,712,3104503,,FALSE,74,,R,"Walden, TN"
+116851,Nolan Bernard,P,So,FALSE,,,,712,3104503,,FALSE,74,B,R,"Walden, TN"
 116852,Carlos Jacome,2B,Jr,TRUE,712,,,220,3104440,SS,FALSE,73,R,R,"Caracas, Venezuela"
 116853,Giovanni Licciardi,DH,Sr,FALSE,,,,714,3111836,2B,FALSE,73,R,R,"Metairie, LA"
 116854,Brady St. Pierre,P,So,FALSE,,,,714,3111841,,FALSE,73,R,R,
@@ -116473,7 +116473,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 116963,Evan Hamberger,P,Sr,FALSE,,,,816,3095586,,FALSE,,L,L,
 116964,Connor Lane,C,So,FALSE,,,,816,3095587,,FALSE,,R,R,"Old Saybrook, CT"
 116965,Trevor Esparza,P,Jr,TRUE,819,,,301,3116500,,FALSE,71,R,R,"Katy, TX"
-116966,Jordan Bush,P,So,FALSE,,,,819,3116508,,FALSE,74,R,R,
+116966,Jordan Bush,P,So,FALSE,,,,819,3116508,,FALSE,74,R,R,"Livingston, TX"
 116967,Bruno Robles,P,So,FALSE,,,,819,3116484,DH,TRUE,,R,R,
 116968,Jake Weaver,LF,Sr,FALSE,,,,819,3116479,,FALSE,70,,R,
 116969,Nolan Geisler,P,So,FALSE,,,,823,3111644,,FALSE,75,R,R,"Bayonne, NJ"
@@ -116565,7 +116565,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 117055,Ethan Grodack,P,So,FALSE,,,,908,3107464,,FALSE,,R,R,"Lake Ariel, PA"
 117056,Tyler Uram,3B,So,FALSE,,,,908,3107428,P,TRUE,,R,R,"Carbondale, PA"
 117057,Trehnon Hugo,LF,,FALSE,,,,908,3107438,SS,FALSE,,R,R,"Wyalusing, PA"
-117058,Michael Sabella,C,So,FALSE,,,,908,3107452,1B,FALSE,77,S,R,"Cornelius, NC"
+117058,Michael Sabella,C,So,FALSE,,,,908,3107452,1B,FALSE,77,B,R,"Cornelius, NC"
 117059,Gannon Decker,LF,So,FALSE,,,,908,3107419,CF,FALSE,,L,L,"Hawley, PA"
 117060,Sal Colello,P,So,FALSE,,,,908,3107429,,FALSE,,R,R,"Highland Mills, NY"
 117061,AJ Levandoski,P,So,FALSE,,,,908,3107433,,FALSE,,L,L,"Scranton, PA"
@@ -116957,7 +116957,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 117447,Hunter Frost,P,Sr,FALSE,,,,851,3117801,,FALSE,69,R,R,
 117448,England Bryan,P,So,FALSE,,,,852,3098612,,FALSE,73,R,R,
 117449,Mac Rose,C,Sr,TRUE,852,,,201,3098613,DH,FALSE,73,L,R,"Rockwall, TX"
-117450,Hudson Barton,P,So,FALSE,,,,852,3098601,,FALSE,75,R,R,
+117450,Hudson Barton,P,So,FALSE,,,,852,3098601,,FALSE,75,R,R,"Franklin, TN"
 117451,Tomas Valincius,P,So,TRUE,856,,,488,3097013,,FALSE,74,L,L,"Lockport, IL"
 117452,Troy Dressler,P,So,FALSE,,,,864,3117942,,FALSE,,,,
 117453,Justin Tims,P,So,FALSE,,,,870,3095084,,FALSE,75,L,R,"Anaheim, CA"
@@ -117228,7 +117228,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 117718,Dylan Graw,P,Sr,FALSE,,,,632,3112584,,FALSE,73,R,R,"Victoria, Canada"
 117719,Carson Latimer,P,,FALSE,,,,663,3098997,,FALSE,75,L,R,"Delta, CAN"
 117720,Matt Fitzgibbon,P,So,FALSE,,,,668,3105044,,FALSE,73,,,"Yonkers, NY"
-117721,Fernando Palencia,P,So,FALSE,,,,684,3096443,,FALSE,70,R,R,"S El Monte, CA"
+117721,Fernando Palencia,P,So,FALSE,,,,684,3096443,,FALSE,70,R,R,"South El Monte, CA"
 117722,AJ Frausto,P,,FALSE,,,,684,3096577,,FALSE,71,R,R,"Placentia, CA"
 117723,AJ Beltre,2B,So,FALSE,,,,684,3096579,DH,FALSE,71,R,R,"Bradbury, CA"
 117724,Jack McWilliams,RF,So,TRUE,684,,,173,3096401,DH,TRUE,75,R,L,"San Marcos, CA"
@@ -117253,7 +117253,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 117743,Parker Warner,P,So,FALSE,,,,753,3095412,,FALSE,74,R,R,"Livermore, CA"
 117744,Hunter Bell,P,So,FALSE,,,,760,3118038,,FALSE,74,L,L,"Rockport, ME"
 117745,Nick Zampieron,CF,So,FALSE,,,,761,3095719,LF,FALSE,,R,R,"Port Jefferson Station, NY"
-117746,Micah Worley,P,Sr,FALSE,,,,761,3095747,,FALSE,,L,L,"Kirkwood, MO"
+117746,Micah Worley,P,Sr,FALSE,,,,761,3095747,,FALSE,77,L,L,"Kirkwood, MO"
 117747,Ryan Combs,P,Sr,TRUE,776,,,145,3097231,,FALSE,75,R,R,"Sarasota, FL"
 117748,Austin Breedlove,P,,FALSE,,,,776,3097199,,FALSE,74,R,R,"Ooltewah, TN"
 117749,Jaden Flores,3B,Sr,TRUE,784,,,719,3118552,2B,FALSE,,,,
@@ -117369,7 +117369,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 117859,Nick Capps,P,So,FALSE,,,,649,3098868,,FALSE,,L,L,
 117860,Charlie Bozeman,DH,So,FALSE,,,,683,3116330,RF,FALSE,,,,
 117861,Mason Blasche,P,So,FALSE,,,,683,3116314,,FALSE,,,,
-117862,Wesley Harwell,P,So,FALSE,,,,687,3118784,,FALSE,,,,
+117862,Wesley Harwell,P,So,FALSE,,,,687,3118784,,FALSE,75,R,R,"Mountain View, CA"
 117863,Nick Walsh,2B,Sr,FALSE,,,,687,3118786,3B,FALSE,,,,
 117864,Brodie Kuzior,P,So,FALSE,,,,695,3115807,,FALSE,74,L,L,"Burgettstown, PA"
 117865,Anthony Quigley,SS,,FALSE,,,,712,3104409,C,FALSE,76,R,R,"Sunrise, FL"
@@ -117790,7 +117790,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 118280,Nathaniel Chapman,2B,So,FALSE,,,,596,3103861,,FALSE,,,,
 118281,Binyam Gebhardt,P,Sr,FALSE,,,,596,3103869,,FALSE,,,,
 118282,Javin Hamura,SS,So,FALSE,,,,596,3103871,,FALSE,,,,
-118283,Nicholas Saelens,P,So,FALSE,,,,596,3103892,3B,FALSE,,,,
+118283,Nicholas Saelens,P,So,FALSE,,,,596,3103892,3B,FALSE,74,B,R,"Seattle, WA"
 118284,Ernie Echevarria,C,So,FALSE,,,,599,3100099,3B,FALSE,74,,,"Miami, FL"
 118285,Aidan von Zuben,P,So,FALSE,,,,599,3100103,,FALSE,,,,"Warrington, PA"
 118286,Gavin Degnan,CF,Jr,FALSE,,,,599,3100116,RF,FALSE,73,,,"Lakehurst, NJ"
@@ -117850,7 +117850,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 118340,Gavin Glasgow,1B,Sr,FALSE,,,,842,3111630,DH,FALSE,70,R,R,"Little Rock, AR"
 118341,Dax Newman,P,,FALSE,,,,842,3111619,,FALSE,74,R,R,"American Fork, UT"
 118342,Ryker Waite,SS,So,FALSE,,,,852,3098610,,FALSE,70,B,R,
-118343,Tristan Bristow,P,So,FALSE,,,,852,3098611,,FALSE,75,R,R,
+118343,Tristan Bristow,P,So,FALSE,,,,852,3098611,,FALSE,75,R,R,"Helotes, TX"
 118344,Aiden O'Connell,P,So,TRUE,852,,,217,3098606,,FALSE,74,L,L,"Bedford, NH"
 118345,Brodie Johnston,3B,So,FALSE,,,,852,3098599,2B,FALSE,74,R,R,
 118346,Elijah Coston,P,,FALSE,,,,854,3105070,LF,TRUE,75,L,L,"Chester, VA"
@@ -118177,7 +118177,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 118667,Kai Hanasaki,P,,FALSE,,,,489,3112337,,FALSE,71,R,R,"Tokyo, JP"
 118668,Tre Relliford,C,,FALSE,,,,489,3112344,RF,FALSE,71,R,R,"Douglasville, GA"
 118669,Victor Christal,P,,FALSE,,,,490,3114376,,FALSE,73,R,R,"Raytown, MO"
-118670,Michael Wansaw Jr.,CF,Sr,FALSE,,,,502,3105746,P,TRUE,,R,L,
+118670,Michael Wansaw Jr.,CF,Sr,FALSE,,,,502,3105746,P,TRUE,71,R,L,"Elizabeth, NJ"
 118671,Easton Kleyn,C,So,FALSE,,,,503,3114462,,FALSE,73,R,R,"Gardendale, AL"
 118672,Nathan Jones,2B,So,FALSE,,,,504,3112177,,FALSE,71,R,R,
 118673,Andrew Sagrestano,P,So,FALSE,,,,504,3112183,,FALSE,75,R,R,
@@ -119491,7 +119491,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 119981,Alexander DiGiacinto,3B,So,FALSE,,,,491,3118286,2B,FALSE,72,R,R,"Richmond Hill, CAN"
 119982,Nick Currie,P,So,FALSE,,,,491,3105311,,FALSE,,,,
 119983,Tyler Bizzle,C,So,FALSE,,,,491,3105318,,FALSE,,,,
-119984,Caden Carter,P,So,FALSE,,,,496,3121879,,FALSE,72,,L,"Kansas City, MO"
+119984,Caden Carter,P,So,FALSE,,,,496,3121879,,FALSE,72,L,L,"Kansas City, MO"
 119985,Joe Paccione,P,So,FALSE,,,,502,3105866,,FALSE,,R,R,
 119986,Nic Schutte,P,Sr,FALSE,,,,516,3122374,,FALSE,74,R,R,"Louisville, KY"
 119987,Kingsley Guthrie,C,So,FALSE,,,,516,3122372,LF,FALSE,,,,
@@ -119770,7 +119770,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 120260,Brady Dojonovic,P,Jr,FALSE,,,,867,3097215,,FALSE,71,R,R,"Pittsburgh, PA"
 120261,Camden Diamond,P,Sr,TRUE,884,,,881,3104866,,FALSE,73,,R,
 120262,Ian Moore,P,,FALSE,,,,884,3104788,,FALSE,70,R,R,"Jacksonville, FL"
-120263,Maverick Torres,P,So,FALSE,,,,884,3104790,,FALSE,,,,
+120263,Maverick Torres,P,So,FALSE,,,,884,3104790,,FALSE,74,R,R,"Long Beach, CA"
 120264,Evimael Quiles,P,Sr,FALSE,,,,884,3104899,,FALSE,,,,
 120265,Benjamin Hudson,P,So,TRUE,888,,,601,3109143,,FALSE,74,L,R,"Medford, NJ"
 120266,Nico Hall,RF,,FALSE,,,,899,3096224,LF,FALSE,71,R,R,"Aliquippa, PA"
@@ -120060,10 +120060,10 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 120550,Chris Petersen,P,So,FALSE,,,,750,3115769,,FALSE,76,,,"Clive, IA"
 120551,Damian Castorena,P,,FALSE,,,,773,3097484,,FALSE,71,R,R,"College Station, TX"
 120552,Ryan Johnston,P,,FALSE,,,,773,3097473,,FALSE,70,R,R,"Keller, TX"
-120553,Evan Kay,P,So,FALSE,,,,761,3095749,,FALSE,,R,R,"Commack, NY"
+120553,Evan Kay,P,So,FALSE,,,,761,3095749,,FALSE,73,R,R,"Commack, NY"
 120554,Kody King,P,So,FALSE,,,,190,3105410,,FALSE,75,L,L,"San Dimas, CA"
 120555,Paul Witkop,P,So,FALSE,,,,644,3116177,,FALSE,74,R,R,"Mc Lean, VA"
-120556,Kaden Kimble,P,So,FALSE,,,,509,3116913,,FALSE,,L,L,
+120556,Kaden Kimble,P,So,FALSE,,,,509,3116913,,FALSE,72,L,L,"Elizabethtown, PA"
 120557,Peter Herrick,P,Jr,TRUE,619,,,688,3116747,,FALSE,73,R,R,"Auburn, WA"
 120558,Jack Grunkemeyer,P,So,FALSE,,,,559,3095225,,FALSE,75,R,R,"Batesville, IN"
 120559,Daniel Ortiz,P,,FALSE,,,,11,3105296,,FALSE,73,R,R,"Orlando, FL"
@@ -121935,7 +121935,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 122508,Pablo Geuvara,2B,So,FALSE,,,,213,3124574,3B,FALSE,,,,
 122509,Miguelangel Francisco,P,So,FALSE,,,,213,3124573,,FALSE,68,R,R,"Miami, FL"
 122510,Eric Tejada,P,Fr,FALSE,,,,213,3124575,,FALSE,,,,
-122511,Byron Arias,3B,So,FALSE,,,,213,3124572,SS,FALSE,73,S,R,"Congers, NY"
+122511,Byron Arias,3B,So,FALSE,,,,213,3124572,SS,FALSE,73,B,R,"Congers, NY"
 122512,Diego Morales,RF,,FALSE,,,,216,3099493,C,FALSE,73,R,R,"Pacifica, CA"
 122513,Cameron Pratt,2B,,FALSE,,,,216,3099481,DH,FALSE,73,R,R,"Anderson, IN"
 122514,Caeden Schulte,P,Jr,FALSE,,,,235,3093721,,FALSE,71,R,R,"Stevensville, MD"
@@ -122964,7 +122964,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 123538,Neelah Vandeberg,1B,Sr,FALSE,,,,1932,3124831,P,TRUE,66,R,R,
 123539,Jules Raimondi,P,,FALSE,,,,1510,3094730,,FALSE,,,,"Fleming Island, FL"
 123540,Sarah Simpkins,1B,So,FALSE,,,,1925,3101798,,FALSE,,,,"Winston Salem, NC"
-123541,Tara Perryman,C,So,FALSE,,,,2019,3094638,,FALSE,67,,,"San Juan Capo, CA"
+123541,Tara Perryman,C,So,FALSE,,,,2019,3094638,,FALSE,67,R,R,"San Juan Capistrano, CA"
 123542,Erin Doherty,3B,So,FALSE,,,,1666,3096095,,FALSE,,,,
 123543,Hailey Burke,2B,So,TRUE,1666,,,1844,3096092,SS,FALSE,68,R,R,"Coatesville, PA"
 123544,Janelle Sargent,RF,So,FALSE,,,,1864,3107610,,FALSE,68,R,R,
@@ -123536,7 +123536,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 124110,Shakiyla Pickens,RF,So,FALSE,,,,1575,3126483,2B,FALSE,,,,
 124111,Emma Clemens,,So,FALSE,,,,1716,3110871,,FALSE,64,R,R,"Edison, NJ"
 124112,Sam Raub,3B,,FALSE,,,,1716,3110934,,FALSE,63,R,R,"Morrisville, PA"
-124113,Hannah Keyes,LF,So,FALSE,,,,1632,3126487,CF,FALSE,61,S,R,"Madisonville, LA"
+124113,Hannah Keyes,LF,So,FALSE,,,,1632,3126487,CF,FALSE,61,B,R,"Madisonville, LA"
 124114,Sydney Hillyard,P,So,FALSE,,,,1459,3085266,,FALSE,66,R,R,"Akron, OH"
 124115,Emma Cozza,P,So,FALSE,,,,1717,3126574,,FALSE,66,R,R,"Broadview Heights, OH"
 124116,Maggie Feng,2B,So,FALSE,,,,1764,3126036,SS,FALSE,,,,
@@ -125288,7 +125288,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 125868,Sean Giannelli,2B,So,FALSE,,,,451,3110114,3B,FALSE,70,,,"East Greenwich, RI"
 125869,Lakoda Drowne,,,FALSE,,,,455,3123961,,FALSE,,R,R,"Athol, MA"
 125870,Rusty Johnson,,So,FALSE,,,,456,3102869,,FALSE,,R,R,"Levelland, TX"
-125871,Tyler Kim,P,So,FALSE,,,,540,3109314,,FALSE,73,,R,"Great Falls, VA"
+125871,Tyler Kim,P,So,FALSE,,,,540,3109314,,FALSE,72,R,R,"Great Falls, VA"
 125872,Lee Sowers,2B,So,FALSE,,,,543,3114730,DH,FALSE,70,L,R,"Glen Allen, VA"
 125873,UNKNOWN BHarris,LF,So,FALSE,,,,560,3130658,RF,FALSE,74,,,
 125874,Ben Bayer,P,So,FALSE,,,,577,3121658,,FALSE,73,R,R,
@@ -126548,14 +126548,14 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 127451,Taiowa Costello,C,Jr,FALSE,,,,35,3244706,,,,,,
 127452,Konner Giddley,2B,Jr,FALSE,,,,35,3244709,1B,FALSE,73,,,"Beloit, WI"
 127453,Owen Gietzen,C,Fr,FALSE,,,,35,3244732,,FALSE,,,,
-127454,Aaron Grant,SS,Fr,FALSE,,,,35,3244735,2B,FALSE,,,,
+127454,Aaron Grant,SS,Fr,FALSE,,,,35,3244735,2B,FALSE,73,B,R,"Savannah, TX"
 127455,Zyon Hamilton,LF,Jr,FALSE,,,,35,3244720,CF,FALSE,,,,
 127456,Jack Hasten,P,Sr,FALSE,,,,35,3244725,,FALSE,,,,
 127457,Landon Holcomb,P,So,FALSE,,,,35,3244731,,FALSE,,,,
 127458,Reagan James,P,Jr,FALSE,,,,35,3244722,,FALSE,,,,
 127459,Joe King,P,Fr,FALSE,,,,35,3244713,,FALSE,,,,
 127460,Nate Lee,P,Jr,FALSE,,,,35,3244726,,FALSE,,,,
-127461,Troy McLeese,P,So,FALSE,,,,35,3244707,,FALSE,,,,
+127461,Troy McLeese,P,Jr,FALSE,,,,35,3244707,,FALSE,72,L,L,"Bloomington, IL"
 127462,Ryland Morin,P,Jr,FALSE,,,,35,3244727,,FALSE,,,,
 127463,Jalen Porter,P,Sr,FALSE,,,,35,3244704,,FALSE,,,,
 127464,Cam Ringler,P,Sr,FALSE,,,,35,3244723,,,,,,
@@ -127389,7 +127389,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 128299,Gavin Spiridonoff,3B,Fr,FALSE,,,,105,3225399,1B,FALSE,73,R,R,"Aliso Viejo, CA"
 128300,Coco Vonderhaar,C,Fr,FALSE,,,,105,3225400,,,71,R,R,"Palo Alto, CA"
 128301,Yahir Acevedo,RF,Jr,FALSE,,,,188,3221952,CF,FALSE,,L,L,"Arecibo, Puerto Rico"
-128302,Brock Adamson,P,Jr,FALSE,,,,188,3221953,,FALSE,,L,L,"Ankeny, IA"
+128302,Brock Adamson,P,Jr,FALSE,,,,188,3221953,,FALSE,74,L,L,"Ankeny, IA"
 128303,Saul Bolivar,P,Jr,FALSE,,,,188,3221958,,FALSE,,R,R,"Miranda, Venezuela"
 128304,Carlos Cordero,3B,Jr,FALSE,,,,188,3221962,2B,FALSE,,R,R,"Barquisimeto, Venezuela"
 128305,Brady Durkan,P,Fr,FALSE,,,,188,3221965,,FALSE,,R,R,"Bakersfield, CA"
@@ -127401,14 +127401,14 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 128311,Trey Mandina,C,Jr,FALSE,,,,188,3222006,,FALSE,,R,R,"Gretna, NE"
 128312,Jacob May,RF,So,FALSE,,,,188,3222008,LF,FALSE,,L,R,"Chula Vista, CA"
 128313,Taison Miller,CF,Fr,FALSE,,,,188,3222010,LF,,,L,L,"Long Beach, CA"
-128314,Ethan Minaker,P,Jr,FALSE,,,,188,3222014,,FALSE,,L,L,"Winnipeg, Canada"
+128314,Ethan Minaker,P,Jr,FALSE,,,,188,3222014,,FALSE,73,L,L,"Winnipeg, Canada"
 128315,Ethan Myers,P,Fr,FALSE,,,,188,3222016,,FALSE,,R,R,"Clovis, CA"
 128316,Al Nash,2B,Jr,FALSE,,,,188,3222018,,FALSE,,R,R,"Mcdonough, GA"
-128317,Joe O'Regan,P,Jr,FALSE,,,,188,3222019,,FALSE,,L,L,"Rancho Cucamonga, CA"
-128318,Nathaniel Pimentel,P,Fr,FALSE,,,,188,3222020,,FALSE,,R,R,"Alta Loma, CA"
-128319,Payton Pudenz,P,So,FALSE,,,,188,3222021,,FALSE,,R,R,"Mesa, AZ"
+128317,Joe O'Regan,P,Jr,FALSE,,,,188,3222019,,FALSE,76,L,L,"Rancho Cucamonga, CA"
+128318,Nathaniel Pimentel,P,Fr,FALSE,,,,188,3222020,,FALSE,73,L,L,"Alta Loma, CA"
+128319,Payton Pudenz,P,So,FALSE,,,,188,3222021,,FALSE,71,R,R,"Mesa, AZ"
 128320,Brendan Thompson,2B,Fr,FALSE,,,,188,3222023,SS,FALSE,,R,R,"Grand Rapids, MI"
-128321,Gethse Ulloa,P,Jr,FALSE,,,,188,3222024,,FALSE,,R,R,"El Paso, TX"
+128321,Gethse Ulloa,P,Jr,FALSE,,,,188,3222024,,FALSE,70,R,R,"El Paso, TX"
 128322,Devon Wilkes,DH,Fr,FALSE,,,,188,3222025,1B,FALSE,,L,L,"Oxnard, CA"
 128323,Bruno Condit,P,Jr,FALSE,,,,148,3234147,,FALSE,73,L,L,"San Rafael, CA"
 128324,Myles Cooper,SS,Fr,FALSE,,,,148,3234150,DH,FALSE,73,R,R,"Benicia, CA"
@@ -128583,7 +128583,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 129506,Isaac Beseman,INF,Fr,FALSE,,,,180,3232045,,,,,,"Mounds View, MN"
 129507,Bennett Brathol,DH,Fr,FALSE,,,,180,3232053,P,TRUE,,,,"Hudson, WI"
 129508,Nick Carlson,SS,Fr,FALSE,,,,180,3232048,2B,FALSE,,,,"Champlin, MN"
-129509,Davon Castro,P,Fr,FALSE,,,,180,3232055,C,TRUE,74,S,R,"Blaine, MN"
+129509,Davon Castro,P,Fr,FALSE,,,,180,3232055,C,TRUE,74,B,R,"Blaine, MN"
 129510,Tate Gage,CF,Fr,FALSE,,,,180,3232047,,FALSE,,,,"Eagan, MN"
 129511,Hawken Hedlund,SS,Fr,FALSE,,,,180,3103902,3B,FALSE,,,,
 129512,Max Kaplan,2B,Fr,FALSE,,,,180,3232049,SS,FALSE,,,,"Cottage Grove, MN"
@@ -128797,7 +128797,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 129721,Ben Groeschl,P,Fr,FALSE,,,,200,3222960,,FALSE,73,R,R,"Germantown, WI"
 129722,Jordan Henriquez,INF,Fr,FALSE,,,,200,3222962,,,73,L,R,"Woburn, MA"
 129723,Sawyer Jensen,P,So,FALSE,,,,200,3222964,,FALSE,80,R,R,"Calgary, Canada"
-129724,Mason LaBuda,P,Fr,FALSE,,,,200,3222968,,FALSE,76,L,L,"Boiling Spgs, PA"
+129724,Mason LaBuda,P,Fr,FALSE,,,,200,3222968,,FALSE,76,L,L,"Boiling Springs, PA"
 129725,Colin Lynch,DH,Fr,FALSE,,,,200,3222981,LF,FALSE,75,R,R,"Doylestown, PA"
 129726,Austin McNabb,P,Fr,FALSE,,,,200,3222988,,FALSE,76,R,R,"Indianapolis, IN"
 129727,Mark Rutherford,C,So,FALSE,,,,200,3097938,,FALSE,70,B,R,"Mason, OH"
@@ -129146,15 +129146,15 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 130071,Brendan White,3B,Fr,FALSE,,,,224,3240938,,FALSE,70,R,R,
 130072,Brandon Willis,LF,So,FALSE,,,,224,3102235,C,FALSE,,,,
 130073,Ty Woods,P,Fr,FALSE,,,,224,3240910,,,73,R,R,
-130074,John Carmichael,P,Jr,FALSE,,,,229,3222658,,FALSE,73,,,"Destrehan, LA"
+130074,John Carmichael,P,Jr,FALSE,,,,229,3222658,,FALSE,72,R,R,"Destrehan, LA"
 130075,Malcolm Gillies,P,Fr,FALSE,,,,229,3222661,,FALSE,,,,"Columbus, OH"
 130076,Demir Heidelberg,RF,Fr,FALSE,,,,229,3222663,DH,FALSE,,,,"Homewood, IL"
-130077,Brian Henson Jr,P,Jr,FALSE,,,,229,3222666,,FALSE,,,,"Huntsville, AL"
+130077,Brian Henson Jr.,P,Jr,FALSE,,,,229,3222666,,FALSE,74,L,L,"Huntsville, AL"
 130078,Keegan Knupp,1B,Fr,FALSE,,,,229,3222677,3B,FALSE,,,,"Galena, OH"
 130079,Jake Leonard,INF,Fr,FALSE,,,,229,3222679,,,,,,"Macomb, MI"
-130080,Aidan Norris,P,Jr,FALSE,,,,229,3222682,,FALSE,,,,"Platte City, MO"
+130080,Aidan Norris,P,Jr,FALSE,,,,229,3222682,,FALSE,72,R,R,"Platte City, MO"
 130081,Markus Roberson,P,Fr,FALSE,,,,229,3222683,,,,,,"Carroll, OH"
-130082,Thomas Rose,P,Fr,FALSE,,,,229,3222684,,FALSE,,,,"Plymouth, MI"
+130082,Thomas Rose,P,Fr,FALSE,,,,229,3222684,,FALSE,75,R,R,"Plymouth, MI"
 130083,Kristofers Sydlowski,RF,Jr,FALSE,,,,229,3222687,LF,FALSE,,,,"Ann Arbor, MI"
 130084,Phillip Thigpen,2B,Fr,FALSE,,,,229,3222688,SS,FALSE,,,,"Chicago, IL"
 130085,Nicholas Weaver,C,Jr,FALSE,,,,229,3222690,DH,FALSE,,,,"Streamwood, IL"
@@ -129481,7 +129481,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 130417,John Parpis,P,Fr,FALSE,,,,256,3226824,,,74,,,"Commack, NY"
 130418,Brandon Petrick,CF,Jr,FALSE,,,,256,3228055,LF,FALSE,73,L,L,"Marlton, NJ"
 130419,Christian Quirindongo,,Fr,FALSE,,,,256,3226825,,,67,,,"New York, NY"
-130420,Antonio Sansone,P,Jr,FALSE,,,,256,3226833,,FALSE,,,,"Middletown, NJ"
+130420,Antonio Sansone,P,Jr,FALSE,,,,256,3226833,,FALSE,73,L,L,"Middletown, NJ"
 130421,Sean Savannah,P,Fr,FALSE,,,,256,3226834,,FALSE,,,,"Brick, NJ"
 130422,Anthony AJ Sciametta,2B,Fr,FALSE,,,,256,3226826,CF,FALSE,,,,"Hazlet Township, NJ"
 130423,Hayden Simmons,RF,Fr,FALSE,,,,256,3226827,,,,,,"Boca Raton, FL"
@@ -129892,7 +129892,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 130833,Christian Dewey,DH,Fr,FALSE,,,,290,3230656,RF,FALSE,74,L,L,"Virginia Beach, VA"
 130834,Connor Jones,LF,Fr,FALSE,,,,290,3230652,CF,FALSE,71,R,R,"Greenwich, CT"
 130835,Henry Knighton,P,Fr,FALSE,,,,290,3230653,,FALSE,71,R,R,"Richmond, VA"
-130836,Colin Lebel,P,Fr,FALSE,,,,290,3230635,,FALSE,74,R,R,"United States, VA"
+130836,Colin Lebel,P,Fr,FALSE,,,,290,3230635,,FALSE,74,R,R,"Virginia Beach, VA"
 130837,Luke Maltacea,C,Fr,FALSE,,,,290,3230644,,FALSE,69,R,R,"Marblehead, MA"
 130838,Brad Marks,P,Fr,FALSE,,,,290,3230647,,FALSE,73,R,R,"Rehoboth Beach, DE"
 130839,Travis Peitz,SS,Fr,FALSE,,,,290,3230643,2B,FALSE,75,R,R,"Perry Hall, MD"
@@ -130762,7 +130762,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 131710,Chase Blease,P,Jr,FALSE,,,,819,3231684,,FALSE,,,,"San Diego, CA"
 131711,Hayden Capers,P,So,FALSE,,,,819,3231691,,FALSE,75,,,"Leander, TX"
 131712,Enrico Carrion,C,Fr,FALSE,,,,819,3231692,,FALSE,,,,"Caguas, PR"
-131713,Tanner Crispin,P,So,FALSE,,,,819,3116506,,,76,,R,
+131713,Tanner Crispin,P,Fr,FALSE,,,,819,3116506,,,74,R,R,"Dallas, TX"
 131714,Emir Encalada,P,Sr,FALSE,,,,819,3114289,,FALSE,74,R,R,"Laredo, TX"
 131715,Luke Flores-King,C,Fr,FALSE,,,,819,3231698,,,,,,"San Antonio, TX"
 131716,Matthew Foley,P,Jr,FALSE,,,,819,3231701,,FALSE,,,,"Cedar Park, TX"
@@ -130774,7 +130774,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 131722,Ashton Perkins,P,Sr,FALSE,,,,819,3231712,,FALSE,,,,"Pearland, TX"
 131723,Samuel Pitts,P,Jr,FALSE,,,,819,3231714,,FALSE,,,,"Sierra Vista, AZ"
 131724,Kevin Ramos,3B,Jr,FALSE,,,,819,3231715,1B,FALSE,,,,"Surprise, AZ"
-131725,ALEJANDRO VANEGAS,P,Jr,FALSE,,,,819,3231717,,FALSE,,,,"San Luis, AZ"
+131725,Alejandro Vanegas,P,Jr,FALSE,,,,819,3231717,,FALSE,74,R,R,"San Luis, AZ"
 131726,Fawster Voytko,P,Sr,FALSE,,,,819,3231719,,FALSE,,,,"El Paso, TX"
 131727,Marcelino Alonso,LF,Jr,FALSE,,,,351,3244931,,FALSE,74,R,R,"Reedsburg, WI"
 131728,Ty Brown,UT,Fr,FALSE,,,,351,3244938,,,73,R,R,"Richland, IN"
@@ -130876,7 +130876,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 131825,Gavin Dicks,P,Jr,FALSE,,,,356,3232235,,FALSE,75,L,L,"Lake Wales, FL"
 131826,Joaquin Gardner-Davila,P,Fr,FALSE,,,,356,3232239,,FALSE,73,,,"Gainesville, FL"
 131827,Kyle Hopper,P,Fr,FALSE,,,,356,3232249,,FALSE,76,,R,"Orlando, FL"
-131828,Ayden Phillips,P,Fr,FALSE,,,,356,3232256,,FALSE,73,,R,"Live Oak, FL"
+131828,Ayden Phillips,P,Fr,FALSE,,,,356,3232256,,FALSE,73,R,R,"Lake City, FL"
 131829,Griffin Pomper,C,Fr,FALSE,,,,356,3232259,2B,FALSE,73,,,"Plantation, FL"
 131830,Cade Walter,RF,Fr,FALSE,,,,356,3100845,CF,FALSE,71,L,R,"Saint Cloud, FL"
 131831,Jaxon Pate,CF,So,FALSE,,,,357,3113122,RF,FALSE,71,L,R,"Calhoun, GA"
@@ -131275,7 +131275,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 132227,Kyle McKernan,C,Fr,FALSE,,,,384,3231469,,FALSE,,,,"Plymouth Meeting, PA"
 132228,Alex Payne,P,So,FALSE,,,,384,3113652,,FALSE,73,R,R,"Warren, NJ"
 132229,Braden Pomponi,P,Fr,FALSE,,,,384,3231470,,FALSE,,,,"Kennett Square, PA"
-132230,Gregory Quintana,P,Fr,FALSE,,,,384,3231471,,FALSE,,,,"Haymarket, VA"
+132230,Gregory Quintana,P,Fr,FALSE,,,,384,3231471,,FALSE,73,R,R,"Haymarket, VA"
 132231,Ryan Stoddard,1B,Fr,FALSE,,,,384,3231472,3B,FALSE,,,,"Newtown Square, PA"
 132232,Michael Wright,RF,Fr,FALSE,,,,384,3231473,,FALSE,,,,"Hoboken, NJ"
 132233,Logan Badac,1B,So,FALSE,,,,382,3249832,,FALSE,,,,
@@ -131728,13 +131728,13 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 132684,Roberto Perez,P,Jr,FALSE,,,,391,3235184,,FALSE,,,,"Corpus Christi, TX"
 132685,Jermaine Purvis,3B,Jr,FALSE,,,,391,3235185,DH,FALSE,72,R,R,"Bennettsville, SC"
 132686,Jamor Richardson,,Fr,FALSE,,,,391,3235187,,,,,,"Winter Haven, FL"
-132687,Edrick Rivera Mendez,CF,Fr,FALSE,,,,391,3235188,RF,FALSE,69,S,R,"Lake Alfred, FL"
+132687,Edrick Rivera Mendez,CF,Fr,FALSE,,,,391,3235188,RF,FALSE,69,B,R,"Lake Alfred, FL"
 132688,Juan Rodriguez,C,Jr,FALSE,,,,391,3235189,DH,FALSE,,,,"Richmond, TX"
 132689,Connor Russell,SS,Fr,FALSE,,,,391,3235191,P,FALSE,71,L,R,"Seminole, FL"
 132690,Brennen Smith,P,Fr,FALSE,,,,391,3235192,1B,TRUE,,,,"Mobile, AL"
 132691,Wilfredo Soto,OF,Fr,FALSE,,,,391,3235193,SS,FALSE,70,R,R,"Tampa, FL"
 132692,Paris Spraggins,,Fr,FALSE,,,,399,3235195,,,,,,"Mount Juliet, TN"
-132693,Graeme Enrique Tanimowo-Reyes,3B,Jr,FALSE,,,,391,3235196,SS,FALSE,71,S,R,"Mississauga, Canada"
+132693,Graeme Enrique Tanimowo-Reyes,3B,Jr,FALSE,,,,391,3235196,SS,FALSE,71,B,R,"Mississauga, Canada"
 132694,Tylor Timmons,,Fr,FALSE,,,,391,3235197,,,,,,"Winter Haven, FL"
 132695,Auston Walker,,Fr,FALSE,,,,391,3235209,,,,,,
 132696,Charlie Houd,P,Fr,FALSE,,,,427,3229618,,FALSE,,,,"Wellington, FL"
@@ -131904,9 +131904,9 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 132860,Will Pires,P,Sr,FALSE,,,,432,3224660,,FALSE,75,,R,"Atherton, CA"
 132861,Mike Savino,C,Sr,FALSE,,,,432,3224661,,,68,,,"Bradenton, FL"
 132862,Colin Slivka,P,Jr,FALSE,,,,432,3224663,,,69,,R,"Lombard, IL"
-132863,Matthew Steinberg,P,Fr,FALSE,,,,432,3224672,,FALSE,75,,R,"Saint Charles, IL"
+132863,Matthew Steinberg,P,Fr,FALSE,,,,432,3224672,,FALSE,75,R,R,"Saint Charles, IL"
 132864,Lance Takamura,C,Fr,FALSE,,,,432,3224671,,,67,R,,"San Jose, CA"
-132865,Garrett Theile,P,Fr,FALSE,,,,432,3224673,,FALSE,73,,R,"Peoria, AZ"
+132865,Garrett Theile,P,Fr,FALSE,,,,432,3224673,,FALSE,73,R,R,"Peoria, AZ"
 132866,Carson Vance,LF,Sr,FALSE,,,,432,3224657,CF,FALSE,73,R,R,"Belmont, CA"
 132867,Matthew Berkowitz,P,Fr,FALSE,,,,434,3234148,,FALSE,,,,"Bellwood, PA"
 132868,Jack Carozzoni,3B,Jr,FALSE,,,,434,3234149,,FALSE,,,,"Elmira, NY"
@@ -132014,7 +132014,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 132970,Aidan Boice,P,Jr,FALSE,,,,824,3228838,,FALSE,77,,,"Holladay, UT"
 132971,Kailen Hackmann,P,Fr,FALSE,,,,824,3228841,,FALSE,79,,,"Arlington, VA"
 132972,Zach Hampton,1B,Fr,FALSE,,,,824,3228842,DH,FALSE,73,,,"Middletown, NJ"
-132973,Chris Harbert,P,Jr,FALSE,,,,824,3228845,2B,TRUE,74,,,"Bridgeport, WV"
+132973,Chris Harbert,P,Jr,FALSE,,,,824,3228845,2B,TRUE,74,R,R,"Bridgeport, WV"
 132974,Brooks Henderson,2B,Jr,FALSE,,,,824,3228848,,FALSE,68,,,"Feasterville Trevose, PA"
 132975,Henry Lewis,P,Fr,FALSE,,,,824,3228867,,FALSE,74,,,"Hagerstown, MD"
 132976,Owen Shaprow,P,Fr,FALSE,,,,824,3228872,,FALSE,74,,,"White Marsh, MD"
@@ -133146,7 +133146,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 134110,Ryan Marton,P,Jr,FALSE,,,,832,3225275,,,76,R,R,"Toronto, Canada"
 134111,Caden Richards,INF,Jr,FALSE,,,,832,3225276,,,71,R,R,"Las Vegas, NV"
 134112,Kevin Smith,OF,Jr,FALSE,,,,832,3225277,,,71,R,R,"Port St Lucie, FL"
-134113,Andres Castro,P,So,FALSE,,,,527,3229841,,FALSE,,R,R,"Tucson, AZ"
+134113,Andres Castro,P,So,FALSE,,,,527,3229841,,FALSE,73,R,R,"Tucson, AZ"
 134114,Payton Dixon,P,So,FALSE,,,,527,3100762,,FALSE,73,L,L,"Honolulu, HI"
 134115,Jordan Giacomini,P,Jr,FALSE,,,,527,3229842,,FALSE,,R,R,"Petaluma, CA"
 134116,Kainoa Kaneshiro,P,Fr,FALSE,,,,527,3229851,,FALSE,,L,R,"Pearl City, HI"
@@ -135060,7 +135060,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 136059,Brad Curtis,RF,Fr,FALSE,,,,702,3225037,DH,TRUE,73,,,"Ballston Lake, NY"
 136060,Cole Hambly,1B,Fr,FALSE,,,,702,3225039,DH,FALSE,74,,,"Cranston, RI"
 136061,George Handal,P,Fr,FALSE,,,,702,3225036,,FALSE,76,,,"Brewster, NY"
-136062,Ryan Lundari,P,Fr,FALSE,,,,702,3225038,,FALSE,75,,,"Flemington, NJ"
+136062,Ryan Lundari,P,Fr,FALSE,,,,702,3225038,,FALSE,75,R,R,"Flemington, NJ"
 136063,Scott Lynch,3B,Fr,FALSE,,,,702,3225035,1B,FALSE,73,,,"Mechanicville, NY"
 136064,Steven Ramirez,2B,Fr,FALSE,,,,702,3225034,SS,FALSE,70,,,"Bronx, NY"
 136065,David Siciliano,P,So,FALSE,,,,702,3225033,,FALSE,74,,,"Shrewsbury, MA"
@@ -136031,7 +136031,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 137042,Luca Mannino,P,Fr,FALSE,,,,761,3228056,,FALSE,,R,R,"Wrightstown, NJ"
 137043,Jordan Welch,1B,So,FALSE,,,,761,3095755,3B,FALSE,,R,R,"Farmingdale, NY"
 137044,Chase Wiese,INF,Jr,FALSE,,,,761,3228059,,,,R,R,"Bloomington, IL"
-137045,Conner Williar,P,Jr,FALSE,,,,761,3228053,,FALSE,,R,R,"Sycamore, IL"
+137045,Conner Williar,P,Jr,FALSE,,,,761,3228053,,FALSE,72,R,R,"Sycamore, IL"
 137046,Luis Acosta,C,Fr,FALSE,,,,770,3234349,1B,FALSE,73,R,R,"Miami, FL"
 137047,Evan Applegate,P,Jr,FALSE,,,,770,3234326,,FALSE,73,L,L,"Bethlehem, PA"
 137048,Derek Asche,,So,FALSE,,,,770,3101438,,,70,R,R,"Lewisburg, PA"
@@ -136230,7 +136230,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 137241,Chandler Fowler,P,Jr,FALSE,,,,1,3239725,,FALSE,,R,R,"Jenks, OK"
 137242,Walker Freeman,RF,Jr,FALSE,,,,1,3239728,LF,FALSE,,L,L,"Tyler, TX"
 137243,Pierre-Luc Jacques,P,Jr,FALSE,,,,1,3239735,,FALSE,,R,R,"Saint-Nicolas, Canada"
-137244,Bronson Lange,P,Fr,FALSE,,,,1,3239745,,FALSE,,R,R,"Floresville, TX"
+137244,Bronson Lange,P,Fr,FALSE,,,,1,3239745,,FALSE,78,R,R,"Floresville, TX"
 137245,Chase Mayer,P,Jr,FALSE,,,,1,3239746,,FALSE,,L,L,"Amherst, OH"
 137246,Nathan Mueller,P,Jr,FALSE,,,,1,3239748,,FALSE,,R,R,"Fort Worth, TX"
 137247,Damian Pantoya,P,Fr,FALSE,,,,1,3115753,,FALSE,74,R,R,"Lubbock, TX"
@@ -136801,7 +136801,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 137832,Cole Lockwood,2B,Fr,FALSE,,,,851,3222254,,FALSE,,,,"Libertyville, IL"
 137833,Seth Pitcock,P,Fr,FALSE,,,,851,3222256,,,,R,R,"Crown Point, IN"
 137834,Brayden Pleau,LF,Jr,FALSE,,,,851,3222268,,FALSE,,R,R,"Appleton, WI"
-137835,Cayden Ray,P,Fr,FALSE,,,,851,3222255,,FALSE,,R,R,"Owensboro, KY"
+137835,Cayden Ray,P,Fr,FALSE,,,,851,3222255,,FALSE,72,R,R,"Owensboro, KY"
 137836,Colton Rerick,P,Fr,FALSE,,,,851,3222262,,,,L,L,"Granger, IN"
 137837,Eli Riley,C,Sr,FALSE,,,,851,3222264,,FALSE,,R,R,"Markle, IN"
 137838,Calen Schembra,1B,Fr,FALSE,,,,851,3222257,CF,FALSE,,L,L,"Greenwood, IN"
@@ -136811,7 +136811,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 137842,James Derflinger,SS,Jr,FALSE,,,,956,3234765,,FALSE,,R,R,"Villa Park, CA"
 137843,Nathaniel Garcia,P,Fr,FALSE,,,,956,3234787,,FALSE,,R,R,"Perris, CA"
 137844,Jonathan Gurrola,P,Fr,FALSE,,,,956,3234778,,,,R,R,"Ventura, CA"
-137845,Nathan Hellein,2B,Jr,FALSE,,,,956,3234766,SS,FALSE,71,S,R,"Upland, CA"
+137845,Nathan Hellein,2B,Jr,FALSE,,,,956,3234766,SS,FALSE,71,B,R,"Upland, CA"
 137846,Caleb Lambertson,P,Fr,FALSE,,,,956,3234783,,FALSE,,L,L,"Claremont, CA"
 137847,Dash Lopez,C,Fr,FALSE,,,,956,3234762,,FALSE,,R,R,"Ventura, CA"
 137848,Shamir Marshall,P,Jr,FALSE,,,,956,3234782,3B,TRUE,,R,R,"Apple Valley, CA"
@@ -136906,7 +136906,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 137937,Ryan Prior,P,Fr,FALSE,,,,856,3227308,,FALSE,75,R,R,"Sea Girt, NJ"
 137938,Ben Schulman,UT,Fr,FALSE,,,,856,3227322,,,77,L,R,"Chappaqua, NY"
 137939,Thomas Stewart,P,Fr,FALSE,,,,856,3227311,,FALSE,74,R,R,"Lakewood, CO"
-137940,Jayden Stroman,P,Fr,FALSE,,,,856,3227189,,FALSE,73,B,R,
+137940,Jayden Stroman,P,Fr,FALSE,,,,856,3227189,,FALSE,73,B,R,"Medford, NY"
 137941,Jacob Weatherspoon,C,Jr,FALSE,,,,856,3227261,DH,FALSE,74,R,R,"Indialantic, FL"
 137942,Christopher Worley,P,Fr,FALSE,,,,856,3227299,,,73,R,R,"Grand Blanc, MI"
 137943,Noah Yoder,P,Fr,FALSE,,,,856,3227268,,FALSE,78,R,R,"Mechanicsville, VA"
@@ -137275,7 +137275,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 138309,Jordan Marlo,,Fr,FALSE,,,,884,3233277,,,,,,
 138310,Macklin Miller,P,Jr,FALSE,,,,884,3233352,,FALSE,,,,"Bradenton, FL"
 138311,Rowan Park,P,Jr,FALSE,,,,884,3233361,,FALSE,,,,"Marietta, GA"
-138312,Grayson Stroumpis,P,Jr,FALSE,,,,884,3233393,,FALSE,,,,"Alpharetta, GA"
+138312,Grayson Stroumpis,P,Fr,FALSE,,,,884,3233393,,FALSE,77,R,R,"Alpharetta, GA"
 138313,Zane Wright,P,Jr,FALSE,,,,884,3233366,,FALSE,,,,"Plant City, FL"
 138314,Ashton Yelder,1B,Fr,FALSE,,,,884,3233292,,,,,,
 138315,Luca Baird,P,So,FALSE,,,,885,3111352,,FALSE,75,R,R,"Pittsburgh, PA"
@@ -138119,7 +138119,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 139200,Camden Houston,SS,Fr,FALSE,,,,12,3222822,2B,FALSE,,R,R,"Columbus, GA"
 139201,Andrew Keown,P,Fr,FALSE,,,,12,3222820,,FALSE,,R,R,"Colquitt, GA"
 139202,Armando Nunez,P,Jr,FALSE,,,,12,3222821,,FALSE,,L,L,"Kennesaw, GA"
-139203,William Pridgen,P,Fr,FALSE,,,,12,3222829,,FALSE,,L,R,"Tifton, GA"
+139203,William Pridgen,P,Fr,FALSE,,,,12,3222829,,FALSE,70,L,R,"Tifton, GA"
 139204,Talen Pugh,INF,Fr,FALSE,,,,12,3222830,,,,R,R,"Albany, GA"
 139205,Christian Whitaker,INF,Fr,FALSE,,,,12,3222823,,,,R,R,"Shiloh, GA"
 139206,Jordan Williams,LF,Fr,FALSE,,,,12,3222828,,,,R,R,"Jenkinsburg, GA"
@@ -139562,7 +139562,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 140660,Addie Edwards,C,Fr,FALSE,,,,1803,3244643,,,,R,R,"Midland, MI"
 140661,Audrey Ford,3B,Fr,FALSE,,,,1803,3244630,2B,FALSE,,R,R,"Kalamazoo, MI"
 140662,Jaye Guichelaar,OF,Jr,FALSE,,,,1803,3244654,,,,L,L,"Sparta, MI"
-140663,Analy Guth,INF,Fr,FALSE,,,,1803,3244640,,,,R,R,"Southgate, MI"
+140663,Analy Guth,INF,Fr,FALSE,,,,1803,3244640,,,68,R,R,"Southgate, MI"
 140664,Olivia Herlein,C,Fr,FALSE,,,,1803,3244635,,,,L,R,"Three Rivers, MI"
 140665,Kendall Jordan,SS,Fr,FALSE,,,,1803,3244638,3B,FALSE,,R,R,"Fishers, IN"
 140666,Camila Ramirez-Quijada,P,Fr,FALSE,,,,1803,3244632,,FALSE,,R,R,"South Bend, IN"
@@ -139807,7 +139807,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 140906,Emma Dunman,SP,Fr,FALSE,,,,1395,3234406,,,,,,"Pittsford, NY"
 140907,Morgan Dunman,C,Fr,FALSE,,,,1395,3234417,,,,,,"Pittsford, NY"
 140908,Caraline Dunn,1B,Fr,FALSE,,,,1395,3234408,,FALSE,,,,"Winfield, WV"
-140909,Maddie Entler,RF,Fr,FALSE,,,,1395,3234416,,FALSE,,,,"Portsmouth, OH"
+140909,Maddie Entler,RF,Fr,FALSE,,,,1395,3234416,,FALSE,68,L,L,"Portsmouth, OH"
 140910,Aubriana Espinoza,CF,Fr,FALSE,,,,1395,3234399,,FALSE,,,,"Fontana, CA"
 140911,Jackie Gachupin,INF,Fr,FALSE,,,,1395,3234404,,,,,,"Bell Gardens, CA"
 140912,Mikiaela Guillen,1B,Fr,FALSE,,,,1395,3234398,,FALSE,,,,"Chimayo, NM"
@@ -140063,7 +140063,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 141164,Paetynn Snobar,P,Fr,FALSE,,,,1548,3210804,,FALSE,,L,L,"Roseville, CA"
 141165,Ava Valenzuela,P,Fr,FALSE,,,,1548,3210807,,FALSE,65,R,R,"Indio, CA"
 141166,Serena Velez,1B,Jr,FALSE,,,,1548,3210810,,FALSE,69,R,R,"La Puente, CA"
-141167,Addyson Carrasco,2B,Fr,FALSE,,,,1799,3239311,,,62,S,R,"Monahans, TX"
+141167,Addyson Carrasco,2B,Fr,FALSE,,,,1799,3239311,,,62,B,R,"Monahans, TX"
 141168,Chasity Davis,,Fr,FALSE,,,,1799,3239312,,,,,,
 141169,Tatum Davis,,Fr,FALSE,,,,1799,3239314,,,,,,
 141170,Kennedy Garner,,Fr,FALSE,,,,1799,3239315,,,,,,
@@ -140903,7 +140903,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 142007,Emily Smith,C,Fr,FALSE,,,,1464,3240021,3B,FALSE,65,R,R,"Delmar, DE"
 142008,Kassidy Bradbury,SS,Fr,FALSE,,,,1539,3246659,,FALSE,63,,,"Beckley, WV"
 142009,Alexi Dellinger,P,Fr,FALSE,,,,1539,3246665,,FALSE,65,,,"Mineralwells, WV"
-142010,Macie Duvall,OF,Fr,FALSE,,,,1539,3246672,,,67,,,"Noblesville, IN"
+142010,Macie Duvall,OF,Fr,FALSE,,,,1539,3246672,,,67,R,R,"Noblesville, IN"
 142011,Kyndall Harper,C,Fr,FALSE,,,,1539,3246663,,FALSE,68,R,R,"Saint Albans, WV"
 142012,Alexis Harward,RF,Jr,FALSE,,,,1539,3246653,,FALSE,62,,,"Albemarle, NC"
 142013,Emma Lilly,OF,Fr,FALSE,,,,1539,3246646,,,64,,,"Beaver, WV"
@@ -145219,7 +145219,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 146335,Caden Albright,1B,Fr,FALSE,,,,78,3251520,2B,FALSE,73,R,R,"Cortland, NY"
 146336,Zachary Anderson,DH,Jr,FALSE,,,,78,3251521,C,FALSE,70,R,R,"Temecula, CA"
 146337,Chase Fulford,SS,Fr,FALSE,,,,78,3251522,3B,FALSE,71,R,R,"Jamison, PA"
-146338,Soren Gregor,P,Fr,FALSE,,,,78,3251523,,FALSE,73,,R,"Flemington, NJ"
+146338,Soren Gregor,P,Fr,FALSE,,,,78,3251523,,FALSE,72,R,R,"Flemington, NJ"
 146339,Mason Holloway,P,Fr,FALSE,,,,78,3251524,,FALSE,75,,R,"Horseheads, NY"
 146340,Jeremy Ramos,LF,Fr,FALSE,,,,78,3251525,C,,73,L,L,"Stony Point, NY"
 146341,Owen Rich,3B,Fr,FALSE,,,,78,3251526,DH,FALSE,75,L,R,"Wallingford, CT"
@@ -146683,7 +146683,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 147810,Allen Espinal,CF,Fr,FALSE,,,,95,3254404,C,FALSE,73,R,R,
 147811,Jackson Libby,3B,Fr,FALSE,,,,95,3254402,SS,FALSE,74,R,R,
 147812,Ethan Palmer,P,Fr,FALSE,,,,95,3254405,,FALSE,74,L,L,
-147813,Nick Valentino,2B,So,FALSE,,,,95,3254413,DH,FALSE,70,S,R,"West Springfield, MA"
+147813,Nick Valentino,2B,So,FALSE,,,,95,3254413,DH,FALSE,70,B,R,"West Springfield, MA"
 147814,Wyatt Yeatter,3B,Fr,FALSE,,,,95,3254401,P,TRUE,71,R,R,
 147815,Dominick Zuliani,LF,Fr,FALSE,,,,95,3254403,P,FALSE,71,L,L,
 147816,Alexander Abi-Zeid,P,Fr,FALSE,,,,93,3254458,,FALSE,,,,"West Islip, NY"
@@ -149045,7 +149045,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 150185,Madison Anderson,RF,Fr,FALSE,,,,1890,3259891,,FALSE,,,,
 150186,Angelina Avila,3B,Fr,FALSE,,,,1890,3259894,,,,,,
 150187,Shaylee Bealey,INF,Fr,FALSE,,,,1890,3259898,,,,,,
-150188,Finley Burke,C,Fr,FALSE,,,,1890,3259896,,FALSE,69,S,R,"Dallas, TX"
+150188,Finley Burke,C,Fr,FALSE,,,,1890,3259896,,FALSE,69,B,R,"Dallas, TX"
 150189,Francesca Foster,UT,Sr,FALSE,,,,1890,3259900,,,,,,
 150190,Amber McCulloch,UT,Fr,FALSE,,,,1890,3259897,,,,,,
 150191,Serenity Ortega,SS,Fr,FALSE,,,,1890,3259893,,,,,,
@@ -149731,7 +149731,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 150871,Dominic Mejia,OF,Fr,FALSE,,,,699,,,,70,R,R,"Germantown, MD"
 150872,Christopher Yannella,P,Fr,FALSE,,,,752,,,,71,L,L,"Foran, CT"
 150873,Helmut Waters,C,Fr,FALSE,,,,391,,,,75,R,R,"Ormond Beach, FL"
-150874,Adam Canale,UT,Fr,FALSE,,,,664,,,,73,S,R,"Yardley, PA"
+150874,Adam Canale,UT,Fr,FALSE,,,,664,,,,73,B,R,"Yardley, PA"
 150875,Phoenix Lofton,P,Fr,FALSE,,,,454,,,,,,,"Charleston, IL"
 150876,Dublin Warren,1B,Fr,FALSE,,,,669,,,,74,L,R,"Windermere, FL"
 150877,Jack Ryan,INF,Fr,FALSE,,,,425,,,,70,R,R,"Parcellville, PA"
@@ -149749,7 +149749,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 150889,Sawyer Smith,OF,Fr,FALSE,,,,392,,,,74,R,R,"Landrum, SC"
 150890,Jonah Handler,P,So,FALSE,,,,58,,,,72,R,R,"Aventura, FL"
 150891,Braden Tyson,C,Fr,FALSE,,,,263,,,,68,R,R,"Wauchula, FL"
-150892,Ashton Vaughn,OF,So,FALSE,,,,263,,,,73,S,R,"Lakeland, FL"
+150892,Ashton Vaughn,OF,So,FALSE,,,,263,,,,73,B,R,"Lakeland, FL"
 150893,Aidan Zovak,UT,Fr,FALSE,,,,263,,,,70,L,R,"Fredericksburg, VA"
 150894,Luke Thornton,UT,Fr,FALSE,,,,263,,,,71,R,R,"Frostproof, FL"
 150895,Jonny Hughes,INF,Jr,FALSE,,,,66,,,,72,R,R,"Dematha, MD"
@@ -149778,7 +149778,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 150918,Shane Mckenna,P,Fr,FALSE,,,,208,,,,75,R,L,"Brooklyn, NY"
 150919,Adam Burse,C,Fr,FALSE,,,,789,,,,76,R,R,"Alliance, OH"
 150920,Kenny Pickens,C,Fr,FALSE,,,,73,,,,70,R,R,"Ludowici, GA"
-150921,Aiden Fox,SS,So,FALSE,,,,155,,,,72,S,R,"Tampa, FL"
+150921,Aiden Fox,SS,So,FALSE,,,,155,,,,72,B,R,"Tampa, FL"
 150922,Eric Mykut,OF,Fr,FALSE,,,,476,,,,70,L,L,"Huntingdon, PA"
 150923,Alex Teixeira,1B,So,FALSE,,,,718,,,,74,R,R,"Naugatuck, CT"
 150924,Jason Cox Jr,INF,So,FALSE,,,,475,,,,67,R,R,"Marietta, GA"
@@ -149837,3 +149837,5 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 150977,Josh Manganello,P,Fr,FALSE,,,,949,,,,75,,L,"Williamstown, NJ"
 150978,Jack Butterworth,P,Fr,FALSE,,,,32,,,,78,,R,"Excelsior, MN"
 150979,Rashaan Chavis,OF,Fr,FALSE,,,,621,,,,70,R,R,"Las Vegas, NV"
+150980,Z'Nichi Steave,OF,Fr,FALSE,,,,949,,,,75,L,L,"Cherry Hill, NJ"
+150981,Marco Christopher,OF,Fr,FALSE,,,,949,,,,72,R,R,"Sicklerville, NJ"
