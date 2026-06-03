@@ -1,2 +1,3 @@
 ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfer_date,update_date,status,year,sport,team_id,player_id_64a,player_id_ncaa_stats,matched_name,match_score,match_method,confidence,position,class_year,player_csv_team_id
-2010936253,JACOB,SCHWARTZ,Jacob Schwartz,Point Loma Nazarene University,Pacific West Conference,II,06/03/2026,06/03/2026,Active,2025-26,Baseball,617,104695,3106288,Jake Schwartz,92,team+lastname,LOW,1B,Sr,617
+2310142366,WILLIAM,WILLOUGHBY,William Willoughby,The University of Southern Mississippi,Sun Belt Conference,I,06/03/2026,06/03/2026,Active,2025-26,Baseball,722,100213,3090576,Brooks Willoughby,62.9,team+lastname_diff_first,REVIEW,P,So,722
+2309108091,ARNOLD,ABERNATHY,Arnold Abernathy,"University of Tennessee, Knoxville",Southeastern Conference,I,06/03/2026,06/03/2026,Active,2025-26,Baseball,776,116060,3096962,Jay Abernathy,75.9,team+lastname_diff_first,REVIEW,CF,So,776
