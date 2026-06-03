@@ -1,5 +1,3 @@
 ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfer_date,update_date,status,year,sport,team_id,player_id_64a,player_id_ncaa_stats,matched_name,match_score,match_method,confidence,position,class_year,player_csv_team_id
-2210698524,JOSHUA,BRYSON,Joshua Bryson,"Pennsylvania Western University, California",Pennsylvania State Athletic Conference,II,06/03/2026,06/03/2026,Active,2025-26,Baseball,115,71292,2962160,Josh Bryson,92.0,team+lastname,LOW,P,Jr,115
-2204539519,JOHN,GIBSON,John Gibson,University of South Carolina Upstate,Big South Conference,I,06/03/2026,06/03/2026,Active,2025-26,Baseball,837,70074,2941737,Jack Gibson,92.0,team+lastname,LOW,P,Jr,837
-2207622154,CHRISTOPHER,FORMAN,Christopher Forman,Adelphi University,Northeast 10 Conference,II,06/03/2026,06/03/2026,Active,2025-26,Baseball,4,124968,3096117,CJ Forman,59.3,team+lastname_diff_first,REVIEW,P,So,4
-2411454615,EDWARD,READ,Edward Read,Virginia Commonwealth University,Atlantic 10 Conference,I,06/03/2026,06/03/2026,Active,2025-26,Baseball,854,137924,3232308,Boyce Read,57.1,team+lastname_diff_first,REVIEW,DH,Fr,854
+2309123513,DANIEL,CIHOCKI,Daniel Cihocki,Northern Illinois University,Mid-American Conference,I,06/03/2026,06/03/2026,Active,2025-26,Baseball,539,115929,3095435,Danny Cihocki,92.0,team+lastname,LOW,P,Jr,539
+2504554550,REID,HARTMANN,Reid Hartmann,Lamar University,Southland Conference,I,06/03/2026,06/03/2026,Active,2025-26,Baseball,388,132253,3223071,Max Hartmann,72.0,team+lastname_diff_first,REVIEW,P,Jr,388
