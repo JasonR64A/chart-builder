@@ -1,4 +1,2 @@
 ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfer_date,update_date,status,year,sport,team_id,player_id_64a,player_id_ncaa_stats,matched_name,match_score,match_method,confidence,position,class_year,player_csv_team_id
-2011968093,ROBERT,FULMER,Robert Fulmer,The Citadel,Southern Conference,I,06/04/2026,06/04/2026,Active,2025-26,Baseball,788,67584,2938025,Garrett Fulmer,74.1,team+lastname_diff_first,REVIEW,C,Jr,788
-2307968298,OWEN,GALT,Owen Galt,University of Louisiana at Lafayette,Sun Belt Conference,I,06/04/2026,06/04/2026,Active,2025-26,Baseball,419,102537,3062066,Owen Gault,94.7,team+lastname,LOW,2B,So,419
-2306930253,JACOBY,MERRICK,Jacoby Merrick,University of Alabama at Birmingham,American Conference,I,06/04/2026,06/04/2026,Active,2025-26,Baseball,805,101483,3086149,Jake Merrick,76.9,team+lastname_diff_first,REVIEW,3B,So,805
+2204525379,CAMDEN,RINGLER,Camden Ringler,"University of Arkansas, Pine Bluff",Southwestern Athletic Conf.,I,06/04/2026,06/04/2026,Active,2025-26,Baseball,35,127464,3244723,Cam Ringler,82,team+lastname_diff_first,REVIEW,P,Sr,35
