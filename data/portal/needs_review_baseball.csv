@@ -1,2 +1,4 @@
 ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfer_date,update_date,status,year,sport,team_id,player_id_64a,player_id_ncaa_stats,matched_name,match_score,match_method,confidence,position,class_year,player_csv_team_id
-2204525379,CAMDEN,RINGLER,Camden Ringler,"University of Arkansas, Pine Bluff",Southwestern Athletic Conf.,I,06/04/2026,06/04/2026,Active,2025-26,Baseball,35,127464,3244723,Cam Ringler,82,team+lastname_diff_first,REVIEW,P,Sr,35
+2407368888,SAMUEL,COOPER,Samuel Cooper,"Concordia University, St. Paul",Northern Sun Intercollegiate Conference,II,06/04/2026,06/04/2026,Active,2025-26,Baseball,180,120797,3103913,Sam Cooper,92.0,team+lastname,LOW,P,Sr,180
+2209669757,THOMAS,SKELDING,Thomas Skelding,University of Kentucky,Southeastern Conference,I,06/04/2026,06/04/2026,Active,2025-26,Baseball,372,68935,2946538,Tommy Skelding,92.0,team+lastname,LOW,P,So,372
+2104139963,SAMUEL,COVA,Samuel Cova,University of Utah,Big 12 Conference,I,06/04/2026,06/04/2026,Active,2025-26,Baseball,841,69634,2963456,Sammy Cova,76.2,team+lastname_diff_first,REVIEW,P,Jr,841
