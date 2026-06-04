@@ -1,4 +1,7 @@
 ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfer_date,update_date,status,year,sport,team_id,player_id_64a,player_id_ncaa_stats,matched_name,match_score,match_method,confidence,position,class_year,player_csv_team_id
-2407368888,SAMUEL,COOPER,Samuel Cooper,"Concordia University, St. Paul",Northern Sun Intercollegiate Conference,II,06/04/2026,06/04/2026,Active,2025-26,Baseball,180,120797,3103913,Sam Cooper,92.0,team+lastname,LOW,P,Sr,180
-2209669757,THOMAS,SKELDING,Thomas Skelding,University of Kentucky,Southeastern Conference,I,06/04/2026,06/04/2026,Active,2025-26,Baseball,372,68935,2946538,Tommy Skelding,92.0,team+lastname,LOW,P,So,372
-2104139963,SAMUEL,COVA,Samuel Cova,University of Utah,Big 12 Conference,I,06/04/2026,06/04/2026,Active,2025-26,Baseball,841,69634,2963456,Sammy Cova,76.2,team+lastname_diff_first,REVIEW,P,Jr,841
+2208647265,VICTOR,CARTAGENA,Victor Cartagena,University of South Florida,American Conference,I,06/04/2026,06/04/2026,Active,2025-26,Baseball,712,69622,2968496,Victor Cartegena,93.8,team+lastname,LOW,RF,Jr,712
+2606949195,JAMES,MOLTINI,James Moltini,Cornell College,Midwest Conference,III,06/04/2026,06/04/2026,Active,2025-26,Baseball,183,129552,3233488,Jimmy Moltini,92.0,team+lastname,LOW,2B,Jr,183
+2208645683,JUDSON,FILES,Judson Files,Jacksonville State University,Conference USA,I,06/04/2026,06/04/2026,Active,2025-26,Baseball,357,67551,2970831,Jud Files,82.0,team+lastname_diff_first,REVIEW,P,Jr,357
+2210703250,SAMUEL,SCHMIDT,Samuel Schmidt,Jacksonville State University,Conference USA,I,06/04/2026,06/04/2026,Active,2025-26,Baseball,357,67800,2949145,Sam Schmidt,92.0,team+lastname,LOW,P,Jr,357
+2206589859,CHRISTOPHER,TORRES,Christopher Torres,University of South Carolina Upstate,Big South Conference,I,06/04/2026,06/04/2026,Active,2025-26,Baseball,837,76128,2954860,Chris Torres,92.0,team+lastname,LOW,P,Jr,837
+1708870955,CYRUS,SHAHRDAR,Cyrus Shahrdar,Louisiana State University,Southeastern Conference,I,06/04/2026,06/04/2026,Active,2025-26,Baseball,422,70764,2971957,John Shahrdar,66.7,team+lastname_diff_first,REVIEW,P,Sr,422
