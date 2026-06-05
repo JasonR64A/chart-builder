@@ -17,13 +17,16 @@ _APP_DIR = Path(__file__).resolve().parent.parent
 DATA_DIR = _APP_DIR / 'data'
 ASSETS_DIR = _APP_DIR / 'assets' / 'portal-entrant'
 # Template choices keyed by output format (used by the format radio below).
-# Landscape is the original 1500x1000 design. The two Instagram options are
-# 1080x1350 (4:5 portrait) cards intended as a two-image carousel: card 1
-# leads with the photo + identity, card 2 carries the full stat grid +
-# career table. Trying to fit both on a single portrait clipped the table
-# (the failed combined attempt is intentionally not in this list).
+# Landscape is the original 1500x1000 design. Softball is the same 1500x1000
+# landscape with the baseball-show brand logos (College Baseball Show, JB)
+# dropped from the top-left, keeping only the 64 Analytics mark. The two
+# Instagram options are 1080x1350 (4:5 portrait) cards intended as a two-image
+# carousel: card 1 leads with the photo + identity, card 2 carries the full
+# stat grid + career table. Trying to fit both on a single portrait clipped the
+# table (the failed combined attempt is intentionally not in this list).
 TEMPLATES = {
     'Landscape (1500x1000)':            {'path': ASSETS_DIR / 'template.html',          'w': 1500, 'h': 1000},
+    'Softball':                         {'path': ASSETS_DIR / 'template_softball.html', 'w': 1500, 'h': 1000},
     'Instagram — Photo (1080x1350)':    {'path': ASSETS_DIR / 'template_ig_photo.html', 'w': 1080, 'h': 1350},
     'Instagram — Stats (1080x1350)':    {'path': ASSETS_DIR / 'template_ig_stats.html', 'w': 1080, 'h': 1350},
 }
@@ -600,8 +603,6 @@ with st.expander('Career by year (editable)', expanded=False):
                 '_sf': st.column_config.NumberColumn('SF', help='Sac fly — used for OBP totals'),
             },
         )
-        career_subtitle = st.text_input('Career section subtitle',
-                                        value=defaults['career_subtitle'] or f"{len(edited)} SEASON{'S' if len(edited) != 1 else ''} AT {school.upper()}")
         career_slash_override = st.text_input('Career slash (top-right header)',
                                               value=defaults['career_slash'])
     else:
@@ -636,8 +637,6 @@ with st.expander('Career by year (editable)', expanded=False):
                 '_gs':     st.column_config.NumberColumn('GS', help='Games started'),
             },
         )
-        career_subtitle = st.text_input('Career section subtitle',
-                                        value=defaults['p_career_subtitle'] or f"{len(edited)} SEASON{'S' if len(edited) != 1 else ''} AT {school.upper()}")
         career_slash_override = st.text_input('Career slash (top-right header)',
                                               value=defaults['p_career_slash'])
 
@@ -880,7 +879,7 @@ replacements = {
     **season_values,
     **label_map,
     '{{CAREER_SLASH}}': career_slash or '—',
-    '{{CAREER_SUBTITLE}}': career_subtitle,
+    '{{CAREER_SUBTITLE}}': '',  # career subtitle removed (inaccurate for multi-school players)
     '{{CAREER_HEAD_HTML}}': career_head_html,
     '{{CAREER_ROWS_HTML}}': career_rows_html,
     '{{EYEBROW}}': eyebrow,
