@@ -1,3 +1,5 @@
 ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfer_date,update_date,status,year,sport,team_id,player_id_64a,player_id_ncaa_stats,matched_name,match_score,match_method,confidence,position,class_year,player_csv_team_id
-2109313832,JACKSON,REYNOLDS,Jackson Reynolds,"University of South Carolina, Columbia",Southeastern Conference,I,06/04/2026,06/04/2026,Active,2025-26,Baseball,710,52341,2796566,Jack Reynolds,92,team+lastname,LOW,2B,Jr,710
-2102107362,JACOB,ECHOLS,Jacob Echols,Florida State University,Atlantic Coast Conference,I,06/04/2026,06/04/2026,Active,2025-26,Baseball,267,139630,3250695,Jake Echols,92,team+lastname,LOW,P,Jr,267
+2010940614,SAMUEL,ERICKSON,Samuel Erickson,"Texas A&M University, College Station",Southeastern Conference,I,06/05/2026,06/05/2026,Active,2025-26,Baseball,782,121074,3099470,Sam Erickson,92.0,team+lastname,LOW,LF,So,782
+2108300509,THOMAS,WRIGHT,Thomas Wright,Ferrum College,Conference Carolinas,II,06/05/2026,06/05/2026,Active,2025-26,Baseball,257,62307,2819311,Matthew Wright,66.7,team+lastname_diff_first,REVIEW,P,Sr,257
+2308978067,COLTON,GREEN,Colton Green,Rice University,American Conference,I,06/05/2026,06/05/2026,Active,2025-26,Baseball,643,117359,3097313,Cole Green,81.8,team+lastname_diff_first,REVIEW,3B,So,643
+2312184110,MICHAEL,DELUCA,Michael Deluca,Kalamazoo College,Michigan Intercollegiate Athletic Association,III,06/05/2026,06/05/2026,Active,2025-26,Baseball,365,131968,3243873,Mikey DeLuca,92.0,team+lastname,LOW,2B,Fr,365
