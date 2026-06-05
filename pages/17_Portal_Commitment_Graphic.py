@@ -4,9 +4,10 @@ for a player who has committed to a new school. Auto-fills from
 portal_rank_player + players.csv + hitting.csv/pitching.csv. All fields
 editable; renders the design template; offers a PNG download.
 
-Filter to committed players: portal_rank_player rows where year=2026 AND
-new_team_id is not null. New-school color drives the crimson palette
-(falls back to the design default #9D2235 when unknown).
+Pick ANY player from players.csv and choose the team they committed to.
+If the player is already in portal_rank_player (2026) their committed team
+and portal rank prefill automatically. New-school color drives the crimson
+palette (falls back to the design default #9D2235 when unknown).
 """
 from __future__ import annotations
 
@@ -82,13 +83,16 @@ pitching = load_pitching()
 prp = load_portal_rank_player()
 
 
-# ── Build the "committed players" pool ──────────────────────────────────────
-# Filter to current-year 2026 rows where new_team_id is populated. Join the
-# player display name from players.csv and the from/to team names.
-prp_26 = prp[(prp['year'] == 2026) & prp['new_team_id'].notna()].copy()
-prp_26['player_id'] = prp_26['player_id'].astype('Int64')
-prp_26['team_id'] = prp_26['team_id'].astype('Int64')
-prp_26['new_team_id'] = prp_26['new_team_id'].astype('Int64')
+# ── Optional prefill from PRP ────────────────────────────────────────────────
+# If the chosen player is already in portal_rank_player (2026), use their
+# committed new_team + portal rank as defaults. Any player can still be picked.
+prp_26 = prp[prp['year'] == 2026].copy()
+prp_by_pid = {}
+for _r in prp_26.itertuples(index=False):
+    try:
+        prp_by_pid[int(_r.player_id)] = _r
+    except Exception:
+        pass
 
 # Join player name (players.csv 'id' is string in our cached load)
 players_idx = players.set_index('id')
@@ -127,51 +131,83 @@ def _team_logo_url(team_id) -> str:
         return ''
 
 
-# Picker rows
-def _pick_label(row) -> str:
-    pid = int(row['player_id']) if pd.notna(row['player_id']) else 0
-    name = str(players_idx.loc[str(pid), 'player_name']) if str(pid) in players_idx.index else f'player_id {pid}'
-    from_team = _team_name(row['team_id'])
-    to_team = _team_name(row['new_team_id'])
-    rank = row.get('sixty_four_rating_portal_player')
-    rank_str = f'#{int(rank)}' if pd.notna(rank) else 'unranked'
-    return f'{name} — {from_team} → {to_team} ({rank_str})'
+# ── 1. Pick ANY player ───────────────────────────────────────────────────────
+st.subheader('1. Pick a player')
+search = st.text_input('Search players by name',
+                       placeholder='Start typing a name…', key='commit_search')
+if not search.strip():
+    st.info('Type a player name to begin.')
+    st.stop()
+
+_q = search.lower().strip()
+matches = players[players['player_name'].str.lower().str.contains(_q, na=False)].copy()
+if matches.empty:
+    st.info('No players match — try a different search.')
+    st.stop()
 
 
-# Sort committed pool by portal rank (Int64 -> NA last)
-prp_26_sorted = prp_26.sort_values(
-    'sixty_four_rating_portal_player', na_position='last', kind='stable'
+def _player_label(r) -> str:
+    school = _team_name(r['team_id']) if str(r['team_id']).strip() else ''
+    pos = (r.get('position') or '').strip()
+    cls = (r.get('classification') or '').strip()
+    bits = ' · '.join(b for b in (school, pos, cls) if b)
+    return f"{r['player_name']} ({bits})" if bits else f"{r['player_name']}  [id {r['id']}]"
+
+
+matches = matches.head(300).copy()
+matches['_label'] = matches.apply(_player_label, axis=1)
+if len(matches) == 300:
+    st.caption('Showing first 300 matches — refine the search to narrow.')
+pick = st.selectbox(f'Players ({len(matches):,})', matches['_label'].tolist(), key='commit_pick')
+prec = matches.iloc[matches['_label'].tolist().index(pick)]
+player_id = int(prec['id'])
+from_team_id = int(prec['team_id']) if str(prec['team_id']).strip() else None
+
+
+# ── 2. Pick the team they committed to ───────────────────────────────────────
+def _team_sport(team_id) -> str:
+    try:
+        return str(team_idx.loc[int(team_id), 'sport'])
+    except Exception:
+        return ''
+
+
+st.subheader('2. Pick the team they chose')
+player_sport = _team_sport(from_team_id) if from_team_id else ''
+team_pool = teams[teams['sport'] == player_sport].copy() if player_sport else teams.copy()
+team_pool = team_pool.sort_values('name', kind='stable').reset_index(drop=True)
+team_pool['_label'] = team_pool.apply(
+    lambda r: f"{r['name']} ({_team_conf_abbr(r['id'])})" if _team_conf_abbr(r['id']) else str(r['name']),
+    axis=1,
 )
-prp_26_sorted = prp_26_sorted.reset_index(drop=True)
-prp_26_sorted['_label'] = prp_26_sorted.apply(_pick_label, axis=1)
-
-
-# ── Player picker ───────────────────────────────────────────────────────────
-st.subheader('1. Pick a committed player')
-search = st.text_input('Search committed players by name / school',
-                       placeholder='Start typing...', key='commit_search')
-pool = prp_26_sorted
-if search.strip():
-    q = search.lower().strip()
-    pool = prp_26_sorted[prp_26_sorted['_label'].str.lower().str.contains(q, na=False)]
-
-if pool.empty:
-    st.info('No committed players match — try a different search or clear the box.')
+team_labels = team_pool['_label'].tolist()
+if not team_labels:
+    st.error('No teams available for this sport.')
     st.stop()
 
-pick = st.selectbox(f'Committed players ({len(pool):,})', pool['_label'].tolist(), key='commit_pick')
-crow = pool.iloc[pool['_label'].tolist().index(pick)]
+# Default the team picker to the player's already-committed school (if in PRP).
+default_idx = 0
+_pre = prp_by_pid.get(player_id)
+if _pre is not None and pd.notna(getattr(_pre, 'new_team_id', None)):
+    try:
+        _did = int(_pre.new_team_id)
+        _pos = team_pool.index[team_pool['id'] == _did].tolist()
+        if _pos:
+            default_idx = int(_pos[0])
+    except Exception:
+        pass
 
-player_id = int(crow['player_id'])
-from_team_id = int(crow['team_id']) if pd.notna(crow['team_id']) else None
-to_team_id = int(crow['new_team_id']) if pd.notna(crow['new_team_id']) else None
-portal_rank_default = int(crow['sixty_four_rating_portal_player']) if pd.notna(crow['sixty_four_rating_portal_player']) else 0
+to_pick = st.selectbox(f'Committed team ({player_sport or "all sports"})', team_labels,
+                       index=default_idx, key='commit_to_team')
+to_team_id = int(team_pool.iloc[team_labels.index(to_pick)]['id'])
 
-p_row = players[players['id'] == str(player_id)]
-if p_row.empty:
-    st.error(f'player_id {player_id} not found in players.csv')
-    st.stop()
-prec = p_row.iloc[0]
+# Portal rank prefill if the player is a ranked portal entrant, else 0.
+portal_rank_default = 0
+if _pre is not None and pd.notna(getattr(_pre, 'sixty_four_rating_portal_player', None)):
+    try:
+        portal_rank_default = int(_pre.sixty_four_rating_portal_player)
+    except Exception:
+        portal_rank_default = 0
 
 
 def _is_pitcher(player_row, pid_int: int) -> bool:
