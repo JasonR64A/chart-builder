@@ -219,7 +219,39 @@ def _is_pitcher(player_row, pid_int: int) -> bool:
     return not pitching[pitching['player_id'] == pid_int].empty
 
 
-is_pitcher_player = _is_pitcher(prec, player_id)
+def _career_sum(df: pd.DataFrame, col: str) -> float:
+    """Sum a numeric career column, tolerant of strings/NaN."""
+    if df is None or df.empty or col not in df.columns:
+        return 0.0
+    return float(pd.to_numeric(df[col], errors='coerce').fillna(0).sum())
+
+
+def _two_way_sides(pid_int: int):
+    """Return (has_hitting, has_pitching), gated on meaningful volume so a stray
+    AB or mop-up inning doesn't falsely flag a two-way: career AB >= 10, IP >= 5."""
+    h = hitting[hitting['player_id'] == pid_int] if not hitting.empty else pd.DataFrame()
+    p = pitching[pitching['player_id'] == pid_int] if not pitching.empty else pd.DataFrame()
+    return _career_sum(h, 'at_bats') >= 10, _career_sum(p, 'innings_pitched') >= 5
+
+
+# Two-way players (hit AND pitch) get a toggle so the user picks which stat set
+# the card features — mirrors the Portal Entrant Graphic. Non-two-way players
+# keep the automatic hitter/pitcher detection.
+_has_hit, _has_pit = _two_way_sides(player_id)
+if _has_hit and _has_pit:
+    _default_idx = 1 if _is_pitcher(prec, player_id) else 0  # default to primary side
+    _stat_mode = st.radio(
+        'Two-way player — feature which stat?',
+        ['Hitting', 'Pitching'],
+        index=_default_idx,
+        horizontal=True,
+        key='commit_two_way_stat_mode',
+        help=('This player has both hitting and pitching data. Choose which '
+              'stat set drives the season line + stats strip on the card.'),
+    )
+    is_pitcher_player = (_stat_mode == 'Pitching')
+else:
+    is_pitcher_player = _is_pitcher(prec, player_id)
 
 
 # ── Auto-fill defaults from career data ─────────────────────────────────────
