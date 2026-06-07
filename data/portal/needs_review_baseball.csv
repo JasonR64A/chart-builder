@@ -1,2 +1,3 @@
 ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfer_date,update_date,status,year,sport,team_id,player_id_64a,player_id_ncaa_stats,matched_name,match_score,match_method,confidence,position,class_year,player_csv_team_id
-2108291590,FRANKLIN,CARNEY,Franklin Carney,"University of California, Irvine",Big West Conference,I,06/06/2026,06/06/2026,Active,2025-26,Baseball,808,61542,2795378,Frankie Carney,92,team+lastname,LOW,RF,Sr,808
+2302775981,THOMAS,MCGUIRE,Thomas Mcguire,Grand Canyon University,Mountain West Conference,I,06/06/2026,06/06/2026,Active,2025-26,Baseball,302,131052,3203407,Tommy McGuire,92,team+lastname,LOW,P,Jr,302
+2606951102,JACOB,MILLER,Jacob Miller,Wilkes University,Landmark Conference,III,06/06/2026,06/06/2026,Active,2025-26,Baseball,908,138639,3245203,Jake Miller,92,team+lastname,LOW,RF,Fr,908
