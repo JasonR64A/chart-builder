@@ -195,8 +195,11 @@ def _row_overlay(row: dict, idx: int, *, show_team: bool) -> str:
     name_x = logo_x + logo_size + 12
     player = (row.get('player') or '').upper()
     team = (row.get('team') or '').upper()
+    conf = (row.get('conf') or '').upper().strip()
+    # Subline = team, plus conference when provided (e.g. "TEXAS · SEC").
+    subline = f'{team} · {conf}' if (team and conf) else (team or conf)
 
-    if show_team and team:
+    if show_team and subline:
         parts.append(
             f'<text x="{name_x}" y="{pill_cy - 3:.1f}" text-anchor="start" '
             f'font-family="Inter,sans-serif" font-style="italic" '
@@ -207,7 +210,7 @@ def _row_overlay(row: dict, idx: int, *, show_team: bool) -> str:
             f'<text x="{name_x}" y="{pill_cy + 14:.1f}" text-anchor="start" '
             f'font-family="Inter,sans-serif" font-weight="500" font-size="12" '
             f'fill="rgba(255,255,255,0.65)" letter-spacing="1.0">'
-            f'{_xe(team)}</text>'
+            f'{_xe(subline)}</text>'
         )
     else:
         parts.append(
@@ -447,7 +450,8 @@ def build_weekly_awards_svg(rows: list[dict], top_stats: list[dict], *,
 def build_rows_payload(df_sorted: pd.DataFrame, *, name_col: str,
                         stat_col: str, team_col: str, top_n: int = 10,
                         sport_key: str = 'baseball',
-                        teams_df: pd.DataFrame | None = None) -> list[dict]:
+                        teams_df: pd.DataFrame | None = None,
+                        conf_col: str | None = None) -> list[dict]:
     """Convert a sorted top-N DataFrame into the 10-row payload, with
     softball→baseball logo fallback (mirrors top25_render._build_logo_id_map)."""
     if df_sorted.empty:
@@ -485,6 +489,7 @@ def build_rows_payload(df_sorted: pd.DataFrame, *, name_col: str,
             'rank': i + 1,
             'player': str(r.get(name_col, '') or '').strip(),
             'team': team_name,
+            'conf': (str(r.get(conf_col, '') or '').strip() if conf_col else ''),
             'stat': r.get(stat_col),
             'logo_b64': logo_b64,
         })

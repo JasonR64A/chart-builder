@@ -2036,6 +2036,17 @@ if view == 'Top 10 Portal Entrants':
                    'Widen the range or change the Division dropdown.')
         st.stop()
     prp['School'] = pd.to_numeric(prp['team_id'], errors='coerce').map(team_name).fillna('')
+    # Conference (FROM team's conference abbreviation) for the row subline.
+    try:
+        _confs_ab = pd.read_csv(DATA_DIR / 'conferences.csv', low_memory=False)
+        _cid_to_abbr = dict(zip(pd.to_numeric(_confs_ab['id'], errors='coerce'),
+                                _confs_ab['abbreviation'].astype(str)))
+        _tid_to_cid = dict(zip(pd.to_numeric(teams_df['id'], errors='coerce'),
+                               pd.to_numeric(teams_df['conference_id'], errors='coerce')))
+        prp['Conference'] = pd.to_numeric(prp['team_id'], errors='coerce').map(
+            lambda t: _cid_to_abbr.get(_tid_to_cid.get(t), '') if pd.notna(t) else '')
+    except Exception:
+        prp['Conference'] = ''
     st.sidebar.caption(f'{len(in_window)} entrant(s) in range · {len(prp)} ranked {sport} {division} entrants')
 
     # ── Dropdown 2: Portal rank, or a 2026 stat. Dropdown 3 (the stat) only
@@ -2117,7 +2128,8 @@ if view == 'Top 10 Portal Entrants':
     if _go:
         with st.spinner('Rendering graphic…'):
             rows_payload = build_rows_payload(df_render, name_col='name', stat_col=stat_col,
-                                               team_col='School', top_n=10, sport_key=sport, teams_df=teams_df)
+                                               team_col='School', top_n=10, sport_key=sport, teams_df=teams_df,
+                                               conf_col='Conference')
             # Bottom strip = the #1 player's line (hitter or pitcher set).
             _spot_hit, _spot_pit, _spot_pos = load_portal_spotlight_stats()
             _top = df_render.iloc[0]
