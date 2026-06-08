@@ -420,7 +420,14 @@ if prec is not None and is_pitcher_player:
             defaults['p_k_pct']  = fmt_pct(cur_row.get('strikeout_percentage'))
             defaults['p_bb_pct'] = fmt_pct(cur_row.get('walk_percentage'))
             defaults['p_kbb_pct'] = fmt_pct(cur_row.get('strikeout_minus_walk_percentage'))
-            defaults['p_k9'] = fmt_rate(cur_row.get('strikeouts_per_9_innings'), 1)
+            # Softball games are 7 innings → show K/7, not K/9. Compute directly
+            # from strikeouts & innings_pitched (strikeouts_per_9_innings is K/9).
+            if sport_filter == 'softball':
+                _ks = pd.to_numeric(cur_row.get('strikeouts'), errors='coerce')
+                _ipv = pd.to_numeric(cur_row.get('innings_pitched'), errors='coerce')
+                defaults['p_k9'] = fmt_rate((_ks * 7 / _ipv) if (pd.notna(_ks) and pd.notna(_ipv) and _ipv > 0) else None, 1)
+            else:
+                defaults['p_k9'] = fmt_rate(cur_row.get('strikeouts_per_9_innings'), 1)
             # OPS-A: not in pitching.csv directly — leave editable, derive
             # from on_base_percentage_against + slugging_percentage_against if
             # present, else blank.
@@ -569,7 +576,7 @@ with st.expander(section_title, expanded=True):
         c1, c2, c3, c4 = st.columns(4)
         p_bb_pct  = c1.text_input('BB%',   value=defaults['p_bb_pct'])
         p_kbb_pct = c2.text_input('K-BB%', value=defaults['p_kbb_pct'])
-        p_k9      = c3.text_input('K/9',   value=defaults['p_k9'])
+        p_k9      = c3.text_input('K/7' if sport_filter == 'softball' else 'K/9', value=defaults['p_k9'])
         p_oppa    = c4.text_input('OPS-A', value=defaults['p_oppa'])
 
         c1, c2, c3, c4 = st.columns(4)
@@ -842,7 +849,10 @@ if is_pitcher_player:
         '{{S_TB}}': str(int(p_sv)), '{{S_BB}}': str(int(p_h)),
         '{{S_HBP}}': str(int(p_er)), '{{S_SO}}': str(int(p_bb)),
     }
-    label_map = {f'{{{{{k}}}}}': v for k, v in PITCHER_LABELS.items()}
+    _plabels = dict(PITCHER_LABELS)
+    if sport_filter == 'softball':
+        _plabels['LAB_7'] = 'K/7'   # softball = 7-inning games, not K/9
+    label_map = {f'{{{{{k}}}}}': v for k, v in _plabels.items()}
     career_rows_html = build_pitcher_career_rows_html(edited)
     career_head_html = build_career_head_html(PITCHER_LABELS)
 else:
