@@ -2056,8 +2056,35 @@ if view == 'Top 10 Portal Entrants':
         st.warning(f'No ranked {sport} {division} entrants in {pe_conf} for that date range. '
                    'Widen the range or pick another conference.')
         st.stop()
+
+    # ── Commitment status filter — uncommitted = blank new_team_id in PRP.
+    #    new_team_id is set once a player commits (or a commitment is applied);
+    #    blank/0 means no destination recorded yet. "Uncommitted only" gives a
+    #    best-players-still-available board.
+    pe_commit = st.sidebar.selectbox(
+        'Commitment status', ['All', 'Uncommitted only', 'Committed only'],
+        key='pe_commit',
+        help='Uncommitted = no committed school yet (new_team_id blank in '
+             'portal_rank_player.csv). Pick "Uncommitted only" for a best-available graphic.')
+    if 'new_team_id' in prp.columns:
+        _ntid = pd.to_numeric(prp['new_team_id'], errors='coerce')
+    else:
+        _ntid = pd.Series(pd.NA, index=prp.index, dtype='Float64')
+    _is_committed = _ntid.notna() & (_ntid > 0)
+    if pe_commit == 'Uncommitted only':
+        prp = prp[~_is_committed]
+    elif pe_commit == 'Committed only':
+        prp = prp[_is_committed]
+    _status_word = {'Uncommitted only': 'UNCOMMITTED', 'Committed only': 'COMMITTED'}.get(pe_commit, '')
+    if prp.empty:
+        st.warning(f'No {_status_word.lower() or "ranked"} {sport} {division} entrants in that date range'
+                   f'{"" if pe_conf == "All conferences" else " / " + pe_conf}. '
+                   'Widen the range or change the Commitment status filter.')
+        st.stop()
+
+    _commit_tag = f' · {_status_word.lower()}' if _status_word else ''
     st.sidebar.caption(f'{len(in_window)} entrant(s) in range · {len(prp)} ranked {sport} {division} entrants'
-                       + (f' · {pe_conf}' if pe_conf != 'All conferences' else ''))
+                       + (f' · {pe_conf}' if pe_conf != 'All conferences' else '') + _commit_tag)
 
     # ── Dropdown 2: Portal rank, or a 2026 stat. Dropdown 3 (the stat) only
     #    appears when "A stat" is chosen — picking a stat decides hitters vs
@@ -2091,11 +2118,12 @@ if view == 'Top 10 Portal Entrants':
             st.stop()
         df_sorted = prp.sort_values('StatVal', ascending=_asc).reset_index(drop=True)
         stat_col, stat_dec, stat_suffix = 'StatVal', _dec, ''
-        _sub_default = f'{sport.upper()} PORTAL — {pe_stat.upper()}'
+        _sub_default = f'{sport.upper()} {_status_word or "PORTAL"} — {pe_stat.upper()}'
     else:
         df_sorted = prp.sort_values('PortalRank').reset_index(drop=True)
         stat_col, stat_dec, stat_suffix = 'PortalRank', 0, ''
-        _sub_default = f'{sport.upper()} PORTAL ENTRANTS'
+        _sub_default = (f'TOP {_status_word} {sport.upper()} ENTRANTS' if _status_word
+                        else f'{sport.upper()} PORTAL ENTRANTS')
 
     # ── Auto (top 10) vs Manual (pick) ──
     pe_mode = st.radio('Selection', ['Auto — top 10', 'Manual — pick players'],
