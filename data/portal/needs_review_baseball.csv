@@ -1,3 +1,3 @@
 ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfer_date,update_date,status,year,sport,team_id,player_id_64a,player_id_ncaa_stats,matched_name,match_score,match_method,confidence,position,class_year,player_csv_team_id
-2108306164,CHARLES,WILLCOX,Charles Willcox,Georgia Institute of Technology,Atlantic Coast Conference,I,06/08/2026,06/08/2026,Active,2025-26,Baseball,295,130881,3236218,Charlie Willcox,93.3,team+lastname,LOW,P,Fr,295
-2408370464,JEREMIAH,FULLER,Jeremiah Fuller,University of Alabama at Birmingham,American Conference,I,06/08/2026,06/08/2026,Active,2025-26,Baseball,805,139154,3217542,Jay Fuller,72.0,team+lastname_diff_first,REVIEW,OF,Fr,805
+2302782817,LUKAS,JONES,Lukas Jones,Coastal Carolina University,Sun Belt Conference,I,06/08/2026,06/08/2026,Active,2025-26,Baseball,163,117619,3116806,Luke Jones,82,team+lastname_diff_first,REVIEW,P,So,163
+2307970622,NICHOLAS,BLEVINS,Nicholas Blevins,Lubbock Christian University,Lone Star Conference,II,06/08/2026,06/08/2026,Active,2025-26,Baseball,423,65043,2949935,Nick Blevins,92,team+lastname,LOW,P,,423
