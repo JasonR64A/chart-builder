@@ -1,4 +1,3 @@
 ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfer_date,update_date,status,year,sport,team_id,player_id_64a,player_id_ncaa_stats,matched_name,match_score,match_method,confidence,position,class_year,player_csv_team_id
-1910707589,ABIGAIL,CARSLEY,Abigail Carsley,Portland State University,Big Sky Conference,I,06/08/2026,06/08/2026,Active,2025-26,Softball,1209,78548,2945817,Abby Carsley,74.1,team+lastname_diff_first,REVIEW,1B,Jr,1209
-1909693992,SAMANTHA,POTVIN,Samantha Potvin,Iowa State University,Big 12 Conference,I,06/08/2026,06/08/2026,Active,2025-26,Softball,1227,107663,3088333,Sami Potvin,76.9,team+lastname_diff_first,REVIEW,P,So,1227
-2209658072,ALEXIS,KING,Alexis King,"University of Arkansas, Fayetteville",Southeastern Conference,I,06/08/2026,06/08/2026,Active,2025-26,Softball,1195,106319,3084997,Lexi King,92.0,team+lastname,LOW,P,So,1195
+2208634643,ISABELLA,FORAN,Isabella Foran,Florida Atlantic University,American Conference,I,06/08/2026,06/08/2026,Active,2025-26,Softball,1141,106499,3088683,Bella Foran,40.0,team+lastname_diff_first,REVIEW,LF,So,1141
+2309107360,JOLIE,JOHNSON,Jolie Johnson,Kennesaw State University,Conference USA,I,06/08/2026,06/08/2026,Active,2025-26,Softball,1360,107689,3104018,Jojo Johnson,80.0,team+lastname_diff_first,REVIEW,2B,So,1360
