@@ -216,7 +216,19 @@ def _is_pitcher(player_row, pid_int: int) -> bool:
         return False
     if 'P' in pos and pos != '':
         return True
-    return not pitching[pitching['player_id'] == pid_int].empty
+    # Blank/ambiguous position: only call them a pitcher on MEANINGFUL pitching
+    # volume (career IP >= 5) and no real hitting workload (career AB < 10). A
+    # stray mop-up outing must NOT flip a position player to the pitcher card,
+    # which would then look for 2026 pitching stats they don't have and render
+    # the all-zeros placeholder. (Mackenzie Wainwright 67046: 1B, 616 career AB,
+    # one 2.0-IP 2025 relief appearance -> was wrongly shown as a 0-stat pitcher.)
+    p = pitching[pitching['player_id'] == pid_int]
+    if p.empty:
+        return False
+    career_ip = pd.to_numeric(p['innings_pitched'], errors='coerce').fillna(0).sum()
+    h = hitting[hitting['player_id'] == pid_int]
+    career_ab = pd.to_numeric(h['at_bats'], errors='coerce').fillna(0).sum() if not h.empty else 0.0
+    return career_ip >= 5 and career_ab < 10
 
 
 def _career_sum(df: pd.DataFrame, col: str) -> float:
