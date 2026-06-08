@@ -1,2 +1,4 @@
 ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfer_date,update_date,status,year,sport,team_id,player_id_64a,player_id_ncaa_stats,matched_name,match_score,match_method,confidence,position,class_year,player_csv_team_id
+2210692525,CHARLES,SCHOLVIN,Charles Scholvin,University of Toledo,Mid-American Conference,I,06/08/2026,06/08/2026,Active,2025-26,Baseball,792,67729,2960016,Charlie Scholvin,93.8,team+lastname,LOW,SS,Jr,792
+2004851763,RICHARD,LACIEN,Richard Lacien,University of Illinois Urbana-Champaign,Big Ten Conference,I,06/08/2026,06/08/2026,Active,2025-26,Baseball,345,131704,3225841,Richie LaCien,81.5,team+lastname_diff_first,REVIEW,P,Sr,345
 2103132607,DAVID,SIMMONS,David Simmons,Campbell University,Coastal Athletic Association,I,06/08/2026,06/08/2026,Active,2025-26,Baseball,120,71238,2949338,Owen Simmons,64.0,team+lastname_diff_first,REVIEW,P,Jr,120
