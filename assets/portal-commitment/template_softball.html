@@ -1,0 +1,502 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Portal Commitment — {{NAME}}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --crimson: {{CRIMSON}};
+    --crimson-deep: {{CRIMSON_DEEP}};
+    --crimson-hot: {{CRIMSON_HOT}};
+    --ink: #0b0b0c;
+    --paper: #f4ecdd;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin:0; padding:0; background:#050405; font-family: 'Inter', system-ui, sans-serif; color:#fff; }
+  body { min-height:100vh; display:grid; place-items:center; padding: 24px; }
+
+  .stage-wrap {
+    width: min(100vw - 48px, calc((100vh - 48px) * 1.5));
+    aspect-ratio: 3 / 2;
+  }
+  .stage {
+    width: 1500px; height: 1000px;
+    transform-origin: top left;
+    position: relative;
+    overflow: hidden;
+    background: #0b0608;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+  }
+
+  /* ---------- PHOTO LAYER (right-anchored, revealing dark left bg) ---------- */
+  .photo-wrap { position:absolute; inset:0; }
+  .photo {
+    position:absolute;
+    top: 0; bottom: 0; right: 0;
+    width: 70%;
+    background-image: url("{{PHOTO_SRC}}");
+    background-size: cover;
+    background-position: 48% 18%;
+  }
+  .photo::before {
+    content:""; position:absolute; inset:0;
+    background: linear-gradient(90deg, rgba(11,6,8,1) 0%, rgba(11,6,8,0) 22%, rgba(11,6,8,0) 78%, rgba(11,6,8,0.85) 100%);
+  }
+  .photo::after {
+    content:""; position:absolute; inset:0;
+    background: linear-gradient(180deg, rgba(11,6,8,0.35) 0%, rgba(11,6,8,0) 16%, rgba(11,6,8,0) 62%, rgba(11,6,8,0.92) 100%);
+  }
+
+  .left-panel {
+    position:absolute; top:0; bottom:0; left:0;
+    width: 42%;
+    background:
+      radial-gradient(ellipse 90% 80% at 25% 50%, {{CRIMSON_FADE}} 0%, rgba(11,6,8,0) 70%),
+      linear-gradient(90deg, rgba(11,6,8,0.88) 0%, rgba(11,6,8,0.55) 80%, rgba(11,6,8,0) 100%);
+  }
+
+  .grain {
+    position:absolute; inset:0; pointer-events:none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='260'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.35 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    mix-blend-mode: overlay;
+    opacity: 0.35;
+  }
+
+  .ghost-wrap {
+    position:absolute;
+    left: 0; right: 0;
+    top: 455px;
+    display:flex; align-items:center; justify-content:flex-start;
+    pointer-events:none;
+    z-index: 2;
+    mix-blend-mode: screen;
+    overflow: hidden;
+    height: 360px;
+    padding-left: 24px;
+  }
+  .ghost {
+    font-family:'Inter', sans-serif;
+    font-weight: 900;
+    font-size: 340px;
+    letter-spacing: -0.04em;
+    line-height: 0.8;
+    color: rgba(255,255,255,0.16);
+    white-space: nowrap;
+    text-transform: uppercase;
+  }
+
+  .slash-bg { position:absolute; inset:0; pointer-events:none; overflow:hidden; }
+  .slash-bg .bar-1 {
+    position:absolute;
+    left: -40px; top: 755px;
+    width: 1600px; height: 12px;
+    background: var(--crimson);
+    transform: skewY(-2deg);
+    box-shadow: 0 6px 24px {{CRIMSON_GLOW}};
+  }
+  .slash-bg .bar-2 {
+    position:absolute;
+    left: -40px; top: 774px;
+    width: 900px; height: 3px;
+    background: rgba(255,255,255,0.7);
+    transform: skewY(-2deg);
+  }
+
+  .brand-tl { position:absolute; left: 40px; top: 34px; z-index: 10; display:flex; gap: 14px; align-items:center; }
+  .brand-tl img { height: 86px; width:86px; display:block; object-fit: contain; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.6)); }
+
+  .meta-tr {
+    position:absolute; right: 40px; top: 44px; z-index: 10;
+    text-align:right;
+    font-family:'Inter', sans-serif;
+  }
+  .meta-tr .kicker {
+    font-size: 13px; letter-spacing: 0.42em; font-weight: 700;
+    color: #f2d3d8;
+    margin-bottom: 6px;
+    white-space: nowrap;
+  }
+  .meta-tr .date {
+    font-family:'Inter', sans-serif; font-weight: 700;
+    font-size: 20px; letter-spacing: 0.1em; color:#fff;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.7);
+    white-space: nowrap;
+  }
+
+  .eyebrow-committed {
+    position:absolute;
+    left: 48px; top: 172px;
+    font-family:'Inter', sans-serif; font-weight: 700;
+    font-size: 16px; letter-spacing: 0.55em;
+    color: var(--crimson-hot);
+    text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+    z-index: 6;
+  }
+  .committed-mark {
+    position:absolute;
+    left: 48px; top: 198px;
+    z-index: 6;
+    display:flex; align-items:baseline; gap: 0;
+  }
+  .committed-mark .big {
+    font-family:'Inter', sans-serif; font-weight: 900;
+    font-size: 104px; line-height: 0.9;
+    letter-spacing: -0.04em;
+    color: #fff;
+    text-shadow: 0 4px 20px rgba(0,0,0,0.65);
+    text-transform: uppercase;
+  }
+  .committed-mark .dot {
+    font-family:'Inter', sans-serif; font-weight: 900;
+    font-size: 104px; line-height: 0.9;
+    color: var(--crimson-hot);
+    margin-left: 2px;
+  }
+
+  .name-block {
+    position:absolute;
+    left: 48px; top: 330px;
+    z-index: 6;
+    max-width: 620px;
+  }
+  .name-block .name {
+    font-family:'Inter', sans-serif; font-weight: 800;
+    /* font-size computed per-name in Python ({{NAME_FONT_SIZE}}) to fit the
+       620px name-block; was a fixed 72px. */
+    font-size: {{NAME_FONT_SIZE}}px; line-height: 0.94; letter-spacing: -0.02em;
+    color:#fff;
+    text-shadow: 0 4px 16px rgba(0,0,0,0.75);
+  }
+  .name-block .badges {
+    display:flex; gap: 10px; flex-wrap: wrap;
+    margin-top: 18px;
+  }
+  .name-block .pos {
+    background: var(--crimson);
+    padding: 8px 16px 7px;
+    font-family:'Inter', sans-serif; font-weight:800;
+    font-size: 18px; letter-spacing: 0.28em;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.45);
+    color:#fff;
+    white-space: nowrap;
+  }
+  .name-block .hand {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 8px 16px 7px;
+    font-family:'Inter', sans-serif; font-weight:700;
+    font-size: 18px; letter-spacing: 0.28em;
+    color: #fff;
+    backdrop-filter: blur(4px);
+    white-space: nowrap;
+  }
+
+  .transition {
+    position:absolute;
+    left: 48px; top: 572px;
+    z-index: 6;
+    display:flex; align-items:center; gap: 22px;
+    padding: 14px 28px 14px 22px;
+    background: rgba(0,0,0,0.72);
+    border: 1px solid rgba(255,255,255,0.14);
+    border-left: 4px solid var(--crimson);
+    backdrop-filter: blur(6px);
+    box-shadow: 0 18px 40px rgba(0,0,0,0.55);
+    width: 680px;
+  }
+  .transition .from .lab {
+    font-family:'Inter', sans-serif; font-weight:700;
+    font-size: 11px; letter-spacing: 0.45em; color: #a8a8a8;
+    margin-bottom: 5px;
+  }
+  .transition .from .sch {
+    font-family:'Inter', sans-serif; font-weight:700;
+    font-size: 26px; letter-spacing: 0em; color: #dcdcdc;
+    line-height: 1;
+    white-space: nowrap;
+  }
+  .transition .from .sch .small {
+    display:block; font-weight:600; font-size: 11px; letter-spacing: 0.3em;
+    color: #8a8a8a; margin-top: 5px;
+  }
+  .transition .arrow {
+    display:flex; align-items:center; justify-content:center;
+    width: 50px; height: 22px;
+    color: var(--crimson-hot);
+  }
+  .transition .arrow svg { width: 50px; height: 22px; }
+  .transition .to { display:flex; flex-direction:column; align-items: flex-start; }
+  .transition .to .lab {
+    font-family:'Inter', sans-serif; font-weight:700;
+    font-size: 11px; letter-spacing: 0.45em; color: var(--crimson-hot);
+    margin-bottom: 5px;
+  }
+  .transition .to .to-row { display:flex; align-items:center; gap: 22px; }
+  .transition .to .logo {
+    width: 54px; height: 54px;
+    display:grid; place-items:center;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+  .transition .to .logo .logo-img {
+    width: 40px; height: 40px;
+    background-image: url("{{TO_LOGO_SRC}}");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  .transition .to .sch {
+    font-family:'Inter', sans-serif; font-weight:800;
+    font-size: 28px; letter-spacing: -0.01em; color: #fff;
+    line-height: 1;
+    white-space: nowrap;
+  }
+  .transition .to .sch .small {
+    display:block; font-weight:600; font-size: 11px; letter-spacing: 0.3em;
+    color: var(--crimson-hot); margin-top: 5px;
+  }
+
+  .rank {
+    position:absolute;
+    right: 54px;
+    top: 150px;
+    z-index: 8;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at 35% 30%, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0) 40%),
+      linear-gradient(160deg, var(--crimson) 0%, var(--crimson-deep) 100%);
+    box-shadow:
+      0 0 0 4px rgba(255,255,255,0.95),
+      0 0 0 6px rgba(11,6,8,0.9),
+      0 18px 40px rgba(0,0,0,0.55),
+      inset 0 2px 0 rgba(255,255,255,0.2);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    transform: rotate(-6deg);
+    padding: 10px;
+  }
+  .rank .hash {
+    font-family:'Inter', sans-serif; font-weight:700;
+    font-size: 18px; letter-spacing: 0.3em;
+    color: rgba(255,255,255,0.85);
+    line-height: 1;
+  }
+  .rank .num {
+    font-family:'Inter', sans-serif; font-weight:900;
+    font-size: 92px; line-height: 0.85;
+    color: #fff;
+    margin: 2px 0 4px;
+    letter-spacing: -0.04em;
+    text-shadow: 0 4px 10px rgba(0,0,0,0.35);
+  }
+  .rank .label {
+    font-family:'Inter', sans-serif; font-weight:800;
+    font-size: 11px; letter-spacing: 0.32em;
+    color: #fff; opacity: 0.95;
+    line-height: 1.15; text-align:center;
+  }
+  .rank .src {
+    font-family:'Inter', sans-serif; font-weight:700;
+    font-size: 9px; letter-spacing: 0.3em;
+    color: #fff; opacity: 0.78;
+    margin-top: 6px;
+    padding-top: 6px;
+    border-top: 1px solid rgba(255,255,255,0.35);
+    width: 75%;
+    text-align:center;
+  }
+
+  .stats-strip {
+    position:absolute;
+    left: 48px; right: 48px;
+    bottom: 44px;
+    z-index: 6;
+    display:grid;
+    grid-template-columns: 2.4fr 1fr 1fr 1fr 1fr;
+    gap: 14px;
+    height: 142px;
+  }
+  .stat-cell {
+    position:relative;
+    background: rgba(10,6,8,0.78);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-top: 3px solid var(--crimson);
+    padding: 14px 18px 12px;
+    display:flex; flex-direction:column; justify-content:space-between;
+    backdrop-filter: blur(6px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+  }
+  .stat-cell .lab {
+    font-family:'Inter', sans-serif; font-weight:800;
+    font-size: 12px; letter-spacing: 0.4em;
+    color: var(--crimson-hot);
+    line-height: 1;
+  }
+  .stat-cell .val {
+    font-family:'Inter', sans-serif; font-weight:900;
+    color: #fff; line-height: 1;
+    font-size: 52px;
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+  }
+  .stat-cell .sub {
+    font-family:'Inter', sans-serif; font-weight:600;
+    font-size: 12px; letter-spacing: 0.18em;
+    color: #b9b9bd;
+    text-transform: uppercase;
+  }
+  .stat-cell.hero {
+    background: linear-gradient(135deg, {{CRIMSON_BG_HERO_A}} 0%, {{CRIMSON_BG_HERO_B}} 100%);
+    border-top-color: #fff;
+  }
+  .stat-cell.hero .lab { color: #ffd2d8; }
+  .stat-cell.hero .val {
+    font-family: 'Inter', system-ui, monospace;
+    font-weight: 700;
+    font-size: 40px;
+    letter-spacing: 0.01em;
+  }
+  .stat-cell.hero .sub { color: #f4ecdd; opacity: 0.88; }
+
+  .footer-rule {
+    position:absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 14px;
+    background:
+      linear-gradient(90deg,
+        var(--crimson) 0%,
+        var(--crimson) 70%,
+        #fff 70%,
+        #fff 72%,
+        var(--crimson-hot) 72%,
+        var(--crimson-hot) 100%);
+  }
+  .footer-rule .tag {
+    position:absolute;
+    right: 24px; top: -24px;
+    font-family:'Inter', sans-serif; font-weight:700;
+    font-size: 12px; letter-spacing: 0.32em;
+    color:#fff; opacity: 0.8;
+    white-space: nowrap;
+  }
+</style>
+</head>
+<body>
+  <div class="stage-wrap" id="stage-wrap">
+    <div class="stage" id="stage" data-screen-label="Portal Commitment Graphic">
+
+      <div class="photo-wrap"><div class="photo"></div></div>
+      <div class="left-panel"></div>
+
+      <div class="ghost-wrap"><div class="ghost">COMMITTED</div></div>
+
+      <div class="slash-bg">
+        <div class="bar-1"></div>
+        <div class="bar-2"></div>
+      </div>
+
+      <div class="grain"></div>
+
+      <div class="brand-tl">
+        <img src="{{LOGO_64A_SRC}}" alt="64 Analytics" />
+      </div>
+
+      <div class="meta-tr">
+        <div class="kicker">{{KICKER}}</div>
+        <div class="date">{{COMMIT_DATE}}</div>
+      </div>
+
+      <div class="eyebrow-committed">{{EYEBROW}}</div>
+      <div class="committed-mark">
+        <span class="big">COMMITTED</span><span class="dot">.</span>
+      </div>
+
+      <div class="name-block">
+        <div class="name">{{NAME_HTML}}</div>
+        <div class="badges">
+          <span class="pos">{{POS}}</span>
+          <span class="hand">{{HAND_BADGE}}</span>
+        </div>
+      </div>
+
+      <div class="transition">
+        <div class="from">
+          <div class="lab">FROM</div>
+          <div class="sch">{{FROM_SCHOOL}}<span class="small">{{FROM_SUB}}</span></div>
+        </div>
+        <div class="arrow">
+          <svg viewBox="0 0 50 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 11 L42 11" stroke="currentColor" stroke-width="3" stroke-linecap="square"/>
+            <path d="M34 2 L46 11 L34 20" stroke="currentColor" stroke-width="3" fill="none" stroke-linejoin="miter"/>
+          </svg>
+        </div>
+        <div class="to">
+          <div class="lab">COMMITTED TO</div>
+          <div class="to-row">
+            <div class="logo"><div class="logo-img"></div></div>
+            <div class="sch">{{TO_SCHOOL}}<span class="small">{{TO_SUB}}</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rank">
+        <div class="hash">NO.</div>
+        <div class="num">{{PORTAL_RANK}}</div>
+        <div class="label">PORTAL<br/>RANKING</div>
+        <div class="src">{{RANK_SRC}}</div>
+      </div>
+
+      <div class="stats-strip">
+        <div class="stat-cell hero">
+          <div class="lab">{{HERO_LAB}}</div>
+          <div class="val">{{HERO_VAL}}</div>
+          <div class="sub">{{HERO_SUB}}</div>
+        </div>
+        <div class="stat-cell">
+          <div class="lab">{{S1_LAB}}</div>
+          <div class="val">{{S1_VAL}}</div>
+          <div class="sub">{{S1_SUB}}</div>
+        </div>
+        <div class="stat-cell">
+          <div class="lab">{{S2_LAB}}</div>
+          <div class="val">{{S2_VAL}}</div>
+          <div class="sub">{{S2_SUB}}</div>
+        </div>
+        <div class="stat-cell">
+          <div class="lab">{{S3_LAB}}</div>
+          <div class="val">{{S3_VAL_HTML}}</div>
+          <div class="sub">{{S3_SUB}}</div>
+        </div>
+        <div class="stat-cell">
+          <div class="lab">{{S4_LAB}}</div>
+          <div class="val">{{S4_VAL}}</div>
+          <div class="sub">{{S4_SUB}}</div>
+        </div>
+      </div>
+
+      <div class="footer-rule">
+        <div class="tag">{{FOOTER_TAG}}</div>
+      </div>
+
+    </div>
+  </div>
+
+<script>
+  function fit() {
+    const wrap = document.getElementById('stage-wrap');
+    const stage = document.getElementById('stage');
+    const s = wrap.clientWidth / 1500;
+    stage.style.transform = `scale(${s})`;
+    wrap.style.height = (1000 * s) + 'px';
+  }
+  window.addEventListener('resize', fit);
+  fit();
+</script>
+</body>
+</html>

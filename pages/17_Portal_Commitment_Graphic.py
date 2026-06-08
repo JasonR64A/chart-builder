@@ -26,6 +26,10 @@ ASSETS_DIR = _APP_DIR / 'assets' / 'portal-commitment'
 ENTRANT_ASSETS = _APP_DIR / 'assets' / 'portal-entrant'  # share the 64A logo
 
 TEMPLATE_PATH = ASSETS_DIR / 'template.html'
+# Softball = same 1500x1000 landscape as template.html with the baseball-show
+# brand logos (College Baseball Show, JB) dropped from the top-left, keeping only
+# the 64 Analytics mark. Mirrors the Portal Entrant Graphic softball template.
+TEMPLATE_SOFTBALL_PATH = ASSETS_DIR / 'template_softball.html'
 TEMPLATE_PORTRAIT_PATH = ASSETS_DIR / 'template_portrait.html'
 TEMPLATE_W, TEMPLATE_H = 1500, 1000
 TEMPLATE_PORTRAIT_W, TEMPLATE_PORTRAIT_H = 1080, 1350
@@ -364,12 +368,13 @@ st.subheader('2. Review & edit fields')
 
 format_choice = st.radio(
     'Output format',
-    options=['Landscape (1500×1000) — Twitter/web', 'Portrait (1080×1350) — Instagram'],
+    options=['Landscape (1500×1000) — Twitter/web', 'Softball (1500×1000) — Twitter/web', 'Portrait (1080×1350) — Instagram'],
     index=0,
     horizontal=True,
     key='commit_format',
 )
 is_portrait = format_choice.startswith('Portrait')
+is_softball = format_choice.startswith('Softball')
 
 with st.expander('Identity', expanded=True):
     c1, c2, c3 = st.columns([3, 1, 1])
@@ -641,7 +646,9 @@ commit_date_str = commit_date_dt.strftime('%b %d, %Y').upper()
 # NAME html — let the user break on \n
 name_html = name.replace('\n', '<br/>')
 
-template_path = TEMPLATE_PORTRAIT_PATH if is_portrait else TEMPLATE_PATH
+template_path = (TEMPLATE_PORTRAIT_PATH if is_portrait
+                 else TEMPLATE_SOFTBALL_PATH if is_softball
+                 else TEMPLATE_PATH)
 template = template_path.read_text(encoding='utf-8')
 
 # Portrait slash card splits {{HERO_VAL}} into 3 keyed rows. Falls back to
@@ -827,7 +834,9 @@ png_btn = """
   </button>
 </div>
 """
-png_filename = 'portal_commitment_portrait.png' if is_portrait else 'portal_commitment.png'
+png_filename = ('portal_commitment_portrait.png' if is_portrait
+                else 'portal_commitment_softball.png' if is_softball
+                else 'portal_commitment.png')
 # Portrait → scale=1 so the PNG is exactly 1080×1350 (Instagram portrait spec).
 # Landscape → scale=2 keeps the existing 3000×2000 high-res output for Twitter/web.
 png_scale = '1' if is_portrait else '2'
