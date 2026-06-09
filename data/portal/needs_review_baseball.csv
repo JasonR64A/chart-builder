@@ -1,4 +1,6 @@
 ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfer_date,update_date,status,year,sport,team_id,player_id_64a,player_id_ncaa_stats,matched_name,match_score,match_method,confidence,position,class_year,player_csv_team_id
+2302792704,JAMES,NUNNALLEE II,James Nunnallee Ii,Mississippi State University,Southeastern Conference,I,06/09/2026,06/09/2026,Active,2025-26,Baseball,488,115444,3097017,James Nunnallee,92.0,team+lastname,LOW,RF,So,488
+2210698463,SAMUEL,ALESSI,Samuel Alessi,Catawba College,South Atlantic Conference,II,06/09/2026,06/09/2026,Active,2025-26,Baseball,127,104957,3108898,Sam Alessi,92.0,team+lastname,LOW,P,So,127
 2002815785,BENJAMIN,AYALA,Benjamin Ayala,Missouri Western State University,Mid-America Intercollegiate Athletics Association,II,06/09/2026,06/09/2026,Active,2025-26,Baseball,493,52706,2810484,Ben Ayala,92.0,team+lastname,LOW,P,Jr,493
 2402212138,CHRISTOPHER,RICARD,Christopher Ricard,Tarleton State University,Western Athletic Conference,I,06/09/2026,06/09/2026,Active,2025-26,Baseball,773,137109,3237363,Chris Ricard,92.0,team+lastname,LOW,DH,Jr,773
 2109311518,RUSSELL,MITCHELL,Russell Mitchell,Coastal Carolina University,Sun Belt Conference,I,06/09/2026,06/09/2026,Active,2025-26,Baseball,163,67914,2954322,Walker Mitchell,64.5,team+lastname_diff_first,REVIEW,3B,Jr,163
