@@ -1,4 +1,3 @@
 ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfer_date,update_date,status,year,sport,team_id,player_id_64a,player_id_ncaa_stats,matched_name,match_score,match_method,confidence,position,class_year,player_csv_team_id
-2309999434,BENJAMIN,LLEWELLYN,Benjamin Llewellyn,"Minnesota State University, Mankato",Northern Sun Intercollegiate Conference,II,06/09/2026,06/09/2026,Active,2025-26,Baseball,484,120207,3114862,Ben Llewellyn,92.0,team+lastname,LOW,P,So,484
-2210688622,NICHOLAS,ABRAHAM,Nicholas Abraham,"University of Tennessee, Knoxville",Southeastern Conference,I,06/09/2026,06/09/2026,Active,2025-26,Baseball,776,117870,3097268,Nic Abraham,81.5,team+lastname_diff_first,REVIEW,P,So,776
-2307965296,NATHAN,EISFELDER,Nathan Eisfelder,"University of Tennessee, Knoxville",Southeastern Conference,I,06/09/2026,06/09/2026,Active,2025-26,Baseball,776,137212,3227282,Nate Eisfelder,92.0,team+lastname,LOW,RF,Fr,776
+2201415814,COREY,RICHARDSON JR,Corey Richardson Jr,Jackson State University,Southwestern Athletic Conf.,I,06/09/2026,06/09/2026,Active,2025-26,Baseball,355,124985,3127488,Corey Richardson,92,team+lastname,LOW,P,Fr,355
+2209677063,JOHN,FITZGERALD,John Fitzgerald,University of Montevallo,Gulf South Conference,II,06/09/2026,06/09/2026,Active,2025-26,Baseball,503,68718,2962138,Jack Fitzgerald,92,team+lastname,LOW,1B,So,503
