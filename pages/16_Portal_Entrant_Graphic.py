@@ -113,7 +113,12 @@ PITCHER_LABELS = {
 def _is_pitcher(player_row) -> bool:
     """Pitcher detection — position contains 'P' (NCAA position codes use P,
     SP, RP, RHP, LHP) and not just 'PH'/'PR' (pinch-hitter / pinch-runner).
-    Falls back to "has rows in pitching.csv" when position is blank."""
+    For a blank/ambiguous position, fall back to pitching.csv but only on
+    MEANINGFUL volume (career IP >= 5) with no real hitting workload
+    (career AB < 10). A position player's stray appearance must NOT flip them
+    to the pitcher card, which would then show a near-empty pitching line.
+    (Luke Collier 55739: SS, 638 career AB, one 0.0-IP 2026 outing -> was
+    wrongly treated as a pitcher and rendered with almost no stats.)"""
     if player_row is None:
         return False
     pos = str(player_row.get('position') or '').upper().strip()
@@ -125,7 +130,15 @@ def _is_pitcher(player_row) -> bool:
         pid = int(player_row.get('id') or 0)
     except Exception:
         return False
-    return pid != 0 and not pitching[pitching['player_id'] == pid].empty
+    if pid == 0:
+        return False
+    p = pitching[pitching['player_id'] == pid]
+    if p.empty:
+        return False
+    career_ip = pd.to_numeric(p['innings_pitched'], errors='coerce').fillna(0).sum()
+    h = hitting[hitting['player_id'] == pid]
+    career_ab = pd.to_numeric(h['at_bats'], errors='coerce').fillna(0).sum() if not h.empty else 0.0
+    return career_ip >= 5 and career_ab < 10
 
 # Join team name + sport onto players for display
 team_lookup = teams[['id', 'name', 'sport']].rename(
