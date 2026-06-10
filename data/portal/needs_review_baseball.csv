@@ -1,4 +1,5 @@
 ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfer_date,update_date,status,year,sport,team_id,player_id_64a,player_id_ncaa_stats,matched_name,match_score,match_method,confidence,position,class_year,player_csv_team_id
+2108291757,ETHAN,KODAMA,Ethan Kodama,"University of California, Berkeley",Atlantic Coast Conference,I,06/10/2026,06/10/2026,Active,2025-26,Baseball,114,69424,2968062,Ethan Kodma,95.7,team+lastname,MEDIUM,RF,So,114
 2211711359,TOMMY,MELUSKEY,Tommy Meluskey,New Mexico State University,Conference USA,I,06/10/2026,06/10/2026,Active,2025-26,Baseball,532,69641,2963492,Thomas Meluskey,92.0,team+lastname,LOW,RF,So,532
 2009929215,JOSEPH,CANTRELL,Joseph Cantrell,Jacksonville State University,Conference USA,I,06/10/2026,06/10/2026,Active,2025-26,Baseball,357,115810,3113147,Fisher Cantrell,73.3,team+lastname_diff_first,REVIEW,P,So,357
 2503543071,CHRIS,BILLINGSLEY,Chris Billingsley,Mississippi State University,Southeastern Conference,I,06/10/2026,06/10/2026,Active,2025-26,Baseball,488,133726,3220743,Chris Billingsley Jr.,92.0,team+lastname,LOW,P,Jr,488
