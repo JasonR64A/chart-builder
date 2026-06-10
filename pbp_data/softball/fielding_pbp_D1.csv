@@ -180308,31 +180308,97 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6581718,5/21/26,softball,Nebraska,1.0,Kennadi Williams,15,PR,9670939.0,1,0,0,0,0,0.0,0,0,0,0,0
 6581718,5/21/26,softball,Nebraska,1.0,Bella Bacon,3,1B,9666406.0,1,8,0,8,0,1.0,0,0,0,0,1
 6581718,5/21/26,softball,Nebraska,1.0,Lauren Camenzind,2,2B,9669324.0,1,2,2,4,0,1.0,0,0,0,0,1
-6582503,6/09/26,softball,Texas,,Kayden Henry,21,CF,9665428.0,1,3,0,3,0,1.0,0,0,0,0,0
-6582503,6/09/26,softball,Texas,,Katie Stewart,20,1B,9668120.0,1,7,0,7,0,1.0,0,0,0,0,0
-6582503,6/09/26,softball,Texas,,Alisa Sneed,9,PR,11237580.0,1,0,0,0,0,0.0,0,0,0,0,0
-6582503,6/09/26,softball,Texas,,Viviana Martinez,23,SS,9668247.0,1,1,4,5,0,1.0,0,0,0,0,0
-6582503,6/09/26,softball,Texas,,Reese Atwood,14,C,9664628.0,1,8,0,8,0,1.0,0,0,2,0,0
-6582503,6/09/26,softball,Texas,,Adayah Wallace,4,PR,9659171.0,1,0,0,0,0,0.0,0,0,0,0,0
-6582503,6/09/26,softball,Texas,,Leighann Goode,43,2B,9662475.0,1,1,2,3,0,1.0,0,0,0,0,0
-6582503,6/09/26,softball,Texas,,Hannah Wells,13,DP/P,11237584.0,1,0,0,0,0,0.0,0,0,0,0,0
-6582503,6/09/26,softball,Texas,,Taylor Anderson,27,DP,9973529.0,1,0,0,0,0,0.0,0,0,0,0,0
-6582503,6/09/26,softball,Texas,,Kaiah Altmeyer,44,LF,11237573.0,1,0,0,0,0,0.0,0,0,0,0,0
-6582503,6/09/26,softball,Texas,,Ashton Maloney,7,RF,9668339.0,1,1,0,1,0,1.0,0,0,0,0,0
-6582503,6/09/26,softball,Texas,,Jaycie Nichols,24,3B,11237578.0,1,0,2,2,0,1.0,0,0,0,0,0
-6582503,6/09/26,softball,Texas,,Victoria Hunter,12,PH,9667376.0,1,0,0,0,0,0.0,0,0,0,0,0
-6582503,6/09/26,softball,Texas Tech,1.0,Mia Williams,1,2B,11202032.0,1,1,2,3,0,1.0,0,0,0,0,0
-6582503,6/09/26,softball,Texas Tech,1.0,Mihyia Davis,42,CF,9668334.0,1,2,0,2,0,1.0,0,0,0,0,0
-6582503,6/09/26,softball,Texas Tech,1.0,Lauren Allred,11,RF,9668995.0,1,0,0,0,0,0.0,0,0,0,0,0
-6582503,6/09/26,softball,Texas Tech,1.0,Jackie Lis,0,1B,11201907.0,1,7,0,7,0,1.0,0,0,0,0,0
-6582503,6/09/26,softball,Texas Tech,1.0,Taylor Pannell,6,3B,11202028.0,1,3,1,4,0,1.0,0,0,0,0,0
-6582503,6/09/26,softball,Texas Tech,1.0,Kaitlyn Terry,55,LF/DP,11202031.0,1,0,0,0,0,0.0,0,0,0,0,0
-6582503,6/09/26,softball,Texas Tech,1.0,Jasmyn Burns,12,DP,11201903.0,1,0,0,0,0,0.0,0,0,0,0,0
-6582503,6/09/26,softball,Texas Tech,1.0,Logan Halleman,7,PR/LF,9660161.0,1,2,0,2,0,1.0,0,0,0,0,0
-6582503,6/09/26,softball,Texas Tech,1.0,Hailey Toney,32,SS,9667168.0,1,2,1,4,1,0.75,0,0,0,0,0
-6582503,6/09/26,softball,Texas Tech,1.0,Lagi Quiroga,4,C,11202029.0,1,3,0,3,0,1.0,0,0,1,0,0
-6582503,6/09/26,softball,Texas Tech,1.0,Makayla Garcia,3,PR,9664791.0,1,0,0,0,0,0.0,0,0,0,0,0
-6582503,6/09/26,softball,Texas Tech,1.0,Victoria Valdez,13,C,9657470.0,1,1,0,1,0,1.0,0,0,0,0,0
+6582503,6/10/26,softball,Texas,,Kayden Henry,21,CF,9665428.0,1,3,0,3,0,1.0,0,0,0,0,0
+6582503,6/10/26,softball,Texas,,Katie Stewart,20,1B,9668120.0,1,7,0,7,0,1.0,0,0,0,0,0
+6582503,6/10/26,softball,Texas,,Alisa Sneed,9,PR,11237580.0,1,0,0,0,0,0.0,0,0,0,0,0
+6582503,6/10/26,softball,Texas,,Viviana Martinez,23,SS,9668247.0,1,1,4,5,0,1.0,0,0,0,0,0
+6582503,6/10/26,softball,Texas,,Reese Atwood,14,C,9664628.0,1,8,0,8,0,1.0,0,0,2,0,0
+6582503,6/10/26,softball,Texas,,Adayah Wallace,4,PR,9659171.0,1,0,0,0,0,0.0,0,0,0,0,0
+6582503,6/10/26,softball,Texas,,Leighann Goode,43,2B,9662475.0,1,1,2,3,0,1.0,0,0,0,0,0
+6582503,6/10/26,softball,Texas,,Hannah Wells,13,DP/P,11237584.0,1,0,0,0,0,0.0,0,0,0,0,0
+6582503,6/10/26,softball,Texas,,Taylor Anderson,27,DP,9973529.0,1,0,0,0,0,0.0,0,0,0,0,0
+6582503,6/10/26,softball,Texas,,Kaiah Altmeyer,44,LF,11237573.0,1,0,0,0,0,0.0,0,0,0,0,0
+6582503,6/10/26,softball,Texas,,Ashton Maloney,7,RF,9668339.0,1,1,0,1,0,1.0,0,0,0,0,0
+6582503,6/10/26,softball,Texas,,Jaycie Nichols,24,3B,11237578.0,1,0,2,2,0,1.0,0,0,0,0,0
+6582503,6/10/26,softball,Texas,,Victoria Hunter,12,PH,9667376.0,1,0,0,0,0,0.0,0,0,0,0,0
+6582503,6/10/26,softball,Texas Tech,1.0,Mia Williams,1,2B,11202032.0,1,1,2,3,0,1.0,0,0,0,0,0
+6582503,6/10/26,softball,Texas Tech,1.0,Mihyia Davis,42,CF,9668334.0,1,2,0,2,0,1.0,0,0,0,0,0
+6582503,6/10/26,softball,Texas Tech,1.0,Lauren Allred,11,RF,9668995.0,1,0,0,0,0,0.0,0,0,0,0,0
+6582503,6/10/26,softball,Texas Tech,1.0,Jackie Lis,0,1B,11201907.0,1,7,0,7,0,1.0,0,0,0,0,0
+6582503,6/10/26,softball,Texas Tech,1.0,Taylor Pannell,6,3B,11202028.0,1,3,1,4,0,1.0,0,0,0,0,0
+6582503,6/10/26,softball,Texas Tech,1.0,Kaitlyn Terry,55,LF/DP,11202031.0,1,0,0,0,0,0.0,0,0,0,0,0
+6582503,6/10/26,softball,Texas Tech,1.0,Jasmyn Burns,12,DP,11201903.0,1,0,0,0,0,0.0,0,0,0,0,0
+6582503,6/10/26,softball,Texas Tech,1.0,Logan Halleman,7,PR/LF,9660161.0,1,2,0,2,0,1.0,0,0,0,0,0
+6582503,6/10/26,softball,Texas Tech,1.0,Hailey Toney,32,SS,9667168.0,1,2,1,4,1,0.75,0,0,0,0,0
+6582503,6/10/26,softball,Texas Tech,1.0,Lagi Quiroga,4,C,11202029.0,1,3,0,3,0,1.0,0,0,1,0,0
+6582503,6/10/26,softball,Texas Tech,1.0,Makayla Garcia,3,PR,9664791.0,1,0,0,0,0,0.0,0,0,0,0,0
+6582503,6/10/26,softball,Texas Tech,1.0,Victoria Valdez,13,C,9657470.0,1,1,0,1,0,1.0,0,0,0,0,0
+6582493,6/01/26,softball,Tennessee,,Sophia Knight,2,CF,11241196.0,1,2,0,2,0,1.0,0,0,0,0,0
+6582493,6/01/26,softball,Tennessee,,Ella Dodge,25,3B,9656114.0,1,1,0,1,0,1.0,0,0,0,0,0
+6582493,6/01/26,softball,Tennessee,,Emma Clarke,13,2B,9668541.0,1,1,2,3,0,1.0,0,0,0,0,1
+6582493,6/01/26,softball,Tennessee,,Alannah Leach,10,DP,9658515.0,1,0,0,0,0,0.0,0,0,0,0,0
+6582493,6/01/26,softball,Tennessee,,Elsa Morrison,22,C,11241201.0,1,5,2,7,0,1.0,0,0,2,0,0
+6582493,6/01/26,softball,Tennessee,,Gabby Leach,55,RF,9666198.0,1,0,1,1,0,1.0,0,0,0,0,0
+6582493,6/01/26,softball,Tennessee,,Makenzie Butt,98,1B,11241214.0,1,8,0,8,0,1.0,0,0,0,0,1
+6582493,6/01/26,softball,Tennessee,,Bella Faw,12,SS,9661874.0,1,1,1,2,0,1.0,0,0,0,0,0
+6582493,6/01/26,softball,Tennessee,,Taelyn Holley,27,LF,11241203.0,1,0,0,0,0,0.0,0,0,0,0,0
+6582493,6/01/26,softball,Texas,1.0,Kayden Henry,21,CF,9665428.0,1,1,0,1,0,1.0,0,0,0,0,0
+6582493,6/01/26,softball,Texas,1.0,Katie Stewart,20,1B,9668120.0,1,4,0,4,0,1.0,0,0,0,0,0
+6582493,6/01/26,softball,Texas,1.0,Viviana Martinez,23,SS,9668247.0,1,1,0,1,0,1.0,0,0,0,0,0
+6582493,6/01/26,softball,Texas,1.0,Reese Atwood,14,C,9664628.0,1,10,0,10,0,1.0,0,0,0,0,0
+6582493,6/01/26,softball,Texas,1.0,Leighann Goode,43,2B,9662475.0,1,1,1,2,0,1.0,0,0,0,0,0
+6582493,6/01/26,softball,Texas,1.0,Hannah Wells,13,DP/1B,11237584.0,1,0,0,0,0,0.0,0,0,0,0,0
+6582493,6/01/26,softball,Texas,1.0,Adayah Wallace,4,PR,9659171.0,1,0,0,0,0,0.0,0,0,0,0,0
+6582493,6/01/26,softball,Texas,1.0,Kaiah Altmeyer,44,LF,11237573.0,1,1,0,1,0,1.0,0,0,0,0,0
+6582493,6/01/26,softball,Texas,1.0,Ashton Maloney,7,RF,9668339.0,1,1,0,1,0,1.0,0,0,0,0,0
+6582493,6/01/26,softball,Texas,1.0,Victoria Hunter,12,PH,9667376.0,1,0,0,0,0,0.0,0,0,0,0,0
+6582493,6/01/26,softball,Texas,1.0,Jaycie Nichols,24,3B,11237578.0,1,2,0,2,0,1.0,0,0,0,0,0
+6582502,6/03/26,softball,Texas Tech,,Mia Williams,1,2B,11202032.0,1,2,1,3,0,1.0,0,0,0,0,0
+6582502,6/03/26,softball,Texas Tech,,Mihyia Davis,42,CF,9668334.0,1,2,0,2,0,1.0,0,0,0,0,0
+6582502,6/03/26,softball,Texas Tech,,Lauren Allred,11,RF,9668995.0,1,3,0,3,0,1.0,0,0,0,0,0
+6582502,6/03/26,softball,Texas Tech,,Jackie Lis,0,1B,11201907.0,1,6,0,6,0,1.0,0,0,0,0,0
+6582502,6/03/26,softball,Texas Tech,,Taylor Pannell,6,3B,11202028.0,1,1,4,5,0,1.0,0,0,0,0,0
+6582502,6/03/26,softball,Texas Tech,,Kaitlyn Terry,55,P/DP,11202031.0,1,0,1,1,0,1.0,0,0,0,0,0
+6582502,6/03/26,softball,Texas Tech,,Jasmyn Burns,12,C,11201903.0,1,2,0,2,0,1.0,0,0,0,0,0
+6582502,6/03/26,softball,Texas Tech,,Desirae Spearman,8,LF,11202030.0,1,0,0,0,0,0.0,0,0,0,0,0
+6582502,6/03/26,softball,Texas Tech,,Logan Halleman,7,LF,9660161.0,1,1,0,1,0,1.0,0,0,0,0,0
+6582502,6/03/26,softball,Texas Tech,,Lagi Quiroga,4,PH,11202029.0,1,0,0,0,0,0.0,0,0,0,0,0
+6582502,6/03/26,softball,Texas Tech,,Hailey Toney,32,SS,9667168.0,1,1,2,3,0,1.0,0,0,0,0,0
+6582502,6/03/26,softball,Texas,1.0,Kayden Henry,21,CF,9665428.0,1,0,0,0,0,0.0,0,0,0,0,0
+6582502,6/03/26,softball,Texas,1.0,Katie Stewart,20,1B,9668120.0,1,8,0,8,0,1.0,0,0,0,0,0
+6582502,6/03/26,softball,Texas,1.0,Viviana Martinez,23,SS,9668247.0,1,1,0,1,0,1.0,0,0,0,0,0
+6582502,6/03/26,softball,Texas,1.0,Reese Atwood,14,C,9664628.0,1,5,1,6,0,1.0,0,0,0,0,0
+6582502,6/03/26,softball,Texas,1.0,Leighann Goode,43,2B,9662475.0,1,1,3,4,0,1.0,0,0,0,0,0
+6582502,6/03/26,softball,Texas,1.0,Hannah Wells,13,DP,11237584.0,1,0,0,0,0,0.0,0,0,0,0,0
+6582502,6/03/26,softball,Texas,1.0,Kaiah Altmeyer,44,LF,11237573.0,1,3,0,3,0,1.0,0,0,0,0,0
+6582502,6/03/26,softball,Texas,1.0,Ashton Maloney,7,RF,9668339.0,1,2,0,2,0,1.0,0,0,0,0,0
+6582502,6/03/26,softball,Texas,1.0,Alisa Sneed,9,PH,11237580.0,1,0,0,0,0,0.0,0,0,0,0,0
+6582502,6/03/26,softball,Texas,1.0,Jaycie Nichols,24,3B,11237578.0,1,1,2,3,0,1.0,0,0,0,0,0
+6582202,6/01/26,softball,Texas,,Kayden Henry,21,CF,9665428.0,1,1,0,1,0,1.0,0,0,0,0,0
+6582202,6/01/26,softball,Texas,,Katie Stewart,20,1B,9668120.0,1,11,0,14,3,0.786,0,0,0,0,1
+6582202,6/01/26,softball,Texas,,Viviana Martinez,23,SS,9668247.0,1,1,0,1,0,1.0,0,0,0,0,0
+6582202,6/01/26,softball,Texas,,Reese Atwood,14,C,9664628.0,1,4,0,4,0,1.0,0,0,0,0,0
+6582202,6/01/26,softball,Texas,,Leighann Goode,43,2B,9662475.0,1,1,3,4,0,1.0,0,0,0,0,0
+6582202,6/01/26,softball,Texas,,Hannah Wells,13,DP,11237584.0,1,0,0,0,0,0.0,0,0,0,0,0
+6582202,6/01/26,softball,Texas,,Adayah Wallace,4,PR,9659171.0,1,0,0,0,0,0.0,0,0,0,0,0
+6582202,6/01/26,softball,Texas,,Kaiah Altmeyer,44,LF,11237573.0,1,1,0,1,0,1.0,0,0,0,0,0
+6582202,6/01/26,softball,Texas,,Ashton Maloney,7,RF,9668339.0,1,1,0,1,0,1.0,0,0,0,0,0
+6582202,6/01/26,softball,Texas,,Victoria Hunter,12,PH,9667376.0,1,0,0,0,0,0.0,0,0,0,0,0
+6582202,6/01/26,softball,Texas,,Jaycie Nichols,24,3B,11237578.0,1,1,3,5,1,0.8,0,0,0,0,1
+6582202,6/01/26,softball,Texas,,Taylor Anderson,27,PH,9973529.0,1,0,0,0,0,0.0,0,0,0,0,0
+6582202,6/01/26,softball,Tennessee,1.0,Sophia Knight,2,CF,11241196.0,1,5,0,5,0,1.0,0,0,0,0,0
+6582202,6/01/26,softball,Tennessee,1.0,Alannah Leach,10,DP,9658515.0,1,0,0,0,0,0.0,0,0,0,0,0
+6582202,6/01/26,softball,Tennessee,1.0,Emma Clarke,13,2B,9668541.0,1,1,4,5,0,1.0,0,0,0,0,0
+6582202,6/01/26,softball,Tennessee,1.0,Saviya Morgan,20,PR,9667919.0,1,0,0,0,0,0.0,0,0,0,0,0
+6582202,6/01/26,softball,Tennessee,1.0,Elsa Morrison,22,C,11241201.0,1,5,2,7,0,1.0,0,0,0,0,1
+6582202,6/01/26,softball,Tennessee,1.0,Zoie Shuler,11,PR,9664871.0,1,0,0,0,0,0.0,0,0,0,0,0
+6582202,6/01/26,softball,Tennessee,1.0,Ella Dodge,25,3B,9656114.0,1,0,1,2,1,0.5,0,0,0,0,1
+6582202,6/01/26,softball,Tennessee,1.0,Gabby Leach,55,RF,9666198.0,1,1,0,1,0,1.0,0,0,0,0,0
+6582202,6/01/26,softball,Tennessee,1.0,Makenzie Butt,98,1B,11241214.0,1,9,0,9,0,1.0,0,0,0,0,1
+6582202,6/01/26,softball,Tennessee,1.0,McCall Sims,15,PR,11241199.0,1,0,0,0,0,0.0,0,0,0,0,0
+6582202,6/01/26,softball,Tennessee,1.0,Bella Faw,12,SS,9661874.0,1,0,3,3,0,1.0,0,0,0,0,0
+6582202,6/01/26,softball,Tennessee,1.0,Meredith Barnhart,5,PH,11241198.0,1,0,0,0,0,0.0,0,0,0,0,0
+6582202,6/01/26,softball,Tennessee,1.0,Taelyn Holley,27,LF,11241203.0,1,0,0,0,0,0.0,0,0,0,0,0
 6582201,6/01/26,softball,Alabama,,Jena Young,4,2B,11237596.0,1,0,1,1,0,1.0,0,0,0,0,0
 6582201,6/01/26,softball,Alabama,,Brooke Wells,15,1B,11237595.0,1,3,0,3,0,1.0,0,0,0,0,0
 6582201,6/01/26,softball,Alabama,,Kinley Pate,6,PR,9657193.0,1,0,0,0,0,0.0,0,0,0,0,0
@@ -180360,72 +180426,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6582201,6/01/26,softball,Texas Tech,1.0,Hailey Toney,32,SS,9667168.0,1,2,0,2,0,1.0,0,0,0,0,0
 6582201,6/01/26,softball,Texas Tech,1.0,NiJaree Canady,24,P/DP,9659088.0,1,0,0,0,0,0.0,0,0,0,0,0
 6582201,6/01/26,softball,Texas Tech,1.0,Desirae Spearman,8,PH,11202030.0,1,0,0,0,0,0.0,0,0,0,0,0
-6582493,6/01/26,softball,Tennessee,,Sophia Knight,2,CF,11241196.0,1,2,0,2,0,1.0,0,0,0,0,0
-6582493,6/01/26,softball,Tennessee,,Ella Dodge,25,3B,9656114.0,1,1,0,1,0,1.0,0,0,0,0,0
-6582493,6/01/26,softball,Tennessee,,Emma Clarke,13,2B,9668541.0,1,1,2,3,0,1.0,0,0,0,0,1
-6582493,6/01/26,softball,Tennessee,,Alannah Leach,10,DP,9658515.0,1,0,0,0,0,0.0,0,0,0,0,0
-6582493,6/01/26,softball,Tennessee,,Elsa Morrison,22,C,11241201.0,1,5,2,7,0,1.0,0,0,2,0,0
-6582493,6/01/26,softball,Tennessee,,Gabby Leach,55,RF,9666198.0,1,0,1,1,0,1.0,0,0,0,0,0
-6582493,6/01/26,softball,Tennessee,,Makenzie Butt,98,1B,11241214.0,1,8,0,8,0,1.0,0,0,0,0,1
-6582493,6/01/26,softball,Tennessee,,Bella Faw,12,SS,9661874.0,1,1,1,2,0,1.0,0,0,0,0,0
-6582493,6/01/26,softball,Tennessee,,Taelyn Holley,27,LF,11241203.0,1,0,0,0,0,0.0,0,0,0,0,0
-6582493,6/01/26,softball,Texas,1.0,Kayden Henry,21,CF,9665428.0,1,1,0,1,0,1.0,0,0,0,0,0
-6582493,6/01/26,softball,Texas,1.0,Katie Stewart,20,1B,9668120.0,1,4,0,4,0,1.0,0,0,0,0,0
-6582493,6/01/26,softball,Texas,1.0,Viviana Martinez,23,SS,9668247.0,1,1,0,1,0,1.0,0,0,0,0,0
-6582493,6/01/26,softball,Texas,1.0,Reese Atwood,14,C,9664628.0,1,10,0,10,0,1.0,0,0,0,0,0
-6582493,6/01/26,softball,Texas,1.0,Leighann Goode,43,2B,9662475.0,1,1,1,2,0,1.0,0,0,0,0,0
-6582493,6/01/26,softball,Texas,1.0,Hannah Wells,13,DP/1B,11237584.0,1,0,0,0,0,0.0,0,0,0,0,0
-6582493,6/01/26,softball,Texas,1.0,Adayah Wallace,4,PR,9659171.0,1,0,0,0,0,0.0,0,0,0,0,0
-6582493,6/01/26,softball,Texas,1.0,Kaiah Altmeyer,44,LF,11237573.0,1,1,0,1,0,1.0,0,0,0,0,0
-6582493,6/01/26,softball,Texas,1.0,Ashton Maloney,7,RF,9668339.0,1,1,0,1,0,1.0,0,0,0,0,0
-6582493,6/01/26,softball,Texas,1.0,Victoria Hunter,12,PH,9667376.0,1,0,0,0,0,0.0,0,0,0,0,0
-6582493,6/01/26,softball,Texas,1.0,Jaycie Nichols,24,3B,11237578.0,1,2,0,2,0,1.0,0,0,0,0,0
-6582202,6/01/26,softball,Texas,,Kayden Henry,21,CF,9665428.0,1,1,0,1,0,1.0,0,0,0,0,0
-6582202,6/01/26,softball,Texas,,Katie Stewart,20,1B,9668120.0,1,11,0,14,3,0.786,0,0,0,0,1
-6582202,6/01/26,softball,Texas,,Viviana Martinez,23,SS,9668247.0,1,1,0,1,0,1.0,0,0,0,0,0
-6582202,6/01/26,softball,Texas,,Reese Atwood,14,C,9664628.0,1,4,0,4,0,1.0,0,0,0,0,0
-6582202,6/01/26,softball,Texas,,Leighann Goode,43,2B,9662475.0,1,1,3,4,0,1.0,0,0,0,0,0
-6582202,6/01/26,softball,Texas,,Hannah Wells,13,DP,11237584.0,1,0,0,0,0,0.0,0,0,0,0,0
-6582202,6/01/26,softball,Texas,,Adayah Wallace,4,PR,9659171.0,1,0,0,0,0,0.0,0,0,0,0,0
-6582202,6/01/26,softball,Texas,,Kaiah Altmeyer,44,LF,11237573.0,1,1,0,1,0,1.0,0,0,0,0,0
-6582202,6/01/26,softball,Texas,,Ashton Maloney,7,RF,9668339.0,1,1,0,1,0,1.0,0,0,0,0,0
-6582202,6/01/26,softball,Texas,,Victoria Hunter,12,PH,9667376.0,1,0,0,0,0,0.0,0,0,0,0,0
-6582202,6/01/26,softball,Texas,,Jaycie Nichols,24,3B,11237578.0,1,1,3,5,1,0.8,0,0,0,0,1
-6582202,6/01/26,softball,Texas,,Taylor Anderson,27,PH,9973529.0,1,0,0,0,0,0.0,0,0,0,0,0
-6582202,6/01/26,softball,Tennessee,1.0,Sophia Knight,2,CF,11241196.0,1,5,0,5,0,1.0,0,0,0,0,0
-6582202,6/01/26,softball,Tennessee,1.0,Alannah Leach,10,DP,9658515.0,1,0,0,0,0,0.0,0,0,0,0,0
-6582202,6/01/26,softball,Tennessee,1.0,Emma Clarke,13,2B,9668541.0,1,1,4,5,0,1.0,0,0,0,0,0
-6582202,6/01/26,softball,Tennessee,1.0,Saviya Morgan,20,PR,9667919.0,1,0,0,0,0,0.0,0,0,0,0,0
-6582202,6/01/26,softball,Tennessee,1.0,Elsa Morrison,22,C,11241201.0,1,5,2,7,0,1.0,0,0,0,0,1
-6582202,6/01/26,softball,Tennessee,1.0,Zoie Shuler,11,PR,9664871.0,1,0,0,0,0,0.0,0,0,0,0,0
-6582202,6/01/26,softball,Tennessee,1.0,Ella Dodge,25,3B,9656114.0,1,0,1,2,1,0.5,0,0,0,0,1
-6582202,6/01/26,softball,Tennessee,1.0,Gabby Leach,55,RF,9666198.0,1,1,0,1,0,1.0,0,0,0,0,0
-6582202,6/01/26,softball,Tennessee,1.0,Makenzie Butt,98,1B,11241214.0,1,9,0,9,0,1.0,0,0,0,0,1
-6582202,6/01/26,softball,Tennessee,1.0,McCall Sims,15,PR,11241199.0,1,0,0,0,0,0.0,0,0,0,0,0
-6582202,6/01/26,softball,Tennessee,1.0,Bella Faw,12,SS,9661874.0,1,0,3,3,0,1.0,0,0,0,0,0
-6582202,6/01/26,softball,Tennessee,1.0,Meredith Barnhart,5,PH,11241198.0,1,0,0,0,0,0.0,0,0,0,0,0
-6582202,6/01/26,softball,Tennessee,1.0,Taelyn Holley,27,LF,11241203.0,1,0,0,0,0,0.0,0,0,0,0,0
-6582502,6/03/26,softball,Texas Tech,,Mia Williams,1,2B,11202032.0,1,2,1,3,0,1.0,0,0,0,0,0
-6582502,6/03/26,softball,Texas Tech,,Mihyia Davis,42,CF,9668334.0,1,2,0,2,0,1.0,0,0,0,0,0
-6582502,6/03/26,softball,Texas Tech,,Lauren Allred,11,RF,9668995.0,1,3,0,3,0,1.0,0,0,0,0,0
-6582502,6/03/26,softball,Texas Tech,,Jackie Lis,0,1B,11201907.0,1,6,0,6,0,1.0,0,0,0,0,0
-6582502,6/03/26,softball,Texas Tech,,Taylor Pannell,6,3B,11202028.0,1,1,4,5,0,1.0,0,0,0,0,0
-6582502,6/03/26,softball,Texas Tech,,Kaitlyn Terry,55,P/DP,11202031.0,1,0,1,1,0,1.0,0,0,0,0,0
-6582502,6/03/26,softball,Texas Tech,,Jasmyn Burns,12,C,11201903.0,1,2,0,2,0,1.0,0,0,0,0,0
-6582502,6/03/26,softball,Texas Tech,,Desirae Spearman,8,LF,11202030.0,1,0,0,0,0,0.0,0,0,0,0,0
-6582502,6/03/26,softball,Texas Tech,,Logan Halleman,7,LF,9660161.0,1,1,0,1,0,1.0,0,0,0,0,0
-6582502,6/03/26,softball,Texas Tech,,Lagi Quiroga,4,PH,11202029.0,1,0,0,0,0,0.0,0,0,0,0,0
-6582502,6/03/26,softball,Texas Tech,,Hailey Toney,32,SS,9667168.0,1,1,2,3,0,1.0,0,0,0,0,0
-6582502,6/03/26,softball,Texas,1.0,Kayden Henry,21,CF,9665428.0,1,0,0,0,0,0.0,0,0,0,0,0
-6582502,6/03/26,softball,Texas,1.0,Katie Stewart,20,1B,9668120.0,1,8,0,8,0,1.0,0,0,0,0,0
-6582502,6/03/26,softball,Texas,1.0,Viviana Martinez,23,SS,9668247.0,1,1,0,1,0,1.0,0,0,0,0,0
-6582502,6/03/26,softball,Texas,1.0,Reese Atwood,14,C,9664628.0,1,5,1,6,0,1.0,0,0,0,0,0
-6582502,6/03/26,softball,Texas,1.0,Leighann Goode,43,2B,9662475.0,1,1,3,4,0,1.0,0,0,0,0,0
-6582502,6/03/26,softball,Texas,1.0,Hannah Wells,13,DP,11237584.0,1,0,0,0,0,0.0,0,0,0,0,0
-6582502,6/03/26,softball,Texas,1.0,Kaiah Altmeyer,44,LF,11237573.0,1,3,0,3,0,1.0,0,0,0,0,0
-6582502,6/03/26,softball,Texas,1.0,Ashton Maloney,7,RF,9668339.0,1,2,0,2,0,1.0,0,0,0,0,0
-6582502,6/03/26,softball,Texas,1.0,Alisa Sneed,9,PH,11237580.0,1,0,0,0,0,0.0,0,0,0,0,0
-6582502,6/03/26,softball,Texas,1.0,Jaycie Nichols,24,3B,11237578.0,1,1,2,3,0,1.0,0,0,0,0,0
 6582499,6/01/26,softball,Texas Tech,,Mia Williams,1,2B,11202032.0,1,1,3,4,0,1.0,0,0,0,0,0
 6582499,6/01/26,softball,Texas Tech,,Mihyia Davis,42,CF,9668334.0,1,2,0,2,0,1.0,0,0,0,0,0
 6582499,6/01/26,softball,Texas Tech,,Lauren Allred,11,RF,9668995.0,1,1,0,1,0,1.0,0,0,0,0,0
@@ -180473,6 +180473,30 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6582204,5/31/26,softball,Texas,1.0,Hannah Wells,13,DP,11237584.0,1,0,0,0,0,0.0,0,0,0,0,0
 6582204,5/31/26,softball,Texas,1.0,Ashton Maloney,7,RF,9668339.0,1,2,0,2,0,1.0,0,0,0,0,0
 6582204,5/31/26,softball,Texas,1.0,Jaycie Nichols,24,3B,11237578.0,1,0,3,3,0,1.0,0,0,0,0,0
+6582206,5/30/26,softball,Texas Tech,,Mia Williams,1,2B,11202032.0,1,4,1,5,0,1.0,0,0,0,0,0
+6582206,5/30/26,softball,Texas Tech,,Mihyia Davis,42,CF,9668334.0,1,0,0,0,0,0.0,0,0,0,0,0
+6582206,5/30/26,softball,Texas Tech,,Jackie Lis,0,1B,11201907.0,1,4,0,4,0,1.0,0,0,0,0,0
+6582206,5/30/26,softball,Texas Tech,,Jasmyn Burns,12,DP/C,11201903.0,1,2,0,2,0,1.0,0,0,0,0,0
+6582206,5/30/26,softball,Texas Tech,,Victoria Valdez,13,C,9657470.0,1,3,1,4,0,1.0,0,0,0,1,0
+6582206,5/30/26,softball,Texas Tech,,Taylor Pannell,6,3B,11202028.0,1,0,2,2,0,1.0,0,0,0,0,0
+6582206,5/30/26,softball,Texas Tech,,Kaitlyn Terry,55,P/RF,11202031.0,1,0,0,0,0,0.0,0,0,0,0,0
+6582206,5/30/26,softball,Texas Tech,,Makayla Garcia,3,PR,9664791.0,1,0,0,0,0,0.0,0,0,0,0,0
+6582206,5/30/26,softball,Texas Tech,,Lauren Allred,11,RF/DP,9668995.0,1,1,0,1,0,1.0,0,0,0,0,0
+6582206,5/30/26,softball,Texas Tech,,Lagi Quiroga,4,C,11202029.0,1,4,0,4,0,1.0,0,0,0,0,0
+6582206,5/30/26,softball,Texas Tech,,NiJaree Canady,24,P,9659088.0,1,0,0,0,0,0.0,0,0,0,1,0
+6582206,5/30/26,softball,Texas Tech,,Logan Halleman,7,LF,9660161.0,1,4,0,4,0,1.0,0,0,0,0,0
+6582206,5/30/26,softball,Texas Tech,,Desirae Spearman,8,PH,11202030.0,1,0,0,0,0,0.0,0,0,0,0,0
+6582206,5/30/26,softball,Tennessee,1.0,Sophia Knight,2,CF,11241196.0,1,2,1,3,0,1.0,0,0,0,0,0
+6582206,5/30/26,softball,Tennessee,1.0,Elsa Morrison,22,C,11241201.0,1,8,1,9,0,1.0,0,0,3,0,0
+6582206,5/30/26,softball,Tennessee,1.0,Ella Dodge,25,3B,9656114.0,1,1,3,4,0,1.0,0,0,0,0,0
+6582206,5/30/26,softball,Tennessee,1.0,Emma Clarke,13,2B,9668541.0,1,2,6,8,0,1.0,0,0,0,0,0
+6582206,5/30/26,softball,Tennessee,1.0,Alannah Leach,10,DP/LF,9658515.0,1,1,0,1,0,1.0,0,0,0,0,0
+6582206,5/30/26,softball,Tennessee,1.0,Saviya Morgan,20,PR,9667919.0,1,0,0,0,0,0.0,0,0,0,0,0
+6582206,5/30/26,softball,Tennessee,1.0,Makenzie Butt,98,1B,11241214.0,1,11,0,11,0,1.0,0,0,0,0,0
+6582206,5/30/26,softball,Tennessee,1.0,Gabby Leach,55,RF,9666198.0,1,0,0,0,0,0.0,0,0,0,0,0
+6582206,5/30/26,softball,Tennessee,1.0,Bella Faw,12,SS,9661874.0,1,0,2,2,0,1.0,0,0,0,0,0
+6582206,5/30/26,softball,Tennessee,1.0,Maddi Rutan,21,PH,11241200.0,1,0,0,0,0,0.0,0,0,0,0,0
+6582206,5/30/26,softball,Tennessee,1.0,Taelyn Holley,27,LF/DP,11241203.0,1,1,0,1,0,1.0,0,0,0,0,0
 6582203,5/31/26,softball,Texas Tech,,Mia Williams,1,2B,11202032.0,1,2,1,3,0,1.0,0,0,0,0,1
 6582203,5/31/26,softball,Texas Tech,,Mihyia Davis,42,CF,9668334.0,1,2,0,2,0,1.0,0,0,0,0,0
 6582203,5/31/26,softball,Texas Tech,,Lauren Allred,11,RF,9668995.0,1,0,0,0,0,0.0,0,0,0,0,0
@@ -180500,30 +180524,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6582203,5/31/26,softball,UCLA,1.0,Ramsey Suarez,31,PH/DP,9670244.0,1,0,0,0,0,0.0,0,0,0,0,0
 6582203,5/31/26,softball,UCLA,1.0,Jolyna Lamar,7,CF,11225863.0,1,2,0,2,0,1.0,0,0,0,0,0
 6582203,5/31/26,softball,UCLA,1.0,Jazmine Leyva,26,PH,11225867.0,1,0,0,0,0,0.0,0,0,0,0,0
-6582206,5/30/26,softball,Texas Tech,,Mia Williams,1,2B,11202032.0,1,4,1,5,0,1.0,0,0,0,0,0
-6582206,5/30/26,softball,Texas Tech,,Mihyia Davis,42,CF,9668334.0,1,0,0,0,0,0.0,0,0,0,0,0
-6582206,5/30/26,softball,Texas Tech,,Jackie Lis,0,1B,11201907.0,1,4,0,4,0,1.0,0,0,0,0,0
-6582206,5/30/26,softball,Texas Tech,,Jasmyn Burns,12,DP/C,11201903.0,1,2,0,2,0,1.0,0,0,0,0,0
-6582206,5/30/26,softball,Texas Tech,,Victoria Valdez,13,C,9657470.0,1,3,1,4,0,1.0,0,0,0,1,0
-6582206,5/30/26,softball,Texas Tech,,Taylor Pannell,6,3B,11202028.0,1,0,2,2,0,1.0,0,0,0,0,0
-6582206,5/30/26,softball,Texas Tech,,Kaitlyn Terry,55,P/RF,11202031.0,1,0,0,0,0,0.0,0,0,0,0,0
-6582206,5/30/26,softball,Texas Tech,,Makayla Garcia,3,PR,9664791.0,1,0,0,0,0,0.0,0,0,0,0,0
-6582206,5/30/26,softball,Texas Tech,,Lauren Allred,11,RF/DP,9668995.0,1,1,0,1,0,1.0,0,0,0,0,0
-6582206,5/30/26,softball,Texas Tech,,Lagi Quiroga,4,C,11202029.0,1,4,0,4,0,1.0,0,0,0,0,0
-6582206,5/30/26,softball,Texas Tech,,NiJaree Canady,24,P,9659088.0,1,0,0,0,0,0.0,0,0,0,1,0
-6582206,5/30/26,softball,Texas Tech,,Logan Halleman,7,LF,9660161.0,1,4,0,4,0,1.0,0,0,0,0,0
-6582206,5/30/26,softball,Texas Tech,,Desirae Spearman,8,PH,11202030.0,1,0,0,0,0,0.0,0,0,0,0,0
-6582206,5/30/26,softball,Tennessee,1.0,Sophia Knight,2,CF,11241196.0,1,2,1,3,0,1.0,0,0,0,0,0
-6582206,5/30/26,softball,Tennessee,1.0,Elsa Morrison,22,C,11241201.0,1,8,1,9,0,1.0,0,0,3,0,0
-6582206,5/30/26,softball,Tennessee,1.0,Ella Dodge,25,3B,9656114.0,1,1,3,4,0,1.0,0,0,0,0,0
-6582206,5/30/26,softball,Tennessee,1.0,Emma Clarke,13,2B,9668541.0,1,2,6,8,0,1.0,0,0,0,0,0
-6582206,5/30/26,softball,Tennessee,1.0,Alannah Leach,10,DP/LF,9658515.0,1,1,0,1,0,1.0,0,0,0,0,0
-6582206,5/30/26,softball,Tennessee,1.0,Saviya Morgan,20,PR,9667919.0,1,0,0,0,0,0.0,0,0,0,0,0
-6582206,5/30/26,softball,Tennessee,1.0,Makenzie Butt,98,1B,11241214.0,1,11,0,11,0,1.0,0,0,0,0,0
-6582206,5/30/26,softball,Tennessee,1.0,Gabby Leach,55,RF,9666198.0,1,0,0,0,0,0.0,0,0,0,0,0
-6582206,5/30/26,softball,Tennessee,1.0,Bella Faw,12,SS,9661874.0,1,0,2,2,0,1.0,0,0,0,0,0
-6582206,5/30/26,softball,Tennessee,1.0,Maddi Rutan,21,PH,11241200.0,1,0,0,0,0,0.0,0,0,0,0,0
-6582206,5/30/26,softball,Tennessee,1.0,Taelyn Holley,27,LF/DP,11241203.0,1,1,0,1,0,1.0,0,0,0,0,0
 6582205,5/30/26,softball,Nebraska,,Jordyn Frahm,98,P/1B,9659905.0,1,4,0,5,1,0.8,0,0,0,0,0
 6582205,5/30/26,softball,Nebraska,,Hannah Coor,23,CF,11223870.0,1,0,0,0,0,0.0,0,0,0,0,0
 6582205,5/30/26,softball,Nebraska,,Hannah Camenzind,9,DP,9667201.0,1,0,0,0,0,0.0,0,0,0,0,0
@@ -180548,27 +180548,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6582205,5/30/26,softball,Alabama,1.0,Salen Hawkins,47,SS,9669480.0,1,1,1,2,0,1.0,0,0,0,0,0
 6582205,5/30/26,softball,Alabama,1.0,Mari Hubbard,81,PH,9656474.0,1,0,0,0,0,0.0,0,0,0,0,0
 6582205,5/30/26,softball,Alabama,1.0,Kristen White,3,CF,9657500.0,1,2,0,2,0,1.0,0,0,0,0,0
-6582207,5/29/26,softball,UCLA,,Rylee Slimp,29,LF,9669555.0,1,2,0,2,0,1.0,0,0,0,0,0
-6582207,5/29/26,softball,UCLA,,Megan Grant,43,RF,9661734.0,1,1,0,1,0,1.0,0,0,0,0,0
-6582207,5/29/26,softball,UCLA,,Rylee Pinedo,4,PR/RF,9660447.0,1,0,0,0,0,0.0,0,0,0,0,0
-6582207,5/29/26,softball,UCLA,,Jordan Woolery,15,1B,9668155.0,1,5,1,6,0,1.0,0,0,0,0,0
-6582207,5/29/26,softball,UCLA,,Aleena Garcia,21,SS,9663092.0,1,4,2,6,0,1.0,0,0,0,0,0
-6582207,5/29/26,softball,UCLA,,Bri Alejandre,22,3B,11225860.0,1,0,1,1,0,1.0,0,0,0,0,0
-6582207,5/29/26,softball,UCLA,,Kaniya Bragg,33,2B,9670320.0,1,0,2,2,0,1.0,0,0,0,0,0
-6582207,5/29/26,softball,UCLA,,Mia Phillips,56,2B,11222207.0,1,1,0,1,0,1.0,0,0,0,0,0
-6582207,5/29/26,softball,UCLA,,Alexis Ramirez,28,C,9664179.0,1,2,0,2,0,1.0,0,0,0,0,0
-6582207,5/29/26,softball,UCLA,,Soo-Jin Berry,11,DP,11222202.0,1,0,0,0,0,0.0,0,0,0,0,0
-6582207,5/29/26,softball,UCLA,,Saydrie Meono,5,LF,11225874.0,1,0,0,0,0,0.0,0,0,0,0,0
-6582207,5/29/26,softball,UCLA,,Jolyna Lamar,7,CF,11225863.0,1,0,0,0,0,0.0,0,0,0,0,0
-6582207,5/29/26,softball,Arkansas,1.0,Reagan Johnson,23,CF,9654388.0,1,1,0,1,0,1.0,0,0,0,0,0
-6582207,5/29/26,softball,Arkansas,1.0,Brinli Bain,1,RF,11211431.0,1,0,0,0,0,0.0,0,0,0,0,0
-6582207,5/29/26,softball,Arkansas,1.0,Ella McDowell,6,3B,9660253.0,1,0,1,1,0,1.0,0,0,0,0,0
-6582207,5/29/26,softball,Arkansas,1.0,Tianna Bell,20,1B,11211432.0,1,7,0,7,0,1.0,0,0,0,0,0
-6582207,5/29/26,softball,Arkansas,1.0,Dakota Kennedy,22,DP,11211437.0,1,0,0,0,0,0.0,0,0,0,0,0
-6582207,5/29/26,softball,Arkansas,1.0,Karlie Davison,14,2B,9658033.0,1,1,1,2,0,1.0,0,0,0,0,0
-6582207,5/29/26,softball,Arkansas,1.0,Atalyia Rijo,26,SS,9662490.0,1,1,4,5,0,1.0,0,0,0,0,0
-6582207,5/29/26,softball,Arkansas,1.0,Kailey Wyckoff,46,LF,9667323.0,1,0,0,0,0,0.0,0,0,0,0,0
-6582207,5/29/26,softball,Arkansas,1.0,Kennedy Miller,17,C,9665050.0,1,5,1,6,0,1.0,0,0,0,0,0
 6582208,5/29/26,softball,Texas,,Kayden Henry,21,CF,9665428.0,1,2,0,2,0,1.0,0,0,0,0,0
 6582208,5/29/26,softball,Texas,,Katie Stewart,20,1B,9668120.0,1,6,0,6,0,1.0,0,0,0,0,0
 6582208,5/29/26,softball,Texas,,Viviana Martinez,23,SS,9668247.0,1,2,2,4,0,1.0,0,0,0,0,0
@@ -180591,25 +180570,27 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6582208,5/29/26,softball,Mississippi St.,1.0,Tatum Silva,22,CF,10008526.0,1,1,0,1,0,1.0,0,0,0,0,0
 6582208,5/29/26,softball,Mississippi St.,1.0,Gretta Grassel,1,PH,9658118.0,1,0,0,0,0,0.0,0,0,0,0,0
 6582208,5/29/26,softball,Mississippi St.,1.0,Des Rivera,23,C,10008524.0,1,5,1,6,0,1.0,0,0,0,1,0
-6582212,5/28/26,softball,Mississippi St.,,Morgan Stiles,24,SS,9666101.0,1,0,2,2,0,1.0,0,0,0,0,0
-6582212,5/28/26,softball,Mississippi St.,,Nadia Barbary,10,3B,9667755.0,1,0,2,2,0,1.0,0,0,0,0,0
-6582212,5/28/26,softball,Mississippi St.,,Xiane Romero,83,2B,9657105.0,1,0,0,0,0,0.0,0,0,0,0,0
-6582212,5/28/26,softball,Mississippi St.,,Kinley Keller,33,RF,10008522.0,1,0,0,1,1,0.0,0,0,0,0,0
-6582212,5/28/26,softball,Mississippi St.,,Morgan Bernardini,13,LF,9654671.0,1,1,0,1,0,1.0,0,0,0,0,0
-6582212,5/28/26,softball,Mississippi St.,,Paige Ernstes,12,DP,9666552.0,1,0,0,0,0,0.0,0,0,0,0,0
-6582212,5/28/26,softball,Mississippi St.,,Tatum Silva,22,CF,10008526.0,1,2,0,2,0,1.0,0,0,0,0,0
-6582212,5/28/26,softball,Mississippi St.,,Abby Grace Richardson,2,1B,9666282.0,1,6,0,6,0,1.0,0,0,0,0,0
-6582212,5/28/26,softball,Mississippi St.,,Des Rivera,23,C,10008524.0,1,3,0,4,1,0.75,0,0,0,0,0
-6582212,5/28/26,softball,Texas Tech,1.0,Mia Williams,1,2B,11202032.0,1,0,1,1,0,1.0,0,0,0,0,0
-6582212,5/28/26,softball,Texas Tech,1.0,Jackie Lis,0,1B,11201907.0,1,5,0,5,0,1.0,0,0,0,0,1
-6582212,5/28/26,softball,Texas Tech,1.0,Jasmyn Burns,12,DP/C,11201903.0,1,0,0,0,0,0.0,0,0,0,0,0
-6582212,5/28/26,softball,Texas Tech,1.0,Taylor Pannell,6,3B,11202028.0,1,0,1,1,0,1.0,0,0,0,0,0
-6582212,5/28/26,softball,Texas Tech,1.0,Kaitlyn Terry,55,LF/P,11202031.0,1,0,1,1,0,1.0,0,0,0,0,0
-6582212,5/28/26,softball,Texas Tech,1.0,Mihyia Davis,42,CF,9668334.0,1,2,0,2,0,1.0,0,0,0,0,0
-6582212,5/28/26,softball,Texas Tech,1.0,Lauren Allred,11,RF,9668995.0,1,3,0,3,0,1.0,0,0,0,0,0
-6582212,5/28/26,softball,Texas Tech,1.0,NiJaree Canady,24,P,9659088.0,1,0,0,0,0,0.0,0,0,0,0,0
-6582212,5/28/26,softball,Texas Tech,1.0,Lagi Quiroga,4,C,11202029.0,1,3,0,3,0,1.0,0,0,0,0,0
-6582212,5/28/26,softball,Texas Tech,1.0,Logan Halleman,7,LF,9660161.0,1,0,0,0,0,0.0,0,0,0,0,0
+6582207,5/29/26,softball,UCLA,,Rylee Slimp,29,LF,9669555.0,1,2,0,2,0,1.0,0,0,0,0,0
+6582207,5/29/26,softball,UCLA,,Megan Grant,43,RF,9661734.0,1,1,0,1,0,1.0,0,0,0,0,0
+6582207,5/29/26,softball,UCLA,,Rylee Pinedo,4,PR/RF,9660447.0,1,0,0,0,0,0.0,0,0,0,0,0
+6582207,5/29/26,softball,UCLA,,Jordan Woolery,15,1B,9668155.0,1,5,1,6,0,1.0,0,0,0,0,0
+6582207,5/29/26,softball,UCLA,,Aleena Garcia,21,SS,9663092.0,1,4,2,6,0,1.0,0,0,0,0,0
+6582207,5/29/26,softball,UCLA,,Bri Alejandre,22,3B,11225860.0,1,0,1,1,0,1.0,0,0,0,0,0
+6582207,5/29/26,softball,UCLA,,Kaniya Bragg,33,2B,9670320.0,1,0,2,2,0,1.0,0,0,0,0,0
+6582207,5/29/26,softball,UCLA,,Mia Phillips,56,2B,11222207.0,1,1,0,1,0,1.0,0,0,0,0,0
+6582207,5/29/26,softball,UCLA,,Alexis Ramirez,28,C,9664179.0,1,2,0,2,0,1.0,0,0,0,0,0
+6582207,5/29/26,softball,UCLA,,Soo-Jin Berry,11,DP,11222202.0,1,0,0,0,0,0.0,0,0,0,0,0
+6582207,5/29/26,softball,UCLA,,Saydrie Meono,5,LF,11225874.0,1,0,0,0,0,0.0,0,0,0,0,0
+6582207,5/29/26,softball,UCLA,,Jolyna Lamar,7,CF,11225863.0,1,0,0,0,0,0.0,0,0,0,0,0
+6582207,5/29/26,softball,Arkansas,1.0,Reagan Johnson,23,CF,9654388.0,1,1,0,1,0,1.0,0,0,0,0,0
+6582207,5/29/26,softball,Arkansas,1.0,Brinli Bain,1,RF,11211431.0,1,0,0,0,0,0.0,0,0,0,0,0
+6582207,5/29/26,softball,Arkansas,1.0,Ella McDowell,6,3B,9660253.0,1,0,1,1,0,1.0,0,0,0,0,0
+6582207,5/29/26,softball,Arkansas,1.0,Tianna Bell,20,1B,11211432.0,1,7,0,7,0,1.0,0,0,0,0,0
+6582207,5/29/26,softball,Arkansas,1.0,Dakota Kennedy,22,DP,11211437.0,1,0,0,0,0,0.0,0,0,0,0,0
+6582207,5/29/26,softball,Arkansas,1.0,Karlie Davison,14,2B,9658033.0,1,1,1,2,0,1.0,0,0,0,0,0
+6582207,5/29/26,softball,Arkansas,1.0,Atalyia Rijo,26,SS,9662490.0,1,1,4,5,0,1.0,0,0,0,0,0
+6582207,5/29/26,softball,Arkansas,1.0,Kailey Wyckoff,46,LF,9667323.0,1,0,0,0,0,0.0,0,0,0,0,0
+6582207,5/29/26,softball,Arkansas,1.0,Kennedy Miller,17,C,9665050.0,1,5,1,6,0,1.0,0,0,0,0,0
 6582211,5/28/26,softball,Tennessee,,Sophia Knight,2,CF,11241196.0,1,1,0,1,0,1.0,0,0,0,0,0
 6582211,5/28/26,softball,Tennessee,,Ella Dodge,25,3B,9656114.0,1,1,2,3,0,1.0,0,0,0,0,0
 6582211,5/28/26,softball,Tennessee,,Emma Clarke,13,2B,9668541.0,1,2,2,4,0,1.0,0,0,0,0,0
@@ -180632,6 +180613,25 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6582211,5/28/26,softball,Texas,1.0,Kaiah Altmeyer,44,LF,11237573.0,1,3,1,4,0,1.0,0,0,0,0,1
 6582211,5/28/26,softball,Texas,1.0,Jaycie Nichols,24,3B,11237578.0,1,2,4,6,0,1.0,0,0,0,0,1
 6582211,5/28/26,softball,Texas,1.0,Victoria Hunter,12,PH,9667376.0,1,0,0,0,0,0.0,0,0,0,0,0
+6582212,5/28/26,softball,Mississippi St.,,Morgan Stiles,24,SS,9666101.0,1,0,2,2,0,1.0,0,0,0,0,0
+6582212,5/28/26,softball,Mississippi St.,,Nadia Barbary,10,3B,9667755.0,1,0,2,2,0,1.0,0,0,0,0,0
+6582212,5/28/26,softball,Mississippi St.,,Xiane Romero,83,2B,9657105.0,1,0,0,0,0,0.0,0,0,0,0,0
+6582212,5/28/26,softball,Mississippi St.,,Kinley Keller,33,RF,10008522.0,1,0,0,1,1,0.0,0,0,0,0,0
+6582212,5/28/26,softball,Mississippi St.,,Morgan Bernardini,13,LF,9654671.0,1,1,0,1,0,1.0,0,0,0,0,0
+6582212,5/28/26,softball,Mississippi St.,,Paige Ernstes,12,DP,9666552.0,1,0,0,0,0,0.0,0,0,0,0,0
+6582212,5/28/26,softball,Mississippi St.,,Tatum Silva,22,CF,10008526.0,1,2,0,2,0,1.0,0,0,0,0,0
+6582212,5/28/26,softball,Mississippi St.,,Abby Grace Richardson,2,1B,9666282.0,1,6,0,6,0,1.0,0,0,0,0,0
+6582212,5/28/26,softball,Mississippi St.,,Des Rivera,23,C,10008524.0,1,3,0,4,1,0.75,0,0,0,0,0
+6582212,5/28/26,softball,Texas Tech,1.0,Mia Williams,1,2B,11202032.0,1,0,1,1,0,1.0,0,0,0,0,0
+6582212,5/28/26,softball,Texas Tech,1.0,Jackie Lis,0,1B,11201907.0,1,5,0,5,0,1.0,0,0,0,0,1
+6582212,5/28/26,softball,Texas Tech,1.0,Jasmyn Burns,12,DP/C,11201903.0,1,0,0,0,0,0.0,0,0,0,0,0
+6582212,5/28/26,softball,Texas Tech,1.0,Taylor Pannell,6,3B,11202028.0,1,0,1,1,0,1.0,0,0,0,0,0
+6582212,5/28/26,softball,Texas Tech,1.0,Kaitlyn Terry,55,LF/P,11202031.0,1,0,1,1,0,1.0,0,0,0,0,0
+6582212,5/28/26,softball,Texas Tech,1.0,Mihyia Davis,42,CF,9668334.0,1,2,0,2,0,1.0,0,0,0,0,0
+6582212,5/28/26,softball,Texas Tech,1.0,Lauren Allred,11,RF,9668995.0,1,3,0,3,0,1.0,0,0,0,0,0
+6582212,5/28/26,softball,Texas Tech,1.0,NiJaree Canady,24,P,9659088.0,1,0,0,0,0,0.0,0,0,0,0,0
+6582212,5/28/26,softball,Texas Tech,1.0,Lagi Quiroga,4,C,11202029.0,1,3,0,3,0,1.0,0,0,0,0,0
+6582212,5/28/26,softball,Texas Tech,1.0,Logan Halleman,7,LF,9660161.0,1,0,0,0,0,0.0,0,0,0,0,0
 6582210,5/28/26,softball,UCLA,,Rylee Slimp,29,LF,9669555.0,1,1,0,1,0,1.0,0,0,0,0,0
 6582210,5/28/26,softball,UCLA,,Megan Grant,43,RF,9661734.0,1,0,0,0,0,0.0,0,0,0,0,0
 6582210,5/28/26,softball,UCLA,,Jordan Woolery,15,1B,9668155.0,1,6,0,6,0,1.0,0,0,0,0,0

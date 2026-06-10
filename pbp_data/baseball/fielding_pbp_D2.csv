@@ -137594,25 +137594,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6581780,5/21/26,baseball,Colorado Mesa,1.0,Ezra Farmer,15.0,RF,11235180,2,0,2,0,0,0,0,0,0,0,0.0
 6581780,5/21/26,baseball,Colorado Mesa,1.0,Keegan Landis,22.0,PH,9684915,0,0,0,0,0,0,0,0,0,0,0.0
 6581780,5/21/26,baseball,Colorado Mesa,1.0,Joey Blank,17.0,3B,9700016,0,4,4,0,0,0,0,0,0,0,0.0
-6582592,6/05/26,baseball,West Chester,,Carter Rust,11.0,CF,11227115,1,0,1,0,0,0,0,0,0,0,0.0
-6582592,6/05/26,baseball,West Chester,,Caleb Strawhecker,2.0,C,9702936,11,1,12,0,0,0,1,0,0,0,1.0
-6582592,6/05/26,baseball,West Chester,,Harry Middlebrooks,20.0,3B,11227130,0,1,1,0,0,0,0,0,0,0,0.0
-6582592,6/05/26,baseball,West Chester,,Austin Stalker,16.0,1B,9687985,9,0,9,0,0,0,0,0,0,0,0.0
-6582592,6/05/26,baseball,West Chester,,Hunter Smith,18.0,LF,11227118,2,0,2,0,0,0,0,0,0,0,0.0
-6582592,6/05/26,baseball,West Chester,,Patrick Gozdan,9.0,2B,9704079,0,1,1,0,0,0,0,0,0,0,0.0
-6582592,6/05/26,baseball,West Chester,,Tanner Donati,22.0,DH,11227119,0,0,0,0,0,0,0,0,0,0,0.0
-6582592,6/05/26,baseball,West Chester,,Christian Michak,5.0,RF,11227112,3,0,3,0,0,0,0,0,0,0,0.0
-6582592,6/05/26,baseball,West Chester,,Landen Rozich,26.0,SS,11227123,1,4,6,1,0,0,0,0,0,0,0.0
-6582592,6/05/26,baseball,Tampa,1.0,Jordan Evans,13.0,CF,11219741,1,0,1,0,0,0,0,0,0,0,0.0
-6582592,6/05/26,baseball,Tampa,1.0,Brayden Woodburn,2.0,LF,9701857,1,0,1,0,0,0,0,0,0,0,0.0
-6582592,6/05/26,baseball,Tampa,1.0,Jhoander Irigoyen,18.0,C,9697519,8,4,12,0,0,0,3,2,0,0,0.6
-6582592,6/05/26,baseball,Tampa,1.0,Jake Books,12.0,RF,11219738,3,0,4,1,0,0,0,0,0,0,0.0
-6582592,6/05/26,baseball,Tampa,1.0,Walker Vanecek,6.0,1B,11219779,8,0,8,0,0,0,0,0,0,0,0.0
-6582592,6/05/26,baseball,Tampa,1.0,Gunnett Carlson,0.0,DH,11219732,0,0,0,0,0,0,0,0,0,0,0.0
-6582592,6/05/26,baseball,Tampa,1.0,Jesse Ponce,44.0,SS,11219746,2,2,4,0,0,0,0,0,0,0,0.0
-6582592,6/05/26,baseball,Tampa,1.0,Luke Fikar,9.0,2B,11219748,3,2,5,0,0,0,0,0,0,0,0.0
-6582592,6/05/26,baseball,Tampa,1.0,A.J. Graham,25.0,PH,9697457,0,0,0,0,0,0,0,0,0,0,0.0
-6582592,6/05/26,baseball,Tampa,1.0,Jack Martinez,4.0,3B,11219773,1,0,1,0,0,0,0,0,0,0,0.0
 6582235,6/03/26,baseball,Catawba,,Logan Dyer,2.0,LF,9690663,2,0,3,1,0,0,0,0,0,0,0.0
 6582235,6/03/26,baseball,Catawba,,Jack Cuba,39.0,PH,9688878,0,0,0,0,0,0,0,0,0,0,0.0
 6582235,6/03/26,baseball,Catawba,,Brandon Crabtree,4.0,1B,11233413,4,0,4,0,0,0,0,0,1,0,0.0
@@ -137658,26 +137639,26 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6582236,6/03/26,baseball,UT Tyler,1.0,Spencer Simpson,16.0,3B,9694967,0,1,1,0,0,0,0,0,0,0,0.0
 6582236,6/03/26,baseball,UT Tyler,1.0,Bryce Jewell,1.0,1B,11237270,9,2,11,0,0,0,0,0,0,0,0.0
 6582236,6/03/26,baseball,UT Tyler,1.0,Travis Bragg,4.0,RF,11237293,4,0,4,0,0,0,0,0,0,0,0.0
-6582593,6/09/26,baseball,Tampa,,Jesse Ponce,44.0,SS,11219746,0,4,4,0,0,0,0,0,0,0,0.0
-6582593,6/09/26,baseball,Tampa,,Brayden Woodburn,2.0,LF/2B,9701857,1,0,1,0,0,0,0,0,0,0,0.0
-6582593,6/09/26,baseball,Tampa,,Jhoander Irigoyen,18.0,DH/C,9697519,2,0,2,0,0,0,1,0,0,0,1.0
-6582593,6/09/26,baseball,Tampa,,Jake Books,12.0,RF,11219738,4,0,4,0,0,0,0,0,0,0,0.0
-6582593,6/09/26,baseball,Tampa,,Jordan Evans,13.0,CF,11219741,5,0,5,0,0,0,0,0,0,0,0.0
-6582593,6/09/26,baseball,Tampa,,Walker Vanecek,6.0,1B,11219779,9,1,10,0,0,0,0,0,0,0,0.0
-6582593,6/09/26,baseball,Tampa,,Nik Pereira,5.0,C,11219775,3,0,3,0,0,0,0,0,0,0,0.0
-6582593,6/09/26,baseball,Tampa,,Javi Soto,20.0,LF,11219771,1,0,1,0,0,0,0,0,0,0,0.0
-6582593,6/09/26,baseball,Tampa,,Luke Fikar,9.0,2B/P,11219748,1,1,2,0,0,0,1,0,0,0,1.0
-6582593,6/09/26,baseball,Tampa,,Jack Martinez,4.0,3B,11219773,1,2,3,0,0,0,0,0,0,0,0.0
-6582593,6/09/26,baseball,West Chester,1.0,Carter Rust,11.0,CF,11227115,4,0,4,0,0,0,0,0,0,0,0.0
-6582593,6/09/26,baseball,West Chester,1.0,Caleb Strawhecker,2.0,C,9702936,9,2,11,0,0,0,2,0,0,0,1.0
-6582593,6/09/26,baseball,West Chester,1.0,Harry Middlebrooks,20.0,3B,11227130,3,1,4,0,0,0,0,0,0,0,0.0
-6582593,6/09/26,baseball,West Chester,1.0,Austin Stalker,16.0,1B,9687985,6,0,6,0,0,0,0,0,0,0,0.0
-6582593,6/09/26,baseball,West Chester,1.0,Hunter Smith,18.0,LF,11227118,2,0,2,0,0,0,0,0,0,0,0.0
-6582593,6/09/26,baseball,West Chester,1.0,Patrick Gozdan,9.0,2B,9704079,1,1,2,0,0,0,0,0,0,0,0.0
-6582593,6/09/26,baseball,West Chester,1.0,Tanner Donati,22.0,DH/RF,11227119,1,0,1,0,0,0,0,0,0,0,0.0
-6582593,6/09/26,baseball,West Chester,1.0,Christian Michak,5.0,RF,11227112,0,0,0,0,0,0,0,0,0,0,0.0
-6582593,6/09/26,baseball,West Chester,1.0,Andrew Shank,14.0,SS,11227117,0,0,0,0,0,0,0,0,0,0,0.0
-6582593,6/09/26,baseball,West Chester,1.0,Landen Rozich,26.0,SS/P,11227123,1,1,2,0,0,0,0,0,0,0,0.0
+6582593,6/10/26,baseball,Tampa,,Jesse Ponce,44.0,SS,11219746,0,4,4,0,0,0,0,0,0,0,0.0
+6582593,6/10/26,baseball,Tampa,,Brayden Woodburn,2.0,LF/2B,9701857,1,0,1,0,0,0,0,0,0,0,0.0
+6582593,6/10/26,baseball,Tampa,,Jhoander Irigoyen,18.0,DH/C,9697519,2,0,2,0,0,0,1,0,0,0,1.0
+6582593,6/10/26,baseball,Tampa,,Jake Books,12.0,RF,11219738,4,0,4,0,0,0,0,0,0,0,0.0
+6582593,6/10/26,baseball,Tampa,,Jordan Evans,13.0,CF,11219741,5,0,5,0,0,0,0,0,0,0,0.0
+6582593,6/10/26,baseball,Tampa,,Walker Vanecek,6.0,1B,11219779,9,1,10,0,0,0,0,0,0,0,0.0
+6582593,6/10/26,baseball,Tampa,,Nik Pereira,5.0,C,11219775,3,0,3,0,0,0,0,0,0,0,0.0
+6582593,6/10/26,baseball,Tampa,,Javi Soto,20.0,LF,11219771,1,0,1,0,0,0,0,0,0,0,0.0
+6582593,6/10/26,baseball,Tampa,,Luke Fikar,9.0,2B/P,11219748,1,1,2,0,0,0,1,0,0,0,1.0
+6582593,6/10/26,baseball,Tampa,,Jack Martinez,4.0,3B,11219773,1,2,3,0,0,0,0,0,0,0,0.0
+6582593,6/10/26,baseball,West Chester,1.0,Carter Rust,11.0,CF,11227115,4,0,4,0,0,0,0,0,0,0,0.0
+6582593,6/10/26,baseball,West Chester,1.0,Caleb Strawhecker,2.0,C,9702936,9,2,11,0,0,0,2,0,0,0,1.0
+6582593,6/10/26,baseball,West Chester,1.0,Harry Middlebrooks,20.0,3B,11227130,3,1,4,0,0,0,0,0,0,0,0.0
+6582593,6/10/26,baseball,West Chester,1.0,Austin Stalker,16.0,1B,9687985,6,0,6,0,0,0,0,0,0,0,0.0
+6582593,6/10/26,baseball,West Chester,1.0,Hunter Smith,18.0,LF,11227118,2,0,2,0,0,0,0,0,0,0,0.0
+6582593,6/10/26,baseball,West Chester,1.0,Patrick Gozdan,9.0,2B,9704079,1,1,2,0,0,0,0,0,0,0,0.0
+6582593,6/10/26,baseball,West Chester,1.0,Tanner Donati,22.0,DH/RF,11227119,1,0,1,0,0,0,0,0,0,0,0.0
+6582593,6/10/26,baseball,West Chester,1.0,Christian Michak,5.0,RF,11227112,0,0,0,0,0,0,0,0,0,0,0.0
+6582593,6/10/26,baseball,West Chester,1.0,Andrew Shank,14.0,SS,11227117,0,0,0,0,0,0,0,0,0,0,0.0
+6582593,6/10/26,baseball,West Chester,1.0,Landen Rozich,26.0,SS/P,11227123,1,1,2,0,0,0,0,0,0,0,0.0
 6582232,6/04/26,baseball,Tampa,,Jordan Evans,13.0,CF,11219741,2,0,2,0,0,0,0,0,0,0,0.0
 6582232,6/04/26,baseball,Tampa,,Brayden Woodburn,2.0,LF/1B,9701857,4,0,4,0,0,0,0,0,1,0,0.0
 6582232,6/04/26,baseball,Tampa,,Jhoander Irigoyen,18.0,C,9697519,7,1,8,0,0,0,0,0,0,0,0.0
@@ -137701,6 +137682,25 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6582232,6/04/26,baseball,West Chester,1.0,Andrew Kell,21.0,RF,11227129,0,0,0,0,0,0,0,0,0,0,0.0
 6582232,6/04/26,baseball,West Chester,1.0,Harry Middlebrooks,20.0,3B,11227130,0,2,2,0,0,0,0,0,0,0,0.0
 6582232,6/04/26,baseball,West Chester,1.0,Landen Rozich,26.0,SS/P,11227123,2,3,6,1,0,0,0,0,1,0,0.0
+6582592,6/05/26,baseball,West Chester,,Carter Rust,11.0,CF,11227115,1,0,1,0,0,0,0,0,0,0,0.0
+6582592,6/05/26,baseball,West Chester,,Caleb Strawhecker,2.0,C,9702936,11,1,12,0,0,0,1,0,0,0,1.0
+6582592,6/05/26,baseball,West Chester,,Harry Middlebrooks,20.0,3B,11227130,0,1,1,0,0,0,0,0,0,0,0.0
+6582592,6/05/26,baseball,West Chester,,Austin Stalker,16.0,1B,9687985,9,0,9,0,0,0,0,0,0,0,0.0
+6582592,6/05/26,baseball,West Chester,,Hunter Smith,18.0,LF,11227118,2,0,2,0,0,0,0,0,0,0,0.0
+6582592,6/05/26,baseball,West Chester,,Patrick Gozdan,9.0,2B,9704079,0,1,1,0,0,0,0,0,0,0,0.0
+6582592,6/05/26,baseball,West Chester,,Tanner Donati,22.0,DH,11227119,0,0,0,0,0,0,0,0,0,0,0.0
+6582592,6/05/26,baseball,West Chester,,Christian Michak,5.0,RF,11227112,3,0,3,0,0,0,0,0,0,0,0.0
+6582592,6/05/26,baseball,West Chester,,Landen Rozich,26.0,SS,11227123,1,4,6,1,0,0,0,0,0,0,0.0
+6582592,6/05/26,baseball,Tampa,1.0,Jordan Evans,13.0,CF,11219741,1,0,1,0,0,0,0,0,0,0,0.0
+6582592,6/05/26,baseball,Tampa,1.0,Brayden Woodburn,2.0,LF,9701857,1,0,1,0,0,0,0,0,0,0,0.0
+6582592,6/05/26,baseball,Tampa,1.0,Jhoander Irigoyen,18.0,C,9697519,8,4,12,0,0,0,3,2,0,0,0.6
+6582592,6/05/26,baseball,Tampa,1.0,Jake Books,12.0,RF,11219738,3,0,4,1,0,0,0,0,0,0,0.0
+6582592,6/05/26,baseball,Tampa,1.0,Walker Vanecek,6.0,1B,11219779,8,0,8,0,0,0,0,0,0,0,0.0
+6582592,6/05/26,baseball,Tampa,1.0,Gunnett Carlson,0.0,DH,11219732,0,0,0,0,0,0,0,0,0,0,0.0
+6582592,6/05/26,baseball,Tampa,1.0,Jesse Ponce,44.0,SS,11219746,2,2,4,0,0,0,0,0,0,0,0.0
+6582592,6/05/26,baseball,Tampa,1.0,Luke Fikar,9.0,2B,11219748,3,2,5,0,0,0,0,0,0,0,0.0
+6582592,6/05/26,baseball,Tampa,1.0,A.J. Graham,25.0,PH,9697457,0,0,0,0,0,0,0,0,0,0,0.0
+6582592,6/05/26,baseball,Tampa,1.0,Jack Martinez,4.0,3B,11219773,1,0,1,0,0,0,0,0,0,0,0.0
 6582242,6/02/26,baseball,UT Tyler,,Connor Clark,10.0,CF,9700958,2,0,2,0,0,0,0,0,0,0,0.0
 6582242,6/02/26,baseball,UT Tyler,,Brock Bearden,8.0,LF,9685580,1,0,1,0,0,0,0,0,0,0,0.0
 6582242,6/02/26,baseball,UT Tyler,,Tanner Hornback,11.0,2B,9704463,2,1,3,0,0,0,0,0,0,0,0.0
@@ -137750,6 +137750,28 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6582237,6/02/26,baseball,Catawba,1.0,Ty Hubbard,9.0,2B,9702712,2,4,6,0,0,0,0,0,0,0,0.0
 6582237,6/02/26,baseball,Catawba,1.0,Cameron Burleyson,44.0,C,9689571,8,1,9,0,0,0,0,0,0,0,0.0
 6582237,6/02/26,baseball,Catawba,1.0,Malachi Cloud,19.0,CF,11233426,0,0,0,0,0,0,0,0,0,0,0.0
+6582239,6/01/26,baseball,Catawba,,Logan Dyer,2.0,LF,9690663,0,0,0,0,0,0,0,0,0,0,0.0
+6582239,6/01/26,baseball,Catawba,,Parker Styborski,20.0,LF,9698646,0,0,0,0,0,0,0,0,0,0,0.0
+6582239,6/01/26,baseball,Catawba,,Brandon Crabtree,4.0,1B,11233413,7,1,8,0,0,0,0,0,1,0,0.0
+6582239,6/01/26,baseball,Catawba,,Sam Hunter,3.0,RF,9699448,3,0,3,0,0,0,0,0,0,0,0.0
+6582239,6/01/26,baseball,Catawba,,Hunter Atkins,23.0,3B,9680046,2,0,2,0,0,0,0,0,0,0,0.0
+6582239,6/01/26,baseball,Catawba,,Jake Dunlap,16.0,DH,9700138,0,0,0,0,0,0,0,0,0,0,0.0
+6582239,6/01/26,baseball,Catawba,,Nathan Chrismon,1.0,SS,9687123,2,6,9,1,0,0,0,0,1,0,0.0
+6582239,6/01/26,baseball,Catawba,,Ty Hubbard,9.0,2B,9702712,1,2,3,0,0,0,0,0,1,0,0.0
+6582239,6/01/26,baseball,Catawba,,Matthew Connolly,13.0,C,9679128,8,0,8,0,0,1,0,0,0,0,0.0
+6582239,6/01/26,baseball,Catawba,,Jack Cuba,39.0,PH,9688878,0,0,0,0,0,0,0,0,0,0,0.0
+6582239,6/01/26,baseball,Catawba,,Cameron Burleyson,44.0,C,9689571,0,1,1,0,0,0,0,0,0,0,0.0
+6582239,6/01/26,baseball,Catawba,,Malachi Cloud,19.0,CF,11233426,2,0,2,0,0,0,0,0,0,0,0.0
+6582239,6/01/26,baseball,Bentley,1.0,Curt Heath,15.0,2B,9699926,0,0,0,0,0,0,0,0,0,0,0.0
+6582239,6/01/26,baseball,Bentley,1.0,Jared Berardino,27.0,RF,11235657,6,0,6,0,0,0,0,0,0,0,0.0
+6582239,6/01/26,baseball,Bentley,1.0,Nick Pappas,44.0,LF,11235660,3,0,3,0,0,0,0,0,0,0,0.0
+6582239,6/01/26,baseball,Bentley,1.0,Stan DeMartinis III,24.0,DH,11235655,0,0,0,0,0,0,0,0,0,0,0.0
+6582239,6/01/26,baseball,Bentley,1.0,Brendan Sencaj,6.0,CF/1B,9704428,2,0,2,0,0,0,0,0,0,0,0.0
+6582239,6/01/26,baseball,Bentley,1.0,Jake Maydak,21.0,1B,9678208,5,0,5,0,0,0,0,0,1,0,0.0
+6582239,6/01/26,baseball,Bentley,1.0,David VanderZouwen,34.0,CF,9680687,0,0,0,0,0,0,0,0,0,0,0.0
+6582239,6/01/26,baseball,Bentley,1.0,Jimmy Mitchell,11.0,3B,9699248,4,1,5,0,0,0,0,0,0,0,0.0
+6582239,6/01/26,baseball,Bentley,1.0,Tommy Goonan,18.0,C,9690260,5,0,6,1,0,2,7,0,0,0,1.0
+6582239,6/01/26,baseball,Bentley,1.0,Tommy Bolton,1.0,SS,9692726,1,5,6,0,0,0,0,0,1,0,0.0
 6582238,6/01/26,baseball,Tampa,,Jordan Evans,13.0,CF,11219741,2,0,2,0,0,0,0,0,0,0,0.0
 6582238,6/01/26,baseball,Tampa,,Brayden Woodburn,2.0,LF/2B,9701857,2,1,3,0,0,0,0,0,0,0,0.0
 6582238,6/01/26,baseball,Tampa,,Jhoander Irigoyen,18.0,C,9697519,7,0,7,0,0,0,1,0,0,0,1.0
@@ -137773,28 +137795,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6582238,6/01/26,baseball,Point Loma,1.0,Ben Finnegan,9.0,1B,11237851,2,0,2,0,0,0,0,0,0,0,0.0
 6582238,6/01/26,baseball,Point Loma,1.0,Levi Ham,35.0,PH,9682991,0,0,0,0,0,0,0,0,0,0,0.0
 6582238,6/01/26,baseball,Point Loma,1.0,Owen May,4.0,2B,9689944,3,2,5,0,0,0,0,0,0,0,0.0
-6582239,6/01/26,baseball,Catawba,,Logan Dyer,2.0,LF,9690663,0,0,0,0,0,0,0,0,0,0,0.0
-6582239,6/01/26,baseball,Catawba,,Parker Styborski,20.0,LF,9698646,0,0,0,0,0,0,0,0,0,0,0.0
-6582239,6/01/26,baseball,Catawba,,Brandon Crabtree,4.0,1B,11233413,7,1,8,0,0,0,0,0,1,0,0.0
-6582239,6/01/26,baseball,Catawba,,Sam Hunter,3.0,RF,9699448,3,0,3,0,0,0,0,0,0,0,0.0
-6582239,6/01/26,baseball,Catawba,,Hunter Atkins,23.0,3B,9680046,2,0,2,0,0,0,0,0,0,0,0.0
-6582239,6/01/26,baseball,Catawba,,Jake Dunlap,16.0,DH,9700138,0,0,0,0,0,0,0,0,0,0,0.0
-6582239,6/01/26,baseball,Catawba,,Nathan Chrismon,1.0,SS,9687123,2,6,9,1,0,0,0,0,1,0,0.0
-6582239,6/01/26,baseball,Catawba,,Ty Hubbard,9.0,2B,9702712,1,2,3,0,0,0,0,0,1,0,0.0
-6582239,6/01/26,baseball,Catawba,,Matthew Connolly,13.0,C,9679128,8,0,8,0,0,1,0,0,0,0,0.0
-6582239,6/01/26,baseball,Catawba,,Jack Cuba,39.0,PH,9688878,0,0,0,0,0,0,0,0,0,0,0.0
-6582239,6/01/26,baseball,Catawba,,Cameron Burleyson,44.0,C,9689571,0,1,1,0,0,0,0,0,0,0,0.0
-6582239,6/01/26,baseball,Catawba,,Malachi Cloud,19.0,CF,11233426,2,0,2,0,0,0,0,0,0,0,0.0
-6582239,6/01/26,baseball,Bentley,1.0,Curt Heath,15.0,2B,9699926,0,0,0,0,0,0,0,0,0,0,0.0
-6582239,6/01/26,baseball,Bentley,1.0,Jared Berardino,27.0,RF,11235657,6,0,6,0,0,0,0,0,0,0,0.0
-6582239,6/01/26,baseball,Bentley,1.0,Nick Pappas,44.0,LF,11235660,3,0,3,0,0,0,0,0,0,0,0.0
-6582239,6/01/26,baseball,Bentley,1.0,Stan DeMartinis III,24.0,DH,11235655,0,0,0,0,0,0,0,0,0,0,0.0
-6582239,6/01/26,baseball,Bentley,1.0,Brendan Sencaj,6.0,CF/1B,9704428,2,0,2,0,0,0,0,0,0,0,0.0
-6582239,6/01/26,baseball,Bentley,1.0,Jake Maydak,21.0,1B,9678208,5,0,5,0,0,0,0,0,1,0,0.0
-6582239,6/01/26,baseball,Bentley,1.0,David VanderZouwen,34.0,CF,9680687,0,0,0,0,0,0,0,0,0,0,0.0
-6582239,6/01/26,baseball,Bentley,1.0,Jimmy Mitchell,11.0,3B,9699248,4,1,5,0,0,0,0,0,0,0,0.0
-6582239,6/01/26,baseball,Bentley,1.0,Tommy Goonan,18.0,C,9690260,5,0,6,1,0,2,7,0,0,0,1.0
-6582239,6/01/26,baseball,Bentley,1.0,Tommy Bolton,1.0,SS,9692726,1,5,6,0,0,0,0,0,1,0,0.0
 6582244,5/31/26,baseball,Central Mo.,,Cole Kreisel,11.0,SS,9683511,2,3,5,0,0,0,0,0,3,0,0.0
 6582244,5/31/26,baseball,Central Mo.,,Grant Hollister,13.0,2B,9679300,4,4,8,0,0,0,0,0,2,0,0.0
 6582244,5/31/26,baseball,Central Mo.,,Cole Young,21.0,3B,9680422,0,0,0,0,0,0,0,0,0,0,0.0

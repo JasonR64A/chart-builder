@@ -1,2 +1,4 @@
 ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfer_date,update_date,status,year,sport,team_id,player_id_64a,player_id_ncaa_stats,matched_name,match_score,match_method,confidence,position,class_year,player_csv_team_id
-2111375260,DOMINIC,KIBLER,Dominic Kibler,University of Wisconsin-Milwaukee,Horizon League,I,06/09/2026,06/09/2026,Active,2025-26,Baseball,479,70061,2943815,Dom Kibler,82,team+lastname_diff_first,REVIEW,C,Jr,479
+2112400652,ANDREW,BOWLES,Andrew Bowles,Transylvania University,Heartland Collegiate Athletic Conference,III,06/10/2026,06/10/2026,Active,2025-26,Baseball,794,75493,2975388,Drew Bowles,92,team+lastname,LOW,P,Jr,794
+2406321994,LIAM,KLIEVER,Liam Kliever,Pacific University (Oregon),Northwest Conference,III,06/10/2026,06/10/2026,Active,2025-26,Baseball,596,135123,3103877,William Kliever,82,team+lastname_diff_first,REVIEW,C,So,596
+2108307247,NICHOLAS,PLUE,Nicholas Plue,State University of New York at Cortland,State University of New York Athletic Conference,III,06/10/2026,06/10/2026,Active,2025-26,Baseball,184,56314,2807849,Nick Plue,92,team+lastname,LOW,3B,Sr,184
