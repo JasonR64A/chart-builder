@@ -1,3 +1,6 @@
 ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfer_date,update_date,status,year,sport,team_id,player_id_64a,player_id_ncaa_stats,matched_name,match_score,match_method,confidence,position,class_year,player_csv_team_id
+2506624976,MANUEL,GARCIA,Manuel Garcia,Point Park University,Mountain East Conference,II,06/11/2026,06/11/2026,Active,2025-26,Baseball,965,149267,3257379,M. Garcia,72.7,team+lastname_diff_first,REVIEW,P,,965
+2309124013,JOSHUA,OUTLAW,Joshua Outlaw,Illinois State University,Missouri Valley Conference,I,06/11/2026,06/11/2026,Active,2025-26,Baseball,347,101750,3073292,Josh Outlaw,92.0,team+lastname,LOW,DH,Sr,347
+2301770301,CHARLES,FOSTER,Charles Foster,Mississippi State University,Southeastern Conference,I,06/11/2026,06/11/2026,Active,2025-26,Baseball,488,105037,3096498,Charlie Foster,92.9,team+lastname,LOW,P,So,488
 2209667994,JOHN,MELTON,John Melton,"University of Maryland, Baltimore County",America East Conference,I,06/11/2026,06/11/2026,Active,2025-26,Baseball,824,73445,2950974,Dylan Melton,69.6,team+lastname_diff_first,REVIEW,1B,Fr,824
 2208653630,RONALD,RENAUD,Ronald Renaud,Lenoir-Rhyne University,South Atlantic Conference,II,06/11/2026,06/11/2026,Active,2025-26,Baseball,400,70289,2965282,Jack Renaud,50.0,team+lastname_diff_first,REVIEW,P,Jr,400
