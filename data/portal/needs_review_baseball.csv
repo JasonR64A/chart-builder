@@ -1,4 +1,3 @@
 ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfer_date,update_date,status,year,sport,team_id,player_id_64a,player_id_ncaa_stats,matched_name,match_score,match_method,confidence,position,class_year,player_csv_team_id
-2308985964,ALPHONSA,HENDERSON II,Alphonsa Henderson Ii,University of West Florida,Gulf South Conference,II,06/11/2026,06/11/2026,Active,2025-26,Baseball,883,64210,2946591,Jay Henderson,58.8,team+lastname_diff_first,REVIEW,LF,So,883
-2302782633,CHRISTOPHER,PEREZ,Christopher Perez,University of Houston,Big 12 Conference,I,06/11/2026,06/11/2026,Active,2025-26,Baseball,337,100487,3093823,Chris Perez,92.0,team+fullname,LOW,P,So,337
-2209667914,ISAAC,STURGESS,Isaac Sturgess,Michigan State University,Big Ten Conference,I,06/11/2026,06/11/2026,Active,2025-26,Baseball,472,115886,3106165,Issac Sturgess,92.9,team+lastname,LOW,CF,So,472
+2209667994,JOHN,MELTON,John Melton,"University of Maryland, Baltimore County",America East Conference,I,06/11/2026,06/11/2026,Active,2025-26,Baseball,824,73445,2950974,Dylan Melton,69.6,team+lastname_diff_first,REVIEW,1B,Fr,824
+2208653630,RONALD,RENAUD,Ronald Renaud,Lenoir-Rhyne University,South Atlantic Conference,II,06/11/2026,06/11/2026,Active,2025-26,Baseball,400,70289,2965282,Jack Renaud,50.0,team+lastname_diff_first,REVIEW,P,Jr,400
