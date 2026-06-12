@@ -1,2 +1,4 @@
 ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfer_date,update_date,status,year,sport,team_id,player_id_64a,player_id_ncaa_stats,matched_name,match_score,match_method,confidence,position,class_year,player_csv_team_id
-2301757364,COLIN,MARSHALL,Colin Marshall,Mississippi University for Women,St. Louis Intercollegiate Athletic Conference,III,06/12/2026,06/12/2026,Active,2025-26,Baseball,518,146528,3251509,C. Marshall,80.0,team+lastname_diff_first,REVIEW,2B,,518
+2211713531,BRANDON,SANCHEZ,Brandon Sanchez,University of Northern Colorado,The Summit League,I,06/12/2026,06/12/2026,Active,2025-26,Baseball,553,70603,2972599,Branden Sanchez,93.3,team+fullname,LOW,3B,Jr,553
+2205549586,CHRISTOPHER,HANSON,Christopher Hanson,Flagler College,Peach Belt Conference,II,06/12/2026,06/12/2026,Active,2025-26,Baseball,264,130473,3236882,CJ Hanson,59.3,team+lastname_diff_first,REVIEW,P,Jr,264
+2007894071,MATTHEW,CANIZARES,Matthew Canizares,Stony Brook University,Coastal Athletic Association,I,06/12/2026,06/12/2026,Active,2025-26,Baseball,761,54850,2809097,Matt Canizares,92.0,team+lastname,LOW,P,Sr,761
