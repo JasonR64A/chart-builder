@@ -158,6 +158,7 @@ def build_entrants() -> pd.DataFrame:
             'player_id': pid, 'name': name, 'sport': tsport(prev_tid) or '',
             'pos': pos or '—', 'prevSchool': tname(prev_tid), 'conf': tconf(prev_tid),
             'cls': cls, 'rank': rank, 'status': status, 'to': to_school,
+            'toConf': (tconf(new_tid) if committed else ''),
             'hometown': hometown, 'entered': entered,
             'stat_type': stat_type, **{f'st_{k}': v for k, v in stat.items()},
         })
@@ -339,9 +340,16 @@ with st.sidebar:
     st.markdown('### Filters')
     q = st.text_input('Search', placeholder='player, school, conference…').strip().lower()
     sport = st.radio('Sport', ['All', 'Baseball', 'Softball'], horizontal=True)
-    conf_opts = ['All'] + sorted([c for c in df['conf'].dropna().unique() if c],
+    conf_basis = st.radio('Conference basis', ['Entered', 'Committed to'], horizontal=True,
+                          help="Entered = the conference a player came FROM (where they entered the "
+                               "portal). Committed to = the conference of the school they committed TO "
+                               "(only committed players have one). Pick 'Committed to' for boards like "
+                               "'top SEC commits'.")
+    conf_col = 'toConf' if conf_basis == 'Committed to' else 'conf'
+    conf_opts = ['All'] + sorted([c for c in df[conf_col].dropna().unique() if c],
                                   key=lambda c: (CONF_ORDER.index(c) if c in CONF_ORDER else 99, c))
-    conf = st.selectbox('Conference', conf_opts)
+    conf = st.selectbox('Committed-to conference' if conf_col == 'toConf' else 'Entered conference',
+                        conf_opts)
     pos_opts = ['All'] + sorted([p for p in df['pos'].dropna().unique() if p and p != '—'],
                                 key=lambda p: (POS_ORDER.index(p) if p in POS_ORDER else 99, p))
     pos = st.selectbox('Position', pos_opts)
@@ -367,9 +375,10 @@ with st.sidebar:
 pool = df.copy()
 if q:
     pool = pool[pool.apply(lambda p: q in str(p['name']).lower() or q in str(p['prevSchool']).lower()
-                           or q in str(p['to']).lower() or q in str(p['conf']).lower(), axis=1)]
+                           or q in str(p['to']).lower() or q in str(p['conf']).lower()
+                           or q in str(p['toConf']).lower(), axis=1)]
 if conf != 'All':
-    pool = pool[pool['conf'] == conf]
+    pool = pool[pool[conf_col] == conf]
 if pos != 'All':
     pool = pool[pool['pos'] == pos]
 
@@ -391,7 +400,7 @@ elif status_f == 'Available':
     view = view[view['status'] == 'Uncommitted']
 _asc = (sort_dir == 'Asc')
 _sortcol = {'Rank': 'rank', 'Team': 'prevSchool', 'Name': 'name',
-            'Conference': 'conf', 'Position': 'pos'}[sort_by]
+            'Conference': conf_col, 'Position': 'pos'}[sort_by]
 if _sortcol == 'rank':
     view = view.sort_values('rank', ascending=_asc, na_position='last')
 else:
@@ -416,7 +425,7 @@ col_count = (5 + int(show_stat)) if layout == 'board' else (7 + int(show_stat))
 def group_blocks(rows_df):
     if group_by == 'none':
         return [(None, rows_df)]
-    key_col = {'conf': 'conf', 'pos': 'pos', 'school': 'prevSchool'}[group_by]
+    key_col = {'conf': conf_col, 'pos': 'pos', 'school': 'prevSchool'}[group_by]
     keys = list(rows_df[key_col].fillna('—').unique())
     if group_by == 'conf':
         keys.sort(key=lambda k: (CONF_ORDER.index(k) if k in CONF_ORDER else 99, k))
@@ -443,7 +452,7 @@ else:
 # Result line (the poster supplies the masthead/branding; table only).
 filt_bits = []
 if conf != 'All':
-    filt_bits.append(conf)
+    filt_bits.append(f'{conf} commits' if conf_col == 'toConf' else conf)
 if pos != 'All':
     filt_bits.append(pos)
 if sport != 'All':
