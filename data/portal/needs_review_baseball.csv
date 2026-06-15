@@ -1,2 +1,2 @@
 ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfer_date,update_date,status,year,sport,team_id,player_id_64a,player_id_ncaa_stats,matched_name,match_score,match_method,confidence,position,class_year,player_csv_team_id
-2308991082,THOMAS,BROWN,Thomas Brown,Arizona State University,Big 12 Conference,I,06/14/2026,06/14/2026,Active,2025-26,Baseball,32,139479,3238590,Tommy Brown,92,team+lastname,LOW,C,Fr,32
+2208643285,PRESTON,RISKE,Preston Riske,University of Southern California,Big Ten Conference,I,06/14/2026,06/14/2026,Active,2025-26,Baseball,717,116861,3116715,Maddox Riske,56.0,team+lastname_diff_first,REVIEW,SS,So,717
