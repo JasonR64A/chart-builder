@@ -1,5 +1,4 @@
 ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfer_date,update_date,status,year,sport,team_id,player_id_64a,player_id_ncaa_stats,matched_name,match_score,match_method,confidence,position,class_year,player_csv_team_id
-2209663292,FINNEGAN,EDWARDS,Finnegan Edwards,Arizona State University,Big 12 Conference,I,06/17/2026,06/18/2026,Active,2025-26,Baseball,32,139484,3238570,Finn Edwards,82.0,team+lastname_diff_first,REVIEW,P,So,32
-2405316117,LANDON,SLOAN,Landon Sloan,Illinois College,Midwest Conference,III,06/17/2026,06/18/2026,Active,2025-26,Baseball,346,124574,3127115,L. Sloan,70.0,team+lastname_diff_first,REVIEW,P,So,346
-2212743173,WILLIAM,WHITE,William White,Butler University,BIG EAST Conference,I,06/17/2026,06/17/2026,Active,2025-26,Baseball,100,124539,3112301,Will White,92.0,team+fullname,LOW,C,Jr,100
-2308982641,NATHANIEL,STONE,Nathaniel Stone,Virginia Polytechnic Institute and State University,Atlantic Coast Conference,I,06/17/2026,06/17/2026,Active,2025-26,Baseball,858,146665,3251113,Tyler Stone,46.2,team+lastname_diff_first,REVIEW,P,Fr,858
+2202428606,KADEN,DURNIN,Kaden Durnin,Texas Christian University,Big 12 Conference,I,06/18/2026,06/18/2026,Active,2025-26,Baseball,775,101799,3092461,Kade Durnin,95.7,team+lastname,MEDIUM,P,Fr,775
+2405288156,EVERETT,MARSHALL,Everett Marshall,Samford University,Southern Conference,I,06/18/2026,06/18/2026,Active,2025-26,Baseball,683,147509,3247535,Eddie Marshall,73.3,team+lastname_diff_first,REVIEW,C,Fr,683
+2410445481,MITCHELL,RODRIGUEZ,Mitchell Rodriguez,Florida State University,Atlantic Coast Conference,I,06/18/2026,06/18/2026,Active,2025-26,Baseball,267,139636,3250710,Mookie Rodriguez,76.5,team+lastname_diff_first,REVIEW,C,Fr,267
