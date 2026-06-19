@@ -1,15 +1,16 @@
-__pycache__/
-*.pyc
-.DS_Store
-*.bat
-.env
-pbp_data/play_by_play/*.csv
-pbp_data/validated/*.parquet
-pbp_data/validated/*_full.json
-data/_backups_2026_*/
-*.backup_*.csv
-*.bak_*.csv
-*.pre_restore_*.csv
 
 # Design handoff bundles (source artifacts kept locally, not shipped)
 **/_design_handoff/
+*.backup_*.csv
+*.bak_*.csv
+*.bat
+*.pre_restore_*.csv
+*.pyc
+.DS_Store
+.env
+__pycache__/
+data/_backups_2026_*/
+data/top10_headshots/
+pbp_data/play_by_play/*.csv
+pbp_data/validated/*.parquet
+pbp_data/validated/*_full.json
