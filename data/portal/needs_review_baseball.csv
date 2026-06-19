@@ -1,4 +1,5 @@
 ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfer_date,update_date,status,year,sport,team_id,player_id_64a,player_id_ncaa_stats,matched_name,match_score,match_method,confidence,position,class_year,player_csv_team_id
+2106200518,MACLELLAND,STIFFLER,Maclelland Stiffler,West Virginia University,Big 12 Conference,I,06/19/2026,06/19/2026,Active,2025-26,Baseball,888,117034,3109266,Mac Stiffler,77.4,team+lastname_diff_first,REVIEW,P,So,888
 2109326343,NATHAN,CRISWELL,Nathan Criswell,Troy University,Sun Belt Conference,I,06/18/2026,06/18/2026,Active,2025-26,Baseball,799,137515,3208842,Nate Criswell,92.0,team+lastname,LOW,P,Jr,799
 2501486885,DANIEL,BOLTON-WAITES,Daniel Bolton-Waites,Auburn University at Montgomery,Gulf South Conference,II,06/04/2026,06/04/2026,Active,2025-26,Baseball,48,127525,3223347,"Cole ""Daniel"" Bolton-Waites",63.8,team+lastname_diff_first,REVIEW,P,Jr,48
 2209680379,DYLAN,HAMPSHIRE,Dylan Hampshire,Newman University,Mid-America Intercollegiate Athletics Association,II,05/04/2026,05/04/2026,Active,2025-26,Baseball,535,134295,3235443,"Dylan ""Tine"" Hampshire",92.0,team+lastname,LOW,P,Jr,535
