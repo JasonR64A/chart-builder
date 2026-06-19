@@ -427,7 +427,6 @@ with st.expander('Headshots & hat colors (remembered)', expanded=False):
                 overrides[p['to_tid']] = tc; changed = True
     if changed:
         save_overrides(overrides)
-        st.rerun()
 
 
 def headshot_for(pid):
@@ -435,7 +434,18 @@ def headshot_for(pid):
     return data_url(c) if c.exists() else ''
 
 
-# ---------------- build board ----------------
+# ---------------- summary + generate ----------------
+W, H = (1080, 1350) if fmt == 'ig' else (1600, 900)
+scale = round(660 / W, 4)
+fname = f'top10_portal_{sport.lower()}_{fmt}.png'
+st.markdown(f'**Showing {len(players)} · {sport}**: ' + ' · '.join(f'#{p["rank"]:,} {p["name"]}' for p in players))
+gen = st.button('🎨 Generate image', type='primary')
+if not gen:
+    st.caption('Set filters / headshots / hat colors above, then click **Generate image** to render and download. '
+               '(Kept off auto-refresh so changes are instant.)')
+    st.stop()
+
+# ---------------- build board (only on Generate) ----------------
 cards = ''.join(card_html(p, i + 1, capw, headshot_for(p['pid']), cap_color(p['from_tid']), cap_color(p['to_tid']))
                 for i, p in enumerate(players))
 brand_html = (
@@ -454,11 +464,7 @@ board = (
     f'<span class="dotrow"><span class="pip"></span> 64analytics.com</span></div>'
     f'</div>'
 )
-
 css = font_face_css() + '\n' + DESIGN_CSS.replace('__CAP__', data_url(CAP_PNG))
-W, H = (1080, 1350) if fmt == 'ig' else (1600, 900)
-scale = round(660 / W, 4)
-fname = f'top10_portal_{sport.lower()}_{fmt}.png'
 
 html = f"""<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/>
 <style>{css}
@@ -475,15 +481,18 @@ body{{margin:0;background:#0b0c0f;}}
 <script>
 window.dlPNG = async function(btn){{
   var el = document.getElementById('capture'); if(!el) return;
+  var inner = document.getElementById('stageinner'), wrap = document.getElementById('stagewrap');
+  var pT = inner ? inner.style.transform : '', pW = wrap ? wrap.style.cssText : '';
   var t = btn.textContent; btn.disabled = true; btn.textContent = 'Rendering…';
+  if(inner) inner.style.transform = 'none';                 // capture at true 1:1, not the preview scale
+  if(wrap){{ wrap.style.width='{W}px'; wrap.style.height='{H}px'; wrap.style.overflow='visible'; }}
   try{{
     if(document.fonts){{ try{{ await document.fonts.load("800 76px 'Saira Condensed'"); await document.fonts.load("500 35px 'Saira Condensed'"); }}catch(e){{}} if(document.fonts.ready) await document.fonts.ready; }}
-    var canvas = await html2canvas(el, {{scale:2, useCORS:true, backgroundColor:'#0b0e12', width:{W}, height:{H}, windowWidth:{W}, windowHeight:{H}}});
+    var canvas = await html2canvas(el, {{scale:2, useCORS:true, backgroundColor:'#0b0e12'}});
     var a = document.createElement('a'); a.download='{fname}';
     a.href = canvas.toDataURL('image/png'); document.body.appendChild(a); a.click(); document.body.removeChild(a);
-  }} finally {{ btn.disabled=false; btn.textContent = t || 'Download PNG'; }}
+  }} finally {{ if(inner) inner.style.transform=pT; if(wrap) wrap.style.cssText=pW; btn.disabled=false; btn.textContent = t || 'Download PNG'; }}
 }};
 </script></body></html>"""
 
 components.html(html, height=int(H * scale) + 80, scrolling=False)
-st.markdown(f'**Showing {len(players)} · {sport}**: ' + ' · '.join(f'#{p["rank"]:,} {p["name"]}' for p in players))
