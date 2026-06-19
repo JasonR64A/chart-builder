@@ -300,6 +300,10 @@ if target is not None:
     tpick = teams_df.copy()
     if psport:
         tpick = tpick[tpick['sport'] == psport]
+    # JUCO (960) / NAIA (961) are universal placeholders (stored as Baseball in
+    # teams.csv) — always offer them regardless of the player's sport.
+    placeholders = teams_df[teams_df['id'].isin([960, 961])]
+    tpick = pd.concat([tpick, placeholders]).drop_duplicates('id')
     tpick = tpick.sort_values('name')
     team_options = [''] + [f"{r['name']} (id={r['id']})" for _, r in tpick.iterrows()]
 
