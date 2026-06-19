@@ -1,12 +1,14 @@
 """Top 10 Portal Players — social/print graphic (Instagram 1080x1350, Twitter 1600x900).
 
 Ported from the Claude Design "Top 10 Portal Players" board. Live top 10 by
-sixty_four_rating_portal_player (1 = best) per sport. Each school "ballcap" is tinted
-with a logo-derived SECONDARY color and wears the team logo on the front (so the logo
-contrasts the hat). Per-player headshots can be uploaded and are remembered by player_id.
-Mirrors the asset->data-url + html2canvas pattern used by 16_Portal_Entrant_Graphic.
+sixty_four_rating_portal_player (1 = best) within the filtered pool, per sport.
+Filters: conference, commitment status, division, position. Each school "ballcap" is
+tinted with a logo-derived SECONDARY color (overridable per-school via color picker) and
+wears the team logo. Per-player headshots upload + remember. Fonts are embedded as base64
+@font-face so html2canvas exports cleanly (Google-hosted fonts don't render in capture).
 """
 import base64
+import json
 from pathlib import Path
 from collections import Counter
 
@@ -20,11 +22,17 @@ APP_DIR = Path(__file__).resolve().parent.parent
 DATA = APP_DIR / 'data'
 LOGO_DIR = APP_DIR / 'team_logos_512'
 BRAND = APP_DIR / 'assets' / 'portal-entrant'
+FONT_DIR = APP_DIR / 'assets' / 'fonts'
 CAP_PNG = APP_DIR / 'assets' / 'top10' / 'cap-blank.png'
 HEADSHOTS = DATA / 'top10_headshots'
+HAT_JSON = DATA / 'top10_hat_overrides.json'
 HEADSHOTS.mkdir(parents=True, exist_ok=True)
 
 st.set_page_config(page_title='Top 10 Portal Players', layout='wide')
+
+# condensed display font embedded as 'Saira Condensed' (substitute = local BarlowCondensed)
+_FONT_WEIGHTS = {500: 'BarlowCondensed-Medium.ttf', 600: 'BarlowCondensed-SemiBold.ttf',
+                 700: 'BarlowCondensed-Bold.ttf', 800: 'BarlowCondensed-ExtraBold.ttf'}
 
 
 # ---------------- helpers ----------------
@@ -35,8 +43,17 @@ def data_url(path, mime='image/png'):
     return f'data:{mime};base64,' + base64.b64encode(p.read_bytes()).decode()
 
 
-def _b64_bytes(b, mime='image/png'):
-    return f'data:{mime};base64,' + base64.b64encode(b).decode()
+@st.cache_data(show_spinner=False)
+def font_face_css():
+    out = []
+    for w, fn in _FONT_WEIGHTS.items():
+        p = FONT_DIR / fn
+        if not p.exists():
+            continue
+        b64 = base64.b64encode(p.read_bytes()).decode()
+        out.append("@font-face{font-family:'Saira Condensed';font-style:normal;font-weight:%d;"
+                   "src:url(data:font/ttf;base64,%s) format('truetype');}" % (w, b64))
+    return '\n'.join(out)
 
 
 @st.cache_data(show_spinner=False)
@@ -50,35 +67,30 @@ def norm(s):
 
 
 def _esc(s):
-    return (str(s).replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;'))
+    return str(s).replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
 
 
 def darken(hex_, amt):
-    h = hex_.lstrip('#')
-    n = int(h, 16)
+    n = int(hex_.lstrip('#'), 16)
     r, g, b = (n >> 16) & 255, (n >> 8) & 255, n & 255
-    r, g, b = int(r * (1 - amt)), int(g * (1 - amt)), int(b * (1 - amt))
-    return f'rgb({r},{g},{b})'
+    return f'rgb({int(r*(1-amt))},{int(g*(1-amt))},{int(b*(1-amt))})'
 
 
 def rgba(hex_, a):
-    h = hex_.lstrip('#')
-    n = int(h, 16)
-    return f'rgba({(n >> 16) & 255},{(n >> 8) & 255},{n & 255},{a})'
+    n = int(hex_.lstrip('#'), 16)
+    return f'rgba({(n>>16)&255},{(n>>8)&255},{n&255},{a})'
 
 
 def cap_text_color(hex_):
-    h = hex_.lstrip('#')
-    n = int(h, 16)
+    n = int(hex_.lstrip('#'), 16)
     lum = 0.299 * ((n >> 16) & 255) + 0.587 * ((n >> 8) & 255) + 0.114 * (n & 255)
     return '#16202b' if lum > 150 else '#ffffff'
 
 
 @st.cache_data(show_spinner=False)
 def logo_palette(team_id):
-    """(primary, secondary) hex from the team logo. primary = dominant mid-tone color,
-    secondary = next distinct color cluster (used to tint the cap so it contrasts the
-    logo). Falls back to brand red / dark slate when the logo is missing or monochrome."""
+    """(primary, secondary) hex from the team logo. secondary = 2nd distinct color cluster,
+    used to tint the cap so the logo contrasts the hat. Brand-red / dark-slate fallback."""
     fallback = ('#b23a48', '#2a313b')
     p = LOGO_DIR / f'{team_id}.png'
     if not p.exists():
@@ -98,62 +110,62 @@ def logo_palette(team_id):
             return fallback
         ranked = [c for c, _ in buckets.most_common()]
         prim = ranked[0]
-        sec = None
-        for c in ranked[1:]:
-            if abs(c[0] - prim[0]) + abs(c[1] - prim[1]) + abs(c[2] - prim[2]) > 90:
-                sec = c
-                break
+        sec = next((c for c in ranked[1:]
+                    if abs(c[0]-prim[0]) + abs(c[1]-prim[1]) + abs(c[2]-prim[2]) > 90), None)
         hx = lambda c: '#%02x%02x%02x' % c
         return (hx(prim), hx(sec) if sec else '#2a313b')
     except Exception:
         return fallback
 
 
-def abbr_of(name):
-    name = (name or '??').strip()
-    drop = {'university', 'univ', 'of', 'the', 'college', 'at', 'a&m'}
-    words = [w for w in name.replace('.', '').split() if w.lower() not in drop]
-    caps = ''.join(w[0] for w in words if w[:1].isupper())[:4]
-    return (caps or name[:4]).upper()
+def load_overrides():
+    try:
+        return json.loads(HAT_JSON.read_text()) if HAT_JSON.exists() else {}
+    except Exception:
+        return {}
 
 
-CLASS_SHORT = {'Freshman': 'Fr', 'Sophomore': 'So', 'Junior': 'Jr', 'Senior': 'Sr'}
+def save_overrides(d):
+    try:
+        HAT_JSON.write_text(json.dumps(d))
+    except Exception:
+        pass
 
 
 @st.cache_data(show_spinner=False)
-def build_top10(sport):
+def load_pool(sport):
     prp = _csv('portal_rank_player.csv')
     prp = prp[prp['year'].map(norm) == '2026'].copy()
     prp['rk'] = pd.to_numeric(prp['sixty_four_rating_portal_player'], errors='coerce')
 
     teams = _csv('teams.csv')
-    tname, tsport, tconf = {}, {}, {}
+    tname, tsport, tconfid = {}, {}, {}
     for _, r in teams.iterrows():
-        i = norm(r['id'])
-        tname[i] = r['name']; tsport[i] = r['sport']; tconf[i] = norm(r['conference_id'])
+        i = norm(r['id']); tname[i] = r['name']; tsport[i] = r['sport']; tconfid[i] = norm(r['conference_id'])
     conf = _csv('conferences.csv')
-    cabbr = {norm(r['id']): (r.get('abbreviation') or r.get('name') or '') for _, r in conf.iterrows()}
+    cabbr, cdiv = {}, {}
+    for _, r in conf.iterrows():
+        i = norm(r['id']); cabbr[i] = (r.get('abbreviation') or r.get('name') or ''); cdiv[i] = r.get('division', '')
     players = _csv('players.csv')
     pname, ppos = {}, {}
     for _, r in players.iterrows():
         i = norm(r['id']); pname[i] = r['player_name']; ppos[i] = r['position']
 
     prp['sport'] = prp['team_id'].map(norm).map(tsport)
-    sub = prp[(prp['sport'] == sport) & prp['rk'].notna()].nsmallest(10, 'rk')
+    sub = prp[(prp['sport'] == sport) & prp['rk'].notna()].sort_values('rk')
 
     out = []
     for _, r in sub.iterrows():
         pid = norm(r['player_id']); ftid = norm(r['team_id']); ntid = norm(r['new_team_id'])
         committed = ntid not in ('', '0', 'nan')
+        fcid = tconfid.get(ftid, '')
         out.append({
-            'pid': pid,
-            'name': pname.get(pid) or r['name'] or f'#{pid}',
-            'pos': (ppos.get(pid) or '').upper(),
-            'conf': cabbr.get(tconf.get(ftid, ''), ''),
-            'rank': int(r['rk']),
+            'pid': pid, 'name': pname.get(pid) or r['name'] or f'#{pid}',
+            'pos': (ppos.get(pid) or '').upper(), 'conf': cabbr.get(fcid, ''),
+            'division': cdiv.get(fcid, ''), 'rank': int(r['rk']),
             'from_tid': ftid, 'from_name': tname.get(ftid, ''),
-            'committed': committed,
-            'to_tid': ntid if committed else '', 'to_name': tname.get(ntid, '') if committed else '',
+            'committed': committed, 'to_tid': ntid if committed else '',
+            'to_name': tname.get(ntid, '') if committed else '',
         })
     return out
 
@@ -169,11 +181,13 @@ def split_name(full):
     return (' '.join(parts), last)
 
 
-# ---------------- design CSS (ported from top10.css) ----------------
+# ---------------- design CSS (ported) ----------------
 DESIGN_CSS = r"""
-:root{--bg:#0b0e12;--card:#171c23;--card-edge:#262d36;--ink:#fff;--ink-soft:#8b97a6;
+:root{--card:#171c23;--card-edge:#262d36;--ink:#fff;--ink-soft:#8b97a6;
 --maroon:#b23a48;--maroon-deep:#9a303e;--orange:#d98443;
---cond:'Saira Condensed',sans-serif;--sans:'Archivo',system-ui,sans-serif;--mono:'Spline Sans Mono',ui-monospace,monospace;}
+--cond:'Saira Condensed','Barlow Condensed',sans-serif;
+--sans:system-ui,'Segoe UI',Arial,sans-serif;
+--mono:ui-monospace,'Consolas','SFMono-Regular',monospace;}
 *{box-sizing:border-box;}
 .board{position:relative;color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;
 background:radial-gradient(120% 80% at 50% -10%, #1b2129 0%, rgba(27,33,41,0) 55%),repeating-linear-gradient(125deg,#0d1116 0 22px,#0b0e12 22px 44px);overflow:hidden;}
@@ -264,30 +278,28 @@ SIL = ('<svg class="sil" width="78%" height="78%" viewBox="0 0 100 100" fill="cu
        '<circle cx="50" cy="36" r="20"/><path d="M12 100 C12 70 30 60 50 60 C70 60 88 70 88 100 Z"/></svg>')
 
 
-def cap_html(tid, capw, open_=False):
+def cap_html(tid, color, capw, open_=False):
     h = round(capw * 1.25)
     if open_ or not tid:
         return (f'<div class="caphat cap-open" style="width:{capw}px;height:{h}px">'
                 f'<div class="cap-base" style="background:#3a434e"></div><div class="cap-shade"></div>'
                 f'<span class="cap-q" style="font-size:{round(capw*0.34)}px">?</span></div>')
-    _, secondary = logo_palette(tid)
     logo = data_url(LOGO_DIR / f'{tid}.png')
     inner = (f'<img class="cap-logo" src="{logo}"/>' if logo
-             else f'<span class="cap-abbr" style="color:{cap_text_color(secondary)};font-size:{round(capw*0.23)}px">{abbr_of("")}</span>')
+             else f'<span class="cap-abbr" style="color:{cap_text_color(color)};font-size:{round(capw*0.23)}px"></span>')
     return (f'<div class="caphat" style="width:{capw}px;height:{h}px">'
-            f'<div class="cap-base" style="background:{secondary}"></div><div class="cap-shade"></div>{inner}</div>')
+            f'<div class="cap-base" style="background:{color}"></div><div class="cap-shade"></div>{inner}</div>')
 
 
-def card_html(p, pos, capw, headshot_url):
+def card_html(p, pos, capw, headshot_url, from_color, to_color):
     fn, ln = split_name(p['name'])
-    fprim, _ = logo_palette(p['from_tid']) if p['from_tid'] else ('#b23a48', '')
-    accent = (logo_palette(p['to_tid'])[0] if p['committed'] and p['to_tid'] else fprim)
+    fprim = logo_palette(p['from_tid'])[0] if p['from_tid'] else '#b23a48'
+    accent = logo_palette(p['to_tid'])[0] if (p['committed'] and p['to_tid']) else fprim
     photo_bg = f'linear-gradient(120deg,{rgba(fprim,0.95)},{darken(fprim,0.45)})'
     tint_bg = f'linear-gradient(100deg,{rgba(accent,0.0)} 30%,{rgba(accent,0.16)} 75%,{rgba(accent,0.30)} 100%)'
-    wm = (abbr_of(p['to_name']) if p['committed'] else abbr_of(p['from_name']))[:1]
+    wm = (p['to_name'] if p['committed'] else p['from_name'] or '?')[:1].upper()
     head = f'<img class="phead" src="{headshot_url}"/>' if headshot_url else ''
     fn_html = f'<span class="fn">{_esc(fn)}</span>' if fn else ''
-    to_lbl = 'To' if p['committed'] else 'To'
     return (
         f'<div class="pcard {"is-top" if pos<=3 else ""}">'
         f'<div class="tint" style="background:{tint_bg}"></div>'
@@ -298,9 +310,9 @@ def card_html(p, pos, capw, headshot_url):
         f'<div class="pmeta"><span class="ppos">{_esc(p["pos"])}</span><span class="psport">{_esc(p["conf"])}</span></div>'
         f'</div>'
         f'<div class="transfer">'
-        f'<div class="capwrap"><span class="caplbl">From</span>{cap_html(p["from_tid"], capw)}</div>'
+        f'<div class="capwrap"><span class="caplbl">From</span>{cap_html(p["from_tid"], from_color, capw)}</div>'
         f'<span class="t-arrow">{ARROW.format(s=round(capw*0.42))}</span>'
-        f'<div class="capwrap"><span class="caplbl">{to_lbl}</span>{cap_html(p["to_tid"], capw, open_=not p["committed"])}</div>'
+        f'<div class="capwrap"><span class="caplbl">To</span>{cap_html(p["to_tid"], to_color, capw, open_=not p["committed"])}</div>'
         f'</div></div>'
         f'<div class="prank {"top3" if pos<=3 else ""}"><div class="num"><span class="hash">#</span>{p["rank"]:,}</div></div>'
         f'</div>'
@@ -309,37 +321,73 @@ def card_html(p, pos, capw, headshot_url):
 
 # ---------------- UI ----------------
 st.title('Top 10 Portal Players')
-st.caption('Live top 10 by 64A portal rank (1 = best). Tweak format/sport, drop headshots, then Download PNG.')
+st.caption('Top 10 by 64A portal rank (1 = best) within your filters. Tweak filters, drop headshots / hat colors, then Download PNG.')
 
 c1, c2 = st.columns(2)
 sport = c1.radio('Sport', ['Baseball', 'Softball'], horizontal=True)
-fmt_label = c2.radio('Format', ['Instagram (1080×1350)', 'Twitter/X (1600×900)'], horizontal=True)
-fmt = 'ig' if fmt_label.startswith('Instagram') else 'tw'
+fmt = 'ig' if c2.radio('Format', ['Instagram (1080×1350)', 'Twitter/X (1600×900)'], horizontal=True).startswith('Instagram') else 'tw'
 capw = 60 if fmt == 'ig' else 54
 
-players = build_top10(sport)
-if not players:
-    st.warning(f'No {sport} portal players found in portal_rank_player.csv.')
-    st.stop()
+pool = load_pool(sport)
+if not pool:
+    st.warning(f'No {sport} portal players found.'); st.stop()
 
-# headshots: upload + remember (by player_id)
-with st.expander('Headshots — upload (remembered per player by id)', expanded=False):
+# ---- filters ----
+st.markdown('**Filters**')
+f1, f2, f3, f4 = st.columns([2, 2, 1.4, 1.4])
+conf_opts = sorted({p['conf'] for p in pool if p['conf']})
+pos_opts = sorted({p['pos'] for p in pool if p['pos']})
+div_opts = [d for d in ['D-I', 'D-II', 'D-III'] if any(p['division'] == d for p in pool)]
+sel_conf = f1.multiselect('Conference', conf_opts, default=[])
+sel_pos = f2.multiselect('Position', pos_opts, default=[])
+sel_div = f3.multiselect('Division', div_opts, default=[])
+commit = f4.radio('Commitment', ['All', 'Committed', 'Available'], index=0)
+
+filtered = [p for p in pool
+            if (not sel_conf or p['conf'] in sel_conf)
+            and (not sel_pos or p['pos'] in sel_pos)
+            and (not sel_div or p['division'] in sel_div)
+            and (commit == 'All' or (commit == 'Committed' and p['committed']) or (commit == 'Available' and not p['committed']))]
+players = filtered[:10]
+if not players:
+    st.warning('No players match those filters.'); st.stop()
+if len(players) < 10:
+    st.info(f'Only {len(players)} players match the filters — the board will show {len(players)} card(s).')
+
+overrides = load_overrides()
+
+
+def cap_color(tid):
+    return overrides.get(tid) or (logo_palette(tid)[1] if tid else '#2a313b')
+
+
+# ---- headshots + hat colors (remembered) ----
+with st.expander('Headshots & hat colors (remembered)', expanded=False):
+    st.caption('Drop a headshot per player; adjust a cap color where the logo blends in. Both persist.')
+    changed = False
     for p in players:
         cached = HEADSHOTS / f'{p["pid"]}.png'
-        cols = st.columns([3, 2])
-        cols[0].markdown(f'**#{p["rank"]:,} · {p["name"]}** ({p["from_name"]})'
-                         + ('  ✅ on file' if cached.exists() else ''))
-        up = cols[1].file_uploader('headshot', type=['png', 'jpg', 'jpeg', 'webp'],
-                                   key=f'hs_{p["pid"]}', label_visibility='collapsed')
+        cc = st.columns([3, 2, 1.3, 1.3])
+        cc[0].markdown(f'**#{p["rank"]:,} · {p["name"]}**  \n{p["from_name"]}'
+                       + (f' → {p["to_name"]}' if p['committed'] else '') + ('  ·  📷' if cached.exists() else ''))
+        up = cc[1].file_uploader('headshot', type=['png', 'jpg', 'jpeg', 'webp'],
+                                 key=f'hs_{p["pid"]}', label_visibility='collapsed')
         if up is not None:
             try:
-                img = Image.open(up).convert('RGBA')
-                img.thumbnail((600, 600))
-                cached.parent.mkdir(parents=True, exist_ok=True)
-                img.save(cached, 'PNG')
-                st.toast(f'Saved headshot for {p["name"]}')
+                im = Image.open(up).convert('RGBA'); im.thumbnail((600, 600)); im.save(cached, 'PNG')
+                st.toast(f'Saved headshot · {p["name"]}')
             except Exception as e:
-                st.warning(f'Could not read that image: {e}')
+                st.warning(f'Bad image: {e}')
+        fc = cc[2].color_picker(f'From hat', cap_color(p['from_tid']), key=f'hf_{p["pid"]}')
+        if p['from_tid'] and fc.lower() != cap_color(p['from_tid']).lower():
+            overrides[p['from_tid']] = fc; changed = True
+        if p['committed'] and p['to_tid']:
+            tc = cc[3].color_picker(f'To hat', cap_color(p['to_tid']), key=f'ht_{p["pid"]}')
+            if tc.lower() != cap_color(p['to_tid']).lower():
+                overrides[p['to_tid']] = tc; changed = True
+    if changed:
+        save_overrides(overrides)
+        st.rerun()
 
 
 def headshot_for(pid):
@@ -348,8 +396,8 @@ def headshot_for(pid):
 
 
 # ---------------- build board ----------------
-season = 'Baseball' if sport == 'Baseball' else 'Softball'
-cards = ''.join(card_html(p, i + 1, capw, headshot_for(p['pid'])) for i, p in enumerate(players))
+cards = ''.join(card_html(p, i + 1, capw, headshot_for(p['pid']), cap_color(p['from_tid']), cap_color(p['to_tid']))
+                for i, p in enumerate(players))
 brand_html = (
     f'<img class="logo64" src="{data_url(BRAND / "logo-64-analytics.png")}" alt="64A"/>'
     f'<span class="brand-div"></span>'
@@ -359,7 +407,7 @@ brand_html = (
 board = (
     f'<div class="board" data-format="{fmt}" id="capture">'
     f'<div class="bhead"><div class="brand">{brand_html}</div>'
-    f'<div class="tag">Transfer Portal · {season} · &rsquo;26</div></div>'
+    f'<div class="tag">Transfer Portal · {sport} · &rsquo;26</div></div>'
     f'<div class="btitle"><span class="t10">TOP 10</span><span>PORTAL PLAYERS</span><span class="rule"></span></div>'
     f'<div class="grid">{cards}</div>'
     f'<div class="bfoot"><span>64A Proprietary Rankings</span>'
@@ -367,15 +415,12 @@ board = (
     f'</div>'
 )
 
-css = DESIGN_CSS.replace('__CAP__', data_url(CAP_PNG))
+css = font_face_css() + '\n' + DESIGN_CSS.replace('__CAP__', data_url(CAP_PNG))
 W, H = (1080, 1350) if fmt == 'ig' else (1600, 900)
 scale = round(660 / W, 4)
 fname = f'top10_portal_{sport.lower()}_{fmt}.png'
 
 html = f"""<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Saira+Condensed:wght@500;600;700;800&family=Spline+Sans+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
 <style>{css}
 body{{margin:0;background:#0b0c0f;}}
 #stagewrap{{width:{int(W*scale)}px;height:{int(H*scale)}px;overflow:hidden;}}
@@ -392,7 +437,7 @@ window.dlPNG = async function(btn){{
   var el = document.getElementById('capture'); if(!el) return;
   var t = btn.textContent; btn.disabled = true; btn.textContent = 'Rendering…';
   try{{
-    if(document.fonts && document.fonts.ready) await document.fonts.ready;
+    if(document.fonts){{ try{{ await document.fonts.load("800 76px 'Saira Condensed'"); await document.fonts.load("500 35px 'Saira Condensed'"); }}catch(e){{}} if(document.fonts.ready) await document.fonts.ready; }}
     var canvas = await html2canvas(el, {{scale:2, useCORS:true, backgroundColor:'#0b0e12', width:{W}, height:{H}, windowWidth:{W}, windowHeight:{H}}});
     var a = document.createElement('a'); a.download='{fname}';
     a.href = canvas.toDataURL('image/png'); document.body.appendChild(a); a.click(); document.body.removeChild(a);
@@ -401,5 +446,4 @@ window.dlPNG = async function(btn){{
 </script></body></html>"""
 
 components.html(html, height=int(H * scale) + 80, scrolling=False)
-
-st.markdown('**Top 10 · ' + sport + '**: ' + ' · '.join(f'#{p["rank"]:,} {p["name"]}' for p in players[:10]))
+st.markdown(f'**Showing {len(players)} · {sport}**: ' + ' · '.join(f'#{p["rank"]:,} {p["name"]}' for p in players))

@@ -10,6 +10,7 @@
 .env
 __pycache__/
 data/_backups_2026_*/
+data/top10_hat_overrides.json
 data/top10_headshots/
 pbp_data/play_by_play/*.csv
 pbp_data/validated/*.parquet
