@@ -9,6 +9,7 @@ wears the team logo. Per-player headshots upload + remember. Fonts are embedded 
 """
 import base64
 import json
+from io import BytesIO
 from pathlib import Path
 from collections import Counter
 
@@ -41,6 +42,23 @@ def data_url(path, mime='image/png'):
     if not p.exists():
         return ''
     return f'data:{mime};base64,' + base64.b64encode(p.read_bytes()).decode()
+
+
+@st.cache_data(show_spinner=False)
+def tinted_cap(color):
+    """Colorize the blank-cap PNG to `color` in Python (color x shading), keeping the cap
+    silhouette + alpha. Done server-side because html2canvas can't render CSS masks, which
+    otherwise left a square color block behind each hat."""
+    base = Image.open(CAP_PNG).convert('RGBA')
+    arr = np.array(base).astype('float32')
+    n = int(color.lstrip('#'), 16)
+    cr, cg, cb = (n >> 16) & 255, (n >> 8) & 255, n & 255
+    gray = (0.299 * arr[:, :, 0] + 0.587 * arr[:, :, 1] + 0.114 * arr[:, :, 2]) / 255.0
+    f = np.clip(gray * 1.12, 0, 1)  # keep colors vivid, retain photo shading
+    arr[:, :, 0] = cr * f; arr[:, :, 1] = cg * f; arr[:, :, 2] = cb * f
+    buf = BytesIO()
+    Image.fromarray(arr.astype('uint8'), 'RGBA').save(buf, 'PNG')
+    return 'data:image/png;base64,' + base64.b64encode(buf.getvalue()).decode()
 
 
 @st.cache_data(show_spinner=False)
@@ -243,8 +261,7 @@ background:radial-gradient(120% 80% at 50% -10%, #1b2129 0%, rgba(27,33,41,0) 55
 .transfer{display:flex;align-items:center;}
 .capwrap{display:flex;flex-direction:column;align-items:center;}
 .caphat{position:relative;display:block;isolation:isolate;}
-.cap-base{position:absolute;inset:0;-webkit-mask:url(__CAP__) center/contain no-repeat;mask:url(__CAP__) center/contain no-repeat;}
-.cap-shade{position:absolute;inset:0;background:url(__CAP__) center/contain no-repeat;mix-blend-mode:multiply;}
+.caphat .cap-base-img{position:absolute;inset:0;width:100%;height:100%;z-index:1;}
 .cap-abbr{position:absolute;left:0;right:0;top:36%;text-align:center;font-family:var(--cond);font-weight:800;line-height:1;letter-spacing:.3px;z-index:2;}
 .caphat .cap-logo{position:absolute;left:24%;top:27%;width:52%;height:32%;object-fit:contain;z-index:3;filter:drop-shadow(0 1px 1px rgba(0,0,0,.35));}
 .cap-q{position:absolute;left:0;right:0;top:33%;text-align:center;font-family:var(--cond);font-weight:800;color:#8b97a6;line-height:1;z-index:2;}
@@ -305,13 +322,12 @@ def cap_html(tid, color, capw, open_=False):
     h = round(capw * 1.25)
     if open_ or not tid:
         return (f'<div class="caphat cap-open" style="width:{capw}px;height:{h}px">'
-                f'<div class="cap-base" style="background:#3a434e"></div><div class="cap-shade"></div>'
+                f'<img class="cap-base-img" src="{tinted_cap("#3a434e")}"/>'
                 f'<span class="cap-q" style="font-size:{round(capw*0.34)}px">?</span></div>')
     logo = data_url(LOGO_DIR / f'{tid}.png')
-    inner = (f'<img class="cap-logo" src="{logo}"/>' if logo
-             else f'<span class="cap-abbr" style="color:{cap_text_color(color)};font-size:{round(capw*0.23)}px"></span>')
+    inner = f'<img class="cap-logo" src="{logo}"/>' if logo else ''
     return (f'<div class="caphat" style="width:{capw}px;height:{h}px">'
-            f'<div class="cap-base" style="background:{color}"></div><div class="cap-shade"></div>{inner}</div>')
+            f'<img class="cap-base-img" src="{tinted_cap(color)}"/>{inner}</div>')
 
 
 def card_html(p, pos, capw, headshot_url, from_color, to_color):
