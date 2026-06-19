@@ -471,8 +471,11 @@ result_line = (f'{_rng}{_pg} · {_sortlbl}'
 # solving fs from the zone budget is accurate (no more bottom-row cutoff).
 ZONE_H = 905.0        # usable zone height (px) inside the scrim padding; runs near full page
 RESULT_H = 28.0       # result line above the table
-HEADER_W = 1.5        # header-row height in units of fs
-ROW_W = 3.1 if layout == 'board' else 2.2  # data-row height in fs units (board = 2 lines)
+HEADER_W = 2.2        # header-row height in fs units (1 line + 2·pady; was under-counted at 1.5)
+# data-row height in fs units. Board = 2 text lines + a 2.3em rank badge + 2·pady,
+# which is ~3.4·fs — the old 3.1 under-counted it, so the 20th row clipped off the
+# bottom. Ledger/Index are single-line (~2.2·fs).
+ROW_W = 3.45 if layout == 'board' else 2.2
 rows_total = max(1, len(body))
 fs = (ZONE_H - RESULT_H) / (HEADER_W + ROW_W * rows_total)
 fs = max(8.5, min(18.0, fs))
