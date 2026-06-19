@@ -151,6 +151,28 @@ def load_pool(sport):
     for _, r in players.iterrows():
         i = norm(r['id']); pname[i] = r['player_name']; ppos[i] = r['position']
 
+    # per-player stats for the stat-threshold filter (2026, best-sample row)
+    def _statmap(fname, ipcol, cols):
+        df = _csv(fname); df = df[df['year'].map(norm) == '2026'].copy()
+        df['pid'] = df['player_id'].map(norm)
+        df['_s'] = pd.to_numeric(df[ipcol], errors='coerce')
+        df = df.sort_values('_s').groupby('pid').tail(1).set_index('pid')
+        m = {}
+        for pid_, row in df.iterrows():
+            d = {}
+            for k, c in cols.items():
+                v = pd.to_numeric(row.get(c), errors='coerce')
+                if pd.notna(v):
+                    d[k] = float(v)
+            m[pid_] = d
+        return m
+    hmap = _statmap('hitting.csv', 'plate_appearances',
+                    {'OPS': 'on_base_plus_slugging', 'ISO': 'isolated_power', 'AVG': 'batting_average',
+                     'HR': 'home_runs', 'wRC': 'weighted_runs_created', 'wRAA': 'weighted_runs_above_average'})
+    pmap_s = _statmap('pitching.csv', 'innings_pitched',
+                      {'ERA': 'earned_run_average', 'FIP': 'fielding_independent_pitching',
+                       'WHIP': 'walks_plus_hits_per_inning_pitched', 'K9': 'strikeouts_per_9_innings'})
+
     prp['sport'] = prp['team_id'].map(norm).map(tsport)
     sub = prp[(prp['sport'] == sport) & prp['rk'].notna()].sort_values('rk')
 
@@ -166,6 +188,7 @@ def load_pool(sport):
             'from_tid': ftid, 'from_name': tname.get(ftid, ''),
             'committed': committed, 'to_tid': ntid if committed else '',
             'to_name': tname.get(ntid, '') if committed else '',
+            'stats': {**hmap.get(pid, {}), **pmap_s.get(pid, {})},
         })
     return out
 
@@ -343,11 +366,28 @@ sel_pos = f2.multiselect('Position', pos_opts, default=[])
 sel_div = f3.multiselect('Division', div_opts, default=[])
 commit = f4.radio('Commitment', ['All', 'Committed', 'Available'], index=0)
 
+# stat threshold filter (min for rate/counting stats, max for ERA/FIP/WHIP)
+STATS = {'OPS ≥': ('OPS', 'min'), 'ISO ≥': ('ISO', 'min'), 'AVG ≥': ('AVG', 'min'),
+         'HR ≥': ('HR', 'min'), 'wRC ≥': ('wRC', 'min'), 'wRAA ≥': ('wRAA', 'min'),
+         'ERA ≤': ('ERA', 'max'), 'FIP ≤': ('FIP', 'max'), 'WHIP ≤': ('WHIP', 'max'), 'K/9 ≥': ('K9', 'min')}
+s1, s2 = st.columns([2, 2])
+stat_label = s1.selectbox('Stat filter', ['None'] + list(STATS),
+                          help='Keep only players clearing this stat. A hitter stat drops pitchers and vice-versa.')
+stat_thr = None
+if stat_label != 'None':
+    stat_thr = s2.number_input(stat_label, value=0.0, step=0.05, format='%.3f')
+
 filtered = [p for p in pool
             if (not sel_conf or p['conf'] in sel_conf)
             and (not sel_pos or p['pos'] in sel_pos)
             and (not sel_div or p['division'] in sel_div)
             and (commit == 'All' or (commit == 'Committed' and p['committed']) or (commit == 'Available' and not p['committed']))]
+if stat_label != 'None' and stat_thr is not None:
+    key, direction = STATS[stat_label]
+    def _passes(p):
+        v = p['stats'].get(key)
+        return v is not None and (v >= stat_thr if direction == 'min' else v <= stat_thr)
+    filtered = [p for p in filtered if _passes(p)]
 players = filtered[:10]
 if not players:
     st.warning('No players match those filters.'); st.stop()
