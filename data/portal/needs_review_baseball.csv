@@ -1,4 +1,6 @@
 ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfer_date,update_date,status,year,sport,team_id,player_id_64a,player_id_ncaa_stats,matched_name,match_score,match_method,confidence,position,class_year,player_csv_team_id
+2110348348,ANDREW,DELCOLLO,Andrew Delcollo,Oakland University,Horizon League,I,06/19/2026,06/19/2026,Active,2025-26,Baseball,569,70225,2969137,Drew DelCollo,92.0,team+lastname,LOW,P,Jr,569
+2208646234,ZACHARY,CALEF-BORING,Zachary Calef-Boring,Davis & Elkins College,Mountain East Conference,II,06/19/2026,06/19/2026,Active,2025-26,Baseball,199,71652,2947755,Zach Calef-Boring,92.0,team+lastname,LOW,2B,Jr,199
 2106200518,MACLELLAND,STIFFLER,Maclelland Stiffler,West Virginia University,Big 12 Conference,I,06/19/2026,06/19/2026,Active,2025-26,Baseball,888,117034,3109266,Mac Stiffler,77.4,team+lastname_diff_first,REVIEW,P,So,888
 2109326343,NATHAN,CRISWELL,Nathan Criswell,Troy University,Sun Belt Conference,I,06/18/2026,06/18/2026,Active,2025-26,Baseball,799,137515,3208842,Nate Criswell,92.0,team+lastname,LOW,P,Jr,799
 2501486885,DANIEL,BOLTON-WAITES,Daniel Bolton-Waites,Auburn University at Montgomery,Gulf South Conference,II,06/04/2026,06/04/2026,Active,2025-26,Baseball,48,127525,3223347,"Cole ""Daniel"" Bolton-Waites",63.8,team+lastname_diff_first,REVIEW,P,Jr,48
