@@ -1,2 +1,3 @@
 ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfer_date,update_date,status,year,sport,team_id,player_id_64a,player_id_ncaa_stats,matched_name,match_score,match_method,confidence,position,class_year,player_csv_team_id
-2210685469,ALEXANDER,CROSNO,Alexander Crosno,Westmont College,Pacific West Conference,II,06/20/2026,06/20/2026,Active,2025-26,Baseball,951,138501,3241846,Alex Crosno,92,team+lastname,LOW,P,Fr,951
+2210704673,WILLIAM,STICKNEY,William Stickney,University of Southern California,Big Ten Conference,I,06/21/2026,06/22/2026,Active,2025-26,Baseball,717,127286,,Will Stickney,92,team+fullname,LOW,INF,,717
+2606969198,BENJAMIN,GILL,Benjamin Gill,Endicott College,Conference of New England,III,06/21/2026,06/21/2026,Active,2025-26,Baseball,246,118572,3099781,Ben Gill,92,team+lastname,LOW,P,So,246
