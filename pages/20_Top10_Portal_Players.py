@@ -62,6 +62,21 @@ def tinted_cap(color):
 
 
 @st.cache_data(show_spinner=False)
+def face_shadow(pid):
+    """Dark, cool-tinted 'shadow' version of a player's headshot for the corner watermark.
+    Baked in Python (alpha preserved) so html2canvas exports it — CSS filters don't render."""
+    c = HEADSHOTS / f'{pid}.png'
+    if not c.exists():
+        return ''
+    arr = np.array(Image.open(c).convert('RGBA')).astype('float32')
+    g = (0.299 * arr[:, :, 0] + 0.587 * arr[:, :, 1] + 0.114 * arr[:, :, 2]) * 0.30
+    arr[:, :, 0] = g * 0.85; arr[:, :, 1] = g * 0.95; arr[:, :, 2] = g * 1.15
+    buf = BytesIO()
+    Image.fromarray(arr.clip(0, 255).astype('uint8'), 'RGBA').save(buf, 'PNG')
+    return 'data:image/png;base64,' + base64.b64encode(buf.getvalue()).decode()
+
+
+@st.cache_data(show_spinner=False)
 def font_face_css():
     out = []
     for w, fn in _FONT_WEIGHTS.items():
@@ -258,6 +273,7 @@ background:radial-gradient(120% 80% at 50% -10%, #1b2129 0%, rgba(27,33,41,0) 55
 .pcard{position:relative;overflow:hidden;border-radius:10px;display:flex;align-items:stretch;background:var(--card);border:1px solid var(--card-edge);box-shadow:0 10px 26px rgba(0,0,0,.45);isolation:isolate;}
 .pcard .tint{position:absolute;inset:0;z-index:0;pointer-events:none;}
 .pcard .watermark{position:absolute;z-index:0;right:-.08em;bottom:-.30em;font-family:var(--cond);font-weight:800;color:rgba(255,255,255,.06);line-height:.7;pointer-events:none;letter-spacing:-3px;}
+.pcard .watermark-photo{position:absolute;z-index:0;bottom:-2%;right:-2%;height:92%;width:auto;opacity:.18;pointer-events:none;}
 .pphoto{position:relative;z-index:1;flex:0 0 auto;height:100%;aspect-ratio:1/1;display:flex;align-items:flex-end;justify-content:center;overflow:hidden;}
 .pphoto .ring{position:absolute;inset:0;z-index:0;}
 .pphoto .phead{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;}
@@ -348,13 +364,15 @@ def card_html(p, pos, capw, headshot_url, from_color, to_color, badge, stat_disp
     photo_bg = f'linear-gradient(120deg,{rgba(fprim,0.95)},{darken(fprim,0.45)})'
     tint_bg = f'linear-gradient(100deg,{rgba(accent,0.0)} 30%,{rgba(accent,0.16)} 75%,{rgba(accent,0.30)} 100%)'
     wm = (p['to_name'] if p['committed'] else p['from_name'] or '?')[:1].upper()
+    _sh = face_shadow(p['pid'])
+    wm_html = f'<img class="watermark-photo" src="{_sh}"/>' if _sh else f'<div class="watermark">{_esc(wm)}</div>'
     head = f'<img class="phead" src="{headshot_url}"/>' if headshot_url else ''
     fn_html = f'<span class="fn">{_esc(fn)}</span>' if fn else ''
     meta_extra = f'<span class="psport" style="color:#d9a94a">{_esc(stat_disp)}</span>' if stat_disp else ''
     return (
         f'<div class="pcard {"is-top" if pos<=3 else ""}">'
         f'<div class="tint" style="background:{tint_bg}"></div>'
-        f'<div class="watermark">{_esc(wm)}</div>'
+        f'{wm_html}'
         f'<div class="pphoto"><div class="ring" style="background:{photo_bg}"></div>{SIL}{head}</div>'
         f'<div class="pcontent"><div class="nameblock">'
         f'<div class="pname">{fn_html}<span class="ln">{_esc(ln)}</span></div>'
