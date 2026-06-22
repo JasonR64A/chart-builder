@@ -1,7 +1,2 @@
 ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfer_date,update_date,status,year,sport,team_id,player_id_64a,player_id_ncaa_stats,matched_name,match_score,match_method,confidence,position,class_year,player_csv_team_id
-2606964695,WESTON,TOTH,Weston Toth,Bluffton University,Heartland Collegiate Athletic Conference,III,06/22/2026,06/22/2026,Active,2025-26,Baseball,85,103171,3090254,Wes Toth,82.0,team+lastname_diff_first,REVIEW,LF,So,85
-2301755245,KADEN,SMITH,Kaden Smith,University of South Florida,American Conference,I,06/22/2026,06/22/2026,Active,2025-26,Baseball,712,101805,3092503,Kade Smith,95.2,team+fullname,MEDIUM,P,Fr,712
-2310139299,CHARLES,WORTHAM,Charles Wortham,Mississippi State University,Southeastern Conference,I,06/22/2026,06/22/2026,Active,2025-26,Baseball,488,133735,3220747,Charlie Wortham,93.3,team+lastname,LOW,UT,Fr,488
-2306917719,JONATHAN,YOUNG,Jonathan Young,University of Alabama,Southeastern Conference,I,06/22/2026,06/22/2026,Active,2025-26,Baseball,8,117067,3114306,Jon Young Jr.,92.0,team+lastname,LOW,2B,So,8
-2210704673,WILLIAM,STICKNEY,William Stickney,University of Southern California,Big Ten Conference,I,06/21/2026,06/22/2026,Active,2025-26,Baseball,717,127286,,Will Stickney,92.0,team+fullname,LOW,INF,,717
-2606969198,BENJAMIN,GILL,Benjamin Gill,Endicott College,Conference of New England,III,06/21/2026,06/21/2026,Active,2025-26,Baseball,246,118572,3099781,Ben Gill,92.0,team+lastname,LOW,P,So,246
+2606967835,JABEL,MATOS,Jabel Matos,Eastern University,Middle Atlantic Conference Commonwealth,III,06/22/2026,06/22/2026,Active,2025-26,Baseball,225,118568,3095943,JJ Matos,73.7,team+lastname_diff_first,REVIEW,C,So,225
