@@ -1,309 +1,309 @@
 rank,team,record,elo,delta,sport,date
-1,"Georgia","53-14",1781.59,"",baseball,2026-06-21
-2,"North Carolina","53-13-1",1753.58,"+1",baseball,2026-06-21
-3,"Georgia Tech","50-11",1742.41,"-1",baseball,2026-06-21
-4,"Oklahoma","42-22",1722.75,"+13",baseball,2026-06-21
-5,"UCLA","52-8",1720.42,"-1",baseball,2026-06-21
-6,"Texas","46-15",1710.79,"-1",baseball,2026-06-21
-7,"West Virginia","47-17",1672.92,"+2",baseball,2026-06-21
-8,"Arkansas","41-22",1648.42,"+2",baseball,2026-06-21
-9,"Mississippi State","43-19",1643.52,"-1",baseball,2026-06-21
-10,"Kansas","45-18",1642.61,"-4",baseball,2026-06-21
-11,"Auburn","42-22",1636.66,"-4",baseball,2026-06-21
-12,"Alabama","42-21",1626.29,"",baseball,2026-06-21
-13,"Texas A&M","41-16",1626.15,"",baseball,2026-06-21
-14,"Florida","41-21",1624.87,"",baseball,2026-06-21
-15,"Ole Miss","41-23",1624.73,"",baseball,2026-06-21
-16,"Oregon","43-18",1613.97,"-5",baseball,2026-06-21
-17,"USC","48-18",1606.11,"-1",baseball,2026-06-21
-18,"Oregon State","45-14",1583.80,"",baseball,2026-06-21
-19,"Florida State","40-19",1577.98,"",baseball,2026-06-21
-20,"Jacksonville State","48-15",1576.04,"",baseball,2026-06-21
-21,"Troy","39-32",1575.98,"+4",baseball,2026-06-21
-22,"Wake Forest","39-21",1569.99,"-1",baseball,2026-06-21
-23,"Tennessee","38-22",1564.24,"-1",baseball,2026-06-21
-24,"Nebraska","43-17",1560.87,"-1",baseball,2026-06-21
-25,"Southern Miss","44-17",1557.92,"-1",baseball,2026-06-21
-26,"Oklahoma State","39-22",1555.77,"",baseball,2026-06-21
-27,"Miami (FL)","39-20",1552.65,"",baseball,2026-06-21
-28,"TCU","33-21",1545.86,"",baseball,2026-06-21
-29,"East Carolina","38-24-1",1542.29,"",baseball,2026-06-21
-30,"Mercer","44-15",1539.40,"",baseball,2026-06-21
-31,"Arizona State","39-21",1536.86,"",baseball,2026-06-21
-32,"Liberty","43-21",1534.66,"",baseball,2026-06-21
-33,"Louisiana","41-25",1525.96,"",baseball,2026-06-21
-34,"Notre Dame","31-22",1524.31,"",baseball,2026-06-21
-35,"Vanderbilt","33-25",1519.66,"+1",baseball,2026-06-21
-36,"Kentucky","33-23",1516.12,"+1",baseball,2026-06-21
-37,"Cincinnati","38-22",1511.15,"+1",baseball,2026-06-21
-38,"Virginia Tech","30-26",1503.49,"+1",baseball,2026-06-21
-39,"UC Santa Barbara","40-20",1502.00,"+1",baseball,2026-06-21
-40,"Pittsburgh","33-24",1501.65,"+1",baseball,2026-06-21
-41,"Campbell","41-17",1501.36,"+1",baseball,2026-06-21
-42,"Cal Poly","39-24",1501.26,"-7",baseball,2026-06-21
-43,"North Carolina State","32-24",1497.02,"+1",baseball,2026-06-21
-44,"The Citadel","36-26",1494.19,"+1",baseball,2026-06-21
-45,"LSU","30-28",1494.13,"+1",baseball,2026-06-21
-46,"Virginia","37-23",1490.07,"+1",baseball,2026-06-21
-47,"UTSA","38-20",1486.63,"+1",baseball,2026-06-21
-48,"Stanford","28-26",1485.51,"+1",baseball,2026-06-21
-49,"Tarleton State","38-21",1482.31,"+1",baseball,2026-06-21
-50,"Saint John's","36-26",1480.45,"-7",baseball,2026-06-21
-51,"UCF","32-23",1478.98,"",baseball,2026-06-21
-52,"California","29-26",1477.05,"",baseball,2026-06-21
-53,"Northeastern","39-22",1474.75,"",baseball,2026-06-21
-54,"Clemson","31-26",1472.37,"+1",baseball,2026-06-21
-55,"Louisville","30-27",1471.76,"+1",baseball,2026-06-21
-56,"California Baptist","44-15",1467.61,"+1",baseball,2026-06-21
-57,"Boston College","37-23",1467.50,"+1",baseball,2026-06-21
-58,"Samford","31-25",1467.02,"+1",baseball,2026-06-21
-59,"Texas State","37-26",1463.53,"+1",baseball,2026-06-21
-60,"Gonzaga","35-19",1456.91,"+1",baseball,2026-06-21
-61,"Missouri State","34-21",1455.11,"+1",baseball,2026-06-21
-62,"Coastal Carolina","37-23",1452.93,"+1",baseball,2026-06-21
-63,"South Alabama","34-23",1452.91,"+1",baseball,2026-06-21
-64,"Purdue","36-20",1452.62,"+1",baseball,2026-06-21
-65,"Rice","35-24",1451.49,"+1",baseball,2026-06-21
-66,"Dallas Baptist","32-26",1450.64,"+1",baseball,2026-06-21
-67,"Little Rock","39-28",1450.01,"-13",baseball,2026-06-21
-68,"Kansas State","30-27",1448.04,"",baseball,2026-06-21
-69,"Kent State","41-15",1446.62,"",baseball,2026-06-21
-70,"Iowa","30-23",1446.24,"",baseball,2026-06-21
-71,"Michigan","34-24",1441.01,"",baseball,2026-06-21
-72,"Southeastern Louisiana","33-21",1438.69,"",baseball,2026-06-21
-73,"Baylor","29-27",1435.16,"",baseball,2026-06-21
-74,"Lamar","34-27",1431.76,"",baseball,2026-06-21
-75,"Western Carolina","36-23",1430.65,"",baseball,2026-06-21
-76,"VCU","38-25",1428.14,"",baseball,2026-06-21
-77,"Duke","26-31",1425.42,"",baseball,2026-06-21
-78,"Louisiana Tech","33-25",1424.68,"",baseball,2026-06-21
-79,"Miami (OH)","38-17",1423.65,"",baseball,2026-06-21
-80,"Xavier","28-30",1420.30,"",baseball,2026-06-21
-81,"Sacramento State","29-32",1419.90,"",baseball,2026-06-21
-82,"Ohio State","30-25",1419.49,"",baseball,2026-06-21
-83,"BYU","28-28",1418.27,"",baseball,2026-06-21
-84,"South Carolina Upstate","34-30",1417.49,"",baseball,2026-06-21
-85,"High Point","37-20",1414.17,"",baseball,2026-06-21
-86,"Southeast Missouri","39-18",1408.81,"",baseball,2026-06-21
-87,"Charlotte","28-28",1406.75,"",baseball,2026-06-21
-88,"Old Dominion","29-26",1405.97,"",baseball,2026-06-21
-89,"Saint Mary's College","36-27",1399.43,"",baseball,2026-06-21
-90,"Michigan State","24-32",1397.60,"",baseball,2026-06-21
-91,"UAB","32-26",1395.81,"",baseball,2026-06-21
-92,"Texas Tech","27-28",1393.80,"",baseball,2026-06-21
-93,"San Diego State","36-24",1392.72,"",baseball,2026-06-21
-94,"Utah","26-25",1391.81,"",baseball,2026-06-21
-95,"Houston","24-31",1391.67,"",baseball,2026-06-21
-96,"SIUE","33-24",1390.13,"",baseball,2026-06-21
-97,"UC San Diego","27-28",1389.79,"",baseball,2026-06-21
-98,"Kennesaw State","25-28",1389.62,"",baseball,2026-06-21
-99,"South Florida","32-21",1389.30,"",baseball,2026-06-21
-100,"Creighton","31-26",1388.61,"",baseball,2026-06-21
-101,"Washington State","31-28",1383.89,"",baseball,2026-06-21
-102,"Arizona","19-34",1382.53,"",baseball,2026-06-21
-103,"Minnesota","30-23",1382.36,"",baseball,2026-06-21
-104,"UC Irvine","25-27",1382.14,"",baseball,2026-06-21
-105,"Connecticut","32-26",1380.90,"",baseball,2026-06-21
-106,"Missouri","24-31",1380.07,"",baseball,2026-06-21
-107,"Western Kentucky","30-27",1376.95,"",baseball,2026-06-21
-108,"McNeese","29-26",1374.75,"",baseball,2026-06-21
-109,"Memphis","24-34",1374.62,"",baseball,2026-06-21
-110,"Washington","24-32",1371.84,"",baseball,2026-06-21
-111,"Northern Illinois","36-19",1370.77,"",baseball,2026-06-21
-112,"FAU","28-28",1370.38,"",baseball,2026-06-21
-113,"Appalachian State","30-24",1369.07,"",baseball,2026-06-21
-114,"Yale","30-15-1",1368.51,"",baseball,2026-06-21
-115,"Illinois","27-27",1368.35,"",baseball,2026-06-21
-116,"Saint Joseph's","36-19",1368.22,"",baseball,2026-06-21
-117,"Arkansas State","29-24",1367.71,"",baseball,2026-06-21
-118,"UTRGV","26-29",1367.46,"",baseball,2026-06-21
-119,"Jacksonville","30-25",1366.94,"",baseball,2026-06-21
-120,"Wichita State","30-29",1366.74,"",baseball,2026-06-21
-121,"FGCU","36-22",1366.09,"",baseball,2026-06-21
-122,"Wofford","34-22",1364.79,"",baseball,2026-06-21
-123,"Eastern Illinois","33-21",1362.49,"",baseball,2026-06-21
-124,"Georgia State","27-30",1360.94,"",baseball,2026-06-21
-125,"UC Davis","26-28",1360.57,"",baseball,2026-06-21
-126,"Charleston","28-28",1360.50,"",baseball,2026-06-21
-127,"Hawaii","24-23",1360.28,"",baseball,2026-06-21
-128,"Indiana","23-31",1360.21,"",baseball,2026-06-21
-129,"New Orleans","24-30",1360.02,"",baseball,2026-06-21
-130,"Maryland","27-29",1355.96,"",baseball,2026-06-21
-131,"Utah Tech","33-23",1351.47,"",baseball,2026-06-21
-132,"Richmond","33-24",1349.37,"",baseball,2026-06-21
-133,"East Tennessee State","30-23",1349.17,"",baseball,2026-06-21
-134,"George Mason","30-26",1346.46,"",baseball,2026-06-21
-135,"Santa Clara","25-29",1343.75,"",baseball,2026-06-21
-136,"Morehead State","31-24",1343.43,"",baseball,2026-06-21
-137,"UNCW","30-28",1342.60,"",baseball,2026-06-21
-138,"Air Force","27-28",1340.48,"",baseball,2026-06-21
-139,"Lipscomb","29-26",1338.18,"",baseball,2026-06-21
-140,"North Florida","31-24",1336.84,"",baseball,2026-06-21
-141,"Rider","33-20",1336.19,"",baseball,2026-06-21
-142,"Tulane","25-31",1333.52,"",baseball,2026-06-21
-143,"Alabama State","34-23",1333.45,"",baseball,2026-06-21
-144,"Toledo","32-29",1331.88,"",baseball,2026-06-21
-145,"Rutgers","26-30",1329.45,"",baseball,2026-06-21
-146,"San Jose State","24-27",1329.26,"",baseball,2026-06-21
-147,"Binghamton","31-22",1328.85,"",baseball,2026-06-21
-148,"Longwood","34-27",1326.45,"",baseball,2026-06-21
-149,"Fairfield","30-22",1326.05,"",baseball,2026-06-21
-150,"South Carolina","22-35",1325.44,"",baseball,2026-06-21
-151,"Houston Christian","24-29",1322.14,"",baseball,2026-06-21
-152,"Rhode Island","26-31",1321.02,"",baseball,2026-06-21
-153,"Milwaukee","27-33",1320.73,"",baseball,2026-06-21
-154,"Sam Houston State","25-33",1320.62,"",baseball,2026-06-21
-155,"Charleston Southern","30-23",1318.14,"",baseball,2026-06-21
-156,"Cal State Fullerton","24-32",1317.59,"",baseball,2026-06-21
-157,"Oral Roberts","35-24",1316.24,"",baseball,2026-06-21
-158,"Grand Canyon","21-30",1314.73,"",baseball,2026-06-21
-159,"Bethune-Cookman","38-20",1314.08,"",baseball,2026-06-21
-160,"UNCG","23-33",1313.71,"",baseball,2026-06-21
-161,"UIC","27-29-1",1313.57,"",baseball,2026-06-21
-162,"North Alabama","31-28",1313.52,"",baseball,2026-06-21
-163,"UNLV","30-25",1312.13,"",baseball,2026-06-21
-164,"Monmouth","30-23",1308.39,"",baseball,2026-06-21
-165,"Florida A&M","30-23",1307.02,"",baseball,2026-06-21
-166,"ULM","27-28",1306.11,"",baseball,2026-06-21
-167,"Murray State","32-27",1304.99,"",baseball,2026-06-21
-168,"Dayton","31-23",1303.69,"",baseball,2026-06-21
-169,"San Francisco","28-30",1296.43,"",baseball,2026-06-21
-170,"Northwestern","21-30-1",1296.04,"",baseball,2026-06-21
-171,"Stephen F. Austin","28-27",1295.96,"",baseball,2026-06-21
-172,"Hofstra","22-29",1295.65,"",baseball,2026-06-21
-173,"Stetson","23-32",1294.72,"",baseball,2026-06-21
-174,"Western Michigan","27-25",1290.34,"",baseball,2026-06-21
-175,"Nicholls","21-26",1288.98,"",baseball,2026-06-21
-176,"New Mexico","28-24-1",1287.84,"",baseball,2026-06-21
-177,"Central Arkansas","31-26",1287.11,"",baseball,2026-06-21
-178,"Portland","27-25",1284.07,"",baseball,2026-06-21
-179,"Indiana State","30-27",1283.67,"",baseball,2026-06-21
-180,"Winthrop","33-24",1282.61,"",baseball,2026-06-21
-181,"Abilene Christian","26-31",1281.26,"",baseball,2026-06-21
-182,"Penn State","16-35",1279.67,"",baseball,2026-06-21
-183,"Radford","25-26",1278.19,"",baseball,2026-06-21
-184,"Cal State Northridge","25-28",1278.13,"",baseball,2026-06-21
-185,"Southern Illinois","27-32",1277.98,"",baseball,2026-06-21
-186,"Columbia","16-25-1",1276.34,"",baseball,2026-06-21
-187,"Army","28-20",1276.33,"",baseball,2026-06-21
-188,"Long Island","30-22",1274.23,"",baseball,2026-06-21
-189,"Texas A&M-Corpus Christi","23-28",1273.87,"",baseball,2026-06-21
-190,"Illinois State","33-24",1273.79,"",baseball,2026-06-21
-191,"FIU","19-35",1273.72,"",baseball,2026-06-21
-192,"Middle Tennessee","26-31",1271.52,"",baseball,2026-06-21
-193,"Lindenwood","29-28",1270.60,"",baseball,2026-06-21
-194,"Stony Brook","21-30",1269.29,"",baseball,2026-06-21
-195,"Southern","26-23",1267.78,"",baseball,2026-06-21
-196,"Maine","23-32",1267.34,"",baseball,2026-06-21
-197,"Georgia Southern","16-40",1265.88,"",baseball,2026-06-21
-198,"San Diego","20-30-1",1265.55,"",baseball,2026-06-21
-199,"Northwestern State","26-26",1265.30,"",baseball,2026-06-21
-200,"Marshall","23-32",1264.86,"",baseball,2026-06-21
-201,"Brown","23-20",1263.12,"",baseball,2026-06-21
-202,"James Madison","21-32",1258.60,"",baseball,2026-06-21
-203,"Navy","30-19",1256.85,"",baseball,2026-06-21
-204,"Marist","25-30",1254.66,"",baseball,2026-06-21
-205,"Delaware","19-35",1254.11,"",baseball,2026-06-21
-206,"Southern Indiana","29-29",1253.74,"",baseball,2026-06-21
-207,"Cal State Bakersfield","21-32",1252.94,"",baseball,2026-06-21
-208,"Penn","20-22",1252.63,"",baseball,2026-06-21
-209,"Niagara","27-21-1",1252.59,"",baseball,2026-06-21
-210,"Nevada","22-27",1252.55,"",baseball,2026-06-21
-211,"UTA","19-32",1246.79,"",baseball,2026-06-21
-212,"Pacific","24-30-1",1246.53,"",baseball,2026-06-21
-213,"Bucknell","27-24",1245.41,"",baseball,2026-06-21
-214,"Wright State","27-28",1244.11,"",baseball,2026-06-21
-215,"Long Beach State","17-35",1237.80,"",baseball,2026-06-21
-216,"Holy Cross","25-30",1236.52,"",baseball,2026-06-21
-217,"New Mexico State","18-34",1235.59,"",baseball,2026-06-21
-218,"Pepperdine","21-33",1235.55,"",baseball,2026-06-21
-219,"Tennessee-Martin","25-29",1234.96,"",baseball,2026-06-21
-220,"Davidson","25-28",1230.09,"",baseball,2026-06-21
-221,"Omaha","21-26",1229.04,"",baseball,2026-06-21
-222,"Gardner-Webb","25-30",1223.03,"",baseball,2026-06-21
-223,"Georgetown","28-28",1222.39,"",baseball,2026-06-21
-224,"UMBC","29-24",1221.58,"",baseball,2026-06-21
-225,"Fairleigh Dickinson","34-20-1",1221.41,"",baseball,2026-06-21
-226,"Bryant","27-25",1220.73,"",baseball,2026-06-21
-227,"Villanova","19-30",1219.23,"",baseball,2026-06-21
-228,"Seattle University","16-31",1210.30,"",baseball,2026-06-21
-229,"Merrimack","27-29",1210.28,"",baseball,2026-06-21
-230,"Elon","20-33",1207.95,"",baseball,2026-06-21
-231,"Butler","20-34",1206.74,"",baseball,2026-06-21
-232,"Towson","22-32",1206.45,"",baseball,2026-06-21
-233,"Evansville","21-33",1205.19,"",baseball,2026-06-21
-234,"Belmont","21-34",1205.10,"",baseball,2026-06-21
-235,"Incarnate Word","19-29",1200.29,"",baseball,2026-06-21
-236,"South Dakota State","20-33",1200.16,"",baseball,2026-06-21
-237,"Ball State","23-30",1199.84,"",baseball,2026-06-21
-238,"VMI","28-27",1199.21,"",baseball,2026-06-21
-239,"Fordham","25-30",1197.99,"",baseball,2026-06-21
-240,"Central Michigan","22-29",1197.38,"",baseball,2026-06-21
-241,"Austin Peay","24-31",1196.39,"",baseball,2026-06-21
-242,"UNC Asheville","21-34",1196.34,"",baseball,2026-06-21
-243,"Quinnipiac","23-28",1195.84,"",baseball,2026-06-21
-244,"Wagner","29-24",1194.11,"",baseball,2026-06-21
-245,"Eastern Kentucky","17-37",1187.85,"",baseball,2026-06-21
-246,"William & Mary","21-32",1186.27,"",baseball,2026-06-21
-247,"Canisius","21-26",1181.02,"",baseball,2026-06-21
-248,"Arkansas-Pine Bluff","24-34",1178.31,"",baseball,2026-06-21
-249,"La Salle","24-31",1172.59,"",baseball,2026-06-21
-250,"Tennessee Tech","18-37",1172.01,"",baseball,2026-06-21
-251,"Queens","16-38",1171.26,"",baseball,2026-06-21
-252,"Eastern Michigan","19-34",1170.32,"",baseball,2026-06-21
-253,"Saint Louis","20-34",1169.32,"",baseball,2026-06-21
-254,"UC Riverside","15-37",1165.68,"",baseball,2026-06-21
-255,"Harvard","11-26",1163.14,"",baseball,2026-06-21
-256,"Utah Valley","15-35",1159.75,"",baseball,2026-06-21
-257,"Grambling State","21-31",1158.55,"",baseball,2026-06-21
-258,"Mount Saint Mary's","22-26",1157.67,"",baseball,2026-06-21
-259,"Northern Kentucky","24-30",1157.37,"",baseball,2026-06-21
-260,"UMass-Lowell","21-31",1156.35,"",baseball,2026-06-21
-261,"Northern Colorado","17-38",1155.84,"",baseball,2026-06-21
-262,"Le Moyne","22-26",1155.48,"",baseball,2026-06-21
-263,"Princeton","15-27",1152.69,"",baseball,2026-06-21
-264,"North Carolina A&T","14-38",1152.67,"",baseball,2026-06-21
-265,"Dartmouth","15-25",1150.25,"",baseball,2026-06-21
-266,"Cornell","11-26",1148.55,"",baseball,2026-06-21
-267,"Jackson State","23-27",1146.35,"",baseball,2026-06-21
-268,"Western Illinois","15-36",1143.51,"",baseball,2026-06-21
-269,"North Dakota State","13-32",1142.43,"",baseball,2026-06-21
-270,"UMass","18-29",1142.23,"",baseball,2026-06-21
-271,"Sacred Heart","17-32",1141.87,"",baseball,2026-06-21
-272,"Seton Hall","16-30",1141.48,"",baseball,2026-06-21
-273,"Iona","19-28",1132.09,"",baseball,2026-06-21
-274,"Youngstown State","15-39",1131.63,"",baseball,2026-06-21
-275,"Fresno State","14-38-1",1130.72,"",baseball,2026-06-21
-276,"Manhattan","20-31",1127.99,"",baseball,2026-06-21
-277,"Bellarmine","19-34",1125.20,"",baseball,2026-06-21
-278,"George Washington","18-35",1121.70,"",baseball,2026-06-21
-279,"Siena","20-30",1120.32,"",baseball,2026-06-21
-280,"Bowling Green","17-34",1118.28,"",baseball,2026-06-21
-281,"West Georgia","13-41",1114.89,"",baseball,2026-06-21
-282,"Lehigh","14-31",1112.94,"",baseball,2026-06-21
-283,"Akron","20-34",1112.88,"",baseball,2026-06-21
-284,"NJIT","16-31-1",1111.05,"",baseball,2026-06-21
-285,"Presbyterian College","12-44",1107.09,"",baseball,2026-06-21
-286,"Saint Thomas","12-38",1105.19,"",baseball,2026-06-21
-287,"Texas Southern","20-23",1103.94,"",baseball,2026-06-21
-288,"Stonehill","21-28",1103.06,"",baseball,2026-06-21
-289,"Albany","15-34",1094.11,"",baseball,2026-06-21
-290,"Saint Bonaventure","13-36-1",1091.73,"",baseball,2026-06-21
-291,"Lafayette","12-33",1087.47,"",baseball,2026-06-21
-292,"Loyola-Marymount","12-44",1078.31,"",baseball,2026-06-21
-293,"Ohio","11-43",1053.42,"",baseball,2026-06-21
-294,"Valparaiso","12-38",1052.96,"",baseball,2026-06-21
-295,"Bradley","11-45",1052.87,"",baseball,2026-06-21
-296,"Central Connecticut","17-27",1050.44,"",baseball,2026-06-21
-297,"Norfolk State","19-31",1047.77,"",baseball,2026-06-21
-298,"Prairie View A&M","12-35",1047.20,"",baseball,2026-06-21
-299,"Oakland","12-42",1039.50,"",baseball,2026-06-21
-300,"Mercyhurst","15-32",1033.12,"",baseball,2026-06-21
-301,"New Haven","12-33",988.72,"",baseball,2026-06-21
-302,"Mississippi Valley State","12-36",978.12,"",baseball,2026-06-21
-303,"Coppin State","11-37",951.37,"",baseball,2026-06-21
-304,"Delaware State","8-42",934.85,"",baseball,2026-06-21
-305,"Alabama A&M","7-44",905.94,"",baseball,2026-06-21
-306,"Maryland Eastern Shore","9-39",901.60,"",baseball,2026-06-21
-307,"Alcorn State","4-42",897.79,"",baseball,2026-06-21
-308,"Saint Peter's","5-47",884.42,"",baseball,2026-06-21
+1,"Georgia","53-14",1781.59,"",baseball,2026-06-22
+2,"North Carolina","54-13-1",1768.16,"+1",baseball,2026-06-22
+3,"Georgia Tech","50-11",1742.41,"-1",baseball,2026-06-22
+4,"UCLA","52-8",1720.42,"",baseball,2026-06-22
+5,"Texas","46-15",1710.79,"",baseball,2026-06-22
+6,"Oklahoma","42-23",1708.16,"+11",baseball,2026-06-22
+7,"West Virginia","47-17",1672.92,"+2",baseball,2026-06-22
+8,"Arkansas","41-22",1648.42,"+2",baseball,2026-06-22
+9,"Mississippi State","43-19",1643.52,"-1",baseball,2026-06-22
+10,"Kansas","45-18",1642.61,"-4",baseball,2026-06-22
+11,"Auburn","42-22",1636.66,"-4",baseball,2026-06-22
+12,"Alabama","42-21",1626.29,"",baseball,2026-06-22
+13,"Texas A&M","41-16",1626.15,"",baseball,2026-06-22
+14,"Florida","41-21",1624.87,"",baseball,2026-06-22
+15,"Ole Miss","41-23",1624.73,"",baseball,2026-06-22
+16,"Oregon","43-18",1613.97,"-5",baseball,2026-06-22
+17,"USC","48-18",1606.11,"-1",baseball,2026-06-22
+18,"Oregon State","45-14",1583.80,"",baseball,2026-06-22
+19,"Florida State","40-19",1577.98,"",baseball,2026-06-22
+20,"Jacksonville State","48-15",1576.04,"",baseball,2026-06-22
+21,"Troy","39-32",1575.98,"+4",baseball,2026-06-22
+22,"Wake Forest","39-21",1569.99,"-1",baseball,2026-06-22
+23,"Tennessee","38-22",1564.24,"-1",baseball,2026-06-22
+24,"Nebraska","43-17",1560.87,"-1",baseball,2026-06-22
+25,"Southern Miss","44-17",1557.92,"-1",baseball,2026-06-22
+26,"Oklahoma State","39-22",1555.77,"",baseball,2026-06-22
+27,"Miami (FL)","39-20",1552.65,"",baseball,2026-06-22
+28,"TCU","33-21",1545.86,"",baseball,2026-06-22
+29,"East Carolina","38-24-1",1542.29,"",baseball,2026-06-22
+30,"Mercer","44-15",1539.40,"",baseball,2026-06-22
+31,"Arizona State","39-21",1536.86,"",baseball,2026-06-22
+32,"Liberty","43-21",1534.66,"",baseball,2026-06-22
+33,"Louisiana","41-25",1525.96,"",baseball,2026-06-22
+34,"Notre Dame","31-22",1524.31,"",baseball,2026-06-22
+35,"Vanderbilt","33-25",1519.66,"+1",baseball,2026-06-22
+36,"Kentucky","33-23",1516.12,"+1",baseball,2026-06-22
+37,"Cincinnati","38-22",1511.15,"+1",baseball,2026-06-22
+38,"Virginia Tech","30-26",1503.49,"+1",baseball,2026-06-22
+39,"UC Santa Barbara","40-20",1502.00,"+1",baseball,2026-06-22
+40,"Pittsburgh","33-24",1501.65,"+1",baseball,2026-06-22
+41,"Campbell","41-17",1501.36,"+1",baseball,2026-06-22
+42,"Cal Poly","39-24",1501.26,"-7",baseball,2026-06-22
+43,"North Carolina State","32-24",1497.02,"+1",baseball,2026-06-22
+44,"The Citadel","36-26",1494.19,"+1",baseball,2026-06-22
+45,"LSU","30-28",1494.13,"+1",baseball,2026-06-22
+46,"Virginia","37-23",1490.07,"+1",baseball,2026-06-22
+47,"UTSA","38-20",1486.63,"+1",baseball,2026-06-22
+48,"Stanford","28-26",1485.51,"+1",baseball,2026-06-22
+49,"Tarleton State","38-21",1482.31,"+1",baseball,2026-06-22
+50,"Saint John's","36-26",1480.45,"-7",baseball,2026-06-22
+51,"UCF","32-23",1478.98,"",baseball,2026-06-22
+52,"California","29-26",1477.05,"",baseball,2026-06-22
+53,"Northeastern","39-22",1474.75,"",baseball,2026-06-22
+54,"Clemson","31-26",1472.37,"+1",baseball,2026-06-22
+55,"Louisville","30-27",1471.76,"+1",baseball,2026-06-22
+56,"California Baptist","44-15",1467.61,"+1",baseball,2026-06-22
+57,"Boston College","37-23",1467.50,"+1",baseball,2026-06-22
+58,"Samford","31-25",1467.02,"+1",baseball,2026-06-22
+59,"Texas State","37-26",1463.53,"+1",baseball,2026-06-22
+60,"Gonzaga","35-19",1456.91,"+1",baseball,2026-06-22
+61,"Missouri State","34-21",1455.11,"+1",baseball,2026-06-22
+62,"Coastal Carolina","37-23",1452.93,"+1",baseball,2026-06-22
+63,"South Alabama","34-23",1452.91,"+1",baseball,2026-06-22
+64,"Purdue","36-20",1452.62,"+1",baseball,2026-06-22
+65,"Rice","35-24",1451.49,"+1",baseball,2026-06-22
+66,"Dallas Baptist","32-26",1450.64,"+1",baseball,2026-06-22
+67,"Little Rock","39-28",1450.01,"-13",baseball,2026-06-22
+68,"Kansas State","30-27",1448.04,"",baseball,2026-06-22
+69,"Kent State","41-15",1446.62,"",baseball,2026-06-22
+70,"Iowa","30-23",1446.24,"",baseball,2026-06-22
+71,"Michigan","34-24",1441.01,"",baseball,2026-06-22
+72,"Southeastern Louisiana","33-21",1438.69,"",baseball,2026-06-22
+73,"Baylor","29-27",1435.16,"",baseball,2026-06-22
+74,"Lamar","34-27",1431.76,"",baseball,2026-06-22
+75,"Western Carolina","36-23",1430.65,"",baseball,2026-06-22
+76,"VCU","38-25",1428.14,"",baseball,2026-06-22
+77,"Duke","26-31",1425.42,"",baseball,2026-06-22
+78,"Louisiana Tech","33-25",1424.68,"",baseball,2026-06-22
+79,"Miami (OH)","38-17",1423.65,"",baseball,2026-06-22
+80,"Xavier","28-30",1420.30,"",baseball,2026-06-22
+81,"Sacramento State","29-32",1419.90,"",baseball,2026-06-22
+82,"Ohio State","30-25",1419.49,"",baseball,2026-06-22
+83,"BYU","28-28",1418.27,"",baseball,2026-06-22
+84,"South Carolina Upstate","34-30",1417.49,"",baseball,2026-06-22
+85,"High Point","37-20",1414.17,"",baseball,2026-06-22
+86,"Southeast Missouri","39-18",1408.81,"",baseball,2026-06-22
+87,"Charlotte","28-28",1406.75,"",baseball,2026-06-22
+88,"Old Dominion","29-26",1405.97,"",baseball,2026-06-22
+89,"Saint Mary's College","36-27",1399.43,"",baseball,2026-06-22
+90,"Michigan State","24-32",1397.60,"",baseball,2026-06-22
+91,"UAB","32-26",1395.81,"",baseball,2026-06-22
+92,"Texas Tech","27-28",1393.80,"",baseball,2026-06-22
+93,"San Diego State","36-24",1392.72,"",baseball,2026-06-22
+94,"Utah","26-25",1391.81,"",baseball,2026-06-22
+95,"Houston","24-31",1391.67,"",baseball,2026-06-22
+96,"SIUE","33-24",1390.13,"",baseball,2026-06-22
+97,"UC San Diego","27-28",1389.79,"",baseball,2026-06-22
+98,"Kennesaw State","25-28",1389.62,"",baseball,2026-06-22
+99,"South Florida","32-21",1389.30,"",baseball,2026-06-22
+100,"Creighton","31-26",1388.61,"",baseball,2026-06-22
+101,"Washington State","31-28",1383.89,"",baseball,2026-06-22
+102,"Arizona","19-34",1382.53,"",baseball,2026-06-22
+103,"Minnesota","30-23",1382.36,"",baseball,2026-06-22
+104,"UC Irvine","25-27",1382.14,"",baseball,2026-06-22
+105,"Connecticut","32-26",1380.90,"",baseball,2026-06-22
+106,"Missouri","24-31",1380.07,"",baseball,2026-06-22
+107,"Western Kentucky","30-27",1376.95,"",baseball,2026-06-22
+108,"McNeese","29-26",1374.75,"",baseball,2026-06-22
+109,"Memphis","24-34",1374.62,"",baseball,2026-06-22
+110,"Washington","24-32",1371.84,"",baseball,2026-06-22
+111,"Northern Illinois","36-19",1370.77,"",baseball,2026-06-22
+112,"FAU","28-28",1370.38,"",baseball,2026-06-22
+113,"Appalachian State","30-24",1369.07,"",baseball,2026-06-22
+114,"Yale","30-15-1",1368.51,"",baseball,2026-06-22
+115,"Illinois","27-27",1368.35,"",baseball,2026-06-22
+116,"Saint Joseph's","36-19",1368.22,"",baseball,2026-06-22
+117,"Arkansas State","29-24",1367.71,"",baseball,2026-06-22
+118,"UTRGV","26-29",1367.46,"",baseball,2026-06-22
+119,"Jacksonville","30-25",1366.94,"",baseball,2026-06-22
+120,"Wichita State","30-29",1366.74,"",baseball,2026-06-22
+121,"FGCU","36-22",1366.09,"",baseball,2026-06-22
+122,"Wofford","34-22",1364.79,"",baseball,2026-06-22
+123,"Eastern Illinois","33-21",1362.49,"",baseball,2026-06-22
+124,"Georgia State","27-30",1360.94,"",baseball,2026-06-22
+125,"UC Davis","26-28",1360.57,"",baseball,2026-06-22
+126,"Charleston","28-28",1360.50,"",baseball,2026-06-22
+127,"Hawaii","24-23",1360.28,"",baseball,2026-06-22
+128,"Indiana","23-31",1360.21,"",baseball,2026-06-22
+129,"New Orleans","24-30",1360.02,"",baseball,2026-06-22
+130,"Maryland","27-29",1355.96,"",baseball,2026-06-22
+131,"Utah Tech","33-23",1351.47,"",baseball,2026-06-22
+132,"Richmond","33-24",1349.37,"",baseball,2026-06-22
+133,"East Tennessee State","30-23",1349.17,"",baseball,2026-06-22
+134,"George Mason","30-26",1346.46,"",baseball,2026-06-22
+135,"Santa Clara","25-29",1343.75,"",baseball,2026-06-22
+136,"Morehead State","31-24",1343.43,"",baseball,2026-06-22
+137,"UNCW","30-28",1342.60,"",baseball,2026-06-22
+138,"Air Force","27-28",1340.48,"",baseball,2026-06-22
+139,"Lipscomb","29-26",1338.18,"",baseball,2026-06-22
+140,"North Florida","31-24",1336.84,"",baseball,2026-06-22
+141,"Rider","33-20",1336.19,"",baseball,2026-06-22
+142,"Tulane","25-31",1333.52,"",baseball,2026-06-22
+143,"Alabama State","34-23",1333.45,"",baseball,2026-06-22
+144,"Toledo","32-29",1331.88,"",baseball,2026-06-22
+145,"Rutgers","26-30",1329.45,"",baseball,2026-06-22
+146,"San Jose State","24-27",1329.26,"",baseball,2026-06-22
+147,"Binghamton","31-22",1328.85,"",baseball,2026-06-22
+148,"Longwood","34-27",1326.45,"",baseball,2026-06-22
+149,"Fairfield","30-22",1326.05,"",baseball,2026-06-22
+150,"South Carolina","22-35",1325.44,"",baseball,2026-06-22
+151,"Houston Christian","24-29",1322.14,"",baseball,2026-06-22
+152,"Rhode Island","26-31",1321.02,"",baseball,2026-06-22
+153,"Milwaukee","27-33",1320.73,"",baseball,2026-06-22
+154,"Sam Houston State","25-33",1320.62,"",baseball,2026-06-22
+155,"Charleston Southern","30-23",1318.14,"",baseball,2026-06-22
+156,"Cal State Fullerton","24-32",1317.59,"",baseball,2026-06-22
+157,"Oral Roberts","35-24",1316.24,"",baseball,2026-06-22
+158,"Grand Canyon","21-30",1314.73,"",baseball,2026-06-22
+159,"Bethune-Cookman","38-20",1314.08,"",baseball,2026-06-22
+160,"UNCG","23-33",1313.71,"",baseball,2026-06-22
+161,"UIC","27-29-1",1313.57,"",baseball,2026-06-22
+162,"North Alabama","31-28",1313.52,"",baseball,2026-06-22
+163,"UNLV","30-25",1312.13,"",baseball,2026-06-22
+164,"Monmouth","30-23",1308.39,"",baseball,2026-06-22
+165,"Florida A&M","30-23",1307.02,"",baseball,2026-06-22
+166,"ULM","27-28",1306.11,"",baseball,2026-06-22
+167,"Murray State","32-27",1304.99,"",baseball,2026-06-22
+168,"Dayton","31-23",1303.69,"",baseball,2026-06-22
+169,"San Francisco","28-30",1296.43,"",baseball,2026-06-22
+170,"Northwestern","21-30-1",1296.04,"",baseball,2026-06-22
+171,"Stephen F. Austin","28-27",1295.96,"",baseball,2026-06-22
+172,"Hofstra","22-29",1295.65,"",baseball,2026-06-22
+173,"Stetson","23-32",1294.72,"",baseball,2026-06-22
+174,"Western Michigan","27-25",1290.34,"",baseball,2026-06-22
+175,"Nicholls","21-26",1288.98,"",baseball,2026-06-22
+176,"New Mexico","28-24-1",1287.84,"",baseball,2026-06-22
+177,"Central Arkansas","31-26",1287.11,"",baseball,2026-06-22
+178,"Portland","27-25",1284.07,"",baseball,2026-06-22
+179,"Indiana State","30-27",1283.67,"",baseball,2026-06-22
+180,"Winthrop","33-24",1282.61,"",baseball,2026-06-22
+181,"Abilene Christian","26-31",1281.26,"",baseball,2026-06-22
+182,"Penn State","16-35",1279.67,"",baseball,2026-06-22
+183,"Radford","25-26",1278.19,"",baseball,2026-06-22
+184,"Cal State Northridge","25-28",1278.13,"",baseball,2026-06-22
+185,"Southern Illinois","27-32",1277.98,"",baseball,2026-06-22
+186,"Columbia","16-25-1",1276.34,"",baseball,2026-06-22
+187,"Army","28-20",1276.33,"",baseball,2026-06-22
+188,"Long Island","30-22",1274.23,"",baseball,2026-06-22
+189,"Texas A&M-Corpus Christi","23-28",1273.87,"",baseball,2026-06-22
+190,"Illinois State","33-24",1273.79,"",baseball,2026-06-22
+191,"FIU","19-35",1273.72,"",baseball,2026-06-22
+192,"Middle Tennessee","26-31",1271.52,"",baseball,2026-06-22
+193,"Lindenwood","29-28",1270.60,"",baseball,2026-06-22
+194,"Stony Brook","21-30",1269.29,"",baseball,2026-06-22
+195,"Southern","26-23",1267.78,"",baseball,2026-06-22
+196,"Maine","23-32",1267.34,"",baseball,2026-06-22
+197,"Georgia Southern","16-40",1265.88,"",baseball,2026-06-22
+198,"San Diego","20-30-1",1265.55,"",baseball,2026-06-22
+199,"Northwestern State","26-26",1265.30,"",baseball,2026-06-22
+200,"Marshall","23-32",1264.86,"",baseball,2026-06-22
+201,"Brown","23-20",1263.12,"",baseball,2026-06-22
+202,"James Madison","21-32",1258.60,"",baseball,2026-06-22
+203,"Navy","30-19",1256.85,"",baseball,2026-06-22
+204,"Marist","25-30",1254.66,"",baseball,2026-06-22
+205,"Delaware","19-35",1254.11,"",baseball,2026-06-22
+206,"Southern Indiana","29-29",1253.74,"",baseball,2026-06-22
+207,"Cal State Bakersfield","21-32",1252.94,"",baseball,2026-06-22
+208,"Penn","20-22",1252.63,"",baseball,2026-06-22
+209,"Niagara","27-21-1",1252.59,"",baseball,2026-06-22
+210,"Nevada","22-27",1252.55,"",baseball,2026-06-22
+211,"UTA","19-32",1246.79,"",baseball,2026-06-22
+212,"Pacific","24-30-1",1246.53,"",baseball,2026-06-22
+213,"Bucknell","27-24",1245.41,"",baseball,2026-06-22
+214,"Wright State","27-28",1244.11,"",baseball,2026-06-22
+215,"Long Beach State","17-35",1237.80,"",baseball,2026-06-22
+216,"Holy Cross","25-30",1236.52,"",baseball,2026-06-22
+217,"New Mexico State","18-34",1235.59,"",baseball,2026-06-22
+218,"Pepperdine","21-33",1235.55,"",baseball,2026-06-22
+219,"Tennessee-Martin","25-29",1234.96,"",baseball,2026-06-22
+220,"Davidson","25-28",1230.09,"",baseball,2026-06-22
+221,"Omaha","21-26",1229.04,"",baseball,2026-06-22
+222,"Gardner-Webb","25-30",1223.03,"",baseball,2026-06-22
+223,"Georgetown","28-28",1222.39,"",baseball,2026-06-22
+224,"UMBC","29-24",1221.58,"",baseball,2026-06-22
+225,"Fairleigh Dickinson","34-20-1",1221.41,"",baseball,2026-06-22
+226,"Bryant","27-25",1220.73,"",baseball,2026-06-22
+227,"Villanova","19-30",1219.23,"",baseball,2026-06-22
+228,"Seattle University","16-31",1210.30,"",baseball,2026-06-22
+229,"Merrimack","27-29",1210.28,"",baseball,2026-06-22
+230,"Elon","20-33",1207.95,"",baseball,2026-06-22
+231,"Butler","20-34",1206.74,"",baseball,2026-06-22
+232,"Towson","22-32",1206.45,"",baseball,2026-06-22
+233,"Evansville","21-33",1205.19,"",baseball,2026-06-22
+234,"Belmont","21-34",1205.10,"",baseball,2026-06-22
+235,"Incarnate Word","19-29",1200.29,"",baseball,2026-06-22
+236,"South Dakota State","20-33",1200.16,"",baseball,2026-06-22
+237,"Ball State","23-30",1199.84,"",baseball,2026-06-22
+238,"VMI","28-27",1199.21,"",baseball,2026-06-22
+239,"Fordham","25-30",1197.99,"",baseball,2026-06-22
+240,"Central Michigan","22-29",1197.38,"",baseball,2026-06-22
+241,"Austin Peay","24-31",1196.39,"",baseball,2026-06-22
+242,"UNC Asheville","21-34",1196.34,"",baseball,2026-06-22
+243,"Quinnipiac","23-28",1195.84,"",baseball,2026-06-22
+244,"Wagner","29-24",1194.11,"",baseball,2026-06-22
+245,"Eastern Kentucky","17-37",1187.85,"",baseball,2026-06-22
+246,"William & Mary","21-32",1186.27,"",baseball,2026-06-22
+247,"Canisius","21-26",1181.02,"",baseball,2026-06-22
+248,"Arkansas-Pine Bluff","24-34",1178.31,"",baseball,2026-06-22
+249,"La Salle","24-31",1172.59,"",baseball,2026-06-22
+250,"Tennessee Tech","18-37",1172.01,"",baseball,2026-06-22
+251,"Queens","16-38",1171.26,"",baseball,2026-06-22
+252,"Eastern Michigan","19-34",1170.32,"",baseball,2026-06-22
+253,"Saint Louis","20-34",1169.32,"",baseball,2026-06-22
+254,"UC Riverside","15-37",1165.68,"",baseball,2026-06-22
+255,"Harvard","11-26",1163.14,"",baseball,2026-06-22
+256,"Utah Valley","15-35",1159.75,"",baseball,2026-06-22
+257,"Grambling State","21-31",1158.55,"",baseball,2026-06-22
+258,"Mount Saint Mary's","22-26",1157.67,"",baseball,2026-06-22
+259,"Northern Kentucky","24-30",1157.37,"",baseball,2026-06-22
+260,"UMass-Lowell","21-31",1156.35,"",baseball,2026-06-22
+261,"Northern Colorado","17-38",1155.84,"",baseball,2026-06-22
+262,"Le Moyne","22-26",1155.48,"",baseball,2026-06-22
+263,"Princeton","15-27",1152.69,"",baseball,2026-06-22
+264,"North Carolina A&T","14-38",1152.67,"",baseball,2026-06-22
+265,"Dartmouth","15-25",1150.25,"",baseball,2026-06-22
+266,"Cornell","11-26",1148.55,"",baseball,2026-06-22
+267,"Jackson State","23-27",1146.35,"",baseball,2026-06-22
+268,"Western Illinois","15-36",1143.51,"",baseball,2026-06-22
+269,"North Dakota State","13-32",1142.43,"",baseball,2026-06-22
+270,"UMass","18-29",1142.23,"",baseball,2026-06-22
+271,"Sacred Heart","17-32",1141.87,"",baseball,2026-06-22
+272,"Seton Hall","16-30",1141.48,"",baseball,2026-06-22
+273,"Iona","19-28",1132.09,"",baseball,2026-06-22
+274,"Youngstown State","15-39",1131.63,"",baseball,2026-06-22
+275,"Fresno State","14-38-1",1130.72,"",baseball,2026-06-22
+276,"Manhattan","20-31",1127.99,"",baseball,2026-06-22
+277,"Bellarmine","19-34",1125.20,"",baseball,2026-06-22
+278,"George Washington","18-35",1121.70,"",baseball,2026-06-22
+279,"Siena","20-30",1120.32,"",baseball,2026-06-22
+280,"Bowling Green","17-34",1118.28,"",baseball,2026-06-22
+281,"West Georgia","13-41",1114.89,"",baseball,2026-06-22
+282,"Lehigh","14-31",1112.94,"",baseball,2026-06-22
+283,"Akron","20-34",1112.88,"",baseball,2026-06-22
+284,"NJIT","16-31-1",1111.05,"",baseball,2026-06-22
+285,"Presbyterian College","12-44",1107.09,"",baseball,2026-06-22
+286,"Saint Thomas","12-38",1105.19,"",baseball,2026-06-22
+287,"Texas Southern","20-23",1103.94,"",baseball,2026-06-22
+288,"Stonehill","21-28",1103.06,"",baseball,2026-06-22
+289,"Albany","15-34",1094.11,"",baseball,2026-06-22
+290,"Saint Bonaventure","13-36-1",1091.73,"",baseball,2026-06-22
+291,"Lafayette","12-33",1087.47,"",baseball,2026-06-22
+292,"Loyola-Marymount","12-44",1078.31,"",baseball,2026-06-22
+293,"Ohio","11-43",1053.42,"",baseball,2026-06-22
+294,"Valparaiso","12-38",1052.96,"",baseball,2026-06-22
+295,"Bradley","11-45",1052.87,"",baseball,2026-06-22
+296,"Central Connecticut","17-27",1050.44,"",baseball,2026-06-22
+297,"Norfolk State","19-31",1047.77,"",baseball,2026-06-22
+298,"Prairie View A&M","12-35",1047.20,"",baseball,2026-06-22
+299,"Oakland","12-42",1039.50,"",baseball,2026-06-22
+300,"Mercyhurst","15-32",1033.12,"",baseball,2026-06-22
+301,"New Haven","12-33",988.72,"",baseball,2026-06-22
+302,"Mississippi Valley State","12-36",978.12,"",baseball,2026-06-22
+303,"Coppin State","11-37",951.37,"",baseball,2026-06-22
+304,"Delaware State","8-42",934.85,"",baseball,2026-06-22
+305,"Alabama A&M","7-44",905.94,"",baseball,2026-06-22
+306,"Maryland Eastern Shore","9-39",901.60,"",baseball,2026-06-22
+307,"Alcorn State","4-42",897.79,"",baseball,2026-06-22
+308,"Saint Peter's","5-47",884.42,"",baseball,2026-06-22
