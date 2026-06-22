@@ -1685,10 +1685,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6568652,4/05/26,softball,Coe,1.0,Natalie Hitt,6.0,DP/P,9654379,7.0,10,8,5,1,5,36,4,0,0,2,0,2,0,0,0,2,0,2
 6568653,4/05/26,softball,Simpson,,Marina Cronin,30.0,P,9655298,7.0,4,1,1,5,7,31,1,0,0,0,1,0,0,0,0,1,0,2
 6568653,4/05/26,softball,Coe,1.0,Morgan Hewitt,9.0,P,11246763,7.0,14,5,2,2,5,35,2,0,0,1,0,0,0,0,0,1,0,2
-6580845,6/21/26,softball,Redlands,,Katlyn Gandara,30.0,P/1B,9669165,4.2,7,6,6,2,4,25,0,0,0,2,0,0,0,0,0,0,0,1
-6580845,6/21/26,softball,Redlands,,Brianna Garcia,1.0,P,9665480,2.1,0,0,0,1,1,8,0,0,0,0,0,0,0,0,0,0,0,0
-6580845,6/21/26,softball,Trine,1.0,Kami Arnett,3.0,P/DP,11243613,5.2,8,6,5,4,6,31,2,1,0,0,0,0,0,0,0,1,0,1
-6580845,6/21/26,softball,Trine,1.0,Debbie Hill,23.0,DP/P,9663613,1.1,3,1,1,0,0,7,0,0,0,0,1,0,0,0,0,0,0,0
 6580842,6/02/26,softball,Trine,,Alex Rodriguez,18.0,P,9658933,2.2,2,1,1,4,1,14,1,0,0,0,0,1,0,0,0,0,1,0
 6580842,6/02/26,softball,Trine,,Debbie Hill,23.0,DP,9663613,2.1,8,6,5,0,2,15,1,1,0,0,0,0,0,0,0,0,0,0
 6580842,6/02/26,softball,Trine,,Sydney Adolfson,14.0,P,11243626,0.1,3,3,3,0,0,5,0,0,0,0,0,1,0,0,0,1,0,0
@@ -26426,3 +26422,7 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6548106,1/30/26,softball,McMurry,,Nyema Muhammad,30.0,P/1B,9667944,3.0,4,1,1,0,2,13,1,0,0,0,0,0,0,0,0,0,0,1
 6548106,1/30/26,softball,McMurry,,Thalia Reyes,7.0,P,9659032,3.0,2,0,0,0,1,10,1,0,0,0,1,0,0,0,0,0,0,0
 6548106,1/30/26,softball,Huston-Tillotson,1.0,Alexis Tamez,7.0,P,11238308,6.0,11,9,8,3,3,32,4,0,0,2,0,0,0,0,0,0,0,1
+6580845,6/22/26,softball,Redlands,,Katlyn Gandara,30.0,P/1B,9669165,4.2,7,6,6,2,4,25,0,0,0,2,0,0,0,0,0,0,0,1
+6580845,6/22/26,softball,Redlands,,Brianna Garcia,1.0,P,9665480,2.1,0,0,0,1,1,8,0,0,0,0,0,0,0,0,0,0,0,0
+6580845,6/22/26,softball,Trine,1.0,Kami Arnett,3.0,P/DP,11243613,5.2,8,6,5,4,6,31,2,1,0,0,0,0,0,0,0,1,0,1
+6580845,6/22/26,softball,Trine,1.0,Debbie Hill,23.0,DP/P,9663613,1.1,3,1,1,0,0,7,0,0,0,0,1,0,0,0,0,0,0,0

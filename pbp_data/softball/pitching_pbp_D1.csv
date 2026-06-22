@@ -798,10 +798,6 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6576371,4/24/26,softball,Utah St.,1.0,Kendall Cochran,7,P,11233811,1.0,2,2,2,2,2,7,0,0,0,0,0,0,0,1,1,0,0,2
 6582204,5/31/26,softball,Nebraska,,Jordyn Frahm,98,P,9659905,6.0,3,3,3,1,5,22,0,0,0,1,0,0,0,0,0,0,0,0
 6582204,5/31/26,softball,Texas,1.0,Teagan Kavan,17,P,9662951,7.0,4,1,1,0,3,26,1,0,0,1,0,0,0,0,0,0,0,0
-6582503,6/21/26,softball,Texas,,Citlaly Gutierrez,77,P,9666864,4.1,3,1,1,1,3,18,0,0,0,0,0,1,0,0,0,0,0,3
-6582503,6/21/26,softball,Texas,,Hannah Wells,13,DP/P,11237584,0.2,1,0,0,1,0,5,0,0,0,0,1,1,0,0,0,0,0,0
-6582503,6/21/26,softball,Texas,,Teagan Kavan,17,P,9662951,2.0,0,0,0,0,5,6,0,0,0,0,0,0,0,0,0,0,0,1
-6582503,6/21/26,softball,Texas Tech,1.0,NiJaree Canady,24,P,9659088,7.0,8,4,2,3,3,34,1,0,0,1,0,1,3,0,0,0,0,1
 6582203,5/31/26,softball,Texas Tech,,NiJaree Canady,24,P/1B,9659088,4.0,5,5,5,1,7,21,1,0,0,2,0,3,0,0,0,0,0,2
 6582203,5/31/26,softball,Texas Tech,,Kaitlyn Terry,55,LF/P,11202031,5.0,5,2,2,1,7,20,0,0,0,1,0,0,0,3,0,0,0,1
 6582203,5/31/26,softball,UCLA,1.0,Taylor Tinsley,23,P,9661807,9.0,14,8,7,6,7,47,2,0,0,2,0,2,0,0,0,0,2,4
@@ -28330,3 +28326,7 @@ gameId,date,sport,teamName,isHome,playerName,playerNumber,playerPosition,playerI
 6496349,2/05/26,softball,Cal St. Fullerton,1.0,Eva Hurtado,31,P,9662821,3.0,7,6,5,3,4,18,3,0,0,0,1,0,0,0,0,0,1,3
 6496349,2/05/26,softball,Cal St. Fullerton,1.0,Trisha McCleskey,21,P,9667783,2.0,5,3,3,0,2,12,0,0,0,3,0,1,0,1,1,0,0,1
 6496349,2/05/26,softball,Cal St. Fullerton,1.0,Hana Winton,34,P,11207483,2.0,3,2,2,1,0,10,0,0,0,0,1,0,0,0,0,0,1,0
+6582503,6/22/26,softball,Texas,,Citlaly Gutierrez,77,P,9666864,4.1,3,1,1,1,3,18,0,0,0,0,0,1,0,0,0,0,0,3
+6582503,6/22/26,softball,Texas,,Hannah Wells,13,DP/P,11237584,0.2,1,0,0,1,0,5,0,0,0,0,1,1,0,0,0,0,0,0
+6582503,6/22/26,softball,Texas,,Teagan Kavan,17,P,9662951,2.0,0,0,0,0,5,6,0,0,0,0,0,0,0,0,0,0,0,1
+6582503,6/22/26,softball,Texas Tech,1.0,NiJaree Canady,24,P,9659088,7.0,8,4,2,3,3,34,1,0,0,1,0,1,3,0,0,0,0,1
