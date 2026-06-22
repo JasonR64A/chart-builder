@@ -404,11 +404,20 @@ if stat_label != 'None' and stat_thr is not None:
         v = p['stats'].get(key)
         return v is not None and (v >= stat_thr if direction == 'min' else v <= stat_thr)
     filtered = [p for p in filtered if _passes(p)]
-players = filtered[:10]
-if not players:
+if not filtered:
     st.warning('No players match those filters.'); st.stop()
-if len(players) < 10:
-    st.info(f'Only {len(players)} players match the filters — the board will show {len(players)} card(s).')
+# paginate into boards of 10 (the grid is fixed at 10 cards) so a "Top 40" = 4 boards
+PER_BOARD = 10
+n_boards = max(1, (len(filtered) + PER_BOARD - 1) // PER_BOARD)
+def _plabel(pp):
+    lo_ = (pp - 1) * PER_BOARD + 1; hi_ = min(pp * PER_BOARD, len(filtered))
+    return f'Board {pp}  (#{lo_}–{hi_})'
+page = st.selectbox(f'Board — {len(filtered)} players match → {n_boards} board(s) of {PER_BOARD}',
+                    list(range(1, n_boards + 1)), format_func=_plabel)
+_lo = (page - 1) * PER_BOARD
+players = filtered[_lo:_lo + PER_BOARD]
+rank_lo, rank_hi = _lo + 1, _lo + len(players)
+title_main = 'TOP 10' if page == 1 else f'#{rank_lo}–{rank_hi}'
 
 overrides = load_overrides()
 
@@ -453,8 +462,8 @@ def headshot_for(pid):
 # ---------------- summary + generate ----------------
 W, H = (1080, 1350) if fmt == 'ig' else (1600, 900)
 scale = round(660 / W, 4)
-fname = f'top10_portal_{sport.lower()}_{fmt}.png'
-st.markdown(f'**Showing {len(players)} · {sport}**: ' + ' · '.join(f'#{p["rank"]:,} {p["name"]}' for p in players))
+fname = f'top10_portal_{sport.lower()}_{fmt}_b{page}.png'
+st.markdown(f'**Board {page}/{n_boards} · {sport} · #{rank_lo}–{rank_hi}**: ' + ' · '.join(f'#{p["rank"]:,} {p["name"]}' for p in players))
 gen = st.button('🎨 Generate image', type='primary')
 if not gen:
     st.caption('Set filters / headshots / hat colors above, then click **Generate image** to render and download. '
@@ -474,7 +483,7 @@ board = (
     f'<div class="board" data-format="{fmt}" id="capture">'
     f'<div class="bhead"><div class="brand">{brand_html}</div>'
     f'<div class="tag">Transfer Portal · {sport} · &rsquo;26</div></div>'
-    f'<div class="btitle"><span class="t10">TOP 10</span><span>PORTAL PLAYERS</span><span class="rule"></span></div>'
+    f'<div class="btitle"><span class="t10">{title_main}</span><span>PORTAL PLAYERS</span><span class="rule"></span></div>'
     f'<div class="grid">{cards}</div>'
     f'<div class="bfoot"><span>64A Proprietary Rankings</span>'
     f'<span class="dotrow"><span class="pip"></span> 64analytics.com</span></div>'
