@@ -185,11 +185,21 @@ def load_pool(sport):
             m[pid_] = d
         return m
     hmap = _statmap('hitting.csv', 'plate_appearances',
-                    {'OPS': 'on_base_plus_slugging', 'ISO': 'isolated_power', 'AVG': 'batting_average',
-                     'HR': 'home_runs', 'wRC': 'weighted_runs_created', 'wRAA': 'weighted_runs_above_average'})
+                    {'OPS': 'on_base_plus_slugging', 'OBP': 'on_base_percentage', 'ISO': 'isolated_power',
+                     'AVG': 'batting_average', 'HR': 'home_runs', 'wRC': 'weighted_runs_created',
+                     'wRAA': 'weighted_runs_above_average', 'PA': 'plate_appearances'})
     pmap_s = _statmap('pitching.csv', 'innings_pitched',
                       {'ERA': 'earned_run_average', 'FIP': 'fielding_independent_pitching',
-                       'WHIP': 'walks_plus_hits_per_inning_pitched', 'K9': 'strikeouts_per_9_innings'})
+                       'WHIP': 'walks_plus_hits_per_inning_pitched', 'K9': 'strikeouts_per_9_innings',
+                       'IP': 'innings_pitched'})
+
+    # portal entry date (player_rank initiated_date, 2026)
+    pr2 = _csv('player_rank.csv'); pr2 = pr2[pr2['year'].map(norm) == '2026']
+    entered = {}
+    for _, r in pr2.iterrows():
+        d = str(r.get('initiated_date', '') or '')[:10]
+        if d:
+            entered.setdefault(norm(r['player_id']), d)
 
     prp['sport'] = prp['team_id'].map(norm).map(tsport)
     sub = prp[(prp['sport'] == sport) & prp['rk'].notna()].sort_values('rk')
@@ -206,6 +216,7 @@ def load_pool(sport):
             'from_tid': ftid, 'from_name': tname.get(ftid, ''),
             'committed': committed, 'to_tid': ntid if committed else '',
             'to_name': tname.get(ntid, '') if committed else '',
+            'entered': entered.get(pid, ''),
             'stats': {**hmap.get(pid, {}), **pmap_s.get(pid, {})},
         })
     return out
@@ -330,7 +341,7 @@ def cap_html(tid, color, capw, open_=False):
             f'<img class="cap-base-img" src="{tinted_cap(color)}"/>{inner}</div>')
 
 
-def card_html(p, pos, capw, headshot_url, from_color, to_color):
+def card_html(p, pos, capw, headshot_url, from_color, to_color, badge, stat_disp=''):
     fn, ln = split_name(p['name'])
     fprim = logo_palette(p['from_tid'])[0] if p['from_tid'] else '#b23a48'
     accent = logo_palette(p['to_tid'])[0] if (p['committed'] and p['to_tid']) else fprim
@@ -339,6 +350,7 @@ def card_html(p, pos, capw, headshot_url, from_color, to_color):
     wm = (p['to_name'] if p['committed'] else p['from_name'] or '?')[:1].upper()
     head = f'<img class="phead" src="{headshot_url}"/>' if headshot_url else ''
     fn_html = f'<span class="fn">{_esc(fn)}</span>' if fn else ''
+    meta_extra = f'<span class="psport" style="color:#d9a94a">{_esc(stat_disp)}</span>' if stat_disp else ''
     return (
         f'<div class="pcard {"is-top" if pos<=3 else ""}">'
         f'<div class="tint" style="background:{tint_bg}"></div>'
@@ -346,14 +358,14 @@ def card_html(p, pos, capw, headshot_url, from_color, to_color):
         f'<div class="pphoto"><div class="ring" style="background:{photo_bg}"></div>{SIL}{head}</div>'
         f'<div class="pcontent"><div class="nameblock">'
         f'<div class="pname">{fn_html}<span class="ln">{_esc(ln)}</span></div>'
-        f'<div class="pmeta"><span class="ppos">{_esc(p["pos"])}</span><span class="psport">{_esc(p["conf"])}</span></div>'
+        f'<div class="pmeta"><span class="ppos">{_esc(p["pos"])}</span><span class="psport">{_esc(p["conf"])}</span>{meta_extra}</div>'
         f'</div>'
         f'<div class="transfer">'
         f'<div class="capwrap"><span class="caplbl">From</span>{cap_html(p["from_tid"], from_color, capw)}</div>'
         f'<span class="t-arrow">{ARROW.format(s=round(capw*0.42))}</span>'
         f'<div class="capwrap"><span class="caplbl">To</span>{cap_html(p["to_tid"], to_color, capw, open_=not p["committed"])}</div>'
         f'</div></div>'
-        f'<div class="prank {"top3" if pos<=3 else ""}"><div class="num"><span class="hash">#</span>{p["rank"]:,}</div></div>'
+        f'<div class="prank {"top3" if pos<=3 else ""}"><div class="num"><span class="hash">#</span>{badge:,}</div></div>'
         f'</div>'
     )
 
@@ -382,28 +394,39 @@ sel_pos = f2.multiselect('Position', pos_opts, default=[])
 sel_div = f3.multiselect('Division', div_opts, default=[])
 commit = f4.radio('Commitment', ['All', 'Committed', 'Available'], index=0)
 
-# stat threshold filter (min for rate/counting stats, max for ERA/FIP/WHIP)
-STATS = {'OPS ≥': ('OPS', 'min'), 'ISO ≥': ('ISO', 'min'), 'AVG ≥': ('AVG', 'min'),
-         'HR ≥': ('HR', 'min'), 'wRC ≥': ('wRC', 'min'), 'wRAA ≥': ('wRAA', 'min'),
-         'ERA ≤': ('ERA', 'max'), 'FIP ≤': ('FIP', 'max'), 'WHIP ≤': ('WHIP', 'max'), 'K/9 ≥': ('K9', 'min')}
-s1, s2 = st.columns([2, 2])
-stat_label = s1.selectbox('Stat filter', ['None'] + list(STATS),
-                          help='Keep only players clearing this stat. A hitter stat drops pitchers and vice-versa.')
-stat_thr = None
-if stat_label != 'None':
-    stat_thr = s2.number_input(stat_label, value=0.0, step=0.05, format='%.3f')
+# date-entered filter + stat SORTER (order the board by a stat instead of portal rank)
+import datetime as _dt
+def _pdate(s):
+    try: return pd.to_datetime(s).date()
+    except: return None
+HIT_KEYS = {'OPS', 'OBP', 'ISO', 'AVG', 'HR', 'wRC', 'wRAA'}
+SORTS = {'Portal rank': None,
+         'OPS': ('OPS', 'hi'), 'OBP': ('OBP', 'hi'), 'ISO': ('ISO', 'hi'), 'AVG': ('AVG', 'hi'),
+         'HR': ('HR', 'hi'), 'wRC': ('wRC', 'hi'), 'wRAA': ('wRAA', 'hi'),
+         'ERA': ('ERA', 'lo'), 'FIP': ('FIP', 'lo'), 'WHIP': ('WHIP', 'lo'), 'K/9': ('K9', 'hi')}
+_edates = [d for d in (_pdate(p['entered']) for p in pool) if d]
+dmin, dmax = (min(_edates), max(_edates)) if _edates else (_dt.date(2025, 10, 1), _dt.date.today())
+s1, s2, s3 = st.columns([2, 2, 2])
+ent_from = s1.date_input('Entered from', value=dmin, min_value=dmin, max_value=dmax)
+ent_to = s2.date_input('Entered to', value=dmax, min_value=dmin, max_value=dmax)
+sort_label = s3.selectbox('Sort board by', list(SORTS),
+                          help='Orders the board by this stat (top N) instead of 64A portal rank — e.g. pos=3B + Available + OPS = top 3B hitters available. A hitting stat keeps hitters; a pitching stat keeps pitchers.')
+date_active = (ent_from != dmin or ent_to != dmax)
 
 filtered = [p for p in pool
             if (not sel_conf or p['conf'] in sel_conf)
             and (not sel_pos or p['pos'] in sel_pos)
             and (not sel_div or p['division'] in sel_div)
-            and (commit == 'All' or (commit == 'Committed' and p['committed']) or (commit == 'Available' and not p['committed']))]
-if stat_label != 'None' and stat_thr is not None:
-    key, direction = STATS[stat_label]
-    def _passes(p):
-        v = p['stats'].get(key)
-        return v is not None and (v >= stat_thr if direction == 'min' else v <= stat_thr)
-    filtered = [p for p in filtered if _passes(p)]
+            and (commit == 'All' or (commit == 'Committed' and p['committed']) or (commit == 'Available' and not p['committed']))
+            and (not date_active or (_pdate(p['entered']) is not None and ent_from <= _pdate(p['entered']) <= ent_to))]
+sort_key = SORTS[sort_label]
+if sort_key is None:
+    filtered.sort(key=lambda p: p['rank'])                       # 64A portal rank (1 = best)
+else:
+    skey, hilo = sort_key
+    samp, floor = ('PA', 30) if skey in HIT_KEYS else ('IP', 15)  # min sample so a fluke can't top it
+    filtered = [p for p in filtered if p['stats'].get(skey) is not None and (p['stats'].get(samp) or 0) >= floor]
+    filtered.sort(key=lambda p: p['stats'][skey], reverse=(hilo == 'hi'))
 if not filtered:
     st.warning('No players match those filters.'); st.stop()
 # paginate into boards of 10 (the grid is fixed at 10 cards) so a "Top 40" = 4 boards
@@ -471,7 +494,20 @@ if not gen:
     st.stop()
 
 # ---------------- build board (only on Generate) ----------------
-cards = ''.join(card_html(p, i + 1, capw, headshot_for(p['pid']), cap_color(p['from_tid']), cap_color(p['to_tid']))
+def _statval(p):
+    sk = SORTS[sort_label]
+    if sk is None:
+        return ''
+    k = sk[0]; v = p['stats'].get(k)
+    if v is None:
+        return ''
+    if k == 'HR': s = f'{int(v)}'
+    elif k in ('ERA', 'FIP', 'WHIP'): s = f'{v:.2f}'
+    elif k in ('wRC', 'wRAA', 'K9'): s = f'{v:.1f}'
+    else: s = f'{v:.3f}'
+    return f'{sort_label} {s}'
+cards = ''.join(card_html(p, i + 1, capw, headshot_for(p['pid']), cap_color(p['from_tid']), cap_color(p['to_tid']),
+                          (p['rank'] if SORTS[sort_label] is None else rank_lo + i), _statval(p))
                 for i, p in enumerate(players))
 brand_html = (
     f'<img class="logo64" src="{data_url(BRAND / "logo-64-analytics.png")}" alt="64A"/>'
