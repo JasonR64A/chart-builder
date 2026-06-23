@@ -1,2 +1,7 @@
 ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfer_date,update_date,status,year,sport,team_id,player_id_64a,player_id_ncaa_stats,matched_name,match_score,match_method,confidence,position,class_year,player_csv_team_id
-2606967835,JABEL,MATOS,Jabel Matos,Eastern University,Middle Atlantic Conference Commonwealth,III,06/22/2026,06/22/2026,Active,2025-26,Baseball,225,118568,3095943,JJ Matos,73.7,team+lastname_diff_first,REVIEW,C,So,225
+2309114457,JACOB,HANLEY,Jacob Hanley,"Indiana University, Bloomington",Big Ten Conference,I,06/23/2026,06/23/2026,Active,2025-26,Baseball,349,101470,3089407,Jake Hanley,92.0,team+lastname,LOW,1B,So,349
+2308987355,NICHOLAS,FRONTINO,Nicholas Frontino,Mississippi State University,Southeastern Conference,I,06/22/2026,06/23/2026,Active,2025-26,Baseball,488,133728,3220716,Nick Frontino,92.0,team+lastname,LOW,INF,Fr,488
+2109334654,PETEY,SOTO,Petey Soto,Utah Tech University,Western Athletic Conference,I,06/22/2026,06/22/2026,Active,2025-26,Baseball,842,70344,2962282,Petey Soto Jr.,92.0,team+lastname,LOW,SS,Jr,842
+2110362803,BENJAMIN,BRASH,Benjamin Brash,The Citadel,Southern Conference,I,06/22/2026,06/22/2026,Active,2025-26,Baseball,788,67581,2938032,Ben Brash,92.0,team+lastname,LOW,P,Jr,788
+2210696555,JACKSON,CROPPER,Jackson Cropper,Northeastern University,Coastal Athletic Association,I,06/22/2026,06/22/2026,Active,2025-26,Baseball,551,70826,2968952,Jack Cropper,92.0,team+lastname,LOW,P,So,551
+2410442852,JASON,PRICE,Jason Price,New Mexico State University,Conference USA,I,06/22/2026,06/22/2026,Active,2025-26,Baseball,532,134220,3239023,JT Price,73.7,team+lastname_diff_first,REVIEW,P,Fr,532

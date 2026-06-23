@@ -1,3 +1,3 @@
 ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfer_date,update_date,status,year,sport,team_id,player_id_64a,player_id_ncaa_stats,matched_name,match_score,match_method,confidence,position,class_year,player_csv_team_id
-2308991250,MARY,HODGE,Mary Hodge,Arizona State University,Big 12 Conference,I,06/18/2026,06/18/2026,Active,2025-26,Softball,1191,139985,3230842,Mary Peyton Hodge,92.0,team+lastname,LOW,P,Fr,1191
-2311151297,ALEXANDRA,HURLEY,Alexandra Hurley,University of Charleston (West Virginia),Mountain East Conference,II,06/18/2026,06/18/2026,Active,2025-26,Softball,1395,124405,3088902,Alex Hurley,81.5,team+lastname_diff_first,REVIEW,1B,So,1395
+2308982679,IZABEL,NEAL,Izabel Neal,The Ohio State University,Big Ten Conference,I,06/22/2026,06/23/2026,Active,2025-26,Softball,1139,144108,3229366,Izzy Neal,70.0,team+lastname_diff_first,REVIEW,RF,Fr,1139
+2109329656,GABRIELLE,STUTES,Gabrielle Stutes,University of Louisiana at Lafayette,Sun Belt Conference,I,06/22/2026,06/22/2026,Active,2025-26,Softball,1102,85604,2949230,Gabbie Stutes,82.8,team+lastname_only,REVIEW,RF,So,1102
