@@ -15,3 +15,6 @@ data/top10_headshots/
 pbp_data/play_by_play/*.csv
 pbp_data/validated/*.parquet
 pbp_data/validated/*_full.json
+
+# Portal staging-backup dirs (created during staging; never need to deploy)
+data/_backup_*/
