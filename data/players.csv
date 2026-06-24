@@ -33413,7 +33413,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 33413,Pirmin Brechbuhl,LF,,TRUE,864,0,0,559,2488955,C,TRUE,75,R,R,"Brookhaven, GA"
 33414,James Broderick,SS,,TRUE,864,0,0,239,2488949,,FALSE,73,L,R,"Wellesley, MA"
 33415,Adam Cecere,RF,,TRUE,864,0,0,601,2298594,,FALSE,76,L,R,"Butler, PA"
-33416,Lucas Costello,RF,So,TRUE,469,367,0,864,2488936,1B,FALSE,74,R,R,"Erie, PA"
+33416,Lucas Costello,RF,,TRUE,864,367,0,469,2488936,1B,FALSE,74,R,R,"Miami, FL"
 33417,Derek Crum,P,,TRUE,864,362,0,258,2298595,,FALSE,73,,L,"Tampa, FL"
 33418,Ryan Cusick,P,,FALSE,,0,0,864,2130564,,,,,,
 33419,Jd Everett,P,,FALSE,,0,0,864,2488952,,,,,,
@@ -149859,3 +149859,4 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 150999,Christian Chance,OF,Fr,FALSE,,,,825,,,,70,R,R,"Greenville, NC"
 151000,Gelya Sanders,,Fr,FALSE,,,,1233,,,,,,,
 151001,Bryson Lake,P,Fr,FALSE,,,,27,,,,73,R,R,"Harper, TX"
+151002,Luke Costello,RF,So,FALSE,,,,864,,,,74,R,R,"Erie, PA"
