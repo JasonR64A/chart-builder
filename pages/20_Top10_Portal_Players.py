@@ -17,7 +17,7 @@ import numpy as np
 import pandas as pd
 import streamlit as st
 import streamlit.components.v1 as components
-from PIL import Image
+from PIL import Image, ImageOps
 
 APP_DIR = Path(__file__).resolve().parent.parent
 DATA = APP_DIR / 'data'
@@ -42,6 +42,18 @@ def data_url(path, mime='image/png'):
     if not p.exists():
         return ''
     return f'data:{mime};base64,' + base64.b64encode(p.read_bytes()).decode()
+
+
+HEAD_SIZE = 600  # photo cells are 1:1; store/serve square so html2canvas can't stretch
+
+
+def square_headshot(im):
+    """Cover-crop a headshot to a square that fills the 1:1 photo cell with NO distortion.
+    Necessary because html2canvas IGNORES CSS object-fit:cover on export and stretches the
+    <img> to the cell box — a tall photo would come out squished. Baking the crop in fixes
+    it for any uploaded aspect. Bias slightly toward the top so ballcaps aren't clipped."""
+    return ImageOps.fit(im.convert('RGBA'), (HEAD_SIZE, HEAD_SIZE),
+                        method=Image.LANCZOS, centering=(0.5, 0.34))
 
 
 @st.cache_data(show_spinner=False)
@@ -480,7 +492,7 @@ with st.expander('Headshots & hat colors (remembered)', expanded=False):
                                  key=f'hs_{p["pid"]}', label_visibility='collapsed')
         if up is not None:
             try:
-                im = Image.open(up).convert('RGBA'); im.thumbnail((600, 600)); im.save(cached, 'PNG')
+                square_headshot(Image.open(up)).save(cached, 'PNG')
                 st.toast(f'Saved headshot · {p["name"]}')
             except Exception as e:
                 st.warning(f'Bad image: {e}')
@@ -497,7 +509,11 @@ with st.expander('Headshots & hat colors (remembered)', expanded=False):
 
 def headshot_for(pid):
     c = HEADSHOTS / f'{pid}.png'
-    return data_url(c) if c.exists() else ''
+    if not c.exists():
+        return ''
+    buf = BytesIO()
+    square_headshot(Image.open(c)).save(buf, 'PNG')   # square at render too (fixes legacy non-square uploads)
+    return 'data:image/png;base64,' + base64.b64encode(buf.getvalue()).decode()
 
 
 # ---------------- summary + generate ----------------
