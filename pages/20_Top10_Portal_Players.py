@@ -22,6 +22,7 @@ from PIL import Image, ImageOps
 APP_DIR = Path(__file__).resolve().parent.parent
 DATA = APP_DIR / 'data'
 LOGO_DIR = APP_DIR / 'team_logos_512'
+CAP_LOGO_DIR = APP_DIR / 'cap_logos'   # cleaner cap-specific marks (override); falls back to LOGO_DIR
 BRAND = APP_DIR / 'assets' / 'portal-entrant'
 FONT_DIR = APP_DIR / 'assets' / 'fonts'
 CAP_PNG = APP_DIR / 'assets' / 'top10' / 'cap-blank.png'
@@ -363,7 +364,8 @@ def cap_html(tid, color, capw, open_=False):
         return (f'<div class="caphat cap-open" style="width:{capw}px;height:{h}px">'
                 f'<img class="cap-base-img" src="{tinted_cap("#3a434e")}"/>'
                 f'<span class="cap-q" style="font-size:{round(capw*0.34)}px">?</span></div>')
-    logo = data_url(LOGO_DIR / f'{tid}.png')
+    cap_override = CAP_LOGO_DIR / f'{tid}.png'
+    logo = data_url(cap_override if cap_override.exists() else LOGO_DIR / f'{tid}.png')
     inner = f'<img class="cap-logo" src="{logo}"/>' if logo else ''
     return (f'<div class="caphat" style="width:{capw}px;height:{h}px">'
             f'<img class="cap-base-img" src="{tinted_cap(color)}"/>{inner}</div>')
