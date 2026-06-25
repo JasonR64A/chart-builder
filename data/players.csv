@@ -147326,7 +147326,7 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 148453,M. Purda,P,,FALSE,,,,70,3255003,2B,FALSE,,,,
 148454,C. Carpenter,P,,FALSE,,,,81,3255399,,FALSE,,,,
 148455,J. Congi,RF,,FALSE,,,,81,3255400,DH,FALSE,,,,
-148456,K. Dempsey,P,,FALSE,,,,81,3255405,,FALSE,,,,
+148456,Kannon Dempsey,P,Fr,FALSE,,,,81,3255405,,FALSE,73,R,R,"McLeod, TX"
 148457,G. Griffith,C,,FALSE,,,,81,3255407,,FALSE,,,,
 148458,L. Harbach,3B,,FALSE,,,,81,3255401,P,TRUE,,,,
 148459,J. Mazariego,LF,,FALSE,,,,81,3255406,,FALSE,,,,
@@ -149860,3 +149860,11 @@ id,player_name,position,classification,transferred,previous_team,recruited_rank,
 151000,Gelya Sanders,,Fr,FALSE,,,,1233,,,,,,,
 151001,Bryson Lake,P,Fr,FALSE,,,,27,,,,73,R,R,"Harper, TX"
 151002,Luke Costello,RF,So,FALSE,,,,864,,,,74,R,R,"Erie, PA"
+151003,Logan Ramsey,1B,Jr,FALSE,,,,965,,,,,L,L,"Warren, MI"
+151004,Aidan Tomlinson,P,Fr,FALSE,,,,580,,,,77,R,R,"Henryetta, OK"
+151005,Luke Stachowiak,3B,Fr,FALSE,,,,454,,,,71,R,R,"Burr Ridge, IL"
+151006,Bennett Musser,P,Jr,FALSE,,,,151,,,,74,R,R,"Round Lake, IL"
+151007,Jake Tompkins,P,Fr,FALSE,,,,487,,,,73,R,R,"Baton Rouge, LA"
+151008,Kyle Leiser,C,Jr,FALSE,,,,954,,,,71,R,R,"Sicklerville, NJ"
+151009,Kyla Angell,C,Fr,FALSE,,,,2268,,,,64,R,R,"North Providence, RI"
+151010,Dominic Avila,1B,Jr,FALSE,,,,110,,,,72,L,L,"San Carlos, CA"
