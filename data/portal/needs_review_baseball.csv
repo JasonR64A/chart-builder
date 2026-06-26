@@ -1,5 +1,6 @@
 ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfer_date,update_date,status,year,sport,team_id,player_id_64a,player_id_ncaa_stats,matched_name,match_score,match_method,confidence,position,class_year,player_csv_team_id
+1904547498,THOMAS,COSTELLO,Thomas Costello,Austin Peay State University,Atlantic Sun Conference,I,06/26/2026,06/26/2026,Active,2025-26,Baseball,51,127611,3230107,TJ Costello,76.9,team+lastname_diff_first,REVIEW,2B,Jr,51
+1904545894,ZACHARY,DOHRMANN,Zachary Dohrmann,Eastern Illinois University,Ohio Valley Conference,I,06/25/2026,06/26/2026,Active,2025-26,Baseball,227,103265,3061788,Zach Dohrmann,92.0,team+lastname,LOW,P,Sr,227
 2107245484,ALEXANDER,TERRY,Alexander Terry,"University of North Carolina, Chapel Hill",Atlantic Coast Conference,I,06/25/2026,06/25/2026,Active,2025-26,Baseball,543,134467,3246561,AJ Terry,60.9,team+lastname_diff_first,REVIEW,3B,Fr,543
 2410427044,ANDREW,FREEMAN,Andrew Freeman,University of Louisville,Atlantic Coast Conference,I,06/25/2026,06/25/2026,Active,2025-26,Baseball,421,132594,3246332,Drew Freeman,92.3,team+lastname,LOW,DH,Fr,421
-1904545894,ZACHARY,DOHRMANN,Zachary Dohrmann,Eastern Illinois University,Ohio Valley Conference,I,06/25/2026,06/25/2026,Active,2025-26,Baseball,227,103265,3061788,Zach Dohrmann,92.0,team+lastname,LOW,P,Sr,227
 2309120078,JASON,SIEMON,Jason Siemon,"University of Pittsburgh, Greensburg",Allegheny Mountain Collegiate Conference,III,06/25/2026,06/25/2026,Active,2025-26,Baseball,611,119858,3121842,J. Siemon,76.2,team+lastname_diff_first,REVIEW,P,So,611
