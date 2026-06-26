@@ -1,4 +1,7 @@
 ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfer_date,update_date,status,year,sport,team_id,player_id_64a,player_id_ncaa_stats,matched_name,match_score,match_method,confidence,position,class_year,player_csv_team_id
+2109329288,MINJUN,SEO,Minjun Seo,"California State University, Northridge",Big West Conference,I,06/26/2026,06/26/2026,Active,2025-26,Baseball,190,119891,3097803,MJ Seo,75.0,team+lastname_diff_first,REVIEW,P,So,190
+2104146424,WILLIAM,WHELAN,William Whelan,"University of Minnesota, Twin Cities",Big Ten Conference,I,06/26/2026,06/26/2026,Active,2025-26,Baseball,483,67417,2942752,Will Whelan,92.0,team+lastname,LOW,P,Jr,483
+2306931157,MICKEY,GREEN,Mickey Green,University of the Incarnate Word,Southland Conference,I,06/26/2026,06/26/2026,Active,2025-26,Baseball,819,131719,3095360,Rand Green,54.5,team+lastname_diff_first,REVIEW,P,So,819
 2111386317,TIMOTHY,HITCHCOCK,Timothy Hitchcock,Alvernia University,Middle Atlantic Conference Commonwealth,III,06/26/2026,06/26/2026,Active,2025-26,Baseball,22,72765,2963187,Timmy Hitchcock,82.0,team+lastname_diff_first,REVIEW,3B,Jr,22
 1904547498,THOMAS,COSTELLO,Thomas Costello,Austin Peay State University,Atlantic Sun Conference,I,06/26/2026,06/26/2026,Active,2025-26,Baseball,51,127611,3230107,TJ Costello,76.9,team+lastname_diff_first,REVIEW,2B,Jr,51
 1904545894,ZACHARY,DOHRMANN,Zachary Dohrmann,Eastern Illinois University,Ohio Valley Conference,I,06/25/2026,06/26/2026,Active,2025-26,Baseball,227,103265,3061788,Zach Dohrmann,92.0,team+lastname,LOW,P,Sr,227
