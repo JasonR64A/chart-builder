@@ -237,9 +237,11 @@ def load_pool(sport):
         pid = norm(r['player_id']); ftid = norm(r['team_id']); ntid = norm(r['new_team_id'])
         committed = ntid not in ('', '0', 'nan')
         fcid = tconfid.get(ftid, '')
+        tcid = tconfid.get(ntid, '') if committed else ''
         out.append({
             'pid': pid, 'name': pname.get(pid) or r['name'] or f'#{pid}',
             'pos': (ppos.get(pid) or '').upper(), 'conf': cabbr.get(fcid, ''),
+            'to_conf': cabbr.get(tcid, '') if committed else '',
             'division': cdiv.get(fcid, ''), 'rank': int(r['rk']),
             'from_tid': ftid, 'from_name': tname.get(ftid, ''),
             'committed': committed, 'to_tid': ntid if committed else '',
@@ -418,10 +420,13 @@ if not pool:
 # ---- filters ----
 st.markdown('**Filters**')
 f1, f2, f3, f4 = st.columns([2, 2, 1.4, 1.4])
-conf_opts = sorted({p['conf'] for p in pool if p['conf']})
+conf_opts = sorted({p['conf'] for p in pool if p['conf']} | {p['to_conf'] for p in pool if p.get('to_conf')})
 pos_opts = sorted({p['pos'] for p in pool if p['pos']})
 div_opts = [d for d in ['D-I', 'D-II', 'D-III'] if any(p['division'] == d for p in pool)]
 sel_conf = f1.multiselect('Conference', conf_opts, default=[])
+conf_scope = f1.radio('Conference applies to', ['From', 'To', 'Either'], index=0, horizontal=True,
+                      help="Match the conference filter on the player's FROM school, their committed TO school, "
+                           "or EITHER. e.g. To + SEC surfaces McKenzie Pickens (Louisville→LSU).")
 sel_pos = f2.multiselect('Position', pos_opts, default=[])
 sel_div = f3.multiselect('Division', div_opts, default=[])
 commit = f4.radio('Commitment', ['All', 'Committed', 'Available'], index=0)
@@ -445,8 +450,17 @@ sort_label = s3.selectbox('Sort board by', list(SORTS),
                           help='Orders the board by this stat (top N) instead of 64A portal rank — e.g. pos=3B + Available + OPS = top 3B hitters available. A hitting stat keeps hitters; a pitching stat keeps pitchers.')
 date_active = (ent_from != dmin or ent_to != dmax)
 
+def _conf_match(p):
+    if not sel_conf:
+        return True
+    if conf_scope == 'From':
+        return p['conf'] in sel_conf
+    if conf_scope == 'To':
+        return p['to_conf'] in sel_conf
+    return p['conf'] in sel_conf or p['to_conf'] in sel_conf   # Either
+
 filtered = [p for p in pool
-            if (not sel_conf or p['conf'] in sel_conf)
+            if _conf_match(p)
             and (not sel_pos or p['pos'] in sel_pos)
             and (not sel_div or p['division'] in sel_div)
             and (commit == 'All' or (commit == 'Committed' and p['committed']) or (commit == 'Available' and not p['committed']))
