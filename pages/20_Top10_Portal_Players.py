@@ -134,11 +134,42 @@ def cap_text_color(hex_):
 
 
 @st.cache_data(show_spinner=False)
+def _logo_id_resolver():
+    """Map every team id -> an id whose local logo file actually exists.
+    Schools with BOTH sports have a separate softball team id, but the logo is stored
+    under the baseball/canonical id only — so a softball id usually has NO file under
+    team_logos_512/{id}.png. Without this fallback, logo_palette returns its dark-slate
+    default and the cap renders ~black (and the cap mark goes missing). Resolve to a
+    same-NCAA-org sibling (the baseball row) that does have a logo. (Wisconsin is
+    softball-only, so its logo is under its own id — that's why it was the exception.)"""
+    teams = _csv('teams.csv')
+    by_ncaa, nc_of = {}, {}
+    for _, r in teams.iterrows():
+        i = norm(r['id']); n = norm(r['team_id_ncaa'])
+        nc_of[i] = n
+        by_ncaa.setdefault(n, []).append(i)
+    have = lambda i: (LOGO_DIR / f'{i}.png').exists()
+    out = {}
+    for i in nc_of:
+        if have(i):
+            out[i] = i
+        else:
+            out[i] = next((s for s in by_ncaa.get(nc_of[i], []) if have(s)), i)
+    return out
+
+
+def _logo_id(tid):
+    if not tid:
+        return tid
+    return _logo_id_resolver().get(norm(tid), norm(tid))
+
+
+@st.cache_data(show_spinner=False)
 def logo_palette(team_id):
     """(primary, secondary) hex from the team logo. secondary = 2nd distinct color cluster,
     used to tint the cap so the logo contrasts the hat. Brand-red / dark-slate fallback."""
     fallback = ('#b23a48', '#2a313b')
-    p = LOGO_DIR / f'{team_id}.png'
+    p = LOGO_DIR / f'{_logo_id(team_id)}.png'
     if not p.exists():
         return fallback
     try:
@@ -366,8 +397,9 @@ def cap_html(tid, color, capw, open_=False):
         return (f'<div class="caphat cap-open" style="width:{capw}px;height:{h}px">'
                 f'<img class="cap-base-img" src="{tinted_cap("#3a434e")}"/>'
                 f'<span class="cap-q" style="font-size:{round(capw*0.34)}px">?</span></div>')
-    cap_override = CAP_LOGO_DIR / f'{tid}.png'
-    logo = data_url(cap_override if cap_override.exists() else LOGO_DIR / f'{tid}.png')
+    lid = _logo_id(tid)
+    cap_override = CAP_LOGO_DIR / f'{lid}.png'
+    logo = data_url(cap_override if cap_override.exists() else LOGO_DIR / f'{lid}.png')
     inner = f'<img class="cap-logo" src="{logo}"/>' if logo else ''
     return (f'<div class="caphat" style="width:{capw}px;height:{h}px">'
             f'<img class="cap-base-img" src="{tinted_cap(color)}"/>{inner}</div>')
