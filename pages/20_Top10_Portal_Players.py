@@ -383,13 +383,14 @@ def card_html(p, pos, capw, headshot_url, from_color, to_color, badge, stat_disp
     _sh = face_shadow(p['pid'])
     wm_html = f'<img class="watermark-photo" src="{_sh}"/>' if _sh else f'<div class="watermark">{_esc(wm)}</div>'
     head = f'<img class="phead" src="{headshot_url}"/>' if headshot_url else ''
+    sil = '' if headshot_url else SIL   # drop the generic silhouette once a real photo is in (avoids it bleeding through cut-out/transparent uploads)
     fn_html = f'<span class="fn">{_esc(fn)}</span>' if fn else ''
     meta_extra = f'<span class="psport" style="color:#d9a94a">{_esc(stat_disp)}</span>' if stat_disp else ''
     return (
         f'<div class="pcard {"is-top" if pos<=3 else ""}">'
         f'<div class="tint" style="background:{tint_bg}"></div>'
         f'{wm_html}'
-        f'<div class="pphoto"><div class="ring" style="background:{photo_bg}"></div>{SIL}{head}</div>'
+        f'<div class="pphoto"><div class="ring" style="background:{photo_bg}"></div>{sil}{head}</div>'
         f'<div class="pcontent"><div class="nameblock">'
         f'<div class="pname">{fn_html}<span class="ln">{_esc(ln)}</span></div>'
         f'<div class="pmeta"><span class="ppos">{_esc(p["pos"])}</span><span class="psport">{_esc(p["conf"])}</span>{meta_extra}</div>'
@@ -561,9 +562,6 @@ cards = ''.join(card_html(p, i + 1, capw, headshot_for(p['pid']), cap_color(p['f
                 for i, p in enumerate(players))
 brand_html = (
     f'<img class="logo64" src="{data_url(BRAND / "logo-64-analytics.png")}" alt="64A"/>'
-    f'<span class="brand-div"></span>'
-    f'<img class="partner" src="{data_url(BRAND / "logo-college-baseball-show.png")}" alt="CBS"/>'
-    f'<img class="partner" src="{data_url(BRAND / "logo-jb.png")}" alt="JB"/>'
 )
 board = (
     f'<div class="board" data-format="{fmt}" id="capture">'
