@@ -1,4 +1,2 @@
 ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfer_date,update_date,status,year,sport,team_id,player_id_64a,player_id_ncaa_stats,matched_name,match_score,match_method,confidence,position,class_year,player_csv_team_id
-2110339433,NICOLAS,SMITH,Nicolas Smith,"University of Missouri, Columbia",Southeastern Conference,I,06/29/2026,06/29/2026,Active,2025-26,Baseball,490,57113,2825605,Nic Smith,81.8,team+lastname_only,REVIEW,P,Jr,490
-2110354319,JAMES,SMITH,James Smith,University of Memphis,American Conference,I,06/28/2026,06/28/2026,Active,2025-26,Baseball,461,115874,3115705,James Smith IV,92.0,team+fullname,LOW,DH,Sr,461
-2311151057,BRADEN,HUDSON,Braden Hudson,Mississippi University for Women,St. Louis Intercollegiate Athletic Conference,III,06/28/2026,06/28/2026,Active,2025-26,Baseball,518,149344,3257634,B. Hudson,72.7,team+lastname_diff_first,REVIEW,C,,518
+2111375559,MAXWELL,GOLDBERG,Maxwell Goldberg,University of the Pacific,West Coast Conference,I,06/29/2026,06/29/2026,Active,2025-26,Baseball,595,135091,3219879,Max Goldberg,82,team+lastname_diff_first,REVIEW,P,Jr,595
