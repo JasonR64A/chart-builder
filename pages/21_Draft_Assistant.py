@@ -267,18 +267,35 @@ def _i(x):
     except Exception:
         return None
 
-split_watch, split_good = [], []
+# this player's overall 2026 power rate, for self-baseline contrasts
+ph26 = ph[ph["yr"] == 2026]
+ab26 = int(num(ph26, "at_bats").fillna(0).sum())
+hr26 = int(num(ph26, "home_runs").fillna(0).sum())
+ovr_hr_rate = hr26 / ab26 if ab26 else 0.0
+
+split_watch, split_good, seen = [], [], set()
 for r in splits_by_pid.get(pid, []):
     lab = SPLIT_LABEL.get(r.split, r.split)
     opc, isc = _i(r.ops_pct), _i(r.iso_pct)
     ops, iso = r.ops, r.iso
     pa, ab, hr = _i(r.pa), _i(r.ab), _i(r.hr)
-    # weakness: overall (OPS) first, else power (ISO)
+    # 1) peer-outlier weakness: overall (OPS) first, else power (ISO)
     if opc is not None and opc <= LO:
-        split_watch.append((opc, f"**{lab}**: {ops} OPS — {opc}th pct ({pa} PA)"))
+        split_watch.append((opc, f"**{lab}**: {ops} OPS — {opc}th pct ({pa} PA)")); seen.add(r.split)
     elif isc is not None and isc <= LO:
-        split_watch.append((isc, f"**{lab}** power: {hr} HR in {ab} AB ({iso} ISO, {isc}th pct)"))
-    # strength
+        split_watch.append((isc, f"**{lab}** power: {hr} HR in {ab} AB ({iso} ISO, {isc}th pct)")); seen.add(r.split)
+    # 2) self-baseline power contrast (e.g. 'only 2 HR vs conference' vs his own norm).
+    #    Skip if this split is actually a strength (don't nitpick HR on an elite split).
+    elif (ab and ab >= 60 and ovr_hr_rate >= 0.018 and ab26 >= 80 and hr is not None
+          and not (opc is not None and opc >= HI)
+          and (hr / ab) <= 0.70 * ovr_hr_rate):
+        per_o = round(ab26 / hr26) if hr26 else None
+        if hr == 0:
+            txt = f"**{lab}**: 0 HR in {ab} AB (he's 1 per {per_o} overall)"
+        else:
+            txt = f"**{lab}**: just {hr} of his {hr26} HR — 1 per {round(ab/hr)} AB vs 1 per {per_o} overall"
+        split_watch.append((20, txt)); seen.add(r.split)
+    # 3) strength
     if opc is not None and opc >= HI:
         split_good.append((-opc, f"**{lab}**: {ops} OPS — {opc}th pct ({pa} PA)"))
     elif isc is not None and isc >= HI:
