@@ -41,12 +41,20 @@ def load_all():
         series = load("draft_best_series.csv")
     except Exception:
         series = pd.DataFrame()
+    try:
+        splits = load("draft_splits.csv")
+    except Exception:
+        splits = pd.DataFrame()
     for df in (hit, pit):
         df["pid"] = df["player_id"].map(norm)
-    return players, teams, conf, hit, pit, series
+    return players, teams, conf, hit, pit, series, splits
 
 
-players, teams, conf, hit, pit, series = load_all()
+players, teams, conf, hit, pit, series, splits = load_all()
+splits_by_pid = {}
+if len(splits):
+    for r in splits.itertuples():
+        splits_by_pid.setdefault(norm(r.player_id), []).append(r)
 
 tname = {norm(r["id"]): r["name"] for _, r in teams.iterrows()}
 cdiv = {norm(r["id"]): r["division"] for _, r in conf.iterrows()}
@@ -246,6 +254,63 @@ elif weak:
 else:
     st.markdown(f"No clear weakness — every tracked {predominant} metric is at or above the 60th percentile ({ctx}). "
                 "That's a positive note for the broadcast.")
+
+# --- 2026 split notes (peer-relative, volume-gated; both directions) ---
+SPLIT_LABEL = {"conference": "vs conference", "road": "on the road", "home": "at home",
+               "late": "late-season (May/Jun)", "quality": "vs power-conference foes"}
+LO, HI = 15, 85   # extreme tails
+
+
+def _i(x):
+    try:
+        return int(float(x))
+    except Exception:
+        return None
+
+split_watch, split_good = [], []
+for r in splits_by_pid.get(pid, []):
+    lab = SPLIT_LABEL.get(r.split, r.split)
+    opc, isc = _i(r.ops_pct), _i(r.iso_pct)
+    ops, iso = r.ops, r.iso
+    pa, ab, hr = _i(r.pa), _i(r.ab), _i(r.hr)
+    # weakness: overall (OPS) first, else power (ISO)
+    if opc is not None and opc <= LO:
+        split_watch.append((opc, f"**{lab}**: {ops} OPS — {opc}th pct ({pa} PA)"))
+    elif isc is not None and isc <= LO:
+        split_watch.append((isc, f"**{lab}** power: {hr} HR in {ab} AB ({iso} ISO, {isc}th pct)"))
+    # strength
+    if opc is not None and opc >= HI:
+        split_good.append((-opc, f"**{lab}**: {ops} OPS — {opc}th pct ({pa} PA)"))
+    elif isc is not None and isc >= HI:
+        split_good.append((-isc, f"**{lab}** power: {hr} HR in {ab} AB ({iso} ISO, {isc}th pct)"))
+
+if split_watch:
+    split_watch.sort()
+    st.markdown("**2026 splits worth flagging:**")
+    st.markdown("\n".join(f"- {t}" for _, t in split_watch[:3]))
+
+st.divider()
+
+# ---------------- 3b) NOTABLE STRENGTHS ----------------
+st.markdown("### ✅ Notable strengths")
+strengths = []
+# top overall percentile metrics in predominant role
+if predominant == "hitting" and row is not None and ctx is not None:
+    for col, lab in HIT_PCT.items():
+        v = f(row.get(col))
+        if v is not None and v >= 0.85:
+            strengths.append((-v, f"**{lab}** — {int(round(v*100))}th percentile ({ctx})"))
+elif predominant == "pitching" and row is not None and ctx is not None:
+    for col, lab in PIT_PCT.items():
+        v = f(row.get(col))
+        if v is not None and v >= 0.85:
+            strengths.append((-v, f"**{lab}** — {int(round(v*100))}th percentile ({ctx})"))
+strengths.sort()
+lines = [t for _, t in strengths[:3]] + [t for _, t in sorted(split_good)[:3]]
+if lines:
+    st.markdown("\n".join(f"- {t}" for t in lines))
+else:
+    st.caption("No top-15% standout metrics or splits flagged for the latest season.")
 
 st.divider()
 
