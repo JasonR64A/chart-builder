@@ -487,15 +487,26 @@ def sidebar():
         st.sidebar.caption(f"⚠️ {cfg['year']} team stats are PBP-derived ({cfg['game_type']} · {cfg['day_filter']}). "
                           "Advanced metrics (wOBA percentiles, etc.) are blank under this filter.")
 
-    cfg['portal_only'] = st.sidebar.checkbox('Portal transfers only', key='portal_only')
-    if cfg['portal_only']:
-        portal_year = str(int(cfg['year']) - 1)
+    # Portal transfers — pick which cycle to restrict to (was a checkbox hardwired
+    # to year-1; now you choose the portal class, so e.g. the 2026 cycle can be
+    # crossed with 2026 stats). 'Off' = no portal restriction.
+    portal_choices = ['Off'] + year_list
+    cfg['portal_cycle'] = st.sidebar.selectbox(
+        'Portal transfers', portal_choices, index=0, key='portal_cycle',
+        help='Restrict to players who entered the transfer portal in the chosen cycle. '
+             'Pick a year (e.g. 2026 to cross the current portal class with 2026 stats); '
+             'Off = all players.',
+    )
+    if cfg['portal_cycle'] != 'Off':
+        portal_year = cfg['portal_cycle']
+        cfg['portal_only'] = True
         cfg['_portal_year_label'] = portal_year
         portal_df = load_csv('portal_rank_player.csv')
         portal_df = portal_df[portal_df['year'] == portal_year]
         cfg['portal_player_ids'] = set(portal_df['player_id'].astype(str).tolist())
-        st.sidebar.caption(f'{len(cfg["portal_player_ids"])} players transferred in {portal_year}')
+        st.sidebar.caption(f'{len(cfg["portal_player_ids"])} players entered the portal in {portal_year}')
     else:
+        cfg['portal_only'] = False
         cfg['portal_player_ids'] = None
 
     # ── X Axis ──
