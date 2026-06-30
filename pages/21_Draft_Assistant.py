@@ -48,9 +48,9 @@ def load_all():
 
 players, teams, conf, hit, pit, series = load_all()
 
-tname = {norm(r.id): r["name"] for r in teams.itertuples()}
-cdiv = {norm(r.id): r["division"] for r in conf.itertuples()}
-tconf = {norm(r.id): norm(r.conference_id) for r in teams.itertuples()}
+tname = {norm(r["id"]): r["name"] for _, r in teams.iterrows()}
+cdiv = {norm(r["id"]): r["division"] for _, r in conf.iterrows()}
+tconf = {norm(r["id"]): norm(r["conference_id"]) for _, r in teams.iterrows()}
 series_by_pid = {norm(r.player_id): r for r in series.itertuples()} if len(series) else {}
 
 
