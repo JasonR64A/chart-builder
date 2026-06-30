@@ -1,3 +1,2 @@
 ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfer_date,update_date,status,year,sport,team_id,player_id_64a,player_id_ncaa_stats,matched_name,match_score,match_method,confidence,position,class_year,player_csv_team_id
-2108287091,ANDREW,TERUYA,Andrew Teruya,University of Puget Sound,Northwest Conference,III,06/29/2026,06/29/2026,Active,2025-26,Baseball,625,59000,2807566,Kahiau Teruya,61.5,team+lastname_diff_first,REVIEW,DH,Sr,625
-2202435820,CAMERON,JOHNSON,Cameron Johnson,University of Oklahoma,Southeastern Conference,I,06/29/2026,06/29/2026,Active,2025-26,Baseball,580,69885,2970634,Camden Johnson,84.0,team+lastname_only,REVIEW,3B,Jr,580
+2410433146,JOSEPH,CARUCCI,Joseph Carucci,Monmouth University,Coastal Athletic Association,I,06/30/2026,06/30/2026,Active,2025-26,Baseball,499,133853,3221082,Joe Carucci,92,team+lastname,LOW,OF,Fr,499
