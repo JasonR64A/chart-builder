@@ -1,4 +1,7 @@
 ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfer_date,update_date,status,year,sport,team_id,player_id_64a,player_id_ncaa_stats,matched_name,match_score,match_method,confidence,position,class_year,player_csv_team_id
+1909674345,MAXWELL,DEBIEC,Maxwell Debiec,University of Michigan,Big Ten Conference,I,06/30/2026,06/30/2026,Active,2025-26,Baseball,471,49082,2685067,Max Debiec,82.0,team+lastname_diff_first,REVIEW,P,Sr,471
+2410433514,DARRELL DJ,MCDOWELL,Darrell Dj Mcdowell,"University of Tennessee, Knoxville",Southeastern Conference,I,06/30/2026,06/30/2026,Active,2025-26,Baseball,776,137217,3227315,DJ McDowell,73.3,team+lastname_diff_first,REVIEW,P,Fr,776
+2207611115,JOSHUA,BUSHEN,Joshua Bushen,Canisius University,Metro Atlantic Athletic Conference,I,06/30/2026,06/30/2026,Active,2025-26,Baseball,121,128599,3220615,Josh Bushen,92.0,team+lastname,LOW,OF,Fr,121
 2010943477,ANDREW,DELUCIA,Andrew Delucia,Austin Peay State University,Atlantic Sun Conference,I,06/30/2026,06/30/2026,Active,2025-26,Baseball,51,54020,2833521,Drew DeLucia,92.0,team+lastname,LOW,P,Sr,51
 2101991207,JOSEPH,DERIENZO,Joseph Derienzo,Salve Regina University,New England Women's and Men's Athletic Conference,III,06/30/2026,06/30/2026,Active,2025-26,Baseball,681,59725,2842306,Joe DeRienzo,92.0,team+lastname,LOW,P,Sr,681
 2106199047,ALEXANDER,DOLAN,Alexander Dolan,University of the Pacific,West Coast Conference,I,06/30/2026,06/30/2026,Active,2025-26,Baseball,595,135088,3219875,Alex Dolan,92.0,team+lastname,LOW,CF,Jr,595
