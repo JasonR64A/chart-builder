@@ -1,2 +1,4 @@
 ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfer_date,update_date,status,year,sport,team_id,player_id_64a,player_id_ncaa_stats,matched_name,match_score,match_method,confidence,position,class_year,player_csv_team_id
-2410433146,JOSEPH,CARUCCI,Joseph Carucci,Monmouth University,Coastal Athletic Association,I,06/30/2026,06/30/2026,Active,2025-26,Baseball,499,133853,3221082,Joe Carucci,92,team+lastname,LOW,OF,Fr,499
+2009914608,ZACHARY,WAGER,Zachary Wager,University of Tennessee at Martin,Ohio Valley Conference,I,06/30/2026,06/30/2026,Active,2025-26,Baseball,839,62013,2804264,Zach Wager,92.0,team+lastname,LOW,P,Sr,839
+2410439889,LEONARD,MANNING,Leonard Manning,"University of Nevada, Las Vegas",Mountain West Conference,I,06/30/2026,06/30/2026,Active,2025-26,Baseball,832,134109,3225273,LJ Manning,72.0,team+lastname_diff_first,REVIEW,P,Jr,832
+2410433146,JOSEPH,CARUCCI,Joseph Carucci,Monmouth University,Coastal Athletic Association,I,06/30/2026,06/30/2026,Active,2025-26,Baseball,499,133853,3221082,Joe Carucci,92.0,team+lastname,LOW,OF,Fr,499
