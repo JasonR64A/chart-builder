@@ -1499,6 +1499,8 @@ def render_chart(data, cfg):
         for idx, row in data.iterrows():
             px, py = row[x_col], row[y_col]
             pid = str(row.get('player_id', '')) if has_pid else ''
+            if pid.endswith('.0'):
+                pid = pid[:-2]
             is_callout = pid in callout_ids
 
             if is_callout:
@@ -1814,28 +1816,74 @@ def player_callout_ui(data, cfg):
     st.caption('Search and select players to callout on the chart with name labels. '
                'Optionally upload a headshot image for each.')
 
+    def _pid_norm(v):
+        s = str(v).strip()
+        return s[:-2] if s.endswith('.0') else s
+
     # Build searchable list: "Name (Team) — id"
     options = []
     pid_map = {}
     for _, row in data.iterrows():
         name = row.get('player_name', 'Unknown')
         team = row.get('team_name', '')
-        pid = str(row['player_id'])
+        pid = _pid_norm(row['player_id'])
         label = f'{name} — {team}' if team else name
         options.append(label)
         pid_map[label] = pid
 
+    # ── Committed-to team: highlight every portal player committed to one team ──
+    committed_ids = set()
+    try:
+        prp = load_csv('portal_rank_player.csv')
+        prp = prp.copy()
+        prp['year'] = prp['year'].astype(str).map(_pid_norm)
+        prp_year = str(cfg.get('_portal_year_label') or '')
+        years = sorted(prp['year'].unique())
+        if prp_year not in years:
+            prp_year = years[-1]  # newest cycle when no portal filter is set
+        commits = prp[(prp['year'] == prp_year) & (prp['new_team_id'].fillna('').astype(str).str.strip() != '')].copy()
+        commits['new_team_id'] = commits['new_team_id'].map(_pid_norm)
+        commits['player_id'] = commits['player_id'].map(_pid_norm)
+        sport_teams = load_teams()
+        sport_teams = sport_teams[sport_teams['sport'] == cfg['sport']]
+        id2name = dict(zip(sport_teams['team_db_id'], sport_teams['team_name']))
+        counts = commits['new_team_id'].value_counts()
+        label_to_tid = {f'{id2name[t]} ({counts[t]})': t
+                        for t in counts.index if t in id2name}
+        commit_choice = st.selectbox(
+            f'Committed to — highlight a team\'s {prp_year} portal commits',
+            ['Off'] + sorted(label_to_tid), key='committed_to',
+            help='Every player stays on the chart; the chosen team\'s commits get the callout treatment.')
+        if commit_choice != 'Off':
+            tid = label_to_tid[commit_choice]
+            commit_pids = set(commits.loc[commits['new_team_id'] == tid, 'player_id'])
+            chart_pids = {_pid_norm(p) for p in data['player_id']}
+            committed_ids = commit_pids & chart_pids
+            team_label = commit_choice.rsplit(' (', 1)[0]
+            st.caption(f'{len(committed_ids)} of {len(commit_pids)} {team_label} commits are on this chart'
+                       + ('' if len(committed_ids) == len(commit_pids) else
+                          ' (the rest are filtered out or have no stats for these axes)'))
+    except Exception as e:
+        st.caption(f'Committed-to highlight unavailable: {e}')
+
     selected = st.multiselect('Select players to highlight', sorted(set(options)),
                               help='Type to search by name or team')
 
-    callout_ids = {pid_map[s] for s in selected if s in pid_map}
+    callout_ids = {pid_map[s] for s in selected if s in pid_map} | committed_ids
     cfg['callout_ids'] = callout_ids
 
-    # Per-callout controls
+    # Per-callout controls (manual picks AND committed-team players)
+    label_by_pid = {}
+    for lbl, p in pid_map.items():
+        label_by_pid.setdefault(p, lbl)
+    committed_labels = [label_by_pid[p] for p in sorted(committed_ids) if p in label_by_pid]
+    all_labels = list(dict.fromkeys(list(selected) + committed_labels))
+    pid_map.update({lbl: p for p, lbl in label_by_pid.items()})
+
     cfg['callout_offsets'] = {}
     cfg['callout_sizes'] = {}
     if callout_ids:
-        for label in selected:
+        for label in all_labels:
             pid = pid_map.get(label, '')
             with st.expander(f'{label}', expanded=False):
                 c1, c2 = st.columns(2)
