@@ -135,8 +135,12 @@ def compatible_positions(target_pos):
 
 @st.cache_data
 def load_player_hitting(sport, division):
-    """Load hitting for ALL years for the given sport/division."""
+    """Load hitting for ALL years for the given sport/division.
+    Only the columns this page uses are kept — the full file is ~63MB in RAM
+    and holding several cached copies OOM'd the Render instance."""
     hit = pd.read_csv(DATA_DIR / 'hitting.csv', low_memory=False)
+    keep = ['player_id', 'team_id', 'year', 'plate_appearances'] + [m[0] for m in HITTING_METRICS]
+    hit = hit[[c for c in keep if c in hit.columns]]
     teams = load_teams_division(sport)
     teams = teams[teams['division'] == division]
     df = hit.merge(teams, on='team_id', how='inner')
@@ -148,6 +152,8 @@ def load_player_hitting(sport, division):
 @st.cache_data
 def load_player_pitching(sport, division):
     pit = pd.read_csv(DATA_DIR / 'pitching.csv', low_memory=False)
+    keep = ['player_id', 'team_id', 'year', 'batters_faced'] + [m[0] for m in PITCHING_METRICS]
+    pit = pit[[c for c in keep if c in pit.columns]]
     teams = load_teams_division(sport)
     teams = teams[teams['division'] == division]
     df = pit.merge(teams, on='team_id', how='inner')
@@ -566,8 +572,32 @@ if mode == 'Player':
         st.warning('No players found.')
         st.stop()
 
-    # Target selection
-    target_display = st.selectbox(f'Select {type_choice}', df['__display'].tolist())
+    # Target selection — the full list is tens of thousands of player-seasons,
+    # which freezes the browser combobox. Filter by year + search first and cap
+    # the dropdown; similarity still runs against the FULL population.
+    years_avail = sorted(pd.to_numeric(df['year'], errors='coerce').dropna().astype(int).unique(), reverse=True)
+    fc1, fc2 = st.columns([1, 2])
+    year_choice = fc1.selectbox('Year', ['All years'] + [str(y) for y in years_avail],
+                                index=1 if years_avail else 0)
+    search = fc2.text_input('Search player', placeholder='Type a few letters of the name…')
+
+    df_view = df
+    if year_choice != 'All years':
+        df_view = df_view[pd.to_numeric(df_view['year'], errors='coerce') == int(year_choice)]
+    if search.strip():
+        df_view = df_view[df_view['__display'].str.contains(search.strip(), case=False, na=False, regex=False)]
+
+    MAX_OPTS = 2000
+    options = df_view['__display'].tolist()
+    if len(options) == 0:
+        st.warning('No players match that year/search.')
+        st.stop()
+    if len(options) > MAX_OPTS:
+        st.info(f'{len(options):,} players match — showing the first {MAX_OPTS:,} alphabetically. '
+                'Type in Search to narrow the list.')
+        options = options[:MAX_OPTS]
+
+    target_display = st.selectbox(f'Select {type_choice}', options)
     target_row = df[df['__display'] == target_display].iloc[0]
     target_idx = target_row.name
 
