@@ -1860,9 +1860,19 @@ def player_callout_ui(data, cfg):
             chart_pids = {_pid_norm(p) for p in data['player_id']}
             committed_ids = commit_pids & chart_pids
             team_label = commit_choice.rsplit(' (', 1)[0]
-            st.caption(f'{len(committed_ids)} of {len(commit_pids)} {team_label} commits are on this chart'
-                       + ('' if len(committed_ids) == len(commit_pids) else
-                          ' (the rest are filtered out or have no stats for these axes)'))
+            # per-player opt-out: every commit starts highlighted; remove any from this list
+            label_of = {}
+            for lbl, p in pid_map.items():
+                label_of.setdefault(p, lbl)
+            commit_labels = sorted(label_of[p] for p in committed_ids if p in label_of)
+            kept = st.multiselect(
+                f'{team_label} commits to highlight — remove any you don\'t want',
+                commit_labels, default=commit_labels, key=f'committed_keep_{tid}')
+            committed_ids = {pid_map[l] for l in kept if l in pid_map}
+            off_chart = len(commit_pids) - len(commit_labels)
+            st.caption(f'{len(committed_ids)} of {len(commit_pids)} {team_label} commits highlighted'
+                       + (f' ({off_chart} not on this chart — filtered out or no stats for these axes)'
+                          if off_chart else ''))
     except Exception as e:
         st.caption(f'Committed-to highlight unavailable: {e}')
 
