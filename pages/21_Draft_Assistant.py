@@ -275,8 +275,24 @@ with tab_card:
     players = load("players.csv")
     teams = load("teams.csv")
     conf = load("conferences.csv")
-    hit = load("hitting.csv")
-    pit = load("pitching.csv")
+    # Only the columns the card uses — full string-dtype loads of these two files
+    # (~150MB) were OOM-crash-looping the Render instance on 2026-07-10.
+    HIT_COLS = ['player_id', 'team_id', 'year', 'plate_appearances', 'at_bats', 'hits', 'doubles',
+                'triples', 'home_runs', 'walks', 'hit_by_pitch', 'sac_fly', 'runs_batted_in',
+                'stolen_bases', 'games_played', 'on_base_percentage', 'slugging_percentage',
+                'isolated_power', 'weighted_on_base_average', 'on_base_plus_slugging',
+                'percentile_rank_on_base_plus_slugging', 'percentile_rank_weighted_on_base_average',
+                'percentile_rank_isolated_power', 'percentile_rank_weighted_runs_created',
+                'percentile_rank_runs_plate_appearance']
+    PIT_COLS = ['player_id', 'team_id', 'year', 'innings_pitched', 'batters_faced', 'strikeouts',
+                'strikeout_to_walk_ratio', 'walks_plus_hits_per_inning_pitched',
+                'fielding_independent_pitching', 'on_base_plus_slugging_against',
+                'percentile_rank_on_base_plus_slugging_against', 'percentile_rank_strikeout_to_walk_ratio',
+                'percentile_rank_walks_plus_hits_per_inning_pitched',
+                'percentile_rank_fielding_independent_pitching',
+                'percentile_rank_skill_interactive_earned_run_average']
+    hit = load("hitting.csv", usecols=lambda c: c in HIT_COLS)
+    pit = load("pitching.csv", usecols=lambda c: c in PIT_COLS)
     try:
         series = load("draft_best_series.csv")
     except Exception:
