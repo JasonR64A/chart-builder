@@ -291,8 +291,14 @@ with tab_card:
                 'percentile_rank_walks_plus_hits_per_inning_pitched',
                 'percentile_rank_fielding_independent_pitching',
                 'percentile_rank_skill_interactive_earned_run_average']
-    hit = load("hitting.csv", usecols=lambda c: c in HIT_COLS)
-    pit = load("pitching.csv", usecols=lambda c: c in PIT_COLS)
+    @st.cache_data(show_spinner=False)
+    def load_stats(name, cols):
+        # numeric dtypes: ~15MB per file vs ~240MB as strings (the OOM culprit)
+        return pd.read_csv(DATA / name, low_memory=False, encoding="latin-1",
+                           usecols=lambda c: c in cols)
+
+    hit = load_stats("hitting.csv", HIT_COLS)
+    pit = load_stats("pitching.csv", PIT_COLS)
     try:
         series = load("draft_best_series.csv")
     except Exception:
