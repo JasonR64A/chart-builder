@@ -263,7 +263,7 @@ with tab_board:
     board = board.sort_values('num')
     cols = {'number': '#', 'name': 'Player', 'pos': 'Pos', 'bt': 'B/T', 'Age': 'Age',
             'classification': 'Class', 'school': 'School', 'committed': 'Committed',
-            'rank_ba': 'BA', 'rank_mlb': 'MLB', 'rank_fss': 'FSS', 'rank_espn': 'ESPN',
+            'rank_ba': 'BA', 'rank_mlb': 'MLB', 'rank_fss': 'FSS', 'rank_espn': 'ESPN', 'pg_rank': 'PG',
             'Drafted': 'Drafted'}
     st.dataframe(board[list(cols)].rename(columns=cols), use_container_width=True,
                  height=560, hide_index=True)
