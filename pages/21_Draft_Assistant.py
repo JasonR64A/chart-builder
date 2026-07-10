@@ -25,7 +25,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from app_lib import draft_engine as E
 
 DATA = Path(__file__).resolve().parent.parent / "data"
-DRAFT_DAY = date(2026, 7, 12)   # update if the 2026 draft slips
+DRAFT_DAY = date(2026, 7, 11)   # 2026 draft begins Jul 11 (per ESPN); update if it slips
 YEAR = 2026
 
 SUPABASE_URL = 'https://vfzoroabzmbvwkcyozes.supabase.co'
