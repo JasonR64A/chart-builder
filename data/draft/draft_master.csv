@@ -1,272 +1,272 @@
 number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel,school,classification,hs,pg_rank,dob,player_id_64a
-1,Grady Emerson,,1,,2,"6' 3""",185,L/R,SS,,18,Fort Worth Christian HS (TX),HS SR,TRUE,,2008-02-21,
-2,Roch Cholowsky,,2,,1,"6' 2""",202,R/R,SS,,21,UCLA,4YR JR,FALSE,,2005-04-07,68532
-3,Vahn Lackey,,3,,3,"6' 2""",215,R/R,C,,21,Georgia Tech,4YR JR,FALSE,,2005-07-07,68816
-4,Jackson Flora,,4,,4,"6' 5""",205,R/R,P,,21,UC Santa Barbara,4YR JR,FALSE,,2005-05-25,70351
-5,Jacob Lombard,,5,,6,"6' 3""",195,R/R,SS,,18,Gulliver Prep HS (FL),HS SR,TRUE,,2007-09-27,
-6,Eric Booth Jr.,,6,,5,"6' 0""",207,L/L,OF,,18,Oak Grove HS (MS),HS SR,TRUE,,2008-07-04,
-7,Drew Burress,,7,,7,"5' 9""",185,R/R,OF,,21,Georgia Tech,4YR JR,FALSE,,2004-12-05,68809
-8,Gio Rojas,,8,,21,"6' 4""",195,R/L,P,,19,Marjory Stoneman Douglas HS (FL),HS SR,TRUE,,2007-06-29,
-9,Justin Lebron,,9,,8,"6' 2""",190,R/R,SS,,21,Alabama,4YR JR,FALSE,,2004-11-03,69160
-10,Tyler Bell,,10,,9,"6' 1""",190,S/R,SS,,21,Kentucky,4YR SO,FALSE,,2005-06-30,
-11,Ryder Helfrick,,11,,14,"6' 1""",210,R/R,C,,21,Arkansas,4YR JR,FALSE,,2005-02-17,67483
-12,Derek Curiel,,12,,10,"6' 2""",192,L/L,OF,,21,LSU,4YR SO,FALSE,,2005-05-24,100797
-13,Trevor Condon,,13,,16,"5' 11""",178,L/R,OF,,18,Etowah HS (GA),HS SR,TRUE,,2008-01-09,
-14,Chris Hacopian,,14,,13,"6' 1""",210,R/R,SS,,21,Texas A&M,4YR JR,FALSE,,2004-08-30,67234
-15,Cameron Flukey,,15,,19,"6' 6""",210,R/R,P,,21,Coastal Carolina,4YR JR,FALSE,,2005-04-13,67909
-16,Jared Grindlinger,,16,,11,"6' 3""",190,L/L,P,,17,Huntington Beach HS (CA),HS SR,TRUE,,2009-04-16,
-17,Hunter Dietz,,17,,15,"6' 6""",235,R/L,P,,21,Arkansas,4YR JR,FALSE,,2005-03-03,67478
-18,Ace Reese,,18,,17,"6' 4""",220,L/R,3B,,21,Mississippi State,4YR JR,FALSE,,2005-04-13,70665
-19,AJ Gracia,,19,,24,"6' 3""",195,L/L,OF,,21,Virginia,4YR JR,FALSE,,2004-10-27,67209
-20,Liam Peterson,,20,,12,"6' 5""",225,R/R,P,,21,Florida,4YR JR,FALSE,,2005-06-10,
-21,Bo Lowrance,,21,,35,"6' 5""",200,L/R,3B,,18,Christ Church Episcopal HS (SC),HS SR,TRUE,,2007-09-19,
-22,Sawyer Strosnider,,22,,36,"6' 2""",200,L/L,OF,,21,TCU,4YR JR,FALSE,,2005-06-26,102860
-23,Brody Bumila,,23,,65,"6' 9""",255,L/L,P,,18,Bishop Feehan HS (MA),HS SR,TRUE,,2008-01-28,
-24,Carson Bolemon,,24,,41,"6' 4""",215,R/L,P,,19,Southside Christian HS (SC),HS SR,TRUE,,2007-04-05,
-25,Tegan Kuhns,,25,,32,"6' 3""",189,S/R,P,,21,Tennessee,4YR SO,FALSE,,2005-05-25,120039
-26,Cole Carlon,,26,,28,"6' 5""",230,L/L,P,,21,Arizona State,4YR JR,FALSE,,2005-05-20,68868
-27,Cole Prosek,,27,,30,"6' 1""",195,L/R,2B,,19,Magnolia Heights HS (MS),HS SR,TRUE,,2007-06-14,
-28,Daniel Jackson,,28,,20,"6' 2""",200,R/R,C,,21,Georgia,4YR JR,FALSE,,2004-11-24,67697
-29,Aiden Robbins,,29,,74,"6' 2""",205,R/R,OF,,21,Texas,4YR JR,FALSE,,2005-01-14,67297
-30,Zion Rose,,30,,18,"6' 1""",200,R/R,OF,,21,Louisville,4YR JR,FALSE,,2005-05-26,69517
-31,Logan Reddemann,,31,,27,"6' 2""",185,S/R,P,,21,UCLA,4YR JR,FALSE,,2005-04-08,67812
-32,Aiden Ruiz,,32,,47,"5' 10""",160,S/S,SS,,19,The Stony Brook HS (NY),HS SR,TRUE,,2007-03-28,
-33,Caden Sorrell,,33,,43,"6' 3""",210,L/L,OF,,21,Texas A&M,4YR JR,FALSE,,2005-03-07,67771
-34,Landon Thome,,34,,63,"6' 0""",177,L/R,SS,,18,Nazareth Academy HS (IL),HS SR,TRUE,,2007-11-16,
-35,Cade Townsend,,35,,26,"6' 1""",185,R/R,P,,21,Mississippi,4YR SO,FALSE,,2005-05-05,118723
-36,Mason Edwards,,36,,22,"6' 2""",210,L/L,P,,20,USC,4YR JR,FALSE,,2005-07-14,69317
-37,Taj Marchand,,37,,45,"6' 2""",200,R/R,SS,,17,James Island HS (SC),HS SR,TRUE,,2008-07-27,
-38,Gavin Grahovac,,38,,53,"6' 3""",230,R/R,3B,,21,Texas A&M,4YR JR,FALSE,,2005-01-02,67765
-39,James Clark,,39,,61,"6' 1""",195,L/R,3B,,18,St. John Bosco HS (CA),HS SR,TRUE,,2007-09-06,
-40,Taylor Rabe,,40,,48,"6' 5""",200,R/R,P,,21,Mississippi,4YR JR,FALSE,,2004-08-27,70777
-41,Eric Becker,,41,,23,"6' 3""",190,L/R,3B,,21,Virginia,4YR JR,FALSE,,2005-04-28,68274
-42,Logan Hughes,,42,,29,"5' 11""",197,L/L,OF,,21,Texas Tech,4YR JR,FALSE,,2005-04-27,68477
-43,Coleman Borthwick,,43,,31,"6' 6""",245,R/R,3B,,18,South Walton HS (FL),HS SR,TRUE,,2008-04-13,
-44,Jack Radel,,44,,33,"6' 5""",250,R/R,P,,21,Notre Dame,4YR JR,FALSE,,2004-09-14,68367
-45,Logan Schmidt,,45,,56,"6' 4""",210,L/L,P,,17,Ganesha HS (CA),HS SR,TRUE,,2008-07-23,
-46,Will Brick,,46,,39,"6' 2""",195,R/R,C,,18,Christian Brothers HS (TN),HS SR,TRUE,,2008-06-06,
-47,Chris Rembert,,47,,67,"5' 11""",209,R/R,SS,,21,Auburn,4YR SO,FALSE,,2005-07-05,100489
-48,Jarren Advincula,,48,,71,"6' 2""",195,L/R,SS,,21,Georgia Tech,4YR JR,FALSE,,2005-01-15,69414
-49,Rocco Maniscalco,,49,,25,"6' 2""",192,S/R,SS,,17,Oxford HS (AL),HS SR,TRUE,,2009-05-01,
-50,Chase Brunson,,50,,38,"6' 3""",200,R/R,OF,,21,TCU,4YR JR,FALSE,,2005-07-07,70685
-51,Wes Mendes,,51,,83,"6' 1""",198,R/L,P,,21,Florida State,4YR JR,FALSE,,2004-10-04,70776
-52,Andrew Williamson,,52,,50,"6' 0""",195,L/L,OF,,20,Central Florida,4YR JR,FALSE,,2005-07-11,
-53,Tyler Spangler,,53,,34,"6' 3""",195,L/R,SS,,18,De La Salle HS (CA),HS SR,TRUE,,2007-10-01,
-54,Archer Horn,,54,,40,"6' 2""",205,L/R,SS,,18,St. Ignatius College Prep HS (CA),HS SR,TRUE,,2008-02-02,
-55,Connor Comeau,,55,,66,"6' 4""",180,L/R,SS,,17,L. C. Anderson HS (TX),HS SR,TRUE,,2008-08-11,
-56,Jensen Hirschkorn,,56,,58,"6' 7""",205,L/R,P,,18,Kingsburg HS (CA),HS SR,TRUE,,2007-12-19,
-57,Kaden Waechter,,57,,79,"6' 3""",190,R/R,P,,18,Jesuit HS (FL),HS SR,TRUE,,2007-08-03,
-58,Ben Blair,,58,,42,"6' 3""",200,R/R,P,,21,Liberty,4YR JR,FALSE,,2005-03-25,68658
-59,Jake Brown,,59,,64,"6' 2""",206,L/L,OF,,21,LSU,4YR JR,FALSE,,2005-01-12,
-60,Ty Head,,60,,46,"6' 3""",205,L/L,OF,,21,North Carolina State,4YR SO,FALSE,,2005-05-25,115906
-61,Kaiden McCarthy,,61,,52,"6' 0""",185,R/R,P,,17,Vermont Academy (VT),HS SR,TRUE,,2008-08-06,
-62,Mulivai Levu,,62,,100,"6' 1""",205,L/R,1B,,21,UCLA,4YR JR,FALSE,,2004-08-10,68542
-63,Blake Bowen,,63,,59,"6' 3""",225,R/R,OF,,18,JSerra Catholic HS (CA),HS SR,TRUE,,2008-01-04,
-64,Joseph Contreras,,64,,82,"6' 4""",207,R/R,P,,18,Blessed Trinity HS (GA),HS SR,TRUE,,2008-05-06,
-65,Blake Bryant,,65,,84,"6' 6""",182,R/R,P,,18,Citizens Christian HS (GA),HS SR,TRUE,,2007-08-24,
-66,Sean Duncan,,66,,54,"6' 3""",184,R/L,P,,18,Terry Fox SS (BC),HS SR,TRUE,,2008-05-09,
-67,Owen Hull,,67,,62,"6' 4""",215,L/R,OF,,21,North Carolina,4YR JR,FALSE,,2004-07-21,67891
-68,Joey Volchko,,68,,75,"6' 4""",225,R/R,P,,21,Georgia,4YR JR,FALSE,,2005-06-21,70900
-69,Ethan Kleinschmit,,69,,72,"6' 3""",206,L/L,P,,21,Oregon State,4YR JR,FALSE,,2005-05-06,117317
-70,Carson Bailey,,70,,143,"6' 4""",210,R/L,P,,20,McLennan CC,JC J2,FALSE,,2006-01-09,115697
-71,Ethan Bass,,71,,110,"6' 2""",180,R/R,SS,,18,Glenbrook North HS (IL),HS SR,TRUE,,2007-09-28,
-72,Will Gasparino,,72,,94,"6' 6""",220,R/R,OF,,21,UCLA,4YR JR,FALSE,,2004-12-10,67820
-73,Carson Tinney,,73,,44,"6' 4""",240,R/R,C,,21,Texas,4YR JR,FALSE,,2005-04-06,68369
-74,Jack Natili,,74,,69,"6' 3""",198,R/R,C,,21,Cincinnati,4YR JR,FALSE,,2005-03-10,69577
-75,Jake Schaffner,,75,,51,"6' 2""",200,L/R,SS,,21,North Carolina,4YR JR,FALSE,,2004-10-04,68007
-76,Cooper Harris,,76,,119,"6' 3""",205,R/R,P,,18,Flower Mound HS (TX),HS SR,TRUE,,2008-06-11,
-77,Landon Brown,,77,,139,"6' 4""",210,R/R,P,,18,Iowa Colony HS (TX),HS SR,TRUE,,2007-09-25,
-78,Jacob Dudan,,78,,89,"6' 2""",191,L/R,P,,21,North Carolina State,4YR JR,FALSE,,2004-12-29,69767
-79,Dee Kennedy,,79,,131,"5' 11""",190,R/R,SS,,21,Kansas State,4YR JR,FALSE,,2005-04-05,67822
-80,Denton Lord,,80,,101,"6' 8""",220,R/R,P,,18,South Walton HS (FL),HS SR,TRUE,,2007-11-30,
-81,Peyton Bonds,,81,,118,"6' 5""",230,R/R,OF,,20,Rutgers,4YR JR,FALSE,,2005-07-19,70366
-82,Bo Holloway,,82,,87,"6' 5""",215,L/L,P,,18,Christ Presbyterian HS (TN),HS SR,TRUE,,2007-10-01,
-83,Myles Bailey,,83,,88,"6' 4""",257,L/R,1B,,21,Florida State,4YR SO,FALSE,,2005-07-07,115759
-84,Kollin Ritchie,,84,,129,"6' 2""",228,L/R,OF,,21,Oklahoma State,4YR JR,FALSE,,2004-09-27,67623
-85,Savion Sims,,85,,179,"6' 8""",215,R/R,P,,19,Prestonwood Christian HS (TX),HS SR,TRUE,,2007-06-05,
-86,Ryan Peterson,,86,,154,"6' 3""",215,R/R,P,,22,Sam Houston State,4YR JR,FALSE,,2004-04-06,
-87,Ethan Wachsmann,,87,,68,"6' 5""",225,R/R,P,,18,Grandview HS (CO),HS SR,TRUE,,2008-06-06,
-88,Carson Wiggins,,88,,90,"6' 5""",215,R/R,P,,21,Arkansas,4YR SO,FALSE,,2005-06-01,100368
-89,Jack Slightom,,89,,60,"6' 5""",215,R/R,P,,18,Lyons Township HS (IL),HS SR,TRUE,,2008-04-03,
-90,Luke Williams,,90,,57,"6' 0""",180,R/R,SS,,18,Franklin Regional HS (PA),HS SR,TRUE,,2007-12-17,
-91,Tre Broussard,,91,,153,"6' 0""",190,L/L,OF,,20,Houston,4YR JR,FALSE,,2005-09-21,103012
-92,Ruger Riojas,,92,,103,"6' 0""",195,R/R,P,,22,Texas,4YR SR,FALSE,,2003-07-12,62131
-93,Caden Bogenpohl,,93,,121,"6' 6""",245,L/R,OF,,21,Missouri State,4YR JR,FALSE,,2005-04-06,70414
-94,Noah Wilson,,94,,127,"6' 1""",195,L/R,OF,,19,McCallie School HS (TN),HS SR,TRUE,,2007-06-18,
-95,Shane Sdao,,95,,159,"6' 3""",185,L/L,P,,22,Texas A&M,4YR SR,FALSE,,2003-09-29,61174
-96,Gabe Gaeckle,,96,,169,"6' 0""",190,R/R,P,,21,Arkansas,4YR JR,FALSE,,2004-09-28,67481
-97,Beau Peterson,,97,,126,"6' 3""",195,L/R,3B,,18,Mill Valley HS (KS),HS SR,TRUE,,2007-08-03,
-98,Ryan Lynch,,98,,111,"6' 3""",215,R/R,P,,21,North Carolina,4YR SO,FALSE,,2005-06-13,
-99,Cole Koeninger,,99,,107,"6' 3""",210,R/R,SS,,18,Keller HS (TX),HS SR,TRUE,,2007-08-10,
-100,Cooper Sides,,100,,213,"6' 5""",215,R/R,P,,18,Orange Lutheran HS (CA),HS SR,TRUE,,2007-11-21,
-101,Evan Dempsey,,101,,176,"6' 2""",205,L/R,P,,20,Florida Gulf Coast,4YR JR,FALSE,,2005-07-19,
-102,Will Adams,,102,,130,"6' 2""",203,L/L,1B,,18,Hoover HS (AL),HS SR,TRUE,,2008-04-09,
-103,Deiten Lachance,,103,,151,"6' 5""",231,R/R,C,,21,Oklahoma,4YR JR,FALSE,,2005-04-18,134935
-104,Kade Lewis,,104,,150,"6' 2""",220,L/R,1B,,21,Wake Forest,4YR JR,FALSE,,2005-06-04,68237
-105,Dylan Bowen,,105,,123,"6' 0""",191,R/R,SS,,19,Hanover Central HS (IN),HS SR,TRUE,,2007-01-29,
-106,Jack Dugan,,106,,109,"6' 2""",193,L/R,SS,,19,Lipscomb HS (TN),HS SR,TRUE,,2007-07-08,
-107,Trey Ebel,,107,,37,"6' 0""",180,R/R,SS,,17,Corona HS (CA),HS SR,TRUE,,2008-09-29,
-108,Anthony Murphy,,108,,146,"6' 0""",185,R/R,OF,,19,Corona HS (CA),HS SR,TRUE,,2007-03-24,
-109,Julian Garcia,,109,,135,"6' 3""",205,R/R,P,,18,St. John Bosco HS (CA),HS SR,TRUE,,2008-04-12,
-110,Kolby Stringer,,110,,141,"6' 3""",225,L/R,P,,18,West Marion HS (MS),HS SR,TRUE,,2008-03-07,
-111,Wilson Andersen,,111,,114,"6' 4""",205,R/R,P,,18,Jesuit HS (FL),HS SR,TRUE,,2008-01-10,
-112,Brendan Brock,,112,,108,"6' 3""",200,R/R,C,,21,Oklahoma,4YR SR,FALSE,,2004-08-03,134930
-113,Tyson LeBlanc,,113,,134,"6' 0""",200,R/R,SS,,21,Kansas,4YR JR,FALSE,,2005-05-19,131991
-114,Carson Kerce,,114,,122,"5' 11""",200,R/R,SS,,21,Georgia Tech,4YR JR,FALSE,,2004-11-29,68814
-115,Cam Kozeal,,115,,124,"5' 10""",205,L/R,2B,,21,Arkansas,4YR JR,FALSE,,2004-11-11,67942
-116,Camden Johnson,,116,,238,"6' 0""",176,L/R,3B,,21,Oklahoma,4YR JR,FALSE,,2004-10-05,69885
-117,Jaxon Willits,,117,,104,"6' 0""",203,S/R,SS,,21,Oklahoma,4YR JR,FALSE,,2004-10-27,69663
-118,Malachi Washington,,118,,85,"6' 1""",203,R/R,OF,,18,Parkview HS (GA),HS SR,TRUE,,2008-06-02,
-119,Keon Johnson,,119,,99,"6' 2""",203,R/R,SS,,18,First Presbyterian HS (GA),HS SR,TRUE,,2008-03-07,
-120,Daniel Cuvet,,120,,152,"6' 3""",240,R/R,3B,,21,Miami,4YR JR,FALSE,,2005-05-13,68736
-121,Tre Phelps,,121,,230,"6' 2""",197,R/R,OF,,22,Georgia,4YR JR,FALSE,,2004-06-19,68042
-122,Gavin Giese,,122,,186,"6' 3""",190,R/R,P,,18,Dana Hills HS (CA),HS SR,TRUE,,2007-11-04,
-123,Brett Renfrow,,123,,76,"6' 3""",220,R/R,P,,21,Virginia Tech,4YR JR,FALSE,,2005-01-07,70200
-124,Sean Dunlap,,124,,49,"6' 3""",205,R/R,C,,18,Crown Point HS (IN),HS SR,TRUE,,2008-04-11,
-125,AJ Rice,,125,,214,"5' 11""",175,R/R,P,,18,Pickens County HS (GA),HS SR,TRUE,,2007-09-26,
-126,Logan Georges,,126,,160,"6' 5""",210,R/R,P,,19,Clovis HS (CA),HS SR,TRUE,,2007-06-02,
-127,Josiah Morris,,127,,,"6' 1""",180,R/R,SS,,18,Clayton Valley HS (CA),HS SR,TRUE,,2008-06-25,
-128,Roman Martin,,128,,117,"6' 2""",208,R/R,SS,,21,UCLA,4YR JR,FALSE,,2004-09-14,68543
-129,Dominic Santarelli,,129,,81,"6' 2""",230,L/L,OF,,18,St. Joseph Catholic Academy HS (WI),HS SR,TRUE,,2007-10-18,
-130,Gunner Skelton,,130,,92,"6' 0""",195,R/R,SS,,18,Columbia Academy HS (TN),HS SR,TRUE,,2007-08-20,
-131,Jace Mataczynski,,131,,77,"6' 4""",195,R/R,SS,,18,Hudson HS (WI),HS SR,TRUE,,2008-03-03,
-132,Shawn Sullivan,,132,,,"6' 0""",188,R/R,P,,19,Walsh Jesuit HS (OH),HS SR,TRUE,,2007-05-12,
-133,Jason DeCaro,,133,,97,"6' 5""",225,R/R,P,,20,North Carolina,4YR JR,FALSE,,2006-04-17,70103
-134,Trey Beard,,134,,198,"6' 2""",185,L/L,P,,21,Florida State,4YR JR,FALSE,,2004-10-09,67920
-135,Kyle Jones,,135,,140,"6' 3""",190,R/R,OF,,21,Florida,4YR JR,FALSE,,2005-02-02,
-136,Kevin Roberts Jr.,,136,,106,"6' 5""",220,R/R,OF,,17,Jackson Prep HS (MS),HS SR,TRUE,,2008-07-27,
-137,Ryan Cooney,,137,,167,"6' 0""",195,R/R,SS,,21,Oregon,4YR JR,FALSE,,2004-10-07,69633
-138,Hudson DeVaughan,,138,,190,"6' 5""",200,R/R,P,,19,Mooresville HS (IN),HS SR,TRUE,,2007-01-09,
-139,Tyler Putnam,,139,,112,"6' 5""",200,R/R,P,,18,Battle HS (MO),HS SR,TRUE,,2008-05-21,
-140,Steele Murdock,,140,,192,"6' 2""",210,R/R,P,,21,UC San Diego,4YR JR,FALSE,,2005-04-05,69049
-141,Gary Morse,,141,,98,"6' 8""",209,R/R,P,,19,Orange Lutheran HS (CA),HS SR,TRUE,,2007-06-29,
-142,Graham Schlicht,,142,,,"6' 3""",195,R/R,P,,18,De La Salle HS (CA),HS SR,TRUE,,2007-07-17,
-143,Caden Ferraro,,143,,55,"6' 2""",215,L/L,1B,,21,Texas Tech,4YR JR,FALSE,,2004-12-01,139774
-144,Ethan McElvain,,144,,,"6' 4""",250,S/L,P,,21,Arkansas,4YR JR,FALSE,,2004-10-01,67944
-145,Deven Sheerin,,145,,163,"6' 5""",255,R/R,P,,20,LSU,4YR JR,FALSE,,2005-08-08,73095
-146,Alex Hernandez,,146,,172,"6' 2""",210,R/R,2B,,20,Georgia Tech,4YR SO,FALSE,,2005-07-20,
-147,Joe Tiroly,,147,,168,"6' 0""",200,R/R,2B,,21,Virginia,4YR JR,FALSE,,2005-05-25,67708
-148,Henry Ford,,148,,183,"6' 5""",220,R/R,1B,,21,Tennessee,4YR JR,FALSE,,2004-07-27,68277
-149,Ryan Marohn,,149,,177,"6' 2""",192,L/L,P,,21,North Carolina State,4YR JR,FALSE,,2005-03-08,69771
-150,Kyle Johnson,,150,,219,"6' 1""",205,R/L,P,,21,Virginia,4YR JR,FALSE,,2005-06-25,
-151,CJ Weinstein,,151,,200,"6' 1""",190,L/R,SS,,19,Orange Lutheran HS (CA),HS SR,TRUE,,2007-03-27,
-152,Jake McCoy,,152,,156,"6' 1""",185,L/L,P,,21,South Carolina,4YR JR,FALSE,,2005-02-10,
-153,Lucas Nawrocki,,153,,91,"5' 11""",197,L/L,P,,18,Aledo HS (TX),HS SR,TRUE,,2007-12-04,
-154,Tommy LaPour,,154,,170,"6' 4""",230,R/R,P,,21,TCU,4YR JR,FALSE,,2005-03-29,69887
-155,Trey Rangel,,155,,184,"6' 1""",185,R/R,P,,19,The Colony HS (TX),HS SR,TRUE,,2007-04-12,
-156,Bryce Hill,,156,,95,"6' 5""",215,R/R,P,,18,Greenwich Country Day HS (CT),HS SR,TRUE,,2008-03-25,
-157,Andruw Giles,,157,,155,"6' 0""",195,L/L,OF,,18,Basic HS (NV),HS SR,TRUE,,2008-01-10,
-158,Elliot Lascelles,,158,,78,"6' 1""",181,L/R,SS,,18,Upper Canada College HS (ON),HS SR,TRUE,,2008-02-08,
-159,Alex Weingartner,,159,,86,"6' 2""",198,R/R,P,,18,St. Augustine Prep HS (NJ),HS SR,TRUE,,2007-12-13,
-160,Jason Amalbert,,160,,102,"6' 1""",190,R/R,SS,,18,DePaul Catholic HS (NJ),HS SR,TRUE,,2007-07-25,
-161,Dawson Montesa,,161,,148,"6' 1""",185,R/R,P,,20,West Virginia,4YR JR,FALSE,,2005-09-03,73597
-162,Kyle Casteel,,162,,191,"6' 4""",205,R/R,P,,18,Butler HS (PA),HS SR,TRUE,,2008-02-11,
-163,Brady Harris,,163,,,"6' 1""",185,R/R,OF,,18,Trinity Christian Academy HS (FL),HS SR,TRUE,,2008-01-16,
-164,Alex Sosa,,164,,217,"6' 1""",208,L/R,C,,21,Miami,4YR JR,FALSE,,2004-11-04,69774
-165,Dalton Wentz,,165,,188,"6' 2""",215,S/R,SS,,20,Wake Forest,4YR SO,FALSE,,2005-07-28,117014
+1,Grady Emerson,2,1,,2,"6' 3""",185,L/R,SS,,18,Fort Worth Christian HS (TX),HS SR,TRUE,,2008-02-21,
+2,Roch Cholowsky,1,2,,1,"6' 2""",202,R/R,SS,,21,UCLA,4YR JR,FALSE,,2005-04-07,68532
+3,Vahn Lackey,3,3,,3,"6' 2""",215,R/R,C,,21,Georgia Tech,4YR JR,FALSE,,2005-07-07,68816
+4,Jackson Flora,4,4,,4,"6' 5""",205,R/R,P,,21,UC Santa Barbara,4YR JR,FALSE,,2005-05-25,70351
+5,Jacob Lombard,5,5,,6,"6' 3""",195,R/R,SS,,18,Gulliver Prep HS (FL),HS SR,TRUE,,2007-09-27,
+6,Eric Booth Jr.,6,6,,5,"6' 0""",207,L/L,OF,,18,Oak Grove HS (MS),HS SR,TRUE,,2008-07-04,
+7,Drew Burress,8,7,,7,"5' 9""",185,R/R,OF,,21,Georgia Tech,4YR JR,FALSE,,2004-12-05,68809
+8,Gio Rojas,17,8,,21,"6' 4""",195,R/L,P,,19,Marjory Stoneman Douglas HS (FL),HS SR,TRUE,,2007-06-29,
+9,Justin Lebron,19,9,,8,"6' 2""",190,R/R,SS,,21,Alabama,4YR JR,FALSE,,2004-11-03,69160
+10,Tyler Bell,9,10,,9,"6' 1""",190,S/R,SS,,21,Kentucky,4YR SO,FALSE,,2005-06-30,
+11,Ryder Helfrick,7,11,,14,"6' 1""",210,R/R,C,,21,Arkansas,4YR JR,FALSE,,2005-02-17,67483
+12,Derek Curiel,10,12,,10,"6' 2""",192,L/L,OF,,21,LSU,4YR SO,FALSE,,2005-05-24,100797
+13,Trevor Condon,16,13,,16,"5' 11""",178,L/R,OF,,18,Etowah HS (GA),HS SR,TRUE,,2008-01-09,
+14,Chris Hacopian,11,14,,13,"6' 1""",210,R/R,SS,,21,Texas A&M,4YR JR,FALSE,,2004-08-30,67234
+15,Cameron Flukey,15,15,,19,"6' 6""",210,R/R,P,,21,Coastal Carolina,4YR JR,FALSE,,2005-04-13,67909
+16,Jared Grindlinger,18,16,,11,"6' 3""",190,L/L,P,,17,Huntington Beach HS (CA),HS SR,TRUE,,2009-04-16,
+17,Hunter Dietz,34,17,,15,"6' 6""",235,R/L,P,,21,Arkansas,4YR JR,FALSE,,2005-03-03,67478
+18,Ace Reese,12,18,,17,"6' 4""",220,L/R,3B,,21,Mississippi State,4YR JR,FALSE,,2005-04-13,70665
+19,AJ Gracia,14,19,,24,"6' 3""",195,L/L,OF,,21,Virginia,4YR JR,FALSE,,2004-10-27,67209
+20,Liam Peterson,20,20,,12,"6' 5""",225,R/R,P,,21,Florida,4YR JR,FALSE,,2005-06-10,
+21,Bo Lowrance,38,21,,35,"6' 5""",200,L/R,3B,,18,Christ Church Episcopal HS (SC),HS SR,TRUE,,2007-09-19,
+22,Sawyer Strosnider,13,22,,36,"6' 2""",200,L/L,OF,,21,TCU,4YR JR,FALSE,,2005-06-26,102860
+23,Brody Bumila,64,23,,65,"6' 9""",255,L/L,P,,18,Bishop Feehan HS (MA),HS SR,TRUE,,2008-01-28,
+24,Carson Bolemon,42,24,,41,"6' 4""",215,R/L,P,,19,Southside Christian HS (SC),HS SR,TRUE,,2007-04-05,
+25,Tegan Kuhns,22,25,,32,"6' 3""",189,S/R,P,,21,Tennessee,4YR SO,FALSE,,2005-05-25,120039
+26,Cole Carlon,33,26,,28,"6' 5""",230,L/L,P,,21,Arizona State,4YR JR,FALSE,,2005-05-20,68868
+27,Cole Prosek,39,27,,30,"6' 1""",195,L/R,2B,,19,Magnolia Heights HS (MS),HS SR,TRUE,,2007-06-14,
+28,Daniel Jackson,36,28,,20,"6' 2""",200,R/R,C,,21,Georgia,4YR JR,FALSE,,2004-11-24,67697
+29,Aiden Robbins,28,29,,74,"6' 2""",205,R/R,OF,,21,Texas,4YR JR,FALSE,,2005-01-14,67297
+30,Zion Rose,23,30,,18,"6' 1""",200,R/R,OF,,21,Louisville,4YR JR,FALSE,,2005-05-26,69517
+31,Logan Reddemann,35,31,,27,"6' 2""",185,S/R,P,,21,UCLA,4YR JR,FALSE,,2005-04-08,67812
+32,Aiden Ruiz,31,32,,47,"5' 10""",160,S/S,SS,,19,The Stony Brook HS (NY),HS SR,TRUE,,2007-03-28,
+33,Caden Sorrell,27,33,,43,"6' 3""",210,L/L,OF,,21,Texas A&M,4YR JR,FALSE,,2005-03-07,67771
+34,Landon Thome,57,34,,63,"6' 0""",177,L/R,SS,,18,Nazareth Academy HS (IL),HS SR,TRUE,,2007-11-16,
+35,Cade Townsend,29,35,,26,"6' 1""",185,R/R,P,,21,Mississippi,4YR SO,FALSE,,2005-05-05,118723
+36,Mason Edwards,24,36,,22,"6' 2""",210,L/L,P,,20,USC,4YR JR,FALSE,,2005-07-14,69317
+37,Taj Marchand,66,37,,45,"6' 2""",200,R/R,SS,,17,James Island HS (SC),HS SR,TRUE,,2008-07-27,
+38,Gavin Grahovac,63,38,,53,"6' 3""",230,R/R,3B,,21,Texas A&M,4YR JR,FALSE,,2005-01-02,67765
+39,James Clark,52,39,,61,"6' 1""",195,L/R,3B,,18,St. John Bosco HS (CA),HS SR,TRUE,,2007-09-06,
+40,Taylor Rabe,26,40,,48,"6' 5""",200,R/R,P,,21,Mississippi,4YR JR,FALSE,,2004-08-27,70777
+41,Eric Becker,50,41,,23,"6' 3""",190,L/R,3B,,21,Virginia,4YR JR,FALSE,,2005-04-28,68274
+42,Logan Hughes,46,42,,29,"5' 11""",197,L/L,OF,,21,Texas Tech,4YR JR,FALSE,,2005-04-27,68477
+43,Coleman Borthwick,25,43,,31,"6' 6""",245,R/R,3B,,18,South Walton HS (FL),HS SR,TRUE,,2008-04-13,
+44,Jack Radel,37,44,,33,"6' 5""",250,R/R,P,,21,Notre Dame,4YR JR,FALSE,,2004-09-14,68367
+45,Logan Schmidt,21,45,,56,"6' 4""",210,L/L,P,,17,Ganesha HS (CA),HS SR,TRUE,,2008-07-23,
+46,Will Brick,61,46,,39,"6' 2""",195,R/R,C,,18,Christian Brothers HS (TN),HS SR,TRUE,,2008-06-06,
+47,Chris Rembert,49,47,,67,"5' 11""",209,R/R,SS,,21,Auburn,4YR SO,FALSE,,2005-07-05,100489
+48,Jarren Advincula,32,48,,71,"6' 2""",195,L/R,SS,,21,Georgia Tech,4YR JR,FALSE,,2005-01-15,69414
+49,Rocco Maniscalco,100,49,,25,"6' 2""",192,S/R,SS,,17,Oxford HS (AL),HS SR,TRUE,,2009-05-01,
+50,Chase Brunson,47,50,,38,"6' 3""",200,R/R,OF,,21,TCU,4YR JR,FALSE,,2005-07-07,70685
+51,Wes Mendes,65,51,,83,"6' 1""",198,R/L,P,,21,Florida State,4YR JR,FALSE,,2004-10-04,70776
+52,Andrew Williamson,48,52,,50,"6' 0""",195,L/L,OF,,20,Central Florida,4YR JR,FALSE,,2005-07-11,
+53,Tyler Spangler,30,53,,34,"6' 3""",195,L/R,SS,,18,De La Salle HS (CA),HS SR,TRUE,,2007-10-01,
+54,Archer Horn,51,54,,40,"6' 2""",205,L/R,SS,,18,St. Ignatius College Prep HS (CA),HS SR,TRUE,,2008-02-02,
+55,Connor Comeau,55,55,,66,"6' 4""",180,L/R,SS,,17,L. C. Anderson HS (TX),HS SR,TRUE,,2008-08-11,
+56,Jensen Hirschkorn,43,56,,58,"6' 7""",205,L/R,P,,18,Kingsburg HS (CA),HS SR,TRUE,,2007-12-19,
+57,Kaden Waechter,62,57,,79,"6' 3""",190,R/R,P,,18,Jesuit HS (FL),HS SR,TRUE,,2007-08-03,
+58,Ben Blair,40,58,,42,"6' 3""",200,R/R,P,,21,Liberty,4YR JR,FALSE,,2005-03-25,68658
+59,Jake Brown,81,59,,64,"6' 2""",206,L/L,OF,,21,LSU,4YR JR,FALSE,,2005-01-12,
+60,Ty Head,53,60,,46,"6' 3""",205,L/L,OF,,21,North Carolina State,4YR SO,FALSE,,2005-05-25,115906
+61,Kaiden McCarthy,76,61,,52,"6' 0""",185,R/R,P,,17,Vermont Academy (VT),HS SR,TRUE,,2008-08-06,
+62,Mulivai Levu,79,62,,100,"6' 1""",205,L/R,1B,,21,UCLA,4YR JR,FALSE,,2004-08-10,68542
+63,Blake Bowen,70,63,,59,"6' 3""",225,R/R,OF,,18,JSerra Catholic HS (CA),HS SR,TRUE,,2008-01-04,
+64,Joseph Contreras,56,64,,82,"6' 4""",207,R/R,P,,18,Blessed Trinity HS (GA),HS SR,TRUE,,2008-05-06,
+65,Blake Bryant,41,65,,84,"6' 6""",182,R/R,P,,18,Citizens Christian HS (GA),HS SR,TRUE,,2007-08-24,
+66,Sean Duncan,67,66,,54,"6' 3""",184,R/L,P,,18,Terry Fox SS (BC),HS SR,TRUE,,2008-05-09,
+67,Owen Hull,60,67,,62,"6' 4""",215,L/R,OF,,21,North Carolina,4YR JR,FALSE,,2004-07-21,67891
+68,Joey Volchko,77,68,,75,"6' 4""",225,R/R,P,,21,Georgia,4YR JR,FALSE,,2005-06-21,70900
+69,Ethan Kleinschmit,78,69,,72,"6' 3""",206,L/L,P,,21,Oregon State,4YR JR,FALSE,,2005-05-06,117317
+70,Carson Bailey,230,70,,143,"6' 4""",210,R/L,P,,20,McLennan CC,JC J2,FALSE,,2006-01-09,115697
+71,Ethan Bass,146,71,,110,"6' 2""",180,R/R,SS,,18,Glenbrook North HS (IL),HS SR,TRUE,,2007-09-28,
+72,Will Gasparino,71,72,,94,"6' 6""",220,R/R,OF,,21,UCLA,4YR JR,FALSE,,2004-12-10,67820
+73,Carson Tinney,45,73,,44,"6' 4""",240,R/R,C,,21,Texas,4YR JR,FALSE,,2005-04-06,68369
+74,Jack Natili,44,74,,69,"6' 3""",198,R/R,C,,21,Cincinnati,4YR JR,FALSE,,2005-03-10,69577
+75,Jake Schaffner,98,75,,51,"6' 2""",200,L/R,SS,,21,North Carolina,4YR JR,FALSE,,2004-10-04,68007
+76,Cooper Harris,83,76,,119,"6' 3""",205,R/R,P,,18,Flower Mound HS (TX),HS SR,TRUE,,2008-06-11,
+77,Landon Brown,274,77,,139,"6' 4""",210,R/R,P,,18,Iowa Colony HS (TX),HS SR,TRUE,,2007-09-25,
+78,Jacob Dudan,89,78,,89,"6' 2""",191,L/R,P,,21,North Carolina State,4YR JR,FALSE,,2004-12-29,69767
+79,Dee Kennedy,93,79,,131,"5' 11""",190,R/R,SS,,21,Kansas State,4YR JR,FALSE,,2005-04-05,67822
+80,Denton Lord,134,80,,101,"6' 8""",220,R/R,P,,18,South Walton HS (FL),HS SR,TRUE,,2007-11-30,
+81,Peyton Bonds,114,81,,118,"6' 5""",230,R/R,OF,,20,Rutgers,4YR JR,FALSE,,2005-07-19,70366
+82,Bo Holloway,151,82,,87,"6' 5""",215,L/L,P,,18,Christ Presbyterian HS (TN),HS SR,TRUE,,2007-10-01,
+83,Myles Bailey,96,83,,88,"6' 4""",257,L/R,1B,,21,Florida State,4YR SO,FALSE,,2005-07-07,115759
+84,Kollin Ritchie,110,84,,129,"6' 2""",228,L/R,OF,,21,Oklahoma State,4YR JR,FALSE,,2004-09-27,67623
+85,Savion Sims,59,85,,179,"6' 8""",215,R/R,P,,19,Prestonwood Christian HS (TX),HS SR,TRUE,,2007-06-05,
+86,Ryan Peterson,84,86,,154,"6' 3""",215,R/R,P,,22,Sam Houston State,4YR JR,FALSE,,2004-04-06,
+87,Ethan Wachsmann,117,87,,68,"6' 5""",225,R/R,P,,18,Grandview HS (CO),HS SR,TRUE,,2008-06-06,
+88,Carson Wiggins,104,88,,90,"6' 5""",215,R/R,P,,21,Arkansas,4YR SO,FALSE,,2005-06-01,100368
+89,Jack Slightom,101,89,,60,"6' 5""",215,R/R,P,,18,Lyons Township HS (IL),HS SR,TRUE,,2008-04-03,
+90,Luke Williams,99,90,,57,"6' 0""",180,R/R,SS,,18,Franklin Regional HS (PA),HS SR,TRUE,,2007-12-17,
+91,Tre Broussard,54,91,,153,"6' 0""",190,L/L,OF,,20,Houston,4YR JR,FALSE,,2005-09-21,103012
+92,Ruger Riojas,87,92,,103,"6' 0""",195,R/R,P,,22,Texas,4YR SR,FALSE,,2003-07-12,62131
+93,Caden Bogenpohl,115,93,,121,"6' 6""",245,L/R,OF,,21,Missouri State,4YR JR,FALSE,,2005-04-06,70414
+94,Noah Wilson,58,94,,127,"6' 1""",195,L/R,OF,,19,McCallie School HS (TN),HS SR,TRUE,,2007-06-18,
+95,Shane Sdao,91,95,,159,"6' 3""",185,L/L,P,,22,Texas A&M,4YR SR,FALSE,,2003-09-29,61174
+96,Gabe Gaeckle,82,96,,169,"6' 0""",190,R/R,P,,21,Arkansas,4YR JR,FALSE,,2004-09-28,67481
+97,Beau Peterson,123,97,,126,"6' 3""",195,L/R,3B,,18,Mill Valley HS (KS),HS SR,TRUE,,2007-08-03,
+98,Ryan Lynch,94,98,,111,"6' 3""",215,R/R,P,,21,North Carolina,4YR SO,FALSE,,2005-06-13,
+99,Cole Koeninger,73,99,,107,"6' 3""",210,R/R,SS,,18,Keller HS (TX),HS SR,TRUE,,2007-08-10,
+100,Cooper Sides,131,100,,213,"6' 5""",215,R/R,P,,18,Orange Lutheran HS (CA),HS SR,TRUE,,2007-11-21,
+101,Evan Dempsey,80,101,,176,"6' 2""",205,L/R,P,,20,Florida Gulf Coast,4YR JR,FALSE,,2005-07-19,
+102,Will Adams,88,102,,130,"6' 2""",203,L/L,1B,,18,Hoover HS (AL),HS SR,TRUE,,2008-04-09,
+103,Deiten Lachance,174,103,,151,"6' 5""",231,R/R,C,,21,Oklahoma,4YR JR,FALSE,,2005-04-18,134935
+104,Kade Lewis,132,104,,150,"6' 2""",220,L/R,1B,,21,Wake Forest,4YR JR,FALSE,,2005-06-04,68237
+105,Dylan Bowen,169,105,,123,"6' 0""",191,R/R,SS,,19,Hanover Central HS (IN),HS SR,TRUE,,2007-01-29,
+106,Jack Dugan,293,106,,109,"6' 2""",193,L/R,SS,,19,Lipscomb HS (TN),HS SR,TRUE,,2007-07-08,
+107,Trey Ebel,86,107,,37,"6' 0""",180,R/R,SS,,17,Corona HS (CA),HS SR,TRUE,,2008-09-29,
+108,Anthony Murphy,160,108,,146,"6' 0""",185,R/R,OF,,19,Corona HS (CA),HS SR,TRUE,,2007-03-24,
+109,Julian Garcia,92,109,,135,"6' 3""",205,R/R,P,,18,St. John Bosco HS (CA),HS SR,TRUE,,2008-04-12,
+110,Kolby Stringer,167,110,,141,"6' 3""",225,L/R,P,,18,West Marion HS (MS),HS SR,TRUE,,2008-03-07,
+111,Wilson Andersen,133,111,,114,"6' 4""",205,R/R,P,,18,Jesuit HS (FL),HS SR,TRUE,,2008-01-10,
+112,Brendan Brock,113,112,,108,"6' 3""",200,R/R,C,,21,Oklahoma,4YR SR,FALSE,,2004-08-03,134930
+113,Tyson LeBlanc,107,113,,134,"6' 0""",200,R/R,SS,,21,Kansas,4YR JR,FALSE,,2005-05-19,131991
+114,Carson Kerce,121,114,,122,"5' 11""",200,R/R,SS,,21,Georgia Tech,4YR JR,FALSE,,2004-11-29,68814
+115,Cam Kozeal,109,115,,124,"5' 10""",205,L/R,2B,,21,Arkansas,4YR JR,FALSE,,2004-11-11,67942
+116,Camden Johnson,105,116,,238,"6' 0""",176,L/R,3B,,21,Oklahoma,4YR JR,FALSE,,2004-10-05,69885
+117,Jaxon Willits,140,117,,104,"6' 0""",203,S/R,SS,,21,Oklahoma,4YR JR,FALSE,,2004-10-27,69663
+118,Malachi Washington,120,118,,85,"6' 1""",203,R/R,OF,,18,Parkview HS (GA),HS SR,TRUE,,2008-06-02,
+119,Keon Johnson,119,119,,99,"6' 2""",203,R/R,SS,,18,First Presbyterian HS (GA),HS SR,TRUE,,2008-03-07,
+120,Daniel Cuvet,97,120,,152,"6' 3""",240,R/R,3B,,21,Miami,4YR JR,FALSE,,2005-05-13,68736
+121,Tre Phelps,124,121,,230,"6' 2""",197,R/R,OF,,22,Georgia,4YR JR,FALSE,,2004-06-19,68042
+122,Gavin Giese,147,122,,186,"6' 3""",190,R/R,P,,18,Dana Hills HS (CA),HS SR,TRUE,,2007-11-04,
+123,Brett Renfrow,68,123,,76,"6' 3""",220,R/R,P,,21,Virginia Tech,4YR JR,FALSE,,2005-01-07,70200
+124,Sean Dunlap,155,124,,49,"6' 3""",205,R/R,C,,18,Crown Point HS (IN),HS SR,TRUE,,2008-04-11,
+125,AJ Rice,272,125,,214,"5' 11""",175,R/R,P,,18,Pickens County HS (GA),HS SR,TRUE,,2007-09-26,
+126,Logan Georges,289,126,,160,"6' 5""",210,R/R,P,,19,Clovis HS (CA),HS SR,TRUE,,2007-06-02,
+127,Josiah Morris,459,127,,,"6' 1""",180,R/R,SS,,18,Clayton Valley HS (CA),HS SR,TRUE,,2008-06-25,
+128,Roman Martin,127,128,,117,"6' 2""",208,R/R,SS,,21,UCLA,4YR JR,FALSE,,2004-09-14,68543
+129,Dominic Santarelli,148,129,,81,"6' 2""",230,L/L,OF,,18,St. Joseph Catholic Academy HS (WI),HS SR,TRUE,,2007-10-18,
+130,Gunner Skelton,317,130,,92,"6' 0""",195,R/R,SS,,18,Columbia Academy HS (TN),HS SR,TRUE,,2007-08-20,
+131,Jace Mataczynski,102,131,,77,"6' 4""",195,R/R,SS,,18,Hudson HS (WI),HS SR,TRUE,,2008-03-03,
+132,Shawn Sullivan,222,132,,,"6' 0""",188,R/R,P,,19,Walsh Jesuit HS (OH),HS SR,TRUE,,2007-05-12,
+133,Jason DeCaro,85,133,,97,"6' 5""",225,R/R,P,,20,North Carolina,4YR JR,FALSE,,2006-04-17,70103
+134,Trey Beard,138,134,,198,"6' 2""",185,L/L,P,,21,Florida State,4YR JR,FALSE,,2004-10-09,67920
+135,Kyle Jones,72,135,,140,"6' 3""",190,R/R,OF,,21,Florida,4YR JR,FALSE,,2005-02-02,
+136,Kevin Roberts Jr.,95,136,,106,"6' 5""",220,R/R,OF,,17,Jackson Prep HS (MS),HS SR,TRUE,,2008-07-27,
+137,Ryan Cooney,176,137,,167,"6' 0""",195,R/R,SS,,21,Oregon,4YR JR,FALSE,,2004-10-07,69633
+138,Hudson DeVaughan,111,138,,190,"6' 5""",200,R/R,P,,19,Mooresville HS (IN),HS SR,TRUE,,2007-01-09,
+139,Tyler Putnam,178,139,,112,"6' 5""",200,R/R,P,,18,Battle HS (MO),HS SR,TRUE,,2008-05-21,
+140,Steele Murdock,193,140,,192,"6' 2""",210,R/R,P,,21,UC San Diego,4YR JR,FALSE,,2005-04-05,69049
+141,Gary Morse,154,141,,98,"6' 8""",209,R/R,P,,19,Orange Lutheran HS (CA),HS SR,TRUE,,2007-06-29,
+142,Graham Schlicht,378,142,,,"6' 3""",195,R/R,P,,18,De La Salle HS (CA),HS SR,TRUE,,2007-07-17,
+143,Caden Ferraro,112,143,,55,"6' 2""",215,L/L,1B,,21,Texas Tech,4YR JR,FALSE,,2004-12-01,139774
+144,Ethan McElvain,206,144,,,"6' 4""",250,S/L,P,,21,Arkansas,4YR JR,FALSE,,2004-10-01,67944
+145,Deven Sheerin,233,145,,163,"6' 5""",255,R/R,P,,20,LSU,4YR JR,FALSE,,2005-08-08,73095
+146,Alex Hernandez,144,146,,172,"6' 2""",210,R/R,2B,,20,Georgia Tech,4YR SO,FALSE,,2005-07-20,
+147,Joe Tiroly,240,147,,168,"6' 0""",200,R/R,2B,,21,Virginia,4YR JR,FALSE,,2005-05-25,67708
+148,Henry Ford,149,148,,183,"6' 5""",220,R/R,1B,,21,Tennessee,4YR JR,FALSE,,2004-07-27,68277
+149,Ryan Marohn,90,149,,177,"6' 2""",192,L/L,P,,21,North Carolina State,4YR JR,FALSE,,2005-03-08,69771
+150,Kyle Johnson,142,150,,219,"6' 1""",205,R/L,P,,21,Virginia,4YR JR,FALSE,,2005-06-25,
+151,CJ Weinstein,229,151,,200,"6' 1""",190,L/R,SS,,19,Orange Lutheran HS (CA),HS SR,TRUE,,2007-03-27,
+152,Jake McCoy,157,152,,156,"6' 1""",185,L/L,P,,21,South Carolina,4YR JR,FALSE,,2005-02-10,
+153,Lucas Nawrocki,125,153,,91,"5' 11""",197,L/L,P,,18,Aledo HS (TX),HS SR,TRUE,,2007-12-04,
+154,Tommy LaPour,74,154,,170,"6' 4""",230,R/R,P,,21,TCU,4YR JR,FALSE,,2005-03-29,69887
+155,Trey Rangel,130,155,,184,"6' 1""",185,R/R,P,,19,The Colony HS (TX),HS SR,TRUE,,2007-04-12,
+156,Bryce Hill,103,156,,95,"6' 5""",215,R/R,P,,18,Greenwich Country Day HS (CT),HS SR,TRUE,,2008-03-25,
+157,Andruw Giles,136,157,,155,"6' 0""",195,L/L,OF,,18,Basic HS (NV),HS SR,TRUE,,2008-01-10,
+158,Elliot Lascelles,118,158,,78,"6' 1""",181,L/R,SS,,18,Upper Canada College HS (ON),HS SR,TRUE,,2008-02-08,
+159,Alex Weingartner,209,159,,86,"6' 2""",198,R/R,P,,18,St. Augustine Prep HS (NJ),HS SR,TRUE,,2007-12-13,
+160,Jason Amalbert,163,160,,102,"6' 1""",190,R/R,SS,,18,DePaul Catholic HS (NJ),HS SR,TRUE,,2007-07-25,
+161,Dawson Montesa,139,161,,148,"6' 1""",185,R/R,P,,20,West Virginia,4YR JR,FALSE,,2005-09-03,73597
+162,Kyle Casteel,253,162,,191,"6' 4""",205,R/R,P,,18,Butler HS (PA),HS SR,TRUE,,2008-02-11,
+163,Brady Harris,156,163,,,"6' 1""",185,R/R,OF,,18,Trinity Christian Academy HS (FL),HS SR,TRUE,,2008-01-16,
+164,Alex Sosa,281,164,,217,"6' 1""",208,L/R,C,,21,Miami,4YR JR,FALSE,,2004-11-04,69774
+165,Dalton Wentz,171,165,,188,"6' 2""",215,S/R,SS,,20,Wake Forest,4YR SO,FALSE,,2005-07-28,117014
 166,Jaxon Jelkin,,166,,,"6' 5""",195,R/R,P,,23,Kentucky,4YR 5S,FALSE,,2002-12-11,44095
-167,Ethan Norby,,167,,93,"5' 10""",195,R/L,P,,21,East Carolina,4YR JR,FALSE,,2005-01-27,67719
-168,James Jorgensen,,168,,137,"6' 0""",195,R/R,P,,18,Jesuit College Prep HS (TX),HS SR,TRUE,,2007-09-08,
-169,Brady Snow,,169,,241,"6' 0""",190,R/R,P,,18,American Heritage HS (FL),HS SR,TRUE,,2007-08-31,
-170,James Tronstein,,170,,73,"5' 11""",170,R/R,OF,,18,Harvard-Westlake HS (CA),HS SR,TRUE,,2008-03-13,
+167,Ethan Norby,137,167,,93,"5' 10""",195,R/L,P,,21,East Carolina,4YR JR,FALSE,,2005-01-27,67719
+168,James Jorgensen,190,168,,137,"6' 0""",195,R/R,P,,18,Jesuit College Prep HS (TX),HS SR,TRUE,,2007-09-08,
+169,Brady Snow,267,169,,241,"6' 0""",190,R/R,P,,18,American Heritage HS (FL),HS SR,TRUE,,2007-08-31,
+170,James Tronstein,135,170,,73,"5' 11""",170,R/R,OF,,18,Harvard-Westlake HS (CA),HS SR,TRUE,,2008-03-13,
 171,Jacob Madrid,,171,,239,"6' 4""",215,R/R,C,,18,Notre Dame HS (CA),HS SR,TRUE,,2007-11-02,
-172,Isaac Morton,,172,,182,"6' 3""",195,R/R,P,,21,Minnesota,4YR JR,FALSE,,2004-09-14,67768
-173,Carson Jasa,,173,,166,"6' 7""",215,R/R,P,,21,Nebraska,4YR JR,FALSE,,2004-09-26,67330
-174,Genson Veras,,174,,221,"6' 6""",225,R/R,OF,,18,TNXL Academy (FL),HS SR,TRUE,,2007-12-20,
-175,Martin Shelar,,175,,80,"6' 2""",205,R/R,OF,,18,Marist School (GA),HS SR,TRUE,,2007-08-10,
-176,Maddox Molony,,176,,185,"6' 2""",208,R/R,SS,,21,Oregon,4YR JR,FALSE,,2004-10-01,69643
-177,Russell Sandefer,,177,,,"6' 1""",200,R/R,P,,21,Florida,4YR JR,FALSE,,2005-03-27,64848
-178,Brayden Dowd,,178,,128,"5' 10""",180,L/L,OF,,21,Florida State,4YR JR,FALSE,,2004-09-19,69316
-179,Trevor Hansen,,179,,,"6' 2""",195,R/R,P,,21,University of California - Irvine,4YR JR,FALSE,,2005-05-17,
-180,Coleton Brady,,180,,133,"6' 5""",215,R/R,P,,17,TNXL Academy (FL),HS SR,TRUE,,2008-10-07,
-181,Wil Libbert,,181,,178,"6' 1""",215,L/L,P,,21,Mississippi,4YR JR,FALSE,,2004-10-16,116699
-182,Landon Thiel,,182,,165,"6' 7""",230,R/L,P,,18,Jackson HS (OH),HS SR,TRUE,,2008-02-12,
-183,Teagan Scott,,183,,202,"5' 11""",195,R/R,C,,18,South Salem HS (OR),HS SR,TRUE,,2008-05-26,
-184,Jason Jutronich,,184,,,"6' 4""",190,L/L,P,,18,Torrey Pines HS (CA),HS SR,TRUE,,2007-09-27,
-185,Luke McNeillie,,185,,113,"6' 3""",200,L/R,P,,21,Florida,4YR JR,FALSE,,2005-03-17,67601
-186,LJ Mercurius,,186,,187,"6' 2""",175,R/R,P,,21,Oklahoma,4YR JR,FALSE,,2004-10-30,68960
-187,Sawyer Nelson,,187,,,"6' 0""",180,L/R,SS,,18,South Salem HS (OR),HS SR,TRUE,,2008-04-26,
-188,Robbie Lavey,,188,,105,"6' 2""",218,L/R,C,,20,George Washington,4YR JR,FALSE,,2005-09-03,67861
-189,Rylan Lujo,,189,,96,"6' 2""",192,R/R,3B,,21,Georgia,4YR SO,FALSE,,2005-06-06,115212
-190,Garrett Wright,,190,,162,"6' 0""",193,R/R,C,,21,Tennessee,4YR JR,FALSE,,2005-07-05,
-191,Jet Berry,,191,,174,"5' 10""",175,S/R,SS,,19,Queen Creek HS (AZ),HS SR,TRUE,,2007-04-04,
-192,Cal Scolari,,192,,,"6' 4""",220,R/R,P,,22,Oregon,4YR JR,FALSE,,2004-04-28,67813
-193,Carter Beck,,193,,70,"5' 11""",206,L/R,OF,,21,Indiana State,4YR JR,FALSE,,2005-06-28,
-194,Duncan Marsten,,194,,173,"6' 3""",220,R/R,P,,21,Wake Forest,4YR SO,FALSE,,2005-05-30,126149
-195,Spencer Evans,,195,,,"6' 3""",190,L/L,P,,18,TNXL Academy (FL),HS SR,TRUE,,2007-07-13,
-196,Eric Segura,,196,,,"6' 2""",214,R/R,P,,21,Oregon State,4YR JR,FALSE,,2005-01-02,69473
-197,Ryne Barker,,197,,181,"6' 1""",175,L/R,3B,,19,Casteel HS (AZ),HS SR,TRUE,,2006-12-09,
-198,Will Plunkett,,198,,193,"6' 3""",200,R/R,SS,,18,Mamaroneck HS (NY),HS SR,TRUE,,2008-03-03,
-199,Grayson Willoughby,,199,,205,"6' 2""",195,L/R,P,,19,Trinity HS (KY),HS SR,TRUE,,2007-05-01,
-200,Gavin Gallaher,,200,,132,"6' 1""",191,R/R,SS,,21,North Carolina,4YR JR,FALSE,,2004-08-03,70106
-201,Dylan Vigue,,201,,,"6' 3""",230,R/R,P,,22,Georgia,4YR JR,FALSE,,2003-12-26,67382
-202,Jorvorskie Lane Jr.,,202,,,"6' 0""",195,R/R,OF,,18,Grapevine HS (TX),HS SR,TRUE,,2008-07-01,
-203,Jake Carbaugh,,203,,203,"6' 5""",225,R/R,P,,18,Plant City HS (FL),HS SR,TRUE,,2008-06-15,
-204,Alex Conover,,204,,145,"6' 4""",202,L/R,OF,,20,Oklahoma State,4YR JR,FALSE,,2005-08-31,99762
-205,Dominic Voegele,,205,,228,"6' 2""",200,R/R,P,,21,Kansas,4YR JR,FALSE,,2005-02-19,69256
-206,Alain Gomez-Gudino,,206,,,"6' 1""",205,S/R,C,,18,Saguaro HS (AZ),HS SR,TRUE,,2007-08-31,
-207,Robert Omidi,,207,,,"6' 1""",200,L/R,SS,,18,St. Martin SS (ON),HS SR,TRUE,,2008-06-14,
-208,Matt Ponatoski,,208,,120,"6' 2""",200,L/R,SS,,18,Moeller HS (OH),HS SR,TRUE,,2008-03-01,
-209,Eric Guevara,,209,,144,"5' 11""",207,R/R,3B,,21,Auburn,4YR JR,FALSE,,2004-10-28,77489
-210,Aidan Knaak,,210,,194,"6' 1""",215,R/R,P,,21,Clemson,4YR JR,FALSE,,2004-09-19,68619
+172,Isaac Morton,221,172,,182,"6' 3""",195,R/R,P,,21,Minnesota,4YR JR,FALSE,,2004-09-14,67768
+173,Carson Jasa,159,173,,166,"6' 7""",215,R/R,P,,21,Nebraska,4YR JR,FALSE,,2004-09-26,67330
+174,Genson Veras,494,174,,221,"6' 6""",225,R/R,OF,,18,TNXL Academy (FL),HS SR,TRUE,,2007-12-20,
+175,Martin Shelar,126,175,,80,"6' 2""",205,R/R,OF,,18,Marist School (GA),HS SR,TRUE,,2007-08-10,
+176,Maddox Molony,207,176,,185,"6' 2""",208,R/R,SS,,21,Oregon,4YR JR,FALSE,,2004-10-01,69643
+177,Russell Sandefer,183,177,,,"6' 1""",200,R/R,P,,21,Florida,4YR JR,FALSE,,2005-03-27,64848
+178,Brayden Dowd,179,178,,128,"5' 10""",180,L/L,OF,,21,Florida State,4YR JR,FALSE,,2004-09-19,69316
+179,Trevor Hansen,191,179,,,"6' 2""",195,R/R,P,,21,University of California - Irvine,4YR JR,FALSE,,2005-05-17,
+180,Coleton Brady,238,180,,133,"6' 5""",215,R/R,P,,17,TNXL Academy (FL),HS SR,TRUE,,2008-10-07,
+181,Wil Libbert,355,181,,178,"6' 1""",215,L/L,P,,21,Mississippi,4YR JR,FALSE,,2004-10-16,116699
+182,Landon Thiel,460,182,,165,"6' 7""",230,R/L,P,,18,Jackson HS (OH),HS SR,TRUE,,2008-02-12,
+183,Teagan Scott,483,183,,202,"5' 11""",195,R/R,C,,18,South Salem HS (OR),HS SR,TRUE,,2008-05-26,
+184,Jason Jutronich,381,184,,,"6' 4""",190,L/L,P,,18,Torrey Pines HS (CA),HS SR,TRUE,,2007-09-27,
+185,Luke McNeillie,210,185,,113,"6' 3""",200,L/R,P,,21,Florida,4YR JR,FALSE,,2005-03-17,67601
+186,LJ Mercurius,166,186,,187,"6' 2""",175,R/R,P,,21,Oklahoma,4YR JR,FALSE,,2004-10-30,68960
+187,Sawyer Nelson,268,187,,,"6' 0""",180,L/R,SS,,18,South Salem HS (OR),HS SR,TRUE,,2008-04-26,
+188,Robbie Lavey,161,188,,105,"6' 2""",218,L/R,C,,20,George Washington,4YR JR,FALSE,,2005-09-03,67861
+189,Rylan Lujo,162,189,,96,"6' 2""",192,R/R,3B,,21,Georgia,4YR SO,FALSE,,2005-06-06,115212
+190,Garrett Wright,75,190,,162,"6' 0""",193,R/R,C,,21,Tennessee,4YR JR,FALSE,,2005-07-05,
+191,Jet Berry,324,191,,174,"5' 10""",175,S/R,SS,,19,Queen Creek HS (AZ),HS SR,TRUE,,2007-04-04,
+192,Cal Scolari,194,192,,,"6' 4""",220,R/R,P,,22,Oregon,4YR JR,FALSE,,2004-04-28,67813
+193,Carter Beck,69,193,,70,"5' 11""",206,L/R,OF,,21,Indiana State,4YR JR,FALSE,,2005-06-28,
+194,Duncan Marsten,145,194,,173,"6' 3""",220,R/R,P,,21,Wake Forest,4YR SO,FALSE,,2005-05-30,126149
+195,Spencer Evans,367,195,,,"6' 3""",190,L/L,P,,18,TNXL Academy (FL),HS SR,TRUE,,2007-07-13,
+196,Eric Segura,168,196,,,"6' 2""",214,R/R,P,,21,Oregon State,4YR JR,FALSE,,2005-01-02,69473
+197,Ryne Barker,325,197,,181,"6' 1""",175,L/R,3B,,19,Casteel HS (AZ),HS SR,TRUE,,2006-12-09,
+198,Will Plunkett,254,198,,193,"6' 3""",200,R/R,SS,,18,Mamaroneck HS (NY),HS SR,TRUE,,2008-03-03,
+199,Grayson Willoughby,217,199,,205,"6' 2""",195,L/R,P,,19,Trinity HS (KY),HS SR,TRUE,,2007-05-01,
+200,Gavin Gallaher,108,200,,132,"6' 1""",191,R/R,SS,,21,North Carolina,4YR JR,FALSE,,2004-08-03,70106
+201,Dylan Vigue,165,201,,,"6' 3""",230,R/R,P,,22,Georgia,4YR JR,FALSE,,2003-12-26,67382
+202,Jorvorskie Lane Jr.,236,202,,,"6' 0""",195,R/R,OF,,18,Grapevine HS (TX),HS SR,TRUE,,2008-07-01,
+203,Jake Carbaugh,181,203,,203,"6' 5""",225,R/R,P,,18,Plant City HS (FL),HS SR,TRUE,,2008-06-15,
+204,Alex Conover,172,204,,145,"6' 4""",202,L/R,OF,,20,Oklahoma State,4YR JR,FALSE,,2005-08-31,99762
+205,Dominic Voegele,196,205,,228,"6' 2""",200,R/R,P,,21,Kansas,4YR JR,FALSE,,2005-02-19,69256
+206,Alain Gomez-Gudino,227,206,,,"6' 1""",205,S/R,C,,18,Saguaro HS (AZ),HS SR,TRUE,,2007-08-31,
+207,Robert Omidi,294,207,,,"6' 1""",200,L/R,SS,,18,St. Martin SS (ON),HS SR,TRUE,,2008-06-14,
+208,Matt Ponatoski,152,208,,120,"6' 2""",200,L/R,SS,,18,Moeller HS (OH),HS SR,TRUE,,2008-03-01,
+209,Eric Guevara,106,209,,144,"5' 11""",207,R/R,3B,,21,Auburn,4YR JR,FALSE,,2004-10-28,77489
+210,Aidan Knaak,200,210,,194,"6' 1""",215,R/R,P,,21,Clemson,4YR JR,FALSE,,2004-09-19,68619
 211,Ryan Stedman,,211,,136,"6' 3""",190,R/R,P,,18,Valley HS (IA),HS SR,TRUE,,2007-10-30,
-212,Gannon Grant,,212,,125,"6' 2""",180,R/R,P,,19,Center Grove HS (IN),HS SR,TRUE,,2007-03-02,
-213,Eric Nachtsheim,,213,,,"6' 4""",235,R/R,P,,22,McNeese State,4YR SR,FALSE,,2004-03-28,100987
-214,Michael Harpster,,214,,240,"6' 0""",185,R/R,P,,21,East Tennessee State,4YR JR,FALSE,,2005-03-21,69082
-215,Nathan Taylor,,215,,242,"6' 5""",230,L/R,P,,21,Cincinnati,4YR JR,FALSE,,2005-03-15,70995
-216,Grant Govel,,216,,,"6' 0""",200,R/R,P,,21,USC,4YR SO,FALSE,,2004-08-11,116859
-217,Maxx Yehl,,217,,161,"6' 6""",235,L/L,P,,22,West Virginia,4YR SR,FALSE,,2004-05-24,
-218,Cal Randall,,218,,224,"6' 4""",235,R/R,P,,21,UCLA,4YR JR,FALSE,,2005-05-24,68544
-219,Bo Rhudy,,219,,201,"6' 4""",230,R/R,P,,21,Tennessee,4YR JR,FALSE,,2004-11-04,68324
-220,Justin LeGuernic,,220,,147,"6' 4""",210,R/L,P,,20,Clemson,4YR JR,FALSE,,2005-10-08,68620
-221,Thomas Burns,,221,,,"6' 3""",240,R/R,P,,21,Texas,4YR JR,FALSE,,2004-09-09,68866
-222,Brandon McCraine,,222,,,"6' 3""",184,R/R,SS,,21,Auburn,4YR SO,FALSE,,2005-06-16,100105
-223,Lucas Moore,,223,,232,"6' 0""",185,L/R,OF,,21,Louisville,4YR JR,FALSE,,2005-04-26,
-224,Ryan Harwood,,224,,,"6' 3""",220,L/R,OF,,18,Casteel HS (AZ),HS SR,TRUE,,2007-07-21,
-225,Nu'u Contrades,,225,,249,"5' 10""",180,R/R,SS,,22,Arizona State,4YR SR,FALSE,,2003-10-06,50552
-226,Braden Holcomb,,226,,189,"6' 4""",245,R/R,3B,,21,Vanderbilt,4YR JR,FALSE,,2004-10-28,67941
-227,Cashel Dugger,,227,,,"6' 3""",210,L/R,C,,20,UCLA,4YR JR,FALSE,,2005-07-25,68533
-228,Declan Dahl,,228,,,"6' 3""",200,R/R,P,,21,Louisiana Tech,4YR JR,FALSE,,2004-11-13,132557
-229,Tyler Fay,,229,,,"6' 5""",215,R/R,P,,22,Alabama,4YR SR,FALSE,,2004-01-22,50184
-230,Micah Worley,,230,,,"6' 5""",220,R/L,P,,22,SUNY Stony Brook,4YR JR,FALSE,,2003-08-28,117746
-231,Eli Herst,,231,,211,"6' 5""",210,R/R,P,,18,Seattle Academy HS (WA),HS SR,TRUE,,2008-02-02,
-232,Ben Davis,,232,,237,"6' 4""",230,R/R,P,,22,Mississippi State,4YR SR,FALSE,,2004-07-02,
-233,Griffin Long,,233,,206,"6' 2""",190,R/R,P,,18,Sonoraville HS (GA),HS SR,TRUE,,2008-05-06,
-234,Ty Horn,,234,,138,"6' 2""",190,L/R,P,,21,Nebraska,4YR JR,FALSE,,2004-08-20,67328
-235,Hudson Calhoun,,235,,,"6' 4""",210,R/R,P,,21,Mississippi,4YR JR,FALSE,,2004-08-04,70769
-236,Josh McDevitt,,236,,,"6' 2""",195,R/R,P,,22,Missouri,4YR JR,FALSE,,2004-06-15,71069
-237,Hunter Brown,,237,,229,"6' 5""",220,R/R,P,,18,North Hunterdon Regional HS (NJ),HS SR,TRUE,,2008-01-11,
-238,Keller Bradley,,238,,,"6' 6""",180,R/R,P,,18,Pennsbury HS (PA),HS SR,TRUE,,2008-06-09,
-239,Noah Danza,,239,,115,"6' 2""",205,R/R,SS,,18,Gloucester Catholic HS (NJ),HS SR,TRUE,,2008-03-29,
-240,Jon Mora,,240,,,"5' 10""",170,L/R,OF,,19,Somerset Academy HS (FL),HS SR,TRUE,,2007-06-13,
-241,Max Bayles,,241,,,"6' 3""",210,R/R,P,,21,Santa Clara,4YR JR,FALSE,,2004-10-24,68847
-242,Cole Dennis,,242,,116,"6' 4""",224,R/R,P,,17,Bishop Snyder HS (FL),HS SR,TRUE,,2008-08-14,
-243,Ricky Ojeda,,243,,,"5' 11""",185,L/L,P,,20,University of California - Irvine,4YR JR,FALSE,,2005-10-07,68019
-244,Nathan Aceves,,244,,,"6' 3""",220,R/R,P,,21,UC Santa Barbara,4YR SO,FALSE,,2005-07-09,117873
-245,Owen Kramkowski,,245,,,"6' 3""",173,R/R,P,,20,Arizona,4YR JR,FALSE,,2005-07-18,70842
-246,Jerek Turlij,,246,,,"6' 3""",200,R/R,P,,18,North East HS (PA),HS SR,TRUE,,2008-01-20,
-247,Gage Peterson,,247,,,"6' 5""",220,R/R,P,,21,Appalachian State,4YR JR,FALSE,,2005-03-30,139442
+212,Gannon Grant,129,212,,125,"6' 2""",180,R/R,P,,19,Center Grove HS (IN),HS SR,TRUE,,2007-03-02,
+213,Eric Nachtsheim,175,213,,,"6' 4""",235,R/R,P,,22,McNeese State,4YR SR,FALSE,,2004-03-28,100987
+214,Michael Harpster,182,214,,240,"6' 0""",185,R/R,P,,21,East Tennessee State,4YR JR,FALSE,,2005-03-21,69082
+215,Nathan Taylor,150,215,,242,"6' 5""",230,L/R,P,,21,Cincinnati,4YR JR,FALSE,,2005-03-15,70995
+216,Grant Govel,184,216,,,"6' 0""",200,R/R,P,,21,USC,4YR SO,FALSE,,2004-08-11,116859
+217,Maxx Yehl,128,217,,161,"6' 6""",235,L/L,P,,22,West Virginia,4YR SR,FALSE,,2004-05-24,
+218,Cal Randall,122,218,,224,"6' 4""",235,R/R,P,,21,UCLA,4YR JR,FALSE,,2005-05-24,68544
+219,Bo Rhudy,202,219,,201,"6' 4""",230,R/R,P,,21,Tennessee,4YR JR,FALSE,,2004-11-04,68324
+220,Justin LeGuernic,262,220,,147,"6' 4""",210,R/L,P,,20,Clemson,4YR JR,FALSE,,2005-10-08,68620
+221,Thomas Burns,189,221,,,"6' 3""",240,R/R,P,,21,Texas,4YR JR,FALSE,,2004-09-09,68866
+222,Brandon McCraine,256,222,,,"6' 3""",184,R/R,SS,,21,Auburn,4YR SO,FALSE,,2005-06-16,100105
+223,Lucas Moore,173,223,,232,"6' 0""",185,L/R,OF,,21,Louisville,4YR JR,FALSE,,2005-04-26,
+224,Ryan Harwood,214,224,,,"6' 3""",220,L/R,OF,,18,Casteel HS (AZ),HS SR,TRUE,,2007-07-21,
+225,Nu'u Contrades,252,225,,249,"5' 10""",180,R/R,SS,,22,Arizona State,4YR SR,FALSE,,2003-10-06,50552
+226,Braden Holcomb,213,226,,189,"6' 4""",245,R/R,3B,,21,Vanderbilt,4YR JR,FALSE,,2004-10-28,67941
+227,Cashel Dugger,335,227,,,"6' 3""",210,L/R,C,,20,UCLA,4YR JR,FALSE,,2005-07-25,68533
+228,Declan Dahl,334,228,,,"6' 3""",200,R/R,P,,21,Louisiana Tech,4YR JR,FALSE,,2004-11-13,132557
+229,Tyler Fay,141,229,,,"6' 5""",215,R/R,P,,22,Alabama,4YR SR,FALSE,,2004-01-22,50184
+230,Micah Worley,336,230,,,"6' 5""",220,R/L,P,,22,SUNY Stony Brook,4YR JR,FALSE,,2003-08-28,117746
+231,Eli Herst,116,231,,211,"6' 5""",210,R/R,P,,18,Seattle Academy HS (WA),HS SR,TRUE,,2008-02-02,
+232,Ben Davis,425,232,,237,"6' 4""",230,R/R,P,,22,Mississippi State,4YR SR,FALSE,,2004-07-02,
+233,Griffin Long,270,233,,206,"6' 2""",190,R/R,P,,18,Sonoraville HS (GA),HS SR,TRUE,,2008-05-06,
+234,Ty Horn,291,234,,138,"6' 2""",190,L/R,P,,21,Nebraska,4YR JR,FALSE,,2004-08-20,67328
+235,Hudson Calhoun,198,235,,,"6' 4""",210,R/R,P,,21,Mississippi,4YR JR,FALSE,,2004-08-04,70769
+236,Josh McDevitt,197,236,,,"6' 2""",195,R/R,P,,22,Missouri,4YR JR,FALSE,,2004-06-15,71069
+237,Hunter Brown,359,237,,229,"6' 5""",220,R/R,P,,18,North Hunterdon Regional HS (NJ),HS SR,TRUE,,2008-01-11,
+238,Keller Bradley,339,238,,,"6' 6""",180,R/R,P,,18,Pennsbury HS (PA),HS SR,TRUE,,2008-06-09,
+239,Noah Danza,314,239,,115,"6' 2""",205,R/R,SS,,18,Gloucester Catholic HS (NJ),HS SR,TRUE,,2008-03-29,
+240,Jon Mora,356,240,,,"5' 10""",170,L/R,OF,,19,Somerset Academy HS (FL),HS SR,TRUE,,2007-06-13,
+241,Max Bayles,349,241,,,"6' 3""",210,R/R,P,,21,Santa Clara,4YR JR,FALSE,,2004-10-24,68847
+242,Cole Dennis,358,242,,116,"6' 4""",224,R/R,P,,17,Bishop Snyder HS (FL),HS SR,TRUE,,2008-08-14,
+243,Ricky Ojeda,260,243,,,"5' 11""",185,L/L,P,,20,University of California - Irvine,4YR JR,FALSE,,2005-10-07,68019
+244,Nathan Aceves,258,244,,,"6' 3""",220,R/R,P,,21,UC Santa Barbara,4YR SO,FALSE,,2005-07-09,117873
+245,Owen Kramkowski,205,245,,,"6' 3""",173,R/R,P,,20,Arizona,4YR JR,FALSE,,2005-07-18,70842
+246,Jerek Turlij,234,246,,,"6' 3""",200,R/R,P,,18,North East HS (PA),HS SR,TRUE,,2008-01-20,
+247,Gage Peterson,346,247,,,"6' 5""",220,R/R,P,,21,Appalachian State,4YR JR,FALSE,,2005-03-30,139442
 248,Clay Burdette,,248,,,"6' 2""",215,R/R,OF,,22,Xavier,4YR JR,FALSE,,2004-06-11,67442
-249,Ethan Surowiec,,249,,,"6' 1""",235,R/R,3B,,21,Florida,4YR SO,FALSE,,2005-06-26,118278
-250,Cameron Johnson,,250,,,"6' 6""",256,L/L,P,,21,Oklahoma,4YR JR,FALSE,,2005-01-11,
+249,Ethan Surowiec,249,249,,,"6' 1""",235,R/R,3B,,21,Florida,4YR SO,FALSE,,2005-06-26,118278
+250,Cameron Johnson,185,250,,,"6' 6""",256,L/L,P,,21,Oklahoma,4YR JR,FALSE,,2005-01-11,
 ,A.J. Colarusso,,,,,"6' 0""",205,L/L,P,,22,Boston College,4YR SR,FALSE,,2003-12-29,51342
 ,AJ Calio,,,,,"6' 2""",211,R/R,P,,18,Bayard Rustin HS (PA),HS SR,TRUE,,2008-01-10,
-,AJ Curry,,,,180,"6' 3""",205,L/L,1B,,18,University City HS (CA),HS SR,TRUE,,2008-03-04,
-,AJ Evasco,,,,,"6' 5""",220,L/R,1B,,20,Kansas State,4YR SO,FALSE,,2005-07-21,99731
-,AJ Krodel,,,,,"6' 4""",200,R/R,P,,21,UC Santa Barbara,4YR JR,FALSE,,2005-05-11,70353
+,AJ Curry,280,,,180,"6' 3""",205,L/L,1B,,18,University City HS (CA),HS SR,TRUE,,2008-03-04,
+,AJ Evasco,452,,,,"6' 5""",220,L/R,1B,,20,Kansas State,4YR SO,FALSE,,2005-07-21,99731
+,AJ Krodel,255,,,,"6' 4""",200,R/R,P,,21,UC Santa Barbara,4YR JR,FALSE,,2005-05-11,70353
 ,AJ Nessler,,,,,"5' 10""",190,L/R,OF,,22,Pittsburgh,4YR SR,FALSE,,2003-07-21,
 ,AJ Rogers,,,,,"6' 8""",185,R/R,P,,18,Foothills Composite HS (AB),HS SR,TRUE,,2007-08-16,
 ,Aamir Mitchell,,,,,"6' 4""",200,R/R,3B,,20,Madonna,4YR JR,FALSE,,2005-11-01,
 ,Aaron Arnold,,,,,"6' 0""",215,R/R,P,,22,Kansas State,4YR SR,FALSE,,2004-06-10,117054
-,Aaron Dierks,,,,,"6' 4""",218,R/R,P,,18,West Springfield HS (VA),HS SR,TRUE,,2007-10-16,
+,Aaron Dierks,472,,,,"6' 4""",218,R/R,P,,18,West Springfield HS (VA),HS SR,TRUE,,2007-10-16,
 ,Aaron Jamison,,,,,"6' 0""",202,L/L,OF,,21,South Carolina,4YR JR,FALSE,,2005-01-15,68464
 ,Aaron Jaquez,,,,,"6' 4""",220,R/R,P,,18,Falcon HS (CO),HS SR,TRUE,,2007-12-22,
 ,Aaron Piasecki,,,,,"5' 10""",187,L/R,SS,,22,Troy,4YR SR,FALSE,,2003-11-03,117127
 ,Abbrie Covarrubias,,,,,"6' 0""",187,R/R,SS,,22,USC,4YR JR,FALSE,,2004-04-07,69314
 ,Abram Sherrin,,,,,"6' 0""",195,R/R,SS,,18,Liberty HS (AZ),HS SR,TRUE,,2007-08-06,
-,Adam Agresti,,,,,"6' 3""",235,R/R,C,,21,St. John's,4YR JR,FALSE,,2005-02-10,67592
+,Adam Agresti,409,,,,"6' 3""",235,R/R,C,,21,St. John's,4YR JR,FALSE,,2005-02-10,67592
 ,Adam Stanton,,,,,"6' 3""",230,R/R,P,,23,Charlotte,4YR 5S,FALSE,,2003-02-10,70219
-,Adam Troy,,,,,"6' 3""",215,R/R,P,,22,USC,4YR SR,FALSE,,2003-09-18,58736
+,Adam Troy,345,,,,"6' 3""",215,R/R,P,,22,USC,4YR SR,FALSE,,2003-09-18,58736
 ,Addison Klepsch,,,,,"5' 10""",190,R/R,SS,,20,UC San Diego,4YR SO,FALSE,,2005-07-16,99666
 ,Addison Latko,,,,,"5' 9""",175,R/R,C,,18,DePaul Prep HS (IL),HS SR,TRUE,,2007-10-02,
 ,Addison Smith,,,,,"6' 0""",200,S/R,SS,,22,Sam Houston State,4YR JR,FALSE,,2004-04-08,
@@ -282,18 +282,18 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Aidan Camberg,,,,,"6' 1""",195,L/R,C,,21,Pepperdine,4YR JR,FALSE,,2004-09-05,70349
 ,Aidan Dougherty,,,,,"6' 0""",200,R/R,OF,,22,Washington,4YR SR,FALSE,,2004-01-17,115421
 ,Aidan Haynes,,,,,"6' 5""",195,R/R,P,,22,Louisiana-Monroe,4YR SR,FALSE,,2004-02-10,
-,Aidan Keenan,,,,,"6' 2""",202,R/R,P,,21,Stanford,4YR JR,FALSE,,2005-03-07,70893
+,Aidan Keenan,348,,,,"6' 2""",202,R/R,P,,21,Stanford,4YR JR,FALSE,,2005-03-07,70893
 ,Aidan Lee,,,,,"6' 5""",240,R/R,P,,24,Grand Canyon,4YR GR,FALSE,,2002-01-30,
 ,Aidan Meola,,,,,"6' 2""",215,R/R,3B,,23,Oklahoma State,4YR 5S,FALSE,,2002-08-24,44927
 ,Aidan Paradine,,,,,"6' 0""",205,R/R,C,,21,Siena,4YR JR,FALSE,,2004-10-14,
-,Aidan Teel,,,,,"6' 0""",200,L/R,OF,,21,Mississippi State,4YR SR,FALSE,,2004-08-14,62268
-,Aidan Weaver,,,,,"6' 5""",235,R/R,P,,22,Duke,4YR SR,FALSE,,2004-05-25,53158
+,Aidan Teel,371,,,,"6' 0""",200,L/R,OF,,21,Mississippi State,4YR SR,FALSE,,2004-08-14,62268
+,Aidan Weaver,313,,,,"6' 5""",235,R/R,P,,22,Duke,4YR SR,FALSE,,2004-05-25,53158
 ,Aiden Arnett,,,,,"5' 11""",170,R/R,OF,,19,Trinity Christian Academy HS (FL),HS SR,TRUE,,2007-03-17,
 ,Aiden Denlinger,,,,,"6' 6""",220,R/R,P,,22,Campbell,4YR SR,FALSE,,2004-05-25,128590
 ,Aiden O'Connell,,,,,"6' 2""",195,L/L,P,,21,Duke,4YR SO,FALSE,,2004-09-27,118344
 ,Aiden Reynolds,,,,,"6' 1""",200,R/R,SS,,18,Noblesville HS (IN),HS SR,TRUE,,2007-12-12,
 ,Aiden Robertson,,,,,"6' 1""",180,R/R,P,,21,Virginia Tech,4YR JR,FALSE,,2005-04-12,146664
-,Aiden Smith,,,,,"6' 4""",190,R/R,P,,18,Shelbyville HS (IN),HS SR,TRUE,,2007-08-16,
+,Aiden Smith,449,,,,"6' 4""",190,R/R,P,,18,Shelbyville HS (IN),HS SR,TRUE,,2007-08-16,
 ,Aiden Van Rensum,,,,,"6' 4""",210,R/R,1B,,23,Oklahoma City,4YR 5S,FALSE,,2002-11-06,45023
 ,Aiden VanDeHatert,,,,,"6' 4""",206,R/L,P,,21,Dallas Baptist,4YR JR,FALSE,,2005-02-14,129652
 ,Akanni Owodunni,,,,,"6' 2""",220,R/R,C,,17,Berkeley HS (CA),HS SR,TRUE,,2008-07-16,
@@ -301,31 +301,31 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Albert Roblez,,,,,"5' 11""",221,R/R,P,,22,Oregon State,4YR GR,FALSE,,2003-07-28,68964
 ,Alec Bouchard,,,,,"6' 1""",190,R/R,P,,21,Wofford,4YR JR,FALSE,,2004-12-07,67688
 ,Alec DeMartino,,,,,"6' 3""",220,R/R,OF,,23,Charlotte,4YR GR,FALSE,,2002-09-06,48493
-,Alejandro Garza,,,,,"5' 9""",175,R/R,3B,,21,Cal Poly,4YR JR,FALSE,,2005-06-04,71078
+,Alejandro Garza,231,,,,"5' 9""",175,R/R,3B,,21,Cal Poly,4YR JR,FALSE,,2005-06-04,71078
 ,Alejandro Quiles,,,,,"6' 2""",195,L/R,SS,,22,Oklahoma Wesleyan,4YR SR,FALSE,,2003-12-31,
 ,Alessandro Castro,,,,,"6' 0""",195,L/L,P,,22,Nevada,4YR SR,FALSE,,2003-12-31,70838
 ,Alex Alicea,,,,,"5' 8""",155,S/R,2B,,21,Louisville,4YR JR,FALSE,,2004-10-08,69504
 ,Alex Bouche,,,,,"6' 2""",200,R/R,SS,,22,East Carolina,4YR SR,FALSE,,2004-02-29,58386
-,Alex Harrington,,,,,"6' 1""",185,R/R,SS,,19,Cathedral Catholic HS (CA),HS SR,TRUE,,2007-05-20,
+,Alex Harrington,203,,,,"6' 1""",185,R/R,SS,,19,Cathedral Catholic HS (CA),HS SR,TRUE,,2007-05-20,
 ,Alex Hoffman,,,,,"6' 2""",215,R/R,P,,18,Charlotte Catholic HS (NC),HS SR,TRUE,,2007-11-21,
 ,Alex Jendras,,,,,"6' 1""",200,R/R,SS,,18,Trinity-Pawling HS (NY),HS SR,TRUE,,2007-08-03,
 ,Alex Kranzler,,,,,"6' 3""",219,R/R,P,,21,Vanderbilt,4YR JR,FALSE,,2005-01-26,67943
-,Alex Overbay,,,,,"6' 3""",220,R/R,P,,21,Arizona State,4YR JR,FALSE,,2005-02-06,68963
+,Alex Overbay,421,,,,"6' 3""",220,R/R,P,,21,Arizona State,4YR JR,FALSE,,2005-02-06,68963
 ,Alex Peltier,,,,,"6' 2""",185,R/R,OF,,21,East Carolina,4YR SO,FALSE,,2005-05-07,99782
 ,Alex Perry,,,,,"6' 4""",210,R/R,SS,,23,Southeastern Louisiana,4YR 5S,FALSE,,2003-05-15,69181
-,Alex Petrovic,,,,231,"6' 5""",235,R/R,P,,22,Auburn,4YR JR,FALSE,,2004-05-27,68111
-,Alex Philpott,,,,,"6' 6""",200,R/R,P,,21,South Carolina,4YR JR,FALSE,,2004-09-14,67605
+,Alex Petrovic,315,,,231,"6' 5""",235,R/R,P,,22,Auburn,4YR JR,FALSE,,2004-05-27,68111
+,Alex Philpott,465,,,,"6' 6""",200,R/R,P,,21,South Carolina,4YR JR,FALSE,,2004-09-14,67605
 ,Alex Richardson,,,,,"6' 3""",200,R/R,P,,18,Belle Chasse HS (LA),HS SR,TRUE,,2008-02-04,
 ,Alex Solis,,,,,"6' 1""",190,R/R,P,,21,Houston,4YR JR,FALSE,,2004-12-03,
 ,Alex Valentin,,,,,"6' 0""",220,L/L,P,,20,South Carolina,4YR JR,FALSE,,2005-08-12,
 ,Alex Walsh,,,,,"6' 4""",195,L/L,P,,22,Jacksonville,4YR SR,FALSE,,2004-01-18,
 ,Alex Waye,,,,,"6' 1""",166,L/L,P,,18,Amityville HS (NY),HS SR,TRUE,,2007-10-10,
-,Alfredo Capacete,,,,,"6' 3""",215,R/R,P,,21,California Baptist,4YR SR,FALSE,,2004-12-01,
+,Alfredo Capacete,263,,,,"6' 3""",215,R/R,P,,21,California Baptist,4YR SR,FALSE,,2004-12-01,
 ,Alika Ahu,,,,,"6' 4""",205,R/R,SS,,19,University Laboratory HS (HI),HS SR,TRUE,,2007-06-22,
 ,Amari Allen,,,,,"6' 3""",200,L/L,OF,,22,Chattahoochee Valley CC,JC J3,FALSE,,2004-07-07,
 ,Amman Dewberry,,,,,"6' 3""",200,L/L,OF,,22,Presbyterian,4YR SR,FALSE,,2004-02-05,58964
 ,Amos Rich,,,,,"6' 2""",200,R/R,P,,18,Tuscola HS (NC),HS SR,TRUE,,2007-08-10,
-,Amp Phillips,,,,,"6' 1""",180,R/R,P,,21,South Carolina,4YR SR,FALSE,,2004-07-19,115431
+,Amp Phillips,344,,,,"6' 1""",180,R/R,P,,21,South Carolina,4YR SR,FALSE,,2004-07-19,115431
 ,Anaan Rahming,,,,,"6' 4""",195,L/L,P,,18,Grace Christian HS (NC),HS SR,TRUE,,2007-08-12,
 ,Anaiscio Ortiz,,,,,"6' 2""",185,L/L,P,,18,Richmond Hill HS (NY),HS SR,TRUE,,2008-06-04,
 ,Andre Modugno,,,,,"6' 5""",220,R/R,3B,,20,Tallahassee CC,JC J2,FALSE,,2005-08-20,
@@ -347,15 +347,15 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Andrew Kirchner,,,,,"6' 5""",200,L/R,OF,,22,Cal State Fullerton,4YR SR,FALSE,,2003-12-08,
 ,Andrew Steinhaus,,,,,"6' 3""",190,R/R,P,,21,Radford,4YR JR,FALSE,,2005-04-19,68806
 ,Andrew Wertz,,,,,"6' 3""",230,R/R,P,,23,Northeastern,4YR GR,FALSE,,2003-06-02,60898
-,Andrew Wiggins,,,,,"6' 2""",225,L/R,OF,,21,North Carolina State,4YR JR,FALSE,,2004-10-12,67229
+,Andrew Wiggins,498,,,,"6' 2""",225,L/R,OF,,21,North Carolina State,4YR JR,FALSE,,2004-10-12,67229
 ,Andrew Wong,,,,,"6' 7""",220,R/R,P,,17,Fairfield Prep HS (CT),HS SR,TRUE,,2008-07-13,
 ,Anson McGorman,,,,,"6' 2""",205,R/R,P,,22,Utah,4YR 5S,FALSE,,2003-09-09,62042
 ,Anson Seibert,,,,,"6' 9""",235,L/R,P,,20,Johnson County CC,JC J2,FALSE,,2005-07-20,
 ,Anthony Chavez,,,,,"6' 3""",215,L/L,1B,,18,Mt. Carmel HS (IL),HS SR,TRUE,,2008-07-06,
 ,Anthony Deblois,,,,,"5' 11""",195,R/R,P,,20,Colby CC,JC J1,FALSE,,2006-06-28,
-,Anthony Del Angel,,,,,"6' 4""",205,R/R,3B,,18,V. Sue Cleveland HS (NM),HS SR,TRUE,,2007-09-06,
+,Anthony Del Angel,278,,,,"6' 4""",205,R/R,3B,,18,V. Sue Cleveland HS (NM),HS SR,TRUE,,2007-09-06,
 ,Anthony Karis,,,,,"6' 2""",190,R/R,C,,19,Gonzaga Prep HS (WA),HS SR,TRUE,,2007-06-18,
-,Anthony Potestio,,,,,"5' 11""",195,L/R,SS,,21,UC San Diego,4YR JR,FALSE,,2004-11-05,69052
+,Anthony Potestio,297,,,,"5' 11""",195,L/R,SS,,21,UC San Diego,4YR JR,FALSE,,2004-11-05,69052
 ,Anthony Quigley,,,,,"6' 4""",215,R/R,3B,,20,Northwest Florida State JC,JC J2,FALSE,,2006-05-29,117865
 ,Anthony Treto,,,,,"6' 2""",200,R/R,P,,21,Tarleton State,4YR JR,FALSE,,2005-07-05,137112
 ,Antonio Fawcett,,,,,"5' 11""",190,L/L,OF,,20,Miami Dade JC,JC J1,FALSE,,2006-06-29,
@@ -394,18 +394,18 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Barrett Bucholz,,,,,"6' 2""",180,R/R,OF,,18,Atlee HS (VA),HS SR,TRUE,,2007-09-13,
 ,Barron Sawyer,,,,,"6' 6""",235,R/R,P,,22,Purdue,4YR SR,FALSE,,2003-10-29,
 ,Bayram Hot,,,,,"6' 2""",210,R/R,SS,,22,Louisville,4YR SR,FALSE,,2004-02-16,56375
-,Bear Harrison,,,,164,"6' 3""",230,R/R,C,,21,Texas A&M,4YR JR,FALSE,,2005-01-17,
-,Beau Bryans,,,,,"6' 0""",200,R/L,P,,22,Jacksonville State,4YR SR,FALSE,,2003-10-14,117069
+,Bear Harrison,342,,,164,"6' 3""",230,R/R,C,,21,Texas A&M,4YR JR,FALSE,,2005-01-17,
+,Beau Bryans,201,,,,"6' 0""",200,R/L,P,,22,Jacksonville State,4YR SR,FALSE,,2003-10-14,117069
 ,Beau Sampson,,,,,"6' 6""",229,L/L,P,,22,Tulane,4YR JR,FALSE,,2004-06-17,120226
 ,Beau Sylvester,,,,,"6' 0""",191,R/R,C,,22,Arizona,4YR SR,FALSE,,2004-01-23,58383
 ,Beckett Doane,,,,,"6' 6""",215,L/L,P,,19,Noblesville HS (IN),HS SR,TRUE,,2007-07-03,
 ,Beckett Zavorek,,,,,"5' 10""",180,R/R,SS,,20,Arizona State,4YR SO,FALSE,,2005-07-27,118525
 ,Beckham Stanger,,,,,"6' 5""",230,R/R,P,,18,Woods Cross HS (UT),HS SR,TRUE,,2007-08-15,
 ,Ben Barrett,,,,,"6' 4""",221,R/R,P,,22,Florida State,4YR SR,FALSE,,2004-03-31,53864
-,Ben Cleary,,,,,"6' 0""",200,R/R,SS,,21,Santa Clara,4YR JR,FALSE,,2005-06-01,68849
+,Ben Cleary,426,,,,"6' 0""",200,R/R,SS,,21,Santa Clara,4YR JR,FALSE,,2005-06-01,68849
 ,Ben Cleaver,,,,,"6' 3""",185,L/L,P,,21,Kentucky,4YR JR,FALSE,,2005-04-29,68928
 ,Ben DeMell,,,,,"6' 5""",205,L/R,P,,23,Penn State,4YR 5S,FALSE,,2002-08-17,45172
-,Ben Hanley,,,,,"6' 1""",205,R/R,P,,18,William Mason HS (OH),HS SR,TRUE,,2007-09-29,
+,Ben Hanley,489,,,,"6' 1""",205,R/R,P,,18,William Mason HS (OH),HS SR,TRUE,,2007-09-29,
 ,Ben Kuglitsch,,,,,"6' 3""",180,R/R,OF,,18,Muskego HS (WI),HS SR,TRUE,,2007-10-02,
 ,Ben Lumsden,,,,,"6' 3""",200,L/R,OF,,22,West Virginia,4YR SR,FALSE,,2003-09-24,61995
 ,Ben North,,,,,"6' 0""",200,R/R,SS,,23,Creighton,4YR 5S,FALSE,,2002-12-06,39145
@@ -431,7 +431,7 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Blake Grimmer,,,,,"6' 3""",208,L/R,SS,,22,Tennessee,4YR JR,FALSE,,2004-05-28,69175
 ,Blake Krushinski,,,,,"6' 3""",190,R/R,P,,18,Fox Chapel HS (PA),HS SR,TRUE,,2008-01-26,
 ,Blake Lobell,,,,,"6' 2""",195,R/R,P,,22,Southeastern Louisiana,4YR SR,FALSE,,2004-05-27,118777
-,Blake Morningstar,,,,225,"6' 4""",230,R/R,P,,21,Wake Forest,4YR JR,FALSE,,2005-03-29,67524
+,Blake Morningstar,244,,,225,"6' 4""",230,R/R,P,,21,Wake Forest,4YR JR,FALSE,,2005-03-29,67524
 ,Blake Wilson,,,,,"5' 10""",175,R/R,SS,,21,Washington,4YR JR,FALSE,,2004-09-16,
 ,Bobby Alcock,,,,,"6' 5""",230,R/R,P,,25,Alabama,4YR GR,FALSE,,2001-07-04,10867
 ,Boston Flannery,,,,,"6' 4""",220,R/R,P,,22,North Carolina,4YR JR,FALSE,,2004-05-25,70104
@@ -442,14 +442,14 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Bradley McCafferty,,,,,"6' 1""",186,R/R,C,,20,Austin Prep HS (MA),HS SR,TRUE,,2006-07-09,
 ,Bradley Stewart,,,,,"6' 3""",228,L/L,P,,21,Georgia,4YR JR,FALSE,,2004-09-15,68100
 ,Brady Abate,,,,,"5' 11""",195,L/R,OF,,18,Malvern Prep HS (PA),HS SR,TRUE,,2007-08-30,
-,Brady Ballinger,,,,,"6' 2""",225,L/L,1B,,21,Kansas,4YR JR,FALSE,,2005-05-26,115819
+,Brady Ballinger,247,,,,"6' 2""",225,L/L,1B,,21,Kansas,4YR JR,FALSE,,2005-05-26,115819
 ,Brady Hamilton,,,,,"6' 2""",195,R/R,P,,20,Wichita State,4YR JR,FALSE,,2005-07-19,69880
 ,Brady Hewitt,,,,,"6' 2""",200,R/R,SS,,20,Fresno State (CA),,,,2005-07-25,
 ,Brady Louck,,,,,"5' 10""",180,L/L,P,,21,Arizona State,4YR JR,FALSE,,2004-10-05,68259
-,Brady Marconi,,,,,"6' 3""",220,R/R,C,,18,Charlotte Catholic HS (NC),HS SR,TRUE,,2007-10-08,
+,Brady Marconi,450,,,,"6' 3""",220,R/R,C,,18,Charlotte Catholic HS (NC),HS SR,TRUE,,2007-10-08,
 ,Brady Miller,,,,,"6' 5""",210,R/L,P,,21,Boston College,4YR SO,FALSE,,2005-06-15,
-,Brady Murrietta,,,,,"5' 10""",200,R/R,C,,19,Orange Lutheran HS (CA),HS SR,TRUE,,2007-04-25,
-,Brady Neal,,,,,"5' 10""",200,L/R,C,,21,Alabama,4YR SR,FALSE,,2004-10-10,56139
+,Brady Murrietta,447,,,,"5' 10""",200,R/R,C,,19,Orange Lutheran HS (CA),HS SR,TRUE,,2007-04-25,
+,Brady Neal,319,,,,"5' 10""",200,L/R,C,,21,Alabama,4YR SR,FALSE,,2004-10-10,56139
 ,Brady Reynolds,,,,,"6' 1""",216,L/R,OF,,21,Stanford,4YR JR,FALSE,,2004-11-06,
 ,Brady Shannon,,,,,"6' 2""",225,R/R,OF,,22,Youngstown State,4YR JR,FALSE,,2004-02-16,61620
 ,Brady Thomas,,,,,"6' 6""",220,R/R,P,,22,Jacksonville State,4YR SR,FALSE,,2003-12-27,115811
@@ -458,7 +458,7 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Bradyn Cupit,,,,,"6' 1""",205,R/L,P,,19,West Monroe HS (LA),HS SR,TRUE,,2006-11-19,
 ,Braeden Lipoff,,,,,"6' 0""",200,R/R,C,,19,Gloucester Catholic HS (NJ),HS SR,TRUE,,2007-07-06,
 ,Brando Leroux,,,,,"5' 7""",165,R/R,SS,,23,Florida Atlantic,4YR GR,FALSE,,2003-03-27,67930
-,Brandon Arvidson,,,,,"6' 5""",215,R/L,P,,22,Tennessee,4YR SR,FALSE,,2004-04-09,
+,Brandon Arvidson,239,,,,"6' 5""",215,R/L,P,,22,Tennessee,4YR SR,FALSE,,2004-04-09,
 ,Brandon Cabrera,,,,,"6' 0""",180,R/R,OF,,23,Gonzaga,4YR 5S,FALSE,,2002-10-16,
 ,Brandon Lorenzo,,,,,"6' 2""",175,S/R,SS,,18,Mater Academy HS (FL),HS SR,TRUE,,2007-11-29,
 ,Brandon Rogers,,,,,"5' 11""",205,R/R,OF,,22,Purdue,4YR SR,FALSE,,2003-12-05,70849
@@ -467,10 +467,10 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Brannon Westmoreland,,,,,"6' 6""",225,L/R,P,,21,Arkansas-Little Rock,4YR JR,FALSE,,2005-02-16,139576
 ,Braxton Beaty,,,,,"6' 0""",170,L/L,P,,18,Angleton HS (TX),HS SR,TRUE,,2007-12-21,
 ,Braxton Thomas,,,,,"6' 2""",220,L/L,1B,,21,Cal Poly,4YR JR,FALSE,,2005-06-08,71090
-,Brayden Bakes,,,,,"5' 10""",195,L/R,OF,,21,Illinois State,4YR JR,FALSE,,2004-10-15,67218
+,Brayden Bakes,451,,,,"5' 10""",195,L/R,OF,,21,Illinois State,4YR JR,FALSE,,2004-10-15,67218
 ,Brayden Fraasman,,,,,"6' 0""",189,R/R,OF,,22,North Carolina State,4YR SR,FALSE,,2003-09-19,115908
-,Brayden Harris,,,,,"6' 2""",205,R/R,P,,19,St. John's Country Day HS (FL),HS SR,TRUE,,2007-05-02,
-,Brayden Martin,,,,243,"5' 10""",180,L/R,2B,,20,Maryland,4YR JR,FALSE,,2005-10-13,
+,Brayden Harris,366,,,,"6' 2""",205,R/R,P,,19,St. John's Country Day HS (FL),HS SR,TRUE,,2007-05-02,
+,Brayden Martin,228,,,243,"5' 10""",180,L/R,2B,,20,Maryland,4YR JR,FALSE,,2005-10-13,
 ,Brayden Marx,,,,,"6' 0""",187,R/R,P,,21,Brigham Young,4YR JR,FALSE,,2004-12-17,70791
 ,Brayden Sharp,,,,,"6' 2""",171,L/L,P,,21,Rice,4YR JR,FALSE,,2005-01-31,69185
 ,Brayden Simpson,,,,,"6' 1""",201,R/R,SS,,22,LSU,4YR SR,FALSE,,2003-12-22,
@@ -482,7 +482,7 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Brennan Phillips,,,,,"6' 1""",195,L/L,P,,23,Oklahoma State,4YR SR,FALSE,,2003-05-12,
 ,Brennan Seiber,,,,,"6' 5""",240,R/R,P,,21,Vanderbilt,4YR JR,FALSE,,2004-10-12,67949
 ,Brett Antolick,,,,,"6' 4""",220,R/R,P,,21,East Carolina,4YR JR,FALSE,,2004-10-14,67759
-,Brett Lanman,,,,,"6' 5""",228,R/L,P,,21,Abilene Christian,4YR JR,FALSE,,2005-03-12,71164
+,Brett Lanman,308,,,,"6' 5""",228,R/L,P,,21,Abilene Christian,4YR JR,FALSE,,2005-03-12,71164
 ,Brian Mancinelli,,,,,"6' 4""",196,L/R,P,,18,St. John Paul II HS (MA),HS SR,TRUE,,2007-08-24,
 ,Brian Strange,,,,,"6' 2""",210,R/R,P,,23,Elon,4YR GR,FALSE,,2003-02-19,68491
 ,Bristol Carter,,,,,"5' 11""",194,R/R,OF,,22,Auburn,4YR JR,FALSE,,2004-03-25,67712
@@ -499,7 +499,7 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Brody Crane,,,,,"6' 0""",215,R/R,P,,18,Neosho HS (MO),HS SR,TRUE,,2007-09-21,
 ,Brody DeLamielleure,,,,,"6' 1""",193,R/R,OF,,21,Florida State,4YR JR,FALSE,,2004-10-11,68252
 ,Brody Jindra,,,,,"6' 0""",195,R/R,SS,,18,Elkhorn South HS (NE),HS SR,TRUE,,2008-01-08,
-,Brody Schumaker,,,,,"5' 11""",165,L/R,SS,,18,Santa Margarita Catholic HS (CA),HS SR,TRUE,,2007-11-25,
+,Brody Schumaker,461,,,,"5' 11""",165,L/R,SS,,18,Santa Margarita Catholic HS (CA),HS SR,TRUE,,2007-11-25,
 ,Brody Williams,,,,,"6' 1""",190,R/R,C,,23,Kent State,4YR SR,FALSE,,2003-06-10,55365
 ,Brok Eddy,,,,,"6' 3""",215,R/R,P,,22,Wichita State,4YR JR,FALSE,,2004-06-27,68870
 ,Brooks Berry,,,,,"6' 2""",205,L/R,3B,,18,Baylor School HS (TN),HS SR,TRUE,,2008-01-25,
@@ -512,7 +512,7 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Bryce Amos,,,,,"6' 5""",240,R/R,P,,22,Shippensburg,4YR SR,FALSE,,2003-08-22,62681
 ,Bryce Calloway,,,,,"6' 4""",265,R/R,1B,,23,Georgia,4YR GR,FALSE,,2003-02-26,
 ,Bryce Chance,,,,,"5' 10""",180,R/R,OF,,23,Mississippi State,4YR 5S,FALSE,,2002-10-15,43538
-,Bryce Collins,,,,,"6' 1""",190,R/R,P,,18,Kelso HS (WA),HS SR,TRUE,,2007-11-11,
+,Bryce Collins,439,,,,"6' 1""",190,R/R,P,,18,Kelso HS (WA),HS SR,TRUE,,2007-11-11,
 ,Bryce Cureo,,,,,"6' 3""",195,R/R,P,,18,St Joseph's Collegiate Institute HS (NY),HS SR,TRUE,,2008-05-22,
 ,Bryce Dolby,,,,,"6' 5""",210,R/R,P,,23,Louisiana Tech,4YR JR,FALSE,,2003-07-10,
 ,Bryce Fowler,,,,,"6' 2""",200,L/L,OF,,23,Alabama,4YR GR,FALSE,,2002-11-02,46921
@@ -523,7 +523,7 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Bryce Molinaro,,,,,"6' 0""",190,R/R,3B,,22,Penn State,4YR SR,FALSE,,2003-11-26,60613
 ,Bryce Morrison,,,,,"6' 3""",187,S/R,P,,18,Gahr HS (CA),HS SR,TRUE,,2007-12-30,
 ,Brynner Waiolama,,,,,"6' 4""",225,R/R,P,,20,Iowa Western CC,JC J3,FALSE,,2005-07-16,
-,Bryson Moore,,,,226,"6' 3""",215,R/R,P,,21,Florida State,4YR JR,FALSE,,2004-11-30,68281
+,Bryson Moore,283,,,226,"6' 3""",215,R/R,P,,21,Florida State,4YR JR,FALSE,,2004-11-30,68281
 ,Bryson Thacker,,,,,"6' 2""",190,L/L,P,,21,West Virginia,4YR JR,FALSE,,2005-05-27,125006
 ,Burke-Lee Mabeus,,,,,"6' 4""",215,S/R,C,,21,Oregon,4YR SO,FALSE,,2005-06-08,100247
 ,CJ Alfano,,,,,"6' 0""",185,L/L,OF,,18,St. Anthony's HS (NY),HS SR,TRUE,,2007-12-27,
@@ -548,7 +548,7 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Caden Kirby,,,,,"5' 11""",185,R/R,SS,,19,College of Southern Nevada,JC J1,FALSE,,2006-11-06,
 ,Caden Marcum,,,,,"6' 6""",175,R/R,P,,22,Ohio State,4YR JR,FALSE,,2003-08-07,134884
 ,Caden Matusak,,,,,"6' 4""",200,R/R,SS,,18,Crown Point HS (IN),HS SR,TRUE,,2008-04-08,
-,Caden McDonald,,,,,"6' 3""",200,R/R,P,,21,Florida,4YR JR,FALSE,,2005-06-09,67600
+,Caden McDonald,433,,,,"6' 3""",200,R/R,P,,21,Florida,4YR JR,FALSE,,2005-06-09,67600
 ,Caden Spivey,,,,,"6' 2""",193,R/R,P,,22,Georgia Tech,4YR SR,FALSE,,2003-10-10,58171
 ,Cael Frost,,,,,"6' 0""",200,L/R,OF,,23,Western Kentucky,4YR 5S,FALSE,,2002-09-11,68674
 ,Cal Barna,,,,,"6' 3""",200,R/R,P,,23,UNLV,4YR GR,FALSE,,2002-08-07,
@@ -567,29 +567,29 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Caleb Johnson,,,,,"6' 2""",190,S/R,SS,,22,Jacksonville State,4YR SR,FALSE,,2004-01-14,
 ,Caleb Koskie,,,,,"6' 0""",195,R/L,P,,21,Indiana,4YR SO,FALSE,,2005-06-03,100298
 ,Caleb Stelly,,,,,"6' 1""",202,R/R,OF,,22,Southern Mississippi,4YR SR,FALSE,,2003-12-26,56095
-,Caleb Trugman,,,,,"6' 5""",215,R/R,P,,18,Rueben S. Ayala HS (CA),HS SR,TRUE,,2007-09-05,
-,Calvin Proskey,,,,,"6' 3""",195,R/R,P,,21,UC Santa Barbara,4YR JR,FALSE,,2005-03-13,70359
+,Caleb Trugman,380,,,,"6' 5""",215,R/R,P,,18,Rueben S. Ayala HS (CA),HS SR,TRUE,,2007-09-05,
+,Calvin Proskey,143,,,,"6' 3""",195,R/R,P,,21,UC Santa Barbara,4YR JR,FALSE,,2005-03-13,70359
 ,Calvin Shepherd,,,,,"6' 2""",180,R/R,P,,23,Louisiana State-Shreveport,4YR 5S,FALSE,,2002-10-29,41554
 ,Cam Allen,,,,,"6' 4""",190,R/R,P,,20,Wright State,4YR JR,FALSE,,2005-07-30,
 ,Cam Carpenter,,,,,"5' 10""",175,S/R,OF,,20,Lake Sumter CC,JC J1,FALSE,,2005-11-29,
 ,Cam Hoiland,,,,,"6' 2""",200,L/L,OF,,23,Cal Poly,4YR 5S,FALSE,,2003-02-20,71080
 ,Cam Padgett,,,,,"6' 3""",175,R/R,P,,22,North Carolina,4YR SR,FALSE,,2004-06-03,
 ,Camden Sos,,,,,"6' 3""",200,R/R,3B,,21,Santa Clara,4YR JR,FALSE,,2004-12-14,70694
-,Camden Wicker,,,,,"6' 7""",190,R/R,P,,21,Central Florida,4YR JR,FALSE,,2005-02-05,67702
+,Camden Wicker,411,,,,"6' 7""",190,R/R,P,,21,Central Florida,4YR JR,FALSE,,2005-02-05,67702
 ,Camden Wimbish,,,,,"6' 2""",220,S/R,P,,21,Campbell,4YR JR,FALSE,,2004-09-02,69775
 ,Cameron Chee-Aloy,,,,,"5' 9""",185,R/R,OF,,21,Illinois,4YR JR,FALSE,,2004-12-11,70868
 ,Cameron Gurney,,,,,"6' 0""",210,L/R,1B,,22,Utah,4YR JR,FALSE,,2003-10-08,62037
 ,Cameron Hanes,,,,,"6' 4""",205,R/R,P,,18,TNXL Academy (FL),HS SR,TRUE,,2008-04-04,
-,Cameron Jackson,,,,,"6' 1""",180,S/R,SS,,18,Georgia Premier HS (GA),HS SR,TRUE,,2008-02-18,
+,Cameron Jackson,237,,,,"6' 1""",180,S/R,SS,,18,Georgia Premier HS (GA),HS SR,TRUE,,2008-02-18,
 ,Cameron Kim,,,,,"6' 4""",215,R/R,SS,,21,Cal State Fullerton,4YR JR,FALSE,,2004-12-13,68540
-,Cameron Tarkenton,,,,,"6' 2""",190,R/R,P,,18,Cardinal Gibbons HS (NC),HS SR,TRUE,,2007-11-06,
+,Cameron Tarkenton,311,,,,"6' 2""",190,R/R,P,,18,Cardinal Gibbons HS (NC),HS SR,TRUE,,2007-11-06,
 ,Cameron Taylor,,,,,"6' 3""",210,R/R,P,,18,Kearney HS (MO),HS SR,TRUE,,2008-01-23,
 ,Campbell Smithwick,,,,,"6' 0""",192,L/R,C,,21,Oklahoma State,4YR JR,FALSE,,2005-07-03,70782
 ,Cannon Koronka,,,,,"6' 3""",184,R/R,SS,,18,The First Academy (FL),HS SR,TRUE,,2008-02-11,
 ,Carl Schmidt,,,,,"5' 11""",180,R/R,SS,,21,California,4YR JR,FALSE,,2004-08-10,67770
 ,Carlos Jazmin,,,,,"6' 2""",200,R/R,P,,20,Bethune-Cookman,4YR JR,FALSE,,2005-10-08,75460
 ,Carlos Martinez,,,,,"6' 0""",200,L/L,OF,,22,Massachusetts-Lowell,4YR SR,FALSE,,2004-06-23,
-,Carlos Martinez,,,,,"6' 2""",210,R/R,P,,21,Hofstra,4YR SR,FALSE,,2004-09-21,
+,Carlos Martinez,340,,,212,"6' 2""",210,R/R,P,,21,Hofstra,4YR SR,FALSE,,2004-09-21,
 ,Carmelo Musacchia,,,,,"6' 0""",180,R/R,SS,,22,Northeastern,4YR SR,FALSE,,2003-09-30,57959
 ,Carson Cormier,,,,,"6' 6""",235,R/R,P,,22,Illinois State,4YR JR,FALSE,,2003-09-30,70687
 ,Carson Estridge,,,,,"6' 7""",210,L/R,P,,22,West Virginia,4YR SR,FALSE,,2003-11-17,62683
@@ -603,7 +603,7 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Carson Priebe,,,,,"6' 6""",220,R/R,P,,21,Amarillo JC,JC J3,FALSE,,2005-02-02,100361
 ,Carson Ray,,,,,"5' 11""",165,R/R,SS,,19,Woodward Academy (GA),HS SR,TRUE,,2007-06-27,
 ,Carson Sheffer,,,,,"6' 1""",167,R/R,C,,18,Oaks Christian HS (CA),HS SR,TRUE,,2007-12-30,
-,Carson Turnquist,,,,,"6' 5""",235,R/R,P,,22,Cal Poly,4YR JR,FALSE,,2004-05-07,58364
+,Carson Turnquist,322,,,,"6' 5""",235,R/R,P,,22,Cal Poly,4YR JR,FALSE,,2004-05-07,58364
 ,Carsten Sabathia III,,,,,"6' 4""",245,R/R,1B,,22,Houston,4YR SR,FALSE,,2003-09-15,
 ,Carter Cox,,,,,"5' 11""",190,L/L,P,,18,Venice HS (FL),HS SR,TRUE,,2008-03-03,
 ,Carter Johnstone,,,,,"6' 1""",185,L/R,SS,,20,Vanderbilt,4YR SO,FALSE,,2005-07-25,116481
@@ -615,7 +615,7 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Casen Taggart,,,,,"6' 5""",225,L/R,1B,,23,Washington,4YR 5S,FALSE,,2002-11-29,70330
 ,Casey Borba,,,,,"6' 1""",210,R/R,3B,,22,Texas,4YR JR,FALSE,,2004-06-03,67818
 ,Casey Cuddyer,,,,,"6' 1""",175,R/R,SS,,18,Great Bridge HS (VA),HS SR,TRUE,,2008-06-20,
-,Cash Scarborough,,,,,"5' 10""",190,R/R,P,,18,Memorial HS (TX),HS SR,TRUE,,2008-01-07,
+,Cash Scarborough,242,,,,"5' 10""",190,R/R,P,,18,Memorial HS (TX),HS SR,TRUE,,2008-01-07,
 ,Catcher Hopkins,,,,,"6' 2""",200,S/R,C,,19,Tomball HS (TX),HS SR,TRUE,,2006-11-08,
 ,Cayden Gaskin,,,,,"5' 10""",185,R/R,2B,,22,Central Florida,4YR SR,FALSE,,2004-06-30,100405
 ,Cayden Munster,,,,,"6' 3""",240,L/R,1B,,21,Fresno State,4YR JR,FALSE,,2004-12-04,70641
@@ -643,9 +643,9 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Chase Hilt,,,,,"6' 5""",210,L/R,1B,,18,Temecula Valley HS (CA),HS SR,TRUE,,2007-11-16,
 ,Chase Hoover,,,,,"6' 1""",205,L/L,P,,22,UC Santa Barbara,4YR SR,FALSE,,2003-10-16,61066
 ,Chase Horst,,,,,"5' 11""",190,L/L,P,,22,Jacksonville State,4YR SR,FALSE,,2003-08-08,52241
-,Chase Kiker,,,,,"6' 0""",200,R/R,P,,18,Metrolina Christian HS (NC),HS SR,TRUE,,2007-09-26,
+,Chase Kiker,158,,,,"6' 0""",200,R/R,P,,18,Metrolina Christian HS (NC),HS SR,TRUE,,2007-09-26,
 ,Chase Krewson,,,,,"6' 2""",205,L/L,OF,,21,Rutgers,4YR JR,FALSE,,2004-10-26,67212
-,Chase Meyer,,,,,"6' 2""",175,R/R,P,,21,West Virginia,4YR JR,FALSE,,2004-12-28,68468
+,Chase Meyer,369,,,,"6' 2""",175,R/R,P,,21,West Virginia,4YR JR,FALSE,,2004-12-28,68468
 ,Chase Mora,,,,,"6' 2""",167,R/R,2B,,22,Texas State,4YR SR,FALSE,,2003-11-05,61214
 ,Chase Swain,,,,,"6' 0""",195,R/R,2B,,23,La Salle,4YR 5S,FALSE,,2002-12-19,
 ,Chase Van Ameyde,,,,,"6' 5""",200,R/R,P,,20,Notre Dame,4YR SO,FALSE,,2005-07-24,117309
@@ -655,20 +655,20 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Chris Billingsley,,,,,"6' 4""",205,R/R,P,,20,Mississippi State,4YR JR,FALSE,,2005-08-10,
 ,Chris Cole,,,,,"6' 2""",179,L/R,OF,,23,Kennesaw State,4YR GR,FALSE,,2003-04-16,55336
 ,Chris Diaz,,,,,"6' 2""",210,L/L,OF,,21,Marist,4YR JR,FALSE,,2004-12-30,
-,Chris Diaz,,,,,"6' 1""",202,S/R,P,,21,Florida Gulf Coast,4YR JR,FALSE,,2004-10-16,
+,Chris Diaz,385,,,,"6' 1""",202,S/R,P,,21,Florida Gulf Coast,4YR JR,FALSE,,2004-10-16,
 ,Chris Domke,,,,,"6' 3""",215,R/R,P,,22,Ohio State,4YR JR,FALSE,,2004-06-15,70473
 ,Chris Guillory,,,,,"6' 4""",195,R/R,P,,18,Newton County HS (GA),HS SR,TRUE,,2007-10-24,
 ,Chris Hernandez,,,,,"6' 2""",210,R/R,P,,20,Cal State Fullerton,4YR JR,FALSE,,2005-07-18,
-,Chris Katz,,,,,"6' 0""",210,R/R,OF,,23,Mercer,4YR 5S,FALSE,,2003-01-21,48998
+,Chris Katz,362,,,,"6' 0""",210,R/R,OF,,23,Mercer,4YR 5S,FALSE,,2003-01-21,48998
 ,Chris Maldonado,,,,,"6' 1""",194,R/R,3B,,23,Vanderbilt,4YR SR,FALSE,,2003-04-22,62220
-,Chris McHugh,,,,,"6' 3""",215,R/R,1B,,20,North Carolina State,4YR JR,FALSE,,2005-07-27,69760
+,Chris McHugh,243,,,,"6' 3""",215,R/R,1B,,20,North Carolina State,4YR JR,FALSE,,2005-07-27,69760
 ,Chris Newstrom,,,,,"6' 2""",210,R/R,OF,,21,Tennessee,4YR SO,FALSE,,2005-06-01,116920
 ,Chris Polemeni,,,,,"6' 0""",200,R/R,OF,,21,Connecticut,4YR SR,FALSE,,2004-12-20,56006
 ,Chris Scinta,,,,,"6' 0""",215,L/L,P,,22,Houston,4YR SR,FALSE,,2004-05-17,56830
 ,Chris Stanfield,,,,,"6' 2""",196,R/R,OF,,22,LSU,4YR SR,FALSE,,2003-07-27,50740
-,Christian Chatterton,,,,,"6' 0""",202,R/R,P,,21,Auburn,4YR SO,FALSE,,2005-06-14,100497
-,Christian Coppola,,,,,"6' 5""",230,R/R,P,,22,Saint Joseph's,4YR SR,FALSE,,2003-11-04,59441
-,Christian Doty,,,,,"6' 0""",190,R/R,SS,,19,Magnolia Heights HS (MS),HS SR,TRUE,,2007-02-22,
+,Christian Chatterton,418,,,,"6' 0""",202,R/R,P,,21,Auburn,4YR SO,FALSE,,2005-06-14,100497
+,Christian Coppola,328,,,,"6' 5""",230,R/R,P,,22,Saint Joseph's,4YR SR,FALSE,,2003-11-04,59441
+,Christian Doty,305,,,,"6' 0""",190,R/R,SS,,19,Magnolia Heights HS (MS),HS SR,TRUE,,2007-02-22,
 ,Christian Lim,,,,,"5' 10""",206,L/L,P,,21,Stanford,4YR JR,FALSE,,2004-10-14,70895
 ,Christian Olivares,,,,,"5' 11""",200,R/R,C,,18,London HS (TX),HS SR,TRUE,,2008-03-03,
 ,Christian Rodriguez,,,,,"6' 0""",205,R/R,P,,21,Florida,4YR JR,FALSE,,2005-05-19,
@@ -679,48 +679,48 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Christian Torres,,,,,"6' 1""",205,R/R,OF,,22,Mlillenia Atlantic,4YR JR,FALSE,,2004-04-07,31939
 ,Christopher Brown,,,,,"6' 0""",195,R/R,C,,18,Brentwood HS (TN),HS SR,TRUE,,2008-02-06,
 ,Ciaran Caughey,,,,,"6' 1""",175,R/R,P,,22,Kent State,4YR SR,FALSE,,2003-09-28,55355
-,Cider Canon,,,,,"5' 11""",180,R/R,C,,21,Duke,4YR JR,FALSE,,2004-10-29,68888
+,Cider Canon,384,,,,"5' 11""",180,R/R,C,,21,Duke,4YR JR,FALSE,,2004-10-29,68888
 ,Clay Grady,,,,,"5' 9""",170,R/R,SS,,22,Virginia Tech,4YR SR,FALSE,,2004-02-05,62288
 ,Clayton Broeder,,,,,"6' 2""",195,R/L,P,,24,Angelo State,4YR GR,FALSE,,2001-09-09,55285
-,Clayton Freshcorn,,,,149,"6' 0""",180,R/R,P,,21,Texas A&M,4YR JR,FALSE,,2004-08-11,116063
+,Clayton Freshcorn,226,,,149,"6' 0""",180,R/R,P,,21,Texas A&M,4YR JR,FALSE,,2004-08-11,116063
 ,Clinton Harris,,,,,"6' 2""",225,R/R,P,,19,Chipola JC,JC J2,FALSE,,2006-08-23,100531
 ,Codey Gauff,,,,,"5' 7""",185,S/R,C,,18,ESB Academy HS (FL),HS SR,TRUE,,2007-09-21,
 ,Codi Scott,,,,,"6' 4""",208,L/L,P,,20,Jefferson CC,JC J1,FALSE,,2005-09-26,
 ,Cody Airington,,,,,"6' 2""",200,R/R,P,,21,Austin Peay State,4YR JR,FALSE,,2004-08-30,117594
-,Cody Boshell,,,,142,"6' 3""",220,L/L,1B,,19,Bishop Snyder HS (FL),HS SR,TRUE,,2007-05-25,
-,Cody Brasch,,,,,"6' 3""",205,R/R,P,,22,Louisana-Lafayette,4YR JR,FALSE,,2004-01-20,132540
+,Cody Boshell,277,,,142,"6' 3""",220,L/L,1B,,19,Bishop Snyder HS (FL),HS SR,TRUE,,2007-05-25,
+,Cody Brasch,306,,,,"6' 3""",205,R/R,P,,22,Louisana-Lafayette,4YR JR,FALSE,,2004-01-20,132540
 ,Cody Howard,,,,,"6' 1""",210,R/R,P,,23,Texas,4YR GR,FALSE,,2002-12-05,61156
-,Cody New,,,,,"6' 3""",215,L/L,P,,21,California Baptist,4YR JR,FALSE,,2005-02-16,68385
+,Cody New,192,,,,"6' 3""",215,L/L,P,,21,California Baptist,4YR JR,FALSE,,2005-02-16,68385
 ,Colby Allen,,,,,"6' 0""",195,R/R,P,,23,Southern Mississippi,4YR SR,FALSE,,2003-06-24,60322
 ,Colby Guy,,,,,"5' 10""",165,R/R,P,,23,Arizona State,4YR GR,FALSE,,2003-06-29,
-,Colby Turner,,,,,"6' 0""",205,R/R,2B,,21,Michigan,4YR JR,FALSE,,2004-12-01,68576
+,Colby Turner,496,,,,"6' 0""",205,R/R,2B,,21,Michigan,4YR JR,FALSE,,2004-12-01,68576
 ,Colby Wallace,,,,,"6' 3""",210,R/R,3B,,21,East Carolina,4YR JR,FALSE,,2005-04-06,
 ,Cole Adams,,,,,"6' 2""",195,L/L,P,,17,Boyd County HS (KY),HS SR,TRUE,,2008-09-10,
 ,Cole Cleveland,,,,,"6' 2""",185,L/R,OF,,21,Florida International,4YR SO,FALSE,,2005-06-06,117187
 ,Cole Dorland,,,,,"6' 1""",168,R/R,P,,17,Walnut Grove SS (BC),HS SR,TRUE,,2008-12-29,
-,Cole Hansen,,,,,"6' 1""",210,R/R,C,,21,California Baptist,4YR SO,FALSE,,2005-06-22,
+,Cole Hansen,370,,,,"6' 1""",210,R/R,C,,21,California Baptist,4YR SO,FALSE,,2005-06-22,
 ,Cole Leaman,,,,,"6' 0""",190,R/R,P,,22,Lehigh,4YR SR,FALSE,,2003-10-09,55754
 ,Cole McLean,,,,,"6' 1""",185,L/L,P,,18,Taylor County HS (KY),HS SR,TRUE,,2007-07-27,
 ,Cole Royer,,,,,"6' 6""",184,R/R,P,,20,Kennesaw State,4YR SO,FALSE,,2005-07-23,116577
 ,Cole Selvig,,,,,"6' 0""",205,L/R,P,,21,Minnesota,4YR JR,FALSE,,2004-09-30,67825
-,Cole Stokes,,,,,"6' 6""",230,R/R,P,,21,Florida State,4YR JR,FALSE,,2005-03-04,69646
-,Cole Tryba,,,,,"6' 0""",185,L/L,P,,21,UC Santa Barbara,4YR JR,FALSE,,2005-05-05,70364
+,Cole Stokes,387,,,,"6' 6""",230,R/R,P,,21,Florida State,4YR JR,FALSE,,2005-03-04,69646
+,Cole Tryba,177,,,,"6' 0""",185,L/L,P,,21,UC Santa Barbara,4YR JR,FALSE,,2005-05-05,70364
 ,Coleman Bobb,,,,,"6' 3""",255,R/R,P,,21,Virginia Commonwealth,4YR JR,FALSE,,2005-03-08,137915
 ,Coleman Mizell,,,,,"6' 3""",230,L/L,OF,,21,Alabama,4YR JR,FALSE,,2004-12-20,69163
-,Colin Barczi,,,,,"6' 3""",217,R/R,C,,21,Vanderbilt,4YR JR,FALSE,,2004-07-12,67934
+,Colin Barczi,265,,,,"6' 3""",217,R/R,C,,21,Vanderbilt,4YR JR,FALSE,,2004-07-12,67934
 ,Colin Brueggemann,,,,,"6' 6""",246,L/R,1B,,23,Oklahoma State,4YR 5S,FALSE,,2003-03-13,58370
 ,Colin Coonradt,,,,,"6' 1""",205,L/R,SS,,20,Johnson County CC,JC J2,FALSE,,2005-08-12,100589
-,Colin Driffill,,,,,"6' 1""",200,R/R,P,,18,Millard North HS (NE),HS SR,TRUE,,2007-11-05,
-,Colin Fisher,,,,,"6' 3""",225,L/L,P,,21,Arkansas,4YR JR,FALSE,,2004-09-21,
+,Colin Driffill,300,,,,"6' 1""",200,R/R,P,,18,Millard North HS (NE),HS SR,TRUE,,2007-11-05,
+,Colin Fisher,269,,,,"6' 3""",225,L/L,P,,21,Arkansas,4YR JR,FALSE,,2004-09-21,
 ,Colin Fitzgerald,,,,,"6' 1""",200,R/R,P,,23,Penn State,4YR GR,FALSE,,2003-01-23,
 ,Colin Guerra,,,,,"6' 0""",195,S/R,SS,,20,Chipola JC,JC J2,FALSE,,2006-04-27,
-,Colin Linder,,,,,"6' 4""",235,R/R,P,,22,Arizona State,4YR SR,FALSE,,2004-03-01,139488
+,Colin Linder,296,,,,"6' 4""",235,R/R,P,,22,Arizona State,4YR SR,FALSE,,2004-03-01,139488
 ,Colin Roos,,,,,"6' 6""",215,R/R,P,,21,Salt Lake CC,JC J3,FALSE,,2004-07-24,69616
-,Colin White,,,,,"6' 4""",208,L/L,P,,19,Harrison HS (GA),HS SR,TRUE,,2006-12-22,
-,Collin Bland,,,,,"6' 2""",240,L/R,1B,,18,Houston HS (TN),HS SR,TRUE,,2007-10-17,
+,Colin White,298,,,,"6' 4""",208,L/L,P,,19,Harrison HS (GA),HS SR,TRUE,,2006-12-22,
+,Collin Bland,216,,,,"6' 2""",240,L/R,1B,,18,Houston HS (TN),HS SR,TRUE,,2007-10-17,
 ,Collin Bosley-Smith,,,,,"6' 4""",220,R/R,P,,24,Lipscomb,4YR GR,FALSE,,2001-12-08,8246
-,Collin Clarke,,,,,"6' 3""",205,R/R,P,,21,Oregon,4YR JR,FALSE,,2005-04-25,69632
-,Collin Jennings,,,,,"6' 5""",215,L/R,OF,,21,Illinois,4YR JR,FALSE,,2005-06-20,70870
+,Collin Clarke,499,,,,"6' 3""",205,R/R,P,,21,Oregon,4YR JR,FALSE,,2005-04-25,69632
+,Collin Jennings,257,,,,"6' 5""",215,L/R,OF,,21,Illinois,4YR JR,FALSE,,2005-06-20,70870
 ,Collin McKinney,,,,,"6' 5""",217,R/R,P,,22,Arizona,4YR SR,FALSE,,2004-02-17,50993
 ,Collin Priest,,,,,"6' 3""",260,L/R,1B,,21,Clemson,4YR JR,FALSE,,2004-09-08,67378
 ,Collin Smith,,,,,"6' 7""",210,R/R,P,,20,Cochise JC,JC J2,FALSE,,2005-10-22,
@@ -738,17 +738,17 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Colton Wombles,,,,,"5' 8""",186,R/R,C,,22,Texas A&M-Texarkana,4YR JR,FALSE,,2004-05-29,150646
 ,Conlan Daniel,,,,,"6' 0""",190,R/R,OF,,21,Cincinnati,4YR SO,FALSE,,2005-05-26,100615
 ,Conner Barth,,,,,"6' 0""",190,R/R,SS,,20,Folsom Lake JC,JC J2,FALSE,,2006-06-08,
-,Conner Griffin,,,,,"6' 6""",210,R/R,P,,21,SUNY Binghamton,4YR JR,FALSE,,2005-06-18,
+,Conner Griffin,466,,,,"6' 6""",210,R/R,P,,21,SUNY Binghamton,4YR JR,FALSE,,2005-06-18,
 ,Connor Benge,,,,,"6' 0""",182,R/R,P,,22,LSU,4YR SR,FALSE,,2003-10-02,68493
 ,Connor Capece,,,,,"6' 0""",200,R/R,C,,21,Creighton,4YR JR,FALSE,,2005-06-19,69669
 ,Connor Chicoli,,,,,"6' 3""",185,R/R,P,,20,South Carolina,4YR SO,FALSE,,2005-07-27,118036
 ,Connor Elenteny,,,,,"6' 0""",200,R/R,P,,18,Mt. Carmel HS (IL),HS SR,TRUE,,2007-11-11,
-,Connor Fennell,,,,,"6' 1""",183,R/R,P,,21,Vanderbilt,4YR JR,FALSE,,2005-04-20,68717
-,Connor Finn,,,,,"6' 3""",215,L/L,P,,18,Mahtomedi HS (MN),HS SR,TRUE,,2007-08-08,
+,Connor Fennell,275,,,,"6' 1""",183,R/R,P,,21,Vanderbilt,4YR JR,FALSE,,2005-04-20,68717
+,Connor Finn,437,,,,"6' 3""",215,L/L,P,,18,Mahtomedi HS (MN),HS SR,TRUE,,2007-08-08,
 ,Connor Jones,,,,,"6' 3""",185,R/R,P,,19,Shelton State CC,JC J1,FALSE,,2007-03-15,
 ,Connor Kelley,,,,,"6' 5""",245,R/R,P,,22,Texas-San Antonio,4YR SR,FALSE,,2004-02-12,68187
 ,Connor Langdon,,,,,"6' 2""",195,L/L,P,,18,Perry HS (GA),HS SR,TRUE,,2007-08-08,
-,Connor Marshburn,,,,,"6' 6""",240,R/R,P,,21,UNC Wilmington,4YR JR,FALSE,,2005-01-26,70078
+,Connor Marshburn,302,,,,"6' 6""",240,R/R,P,,21,UNC Wilmington,4YR JR,FALSE,,2005-01-26,70078
 ,Connor Mattison,,,,,"6' 2""",195,R/R,P,,21,Kentucky,4YR JR,FALSE,,2004-10-12,70463
 ,Connor McCreery,,,,,"6' 6""",235,R/R,P,,23,Texas,4YR SR,FALSE,,2003-02-25,
 ,Connor Mohan,,,,,"6' 3""",165,R/R,P,,21,Texas Tech,4YR SO,FALSE,,2005-07-05,119418
@@ -762,13 +762,13 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Cooper Kunis,,,,,"6' 1""",155,L/L,OF,,19,Sierra JC,JC J1,FALSE,,2007-07-02,
 ,Cooper Leggett,,,,,"6' 7""",225,R/R,P,,18,Owasso HS (OK),HS SR,TRUE,,2007-09-09,
 ,Cooper McMullen,,,,,"6' 3""",197,R/R,P,,21,Kennesaw State,4YR SO,FALSE,,2005-05-25,116579
-,Cooper Moore,,,,,"6' 1""",200,R/R,P,,22,LSU,4YR JR,FALSE,,2004-06-29,
+,Cooper Moore,299,,,,"6' 1""",200,R/R,P,,22,LSU,4YR JR,FALSE,,2004-06-29,
 ,Cooper Neville,,,,,"6' 0""",185,L/R,SS,,21,Dallas Baptist,4YR JR,FALSE,,2004-10-08,70464
 ,Cooper Nicholson,,,,,"5' 11""",195,R/R,SS,,21,North Carolina,4YR JR,FALSE,,2005-05-05,134463
 ,Cooper Sheff,,,,,"6' 4""",215,R/R,SS,,22,UNLV,4YR JR,FALSE,,2004-04-30,69645
 ,Cooper Shrum,,,,,"6' 6""",187,L/R,P,,19,Belton HS (MO),HS SR,TRUE,,2007-05-24,
 ,Cooper Strawn,,,,,"6' 5""",233,R/R,P,,21,Oregon,4YR JR,FALSE,,2004-09-30,135032
-,Cooper Webb,,,,,"6' 3""",195,R/R,P,,18,Lake Travis HS (TX),HS SR,TRUE,,2007-07-16,
+,Cooper Webb,212,,,,"6' 3""",195,R/R,P,,18,Lake Travis HS (TX),HS SR,TRUE,,2007-07-16,
 ,Corey Kling,,,,,"5' 11""",176,R/R,P,,21,Arizona,4YR JR,FALSE,,2005-05-02,68217
 ,Corey Nunez,,,,,"6' 3""",192,R/R,SS,,22,UC Santa Barbara,4YR SR,FALSE,,2004-01-29,61588
 ,Cort MacDonald,,,,,"6' 1""",197,L/L,OF,,22,Stanford,4YR SR,FALSE,,2003-08-05,60802
@@ -788,15 +788,15 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Dallis Moran,,,,,"6' 1""",185,R/R,P,,21,Stetson,4YR JR,FALSE,,2004-11-01,68922
 ,Dalton Bargo,,,,,"6' 1""",196,L/R,C,,22,North Carolina State,4YR SR,FALSE,,2004-02-12,57105
 ,Dalton Harper,,,,,"5' 9""",205,R/R,C,,20,Niagara County CC,JC J3,FALSE,,2005-08-22,
-,Damarcus Rideout-Carter,,,,,"6' 3""",170,R/R,P,,18,Heart Lake SS (ON),HS SR,TRUE,,2008-05-15,
-,Damian Ruiz,,,,,"6' 0""",190,R/R,OF,,22,Arkansas,4YR SR,FALSE,,2004-03-28,54881
+,Damarcus Rideout-Carter,470,,,,"6' 3""",170,R/R,P,,18,Heart Lake SS (ON),HS SR,TRUE,,2008-05-15,
+,Damian Ruiz,423,,,,"6' 0""",190,R/R,OF,,22,Arkansas,4YR SR,FALSE,,2004-03-28,54881
 ,Dane Bjorn,,,,,"6' 1""",195,L/L,P,,21,Missouri,4YR JR,FALSE,,2004-11-03,133793
 ,Dane Burns,,,,,"6' 5""",215,R/L,P,,21,Mississippi State,4YR SO,FALSE,,2004-09-28,105041
 ,Dane Harvey,,,,,"6' 5""",270,L/L,1B,,21,Ohio State,4YR JR,FALSE,,2005-05-01,134882
 ,Daniel Bass,,,,,"6' 4""",200,R/R,P,,22,Tarleton State,4YR SR,FALSE,,2003-09-15,119416
 ,Daniel Contreras,,,,,"5' 11""",195,R/R,C,,23,Illinois,4YR GR,FALSE,,2003-01-07,69353
 ,Daniel Harden,,,,,"6' 2""",195,L/L,OF,,21,LSU,4YR JR,FALSE,,2004-12-08,132531
-,Daniel Kellis,,,,,"6' 5""",230,R/R,P,,18,Radnor HS (PA),HS SR,TRUE,,2007-10-20,
+,Daniel Kellis,438,,,,"6' 5""",230,R/R,P,,18,Radnor HS (PA),HS SR,TRUE,,2007-10-20,
 ,Daniel Nienaber,,,,,"6' 4""",195,R/R,P,,18,Glen Allen HS (VA),HS SR,TRUE,,2008-02-07,
 ,Daniel Pacella,,,,,"6' 4""",225,L/L,OF,,22,Mississippi,4YR SR,FALSE,,2003-11-04,55023
 ,Daniel Stewart,,,,,"6' 5""",215,R/R,C,,23,Western Kentucky,4YR SR,FALSE,,2002-09-06,138447
@@ -817,12 +817,12 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,David Boisvert,,,,,"6' 5""",225,R/R,P,,23,Duke,4YR GR,FALSE,,2003-04-15,39601
 ,David Case,,,,,"6' 0""",181,L/L,P,,23,Memphis,4YR GR,FALSE,,2003-02-10,45028
 ,David Chirinos,,,,,"6' 2""",195,R/R,C,,18,Rockwall-Heath HS (TX),HS SR,TRUE,,2007-09-28,
-,David Hinojosa,,,,,"6' 1""",190,R/R,P,,18,Poly Prep HS (NY),HS SR,TRUE,,2008-02-29,
+,David Hinojosa,279,,,,"6' 1""",190,R/R,P,,18,Poly Prep HS (NY),HS SR,TRUE,,2008-02-29,
 ,David Hogg II,,,,,"6' 2""",200,R/R,SS,,20,Grayson JC,JC J2,FALSE,,2005-07-21,
 ,David Horn Jr.,,,,,"6' 5""",235,R/R,P,,22,Middle Tennessee State,4YR SR,FALSE,,2003-10-20,62217
 ,David Lally Jr.,,,,,"6' 4""",210,R/R,P,,22,Michigan,4YR SR,FALSE,,2004-01-08,58167
 ,David Leslie,,,,,"6' 2""",180,R/R,P,,23,Pittsburgh,4YR GR,FALSE,,2003-04-08,
-,David Rossow,,,,,"6' 3""",240,R/R,P,,23,Campbell,4YR 5S,FALSE,,2003-05-04,43286
+,David Rossow,357,,,,"6' 3""",240,R/R,P,,23,Campbell,4YR 5S,FALSE,,2003-05-04,43286
 ,Davin Pollard,,,,,"6' 4""",220,R/R,P,,23,Queens University of Charlotte,4YR 5S,FALSE,,2003-06-06,44503
 ,Davis Rivers,,,,,"6' 0""",195,L/R,C,,21,Texas Tech,4YR JR,FALSE,,2005-01-05,
 ,Davis Webb,,,,,"6' 6""",260,L/L,P,,21,Bradley,4YR JR,FALSE,,2004-08-18,128081
@@ -832,16 +832,16 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Daxton Vander Kooi,,,,,"6' 5""",245,R/R,P,,20,Fraser Valley,4YR JR,FALSE,,2005-08-09,
 ,DeAmez Ross,,,,,"5' 10""",190,L/L,OF,,23,Central Florida,4YR SR,FALSE,,2003-01-27,53872
 ,Deacon Avery,,,,,"6' 3""",215,R/R,SS,,17,Niceville HS (FL),HS SR,TRUE,,2008-07-11,
-,Deacon Nelson,,,,,"6' 0""",185,L/R,SS,,18,University School HS (OH),HS SR,TRUE,,2007-08-08,
+,Deacon Nelson,394,,,,"6' 0""",185,L/R,SS,,18,University School HS (OH),HS SR,TRUE,,2007-08-08,
 ,Dean Carpentier,,,,,"6' 3""",205,R/R,1B,,21,USC,4YR JR,FALSE,,2004-09-21,69313
 ,Dean Mihos,,,,,"5' 9""",170,R/R,OF,,22,Coastal Carolina,4YR SR,FALSE,,2004-07-09,52384
 ,Dean Toigo,,,,,"6' 4""",205,L/R,OF,,23,Arizona State,4YR 5S,FALSE,,2002-09-04,
-,Dean West,,,,,"5' 9""",185,L/R,OF,,21,UCLA,4YR JR,FALSE,,2004-08-10,68547
+,Dean West,303,,,,"5' 9""",185,L/R,OF,,21,UCLA,4YR JR,FALSE,,2004-08-10,68547
 ,Declan Fitzgerald,,,,,"6' 3""",200,R/R,P,,18,Fullerton HS (CA),HS SR,TRUE,,2008-01-02,
 ,Deion Cole,,,,,"6' 1""",195,R/R,OF,,18,Etowah HS (GA),HS SR,TRUE,,2007-11-25,
 ,Demitri Diamant,,,,,"5' 11""",205,R/R,P,,22,Utah,4YR SR,FALSE,,2004-06-24,54270
 ,Derek Gonzalez,,,,,"5' 9""",185,S/R,C,,20,Chipola JC,JC J2,FALSE,,2006-01-02,
-,Derek Schaefer,,,,,"6' 3""",210,R/R,P,,20,Arizona State,4YR JR,FALSE,,2005-07-29,69184
+,Derek Schaefer,404,,,,"6' 3""",210,R/R,P,,20,Arizona State,4YR JR,FALSE,,2005-07-29,69184
 ,Derek Smith,,,,,"6' 3""",215,R/R,C,,22,Utah,4YR SR,FALSE,,2003-11-15,
 ,Derek Westfall,,,,,"5' 10""",180,L/R,P,,21,Pasco-Hernando State JC,JC J2,FALSE,,2004-11-05,70292
 ,Derek Williams,,,,,"6' 0""",214,R/R,OF,,23,Miami,4YR 5S,FALSE,,2002-10-12,
@@ -849,32 +849,32 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Derrick Mitchell,,,,,"6' 3""",203,S/R,OF,,21,Austin Peay State,4YR SO,FALSE,,2004-08-04,73073
 ,Derrick Tarpley Jr.,,,,,"6' 2""",204,R/R,OF,,20,Pittsburgh,4YR JR,FALSE,,2005-08-04,70482
 ,Devin Bell,,,,,"6' 4""",194,R/R,P,,22,Oregon,4YR SR,FALSE,,2003-09-17,62796
-,Devin Diaz,,,,,"5' 11""",190,R/R,C,,18,Iona Prep HS (NY),HS SR,TRUE,,2007-10-10,
+,Devin Diaz,333,,,,"5' 11""",190,R/R,C,,18,Iona Prep HS (NY),HS SR,TRUE,,2007-10-10,
 ,Devin Kendall,,,,,"6' 3""",180,R/R,SS,,18,Dutchtown HS (GA),HS SR,TRUE,,2008-07-03,
-,Devin Long,,,,,"6' 3""",185,R/R,P,,19,Chaparral HS (AZ),HS SR,TRUE,,2007-06-08,
+,Devin Long,397,,,,"6' 3""",185,R/R,P,,19,Chaparral HS (AZ),HS SR,TRUE,,2007-06-08,
 ,Devin Parks,,,,,"6' 0""",190,R/R,OF,,20,Radford,4YR JR,FALSE,,2005-08-06,68624
 ,Diego Aponte,,,,,"6' 2""",205,L/L,1B,,22,Maryland-Eastern Shore,4YR SR,FALSE,,2004-04-01,115423
-,Diego Castellanos,,,,,"6' 0""",190,L/L,OF,,21,Saint Mary's,4YR JR,FALSE,,2005-01-26,70920
+,Diego Castellanos,448,,,,"6' 0""",190,L/L,OF,,21,Saint Mary's,4YR JR,FALSE,,2005-01-26,70920
 ,Diego Gutierrez,,,,,"6' 2""",195,R/R,P,,23,San Diego,4YR GR,FALSE,,2003-05-03,39227
 ,Diego Rivera,,,,,"6' 0""",195,R/R,C,,18,El Shaddai Christian HS,HS SR,TRUE,,2007-10-29,
 ,Dillon DeSpain,,,,,"6' 4""",190,R/R,P,,22,Golden West JC,JC J2,FALSE,,2004-04-01,70661
-,Dillon Moss,,,,,"6' 1""",190,R/R,C,,18,IMG Academy (FL),HS SR,TRUE,,2007-10-30,
+,Dillon Moss,343,,,,"6' 1""",190,R/R,C,,18,IMG Academy (FL),HS SR,TRUE,,2007-10-30,
 ,Dillon Orr,,,,,"6' 3""",220,R/R,P,,23,Grand Canyon,4YR SR,FALSE,,2003-07-04,100825
 ,Dimitri Williams Jr.,,,,,"6' 0""",180,L/L,OF,,18,Bishop O'Dowd HS (CA),HS SR,TRUE,,2008-06-16,
 ,Dom Rodriguez,,,,,"6' 3""",218,R/R,OF,,23,Arizona,4YR SR,FALSE,,2003-03-27,116433
-,Dominic Battista,,,,,"6' 0""",180,L/R,OF,,18,Oswego East HS (IL),HS SR,TRUE,,2007-10-26,
+,Dominic Battista,331,,,,"6' 0""",180,L/R,OF,,18,Oswego East HS (IL),HS SR,TRUE,,2007-10-26,
 ,Dominic Hellman,,,,,"6' 6""",281,R/R,1B,,22,Oregon,4YR SR,FALSE,,2003-09-12,58478
 ,Dominic Kibler,,,,,"5' 8""",190,L/R,C,,21,Wisconsin-Milwaukee,4YR JR,FALSE,,2005-05-21,
-,Dominic Longo II,,,,,"6' 3""",205,R/R,SS,,22,Arizona State,4YR JR,FALSE,,2004-06-09,100841
+,Dominic Longo II,440,,,,"6' 3""",205,R/R,SS,,22,Arizona State,4YR JR,FALSE,,2004-06-09,100841
 ,Dominic Mauro,,,,,"6' 1""",210,R/R,P,,21,Cincinnati,4YR JR,FALSE,,2004-12-30,71472
-,Dominic Pellegrin,,,,,"6' 1""",175,R/R,SS,,19,Holy Cross HS (LA),HS SR,TRUE,,2007-06-12,
+,Dominic Pellegrin,480,,,,"6' 1""",175,R/R,SS,,19,Holy Cross HS (LA),HS SR,TRUE,,2007-06-12,
 ,Dominic Smaldino,,,,,"6' 6""",230,R/R,1B,,21,Arizona State,4YR JR,FALSE,,2005-01-01,69432
 ,Dominick Carbone,,,,,"5' 11""",180,L/L,P,,20,Coastal Carolina,4YR JR,FALSE,,2005-07-13,67905
 ,Donavan Canterberry,,,,,"6' 0""",185,R/R,SS,,23,Xavier,4YR SR,FALSE,,2003-05-16,63347
 ,Donovan Becerra,,,,,"6' 1""",215,R/R,P,,21,Texas Tech,4YR JR,FALSE,,2005-03-08,139773
 ,Donovan LaSalle,,,,,"6' 2""",215,R/R,OF,,21,Louisiana-Lafayette,4YR JR,FALSE,,2004-12-16,67618
 ,Donovan Mitchell,,,,,"6' 1""",205,R/R,OF,,20,Pellissippi State CC,JC J2,FALSE,,2005-10-12,127197
-,Donovan Thiery,,,,,"6' 5""",210,R/R,P,,18,Coral Shores HS (FL),HS SR,TRUE,,2007-08-23,
+,Donovan Thiery,271,,,,"6' 5""",210,R/R,P,,18,Coral Shores HS (FL),HS SR,TRUE,,2007-08-23,
 ,Drake Frize,,,,,"6' 3""",200,L/R,P,,25,San Diego,4YR GR,FALSE,,2001-07-02,26316
 ,Drake McBride,,,,,"6' 3""",168,R/R,OF,,20,Bevill State CC,JC J2,FALSE,,2005-11-14,
 ,Drake Meeks,,,,,"6' 4""",215,R/R,P,,21,Southern Mississippi,4YR JR,FALSE,,2005-05-29,67668
@@ -899,17 +899,17 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Drew Sofield,,,,,"6' 2""",198,L/L,P,,20,Young Harris College,4YR SR,FALSE,,2005-11-25,68114
 ,Drew Sullivan,,,,,"6' 4""",185,L/R,P,,18,Dubuque HS (IA),HS SR,TRUE,,2008-04-24,
 ,Drew Talavs,,,,,"6' 2""",205,R/R,P,,21,San Diego State,4YR JR,FALSE,,2004-09-10,69474
-,Drew Titsworth,,,,,"6' 3""",215,L/R,P,,21,Clemson,4YR JR,FALSE,,2005-04-27,68626
-,Drew Whalen,,,,,"6' 1""",210,R/R,P,,21,Auburn,4YR JR,FALSE,,2005-04-05,68786
-,Duke McCarron,,,,,"6' 0""",190,R/R,P,,21,Saint Joseph's,4YR JR,FALSE,,2004-08-28,67239
-,Dustin Dunwoody,,,,,"6' 2""",185,R/R,P,,18,Royal HS (CA),HS SR,TRUE,,2008-02-15,
+,Drew Titsworth,326,,,,"6' 3""",215,L/R,P,,21,Clemson,4YR JR,FALSE,,2005-04-27,68626
+,Drew Whalen,412,,,,"6' 1""",210,R/R,P,,21,Auburn,4YR JR,FALSE,,2005-04-05,68786
+,Duke McCarron,429,,,,"6' 0""",190,R/R,P,,21,Saint Joseph's,4YR JR,FALSE,,2004-08-28,67239
+,Dustin Dunwoody,487,,,,"6' 2""",185,R/R,P,,18,Royal HS (CA),HS SR,TRUE,,2008-02-15,
 ,Dustin Hagens,,,,,"6' 1""",185,R/R,P,,21,Missouri-St. Louis,4YR JR,FALSE,,2005-01-05,65262
 ,Dylan Alonso,,,,,"6' 4""",228,R/R,P,,22,Troy,4YR JR,FALSE,,2003-10-30,67984
-,Dylan Blomker,,,,,"6' 3""",200,R/R,P,,18,La Cueva HS (NM),HS SR,TRUE,,2007-11-19,
+,Dylan Blomker,292,,,,"6' 3""",200,R/R,P,,18,La Cueva HS (NM),HS SR,TRUE,,2007-11-19,
 ,Dylan Carey,,,,,"6' 2""",210,R/R,SS,,22,Nebraska,4YR SR,FALSE,,2003-07-26,57579
 ,Dylan Cupp,,,,,"6' 1""",200,R/R,SS,,21,Dallas Baptist,4YR JR,FALSE,,2004-09-02,67549
 ,Dylan Fairchild,,,,,"6' 2""",190,R/R,SS,,18,Detroit Central Catholic HS (MI),HS SR,TRUE,,2008-02-14,
-,Dylan Hicks,,,,,"6' 1""",223,L/R,P,,20,Everett CC,JC J1,FALSE,,2005-12-29,
+,Dylan Hicks,471,,,,"6' 1""",223,L/R,P,,20,Everett CC,JC J1,FALSE,,2005-12-29,
 ,Dylan Johnson,,,,,"6' 1""",200,R/R,C,,23,College of Charleston,4YR GR,FALSE,,2003-04-07,
 ,Dylan King,,,,,"6' 4""",204,R/R,P,,24,Troy,4YR 5S,FALSE,,2002-06-24,
 ,Dylan Knowles,,,,,"6' 1""",195,S/R,OF,,23,Concordia,4YR 5S,FALSE,,2003-03-04,71081
@@ -923,7 +923,7 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Dylan Schlaegel,,,,,"5' 10""",180,R/R,OF,,21,Dallas Baptist,4YR JR,FALSE,,2004-09-17,68505
 ,Dylan Story,,,,,"6' 3""",224,R/R,P,,22,High Point,4YR JR,FALSE,,2004-05-18,63617
 ,Dylan Thompson,,,,,"6' 2""",185,R/R,P,,21,Blinn JC,JC J3,FALSE,,2005-02-07,
-,Easton Autrey,,,,,"6' 4""",225,L/R,3B,,18,Corsicana HS (TX),HS SR,TRUE,,2007-09-29,
+,Easton Autrey,493,,,,"6' 4""",225,L/R,3B,,18,Corsicana HS (TX),HS SR,TRUE,,2007-09-29,
 ,Easton Breyfogle,,,,,"6' 3""",190,L/R,OF,,21,Arizona,4YR JR,FALSE,,2004-10-07,70836
 ,Easton Davies,,,,,"6' 3""",220,R/R,P,,20,Salt Lake CC,JC J2,FALSE,,2005-09-30,
 ,Easton Kitura,,,,,"6' 2""",199,L/R,3B,,18,Vauxhall HS (AB),HS SR,TRUE,,2007-11-08,
@@ -941,7 +941,7 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Elgin Bennett,,,,,"6' 0""",210,L/L,OF,,22,Cal State Bakersfield,4YR SR,FALSE,,2004-06-27,116511
 ,Eli Edds,,,,,"6' 3""",215,R/R,P,,22,Lincoln Memorial,4YR SR,FALSE,,2003-11-07,55909
 ,Eli Hoyt,,,,,"6' 0""",195,R/R,P,,23,Louisville,4YR 5S,FALSE,,2002-12-22,120196
-,Eli Pillsbury,,,,,"6' 2""",200,L/L,P,,22,Jacksonville State,4YR SR,FALSE,,2004-01-02,
+,Eli Pillsbury,391,,,,"6' 2""",200,L/L,P,,22,Jacksonville State,4YR SR,FALSE,,2004-01-02,
 ,Elias Holbert,,,,,"6' 3""",240,R/R,P,,23,Virginia Commonwealth,4YR 5S,FALSE,,2002-12-07,67910
 ,Elie Kligman,,,,,"6' 0""",205,S/R,C,,23,Michigan,4YR GR,FALSE,,2003-01-20,48999
 ,Elijah Barr,,,,,"6' 7""",230,R/R,P,,18,Pittston Area HS (PA),HS SR,TRUE,,2008-06-20,
@@ -962,32 +962,32 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Eric Jeon,,,,,"5' 11""",195,R/R,SS,,21,Stanford,4YR JR,FALSE,,2005-06-23,73396
 ,Eric Zdunek,,,,,"6' 2""",190,R/R,OF,,18,Orange Lutheran HS (CA),HS SR,TRUE,,2008-06-09,
 ,Erick Ballenilla,,,,,"6' 1""",190,R/R,SS,,22,St. Thomas,4YR SR,FALSE,,2004-02-27,
-,Erick Dessens,,,,,"6' 1""",200,L/R,OF,,21,Sacramento State,4YR JR,FALSE,,2005-06-13,128444
-,Erik Paulsen,,,,,"6' 3""",225,L/L,1B,,21,North Carolina,4YR JR,FALSE,,2004-08-09,67264
+,Erick Dessens,338,,,,"6' 1""",200,L/R,OF,,21,Sacramento State,4YR JR,FALSE,,2005-06-13,128444
+,Erik Paulsen,153,,,,"6' 3""",225,L/L,1B,,21,North Carolina,4YR JR,FALSE,,2004-08-09,67264
 ,Ernesto Lugo-Canchola,,,,,"6' 5""",235,L/L,P,,23,Florida,4YR GR,FALSE,,2002-07-20,62040
 ,Esteban Torres,,,,,"6' 0""",192,L/L,P,,21,Maryland-Eastern Shore,4YR SO,FALSE,,2004-07-14,
-,Ethan Armstrong,,,,,"6' 2""",215,R/R,P,,18,Garden City HS (MI),HS SR,TRUE,,2007-12-06,
+,Ethan Armstrong,495,,,,"6' 2""",215,R/R,P,,18,Garden City HS (MI),HS SR,TRUE,,2007-12-06,
 ,Ethan Darden,,,,,"6' 0""",175,L/L,P,,22,Texas A&M,4YR SR,FALSE,,2003-11-06,52333
 ,Ethan Dodson,,,,,"5' 11""",170,R/R,SS,,18,Clinton HS (MS),HS SR,TRUE,,2007-07-31,
 ,Ethan Eberle,,,,,"6' 5""",220,L/L,P,,21,Louisville,4YR SO,FALSE,,2005-07-10,120197
 ,Ethan Farris,,,,,"6' 5""",228,R/R,1B,,21,Texas State,4YR JR,FALSE,,2005-01-20,70490
 ,Ethan Hindle,,,,,"6' 1""",200,R/R,SS,,21,Kentucky,4YR JR,FALSE,,2004-12-18,68932
-,Ethan Lay,,,,,"6' 3""",230,L/R,P,,22,Sacramento State,4YR SR,FALSE,,2004-02-10,52178
+,Ethan Lay,389,,,,"6' 3""",230,L/R,P,,22,Sacramento State,4YR SR,FALSE,,2004-02-10,52178
 ,Ethan Lee,,,,,"6' 2""",205,R/R,P,,19,Don Bosco HS (NJ),HS SR,TRUE,,2007-01-18,
 ,Ethan Lindor,,,,,"5' 10""",175,R/R,OF,,18,West Broward HS (FL),HS SR,TRUE,,2007-11-01,
 ,Ethan Marmie,,,,,"6' 7""",225,R/R,P,,21,Cal Poly,4YR JR,FALSE,,2005-01-03,71085
-,Ethan Mendoza,,,,,"5' 10""",200,R/R,SS,,21,Texas,4YR JR,FALSE,,2004-08-05,68876
-,Ethan Offing,,,,,"6' 0""",195,R/R,OF,,18,Dutch Fork HS (SC),HS SR,TRUE,,2008-04-17,
+,Ethan Mendoza,435,,,,"5' 10""",200,R/R,SS,,21,Texas,4YR JR,FALSE,,2004-08-05,68876
+,Ethan Offing,379,,,,"6' 0""",195,R/R,OF,,18,Dutch Fork HS (SC),HS SR,TRUE,,2008-04-17,
 ,Ethan Phillips,,,,,"6' 1""",195,S/R,P,,22,Stetson,4YR SR,FALSE,,2003-11-01,
 ,Ethan Robinson,,,,,"6' 5""",225,R/R,P,,21,Middle Tennessee State,4YR JR,FALSE,,2004-07-30,
 ,Ethan Stade,,,,,"6' 4""",220,L/L,P,,23,Bowling Green State,4YR 5S,FALSE,,2003-02-12,57023
-,Ethan Sutton,,,,,"6' 3""",215,R/R,P,,21,South Florida,4YR JR,FALSE,,2004-12-13,68043
+,Ethan Sutton,199,,,,"6' 3""",215,R/R,P,,21,South Florida,4YR JR,FALSE,,2004-12-13,68043
 ,Ethan Swidler,,,,,"6' 1""",200,R/R,C,,22,Washington,4YR SR,FALSE,,2003-12-15,55556
-,Ethan Thomas,,,,,"6' 5""",250,R/R,P,,22,TCU,4YR SR,FALSE,,2004-07-08,
+,Ethan Thomas,456,,,,"6' 5""",250,R/R,P,,22,TCU,4YR SR,FALSE,,2004-07-08,
 ,Ethan Unruh,,,,,"6' 6""",200,R/R,P,,21,Bushnell,4YR JR,FALSE,,2005-03-31,70567
 ,Ethan Walker,,,,,"6' 0""",200,L/L,P,,22,Texas,4YR SR,FALSE,,2004-04-05,
 ,Ethan Walls,,,,,"6' 3""",200,L/R,P,,19,Chipola JC,JC J1,FALSE,,2007-05-29,
-,Ethan Wheeler,,,,,"6' 5""",211,L/R,P,,18,Trinity Christian Academy HS (FL),HS SR,TRUE,,2007-09-06,
+,Ethan Wheeler,287,,,,"6' 5""",211,L/R,P,,18,Trinity Christian Academy HS (FL),HS SR,TRUE,,2007-09-06,
 ,Evan Appelwick,,,,,"6' 0""",210,R/R,1B,,23,Miami (OH),4YR GR,FALSE,,2002-12-04,41604
 ,Evan Blanco,,,,,"6' 0""",210,L/L,P,,22,Tennessee,4YR SR,FALSE,,2003-09-04,62257
 ,Evan Brandt,,,,,"6' 4""",229,R/R,P,,22,Arizona,4YR JR,FALSE,,2004-05-15,139466
@@ -1003,11 +1003,11 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Everett Burdett,,,,,"6' 3""",200,R/R,P,,18,La Cueva HS (NM),HS SR,TRUE,,2007-12-04,
 ,Everett Vaughan,,,,,"6' 3""",200,R/R,P,,22,Virginia Commonwealth,4YR GR,FALSE,,2003-08-06,41277
 ,Evimael Quiles,,,,,"6' 4""",225,R/R,P,,22,West Georgia,4YR SR,FALSE,,2004-01-25,
-,Ezekiel Lara,,,,,"6' 0""",185,L/R,OF,,19,Mater Dei HS (CA),HS SR,TRUE,,2006-12-21,
+,Ezekiel Lara,455,,,,"6' 0""",185,L/R,OF,,19,Mater Dei HS (CA),HS SR,TRUE,,2006-12-21,
 ,Ezra Goldfarb,,,,,"5' 11""",185,L/L,1B,,18,Head Royce HS (CA),HS SR,TRUE,,2008-04-23,
 ,Ezra Liggon,,,,250,"6' 5""",195,L/L,OF,,19,Phillips Memorial HS (WI),HS SR,TRUE,,2007-05-18,
 ,Ezra McNaughton,,,,,"5' 11""",196,L/R,SS,,22,Brigham Young,4YR SO,FALSE,,2003-08-19,116469
-,Fabio Bundi,,,,,"6' 2""",200,R/R,P,,22,Monterey Peninsula JC,JC J2,FALSE,,2003-09-19,
+,Fabio Bundi,350,,,,"6' 2""",200,R/R,P,,22,Monterey Peninsula JC,JC J2,FALSE,,2003-09-19,
 ,Felix Schlede,,,,,"6' 6""",230,R/R,P,,21,Sam Houston State,4YR SR,FALSE,,2004-08-17,
 ,Fenix DiGiacomo,,,,,"6' 5""",240,R/R,P,,24,Virginia Commonwealth,4YR GR,FALSE,,2001-07-27,58965
 ,Finbar O'Brien,,,,,"6' 3""",200,L/R,P,,21,Gonzaga,4YR JR,FALSE,,2005-04-22,68523
@@ -1021,7 +1021,7 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Frankie Russo,,,,,"6' 4""",200,R/R,P,,19,Broward Virtual School (FL),HS SR,TRUE,,2007-02-05,
 ,Freddy Beruvides Jr.,,,,,"6' 1""",230,L/L,P,,21,Pittsburgh,4YR JR,FALSE,,2004-10-15,135292
 ,Gabe Benton,,,,,"6' 3""",220,R/R,P,,20,Snead State CC,JC J2,FALSE,,2006-01-18,
-,Gabe Camacho,,,,,"6' 1""",220,L/L,1B,,20,UC San Diego,4YR JR,FALSE,,2005-09-29,68971
+,Gabe Camacho,417,,,,"6' 1""",220,L/L,1B,,20,UC San Diego,4YR JR,FALSE,,2005-09-29,68971
 ,Gabe Miranda,,,,,"6' 3""",230,L/L,1B,,22,Oregon,4YR SR,FALSE,,2003-11-15,61070
 ,Gabe Smith,,,,,"6' 5""",245,L/R,P,,21,John A. Logan JC,JC J3,FALSE,,2005-04-28,
 ,Gabe Springer,,,,,"6' 0""",210,S/R,SS,,22,San Diego,4YR SR,FALSE,,2004-01-02,60808
@@ -1041,7 +1041,7 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Garrett Shull,,,,,"6' 2""",207,S/R,OF,,20,Oklahoma State,4YR SO,FALSE,,2005-07-14,101116
 ,Garrison Sumner,,,,,"6' 3""",194,R/R,P,,22,Brigham Young,4YR SR,FALSE,,2004-01-27,
 ,Gavin DeVooght,,,,,"6' 5""",238,R/R,P,,21,Michigan,4YR JR,FALSE,,2005-01-04,67445
-,Gavin Eddy,,,,,"6' 5""",225,R/R,P,,21,California,4YR JR,FALSE,,2004-09-22,69420
+,Gavin Eddy,458,,,,"6' 5""",225,R/R,P,,21,California,4YR JR,FALSE,,2004-09-22,69420
 ,Gavin Garcia,,,,,"5' 10""",165,L/R,P,,18,Cajon HS (CA),HS SR,TRUE,,2007-12-21,
 ,Gavin Guidry,,,,,"6' 2""",184,R/R,P,,22,LSU,4YR JR,FALSE,,2003-07-14,56134
 ,Gavin Guy,,,,,"6' 4""",200,R/R,P,,19,Newport Harbor HS (CA),HS SR,TRUE,,2007-07-09,
@@ -1050,12 +1050,12 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Gavin King,,,,,"6' 7""",210,S/R,P,,20,Middle Tennessee State,4YR SO,FALSE,,2005-07-31,
 ,Gavin Lyons,,,,,"6' 3""",200,R/R,P,,21,Texas A&M,4YR SO,FALSE,,2005-07-08,122558
 ,Gavin Marley,,,,,"6' 0""",195,R/R,P,,23,East Carolina,4YR GR,FALSE,,2002-11-27,42344
-,Gavin Michaels,,,,,"6' 0""",175,R/R,SS,,18,Normal Community HS (IL),HS SR,TRUE,,2008-02-19,
+,Gavin Michaels,432,,,,"6' 0""",175,R/R,SS,,18,Normal Community HS (IL),HS SR,TRUE,,2008-02-19,
 ,Gavin Perry,,,,,"6' 5""",265,R/R,P,,23,Western Kentucky,4YR 5S,FALSE,,2003-04-11,65341
 ,Gavin Seebold,,,,,"6' 2""",212,R/R,P,,24,Indiana,4YR GR,FALSE,,2002-06-14,
-,Gavin Swartz,,,,,"6' 3""",170,L/R,P,,18,Normal Community HS (IL),HS SR,TRUE,,2008-06-03,
+,Gavin Swartz,477,,,,"6' 3""",170,L/R,P,,18,Normal Community HS (IL),HS SR,TRUE,,2008-06-03,
 ,Gavin Taylor,,,,,"6' 2""",205,R/R,C,,21,UNLV,4YR JR,FALSE,,2005-03-29,
-,Gavin Van Kempen,,,,,"6' 7""",240,R/R,P,,21,East Carolina,4YR SR,FALSE,,2004-09-10,62694
+,Gavin Van Kempen,276,,,,"6' 7""",240,R/R,P,,21,East Carolina,4YR SR,FALSE,,2004-09-10,62694
 ,Gavyn Jones,,,,,"6' 1""",206,L/L,P,,21,Oklahoma,4YR SR,FALSE,,2004-09-13,116765
 ,George Baker,,,,,"6' 1""",205,L/R,C,,22,Louisville,4YR JR,FALSE,,2004-04-05,69505
 ,George Malone,,,,,"6' 4""",185,R/R,C,,18,Arizona College Prep HS (AZ),HS SR,TRUE,,2008-01-25,
@@ -1067,29 +1067,29 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Giovanny Ortiz,,,,,"5' 11""",192,R/R,C,,22,Berea,4YR SR,FALSE,,2004-02-26,
 ,Glenn Green III,,,,,"6' 2""",215,R/R,3B,,24,Southern,4YR GR,FALSE,,2002-04-10,40757
 ,Grady Lenahan,,,,,"5' 10""",195,R/R,OF,,19,East Carolina,4YR JR,FALSE,,2006-09-13,
-,Grady Saunders,,,,,"6' 2""",190,R/R,P,,19,Thurston HS (OR),HS SR,TRUE,,2007-06-17,
+,Grady Saunders,497,,,,"6' 2""",190,R/R,P,,19,Thurston HS (OR),HS SR,TRUE,,2007-06-17,
 ,Graham Mastros,,,,,"6' 3""",210,R/R,SS,,20,Illinois State,4YR JR,FALSE,,2005-07-28,69390
 ,Grant Aycock,,,,,"6' 4""",205,S/R,P,,23,UNC Greensboro,4YR SR,FALSE,,2002-10-01,61802
 ,Grant Breaux,,,,,"6' 2""",185,R/R,P,,21,Coastal Alabama JC,JC J1,FALSE,,2005-05-31,101161
 ,Grant Fontenot,,,,,"6' 3""",225,R/R,P,,23,LSU,4YR 5S,FALSE,,2003-06-05,
 ,Grant Gray,,,,,"6' 4""",185,R/R,OF,,22,Riverside CC,JC J2,FALSE,,2004-05-23,68538
-,Grayden Seuferling,,,,,"6' 2""",200,R/R,P,,18,Blue Springs South HS (MO),HS SR,TRUE,,2008-04-08,
-,Grayson Fitzwater,,,,,"6' 1""",215,L/L,1B,,22,Virginia Military Institute,4YR SR,FALSE,,2004-01-05,62298
+,Grayden Seuferling,310,,,,"6' 2""",200,R/R,P,,18,Blue Springs South HS (MO),HS SR,TRUE,,2008-04-08,
+,Grayson Fitzwater,295,,,,"6' 1""",215,L/L,1B,,22,Virginia Military Institute,4YR SR,FALSE,,2004-01-05,62298
 ,Greg Pace Jr.,,,,,"6' 3""",207,R/R,OF,,21,Michigan,4YR SR,FALSE,,2004-08-03,56846
 ,Grey Sanders,,,,,"6' 0""",212,R/R,P,,18,Mulvane HS (KS),HS SR,TRUE,,2007-11-01,
 ,Greyson Chappel,,,,,"6' 8""",255,R/R,P,,21,Central Missouri,4YR JR,FALSE,,2005-02-03,
 ,Griffen Sotomayor,,,,,"6' 0""",210,R/R,C,,22,Fresno State,4YR SR,FALSE,,2004-03-16,62484
-,Griffin Bourland,,,,,"6' 6""",198,R/R,P,,18,Eaton HS (TX),HS SR,TRUE,,2008-03-06,
-,Griffin Graves,,,,,"5' 10""",175,L/L,P,,21,Auburn,4YR JR,FALSE,,2004-11-06,68108
-,Griffin Loy,,,,,"6' 5""",220,R/R,P,,19,South Walton HS (FL),HS SR,TRUE,,2007-04-06,
+,Griffin Bourland,457,,,,"6' 6""",198,R/R,P,,18,Eaton HS (TX),HS SR,TRUE,,2008-03-06,
+,Griffin Graves,408,,,,"5' 10""",175,L/L,P,,21,Auburn,4YR JR,FALSE,,2004-11-06,68108
+,Griffin Loy,500,,,,"6' 5""",220,R/R,P,,19,South Walton HS (FL),HS SR,TRUE,,2007-04-06,
 ,Griffin Naess,,,,,"6' 6""",205,L/R,P,,21,Cal Poly,4YR JR,FALSE,,2005-03-09,71088
-,Griffin Stieg,,,,,"6' 4""",220,R/R,P,,22,Virginia Tech,4YR SR,FALSE,,2004-01-08,62295
-,Gunnar Alm,,,,,"6' 0""",165,L/L,OF,,19,Polk County HS (NC),HS SR,TRUE,,2006-11-13,
+,Griffin Stieg,290,,,,"6' 4""",220,R/R,P,,22,Virginia Tech,4YR SR,FALSE,,2004-01-08,62295
+,Gunnar Alm,323,,,,"6' 0""",165,L/L,OF,,19,Polk County HS (NC),HS SR,TRUE,,2006-11-13,
 ,Gunnar Garrison,,,,,"6' 5""",225,R/R,P,,18,Eaton HS (CO),HS SR,TRUE,,2008-03-04,
 ,Guy Lynam,,,,,"6' 1""",190,L/R,3B,,18,Gloucester Catholic HS (NJ),HS SR,TRUE,,2007-08-31,
 ,Hagan Banks,,,,,"6' 4""",210,R/R,P,,23,Alabama,4YR GR,FALSE,,2002-07-20,36569
 ,Hagan Ward,,,,,"6' 7""",250,R/R,P,,21,Notre Dame,4YR JR,FALSE,,2004-08-23,68370
-,Haiden Leffew,,,,,"6' 1""",235,R/L,P,,21,Texas,4YR JR,FALSE,,2004-12-07,67522
+,Haiden Leffew,215,,,,"6' 1""",235,R/L,P,,21,Texas,4YR JR,FALSE,,2004-12-07,67522
 ,Harper Gates,,,,,"6' 2""",195,R/R,SS,,18,The Bennett School HS (TX),HS SR,TRUE,,2007-07-25,
 ,Harrison Ailshie,,,,196,"6' 1""",195,L/L,OF,,19,East Rowan HS (NC),HS SR,TRUE,,2007-05-23,
 ,Harrison Didawick,,,,,"6' 4""",215,L/L,OF,,23,Virginia,4YR SR,FALSE,,2003-06-24,62259
@@ -1100,19 +1100,19 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Hayden Morris,,,,,"6' 8""",265,R/R,P,,21,Blinn JC,JC J1,FALSE,,2005-01-24,
 ,Hayden Simmerson,,,,,"6' 2""",205,R/R,P,,21,Clemson,4YR JR,FALSE,,2005-05-12,63803
 ,Hayden Yost,,,,,"6' 1""",200,L/L,OF,,21,Florida,4YR JR,FALSE,,2005-03-10,67611
-,Hayes Holton,,,,157,"6' 2""",195,R/R,P,,18,Loranger HS (LA),HS SR,TRUE,,2008-02-15,
+,Hayes Holton,288,,,157,"6' 2""",195,R/R,P,,18,Loranger HS (LA),HS SR,TRUE,,2008-02-15,
 ,Heath Andrews,,,,,"6' 3""",194,R/R,P,,22,North Carolina State,4YR JR,FALSE,,2004-05-12,69764
 ,Hekili Robello,,,,,"6' 5""",220,R/R,P,,21,Hawaii,4YR JR,FALSE,,2004-10-25,131297
 ,Henkel Acevedo,,,,,"6' 5""",220,L/R,OF,,17,P27 Academy (SC),HS SR,TRUE,,2008-07-27,
 ,Henry Cooke,,,,,"6' 3""",225,R/R,C,,22,Virginia Tech,4YR SR,FALSE,,2003-09-27,62283
 ,Henry Kaczmar,,,,,"5' 10""",195,L/R,SS,,23,Ohio State,4YR SR,FALSE,,2003-03-14,58302
-,Hideki Prather,,,,,"5' 10""",195,R/R,C,,21,California,4YR JR,FALSE,,2004-09-27,122502
+,Hideki Prather,354,,,,"5' 10""",195,R/R,C,,21,California,4YR JR,FALSE,,2004-09-27,122502
 ,Holden Hering,,,,,"6' 5""",235,R/R,P,,19,Weatherford JC,JC J1,FALSE,,2007-03-07,
 ,Holden Newhouse,,,,,"6' 4""",230,R/R,P,,18,Notre Dame HS (CA),HS SR,TRUE,,2007-08-09,
 ,Holden Pantier,,,,,"6' 1""",205,R/R,SS,,21,Walters State CC,JC J3,FALSE,,2005-06-02,69894
 ,Hollis Porter,,,,,"6' 4""",225,L/R,1B,,22,Texas Tech,4YR SR,FALSE,,2004-06-23,57083
 ,Hudson Alpert,,,,,"6' 2""",210,R/R,P,,18,Regis Jesuit HS (CO),HS SR,TRUE,,2007-10-15,
-,Hudson Barrett,,,,215,"6' 5""",232,L/L,P,,22,Oklahoma State,4YR SR,FALSE,,2004-01-24,61578
+,Hudson Barrett,301,,,215,"6' 5""",232,L/L,P,,22,Oklahoma State,4YR SR,FALSE,,2004-01-24,61578
 ,Hudson Brown,,,,,"6' 6""",220,L/R,1B,,21,Kentucky,4YR JR,FALSE,,2004-09-08,68926
 ,Hudson Byrd,,,,,"6' 6""",195,R/R,P,,20,Johnson County CC,JC J2,FALSE,,2005-09-18,
 ,Hudson Flora,,,,,"6' 3""",190,R/R,C,,18,Foothill HS (CA),HS SR,TRUE,,2007-11-26,
@@ -1124,12 +1124,12 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Hudson Shupe,,,,,"6' 0""",180,L/R,SS,,22,Gonzaga,4YR SR,FALSE,,2004-05-20,59910
 ,Hugh Pinkney,,,,,"6' 2""",210,L/R,C,,21,Tulane,4YR SR,FALSE,,2004-07-11,59447
 ,Hunter Baynes,,,,,"6' 2""",215,R/R,P,,21,Old Dominion,4YR JR,FALSE,,2004-11-04,67230
-,Hunter Carns,,,,,"6' 0""",199,R/R,C,,21,Florida State,4YR SO,FALSE,,2005-04-06,116550
+,Hunter Carns,225,,,,"6' 0""",199,R/R,C,,21,Florida State,4YR SO,FALSE,,2005-04-06,116550
 ,Hunter Elliott,,,,,"6' 3""",215,L/L,P,,23,Mississippi,4YR 5S,FALSE,,2002-08-27,44960
 ,Hunter Hargett,,,,,"6' 2""",190,R/R,P,,23,Santa Clara,4YR GR,FALSE,,2003-02-27,
 ,Hunter Hyatt,,,,,"6' 3""",210,L/L,P,,23,Alabama-Birmingham,4YR SR,FALSE,,2003-07-03,101253
 ,Hunter Katschke,,,,,"6' 3""",220,R/R,OF,,23,Utah Valley,4YR 5S,FALSE,,2003-05-20,
-,Hunter Possehl,,,,,"6' 8""",245,L/L,P,,22,Florida Gulf Coast,4YR JR,FALSE,,2004-07-07,70679
+,Hunter Possehl,261,,,,"6' 8""",245,L/L,P,,22,Florida Gulf Coast,4YR JR,FALSE,,2004-07-07,70679
 ,Hunter Rose,,,,,"6' 2""",180,L/L,P,,18,Pleasant Grove HS (TX),HS SR,TRUE,,2007-09-27,
 ,Hunter Sloop,,,,,"6' 7""",235,R/R,P,,23,Charlotte,4YR SR,FALSE,,2003-05-19,101258
 ,Hunter Strohm,,,,,"6' 2""",215,R/R,C,,19,Lower Dauphin HS (PA),HS SR,TRUE,,2007-06-14,
@@ -1145,8 +1145,8 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Isaac Williams,,,,,"6' 1""",200,R/R,P,,22,Oklahoma,4YR SR,FALSE,,2003-11-05,
 ,Isaac Yeager,,,,,"6' 6""",255,L/R,P,,22,Oregon State,4YR SR,FALSE,,2003-09-27,62448
 ,Isaiah Frost,,,,,"5' 11""",195,L/L,OF,,23,Missouri,4YR 5S,FALSE,,2002-10-03,43567
-,Isaiah Galason,,,,210,"5' 11""",182,R/R,SS,,18,Houston County HS (GA),HS SR,TRUE,,2008-04-03,
-,Isaiah Hearn,,,,,"6' 3""",205,L/L,OF,,18,Chaminade Prep HS (CA),HS SR,TRUE,,2008-01-28,
+,Isaiah Galason,347,,,210,"5' 11""",182,R/R,SS,,18,Houston County HS (GA),HS SR,TRUE,,2008-04-03,
+,Isaiah Hearn,286,,,,"6' 3""",205,L/L,OF,,18,Chaminade Prep HS (CA),HS SR,TRUE,,2008-01-28,
 ,Isaiah James,,,,,"6' 4""",210,R/L,P,,18,South Central HS (NC),HS SR,TRUE,,2007-11-22,
 ,Isaiah Lane,,,,,"6' 2""",195,R/R,SS,,21,Hope International,4YR JR,FALSE,,2005-01-19,69656
 ,Isaiah Magdaleno,,,,,"6' 3""",220,R/R,P,,21,Hawaii,4YR JR,FALSE,,2005-04-12,70790
@@ -1156,7 +1156,7 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,JC Pacheco,,,,,"5' 10""",175,L/R,SS,,18,DePaul Catholic HS (NJ),HS SR,TRUE,,2008-05-08,
 ,JD Alexander,,,,,"6' 3""",200,L/R,OF,,19,Barbe HS (LA),HS SR,TRUE,,2007-05-14,
 ,JD Greeley,,,,,"6' 1""",192,R/R,P,,23,Michigan State,4YR 5S,FALSE,,2003-03-13,43684
-,JJ Drennan,,,,197,"6' 1""",200,R/R,P,,19,Seton Hall Prep HS (NJ),HS SR,TRUE,,2007-06-07,
+,JJ Drennan,401,,,197,"6' 1""",200,R/R,P,,19,Seton Hall Prep HS (NJ),HS SR,TRUE,,2007-06-07,
 ,JJ Garcia,,,,,"6' 5""",210,R/R,P,,23,Appalachian State,4YR SR,FALSE,,2003-03-05,61079
 ,JJ Glasscock,,,,,"6' 0""",170,R/R,P,,21,West Virginia,4YR JR,FALSE,,2004-12-16,68462
 ,JP Acosta,,,,,"6' 1""",195,S/R,SS,,22,Western Kentucky,4YR JR,FALSE,,2003-12-06,138428
@@ -1178,11 +1178,11 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Jace Trull,,,,,"6' 7""",200,R/R,P,,19,Western Oklahoma State,JC J1,FALSE,,2006-11-22,
 ,Jack Arcamone,,,,,"6' 1""",198,L/R,C,,22,Georgia,4YR JR,FALSE,,2004-07-09,69742
 ,Jack Basseer,,,,,"6' 1""",200,R/R,3B,,22,USC,4YR SR,FALSE,,2003-08-13,58727
-,Jack Beck,,,,209,"6' 3""",215,R/R,SS,,18,Columbia Central HS (TN),HS SR,TRUE,,2007-12-17,
+,Jack Beck,316,,,209,"6' 3""",215,R/R,SS,,18,Columbia Central HS (TN),HS SR,TRUE,,2007-12-17,
 ,Jack Bell,,,,,"6' 0""",185,L/R,SS,,21,TCU,4YR JR,FALSE,,2004-12-27,
 ,Jack Bennett,,,,,"6' 2""",210,R/R,P,,22,Kentucky,4YR SR,FALSE,,2004-07-08,
 ,Jack Berg,,,,,"6' 4""",205,L/L,P,,22,Hawaii,4YR SR,FALSE,,2003-12-14,116434
-,Jack Brenner,,,,158,"6' 0""",174,R/R,C,,18,Fond du Lac HS (WI),HS SR,TRUE,,2007-09-07,
+,Jack Brenner,211,,,158,"6' 0""",174,R/R,C,,18,Fond du Lac HS (WI),HS SR,TRUE,,2007-09-07,
 ,Jack Byers,,,,,"6' 3""",195,R/R,P,,18,Artesia HS (NM),HS SR,TRUE,,2007-07-21,
 ,Jack Crighton,,,,,"6' 3""",200,R/R,OF,,22,Clemson,4YR SR,FALSE,,2003-09-05,52332
 ,Jack Cropper,,,,,"6' 0""",190,R/R,P,,21,Northeastern,4YR JR,FALSE,,2004-09-16,70826
@@ -1231,14 +1231,14 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Jacob Gutierrez,,,,,"6' 0""",210,R/R,OF,,24,Wichita State,4YR 5S,FALSE,,2002-07-02,
 ,Jacob Haley,,,,248,"6' 3""",220,R/R,P,,20,South Alabama,4YR JR,FALSE,,2005-08-16,67841
 ,Jacob Jarrell,,,,,"6' 0""",220,R/R,C,,23,Clemson,4YR SR,FALSE,,2002-10-27,52338
-,Jacob Johnson,,,,,"6' 1""",183,R/R,3B,,21,Saint Mary's,4YR JR,FALSE,,2005-06-17,
+,Jacob Johnson,398,,,,"6' 1""",183,R/R,3B,,21,Saint Mary's,4YR JR,FALSE,,2005-06-17,
 ,Jacob Krieg,,,,,"6' 5""",270,R/R,1B,,22,Oregon State,4YR SR,FALSE,,2004-05-08,58497
 ,Jacob Malfant,,,,,"6' 0""",190,R/R,SS,,18,Walter Panas HS (NY),HS SR,TRUE,,2008-01-28,
 ,Jacob Morgan,,,,,"6' 5""",200,L/L,P,,18,Sunlake HS (FL),HS SR,TRUE,,2007-11-26,
 ,Jacob Rogers,,,,,"6' 2""",200,R/R,P,,22,Texas Tech,4YR SR,FALSE,,2004-03-02,
 ,Jacob Vogel,,,,,"6' 7""",256,R/R,P,,22,Indiana,4YR SR,FALSE,,2004-01-28,67228
 ,Jaden Alba,,,,,"6' 3""",225,R/R,P,,21,Arizona State,4YR JR,FALSE,,2005-07-05,68861
-,Jaden Bastian,,,,,"5' 10""",195,R/R,OF,,21,Florida,4YR JR,FALSE,,2005-03-01,70997
+,Jaden Bastian,422,,,,"5' 10""",195,R/R,OF,,21,Florida,4YR JR,FALSE,,2005-03-01,70997
 ,Jaden Gustafson,,,,,"6' 3""",215,L/L,OF,,22,Wichita State,4YR SR,FALSE,,2004-07-01,62940
 ,Jaden Jackson,,,,,"5' 10""",195,L/R,SS,,19,St. John Bosco HS (CA),HS SR,TRUE,,2007-02-06,
 ,Jaden Kinsler,,,,,"6' 5""",215,L/L,P,,22,James Madison,4YR SR,FALSE,,2004-02-18,55178
@@ -1253,16 +1253,16 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Jake Books,,,,,"6' 1""",200,L/L,1B,,22,Tampa Prep HS (FL),HS SR,TRUE,,2003-12-04,
 ,Jake Duer,,,,,"6' 1""",195,L/L,OF,,23,Texas A&M,4YR SR,FALSE,,2003-06-05,61064
 ,Jake Echols,,,,,"6' 4""",170,R/R,P,,21,Florida State,4YR JR,FALSE,,2005-02-26,139630
-,Jake Escalante,,,,,"6' 3""",170,R/L,OF,,18,Soquel HS (CA),HS SR,TRUE,,2008-05-03,
+,Jake Escalante,479,,,,"6' 3""",170,R/L,OF,,18,Soquel HS (CA),HS SR,TRUE,,2008-05-03,
 ,Jake Fields,,,,,"6' 0""",195,R/R,P,,20,Long Beach State,4YR JR,FALSE,,2005-09-08,
 ,Jake Gregor,,,,,"6' 5""",235,R/R,P,,20,Louisville,4YR SO,FALSE,,2005-07-18,116675
 ,Jake Hembree,,,,,"6' 2""",200,L/L,P,,21,Georgia State,4YR JR,FALSE,,2004-10-28,
 ,Jake Jackson,,,,,"6' 6""",215,R/R,OF,,22,San Diego State,4YR JR,FALSE,,2004-06-25,
 ,Jake Kendro,,,,,"6' 2""",190,R/R,SS,,23,Pittsburgh,4YR SR,FALSE,,2003-05-20,61083
 ,Jake Kulikowski,,,,,"5' 11""",190,L/L,OF,,21,South Florida,4YR JR,FALSE,,2004-08-31,68743
-,Jake Lambdin,,,,,"5' 10""",185,R/R,SS,,21,Duke,4YR JR,FALSE,,2004-07-22,68607
+,Jake Lambdin,420,,,,"5' 10""",185,R/R,SS,,21,Duke,4YR JR,FALSE,,2004-07-22,68607
 ,Jake Lankie,,,,,"6' 2""",191,L/R,P,,21,Georgia Tech,4YR JR,FALSE,,2004-08-31,119146
-,Jake Long,,,,,"6' 3""",225,L/R,OF,,21,Utah,4YR JR,FALSE,,2004-08-09,
+,Jake Long,318,,,,"6' 3""",225,L/R,OF,,21,Utah,4YR JR,FALSE,,2004-08-09,
 ,Jake McKowen,,,,,"6' 5""",185,R/R,P,,20,Folsom Lake JC,JC J2,FALSE,,2005-11-30,
 ,Jake Michalak,,,,,"6' 3""",220,R/R,P,,21,Ohio State,4YR JR,FALSE,,2005-03-10,67455
 ,Jake Michel,,,,,"6' 5""",218,R/R,P,,23,Towson,4YR 5S,FALSE,,2002-11-07,45790
@@ -1287,7 +1287,7 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Jared Mettam,,,,,"5' 11""",200,R/R,SS,,22,Saint Mary's,4YR SR,FALSE,,2003-08-13,59592
 ,Jared Schaeffer,,,,,"6' 1""",187,R/R,P,,22,Dallas Baptist,4YR SR,FALSE,,2004-02-06,60579
 ,Jaron Ward,,,,,"6' 4""",185,R/R,OF,,23,Virginia State,4YR 5S,FALSE,,2002-12-19,77575
-,Jarren Purify,,,,,"5' 10""",190,R/R,SS,,20,Clemson,4YR JR,FALSE,,2005-11-06,68625
+,Jarren Purify,337,,,,"5' 10""",190,R/R,SS,,20,Clemson,4YR JR,FALSE,,2005-11-06,68625
 ,Jarvis Evans,,,,,"6' 4""",215,L/L,P,,23,Purdue,4YR SR,FALSE,,2002-07-17,54223
 ,Jase Phillips,,,,,"6' 3""",180,R/R,P,,21,Southern Illinois University Edwardsville,4YR JR,FALSE,,2005-03-29,136320
 ,Jasen Oliver,,,,,"5' 11""",190,R/R,SS,,22,Michigan State,4YR JR,FALSE,,2004-05-24,67223
@@ -1298,7 +1298,7 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Jason Krieger,,,,,"6' 5""",220,R/R,P,,21,Maine,4YR SR,FALSE,,2005-01-03,71043
 ,Jason Torres,,,,,"6' 1""",215,R/R,3B,,22,Alabama,4YR SR,FALSE,,2003-11-03,
 ,Jason Walk,,,,,"5' 10""",166,S/R,OF,,21,Oklahoma,4YR JR,FALSE,,2005-02-21,69662
-,Javar Williams,,,,,"6' 2""",195,L/L,OF,,22,Wake Forest,4YR JR,FALSE,,2004-01-09,67531
+,Javar Williams,251,,,,"6' 2""",195,L/L,OF,,22,Wake Forest,4YR JR,FALSE,,2004-01-09,67531
 ,Javeth Carrion,,,,,"6' 2""",193,S/R,SS,,18,Leadership Christian HS,HS SR,TRUE,,2008-05-05,
 ,Javier Gorostola,,,,,"6' 0""",218,R/R,3B,,21,Florida Gulf Coast,4YR JR,FALSE,,2004-12-14,70673
 ,Javy Ojeda,,,,,"6' 0""",192,L/R,OF,,19,Buford HS (GA),HS SR,TRUE,,2007-03-24,
@@ -1310,14 +1310,14 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Jaxon Grossman,,,,,"6' 4""",227,R/R,P,,22,Oklahoma,4YR SR,FALSE,,2004-03-25,62036
 ,Jaxon Lucas,,,,,"6' 3""",195,R/R,P,,21,Liberty,4YR JR,FALSE,,2004-09-06,69769
 ,Jaxon Lueken,,,,,"6' 3""",195,R/R,P,,18,Forest Park HS (IN),HS SR,TRUE,,2007-12-09,
-,Jaxon Matthews,,,,220,"6' 4""",215,L/R,OF,,19,Hough HS (NC),HS SR,TRUE,,2007-06-09,
+,Jaxon Matthews,320,,,220,"6' 4""",215,L/R,OF,,19,Hough HS (NC),HS SR,TRUE,,2007-06-09,
 ,Jaxon Shineflew,,,,,"6' 2""",175,L/L,P,,21,South Alabama,4YR JR,FALSE,,2004-12-09,67850
 ,Jaxon Sorenson,,,,,"6' 2""",225,L/R,3B,,23,Liberty,4YR SR,FALSE,,2002-10-30,
 ,Jaxon Walker,,,,,"5' 11""",195,L/L,OF,,21,Walters State CC,JC J2,FALSE,,2005-05-28,
 ,Jaxson Davis,,,,,"6' 4""",230,R/R,P,,23,Jacksonville State,4YR SR,FALSE,,2002-08-26,
 ,Jaxson Gore,,,,,"6' 2""",195,L/R,P,,21,Washington,4YR JR,FALSE,,2005-03-10,70560
 ,Jaxson Pease,,,,,"6' 1""",175,R/R,P,,22,Tennessee Tech,4YR SR,FALSE,,2003-10-09,61099
-,Jaxson Wood,,,,,"5' 9""",165,R/R,SS,,18,Hoover HS (AL),HS SR,TRUE,,2007-07-18,
+,Jaxson Wood,400,,,,"5' 9""",165,R/R,SS,,18,Hoover HS (AL),HS SR,TRUE,,2007-07-18,
 ,Jayce Dobie,,,,,"6' 3""",210,R/R,3B,,21,Nevada,4YR SR,FALSE,,2004-09-09,116714
 ,Jayce Tharnish,,,,,"6' 3""",190,R/R,OF,,22,Kentucky,4YR SR,FALSE,,2004-05-09,60544
 ,Jayden Davis,,,,,"5' 10""",195,R/R,2B,,22,Penn State,4YR SR,FALSE,,2004-06-22,59753
@@ -1339,7 +1339,7 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Jevarra Martin Jr.,,,,,"6' 6""",235,L/L,P,,22,Lipscomb,4YR JR,FALSE,,2004-02-21,
 ,Jevin Relaford,,,,,"5' 10""",175,R/R,SS,,24,South Florida,4YR GR,FALSE,,2001-10-08,53815
 ,Jhoander Irigoyen,,,,,"6' 1""",185,R/R,C,,23,Tampa,4YR SR,FALSE,,2002-12-18,101615
-,Jimmy Anderson,,,,,"6' 1""",198,R/R,SS,,20,Heartland CC,JC J2,FALSE,,2005-09-07,
+,Jimmy Anderson,467,,,,"6' 1""",198,R/R,SS,,20,Heartland CC,JC J2,FALSE,,2005-09-07,
 ,Jimmy Keenan,,,,,"6' 2""",220,R/R,C,,22,Wake Forest,4YR SR,FALSE,,2004-03-19,60608
 ,Jimmy Nati,,,,,"6' 2""",210,R/R,3B,,23,Stanford,4YR SR,FALSE,,2003-07-10,60805
 ,Jimmy Nugent,,,,,"6' 2""",210,R/R,C,,22,Louisville,4YR SR,FALSE,,2004-03-10,58669
@@ -1351,10 +1351,10 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Joek Rivera,,,,,"6' 1""",195,R/R,SS,,20,New Mexico Military Institute JC,JC J2,FALSE,,2005-09-23,
 ,Joey Brenczewski,,,,,"6' 3""",195,S/R,1B,,22,South Florida,4YR SR,FALSE,,2003-09-02,55041
 ,Joey Ireland,,,,,"6' 1""",190,R/R,SS,,18,Mount Carmel HS (IL),HS SR,TRUE,,2007-09-28,
-,Joey Lawson,,,,,"6' 2""",216,R/R,C,,19,Bishop Verot HS (FL),HS SR,TRUE,,2007-06-20,
+,Joey Lawson,478,,,,"6' 2""",216,R/R,C,,19,Bishop Verot HS (FL),HS SR,TRUE,,2007-06-20,
 ,Joey Spence,,,,,"5' 10""",205,L/R,C,,23,Wisconsin-Milwaukee,4YR 5S,FALSE,,2002-10-16,44696
 ,Johan Baez,,,,,"6' 3""",210,R/R,P,,18,Ocean Springs HS (MS),HS SR,TRUE,,2007-09-29,
-,John Abraham,,,,,"6' 3""",193,R/R,P,,21,Florida State,4YR JR,FALSE,,2005-03-16,68246
+,John Abraham,195,,,,"6' 3""",193,R/R,P,,21,Florida State,4YR JR,FALSE,,2005-03-16,68246
 ,John Alkire II,,,,,"6' 2""",185,R/R,P,,22,Hawaii,4YR SR,FALSE,,2003-11-11,
 ,John Carver,,,,,"6' 3""",210,R/R,P,,22,Adelphi,4YR 5S,FALSE,,2003-10-06,36494
 ,John Cooper Williams,,,,,"5' 10""",190,L/R,OF,,21,Kennesaw State,4YR JR,FALSE,,2004-12-29,
@@ -1364,7 +1364,7 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,John Michael Szefc,,,,,"5' 10""",170,L/R,SS,,19,Miller School of Albemarle HS (VA),HS SR,TRUE,,2007-01-15,
 ,John Miedrich,,,,,"5' 9""",187,L/R,SS,,18,Mountain View Prep HS (SC),HS SR,TRUE,,2008-04-21,
 ,John Smith III,,,,,"6' 1""",200,R/R,OF,,22,Central Florida,4YR SR,FALSE,,2003-11-19,
-,John Stowers,,,,,"6' 0""",195,L/R,C,,18,St. Pauls HS (AL),HS SR,TRUE,,2008-05-15,
+,John Stowers,220,,,,"6' 0""",195,L/R,C,,18,St. Pauls HS (AL),HS SR,TRUE,,2008-05-15,
 ,Johnny Nuanez,,,,,"6' 3""",195,R/R,P,,21,Wichita State,4YR JR,FALSE,,2004-09-16,138609
 ,Johnny Pilla,,,,,"5' 11""",175,L/R,SS,,22,SUNY Stony Brook,4YR SR,FALSE,,2004-02-24,60906
 ,Johnny Tena,,,,,"6' 1""",185,R/R,SS,,18,Aquinas HS (CA),HS SR,TRUE,,2008-03-12,
@@ -1400,36 +1400,36 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Jorhan Castro,,,,,"5' 10""",180,S/R,C,,18,Colegio Angel David HS,HS SR,TRUE,,2007-12-16,
 ,Jory Crocker,,,,,"6' 2""",191,R/R,SS,,18,Willowbrook HS (IL),HS SR,TRUE,,2007-09-23,
 ,Jose Vargas,,,,,"6' 3""",210,L/R,OF,,23,Lamar,4YR JR,FALSE,,2003-06-27,
-,Joseph Raimonda,,,,,"6' 5""",215,L/L,P,,18,Monsignor Farrell HS (NY),HS SR,TRUE,,2008-06-24,
+,Joseph Raimonda,475,,,,"6' 5""",215,L/L,P,,18,Monsignor Farrell HS (NY),HS SR,TRUE,,2008-06-24,
 ,Joseph Webb,,,,,"6' 3""",215,R/R,P,,21,East Carolina,4YR SR,FALSE,,2004-07-16,
 ,Josh Beck,,,,,"6' 6""",227,L/L,P,,23,La Salle,4YR GR,FALSE,,2003-01-09,
 ,Josh Butler,,,,,"6' 7""",230,R/R,P,,21,Arizona State,4YR JR,FALSE,,2004-09-08,
 ,Josh Campos,,,,,"6' 1""",185,R/L,OF,,22,Liberty,4YR JR,FALSE,,2004-02-12,132406
 ,Josh Dima,,,,,"6' 2""",190,L/L,P,,24,McKendree,4YR 5S,FALSE,,2001-11-29,
-,Josh Gunther,,,,,"5' 11""",206,R/R,P,,21,South Carolina,4YR JR,FALSE,,2004-11-29,67520
+,Josh Gunther,285,,,,"5' 11""",206,R/R,P,,21,South Carolina,4YR JR,FALSE,,2004-11-29,67520
 ,Josh Horvath,,,,,"6' 4""",192,R/R,P,,18,Round Rock HS (TX),HS SR,TRUE,,2007-11-30,
 ,Josh Livingston,,,,,"6' 0""",215,L/R,3B,,23,Texas,4YR GR,FALSE,,2003-06-20,69889
 ,Josh Morano,,,,,"6' 4""",215,L/L,P,,21,Cal Poly,4YR JR,FALSE,,2005-04-12,70846
 ,Josh Newell,,,,,"6' 2""",210,R/R,P,,22,Lindenwood,4YR SR,FALSE,,2004-02-03,55933
 ,Josh Schleichardt,,,,,"6' 1""",205,R/R,3B,,24,Oregon,4YR SR,FALSE,,2002-05-31,
-,Josh Skowronski,,,,,"6' 5""",220,L/R,OF,,21,Winthrop,4YR JR,FALSE,,2005-02-11,68936
+,Josh Skowronski,383,,,,"6' 5""",220,L/R,OF,,21,Winthrop,4YR JR,FALSE,,2005-02-11,68936
 ,Josh Swink,,,,,"6' 1""",197,L/L,P,,21,Liberty,4YR JR,FALSE,,2004-09-08,68670
 ,Josh Volmerding,,,,,"6' 4""",210,R/L,P,,21,Cal Poly,4YR JR,FALSE,,2004-09-23,71092
-,Josiah Kemp,,,,,"6' 1""",185,R/R,OF,,18,Choctaw HS (OK),HS SR,TRUE,,2007-09-28,
+,Josiah Kemp,312,,,,"6' 1""",185,R/R,OF,,18,Choctaw HS (OK),HS SR,TRUE,,2007-09-28,
 ,Josiah Seguin,,,,,"6' 4""",200,S/R,SS,,20,James Madison,4YR JR,FALSE,,2005-09-12,69938
 ,Juan Berrios,,,,,"6' 0""",205,L/L,P,,20,Southeastern Oklahoma State,4YR SR,FALSE,,2005-08-09,70537
 ,Juan Correa,,,,,"6' 5""",220,R/R,1B,,23,South Florida,4YR 5S,FALSE,,2003-01-29,
 ,Juan Vargas,,,,,"6' 1""",200,L/R,P,,21,Texas A&M,4YR JR,FALSE,,2004-10-31,73105
-,Judah Ota,,,,208,"6' 5""",225,L/R,OF,,18,Iolani HS (HI),HS SR,TRUE,,2007-10-16,
+,Judah Ota,259,,,208,"6' 5""",225,L/R,OF,,18,Iolani HS (HI),HS SR,TRUE,,2007-10-16,
 ,Judd Utermark,,,,,"6' 5""",250,R/R,3B,,22,Mississippi,4YR SR,FALSE,,2004-01-06,58427
 ,Judson Dowell,,,,,"6' 0""",200,R/R,OF,,18,The Bennett School HS (TX),HS SR,TRUE,,2008-04-28,
 ,Juju Stevens,,,,,"6' 0""",200,R/R,OF,,23,Maine,4YR GR,FALSE,,2003-02-15,43574
-,Julian Cazares,,,,,"6' 2""",205,R/R,P,,18,Los Banos HS (CA),HS SR,TRUE,,2007-11-18,
+,Julian Cazares,393,,,,"6' 2""",205,R/R,P,,18,Los Banos HS (CA),HS SR,TRUE,,2007-11-18,
 ,Julian Guzman,,,,,"6' 0""",185,S/R,SS,,18,Iona Prep HS (NY),HS SR,TRUE,,2007-11-23,
-,Julian Sabourin,,,,,"6' 2""",195,L/R,P,,17,Bishop Tonnos Catholic SS (ON),HS SR,TRUE,,2008-08-25,
+,Julian Sabourin,341,,,,"6' 2""",195,L/R,P,,17,Bishop Tonnos Catholic SS (ON),HS SR,TRUE,,2008-08-25,
 ,Julien Hachem,,,,,"6' 7""",250,S/L,P,,21,Erskine,4YR SR,FALSE,,2004-08-25,58356
 ,Julius Scearce,,,,,"6' 1""",190,L/R,OF,,23,Eastern Kentucky,4YR GR,FALSE,,2003-01-25,68097
-,Juriel Collazo,,,,,"6' 0""",174,R/R,OF,,17,Christian Military Academy HS,HS SR,TRUE,,2008-12-12,
+,Juriel Collazo,468,,,,"6' 0""",174,R/R,OF,,17,Christian Military Academy HS,HS SR,TRUE,,2008-12-12,
 ,Justin Byrd,,,,,"6' 2""",203,R/R,P,,22,Georgia,4YR SR,FALSE,,2004-03-27,61913
 ,Justin Feld,,,,,"6' 0""",195,R/R,P,,22,Gonzaga,4YR SR,FALSE,,2003-09-02,68511
 ,Justin Fuller,,,,,"5' 10""",180,R/R,P,,20,Lower Columbia JC,JC J1,FALSE,,2006-05-28,101790
@@ -1444,7 +1444,7 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Justin Shadek,,,,,"6' 6""",235,R/R,P,,21,Georgia Tech,4YR JR,FALSE,,2005-02-09,69579
 ,Justin Vossos,,,,,"6' 0""",193,R/R,SS,,22,Texas State,4YR SR,FALSE,,2003-11-18,61176
 ,Justin Word,,,,,"5' 11""",185,R/R,SS,,18,Jackson Academy (MS),HS SR,TRUE,,2008-03-21,
-,KJ Scobey,,,,,"6' 2""",200,R/R,SS,,21,South Carolina,4YR SO,FALSE,,2005-05-23,101890
+,KJ Scobey,402,,,,"6' 2""",200,R/R,SS,,21,South Carolina,4YR SO,FALSE,,2005-05-23,101890
 ,KJ Ward,,,,,"6' 5""",255,S/R,P,,24,Park University-Gilbert,4YR 5S,FALSE,,2002-01-04,
 ,KJ White,,,,,"5' 10""",165,S/R,SS,,21,Southern,4YR SR,FALSE,,2004-12-10,60371
 ,Kade Durnin,,,,,"6' 3""",220,R/R,P,,20,No School (MO),NS,FALSE,,2005-12-01,
@@ -1468,10 +1468,10 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Kaikea Harrison,,,,,"6' 0""",185,L/R,SS,,22,Tulane,4YR SR,FALSE,,2004-04-06,
 ,Kaleb Applebey,,,,,"6' 7""",245,R/R,P,,23,Austin Peay State,4YR 5S,FALSE,,2003-02-18,
 ,Kaleb Kantola,,,,,"6' 7""",220,R/R,P,,25,Lipscomb,4YR GR,FALSE,,2001-03-30,42509
-,Kaleb LaFavor,,,,171,"6' 7""",195,L/R,P,,18,Bishop Heelan HS (IA),HS SR,TRUE,,2008-02-26,
+,Kaleb LaFavor,463,,,171,"6' 7""",195,L/R,P,,18,Bishop Heelan HS (IA),HS SR,TRUE,,2008-02-26,
 ,Kaleb Townsend,,,,,"5' 9""",160,R/R,P,,22,Johnson,4YR SR,FALSE,,2004-01-29,
 ,Kaleb Traylor,,,,216,"6' 1""",200,R/R,1B,,18,TNXL Academy (FL),HS SR,TRUE,,2007-11-29,
-,Kam Durnin,,,,,"6' 1""",200,R/R,SS,,21,Missouri,4YR JR,FALSE,,2004-08-05,69878
+,Kam Durnin,321,,,,"6' 1""",200,R/R,SS,,21,Missouri,4YR JR,FALSE,,2004-08-05,69878
 ,Kam Edwards,,,,,"5' 9""",175,L/L,OF,,23,Lindenwood,4YR 5S,FALSE,,2002-11-08,68704
 ,Kam Jenkins,,,,,"6' 0""",197,R/R,SS,,18,Bob Jones HS (AL),HS SR,TRUE,,2008-01-22,
 ,Kameron Yearsley,,,,,"5' 10""",205,L/L,OF,,20,John A. Logan JC,JC J2,FALSE,,2006-06-05,
@@ -1493,7 +1493,7 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Keegan Johnson,,,,,"6' 2""",210,L/L,P,,21,Ball State,4YR JR,FALSE,,2005-01-13,69215
 ,Keegan O'Hearn,,,,,"6' 5""",225,L/L,OF,,21,Michigan,4YR JR,FALSE,,2004-07-21,67375
 ,Keegan Russell,,,,,"6' 7""",242,L/R,P,,19,All Saints Catholic SS (ON),HS SR,TRUE,,2007-02-05,
-,Keenan Dolan,,,,,"6' 5""",208,R/R,P,,18,Bishop Manogue HS (NV),HS SR,TRUE,,2007-10-08,
+,Keenan Dolan,428,,,,"6' 5""",208,R/R,P,,18,Bishop Manogue HS (NV),HS SR,TRUE,,2007-10-08,
 ,Kellan Montgomery,,,,,"6' 0""",195,R/R,P,,22,UC Santa Barbara,4YR SR,FALSE,,2004-03-23,56042
 ,Kellen Strohmeyer,,,,,"6' 3""",219,L/R,OF,,22,Iowa,4YR SR,FALSE,,2004-01-04,55106
 ,Kelley Crawford,,,,,"6' 3""",205,R/R,P,,18,Junipero Serra HS (CA),HS SR,TRUE,,2008-05-08,
@@ -1501,7 +1501,7 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Kelvin Agosto,,,,,"5' 11""",185,R/R,OF,,22,Gardner-Webb,4YR SR,FALSE,,2004-03-31,115691
 ,Kenan Elarton,,,,,"6' 5""",217,R/R,P,,22,Houston Christian,4YR SR,FALSE,,2004-04-11,50535
 ,Kenny Foudy,,,,,"6' 0""",205,R/R,C,,19,North Hall HS (GA),HS SR,TRUE,,2007-06-30,
-,Kenny Ishikawa,,,,,"5' 11""",193,L/L,OF,,22,Georgia,4YR SO,FALSE,,2004-04-07,101866
+,Kenny Ishikawa,188,,,,"5' 11""",193,L/L,OF,,22,Georgia,4YR SO,FALSE,,2004-04-07,101866
 ,Kent Schmidt,,,,,"6' 0""",225,L/R,1B,,21,Georgia Tech,4YR JR,FALSE,,2005-06-15,67256
 ,Kenton Deverman,,,,,"6' 3""",205,L/L,P,,21,Evansville,4YR JR,FALSE,,2004-10-13,69848
 ,Kevin Karstetter,,,,,"6' 3""",220,R/R,3B,,24,Penn State,4YR GR,FALSE,,2001-09-27,68873
@@ -1510,7 +1510,7 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Kevin Schoneboom,,,,,"6' 3""",225,R/R,P,,22,Central Florida,4YR SR,FALSE,,2003-11-06,101881
 ,Kevin Takeuchi,,,,,"5' 10""",180,R/R,3B,,21,USC,4YR JR,FALSE,,2005-02-17,69326
 ,Khaleel Pratt,,,,,"6' 5""",225,L/R,OF,,20,Eastern Kentucky,4YR SO,FALSE,,2005-07-12,101883
-,Kide Adetuyi,,,,,"6' 1""",190,R/L,P,,20,Florida Atlantic,4YR JR,FALSE,,2005-07-25,67918
+,Kide Adetuyi,444,,,,"6' 1""",190,R/L,P,,20,Florida Atlantic,4YR JR,FALSE,,2005-07-25,67918
 ,Kingston Kela,,,,,"6' 0""",180,R/R,3B,,19,Faith Lutheran HS (NV),HS SR,TRUE,,2007-06-20,
 ,Kobe Minchey,,,,,"6' 4""",220,R/R,P,,23,Tarleton State,4YR SR,FALSE,,2003-06-30,61157
 ,Kolby Branch,,,,,"5' 11""",202,R/R,SS,,23,Georgia,4YR SR,FALSE,,2003-02-11,50986
@@ -1529,7 +1529,7 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Kyle Emmons,,,,,"6' 4""",225,R/R,P,,21,Penn State,4YR JR,FALSE,,2005-06-11,67677
 ,Kyle Hayes,,,,,"6' 1""",212,R/R,C,,23,Western Kentucky,4YR 5S,FALSE,,2002-10-30,
 ,Kyle Kipp,,,,,"6' 2""",200,R/R,P,,21,Boston College,4YR JR,FALSE,,2005-02-17,67438
-,Kyle McDaniel,,,,,"5' 10""",190,L/R,2B,,21,Utah Tech,4YR JR,FALSE,,2005-04-14,70337
+,Kyle McDaniel,365,,,,"5' 10""",190,L/R,2B,,21,Utah Tech,4YR JR,FALSE,,2005-04-14,70337
 ,Kyle Mueller,,,,,"6' 4""",215,R/R,P,,22,Presbyterian,4YR SR,FALSE,,2004-02-25,58971
 ,Kyle Percival,,,,,"6' 5""",215,R/L,P,,22,North Carolina,4YR SR,FALSE,,2004-01-29,57840
 ,Kyle Remington,,,,,"6' 0""",170,L/R,P,,22,Illinois,4YR JR,FALSE,,2004-05-10,67413
@@ -1545,12 +1545,12 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Landon Akers,,,,,"6' 1""",200,R/R,SS,,21,Bellarmine,4YR JR,FALSE,,2005-02-02,117080
 ,Landon Church,,,,,"6' 0""",180,R/R,SS,,19,West Forsyth HS (NC),HS SR,TRUE,,2007-05-11,
 ,Landon Collins,,,,,"6' 4""",200,L/L,P,,18,Friendswood HS (TX),HS SR,TRUE,,2007-12-18,
-,Landon Koenig,,,,,"6' 6""",245,R/R,P,,21,Mississippi,4YR JR,FALSE,,2004-11-23,68004
+,Landon Koenig,330,,,,"6' 6""",245,R/R,P,,21,Mississippi,4YR JR,FALSE,,2004-11-23,68004
 ,Landon Lucas,,,,,"6' 2""",210,R/R,P,,24,UNC Pembroke,4YR GR,FALSE,,2001-10-28,
 ,Landon Moran,,,,,"6' 0""",185,L/L,1B,,22,Central Florida,4YR SR,FALSE,,2003-09-25,60846
 ,Landon O'Donnell,,,,,"6' 4""",230,R/R,P,,21,South Florida,4YR JR,FALSE,,2005-01-03,
 ,Landon Russell,,,,,"6' 1""",190,R/R,OF,,22,Stetson,4YR SR,FALSE,,2004-01-21,67607
-,Landon Schutte,,,,,"6' 5""",225,R/R,P,,18,Oakdale HS (CA),HS SR,TRUE,,2007-11-15,
+,Landon Schutte,403,,,,"6' 5""",225,R/R,P,,18,Oakdale HS (CA),HS SR,TRUE,,2007-11-15,
 ,Landon Stripling,,,,,"6' 0""",200,L/R,3B,,21,Florida,4YR JR,FALSE,,2004-07-27,73111
 ,Landon Stump,,,,,"6' 3""",212,R/R,P,,21,UCLA,4YR JR,FALSE,,2005-01-23,68546
 ,Landon Underhill,,,,,"6' 0""",205,L/R,OF,,24,Dallas Baptist,4YR 5S,FALSE,,2002-07-07,43207
@@ -1579,10 +1579,10 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Logan Johnstone,,,,,"5' 11""",191,L/R,OF,,23,Vanderbilt,4YR 5S,FALSE,,2003-05-31,40861
 ,Logan Olson,,,,,"6' 5""",200,L/L,P,,22,Penn State,4YR SR,FALSE,,2004-06-11,58484
 ,Logan Saloman,,,,,"6' 5""",230,R/R,P,,22,Nevada,4YR SR,FALSE,,2004-05-10,117701
-,Logan Sorrel,,,,,"6' 4""",210,R/R,P,,18,Parkview Baptist School (LA),HS SR,TRUE,,2007-07-18,
+,Logan Sorrel,481,,,,"6' 4""",210,R/R,P,,18,Parkview Baptist School (LA),HS SR,TRUE,,2007-07-18,
 ,Logan Sutter,,,,,"6' 1""",220,R/R,3B,,23,South Carolina,4YR GR,FALSE,,2003-01-16,67275
-,Lorenzo Carrier,,,,,"6' 5""",215,R/R,OF,,23,Pittsburgh,4YR 5S,FALSE,,2003-05-20,43278
-,Louis Hernandez,,,,,"6' 5""",205,R/R,SS,,18,Lake Mary HS (FL),HS SR,TRUE,,2007-08-22,
+,Lorenzo Carrier,351,,,,"6' 5""",215,R/R,OF,,23,Pittsburgh,4YR 5S,FALSE,,2003-05-20,43278
+,Louis Hernandez,427,,,,"6' 5""",205,R/R,SS,,18,Lake Mary HS (FL),HS SR,TRUE,,2007-08-22,
 ,Louis Rodriguez,,,,,"6' 1""",210,R/R,P,,22,TCU,4YR SR,FALSE,,2004-04-16,
 ,Luc Rising,,,,,"6' 2""",208,R/R,P,,22,Northeastern,4YR SR,FALSE,,2003-12-11,59266
 ,Luca Danos,,,,,"6' 0""",185,R/R,SS,,24,Loyola Marymount,4YR 5S,FALSE,,2001-11-07,49650
@@ -1600,7 +1600,7 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Luke Costello,,,,207,"6' 2""",215,R/R,3B,,21,Wake Forest,4YR SO,FALSE,,2005-05-08,
 ,Luke Craytor,,,,,"6' 5""",220,R/R,P,,22,Virginia Tech,4YR SR,FALSE,,2004-03-19,55551
 ,Luke Crighton,,,,,"6' 4""",185,R/R,P,,19,Orchard Lake St. Mary'sHS (MI),HS SR,TRUE,,2006-12-20,
-,Luke Ekdall,,,,,"6' 0""",195,R/R,P,,21,Blinn JC,JC J3,FALSE,,2005-05-25,
+,Luke Ekdall,396,,,,"6' 0""",195,R/R,P,,21,Blinn JC,JC J3,FALSE,,2005-05-25,
 ,Luke Gaffney,,,,,"6' 1""",235,R/R,C,,22,Clemson,4YR SR,FALSE,,2003-10-09,59020
 ,Luke Guth,,,,,"6' 1""",188,R/R,P,,22,Vanderbilt,4YR JR,FALSE,,2004-06-13,67939
 ,Luke Harrison,,,,,"6' 2""",220,L/L,P,,23,Texas,4YR GR,FALSE,,2003-02-27,47775
@@ -1610,9 +1610,9 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Luke Lyman,,,,,"6' 5""",212,R/R,P,,22,West Virginia,4YR SR,FALSE,,2004-03-17,57293
 ,Luke McGrath,,,,,"6' 2""",185,R/R,P,,21,James Madison,4YR JR,FALSE,,2005-05-06,67473
 ,Luke Moeller,,,,,"6' 2""",220,R/R,C,,22,No School (AZ),NS,FALSE,,2003-10-27,
-,Luke Nixon,,,,,"5' 10""",165,L/R,SS,,21,North Carolina State,4YR JR,FALSE,,2004-10-01,69773
+,Luke Nixon,235,,,,"5' 10""",165,L/R,SS,,21,North Carolina State,4YR JR,FALSE,,2004-10-01,69773
 ,Luke Payne,,,,,"6' 4""",200,R/L,P,,22,East Carolina,4YR JR,FALSE,,2004-03-04,
-,Luke Pettitte,,,,,"6' 2""",220,R/R,P,,21,Dallas Baptist,4YR JR,FALSE,,2005-06-19,68503
+,Luke Pettitte,307,,,,"6' 2""",220,R/R,P,,21,Dallas Baptist,4YR JR,FALSE,,2005-06-19,68503
 ,Luke Reed,,,,,"6' 1""",215,R/R,P,,23,Ball State,4YR GR,FALSE,,2002-08-20,53314
 ,Luke Rodriguez,,,,,"6' 3""",195,R/R,P,,22,The Master's,4YR JR,FALSE,,2004-06-05,68545
 ,Luke Schmolke,,,,,"5' 11""",190,R/R,P,,22,Wake Forest,4YR SR,FALSE,,2004-03-20,54278
@@ -1624,7 +1624,7 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Mac Gillespie,,,,,"6' 3""",185,R/R,OF,,22,UNC Wilmington,4YR SR,FALSE,,2004-03-30,61827
 ,Mac Moyer,,,,,"6' 1""",195,L/L,OF,,22,Nebraska,4YR SR,FALSE,,2003-07-28,134096
 ,Mac Rose,,,,,"6' 0""",200,L/R,C,,22,Dallas Baptist,4YR JR,FALSE,,2004-04-19,117449
-,Macon Winslow,,,,,"6' 0""",200,R/R,C,,21,North Carolina,4YR JR,FALSE,,2005-01-21,67217
+,Macon Winslow,246,,,,"6' 0""",200,R/R,C,,21,North Carolina,4YR JR,FALSE,,2005-01-21,67217
 ,Madden Clement,,,,,"6' 3""",210,L/L,P,,21,Virginia Tech,4YR JR,FALSE,,2004-10-29,70198
 ,Maddox Burkitt,,,,,"6' 2""",200,R/R,P,,22,Kansas,4YR SR,FALSE,,2003-09-10,131983
 ,Maddox Mihalakis,,,,,"6' 2""",198,L/R,2B,,22,Arizona,4YR SR,FALSE,,2003-10-14,50541
@@ -1652,7 +1652,7 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Mario Lopez Jr.,,,,,"5' 11""",195,R/R,C,,23,Rollins,4YR SR,FALSE,,2002-07-12,
 ,Mario Medina,,,,,"5' 8""",165,R/R,C,,18,Mt. Carmel HS (IL),HS SR,TRUE,,2007-09-12,
 ,Mario Pesca,,,,,"6' 8""",236,R/R,P,,22,Oklahoma State,4YR SR,FALSE,,2004-02-23,60614
-,Mark  Quatrani,,,,,"5' 11""",210,R/R,C,,21,Notre Dame,4YR JR,FALSE,,2004-10-08,
+,Mark  Quatrani,245,,,,"5' 11""",210,R/R,C,,21,Notre Dame,4YR JR,FALSE,,2004-10-08,
 ,Mark Metcalf,,,,,"5' 10""",150,R/R,SS,,18,Sarasota HS (FL),HS SR,TRUE,,2007-09-29,
 ,Marko Sipila,,,,,"6' 4""",220,R/R,P,,22,Mississippi,4YR SR,FALSE,,2003-12-17,61607
 ,Martin Galo,,,,,"5' 8""",160,S/R,C,,18,Gaither HS (FL),HS SR,TRUE,,2007-09-03,
@@ -1662,7 +1662,7 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Marvin Montenegro,,,,,"5' 10""",185,R/R,C,,19,Polk State JC,JC J1,FALSE,,2006-11-02,
 ,Masen Belding,,,,,"6' 2""",223,L/R,C,,18,Del Oro HS (CA),HS SR,TRUE,,2007-11-14,
 ,Mason Bixby,,,,,"6' 7""",239,R/R,P,,21,Oklahoma,4YR JR,FALSE,,2004-11-29,70684
-,Mason Eckelman,,,,244,"6' 1""",220,L/R,C,,21,Ohio State,4YR JR,FALSE,,2004-10-25,67446
+,Mason Eckelman,431,,,244,"6' 1""",220,L/R,C,,21,Ohio State,4YR JR,FALSE,,2004-10-25,67446
 ,Mason Henry,,,,,"6' 8""",235,R/R,P,,19,No School (UT),NS,FALSE,,2007-04-03,
 ,Mason Kelley,,,,,"6' 3""",210,L/R,P,,22,Cal State Stanislaus,4YR SR,FALSE,,2003-07-11,
 ,Mason Koch,,,,,"6' 1""",201,R/R,P,,23,Auburn,4YR SR,FALSE,,2003-06-29,52713
@@ -1677,13 +1677,13 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Mathis Nayral,,,,,"6' 5""",210,R/R,P,,22,Kansas,4YR SR,FALSE,,2004-04-24,131995
 ,Matias Fischer,,,,,"6' 2""",190,S/R,SS,,18,True North HS (FL),HS SR,TRUE,,2008-02-04,
 ,Matt Champion,,,,,"5' 10""",185,R/R,P,,21,Loyola Marymount,4YR SO,FALSE,,2005-07-05,
-,Matt Conte,,,,,"6' 2""",210,R/R,C,,21,Wake Forest,4YR SO,FALSE,,2005-01-21,117016
+,Matt Conte,304,,,,"6' 2""",210,R/R,C,,21,Wake Forest,4YR SO,FALSE,,2005-01-21,117016
 ,Matt Gallant,,,,,"6' 5""",210,L/L,P,,21,Charleston Southern,4YR JR,FALSE,,2005-04-24,70132
 ,Matt Kouser,,,,,"6' 6""",230,R/R,P,,20,Northwestern,4YR SO,FALSE,,2005-07-18,
-,Matt Mansbery,,,,,"6' 2""",180,R/R,SS,,18,Walsh Jesuit HS (OH),HS SR,TRUE,,2007-10-27,
+,Matt Mansbery,395,,,,"6' 2""",180,R/R,SS,,18,Walsh Jesuit HS (OH),HS SR,TRUE,,2007-10-27,
 ,Matt Quintanar,,,,,"6' 0""",215,R/R,C,,22,Texas Tech,4YR JR,FALSE,,2004-04-07,
-,Matt Sauser,,,,,"6' 3""",195,L/R,P,,21,Central Florida,4YR JR,FALSE,,2004-09-02,68263
-,Matt Scott,,,,,"6' 7""",241,R/R,P,,22,Georgia,4YR SR,FALSE,,2004-01-13,
+,Matt Sauser,469,,,,"6' 3""",195,L/R,P,,21,Central Florida,4YR JR,FALSE,,2004-09-02,68263
+,Matt Scott,329,,,,"6' 7""",241,R/R,P,,22,Georgia,4YR SR,FALSE,,2004-01-13,
 ,Matteo Pare,,,,,"6' 4""",220,R/R,P,,21,Troy,4YR JR,FALSE,,2005-05-03,137520
 ,Matthew Bucciero,,,,,"6' 2""",225,R/R,OF,,21,Fairfield,4YR SR,FALSE,,2004-10-18,
 ,Matthew Dallas,,,,,"6' 5""",200,L/L,P,,22,Wake Forest,4YR JR,FALSE,,2004-05-24,69174
@@ -1691,16 +1691,16 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Matthew Graveline,,,,,"6' 1""",195,R/R,C,,22,West Virginia,4YR SR,FALSE,,2003-10-27,58299
 ,Matthew Heiberger,,,,,"6' 3""",215,L/L,P,,21,Alabama,4YR JR,FALSE,,2004-09-20,69158
 ,Matthew Jenkins,,,,,"6' 6""",195,R/R,P,,21,Florida,4YR JR,FALSE,,2004-12-17,102232
-,Matthew Kelley,,,,195,"6' 2""",185,R/R,SS,,18,Basic HS (NV),HS SR,TRUE,,2008-01-19,
+,Matthew Kelley,485,,,195,"6' 2""",185,R/R,SS,,18,Basic HS (NV),HS SR,TRUE,,2008-01-19,
 ,Matthew Kurz,,,,,"6' 2""",190,R/R,OF,,18,Clarke HS (NY),HS SR,TRUE,,2008-05-30,
 ,Matthew Martinez II,,,,,"5' 11""",215,R/R,C,,23,High Point,4YR SR,FALSE,,2002-09-19,54698
 ,Matthew Matthijs,,,,,"6' 2""",215,R/R,P,,22,North Carolina,4YR SR,FALSE,,2004-05-19,57838
-,Matthew Maxon,,,,,"6' 3""",195,R/R,P,,18,Carmel HS (CA),HS SR,TRUE,,2007-10-16,
+,Matthew Maxon,372,,,,"6' 3""",195,R/R,P,,18,Carmel HS (CA),HS SR,TRUE,,2007-10-16,
 ,Matthew Ossenfort,,,,,"6' 3""",215,L/L,1B,,22,Michigan,4YR JR,FALSE,,2004-03-16,
 ,Matthew Porchas,,,,,"6' 4""",225,R/R,P,,23,Middle Tennessee State,4YR JR,FALSE,,2003-07-05,133913
 ,Matthew Scott II,,,,,"6' 4""",210,R/R,OF,,20,Northwest Florida State JC,JC J2,FALSE,,2005-07-17,125007
-,Matthew Sharman,,,,,"6' 4""",220,R/R,P,,18,Etowah HS (GA),HS SR,TRUE,,2007-09-29,
-,Matthew Thomas,,,,,"6' 3""",200,R/R,OF,,20,Cal State Northridge,4YR JR,FALSE,,2005-11-02,
+,Matthew Sharman,273,,,,"6' 4""",220,R/R,P,,18,Etowah HS (GA),HS SR,TRUE,,2007-09-29,
+,Matthew Thomas,187,,,,"6' 3""",200,R/R,OF,,20,Cal State Northridge,4YR JR,FALSE,,2005-11-02,
 ,Maverik Maddux,,,,,"6' 4""",185,R/R,P,,18,Lake Belton HS (TX),HS SR,TRUE,,2008-05-30,
 ,Mavrick Rizy,,,,,"6' 9""",251,R/R,P,,21,LSU,4YR SO,FALSE,,2004-12-16,102256
 ,Max Arlich,,,,,"6' 3""",210,L/L,P,,20,Chandler-Gilbert CC,JC J2,FALSE,,2005-08-20,122375
@@ -1709,9 +1709,9 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Max Hamilton,,,,,"6' 2""",205,R/R,P,,18,Olathe West HS (KS),HS SR,TRUE,,2007-11-19,
 ,Max Hansmann,,,,,"6' 1""",210,R/R,P,,22,Evansville,4YR SR,FALSE,,2004-02-11,53630
 ,Max Hartman,,,,,"6' 3""",205,L/R,OF,,22,Washington State,4YR SR,FALSE,,2004-02-03,62473
-,Max Holland,,,,,"6' 2""",205,R/R,C,,19,Conway HS (AR),HS SR,TRUE,,2007-05-18,
+,Max Holland,474,,,,"6' 2""",205,R/R,C,,19,Conway HS (AR),HS SR,TRUE,,2007-05-18,
 ,Max Irving,,,,,"6' 0""",190,S/R,SS,,18,Montverde Academy HS (FL),HS SR,TRUE,,2008-05-12,
-,Max Kaufer,,,,,"6' 0""",210,R/R,C,,21,Wichita State,4YR SR,FALSE,,2005-03-25,61169
+,Max Kaufer,410,,,,"6' 0""",210,R/R,C,,21,Wichita State,4YR SR,FALSE,,2005-03-25,61169
 ,Max Knight,,,,,"6' 3""",210,L/L,P,,21,Missouri State,4YR JR,FALSE,,2004-10-27,67617
 ,Max McEwen,,,,,"6' 2""",214,R/R,P,,22,Indiana State,4YR SR,FALSE,,2003-12-17,55079
 ,Max McGwire,,,,,"6' 3""",205,R/R,P,,23,Saint Louis,4YR 5S,FALSE,,2002-10-10,44907
@@ -1724,11 +1724,11 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,McCarty English,,,,,"6' 1""",180,R/R,P,,21,Southern Mississippi,4YR JR,FALSE,,2004-09-02,67662
 ,McCoy Silicz,,,,,"6' 5""",210,R/R,1B,,18,Bakersfield Christian HS (CA),HS SR,TRUE,,2008-02-17,
 ,Mic Paul,,,,,"5' 10""",190,L/L,OF,,22,Washington,4YR SR,FALSE,,2004-02-26,56140
-,Michael Addari,,,,,"6' 6""",225,R/R,P,,22,Illinois State,4YR SR,FALSE,,2004-06-01,56851
-,Michael Anderson,,,,,"6' 3""",230,R/R,1B,,22,Penn State,4YR SR,FALSE,,2004-05-27,
+,Michael Addari,180,,,,"6' 6""",225,R/R,P,,22,Illinois State,4YR SR,FALSE,,2004-06-01,56851
+,Michael Anderson,264,,,,"6' 3""",230,R/R,1B,,22,Penn State,4YR SR,FALSE,,2004-05-27,
 ,Michael Barnett,,,,,"6' 4""",210,R/R,P,,22,UCLA,4YR SR,FALSE,,2004-04-15,61633
-,Michael Benzor,,,,,"6' 4""",230,L/L,P,,22,Dallas Baptist,4YR SR,FALSE,,2003-12-24,58369
-,Michael Catalano,,,,,"6' 0""",200,R/R,P,,21,Oklahoma,4YR SO,FALSE,,2005-06-28,
+,Michael Benzor,392,,,,"6' 4""",230,L/L,P,,22,Dallas Baptist,4YR SR,FALSE,,2003-12-24,58369
+,Michael Catalano,407,,,,"6' 0""",200,R/R,P,,21,Oklahoma,4YR SO,FALSE,,2005-06-28,
 ,Michael Crossland,,,,,"6' 0""",215,R/R,OF,,21,UC San Diego,4YR JR,FALSE,,2004-09-24,69044
 ,Michael DiMartini,,,,,"6' 2""",215,R/R,OF,,21,Duke,4YR JR,FALSE,,2004-09-26,67199
 ,Michael Ebner,,,,,"6' 4""",215,R/R,P,,22,USC,4YR SR,FALSE,,2004-02-12,60269
@@ -1739,7 +1739,7 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Michael Holt,,,,,"5' 11""",190,L/L,OF,,18,Ravenwood HS (TN),HS SR,TRUE,,2008-01-31,
 ,Michael Lane,,,,,"6' 1""",205,R/R,P,,21,Delaware State,4YR JR,FALSE,,2005-06-11,70121
 ,Michael Lippe,,,,,"6' 3""",230,R/R,OF,,22,Minnesota,4YR SR,FALSE,,2003-11-17,56120
-,Michael Malki,,,,,"6' 0""",185,R/R,P,,20,California Baptist,4YR SO,FALSE,,2005-07-28,117109
+,Michael Malki,361,,,,"6' 0""",185,R/R,P,,20,California Baptist,4YR SO,FALSE,,2005-07-28,117109
 ,Michael O'Shaughnessy,,,,,"6' 1""",229,L/R,3B,,22,Georgia,4YR SR,FALSE,,2004-05-10,52882
 ,Michael Orbegozo,,,,,"6' 3""",210,R/R,P,,19,Central Arizona JC,JC J1,FALSE,,2007-02-15,
 ,Michael Petite,,,,,"6' 0""",200,R/R,OF,,22,Virginia Commonwealth,4YR JR,FALSE,,2004-03-14,137923
@@ -1754,7 +1754,7 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Miguel Hugas,,,,,"6' 3""",215,S/R,P,,21,Mercer,4YR JR,FALSE,,2004-07-28,133243
 ,Mike Joyce,,,,,"6' 1""",225,R/R,P,,22,Lenoir-Rhyne,4YR SR,FALSE,,2004-02-01,
 ,Mike Mancini,,,,,"5' 11""",180,L/R,2B,,22,Vanderbilt,4YR SR,FALSE,,2003-08-24,55180
-,Mikey Bell,,,,,"6' 2""",200,R/R,SS,,22,Gonzaga,4YR SR,FALSE,,2004-02-20,116581
+,Mikey Bell,446,,,,"6' 2""",200,R/R,SS,,22,Gonzaga,4YR SR,FALSE,,2004-02-20,116581
 ,Mikhai Grant,,,,,"6' 4""",220,R/R,P,,21,Northwest Florida State JC,JC J3,FALSE,,2004-08-21,
 ,Mikiah Negrete,,,,,"6' 1""",205,L/L,P,,22,Cal State Fullerton,4YR SR,FALSE,,2003-08-29,59777
 ,Miles Gosztola,,,,,"6' 3""",200,L/L,P,,20,Oregon,4YR JR,FALSE,,2005-07-24,68516
@@ -1782,7 +1782,7 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Nathan Masar,,,,,"5' 11""",183,R/R,P,,21,Saginaw Valley State,4YR JR,FALSE,,2004-11-18,102386
 ,Nathaneal Davis-Cleary,,,,,"6' 0""",185,L/L,OF,,18,Bishop Moore Catholic HS (FL),HS SR,TRUE,,2008-01-29,
 ,Neal Burtis,,,,,"6' 3""",180,L/L,P,,18,Tahoma HS (WA),HS SR,TRUE,,2007-12-03,
-,Ned Frutchey,,,,,"6' 5""",210,R/R,P,,20,Sacramento CC,JC J2,FALSE,,2006-03-17,118055
+,Ned Frutchey,364,,,,"6' 5""",210,R/R,P,,20,Sacramento CC,JC J2,FALSE,,2006-03-17,118055
 ,Nelson Phillips IV,,,,,"6' 0""",205,S/L,OF,,23,Wisconsin-Whitewater,4YR GR,FALSE,,2002-11-18,
 ,Nelson Zapata,,,,,"6' 1""",194,R/R,OF,,20,Bryant & Stratton,JC J2,FALSE,,2005-09-26,
 ,Nic Bronzini,,,,,"6' 4""",250,L/L,P,,22,Arkansas-Little Rock,4YR SR,FALSE,,2003-10-26,56131
@@ -1816,15 +1816,15 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Noah Miller,,,,,"6' 0""",200,R/R,C,,21,Michigan,4YR JR,FALSE,,2004-09-11,
 ,Noah Powell,,,,,"5' 11""",180,R/R,P,,18,York Mills Collegiate Institute HS (ON),HS SR,TRUE,,2008-05-06,
 ,Noah Samol,,,,,"6' 7""",245,L/L,P,,22,Clemson,4YR SR,FALSE,,2004-02-13,54277
-,Noah Scott,,,,,"6' 4""",242,R/R,P,,22,Oregon State,4YR JR,FALSE,,2004-07-06,135044
+,Noah Scott,434,,,,"6' 4""",242,R/R,P,,22,Oregon State,4YR JR,FALSE,,2004-07-06,135044
 ,Noah Spalding,,,,,"6' 4""",245,R/R,1B,,17,Marion County HS (KY),HS SR,TRUE,,2008-07-17,
-,Noah Sullivan,,,,,"6' 1""",215,R/R,1B,,23,Mississippi State,4YR GR,FALSE,,2002-10-03,
+,Noah Sullivan,353,,,,"6' 1""",215,R/R,1B,,23,Mississippi State,4YR GR,FALSE,,2002-10-03,
 ,Noah Sundquist,,,,,"6' 3""",195,R/R,P,,20,Dakota County Tech JC,JC J1,FALSE,,2006-06-14,
 ,Nolan Higgins,,,,,"6' 4""",215,R/R,P,,22,Michigan State,4YR SR,FALSE,,2004-07-07,56856
 ,Nolan Nawrocki,,,,,"6' 1""",200,R/R,SS,,22,Tulane,4YR SR,FALSE,,2004-03-12,52340
 ,Nolan Ramoley,,,,,"6' 1""",210,R/R,OF,,18,Brother Rice HS (IL),HS SR,TRUE,,2007-10-23,
 ,Nolan Souza,,,,,"6' 3""",215,L/R,SS,,21,Arkansas,4YR JR,FALSE,,2005-05-16,67489
-,Nolan Stefaniak,,,,,"6' 2""",190,R/R,P,,19,Butler HS (PA),HS SR,TRUE,,2007-06-01,
+,Nolan Stefaniak,490,,,,"6' 2""",190,R/R,P,,19,Butler HS (PA),HS SR,TRUE,,2007-06-01,
 ,Nolan Stevens,,,,,"6' 2""",216,L/L,OF,,21,Oklahoma,4YR JR,FALSE,,2005-04-05,67563
 ,Ny’Zaiah Thompson,,,,,"6' 0""",182,R/R,OF,,21,Delta JC,JC J3,FALSE,,2005-05-03,
 ,Olin Johnson,,,,,"6' 6""",220,R/R,P,,21,North Carolina,4YR JR,FALSE,,2005-05-02,70109
@@ -1834,12 +1834,12 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Owen Austin,,,,,"6' 1""",200,L/L,P,,22,Western Carolina,4YR SR,FALSE,,2004-06-04,117038
 ,Owen Clyne,,,,,"6' 2""",195,L/R,SS,,22,George Mason,4YR SR,FALSE,,2004-03-04,115786
 ,Owen Henne,,,,,"6' 3""",188,R/R,SS,,21,Seton Hill,4YR JR,FALSE,,2004-12-30,71733
-,Owen Kelly,,,,,"6' 4""",220,R/R,P,,21,Mississippi,4YR JR,FALSE,,2005-05-26,
+,Owen Kelly,266,,,,"6' 4""",220,R/R,P,,21,Mississippi,4YR JR,FALSE,,2005-05-26,
 ,Owen McElfatrick,,,,,"6' 0""",190,R/R,SS,,23,Northwestern,4YR SR,FALSE,,2003-07-08,58079
 ,Owen Nowak,,,,,"6' 1""",200,L/L,OF,,21,Middle Tennessee State,4YR JR,FALSE,,2005-06-13,133911
 ,Owen Prince,,,,,"5' 9""",175,L/R,OF,,22,Virginia Military Institute,4YR SR,FALSE,,2003-10-12,62303
 ,Owen Washburn,,,,,"6' 0""",210,L/R,OF,,22,Wichita State,4YR 5S,FALSE,,2003-07-25,47856
-,PJ Moutzouridis,,,,,"6' 0""",190,R/R,SS,,21,Arizona State,4YR JR,FALSE,,2004-11-08,69429
+,PJ Moutzouridis,250,,,,"6' 0""",190,R/R,SS,,21,Arizona State,4YR JR,FALSE,,2004-11-08,69429
 ,Pablo Figueroa,,,,,"6' 2""",220,R/R,P,,19,Central Pointe Christian Academy HS (FL),HS SR,TRUE,,2007-06-14,
 ,Pablo Torres,,,,,"5' 11""",180,R/R,P,,21,Bethune-Cookman,4YR SR,FALSE,,2004-07-23,51217
 ,Palmer Hornick,,,,,"5' 11""",188,L/R,3B,,18,Dorman HS (SC),HS SR,TRUE,,2007-09-28,
@@ -1851,18 +1851,18 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Parker Davis,,,,,"6' 0""",165,L/L,P,,18,Fountain Inn HS (SC),HS SR,TRUE,,2008-04-05,
 ,Parker Detmers,,,,,"6' 4""",250,R/R,P,,21,Louisville,4YR JR,FALSE,,2004-12-22,69510
 ,Parker Dillhoff,,,,,"6' 4""",240,R/L,P,,22,UNLV,4YR SR,FALSE,,2003-09-09,62938
-,Parker Ishee,,,,,"6' 4""",210,R/R,P,,20,Copiah-Lincoln CC,JC J2,FALSE,,2006-03-31,
-,Parker Loew,,,,,"6' 0""",180,R/R,SS,,18,Trinity Christian Academy HS (FL),HS SR,TRUE,,2007-10-04,
+,Parker Ishee,375,,,,"6' 4""",210,R/R,P,,20,Copiah-Lincoln CC,JC J2,FALSE,,2006-03-31,
+,Parker Loew,476,,,,"6' 0""",180,R/R,SS,,18,Trinity Christian Academy HS (FL),HS SR,TRUE,,2007-10-04,
 ,Parker Picot,,,,,"6' 1""",220,R/R,OF,,21,Michigan State,4YR JR,FALSE,,2005-06-22,69164
 ,Parker Thomas,,,,,"6' 3""",215,S/R,P,,21,George Mason,4YR JR,FALSE,,2004-11-19,
-,Parker Van Engelenhoven,,,,,"6' 4""",220,R/R,P,,18,Olentangy Liberty HS (OH),HS SR,TRUE,,2007-10-26,
+,Parker Van Engelenhoven,488,,,,"6' 4""",220,R/R,P,,18,Olentangy Liberty HS (OH),HS SR,TRUE,,2007-10-26,
 ,Parker Webb,,,,,"6' 4""",205,R/R,P,,22,Campbell,4YR SR,FALSE,,2003-08-07,128595
 ,Pat Costin,,,,,"6' 0""",220,L/R,C,,21,Florence-Darlington Tech JC,JC J2,FALSE,,2005-04-04,126917
 ,Patrick Clemmey,,,,,"6' 5""",215,L/L,P,,19,Avon Old Farms HS (CT),HS SR,TRUE,,2007-03-22,
 ,Patrick Evans,,,,,"6' 3""",195,R/R,3B,,21,South Carolina,4YR JR,FALSE,,2004-12-11,136151
 ,Patrick Spencer Jr.,,,,,"6' 3""",215,R/R,P,,21,Mississippi State,4YR JR,FALSE,,2004-08-18,133734
 ,Patrick Steitz,,,,,"6' 8""",210,R/R,P,,23,Virginia Commonwealth,4YR 5S,FALSE,,2002-10-07,69255
-,Paul Contreras,,,,,"6' 3""",205,R/R,OF,,20,Cal State Fullerton,4YR JR,FALSE,,2005-08-05,122905
+,Paul Contreras,374,,,,"6' 3""",205,R/R,OF,,20,Cal State Fullerton,4YR JR,FALSE,,2005-08-05,122905
 ,Paul Farley,,,,,"6' 2""",210,R/R,P,,21,Georgia,4YR JR,FALSE,,2005-01-18,68035
 ,Paul Schmitz,,,,,"6' 8""",250,R/R,P,,22,Houston,4YR SR,FALSE,,2004-01-16,54862
 ,Paul Schoenfeld,,,,,"5' 11""",185,L/L,OF,,23,West Virginia,4YR 5S,FALSE,,2003-05-06,52517
@@ -1878,7 +1878,7 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Peyton Fiene,,,,,"6' 2""",190,R/R,P,,20,Odessa JC,JC J2,FALSE,,2005-10-22,117412
 ,Peyton Fowler,,,,,"6' 3""",195,R/R,P,,21,Mississippi State,4YR JR,FALSE,,2005-06-10,133727
 ,Peyton Smith,,,,,"6' 4""",205,R/R,P,,23,Virginia Tech,4YR 5S,FALSE,,2003-06-03,
-,Phinn Beaird,,,,,"6' 0""",195,L/L,P,,19,Briarcrest Christian HS (TN),HS SR,TRUE,,2007-06-12,
+,Phinn Beaird,453,,,,"6' 0""",195,L/L,P,,19,Briarcrest Christian HS (TN),HS SR,TRUE,,2007-06-12,
 ,Phoenix Call,,,,,"6' 0""",190,R/R,SS,,21,UCLA,4YR JR,FALSE,,2004-08-23,68531
 ,Pierce Quinn,,,,,"6' 2""",210,R/R,P,,18,The John Carroll School HS (MD),HS SR,TRUE,,2007-09-17,
 ,Pierre Seals,,,,,"6' 0""",210,R/R,OF,,23,Missouri,4YR GR,FALSE,,2003-07-08,69826
@@ -1893,22 +1893,22 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Quinn Larson,,,,,"6' 4""",225,R/R,P,,20,California,4YR JR,FALSE,,2005-08-26,69425
 ,Quinn Miller,,,,,"6' 2""",215,R/R,P,,18,Clarkstown North HS (NY),HS SR,TRUE,,2008-04-21,
 ,Quinn O'Rourke,,,,,"6' 2""",190,R/R,P,,18,Charlotte Catholic HS (NC),HS SR,TRUE,,2008-01-10,
-,RJ Cope,,,,,"6' 8""",250,L/L,P,,19,Georgia Premier HS (GA),HS SR,TRUE,,2007-03-06,
+,RJ Cope,376,,,,"6' 8""",250,L/L,P,,19,Georgia Premier HS (GA),HS SR,TRUE,,2007-03-06,
 ,RJ Furcal Jr.,,,,,"6' 1""",195,R/R,3B,,20,San Jacinto JC,JC J2,FALSE,,2006-01-26,
 ,RJ Groomster,,,,,"5' 10""",180,R/R,OF,,19,Georgia Premier Academy (GA),HS SR,TRUE,,2007-04-27,
 ,RJ Hamilton,,,,,"5' 10""",185,R/R,OF,,21,Duke,4YR JR,FALSE,,2004-10-23,67940
 ,Radek Birkholz,,,,,"5' 11""",200,R/R,P,,23,Notre Dame,4YR GR,FALSE,,2003-02-22,44687
-,Rallin Covey,,,,,"6' 4""",220,R/R,P,,18,Sacred Heart Prep HS (CA),HS SR,TRUE,,2008-06-01,
+,Rallin Covey,441,,,,"6' 4""",220,R/R,P,,18,Sacred Heart Prep HS (CA),HS SR,TRUE,,2008-06-01,
 ,Ramon Rodriguez,,,,,"5' 11""",195,L/L,P,,22,Point Park,4YR SR,FALSE,,2003-09-15,119502
 ,Raoul Fabian Jr.,,,,,"6' 0""",205,R/R,OF,,22,Cal State Dominguez Hills,4YR SR,FALSE,,2003-09-12,116844
 ,Rashawn Galloway,,,,,"6' 0""",193,R/R,C,,22,Texas State,4YR SR,FALSE,,2003-09-04,61212
 ,Raymond Ladd,,,,,"6' 6""",235,R/R,P,,21,Radford,4YR JR,FALSE,,2004-09-02,68792
 ,Reece Bueno,,,,,"6' 0""",190,R/R,P,,21,San Diego,4YR JR,FALSE,,2004-07-21,71074
-,Reece Moroney,,,,223,"5' 11""",187,R/R,SS,,21,Rhode Island,4YR JR,FALSE,,2005-03-30,71190
+,Reece Moroney,436,,,223,"5' 11""",187,R/R,SS,,21,Rhode Island,4YR JR,FALSE,,2005-03-30,71190
 ,Reed Duncan,,,,,"6' 2""",208,R/R,P,,18,Columbia Academy HS (MS),HS SR,TRUE,,2008-06-25,
 ,Reed Stallman,,,,,"6' 3""",220,L/L,1B,,23,Mississippi State,4YR GR,FALSE,,2003-03-04,70384
 ,Reese Baker,,,,,"5' 9""",190,R/R,C,,22,Guilford,4YR SR,FALSE,,2003-11-21,54432
-,Reese Chapman,,,,,"6' 1""",224,L/R,OF,,22,Tennessee,4YR SR,FALSE,,2003-12-17,61077
+,Reese Chapman,377,,,,"6' 1""",224,L/R,OF,,22,Tennessee,4YR SR,FALSE,,2003-12-17,61077
 ,Reese Marcum,,,,,"6' 1""",205,R/R,P,,21,Gulf Coast CC,JC J3,FALSE,,2004-09-08,67964
 ,Reese Moore,,,,,"6' 0""",212,L/R,C,,22,South Carolina,4YR SR,FALSE,,2003-10-24,55100
 ,Reese Robinett,,,,,"6' 3""",220,L/R,3B,,23,Arkansas,4YR SR,FALSE,,2003-03-17,50621
@@ -1918,12 +1918,12 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Reilly Witmer,,,,,"6' 4""",225,R/R,P,,21,Florida Atlantic,4YR JR,FALSE,,2004-07-20,67610
 ,Reiston Durham,,,,,"6' 0""",180,L/R,SS,,18,Georgia Premier HS (GA),HS SR,TRUE,,2008-04-01,
 ,Renzo Gonzalez,,,,,"5' 10""",195,L/L,OF,,23,Stetson,4YR GR,FALSE,,2003-06-20,43280
-,Rhett Britt,,,,,"6' 4""",190,S/R,P,,19,Topsail HS (NC),HS SR,TRUE,,2007-07-09,
+,Rhett Britt,224,,,,"6' 4""",190,S/R,P,,19,Topsail HS (NC),HS SR,TRUE,,2007-07-09,
 ,Richie Roman,,,,,"6' 4""",190,R/R,P,,21,Houston,4YR JR,FALSE,,2005-07-08,70666
 ,Riley Jackson,,,,,"6' 1""",205,R/R,C,,21,Houston,4YR JR,FALSE,,2004-09-29,
 ,Riley Orr,,,,,"6' 2""",200,R/R,1B,,22,Francis Marion,4YR SR,FALSE,,2003-10-01,
 ,Rintaro Sasaki,,,,,"6' 1""",270,L/R,1B,,21,Stanford,4YR SO,FALSE,,2005-04-18,116905
-,Rob Czarniecki,,,,,"6' 2""",205,R/R,OF,,19,Chesterton HS (IN),HS SR,TRUE,,2007-06-03,
+,Rob Czarniecki,445,,,,"6' 2""",205,R/R,OF,,19,Chesterton HS (IN),HS SR,TRUE,,2007-06-03,
 ,Rob Evans,,,,,"6' 1""",230,L/L,P,,22,Miami,4YR SR,FALSE,,2003-12-19,68286
 ,Rob Rispoli,,,,,"5' 10""",165,R/R,SS,,21,Connecticut,4YR JR,FALSE,,2004-07-12,68205
 ,Robby Bolin,,,,,"6' 2""",190,L/L,OF,,21,Kansas State,4YR SR,FALSE,,2004-07-21,115910
@@ -1951,7 +1951,7 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Ryan Black,,,,,"6' 1""",193,L/R,SS,,22,Georgia,4YR SR,FALSE,,2003-12-14,61991
 ,Ryan Borberg,,,,,"6' 1""",210,R/R,P,,22,Dallas Baptist,4YR SR,FALSE,,2004-01-08,55016
 ,Ryan Bradford,,,,,"5' 10""",185,R/R,OF,,19,Johnson County CC,JC J1,FALSE,,2006-07-17,
-,Ryan Castillo,,,,,"6' 2""",195,R/R,P,,21,New Mexico,4YR JR,FALSE,,2004-09-25,69440
+,Ryan Castillo,443,,,,"6' 2""",195,R/R,P,,21,New Mexico,4YR JR,FALSE,,2004-09-25,69440
 ,Ryan Duncheon Jr.,,,,,"6' 2""",205,R/R,P,,18,East Peoria HS (IL),HS SR,TRUE,,2007-12-22,
 ,Ryan Fuller,,,,,"6' 0""",175,R/R,P,,18,Avon Grove HS (PA),HS SR,TRUE,,2007-09-12,
 ,Ryan Geraghty,,,,,"6' 1""",200,R/R,P,,21,Jacksonville State,4YR JR,FALSE,,2005-01-18,
@@ -1962,14 +1962,14 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Ryan Jaros,,,,,"6' 4""",220,R/R,3B,,21,Rutgers,4YR JR,FALSE,,2004-12-27,68813
 ,Ryan Kennedy,,,,,"6' 5""",220,R/R,P,,22,Toledo,4YR SR,FALSE,,2004-04-14,
 ,Ryan Kroepel,,,,,"6' 0""",185,L/R,SS,,21,Utah Tech,4YR JR,FALSE,,2004-08-10,68874
-,Ryan Kucherak,,,,,"6' 2""",195,R/R,SS,,21,Northwestern,4YR JR,FALSE,,2004-08-24,73070
+,Ryan Kucherak,232,,,,"6' 2""",195,R/R,SS,,21,Northwestern,4YR JR,FALSE,,2004-08-24,73070
 ,Ryan Martin,,,,,"5' 10""",200,R/R,OF,,21,Dallas Baptist,4YR SR,FALSE,,2004-08-20,
 ,Ryan McKay,,,,,"5' 10""",190,L/R,2B,,21,Michigan State,4YR JR,FALSE,,2004-11-05,
 ,Ryan Morel,,,,,"5' 10""",175,L/R,OF,,19,Citius Prep Baseball Academy HS (NY),HS SR,TRUE,,2006-12-28,
 ,Ryan Nelson,,,,,"6' 1""",175,R/R,P,,19,East Central CC,JC J2,FALSE,,2006-07-11,
 ,Ryan Niedzwiedz,,,,,"6' 2""",195,L/R,1B,,21,Southern Illinois University Edwardsville,4YR JR,FALSE,,2004-12-31,67787
 ,Ryan Oshinskie,,,,,"6' 3""",185,R/R,P,,20,Brown,4YR JR,FALSE,,2005-07-16,73423
-,Ryan Piech,,,,,"6' 3""",215,R/R,P,,20,Xavier,4YR JR,FALSE,,2005-08-09,68608
+,Ryan Piech,208,,,,"6' 3""",215,R/R,P,,20,Xavier,4YR JR,FALSE,,2005-08-09,68608
 ,Ryan Piekutoski,,,,,"6' 5""",227,R/R,3B,,19,South Carolina-Sumter,JC J1,FALSE,,2006-12-09,
 ,Ryan Pruitt,,,,,"5' 11""",185,L/L,OF,,22,South Florida,4YR SR,FALSE,,2003-10-19,116038
 ,Ryan Reich,,,,,"6' 2""",215,R/R,P,,22,Seton Hall,4YR SR,FALSE,,2004-05-20,59921
@@ -1981,7 +1981,7 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Ryan Speshyock,,,,,"6' 0""",223,R/R,P,,21,Stanford,4YR JR,FALSE,,2004-12-29,70898
 ,Ryan Tayman,,,,234,"6' 2""",210,R/R,C,,20,Cal Poly,4YR JR,FALSE,,2005-08-26,
 ,Ryan Wynn,,,,,"6' 0""",185,R/R,SS,,21,Georgia Tech,4YR JR,FALSE,,2004-11-22,67703
-,Ryan Zuckerman,,,,,"6' 4""",230,R/R,3B,,21,Georgia Tech,4YR JR,FALSE,,2004-11-04,71060
+,Ryan Zuckerman,484,,,,"6' 4""",230,R/R,3B,,21,Georgia Tech,4YR JR,FALSE,,2004-11-04,71060
 ,Ryder Brooks,,,,,"6' 3""",200,L/L,P,,22,University of California - Irvine,4YR JR,FALSE,,2004-03-30,61541
 ,Ryder Cutlip,,,,,"6' 1""",215,L/L,OF,,20,College of Southern Idaho,JC J2,FALSE,,2006-04-07,126671
 ,Ryder Robinson,,,,,"6' 2""",189,S/R,SS,,22,Brigham Young,4YR JR,FALSE,,2004-06-11,70693
@@ -1999,14 +1999,14 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Sam Erickson,,,,,"6' 1""",215,R/L,OF,,21,Texas A&M,4YR SO,FALSE,,2005-06-21,
 ,Sam Flores,,,,,"6' 1""",220,L/R,3B,,22,Purdue,4YR SR,FALSE,,2003-09-18,
 ,Sam Garewal,,,,,"6' 5""",243,L/L,P,,22,Stanford,4YR SR,FALSE,,2004-02-04,58075
-,Sam Harris,,,,,"6' 5""",220,L/L,1B,,21,Virginia,4YR JR,FALSE,,2005-02-04,
+,Sam Harris,248,,,,"6' 5""",220,L/L,1B,,21,Virginia,4YR JR,FALSE,,2005-02-04,
 ,Sam Hliboki,,,,,"6' 3""",205,L/R,P,,24,Northwestern,4YR GR,FALSE,,2001-08-04,32994
 ,Sam Parker,,,,,"6' 4""",235,L/L,1B,,21,Missouri,4YR JR,FALSE,,2004-10-13,133805
 ,Sam Richardson,,,,,"6' 1""",220,R/R,3B,,20,Jacksonville State,4YR SO,FALSE,,2005-07-29,
 ,Sam Schofield,,,,,"6' 3""",190,R/R,P,,21,Georgia State,4YR JR,FALSE,,2004-10-20,68291
 ,Sammy Kane,,,,,"6' 1""",190,R/R,P,,19,Jesuit HS (CA),HS SR,TRUE,,2007-06-27,
 ,Sammy Mummau,,,,,"5' 10""",180,R/R,SS,,21,Jacksonville,4YR JR,FALSE,,2005-01-10,67603
-,Sammy Swank,,,,,"6' 4""",225,R/R,P,,18,McCutcheon HS (IN),HS SR,TRUE,,2007-10-16,
+,Sammy Swank,473,,,,"6' 4""",225,R/R,P,,18,McCutcheon HS (IN),HS SR,TRUE,,2007-10-16,
 ,Samuel Round,,,,,"6' 3""",196,R/R,P,,21,Arizona,4YR JR,FALSE,,2005-05-19,68527
 ,Santiago Garcia,,,,,"6' 0""",191,L/L,P,,21,LSU,4YR JR,FALSE,,2004-12-08,
 ,Santiago Ordonez,,,,,"5' 9""",175,R/R,C,,22,North Florida,4YR SR,FALSE,,2003-11-08,53871
@@ -2022,20 +2022,20 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Sean Finn,,,,,"5' 9""",175,R/R,P,,22,Connecticut,4YR JR,FALSE,,2003-10-13,68199
 ,Sean Fitzpatrick,,,,,"6' 0""",175,L/L,P,,23,Arizona State,4YR SR,FALSE,,2003-06-19,50612
 ,Sean Hard,,,,,"6' 5""",210,R/R,P,,23,Boston College,4YR 5S,FALSE,,2002-09-20,37700
-,Sean Loggie,,,,,"6' 6""",190,L/L,P,,18,Christian Brothers HS (NJ),HS SR,TRUE,,2007-12-18,
+,Sean Loggie,284,,,,"6' 6""",190,L/L,P,,18,Christian Brothers HS (NJ),HS SR,TRUE,,2007-12-18,
 ,Sean Smith,,,,,"6' 1""",205,R/R,OF,,23,West Virginia,4YR GR,FALSE,,2003-01-17,
 ,Sean Yamaguchi,,,,,"5' 9""",205,R/R,SS,,21,Nevada,4YR SO,FALSE,,2005-06-27,116713
 ,Sebastian Gonzalez,,,,,"5' 10""",185,L/L,P,,21,Hawaii,4YR JR,FALSE,,2005-05-15,
 ,Sebastian Rolon,,,,,"6' 2""",195,R/R,SS,,18,Central Pointe Christian Academy HS (FL),HS SR,TRUE,,2008-05-29,
 ,Seddrick Henderson,,,,,"6' 3""",170,R/R,OF,,17,Berkeley HS (CA),HS SR,TRUE,,2008-08-12,
-,Selden Kolkebeck,,,,,"6' 4""",210,R/R,P,,18,Northern Valley Regional HS (NJ),HS SR,TRUE,,2008-02-08,
+,Selden Kolkebeck,332,,,,"6' 4""",210,R/R,P,,18,Northern Valley Regional HS (NJ),HS SR,TRUE,,2008-02-08,
 ,Seth Benes,,,,,"6' 2""",200,R/R,P,,22,Lindenwood,4YR JR,FALSE,,2004-07-07,67219
 ,Seth Farni,,,,,"6' 0""",205,S/L,OF,,22,Campbell,4YR JR,FALSE,,2004-01-26,70772
 ,Shane O'Neill,,,,,"5' 10""",185,R/R,P,,22,Lehigh,4YR SR,FALSE,,2003-12-27,
 ,Shawn Mack,,,,,"6' 3""",190,R/R,P,,18,Liberty HS (NV),HS SR,TRUE,,2007-08-30,
 ,Shaydon Benson,,,,,"6' 6""",206,L/L,P,,22,Nicholls State,4YR SR,FALSE,,2004-01-18,134321
 ,Shea Wendt,,,,,"6' 1""",205,R/R,P,,21,Creighton,4YR JR,FALSE,,2004-12-28,69676
-,Sherman Johnson,,,,,"6' 2""",196,R/R,SS,,21,North Carolina State,4YR JR,FALSE,,2005-01-24,68499
+,Sherman Johnson,186,,,,"6' 2""",196,R/R,SS,,21,North Carolina State,4YR JR,FALSE,,2005-01-24,68499
 ,Silas Newport,,,,,"6' 0""",174,L/L,OF,,18,Strake Jesuit HS (TX),HS SR,TRUE,,2007-10-26,
 ,Simon Baker,,,,,"6' 3""",220,L/R,OF,,20,Cloud County CC,JC J2,FALSE,,2006-07-07,
 ,Simon Bargo,,,,,"6' 5""",185,R/R,P,,20,Charleston,4YR JR,FALSE,,2005-08-06,70365
@@ -2050,7 +2050,7 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Steven Meier,,,,,"6' 1""",196,L/L,OF,,23,Troy,4YR GR,FALSE,,2003-06-12,67876
 ,Steven Milam,,,,,"5' 8""",185,S/R,SS,,21,LSU,4YR JR,FALSE,,2004-08-10,73072
 ,Stocton Timbrook,,,,,"6' 1""",215,R/R,P,,20,Cloud County CC,JC J2,FALSE,,2005-12-06,
-,Stone Lawless,,,,,"6' 2""",219,R/R,C,,21,Tennessee,4YR JR,FALSE,,2004-11-05,69177
+,Stone Lawless,373,,,,"6' 2""",219,R/R,C,,21,Tennessee,4YR JR,FALSE,,2004-11-05,69177
 ,Stormy Rhodes,,,,,"6' 4""",197,R/R,P,,21,Oklahoma State,4YR SO,FALSE,,2005-05-25,102921
 ,Sullivan Brackin,,,,,"6' 5""",220,L/R,P,,22,Rice,4YR SR,FALSE,,2003-08-26,52437
 ,Sutter Balog,,,,,"6' 2""",195,R/R,P,,20,Pratt CC,JC J2,FALSE,,2005-08-27,
@@ -2060,7 +2060,7 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,TJ Pompey,,,,,"6' 4""",215,R/R,SS,,21,Arkansas,4YR JR,FALSE,,2004-11-01,69190
 ,TJ Takats,,,,,"6' 5""",197,L/L,OF,,22,Bowling Green State,4YR JR,FALSE,,2004-06-11,67981
 ,Taber Fast,,,,,"6' 2""",210,L/L,P,,22,Washington State,4YR SR,FALSE,,2003-12-12,61227
-,Taden Krogsgaard,,,,,"6' 3""",180,R/R,P,,18,Temecula Valley HS (CA),HS SR,TRUE,,2007-12-01,
+,Taden Krogsgaard,390,,,,"6' 3""",180,R/R,P,,18,Temecula Valley HS (CA),HS SR,TRUE,,2007-12-01,
 ,Tagger Tyson,,,,,"6' 1""",200,R/R,C,,21,Kentucky,4YR JR,FALSE,,2004-10-22,69521
 ,Tai Jones,,,,,"6' 2""",210,R/R,OF,,17,Jackson Academy (MS),HS SR,TRUE,,2008-08-28,
 ,Talan Bell,,,,,"5' 10""",185,L/L,P,,20,Clemson,4YR SO,FALSE,,2005-07-13,125502
@@ -2068,16 +2068,16 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Tanner Griffith,,,,,"5' 10""",170,L/R,OF,,21,Saint Mary's,4YR JR,FALSE,,2005-01-15,70923
 ,Tanner Kilgore,,,,,"6' 4""",215,R/R,C,,21,Carson-Newman,4YR JR,FALSE,,2005-05-03,65719
 ,Tanner Mally,,,,,"6' 0""",185,R/R,OF,,21,Western Michigan,4YR JR,FALSE,,2004-08-18,67357
-,Tanner Marsh,,,,,"5' 11""",180,R/R,SS,,21,Liberty,4YR JR,FALSE,,2005-04-27,
+,Tanner Marsh,424,,,,"5' 11""",180,R/R,SS,,21,Liberty,4YR JR,FALSE,,2005-04-27,
 ,Tanner Reaves,,,,,"6' 1""",175,L/R,2B,,23,LSU,4YR 5S,FALSE,,2002-09-04,102936
 ,Tanner Sagouspe,,,,,"6' 0""",195,R/R,P,,23,TCU,4YR GR,FALSE,,2002-09-10,37949
 ,Tanner Waldrop,,,,,"6' 1""",215,L/R,C,,21,Auburn,4YR SO,FALSE,,2005-05-27,102937
 ,Tanner Wiggins,,,,,"6' 2""",189,R/R,P,,21,Rice,4YR JR,FALSE,,2004-10-18,117869
 ,Tate Foxson,,,,,"6' 5""",200,R/R,P,,22,UNLV,4YR JR,FALSE,,2004-01-03,68235
-,Tate McGuire,,,,,"6' 3""",215,R/R,P,,21,Arkansas,4YR JR,FALSE,,2004-08-09,67485
-,Tate McKee,,,,,"6' 3""",210,R/R,P,,21,Georgia Tech,4YR JR,FALSE,,2004-08-14,68817
+,Tate McGuire,419,,,,"6' 3""",215,R/R,P,,21,Arkansas,4YR JR,FALSE,,2004-08-09,67485
+,Tate McKee,170,,,,"6' 3""",210,R/R,P,,21,Georgia Tech,4YR JR,FALSE,,2004-08-14,68817
 ,Tatum Marsh,,,,,"6' 1""",218,R/R,OF,,21,Stanford,4YR SO,FALSE,,2005-06-06,116904
-,Taylor Casson,,,,,"6' 4""",200,R/R,OF,,18,Landmark Christian HS (GA),HS SR,TRUE,,2008-06-11,
+,Taylor Casson,406,,,,"6' 4""",200,R/R,OF,,18,Landmark Christian HS (GA),HS SR,TRUE,,2008-06-11,
 ,Taytum Reeves,,,,,"6' 0""",190,R/R,C,,18,Vista Murrieta HS (CA),HS SR,TRUE,,2008-05-31,
 ,Tazwell Butler,,,,,"5' 11""",210,R/R,P,,23,Kansas State,4YR 5S,FALSE,,2003-06-24,102955
 ,Temo Becerra,,,,,"6' 0""",195,R/R,SS,,23,Texas,4YR 5S,FALSE,,2002-08-06,47380
@@ -2129,7 +2129,7 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Trenton Ramsey,,,,,"6' 0""",190,L/L,P,,18,North Marion HS (FL),HS SR,TRUE,,2007-11-07,
 ,Trenton Shaw,,,,,"6' 4""",240,L/L,P,,22,Grambling State,4YR SR,FALSE,,2004-01-09,117196
 ,Trevor Gottsegen,,,,,"6' 1""",185,R/R,OF,,19,Chandler-Gilbert CC,JC J1,FALSE,,2006-11-30,
-,Trevor Lucas,,,,,"6' 0""",200,R/R,SS,,21,UNC Wilmington,4YR JR,FALSE,,2005-05-11,103024
+,Trevor Lucas,416,,,,"6' 0""",200,R/R,SS,,21,UNC Wilmington,4YR JR,FALSE,,2005-05-11,103024
 ,Trevor Moore,,,,,"6' 1""",221,R/R,P,,22,Stanford,4YR SR,FALSE,,2003-08-25,
 ,Trevor Schmidt,,,,,"6' 1""",225,L/L,1B,,22,Grand Canyon,4YR SR,FALSE,,2003-11-07,50546
 ,Trevor Zeigler,,,,,"6' 2""",220,R/R,P,,21,"State College of Florida, Manatee-Sarasota",JC J3,FALSE,,2005-03-14,63553
@@ -2154,19 +2154,19 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Troy Southisene,,,,,"5' 9""",160,R/R,SS,,18,Basic HS (NV),HS SR,TRUE,,2007-12-17,
 ,Truitt Manuel,,,,,"6' 2""",206,R/R,P,,21,North Carolina State,4YR SO,FALSE,,2005-06-18,134442
 ,Trystan Newberry,,,,,"6' 4""",240,L/L,P,,18,Russellville HS (AR),HS SR,TRUE,,2007-07-19,
-,Tryston McCladdie,,,,,"5' 11""",190,L/R,SS,,20,Clemson,4YR JR,FALSE,,2005-07-19,68622
+,Tryston McCladdie,241,,,,"5' 11""",190,L/R,SS,,20,Clemson,4YR JR,FALSE,,2005-07-19,68622
 ,Tucker Holland,,,,,"6' 4""",240,R/L,P,,21,UNC Greensboro,4YR JR,FALSE,,2005-01-12,67484
 ,Tucker Long,,,,,"6' 0""",185,L/R,P,,18,Ottumwa HS (IA),HS SR,TRUE,,2008-07-07,
 ,Tucker Moore,,,,,"6' 1""",205,S/R,C,,22,Liberty,4YR SR,FALSE,,2003-12-03,57111
 ,Tucker Thompson,,,,,"6' 0""",180,L/L,P,,18,Gardner-Edgerton HS (KS),HS SR,TRUE,,2008-05-31,
 ,Ty Baker,,,,,"6' 4""",230,R/R,P,,21,Rice,4YR JR,FALSE,,2004-08-14,
 ,Ty Brachbill,,,,,"6' 1""",185,R/R,P,,22,High Point,4YR JR,FALSE,,2004-07-10,71146
-,Ty Burnham,,,,,"6' 3""",200,L/R,OF,,18,Rogers HS (AR),HS SR,TRUE,,2007-09-01,
+,Ty Burnham,282,,,,"6' 3""",200,L/R,OF,,18,Rogers HS (AR),HS SR,TRUE,,2007-09-01,
 ,Ty Dalley,,,,,"6' 3""",210,L/R,OF,,22,Clemson,4YR SR,FALSE,,2004-05-26,56728
 ,Ty Hamilton,,,,,"6' 3""",200,L/L,OF,,22,Dodge City CC,JC J3,FALSE,,2004-01-14,
 ,Ty Roman,,,,,"6' 3""",215,L/L,P,,22,Louisiana-Lafayette,4YR JR,FALSE,,2003-07-28,132553
 ,Ty Thomson,,,,,"6' 5""",210,L/L,P,,21,Kansas,4YR JR,FALSE,,2004-10-28,132003
-,Ty Tillery,,,,,"6' 4""",205,R/R,P,,18,Morgan County HS (GA),HS SR,TRUE,,2007-11-26,
+,Ty Tillery,363,,,,"6' 4""",205,R/R,P,,18,Morgan County HS (GA),HS SR,TRUE,,2007-11-26,
 ,Ty Uber,,,,,"6' 4""",237,R/R,P,,23,Notre Dame,4YR GR,FALSE,,2002-09-04,47388
 ,Ty Van Valkenburg,,,,,"6' 4""",225,L/R,P,,18,Saugerties HS (NY),HS SR,TRUE,,2007-10-31,
 ,Ty Waid,,,,,"6' 2""",210,R/R,1B,,21,Weatherford JC,JC J3,FALSE,,2005-04-07,67490
@@ -2183,36 +2183,36 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Tyler Deleskiewicz,,,,,"6' 5""",240,R/R,P,,22,Northern Illinois,4YR SR,FALSE,,2003-10-30,56948
 ,Tyler Ellis,,,,,"5' 11""",195,L/L,P,,18,Trinity Christian Academy HS (FL),HS SR,TRUE,,2007-07-17,
 ,Tyler Inge,,,,,"6' 0""",188,R/R,SS,,21,Oregon State,4YR SO,FALSE,,2004-10-06,103101
-,Tyler Kapa,,,,,"6' 2""",195,R/R,P,,22,Virginia,4YR GR,FALSE,,2003-11-17,
-,Tyler Minick,,,,,"6' 0""",200,R/R,3B,,21,Connecticut,4YR JR,FALSE,,2004-11-02,68202
+,Tyler Kapa,399,,,,"6' 2""",195,R/R,P,,22,Virginia,4YR GR,FALSE,,2003-11-17,
+,Tyler Minick,388,,,,"6' 0""",200,R/R,3B,,21,Connecticut,4YR JR,FALSE,,2004-11-02,68202
 ,Tyler Minnick,,,,,"6' 3""",227,R/R,C,,21,Middle Tennessee State,4YR SR,FALSE,,2004-08-26,54275
 ,Tyler Murphy,,,,,"6' 1""",200,R/R,P,,22,Florida Atlantic,4YR SR,FALSE,,2003-09-25,
 ,Tyler Myatt,,,,,"6' 0""",210,L/R,3B,,21,Tennessee,4YR JR,FALSE,,2005-03-13,137219
 ,Tyler Papenbrock,,,,,"6' 4""",225,L/L,P,,23,Louisana-Lafayette,4YR GR,FALSE,,2003-03-23,132548
-,Tyler Pitzer,,,,,"6' 3""",205,L/R,P,,21,Mississippi State,4YR JR,FALSE,,2005-03-07,67969
+,Tyler Pitzer,309,,,,"6' 3""",205,L/R,P,,21,Mississippi State,4YR JR,FALSE,,2005-03-07,67969
 ,Tyler West,,,,,"5' 10""",175,L/L,OF,,20,Salt Lake CC,JC J2,FALSE,,2005-11-07,5646
 ,Tyner Flynt,,,,,"6' 2""",190,L/L,P,,19,Presbyterian Christian HS (MS),HS SR,TRUE,,2007-05-17,
 ,Tyree Reed,,,,,"6' 3""",215,L/L,OF,,23,Jackson State,4YR 5S,FALSE,,2003-01-09,45036
 ,Tyrus Hall,,,,,"6' 2""",210,R/R,SS,,21,West Virginia,4YR JR,FALSE,,2004-09-22,138381
 ,Tyson Bobo,,,,,"6' 1""",185,R/R,P,,18,Patrick Henry HS (CA),HS SR,TRUE,,2008-05-17,
-,Tyson Grulkowski,,,,222,"6' 5""",225,R/R,P,,18,Muskego HS (WI),HS SR,TRUE,,2007-08-09,
+,Tyson Grulkowski,218,,,222,"6' 5""",225,R/R,P,,18,Muskego HS (WI),HS SR,TRUE,,2007-08-09,
 ,Tyvon Moore,,,,,"6' 1""",185,R/R,OF,,23,Prairie View A&M,4YR GR,FALSE,,2003-04-14,71137
 ,Vance Sheahan,,,,,"6' 0""",191,R/R,SS,,22,Miami,4YR JR,FALSE,,2003-11-05,68947
 ,Vaughn Osting,,,,,"6' 3""",195,S/R,P,,18,Bloomingdale HS (FL),HS SR,TRUE,,2008-04-08,
 ,Victor Christal,,,,,"6' 0""",200,R/R,P,,20,Johnson County CC,JC J2,FALSE,,2005-12-22,118669
 ,Vince Fattore,,,,,"5' 11""",205,R/R,OF,,22,Elon,4YR SR,FALSE,,2003-12-21,
 ,Vincent Borghese,,,,,"6' 2""",210,R/R,P,,21,Rutgers,4YR SR,FALSE,,2004-10-13,58922
-,Vincent Lombardo,,,,,"6' 0""",190,R/R,OF,,18,Fairfield Prep HS (CT),HS SR,TRUE,,2007-10-05,
+,Vincent Lombardo,430,,,,"6' 0""",190,R/R,OF,,18,Fairfield Prep HS (CT),HS SR,TRUE,,2007-10-05,
 ,Vytas Valincius,,,,,"6' 4""",230,R/R,3B,,23,Mississippi State,4YR GR,FALSE,,2003-01-11,46756
 ,Wailele Kane-Yates,,,,,"6' 1""",210,R/R,3B,,22,Oral Roberts,4YR SR,FALSE,,2004-05-11,116786
 ,Walker Barron,,,,,"5' 10""",187,R/R,C,,22,East Carolina,4YR JR,FALSE,,2004-06-22,67710
-,Walker Cox,,,,,"6' 6""",205,L/R,P,,18,Easley HS (SC),HS SR,TRUE,,2008-01-03,
+,Walker Cox,462,,,,"6' 6""",205,L/R,P,,18,Easley HS (SC),HS SR,TRUE,,2008-01-03,
 ,Walker Mitchell,,,,,"5' 11""",185,R/R,SS,,21,Coastal Carolina,4YR JR,FALSE,,2004-12-06,67914
 ,Weber Neels,,,,,"6' 1""",215,R/R,C,,23,Minnesota,4YR SR,FALSE,,2003-06-13,57007
 ,Wes Peterson,,,,,"6' 2""",195,R/R,P,,18,Menlo-Atherton HS (CA),HS SR,TRUE,,2007-12-11,
 ,Wesley Jones,,,,,"6' 4""",230,R/R,P,,21,Charlotte,4YR JR,FALSE,,2004-09-03,70216
-,Wessley Roberson,,,,175,"6' 0""",170,S/R,OF,,18,Glynn Academy HS (GA),HS SR,TRUE,,2008-02-28,
-,Weston Moss,,,,,"6' 4""",190,R/R,P,,22,Texas A&M,4YR JR,FALSE,,2004-06-15,67769
+,Wessley Roberson,219,,,175,"6' 0""",170,S/R,OF,,18,Glynn Academy HS (GA),HS SR,TRUE,,2008-02-28,
+,Weston Moss,360,,,,"6' 4""",190,R/R,P,,22,Texas A&M,4YR JR,FALSE,,2004-06-15,67769
 ,Weston Rouse,,,,,"6' 5""",238,L/L,P,,22,Oral Roberts,4YR JR,FALSE,,2004-01-21,67624
 ,Wilfredo Morales,,,,,"5' 11""",195,L/L,P,,22,Maryland-Eastern Shore,4YR JR,FALSE,,2004-06-10,
 ,Wilkin Lurie,,,,,"6' 2""",188,R/R,OF,,18,Asheville HS (NC),HS SR,TRUE,,2007-10-26,
@@ -2233,24 +2233,24 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Wills Maginnis,,,,,"6' 3""",195,R/R,1B,,21,Georgia State,4YR SO,FALSE,,2005-07-08,
 ,Wilson Wells,,,,,"6' 2""",190,R/R,P,,18,Granville HS (OH),HS SR,TRUE,,2007-10-30,
 ,Winston Pennant,,,,,"6' 3""",215,R/R,OF,,18,Sumner HS (FL),HS SR,TRUE,,2007-09-02,
-,Wyatt Clatur,,,,,"6' 2""",190,R/R,P,,18,Nolensville HS (TN),HS SR,TRUE,,2008-05-29,
+,Wyatt Clatur,164,,,,"6' 2""",190,R/R,P,,18,Nolensville HS (TN),HS SR,TRUE,,2008-05-29,
 ,Wyatt Clewett,,,,,"6' 5""",215,L/R,OF,,18,Montgomery HS (TX),HS SR,TRUE,,2008-02-18,
-,Wyatt Danilowicz,,,,,"6' 1""",210,R/L,P,,22,Louisville,4YR SR,FALSE,,2003-11-14,56114
+,Wyatt Danilowicz,382,,,,"6' 1""",210,R/L,P,,22,Louisville,4YR SR,FALSE,,2003-11-14,56114
 ,Wyatt Evans,,,,,"6' 6""",250,L/L,P,,22,North Greenville,4YR SR,FALSE,,2003-07-14,47690
 ,Wyatt Halvorson,,,,,"6' 4""",230,R/R,P,,21,Arizona State,4YR JR,FALSE,,2004-11-11,68872
 ,Wyatt Novara,,,,,"6' 3""",200,L/L,P,,21,Michigan,4YR JR,FALSE,,2005-04-07,67374
 ,Wyatt Queen,,,,,"6' 2""",214,R/R,P,,21,Oregon State,4YR SR,FALSE,,2005-05-28,117318
-,Wyatt Williams,,,,,"6' 4""",225,R/R,P,,18,Thompson HS (AL),HS SR,TRUE,,2008-04-02,
+,Wyatt Williams,492,,,,"6' 4""",225,R/R,P,,18,Thompson HS (AL),HS SR,TRUE,,2008-04-02,
 ,Xavier Esquer,,,,,"5' 10""",190,R/R,SS,,22,UC Santa Barbara,4YR SR,FALSE,,2003-12-22,50536
 ,Yavier Rosendo,,,,,"6' 2""",185,R/R,SS,,18,TNXL Academy (FL),HS SR,TRUE,,2007-08-02,
 ,Yeriel Pastrana,,,,,"6' 0""",190,R/R,OF,,21,Mars Hill,4YR JR,FALSE,,2005-05-10,70551
-,Yodelkis Quevedo,,,,,"6' 3""",210,R/R,3B,,18,Mater Academy HS (FL),HS SR,TRUE,,2007-11-05,
+,Yodelkis Quevedo,486,,,,"6' 3""",210,R/R,3B,,18,Mater Academy HS (FL),HS SR,TRUE,,2007-11-05,
 ,Zac Cowan,,,,,"5' 11""",211,S/R,P,,23,LSU,4YR SR,FALSE,,2003-07-07,63288
 ,Zac Sohosky,,,,,"6' 0""",191,R/L,P,,22,Miami (OH),4YR SR,FALSE,,2003-11-15,59214
 ,Zach Bates,,,,,"6' 2""",195,R/L,P,,21,Illinois,4YR JR,FALSE,,2005-06-08,
 ,Zach Brown,,,,,"6' 5""",220,R/R,P,,21,Georgia,4YR JR,FALSE,,2004-10-01,
-,Zach Crotchfelt,,,,,"6' 3""",225,L/L,P,,22,Troy,4YR SR,FALSE,,2003-10-03,50729
-,Zach Edwards,,,,,"6' 2""",230,R/R,P,,21,Oregon State,4YR SO,FALSE,,2005-06-17,116795
+,Zach Crotchfelt,327,,,,"6' 3""",225,L/L,P,,22,Troy,4YR SR,FALSE,,2003-10-03,50729
+,Zach Edwards,386,,,,"6' 2""",230,R/R,P,,21,Oregon State,4YR SO,FALSE,,2005-06-17,116795
 ,Zach Geertsma,,,,,"6' 1""",200,R/R,SS,,18,Governor Livingston HS (NJ),HS SR,TRUE,,2007-10-29,
 ,Zach Johnston,,,,,"6' 5""",200,L/L,P,,22,Wake Forest,4YR SR,FALSE,,2003-10-01,
 ,Zach MacDonald,,,,,"6' 5""",210,L/R,1B,,17,Lacombe Composite SS (AB),HS SR,TRUE,,2008-11-08,
@@ -2263,7 +2263,7 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Zack Stewart,,,,,"6' 2""",220,L/R,OF,,22,Arkansas,4YR SR,FALSE,,2003-07-30,
 ,Zander Buchan,,,,,"5' 9""",200,S/R,C,,23,Francis Marion,4YR SR,FALSE,,2003-05-09,
 ,Zander Montgomery,,,,,"6' 5""",185,R/R,P,,18,Coppell HS (TX),HS SR,TRUE,,2007-10-07,
-,Zane Adams,,,,,"6' 4""",205,L/L,P,,22,Alabama,4YR JR,FALSE,,2004-05-13,69154
+,Zane Adams,223,,,,"6' 4""",205,L/L,P,,22,Alabama,4YR JR,FALSE,,2004-05-13,69154
 ,Zane Kelly,,,,,"6' 2""",200,L/L,OF,,22,San Diego State,4YR JR,FALSE,,2004-05-05,68564
 ,Zane Shaw,,,,,"6' 1""",195,L/R,P,,18,Lawrence Free State HS (KS),HS SR,TRUE,,2008-05-29,
 ,Zeb Allen,,,,,"5' 10""",185,L/L,OF,,21,Central Arkansas,4YR JR,FALSE,,2005-06-20,69192
@@ -2276,3 +2276,15 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Cashel Duggar,,,,245,,,,C,,,UCLA,4YR,FALSE,,,
 ,Cory Les,,,,246,,,,SS,,,St. Laurence HS (IL),HS SR,TRUE,,,
 ,Owen McMahan,,,,247,,,,LHP,,,Sycamore HS (TN),HS SR,TRUE,,,
+,Ryan Novak,204,,,,,,,OF,,,,,,,,
+,Brennan Hudson,352,,,,,,,1B,,,,,,,,
+,Zach Stevens,368,,,,,,,RHP,,,,,,,,
+,Jacob Bean,405,,,,,,,RHP,,,,,,,,
+,Trey Hawsey,413,,,,,,,1B,,,,,,,,
+,Caleb Klein,414,,,,,,,OF,,,,,,,,
+,Mathew Farner,415,,,,,,,SS,,,,,,,,
+,Tate Troxell,442,,,,,,,RHP,,,,,,,,
+,Ryder Olson,454,,,,,,,RHP,,,,,,,,
+,Caden Sivrich,464,,,,,,,RHP,,,,,,,,
+,Gabe Jones,482,,,,,,,RHP,,,,,,,,
+,Ryan Ventrelle,491,,,,,,,SS,,,,,,,,
