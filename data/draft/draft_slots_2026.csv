@@ -1,0 +1,614 @@
+round,pick,team,slot_value
+1,1,Chicago White Sox,11350600
+1,2,Tampa Bay Rays,10507000
+1,3,Minnesota Twins,9740100
+1,4,San Francisco Giants,8988400
+1,5,Pittsburgh Pirates,8336500
+1,6,Kansas City Royals,7746100
+1,7,Baltimore Orioles,7327200
+1,8,Athletics,6982600
+1,9,Atlanta Braves,6675300
+1,10,Colorado Rockies,6393100
+1,11,Washington Nationals,6133500
+1,12,Los Angeles Angels,5889300
+1,13,St. Louis Cardinals,5661300
+1,14,Miami Marlins,5444900
+1,15,Arizona Diamondbacks,5241000
+1,16,Texas Rangers,5051900
+1,17,Houston Astros,4868600
+1,18,Cincinnati Reds,4695500
+1,19,Cleveland Guardians,4530500
+1,20,Boston Red Sox,4373900
+1,21,San Diego Padres,4224700
+1,22,Detroit Tigers,4082700
+1,23,Chicago Cubs,3947600
+1,24,Seattle Mariners,3818700
+1,25,Milwaukee Brewers,3696000
+1,27,New York Mets,3466500
+1,35,New York Yankees,2826700
+1,36,Philadelphia Phillies,2758800
+1,39,Toronto Blue Jays,2571700
+1,40,Los Angeles Dodgers,2504200
+PPI,26,Atlanta Braves,3578800
+PPI,28,Houston Astros,3363600
+CB-A,29,San Francisco Giants,3270200
+CB-A,30,Kansas City Royals,3190500
+CB-A,31,Arizona Diamondbacks,3118300
+CB-A,32,St. Louis Cardinals,3044600
+CB-A,33,Tampa Bay Rays,2970200
+CB-A,34,Pittsburgh Pirates,2897400
+CB-A,37,Colorado Rockies,2696700
+2,38,Colorado Rockies,2633100
+2,41,Chicago White Sox,2446100
+2,42,Washington Nationals,2388800
+2,43,Minnesota Twins,2333200
+2,44,Pittsburgh Pirates,2278700
+2,45,Los Angeles Angels,2225800
+2,46,Baltimore Orioles,2181600
+2,47,Athletics,2131300
+2,48,Atlanta Braves,2081900
+2,49,Tampa Bay Rays,2033400
+2,50,St. Louis Cardinals,1982700
+2,52,Miami Marlins,1892500
+2,53,Arizona Diamondbacks,1848200
+2,54,Texas Rangers,1805300
+2,55,San Francisco Giants,1763000
+2,56,Kansas City Royals,1721700
+2,57,Houston Astros,1677400
+2,58,Cincinnati Reds,1637700
+2,59,Cleveland Guardians,1598900
+2,60,San Diego Padres,1561000
+2,61,Detroit Tigers,1523600
+2,62,Chicago Cubs,1487200
+2,63,New York Yankees,1451700
+2,64,Philadelphia Phillies,1416600
+2,65,Seattle Mariners,1382600
+2,66,Milwaukee Brewers,1353100
+SUP-2,51,Pittsburgh Pirates,1938100
+CB-B,67,Boston Red Sox,1317300
+CB-B,68,St. Louis Cardinals,1285500
+CB-B,69,Detroit Tigers,1254200
+CB-B,70,Cincinnati Reds,1223100
+CB-B,71,Miami Marlins,1192600
+CB-B,72,St. Louis Cardinals,1174300
+CB-B,73,Athletics,1156400
+CB-B,74,Minnesota Twins,1138600
+2C,75,Chicago Cubs,1120900
+3,76,Colorado Rockies,1103500
+3,77,Chicago White Sox,1086600
+3,78,Washington Nationals,1069600
+3,79,Minnesota Twins,1052700
+3,80,Pittsburgh Pirates,1035700
+3,81,Los Angeles Angels,1018500
+3,82,Baltimore Orioles,1003800
+3,83,Athletics,988700
+3,84,Atlanta Braves,973700
+3,85,Tampa Bay Rays,958500
+3,86,St. Louis Cardinals,943600
+3,87,Miami Marlins,929700
+3,88,Arizona Diamondbacks,915100
+3,89,Texas Rangers,900800
+3,90,San Francisco Giants,887000
+3,91,Kansas City Royals,872900
+3,92,New York Mets,859900
+3,93,Houston Astros,846900
+3,94,Cincinnati Reds,833800
+3,95,Cleveland Guardians,823800
+3,96,Boston Red Sox,815700
+3,97,San Diego Padres,808100
+3,98,Chicago Cubs,800000
+3,99,New York Yankees,792300
+3,100,Philadelphia Phillies,784400
+3,101,Seattle Mariners,778200
+3,102,Milwaukee Brewers,770600
+3,103,Toronto Blue Jays,762900
+4,104,Colorado Rockies,755300
+4,105,Chicago White Sox,747700
+4,106,Washington Nationals,740500
+4,107,Minnesota Twins,733100
+4,108,Pittsburgh Pirates,725900
+4,109,Los Angeles Angels,718700
+4,110,Baltimore Orioles,711800
+4,111,Athletics,704900
+4,112,Atlanta Braves,697700
+4,113,Tampa Bay Rays,691000
+4,114,St. Louis Cardinals,684300
+4,115,Miami Marlins,677500
+4,116,Arizona Diamondbacks,670900
+4,117,Texas Rangers,664500
+4,118,San Francisco Giants,658100
+4,119,Kansas City Royals,651500
+4,120,New York Mets,645100
+4,121,Houston Astros,638800
+4,122,Cincinnati Reds,632500
+4,123,Cleveland Guardians,626500
+4,124,San Diego Padres,620300
+4,125,Detroit Tigers,614500
+4,126,Chicago Cubs,609200
+4,127,New York Yankees,603500
+4,128,Philadelphia Phillies,597400
+4,129,Seattle Mariners,591700
+4,130,Milwaukee Brewers,585700
+4,131,Toronto Blue Jays,581100
+4,132,Los Angeles Dodgers,575300
+4C,133,Houston Astros,569600
+4C,134,San Diego Padres,563900
+4C,135,Philadelphia Phillies,558400
+5,136,Colorado Rockies,553100
+5,137,Chicago White Sox,547700
+5,138,Washington Nationals,542200
+5,139,Minnesota Twins,536900
+5,140,Pittsburgh Pirates,532000
+5,141,Los Angeles Angels,526600
+5,142,Baltimore Orioles,521500
+5,143,Athletics,516300
+5,144,Atlanta Braves,511400
+5,145,Tampa Bay Rays,506100
+5,146,St. Louis Cardinals,501300
+5,147,Miami Marlins,496400
+5,148,Arizona Diamondbacks,491700
+5,149,Texas Rangers,486800
+5,150,San Francisco Giants,481800
+5,151,Kansas City Royals,476900
+5,152,New York Mets,472500
+5,153,Houston Astros,467700
+5,154,Cincinnati Reds,463200
+5,155,Cleveland Guardians,458500
+5,156,Boston Red Sox,454100
+5,157,San Diego Padres,449500
+5,158,Detroit Tigers,445200
+5,159,Chicago Cubs,441300
+5,160,New York Yankees,437200
+5,161,Philadelphia Phillies,433200
+5,162,Seattle Mariners,429100
+5,163,Milwaukee Brewers,425400
+5,164,Toronto Blue Jays,421300
+6,165,Colorado Rockies,417400
+6,166,Chicago White Sox,413900
+6,167,Washington Nationals,410300
+6,168,Minnesota Twins,406800
+6,169,Pittsburgh Pirates,403500
+6,170,Los Angeles Angels,399800
+6,171,Baltimore Orioles,396300
+6,172,Athletics,393100
+6,173,Atlanta Braves,389900
+6,174,Tampa Bay Rays,386500
+6,175,St. Louis Cardinals,383400
+6,176,Miami Marlins,380200
+6,177,Arizona Diamondbacks,377000
+6,178,Texas Rangers,373800
+6,179,San Francisco Giants,370600
+6,180,Kansas City Royals,367600
+6,181,New York Mets,364600
+6,182,Houston Astros,361900
+6,183,Cincinnati Reds,358900
+6,184,Cleveland Guardians,355700
+6,185,Boston Red Sox,352900
+6,186,San Diego Padres,350100
+6,187,Detroit Tigers,347300
+6,188,Chicago Cubs,344400
+6,189,New York Yankees,341800
+6,190,Philadelphia Phillies,338800
+6,191,Seattle Mariners,335900
+6,192,Milwaukee Brewers,333200
+6,193,Toronto Blue Jays,330300
+7,194,Colorado Rockies,327700
+7,195,Chicago White Sox,325100
+7,196,Washington Nationals,322300
+7,197,Minnesota Twins,319600
+7,198,Pittsburgh Pirates,317100
+7,199,Los Angeles Angels,314300
+7,200,Baltimore Orioles,311700
+7,201,Athletics,310000
+7,202,Atlanta Braves,307300
+7,203,Tampa Bay Rays,304800
+7,204,St. Louis Cardinals,302300
+7,205,Miami Marlins,299700
+7,206,Arizona Diamondbacks,297100
+7,207,Texas Rangers,294800
+7,208,San Francisco Giants,292300
+7,209,Kansas City Royals,289900
+7,210,New York Mets,287800
+7,211,Houston Astros,285400
+7,212,Cincinnati Reds,283000
+7,213,Cleveland Guardians,280900
+7,214,Boston Red Sox,278700
+7,215,San Diego Padres,276400
+7,216,Detroit Tigers,274300
+7,217,Chicago Cubs,272000
+7,218,New York Yankees,270000
+7,219,Philadelphia Phillies,267800
+7,220,Seattle Mariners,266100
+7,221,Milwaukee Brewers,264100
+7,222,Toronto Blue Jays,262300
+7,223,Los Angeles Dodgers,260300
+8,224,Colorado Rockies,258400
+8,225,Chicago White Sox,256500
+8,226,Washington Nationals,254900
+8,227,Minnesota Twins,253300
+8,228,Pittsburgh Pirates,251500
+8,229,Los Angeles Angels,249300
+8,230,Baltimore Orioles,247900
+8,231,Athletics,245800
+8,232,Atlanta Braves,244500
+8,233,Tampa Bay Rays,242700
+8,234,St. Louis Cardinals,241000
+8,235,Miami Marlins,239200
+8,236,Arizona Diamondbacks,237800
+8,237,Texas Rangers,236100
+8,238,San Francisco Giants,234700
+8,239,Kansas City Royals,233400
+8,240,New York Mets,232100
+8,241,Houston Astros,231000
+8,242,Cincinnati Reds,229700
+8,243,Cleveland Guardians,228600
+8,244,Boston Red Sox,227200
+8,245,San Diego Padres,226300
+8,246,Detroit Tigers,225300
+8,247,Chicago Cubs,224100
+8,248,New York Yankees,223100
+8,249,Philadelphia Phillies,222200
+8,250,Seattle Mariners,220900
+8,251,Milwaukee Brewers,220400
+8,252,Toronto Blue Jays,219500
+8,253,Los Angeles Dodgers,218500
+9,254,Colorado Rockies,217800
+9,255,Chicago White Sox,217000
+9,256,Washington Nationals,216100
+9,257,Minnesota Twins,215400
+9,258,Pittsburgh Pirates,214800
+9,259,Los Angeles Angels,213900
+9,260,Baltimore Orioles,213300
+9,261,Athletics,212600
+9,262,Atlanta Braves,212000
+9,263,Tampa Bay Rays,211200
+9,264,St. Louis Cardinals,210600
+9,265,Miami Marlins,210200
+9,266,Arizona Diamondbacks,209500
+9,267,Texas Rangers,209000
+9,268,San Francisco Giants,208500
+9,269,Kansas City Royals,207900
+9,270,New York Mets,207200
+9,271,Houston Astros,206800
+9,272,Cincinnati Reds,206300
+9,273,Cleveland Guardians,205800
+9,274,Boston Red Sox,205400
+9,275,San Diego Padres,205000
+9,276,Detroit Tigers,204400
+9,277,Chicago Cubs,204100
+9,278,New York Yankees,203500
+9,279,Philadelphia Phillies,202900
+9,280,Seattle Mariners,202700
+9,281,Milwaukee Brewers,202500
+9,282,Toronto Blue Jays,202100
+9,283,Los Angeles Dodgers,201700
+10,284,Colorado Rockies,201500
+10,285,Chicago White Sox,200900
+10,286,Washington Nationals,200100
+10,287,Minnesota Twins,199900
+10,288,Pittsburgh Pirates,199500
+10,289,Los Angeles Angels,199200
+10,290,Baltimore Orioles,198900
+10,291,Athletics,198600
+10,292,Atlanta Braves,198300
+10,293,Tampa Bay Rays,197900
+10,294,St. Louis Cardinals,197400
+10,295,Miami Marlins,197200
+10,296,Arizona Diamondbacks,196500
+10,297,Texas Rangers,196200
+10,298,San Francisco Giants,196000
+10,299,Kansas City Royals,195600
+10,300,New York Mets,195200
+10,301,Houston Astros,195000
+10,302,Cincinnati Reds,194800
+10,303,Cleveland Guardians,194500
+10,304,Boston Red Sox,194000
+10,305,San Diego Padres,193700
+10,306,Detroit Tigers,193600
+10,307,Chicago Cubs,193300
+10,308,New York Yankees,193000
+10,309,Philadelphia Phillies,192500
+10,310,Seattle Mariners,192300
+10,311,Milwaukee Brewers,191900
+10,312,Toronto Blue Jays,191900
+10,313,Los Angeles Dodgers,191900
+11,314,Colorado Rockies,0
+11,315,Chicago White Sox,0
+11,316,Washington Nationals,0
+11,317,Minnesota Twins,0
+11,318,Pittsburgh Pirates,0
+11,319,Los Angeles Angels,0
+11,320,Baltimore Orioles,0
+11,321,Athletics,0
+11,322,Atlanta Braves,0
+11,323,Tampa Bay Rays,0
+11,324,St. Louis Cardinals,0
+11,325,Miami Marlins,0
+11,326,Arizona Diamondbacks,0
+11,327,Texas Rangers,0
+11,328,San Francisco Giants,0
+11,329,Kansas City Royals,0
+11,330,New York Mets,0
+11,331,Houston Astros,0
+11,332,Cincinnati Reds,0
+11,333,Cleveland Guardians,0
+11,334,Boston Red Sox,0
+11,335,San Diego Padres,0
+11,336,Detroit Tigers,0
+11,337,Chicago Cubs,0
+11,338,New York Yankees,0
+11,339,Philadelphia Phillies,0
+11,340,Seattle Mariners,0
+11,341,Milwaukee Brewers,0
+11,342,Toronto Blue Jays,0
+11,343,Los Angeles Dodgers,0
+12,344,Colorado Rockies,0
+12,345,Chicago White Sox,0
+12,346,Washington Nationals,0
+12,347,Minnesota Twins,0
+12,348,Pittsburgh Pirates,0
+12,349,Los Angeles Angels,0
+12,350,Baltimore Orioles,0
+12,351,Athletics,0
+12,352,Atlanta Braves,0
+12,353,Tampa Bay Rays,0
+12,354,St. Louis Cardinals,0
+12,355,Miami Marlins,0
+12,356,Arizona Diamondbacks,0
+12,357,Texas Rangers,0
+12,358,San Francisco Giants,0
+12,359,Kansas City Royals,0
+12,360,New York Mets,0
+12,361,Houston Astros,0
+12,362,Cincinnati Reds,0
+12,363,Cleveland Guardians,0
+12,364,Boston Red Sox,0
+12,365,San Diego Padres,0
+12,366,Detroit Tigers,0
+12,367,Chicago Cubs,0
+12,368,New York Yankees,0
+12,369,Philadelphia Phillies,0
+12,370,Seattle Mariners,0
+12,371,Milwaukee Brewers,0
+12,372,Toronto Blue Jays,0
+12,373,Los Angeles Dodgers,0
+13,374,Colorado Rockies,0
+13,375,Chicago White Sox,0
+13,376,Washington Nationals,0
+13,377,Minnesota Twins,0
+13,378,Pittsburgh Pirates,0
+13,379,Los Angeles Angels,0
+13,380,Baltimore Orioles,0
+13,381,Athletics,0
+13,382,Atlanta Braves,0
+13,383,Tampa Bay Rays,0
+13,384,St. Louis Cardinals,0
+13,385,Miami Marlins,0
+13,386,Arizona Diamondbacks,0
+13,387,Texas Rangers,0
+13,388,San Francisco Giants,0
+13,389,Kansas City Royals,0
+13,390,New York Mets,0
+13,391,Houston Astros,0
+13,392,Cincinnati Reds,0
+13,393,Cleveland Guardians,0
+13,394,Boston Red Sox,0
+13,395,San Diego Padres,0
+13,396,Detroit Tigers,0
+13,397,Chicago Cubs,0
+13,398,New York Yankees,0
+13,399,Philadelphia Phillies,0
+13,400,Seattle Mariners,0
+13,401,Milwaukee Brewers,0
+13,402,Toronto Blue Jays,0
+13,403,Los Angeles Dodgers,0
+14,404,Colorado Rockies,0
+14,405,Chicago White Sox,0
+14,406,Washington Nationals,0
+14,407,Minnesota Twins,0
+14,408,Pittsburgh Pirates,0
+14,409,Los Angeles Angels,0
+14,410,Baltimore Orioles,0
+14,411,Athletics,0
+14,412,Atlanta Braves,0
+14,413,Tampa Bay Rays,0
+14,414,St. Louis Cardinals,0
+14,415,Miami Marlins,0
+14,416,Arizona Diamondbacks,0
+14,417,Texas Rangers,0
+14,418,San Francisco Giants,0
+14,419,Kansas City Royals,0
+14,420,New York Mets,0
+14,421,Houston Astros,0
+14,422,Cincinnati Reds,0
+14,423,Cleveland Guardians,0
+14,424,Boston Red Sox,0
+14,425,San Diego Padres,0
+14,426,Detroit Tigers,0
+14,427,Chicago Cubs,0
+14,428,New York Yankees,0
+14,429,Philadelphia Phillies,0
+14,430,Seattle Mariners,0
+14,431,Milwaukee Brewers,0
+14,432,Toronto Blue Jays,0
+14,433,Los Angeles Dodgers,0
+15,434,Colorado Rockies,0
+15,435,Chicago White Sox,0
+15,436,Washington Nationals,0
+15,437,Minnesota Twins,0
+15,438,Pittsburgh Pirates,0
+15,439,Los Angeles Angels,0
+15,440,Baltimore Orioles,0
+15,441,Athletics,0
+15,442,Atlanta Braves,0
+15,443,Tampa Bay Rays,0
+15,444,St. Louis Cardinals,0
+15,445,Miami Marlins,0
+15,446,Arizona Diamondbacks,0
+15,447,Texas Rangers,0
+15,448,San Francisco Giants,0
+15,449,Kansas City Royals,0
+15,450,New York Mets,0
+15,451,Houston Astros,0
+15,452,Cincinnati Reds,0
+15,453,Cleveland Guardians,0
+15,454,Boston Red Sox,0
+15,455,San Diego Padres,0
+15,456,Detroit Tigers,0
+15,457,Chicago Cubs,0
+15,458,New York Yankees,0
+15,459,Philadelphia Phillies,0
+15,460,Seattle Mariners,0
+15,461,Milwaukee Brewers,0
+15,462,Toronto Blue Jays,0
+15,463,Los Angeles Dodgers,0
+16,464,Colorado Rockies,0
+16,465,Chicago White Sox,0
+16,466,Washington Nationals,0
+16,467,Minnesota Twins,0
+16,468,Pittsburgh Pirates,0
+16,469,Los Angeles Angels,0
+16,470,Baltimore Orioles,0
+16,471,Athletics,0
+16,472,Atlanta Braves,0
+16,473,Tampa Bay Rays,0
+16,474,St. Louis Cardinals,0
+16,475,Miami Marlins,0
+16,476,Arizona Diamondbacks,0
+16,477,Texas Rangers,0
+16,478,San Francisco Giants,0
+16,479,Kansas City Royals,0
+16,480,New York Mets,0
+16,481,Houston Astros,0
+16,482,Cincinnati Reds,0
+16,483,Cleveland Guardians,0
+16,484,Boston Red Sox,0
+16,485,San Diego Padres,0
+16,486,Detroit Tigers,0
+16,487,Chicago Cubs,0
+16,488,New York Yankees,0
+16,489,Philadelphia Phillies,0
+16,490,Seattle Mariners,0
+16,491,Milwaukee Brewers,0
+16,492,Toronto Blue Jays,0
+16,493,Los Angeles Dodgers,0
+17,494,Colorado Rockies,0
+17,495,Chicago White Sox,0
+17,496,Washington Nationals,0
+17,497,Minnesota Twins,0
+17,498,Pittsburgh Pirates,0
+17,499,Los Angeles Angels,0
+17,500,Baltimore Orioles,0
+17,501,Athletics,0
+17,502,Atlanta Braves,0
+17,503,Tampa Bay Rays,0
+17,504,St. Louis Cardinals,0
+17,505,Miami Marlins,0
+17,506,Arizona Diamondbacks,0
+17,507,Texas Rangers,0
+17,508,San Francisco Giants,0
+17,509,Kansas City Royals,0
+17,510,New York Mets,0
+17,511,Houston Astros,0
+17,512,Cincinnati Reds,0
+17,513,Cleveland Guardians,0
+17,514,Boston Red Sox,0
+17,515,San Diego Padres,0
+17,516,Detroit Tigers,0
+17,517,Chicago Cubs,0
+17,518,New York Yankees,0
+17,519,Philadelphia Phillies,0
+17,520,Seattle Mariners,0
+17,521,Milwaukee Brewers,0
+17,522,Toronto Blue Jays,0
+17,523,Los Angeles Dodgers,0
+18,524,Colorado Rockies,0
+18,525,Chicago White Sox,0
+18,526,Washington Nationals,0
+18,527,Minnesota Twins,0
+18,528,Pittsburgh Pirates,0
+18,529,Los Angeles Angels,0
+18,530,Baltimore Orioles,0
+18,531,Athletics,0
+18,532,Atlanta Braves,0
+18,533,Tampa Bay Rays,0
+18,534,St. Louis Cardinals,0
+18,535,Miami Marlins,0
+18,536,Arizona Diamondbacks,0
+18,537,Texas Rangers,0
+18,538,San Francisco Giants,0
+18,539,Kansas City Royals,0
+18,540,New York Mets,0
+18,541,Houston Astros,0
+18,542,Cincinnati Reds,0
+18,543,Cleveland Guardians,0
+18,544,Boston Red Sox,0
+18,545,San Diego Padres,0
+18,546,Detroit Tigers,0
+18,547,Chicago Cubs,0
+18,548,New York Yankees,0
+18,549,Philadelphia Phillies,0
+18,550,Seattle Mariners,0
+18,551,Milwaukee Brewers,0
+18,552,Toronto Blue Jays,0
+18,553,Los Angeles Dodgers,0
+19,554,Colorado Rockies,0
+19,555,Chicago White Sox,0
+19,556,Washington Nationals,0
+19,557,Minnesota Twins,0
+19,558,Pittsburgh Pirates,0
+19,559,Los Angeles Angels,0
+19,560,Baltimore Orioles,0
+19,561,Athletics,0
+19,562,Atlanta Braves,0
+19,563,Tampa Bay Rays,0
+19,564,St. Louis Cardinals,0
+19,565,Miami Marlins,0
+19,566,Arizona Diamondbacks,0
+19,567,Texas Rangers,0
+19,568,San Francisco Giants,0
+19,569,Kansas City Royals,0
+19,570,New York Mets,0
+19,571,Houston Astros,0
+19,572,Cincinnati Reds,0
+19,573,Cleveland Guardians,0
+19,574,Boston Red Sox,0
+19,575,San Diego Padres,0
+19,576,Detroit Tigers,0
+19,577,Chicago Cubs,0
+19,578,New York Yankees,0
+19,579,Philadelphia Phillies,0
+19,580,Seattle Mariners,0
+19,581,Milwaukee Brewers,0
+19,582,Toronto Blue Jays,0
+19,583,Los Angeles Dodgers,0
+20,584,Colorado Rockies,0
+20,585,Chicago White Sox,0
+20,586,Washington Nationals,0
+20,587,Minnesota Twins,0
+20,588,Pittsburgh Pirates,0
+20,589,Los Angeles Angels,0
+20,590,Baltimore Orioles,0
+20,591,Athletics,0
+20,592,Atlanta Braves,0
+20,593,Tampa Bay Rays,0
+20,594,St. Louis Cardinals,0
+20,595,Miami Marlins,0
+20,596,Arizona Diamondbacks,0
+20,597,Texas Rangers,0
+20,598,San Francisco Giants,0
+20,599,Kansas City Royals,0
+20,600,New York Mets,0
+20,601,Houston Astros,0
+20,602,Cincinnati Reds,0
+20,603,Cleveland Guardians,0
+20,604,Boston Red Sox,0
+20,605,San Diego Padres,0
+20,606,Detroit Tigers,0
+20,607,Chicago Cubs,0
+20,608,New York Yankees,0
+20,609,Philadelphia Phillies,0
+20,610,Seattle Mariners,0
+20,611,Milwaukee Brewers,0
+20,612,Toronto Blue Jays,0
+20,613,Los Angeles Dodgers,0

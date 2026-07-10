@@ -70,14 +70,18 @@ def load_draft_refs():
 
 
 master, history, trends = load_draft_refs()
-# 2025 slot values by pick number, offered as prefill until 2026 slots are entered
-slots25 = {}
-for _, r in history[history['year'] == '2025'].drop_duplicates('pick', keep='last').iterrows():
-    v = fnum(r['slot_value'])
-    if v:
-        slots25[int(float(r['pick']))] = v
 
-MLB_TEAMS = sorted(history[history['year'] == '2025']['team'].dropna().unique())
+# Official 2026 slot values + pick->team assignments (from MLB StatsAPI)
+try:
+    _slots = pd.read_csv(DATA / 'draft' / 'draft_slots_2026.csv', dtype=str, keep_default_na=False)
+    slot_by_pick = {int(float(r['pick'])): fnum(r['slot_value']) or 0 for _, r in _slots.iterrows()}
+    team_by_pick = {int(float(r['pick'])): r['team'] for _, r in _slots.iterrows()}
+    round_by_pick = {int(float(r['pick'])): int(float(r['round'])) for _, r in _slots.iterrows()
+                     if str(r['round']).replace('.', '').isdigit()}
+    MLB_TEAMS = sorted(_slots['team'].dropna().unique())
+except Exception:
+    slot_by_pick, team_by_pick, round_by_pick = {}, {}, {}
+    MLB_TEAMS = sorted(history[history['year'] == '2025']['team'].dropna().unique())
 
 
 def fetch_picks():
@@ -151,9 +155,11 @@ with tab_live:
         # ---- entry form ----
         with st.expander("➕ Enter a pick", expanded=True):
             c1, c2, c3 = st.columns([1, 1, 2])
-            rnd_in = c1.number_input("Round", 1, 20, 1)
             pick_in = c2.number_input("Pick #", 1, 700, int(picks['pick'].max()) + 1 if len(picks) else 1)
-            team_in = c3.selectbox("MLB team", MLB_TEAMS)
+            rnd_in = c1.number_input("Round", 1, 20, round_by_pick.get(int(pick_in), 1))
+            team_default = team_by_pick.get(int(pick_in), '')
+            team_idx = MLB_TEAMS.index(team_default) if team_default in MLB_TEAMS else 0
+            team_in = c3.selectbox("MLB team (auto-set from the pick's slot)", MLB_TEAMS, index=team_idx)
             q = st.text_input("Player (search the board)", key='pick_search')
             cands = master[master['name'].str.lower().str.contains(q.strip().lower(), na=False)] if q.strip() else master.head(0)
             options = [f"{r['name']}  ·  #{r['number']} {r['pos']} — {r['school']}" for _, r in cands.head(30).iterrows()]
@@ -163,8 +169,8 @@ with tab_live:
             if sel == '— not on the board (type name below) —':
                 manual_name = st.text_input("Player name (verbatim)", key='pick_manual')
             c4, c5, c6 = st.columns(3)
-            slot_default = slots25.get(int(pick_in), 0)
-            slot_in = c4.number_input("Slot value $ (prefilled from 2025 — adjust to 2026)",
+            slot_default = slot_by_pick.get(int(pick_in), 0)
+            slot_in = c4.number_input("Slot value $ (official 2026)",
                                       0, 20_000_000, int(slot_default), step=100)
             bonus_in = c5.number_input("Signing bonus $ (0 = unsigned)", 0, 20_000_000, 0, step=100)
             entered_by = c6.text_input("Your name", key='pick_by')
