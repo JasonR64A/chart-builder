@@ -291,8 +291,10 @@ def make_tweet(e, mrow):
                     rk, lab = int(float(mrow[col])), l
                     break
         if rk:
+            # d = rank - pick (engine convention): POSITIVE = ranked worse than
+            # the pick = team reached; NEGATIVE = ranked better = player slid.
             d = rk - e['Pick']
-            tag = f"  (slides {d})" if d >= 15 else (f"  (reach of {-d})" if d <= -15 else '')
+            tag = f"  (reach of {d})" if d >= 15 else (f"  (slides {-d})" if d <= -15 else '')
             body.append(f"{lab}: #{rk} · went {e['Pick']}{tag}")
     if e['_slot']:
         m = f"💰 slot {_money(e['_slot'])}"
