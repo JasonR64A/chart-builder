@@ -4,6 +4,7 @@ NCAA Tournament field prediction with seeding, regional placement, and super reg
 """
 
 import streamlit as st
+from app_lib.safe_render import safe_savefig
 import pandas as pd
 import numpy as np
 import base64
@@ -1710,7 +1711,7 @@ def render_bracket_png(supers_data, sport_label, bg_path, brand_path):
 
     plt.tight_layout()
     buf = BytesIO()
-    fig.savefig(buf, format='png', dpi=150, facecolor='#2c2c2a', edgecolor='none',
+    safe_savefig(fig, buf, format='png', dpi=150, facecolor='#2c2c2a', edgecolor='none',
                 bbox_inches='tight', pad_inches=0)
     buf.seek(0)
     plt.close(fig)
@@ -1897,7 +1898,7 @@ if len(history_df) > 1 and history_df['snapshot_date'].nunique() > 1:
         # Similar Entities + Pace chart).
         from io import BytesIO
         buf = BytesIO()
-        fig.savefig(buf, format='png', dpi=180, facecolor=BG_SOLID, bbox_inches='tight')
+        safe_savefig(fig, buf, format='png', dpi=180, facecolor=BG_SOLID, bbox_inches='tight')
         buf.seek(0)
         plt.close(fig)
 

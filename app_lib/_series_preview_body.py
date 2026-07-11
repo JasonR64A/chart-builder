@@ -6,6 +6,7 @@ game-by-game predicted WP with starter matchups, bullpen depth, and
 "who's hot" last-14-day performers.
 """
 import streamlit as st
+from app_lib.safe_render import safe_savefig
 import pandas as pd
 import numpy as np
 import plotly.graph_objects as go
@@ -654,7 +655,7 @@ def render_matchup_card(team_a, team_b, stats_a, stats_b, all_team_stats,
 
     plt.tight_layout(pad=0.3)
     buf = BytesIO()
-    fig.savefig(buf, format='png', dpi=150, bbox_inches='tight', facecolor=BG)
+    safe_savefig(fig, buf, format='png', dpi=150, bbox_inches='tight', facecolor=BG)
     plt.close(fig)
     buf.seek(0)
     return buf.getvalue()

@@ -4,6 +4,7 @@ Side-by-side comparison of multiple teams across selected metrics.
 """
 
 import streamlit as st
+from app_lib.safe_render import safe_savefig
 import pandas as pd
 import numpy as np
 import matplotlib
@@ -638,7 +639,7 @@ if fig is None:
     st.stop()
 
 buf = BytesIO()
-fig.savefig(buf, format='png', dpi=180, bbox_inches='tight',
+safe_savefig(fig, buf, format='png', dpi=180, bbox_inches='tight',
             facecolor=theme['bg'], edgecolor='none')
 buf.seek(0)
 plt.close(fig)

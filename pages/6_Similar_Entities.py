@@ -4,6 +4,7 @@ Find players or teams with similar performance profiles within the same division
 """
 
 import streamlit as st
+from app_lib.safe_render import safe_savefig
 import pandas as pd
 import numpy as np
 from pathlib import Path
@@ -500,7 +501,7 @@ def render_similarity_chart(target_label, target_team, target_pct, matches, matc
             pass
 
     buf = BytesIO()
-    fig.savefig(buf, format='png', dpi=180, facecolor=bg_solid, bbox_inches='tight')
+    safe_savefig(fig, buf, format='png', dpi=180, facecolor=bg_solid, bbox_inches='tight')
     buf.seek(0)
     plt.close(fig)
     return buf

@@ -4,6 +4,7 @@ Dumbbell / dot-plot showing before vs after stats for players who transferred.
 """
 
 import streamlit as st
+from app_lib.safe_render import safe_savefig, safe_pyplot
 import pandas as pd
 import numpy as np
 import matplotlib
@@ -309,7 +310,7 @@ def make_dumbbell_chart(df, metric_label, metric_col, n_players=25):
 
 def fig_to_png_bytes(fig):
     buf = BytesIO()
-    fig.savefig(buf, format='png', dpi=200, bbox_inches='tight', facecolor=fig.get_facecolor())
+    safe_savefig(fig, buf, format='png', dpi=200, bbox_inches='tight', facecolor=fig.get_facecolor())
     buf.seek(0)
     return buf.getvalue()
 
@@ -405,7 +406,7 @@ def main():
 
     # ── Dumbbell chart ───────────────────────────────────────────────────────
     fig = make_dumbbell_chart(df, metric_label, metric_col, n_players=n_display)
-    st.pyplot(fig, use_container_width=True)
+    safe_pyplot(fig, use_container_width=True)
 
     # ── Download buttons ─────────────────────────────────────────────────────
     dl_col1, dl_col2, _ = st.columns([1, 1, 3])

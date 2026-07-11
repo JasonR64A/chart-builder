@@ -3,7 +3,10 @@
 Run:  streamlit run chart_builder.py
 """
 
+import faulthandler
+faulthandler.enable()  # print Python stack on segfault (Render status 139) to stderr/logs
 import streamlit as st
+from app_lib.safe_render import safe_savefig
 import traceback
 
 try:
@@ -1970,7 +1973,7 @@ def main():
                 # downloadable PNG AND the visual layer of the interactive view.
                 fig = render_chart(data, cfg)
                 buf = BytesIO()
-                fig.savefig(buf, format='png', dpi=180,
+                safe_savefig(fig, buf, format='png', dpi=180,
                             facecolor=chart_theme['bg'], edgecolor='none')
                 buf.seek(0)
                 png_bytes = buf.getvalue()
@@ -2028,7 +2031,7 @@ def main():
 
             # Render to image buffer with explicit facecolor
             buf = BytesIO()
-            fig.savefig(buf, format='png', dpi=180, bbox_inches='tight',
+            safe_savefig(fig, buf, format='png', dpi=180, bbox_inches='tight',
                         facecolor=chart_theme['bg'], edgecolor='none')
             buf.seek(0)
             plt.close(fig)

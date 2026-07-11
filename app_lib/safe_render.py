@@ -15,3 +15,19 @@ _CAIRO_LOCK = threading.Lock()
 def safe_svg2png(*args, **kwargs):
     with _CAIRO_LOCK:
         return cairosvg.svg2png(*args, **kwargs)
+
+
+_MPL_LOCK = threading.Lock()
+
+
+def safe_savefig(fig, *args, **kwargs):
+    """Serialized fig.savefig — matplotlib's Agg renderer is not
+    thread-safe across concurrent Streamlit sessions either."""
+    with _MPL_LOCK:
+        return fig.savefig(*args, **kwargs)
+
+
+def safe_pyplot(fig=None, **kwargs):
+    import streamlit as st
+    with _MPL_LOCK:
+        return st.pyplot(fig, **kwargs)

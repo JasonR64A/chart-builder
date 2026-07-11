@@ -1395,7 +1395,7 @@ def render_diamond_png(best_hitters, starters, relievers, title, subtitle, team_
     fig.text(0.42, 0.94, subtitle, ha='center', va='top', fontsize=10, color='#888')
 
     buf = BytesIO()
-    fig.savefig(buf, format='png', dpi=180, facecolor='#2c2c2a', edgecolor='none',
+    safe_savefig(fig, buf, format='png', dpi=180, facecolor='#2c2c2a', edgecolor='none',
                 bbox_inches='tight', pad_inches=0)
     buf.seek(0)
     plt.close(fig)
@@ -1545,7 +1545,7 @@ def render_cards_png(best_hitters, starters, relievers, title, subtitle, team_ma
         draw_card(fig, left, bottom, w_frac, h_frac, name, team, role, top_stats, bot_stats, team_map, ring_color)
 
     buf = BytesIO()
-    fig.savefig(buf, format='png', dpi=180, facecolor='#1a1a1a', edgecolor='none', bbox_inches='tight')
+    safe_savefig(fig, buf, format='png', dpi=180, facecolor='#1a1a1a', edgecolor='none', bbox_inches='tight')
     buf.seek(0)
     plt.close(fig)
     return buf
@@ -3418,7 +3418,7 @@ elif view == 'Pace Chart':
         ax.add_artist(logo_ab)
 
     buf = BytesIO()
-    fig.savefig(buf, format='png', dpi=180, facecolor=bg, bbox_inches='tight')
+    safe_savefig(fig, buf, format='png', dpi=180, facecolor=bg, bbox_inches='tight')
     buf.seek(0)
     plt.close(fig)
 

@@ -4,6 +4,7 @@ Weekly mover report: compare old vs. current rankings.
 """
 
 import streamlit as st
+from app_lib.safe_render import safe_savefig
 import pandas as pd
 import numpy as np
 import matplotlib
@@ -764,7 +765,7 @@ with st.spinner('Rendering chart...'):
     fig = render_stock_chart(data, cfg)
 
 buf = BytesIO()
-fig.savefig(buf, format='png', dpi=180, bbox_inches='tight',
+safe_savefig(fig, buf, format='png', dpi=180, bbox_inches='tight',
             facecolor=theme['bg'], edgecolor='none')
 buf.seek(0)
 plt.close(fig)
