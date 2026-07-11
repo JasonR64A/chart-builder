@@ -197,6 +197,74 @@ def stat_line_2026(pid):
     return ''
 
 
+# ── expected-$ explanation + comps (the model's own age/rank/round/pick/conference codes) ──
+ROUND_DESC = {'S': 'top-5 pick', 'T': 'pick 6-10', 'U': 'pick 11-15', 'V': 'pick 16-20',
+              'A': 'back of Rd 1', 'B': 'Rd 2-3', 'C': 'Rd 4-6', 'D': 'Rd 7-10',
+              'E': 'Rd 11-15', 'F': 'Rd 16+'}
+AGE_DESC = {'G': 'under-18', 'H': '18yo', 'I': '19yo', 'J': '20yo', 'K': '21yo',
+            'L': '22yo', 'M': '23yo', 'N': '24+'}
+DIST_DESC = {'O': 'slid 50+ past his rank', 'P': 'went near his rank',
+             'Q': 'reach of 1-50 vs rank', 'R': 'reach of 50+ vs rank'}
+SCHOOL2CONF = {s: c for s, c in zip(history['school'], history['conference']) if s and c}
+
+
+def _code_rate(c):
+    pct = trends['code_pct']
+    v = pct.get(c)
+    if v is None and c in ('L', 'M'):
+        v = pct.get('L&M')
+    return v
+
+
+def why_expected(e):
+    """One tweet line explaining the expected $ from the model's own codes."""
+    c_d, c_r, c_a = e.get('_codes', ('', '', ''))
+    if not (e['_slot'] and e['_exp'] and c_d and c_r and c_a):
+        return ''
+    diff = e['_exp'] / e['_slot'] - 1
+    profile = f"{AGE_DESC.get(c_a, '?')}, {ROUND_DESC.get(c_r, '?')}, {DIST_DESC.get(c_d, '?')}"
+    if trends['composite'].get(f'{c_d}{c_r}{c_a}') is not None:
+        return (f"🧮 Why ~{_money(e['_exp'])}: {profile} — that exact profile signed "
+                f"{diff:+.0%} vs slot across the '21-'25 drafts")
+    parts = []
+    for c, desc in ((c_d, DIST_DESC.get(c_d, '?')), (c_r, ROUND_DESC.get(c_r, '?')),
+                    (c_a, AGE_DESC.get(c_a, '?'))):
+        v = _code_rate(c)
+        if v is not None:
+            parts.append(f"{desc} {v:+.0%}")
+    return (f"🧮 Why ~{_money(e['_exp'])}: " + ' · '.join(parts) +
+            " — summed '21-'25 signing rates") if parts else ''
+
+
+def find_comps(e, mrow, n=3):
+    """Historical picks with the SAME age/rank/round/pick codes; same conference first."""
+    c_d, c_r, c_a = e.get('_codes', ('', '', ''))
+    if not (c_d and c_r and c_a):
+        return []
+    h = history[(history['code_dist'] == c_d) & (history['code_round'] == c_r) &
+                (history['code_age'] == c_a) & (history['signed'] == 'Yes')].copy()
+    if not len(h):
+        return []
+    h['bonus_n'] = pd.to_numeric(h['signing_bonus'], errors='coerce')
+    h['slot_n'] = pd.to_numeric(h['slot_value'], errors='coerce')
+    h['pick_n'] = pd.to_numeric(h['pick'], errors='coerce')
+    h = h[(h['bonus_n'] > 0) & (h['slot_n'] > 0) & h['pick_n'].notna()]
+    h = h[h['player'].str.lower() != str(e['Player']).lower()]
+    if not len(h):
+        return []
+    conf = SCHOOL2CONF.get((mrow['school'] if mrow is not None else '') or '', '')
+    h['same_conf'] = (h['conference'] == conf) & (conf != '')
+    h['pickdiff'] = (h['pick_n'] - (e['Pick'] or 0)).abs()
+    h = h.sort_values(['same_conf', 'pickdiff', 'year'], ascending=[False, True, False])
+    out = []
+    for _, r in h.head(n).iterrows():
+        d = (r['bonus_n'] - r['slot_n']) / r['slot_n']
+        conf_tag = f" {r['conference']}" if r['conference'] else ''
+        out.append(f"{r['player']} ('{str(r['year'])[2:]}{conf_tag}, pick {int(r['pick_n'])}): "
+                   f"{_money(r['bonus_n'])} vs {_money(r['slot_n'])} slot ({d:+.0%})")
+    return out
+
+
 def make_tweet(e, mrow):
     """Punchy draft tweet from an enriched pick + its board row."""
     name = e['Player']
@@ -224,6 +292,13 @@ def make_tweet(e, mrow):
         if e['_exp']:
             m += f" · model says ~{_money(e['_exp'])}"
         body.append(m)
+    why = why_expected(e)
+    if why:
+        body.append(why)
+    comps = find_comps(e, mrow)
+    if comps:
+        body.append("📊 Model comps (same age/rank/pick profile):")
+        body.extend(f"  • {c}" for c in comps)
     # portal / commitment note
     note = ''
     if pid and pid in PORTAL:
@@ -280,7 +355,7 @@ def enrich_pick(p):
         'Pool impact': f'{impact:,.0f}' if impact is not None else '',
         'vs slot': f'{diff:+.1%}' if diff is not None else '',
         '_slot': slot or 0, '_exp': exp or 0, '_impact': impact or 0, '_bonus': bonus,
-        '_id': p.get('id'),
+        '_codes': (c_d, c_r, c_a), '_id': p.get('id'),
     })
     return out
 
