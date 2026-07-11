@@ -278,15 +278,22 @@ def make_tweet(e, mrow):
     stat = stat_line_2026(pid)
     if stat:
         body.append(stat)
-    # rank-vs-pick value angle (best available source)
+    # rank-vs-pick value angle — OUR cumulative board rank (avg of all sources,
+    # same number the expected-$ model uses); fall back to a single source only
+    # if the player is unnumbered on our board.
     if mrow is not None:
-        for col, lab in (('rank_ba', 'BA'), ('rank_mlb', 'MLB'), ('rank_espn', 'ESPN'), ('rank_fss', 'Over-Slot')):
-            if mrow[col]:
-                rk = int(float(mrow[col]))
-                d = rk - e['Pick']
-                tag = f"  (slides {d})" if d >= 15 else (f"  (reach of {-d})" if d <= -15 else '')
-                body.append(f"{lab} rank #{rk} · went {e['Pick']}{tag}")
-                break
+        rk, lab = None, 'Our board'
+        if mrow['number']:
+            rk = int(float(mrow['number']))
+        else:
+            for col, l in (('rank_ba', 'BA'), ('rank_mlb', 'MLB'), ('rank_espn', 'ESPN'), ('rank_fss', 'Over-Slot')):
+                if mrow[col]:
+                    rk, lab = int(float(mrow[col])), l
+                    break
+        if rk:
+            d = rk - e['Pick']
+            tag = f"  (slides {d})" if d >= 15 else (f"  (reach of {-d})" if d <= -15 else '')
+            body.append(f"{lab}: #{rk} · went {e['Pick']}{tag}")
     if e['_slot']:
         m = f"💰 slot {_money(e['_slot'])}"
         if e['_exp']:
