@@ -2,7 +2,7 @@ services:
   - type: web
     name: 64analytics-chart-builder
     runtime: python
-    plan: starter
+    plan: standard
     repo: https://github.com/JasonR64A/chart-builder.git
     branch: main
     autoDeploy: true
