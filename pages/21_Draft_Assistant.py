@@ -562,6 +562,34 @@ with tab_super:
             st.caption(f"{n_unk} pick(s) aren't matched to the board (manual names) and are "
                        "excluded from the splits.")
 
+        # ── vs previous drafts: same splits through the SAME pick number ──
+        st.markdown(f"### 📅 vs previous drafts (through pick {int(sdf['Pick'].max())})")
+        _maxp = int(sdf['Pick'].max())
+        _h = history.drop_duplicates(subset=['year', 'pick', 'player']).copy()
+        _h['pick_n'] = pd.to_numeric(_h['pick'], errors='coerce')
+        _h = _h[_h['pick_n'] <= _maxp]
+        yr_rows = []
+        for yr, g in _h.groupby('year'):
+            cls = g['classification'].fillna('')
+            hs_n = int((g['hs'] == 'True').sum())
+            c4_n = int(cls.str.startswith('4YR').sum())
+            jc_n = int((g['juco'] == 'Yes').sum())
+            yr_rows.append({'Draft': yr, 'Picks': len(g), 'HS': hs_n,
+                            '4-year': c4_n, 'JC': jc_n,
+                            'HS %': f"{hs_n / len(g):.0%}" if len(g) else '',
+                            '4-year %': f"{c4_n / len(g):.0%}" if len(g) else ''})
+        n_matched = len(sdf) - n_unk
+        yr_rows.append({'Draft': f'{YEAR} (live)', 'Picks': len(sdf), 'HS': n_hs,
+                        '4-year': n_4yr, 'JC': n_jc,
+                        'HS %': f"{n_hs / n_matched:.0%}" if n_matched else '',
+                        '4-year %': f"{n_4yr / n_matched:.0%}" if n_matched else ''})
+        st.dataframe(pd.DataFrame(yr_rows), use_container_width=True, hide_index=True)
+        _avg_hs = sum(r['HS'] for r in yr_rows[:-1]) / max(len(yr_rows) - 1, 1)
+        _d = n_hs - _avg_hs
+        st.caption(f"Through pick {_maxp}, the {YEAR} draft has {n_hs} HS picks vs a "
+                   f"{_avg_hs:.1f} average for 2021-2025 at the same point "
+                   f"({'+' if _d >= 0 else ''}{_d:.1f} vs trend).")
+
         st.markdown("### 🔁 Portal players drafted — and where they were headed")
         pdf = sdf[sdf['cycle'] != ''].copy()
         if len(pdf):
