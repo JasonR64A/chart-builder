@@ -31,8 +31,9 @@ YEAR = 2026
 SUPABASE_URL = 'https://vfzoroabzmbvwkcyozes.supabase.co'
 SUPABASE_ANON_KEY = (
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.'
-    'eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZmem9yb2Fiem1idndrY3lvemVzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY1NDM2NzMsImV4cCI6MjA2MjExOTY3M30.'
-    'JMEncTa4DBqyk4EFqtxIhaeMLBLpU1zufi-1J6iC0Sk'
+    'eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZmem9yb2Fiem1idndrY3lvemVzIiwi'
+    'cm9sZSI6ImFub24iLCJpYXQiOjE2OTQwNDU5NTgsImV4cCI6MjAwOTYyMTk1OH0.'
+    'MpzhpgI2fVDC5ucrECl2AuQ9VfT_8aaTmFunthyJAPA'
 )
 HEADERS = {
     'apikey': SUPABASE_ANON_KEY,
