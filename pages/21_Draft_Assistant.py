@@ -87,8 +87,9 @@ def load_draft_refs():
         ranked_any = pd.concat([v for v, _ in active], axis=1).notna().any(axis=1)
         master['overall_avg'] = avg.where(ranked_any, other=pd.NA)
         master = master.sort_values('overall_avg', na_position='last').reset_index(drop=True)
-        nums = (master.index + 1).where(master['overall_avg'].notna(), other=pd.NA)
-        master['number'] = nums.astype('Int64').astype(str).replace('<NA>', '')
+        nums = pd.Series(master.index + 1, index=master.index, dtype='Int64')
+        nums = nums.where(master['overall_avg'].notna())
+        master['number'] = nums.astype(str).replace('<NA>', '')
         master['overall_avg'] = master['overall_avg'].astype(str).replace('<NA>', '')
     return master, history, trends
 
