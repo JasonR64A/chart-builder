@@ -369,8 +369,8 @@ def enrich_pick(p):
     return out
 
 
-tab_live, tab_feed, tab_board, tab_card = st.tabs(
-    ["🎙 Live Draft Tracker", "🐦 Tweet Feed", "📋 Prospect Board", "🔍 Scouting Card"])
+tab_live, tab_feed, tab_board, tab_super, tab_card = st.tabs(
+    ["🎙 Live Draft Tracker", "🐦 Tweet Feed", "📋 Prospect Board", "🏆 Superlatives", "🔍 Scouting Card"])
 
 # ═══════════════════════ TAB 1: LIVE DRAFT TRACKER ═══════════════════════
 with tab_live:
@@ -516,6 +516,91 @@ with tab_board:
     st.dataframe(board[list(cols)].rename(columns=cols), use_container_width=True,
                  height=560, hide_index=True)
     st.caption(f"{len(board):,} prospects shown of {len(master):,} on the board.")
+
+# ═══════════════════════ TAB 4: SUPERLATIVES ═══════════════════════
+with tab_super:
+    st.title("Draft Superlatives")
+    st.caption("Quick splits on the picks so far: source (HS / 4-year / JC), portal movement, "
+               "broken commitments, and the best names still on the board.")
+    picks_s, err_s = fetch_picks()
+    if err_s is not None or not len(picks_s):
+        st.info("Superlatives appear once picks are recorded.")
+    else:
+        srecs = []
+        for _, p in picks_s.iterrows():
+            mrow = master_row(p.get('player_name', ''))
+            cls = mrow['classification'] if mrow is not None else ''
+            pid = norm(mrow['player_id_64a']) if mrow is not None else ''
+            src = ('HS' if cls.startswith('HS') else '4YR' if cls.startswith('4YR')
+                   else 'JC' if cls.startswith('JC') else '—')
+            cyc, pinfo = '', None
+            if pid and pid in PORTAL:
+                cyc = '2026' if '2026' in PORTAL[pid] else '2025'
+                pinfo = PORTAL[pid][cyc]
+            srecs.append({'Pick': int(p.get('pick') or 0), 'MLB team': p.get('team', ''),
+                          'Player': p.get('player_name', ''), 'Class': cls, 'src': src,
+                          'Pos': mrow['pos'] if mrow is not None else '',
+                          'School': mrow['school'] if mrow is not None else '',
+                          'Committed': mrow['committed'] if mrow is not None else '',
+                          'cycle': cyc,
+                          'p_from': pinfo['from'] if pinfo else '',
+                          'p_to': pinfo['to'] if pinfo else ''})
+        sdf = pd.DataFrame(srecs).sort_values('Pick')
+        n_hs = int((sdf['src'] == 'HS').sum())
+        n_4yr = int((sdf['src'] == '4YR').sum())
+        n_jc = int((sdf['src'] == 'JC').sum())
+        n_unk = int((sdf['src'] == '—').sum())
+        n_portal = int((sdf['cycle'] != '').sum())
+
+        m1, m2, m3, m4, m5 = st.columns(5)
+        m1.metric("Picks so far", len(sdf))
+        m2.metric("High school", n_hs)
+        m3.metric("4-year college", n_4yr)
+        m4.metric("Juco", n_jc)
+        m5.metric("Portal players", n_portal)
+        if n_unk:
+            st.caption(f"{n_unk} pick(s) aren't matched to the board (manual names) and are "
+                       "excluded from the splits.")
+
+        st.markdown("### 🔁 Portal players drafted — and where they were headed")
+        pdf = sdf[sdf['cycle'] != ''].copy()
+        if len(pdf):
+            pdf['Portal'] = pdf.apply(
+                lambda r: f"{r['cycle']}: {r['p_from']} → " +
+                          (r['p_to'] if r['p_to'] else ('uncommitted' if r['cycle'] == '2026' else '?')),
+                axis=1)
+            st.dataframe(pdf[['Pick', 'MLB team', 'Player', 'Pos', 'Class', 'Portal']],
+                         use_container_width=True, hide_index=True)
+            going = pdf[(pdf['cycle'] == '2026') & (pdf['p_to'] != '')]['p_to'].value_counts()
+            if len(going):
+                st.caption("2026-portal destinations losing a commit to the draft: "
+                           + " · ".join(f"{k} ({v})" for k, v in going.items()))
+        else:
+            st.caption("No portal players drafted yet.")
+
+        st.markdown("### 🎓 HS picks — where they were supposed to go")
+        hdf = sdf[sdf['src'] == 'HS'].copy()
+        if len(hdf):
+            hdf['Committed to'] = hdf['Committed'].replace('', '—')
+            st.dataframe(hdf[['Pick', 'MLB team', 'Player', 'Pos', 'School', 'Committed to']],
+                         use_container_width=True, hide_index=True)
+            lost = hdf[hdf['Committed'] != '']['Committed'].value_counts()
+            if len(lost):
+                st.caption("Programs losing the most HS commits: "
+                           + " · ".join(f"{k} ({v})" for k, v in lost.head(12).items()))
+        else:
+            st.caption("No high-school picks yet.")
+
+        st.markdown("### 💎 Top players still on the board")
+        drafted_s = set(sdf['Player'])
+        left = master[~master['name'].isin(drafted_s)].copy()
+        left['num'] = pd.to_numeric(left['number'], errors='coerce')
+        left = left[left['num'].notna()].sort_values('num').head(25)
+        left_cols = {'number': '#', 'name': 'Player', 'pos': 'Pos', 'classification': 'Class',
+                     'school': 'School', 'committed': 'Committed'}
+        st.dataframe(left[list(left_cols)].rename(columns=left_cols),
+                     use_container_width=True, hide_index=True)
+        st.caption("Best 25 undrafted by cumulative board rank — the full list lives on the Prospect Board tab.")
 
 # ═══════════════════════ TAB 3: SCOUTING CARD (original, verbatim) ═══════════════════════
 with tab_card:
