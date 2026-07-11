@@ -22,6 +22,7 @@ ROOT = Path(__file__).resolve().parent.parent
 YEAR = 2026
 POLL_SECONDS = 30
 QUIET_EXIT_MIN = 90          # stop after this long with no new picks (draft over)
+HARD_STOP = datetime(2026, 7, 12, 22, 0)   # local (Central) — draft is over; never run past this
 MLB_URL = f'https://statsapi.mlb.com/api/v1/draft/{YEAR}'
 
 SUPABASE_URL = 'https://vfzoroabzmbvwkcyozes.supabase.co'
@@ -104,6 +105,8 @@ def main():
             log(f"cycle error (will retry): {e}")
         if once:
             log("single pass done."); break
+        if datetime.now() >= HARD_STOP:
+            log(f"hard stop reached ({HARD_STOP:%Y-%m-%d %H:%M}) — draft over. exiting."); break
         if time.time() - last_new > QUIET_EXIT_MIN * 60:
             log("no new picks for a while — draft looks done. exiting."); break
         time.sleep(POLL_SECONDS)
