@@ -15,6 +15,7 @@ events once the per-game / handedness pipeline lands.
 from __future__ import annotations
 
 import html
+from app_lib.safe_render import safe_svg2png
 from datetime import datetime
 from pathlib import Path
 
@@ -1723,7 +1724,7 @@ def render_tab(teams: list[str], seeds: list[int], team_ids: dict, sport: str,
         if spray_svg:
             try:
                 import cairosvg
-                _spray_png = cairosvg.svg2png(
+                _spray_png = safe_svg2png(
                     bytestring=spray_svg.encode('utf-8'),
                     output_width=800, output_height=600,
                 )
@@ -1808,7 +1809,7 @@ def render_tab(teams: list[str], seeds: list[int], team_ids: dict, sport: str,
     png_bytes = None
     try:
         import cairosvg
-        png_bytes = cairosvg.svg2png(bytestring=svg_doc.encode('utf-8'), output_width=1600)
+        png_bytes = safe_svg2png(bytestring=svg_doc.encode('utf-8'), output_width=1600)
     except Exception as _e:
         png_bytes = None
     if png_bytes:

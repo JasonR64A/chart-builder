@@ -5,6 +5,7 @@ Compute OPS, wRAA, FIP, Allowed OPS for any player/team over any date range.
 """
 
 import streamlit as st
+from app_lib.safe_render import safe_svg2png
 import pandas as pd
 import numpy as np
 from pathlib import Path
@@ -1957,7 +1958,7 @@ if view == 'Top 25 Rankings':
     # PNG export
     try:
         import cairosvg
-        png_bytes = cairosvg.svg2png(bytestring=svg.encode('utf-8'), output_width=1080)
+        png_bytes = safe_svg2png(bytestring=svg.encode('utf-8'), output_width=1080)
         fname = f'top25_{sport}_{division}_{pd.Timestamp.now().strftime("%Y%m%d")}.png'
         st.download_button('Download PNG (1080×1350)', data=png_bytes,
                             file_name=fname, mime='image/png',
@@ -2203,7 +2204,7 @@ if view == 'Top 10 Portal Entrants':
             st.session_state['_pe_svg'] = None
             try:
                 import cairosvg
-                st.session_state['_pe_png'] = cairosvg.svg2png(bytestring=svg.encode('utf-8'), output_width=1080)
+                st.session_state['_pe_png'] = safe_svg2png(bytestring=svg.encode('utf-8'), output_width=1080)
             except Exception as e:
                 st.session_state['_pe_png'] = None
                 st.session_state['_pe_svg'] = svg
@@ -2432,7 +2433,7 @@ if view == 'Weekly Awards':
 
     try:
         import cairosvg
-        png_bytes = cairosvg.svg2png(bytestring=svg.encode('utf-8'), output_width=1080)
+        png_bytes = safe_svg2png(bytestring=svg.encode('utf-8'), output_width=1080)
         fname = f'weekly_awards_{sport}_{division}_{wa_stat_type}_{today.strftime("%Y%m%d")}.png'
         st.download_button('Download PNG (1080×1080)', data=png_bytes,
                             file_name=fname, mime='image/png',
@@ -3507,7 +3508,7 @@ elif view == 'Lineup Card':
 {inner_content}
 </svg>'''
             diamond_buf = BytesIO()
-            cairosvg.svg2png(bytestring=svg_full.encode('utf-8'), write_to=diamond_buf,
+            safe_svg2png(bytestring=svg_full.encode('utf-8'), write_to=diamond_buf,
                              output_width=1200, output_height=1200)
             diamond_buf.seek(0)
         except Exception as e:
@@ -4276,7 +4277,7 @@ elif view == 'Share Graphic':
     # PNG download
     try:
         import cairosvg
-        png_bytes = cairosvg.svg2png(bytestring=sg_svg.encode('utf-8'), output_width=2160)
+        png_bytes = safe_svg2png(bytestring=sg_svg.encode('utf-8'), output_width=2160)
         safe_stat = ''.join(c if c.isalnum() else '_' for c in str(sg_stat))[:20]
         fname = f'top_{sg_count}_{group_by.lower()}_{safe_stat}_{sport}_{division}.png'
         st.download_button('Download PNG (2160w)', data=png_bytes, file_name=fname,

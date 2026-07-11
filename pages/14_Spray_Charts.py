@@ -6,6 +6,7 @@ to render a baseball-field heatmap, a bar chart, a result-by-zone matrix,
 and a Left/Middle/Right side-split summary.
 """
 import streamlit as st
+from app_lib.safe_render import safe_svg2png
 import pandas as pd
 import base64
 import io
@@ -699,7 +700,7 @@ if view_mode == 'Team Grid':
 
     try:
         import cairosvg
-        png_bytes = cairosvg.svg2png(bytestring=grid_svg.encode('utf-8'), output_width=2200)
+        png_bytes = safe_svg2png(bytestring=grid_svg.encode('utf-8'), output_width=2200)
         safe_team = ''.join(ch if ch.isalnum() else '_' for ch in str(selected_team_short))[:40]
         st.download_button('Download PNG', data=png_bytes,
                            file_name=f'spray_team_{sport}_{division}_{safe_team}.png',
@@ -1184,7 +1185,7 @@ with col_field:
     # PNG download — convert the SVG to a 1600px-wide PNG via cairosvg.
     try:
         import cairosvg
-        png_bytes = cairosvg.svg2png(bytestring=svg_str.encode('utf-8'), output_width=1600)
+        png_bytes = safe_svg2png(bytestring=svg_str.encode('utf-8'), output_width=1600)
         fname_scope = (selected_player_name if view_mode == 'Player' and selected_player_name
                        else (team_filter or 'all'))
         fname_scope = ''.join(c if c.isalnum() else '_' for c in str(fname_scope))[:40]

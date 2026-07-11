@@ -13,6 +13,7 @@ from datetime import datetime, timedelta
 from pathlib import Path
 
 import pandas as pd
+from app_lib.safe_render import safe_svg2png
 import numpy as np
 import plotly.graph_objects as go
 import streamlit as st
@@ -1944,7 +1945,7 @@ st.markdown(display_svg, unsafe_allow_html=True)
 # PNG download for the main page
 try:
     import cairosvg
-    png_bytes = cairosvg.svg2png(bytestring=graphic_svg.encode('utf-8'), output_width=2160)
+    png_bytes = safe_svg2png(bytestring=graphic_svg.encode('utf-8'), output_width=2160)
     safe_name = ''.join(c if c.isalnum() else '_' for c in str(regional_name))[:40]
     fname = f'regional_preview_{sport}_{division}_{safe_name}.png'
     st.download_button('Download PNG (2160w)', data=png_bytes, file_name=fname,
