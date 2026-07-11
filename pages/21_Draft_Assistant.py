@@ -1,12 +1,14 @@
 """Draft Assistant — live draft tracker + prospect board + scouting card.
 
-Three tabs:
+Four tabs:
   1. Live Draft Tracker — enter picks on draft night (Supabase draft_picks table);
-     every formula from the MLB Draft Database workbook fires instantly:
-     master-doc enrichment, age, round/age/distance codes, expected signing
-     (composite historical trends), pool impact, diff-from-slot, per-team pool usage.
-  2. Prospect Board — the Master Document with computed age, drafted flags, filters.
-  3. Scouting Card — the original per-player broadcast card (unchanged).
+     every formula from the MLB Draft Database workbook fires instantly, and a
+     ready-to-post tweet is generated for the latest pick.
+  2. Tweet Feed — one copy-ready tweet per recorded pick, newest first
+     (2026 stat line, rank-vs-pick value angle, expected bonus from the trends
+     model, portal history 2025+2026, HS commitment).
+  3. Prospect Board — ranks from MLB / ESPN / BA / Over-Slot / PG, drafted flags.
+  4. Scouting Card — the original per-player broadcast card (unchanged).
 
 Formula engine: app_lib/draft_engine.py — validated against all 615 picks of the
 2025 draft (expected signing 315/315 exact on slotted picks; codes 100%).
@@ -67,6 +69,27 @@ def load_draft_refs():
     master = pd.read_csv(DATA / 'draft' / 'draft_master.csv', dtype=str, keep_default_na=False)
     history = pd.read_csv(DATA / 'draft' / 'draft_history.csv', dtype=str, keep_default_na=False)
     trends = json.loads((DATA / 'draft' / 'draft_trends.json').read_text())
+
+    # Cumulative board rank: AVERAGE of the source ranks, where a player missing
+    # from a source counts as that source's list length + 1 (BA top 500 -> 501,
+    # ESPN top 250 -> 251, ...). Sources with no data at all (e.g. PG until
+    # provided) are excluded. Board # = 1..N in cumulative order; players ranked
+    # by nobody stay unnumbered.
+    rank_cols = ['rank_ba', 'rank_mlb', 'rank_espn', 'rank_fss', 'pg_rank']
+    active = []
+    for c in rank_cols:
+        v = pd.to_numeric(master[c], errors='coerce')
+        if v.notna().any():
+            active.append((v, int(v.max()) + 1))
+    if active:
+        total = sum(v.fillna(pen) for v, pen in active)
+        avg = (total / len(active)).round(1)
+        ranked_any = pd.concat([v for v, _ in active], axis=1).notna().any(axis=1)
+        master['overall_avg'] = avg.where(ranked_any, other=pd.NA)
+        master = master.sort_values('overall_avg', na_position='last').reset_index(drop=True)
+        nums = (master.index + 1).where(master['overall_avg'].notna(), other=pd.NA)
+        master['number'] = nums.astype('Int64').astype(str).replace('<NA>', '')
+        master['overall_avg'] = master['overall_avg'].astype(str).replace('<NA>', '')
     return master, history, trends
 
 
@@ -94,6 +117,126 @@ def fetch_picks():
         return pd.DataFrame(), f'{r.status_code}: {r.text[:200]}'
     except Exception as ex:
         return pd.DataFrame(), str(ex)
+
+
+# ── shared slim stat + portal data (numeric loads; string loads OOM'd Render) ──
+HIT_COLS = ['player_id', 'team_id', 'year', 'plate_appearances', 'at_bats', 'hits', 'doubles',
+            'triples', 'home_runs', 'walks', 'hit_by_pitch', 'sac_fly', 'runs_batted_in',
+            'stolen_bases', 'games_played', 'on_base_percentage', 'slugging_percentage',
+            'isolated_power', 'weighted_on_base_average', 'on_base_plus_slugging', 'batting_average',
+            'percentile_rank_on_base_plus_slugging', 'percentile_rank_weighted_on_base_average',
+            'percentile_rank_isolated_power', 'percentile_rank_weighted_runs_created',
+            'percentile_rank_runs_plate_appearance']
+PIT_COLS = ['player_id', 'team_id', 'year', 'innings_pitched', 'batters_faced', 'strikeouts',
+            'earned_run_average', 'strikeout_to_walk_ratio', 'walks_plus_hits_per_inning_pitched',
+            'fielding_independent_pitching', 'on_base_plus_slugging_against',
+            'percentile_rank_on_base_plus_slugging_against', 'percentile_rank_strikeout_to_walk_ratio',
+            'percentile_rank_walks_plus_hits_per_inning_pitched',
+            'percentile_rank_fielding_independent_pitching',
+            'percentile_rank_skill_interactive_earned_run_average']
+
+
+@st.cache_data(show_spinner=False)
+def load_stats(name, cols):
+    return pd.read_csv(DATA / name, low_memory=False, encoding="latin-1",
+                       usecols=lambda c: c in cols)
+
+
+hit_all = load_stats("hitting.csv", HIT_COLS)
+pit_all = load_stats("pitching.csv", PIT_COLS)
+
+
+@st.cache_data(show_spinner=False)
+def load_portal():
+    """player_id -> portal info for the 2025 and 2026 cycles + team names."""
+    prp = pd.read_csv(DATA / 'portal_rank_player.csv', dtype=str, keep_default_na=False,
+                      usecols=['player_id', 'team_id', 'new_team_id', 'year'])
+    teams = pd.read_csv(DATA / 'teams.csv', dtype=str, keep_default_na=False, usecols=['id', 'name'])
+    tname = dict(zip(teams['id'].map(norm), teams['name']))
+    portal = {}
+    for _, r in prp.iterrows():
+        yr = norm(r['year'])
+        if yr in ('2025', '2026'):
+            portal.setdefault(norm(r['player_id']), {})[yr] = {
+                'from': tname.get(norm(r['team_id']), ''),
+                'to': tname.get(norm(r['new_team_id']), '') if r['new_team_id'].strip() else ''}
+    return portal
+
+
+PORTAL = load_portal()
+
+
+def _money(v):
+    if v is None:
+        return ''
+    return f'${v/1e6:.1f}M' if v >= 950_000 else f'${v/1e3:.0f}K'
+
+
+def stat_line_2026(pid):
+    """One tweet-ready 2026 stat line for a linked college player ('' if none)."""
+    if not pid:
+        return ''
+    pidn = pd.to_numeric(pid, errors='coerce')
+    h = hit_all[(hit_all['year'] == 2026) & (hit_all['player_id'] == pidn)]
+    p = pit_all[(pit_all['year'] == 2026) & (pit_all['player_id'] == pidn)]
+    pa = float(h['plate_appearances'].sum()) if len(h) else 0
+    bf = float(p['batters_faced'].sum()) if len(p) else 0
+    if bf > pa and len(p):
+        s = p.iloc[0]
+        return (f"{s['earned_run_average']:.2f} ERA, {s['walks_plus_hits_per_inning_pitched']:.2f} WHIP, "
+                f"{int(s['strikeouts'])} K in {s['innings_pitched']} IP")
+    if len(h) and pa >= 40:
+        s = h.iloc[0]
+        avg = f"{s['batting_average']:.3f}".lstrip('0')
+        ops = f"{s['on_base_plus_slugging']:.3f}".lstrip('0')
+        line = f"{avg}/{ops}, {int(s['home_runs'])} HR, {int(s['runs_batted_in'])} RBI"
+        if s['stolen_bases'] >= 15:
+            line += f", {int(s['stolen_bases'])} SB"
+        return line
+    return ''
+
+
+def make_tweet(e, mrow):
+    """Punchy draft tweet from an enriched pick + its board row."""
+    name = e['Player']
+    head = f"⚾ Pick {e['Pick']} — {e['Team']} select {name}"
+    if e['Pos']:
+        head += f", {e['Pos']}"
+    if e['School']:
+        head += f", {e['School']}"
+    body = []
+    pid = norm(mrow['player_id_64a']) if (mrow is not None and mrow['player_id_64a']) else ''
+    stat = stat_line_2026(pid)
+    if stat:
+        body.append(stat)
+    # rank-vs-pick value angle (best available source)
+    if mrow is not None:
+        for col, lab in (('rank_ba', 'BA'), ('rank_mlb', 'MLB'), ('rank_espn', 'ESPN'), ('rank_fss', 'Over-Slot')):
+            if mrow[col]:
+                rk = int(float(mrow[col]))
+                d = rk - e['Pick']
+                tag = f"  (slides {d})" if d >= 15 else (f"  (reach of {-d})" if d <= -15 else '')
+                body.append(f"{lab} rank #{rk} · went {e['Pick']}{tag}")
+                break
+    if e['_slot']:
+        m = f"💰 slot {_money(e['_slot'])}"
+        if e['_exp']:
+            m += f" · model says ~{_money(e['_exp'])}"
+        body.append(m)
+    # portal / commitment note
+    note = ''
+    if pid and pid in PORTAL:
+        if '2026' in PORTAL[pid]:
+            pi = PORTAL[pid]['2026']
+            note = f"🔁 In the 2026 portal from {pi['from']}" + (f" — was committed to {pi['to']}" if pi['to'] else " (uncommitted)")
+        elif '2025' in PORTAL[pid]:
+            pi = PORTAL[pid]['2025']
+            note = f"🔁 Transferred via the 2025 portal" + (f" ({pi['from']} → {pi['to']})" if pi['to'] else f" from {pi['from']}")
+    elif mrow is not None and mrow['committed']:
+        note = f"🎓 Committed to {mrow['committed']}"
+    if note:
+        body.append(note)
+    return head + "\n\n" + "\n".join(body)
 
 
 def master_row(name):
@@ -141,7 +284,8 @@ def enrich_pick(p):
     return out
 
 
-tab_live, tab_board, tab_card = st.tabs(["🎙 Live Draft Tracker", "📋 Prospect Board", "🔍 Scouting Card"])
+tab_live, tab_feed, tab_board, tab_card = st.tabs(
+    ["🎙 Live Draft Tracker", "🐦 Tweet Feed", "📋 Prospect Board", "🔍 Scouting Card"])
 
 # ═══════════════════════ TAB 1: LIVE DRAFT TRACKER ═══════════════════════
 with tab_live:
@@ -233,8 +377,26 @@ with tab_live:
             pool['impact'] = pool['impact'].map('{:,.0f}'.format)
             pool.columns = ['Team', 'Picks', 'Σ slot $', 'Σ expected $', 'Σ pool impact $']
             st.dataframe(pool, use_container_width=True, hide_index=True)
+
+            # ---- tweet for the latest pick (copy button lives on the code block) ----
+            st.markdown("### 🐦 Latest pick, tweet-ready")
+            latest = max(rows, key=lambda r: r['Pick'])
+            st.code(make_tweet(latest, master_row(latest['Player'])), language=None)
+            st.caption("Copy straight into X. Every pick's tweet lives in the Tweet Feed tab.")
         else:
             st.info("No picks recorded yet — the board is live and waiting.")
+
+# ═══════════════════════ TAB 2: TWEET FEED ═══════════════════════
+with tab_feed:
+    st.title("Tweet Feed")
+    st.caption("One ready-to-post tweet per recorded pick, newest first — catch up any time.")
+    picks_f, err_f = fetch_picks()
+    if err_f is not None or not len(picks_f):
+        st.info("Tweets appear here as picks are recorded.")
+    else:
+        rows_f = [enrich_pick(p) for _, p in picks_f.iterrows()]
+        for e in sorted(rows_f, key=lambda r: -r['Pick']):
+            st.code(make_tweet(e, master_row(e['Player'])), language=None)
 
 # ═══════════════════════ TAB 2: PROSPECT BOARD ═══════════════════════
 with tab_board:
@@ -262,9 +424,9 @@ with tab_board:
         board = board[board['Drafted'] == '']
     board['num'] = pd.to_numeric(board['number'], errors='coerce')
     board = board.sort_values('num')
-    cols = {'number': '#', 'name': 'Player', 'pos': 'Pos', 'bt': 'B/T', 'Age': 'Age',
+    cols = {'number': '#', 'overall_avg': 'Cume avg', 'name': 'Player', 'pos': 'Pos', 'bt': 'B/T', 'Age': 'Age',
             'classification': 'Class', 'school': 'School', 'committed': 'Committed',
-            'rank_ba': 'BA', 'rank_mlb': 'MLB', 'rank_fss': 'FSS', 'rank_espn': 'ESPN', 'pg_rank': 'PG',
+            'rank_ba': 'BA', 'rank_mlb': 'MLB', 'rank_fss': 'Over-Slot', 'rank_espn': 'ESPN', 'pg_rank': 'PG',
             'Drafted': 'Drafted'}
     st.dataframe(board[list(cols)].rename(columns=cols), use_container_width=True,
                  height=560, hide_index=True)
@@ -276,30 +438,8 @@ with tab_card:
     players = load("players.csv")
     teams = load("teams.csv")
     conf = load("conferences.csv")
-    # Only the columns the card uses — full string-dtype loads of these two files
-    # (~150MB) were OOM-crash-looping the Render instance on 2026-07-10.
-    HIT_COLS = ['player_id', 'team_id', 'year', 'plate_appearances', 'at_bats', 'hits', 'doubles',
-                'triples', 'home_runs', 'walks', 'hit_by_pitch', 'sac_fly', 'runs_batted_in',
-                'stolen_bases', 'games_played', 'on_base_percentage', 'slugging_percentage',
-                'isolated_power', 'weighted_on_base_average', 'on_base_plus_slugging',
-                'percentile_rank_on_base_plus_slugging', 'percentile_rank_weighted_on_base_average',
-                'percentile_rank_isolated_power', 'percentile_rank_weighted_runs_created',
-                'percentile_rank_runs_plate_appearance']
-    PIT_COLS = ['player_id', 'team_id', 'year', 'innings_pitched', 'batters_faced', 'strikeouts',
-                'strikeout_to_walk_ratio', 'walks_plus_hits_per_inning_pitched',
-                'fielding_independent_pitching', 'on_base_plus_slugging_against',
-                'percentile_rank_on_base_plus_slugging_against', 'percentile_rank_strikeout_to_walk_ratio',
-                'percentile_rank_walks_plus_hits_per_inning_pitched',
-                'percentile_rank_fielding_independent_pitching',
-                'percentile_rank_skill_interactive_earned_run_average']
-    @st.cache_data(show_spinner=False)
-    def load_stats(name, cols):
-        # numeric dtypes: ~15MB per file vs ~240MB as strings (the OOM culprit)
-        return pd.read_csv(DATA / name, low_memory=False, encoding="latin-1",
-                           usecols=lambda c: c in cols)
-
-    hit = load_stats("hitting.csv", HIT_COLS)
-    pit = load_stats("pitching.csv", PIT_COLS)
+    hit = hit_all.copy()
+    pit = pit_all.copy()
     try:
         series = load("draft_best_series.csv")
     except Exception:
