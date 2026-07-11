@@ -101,8 +101,16 @@ try:
     _slots = pd.read_csv(DATA / 'draft' / 'draft_slots_2026.csv', dtype=str, keep_default_na=False)
     slot_by_pick = {int(float(r['pick'])): fnum(r['slot_value']) or 0 for _, r in _slots.iterrows()}
     team_by_pick = {int(float(r['pick'])): r['team'] for _, r in _slots.iterrows()}
-    round_by_pick = {int(float(r['pick'])): int(float(r['round'])) for _, r in _slots.iterrows()
-                     if str(r['round']).replace('.', '').isdigit()}
+    # Complete pick -> round map: comp/PPI picks (round labels like 'CB-A',
+    # 'PPI', '4C') inherit the last numeric round before them (fill-forward
+    # in pick order — matches draft_history convention, e.g. CB-A rows = rd 1).
+    round_by_pick = {}
+    _cur_rnd = 1
+    for _, r in _slots.sort_values(by='pick', key=lambda s: pd.to_numeric(s, errors='coerce')).iterrows():
+        _lbl = str(r['round'])
+        if _lbl.replace('.', '').isdigit():
+            _cur_rnd = int(float(_lbl))
+        round_by_pick[int(float(r['pick']))] = _cur_rnd
     MLB_TEAMS = sorted(_slots['team'].dropna().unique())
 except Exception:
     slot_by_pick, team_by_pick, round_by_pick = {}, {}, {}
@@ -386,7 +394,12 @@ with tab_live:
         with st.expander("➕ Enter a pick", expanded=True):
             c1, c2, c3 = st.columns([1, 1, 2])
             pick_in = c2.number_input("Pick #", 1, 700, int(picks['pick'].max()) + 1 if len(picks) else 1)
-            rnd_in = c1.number_input("Round", 1, 20, round_by_pick.get(int(pick_in), 1))
+            _auto_rnd = round_by_pick.get(int(pick_in))
+            if _auto_rnd is not None:
+                rnd_in = _auto_rnd
+                c1.metric("Round (auto)", rnd_in)
+            else:
+                rnd_in = c1.number_input("Round", 1, 20, 20)
             team_default = team_by_pick.get(int(pick_in), '')
             team_idx = MLB_TEAMS.index(team_default) if team_default in MLB_TEAMS else 0
             team_in = c3.selectbox("MLB team (auto-set from the pick's slot)", MLB_TEAMS, index=team_idx)
