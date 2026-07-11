@@ -131,7 +131,6 @@ ID_COLS = {'id', 'key_id', 'team_id', 'Team_Id', 'player_id', 'year', 'Year',
 
 # ── Data Loading ──────────────────────────────────────────────────────────────
 @st.cache_data
-@st.cache_data
 def _load_team_name_to_id():
     """Build sport-specific team_name -> team_id lookups.
     Returns (baseball_map, softball_map), each applying rankings/name_map.csv
@@ -213,14 +212,10 @@ def _inject_team_id(df, filename=None):
     return df
 
 
-def load_csv(filename):
-    """Load a CSV and normalize column names.
-
-    For team-level stat files (hitting_team.csv, pitching_team.csv): if the
-    user has set a game-context filter (Conference/Non-Conf, Weekend/Midweek)
-    via the sidebar, the 2026 rows are re-derived from PBP data with that
-    filter applied; pre-2026 rows are preserved from disk.
-    """
+@st.cache_data(show_spinner=False)
+def _load_csv_cached(filename):
+    """Disk read + deterministic normalization, cached across reruns.
+    Session-state-dependent logic belongs in load_csv below, NOT here."""
     df = pd.read_csv(DATA_DIR / filename, low_memory=False, encoding='utf-8-sig')
     # Strip BOM and whitespace from column names
     df.columns = [c.strip().lstrip('\ufeff') for c in df.columns]
@@ -236,6 +231,18 @@ def load_csv(filename):
         if col in df.columns:
             numeric = pd.to_numeric(df[col], errors='coerce')
             df[col] = np.where(numeric.notna(), numeric.fillna(0).astype(int).astype(str), df[col])
+    return df
+
+
+def load_csv(filename):
+    """Load a CSV and normalize column names.
+
+    For team-level stat files (hitting_team.csv, pitching_team.csv): if the
+    user has set a game-context filter (Conference/Non-Conf, Weekend/Midweek)
+    via the sidebar, the 2026 rows are re-derived from PBP data with that
+    filter applied; pre-2026 rows are preserved from disk.
+    """
+    df = _load_csv_cached(filename)
 
     # ── Game-context filter override (2026 only, team-level stat files) ──
     if filename in _FILTERABLE_CSVS:
