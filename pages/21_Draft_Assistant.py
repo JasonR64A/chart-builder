@@ -15,6 +15,7 @@ Formula engine: app_lib/draft_engine.py — validated against all 615 picks of t
 Reference data: data/draft/*.csv|json exported from the workbook.
 """
 import json
+import re
 from datetime import date
 from pathlib import Path
 
@@ -337,9 +338,85 @@ def master_row(name):
     return m.iloc[0] if len(m) else None
 
 
+# ── fallback enrichment for picks NOT on our board: bio from MLB StatsAPI +
+#    a strict players.csv link for 4-year players (last name + school + first-
+#    name prefix must ALL agree — never fuzzy-guess an identity) ──
+_MROW_KEYS = ['name', 'number', 'overall_avg', 'pos', 'bt', 'classification', 'school',
+              'committed', 'dob', 'player_id_64a', 'rank_ba', 'rank_mlb', 'rank_espn',
+              'rank_fss', 'pg_rank', 'ht', 'wt', 'hs']
+
+
+@st.cache_data(ttl=120, show_spinner=False)
+def mlb_pick_info():
+    """pick number -> bio dict from the live MLB draft feed."""
+    try:
+        r = requests.get(f'https://statsapi.mlb.com/api/v1/draft/{YEAR}', timeout=15)
+        r.raise_for_status()
+        out = {}
+        for rd in r.json()['drafts']['rounds']:
+            for p in rd.get('picks', []):
+                if not (p.get('isDrafted') and p.get('person', {}).get('fullName')):
+                    continue
+                per, sch = p['person'], p.get('school', {}) or {}
+                out[int(p['pickNumber'])] = {
+                    'name': per['fullName'],
+                    'pos': (per.get('primaryPosition') or {}).get('abbreviation', ''),
+                    'bt': f"{(per.get('batSide') or {}).get('code', '')}/{(per.get('pitchHand') or {}).get('code', '')}".strip('/'),
+                    'dob': per.get('birthDate', ''),
+                    'school': sch.get('name', ''),
+                    'classification': sch.get('schoolClass', ''),
+                }
+        return out
+    except Exception:
+        return {}
+
+
+@st.cache_data(show_spinner=False)
+def _players_slim():
+    pl = pd.read_csv(DATA / 'players.csv', dtype=str, encoding='latin-1', keep_default_na=False,
+                     usecols=['id', 'player_name', 'position', 'team_id'])
+    tm = pd.read_csv(DATA / 'teams.csv', dtype=str, keep_default_na=False, usecols=['id', 'name', 'sport'])
+    tm = tm[tm['sport'] == 'Baseball']
+    pl['team_name'] = pl['team_id'].map(dict(zip(tm['id'].map(norm), tm['name'])))
+    return pl
+
+
+def _match_pid(mlb_name, school):
+    """players.csv id for a 4YR draftee — exactly one candidate must pass ALL of:
+    same last name, same school (normalized), first-name prefix agreement
+    (handles Ty/Tyner, Greg/Gregory). Ambiguous or no match -> ''."""
+    az = lambda s: re.sub(r'[^a-z]', '', str(s).lower())
+    parts = str(mlb_name).split()
+    if len(parts) < 2 or not school:
+        return ''
+    first, last = az(parts[0]), az(parts[-1])
+    pl = _players_slim()
+    cand = pl[pl['player_name'].map(lambda n: az(str(n).split()[-1]) == last if str(n).split() else False)]
+    cand = cand[cand['team_name'].fillna('').map(az) == az(school)]
+    cand = cand[cand['player_name'].map(
+        lambda n: az(str(n).split()[0]).startswith(first[:2]) or first.startswith(az(str(n).split()[0])[:2]))]
+    return norm(cand['id'].iloc[0]) if len(cand) == 1 else ''
+
+
+def resolve_row(name, pick_no):
+    """Board row if the player is on it; otherwise a pseudo-row built from the
+    MLB feed (bio) + players.csv (64A identity for 4-year players)."""
+    mrow = master_row(name)
+    if mrow is not None:
+        return mrow
+    info = mlb_pick_info().get(int(pick_no or 0))
+    if not info or info['name'] != name and norm(info['name']) != norm(name):
+        return None
+    row = {k: '' for k in _MROW_KEYS}
+    row.update(info)
+    if str(info.get('classification', '')).startswith('4YR'):
+        row['player_id_64a'] = _match_pid(info['name'], info['school'])
+    return pd.Series(row)
+
+
 def enrich_pick(p):
     """One Supabase pick row -> full computed dict (the Excel formula columns)."""
-    mrow = master_row(p.get('player_name', ''))
+    mrow = resolve_row(p.get('player_name', ''), p.get('pick'))
     slot = fnum(p.get('slot_value'))
     bonus = fnum(p.get('signing_bonus'))
     pick_no = int(p.get('pick') or 0)
@@ -479,7 +556,7 @@ with tab_live:
             # ---- tweet for the latest pick (copy button lives on the code block) ----
             st.markdown("### 🐦 Latest pick, tweet-ready")
             latest = max(rows, key=lambda r: r['Pick'])
-            st.code(make_tweet(latest, master_row(latest['Player'])), language=None)
+            st.code(make_tweet(latest, resolve_row(latest['Player'], latest['Pick'])), language=None)
             st.caption("Copy straight into X. Every pick's tweet lives in the Tweet Feed tab.")
         else:
             st.info("No picks recorded yet — the board is live and waiting.")
@@ -494,7 +571,7 @@ with tab_feed:
     else:
         rows_f = [enrich_pick(p) for _, p in picks_f.iterrows()]
         for e in sorted(rows_f, key=lambda r: -r['Pick']):
-            st.code(make_tweet(e, master_row(e['Player'])), language=None)
+            st.code(make_tweet(e, resolve_row(e['Player'], e['Pick'])), language=None)
 
 # ═══════════════════════ TAB 2: PROSPECT BOARD ═══════════════════════
 with tab_board:
@@ -541,7 +618,7 @@ with tab_super:
     else:
         srecs = []
         for _, p in picks_s.iterrows():
-            mrow = master_row(p.get('player_name', ''))
+            mrow = resolve_row(p.get('player_name', ''), p.get('pick'))
             cls = mrow['classification'] if mrow is not None else ''
             pid = norm(mrow['player_id_64a']) if mrow is not None else ''
             src = ('HS' if cls.startswith('HS') else '4YR' if cls.startswith('4YR')
