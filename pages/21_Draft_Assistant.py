@@ -97,6 +97,14 @@ def load_draft_refs():
 
 master, history, trends = load_draft_refs()
 
+# Unranked convention: n players carry a cumulative board number; anyone NOT
+# ranked by any of our sources (blank number, incl. off-board MLB-feed picks)
+# is treated as rank n+1 — same penalty logic the cumulative average uses
+# per-source (missing from BA's top 500 counts as 501).
+import pandas as _pd
+N_RANKED = int(_pd.to_numeric(master['number'], errors='coerce').max() or 0)
+UNRANKED_NUM = N_RANKED + 1
+
 # Official 2026 slot values + pick->team assignments (from MLB StatsAPI)
 try:
     _slots = pd.read_csv(DATA / 'draft' / 'draft_slots_2026.csv', dtype=str, keep_default_na=False)
@@ -291,20 +299,17 @@ def make_tweet(e, mrow):
     # same number the expected-$ model uses); fall back to a single source only
     # if the player is unnumbered on our board.
     if mrow is not None:
-        rk, lab = None, 'Our board'
         if mrow['number']:
-            rk = int(float(mrow['number']))
+            rk, unranked = int(float(mrow['number'])), False
         else:
-            for col, l in (('rank_ba', 'BA'), ('rank_mlb', 'MLB'), ('rank_espn', 'ESPN'), ('rank_fss', 'Over-Slot')):
-                if mrow[col]:
-                    rk, lab = int(float(mrow[col])), l
-                    break
+            rk, unranked = UNRANKED_NUM, True   # not ranked by any source -> n+1
+        lab = 'Our board'
         if rk:
             # d = rank - pick (engine convention): POSITIVE = ranked worse than
             # the pick = team reached; NEGATIVE = ranked better = player slid.
             d = rk - e['Pick']
             tag = f"  (reach of {d})" if d >= 15 else (f"  (slides {-d})" if d <= -15 else '')
-            body.append(f"{lab}: #{rk} · went {e['Pick']}{tag}")
+            body.append(f"{lab}: #{rk}{' (unranked)' if unranked else ''} · went {e['Pick']}{tag}")
     if e['_slot']:
         m = f"💰 slot {_money(e['_slot'])}"
         if e['_exp']:
@@ -428,7 +433,7 @@ def enrich_pick(p):
     board_rank = None
     age = None
     if mrow is not None:
-        board_rank = fnum(mrow['number'])
+        board_rank = fnum(mrow['number']) if str(mrow['number']).strip() else UNRANKED_NUM
         out.update({'Board rank': int(board_rank) if board_rank else '',
                     'Pos': mrow['pos'], 'B/T': mrow['bt'], 'Class': mrow['classification'],
                     'School': mrow['school'], 'Committed': mrow['committed']})
