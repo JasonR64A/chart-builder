@@ -854,6 +854,18 @@ with tab_card:
                    f"MLB {m['rank_mlb'] or '-'} / FSS {m['rank_fss'] or '-'} / ESPN {m['rank_espn'] or '-'}"
                    + (f" - committed to **{m['committed']}**" if m['committed'] else ""))
 
+    # portal status — broadcasters want to know this the moment the card opens
+    if pid in PORTAL:
+        if '2026' in PORTAL[pid]:
+            pi = PORTAL[pid]['2026']
+            dest = f"committed to **{pi['to']}**" if pi['to'] else "**uncommitted**"
+            st.warning(f"🔁 **IN THE 2026 PORTAL** — from {pi['from']}, {dest}")
+        elif '2025' in PORTAL[pid]:
+            pi = PORTAL[pid]['2025']
+            st.info(f"🔁 2025 portal alum — {pi['from']} → {pi['to'] or '?'} (not in the 2026 portal)")
+    else:
+        st.caption("Not in the transfer portal (2025-26 cycles).")
+
     st.markdown(
         f"**{prow.get('position','')}** · bats {BAT_LABEL.get(bat, bat or '?')}, throws {THROW_LABEL.get(throw, throw or '?')}"
         + (f" · {prow.get('height','')}" if prow.get('height') else "")
