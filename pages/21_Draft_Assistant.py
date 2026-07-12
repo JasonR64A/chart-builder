@@ -436,6 +436,7 @@ _MANUAL_PIDS = {
     'Chris Torres': '76128', 'Matthew Thomas': '69435', 'Jake Bennett': '117157',
     'Alfredo Capacete': '61557', 'TJ Grines': '102961',
     'Cameron Johnson': '73069',   # Cam Johnson OU — Camden Johnson already went pick 269
+    'Jacob Johnson': '136794',    # Saint Mary's (CA) — MLB feed city Moraga, CA
 }
 
 
