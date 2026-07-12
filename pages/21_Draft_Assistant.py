@@ -392,6 +392,7 @@ _SCHOOL_IDENTITIES = {
     'Central Florida': 'UCF', 'Virginia Commonwealth': 'VCU', 'Brigham Young': 'BYU',
     'University of California - Irvine': 'UC Irvine', 'Wisconsin-Milwaukee': 'Milwaukee',
     'U Southern Mississippi': 'Southern Miss.', 'SUNY Binghamton': 'Binghamton',
+    'Florida Gulf Coast': 'FGCU',
 }
 
 
@@ -453,7 +454,16 @@ def _match_pid(mlb_name, school):
 def resolve_row(name, pick_no):
     """Board row if the player is on it; otherwise a pseudo-row built from the
     MLB feed (bio) + players.csv (64A identity for 4-year players)."""
-    mrow = master_row(name)
+    mm = master[master['name'] == name]
+    if len(mm) > 1:
+        # duplicate names on the board (two Chris Diazes): disambiguate by the
+        # MLB pick's school; fall back to the first row only if none match
+        info0 = mlb_pick_info().get(int(pick_no or 0)) or {}
+        sch0 = _school_form(info0.get('school', ''))
+        pick_rows = mm[mm['school'].map(_school_form) == sch0]
+        mrow = (pick_rows.iloc[0] if len(pick_rows) else mm.iloc[0])
+    else:
+        mrow = mm.iloc[0] if len(mm) else None
     if mrow is not None:
         if not str(mrow.get('player_id_64a', '')).strip():
             # board row without a 64A id: try the strict players.csv link so
