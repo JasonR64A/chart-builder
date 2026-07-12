@@ -551,12 +551,19 @@ with tab_live:
             st.markdown("### Bonus-pool usage by team")
             pool = df.groupby('Team').agg(picks=('Pick', 'count'), slot=('_slot', 'sum'),
                                           expected=('_exp', 'sum'), impact=('_impact', 'sum')).reset_index()
-            pool = pool.sort_values('impact', ascending=False)
-            pool['slot'] = pool['slot'].map('{:,.0f}'.format)
-            pool['expected'] = pool['expected'].map('{:,.0f}'.format)
-            pool['impact'] = pool['impact'].map('{:,.0f}'.format)
-            pool.columns = ['Team', 'Picks', 'Σ slot $', 'Σ expected $', 'Σ pool impact $']
+            # theoretical money available = Σ slot - Σ expected (positive = the
+            # model expects under-slot signings -> pool money freed to spend)
+            pool['avail'] = pool['slot'] - pool['expected']
+            # keep money columns NUMERIC (in $M) so header-click sorting works —
+            # comma-formatted strings sort alphabetically ("9,7.." > "10,5..")
+            for c in ('slot', 'expected', 'impact', 'avail'):
+                pool[c] = (pool[c] / 1e6).round(3)
+            pool = pool.sort_values('avail', ascending=False)
+            pool.columns = ['Team', 'Picks', 'Σ slot $M', 'Σ expected $M',
+                            'Σ pool impact $M', 'Theoretical $M available']
             st.dataframe(pool, use_container_width=True, hide_index=True)
+            st.caption("Theoretical available = Σ slot − Σ expected: what the signing-trends "
+                       "model expects each class to free up vs full slot. Columns sort numerically.")
 
             # ---- tweet for the latest pick (copy button lives on the code block) ----
             st.markdown("### 🐦 Latest pick, tweet-ready")
