@@ -417,10 +417,24 @@ def _school_alias_forms():
         return {}
 
 
+# user-confirmed identity overrides (Jason, 2026-07-12) — names the strict
+# matcher can't resolve safely (nicknames, suffixes, DB name variants)
+_MANUAL_PIDS = {
+    'Paul Gutierrez-Contreras II': '122905',   # Paul Contreras, Cal St. Fullerton
+    'Bear Harrison': '70925',                  # Connor Harrison, Texas A&M
+    'Jackson Nash': '133233',
+    'Dalton Hill': '116743',
+    'Michael Smith Jr.': '69272',
+}
+
+
 def _match_pid(mlb_name, school):
     """players.csv id for a 4YR draftee — exactly one candidate must pass ALL of:
     same last name, same school (canonical form or confirmed alias), first-name
     prefix agreement (Ty/Tyner, Wills/William). Ambiguous or no match -> ''."""
+    mp = _MANUAL_PIDS.get(str(mlb_name).strip())
+    if mp:
+        return mp
     az = lambda s: re.sub(r'[^a-z]', '', str(s).lower())
     parts = str(mlb_name).split()
     if len(parts) < 2 or not school:

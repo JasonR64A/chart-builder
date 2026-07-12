@@ -87,6 +87,20 @@ def save(name, body):
     img.save(OUT / name)
     print('wrote', OUT / name)
 
+
+# deterministic school canonicalization (mirror of page 21's _school_form)
+_SCHOOL_IDENTITIES = {
+    'Central Florida': 'UCF', 'Virginia Commonwealth': 'VCU', 'Brigham Young': 'BYU',
+    'University of California - Irvine': 'UC Irvine', 'Wisconsin-Milwaukee': 'Milwaukee',
+    'U Southern Mississippi': 'Southern Miss.', 'SUNY Binghamton': 'Binghamton',
+}
+def school_form(s):
+    s = _SCHOOL_IDENTITIES.get(str(s).strip(), s)
+    a = re.sub(r'[^a-z ]', ' ', str(s).lower())
+    a = re.sub(r'(university of|university|college|the|suny|u)', ' ', a)
+    a = re.sub(r'state', 'st', a)
+    return re.sub(r'[^a-z]', '', a)
+
 # ════════ data ════════
 src = (CB / 'pages/21_Draft_Assistant.py').read_text(encoding='utf-8')
 key = ''.join(re.findall(r"'([^']*)'", re.search(r"SUPABASE_ANON_KEY = \((.*?)\)", src, re.S).group(1)))
@@ -286,7 +300,7 @@ def fb_pid(pk, nm):
     if len(parts) < 2: return ''
     fs, ls = azs(parts[0]), azs(parts[-1])
     c = players_sl[players_sl.player_name.map(lambda n: azs(str(n).split()[-1]) == ls if str(n).split() else False)]
-    c = c[c.team_name.fillna('').map(azs) == azs(sch)]
+    c = c[c.team_name.fillna('').map(school_form) == school_form(sch)]
     c = c[c.player_name.map(lambda n: azs(str(n).split()[0]).startswith(fs[:2]) or fs.startswith(azs(str(n).split()[0])[:2]))]
     return norm(c['id'].iloc[0]) if len(c) == 1 else ''
 plist = []
