@@ -386,18 +386,51 @@ def _players_slim():
     return pl
 
 
+# MLB feed name -> our teams.csv name, for schools whose common identity is a
+# different string (facts, not fuzzy guesses; VCU IS Virginia Commonwealth).
+_SCHOOL_IDENTITIES = {
+    'Central Florida': 'UCF', 'Virginia Commonwealth': 'VCU', 'Brigham Young': 'BYU',
+    'University of California - Irvine': 'UC Irvine', 'Wisconsin-Milwaukee': 'Milwaukee',
+    'U Southern Mississippi': 'Southern Miss.', 'SUNY Binghamton': 'Binghamton',
+}
+
+
+def _school_form(s):
+    """Deterministic school normalization: 'Georgia State' == 'Georgia St.',
+    strip University/College/of/the and stray standalone U ('Nicholls St U').
+    NOT fuzzy — pure canonical form."""
+    s = _SCHOOL_IDENTITIES.get(str(s).strip(), s)
+    a = re.sub(r'[^a-z ]', ' ', str(s).lower())
+    a = re.sub(r'(university of|university|college|the|suny|u)', ' ', a)
+    a = re.sub(r'state', 'st', a)
+    return re.sub(r'[^a-z]', '', a)
+
+
+@st.cache_data(show_spinner=False)
+def _school_alias_forms():
+    """external-name form -> our-name form, from user-confirmed name_map.csv."""
+    try:
+        nm = pd.read_csv(DATA / 'rankings' / 'name_map.csv', dtype=str, keep_default_na=False)
+        return {_school_form(r['external_name']): _school_form(r['our_name'])
+                for _, r in nm.iterrows() if r.get('external_name') and r.get('our_name')}
+    except Exception:
+        return {}
+
+
 def _match_pid(mlb_name, school):
     """players.csv id for a 4YR draftee — exactly one candidate must pass ALL of:
-    same last name, same school (normalized), first-name prefix agreement
-    (handles Ty/Tyner, Greg/Gregory). Ambiguous or no match -> ''."""
+    same last name, same school (canonical form or confirmed alias), first-name
+    prefix agreement (Ty/Tyner, Wills/William). Ambiguous or no match -> ''."""
     az = lambda s: re.sub(r'[^a-z]', '', str(s).lower())
     parts = str(mlb_name).split()
     if len(parts) < 2 or not school:
         return ''
     first, last = az(parts[0]), az(parts[-1])
+    sf = _school_form(school)
+    sf = _school_alias_forms().get(sf, sf)
     pl = _players_slim()
     cand = pl[pl['player_name'].map(lambda n: az(str(n).split()[-1]) == last if str(n).split() else False)]
-    cand = cand[cand['team_name'].fillna('').map(az) == az(school)]
+    cand = cand[cand['team_name'].fillna('').map(_school_form) == sf]
     cand = cand[cand['player_name'].map(
         lambda n: az(str(n).split()[0]).startswith(first[:2]) or first.startswith(az(str(n).split()[0])[:2]))]
     return norm(cand['id'].iloc[0]) if len(cand) == 1 else ''
@@ -408,6 +441,17 @@ def resolve_row(name, pick_no):
     MLB feed (bio) + players.csv (64A identity for 4-year players)."""
     mrow = master_row(name)
     if mrow is not None:
+        if not str(mrow.get('player_id_64a', '')).strip():
+            # board row without a 64A id: try the strict players.csv link so
+            # portal/stat enrichment still works (e.g. Wills->William Maginnis)
+            info = mlb_pick_info().get(int(pick_no or 0)) or {}
+            sch = info.get('school') or mrow.get('school', '')
+            cls = info.get('classification') or ('4YR' if mrow.get('school') else '')
+            if str(cls).startswith('4YR'):
+                pid = _match_pid(name, sch)
+                if pid:
+                    mrow = mrow.copy()
+                    mrow['player_id_64a'] = pid
         return mrow
     info = mlb_pick_info().get(int(pick_no or 0))
     if not info or info['name'] != name and norm(info['name']) != norm(name):
