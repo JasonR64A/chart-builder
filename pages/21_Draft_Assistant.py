@@ -426,6 +426,16 @@ _MANUAL_PIDS = {
     'Jackson Nash': '133233',
     'Dalton Hill': '116743',
     'Michael Smith Jr.': '69272',
+    # name-unique / school-anchored resolutions (verified 2026-07-12; MLB feed
+    # school strings vs our team names — UNLV/UConn/CSUN/DBU acronym class)
+    'Ryan Peterson': '67634', 'Cooper Allen': '70068', 'Jase Evangelista': '70557',
+    'Caleb Klein': '136203', 'Andrew Evans': '55288', 'Ryan Marton': '134110',
+    'Greyson Chappel': '128846', 'Lane Haworth': '69881', 'Jake Berkland': '119828',
+    'Jack Salmon': '116586', 'John Smith III': '116035', 'Sam George': '75476',
+    'Tristan Helmick': '69064', 'Carsten Sabathia III': '54276', 'Charlie West': '68209',
+    'Chris Torres': '76128', 'Matthew Thomas': '69435', 'Jake Bennett': '117157',
+    'Alfredo Capacete': '61557', 'TJ Grines': '102961',
+    'Cameron Johnson': '73069',   # Cam Johnson OU — Camden Johnson already went pick 269
 }
 
 
