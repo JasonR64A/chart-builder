@@ -217,27 +217,50 @@ b += (f'<text x="{cx+span}" y="{y0-24}" text-anchor="end" font-family="{FONT}" f
 b += footer('Expected signings from 2021-25 signing trends by age, pick and rank-vs-pick profile.')
 save('2_pool_money_by_team.png', b)
 
-# ════════ 3) top remaining players ════════
-drafted_names = set(picks['player_name'])
-mlb_names = {p['person']['fullName'] for p in mlb.values()}
+# ════════ 3) portal commits still in the MLB draft pool ════════
+pros, off = [], 0
+while True:
+    d = requests.get(f'https://statsapi.mlb.com/api/v1/draft/prospects/2026?limit=1000&offset={off}', timeout=30).json()
+    batch = d.get('prospects', [])
+    pros += batch
+    if len(batch) < 1000: break
+    off += 1000
 azs = lambda s: re.sub(r'[^a-z]', '', str(s).lower())
-drafted_norm = {azs(n) for n in drafted_names | mlb_names}
-rem = master[master['num'].notna() & ~master['name'].map(lambda n: azs(n) in drafted_norm)].head(10)
-b = header('Best still on the board', f'Top-ranked prospects undrafted through pick {MAXP}')
-y0, rh = 218, 104
-for i, (_, r) in enumerate(rem.iterrows()):
+pool_names = {azs(p.get('person', {}).get('fullName', '')) for p in pros}
+drafted_norm = {azs(n) for n in picks['player_name']}
+
+norm = lambda s: str(s).strip()[:-2] if str(s).strip().endswith('.0') else str(s).strip()
+prp = pd.read_csv('C:/Users/sixty/Dev/portal-pipeline/output/04_upload/portal_rank_player.csv')
+ranked = pd.read_csv('C:/Users/sixty/Dev/portal-pipeline/output/03_ranked/baseball_ranked.csv')
+prank = dict(zip(ranked.player_id_64a, ranked.portal_rank))
+players_all = pd.read_csv(CB / 'data/players.csv', encoding='latin-1', low_memory=False)
+pname = dict(zip(players_all.id, players_all.player_name))
+ppos = dict(zip(players_all.id, players_all.position))
+teams_df = pd.read_csv(CB / 'data/teams.csv', dtype=str, keep_default_na=False, usecols=['id', 'name'])
+tname = dict(zip(teams_df['id'].map(norm), teams_df['name']))
+p26c = prp[(prp.year == 2026) & prp.new_team_id.notna() & (prp.new_team_id != 2269)]
+pool_rows = []
+for r in p26c.itertuples():
+    pid = int(r.player_id)
+    nm = pname.get(pid, '')
+    if azs(nm) in drafted_norm or azs(nm) not in pool_names: continue
+    rk = prank.get(pid)
+    pool_rows.append({'rank': rk if rk and rk > 0 else None, 'name': nm, 'pos': ppos.get(pid, ''),
+                      'fr': tname.get(norm(r.team_id), ''), 'to': tname.get(norm(r.new_team_id), '')})
+n_total = len(pool_rows)
+top = sorted([r for r in pool_rows if r['rank']], key=lambda r: r['rank'])[:20]
+b = header('Commits MLB could still take', f'{n_total} committed 2026 portal players sit in the MLB.com draft pool - top 20')
+y0, rh = 210, 52
+for i, r in enumerate(top):
     y = y0 + i * rh
-    b += (f'<text x="112" y="{y+52}" text-anchor="middle" font-family="{FONT}" font-size="46" font-weight="700" fill="{ACCENT}">{int(r["num"])}</text>'
-          f'<text x="176" y="{y+40}" font-family="{FONT}" font-size="32" font-weight="600" fill="{INK}">{esc(r["name"])}</text>'
-          f'<text x="176" y="{y+74}" font-family="{FONT}" font-size="22" fill="{INK2}">{esc(r["pos"])} &#183; {esc(r["school"] or "HS")}'
-          + (f' &#183; committed: {esc(r["committed"])}' if r['committed'] else '') + '</text>')
-    srcs = ' / '.join(f'{lab} {int(float(r[c]))}' for c, lab in
-                      [('rank_ba', 'BA'), ('rank_mlb', 'MLB'), ('rank_espn', 'ESPN')] if r[c])
-    b += f'<text x="{W-72}" y="{y+52}" text-anchor="end" font-family="{FONT}" font-size="20" fill="{MUTED}">{esc(srcs)}</text>'
-    if i < 9:
-        b += f'<line x1="72" y1="{y+rh-12}" x2="{W-72}" y2="{y+rh-12}" stroke="{GRID}" stroke-width="1"/>'
-b += footer('Rank = 64A cumulative board (average of BA / MLB / ESPN / FSS / PG lists).')
-save('3_best_on_board.png', b)
+    b += (f'<text x="118" y="{y+32}" text-anchor="middle" font-family="{FONT}" font-size="27" font-weight="700" fill="{ACCENT}">{int(r["rank"])}</text>'
+          f'<text x="170" y="{y+32}" font-family="{FONT}" font-size="26" font-weight="600" fill="{INK}">{esc(r["name"])}</text>')
+    move = esc(r["fr"]) + ' &#8594; ' + esc(r["to"])
+    b += f'<text x="{W-72}" y="{y+32}" text-anchor="end" font-family="{FONT}" font-size="21" fill="{INK2}">{esc(r["pos"])} &#183; {move}</text>'
+    if i < len(top) - 1:
+        b += f'<line x1="72" y1="{y+rh-8}" x2="{W-72}" y2="{y+rh-8}" stroke="{GRID}" stroke-width="1"/>'
+b += footer(f'Red number = 64A portal rank. Undrafted through pick {MAXP}. All have signed college commitments.')
+save('3_portal_commits_in_draft_pool.png', b)
 
 # ════════ 4) 2025 portal players in the first 10 rounds ════════
 norm = lambda s: str(s).strip()[:-2] if str(s).strip().endswith('.0') else str(s).strip()
