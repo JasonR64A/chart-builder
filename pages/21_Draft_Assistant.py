@@ -757,7 +757,10 @@ with tab_card:
     tname = {norm(r["id"]): r["name"] for _, r in teams.iterrows()}
     cdiv = {norm(r["id"]): r["division"] for _, r in conf.iterrows()}
     tconf = {norm(r["id"]): norm(r["conference_id"]) for _, r in teams.iterrows()}
-    series_by_pid = {norm(r.player_id): r for r in series.itertuples()} if len(series) else {}
+    series_by_pid = {norm(r.player_id): r for r in series.itertuples()
+                     if r.kind != 'outing'} if len(series) else {}
+    outing_by_pid = {norm(r.player_id): r for r in series.itertuples()
+                     if r.kind == 'outing'} if len(series) else {}
 
     def f(x):
         try:
@@ -889,16 +892,28 @@ with tab_card:
 
     st.divider()
 
-    # ---------------- 2) BIG WEEKEND ----------------
-    st.markdown("### 🔥 Big weekend")
-    s = series_by_pid.get(pid)
-    if s is not None:
-        kind = "series" if s.kind == "series" else "hot stretch"
-        st.success(s.summary)
-        st.caption(f"{s.date_start} to {s.date_end} · best 3-game {kind} on record (from per-game PBP)")
+    # ---------------- 2) BIG WEEKEND / BIG PERFORMANCE ----------------
+    # Pitchers throw once a series — a 3-game weekend line doesn't fit them.
+    # They get their best single OUTING instead (kind='outing' in the CSV).
+    if predominant == "pitching" and outing_by_pid.get(pid) is not None:
+        st.markdown("### 🔥 Big performance")
+        o = outing_by_pid[pid]
+        st.success(o.summary)
+        st.caption(f"{o.date_start} · biggest single outing on record (from per-game PBP)")
+    elif predominant == "pitching":
+        st.markdown("### 🔥 Big performance")
+        st.caption("No qualifying outing on record for this pitcher (PBP covers 2025–2026; "
+                   "3+ IP required; small-school arms may not have one).")
     else:
-        st.caption("No multi-game PBP series on record for this player (PBP covers 2025–2026; "
-                   "small-school or limited-sample players may not have one).")
+        st.markdown("### 🔥 Big weekend")
+        s = series_by_pid.get(pid)
+        if s is not None:
+            kind = "series" if s.kind == "series" else "hot stretch"
+            st.success(s.summary)
+            st.caption(f"{s.date_start} to {s.date_end} · best 3-game {kind} on record (from per-game PBP)")
+        else:
+            st.caption("No multi-game PBP series on record for this player (PBP covers 2025–2026; "
+                       "small-school or limited-sample players may not have one).")
 
     st.divider()
 
@@ -1082,6 +1097,6 @@ with tab_card:
         st.caption("Not enough same-handedness peer data to compute a split for the latest season.")
 
     st.divider()
-    st.caption("Overview = career totals across all seasons in our data. Big weekend = best 3-game "
+    st.caption("Overview = career totals across all seasons in our data. Big weekend = best 3-game (pitchers: Big performance = best single outing, 3+ IP) "
                "series from per-game PBP (2025–2026). Percentiles are within all qualified players; "
                "handedness percentiles are within the player's own bat/throw group.")

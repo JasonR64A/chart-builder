@@ -191,11 +191,67 @@ for pid, gs in games.items():
         "summary": summ,
     })
 
+# ============================================================
+# Pitchers: best single OUTING — a 3-game "weekend" makes no sense for an
+# arm that throws once a series. kind='outing', date_start == date_end.
+# ============================================================
+def ip_outs(v):
+    try:
+        w = str(v).split(".")
+        return int(float(w[0])) * 3 + (int(w[1][:1]) if len(w) > 1 and w[1] else 0)
+    except Exception:
+        return 0
+
+
+def outing_score(g):
+    """Game-score flavored: reward length + Ks, punish damage."""
+    return g["outs"] + 2 * g["so"] - 2 * g["h"] - 4 * g["er"] - g["bb"]
+
+
+pgames = defaultdict(list)
+pfiles = []
+for y in YEARS:
+    pfiles += glob.glob(str(SF / y / "baseball" / "pbp" / "pitching_pbp_D*.csv"))
+pfiles = [f for f in pfiles if ".bak" not in f and "_TEST" not in f and "backup" not in f]
+print(f"pitching PBP files: {len(pfiles)}")
+for f in pfiles:
+    rows = list(csv.DictReader(open(f, encoding="latin-1")))
+    gteams = defaultdict(set)
+    for r in rows:
+        gteams[r["gameId"]].add(r["teamName"].strip())
+    for r in rows:
+        pid = resolve_pid(r["playerName"], r["teamName"])
+        if not pid:
+            continue
+        d = pdate(r["date"])
+        if not d:
+            continue
+        others = [t for t in gteams[r["gameId"]] if t != r["teamName"].strip()]
+        pgames[pid].append({"date": d, "opp": others[0] if others else "?",
+                            "outs": ip_outs(r.get("ip", 0)), "h": i(r["h"]),
+                            "er": i(r["er"]), "bb": i(r["bb"]), "so": i(r["so"])})
+print(f"pitchers with PBP outings: {len(pgames)}")
+
+for pid, gs in pgames.items():
+    gs = [g for g in gs if g["outs"] >= 9]          # 3+ IP to qualify
+    if not gs:
+        continue
+    b = max(gs, key=outing_score)
+    if outing_score(b) < 12:                        # not worth highlighting
+        continue
+    ip_str = f"{b['outs'] // 3}.{b['outs'] % 3}" if b["outs"] % 3 else f"{b['outs'] // 3}"
+    out_rows.append({
+        "player_id": pid, "kind": "outing", "opponent": b["opp"],
+        "date_start": b["date"].isoformat(), "date_end": b["date"].isoformat(), "g": 1,
+        "summary": f"vs {b['opp']}: {ip_str} IP, {b['h']} H, {b['er']} ER, {b['so']} K, {b['bb']} BB",
+    })
+
 with open(OUT, "w", newline="", encoding="utf-8") as fo:
-    w = csv.DictWriter(fo, fieldnames=hdr)
+    w = csv.DictWriter(fo, fieldnames=hdr, restval="")
     w.writeheader()
     w.writerows(out_rows)
-print(f"wrote {OUT} | {len(out_rows)} players with a best series")
+n_out = sum(1 for r in out_rows if r["kind"] == "outing")
+print(f"wrote {OUT} | {len(out_rows) - n_out} hitting series + {n_out} pitching outings")
 
 
 # ============================================================
