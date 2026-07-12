@@ -150,7 +150,7 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 149,Ryan Marohn,90,149,141,177,"6' 2""",192,L/L,P,,21,North Carolina State,4YR JR,FALSE,129,2005-03-08,69771
 150,Kyle Johnson,142,150,227,219,"6' 1""",205,R/L,P,,21,Virginia,4YR JR,FALSE,179,2005-06-25,
 151,CJ Weinstein,229,151,134,200,"6' 1""",190,L/R,SS,UCLA,19,Orange Lutheran HS (CA),HS SR,TRUE,325,2007-03-27,
-152,Jake McCoy,157,152,112,156,"6' 1""",185,L/L,P,Tennessee,21,South Carolina,4YR JR,FALSE,227,2005-02-10,
+152,Jake McCoy,157,152,112,156,"6' 1""",185,L/L,P,Tennessee,21,South Carolina,4YR JR,FALSE,227,2005-02-10,67967
 153,Lucas Nawrocki,125,153,139,91,"5' 11""",197,L/L,P,LSU,18,Aledo HS (TX),HS SR,TRUE,105,2007-12-04,
 154,Tommy LaPour,74,154,132,170,"6' 4""",230,R/R,P,,21,TCU,4YR JR,FALSE,151,2005-03-29,69887
 155,Trey Rangel,130,155,345,184,"6' 1""",185,R/R,P,Texas,19,The Colony HS (TX),HS SR,TRUE,141,2007-04-12,
@@ -336,8 +336,8 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Andrew Cain,,,,,"6' 2""",199,L/R,3B,,21,Arizona,4YR JR,FALSE,,2004-10-15,
 ,Andrew Carroll,,,,,"6' 2""",200,L/R,P,,22,Southeast Missouri State,4YR JR,FALSE,,2003-12-05,
 ,Andrew Citron,,,,,"6' 0""",180,R/R,P,,22,Georgetown,4YR SR,FALSE,,2003-07-19,54214
-,Andrew Duncan,,,,,"6' 1""",200,R/R,OF,,21,Wright State,4YR JR,FALSE,,2005-01-03,
-,Andrew Evans,,,,,"6' 6""",225,R/R,P,,22,Southern Illinois,4YR SR,FALSE,,2004-06-25,
+,Andrew Duncan,,,,,"6' 1""",200,R/R,OF,,21,Wright State,4YR JR,FALSE,,2005-01-03,68255
+,Andrew Evans,,,,,"6' 6""",225,R/R,P,,22,Southern Illinois,4YR SR,FALSE,,2004-06-25,55288
 ,Andrew Fulmer,,,,,"6' 2""",185,R/R,SS,,19,Motlow State CC,JC J1,FALSE,,2006-10-24,
 ,Andrew Gaines,,,,,"6' 5""",240,R/R,P,,22,Saint Joseph's,4YR SR,FALSE,,2003-12-09,55085
 ,Andrew Gette,,,,,"6' 5""",215,R/R,P,,18,Mounds View HS (MN),HS SR,TRUE,,2008-01-24,
@@ -711,7 +711,7 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Colin Brueggemann,,,,,"6' 6""",246,L/R,1B,,23,Oklahoma State,4YR 5S,FALSE,,2003-03-13,58370
 ,Colin Coonradt,,,,,"6' 1""",205,L/R,SS,,20,Johnson County CC,JC J2,FALSE,,2005-08-12,100589
 ,Colin Driffill,300,,520,,"6' 1""",200,R/R,P,South Florida,18,Millard North HS (NE),HS SR,TRUE,,2007-11-05,
-,Colin Fisher,269,,358,,"6' 3""",225,L/L,P,,21,Arkansas,4YR JR,FALSE,236,2004-09-21,
+,Colin Fisher,269,,358,,"6' 3""",225,L/L,P,,21,Arkansas,4YR JR,FALSE,236,2004-09-21,67480
 ,Colin Fitzgerald,,,591,,"6' 1""",200,R/R,P,,23,Penn State,4YR GR,FALSE,,2003-01-23,
 ,Colin Guerra,,,,,"6' 0""",195,S/R,SS,,20,Chipola JC,JC J2,FALSE,,2006-04-27,
 ,Colin Linder,296,,298,,"6' 4""",235,R/R,P,,22,Arizona State,4YR SR,FALSE,,2004-03-01,139488
@@ -864,7 +864,7 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Dom Rodriguez,,,,,"6' 3""",218,R/R,OF,,23,Arizona,4YR SR,FALSE,,2003-03-27,116433
 ,Dominic Battista,331,,311,,"6' 0""",180,L/R,OF,Illinois - Chicago,18,Oswego East HS (IL),HS SR,TRUE,208,2007-10-26,
 ,Dominic Hellman,,,,,"6' 6""",281,R/R,1B,,22,Oregon,4YR SR,FALSE,372,2003-09-12,58478
-,Dominic Kibler,,,,,"5' 8""",190,L/R,C,,21,Wisconsin-Milwaukee,4YR JR,FALSE,,2005-05-21,
+,Dominic Kibler,,,,,"5' 8""",190,L/R,C,,21,Wisconsin-Milwaukee,4YR JR,FALSE,,2005-05-21,70061
 ,Dominic Longo II,440,,418,,"6' 3""",205,R/R,SS,,22,Arizona State,4YR JR,FALSE,384,2004-06-09,100841
 ,Dominic Mauro,,,,,"6' 1""",210,R/R,P,,21,Cincinnati,4YR JR,FALSE,,2004-12-30,71472
 ,Dominic Pellegrin,480,,349,,"6' 1""",175,R/R,SS,Tulane,19,Holy Cross HS (LA),HS SR,TRUE,,2007-06-12,
@@ -919,7 +919,7 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Dylan Marionneaux,,,,,"6' 3""",170,R/R,P,,21,Northwestern State,4YR JR,FALSE,,2005-07-05,70755
 ,Dylan Maxcey,,,,,"5' 9""",170,R/R,C,,22,Houston,4YR SR,FALSE,,2004-07-07,61234
 ,Dylan Minnatee,,,,,"6' 0""",195,L/L,1B,,18,Franklin HS (CA),HS SR,TRUE,,2008-03-06,
-,Dylan O'Connell,,,,,"5' 10""",190,R/R,OF,,22,Wisconsin-Milwaukee,4YR JR,FALSE,,2003-11-13,
+,Dylan O'Connell,,,,,"5' 10""",190,R/R,OF,,22,Wisconsin-Milwaukee,4YR JR,FALSE,,2003-11-13,60747
 ,Dylan Schlaegel,,,603,,"5' 10""",180,R/R,OF,,21,Dallas Baptist,4YR JR,FALSE,,2004-09-17,68505
 ,Dylan Story,,,,,"6' 3""",224,R/R,P,,22,High Point,4YR JR,FALSE,,2004-05-18,63617
 ,Dylan Thompson,,,,,"6' 2""",185,R/R,P,,21,Blinn JC,JC J3,FALSE,,2005-02-07,
@@ -2247,7 +2247,7 @@ number,name,rank_ba,rank_mlb,rank_fss,rank_espn,ht,wt,bt,pos,committed,age_excel
 ,Yodelkis Quevedo,486,,,,"6' 3""",210,R/R,3B,,18,Mater Academy HS (FL),HS SR,TRUE,,2007-11-05,
 ,Zac Cowan,,,,,"5' 11""",211,S/R,P,,23,LSU,4YR SR,FALSE,,2003-07-07,63288
 ,Zac Sohosky,,,,,"6' 0""",191,R/L,P,,22,Miami (OH),4YR SR,FALSE,,2003-11-15,59214
-,Zach Bates,,,,,"6' 2""",195,R/L,P,,21,Illinois,4YR JR,FALSE,,2005-06-08,
+,Zach Bates,,,,,"6' 2""",195,R/L,P,,21,Illinois,4YR JR,FALSE,,2005-06-08,119949
 ,Zach Brown,,,,,"6' 5""",220,R/R,P,,21,Georgia,4YR JR,FALSE,,2004-10-01,
 ,Zach Crotchfelt,327,,,,"6' 3""",225,L/L,P,,22,Troy,4YR SR,FALSE,,2003-10-03,50729
 ,Zach Edwards,386,,506,,"6' 2""",230,R/R,P,Florida,21,Oregon State,4YR SO,FALSE,294,2005-06-17,116795
