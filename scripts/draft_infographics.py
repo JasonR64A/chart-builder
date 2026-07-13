@@ -27,8 +27,7 @@ def header(title, sub):
             f'<text x="92" y="136" font-family="{FONT}" font-size="23" fill="{INK2}">{esc(sub)}</text>')
 
 def footer(note):
-    return (f'<line x1="60" y1="{H-84}" x2="{W-60}" y2="{H-84}" stroke="{GRID}" stroke-width="1"/>'
-            f'<text x="60" y="{H-50}" font-family="{FONT}" font-size="19" fill="{MUTED}">{esc(note)}</text>')
+    return ''  # user rule 2026-07-12: NO footers on graphics
 
     # ---- mini renderer: draws the rect/text/line subset of SVG via PIL ----
 from PIL import Image, ImageDraw, ImageFont
