@@ -533,7 +533,7 @@ def enrich_pick(p):
         'Pool impact': f'{impact:,.0f}' if impact is not None else '',
         'vs slot': f'{diff:+.1%}' if diff is not None else '',
         '_slot': slot or 0, '_exp': exp or 0, '_impact': impact or 0, '_bonus': bonus,
-        '_codes': (c_d, c_r, c_a), '_id': p.get('id'),
+        '_diff': diff, '_codes': (c_d, c_r, c_a), '_id': p.get('id'),
     })
     return out
 
@@ -625,7 +625,23 @@ with tab_live:
             show = ['Pick', 'Rd', 'Team', 'Player', 'Board rank', 'Pos', 'B/T', 'Age', 'Class',
                     'School', 'Committed', 'Slot $', 'Expected $', 'Bonus $', 'Pool impact', 'vs slot']
             st.markdown(f"### Picks so far ({len(df)})")
-            st.dataframe(df[show], use_container_width=True, height=420, hide_index=True)
+            # money/percent columns must stay NUMERIC so header-click sorting
+            # works ("597,500" sorts below "500" as a string); formatting is
+            # applied by column_config instead of f-strings
+            disp = df.copy()
+            disp['Slot $'] = df['_slot'].replace(0, pd.NA)
+            disp['Expected $'] = df['_exp'].replace(0, pd.NA)
+            disp['Bonus $'] = pd.to_numeric(df['_bonus'], errors='coerce')
+            disp['Pool impact'] = df['_impact'].where(df['_bonus'].notna(), pd.NA)
+            disp['vs slot'] = (pd.to_numeric(df['_diff'], errors='coerce') * 100).round(1)
+            money = lambda label: st.column_config.NumberColumn(label, format='localized')
+            st.dataframe(disp[show], use_container_width=True, height=420, hide_index=True,
+                         column_config={'Slot $': money('Slot $'),
+                                        'Expected $': money('Expected $'),
+                                        'Bonus $': money('Bonus $'),
+                                        'Pool impact': money('Pool impact'),
+                                        'vs slot': st.column_config.NumberColumn(
+                                            'vs slot', format='%+.1f%%')})
 
             st.markdown("### Bonus-pool usage by team")
             pool = df.groupby('Team').agg(picks=('Pick', 'count'), slot=('_slot', 'sum'),
