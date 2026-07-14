@@ -17,6 +17,7 @@ ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfe
 2209661567,TAKYLA,DAVIS,Takyla Davis,Arizona State University,Big 12 Conference,I,06/08/2026,07/13/2026,Signed,2025-26,Softball,1191,107295,3083430,Takyla Davis,100.0,team+lastname,HIGH,3B,So,1191
 2506632009,MORGAN,SMITH,Morgan Smith,Prairie View A&M University,Southwestern Athletic Conf.,I,06/08/2026,07/13/2026,Signed,2025-26,Softball,1128,144358,3243829,Morgan Smith,100.0,team+fullname,HIGH,1B,Fr,1128
 2308990730,SAVANNAH,FRACHISEUR,Savannah Frachiseur,Kennesaw State University,Conference USA,I,06/08/2026,07/13/2026,Signed,2025-26,Softball,1360,142544,3233804,Savannah Frachiseur,100.0,team+lastname,HIGH,C,Fr,1360
+2107276550,HAILEY,FRANCOIS,Hailey Francois,Siena University,Metro Atlantic Athletic Conference,I,06/08/2026,07/13/2026,Signed,2025-26,Softball,1264,86301,2944995,Hailey Francois,100.0,team+lastname,HIGH,P,Jr,1264
 2306933801,KENDALL,KOTZMACHER,Kendall Kotzmacher,Western Michigan University,Mid-American Conference,I,06/08/2026,07/13/2026,Signed,2025-26,Softball,1188,145959,3238845,Kendall Kotzmacher,100.0,team+lastname,HIGH,C,Fr,1188
 2206580975,DELAINEY,BARGFREDE,Delainey Bargfrede,Western Kentucky University,Conference USA,I,06/08/2026,07/13/2026,Signed,2025-26,Softball,1143,108191,3092023,Delainey Bargfrede,100.0,team+lastname,HIGH,P,So,1143
 2209670413,DEZARIA,JOHNSON,Dezaria Johnson,"Rutgers, The State University of New Jersey, New Brunswick",Big Ten Conference,I,06/08/2026,07/13/2026,Signed,2025-26,Softball,1134,118184,3090752,Dezaria Johnson,100.0,team+lastname,HIGH,P,So,1134
@@ -34,6 +35,7 @@ ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfe
 2112393809,LILLIE,BROOKS,Lillie Brooks,Santa Clara University,West Coast Conference,I,06/08/2026,07/13/2026,Signed,2025-26,Softball,1215,144697,3232061,Lillie Brooks,100.0,team+lastname,HIGH,DH,Fr,1215
 2201425826,KENNEDY,HIGHLEY,Kennedy Highley,Western Illinois University,Ohio Valley Conference,I,06/07/2026,07/13/2026,Signed,2025-26,Softball,1337,145952,3223497,Kennedy Highley,100.0,team+lastname,HIGH,RF,Jr,1337
 2009921856,KEARSTIN,TINSLEY,Kearstin Tinsley,Prairie View A&M University,Southwestern Athletic Conf.,I,06/08/2026,07/13/2026,Signed,2025-26,Softball,1128,116323,3117705,Kearstin Tinsley,100.0,team+lastname,HIGH,SS,So,1128
+2206575140,LAUREN,MELTON,Lauren Melton,Siena University,Metro Atlantic Athletic Conference,I,06/08/2026,07/13/2026,Signed,2025-26,Softball,1264,106893,3084574,Lauren Melton,100.0,team+lastname,HIGH,LF,So,1264
 2307968220,MEGHAN,MCCUTCHEON,Meghan Mccutcheon,Creighton University,BIG EAST Conference,I,06/08/2026,07/13/2026,Signed,2025-26,Softball,1190,107483,3095746,Meghan McCutcheon,100.0,team+lastname,HIGH,2B,So,1190
 2207621390,RILEY,VOGEL,Riley Vogel,University of South Carolina Upstate,Big South Conference,I,06/08/2026,07/13/2026,Signed,2025-26,Softball,1263,106908,3110603,Riley Vogel,100.0,team+lastname,HIGH,,So,1263
 2311153453,TIMBER,HENSLEY,Timber Hensley,Texas Tech University,Big 12 Conference,I,06/17/2026,07/13/2026,Signed,2025-26,Softball,1113,145475,3218858,Timber Hensley,100.0,team+lastname,HIGH,2B,Fr,1113
@@ -273,6 +275,7 @@ ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfe
 2301753582,TRINITY,BRANDHORST,Trinity Brandhorst,University of Illinois Chicago,Missouri Valley Conference,I,06/08/2026,07/02/2026,Signed,2025-26,Softball,1339,106583,3088749,Trinity Brandhorst,100.0,team+lastname,HIGH,P,So,1339
 2108288661,OLIVIA,MILLER,Olivia Miller,Alcorn State University,Southwestern Athletic Conf.,I,06/08/2026,07/02/2026,Signed,2025-26,Softball,1362,95629,2970834,Olivia Miller,100.0,team+fullname,HIGH,SS,Jr,1362
 2209673354,AVERY,HIXSON,Avery Hixson,Southern Illinois University at Carbondale,Missouri Valley Conference,I,06/08/2026,07/02/2026,Signed,2025-26,Softball,1235,119715,3098468,Avery Hixson,100.0,team+lastname,HIGH,C,So,1235
+2301762563,VIOLET,MARTA,Violet Marta,Siena University,Metro Atlantic Athletic Conference,I,06/08/2026,07/02/2026,Signed,2025-26,Softball,1264,106461,3091977,Violet Marta,100.0,team+lastname,HIGH,P,So,1264
 2202446776,JENNA,CHASE,Jenna Chase,Kennesaw State University,Conference USA,I,06/08/2026,07/02/2026,Signed,2025-26,Softball,1360,107686,3104004,Jenna Chase,100.0,team+lastname,HIGH,P,So,1360
 2108292042,OLIVIA,DINARDO,Olivia Dinardo,University of Nebraska-Lincoln,Big Ten Conference,I,06/04/2026,07/02/2026,Signed,2025-26,Softball,1146,95528,2812196,Olivia DiNardo,100.0,team+lastname,HIGH,C,Sr,1146
 2212742223,ALYSSA,JEFFREY,Alyssa Jeffrey,Northwest Nazarene University,Great Northwest Athletic Conference,II,05/12/2026,07/02/2026,Signed,2025-26,Softball,1561,79925,2937571,Alyssa Jeffrey,100.0,team+lastname,HIGH,,Jr,1561
@@ -287,6 +290,7 @@ ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfe
 2211719480,ANGELYNA,CONDE,Angelyna Conde,Texas Tech University,Big 12 Conference,I,06/17/2026,07/02/2026,Signed,2025-26,Softball,1113,145472,3213689,Angelyna Conde,100.0,team+lastname,HIGH,3B,Fr,1113
 2211725536,ALYXANDRA,ROSSI,Alyxandra Rossi,Boston College,Atlantic Coast Conference,I,06/08/2026,07/02/2026,Signed,2025-26,Softball,1324,140349,3227169,Alyxandra Rossi,100.0,team+lastname,HIGH,P,Fr,1324
 2009913786,EMORY,DONALDSON,Emory Donaldson,University of Kentucky,Southeastern Conference,I,06/08/2026,07/02/2026,Signed,2025-26,Softball,1194,85326,2943902,Emory Donaldson,100.0,team+lastname,HIGH,3B,Jr,1194
+2207625853,GRACIE,GOEWEY,Gracie Goewey,Siena University,Metro Atlantic Athletic Conference,I,06/08/2026,07/02/2026,Signed,2025-26,Softball,1264,86145,2944993,Gracie Goewey,100.0,team+lastname,HIGH,P,Jr,1264
 2307947643,SKYLAH,STEBAN,Skylah Steban,Seton Hill University,Pennsylvania State Athletic Conference,II,05/12/2026,07/02/2026,Signed,2025-26,Softball,1384,144734,3249737,Skylah Steban,100.0,team+lastname,HIGH,3B,Fr,1384
 2201413477,MALLI,GROVES,Malli Groves,Radford University,Big South Conference,I,06/18/2026,07/02/2026,Signed,2025-26,Softball,1290,144444,3227491,Malli Groves,100.0,team+lastname,HIGH,2B,Fr,1290
 2303811393,TULLIA,LANE,Tullia Lane,Nicholls State University,Southland Conference,I,06/08/2026,07/02/2026,Matriculated,2025-26,Softball,1244,143808,3243912,Tullia Lane,100.0,team+lastname,HIGH,2B,Fr,1244
@@ -327,6 +331,7 @@ ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfe
 2108300313,DAKOTA,REDMON,Dakota Redmon,Radford University,Big South Conference,I,06/17/2026,07/01/2026,Signed,2025-26,Softball,1290,107955,3094486,Dakota Redmon,100.0,team+lastname,HIGH,P,So,1290
 2207613492,JAYDEN,KING,Jayden King,Baylor University,Big 12 Conference,I,06/08/2026,07/01/2026,Signed,2025-26,Softball,1170,125225,3100879,Jayden King,100.0,team+fullname,HIGH,DH,So,1170
 2205567937,VICTORIA,BRYANT,Victoria Bryant,Georgia Institute of Technology,Atlantic Coast Conference,I,06/08/2026,07/01/2026,Signed,2025-26,Softball,1116,141960,3235379,Victoria Bryant,100.0,team+lastname,HIGH,SP,Fr,1116
+2206588726,CARLIE,VENABLES,Carlie Venables,Siena University,Metro Atlantic Athletic Conference,I,06/08/2026,07/01/2026,Signed,2025-26,Softball,1264,82746,2944991,Carlie Venables,100.0,team+lastname,HIGH,SS,Jr,1264
 2303815874,KENNEDY,TEMPLES,Kennedy Temples,Stetson University,Atlantic Sun Conference,I,06/08/2026,07/01/2026,Signed,2025-26,Softball,1325,106984,3092287,Kennedy Temples,100.0,team+lastname,HIGH,P,So,1325
 2101101012,JAYDEN,HEAVENER,Jayden Heavener,Louisiana State University,Southeastern Conference,I,06/08/2026,07/01/2026,Signed,2025-26,Softball,1159,107749,3085441,Jayden Heavener,100.0,team+lastname,HIGH,P,So,1159
 2308983509,ALYSON,HIGGINBOTHAM,Alyson Higginbotham,Tarleton State University,Western Athletic Conference,I,06/08/2026,07/01/2026,Signed,2025-26,Softball,2063,107020,3097167,Alyson Higginbotham,100.0,team+lastname,HIGH,DH,So,2063
@@ -444,6 +449,7 @@ ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfe
 2209657028,ANYSSA,WILD,Anyssa Wild,University of Arizona,Big 12 Conference,I,06/08/2026,06/26/2026,Signed,2025-26,Softball,1096,106303,3091471,Anyssa Wild,100.0,team+lastname,HIGH,1B,So,1096
 2107247735,MARIAH,BELZER,Mariah Belzer,Rogers State University,Mid-America Intercollegiate Athletics Association,II,05/20/2026,06/26/2026,Signed,2025-26,Softball,1495,93684,2952321,Mariah Belzer,100.0,team+lastname,HIGH,SS,Jr,1495
 2201422366,BROOKELYN,LIVANEC,Brookelyn Livanec,Wichita State University,American Conference,I,06/08/2026,06/26/2026,Signed,2025-26,Softball,1172,107138,3088281,Brookelyn Livanec,100.0,team+lastname,HIGH,DH,So,1172
+2106200101,CHLOE,CUMMINGS,Chloe Cummings,Siena University,Metro Atlantic Athletic Conference,I,06/08/2026,06/26/2026,Signed,2025-26,Softball,1264,83257,2944989,Chloe Cummings,100.0,team+lastname,HIGH,CF,Jr,1264
 2406330845,CAYLEE,GAYTAN,Caylee Gaytan,Indiana State University,Missouri Valley Conference,I,06/08/2026,06/26/2026,Signed,2025-26,Softball,1276,142390,3241265,Caylee Gaytan,100.0,team+lastname,HIGH,P,Fr,1276
 2401197077,HALEY,CRAWFORD,Haley Crawford,Southeastern Louisiana University,Southland Conference,I,06/23/2026,06/26/2026,Signed,2025-26,Softball,1090,144926,3226750,Haley Crawford,100.0,team+lastname,HIGH,P,Jr,1090
 2102113821,ZURI,PATTERSON,Zuri Patterson,University of Washington,Big Ten Conference,I,06/08/2026,06/26/2026,Signed,2025-26,Softball,1101,145797,3239985,Zuri Patterson,100.0,team+lastname,HIGH,1B,Fr,1101
@@ -569,6 +575,7 @@ ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfe
 2310145848,HALLE,RAINER,Halle Rainer,Wheeling University,Mountain East Conference,II,06/22/2026,06/22/2026,Active,2025-26,Softball,1629,148385,3254955,Halle Rainer,100.0,team+lastname,HIGH,SP,Fr,1629
 2310149304,EMILIA,MARRA,Emilia Marra,"Pennsylvania Western University, Edinboro",Pennsylvania State Athletic Conference,II,06/22/2026,06/22/2026,Active,2025-26,Softball,1534,121927,3122440,Emilia Marra,100.0,team+lastname,HIGH,2B,So,1534
 2108308245,KRISTIN,GRIFFIN,Kristin Griffin,Lincoln Memorial University,South Atlantic Conference,II,06/22/2026,06/22/2026,Active,2025-26,Softball,1425,90862,2947969,Kristin Griffin,100.0,team+lastname,HIGH,LF,Jr,1425
+1710949610,EMMALYNN,SKAFF,Emmalynn Skaff,Siena University,Metro Atlantic Athletic Conference,I,06/22/2026,06/22/2026,Active,2025-26,Softball,1264,85303,2659898,Emmalynn Skaff,100.0,team+lastname,HIGH,C,Sr,1264
 2503529447,EMMA,THOMSON,Emma Thomson,Southern Arkansas University,Great American Conference,II,06/22/2026,06/22/2026,Active,2025-26,Softball,1512,144953,3232805,Emma Thomson,100.0,team+lastname,HIGH,INF,Jr,1512
 2208642649,HALEY,FERGUSON,Haley Ferguson,University of Michigan,Big Ten Conference,I,06/08/2026,06/22/2026,Signed,2025-26,Softball,1222,106697,3094764,Haley Ferguson,100.0,team+lastname,HIGH,P,So,1222
 2201419368,KYLA,STROUD,Kyla Stroud,Auburn University,Southeastern Conference,I,06/08/2026,06/22/2026,Signed,2025-26,Softball,1303,90925,2942705,Kyla Stroud,100.0,team+lastname,HIGH,DH,So,1303
@@ -925,6 +932,7 @@ ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfe
 2410424343,HANA,WINTON,Hana Winton,"California State University, Fullerton",Big West Conference,I,06/08/2026,06/08/2026,Active,2025-26,Softball,1107,140555,3218315,Hana Winton,100.0,team+lastname,HIGH,P,Fr,1107
 2310135517,RILEY,GALLAGHER,Riley Gallagher,"University of Maryland, Baltimore County",America East Conference,I,06/08/2026,06/08/2026,Active,2025-26,Softball,1217,115559,3107109,Riley Gallagher,100.0,team+lastname,HIGH,C,So,1217
 2411454905,SAMANTHA,STEVENSON,Samantha Stevenson,Norfolk State University,Mid-Eastern Athletic Conf.,I,06/08/2026,06/08/2026,Active,2025-26,Softball,1372,143819,3234206,Samantha Stevenson,100.0,team+lastname,HIGH,P,Fr,1372
+2206586989,MEGAN,KLEIN,Megan Klein,Siena University,Metro Atlantic Athletic Conference,I,06/08/2026,06/08/2026,Active,2025-26,Softball,1264,107996,3084576,Megan Klein,100.0,team+lastname,HIGH,RF,So,1264
 2409419320,GABRIELLA,RIVERA,Gabriella Rivera,Saint Peter's University,Metro Atlantic Athletic Conference,I,06/08/2026,06/08/2026,Active,2025-26,Softball,1196,145229,3230641,Gabriella Rivera,100.0,team+lastname,HIGH,P,Fr,1196
 2307947059,KYANA,ESCOBEDO-LIPARDO,Kyana Escobedo-Lipardo,Abilene Christian University,Western Athletic Conference,I,06/08/2026,06/08/2026,Active,2025-26,Softball,1183,139789,3151477,Kyana Escobedo-Lipardo,100.0,team+lastname,HIGH,CF,Fr,1183
 2502508432,QUINN,BOYD,Quinn Boyd,Wagner College,Northeast Conference,I,06/08/2026,06/08/2026,Active,2025-26,Softball,1366,145759,3238084,Quinn Boyd,100.0,team+lastname,HIGH,OF,Fr,1366

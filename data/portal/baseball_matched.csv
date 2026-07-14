@@ -286,6 +286,7 @@ ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfe
 2201416732,JOSHUA,CALDWELL,Joshua Caldwell,University of Maryland Eastern Shore,Northeast Conference,I,05/20/2026,07/10/2026,Signed,2025-26,Baseball,825,116970,3108670,Joshua Caldwell,100.0,team+lastname,HIGH,DH,So,825
 2307970668,JOSHUA,WULFERT,Joshua Wulfert,Wichita State University,American Conference,I,06/01/2026,07/10/2026,Signed,2025-26,Baseball,906,138616,3220556,Joshua Wulfert,100.0,team+lastname,HIGH,RF,So,906
 2102107362,JACOB,ECHOLS,Jacob Echols,Florida State University,Atlantic Coast Conference,I,06/04/2026,07/10/2026,Signed,2025-26,Baseball,267,139630,3250695,Jake Echols,92.0,team+lastname+confirmed,HIGH,P,Jr,267
+2102110447,COLE,HAMBLY,Cole Hambly,Siena University,Metro Atlantic Athletic Conference,I,06/02/2026,07/10/2026,Signed,2025-26,Baseball,702,136060,3225039,Cole Hambly,100.0,team+lastname,HIGH,1B,Fr,702
 2409411250,JACOB,CORLL,Jacob Corll,John Carroll University,North Coast Athletic Conference,III,05/01/2026,07/10/2026,Signed,2025-26,Baseball,360,76445,2979585,Jake Corll,92.0,team+lastname+confirmed,HIGH,P,Sr,360
 2109334351,JAMES,"BELL, III","James Bell, Iii",Texas Christian University,Big 12 Conference,I,06/01/2026,07/10/2026,Signed,2025-26,Baseball,775,67761,2968003,Jack Bell,100.0,human_override,HIGH,3B,Jr,775
 2310132932,JAYDEN,STROMAN,Jayden Stroman,University of Virginia,Atlantic Coast Conference,I,06/02/2026,07/10/2026,Signed,2025-26,Baseball,856,137940,3227189,Jayden Stroman,100.0,team+lastname,HIGH,P,Fr,856
@@ -463,6 +464,7 @@ ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfe
 2110360202,JACKSON,MILITELLO,Jackson Militello,Charleston Southern University,Big South Conference,I,06/08/2026,07/08/2026,Signed,2025-26,Baseball,144,53327,2811016,Jackson Militello,100.0,team+lastname,HIGH,C,Jr,144
 2212736961,BROOKS,LUCAS,Brooks Lucas,Harding University,Great American Conference,II,01/02/2026,07/08/2026,Signed,2025-26,Baseball,315,100210,3088982,Brooks Lucas,100.0,team+lastname,HIGH,UT,So,315
 2407367561,REX,EDWARDS,Rex Edwards,"University of California, Berkeley",Atlantic Coast Conference,I,06/01/2026,07/08/2026,Signed,2025-26,Baseball,114,128492,3236428,Rex Edwards,100.0,team+lastname,HIGH,P,Fr,114
+2101102026,AIDAN,PARADINE,Aidan Paradine,Siena University,Metro Atlantic Athletic Conference,I,05/18/2026,07/08/2026,Signed,2025-26,Baseball,702,116030,3116534,Aidan Paradine,100.0,team+lastname,HIGH,C,So,702
 2307965292,CAYDEN,MUELLER,Cayden Mueller,Winona State University,Northern Sun Intercollegiate Conference,II,05/11/2026,07/08/2026,Signed,2025-26,Baseball,918,123920,3125916,Cayden Mueller,100.0,team+lastname,HIGH,3B,So,918
 2107282496,JOSEPH,DOOLEY,Joseph Dooley,University of Hartford,Conference of New England,III,05/14/2026,07/08/2026,Signed,2025-26,Baseball,317,54537,2806222,Joe Dooley,92.0,team+lastname+confirmed,HIGH,P,Sr,317
 2407354355,GREGORY,QUINTANA,Gregory Quintana,Lafayette College,Patriot League,I,06/01/2026,07/08/2026,Signed,2025-26,Baseball,384,132230,3231471,Gregory Quintana,100.0,team+lastname,HIGH,P,Fr,384
@@ -3041,6 +3043,7 @@ ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfe
 2112391851,WILMER,CUEVAS,Wilmer Cuevas,Alabama A&M University,Southwestern Athletic Conf.,I,06/01/2026,06/01/2026,Active,2025-26,Baseball,9,103231,3084885,Wilmer Cuevas,100.0,team+lastname,HIGH,C,Sr,9
 2110359182,MATTHEW,MOLINA,Matthew Molina,Texas A&M University-Corpus Christi,Southland Conference,I,06/01/2026,06/01/2026,Active,2025-26,Baseball,1,50067,2815469,Matthew Molina,100.0,team+lastname,HIGH,P,Jr,1
 2208652799,JOSHUA,FLEMING,Joshua Fleming,Murray State University,Missouri Valley Conference,I,06/01/2026,06/01/2026,Active,2025-26,Baseball,516,134029,3234188,Joshua Fleming,100.0,team+lastname,HIGH,P,Jr,516
+2202442645,OWEN,PINCINCE,Owen Pincince,Siena University,Metro Atlantic Athletic Conference,I,06/01/2026,06/01/2026,Active,2025-26,Baseball,702,57635,2825696,Owen Pincince,100.0,team+lastname,HIGH,RF,Sr,702
 2606944597,BRADEN,ABBOTT,Braden Abbott,The University of Olivet,Michigan Intercollegiate Athletic Association,III,06/01/2026,06/01/2026,Active,2025-26,Baseball,585,58429,2802033,Braden Abbott,100.0,team+lastname,HIGH,SS,Sr,585
 2103136733,ELLIS,REID,Ellis Reid,Saint Peter's University,Metro Atlantic Athletic Conference,I,06/01/2026,06/01/2026,Active,2025-26,Baseball,675,70194,2969004,Ellis Reid,100.0,team+lastname,HIGH,LF,Jr,675
 2407364053,CAMERON,CARTER,Cameron Carter,The University of Texas Rio Grande Valley,Southland Conference,I,06/01/2026,06/01/2026,Active,2025-26,Baseball,845,116097,3114271,Cameron Carter,100.0,team+lastname,HIGH,LF,So,845
@@ -3192,6 +3195,7 @@ ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfe
 2110359897,DANIEL,PEREZ,Daniel Perez,Stetson University,Atlantic Sun Conference,I,06/01/2026,06/01/2026,Active,2025-26,Baseball,756,68308,2952902,Daniel Perez,100.0,team+lastname,HIGH,C,So,756
 2503537579,GETHSE,ULLOA,Gethse Ulloa,"California State University, Bakersfield",Big West Conference,I,06/01/2026,06/01/2026,Active,2025-26,Baseball,188,128321,3222024,Gethse Ulloa,100.0,team+fullname,HIGH,P,Jr,188
 2305896222,MICHAEL,DAMBROSIO,Michael Dambrosio,Hofstra University,Coastal Athletic Association,I,06/01/2026,06/01/2026,Active,2025-26,Baseball,331,131490,3110245,Michael D'Ambrosio,100.0,human_override,HIGH,P,So,331
+2201403952,JOSHUA,THOMPSON,Joshua Thompson,Siena University,Metro Atlantic Athletic Conference,I,06/01/2026,06/01/2026,Active,2025-26,Baseball,702,116032,3116536,Josh Thompson,92.9,team+lastname+confirmed,HIGH,2B,So,702
 2409403871,ALEX,PIERCE,Alex Pierce,Central Michigan University,Mid-American Conference,I,06/01/2026,06/01/2026,Active,2025-26,Baseball,137,139613,3250350,Alex Pierce,100.0,team+lastname,HIGH,INF,Fr,137
 2310137660,JAMES,HARE,James Hare,La Salle University,Atlantic 10 Conference,I,06/01/2026,06/01/2026,Active,2025-26,Baseball,949,146470,3243331,James Hare,100.0,team+lastname,HIGH,P,Fr,949
 2504569115,DANIEL,PINKERTON,Daniel Pinkerton,McNeese State University,Southland Conference,I,06/01/2026,06/01/2026,Active,2025-26,Baseball,457,133146,3222908,Daniel Pinkerton,100.0,team+lastname,HIGH,CF,Jr,457
@@ -3235,6 +3239,7 @@ ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfe
 2110338106,DARIO,ROMEO,Dario Romeo,University of North Florida,Atlantic Sun Conference,I,06/01/2026,06/01/2026,Active,2025-26,Baseball,547,134509,3222143,Dario Romeo,100.0,team+lastname,HIGH,LF,Fr,547
 2108296101,ASHTON,GRAFF-ROWE,Ashton Graff-Rowe,University of Utah,Big 12 Conference,I,06/01/2026,06/01/2026,Active,2025-26,Baseball,841,137748,3222930,Ashton Graff-Rowe,100.0,team+lastname,HIGH,SS,Jr,841
 2405317910,MADDUX,EL-HAKAM,Maddux El-Hakam,Howard Payne University,American Southwest Conference,III,06/01/2026,06/01/2026,Active,2025-26,Baseball,339,131570,3246488,Maddux El-Hakam,100.0,team+lastname,HIGH,INF,Fr,339
+2304853868,RYAN,LUNDARI,Ryan Lundari,Siena University,Metro Atlantic Athletic Conference,I,06/01/2026,06/01/2026,Active,2025-26,Baseball,702,136062,3225038,Ryan Lundari,100.0,team+lastname,HIGH,P,Fr,702
 2405312083,FINN,MIGNEREY,Finn Mignerey,St. Edward's University,Lone Star Conference,II,06/01/2026,06/01/2026,Active,2025-26,Baseball,738,104238,3097684,Finn Mignerey,100.0,team+lastname,HIGH,P,So,738
 2208641768,TREVOR,HUNTER,Trevor Hunter,University of South Alabama,Sun Belt Conference,I,06/01/2026,06/01/2026,Active,2025-26,Baseball,709,136140,3228435,Trevor Hunter,100.0,team+lastname,HIGH,P,Jr,709
 2401204122,OWEN,PAYNE,Owen Payne,Bellarmine University,Atlantic Sun Conference,I,06/01/2026,06/01/2026,Active,2025-26,Baseball,64,127804,3248404,Owen Payne,100.0,team+lastname,HIGH,P,Jr,64
@@ -3819,6 +3824,7 @@ ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfe
 2010933872,RYAN,KRUSE,Ryan Kruse,Valparaiso University,Missouri Valley Conference,I,05/19/2026,05/19/2026,Active,2025-26,Baseball,851,70528,2952996,Ryan Kruse,100.0,team+lastname,HIGH,P,Jr,851
 2201411246,FAVYAN,SUAREZ,Favyan Suarez,Barry University,Sunshine State Conference,II,05/19/2026,05/19/2026,Active,2025-26,Baseball,58,50939,2804502,Favyan Suarez,100.0,team+lastname,HIGH,P,,58
 2411454644,JAKE,MCGLYNN,Jake Mcglynn,Newberry College,South Atlantic Conference,II,05/19/2026,05/19/2026,Active,2025-26,Baseball,534,134274,3235520,Jake McGlynn,100.0,team+lastname,HIGH,P,Fr,534
+2012978698,JACK,GUNZY,Jack Gunzy,Siena University,Metro Atlantic Athletic Conference,I,05/18/2026,05/19/2026,Active,2025-26,Baseball,702,59358,2836399,JT Gunzy,77.8,team+lastname_diff_first+confirmed,HIGH,P,Sr,702
 2504567648,CHASE,MCINERNEY,Chase Mcinerney,Greensboro College,USA South Athletic Conference,III,05/19/2026,05/19/2026,Active,2025-26,Baseball,304,131117,3233140,Chase McInerney,100.0,team+lastname,HIGH,C,Fr,304
 2307968523,BRODRICK,BORNSTEIN,Brodrick Bornstein,Hawaii Pacific University,Pacific West Conference,II,05/14/2026,05/19/2026,Active,2025-26,Baseball,322,103359,3103937,Brodrick Bornstein,100.0,team+lastname,HIGH,P,So,322
 2004854130,JOHN,MCGOWAN,John Mcgowan,Trinity University (Texas),Southern Athletic Association,III,05/19/2026,05/19/2026,Active,2025-26,Baseball,798,119428,3116133,John McGowan,100.0,team+lastname,HIGH,P,So,798
@@ -3842,6 +3848,7 @@ ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfe
 2502519589,MICHAEL,WRIGHT,Michael Wright,University of Indianapolis,Great Lakes Valley Conference,II,05/18/2026,05/19/2026,Active,2025-26,Baseball,818,131796,3232669,Michael Wright,100.0,team+lastname,HIGH,P,Fr,818
 2310145528,JAIME,NERIS JR.,Jaime Neris Jr.,Goldey-Beacom College,Central Atlantic Collegiate Conference,II,05/18/2026,05/19/2026,Active,2025-26,Baseball,298,115251,3106698,Jaime Neris,100.0,human_override,HIGH,2B,So,298
 2105179979,MATTHEW,MURPHY,Matthew Murphy,Goldey-Beacom College,Central Atlantic Collegiate Conference,II,05/17/2026,05/19/2026,Active,2025-26,Baseball,298,52168,2828383,Matthew Murphy,100.0,team+lastname,HIGH,RF,Jr,298
+2010944239,RYAN,TAFFE,Ryan Taffe,Siena University,Metro Atlantic Athletic Conference,I,05/19/2026,05/19/2026,Active,2025-26,Baseball,702,53642,2824847,Ryan Taffe,100.0,team+lastname,HIGH,P,Jr,702
 2208650234,NOLAN,FEYEREISEN,Nolan Feyereisen,Point Park University,Mountain East Conference,II,05/18/2026,05/18/2026,Active,2025-26,Baseball,965,150935,,Nolan Feyereisen,100.0,human_override,HIGH,SS,So,965
 2210690922,THOMAS,RIZZUTO,Thomas Rizzuto,Adelphi University,Northeast 10 Conference,II,05/18/2026,05/18/2026,Active,2025-26,Baseball,4,124967,3096079,Tommy Rizzuto,92.0,team+lastname+confirmed,HIGH,RF,So,4
 2104139818,JACK,TACZY,Jack Taczy,University of Wisconsin-Whitewater,Wisconsin Intercollegiate Athletic Conference,III,05/18/2026,05/18/2026,Active,2025-26,Baseball,929,53634,2826388,Jack Taczy,100.0,team+lastname,HIGH,P,,929
