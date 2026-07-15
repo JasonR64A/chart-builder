@@ -214,11 +214,11 @@ def eggshell_tile():
     rng = np.random.default_rng(64)
     S = 320
     base = np.full((S, S, 3), (236, 231, 221), dtype='float32')
-    base += rng.normal(0, 5.5, (S, S, 1))                       # grain
-    n = 140                                                     # sparse paper flecks
+    base += rng.normal(0, 11, (S, S, 1))                        # grain (visible, not subtle)
+    n = 320                                                     # paper flecks
     ys, xs = rng.integers(0, S, n), rng.integers(0, S, n)
     for y, x in zip(ys, xs):
-        base[max(0, y-1):y+1, max(0, x-1):x+1] -= rng.uniform(8, 26)
+        base[max(0, y-1):y+2, max(0, x-1):x+2] -= rng.uniform(14, 40)
     return _b64png(Image.fromarray(base.clip(0, 255).astype('uint8'), 'RGB'))
 
 
@@ -262,8 +262,8 @@ def panel_png(stipple):
     if stipple:
         rng = np.random.default_rng(26)
         m = np.array(mask) > 0
-        # fine light stipple dots, denser toward the curved edge for a print feel
-        n_dots = 26000
+        # stipple dots, denser + brighter toward the curved edge for a print feel
+        n_dots = 42000
         ys = rng.integers(0, H, n_dots)
         xs = rng.integers(0, W, n_dots)
         keep = m[ys, xs]
@@ -271,12 +271,13 @@ def panel_png(stipple):
         edge_x = np.array([min((p[0] for p in poly if abs(p[1]-y) < 30*S), default=0) for y in range(0, H, 40*S)])
         for y, x in zip(ys, xs):
             e = edge_x[min(y // (40*S), len(edge_x)-1)]
-            fall = max(0.35, 1.0 - (x - e) / (240.0*S))     # brighter near the curve
-            a = int(rng.uniform(8, 26) * fall)
-            lum = int(rng.uniform(200, 255))
-            body[y, x, 0] = min(255, body[y, x, 0] + lum*a//255)
-            body[y, x, 1] = min(255, body[y, x, 1] + lum*a//255)
-            body[y, x, 2] = min(255, body[y, x, 2] + (lum+8)*a//255)
+            fall = max(0.30, 1.0 - (x - e) / (260.0*S))     # brighter near the curve
+            a = int(rng.uniform(22, 60) * fall)
+            lum = int(rng.uniform(190, 255))
+            r2 = 2 if rng.random() < 0.25 else 1            # a few chunkier dots
+            body[y:y+r2, x:x+r2, 0] = np.minimum(255, body[y:y+r2, x:x+r2, 0].astype(int) + lum*a//255)
+            body[y:y+r2, x:x+r2, 1] = np.minimum(255, body[y:y+r2, x:x+r2, 1].astype(int) + lum*a//255)
+            body[y:y+r2, x:x+r2, 2] = np.minimum(255, body[y:y+r2, x:x+r2, 2].astype(int) + (lum+8)*a//255)
     img.alpha_composite(Image.fromarray(body, 'RGBA'))
     edge = [(x, y) for x, y in poly[1:-1]]
     ImageDraw.Draw(img).line(edge, fill=(255, 255, 255, 36), width=2*S)
@@ -400,14 +401,15 @@ with st.expander('🧩 Collage layout — nudge / resize each player', expanded=
     for pid in show_pids:
         key = f'{team}:{pid}'
         cur = layout.get(key, {})
-        cc = st.columns([2, 2, 2, 2])
+        cc = st.columns([2, 2, 2, 2, 2])
         cc[0].markdown(f"**{_esc(names[pid])}**" + (' · hero' if pid == hero_pid else ''))
         dx = cc[1].slider('← left · right →', -30, 30, int(cur.get('dx', 0)), key=f'dx_{key}',
                           help='% of canvas width')
         dy = cc[2].slider('↓ lower · higher ↑', -250, 250, int(cur.get('dy', 0)), key=f'dy_{key}')
         sc = cc[3].slider('size %', 55, 145, int(cur.get('sc', 100)), key=f'sc_{key}')
-        if (dx, dy, sc) != (cur.get('dx', 0), cur.get('dy', 0), cur.get('sc', 100)):
-            layout[key] = {'dx': dx, 'dy': dy, 'sc': sc}
+        rot = cc[4].slider('↺ rotate ↻ (°)', -25, 25, int(cur.get('rot', 0)), key=f'rot_{key}')
+        if (dx, dy, sc, rot) != (cur.get('dx', 0), cur.get('dy', 0), cur.get('sc', 100), cur.get('rot', 0)):
+            layout[key] = {'dx': dx, 'dy': dy, 'sc': sc, 'rot': rot}
             layout_changed = True
 if layout_changed:
     save_layout(layout)
@@ -415,7 +417,8 @@ if layout_changed:
 
 def _adj(pid):
     d = layout.get(f'{team}:{pid}', {})
-    return int(d.get('dx', 0)), int(d.get('dy', 0)), int(d.get('sc', 100)) / 100.0
+    return (int(d.get('dx', 0)), int(d.get('dy', 0)), int(d.get('sc', 100)) / 100.0,
+            int(d.get('rot', 0)))
 
 def _strip_bg(im):
     """Best-effort background removal. rembg is intentionally NOT installed on Render
@@ -479,12 +482,12 @@ headliners = ''.join(
 
 def bar_row(label, sub, val_txt, width):
     subhtml = f' <span style="color:rgba(255,255,255,0.55);">· {sub}</span>' if sub else ''
-    return (f'<div><div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:5px;">'
-            f'<span style="font-size:12px;font-weight:800;letter-spacing:0.07em;text-transform:uppercase;'
-            f'color:rgba(255,255,255,0.82);white-space:nowrap;">{label}{subhtml}</span>'
-            f'<span style="font-size:25px;font-weight:900;letter-spacing:-0.02em;">{val_txt}</span></div>'
-            f'<div style="height:10px;border-radius:6px;background:rgba(0,0,0,0.24);overflow:hidden;">'
-            f'<div style="height:100%;width:{width:.0f}%;background:{PANEL_TXT};border-radius:6px;"></div></div></div>')
+    return (f'<div><div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px;">'
+            f'<span style="font-size:15px;font-weight:800;letter-spacing:0.07em;text-transform:uppercase;'
+            f'color:rgba(255,255,255,0.85);white-space:nowrap;">{label}{subhtml}</span>'
+            f'<span style="font-size:30px;font-weight:900;letter-spacing:-0.02em;">{val_txt}</span></div>'
+            f'<div style="height:12px;border-radius:7px;background:rgba(0,0,0,0.24);overflow:hidden;">'
+            f'<div style="height:100%;width:{width:.0f}%;background:{PANEL_TXT};border-radius:7px;"></div></div></div>')
 
 bars = (bar_row('% of Portal IP Added', '', f'{pct_ip:.1f}%', bar(sums['ip'], 'ip'))
         + bar_row('K Added', 'Pitching', f'+{sums["k"]:.0f}', bar(sums['k'], 'k'))
@@ -520,15 +523,16 @@ def player_div(pid, wrap, ring, radius):
              else SILHOUETTE.format(uid=pid))
     return f'<div style="{wrap}">{inner}</div>'
 
-hdx, hdy, hsc = _adj(hero_pid)
-hero_wrap = (f'position:absolute;bottom:{hdy}px;left:{43+hdx}%;transform:translateX(-50%);'
+hdx, hdy, hsc, hrot = _adj(hero_pid)
+hero_wrap = (f'position:absolute;bottom:{hdy}px;left:{43+hdx}%;'
+             f'transform:translateX(-50%) rotate({hrot}deg);transform-origin:bottom center;'
              f'height:{int(1000*hsc)}px;z-index:40;display:flex;align-items:flex-end;justify-content:center;')
 collage = player_div(hero_pid, hero_wrap, team_color, hero_r)
 for i, pid in enumerate(supp_pids):
     left, bottom, h, z, rot = SUPP_SLOTS[i % len(SUPP_SLOTS)]
-    dx, dy, sc = _adj(pid)
+    dx, dy, sc, drot = _adj(pid)
     wrap = (f'position:absolute;bottom:{bottom+dy}px;left:{left+dx}%;'
-            f'transform:translateX(-50%) rotate({rot}deg);transform-origin:bottom center;'
+            f'transform:translateX(-50%) rotate({rot+drot}deg);transform-origin:bottom center;'
             f'height:{int(h*sc)}px;z-index:{z};display:flex;align-items:flex-end;justify-content:center;')
     collage += player_div(pid, wrap, INK, supp_r)
 
@@ -557,8 +561,8 @@ panel = f'''
 <div style="position:absolute;top:0;right:0;width:620px;height:1350px;z-index:4;color:{PANEL_TXT};padding:196px 52px 30px 312px;display:flex;flex-direction:column;gap:14px;">
   <div>
     <div style="font-size:15px;font-weight:800;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.86);">2026 Class Ranking</div>
-    <div style="display:flex;align-items:baseline;gap:10px;margin-top:2px;margin-left:-112px;">
-      <span style="font-size:110px;font-weight:900;line-height:0.82;letter-spacing:-0.04em;">#{_esc(rank_txt)}</span>
+    <div style="display:flex;align-items:baseline;gap:10px;margin-top:2px;margin-left:-64px;">
+      <span style="font-size:110px;font-weight:900;line-height:0.82;letter-spacing:-0.04em;text-shadow:0 4px 18px rgba(0,0,0,0.85),0 0 3px rgba(0,0,0,0.6);-webkit-text-stroke:1.5px rgba(0,0,0,0.35);">#{_esc(rank_txt)}</span>
       <span style="font-size:17px;font-weight:700;color:rgba(255,255,255,0.82);padding-bottom:12px;">NATIONAL<br/>(64A Portal)</span>
     </div>
   </div>
@@ -569,8 +573,8 @@ panel = f'''
   </div>
   <div style="height:1px;background:rgba(255,255,255,0.2);"></div>
   <div>
-    <div style="font-size:16px;font-weight:800;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.72);margin-bottom:12px;">Portal Value Added</div>
-    <div style="display:flex;gap:16px;margin-left:-40px;">
+    <div style="font-size:16px;font-weight:800;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.72);margin-bottom:12px;margin-left:-110px;">Portal Value Added</div>
+    <div style="display:flex;gap:16px;margin-left:-110px;">
       <div style="flex:1;background:rgba(0,0,0,0.22);border-radius:12px;padding:20px 22px;">
         <div style="font-size:58px;font-weight:900;line-height:1;letter-spacing:-0.03em;">+{sums['ip']:.0f}</div>
         <div style="font-size:14px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.78);margin-top:8px;">Innings · Pitching</div>
@@ -581,7 +585,7 @@ panel = f'''
       </div>
     </div>
   </div>
-  <div style="display:flex;flex-direction:column;gap:12px;">{bars}</div>
+  <div style="display:flex;flex-direction:column;gap:12px;margin-left:-110px;">{bars}</div>
   <div style="margin-top:auto;">
     <div style="font-size:15px;font-weight:800;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.72);margin-bottom:6px;margin-left:-150px;">Where They're Coming From</div>
     <div style="width:472px;height:400px;position:relative;margin-left:-216px;">
