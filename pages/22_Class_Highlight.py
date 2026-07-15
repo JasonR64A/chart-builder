@@ -558,20 +558,7 @@ headliners = (
     f'white-space:nowrap;text-shadow:0 2px 8px rgba(0,0,0,0.5);">{_esc(hl_name)}</span></div>'
     f'<div style="display:flex;gap:26px;margin-top:10px;justify-content:center;">{stat_chips}</div>')
 
-def bar_row(label, sub, val_txt, width):
-    subhtml = f' <span style="color:rgba(255,255,255,0.55);">· {sub}</span>' if sub else ''
-    return (f'<div><div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px;">'
-            f'<span style="font-size:15px;font-weight:800;letter-spacing:0.07em;text-transform:uppercase;'
-            f'color:rgba(255,255,255,0.85);white-space:nowrap;">{label}{subhtml}</span>'
-            f'<span style="font-size:30px;font-weight:900;letter-spacing:-0.02em;">{val_txt}</span></div>'
-            f'<div style="height:12px;border-radius:7px;background:rgba(0,0,0,0.24);overflow:hidden;">'
-            f'<div style="height:100%;width:{width:.0f}%;background:{PANEL_TXT};border-radius:7px;"></div></div></div>')
-
-# bar width = where this class sits vs the nation's best class (full bar = #1 overall)
-bars = (bar_row('IP Added', 'Pitching', f'{sums["ip"]:.0f}', bar(sums['ip'], 'ip'))
-        + bar_row('K Added', 'Pitching', f'+{sums["k"]:.0f}', bar(sums['k'], 'k'))
-        + bar_row('PA Added', 'Hitting', f'{sums["pa"]:.0f}', bar(sums['pa'], 'pa'))
-        + bar_row('XBH Added', 'Hitting', f'+{sums["xbh"]:.0f}', bar(sums['xbh'], 'xbh')))
+# (count bars removed per user 2026-07-15 — relative-to-best scale read as absolute)
 
 # map dots: every commit's hometown state (fallback: origin school's state)
 dots = []
@@ -665,7 +652,6 @@ panel = f'''
       </div>
     </div>
   </div>
-  <div style="display:flex;flex-direction:column;gap:12px;margin-left:-110px;">{bars}</div>
   <div style="margin-top:auto;margin-bottom:8px;">
     <div style="width:460px;height:340px;position:relative;margin-left:-210px;">
       <!-- title lives INSIDE the map box (absolute) so it centers on the map
