@@ -629,7 +629,7 @@ emblem = data_url(EMBLEM)
 # map pinned to the panel's wide bottom: pulled left into the curve, ~2.5x the old area
 panel = f'''
 <img src="{panel_png(stipple)}" alt="" style="position:absolute;top:0;right:0;width:620px;height:1350px;z-index:3;"/>
-<div style="position:absolute;top:0;right:0;width:620px;height:1350px;z-index:4;color:{PANEL_TXT};padding:196px 52px 30px 312px;display:flex;flex-direction:column;gap:14px;">
+<div style="position:absolute;top:0;right:0;width:620px;height:1350px;z-index:4;color:{PANEL_TXT};padding:196px 52px 30px 312px;display:flex;flex-direction:column;gap:12px;">
   <div>
     <div style="font-size:15px;font-weight:800;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.86);">2026 Class Ranking</div>
     <div style="display:flex;align-items:baseline;gap:10px;margin-top:2px;margin-left:-64px;">
@@ -638,7 +638,7 @@ panel = f'''
     </div>
   </div>
   <div style="height:1px;background:rgba(255,255,255,0.2);"></div>
-  <div>
+  <div style="margin-left:-88px;">
     <div style="font-size:15px;font-weight:800;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.72);margin-bottom:10px;">Headliner</div>
     {headliners}
   </div>
@@ -657,9 +657,9 @@ panel = f'''
     </div>
   </div>
   <div style="display:flex;flex-direction:column;gap:12px;margin-left:-110px;">{bars}</div>
-  <div style="margin-top:auto;margin-bottom:26px;">
-    <div style="font-size:15px;font-weight:800;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.72);margin-bottom:6px;margin-left:-150px;">Where They're Coming From</div>
-    <div style="width:472px;height:400px;position:relative;margin-left:-216px;">
+  <div style="margin-top:auto;margin-bottom:8px;">
+    <div style="font-size:15px;font-weight:800;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.72);margin-bottom:4px;margin-left:-150px;">Where They're Coming From</div>
+    <div style="width:460px;height:340px;position:relative;margin-left:-210px;">
       <img src="{emblem}" alt="" style="position:absolute;left:50%;top:50%;width:150px;height:150px;transform:translate(-50%,-50%);opacity:0.20;"/>
       <us-commit-map players="{map_players}" accent="#ffffff" land="rgba(255,255,255,0.14)" border="rgba(255,255,255,0.38)" style="position:absolute;inset:0;"></us-commit-map>
     </div>
@@ -667,8 +667,8 @@ panel = f'''
 </div>'''
 
 team_logo = data_url(LOGO_DIR / f"{_logo_id_resolver().get(norm(team), norm(team))}.png")
-team_logo_html = (f'<img src="{team_logo}" alt="" style="position:absolute;top:40px;right:48px;'
-                  f'width:84px;height:84px;object-fit:contain;z-index:6;"/>') if team_logo else ''
+team_logo_html = (f'<img src="{team_logo}" alt="" style="position:absolute;top:34px;right:64px;'
+                  f'width:126px;height:126px;object-fit:contain;z-index:6;"/>') if team_logo else ''
 header = f'''
 {team_logo_html}
 <div style="position:absolute;top:0;left:0;right:0;z-index:6;display:flex;align-items:center;gap:22px;padding:40px 48px 0 48px;">
