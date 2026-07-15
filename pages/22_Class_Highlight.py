@@ -545,11 +545,13 @@ stat_chips = ''.join(
 # name auto-fills to the panel's effective right edge: size from name length
 # (Inter 900 ~0.5em/char), clamped so short names pop and long names still fit
 hl_name = names[hl]
-hl_fs = max(26, min(56, int(255 / (0.5 * max(len(hl_name), 1)))))
+hl_fs = max(26, min(56, int(235 / (0.5 * max(len(hl_name), 1)))))   # budget shrunk for the bigger pos chip
 headliners = (
     f'<div style="display:flex;align-items:baseline;gap:10px;margin-left:14px;">'
-    f'<span style="font-size:14px;font-weight:800;background:rgba(255,255,255,0.16);'
-    f'border-radius:4px;padding:3px 8px;">{_esc(ppos.get(hl, "") or "ATH")}</span>'
+    # position chip scales with the auto-sized name so the pair reads as one unit
+    f'<span style="font-size:{max(16, int(hl_fs * 0.45))}px;font-weight:800;'
+    f'background:rgba(255,255,255,0.16);border-radius:6px;padding:4px 10px;">'
+    f'{_esc(ppos.get(hl, "") or "ATH")}</span>'
     f'<span style="font-size:{hl_fs}px;font-weight:900;color:#e94f60;letter-spacing:-0.01em;'
     f'white-space:nowrap;text-shadow:0 2px 8px rgba(0,0,0,0.5);">{_esc(hl_name)}</span></div>'
     # stat chips centered on the same axis as the Portal Value Added label below
@@ -645,7 +647,7 @@ panel = f'''
   </div>
   <div style="height:1px;background:rgba(255,255,255,0.2);"></div>
   <div style="margin-left:-64px;">
-    <div style="font-size:15px;font-weight:800;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.72);margin-bottom:10px;">Headliner</div>
+    <div style="font-size:15px;font-weight:800;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.72);margin-bottom:10px;margin-left:8px;">Headliner</div>
     {headliners}
   </div>
   <div style="height:1px;background:rgba(255,255,255,0.2);"></div>
@@ -664,8 +666,10 @@ panel = f'''
   </div>
   <div style="display:flex;flex-direction:column;gap:12px;margin-left:-110px;">{bars}</div>
   <div style="margin-top:auto;margin-bottom:8px;">
-    <div style="font-size:15px;font-weight:800;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.72);margin-bottom:4px;margin-left:-150px;">Where They're Coming From</div>
     <div style="width:460px;height:340px;position:relative;margin-left:-210px;">
+      <!-- title lives INSIDE the map box (absolute) so it centers on the map
+           and can move without shifting the map itself -->
+      <div style="position:absolute;top:14px;left:0;right:0;text-align:center;z-index:2;font-size:15px;font-weight:800;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.72);">Where They're Coming From</div>
       <img src="{emblem}" alt="" style="position:absolute;left:50%;top:50%;width:150px;height:150px;transform:translate(-50%,-50%);opacity:0.20;"/>
       <us-commit-map players="{map_players}" accent="#ffffff" land="rgba(255,255,255,0.14)" border="rgba(255,255,255,0.38)" style="position:absolute;inset:0;"></us-commit-map>
     </div>
