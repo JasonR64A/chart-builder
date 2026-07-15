@@ -25,7 +25,7 @@ import numpy as np
 import pandas as pd
 import streamlit as st
 import streamlit.components.v1 as components
-from PIL import Image, ImageFilter
+from PIL import Image, ImageDraw, ImageFilter
 
 APP_DIR = Path(__file__).resolve().parent.parent
 DATA = APP_DIR / 'data'
@@ -35,6 +35,7 @@ EMBLEM = APP_DIR / 'assets' / 'portal-entrant' / '64-emblem.png'
 MAP_JS = APP_DIR / 'assets' / 'class-highlight' / 'commit-map.js'
 HEADSHOTS = DATA / 'class_highlight_headshots'
 COLOR_JSON = DATA / 'class_highlight_colors.json'
+LAYOUT_JSON = DATA / 'class_highlight_layout.json'
 HEADSHOTS.mkdir(parents=True, exist_ok=True)
 
 st.set_page_config(page_title='Class Highlight', layout='wide')
@@ -69,7 +70,7 @@ STATE_CENTROID = {
 # — max 5 players total (hero + 4 supporting), per user 2026-07-14
 SUPP_SLOTS = [
     (17, 560, 560, 20, -5), (55, 585, 545, 18, 6), (25, 220, 660, 26, -2),
-    (57, 250, 600, 15, 4),
+    (41, 720, 470, 10, 0),
 ]
 
 SILHOUETTE = ('<svg viewBox="0 0 240 480" style="height:100%;width:auto;display:block;" '
@@ -200,13 +201,100 @@ def sticker(pid, ring_hex, radius, boost):
     return 'data:image/png;base64,' + base64.b64encode(buf.getvalue()).decode()
 
 
-@st.cache_data(show_spinner=False)
-def grain_tile():
-    rng = np.random.default_rng(64)
-    t = rng.integers(0, 255, (160, 160), dtype='uint8')
+def _b64png(im):
     buf = BytesIO()
-    Image.fromarray(t, 'L').save(buf, 'PNG')
+    im.save(buf, 'PNG')
     return 'data:image/png;base64,' + base64.b64encode(buf.getvalue()).decode()
+
+
+@st.cache_data(show_spinner=False)
+def eggshell_tile():
+    """Paper texture BAKED into the canvas color (no blend modes — html2canvas
+    ignores mix-blend-mode, which is why the old grain overlay exported wrong)."""
+    rng = np.random.default_rng(64)
+    S = 320
+    base = np.full((S, S, 3), (236, 231, 221), dtype='float32')
+    base += rng.normal(0, 5.5, (S, S, 1))                       # grain
+    n = 140                                                     # sparse paper flecks
+    ys, xs = rng.integers(0, S, n), rng.integers(0, S, n)
+    for y, x in zip(ys, xs):
+        base[max(0, y-1):y+1, max(0, x-1):x+1] -= rng.uniform(8, 26)
+    return _b64png(Image.fromarray(base.clip(0, 255).astype('uint8'), 'RGB'))
+
+
+def _panel_pts(scale=1.0):
+    """Sample the quarter-oval outline (two cubic beziers from the design)."""
+    def cubic(p0, p1, p2, p3, n=90):
+        return [((1-t)**3*p0[0] + 3*(1-t)**2*t*p1[0] + 3*(1-t)*t*t*p2[0] + t**3*p3[0],
+                 (1-t)**3*p0[1] + 3*(1-t)**2*t*p1[1] + 3*(1-t)*t*t*p2[1] + t**3*p3[1])
+                for t in (i/n for i in range(1, n+1))]
+    pts = [(620, 0), (360, 0)]
+    pts += cubic((360, 0), (232, 360), (150, 620), (96, 1000))
+    pts += cubic((96, 1000), (74, 1150), (66, 1260), (62, 1350))
+    pts += [(620, 1350)]
+    return [(x*scale, y*scale) for x, y in pts]
+
+
+@st.cache_data(show_spinner=False)
+def panel_png(stipple):
+    """The charcoal quarter-oval, rendered server-side as a PNG: soft left shadow,
+    optional stipple texture, hairline curve highlight. Replaces the design's
+    preserveAspectRatio="none" SVG + CSS drop-shadow, both of which html2canvas
+    mangles — an <img> exports 1:1."""
+    S = 2
+    W, H = 620*S, 1350*S
+    poly = _panel_pts(S)
+    mask = Image.new('L', (W, H), 0)
+    ImageDraw.Draw(mask).polygon(poly, fill=255)
+
+    img = Image.new('RGBA', (W, H), (0, 0, 0, 0))
+    # shadow: the panel silhouette nudged left and blurred
+    sh = Image.new('L', (W, H), 0)
+    sh.paste(mask, (-14*S, 0))
+    sh = sh.filter(ImageFilter.GaussianBlur(13*S))
+    shadow = Image.new('RGBA', (W, H), (0, 0, 0, 0))
+    shadow.putalpha(sh.point(lambda v: int(v * 0.30)))
+    img.alpha_composite(shadow)
+
+    body = np.zeros((H, W, 4), dtype='uint8')
+    body[:, :, 0], body[:, :, 1], body[:, :, 2] = 38, 38, 43
+    body[:, :, 3] = np.array(mask)
+    if stipple:
+        rng = np.random.default_rng(26)
+        m = np.array(mask) > 0
+        # fine light stipple dots, denser toward the curved edge for a print feel
+        n_dots = 26000
+        ys = rng.integers(0, H, n_dots)
+        xs = rng.integers(0, W, n_dots)
+        keep = m[ys, xs]
+        ys, xs = ys[keep], xs[keep]
+        edge_x = np.array([min((p[0] for p in poly if abs(p[1]-y) < 30*S), default=0) for y in range(0, H, 40*S)])
+        for y, x in zip(ys, xs):
+            e = edge_x[min(y // (40*S), len(edge_x)-1)]
+            fall = max(0.35, 1.0 - (x - e) / (240.0*S))     # brighter near the curve
+            a = int(rng.uniform(8, 26) * fall)
+            lum = int(rng.uniform(200, 255))
+            body[y, x, 0] = min(255, body[y, x, 0] + lum*a//255)
+            body[y, x, 1] = min(255, body[y, x, 1] + lum*a//255)
+            body[y, x, 2] = min(255, body[y, x, 2] + (lum+8)*a//255)
+    img.alpha_composite(Image.fromarray(body, 'RGBA'))
+    edge = [(x, y) for x, y in poly[1:-1]]
+    ImageDraw.Draw(img).line(edge, fill=(255, 255, 255, 36), width=2*S)
+    return _b64png(img.resize((620, 1350), Image.LANCZOS))
+
+
+def load_layout():
+    try:
+        return json.loads(LAYOUT_JSON.read_text()) if LAYOUT_JSON.exists() else {}
+    except Exception:
+        return {}
+
+
+def save_layout(d):
+    try:
+        LAYOUT_JSON.write_text(json.dumps(d))
+    except Exception:
+        pass
 
 
 # ---------------- data ----------------
@@ -289,11 +377,12 @@ if (colors.get(team) or logo_primary(team)).lower() != team_color.lower():
     colors[team] = team_color
     save_colors(colors)
 
-o1, o2, o3, o4 = st.columns(4)
+o1, o2, o3, o4, o5 = st.columns(5)
 accents_team = o1.toggle('Accents in team color', value=False)
-texture = o2.toggle('Paper texture', value=True)
-hero_r = o3.slider('Hero outline', 0, 16, 7)
-supp_r = o4.slider('Supporting outline', 0, 14, 5)
+texture = o2.toggle('Paper grain', value=True)
+stipple = o3.toggle('Panel stipple', value=True)
+hero_r = o4.slider('Hero outline', 0, 16, 7)
+supp_r = o5.slider('Supporting outline', 0, 14, 5)
 
 cls = commits[commits['ntid'] == team].copy().sort_values('rk')
 cls_pids = list(cls['pid'])
@@ -303,6 +392,30 @@ show_pids = list(show['pid'])
 names = {p: (pname.get(p) or cls[cls['pid'] == p].iloc[0]['name']) for p in cls_pids}
 hero_pid = st.selectbox('Hero (front & center)', show_pids,
                         format_func=lambda p: names.get(p, p))
+
+layout = load_layout()
+layout_changed = False
+with st.expander('🧩 Collage layout — nudge / resize each player', expanded=False):
+    st.caption('Offsets from each player’s default spot. Saved per team, so they stick.')
+    for pid in show_pids:
+        key = f'{team}:{pid}'
+        cur = layout.get(key, {})
+        cc = st.columns([2, 2, 2, 2])
+        cc[0].markdown(f"**{_esc(names[pid])}**" + (' · hero' if pid == hero_pid else ''))
+        dx = cc[1].slider('← left · right →', -30, 30, int(cur.get('dx', 0)), key=f'dx_{key}',
+                          help='% of canvas width')
+        dy = cc[2].slider('↓ lower · higher ↑', -250, 250, int(cur.get('dy', 0)), key=f'dy_{key}')
+        sc = cc[3].slider('size %', 55, 145, int(cur.get('sc', 100)), key=f'sc_{key}')
+        if (dx, dy, sc) != (cur.get('dx', 0), cur.get('dy', 0), cur.get('sc', 100)):
+            layout[key] = {'dx': dx, 'dy': dy, 'sc': sc}
+            layout_changed = True
+if layout_changed:
+    save_layout(layout)
+
+
+def _adj(pid):
+    d = layout.get(f'{team}:{pid}', {})
+    return int(d.get('dx', 0)), int(d.get('dy', 0)), int(d.get('sc', 100)) / 100.0
 
 def _strip_bg(im):
     """Best-effort background removal. rembg is intentionally NOT installed on Render
@@ -407,14 +520,16 @@ def player_div(pid, wrap, ring, radius):
              else SILHOUETTE.format(uid=pid))
     return f'<div style="{wrap}">{inner}</div>'
 
-hero_wrap = ('position:absolute;bottom:0;left:43%;transform:translateX(-50%);height:1000px;'
-             'z-index:40;display:flex;align-items:flex-end;justify-content:center;')
+hdx, hdy, hsc = _adj(hero_pid)
+hero_wrap = (f'position:absolute;bottom:{hdy}px;left:{43+hdx}%;transform:translateX(-50%);'
+             f'height:{int(1000*hsc)}px;z-index:40;display:flex;align-items:flex-end;justify-content:center;')
 collage = player_div(hero_pid, hero_wrap, team_color, hero_r)
 for i, pid in enumerate(supp_pids):
     left, bottom, h, z, rot = SUPP_SLOTS[i % len(SUPP_SLOTS)]
-    wrap = (f'position:absolute;bottom:{bottom}px;left:{left}%;'
+    dx, dy, sc = _adj(pid)
+    wrap = (f'position:absolute;bottom:{bottom+dy}px;left:{left+dx}%;'
             f'transform:translateX(-50%) rotate({rot}deg);transform-origin:bottom center;'
-            f'height:{h}px;z-index:{z};display:flex;align-items:flex-end;justify-content:center;')
+            f'height:{int(h*sc)}px;z-index:{z};display:flex;align-items:flex-end;justify-content:center;')
     collage += player_div(pid, wrap, INK, supp_r)
 
 accents_svg = f'''<svg viewBox="0 0 1080 1350" width="1080" height="1350" style="position:absolute;inset:0;pointer-events:none;z-index:1;">
@@ -435,16 +550,11 @@ accents_svg = f'''<svg viewBox="0 0 1080 1350" width="1080" height="1350" style=
 
 rank_txt = class_rank.get(team, '—')
 emblem = data_url(EMBLEM)
-grain = (f'<div style="position:absolute;inset:0;z-index:7;pointer-events:none;opacity:0.06;'
-         f'mix-blend-mode:multiply;background-image:url({grain_tile()});"></div>') if texture else ''
 
+# map pinned to the panel's wide bottom: pulled left into the curve, ~2.5x the old area
 panel = f'''
-<svg viewBox="0 0 620 1350" width="620" height="1350" preserveAspectRatio="none" style="position:absolute;top:0;right:0;z-index:3;">
-  <path d="M614,0 L354,0 C226,360 144,620 90,1000 C68,1150 60,1260 56,1350 L614,1350 Z" fill="rgba(0,0,0,0.30)"/>
-  <path d="M620,0 L360,0 C232,360 150,620 96,1000 C74,1150 66,1260 62,1350 L620,1350 Z" fill="#26262b"/>
-  <path d="M620,0 L360,0 C232,360 150,620 96,1000 C74,1150 66,1260 62,1350" fill="none" stroke="rgba(255,255,255,0.14)" stroke-width="2"/>
-</svg>
-<div style="position:absolute;top:0;right:0;width:620px;height:1350px;z-index:4;color:{PANEL_TXT};padding:200px 52px 34px 312px;display:flex;flex-direction:column;gap:18px;">
+<img src="{panel_png(stipple)}" alt="" style="position:absolute;top:0;right:0;width:620px;height:1350px;z-index:3;"/>
+<div style="position:absolute;top:0;right:0;width:620px;height:1350px;z-index:4;color:{PANEL_TXT};padding:196px 52px 30px 312px;display:flex;flex-direction:column;gap:14px;">
   <div>
     <div style="font-size:15px;font-weight:800;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.86);">2026 Class Ranking</div>
     <div style="display:flex;align-items:baseline;gap:10px;margin-top:2px;margin-left:-112px;">
@@ -459,23 +569,23 @@ panel = f'''
   </div>
   <div style="height:1px;background:rgba(255,255,255,0.2);"></div>
   <div>
-    <div style="font-size:15px;font-weight:800;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.72);margin-bottom:10px;">Portal Value Added</div>
-    <div style="display:flex;gap:14px;">
-      <div style="flex:1;background:rgba(0,0,0,0.16);border-radius:10px;padding:14px 16px;">
-        <div style="font-size:44px;font-weight:900;line-height:1;letter-spacing:-0.03em;">+{sums['ip']:.0f}</div>
-        <div style="font-size:13px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.78);margin-top:6px;">Innings · Pitching</div>
+    <div style="font-size:16px;font-weight:800;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.72);margin-bottom:12px;">Portal Value Added</div>
+    <div style="display:flex;gap:16px;margin-left:-40px;">
+      <div style="flex:1;background:rgba(0,0,0,0.22);border-radius:12px;padding:20px 22px;">
+        <div style="font-size:58px;font-weight:900;line-height:1;letter-spacing:-0.03em;">+{sums['ip']:.0f}</div>
+        <div style="font-size:14px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.78);margin-top:8px;">Innings · Pitching</div>
       </div>
-      <div style="flex:1;background:rgba(0,0,0,0.16);border-radius:10px;padding:14px 16px;">
-        <div style="font-size:44px;font-weight:900;line-height:1;letter-spacing:-0.03em;">+{sums['h']:.0f}</div>
-        <div style="font-size:13px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.78);margin-top:6px;">Hits · Hitting</div>
+      <div style="flex:1;background:rgba(0,0,0,0.22);border-radius:12px;padding:20px 22px;">
+        <div style="font-size:58px;font-weight:900;line-height:1;letter-spacing:-0.03em;">+{sums['h']:.0f}</div>
+        <div style="font-size:14px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.78);margin-top:8px;">Hits · Hitting</div>
       </div>
     </div>
   </div>
-  <div style="display:flex;flex-direction:column;gap:13px;">{bars}</div>
-  <div style="margin-top:2px;">
-    <div style="font-size:15px;font-weight:800;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.72);margin-bottom:6px;">Where They're Coming From</div>
-    <div style="width:100%;height:250px;position:relative;">
-      <img src="{emblem}" alt="" style="position:absolute;left:50%;top:50%;width:96px;height:96px;transform:translate(-50%,-50%);opacity:0.20;"/>
+  <div style="display:flex;flex-direction:column;gap:12px;">{bars}</div>
+  <div style="margin-top:auto;">
+    <div style="font-size:15px;font-weight:800;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.72);margin-bottom:6px;margin-left:-150px;">Where They're Coming From</div>
+    <div style="width:472px;height:400px;position:relative;margin-left:-216px;">
+      <img src="{emblem}" alt="" style="position:absolute;left:50%;top:50%;width:150px;height:150px;transform:translate(-50%,-50%);opacity:0.20;"/>
       <us-commit-map players="{map_players}" accent="#ffffff" land="rgba(255,255,255,0.14)" border="rgba(255,255,255,0.38)" style="position:absolute;inset:0;"></us-commit-map>
     </div>
   </div>
@@ -492,12 +602,15 @@ header = f'''
 <div style="position:absolute;top:150px;left:48px;z-index:6;display:flex;align-items:center;gap:14px;">
   <div style="width:52px;height:6px;background:{team_color};"></div>
   <div style="font-size:22px;font-weight:800;letter-spacing:0.16em;text-transform:uppercase;color:{INK};">{_esc(tinfo[team]['name'])} <span style="color:#6b6b6b;font-weight:700;">· 2026 Transfer Class</span></div>
-</div>'''
+  <div style="font-size:14px;font-weight:800;letter-spacing:0.08em;color:#fff;background:{team_color};border-radius:5px;padding:4px 10px;">{len(cls_pids)} COMMITS</div>
+</div>
+<div style="position:absolute;left:48px;bottom:24px;z-index:6;font-size:15px;font-weight:700;letter-spacing:0.18em;color:#6b6b6b;">64ANALYTICS.COM</div>'''
 
-board = (f'<div id="capture" style="position:relative;width:1080px;height:1350px;background:#ece7dd;'
+bg_style = (f'background:#ece7dd url({eggshell_tile()}) repeat;' if texture else 'background:#ece7dd;')
+board = (f'<div id="capture" style="position:relative;width:1080px;height:1350px;{bg_style}'
          f"font-family:Inter,system-ui,sans-serif;overflow:hidden;color:{INK};\">"
          f'{accents_svg}<div style="position:absolute;inset:0;z-index:2;">{collage}</div>'
-         f'{panel}{header}{grain}</div>')
+         f'{panel}{header}</div>')
 
 W, H = 1080, 1350
 scale = round(660 / W, 4)
@@ -519,6 +632,31 @@ body{{margin:0;background:#0b0c0f;}}
 <div class="btnrow"><button onclick="window.dlPNG(this)">Download PNG</button></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script>
+// html2canvas mangles complex SVG (JS-built map, dashed accents, gradients), so we
+// rasterize every <svg> in the board to a same-size <img> right before capture and
+// restore afterward — the browser's own SVG renderer does the drawing, not html2canvas.
+async function freezeSVGs(root){{
+  var svgs = Array.prototype.slice.call(root.querySelectorAll('svg'));
+  var restores = [];
+  for (var i = 0; i < svgs.length; i++){{
+    var s = svgs[i];
+    var w = s.clientWidth || s.getBoundingClientRect().width;
+    var h = s.clientHeight || s.getBoundingClientRect().height;
+    if (!w || !h) continue;
+    var clone = s.cloneNode(true);
+    clone.setAttribute('width', w); clone.setAttribute('height', h);
+    var xml = new XMLSerializer().serializeToString(clone);
+    var img = document.createElement('img');
+    img.width = w; img.height = h;
+    img.style.cssText = s.getAttribute('style') || '';
+    await new Promise(function(res){{ img.onload = res; img.onerror = res;
+      img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(xml); }});
+    s.parentNode.insertBefore(img, s);
+    s.style.display = 'none';
+    restores.push([s, img]);
+  }}
+  return function(){{ restores.forEach(function(r){{ r[1].remove(); r[0].style.display = ''; }}); }};
+}}
 window.dlPNG = async function(btn){{
   var el = document.getElementById('capture'); if(!el) return;
   var inner = document.getElementById('stageinner'), wrap = document.getElementById('stagewrap');
@@ -526,12 +664,14 @@ window.dlPNG = async function(btn){{
   var t = btn.textContent; btn.disabled = true; btn.textContent = 'Rendering…';
   if(inner) inner.style.transform = 'none';
   if(wrap){{ wrap.style.width='{W}px'; wrap.style.height='{H}px'; wrap.style.overflow='visible'; }}
+  var thaw = null;
   try{{
     if(document.fonts){{ try{{ await document.fonts.load("900 110px 'Inter'"); await document.fonts.load("700 20px 'Inter'"); }}catch(e){{}} if(document.fonts.ready) await document.fonts.ready; }}
+    thaw = await freezeSVGs(el);
     var canvas = await html2canvas(el, {{scale:2, useCORS:true, backgroundColor:'#ece7dd'}});
     var a = document.createElement('a'); a.download='{fname}';
     a.href = canvas.toDataURL('image/png'); document.body.appendChild(a); a.click(); document.body.removeChild(a);
-  }} finally {{ if(inner) inner.style.transform=pT; if(wrap) wrap.style.cssText=pW; btn.disabled=false; btn.textContent = t || 'Download PNG'; }}
+  }} finally {{ if(thaw) thaw(); if(inner) inner.style.transform=pT; if(wrap) wrap.style.cssText=pW; btn.disabled=false; btn.textContent = t || 'Download PNG'; }}
 }};
 </script></body></html>"""
 
