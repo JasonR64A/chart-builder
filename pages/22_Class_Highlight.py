@@ -17,6 +17,7 @@ html2canvas-safe porting choices (lessons from Top10/Weekly Awards):
 """
 import base64
 import json
+import re
 from io import BytesIO
 from pathlib import Path
 from collections import Counter
@@ -595,34 +596,57 @@ def _home_state(home):
         return tok
     return _ST_TOKEN.get(tok, '')
 
-# map dots: every commit's hometown state (fallback: origin school's state)
+
+@st.cache_data(show_spinner=False)
+def _city_latlng():
+    """(city, ST) -> (lat, lng) from the Census Gazetteer (data/us_city_latlng.csv)."""
+    g = pd.read_csv(DATA / 'us_city_latlng.csv', dtype=str, keep_default_na=False)
+    return {(r['city'], r['st']): (float(r['lat']), float(r['lng'])) for _, r in g.iterrows()}
+
+
+def _home_latlng(home):
+    """Exact hometown coordinates; None when city/state can't be resolved."""
+    ab = _home_state(home)
+    if not ab or ',' not in home:
+        return None, ab
+    city = re.sub(r'\s+', ' ', re.sub(r'[^a-z ]', '', home.rsplit(',', 1)[0].lower())).strip()
+    hit = _city_latlng().get((city, ab))
+    if not hit:
+        # suburbs/townships not in the places file: try dropping a leading
+        # direction word ('North Augusta' stays, 'Mount X' stays — only exact)
+        hit = _city_latlng().get((city.replace('saint ', 'st '), ab))
+    return hit, ab
+
+# map dots: EXACT hometown city coordinates (Census Gazetteer); state centroid
+# only when the city can't be resolved; school's state as the last resort
 dots = []
 for _, r in cls.iterrows():
     home = phome.get(r['pid'], '')
-    ab = _home_state(home)
-    if ab not in STATE_CENTROID:
-        sid = norm(tinfo.get(r['tid'], {}).get('state_id', '')) if r['tid'] in tinfo else ''
-        try:
-            ab = STATES_ALPHA[int(sid) - 1] if sid else ''
-        except Exception:
-            ab = ''
-    if ab in STATE_CENTROID:
-        lat, lng = STATE_CENTROID[ab]
-        dots.append({'lat': lat, 'lng': lng, 'name': names[r['pid']], 'st': ab})
-# same-state commits all land on the state centroid and stack invisibly —
-# fan them out in a small deterministic ring so every commit shows
-by_state = Counter(d['st'] for d in dots)
-seen_n = Counter()
+    ll, ab = _home_latlng(home)
+    exact = ll is not None
+    if not exact:
+        if ab not in STATE_CENTROID:
+            sid = norm(tinfo.get(r['tid'], {}).get('state_id', '')) if r['tid'] in tinfo else ''
+            try:
+                ab = STATES_ALPHA[int(sid) - 1] if sid else ''
+            except Exception:
+                ab = ''
+        if ab in STATE_CENTROID:
+            ll = STATE_CENTROID[ab]
+    if ll:
+        dots.append({'lat': ll[0], 'lng': ll[1], 'name': names[r['pid']], 'x': exact})
+# only literal same-point stacks (same city, or two centroid fallbacks) get a
+# tiny nudge so both dots stay visible; exact locations are otherwise untouched
+seen_pt = Counter()
 for d in dots:
-    n = by_state[d['st']]
-    if n > 1:
-        i = seen_n[d['st']]
-        seen_n[d['st']] += 1
-        ang = 2 * np.pi * i / n
-        rad = 0.55 + 0.25 * (i % 2)          # degrees; two subtle rings for big groups
-        d['lat'] += rad * np.sin(ang)
-        d['lng'] += rad * np.cos(ang) * 1.25
-    d.pop('st')
+    key = (round(d['lat'], 3), round(d['lng'], 3))
+    i = seen_pt[key]
+    seen_pt[key] += 1
+    if i:
+        ang = 2 * np.pi * (i / 8)
+        d['lat'] += 0.14 * np.sin(ang)
+        d['lng'] += 0.14 * np.cos(ang)
+    d.pop('x')
 map_players = json.dumps(dots).replace('"', '&quot;')
 
 # ---------------- collage ----------------
