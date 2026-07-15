@@ -542,13 +542,19 @@ stat_chips = ''.join(
     f'color:rgba(255,255,255,0.6);">{k}</div>'
     f'<div style="font-size:24px;font-weight:900;letter-spacing:-0.02em;">{v}</div></div>'
     for k, v in hl_stats)
+# name auto-fills to the panel's effective right edge: size from name length
+# (Inter 900 ~0.5em/char), clamped so short names pop and long names still fit
+hl_name = names[hl]
+hl_fs = max(26, min(56, int(255 / (0.5 * max(len(hl_name), 1)))))
 headliners = (
-    f'<div style="display:flex;align-items:baseline;gap:10px;">'
+    f'<div style="display:flex;align-items:baseline;gap:10px;margin-left:14px;">'
     f'<span style="font-size:14px;font-weight:800;background:rgba(255,255,255,0.16);'
     f'border-radius:4px;padding:3px 8px;">{_esc(ppos.get(hl, "") or "ATH")}</span>'
-    f'<span style="font-size:34px;font-weight:900;color:#e94f60;letter-spacing:-0.01em;'
-    f'text-shadow:0 2px 8px rgba(0,0,0,0.5);">{_esc(names[hl])}</span></div>'
-    f'<div style="display:flex;gap:22px;margin-top:10px;">{stat_chips}</div>')
+    f'<span style="font-size:{hl_fs}px;font-weight:900;color:#e94f60;letter-spacing:-0.01em;'
+    f'white-space:nowrap;text-shadow:0 2px 8px rgba(0,0,0,0.5);">{_esc(hl_name)}</span></div>'
+    # stat chips centered on the same axis as the Portal Value Added label below
+    f'<div style="display:flex;gap:26px;margin-top:10px;margin-left:-46px;width:366px;'
+    f'justify-content:center;">{stat_chips}</div>')
 
 def bar_row(label, sub, val_txt, width):
     subhtml = f' <span style="color:rgba(255,255,255,0.55);">· {sub}</span>' if sub else ''
@@ -638,7 +644,7 @@ panel = f'''
     </div>
   </div>
   <div style="height:1px;background:rgba(255,255,255,0.2);"></div>
-  <div style="margin-left:-88px;">
+  <div style="margin-left:-64px;">
     <div style="font-size:15px;font-weight:800;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.72);margin-bottom:10px;">Headliner</div>
     {headliners}
   </div>
@@ -667,7 +673,7 @@ panel = f'''
 </div>'''
 
 team_logo = data_url(LOGO_DIR / f"{_logo_id_resolver().get(norm(team), norm(team))}.png")
-team_logo_html = (f'<img src="{team_logo}" alt="" style="position:absolute;top:34px;right:64px;'
+team_logo_html = (f'<img src="{team_logo}" alt="" style="position:absolute;top:34px;right:96px;'
                   f'width:126px;height:126px;object-fit:contain;z-index:6;"/>') if team_logo else ''
 header = f'''
 {team_logo_html}
