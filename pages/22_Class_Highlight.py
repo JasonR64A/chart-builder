@@ -573,13 +573,33 @@ bars = (bar_row('IP Added', 'Pitching', f'{sums["ip"]:.0f}', bar(sums['ip'], 'ip
         + bar_row('PA Added', 'Hitting', f'{sums["pa"]:.0f}', bar(sums['pa'], 'pa'))
         + bar_row('XBH Added', 'Hitting', f'+{sums["xbh"]:.0f}', bar(sums['xbh'], 'xbh')))
 
+# NCAA hometown style -> USPS ("Columbia, S.C." / "Starkville, Miss." / "Austin,
+# Texas"); naive [:2] misread Miss.->MI and Conn.->CO and dropped S.C. entirely
+_ST_TOKEN = {
+    'ALA': 'AL', 'ALASKA': 'AK', 'ARIZ': 'AZ', 'ARK': 'AR', 'CALIF': 'CA', 'COLO': 'CO',
+    'CONN': 'CT', 'DEL': 'DE', 'FLA': 'FL', 'GA': 'GA', 'HAWAII': 'HI', 'IDAHO': 'ID',
+    'ILL': 'IL', 'IND': 'IN', 'IOWA': 'IA', 'KAN': 'KS', 'KANS': 'KS', 'KY': 'KY',
+    'LA': 'LA', 'MAINE': 'ME', 'MD': 'MD', 'MASS': 'MA', 'MICH': 'MI', 'MINN': 'MN',
+    'MISS': 'MS', 'MO': 'MO', 'MONT': 'MT', 'NEB': 'NE', 'NEBR': 'NE', 'NEV': 'NV',
+    'NH': 'NH', 'NJ': 'NJ', 'NM': 'NM', 'NY': 'NY', 'NC': 'NC', 'ND': 'ND',
+    'OHIO': 'OH', 'OKLA': 'OK', 'ORE': 'OR', 'PA': 'PA', 'RI': 'RI', 'SC': 'SC',
+    'SD': 'SD', 'TENN': 'TN', 'TEXAS': 'TX', 'UTAH': 'UT', 'VT': 'VT', 'VA': 'VA',
+    'WASH': 'WA', 'WVA': 'WV', 'WV': 'WV', 'WIS': 'WI', 'WISC': 'WI', 'WYO': 'WY',
+    'DC': 'DC',
+}
+def _home_state(home):
+    if ',' not in home:
+        return ''
+    tok = home.rsplit(',', 1)[1].strip().upper().replace('.', '').replace(' ', '')
+    if tok in STATE_CENTROID:          # already USPS
+        return tok
+    return _ST_TOKEN.get(tok, '')
+
 # map dots: every commit's hometown state (fallback: origin school's state)
 dots = []
 for _, r in cls.iterrows():
-    ab = ''
     home = phome.get(r['pid'], '')
-    if ',' in home:
-        ab = home.rsplit(',', 1)[1].strip().upper()[:2]
+    ab = _home_state(home)
     if ab not in STATE_CENTROID:
         sid = norm(tinfo.get(r['tid'], {}).get('state_id', '')) if r['tid'] in tinfo else ''
         try:
