@@ -506,6 +506,7 @@ fname = f"class_highlight_{tinfo[team]['name'].lower().replace(' ', '_')}_26.png
 
 html = f"""<!DOCTYPE html><html><head><meta charset="UTF-8"/>
 <style>{font_face_css()}
+*{{box-sizing:border-box;}}
 body{{margin:0;background:#0b0c0f;}}
 #stagewrap{{width:{int(W*scale)}px;height:{int(H*scale)}px;overflow:hidden;}}
 #stageinner{{transform:scale({scale});transform-origin:top left;}}
