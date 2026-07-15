@@ -324,30 +324,78 @@ def load_world(sport):
                   if sport_of(norm(r['team_id'])) == sport}
 
     hit = pd.read_csv(DATA / 'hitting.csv', encoding='latin-1', low_memory=False,
-                      usecols=['player_id', 'year', 'at_bats', 'hits', 'doubles', 'triples', 'home_runs'])
+                      usecols=['player_id', 'year', 'plate_appearances', 'doubles', 'triples',
+                               'home_runs', 'on_base_plus_slugging', 'strikeout_to_walk_ratio',
+                               'weighted_runs_above_average'])
     hit = hit[hit['year'].astype(str).str.startswith('2026')]
     hstat = {}
     for _, r in hit.iterrows():
-        d = hstat.setdefault(norm(r['player_id']), dict(ab=0, h=0, xbh=0))
-        d['ab'] += float(r['at_bats'] or 0); d['h'] += float(r['hits'] or 0)
+        d = hstat.setdefault(norm(r['player_id']),
+                             dict(pa=0, xbh=0, _big=0, ops=None, kbb=None, wraa=None))
+        pa = float(r['plate_appearances'] or 0)
+        d['pa'] += pa
         d['xbh'] += float(r['doubles'] or 0) + float(r['triples'] or 0) + float(r['home_runs'] or 0)
+        if pa >= d['_big']:   # rate stats from the biggest-PA stint
+            d['_big'] = pa
+            d['ops'] = r['on_base_plus_slugging']; d['kbb'] = r['strikeout_to_walk_ratio']
+            d['wraa'] = r['weighted_runs_above_average']
     pit = pd.read_csv(DATA / 'pitching.csv', encoding='latin-1', low_memory=False,
-                      usecols=['player_id', 'year', 'innings_pitched', 'strikeouts'])
+                      usecols=['player_id', 'year', 'innings_pitched', 'strikeouts',
+                               'earned_run_average', 'strikeout_to_walk_ratio',
+                               'fielding_independent_pitching'])
     pit = pit[pit['year'].astype(str).str.startswith('2026')]
     pstat = {}
     for _, r in pit.iterrows():
-        d = pstat.setdefault(norm(r['player_id']), dict(ip=0.0, k=0))
-        d['ip'] += float(r['innings_pitched'] or 0); d['k'] += float(r['strikeouts'] or 0)
+        d = pstat.setdefault(norm(r['player_id']),
+                             dict(ip=0.0, k=0, _big=0, era=None, kbb=None, fip=None))
+        ip = float(r['innings_pitched'] or 0)
+        d['ip'] += ip; d['k'] += float(r['strikeouts'] or 0)
+        if ip >= d['_big']:
+            d['_big'] = ip
+            d['era'] = r['earned_run_average']; d['kbb'] = r['strikeout_to_walk_ratio']
+            d['fip'] = r['fielding_independent_pitching']
 
-    return prp, tinfo, pname, ppos, phome, class_rank, hstat, pstat
+    # raw 64A ratings + hitter/pitcher side from the ranked file (the values the
+    # team rankings are built from; TWP counts on both sides)
+    PITCH_POS = {'P', 'RHP', 'LHP', 'SP', 'RP'}
+    val = {}
+    rankedf = DATA / 'portal' / f'{sport.lower()}_ranked.csv'
+    if rankedf.exists():
+        rk = pd.read_csv(rankedf, dtype=str, keep_default_na=False,
+                         usecols=['player_id_64a', 'position', 'twp',
+                                  'sixty_four_rating_portal_player'])
+        for _, r in rk.iterrows():
+            pid = norm(r['player_id_64a'])
+            if not pid:
+                continue
+            try:
+                rating = float(r['sixty_four_rating_portal_player'])
+            except ValueError:
+                continue
+            twp = False
+            try:
+                twp = float(r['twp'] or 0) > 0
+            except ValueError:
+                pass
+            pos = (r['position'] or ppos.get(pid, '')).upper()
+            is_pit = twp or pos in PITCH_POS
+            is_hit = twp or pos not in PITCH_POS
+            val[pid] = (rating, is_hit, is_pit)
+
+    return prp, tinfo, pname, ppos, phome, class_rank, hstat, pstat, val
 
 
-def class_sums(pids, hstat, pstat):
-    s = dict(ip=0.0, k=0, ab=0, h=0, xbh=0)
+def class_sums(pids, hstat, pstat, val):
+    s = dict(ip=0.0, k=0, pa=0, xbh=0, hit_val=0.0, pit_val=0.0)
     for pid in pids:
         p = pstat.get(pid); h = hstat.get(pid)
         if p: s['ip'] += p['ip']; s['k'] += p['k']
-        if h: s['ab'] += h['ab']; s['h'] += h['h']; s['xbh'] += h['xbh']
+        if h: s['pa'] += h['pa']; s['xbh'] += h['xbh']
+        v = val.get(pid)
+        if v:
+            rating, is_hit, is_pit = v
+            if is_hit: s['hit_val'] += rating
+            if is_pit: s['pit_val'] += rating
     return s
 
 
@@ -358,7 +406,7 @@ st.caption('One team’s 2026 transfer class — collage + superlatives panel (f
 
 c1, c2, c3 = st.columns([1, 2, 1])
 sport = c1.selectbox('Sport', ['Baseball', 'Softball'])
-prp, tinfo, pname, ppos, phome, class_rank, hstat, pstat = load_world(sport)
+prp, tinfo, pname, ppos, phome, class_rank, hstat, pstat, val = load_world(sport)
 
 DRAFTED_PRO = '2269'
 commits = prp[(prp['ntid'] != '') & (prp['ntid'] != DRAFTED_PRO)]
@@ -461,24 +509,46 @@ if not gen:
     st.stop()
 
 # ---------------- computed panel values ----------------
-sums = class_sums(cls_pids, hstat, pstat)
-team_sums = {t: class_sums(list(g['pid']), hstat, pstat) for t, g in by_team}
-mx = {k: max((s[k] for s in team_sums.values()), default=1) or 1 for k in ('ip', 'k', 'ab', 'xbh')}
-# share denominators = the COMMITTED portal pool (production that actually changed
-# hands via commitments) — vs the full 5,500-player pool every share rounds to 0.0%
-portal_ip = sum(s['ip'] for s in team_sums.values()) or 1
-portal_ab = sum(s['ab'] for s in team_sums.values()) or 1
-
-pct_ip = 100 * sums['ip'] / portal_ip
-pct_ab = 100 * sums['ab'] / portal_ab
+sums = class_sums(cls_pids, hstat, pstat, val)
+team_sums = {t: class_sums(list(g['pid']), hstat, pstat, val) for t, g in by_team}
+mx = {k: max((s[k] for s in team_sums.values()), default=1) or 1 for k in ('ip', 'k', 'pa', 'xbh')}
 bar = lambda v, k: min(100, 100 * v / mx[k])
+# national rank of THIS team's summed portal value, per side (1 = most value added)
+val_rank = lambda k: 1 + sum(1 for s in team_sums.values() if s[k] > sums[k])
+hit_rank, pit_rank = val_rank('hit_val'), val_rank('pit_val')
 
-headliners = ''.join(
-    f'<div style="display:flex;align-items:baseline;gap:9px;">'
-    f'<span style="font-size:13px;font-weight:800;background:rgba(255,255,255,0.16);'
-    f'border-radius:4px;padding:2px 6px;">{_esc(ppos.get(p, "") or "ATH")}</span>'
-    f'<span style="font-size:22px;font-weight:800;">{_esc(names[p])}</span></div>'
-    for p in cls_pids[:3])
+# single headliner: the class's best-rated commit, name in 64A red + 2026 stat line
+hl = cls_pids[0]
+hl_v = val.get(hl)
+hl_is_pitcher = bool(hl_v and hl_v[2] and not hl_v[1])
+hl_rk = prp[prp['pid'] == hl]['rk'].iloc[0] if (prp['pid'] == hl).any() else None
+def _f(v, nd=3):
+    try:
+        s = f'{float(v):.{nd}f}'
+        return s.lstrip('0') if nd == 3 and s.startswith('0.') else s
+    except (TypeError, ValueError):
+        return '—'
+if hl_is_pitcher:
+    hp = pstat.get(hl, {})
+    hl_stats = [('ERA', _f(hp.get('era'), 2)), ('K/BB', _f(hp.get('kbb'), 2)),
+                ('FIP', _f(hp.get('fip'), 2))]
+else:
+    hh = hstat.get(hl, {})
+    hl_stats = [('OPS', _f(hh.get('ops'))), ('K/BB', _f(hh.get('kbb'), 2)),
+                ('wRAA', _f(hh.get('wraa'), 1))]
+hl_stats.append(('PORTAL', f'#{int(hl_rk)}' if pd.notna(hl_rk) else '—'))
+stat_chips = ''.join(
+    f'<div style="text-align:left;"><div style="font-size:12px;font-weight:800;letter-spacing:0.1em;'
+    f'color:rgba(255,255,255,0.6);">{k}</div>'
+    f'<div style="font-size:24px;font-weight:900;letter-spacing:-0.02em;">{v}</div></div>'
+    for k, v in hl_stats)
+headliners = (
+    f'<div style="display:flex;align-items:baseline;gap:10px;">'
+    f'<span style="font-size:14px;font-weight:800;background:rgba(255,255,255,0.16);'
+    f'border-radius:4px;padding:3px 8px;">{_esc(ppos.get(hl, "") or "ATH")}</span>'
+    f'<span style="font-size:34px;font-weight:900;color:#e94f60;letter-spacing:-0.01em;'
+    f'text-shadow:0 2px 8px rgba(0,0,0,0.5);">{_esc(names[hl])}</span></div>'
+    f'<div style="display:flex;gap:22px;margin-top:10px;">{stat_chips}</div>')
 
 def bar_row(label, sub, val_txt, width):
     subhtml = f' <span style="color:rgba(255,255,255,0.55);">· {sub}</span>' if sub else ''
@@ -489,9 +559,10 @@ def bar_row(label, sub, val_txt, width):
             f'<div style="height:12px;border-radius:7px;background:rgba(0,0,0,0.24);overflow:hidden;">'
             f'<div style="height:100%;width:{width:.0f}%;background:{PANEL_TXT};border-radius:7px;"></div></div></div>')
 
-bars = (bar_row('% of Portal IP Added', '', f'{pct_ip:.1f}%', bar(sums['ip'], 'ip'))
+# bar width = where this class sits vs the nation's best class (full bar = #1 overall)
+bars = (bar_row('IP Added', 'Pitching', f'{sums["ip"]:.0f}', bar(sums['ip'], 'ip'))
         + bar_row('K Added', 'Pitching', f'+{sums["k"]:.0f}', bar(sums['k'], 'k'))
-        + bar_row('% of Portal AB Added', '', f'{pct_ab:.1f}%', bar(sums['ab'], 'ab'))
+        + bar_row('PA Added', 'Hitting', f'{sums["pa"]:.0f}', bar(sums['pa'], 'pa'))
         + bar_row('XBH Added', 'Hitting', f'+{sums["xbh"]:.0f}', bar(sums['xbh'], 'xbh')))
 
 # map dots: every commit's hometown state (fallback: origin school's state)
@@ -568,25 +639,25 @@ panel = f'''
   </div>
   <div style="height:1px;background:rgba(255,255,255,0.2);"></div>
   <div>
-    <div style="font-size:15px;font-weight:800;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.72);margin-bottom:10px;">Headliners</div>
-    <div style="display:flex;flex-direction:column;gap:9px;">{headliners}</div>
+    <div style="font-size:15px;font-weight:800;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.72);margin-bottom:10px;">Headliner</div>
+    {headliners}
   </div>
   <div style="height:1px;background:rgba(255,255,255,0.2);"></div>
   <div>
-    <div style="font-size:16px;font-weight:800;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.72);margin-bottom:12px;margin-left:-110px;">Portal Value Added</div>
+    <div style="font-size:16px;font-weight:800;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.72);margin-bottom:12px;margin-left:-110px;text-align:center;">Portal Value Added</div>
     <div style="display:flex;gap:16px;margin-left:-110px;">
-      <div style="flex:1;background:rgba(0,0,0,0.22);border-radius:12px;padding:20px 22px;">
-        <div style="font-size:58px;font-weight:900;line-height:1;letter-spacing:-0.03em;">+{sums['ip']:.0f}</div>
-        <div style="font-size:14px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.78);margin-top:8px;">Innings · Pitching</div>
+      <div style="flex:1;background:rgba(0,0,0,0.22);border-radius:12px;padding:20px 22px;text-align:center;">
+        <div style="font-size:58px;font-weight:900;line-height:1;letter-spacing:-0.03em;">#{pit_rank}</div>
+        <div style="font-size:14px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.78);margin-top:8px;">Portal Value · Pitching</div>
       </div>
-      <div style="flex:1;background:rgba(0,0,0,0.22);border-radius:12px;padding:20px 22px;">
-        <div style="font-size:58px;font-weight:900;line-height:1;letter-spacing:-0.03em;">+{sums['h']:.0f}</div>
-        <div style="font-size:14px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.78);margin-top:8px;">Hits · Hitting</div>
+      <div style="flex:1;background:rgba(0,0,0,0.22);border-radius:12px;padding:20px 22px;text-align:center;">
+        <div style="font-size:58px;font-weight:900;line-height:1;letter-spacing:-0.03em;">#{hit_rank}</div>
+        <div style="font-size:14px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.78);margin-top:8px;">Portal Value · Hitting</div>
       </div>
     </div>
   </div>
   <div style="display:flex;flex-direction:column;gap:12px;margin-left:-110px;">{bars}</div>
-  <div style="margin-top:auto;">
+  <div style="margin-top:auto;margin-bottom:26px;">
     <div style="font-size:15px;font-weight:800;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.72);margin-bottom:6px;margin-left:-150px;">Where They're Coming From</div>
     <div style="width:472px;height:400px;position:relative;margin-left:-216px;">
       <img src="{emblem}" alt="" style="position:absolute;left:50%;top:50%;width:150px;height:150px;transform:translate(-50%,-50%);opacity:0.20;"/>
@@ -595,7 +666,11 @@ panel = f'''
   </div>
 </div>'''
 
+team_logo = data_url(LOGO_DIR / f"{_logo_id_resolver().get(norm(team), norm(team))}.png")
+team_logo_html = (f'<img src="{team_logo}" alt="" style="position:absolute;top:40px;right:48px;'
+                  f'width:84px;height:84px;object-fit:contain;z-index:6;"/>') if team_logo else ''
 header = f'''
+{team_logo_html}
 <div style="position:absolute;top:0;left:0;right:0;z-index:6;display:flex;align-items:center;gap:22px;padding:40px 48px 0 48px;">
   <img src="{emblem}" alt="64 Analytics" style="width:82px;height:82px;display:block;flex:none;"/>
   <div style="line-height:1;">
