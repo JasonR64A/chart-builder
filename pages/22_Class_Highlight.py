@@ -558,7 +558,20 @@ headliners = (
     f'white-space:nowrap;text-shadow:0 2px 8px rgba(0,0,0,0.5);">{_esc(hl_name)}</span></div>'
     f'<div style="display:flex;gap:26px;margin-top:10px;justify-content:center;">{stat_chips}</div>')
 
-# (count bars removed per user 2026-07-15 — relative-to-best scale read as absolute)
+def bar_row(label, sub, val_txt, width):
+    subhtml = f' <span style="color:rgba(255,255,255,0.55);">· {sub}</span>' if sub else ''
+    return (f'<div><div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px;">'
+            f'<span style="font-size:15px;font-weight:800;letter-spacing:0.07em;text-transform:uppercase;'
+            f'color:rgba(255,255,255,0.85);white-space:nowrap;">{label}{subhtml}</span>'
+            f'<span style="font-size:30px;font-weight:900;letter-spacing:-0.02em;">{val_txt}</span></div>'
+            f'<div style="height:12px;border-radius:7px;background:rgba(0,0,0,0.24);overflow:hidden;">'
+            f'<div style="height:100%;width:{width:.0f}%;background:{PANEL_TXT};border-radius:7px;"></div></div></div>')
+
+# bar width = where this class sits vs the nation's best class (full bar = #1 overall)
+bars = (bar_row('IP Added', 'Pitching', f'{sums["ip"]:.0f}', bar(sums['ip'], 'ip'))
+        + bar_row('K Added', 'Pitching', f'+{sums["k"]:.0f}', bar(sums['k'], 'k'))
+        + bar_row('PA Added', 'Hitting', f'{sums["pa"]:.0f}', bar(sums['pa'], 'pa'))
+        + bar_row('XBH Added', 'Hitting', f'+{sums["xbh"]:.0f}', bar(sums['xbh'], 'xbh')))
 
 # map dots: every commit's hometown state (fallback: origin school's state)
 dots = []
@@ -575,7 +588,21 @@ for _, r in cls.iterrows():
             ab = ''
     if ab in STATE_CENTROID:
         lat, lng = STATE_CENTROID[ab]
-        dots.append({'lat': lat, 'lng': lng, 'name': names[r['pid']]})
+        dots.append({'lat': lat, 'lng': lng, 'name': names[r['pid']], 'st': ab})
+# same-state commits all land on the state centroid and stack invisibly —
+# fan them out in a small deterministic ring so every commit shows
+by_state = Counter(d['st'] for d in dots)
+seen_n = Counter()
+for d in dots:
+    n = by_state[d['st']]
+    if n > 1:
+        i = seen_n[d['st']]
+        seen_n[d['st']] += 1
+        ang = 2 * np.pi * i / n
+        rad = 0.55 + 0.25 * (i % 2)          # degrees; two subtle rings for big groups
+        d['lat'] += rad * np.sin(ang)
+        d['lng'] += rad * np.cos(ang) * 1.25
+    d.pop('st')
 map_players = json.dumps(dots).replace('"', '&quot;')
 
 # ---------------- collage ----------------
@@ -632,13 +659,10 @@ panel = f'''
       <span style="font-size:17px;font-weight:700;color:rgba(255,255,255,0.82);padding-bottom:12px;">NATIONAL<br/>(64A Portal)</span>
     </div>
   </div>
-  <!-- separators span the charcoal at their own height (the curve widens downward) -->
-  <div style="height:1px;background:rgba(255,255,255,0.2);margin-left:-68px;margin-right:-30px;"></div>
   <div style="margin-left:-110px;width:366px;">
     <div style="font-size:15px;font-weight:800;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.72);margin-bottom:10px;text-align:center;">Headliner</div>
     {headliners}
   </div>
-  <div style="height:1px;background:rgba(255,255,255,0.2);margin-left:-128px;margin-right:-30px;"></div>
   <div>
     <div style="font-size:16px;font-weight:800;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.72);margin-bottom:12px;margin-left:-110px;text-align:center;">Portal Value Added</div>
     <div style="display:flex;gap:16px;margin-left:-110px;">
@@ -652,6 +676,7 @@ panel = f'''
       </div>
     </div>
   </div>
+  <div style="display:flex;flex-direction:column;gap:12px;margin-left:-110px;">{bars}</div>
   <div style="margin-top:auto;margin-bottom:8px;">
     <div style="width:460px;height:340px;position:relative;margin-left:-210px;">
       <!-- title lives INSIDE the map box (absolute) so it centers on the map
