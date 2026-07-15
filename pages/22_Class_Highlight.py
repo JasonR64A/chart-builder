@@ -645,12 +645,13 @@ panel = f'''
       <span style="font-size:17px;font-weight:700;color:rgba(255,255,255,0.82);padding-bottom:12px;">NATIONAL<br/>(64A Portal)</span>
     </div>
   </div>
-  <div style="height:1px;background:rgba(255,255,255,0.2);"></div>
+  <!-- separators span the charcoal at their own height (the curve widens downward) -->
+  <div style="height:1px;background:rgba(255,255,255,0.2);margin-left:-68px;margin-right:-30px;"></div>
   <div style="margin-left:-110px;width:366px;">
     <div style="font-size:15px;font-weight:800;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.72);margin-bottom:10px;text-align:center;">Headliner</div>
     {headliners}
   </div>
-  <div style="height:1px;background:rgba(255,255,255,0.2);"></div>
+  <div style="height:1px;background:rgba(255,255,255,0.2);margin-left:-128px;margin-right:-30px;"></div>
   <div>
     <div style="font-size:16px;font-weight:800;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.72);margin-bottom:12px;margin-left:-110px;text-align:center;">Portal Value Added</div>
     <div style="display:flex;gap:16px;margin-left:-110px;">
