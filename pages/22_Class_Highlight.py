@@ -66,10 +66,10 @@ STATE_CENTROID = {
 }
 
 # collage slots from the design's DCLogic (left %, bottom px, height px, z, rotate deg)
+# — max 5 players total (hero + 4 supporting), per user 2026-07-14
 SUPP_SLOTS = [
     (17, 560, 560, 20, -5), (55, 585, 545, 18, 6), (25, 220, 660, 26, -2),
-    (57, 250, 600, 15, 4), (41, 720, 470, 10, 0), (7, 190, 575, 8, -7),
-    (62, 430, 500, 9, 8),
+    (57, 250, 600, 15, 4),
 ]
 
 SILHOUETTE = ('<svg viewBox="0 0 240 480" style="height:100%;width:auto;display:block;" '
@@ -297,22 +297,43 @@ supp_r = o4.slider('Supporting outline', 0, 14, 5)
 
 cls = commits[commits['ntid'] == team].copy().sort_values('rk')
 cls_pids = list(cls['pid'])
-show = cls.head(8)
+show = cls.head(5)
 show_pids = list(show['pid'])
 
 names = {p: (pname.get(p) or cls[cls['pid'] == p].iloc[0]['name']) for p in cls_pids}
 hero_pid = st.selectbox('Hero (front & center)', show_pids,
                         format_func=lambda p: names.get(p, p))
 
-with st.expander('📸 Player cutouts (transparent PNGs — remembered per player)', expanded=False):
+def _strip_bg(im):
+    """Best-effort background removal. rembg is intentionally NOT installed on Render
+    (its ~300MB inference spike would OOM the instance) — there, opaque uploads are
+    saved as-is with a warning; run tools/remove_bg.py locally for clean cutouts."""
+    try:
+        from rembg import remove
+        return remove(im), True
+    except Exception:
+        return im, False
+
+
+with st.expander('📸 Player cutouts (PNG/WebP/JPG — remembered per player)', expanded=False):
+    st.caption('Transparent PNGs drop straight in. Opaque images (JPGs) get automatic '
+               'background removal when available; otherwise upload a pre-cut PNG '
+               '(or batch-strip locally with tools/remove_bg.py).')
     for pid in show_pids:
         cc = st.columns([2, 3, 1])
         cc[0].markdown(f"**{_esc(names[pid])}** · {_esc(ppos.get(pid, ''))}")
-        up = cc[1].file_uploader('cutout', type=['png', 'webp'], key=f'ch_{pid}',
+        up = cc[1].file_uploader('cutout', type=['png', 'webp', 'jpg', 'jpeg'], key=f'ch_{pid}',
                                  label_visibility='collapsed')
         if up is not None:
             try:
-                Image.open(up).convert('RGBA').save(HEADSHOTS / f'{pid}.png', 'PNG')
+                im = Image.open(up).convert('RGBA')
+                alpha = np.array(im.getchannel('A'))
+                if (alpha < 250).mean() < 0.02:   # effectively opaque -> needs stripping
+                    im, ok = _strip_bg(im)
+                    if not ok:
+                        st.warning(f'{names[pid]}: no transparency and no local remover — '
+                                   'saved as-is; the collage will show the photo background.')
+                im.convert('RGBA').save(HEADSHOTS / f'{pid}.png', 'PNG')
                 st.toast(f'Saved cutout · {names[pid]}')
             except Exception as e:
                 st.warning(f'Bad image: {e}')
