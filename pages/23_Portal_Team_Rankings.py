@@ -60,7 +60,7 @@ st.caption('1080×1350 graphic — same design as the Top 25 Rankings board, sou
 
 sport = st.sidebar.radio('Sport', ['Baseball', 'Softball'], horizontal=True)
 sub_label = st.sidebar.text_input('Subtitle', value='Transfer Portal Recruiting Classes 2026')
-div_label = st.sidebar.text_input('Header pill', value='D-I')
+pill_text = st.sidebar.text_input('Header pill', value='Portal')
 tile_stat = st.sidebar.radio('Tile stat', ['Rating', 'Commits', 'None'], index=0, horizontal=True)
 
 teams = load_top25(sport)
@@ -82,7 +82,8 @@ for t in teams:
     payload.append({'rank': t['rank'], 'name': t['name'], 'record': rec,
                     'logo_b64': fetch_team_logo_b64(name_to_logo.get(t['name']))})
 
-svg = build_top25_svg(payload, sport.title(), div_label, week_label=sub_label)
+# header pill = the user's text (sport='' so the pill is exactly what they type)
+svg = build_top25_svg(payload, '', pill_text, week_label=sub_label)
 
 # On-page preview (scaled, intrinsic viewBox kept)
 display_svg = svg.replace(

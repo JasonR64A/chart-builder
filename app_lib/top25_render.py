@@ -162,7 +162,7 @@ def build_top25_svg(teams: list[dict], sport: str, division: str,
     # Drawn as a red rectangle that blends into the surrounding angled red
     # banner; fresh white text is drawn on top.
     header_x_center = W / 2
-    pill_text = f'{division.upper()} {sport.upper()}'
+    pill_text = f'{division.upper()} {sport.upper()}'.strip()
     pill_w = 380
     pill_h = 60
     pill_y = 92
