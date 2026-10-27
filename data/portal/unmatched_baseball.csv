@@ -1,13 +1,43 @@
 ncaa_id,first_name,last_name,portal_name,institution,conference,division,transfer_date,update_date,status,year,sport,team_id,match_method,confidence
-2412479289,BRADY,JOCK,Brady Jock,Florida Southern College,Sunshine State Conference,II,07/09/2026,09/15/2026,Matriculated,2025-26,Baseball,263,none,NONE
-2509722222,CHRISTOPHER,MARANO,Christopher Marano,Stetson University,Atlantic Sun Conference,I,07/23/2026,09/02/2026,Matriculated,2025-26,Baseball,756,none,NONE
-2206598787,CHARLES,MALTON,Charles Malton,"California State University, San Marcos",California Collegiate Athletic Association,II,07/17/2026,09/01/2026,Matriculated,2025-26,Baseball,111,none,NONE
-2301751162,HUGH,MORGAN,Hugh Morgan,University of Oregon,Big Ten Conference,I,06/30/2026,08/28/2026,Signed,2025-26,Baseball,588,none,NONE
-2107278354,MICHAEL,SOARES,Michael Soares,Clark University (Massachusetts),New England Women's and Men's Athletic Conference,III,07/23/2026,08/25/2026,Withdrawn,2025-26,Baseball,156,none,NONE
-2408376025,ETHAN,ZAGERS,Ethan Zagers,U.S. Air Force Academy,Mountain West Conference,I,07/17/2026,08/01/2026,Active,2025-26,Baseball,6,none,NONE
-1904507211,TEST,TEST,Test Test,3 - DIII CA Test,Sport not sponsored,III,08/01/2026,08/01/2026,Active,2025-26,Baseball,,none,NONE
-2409420270,AIDEN,HERRERA,Aiden Herrera,New Mexico Highlands University,Rocky Mountain Athletic Conference,II,07/24/2026,07/24/2026,Active,2025-26,Baseball,521,none,NONE
-2511768534,DAVID,ESKOW,David Eskow,Edward Waters University,Southern Intercol. Ath. Conf.,II,07/14/2026,07/14/2026,Active,2025-26,Baseball,234,none,NONE
-2311166106,CHARLES,NORMAN,Charles Norman,Oklahoma Christian University,Lone Star Conference,II,07/12/2026,07/12/2026,Active,2025-26,Baseball,579,none,NONE
-2211729932,TOMMY,ZOTOLLO,Tommy Zotollo,Albright College,Middle Atlantic Conference Commonwealth,III,07/10/2026,07/10/2026,Active,2025-26,Baseball,15,none,NONE
-2004849848,BOSTON,WARKENTIN,Boston Warkentin,"University of Hawaii, Manoa",Big West Conference,I,07/01/2026,07/02/2026,Active,2025-26,Baseball,320,none,NONE
+2309103748,CONNOR,BUCKLEY,Connor Buckley,St. Thomas Aquinas College,East Coast Conference,II,10/26/2026,10/26/2026,Active,2026-27,Baseball,752,none,NONE
+2610214505,WESLEY,BLITZ,Wesley Blitz,Carthage College,College Conference of Illinois & Wisconsin,III,10/26/2026,10/26/2026,Active,2026-27,Baseball,126,none,NONE
+2308980711,JORDANI,TIBURCIO,Jordani Tiburcio,Wilmington University (Delaware),Central Atlantic Collegiate Conference,II,10/26/2026,10/26/2026,Active,2026-27,Baseball,914,none,NONE
+2502521566,ROBERT,CRUZ,Robert Cruz,"Fairleigh Dickinson University, Florham",Middle Atlantic Conference Freedom,III,10/23/2026,10/23/2026,Active,2026-27,Baseball,255,none,NONE
+2406326762,LUKE,BAER,Luke Baer,Pittsburg State University,Mid-America Intercollegiate Athletics Association,II,10/23/2026,10/23/2026,Active,2026-27,Baseball,613,none,NONE
+2012982178,ANTHONY,CHIAPPETTA,Anthony Chiappetta,Montclair State University,New Jersey Athletic Conference,III,10/23/2026,10/23/2026,Active,2026-27,Baseball,502,none,NONE
+2311156400,LYNDON,MATRAFAILO,Lyndon Matrafailo,University of Miami (Florida),Atlantic Coast Conference,I,08/20/2026,10/23/2026,Active,2026-27,Baseball,469,none,NONE
+2607114559,JAKE,MATURO,Jake Maturo,Lasell University,Great Northeast Athletic Conference,III,10/22/2026,10/22/2026,Active,2026-27,Baseball,392,none,NONE
+2409408844,AUBREY,STANLEY,Aubrey Stanley,Belmont Abbey College,Conference Carolinas,II,10/21/2026,10/21/2026,Active,2026-27,Baseball,66,none,NONE
+2501493746,STEPHEN,KAISER,Stephen Kaiser,Arkansas Tech University,Great American Conference,II,10/21/2026,10/21/2026,Active,2026-27,Baseball,38,none,NONE
+2605943674,JASON,REESE,Jason Reese,Misericordia University,Middle Atlantic Conference Freedom,III,10/21/2026,10/21/2026,Active,2026-27,Baseball,486,none,NONE
+2610209164,BARCLAY,WINN III,Barclay Winn Iii,University of the South,Southern Athletic Association,III,10/20/2026,10/21/2026,Active,2026-27,Baseball,696,none,NONE
+2408386975,NOBLE,ORTEGA,Noble Ortega,University of Hawaii at Hilo,Pacific West Conference,II,10/20/2026,10/20/2026,Active,2026-27,Baseball,321,none,NONE
+2107279262,BENJAMIN,FEUER,Benjamin Feuer,Fort Hays State University,Mid-America Intercollegiate Athletics Association,II,10/19/2026,10/19/2026,Active,2026-27,Baseball,271,none,NONE
+2203474558,RYLAND,MAHONEY,Ryland Mahoney,University of Central Oklahoma,Mid-America Intercollegiate Athletics Association,II,10/19/2026,10/19/2026,Active,2026-27,Baseball,139,none,NONE
+2212745833,PRESTON,HAASE,Preston Haase,Barry University,Sunshine State Conference,II,10/19/2026,10/19/2026,Active,2026-27,Baseball,58,none,NONE
+2606947705,NICHOLAS,LITTLE,Nicholas Little,Eureka College,St. Louis Intercollegiate Athletic Conference,III,10/19/2026,10/19/2026,Active,2026-27,Baseball,249,none,NONE
+2312186150,MICHAEL,LOCURTO,Michael Locurto,Centenary University (New Jersey),Atlantic East Conference,III,10/14/2026,10/14/2026,Active,2026-27,Baseball,133,none,NONE
+2409401281,ANTONIO,BROWN JR,Antonio Brown Jr,Purdue University Northwest,Great Lakes Intercollegiate Athletic Conference,II,10/13/2026,10/13/2026,Active,2026-27,Baseball,629,none,NONE
+2603834949,MARK,JODOIN,Mark Jodoin,Saint Michael's College,Northeast 10 Conference,II,10/12/2026,10/12/2026,Active,2026-27,Baseball,674,none,NONE
+2301769216,SANTIO,MUSONE,Santio Musone,Shepherd University,Pennsylvania State Athletic Conference,II,10/07/2026,10/08/2026,Active,2026-27,Baseball,699,none,NONE
+2209671150,BRYCE,STANTON,Bryce Stanton,Shawnee State University,Mountain East Conference,II,10/06/2026,10/06/2026,Active,2026-27,Baseball,,none,NONE
+2309998729,ANTHONY,DIADDEZIO JR.,Anthony Diaddezio Jr.,West Chester University of Pennsylvania,Pennsylvania State Athletic Conference,II,10/06/2026,10/06/2026,Active,2026-27,Baseball,882,none,NONE
+2608147613,CASEY,PETERS,Casey Peters,Bates College,New England Small College Athletic Conference,III,10/05/2026,10/05/2026,Active,2026-27,Baseball,61,none,NONE
+2608139479,CAMERON,BLOUNT,Cameron Blount,Medgar Evers College,Sport not sponsored,III,10/02/2026,10/03/2026,Active,2026-27,Baseball,,none,NONE
+2109319213,WILLIAM,FLUHARTY III,William Fluharty Iii,Bucknell University,Patriot League,I,10/01/2026,10/01/2026,Active,2026-27,Baseball,98,none,NONE
+2404277025,ASHTON,PINEDO,Ashton Pinedo,St. Bonaventure University,Atlantic 10 Conference,I,10/01/2026,10/01/2026,Active,2026-27,Baseball,736,none,NONE
+2506638611,BLAKE,VESTAL,Blake Vestal,Carson-Newman University,South Atlantic Conference,II,09/30/2026,09/30/2026,Active,2026-27,Baseball,125,none,NONE
+2511762872,KYLEN,BAKER,Kylen Baker,Arkansas Tech University,Great American Conference,II,09/28/2026,09/28/2026,Active,2026-27,Baseball,38,none,NONE
+2107242736,CONNOR,PAYNE,Connor Payne,Belmont Abbey College,Conference Carolinas,II,09/25/2026,09/25/2026,Active,2026-27,Baseball,66,none,NONE
+2511773707,GABE,DANISI,Gabe Danisi,University of Tampa,Sunshine State Conference,II,09/23/2026,09/24/2026,Active,2026-27,Baseball,772,none,NONE
+2503531920,MASON,LEBLANC,Mason Leblanc,Belhaven University,Collegiate Conference of the South,III,09/16/2026,09/16/2026,Active,2026-27,Baseball,63,none,NONE
+2307971765,CHRISTOPHER,KRESE JR,Christopher Krese Jr,Stevens Institute of Technology,Middle Atlantic Conference Freedom,III,09/09/2026,09/09/2026,Active,2026-27,Baseball,757,none,NONE
+2508707934,ANDREW,MORGAN,Andrew Morgan,Ouachita Baptist University,Great American Conference,II,09/08/2026,09/08/2026,Active,2026-27,Baseball,592,none,NONE
+2204546236,MANUEL,SOTO JR,Manuel Soto Jr,Westmont College,Pacific West Conference,II,09/08/2026,09/08/2026,Active,2026-27,Baseball,951,none,NONE
+2306936251,LANDON,ROEDLER,Landon Roedler,Point Park University,Mountain East Conference,II,09/07/2026,09/07/2026,Active,2026-27,Baseball,965,none,NONE
+2502505909,COLE,O'CONNELL,Cole O'Connell,Southern Connecticut State University,Northeast 10 Conference,II,09/04/2026,09/04/2026,Active,2026-27,Baseball,718,none,NONE
+2606971869,RANDY,HERNANDEZ,Randy Hernandez,Spring Hill College,Southern Intercol. Ath. Conf.,II,08/27/2026,08/27/2026,Active,2026-27,Baseball,733,none,NONE
+2407344261,JUSTIN,COYNE,Justin Coyne,Dominican University New York,Central Atlantic Collegiate Conference,II,08/24/2026,08/24/2026,Active,2026-27,Baseball,213,none,NONE
+1910729745,UNKNOWN,,Unknown ,Clark Atlanta University,Southern Intercol. Ath. Conf.,II,08/18/2026,08/18/2026,Active,2026-27,Baseball,157,none,NONE
+2108301772,DARRYL,DILWORTH JR.,Darryl Dilworth Jr.,Fresno Pacific University,California Collegiate Athletic Association,II,08/10/2026,08/10/2026,Active,2026-27,Baseball,279,none,NONE
+1904507211,TEST,TEST,Test Test,3 - DIII CA Test,Sport not sponsored,III,08/01/2026,08/01/2026,Active,2026-27,Baseball,,none,NONE
