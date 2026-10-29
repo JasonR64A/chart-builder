@@ -64,7 +64,7 @@ TEAM2CONF, TEAM2ABBR = conf_map()
 
 # ── sidebar ─────────────────────────────────────────────────────────────────────
 st.sidebar.header('Park Factor Lab')
-year_label = st.sidebar.radio('Season', list(YEAR_OPTS), index=0, horizontal=True)
+year_label = st.sidebar.radio('Season', list(YEAR_OPTS), index=2, horizontal=True)
 years = YEAR_OPTS[year_label]
 div = st.sidebar.selectbox('Division', list(DIVISION_LABELS), index=0,
                            format_func=lambda d: DIVISION_LABELS[d])
@@ -85,7 +85,8 @@ tier_sel = st.sidebar.multiselect('Opponent tier (RPI)', TIER_ORDER, default=TIE
 
 st.sidebar.markdown('---')
 st.sidebar.caption('OUR MODEL — objects')
-stat_label = st.sidebar.radio('Stat', list(STAT_LABELS), index=0)
+stat_label = st.sidebar.radio('Stat', list(STAT_LABELS), index=1,
+                              help='A park shows its character in power (XBH/HR), not singles.')
 side_label = st.sidebar.radio('Side', list(SIDE_CELLS), index=0)
 loc_label = st.sidebar.radio('Who', list(LOC_CELLS), index=0,
                              help='"Visitors only" is the cleanest neutral read.')
@@ -123,7 +124,7 @@ def pro_pf(df):
     return out
 
 
-ours = ours_ratio(fc, 'h', ['bat', 'pit'], ['home', 'opp']).rename('Ours')
+ours = ours_ratio(fc, stat, ['bat', 'pit'], ['home', 'opp']).rename('Ours')
 adj_raw = ours_ratio(fc, stat, SIDE_CELLS[side_label], LOC_CELLS[loc_label])
 adjusted = (1.0 + (adj_raw - 1.0) * (1.0 - regress)).rename('Adjusted')
 prod = pro_pf(fp)
@@ -260,14 +261,19 @@ with st.expander('Pro vs Adjusted — where the two philosophies disagree'):
 
 with st.expander('How these are calculated'):
     st.markdown(
-        '- **Pro** — (home runs/game) ÷ (road runs/game) per team, on the filtered game set '
-        '(5+ home and 5+ road games needed, else blank).\n'
-        '- **Ours / Adjusted** — each player gets a season rate; at a park we sum actual vs '
-        'expected for the chosen stat/side/who and take the ratio. Ours is the neutral baseline '
-        '(hits · both · all); Adjusted applies your objects. Regression shrinks toward 1.00.\n'
-        '- **Context filters** (conference, midweek/weekend, month, opponent tier) subset the '
-        'games feeding all three numbers. Opponent tier is the other team\'s RPI rank bucket.\n'
-        '- **Parks** are keyed by play-by-play venue; 2026 excludes neutral sites via the venue '
-        'match, 2025 has no venue so all home games count.\n'
-        '- **Next:** physical objects — field dimensions, wall height, altitude.'
+        '- **Ours / Adjusted** — the honest park read. Each player\'s expected is their rate at '
+        '**every park except this one** (leave-park-out). That removes the circularity where a '
+        'bandbox inflates its own home players\' season baselines and cancels itself out. At a park '
+        'we sum actual vs that expected for the chosen stat/side/who. Ours is the neutral baseline '
+        '(both sides · all players); Adjusted applies your side/who/regression.\n'
+        '- **Stat matters:** a park shows its character in **power (XBH/HR)**, not singles — total '
+        'hits barely move with the fences, so XBH is the default.\n'
+        '- **Pro** — the classic runs method, (home runs/game) ÷ (road runs/game) per team. Kept as '
+        'a reference, but it is **noisy for college**: lopsided home/road schedules and the home '
+        'team\'s own pitching distort it (it can call a real bandbox pitcher-friendly), so trust '
+        'Ours over Pro.\n'
+        '- **Competition control:** the **visitors-only** and **opponent-tier** filters are how you '
+        'check that a park reads the same against good competition and without the home roster.\n'
+        '- **Parks** keyed by play-by-play venue; 2026 excludes neutral sites via the venue match, '
+        '2025 has no venue so all home games count. **2025 + 2026 pooled** by default (our full PBP).'
     )
