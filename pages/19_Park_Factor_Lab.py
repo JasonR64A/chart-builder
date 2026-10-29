@@ -239,6 +239,37 @@ elif len(valid) >= 2 and up >= 1 and down >= 1:
 else:
     st.info('Roughly neutral across the board.')
 
+with st.expander(f'📐 Show the math — {sel_park}'):
+    sub = fc[(fc['park'] == sel_park) & fc['side'].isin(SIDE_CELLS[side_label]) & fc['loc'].isin(LOC_CELLS[loc_label])]
+    A = float(sub[f'act_{stat}'].sum())
+    E = float(sub[f'exp_{stat}'].sum())
+    raw = A / E if E > 0 else float('nan')
+    adj = 1.0 + (raw - 1.0) * (1.0 - regress)
+    st.markdown(
+        f'The park factor is **total actual {stat_label.lower()} ÷ total expected {stat_label.lower()}** over the '
+        'games your filters kept. Each player\'s *expected* is their rate at **every other park** (leave-park-out) '
+        'times their plate appearances here — so the number only reflects the park, not the player or the roster.')
+    st.latex(r'PF=\frac{\sum \text{actual}}{\sum \text{expected}}\,,\qquad \text{expected}_i=r_i^{\ \text{elsewhere}}\times PA_i')
+    if E > 0:
+        st.markdown(f'### PF = {A:,.0f} ÷ {E:,.1f} = **{raw:.3f}**')
+        if regress > 0:
+            st.markdown(f'Then regressed {int(regress*100)}% toward 1.00:  '
+                        f'1 + ({raw:.3f} − 1) × (1 − {regress:.2f}) = **{adj:.3f}**')
+    st.caption('The four cells that pool into it (✓ = included by your Side / Who):')
+    rows = []
+    for lab, side, loc in cellmap:
+        s = fc[(fc['park'] == sel_park) & (fc['side'] == side) & (fc['loc'] == loc)]
+        a = float(s[f'act_{stat}'].sum())
+        e = float(s[f'exp_{stat}'].sum())
+        rows.append({'Cell': lab, 'Actual': round(a, 1), 'Expected': round(e, 1),
+                     'Ratio': round(a / e, 3) if e > 0 else None,
+                     'In this view': '✓' if (side in SIDE_CELLS[side_label] and loc in LOC_CELLS[loc_label]) else ''})
+    st.dataframe(pd.DataFrame(rows), hide_index=True, use_container_width=True)
+    st.markdown(
+        f'**What moves the number:** change an *object* — Side / Who / Regression — and different cells are '
+        f'summed or shrunk. Change a *context filter* (now: {ctx_txt}) and games that don\'t match are dropped '
+        'before summing. That is the whole mechanism; nothing else touches it.')
+
 with st.expander('Pro vs Adjusted — where the two philosophies disagree'):
     dd = d.dropna(subset=['Pro', 'Adjusted'])
     if len(dd) > 2:
