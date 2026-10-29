@@ -185,7 +185,58 @@ styled = (show.style
           .format({c: '{:.3f}' for c in ['Pro', 'Ours', 'Adjusted', 'Δ vs Ours', 'Δ vs Pro']}, na_rep='—')
           .map(_dc, subset=['Δ vs Ours', 'Δ vs Pro'])
           .hide(axis='index'))
-st.dataframe(styled, use_container_width=True, height=560)
+event = st.dataframe(styled, use_container_width=True, height=560,
+                     on_select='rerun', selection_mode='single-row', key='pf_lb')
+
+# ── per-park both-sides diagnostic ──────────────────────────────────────────────
+sel = []
+try:
+    sel = list(event.selection.rows)
+except Exception:
+    try:
+        sel = list(event['selection']['rows'])
+    except Exception:
+        sel = []
+sel_park = show.iloc[sel[0]]['Park'] if sel else show.iloc[0]['Park']
+
+st.subheader('🔬 Park diagnostic — both sides')
+st.caption(f'**{sel_park}** · {stat_label} · {ctx_txt}  —  click any row above to inspect a different park. '
+           'A real park effect moves hitters AND pitchers the same way; a one-sided move is usually '
+           'competition or roster, not the fences.')
+
+
+def _pc(side, loc):
+    s = fc[(fc['park'] == sel_park) & (fc['side'] == side) & (fc['loc'] == loc)]
+    a, e = s[f'act_{stat}'].sum(), s[f'exp_{stat}'].sum()
+    return (a / e, e) if e > 0 else (np.nan, 0.0)
+
+
+cellmap = [('Home-team hitters', 'bat', 'home'), ('Visiting hitters', 'bat', 'opp'),
+           ('Home pitchers (allowed)', 'pit', 'home'), ('Visiting pitchers (allowed)', 'pit', 'opp')]
+cols = st.columns(4)
+ratios = []
+for col, (lab, side, loc) in zip(cols, cellmap):
+    r, e = _pc(side, loc)
+    ratios.append(r)
+    lean = '' if pd.isna(r) else ('↑ favors hitters' if r > 1.03 else '↓ favors pitchers' if r < 0.97 else '≈ neutral')
+    col.metric(lab, f'{r:.3f}' if pd.notna(r) else '—', delta=lean, delta_color='off')
+    col.caption(f'expected {e:.0f}')
+
+valid = [r for r in ratios if pd.notna(r)]
+up = sum(1 for r in valid if r > 1.03)
+down = sum(1 for r in valid if r < 0.97)
+if len(valid) >= 3 and up >= 3:
+    st.success('Consistent **hitter-friendly** signal — both hitters and pitchers move the same way. '
+               'This looks like a real park effect.')
+elif len(valid) >= 3 and down >= 3:
+    st.success('Consistent **pitcher-friendly** signal — both sides move the same way. '
+               'This looks like a real park effect.')
+elif len(valid) >= 2 and up >= 1 and down >= 1:
+    st.warning('Mixed signal — the sides disagree, so this is more likely **competition or roster** than '
+               'the park (e.g., a strong home lineup beating weaker arms). The **visiting-hitter** cell is '
+               'the cleanest park read — it has no home-team bias.')
+else:
+    st.info('Roughly neutral across the board.')
 
 with st.expander('Pro vs Adjusted — where the two philosophies disagree'):
     dd = d.dropna(subset=['Pro', 'Adjusted'])
