@@ -26,6 +26,8 @@ from pathlib import Path
 _APP_DIR = Path(__file__).resolve().parent.parent
 CELLS_FILE = _APP_DIR / 'data' / 'park_factor_cells.csv'
 PRO_FILE = _APP_DIR / 'data' / 'park_factor_progames.csv'
+TEAMS_FILE = _APP_DIR / 'data' / 'teams.csv'
+CONF_FILE = _APP_DIR / 'data' / 'conferences.csv'
 
 DIVISION_LABELS = {'D1': 'D-I', 'D2': 'D-II', 'D3': 'D-III'}
 STAT_LABELS = {'Hits': 'h', 'Extra-base hits': 'xbh', 'Home runs': 'hr'}
@@ -45,12 +47,30 @@ def load():
 
 cells, progames = load()
 
+
+@st.cache_data
+def conf_map():
+    tm = pd.read_csv(TEAMS_FILE)
+    tm = tm[tm['sport'].astype(str).str.lower().str.contains('base')]
+    cf = pd.read_csv(CONF_FILE)
+    id2name = dict(zip(cf['id'], cf['name']))
+    id2ab = dict(zip(cf['id'], cf['abbreviation']))
+    nm = {str(n).strip(): id2name.get(c) for n, c in zip(tm['name'], tm['conference_id'])}
+    ab = {str(n).strip(): id2ab.get(c) for n, c in zip(tm['name'], tm['conference_id'])}
+    return nm, ab
+
+
+TEAM2CONF, TEAM2ABBR = conf_map()
+
 # ── sidebar ─────────────────────────────────────────────────────────────────────
 st.sidebar.header('Park Factor Lab')
 year_label = st.sidebar.radio('Season', list(YEAR_OPTS), index=0, horizontal=True)
 years = YEAR_OPTS[year_label]
 div = st.sidebar.selectbox('Division', list(DIVISION_LABELS), index=0,
                            format_func=lambda d: DIVISION_LABELS[d])
+conf_present = sorted({TEAM2CONF.get(t) for t in cells[cells['division'] == div]['team'].dropna().unique()
+                       if TEAM2CONF.get(t) and pd.notna(TEAM2CONF.get(t))})
+conf_pick = st.sidebar.selectbox('Conference (filter parks)', ['All conferences'] + conf_present, index=0)
 min_g = st.sidebar.slider('Min home games (reliability)', 0, 25, 6)
 
 st.sidebar.markdown('---')
@@ -111,6 +131,9 @@ prod = pro_pf(fp)
 names = fc.groupby('park')['team'].first()
 d = pd.concat([prod[['Pro', 'home_g']], ours, adjusted, names], axis=1)
 d = d[d['home_g'].fillna(0) >= min_g].dropna(subset=['Ours', 'Adjusted'])
+d['Conf'] = d['team'].map(lambda t: TEAM2ABBR.get(t) or '')
+if conf_pick != 'All conferences':
+    d = d[d['team'].map(TEAM2CONF) == conf_pick]
 d['Δ vs Ours'] = d['Adjusted'] - d['Ours']
 d['Δ vs Pro'] = d['Adjusted'] - d['Pro']
 
@@ -126,7 +149,8 @@ if set(day_sel) != {'Midweek', 'Weekend'}: thoughts.append('+'.join(day_sel))
 if len(month_sel) != len(months_present): thoughts.append('/'.join(month_sel_lbl))
 if set(tier_sel) != set(TIER_ORDER): thoughts.append('vs ' + '/'.join(tier_sel))
 ctx_txt = ' · '.join(thoughts) if thoughts else 'all games'
-st.caption(f'{year_label} · {DIVISION_LABELS[div]}  |  context: **{ctx_txt}**  |  '
+div_txt = DIVISION_LABELS[div] + ('' if conf_pick == 'All conferences' else f' · {conf_pick}')
+st.caption(f'{year_label} · {div_txt}  |  context: **{ctx_txt}**  |  '
            f'Adjusted = {stat_label} · {side_label} · {loc_label}'
            f'{f" · {int(regress*100)}% regressed" if regress else ""}  |  {len(d)} parks')
 
@@ -146,7 +170,7 @@ c4.metric('Most pitcher-friendly', f"{d['Adjusted'].min():.2f}")
 
 # ── leaderboard ─────────────────────────────────────────────────────────────────
 show = (d.reset_index().rename(columns={'park': 'Park', 'team': 'Team', 'home_g': 'Home G'})
-        [['Park', 'Team', 'Pro', 'Ours', 'Adjusted', 'Δ vs Ours', 'Δ vs Pro', 'Home G']]
+        [['Park', 'Team', 'Conf', 'Pro', 'Ours', 'Adjusted', 'Δ vs Ours', 'Δ vs Pro', 'Home G']]
         .sort_values('Adjusted', ascending=False))
 show['Home G'] = show['Home G'].astype('Int64')
 
