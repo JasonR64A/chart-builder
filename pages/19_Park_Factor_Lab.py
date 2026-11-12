@@ -92,6 +92,14 @@ loc_label = st.sidebar.radio('Who', list(LOC_CELLS), index=0,
                              help='"Visitors only" is the cleanest neutral read.')
 regress = st.sidebar.slider('Regression to 1.0', 0, 100, 0,
                             help='Shrink each park toward neutral.') / 100.0
+st.sidebar.caption('Context weight — value better competition more')
+wk_w = st.sidebar.slider('Midweek weight (vs weekend)', 0, 100, 60,
+                         help='How much a midweek game counts relative to a weekend game. 100 = equal.') / 100.0
+nc_w = st.sidebar.slider('Non-conf weight (vs conference)', 0, 100, 70,
+                         help='How much a non-conference game counts relative to a conference game. 100 = equal.') / 100.0
+st.sidebar.caption('Finalize — blend Pro in as a guardrail')
+pro_blend = st.sidebar.slider('Pro blend into Final', 0, 100, 0,
+                              help='0 = pure Ours (our model stays primary). Pro mixes into the Final column only as a guardrail where Ours runs extreme. ~33 ≈ the 2×Ours + 1×Pro idea.') / 100.0
 
 stat = STAT_LABELS[stat_label]
 
@@ -105,9 +113,15 @@ def ctx(df):
 fc, fp = ctx(cells), ctx(progames)
 
 
-def ours_ratio(df, stat, sides, locs):
-    f = df[df['side'].isin(sides) & df['loc'].isin(locs)]
-    g = f.groupby('park').agg(a=(f'act_{stat}', 'sum'), e=(f'exp_{stat}', 'sum'))
+def ours_ratio(df, stat, sides, locs, wk=1.0, nc=1.0):
+    f = df[df['side'].isin(sides) & df['loc'].isin(locs)].copy()
+    # context weight — value better competition more; multiplies actual AND expected
+    # equally per game-cell, so a neutral park still reads 1.00 at any weighting.
+    w = (np.where(f['midweek'] == 'Midweek', wk, 1.0)
+         * np.where(f['conf_game'] == 'Non-conf', nc, 1.0))
+    f['_a'] = f[f'act_{stat}'] * w
+    f['_e'] = f[f'exp_{stat}'] * w
+    g = f.groupby('park').agg(a=('_a', 'sum'), e=('_e', 'sum'))
     g['pf'] = np.where(g['e'] > 0, g['a'] / g['e'], np.nan)
     return g['pf']
 
@@ -124,8 +138,8 @@ def pro_pf(df):
     return out
 
 
-ours = ours_ratio(fc, stat, ['bat', 'pit'], ['home', 'opp']).rename('Ours')
-adj_raw = ours_ratio(fc, stat, SIDE_CELLS[side_label], LOC_CELLS[loc_label])
+ours = ours_ratio(fc, stat, ['bat', 'pit'], ['home', 'opp']).rename('Ours')  # neutral: equal weights
+adj_raw = ours_ratio(fc, stat, SIDE_CELLS[side_label], LOC_CELLS[loc_label], wk=wk_w, nc=nc_w)
 adjusted = (1.0 + (adj_raw - 1.0) * (1.0 - regress)).rename('Adjusted')
 prod = pro_pf(fp)
 
@@ -137,6 +151,11 @@ if conf_pick != 'All conferences':
     d = d[d['team'].map(TEAM2CONF) == conf_pick]
 d['Δ vs Ours'] = d['Adjusted'] - d['Ours']
 d['Δ vs Pro'] = d['Adjusted'] - d['Pro']
+# Final PF — Ours (Adjusted) is primary; Pro blends in only as a guardrail (pro_blend).
+# Where Pro is undefined (too few home/road games), Final = Adjusted (no blend).
+d['Final'] = np.where(d['Pro'].notna(), (1 - pro_blend) * d['Adjusted'] + pro_blend * d['Pro'], d['Adjusted'])
+# Avg — the straight 50/50 "neutral middle" between Ours and the classic Pro (Pro-missing -> Ours).
+d['Avg'] = np.where(d['Pro'].notna(), (d['Ours'] + d['Pro']) / 2.0, d['Ours'])
 
 # ── header ──────────────────────────────────────────────────────────────────────
 st.title('🏟️ Park Factor Lab')
@@ -153,7 +172,8 @@ ctx_txt = ' · '.join(thoughts) if thoughts else 'all games'
 div_txt = DIVISION_LABELS[div] + ('' if conf_pick == 'All conferences' else f' · {conf_pick}')
 st.caption(f'{year_label} · {div_txt}  |  context: **{ctx_txt}**  |  '
            f'Adjusted = {stat_label} · {side_label} · {loc_label}'
-           f'{f" · {int(regress*100)}% regressed" if regress else ""}  |  {len(d)} parks')
+           f'{f" · {int(regress*100)}% regressed" if regress else ""}'
+           f'{"" if (wk_w == 1.0 and nc_w == 1.0) else f" · wt mid×{wk_w:.2f}/non-conf×{nc_w:.2f}"}  |  {len(d)} parks')
 
 if 2025 in years:
     st.info('Heads up: 2025 had no venue data, so neutral-site/tournament games can\'t be '
@@ -171,8 +191,8 @@ c4.metric('Most pitcher-friendly', f"{d['Adjusted'].min():.2f}")
 
 # ── leaderboard ─────────────────────────────────────────────────────────────────
 show = (d.reset_index().rename(columns={'park': 'Park', 'team': 'Team', 'home_g': 'Home G'})
-        [['Park', 'Team', 'Conf', 'Pro', 'Ours', 'Adjusted', 'Δ vs Ours', 'Δ vs Pro', 'Home G']]
-        .sort_values('Adjusted', ascending=False))
+        [['Park', 'Team', 'Conf', 'Pro', 'Ours', 'Adjusted', 'Avg', 'Final', 'Δ vs Ours', 'Δ vs Pro', 'Home G']]
+        .sort_values('Final', ascending=False))
 show['Home G'] = show['Home G'].astype('Int64')
 
 
@@ -183,7 +203,7 @@ def _dc(v):
 
 
 styled = (show.style
-          .format({c: '{:.3f}' for c in ['Pro', 'Ours', 'Adjusted', 'Δ vs Ours', 'Δ vs Pro']}, na_rep='—')
+          .format({c: '{:.3f}' for c in ['Pro', 'Ours', 'Adjusted', 'Avg', 'Final', 'Δ vs Ours', 'Δ vs Pro']}, na_rep='—')
           .map(_dc, subset=['Δ vs Ours', 'Δ vs Pro'])
           .hide(axis='index'))
 event = st.dataframe(styled, use_container_width=True, height=560,
@@ -241,8 +261,11 @@ else:
 
 with st.expander(f'📐 Show the math — {sel_park}'):
     sub = fc[(fc['park'] == sel_park) & fc['side'].isin(SIDE_CELLS[side_label]) & fc['loc'].isin(LOC_CELLS[loc_label])]
-    A = float(sub[f'act_{stat}'].sum())
-    E = float(sub[f'exp_{stat}'].sum())
+    wsub = (np.where(sub['midweek'] == 'Midweek', wk_w, 1.0) * np.where(sub['conf_game'] == 'Non-conf', nc_w, 1.0))
+    A = float((sub[f'act_{stat}'] * wsub).sum())
+    E = float((sub[f'exp_{stat}'] * wsub).sum())
+    if wk_w != 1.0 or nc_w != 1.0:
+        st.caption(f'Context-weighted: midweek ×{wk_w:.2f}, non-conference ×{nc_w:.2f} — applied to both actual and expected before summing.')
     raw = A / E if E > 0 else float('nan')
     adj = 1.0 + (raw - 1.0) * (1.0 - regress)
     st.markdown(
