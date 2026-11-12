@@ -98,8 +98,8 @@ wk_w = st.sidebar.slider('Midweek weight (vs weekend)', 0, 100, 60,
 nc_w = st.sidebar.slider('Non-conf weight (vs conference)', 0, 100, 70,
                          help='How much a non-conference game counts relative to a conference game. 100 = equal.') / 100.0
 st.sidebar.caption('Finalize — blend Pro in as a guardrail')
-pro_blend = st.sidebar.slider('Pro blend into Final', 0, 100, 0,
-                              help='0 = pure Ours (our model stays primary). Pro mixes into the Final column only as a guardrail where Ours runs extreme. ~33 ≈ the 2×Ours + 1×Pro idea.') / 100.0
+pro_blend = st.sidebar.slider('Pro blend into Final', 0, 100, 33,
+                              help='Default 33 = 2×Ours + 1×Pro (our model 2x, Pro 1x). 0 = pure Ours; 50 = even split.') / 100.0
 
 stat = STAT_LABELS[stat_label]
 
@@ -154,8 +154,6 @@ d['Δ vs Pro'] = d['Adjusted'] - d['Pro']
 # Final PF — Ours (Adjusted) is primary; Pro blends in only as a guardrail (pro_blend).
 # Where Pro is undefined (too few home/road games), Final = Adjusted (no blend).
 d['Final'] = np.where(d['Pro'].notna(), (1 - pro_blend) * d['Adjusted'] + pro_blend * d['Pro'], d['Adjusted'])
-# Avg — the straight 50/50 "neutral middle" between Ours and the classic Pro (Pro-missing -> Ours).
-d['Avg'] = np.where(d['Pro'].notna(), (d['Ours'] + d['Pro']) / 2.0, d['Ours'])
 
 # ── header ──────────────────────────────────────────────────────────────────────
 st.title('🏟️ Park Factor Lab')
@@ -191,7 +189,7 @@ c4.metric('Most pitcher-friendly', f"{d['Adjusted'].min():.2f}")
 
 # ── leaderboard ─────────────────────────────────────────────────────────────────
 show = (d.reset_index().rename(columns={'park': 'Park', 'team': 'Team', 'home_g': 'Home G'})
-        [['Park', 'Team', 'Conf', 'Pro', 'Ours', 'Adjusted', 'Avg', 'Final', 'Δ vs Ours', 'Δ vs Pro', 'Home G']]
+        [['Park', 'Team', 'Conf', 'Pro', 'Ours', 'Adjusted', 'Final', 'Δ vs Ours', 'Δ vs Pro', 'Home G']]
         .sort_values('Final', ascending=False))
 show['Home G'] = show['Home G'].astype('Int64')
 
@@ -203,7 +201,7 @@ def _dc(v):
 
 
 styled = (show.style
-          .format({c: '{:.3f}' for c in ['Pro', 'Ours', 'Adjusted', 'Avg', 'Final', 'Δ vs Ours', 'Δ vs Pro']}, na_rep='—')
+          .format({c: '{:.3f}' for c in ['Pro', 'Ours', 'Adjusted', 'Final', 'Δ vs Ours', 'Δ vs Pro']}, na_rep='—')
           .map(_dc, subset=['Δ vs Ours', 'Δ vs Pro'])
           .hide(axis='index'))
 event = st.dataframe(styled, use_container_width=True, height=560,
