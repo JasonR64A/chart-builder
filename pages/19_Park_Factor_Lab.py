@@ -90,6 +90,9 @@ stat_label = st.sidebar.radio('Stat', list(STAT_LABELS), index=1,
 side_label = st.sidebar.radio('Side', list(SIDE_CELLS), index=0)
 loc_label = st.sidebar.radio('Who', list(LOC_CELLS), index=0,
                              help='"Visitors only" is the cleanest neutral read.')
+hand_label = st.sidebar.radio('Batter handedness', ['All', 'Left (L)', 'Right (R)'], index=0,
+                              help="Splits the HITTING side by batter handedness — a park's lefty vs righty factor. Switch hitters are excluded from L/R; picking L or R makes it a hitters-only read.")
+HAND = {'All': None, 'Left (L)': 'L', 'Right (R)': 'R'}[hand_label]
 regress = st.sidebar.slider('Regression to 1.0', 0, 100, 0,
                             help='Shrink each park toward neutral.') / 100.0
 st.sidebar.caption('Context weight — value better competition more')
@@ -113,8 +116,11 @@ def ctx(df):
 fc, fp = ctx(cells), ctx(progames)
 
 
-def ours_ratio(df, stat, sides, locs, wk=1.0, nc=1.0):
-    f = df[df['side'].isin(sides) & df['loc'].isin(locs)].copy()
+def ours_ratio(df, stat, sides, locs, wk=1.0, nc=1.0, bat=None):
+    if bat is not None:   # handedness split: hitters only, chosen bat side
+        f = df[(df['side'] == 'bat') & (df['bat'] == bat) & df['loc'].isin(locs)].copy()
+    else:
+        f = df[df['side'].isin(sides) & df['loc'].isin(locs)].copy()
     # context weight — value better competition more; multiplies actual AND expected
     # equally per game-cell, so a neutral park still reads 1.00 at any weighting.
     w = (np.where(f['midweek'] == 'Midweek', wk, 1.0)
@@ -138,8 +144,8 @@ def pro_pf(df):
     return out
 
 
-ours = ours_ratio(fc, stat, ['bat', 'pit'], ['home', 'opp']).rename('Ours')  # neutral: equal weights
-adj_raw = ours_ratio(fc, stat, SIDE_CELLS[side_label], LOC_CELLS[loc_label], wk=wk_w, nc=nc_w)
+ours = ours_ratio(fc, stat, ['bat', 'pit'], ['home', 'opp'], bat=HAND).rename('Ours')  # neutral: equal weights
+adj_raw = ours_ratio(fc, stat, SIDE_CELLS[side_label], LOC_CELLS[loc_label], wk=wk_w, nc=nc_w, bat=HAND)
 adjusted = (1.0 + (adj_raw - 1.0) * (1.0 - regress)).rename('Adjusted')
 prod = pro_pf(fp)
 
@@ -171,7 +177,8 @@ div_txt = DIVISION_LABELS[div] + ('' if conf_pick == 'All conferences' else f' �
 st.caption(f'{year_label} · {div_txt}  |  context: **{ctx_txt}**  |  '
            f'Adjusted = {stat_label} · {side_label} · {loc_label}'
            f'{f" · {int(regress*100)}% regressed" if regress else ""}'
-           f'{"" if (wk_w == 1.0 and nc_w == 1.0) else f" · wt mid×{wk_w:.2f}/non-conf×{nc_w:.2f}"}  |  {len(d)} parks')
+           f'{"" if (wk_w == 1.0 and nc_w == 1.0) else f" · wt mid×{wk_w:.2f}/non-conf×{nc_w:.2f}"}'
+           f'{"" if HAND is None else f" · {hand_label} hitters only"}  |  {len(d)} parks')
 
 if 2025 in years:
     st.info('Heads up: 2025 had no venue data, so neutral-site/tournament games can\'t be '
@@ -226,6 +233,8 @@ st.caption(f'**{sel_park}** · {stat_label} · {ctx_txt}  —  click any row abo
 
 def _pc(side, loc):
     s = fc[(fc['park'] == sel_park) & (fc['side'] == side) & (fc['loc'] == loc)]
+    if HAND is not None and side == 'bat':
+        s = s[s['bat'] == HAND]
     a, e = s[f'act_{stat}'].sum(), s[f'exp_{stat}'].sum()
     return (a / e, e) if e > 0 else (np.nan, 0.0)
 
@@ -258,7 +267,10 @@ else:
     st.info('Roughly neutral across the board.')
 
 with st.expander(f'📐 Show the math — {sel_park}'):
-    sub = fc[(fc['park'] == sel_park) & fc['side'].isin(SIDE_CELLS[side_label]) & fc['loc'].isin(LOC_CELLS[loc_label])]
+    if HAND is not None:
+        sub = fc[(fc['park'] == sel_park) & (fc['side'] == 'bat') & (fc['bat'] == HAND) & fc['loc'].isin(LOC_CELLS[loc_label])]
+    else:
+        sub = fc[(fc['park'] == sel_park) & fc['side'].isin(SIDE_CELLS[side_label]) & fc['loc'].isin(LOC_CELLS[loc_label])]
     wsub = (np.where(sub['midweek'] == 'Midweek', wk_w, 1.0) * np.where(sub['conf_game'] == 'Non-conf', nc_w, 1.0))
     A = float((sub[f'act_{stat}'] * wsub).sum())
     E = float((sub[f'exp_{stat}'] * wsub).sum())
