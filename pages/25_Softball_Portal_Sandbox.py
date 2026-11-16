@@ -240,6 +240,18 @@ def comp_parts(r):
 sel_id = st.session_state.sel_id
 if sel_id not in BYID:
     sel_id = TORRES if TORRES in BYID else int(BOARD.iloc[0]['id'])
+    st.session_state.sel_id = sel_id
+
+# Explicit player picker (you can also click any row in the board below).
+_opts = BOARD['id'].tolist()
+_lbl = {int(r.id): f"#{int(r.rank)}  {r.name} · {r.institution}" for r in BOARD.itertuples()}
+_pick = st.selectbox('Pick a player to inspect / adjust', _opts,
+                     index=_opts.index(sel_id) if sel_id in _opts else 0,
+                     format_func=lambda i: _lbl.get(i, str(i)))
+if int(_pick) != st.session_state.sel_id:
+    st.session_state.sel_id = int(_pick)
+    st.rerun()
+sel_id = st.session_state.sel_id
 srow = BYID[sel_id]
 
 left, right = st.columns([2, 3])
