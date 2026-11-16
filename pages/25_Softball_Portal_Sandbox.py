@@ -40,6 +40,19 @@ COMPS = [
 CCOLOR = {k: c for k, _, c in [(a, b, d) for a, b, d, e in COMPS]}
 CLABEL = {k: lb for k, lb, _, _ in COMPS}
 
+# Per-player input overrides: (column, label, min, max, step). Let the user replace a
+# pre-set value for one player (e.g. Isa Torres HS 0.000 -> 0.050) and watch the board move.
+OVERRIDE_FIELDS = [
+    ('hs_adjust', 'HS pedigree', 0.0, 0.10, 0.005),
+    ('mlb_adjust', 'Pro projection', 0.0, 0.10, 0.005),
+    ('conf_adjust', 'Conference', 0.0, 0.30, 0.005),
+    ('fielding_rank', 'Fielding', 0.0, 0.10, 0.005),
+    ('wrce', 'Production · wRCE %ile', 0.0, 1.0, 0.01),
+    ('wrae', 'Production · wRAE %ile', 0.0, 1.0, 0.01),
+    ('stored_stat', 'Stat percentile', 0.0, 1.0, 0.01),
+]
+OVLABEL = {f: lb for f, lb, *_ in OVERRIDE_FIELDS}
+
 DEFAULTS = {
     'w_ops': 1.0, 'w_woba': 1.0, 'w_iso': 1.0,
     'w_opsa': 1.0, 'w_babip': 1.0, 'w_kbb': 1.0,
@@ -70,7 +83,7 @@ PLAYERS, YEARSDF = load()
 
 
 # ------------------------------------------------------------------------- engine
-def compute_board(w):
+def compute_board(w, ov=None):
     y = YEARSDF
     divmap = {'D-I': w['div_D1'], 'D-II': w['div_D2'], 'D-III': w['div_D3'], '': 1.0}
     is_h = (y['side'] == 'H').to_numpy()
@@ -87,6 +100,9 @@ def compute_board(w):
     psum = tmp[tmp['side'] == 'P'].groupby('id')['c'].sum() / 3.0
 
     pl = PLAYERS.copy()
+    if ov:
+        for (pid, field), val in ov.items():
+            pl.loc[pl['id'] == pid, field] = val
     pl['hsum'] = pl['id'].map(hsum).fillna(0.0)
     pl['psum'] = pl['id'].map(psum).fillna(0.0)
     pl['hrk'] = 0.0
@@ -144,6 +160,17 @@ def is_default():
     return all(abs(st.session_state[k] - DEFAULTS[k]) < 1e-9 for k in DEFAULTS)
 
 
+st.session_state.setdefault('ov', {})  # {(player_id, field): value}
+
+
+def _set_ov(pid, field, wkey, frozen):
+    v = st.session_state[wkey]
+    if abs(v - frozen) < 1e-9:
+        st.session_state.ov.pop((pid, field), None)
+    else:
+        st.session_state.ov[(pid, field)] = v
+
+
 # ------------------------------------------------------------------------- sidebar
 sb = st.sidebar
 sb.header('🥎 Weights')
@@ -186,7 +213,7 @@ sb.slider('Min plate appearances', 0, 100, step=5, key='min_pa')
 sb.slider('Min batters faced', 0, 100, step=5, key='min_bf')
 
 W = current_weights()
-BOARD = compute_board(W)
+BOARD = compute_board(W, st.session_state.ov)
 if BOARD.empty:
     st.title('🥎 Softball Portal Ranking Sandbox')
     st.warning('Every rating is zero with the current weights. Raise a weight, or hit '
@@ -233,6 +260,33 @@ with left:
     m3.metric('Published #', f"#{int(srow.official_rank)}" if srow.official_rank > 0 else '—',
               delta=(None if dval is None else (f"+{int(dval)}" if dval > 0 else (f"{int(dval)}" if dval < 0 else "—"))),
               help='Move vs the published 2026 rank')
+
+    edits_here = {f: v for (p, f), v in st.session_state.ov.items() if p == sel_id}
+    with st.expander(f"✎ Adjust {srow.name.split()[0]}’s inputs"
+                     + (f"  ·  {len(edits_here)} edited" if edits_here else ""),
+                     expanded=bool(edits_here)):
+        st.caption('Replace a pre-set value for this player and watch the board move '
+                   '(e.g. give an HS grade to a player sitting at 0.000). '
+                   'Edits are session-only.')
+        orig = PLAYERS.loc[PLAYERS['id'] == sel_id].iloc[0]
+        ocols = st.columns(2)
+        for ix, (field, label, mn, mx, stp) in enumerate(OVERRIDE_FIELDS):
+            ofrozen = float(orig[field])
+            wkey = f"ovw_{sel_id}_{field}"
+            cur = float(st.session_state.ov.get((sel_id, field), ofrozen))
+            with ocols[ix % 2]:
+                st.number_input(label, min_value=mn, max_value=mx, value=cur, step=stp,
+                                format='%.3f', key=wkey, on_change=_set_ov,
+                                args=(sel_id, field, wkey, ofrozen),
+                                help=f'Published value: {ofrozen:.3f}')
+        if edits_here:
+            st.caption('Edited → ' + ' · '.join(
+                f'{OVLABEL[f]} {float(orig[f]):.3f}→{v:.3f}' for f, v in edits_here.items()))
+            if st.button('↺ Reset this player’s inputs', key=f'ovreset_{sel_id}'):
+                for field, *_ in OVERRIDE_FIELDS:
+                    st.session_state.pop(f"ovw_{sel_id}_{field}", None)
+                    st.session_state.ov.pop((sel_id, field), None)
+                st.rerun()
 
 with right:
     parts = comp_parts(srow)
