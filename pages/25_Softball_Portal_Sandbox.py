@@ -125,8 +125,7 @@ def compute_board(w):
     return board
 
 
-# ----------------------------------------------------------------------- presets
-st.session_state.setdefault('presets', {'Jason': None, 'Claude': None})
+# --------------------------------------------------------------------------- state
 for k, v in DEFAULTS.items():
     st.session_state.setdefault(k, v)
 st.session_state.setdefault('sel_id', TORRES)
@@ -148,19 +147,10 @@ def is_default():
 # ------------------------------------------------------------------------- sidebar
 sb = st.sidebar
 sb.header('🥎 Weights')
-pc = sb.columns(3)
-if pc[0].button('Published', use_container_width=True):
+if sb.button('↺ Reset to published weights', use_container_width=True):
     load_weights(DEFAULTS); st.rerun()
-if pc[1].button('Jason', use_container_width=True, disabled=st.session_state.presets['Jason'] is None):
-    load_weights(st.session_state.presets['Jason']); st.rerun()
-if pc[2].button('Claude', use_container_width=True, disabled=st.session_state.presets['Claude'] is None):
-    load_weights(st.session_state.presets['Claude']); st.rerun()
-sc = sb.columns(2)
-if sc[0].button('Save → Jason', use_container_width=True):
-    st.session_state.presets['Jason'] = current_weights(); sb.success('Saved to Jason', icon='✅')
-if sc[1].button('Save → Claude', use_container_width=True):
-    st.session_state.presets['Claude'] = current_weights(); sb.success('Saved to Claude', icon='✅')
-sb.caption('Published = the live formula. Save a tuning to Jason or Claude to compare.')
+sb.caption('Move the sliders to talk through how each lever changes the board. '
+           'Reset snaps back to the live published formula (Torres #3).')
 
 sb.markdown('---')
 sb.caption('STAT WEIGHTS · hitting (inside the batting percentile)')
@@ -243,16 +233,6 @@ with left:
     m3.metric('Published #', f"#{int(srow.official_rank)}" if srow.official_rank > 0 else '—',
               delta=(None if dval is None else (f"+{int(dval)}" if dval > 0 else (f"{int(dval)}" if dval < 0 else "—"))),
               help='Move vs the published 2026 rank')
-    # preset comparison
-    rowsline = []
-    for nm in ('Jason', 'Claude'):
-        pw = st.session_state.presets[nm]
-        if pw is not None:
-            b = compute_board(pw)
-            rr = b[b['id'] == sel_id]
-            rowsline.append(f"{nm}: **#{int(rr['rank'].iloc[0])}**" if len(rr) else f"{nm}: —")
-    if rowsline:
-        st.caption('Under saved presets → ' + ' · '.join(rowsline))
 
 with right:
     parts = comp_parts(srow)
