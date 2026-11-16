@@ -24,10 +24,14 @@ import numpy as np
 from pathlib import Path
 
 _APP_DIR = Path(__file__).resolve().parent.parent
-CELLS_FILE = _APP_DIR / 'data' / 'park_factor_cells.csv'
-PRO_FILE = _APP_DIR / 'data' / 'park_factor_progames.csv'
 TEAMS_FILE = _APP_DIR / 'data' / 'teams.csv'
 CONF_FILE = _APP_DIR / 'data' / 'conferences.csv'
+# Sport -> (cells csv, progames csv, teams.csv sport keyword). Baseball unchanged;
+# softball reads the *_softball.csv files from export-park-factor-lab-v3.py.
+SPORT_FILES = {
+    'Baseball': ('park_factor_cells.csv', 'park_factor_progames.csv', 'base'),
+    'Softball': ('park_factor_cells_softball.csv', 'park_factor_progames_softball.csv', 'soft'),
+}
 
 DIVISION_LABELS = {'D1': 'D-I', 'D2': 'D-II', 'D3': 'D-III'}
 STAT_LABELS = {'Hits': 'h', 'Extra-base hits': 'xbh', 'Home runs': 'hr'}
@@ -39,19 +43,24 @@ TIER_ORDER = ['Top 50', 'Mid (51-150)', 'Low (151+)', 'Unranked']
 
 st.set_page_config(page_title='Park Factor Lab', layout='wide')
 
-
-@st.cache_data
-def load():
-    return pd.read_csv(CELLS_FILE), pd.read_csv(PRO_FILE)
-
-
-cells, progames = load()
+st.sidebar.header('Park Factor Lab')
+sport = st.sidebar.radio('Sport', list(SPORT_FILES), index=0, horizontal=True)
+_cells_name, _pro_name, _sport_kw = SPORT_FILES[sport]
 
 
 @st.cache_data
-def conf_map():
+def load(cells_name, pro_name):
+    return (pd.read_csv(_APP_DIR / 'data' / cells_name),
+            pd.read_csv(_APP_DIR / 'data' / pro_name))
+
+
+cells, progames = load(_cells_name, _pro_name)
+
+
+@st.cache_data
+def conf_map(sport_kw):
     tm = pd.read_csv(TEAMS_FILE)
-    tm = tm[tm['sport'].astype(str).str.lower().str.contains('base')]
+    tm = tm[tm['sport'].astype(str).str.lower().str.contains(sport_kw)]
     cf = pd.read_csv(CONF_FILE)
     id2name = dict(zip(cf['id'], cf['name']))
     id2ab = dict(zip(cf['id'], cf['abbreviation']))
@@ -60,10 +69,9 @@ def conf_map():
     return nm, ab
 
 
-TEAM2CONF, TEAM2ABBR = conf_map()
+TEAM2CONF, TEAM2ABBR = conf_map(_sport_kw)
 
 # ── sidebar ─────────────────────────────────────────────────────────────────────
-st.sidebar.header('Park Factor Lab')
 year_label = st.sidebar.radio('Season', list(YEAR_OPTS), index=2, horizontal=True)
 years = YEAR_OPTS[year_label]
 div = st.sidebar.selectbox('Division', list(DIVISION_LABELS), index=0,
@@ -162,7 +170,7 @@ d['Δ vs Pro'] = d['Adjusted'] - d['Pro']
 d['Final'] = np.where(d['Pro'].notna(), (1 - pro_blend) * d['Adjusted'] + pro_blend * d['Pro'], d['Adjusted'])
 
 # ── header ──────────────────────────────────────────────────────────────────────
-st.title('🏟️ Park Factor Lab')
+st.title(f'🏟️ Park Factor Lab · {sport}')
 st.markdown('Compare **what the pros measure** (runs-based), **what our model sees** '
             '(expected vs actual), and **your adjusted version** — sliced by whatever game '
             'context you choose. 1.00 plays neutral; 1.10 ≈ 10% more than expected.')
