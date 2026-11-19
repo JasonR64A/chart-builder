@@ -1,0 +1,633 @@
+{
+"div": {
+"D-I": {
+"w": {
+"BB": 0.7742,
+"HBP": 0.7887,
+"1B": 0.9301,
+"2B": 1.3118,
+"3B": 1.7524,
+"HR": 1.819
+},
+"scale": 0.9627,
+"lgwOBA": 0.3762,
+"lgRPA": 0.1659
+},
+"D-II": {
+"w": {
+"BB": 0.7715,
+"HBP": 0.784,
+"1B": 0.9363,
+"2B": 1.3444,
+"3B": 1.8113,
+"HR": 1.9278
+},
+"scale": 1.0204,
+"lgwOBA": 0.3683,
+"lgRPA": 0.1573
+},
+"D-III": {
+"w": {
+"BB": 0.802,
+"HBP": 0.8151,
+"1B": 0.9493,
+"2B": 1.3361,
+"3B": 1.7982,
+"HR": 1.8459
+},
+"scale": 0.938,
+"lgwOBA": 0.378,
+"lgRPA": 0.17
+}
+},
+"conf": {
+"Allegheny Mountain Collegiate Conference": {
+"lgwOBA": 0.3781,
+"lgRPA": 0.1731,
+"div": "D-III",
+"n": 164
+},
+"America East": {
+"lgwOBA": 0.3638,
+"lgRPA": 0.1582,
+"div": "D-I",
+"n": 110
+},
+"American Athletic Conference": {
+"lgwOBA": 0.372,
+"lgRPA": 0.1565,
+"div": "D-I",
+"n": 173
+},
+"American Rivers": {
+"lgwOBA": 0.3867,
+"lgRPA": 0.1761,
+"div": "D-III",
+"n": 175
+},
+"American Southwest Conference": {
+"lgwOBA": 0.3825,
+"lgRPA": 0.1644,
+"div": "D-III",
+"n": 81
+},
+"Atlantic 10": {
+"lgwOBA": 0.3406,
+"lgRPA": 0.1352,
+"div": "D-I",
+"n": 157
+},
+"Atlantic Coast Conference": {
+"lgwOBA": 0.408,
+"lgRPA": 0.1915,
+"div": "D-I",
+"n": 253
+},
+"Atlantic East": {
+"lgwOBA": 0.3761,
+"lgRPA": 0.1721,
+"div": "D-III",
+"n": 140
+},
+"Atlantic Sun Conference": {
+"lgwOBA": 0.3676,
+"lgRPA": 0.1572,
+"div": "D-I",
+"n": 219
+},
+"Big 12": {
+"lgwOBA": 0.4199,
+"lgRPA": 0.2056,
+"div": "D-I",
+"n": 199
+},
+"Big East": {
+"lgwOBA": 0.373,
+"lgRPA": 0.161,
+"div": "D-I",
+"n": 154
+},
+"Big Sky Conference": {
+"lgwOBA": 0.3763,
+"lgRPA": 0.1635,
+"div": "D-I",
+"n": 108
+},
+"Big South": {
+"lgwOBA": 0.3573,
+"lgRPA": 0.1524,
+"div": "D-I",
+"n": 133
+},
+"Big Ten": {
+"lgwOBA": 0.4099,
+"lgRPA": 0.1907,
+"div": "D-I",
+"n": 297
+},
+"Big West": {
+"lgwOBA": 0.3537,
+"lgRPA": 0.1447,
+"div": "D-I",
+"n": 185
+},
+"California Collegiate Athletic Association": {
+"lgwOBA": 0.3734,
+"lgRPA": 0.162,
+"div": "D-II",
+"n": 166
+},
+"Centennial": {
+"lgwOBA": 0.3687,
+"lgRPA": 0.1617,
+"div": "D-III",
+"n": 161
+},
+"Central Atlantic Collegiate Conference": {
+"lgwOBA": 0.3506,
+"lgRPA": 0.1455,
+"div": "D-II",
+"n": 209
+},
+"Central Coast Section": {
+"lgwOBA": 0.3826,
+"lgRPA": 0.1684,
+"div": "D-III",
+"n": 162
+},
+"Central Intercollegiate Athletic Association": {
+"lgwOBA": 0.3652,
+"lgRPA": 0.1647,
+"div": "D-II",
+"n": 131
+},
+"City University of New York Athletic Conference": {
+"lgwOBA": 0.3723,
+"lgRPA": 0.1885,
+"div": "D-III",
+"n": 88
+},
+"Coast-To-Coast Athletic Conference": {
+"lgwOBA": 0.4062,
+"lgRPA": 0.1925,
+"div": "D-III",
+"n": 71
+},
+"College Conference of Illinois and Wisconsin": {
+"lgwOBA": 0.3734,
+"lgRPA": 0.1532,
+"div": "D-III",
+"n": 180
+},
+"Colonial Athletic Association": {
+"lgwOBA": 0.348,
+"lgRPA": 0.1496,
+"div": "D-I",
+"n": 197
+},
+"Conference Carolinas": {
+"lgwOBA": 0.3569,
+"lgRPA": 0.148,
+"div": "D-II",
+"n": 352
+},
+"Conference USA": {
+"lgwOBA": 0.373,
+"lgRPA": 0.1596,
+"div": "D-I",
+"n": 206
+},
+"Conference of New England": {
+"lgwOBA": 0.3594,
+"lgRPA": 0.1477,
+"div": "D-III",
+"n": 179
+},
+"DII Independent": {
+"lgwOBA": 0.3663,
+"lgRPA": 0.1555,
+"div": "D-II",
+"n": 52
+},
+"Eastern Connecticut Conference": {
+"lgwOBA": 0.3649,
+"lgRPA": 0.1442,
+"div": "D-II",
+"n": 96
+},
+"Empire 8": {
+"lgwOBA": 0.3707,
+"lgRPA": 0.1689,
+"div": "D-III",
+"n": 217
+},
+"Great American Conference": {
+"lgwOBA": 0.3484,
+"lgRPA": 0.1375,
+"div": "D-II",
+"n": 243
+},
+"Great Lakes Intercollegiate Athletic Conference": {
+"lgwOBA": 0.3622,
+"lgRPA": 0.1445,
+"div": "D-II",
+"n": 151
+},
+"Great Lakes Valley Conference": {
+"lgwOBA": 0.3663,
+"lgRPA": 0.1534,
+"div": "D-II",
+"n": 283
+},
+"Great Midwest Athletic Conference": {
+"lgwOBA": 0.3601,
+"lgRPA": 0.1534,
+"div": "D-II",
+"n": 255
+},
+"Great Northeast": {
+"lgwOBA": 0.3736,
+"lgRPA": 0.166,
+"div": "D-III",
+"n": 243
+},
+"Great Northwest": {
+"lgwOBA": 0.3788,
+"lgRPA": 0.1671,
+"div": "D-II",
+"n": 132
+},
+"Gulf South": {
+"lgwOBA": 0.368,
+"lgRPA": 0.1559,
+"div": "D-II",
+"n": 217
+},
+"Heartland Collegiate Athletic Conference": {
+"lgwOBA": 0.3853,
+"lgRPA": 0.1767,
+"div": "D-III",
+"n": 189
+},
+"Horizon": {
+"lgwOBA": 0.3888,
+"lgRPA": 0.1853,
+"div": "D-I",
+"n": 132
+},
+"Ivy League": {
+"lgwOBA": 0.3821,
+"lgRPA": 0.1634,
+"div": "D-I",
+"n": 127
+},
+"Landmark": {
+"lgwOBA": 0.3611,
+"lgRPA": 0.15,
+"div": "D-III",
+"n": 170
+},
+"Liberty League": {
+"lgwOBA": 0.3886,
+"lgRPA": 0.1807,
+"div": "D-III",
+"n": 143
+},
+"Little East": {
+"lgwOBA": 0.3768,
+"lgRPA": 0.1673,
+"div": "D-III",
+"n": 170
+},
+"Lone Star": {
+"lgwOBA": 0.3828,
+"lgRPA": 0.1675,
+"div": "D-II",
+"n": 324
+},
+"MAC Commonwealth": {
+"lgwOBA": 0.3783,
+"lgRPA": 0.1665,
+"div": "D-III",
+"n": 148
+},
+"MAC Freedom": {
+"lgwOBA": 0.374,
+"lgRPA": 0.1702,
+"div": "D-III",
+"n": 155
+},
+"Massachusetts State Collegiate Athletic Conference": {
+"lgwOBA": 0.3902,
+"lgRPA": 0.1883,
+"div": "D-III",
+"n": 158
+},
+"Metro Atlantic Athletic Conference": {
+"lgwOBA": 0.345,
+"lgRPA": 0.1389,
+"div": "D-I",
+"n": 234
+},
+"Michigan Intercol. Ath. Assn.": {
+"lgwOBA": 0.3937,
+"lgRPA": 0.1849,
+"div": "D-III",
+"n": 163
+},
+"Mid-America Intercollegiate": {
+"lgwOBA": 0.388,
+"lgRPA": 0.169,
+"div": "D-II",
+"n": 212
+},
+"Mid-American Conference": {
+"lgwOBA": 0.3857,
+"lgRPA": 0.1736,
+"div": "D-I",
+"n": 209
+},
+"Mid-Eastern Athletic Conference": {
+"lgwOBA": 0.3559,
+"lgRPA": 0.1623,
+"div": "D-I",
+"n": 68
+},
+"Midwest Conference": {
+"lgwOBA": 0.3815,
+"lgRPA": 0.1676,
+"div": "D-III",
+"n": 170
+},
+"Minnesota Intercollegiate Athletic Conference": {
+"lgwOBA": 0.3843,
+"lgRPA": 0.1688,
+"div": "D-III",
+"n": 227
+},
+"Missouri Valley Conference": {
+"lgwOBA": 0.3705,
+"lgRPA": 0.1593,
+"div": "D-I",
+"n": 180
+},
+"Mountain East Conference": {
+"lgwOBA": 0.3602,
+"lgRPA": 0.1562,
+"div": "D-II",
+"n": 220
+},
+"Mountain West": {
+"lgwOBA": 0.3833,
+"lgRPA": 0.1646,
+"div": "D-I",
+"n": 172
+},
+"NWC": {
+"lgwOBA": 0.3727,
+"lgRPA": 0.1575,
+"div": "D-III",
+"n": 174
+},
+"New England Small College Athletic Conference": {
+"lgwOBA": 0.3745,
+"lgRPA": 0.1623,
+"div": "D-III",
+"n": 168
+},
+"New England Women's and Men's Athletic Conference": {
+"lgwOBA": 0.3706,
+"lgRPA": 0.1561,
+"div": "D-III",
+"n": 188
+},
+"New Jersey Athletic Conference": {
+"lgwOBA": 0.3711,
+"lgRPA": 0.1556,
+"div": "D-III",
+"n": 182
+},
+"North Atlantic": {
+"lgwOBA": 0.3713,
+"lgRPA": 0.1839,
+"div": "D-III",
+"n": 147
+},
+"North Coast Athletic Conference": {
+"lgwOBA": 0.371,
+"lgRPA": 0.1645,
+"div": "D-III",
+"n": 158
+},
+"Northeast 10": {
+"lgwOBA": 0.3489,
+"lgRPA": 0.1428,
+"div": "D-II",
+"n": 178
+},
+"Northeast Conference": {
+"lgwOBA": 0.3406,
+"lgRPA": 0.1431,
+"div": "D-I",
+"n": 246
+},
+"Northern Athletics Collegiate Conference": {
+"lgwOBA": 0.3861,
+"lgRPA": 0.1746,
+"div": "D-III",
+"n": 273
+},
+"Northern Sun Intercollegiate Conference": {
+"lgwOBA": 0.371,
+"lgRPA": 0.1575,
+"div": "D-II",
+"n": 289
+},
+"Ohio Athletic Conference": {
+"lgwOBA": 0.3874,
+"lgRPA": 0.1736,
+"div": "D-III",
+"n": 185
+},
+"Ohio Valley Conference": {
+"lgwOBA": 0.3441,
+"lgRPA": 0.1399,
+"div": "D-I",
+"n": 172
+},
+"Old Dominion Athletic Conference": {
+"lgwOBA": 0.3825,
+"lgRPA": 0.174,
+"div": "D-III",
+"n": 227
+},
+"PacWest": {
+"lgwOBA": 0.3494,
+"lgRPA": 0.1402,
+"div": "D-II",
+"n": 172
+},
+"Patriot": {
+"lgwOBA": 0.3673,
+"lgRPA": 0.1668,
+"div": "D-I",
+"n": 119
+},
+"Peach Belt": {
+"lgwOBA": 0.3722,
+"lgRPA": 0.1625,
+"div": "D-II",
+"n": 203
+},
+"Pennsylvania State Athletic Conference": {
+"lgwOBA": 0.372,
+"lgRPA": 0.1598,
+"div": "D-II",
+"n": 341
+},
+"Presidents' Athletic Conference": {
+"lgwOBA": 0.3803,
+"lgRPA": 0.1638,
+"div": "D-III",
+"n": 227
+},
+"Rocky Mountain Athletic Conference": {
+"lgwOBA": 0.394,
+"lgRPA": 0.1726,
+"div": "D-II",
+"n": 216
+},
+"Skyline": {
+"lgwOBA": 0.3845,
+"lgRPA": 0.1879,
+"div": "D-III",
+"n": 182
+},
+"SoCon": {
+"lgwOBA": 0.3722,
+"lgRPA": 0.1643,
+"div": "D-I",
+"n": 138
+},
+"South Atlantic Conference": {
+"lgwOBA": 0.3873,
+"lgRPA": 0.1696,
+"div": "D-II",
+"n": 233
+},
+"Southeastern Conference": {
+"lgwOBA": 0.4201,
+"lgRPA": 0.2001,
+"div": "D-I",
+"n": 251
+},
+"Southern Athletic Association": {
+"lgwOBA": 0.3794,
+"lgRPA": 0.1708,
+"div": "D-III",
+"n": 128
+},
+"Southern California Intercollegiate Athletic Conference": {
+"lgwOBA": 0.3725,
+"lgRPA": 0.1614,
+"div": "D-III",
+"n": 151
+},
+"Southern Collegiate Athletic Conference": {
+"lgwOBA": 0.3734,
+"lgRPA": 0.1648,
+"div": "D-III",
+"n": 223
+},
+"Southern Intercollegiate Athletic Conference": {
+"lgwOBA": 0.3732,
+"lgRPA": 0.184,
+"div": "D-II",
+"n": 227
+},
+"Southland": {
+"lgwOBA": 0.3678,
+"lgRPA": 0.1608,
+"div": "D-I",
+"n": 174
+},
+"Southwestern Athletic Conference": {
+"lgwOBA": 0.3737,
+"lgRPA": 0.1759,
+"div": "D-I",
+"n": 258
+},
+"St. Louis Intercollegiate Athletic Conference": {
+"lgwOBA": 0.3817,
+"lgRPA": 0.1826,
+"div": "D-III",
+"n": 176
+},
+"State University of New York Athletic Conference": {
+"lgwOBA": 0.3675,
+"lgRPA": 0.167,
+"div": "D-III",
+"n": 182
+},
+"Summit League": {
+"lgwOBA": 0.3769,
+"lgRPA": 0.1649,
+"div": "D-I",
+"n": 132
+},
+"Sun Belt": {
+"lgwOBA": 0.3732,
+"lgRPA": 0.1581,
+"div": "D-I",
+"n": 205
+},
+"Sunshine State": {
+"lgwOBA": 0.3557,
+"lgRPA": 0.1506,
+"div": "D-II",
+"n": 202
+},
+"USA South": {
+"lgwOBA": 0.3646,
+"lgRPA": 0.16,
+"div": "D-III",
+"n": 212
+},
+"United East": {
+"lgwOBA": 0.3881,
+"lgRPA": 0.194,
+"div": "D-III",
+"n": 204
+},
+"University Athletic Association": {
+"lgwOBA": 0.3871,
+"lgRPA": 0.1776,
+"div": "D-III",
+"n": 129
+},
+"Upper Midwest Athletic Conference": {
+"lgwOBA": 0.3947,
+"lgRPA": 0.1974,
+"div": "D-III",
+"n": 121
+},
+"West Coast Conference": {
+"lgwOBA": 0.3587,
+"lgRPA": 0.152,
+"div": "D-I",
+"n": 132
+},
+"Western Athletic Conference": {
+"lgwOBA": 0.3842,
+"lgRPA": 0.1744,
+"div": "D-I",
+"n": 127
+},
+"Wisconsin Intercollegiate Athletic Conference": {
+"lgwOBA": 0.3764,
+"lgRPA": 0.1654,
+"div": "D-III",
+"n": 165
+}
+}
+}

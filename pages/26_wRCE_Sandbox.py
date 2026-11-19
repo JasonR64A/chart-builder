@@ -17,24 +17,27 @@ import streamlit as st
 
 st.set_page_config(page_title='wRCE Sandbox', layout='wide')
 _APP_DIR = Path(__file__).resolve().parent.parent
-HFILE = _APP_DIR / 'data' / 'sandbox_hitters.csv'
-CFILE = _APP_DIR / 'data' / 'sandbox_const.json'
+FILES = {'Baseball': ('sandbox_hitters.csv', 'sandbox_const.json'),
+         'Softball': ('sandbox_hitters_softball.csv', 'sandbox_const_softball.json')}
 EVT = ['BB', 'HBP', '1B', '2B', '3B', 'HR']
 DIV_ORDER = ['D-I', 'D-II', 'D-III']
 DEFW = {e: 1.0 for e in EVT}
 
 
 @st.cache_data
-def load():
-    h = pd.read_csv(HFILE)
+def load(sport):
+    hf, cf = FILES[sport]
+    h = pd.read_csv(_APP_DIR / 'data' / hf)
     for c in ['PF', 'AB', 'H', '2B', '3B', 'HR', 'BB', 'IBB', 'HBP', 'SF', 'R', 'PA', 'cur_wRCE', 'cur_RC_AB']:
         h[c] = pd.to_numeric(h[c], errors='coerce').fillna(0.0)
     for c in ['name', 'team', 'div', 'conf']:
         h[c] = h[c].fillna('').astype(str)
-    return h, json.load(open(CFILE))
+    return h, json.load(open(_APP_DIR / 'data' / cf))
 
 
-H, CONST = load()
+sport = st.sidebar.radio('Sport', list(FILES), horizontal=True)
+st.sidebar.markdown('---')
+H, CONST = load(sport)
 DIVW = {d: CONST['div'][d]['w'] for d in CONST['div']}
 DIV_SCALE = {d: CONST['div'][d]['scale'] for d in CONST['div']}
 DIV_LGRPA = {d: CONST['div'][d]['lgRPA'] for d in CONST['div']}
@@ -121,9 +124,10 @@ CUR['tinkerD'] = (CUR['base_rank'] - CUR['our_rank']).fillna(0).astype(int)
 CUR = CUR.sort_values('our_rank').reset_index(drop=True)
 
 # ------------------------------------------------------------------------- header
-st.title('⚾ wRCE Sandbox — hitting')
+st.title(f"{'🥎' if sport == 'Softball' else '⚾'} wRCE Sandbox — {sport.lower()} hitting")
 st.caption('Our linear-weight production rating with the work shown: division vs conference wRC+, the park '
-           'factor’s point-effect, and the current published wRCE. 2026 · counts from hitting.csv. 100 = baseline-group average.')
+           'factor’s point-effect, and the current published wRCE. 2026 · counts from hitting.csv. 100 = baseline-group average. '
+           f'Weights and league baselines are {sport.lower()}-specific.')
 
 m1, m2, m3, m4 = st.columns(4)
 m1.metric('Players', f'{len(CUR):,}')
