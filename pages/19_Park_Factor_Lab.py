@@ -29,8 +29,8 @@ CONF_FILE = _APP_DIR / 'data' / 'conferences.csv'
 # Sport -> (cells csv, progames csv, teams.csv sport keyword). Baseball unchanged;
 # softball reads the *_softball.csv files from export-park-factor-lab-v3.py.
 SPORT_FILES = {
-    'Baseball': ('park_factor_cells.csv', 'park_factor_progames.csv', 'base'),
-    'Softball': ('park_factor_cells_softball.csv', 'park_factor_progames_softball.csv', 'soft'),
+    'Baseball': ('park_factor_cells.csv', 'park_factor_progames.csv', 'park_factor_runs.csv', 'base'),
+    'Softball': ('park_factor_cells_softball.csv', 'park_factor_progames_softball.csv', 'park_factor_runs_softball.csv', 'soft'),
 }
 
 DIVISION_LABELS = {'D1': 'D-I', 'D2': 'D-II', 'D3': 'D-III'}
@@ -45,16 +45,17 @@ st.set_page_config(page_title='Park Factor Lab', layout='wide')
 
 st.sidebar.header('Park Factor Lab')
 sport = st.sidebar.radio('Sport', list(SPORT_FILES), index=0, horizontal=True)
-_cells_name, _pro_name, _sport_kw = SPORT_FILES[sport]
+_cells_name, _pro_name, _runs_name, _sport_kw = SPORT_FILES[sport]
 
 
 @st.cache_data
-def load(cells_name, pro_name):
+def load(cells_name, pro_name, runs_name):
     return (pd.read_csv(_APP_DIR / 'data' / cells_name),
-            pd.read_csv(_APP_DIR / 'data' / pro_name))
+            pd.read_csv(_APP_DIR / 'data' / pro_name),
+            pd.read_csv(_APP_DIR / 'data' / runs_name))
 
 
-cells, progames = load(_cells_name, _pro_name)
+cells, progames, runs_df = load(_cells_name, _pro_name, _runs_name)
 
 
 @st.cache_data
@@ -123,7 +124,7 @@ def ctx(df):
               & df['month'].isin(month_sel) & df['opp_tier'].isin(tier_sel)]
 
 
-fc, fp = ctx(cells), ctx(progames)
+fc, fp, fr = ctx(cells), ctx(progames), ctx(runs_df)
 
 
 def ours_ratio(df, stat, sides, locs, wk=1.0, nc=1.0, bat=None):
@@ -154,6 +155,14 @@ def pro_pf(df):
     return out
 
 
+def runs_ratio(df):
+    # park-clean runs factor: Σ actual team-runs ÷ Σ leave-park-out expected runs
+    # (each team vs its own runs/game at every OTHER venue), pooling home + visiting
+    # offenses. Replaces the Pro home/road Score inside True PF — no staff/schedule confound.
+    g = df.groupby('park').agg(a=('act_runs', 'sum'), e=('exp_runs', 'sum'))
+    return (g['a'] / g['e']).where(g['e'] > 0)
+
+
 ours = ours_ratio(fc, stat, ['bat', 'pit'], ['home', 'opp'], bat=HAND).rename('Ours')  # neutral: equal weights
 adj_raw = ours_ratio(fc, stat, SIDE_CELLS[side_label], LOC_CELLS[loc_label], wk=wk_w, nc=nc_w, bat=HAND)
 adjusted = (1.0 + (adj_raw - 1.0) * (1.0 - regress)).rename('Adjusted')
@@ -172,26 +181,32 @@ d['Δ vs Pro'] = d['Adjusted'] - d['Pro']
 d['Final'] = np.where(d['Pro'].notna(), (1 - pro_blend) * d['Adjusted'] + pro_blend * d['Pro'], d['Adjusted'])
 
 # ── True PF — component composite ────────────────────────────────────────────────
-# Five separate park factors — 1B/2B/3B/HR (our leave-park-out, neutral both-sides)
-# + Score (the MLB/Pro runs home-road factor) — combined so no single rare event
-# (triples) distorts the average: log each, z-score across the shown parks (equalizes
-# their spread), average, exp(k·z̄) back (k preserves real-outlier magnitude), recenter
-# median to 1.0. Computed on the neutral baseline so it respects the context filters
-# but not the Side/Who/Stat objects (it uses all four hit components at once).
+# Five park factors: 1B/2B/3B/HR (our leave-park-out, neutral both-sides) + park-clean
+# Runs (leave-park-out on team runs by venue — replaces the Pro home/road Score, which
+# is confounded by the home staff/schedule). Each is logged, z-scored across the shown
+# parks (so no one rare event distorts), WEIGHTED-averaged, exp(k·z̄) back, median → 1.0.
+# Weights emphasize the cleanest park signal (HR/power) and down-weight the most
+# confounded/geometric (runs, triples): HR 2, 2B 1.5, 1B 1, 3B 0.5, Runs 0.5. k=0.35
+# controls outlier emphasis. Uses the neutral baseline so it tracks the CONTEXT filters
+# but not the Side/Who/Stat objects (it uses all components at once).
 K_TRUE = 0.35
+TRUE_W = {'1B': 1.0, '2B': 1.5, '3B': 0.5, 'HR': 2.0, 'Runs': 0.5}
 _true_comp = pd.DataFrame({
     '1B': ours_ratio(fc, 'singles', ['bat', 'pit'], ['home', 'opp']),
     '2B': ours_ratio(fc, 'doubles', ['bat', 'pit'], ['home', 'opp']),
     '3B': ours_ratio(fc, 'triples', ['bat', 'pit'], ['home', 'opp']),
     'HR': ours_ratio(fc, 'hr', ['bat', 'pit'], ['home', 'opp']),
-    'Score': prod['Pro'],
+    'Runs': runs_ratio(fr),
 }).reindex(d.index)
-_true_z = pd.DataFrame(index=_true_comp.index)
-for _c in ['1B', '2B', '3B', 'HR', 'Score']:
+_wsum = pd.DataFrame(index=_true_comp.index)   # weighted z per component (NaN where absent)
+_wtot = pd.DataFrame(index=_true_comp.index)    # the weight actually applied per park/component
+for _c, _w in TRUE_W.items():
     _v = np.log(_true_comp[_c].clip(lower=0.05))
     _sd = _v.std()
-    _true_z[_c] = (_v - _v.mean()) / _sd if (_sd and _sd > 0) else 0.0
-_zbar = _true_z.mean(axis=1, skipna=True)
+    _z = (_v - _v.mean()) / _sd if (_sd and _sd > 0) else _v * 0.0
+    _wsum[_c] = _z * _w
+    _wtot[_c] = _w * _z.notna()
+_zbar = _wsum.sum(axis=1) / _wtot.sum(axis=1).replace(0, np.nan)
 _true_pf = np.exp(K_TRUE * _zbar)
 _med = _true_pf.median()
 d['True PF'] = _true_pf / _med if (_med and _med > 0) else _true_pf
@@ -367,11 +382,14 @@ with st.expander('How these are calculated'):
         '(both sides · all players); Adjusted applies your side/who/regression.\n'
         '- **Stat:** each event (1B / 2B / 3B / HR) has its own park factor — **HR and triples move '
         'most** with the fences, singles barely move. The Stat radio picks which one Ours/Adjusted show.\n'
-        '- **True PF** (new) combines all four hit components (leave-park-out) **plus Score** (the Pro '
-        'runs factor) into one number. Each is logged, z-scored across the parks shown (so a rare, '
-        'wild event like triples can\'t dominate the average), averaged, then exponentiated with a '
-        'spread of k=0.35 (keeps genuine outliers like altitude parks looking extreme without blowing '
-        'up the scale) and recentered so the median park = 1.00.\n'
+        '- **True PF** (new) combines **1B / 2B / 3B / HR** (leave-park-out) **plus park-clean Runs** '
+        '(a leave-park-out runs factor that compares each team to its own scoring at every other venue, '
+        'so it isn\'t distorted by a home ace staff or a lopsided home/road schedule — unlike the raw '
+        'Pro column). Each is logged, z-scored across the parks shown (so one rare event can\'t dominate), '
+        'then **weighted** — HR ×2, 2B ×1.5, 1B ×1, 3B ×0.5, Runs ×0.5, because HR is the cleanest park '
+        'signal and runs/triples are the most confounded (home pitching) and geometric (park size). '
+        'Finally exp(k=0.35·z̄) keeps genuine outliers (altitude parks) extreme without blowing up the '
+        'scale, recentered so the median park = 1.00.\n'
         '- **Pro** — the classic runs method, (home runs/game) ÷ (road runs/game) per team. Kept as '
         'a reference, but it is **noisy for college**: lopsided home/road schedules and the home '
         'team\'s own pitching distort it (it can call a real bandbox pitcher-friendly), so trust '
