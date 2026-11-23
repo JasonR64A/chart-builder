@@ -34,7 +34,7 @@ SPORT_FILES = {
 }
 
 DIVISION_LABELS = {'D1': 'D-I', 'D2': 'D-II', 'D3': 'D-III'}
-STAT_LABELS = {'Hits': 'h', 'Extra-base hits': 'xbh', 'Home runs': 'hr'}
+STAT_LABELS = {'Single (1B)': 'singles', 'Double (2B)': 'doubles', 'Triple (3B)': 'triples', 'Home run (HR)': 'hr'}
 SIDE_CELLS = {'Both': ['bat', 'pit'], 'Hitters': ['bat'], 'Pitchers': ['pit']}
 LOC_CELLS = {'All players': ['home', 'opp'], 'Visitors only': ['opp'], 'Home team only': ['home']}
 YEAR_OPTS = {'2026': [2026], '2025': [2025], 'Both (2025+26)': [2025, 2026]}
@@ -93,8 +93,10 @@ tier_sel = st.sidebar.multiselect('Opponent tier (RPI)', TIER_ORDER, default=TIE
 
 st.sidebar.markdown('---')
 st.sidebar.caption('OUR MODEL — objects')
-stat_label = st.sidebar.radio('Stat', list(STAT_LABELS), index=1,
-                              help='A park shows its character in power (XBH/HR), not singles.')
+stat_label = st.sidebar.radio('Stat', list(STAT_LABELS), index=3,
+                              help='Each event has its own park factor. HR and triples move most with the park; '
+                                   'singles barely move. Pick one to inspect a single component — the leaderboard '
+                                   'True PF combines all four (+ Score) regardless of this pick.')
 side_label = st.sidebar.radio('Side', list(SIDE_CELLS), index=0)
 loc_label = st.sidebar.radio('Who', list(LOC_CELLS), index=0,
                              help='"Visitors only" is the cleanest neutral read.')
@@ -169,6 +171,31 @@ d['Δ vs Pro'] = d['Adjusted'] - d['Pro']
 # Where Pro is undefined (too few home/road games), Final = Adjusted (no blend).
 d['Final'] = np.where(d['Pro'].notna(), (1 - pro_blend) * d['Adjusted'] + pro_blend * d['Pro'], d['Adjusted'])
 
+# ── True PF — component composite ────────────────────────────────────────────────
+# Five separate park factors — 1B/2B/3B/HR (our leave-park-out, neutral both-sides)
+# + Score (the MLB/Pro runs home-road factor) — combined so no single rare event
+# (triples) distorts the average: log each, z-score across the shown parks (equalizes
+# their spread), average, exp(k·z̄) back (k preserves real-outlier magnitude), recenter
+# median to 1.0. Computed on the neutral baseline so it respects the context filters
+# but not the Side/Who/Stat objects (it uses all four hit components at once).
+K_TRUE = 0.35
+_true_comp = pd.DataFrame({
+    '1B': ours_ratio(fc, 'singles', ['bat', 'pit'], ['home', 'opp']),
+    '2B': ours_ratio(fc, 'doubles', ['bat', 'pit'], ['home', 'opp']),
+    '3B': ours_ratio(fc, 'triples', ['bat', 'pit'], ['home', 'opp']),
+    'HR': ours_ratio(fc, 'hr', ['bat', 'pit'], ['home', 'opp']),
+    'Score': prod['Pro'],
+}).reindex(d.index)
+_true_z = pd.DataFrame(index=_true_comp.index)
+for _c in ['1B', '2B', '3B', 'HR', 'Score']:
+    _v = np.log(_true_comp[_c].clip(lower=0.05))
+    _sd = _v.std()
+    _true_z[_c] = (_v - _v.mean()) / _sd if (_sd and _sd > 0) else 0.0
+_zbar = _true_z.mean(axis=1, skipna=True)
+_true_pf = np.exp(K_TRUE * _zbar)
+_med = _true_pf.median()
+d['True PF'] = _true_pf / _med if (_med and _med > 0) else _true_pf
+
 # ── header ──────────────────────────────────────────────────────────────────────
 st.title(f'🏟️ Park Factor Lab · {sport}')
 st.markdown('Compare **what the pros measure** (runs-based), **what our model sees** '
@@ -204,7 +231,7 @@ c4.metric('Most pitcher-friendly', f"{d['Adjusted'].min():.2f}")
 
 # ── leaderboard ─────────────────────────────────────────────────────────────────
 show = (d.reset_index().rename(columns={'park': 'Park', 'team': 'Team', 'home_g': 'Home G'})
-        [['Park', 'Team', 'Conf', 'Pro', 'Ours', 'Adjusted', 'Final', 'Δ vs Ours', 'Δ vs Pro', 'Home G']]
+        [['Park', 'Team', 'Conf', 'Pro', 'Ours', 'Adjusted', 'Final', 'True PF', 'Δ vs Ours', 'Δ vs Pro', 'Home G']]
         .sort_values('Final', ascending=False))
 show['Home G'] = show['Home G'].astype('Int64')
 
@@ -216,7 +243,7 @@ def _dc(v):
 
 
 styled = (show.style
-          .format({c: '{:.3f}' for c in ['Pro', 'Ours', 'Adjusted', 'Final', 'Δ vs Ours', 'Δ vs Pro']}, na_rep='—')
+          .format({c: '{:.3f}' for c in ['Pro', 'Ours', 'Adjusted', 'Final', 'True PF', 'Δ vs Ours', 'Δ vs Pro']}, na_rep='—')
           .map(_dc, subset=['Δ vs Ours', 'Δ vs Pro'])
           .hide(axis='index'))
 event = st.dataframe(styled, use_container_width=True, height=560,
@@ -338,8 +365,13 @@ with st.expander('How these are calculated'):
         'bandbox inflates its own home players\' season baselines and cancels itself out. At a park '
         'we sum actual vs that expected for the chosen stat/side/who. Ours is the neutral baseline '
         '(both sides · all players); Adjusted applies your side/who/regression.\n'
-        '- **Stat matters:** a park shows its character in **power (XBH/HR)**, not singles — total '
-        'hits barely move with the fences, so XBH is the default.\n'
+        '- **Stat:** each event (1B / 2B / 3B / HR) has its own park factor — **HR and triples move '
+        'most** with the fences, singles barely move. The Stat radio picks which one Ours/Adjusted show.\n'
+        '- **True PF** (new) combines all four hit components (leave-park-out) **plus Score** (the Pro '
+        'runs factor) into one number. Each is logged, z-scored across the parks shown (so a rare, '
+        'wild event like triples can\'t dominate the average), averaged, then exponentiated with a '
+        'spread of k=0.35 (keeps genuine outliers like altitude parks looking extreme without blowing '
+        'up the scale) and recentered so the median park = 1.00.\n'
         '- **Pro** — the classic runs method, (home runs/game) ÷ (road runs/game) per team. Kept as '
         'a reference, but it is **noisy for college**: lopsided home/road schedules and the home '
         'team\'s own pitching distort it (it can call a real bandbox pitcher-friendly), so trust '
