@@ -209,9 +209,12 @@ d['True PF'] = np.exp(_lognum / _wacc.replace(0, np.nan))
 
 # ── header ──────────────────────────────────────────────────────────────────────
 st.title(f'🏟️ Park Factor Lab · {sport}')
-st.markdown('Compare **what the pros measure** (runs-based), **what our model sees** '
-            '(expected vs actual), and **your adjusted version** — sliced by whatever game '
-            'context you choose. 1.00 plays neutral; 1.10 ≈ 10% more than expected.')
+st.markdown('**True PF** is the park factor: for each event, how much more (or less) a park yields than '
+            'the competition normally allows — **home vs road** for the same team, so it cancels both who '
+            'they faced and how good they are. The **1B / 2B / 3B / HR** columns are its per-event breakdown '
+            '(HR-driven; set the emphasis in the sidebar). 1.00 = neutral; 1.10 ≈ 10% more. '
+            '**Pro / Ours / Adjusted / Final** are the legacy leave-park-out numbers, kept because they still '
+            'respond to the conference / month / tier / handedness filters.')
 
 thoughts = []
 if set(conf_sel) != {'Conf', 'Non-conf'}: thoughts.append('+'.join(conf_sel))
@@ -236,9 +239,9 @@ if d.empty:
 
 c1, c2, c3, c4 = st.columns(4)
 c1.metric('Parks', len(d))
-c2.metric('Pro ↔ Adjusted corr', f"{d['Pro'].corr(d['Adjusted']):.2f}" if d['Pro'].notna().sum() > 2 else '—')
-c3.metric('Most hitter-friendly', f"{d['Adjusted'].max():.2f}")
-c4.metric('Most pitcher-friendly', f"{d['Adjusted'].min():.2f}")
+c2.metric('Median True PF', f"{d['True PF'].median():.2f}" if d['True PF'].notna().sum() else '—')
+c3.metric('Most hitter-friendly', f"{d['True PF'].max():.2f}" if d['True PF'].notna().sum() else '—')
+c4.metric('Most pitcher-friendly', f"{d['True PF'].min():.2f}" if d['True PF'].notna().sum() else '—')
 
 # ── leaderboard ─────────────────────────────────────────────────────────────────
 show = (d.reset_index().rename(columns={'park': 'Park', 'team': 'Team', 'home_g': 'Home G'})
@@ -320,85 +323,7 @@ with st.expander(f'📐 Show the math — True PF for {sel_park}'):
     else:
         st.caption('No home/road fingerprint for this park (below the game floor), so there\'s no True PF math to show.')
 
-st.subheader('🔬 Park diagnostic — both sides')
-st.caption(f'**{sel_park}** · {stat_label} · {ctx_txt}  —  click any row above to inspect a different park. '
-           'A real park effect moves hitters AND pitchers the same way; a one-sided move is usually '
-           'competition or roster, not the fences.')
-
-
-def _pc(side, loc):
-    s = fc[(fc['park'] == sel_park) & (fc['side'] == side) & (fc['loc'] == loc)]
-    if HAND is not None and side == 'bat':
-        s = s[s['bat'] == HAND]
-    a, e = s[f'act_{stat}'].sum(), s[f'exp_{stat}'].sum()
-    return (a / e, e) if e > 0 else (np.nan, 0.0)
-
-
-cellmap = [('Home-team hitters', 'bat', 'home'), ('Visiting hitters', 'bat', 'opp'),
-           ('Home pitchers (allowed)', 'pit', 'home'), ('Visiting pitchers (allowed)', 'pit', 'opp')]
-cols = st.columns(4)
-ratios = []
-for col, (lab, side, loc) in zip(cols, cellmap):
-    r, e = _pc(side, loc)
-    ratios.append(r)
-    lean = '' if pd.isna(r) else ('↑ favors hitters' if r > 1.03 else '↓ favors pitchers' if r < 0.97 else '≈ neutral')
-    col.metric(lab, f'{r:.3f}' if pd.notna(r) else '—', delta=lean, delta_color='off')
-    col.caption(f'expected {e:.0f}')
-
-valid = [r for r in ratios if pd.notna(r)]
-up = sum(1 for r in valid if r > 1.03)
-down = sum(1 for r in valid if r < 0.97)
-if len(valid) >= 3 and up >= 3:
-    st.success('Consistent **hitter-friendly** signal — both hitters and pitchers move the same way. '
-               'This looks like a real park effect.')
-elif len(valid) >= 3 and down >= 3:
-    st.success('Consistent **pitcher-friendly** signal — both sides move the same way. '
-               'This looks like a real park effect.')
-elif len(valid) >= 2 and up >= 1 and down >= 1:
-    st.warning('Mixed signal — the sides disagree, so this is more likely **competition or roster** than '
-               'the park (e.g., a strong home lineup beating weaker arms). The **visiting-hitter** cell is '
-               'the cleanest park read — it has no home-team bias.')
-else:
-    st.info('Roughly neutral across the board.')
-
-with st.expander(f'📐 Show the math — Ours / Adjusted ({stat_label}) for {sel_park}'):
-    if HAND is not None:
-        sub = fc[(fc['park'] == sel_park) & (fc['side'] == 'bat') & (fc['bat'] == HAND) & fc['loc'].isin(LOC_CELLS[loc_label])]
-    else:
-        sub = fc[(fc['park'] == sel_park) & fc['side'].isin(SIDE_CELLS[side_label]) & fc['loc'].isin(LOC_CELLS[loc_label])]
-    wsub = (np.where(sub['midweek'] == 'Midweek', wk_w, 1.0) * np.where(sub['conf_game'] == 'Non-conf', nc_w, 1.0))
-    A = float((sub[f'act_{stat}'] * wsub).sum())
-    E = float((sub[f'exp_{stat}'] * wsub).sum())
-    if wk_w != 1.0 or nc_w != 1.0:
-        st.caption(f'Context-weighted: midweek ×{wk_w:.2f}, non-conference ×{nc_w:.2f} — applied to both actual and expected before summing.')
-    raw = A / E if E > 0 else float('nan')
-    adj = 1.0 + (raw - 1.0) * (1.0 - regress)
-    st.markdown(
-        f'The park factor is **total actual {stat_label.lower()} ÷ total expected {stat_label.lower()}** over the '
-        'games your filters kept. Each player\'s *expected* is their rate at **every other park** (leave-park-out) '
-        'times their plate appearances here — so the number only reflects the park, not the player or the roster.')
-    st.latex(r'PF=\frac{\sum \text{actual}}{\sum \text{expected}}\,,\qquad \text{expected}_i=r_i^{\ \text{elsewhere}}\times PA_i')
-    if E > 0:
-        st.markdown(f'### PF = {A:,.0f} ÷ {E:,.1f} = **{raw:.3f}**')
-        if regress > 0:
-            st.markdown(f'Then regressed {int(regress*100)}% toward 1.00:  '
-                        f'1 + ({raw:.3f} − 1) × (1 − {regress:.2f}) = **{adj:.3f}**')
-    st.caption('The four cells that pool into it (✓ = included by your Side / Who):')
-    rows = []
-    for lab, side, loc in cellmap:
-        s = fc[(fc['park'] == sel_park) & (fc['side'] == side) & (fc['loc'] == loc)]
-        a = float(s[f'act_{stat}'].sum())
-        e = float(s[f'exp_{stat}'].sum())
-        rows.append({'Cell': lab, 'Actual': round(a, 1), 'Expected': round(e, 1),
-                     'Ratio': round(a / e, 3) if e > 0 else None,
-                     'In this view': '✓' if (side in SIDE_CELLS[side_label] and loc in LOC_CELLS[loc_label]) else ''})
-    st.dataframe(pd.DataFrame(rows), hide_index=True, use_container_width=True)
-    st.markdown(
-        f'**What moves the number:** change an *object* — Side / Who / Regression — and different cells are '
-        f'summed or shrunk. Change a *context filter* (now: {ctx_txt}) and games that don\'t match are dropped '
-        'before summing. That is the whole mechanism; nothing else touches it.')
-
-with st.expander('Pro vs Adjusted — where the two philosophies disagree'):
+with st.expander('Pro vs Adjusted — where the two philosophies disagree (legacy leave-park-out)'):
     dd = d.dropna(subset=['Pro', 'Adjusted'])
     if len(dd) > 2:
         import plotly.graph_objects as go
