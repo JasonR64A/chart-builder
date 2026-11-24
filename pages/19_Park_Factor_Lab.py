@@ -283,6 +283,43 @@ if _fp is not None:
 else:
     st.caption(f'**{sel_park}** — no home/road fingerprint (park below the 30-home / 20-road game floor).')
 
+with st.expander(f'📐 Show the math — True PF for {sel_park}'):
+    if _fp is not None:
+        st.markdown(
+            'True PF uses the **home/road-vs-competition** method. For each event, compare what the team '
+            '(and its pitchers at this park) did vs **what the competition it faced normally allows** — '
+            'at home, then on the road — and divide. Expected = Σ (each opponent\'s **road** rate for the '
+            'event × opportunities that game), pooling the home team\'s hitting + pitching, both years.')
+        st.latex(r'PF_{\text{event}}=\frac{\text{home actual}\,/\,\text{home expected}}{\text{road actual}\,/\,\text{road expected}}')
+        _mrows = []
+        for _lab, _e in [('1B', 'singles'), ('2B', 'doubles'), ('3B', 'triples'), ('HR', 'hr')]:
+            _ha, _hx, _ra, _rx = _fp.get('ha_' + _e), _fp.get('hx_' + _e), _fp.get('ra_' + _e), _fp.get('rx_' + _e)
+            _hrr = _ha / _hx if (pd.notna(_hx) and _hx > 0) else float('nan')
+            _rrr = _ra / _rx if (pd.notna(_rx) and _rx > 0) else float('nan')
+            _mrows.append({'Event': _lab,
+                           'home act': None if pd.isna(_ha) else round(_ha, 1), 'home exp': None if pd.isna(_hx) else round(_hx, 1),
+                           'home ratio': None if pd.isna(_hrr) else round(_hrr, 2),
+                           'road act': None if pd.isna(_ra) else round(_ra, 1), 'road exp': None if pd.isna(_rx) else round(_rx, 1),
+                           'road ratio': None if pd.isna(_rrr) else round(_rrr, 2),
+                           'PF = home/road': None if pd.isna(_fp.get('pf_' + _e)) else round(_fp.get('pf_' + _e), 2)})
+        st.dataframe(pd.DataFrame(_mrows), hide_index=True, use_container_width=True)
+        _r = 1.0 - hr_emph
+        _w = {'HR': hr_emph, '2B': _r * 0.50, '1B': _r * 0.35, '3B': _r * 0.15}
+        _ln, _ws, _terms = 0.0, 0.0, []
+        for _lab, _e in [('HR', 'hr'), ('2B', 'doubles'), ('1B', 'singles'), ('3B', 'triples')]:
+            _pf = _fp.get('pf_' + _e)
+            if pd.notna(_pf):
+                _ln += _w[_lab] * np.log(max(_pf, 0.05)); _ws += _w[_lab]
+                _terms.append(f'{_lab} {_pf:.2f}^{_w[_lab]:.2f}')
+        _tpf = np.exp(_ln / _ws) if _ws > 0 else float('nan')
+        st.markdown(f'**True PF = HR-driven weighted geometric mean** (HR emphasis {int(hr_emph * 100)}%): '
+                    f'weights HR {_w["HR"]:.2f} · 2B {_w["2B"]:.2f} · 1B {_w["1B"]:.2f} · 3B {_w["3B"]:.2f}')
+        st.markdown(f'= exp( Σ wₑ·ln(PFₑ) ÷ Σ wₑ )  =  **{_tpf:.2f}**')
+        st.caption('Dividing by each opponent\'s road rate cancels *who* they faced; home÷road for the same '
+                   'team cancels *how good the team is*. 3B is the soft number — triples are rare.')
+    else:
+        st.caption('No home/road fingerprint for this park (below the game floor), so there\'s no True PF math to show.')
+
 st.subheader('🔬 Park diagnostic — both sides')
 st.caption(f'**{sel_park}** · {stat_label} · {ctx_txt}  —  click any row above to inspect a different park. '
            'A real park effect moves hitters AND pitchers the same way; a one-sided move is usually '
@@ -324,7 +361,7 @@ elif len(valid) >= 2 and up >= 1 and down >= 1:
 else:
     st.info('Roughly neutral across the board.')
 
-with st.expander(f'📐 Show the math — {sel_park}'):
+with st.expander(f'📐 Show the math — Ours / Adjusted ({stat_label}) for {sel_park}'):
     if HAND is not None:
         sub = fc[(fc['park'] == sel_park) & (fc['side'] == 'bat') & (fc['bat'] == HAND) & fc['loc'].isin(LOC_CELLS[loc_label])]
     else:
